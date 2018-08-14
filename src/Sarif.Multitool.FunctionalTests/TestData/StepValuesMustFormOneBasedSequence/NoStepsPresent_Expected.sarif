@@ -1,46 +1,43 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-1.0.0",
-  "version": "1.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
   "runs": [
     {
-      "id": "bbe1aafb-f5ea-4882-8d75-a14123b28c7c",
       "tool": {
-        "name": "SarifCli",
-        "fullName": "SarifCli 1.0.0.0",
-        "version": "1.0.0.0",
-        "semanticVersion": "1.0.0",
-        "sarifLoggerVersion": "1.5.31.0",
+        "name": "Sarif.Multitool",
+        "fullName": "Sarif.Multitool 2.0.0.0",
+        "version": "2.0.0.0",
+        "semanticVersion": "2.0.0",
+        "sarifLoggerVersion": "2.0.0.0",
         "language": "en-US",
         "properties": {
-          "Comments": "Command line tool for working with SARIF log files.",
-          "CompanyName": "Microsoft Corporation",
+          "Comments": "Command line tool to perform transformations of input files to SARIF.",
+          "CompanyName": "Microsoft",
           "ProductName": "Microsoft SARIF SDK"
         }
       },
-      "toolNotifications": [
+      "results": [],
+      "invocations": [
         {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///G:/Code/sarif-sdk/src/Microsoft.CodeAnalysis.Sarif.Multitool/TestData/StepValuesMustFormOneBasedSequence/NoStepsPresent.sarif"
-          },
-          "message": "Analyzing 'NoStepsPresent.sarif'...",
-          "level": "note",
-          "time": "2016-08-29T15:39:58.160Z"
+          "startTime": "2018-08-14T20:20:32.250Z",
+          "endTime": "2018-08-14T20:20:33.036Z",
+          "toolNotifications": [
+            {
+              "id": "MSG001.AnalyzingTarget",
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/StepValuesMustFormOneBasedSequence/NoStepsPresent.sarif"
+                }
+              },
+              "message": {
+                "text": "Analyzing 'NoStepsPresent.sarif'..."
+              },
+              "level": "note",
+              "time": "2018-08-14T20:20:32.624Z"
+            }
+          ]
         }
-      ],
-      "files": {
-        "file:///G:/Code/sarif-sdk/src/Microsoft.CodeAnalysis.Sarif.Multitool/TestData/StepValuesMustFormOneBasedSequence/NoStepsPresent.sarif": {
-          "mimeType": "application/octet-stream"
-        }
-      },
-      "invocation": {
-        "commandLine": "\"G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe\"  validate G:\\Code\\sarif-sdk\\src\\Microsoft.CodeAnalysis.Sarif.Multitool\\TestData\\StepValuesMustFormOneBasedSequence\\NoStepsPresent.sarif -o G:\\Code\\sarif-sdk\\src\\Microsoft.CodeAnalysis.Sarif.Multitool\\TestData\\StepValuesMustFormOneBasedSequence\\NoStepsPresent_Expected.sarif -j G:\\Code\\sarif-sdk\\src\\Sarif\\Schemata\\Sarif.schema.json ",
-        "startTime": "2016-08-29T15:39:58.067Z",
-        "endTime": "2016-08-29T15:39:58.395Z",
-        "processId": 20184,
-        "fileName": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe",
-        "workingDirectory": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug"
-      }
+      ]
     }
   ]
 }

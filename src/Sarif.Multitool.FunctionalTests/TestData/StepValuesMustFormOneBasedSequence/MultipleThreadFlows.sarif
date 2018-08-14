@@ -1,5 +1,4 @@
-{
-  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+{  "$schema": "http://json.schemastore.org/sarif-2.0.0",
   "version": "2.0.0",
   "runs": [
     {
@@ -31,7 +30,7 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
+                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -44,13 +43,43 @@
                       }
                     },
                     {
+                      "step": 4,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
                             "uri": "file:///c:/src/file.c"
                           },
                           "region": {
-                            "startLine": 43
+                            "startLine": 44
+                          }
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "locations": [
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///c:/src/file2.c"
+                          },
+                          "region": {
+                            "startLine": 42
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///c:/src/file2.c"
+                          },
+                          "region": {
+                            "startLine": 44
                           }
                         }
                       }

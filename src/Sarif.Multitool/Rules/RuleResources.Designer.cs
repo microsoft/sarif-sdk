@@ -115,60 +115,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do not use the obsolete &quot;id&quot; property of the annotatedCodeLocation object. Instead use &quot;step&quot;, which is an integer-valued property that is 1 for the first annotatedCodeLocation in a codeFlow, and increments by 1 for every subsequent step..
-        /// </summary>
-        internal static string SARIF1004_AnnotatedCodeLocationIdIsObsolete {
-            get {
-                return ResourceManager.GetString("SARIF1004_AnnotatedCodeLocationIdIsObsolete", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: The obsolete annotatedCodeLocation.id property is used.  Remove it, and instead use the &quot;step&quot; property, whose value is an integer which is 1 for the first location in a code flow, and increments by 1 for each subsequent location in the code flow..
-        /// </summary>
-        internal static string SARIF1004_Default {
-            get {
-                return ResourceManager.GetString("SARIF1004_Default", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: The obsolete &quot;id&quot; property is used. This property has been replaced by the &quot;step&quot; property, but the &quot;step&quot; property is used only in annotatedCodeLocations objects that occur within a code flow. Remove the &quot;id&quot; property..
-        /// </summary>
-        internal static string SARIF1004_OnlyInCodeFlow {
-            get {
-                return ResourceManager.GetString("SARIF1004_OnlyInCodeFlow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Do not use the obsolete &quot;essential&quot; property of the annotatedCodeLocation object. Instead use &quot;importance&quot;, which is an string-valued property that must have one of the values &quot;essential&quot;, &quot;important&quot;, or &quot;unimportant&quot;..
-        /// </summary>
-        internal static string SARIF1005_AnnotatedCodeLocationEssentialIsObsolete {
-            get {
-                return ResourceManager.GetString("SARIF1005_AnnotatedCodeLocationEssentialIsObsolete", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: The obsolete &quot;essential&quot; property is used.  Remove it, and instead use the &quot;importance&quot; property, whose value is a string with one of the values &quot;essential&quot;, &quot;important&quot;, or &quot;unimportant&quot;..
-        /// </summary>
-        internal static string SARIF1005_Default {
-            get {
-                return ResourceManager.GetString("SARIF1005_Default", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: The obsolete &quot;essential&quot; property is used. This property has been replaced by the &quot;importance&quot; property, but the &quot;importance&quot; property is used only in annotatedCodeLocations objects that occur within a code flow. Remove the &quot;essential&quot; property..
-        /// </summary>
-        internal static string SARIF1005_OnlyInCodeFlow {
-            get {
-                return ResourceManager.GetString("SARIF1005_OnlyInCodeFlow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0}: The array contains multiple objects with the value &quot;{1}&quot; for the algorithm property..
         /// </summary>
         internal static string SARIF1006_Default {
@@ -223,7 +169,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The value of the &quot;step&quot; property should be {1}, but is {2}. The step values must form a 1-based sequence starting at the first location in the code flow..
+        ///   Looks up a localized string similar to {0}: The value of the &quot;step&quot; property should be {1}, but is {2}. The step values must form a 1-based sequence starting at the first location in the threadFlow..
         /// </summary>
         internal static string SARIF1009_InvalidStepValue {
             get {
@@ -232,7 +178,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The &quot;step&quot; property is absent. The &quot;step&quot; property is present on some but not all locations in this code flow. If the &quot;step&quot; property is used on any location in a code flow, it must be present on every location in that code flow..
+        ///   Looks up a localized string similar to {0}: The &quot;step&quot; property is absent. The &quot;step&quot; property is present on some but not all threadFlowLocations in this threadFlow. If the &quot;step&quot; property is used on any threadFlowLocation in a threadFlow, it must be present on every threadFlowLocation in that threadFlow..
         /// </summary>
         internal static string SARIF1009_StepNotPresentOnAllLocations {
             get {
@@ -241,7 +187,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If the &quot;step&quot; property is used on any annotatedCodeLocation in a code flow, then it must be present for every location in the code flow, its value must be 1 for the first location, and its value must increase by 1 for each succeeding location..
+        ///   Looks up a localized string similar to If the &quot;step&quot; property is used on any threadFlowLocation in a threadFlow, then it must be present for every threadFlowLocation in the threadFlow, its value must be 1 for the first threadFlowLocation, and its value must increase by 1 for each succeeding threadFlowLocation..
         /// </summary>
         internal static string SARIF1009_StepValuesMustFormOneBasedSequence {
             get {

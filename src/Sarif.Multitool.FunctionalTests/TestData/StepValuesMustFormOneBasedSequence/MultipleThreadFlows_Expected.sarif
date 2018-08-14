@@ -32,7 +32,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/StepValuesMustFormOneBasedSequence/InvalidStepValues.sarif"
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/StepValuesMustFormOneBasedSequence/MultipleThreadFlows.sarif"
                 },
                 "region": {
                   "startLine": 33,
@@ -57,11 +57,34 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/StepValuesMustFormOneBasedSequence/InvalidStepValues.sarif"
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/StepValuesMustFormOneBasedSequence/MultipleThreadFlows.sarif"
                 },
                 "region": {
                   "startLine": 46,
                   "startColumn": 31
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1009",
+          "level": "error",
+          "message": {
+            "arguments": [
+              "/runs/0/results/0/codeFlows/0/threadFlows/1/locations/1"
+            ]
+          },
+          "ruleMessageId": "StepNotPresentOnAllLocations",
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/StepValuesMustFormOneBasedSequence/MultipleThreadFlows.sarif"
+                },
+                "region": {
+                  "startLine": 75,
+                  "startColumn": 21
                 }
               }
             }
@@ -90,27 +113,27 @@
         }
       },
       "files": {
-        "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/StepValuesMustFormOneBasedSequence/InvalidStepValues.sarif": {
+        "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/StepValuesMustFormOneBasedSequence/MultipleThreadFlows.sarif": {
           "mimeType": "application/sarif-json"
         }
       },
       "invocations": [
         {
-          "startTime": "2018-08-14T20:20:29.618Z",
-          "endTime": "2018-08-14T20:20:30.418Z",
+          "startTime": "2018-08-14T20:20:30.744Z",
+          "endTime": "2018-08-14T20:20:31.718Z",
           "toolNotifications": [
             {
               "id": "MSG001.AnalyzingTarget",
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/StepValuesMustFormOneBasedSequence/InvalidStepValues.sarif"
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/StepValuesMustFormOneBasedSequence/MultipleThreadFlows.sarif"
                 }
               },
               "message": {
-                "text": "Analyzing 'InvalidStepValues.sarif'..."
+                "text": "Analyzing 'MultipleThreadFlows.sarif'..."
               },
               "level": "note",
-              "time": "2018-08-14T20:20:29.977Z"
+              "time": "2018-08-14T20:20:31.143Z"
             }
           ]
         }

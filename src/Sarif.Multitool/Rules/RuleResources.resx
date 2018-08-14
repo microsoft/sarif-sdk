@@ -135,24 +135,6 @@
   <data name="SARIF1003_UrisMustBeValid" xml:space="preserve">
     <value>Specify a valid URI reference for every URI-valued property.</value>
   </data>
-  <data name="SARIF1004_AnnotatedCodeLocationIdIsObsolete" xml:space="preserve">
-    <value>Do not use the obsolete "id" property of the annotatedCodeLocation object. Instead use "step", which is an integer-valued property that is 1 for the first annotatedCodeLocation in a codeFlow, and increments by 1 for every subsequent step.</value>
-  </data>
-  <data name="SARIF1004_Default" xml:space="preserve">
-    <value>{0}: The obsolete annotatedCodeLocation.id property is used.  Remove it, and instead use the "step" property, whose value is an integer which is 1 for the first location in a code flow, and increments by 1 for each subsequent location in the code flow.</value>
-  </data>
-  <data name="SARIF1004_OnlyInCodeFlow" xml:space="preserve">
-    <value>{0}: The obsolete "id" property is used. This property has been replaced by the "step" property, but the "step" property is used only in annotatedCodeLocations objects that occur within a code flow. Remove the "id" property.</value>
-  </data>
-  <data name="SARIF1005_AnnotatedCodeLocationEssentialIsObsolete" xml:space="preserve">
-    <value>Do not use the obsolete "essential" property of the annotatedCodeLocation object. Instead use "importance", which is an string-valued property that must have one of the values "essential", "important", or "unimportant".</value>
-  </data>
-  <data name="SARIF1005_Default" xml:space="preserve">
-    <value>{0}: The obsolete "essential" property is used.  Remove it, and instead use the "importance" property, whose value is a string with one of the values "essential", "important", or "unimportant".</value>
-  </data>
-  <data name="SARIF1005_OnlyInCodeFlow" xml:space="preserve">
-    <value>{0}: The obsolete "essential" property is used. This property has been replaced by the "importance" property, but the "importance" property is used only in annotatedCodeLocations objects that occur within a code flow. Remove the "essential" property.</value>
-  </data>
   <data name="SARIF1006_Default" xml:space="preserve">
     <value>{0}: The array contains multiple objects with the value "{1}" for the algorithm property.</value>
   </data>
@@ -172,13 +154,13 @@
     <value>Messages should consist of one or more complete sentences, ending with a period.</value>
   </data>
   <data name="SARIF1009_InvalidStepValue" xml:space="preserve">
-    <value>{0}: The value of the "step" property should be {1}, but is {2}. The step values must form a 1-based sequence starting at the first location in the code flow.</value>
+    <value>{0}: The value of the "step" property should be {1}, but is {2}. The step values must form a 1-based sequence starting at the first threadFlowLocation in the thread flow.</value>
   </data>
   <data name="SARIF1009_StepNotPresentOnAllLocations" xml:space="preserve">
-    <value>{0}: The "step" property is absent. The "step" property is present on some but not all locations in this code flow. If the "step" property is used on any location in a code flow, it must be present on every location in that code flow.</value>
+    <value>{0}: The "step" property is absent. The "step" property is present on some but not all threadFlowLocations in this threadFlow. If the "step" property is used on any threadFlowLocation in a threadFlow, it must be present on every threadFlowLocation in that threadFlow.</value>
   </data>
   <data name="SARIF1009_StepValuesMustFormOneBasedSequence" xml:space="preserve">
-    <value>If the "step" property is used on any annotatedCodeLocation in a code flow, then it must be present for every location in the code flow, its value must be 1 for the first location, and its value must increase by 1 for each succeeding location.</value>
+    <value>If the "step" property is used on any threadFlowLocation in a threadFlow, then it must be present for every threadFlowLocation in the threadFlow, its value must be 1 for the first threadFlowLocation, and its value must increase by 1 for each succeeding threadFlowLocation.</value>
   </data>
   <data name="SARIF1012_Default" xml:space="preserve">
     <value>{0}: The value of the "endLine" property is {1}, which is less than the value of the "startLine" property, which is {2}.</value>
