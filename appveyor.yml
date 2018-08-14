@@ -15,8 +15,6 @@ before_build:
 
 platform: Any CPU
 
-environment:
-
 install:
   - ps: .\dotnet-install.ps1 --version 2.0.0
 
