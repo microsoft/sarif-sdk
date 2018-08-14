@@ -4,12 +4,12 @@
     <id>Sarif.Multitool</id>
     <version>$version$</version>
     <title>Microsoft SARIF Multitool (includes SARIF SDK)</title>
-    <authors>microsoft,tse-securitytools</authors>
+    <authors>microsoft</authors>
     <owners>microsoft,tse-securitytools</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Multi-purpose command line tool for analyzing and manipulating SARIF files</description>
     <releaseNotes>Version $version$ of the .NET SARIF Multitool (for SARIF v2.0.0)</releaseNotes>
-    <copyright>Copyright Microsoft 2015</copyright>
+    <copyright>© Microsoft Corporation. All rights reserved.</copyright>
     <licenseUrl>https://github.com/Microsoft/sarif-sdk/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/microsoft/sarif-sdk</projectUrl>
     <iconUrl>https://go.microsoft.com/fwlink/?linkid=2008860</iconUrl>

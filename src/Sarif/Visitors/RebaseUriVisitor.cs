@@ -18,8 +18,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         internal const string BaseUriDictionaryName = "originalUriBaseIds";
         internal const string IncorrectlyFormattedDictionarySuffix = ".Old";
 
-        private string _baseName;
         private Uri _baseUri;
+        private string _baseName;
+        private bool _rebaseRelativeUris;
+        IDictionary<string, FileData> _files;
 
         private static JsonSerializerSettings _settings;
 
@@ -41,9 +43,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         /// </summary>
         public RebaseUriVisitor(string baseName, Uri baseUri)
         {
-            _baseName = baseName;
             _baseUri = baseUri;
+            _baseName = baseName;
+            _rebaseRelativeUris = false;
             Debug.Assert(_baseUri.IsAbsoluteUri);
+        }
+
+        /// <summary>
+        /// Create a RebaseUriVisitor, with a given name for the Base URI and a value for the base URI.
+        /// </summary>
+        public RebaseUriVisitor(string baseName, bool rebaseRelativeUris, Uri baseUri)
+        {
+            _baseUri = baseUri;
+            _baseName = baseName;
+            Debug.Assert(_baseUri.IsAbsoluteUri);
+
+            _rebaseRelativeUris = rebaseRelativeUris;
         }
 
         public override PhysicalLocation VisitPhysicalLocation(PhysicalLocation node)
@@ -56,6 +71,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     newNode.FileLocation.UriBaseId = _baseName;
                     newNode.FileLocation.Uri = _baseUri.MakeRelativeUri(node.FileLocation.Uri);
+                    RebaseFilesDictionary(newNode);
+                }
+                else if (_rebaseRelativeUris && !newNode.FileLocation.Uri.IsAbsoluteUri)
+                {
+                    newNode.FileLocation.UriBaseId = _baseName;
+                    RebaseFilesDictionary(newNode);
                 }
             }
 
@@ -64,34 +85,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override Run VisitRun(Run node)
         {
+            _files = node.Files;
+
             Run newRun = base.VisitRun(node);
 
-            if (newRun.Files != null)
-            {
-                FixFiles(newRun);
-            }
-            
-            if (node.Properties == null)
-            {
-                node.Properties = new Dictionary<string, SerializedPropertyInfo>();
-            }
+            newRun.Files = _files;
 
             // If the dictionary doesn't exist, we should add it to the properties.  If it does, we should add/update the existing dictionary.
-            Dictionary<string, Uri> baseUriDictionary = new Dictionary<string, Uri>();
-            if (node.Properties.ContainsKey(BaseUriDictionaryName))
+            IDictionary<string, Uri> baseUriDictionary = new Dictionary<string, Uri>();
+            if (node.OriginalUriBaseIds != null)
             {
-                if (!TryDeserializePropertyDictionary(node.Properties[BaseUriDictionaryName], out baseUriDictionary) || baseUriDictionary == null)
-                {
-                    // If for some reason we don't have a valid dictionary in the originalUriBaseIds, we move it to another location.
-                    node.Properties[BaseUriDictionaryName + IncorrectlyFormattedDictionarySuffix] = node.Properties[BaseUriDictionaryName];
-                    baseUriDictionary = new Dictionary<string, Uri>();
-                }
+                baseUriDictionary = node.OriginalUriBaseIds;
             }
             
             // Note--this is an add or update, so if this is run twice with the same base variable, we'll replace the path.
             baseUriDictionary[_baseName] = _baseUri;
-            
-            newRun.Properties[BaseUriDictionaryName] = ReserializePropertyDictionary(baseUriDictionary);
+            newRun.OriginalUriBaseIds = baseUriDictionary;
 
             return newRun;
         }
@@ -99,55 +108,45 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         /// <summary>
         /// If we are changing the URIs in Results to be relative, we need to also change the URI keys in the files dictionary
         /// to be relative.
-        /// 
-        /// For FileData, we need to fix up the URI data (making it relative to the appropriate base address), 
-        /// and also fix up the ParentKey (as we are patching the keys in the files dictionary in the Run).
-        /// (We need to fix up the keys as we are patching the PhysicalLocation in the Result objects.)
         /// </summary>
-        /// <param name="run">A run to fix the Files dictionary of.</param>
-        internal void FixFiles(Run run)
+        /// <param name="node">Result location being changed to relative.</param>
+        internal void RebaseFilesDictionary(PhysicalLocation node)
         {
-            Dictionary<string, FileData> newDictionary = new Dictionary<string, FileData>();
+            _files = _files ?? new Dictionary<string, FileData>(StringComparer.OrdinalIgnoreCase);
 
-            foreach (var key in run.Files.Keys)
+            FileLocation fileLocation = node.FileLocation;
+
+            string uriText = Uri.EscapeUriString(fileLocation.Uri.ToString());
+            string uriTextOriginal = uriText;
+            string uriTextOriginalWithBase = _baseUri + uriText;
+
+            if (!string.IsNullOrEmpty(fileLocation.UriBaseId))
             {
-                Uri oldUri;
-                string newKey = key;
-                FileData data = run.Files[key];
-                // If the old uri is absolute and we need to rebase it, we should.
-                if (Uri.TryCreate(key, UriKind.Absolute, out oldUri) && oldUri.IsAbsoluteUri && _baseUri.IsBaseOf(oldUri))
-                {
-                    Uri newUri = _baseUri.MakeRelativeUri(oldUri);
-
-                    // Ensure the filedata reflects the correct base URI details.
-                    if (data?.FileLocation != null)
-                    {
-                        data.FileLocation.Uri = newUri;
-                        data.FileLocation.UriBaseId = _baseName;
-
-                        if (data.ParentKey != null)
-                        {
-                            Uri parentUri;
-                            // If the parent URI is absolute and we need to rebase it, we should.
-                            if (Uri.TryCreate(data.ParentKey, UriKind.Absolute, out parentUri) && parentUri.IsAbsoluteUri && _baseUri.IsBaseOf(parentUri))
-                            {
-                                data.ParentKey = _baseUri.MakeRelativeUri(new Uri(data.ParentKey)).ToString();
-                            }
-                        }
-                    }
-
-                    if (newDictionary.ContainsKey(newUri.ToString()))
-                    {
-                        throw new InvalidOperationException("Cannot rebase this file, as two URIs will collide in the file dictionary.");
-                    }
-
-                    newKey = newUri.ToString();
-                }
-
-                newDictionary[newKey] = data;
+                uriText = "#" + fileLocation.UriBaseId + "#" + uriText;
             }
 
-            run.Files = newDictionary;
+            if (!_files.ContainsKey(uriText))
+            {
+                string mimeType = Writers.MimeType.DetermineFromFileExtension(uriText);
+
+                if (_files.ContainsKey(uriTextOriginal))
+                {
+                    _files[uriText] = _files[uriTextOriginal];
+                    _files.Remove(uriTextOriginal);
+                }
+                else if (_files.ContainsKey(uriTextOriginalWithBase))
+                {
+                    _files[uriText] = _files[uriTextOriginalWithBase];
+                    _files.Remove(uriTextOriginalWithBase);
+                }
+                else
+                {
+                    _files[uriText] = new FileData()
+                    {
+                        MimeType = mimeType
+                    };
+                }
+            }
         }
 
         internal static bool TryDeserializePropertyDictionary(SerializedPropertyInfo serializedProperty, out Dictionary<string, Uri> dictionary)

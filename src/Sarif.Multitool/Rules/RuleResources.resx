@@ -186,12 +186,6 @@
   <data name="SARIF1010_StepMustAppearOnlyInCodeFlowLocations" xml:space="preserve">
     <value>The "step" property must appear only in annotatedCodeLocation objects which occur within code flows.</value>
   </data>
-  <data name="SARIF1011_Default" xml:space="preserve">
-    <value>{0}: The "importance" property appears in an annotatedCodeLocation object which does not occur in a code flow. The "importance" property must appear only in annotatedCodeLocation objects which occur within code flows.</value>
-  </data>
-  <data name="SARIF1011_ImportanceMustAppearOnlyInCodeFlowLocations" xml:space="preserve">
-    <value>The "importance" property must appear only in annotatedCodeLocation objects which occur within code flows.</value>
-  </data>
   <data name="SARIF1012_Default" xml:space="preserve">
     <value>{0}: The value of the "endLine" property is {1}, which is less than the value of the "startLine" property, which is {2}.</value>
   </data>

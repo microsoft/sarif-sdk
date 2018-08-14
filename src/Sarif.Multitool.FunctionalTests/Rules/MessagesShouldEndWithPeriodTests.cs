@@ -8,16 +8,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class MessagesShouldEndWithPeriodTests : SkimmerTestsBase
     {
-        [Fact(DisplayName = nameof(MessagesShouldEndWithPeriod_AnnotatedCodeLocationDoesNotHaveEssential))]
-        public void MessagesShouldEndWithPeriod_AnnotatedCodeLocationDoesNotHaveEssential()
+        [Fact(DisplayName = nameof(MessagesShouldEndWithPeriod_PeriodsAfterAllMessages))]
+        public void MessagesShouldEndWithPeriod_PeriodsAfterAllMessages()
         {
             Verify(new MessagesShouldEndWithPeriod(), "PeriodsAfterAllMessages.sarif");
-        }
-
-        [Fact(DisplayName = nameof(MessagesShouldEndWithPeriod_AnnotatedCodeLocationMessageWithoutPeriod))]
-        public void MessagesShouldEndWithPeriod_AnnotatedCodeLocationMessageWithoutPeriod()
-        {
-            Verify(new MessagesShouldEndWithPeriod(), "AnnotatedCodeLocationMessageWithoutPeriod.sarif");
         }
 
         [Fact(DisplayName = nameof(MessagesShouldEndWithPeriod_CodeFlowMessageWithoutPeriod))]
@@ -38,10 +32,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             Verify(new MessagesShouldEndWithPeriod(), "ResultMessageWithoutPeriod.sarif");
         }
 
-        [Fact(DisplayName = nameof(MessagesShouldEndWithPeriod_RuleMessageFormatWithoutPeriod))]
-        public void MessagesShouldEndWithPeriod_RuleMessageFormatWithoutPeriod()
+        [Fact(DisplayName = nameof(MessagesShouldEndWithPeriod_RuleMessageWithoutPeriod))]
+        public void MessagesShouldEndWithPeriod_RuleMessageWithoutPeriod()
         {
-            Verify(new MessagesShouldEndWithPeriod(), "RuleMessageFormatWithoutPeriod.sarif");
+            Verify(new MessagesShouldEndWithPeriod(), "RuleMessageWithoutPeriod.sarif");
+        }
+
+        [Fact(DisplayName = nameof(MessagesShouldEndWithPeriod_StackFrameMessageWithoutPeriod))]
+        public void MessagesShouldEndWithPeriod_StackFrameMessageWithoutPeriod()
+        {
+            Verify(new MessagesShouldEndWithPeriod(), "StackFrameMessageWithoutPeriod.sarif");
         }
 
         [Fact(DisplayName = nameof(MessagesShouldEndWithPeriod_StackMessageWithoutPeriod))]
@@ -50,10 +50,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             Verify(new MessagesShouldEndWithPeriod(), "StackMessageWithoutPeriod.sarif");
         }
 
-        [Fact(DisplayName = nameof(MessagesShouldEndWithPeriod_StackFrameMessageWithoutPeriod))]
-        public void MessagesShouldEndWithPeriod_StackFrameMessageWithoutPeriod()
+        [Fact(DisplayName = nameof(MessagesShouldEndWithPeriod_ThreadFlowLocationMessageWithoutPeriod))]
+        public void MessagesShouldEndWithPeriod_ThreadFlowLocationMessageWithoutPeriod()
         {
-            Verify(new MessagesShouldEndWithPeriod(), "StackFrameMessageWithoutPeriod.sarif");
+            Verify(new MessagesShouldEndWithPeriod(), "ThreadFlowLocationMessageWithoutPeriod.sarif");
         }
     }
 }

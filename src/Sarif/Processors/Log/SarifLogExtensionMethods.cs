@@ -17,14 +17,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
             return ((GenericFoldAction<SarifLog>)SarifLogProcessorFactory.GetActionStage(SarifLogAction.Merge)).Fold(sarifLog);
         }
 
-        public static IEnumerable<SarifLog> RebaseUri(this IEnumerable<SarifLog> sarifLog, string basePathToken, Uri uri)
+        public static IEnumerable<SarifLog> RebaseUri(this IEnumerable<SarifLog> sarifLog, string basePathToken, bool rebaseRelativeUris, Uri uri)
         {
-            return SarifLogProcessorFactory.GetActionStage(SarifLogAction.RebaseUri, basePathToken, uri.AbsoluteUri).Act(sarifLog);
+            return SarifLogProcessorFactory.GetActionStage(SarifLogAction.RebaseUri, basePathToken, rebaseRelativeUris.ToString(), uri.AbsoluteUri).Act(sarifLog);
         }
 
-        public static SarifLog RebaseUri(this SarifLog sarifLog, string basePathToken, Uri uri)
+        public static SarifLog RebaseUri(this SarifLog sarifLog, string basePathToken, bool rebaseRelativeUris, Uri uri)
         {
-            return (new List<SarifLog>() { sarifLog }).RebaseUri(basePathToken, uri).Single();
+            return (new List<SarifLog>() { sarifLog }).RebaseUri(basePathToken, rebaseRelativeUris, uri).Single();
         }
 
         public static IEnumerable<SarifLog> MakeUrisAbsolute(this IEnumerable<SarifLog> sarifLogs)
