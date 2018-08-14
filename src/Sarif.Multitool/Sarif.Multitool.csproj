@@ -38,12 +38,30 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>MultitoolResources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Rules\FooResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FooResource.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Rules\RuleResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RuleResources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Update="MultitoolResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>MultitoolResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Rules\FooResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>FooResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Rules\RuleResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>RuleResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 </Project>
