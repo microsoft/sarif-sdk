@@ -17,6 +17,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     /// </summary>
     internal class AndroidStudioConverter : ToolFileConverterBase
     {
+        private const string BaseUri = "SRCROOT";
+
         private readonly NameTable _nameTable;
         private readonly AndroidStudioStrings _strings;
 
@@ -150,10 +152,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     Region = problem.Line <= 0 ? null : Extensions.CreateRegion(problem.Line)
                 };
 
-                if (RemoveBadRoot(file, out uri))
-                {
-                    location.PhysicalLocation.FileLocation.UriBaseId = PROJECT_DIR;
-                }
+                RemoveBadRoot(file, out uri);
                 location.PhysicalLocation.FileLocation.Uri = uri;
             }
 

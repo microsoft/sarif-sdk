@@ -36,8 +36,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "yammer-droid-2/src/test/java/com/yammer/droid/AdditionOperationTest.java",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "yammer-droid-2/src/test/java/com/yammer/droid/AdditionOperationTest.java"
                 },
                 "region": {
                   "startLine": 10
