@@ -18,6 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             Verify(new UriBaseIdRequiresRelativeUri(), "AbsoluteUriInAnalysisTarget.sarif");
         }
+
         [Fact(DisplayName = nameof(UriBaseIdRequiresRelativeUri_AbsoluteUriInCodeFlow))]
         public void UriBaseIdRequiresRelativeUri_AbsoluteUriInCodeFlow()
         {
