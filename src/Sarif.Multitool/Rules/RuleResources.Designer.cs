@@ -232,7 +232,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This object defines a &quot;uriBaseId&quot; property, which means that the value of the &quot;uri&quot; property must be a relative URI reference, but &quot;{1}&quot; is an absolute URI reference..
+        ///   Looks up a localized string similar to {0}: This fileLocation object contains a &quot;uriBaseId&quot; property, which means that the value of the &quot;uri&quot; property must be a relative URI reference, but &quot;{1}&quot; is an absolute URI reference..
         /// </summary>
         internal static string SARIF1014_Default {
             get {
@@ -241,7 +241,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to For objects which define both a &quot;uri&quot; and a &quot;uriBaseId&quot; property, if the &quot;uriBaseId&quot; property is present, the value of the &quot;uri&quot; property must be a relative URI reference..
+        ///   Looks up a localized string similar to If a fileLocation object contains a &quot;uriBaseId&quot; property, the value of the &quot;uri&quot; property must be a relative URI reference..
         /// </summary>
         internal static string SARIF1014_UriBaseIdRequiresRelativeUri {
             get {

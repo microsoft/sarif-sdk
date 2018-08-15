@@ -22,7 +22,7 @@
           "level": "error",
           "message": {
             "arguments": [
-              "/runs/0/results/0/stacks/0/frames/0/location/physicalLocation/fileLocation/uri",
+              "/runs/0/results/0/locations/0/physicalLocation/fileLocation/uri",
               "file:///c:/src/file.c"
             ]
           },
@@ -31,11 +31,11 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UriBaseIdRequiresRelativeUri/AbsoluteUriInStackFrame.sarif"
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UriBaseIdRequiresRelativeUri/AbsoluteUriInResultLocation.sarif"
                 },
                 "region": {
-                  "startLine": 21,
-                  "startColumn": 54
+                  "startLine": 17,
+                  "startColumn": 48
                 }
               }
             }
@@ -63,27 +63,27 @@
         }
       },
       "files": {
-        "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UriBaseIdRequiresRelativeUri/AbsoluteUriInStackFrame.sarif": {
+        "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UriBaseIdRequiresRelativeUri/AbsoluteUriInResultLocation.sarif": {
           "mimeType": "application/sarif-json"
         }
       },
       "invocations": [
         {
-          "startTime": "2018-08-15T00:57:36.306Z",
-          "endTime": "2018-08-15T00:57:37.300Z",
+          "startTime": "2018-08-15T00:57:34.786Z",
+          "endTime": "2018-08-15T00:57:35.879Z",
           "toolNotifications": [
             {
               "id": "MSG001.AnalyzingTarget",
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UriBaseIdRequiresRelativeUri/AbsoluteUriInStackFrame.sarif"
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UriBaseIdRequiresRelativeUri/AbsoluteUriInResultLocation.sarif"
                 }
               },
               "message": {
-                "text": "Analyzing 'AbsoluteUriInStackFrame.sarif'..."
+                "text": "Analyzing 'AbsoluteUriInResultLocation.sarif'..."
               },
               "level": "note",
-              "time": "2018-08-15T00:57:36.793Z"
+              "time": "2018-08-15T00:57:35.205Z"
             }
           ]
         }

@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Microsoft.CodeAnalysis.Sarif.Multitool.Rules;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
@@ -19,7 +18,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             Verify(new UriBaseIdRequiresRelativeUri(), "AbsoluteUriInAnalysisTarget.sarif");
         }
-
         [Fact(DisplayName = nameof(UriBaseIdRequiresRelativeUri_AbsoluteUriInCodeFlow))]
         public void UriBaseIdRequiresRelativeUri_AbsoluteUriInCodeFlow()
         {
@@ -44,10 +42,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             Verify(new UriBaseIdRequiresRelativeUri(), "AbsoluteUriInRelatedLocation.sarif");
         }
 
-        [Fact(DisplayName = nameof(UriBaseIdRequiresRelativeUri_AbsoluteUriInResultFile))]
-        public void UriBaseIdRequiresRelativeUri_AbsoluteUriInResultFile()
+        [Fact(DisplayName = nameof(UriBaseIdRequiresRelativeUri_AbsoluteUriInResultLocation))]
+        public void UriBaseIdRequiresRelativeUri_AbsoluteUriInResultLocation()
         {
-            Verify(new UriBaseIdRequiresRelativeUri(), "AbsoluteUriInResultFile.sarif");
+            Verify(new UriBaseIdRequiresRelativeUri(), "AbsoluteUriInResultLocation.sarif");
         }
 
         [Fact(DisplayName = nameof(UriBaseIdRequiresRelativeUri_AbsoluteUriInStackFrame))]

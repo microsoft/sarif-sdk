@@ -1,32 +1,55 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-1.0.0",
-  "version": "1.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
   "runs": [
     {
       "tool": {
         "name": "CodeScanner"
       },
+      "invocations": [
+        {
+          "configurationNotifications": [
+            {
+              "message": {
+                "text": "Message."
+              },
+              "physicalLocation": {
+                "fileLocation": {
+                  "uriBaseId": "%SRCROOT%",
+                  "uri": "/c:/src/file.c"
+                }
+              }
+            }
+          ],
+          "toolNotifications": [
+            {
+              "message": {
+                "text": "Message."
+              },
+              "physicalLocation": {
+                "fileLocation": {
+                  "uriBaseId": "%SRCROOT%",
+                  "uri": "/c:/src/file.c"
+                }
+              }
+            }
+          ]
+        }
+      ],
       "results": [
         {
           "ruleId": "TST0001",
           "level": "error",
-          "formattedRuleMessage": {
-            "formatId": "Default"
+          "analysisTarget": {
+            "uriBaseId": "%SRCROOT%",
+            "uri": "/c:/src/file.c"
           },
           "locations": [
             {
-              "analysisTarget": {
-              "uriBaseId": "%SRCROOT%",
-                "uri": "/c:/src/file.c",
-                "region": {
-                  "startLine": 1
-                }
-              },
               "physicalLocation": {
-                "uriBaseId": "%SRCROOT%",
-                "uri": "/c:/src/file2.c",
-                "region": {
-                  "startLine": 1
+                "fileLocation": {
+                  "uri": "/c:/src/file.c",
+                  "uriBaseId": "%SRCROOT%"
                 }
               }
             }
@@ -34,19 +57,29 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uriBaseId": "%SRCROOT%",
-                "uri": "/c:/src/file3.c"
+                "fileLocation": {
+                  "uriBaseId": "%SRCROOT%",
+                  "uri": "/c:/src/file.c"
+                }
               }
             }
           ],
           "codeFlows": [
             {
-              "locations": [
+              "threadFlows": [
                 {
-                  "physicalLocation": {
-                    "uriBaseId": "%SRCROOT%",
-                    "uri": "/c:/src/file1.c"
-                  }
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uriBaseId": "%SRCROOT%",
+                            "uri": "/c:/src/file.c"
+                          }
+                        }
+                      }
+                    }
+                  ]
                 }
               ]
             }
@@ -55,24 +88,32 @@
             {
               "frames": [
                 {
-                  "fullyQualifiedLogicalName": "func",
-                  "uriBaseId": "%SRCROOT%",
-                  "uri": "/c:/src/file1.c"
+                  "location": {
+                    "physicalLocation": {
+                      "fileLocation": {
+                        "uriBaseId": "%SRCROOT%",
+                        "uri": "/src/file.c"
+                      }
+                    }
+                  }
                 }
               ]
             }
           ],
           "fixes": [
             {
-              "description": "The description.",
               "fileChanges": [
                 {
-                  "uriBaseId": "%SRCROOT%",
-                  "uri": "/c:/src/file1.c",
+                  "fileLocation": {
+                    "uriBaseId": "%SRCROOT%",
+                    "uri": "/c:/src/file.c"
+                  },
                   "replacements": [
                     {
-                      "offset": 0,
-                      "deletedLength": 3
+                      "deletedRegion": {
+                        "charOffset": 0,
+                        "charLength": 1
+                      }
                     }
                   ]
                 }
@@ -80,31 +121,7 @@
             }
           ]
         }
-      ],
-      "configurationNotifications": [
-        {
-          "message": "Message.",
-          "physicalLocation": {
-            "uriBaseId": "%SRCROOT%",
-            "uri": "/c:/src/file1.c"
-          }
-        }
-      ],
-      "toolNotifications": [
-        {
-          "message": "Message.",
-          "physicalLocation": {
-            "uriBaseId": "%SRCROOT%",
-            "uri": "/c:/src/file1.c"
-          }
-        }
-      ],
-      "files": {
-        "file:///c:/src/file1.c#/TODO-THE-PROPERTY-NAME": {
-          "uriBaseId": "%SRCROOT%",
-          "uri": "file:///c:/src/file1.c"
-        }
-      }
+      ]
     }
   ]
 }
