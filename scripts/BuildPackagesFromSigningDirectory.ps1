@@ -17,6 +17,7 @@ param(
 
 Import-Module -Force $PSScriptRoot\ScriptUtilities.psm1
 Import-Module -Force $PSScriptRoot\Projects.psm1
+Import-Module -Force $PSScriptRoot\NuGetUtilities.psm1
 
 # Copy signed binaries back into the normal directory structure.
 function Copy-FromSigningDirectory {
