@@ -6,8 +6,60 @@
       "tool": {
         "name": "CodeScanner"
       },
+      "conversion": {
+        "tool": {
+          "name": "ConversionTool"
+        },
+        "analysisToolLogFiles": [
+          {
+            "uri": "/c:/src/file.c",
+            "uriBaseId": "%SRCROOT%"
+          }
+        ]
+      },
+      "files": {
+        "/c:/src/file.c": {
+          "fileLocation": {
+            "uri": "/c:/src/file.c",
+            "uriBaseId": "%SRCROOT%"
+          }
+        }
+      },
+      "graphs": [
+        {
+          "id": "g1",
+          "nodes": [
+            {
+              "id": "n1",
+              "location": {
+                "physicalLocation": {
+                  "fileLocation": {
+                    "uri": "/c:/src/file.c",
+                    "uriBaseId": "%SRCROOT%"
+                  }
+                }
+              }
+            }
+          ],
+          "edges": [
+            {
+              "id": "e1",
+              "sourceNodeId": "n1",
+              "targetNodeId": "n1"
+            }
+          ]
+        }
+      ],
       "invocations": [
         {
+          "attachments": [
+            {
+              "fileLocation": {
+                "uri": "/c:/src/file.c",
+                "uriBaseId": "%SRCROOT%"
+              }
+            }
+          ],
           "configurationNotifications": [
             {
               "message": {
@@ -21,6 +73,32 @@
               }
             }
           ],
+          "executableLocation": {
+            "uri": "/c:/src/file.c",
+            "uriBaseId": "%SRCROOT%"
+          },
+          "responseFiles": [
+            {
+              "uri": "/c:/src/file.c",
+              "uriBaseId": "%SRCROOT%"
+            }
+          ],
+          "stdin": {
+            "uri": "/c:/log/in.txt",
+            "uriBaseId": "%SRCROOT%"
+          },
+          "stdout": {
+            "uri": "/c:/log/out.txt",
+            "uriBaseId": "%SRCROOT%"
+          },
+          "stderr": {
+            "uri": "/c:/log/err.txt",
+            "uriBaseId": "%SRCROOT%"
+          },
+          "stdoutStderr": {
+            "uri": "/c:/log/out-err.txt",
+            "uriBaseId": "%SRCROOT%"
+          },
           "toolNotifications": [
             {
               "message": {
@@ -44,6 +122,47 @@
             "uriBaseId": "%SRCROOT%",
             "uri": "/c:/src/file.c"
           },
+          "attachments": [
+            {
+              "fileLocation": {
+                "uri": "/c:/src/file.c",
+                "uriBaseId": "%SRCROOT%"
+              }
+            }
+          ],
+          "conversionProvenance": [
+            {
+              "fileLocation": {
+                "uri": "/c:/src/file.c",
+                "uriBaseId": "%SRCROOT%"
+              }
+            }
+          ],
+          "graphs": [
+            {
+              "id": "g1",
+              "nodes": [
+                {
+                  "id": "n1",
+                  "location": {
+                    "physicalLocation": {
+                      "fileLocation": {
+                        "uri": "/c:/src/file.c",
+                        "uriBaseId": "%SRCROOT%"
+                      }
+                    }
+                  }
+                }
+              ],
+              "edges": [
+                {
+                  "id": "e1",
+                  "sourceNodeId": "n1",
+                  "targetNodeId": "n1"
+                }
+              ]
+            }
+          ],
           "locations": [
             {
               "physicalLocation": {

@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner"
+      },
+      "graphs": [
+        {
+          "id": "g1",
+          "nodes": [
+            {
+              "id": "n1",
+              "location": {
+                "physicalLocation": {
+                  "fileLocation": {
+                    "uri": "file:///c:/src/file.c",
+                    "uriBaseId": "%SRCROOT%"
+                  }
+                }
+              }
+            }
+          ],
+          "edges": [
+            {
+              "id": "e1",
+              "sourceNodeId": "n1",
+              "targetNodeId": "n1"
+            }
+          ]
+        }
+      ],
+      "results": []
+    }
+  ]
+}

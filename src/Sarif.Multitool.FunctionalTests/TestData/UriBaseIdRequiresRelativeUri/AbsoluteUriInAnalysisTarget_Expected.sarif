@@ -69,8 +69,8 @@
       },
       "invocations": [
         {
-          "startTime": "2018-08-15T00:57:29.240Z",
-          "endTime": "2018-08-15T00:57:30.024Z",
+          "startTime": "2018-08-15T20:40:02.355Z",
+          "endTime": "2018-08-15T20:40:04.206Z",
           "toolNotifications": [
             {
               "id": "MSG001.AnalyzingTarget",
@@ -83,7 +83,7 @@
                 "text": "Analyzing 'AbsoluteUriInAnalysisTarget.sarif'..."
               },
               "level": "note",
-              "time": "2018-08-15T00:57:29.595Z"
+              "time": "2018-08-15T20:40:02.957Z"
             }
           ]
         }

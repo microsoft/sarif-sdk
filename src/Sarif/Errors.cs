@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     exception,
                     false,
                     context.TargetUri.GetFileName(),
-                    context.Rule.Name));
+                    context.Rule.Name.Text));
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionLoadingPdb;
         }
@@ -263,7 +263,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // to produce an initial configuration file that can be edited, if
             // necessary, and passed back into the tool.
             string message = string.Format(CultureInfo.InvariantCulture, SdkResources.ERR997_MissingRuleConfiguration,
-                context.Rule.Name,
+                context.Rule.Name.Text,
                 context.TargetUri.GetFileName(),
                 reasonForNotAnalyzing,
                 exeName);
@@ -354,7 +354,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     exception,
                     true,
                     context.TargetUri.GetFileName(),
-                    context.Rule.Name));
+                    context.Rule.Name.Text));
 
             if (disabledSkimmers != null) { disabledSkimmers.Add(context.Rule.Id); }
 
@@ -379,7 +379,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 NotificationLevel.Error,
                 exception,
                 true,
-                context.Rule.Name));
+                context.Rule.Name.Text));
 
             context.RuntimeErrors |= RuntimeConditions.ExceptionInSkimmerInitialize;
         }
@@ -407,7 +407,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     exception,
                     true,
                     context.TargetUri.GetFileName(),
-                    context.Rule.Name));
+                    context.Rule.Name.Text));
 
             if (disabledSkimmers != null) { disabledSkimmers.Add(context.Rule.Id); }
 

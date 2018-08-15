@@ -286,7 +286,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (invocation.ExecutableLocation != null)
             {
-                Visit(invocation.ExecutableLocation, SarifPropertyName.ExecutableLocation);
+                Visit(invocation.ExecutableLocation, invocationPointer.AtProperty(SarifPropertyName.ExecutableLocation));
             }
 
             if (invocation.ResponseFiles != null)
@@ -302,22 +302,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (invocation.Stdin != null)
             {
-                Visit(invocation.Stdin, SarifPropertyName.Stdin);
+                Visit(invocation.Stdin, invocationPointer.AtProperty(SarifPropertyName.Stdin));
             }
 
             if (invocation.Stdout != null)
             {
-                Visit(invocation.Stdout, SarifPropertyName.Stdout);
+                Visit(invocation.Stdout, invocationPointer.AtProperty(SarifPropertyName.Stdout));
             }
 
             if (invocation.Stderr != null)
             {
-                Visit(invocation.Stderr, SarifPropertyName.Stderr);
+                Visit(invocation.Stderr, invocationPointer.AtProperty(SarifPropertyName.Stderr));
             }
 
             if (invocation.StdoutStderr != null)
             {
-                Visit(invocation.StdoutStderr, SarifPropertyName.StdoutStderr);
+                Visit(invocation.StdoutStderr, invocationPointer.AtProperty(SarifPropertyName.StdoutStderr));
             }
 
             if (invocation.ToolNotifications != null)
