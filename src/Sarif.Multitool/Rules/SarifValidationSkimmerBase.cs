@@ -120,6 +120,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected virtual void Analyze(Rule rule, string rulePointer)
         {
         }
+        protected virtual void Analyze(Run run, string runPointer)
+        {
+        }
+
+        protected virtual void Analyze(SarifLog log, string logPointer)
+        {
+        }
 
         protected virtual void Analyze(Stack stack, string stackPointer)
         {
@@ -137,8 +144,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
         }
 
+        protected virtual void Analyze(Tool tool, string toolPointer)
+        {
+        }
+
+        protected virtual void Analyze(VersionControlDetails versionControlDetails, string versionControlDetailsPointer)
+        {
+        }
+
         private void Visit(SarifLog log, string logPointer)
         {
+            Analyze(log, logPointer);
+
             if (log.Runs != null)
             {
                 Run[] runs = log.Runs.ToArray();
@@ -497,8 +514,41 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
+        private void Visit(IList<Notification> notifications, string parentPointer, string propertyName)
+        {
+            Notification[] notificationsArray = notifications.ToArray();
+            string notificationsPointer = parentPointer.AtProperty(propertyName);
+
+            for (int i = 0; i < notificationsArray.Length; ++i)
+            {
+                Visit(notificationsArray[i], notificationsPointer.AtIndex(i));
+            }
+        }
+
+        private void Visit(Resources resources, string resourcesPointer)
+        {
+            Rule[] rules = resources.Rules.Values.ToArray();
+            string rulesPointer = resourcesPointer.AtProperty(SarifPropertyName.Rules);
+
+            for (int i = 0; i < rules.Length; ++i)
+            {
+                Rule rule = rules[i];
+                if (rule.Id != null)
+                {
+                    Visit(rule, rulesPointer.AtProperty(rule.Id));
+                }
+            }
+        }
+
+        private void Visit(Rule rule, string rulePointer)
+        {
+            Analyze(rule, rulePointer);
+        }
+
         private void Visit(Run run, string runPointer)
         {
+            Analyze(run, runPointer);
+
             if (run.Conversion != null)
             {
                 Visit(run.Conversion, runPointer.AtProperty(SarifPropertyName.Conversion));
@@ -552,30 +602,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     Visit(invocations[i], invocationsPointer.AtIndex(i));
                 }
             }
-        }
 
-        private void Visit(IList<Notification> notifications, string parentPointer, string propertyName)
-        {
-            Notification[] notificationsArray = notifications.ToArray();
-            string notificationsPointer = parentPointer.AtProperty(propertyName);
-
-            for (int i = 0; i < notificationsArray.Length; ++i)
+            if (run.Tool != null)
             {
-                Visit(notificationsArray[i], notificationsPointer.AtIndex(i));
+                Visit(run.Tool, runPointer.AtProperty(SarifPropertyName.Tool));
             }
-        }
 
-        private void Visit(Resources resources, string resourcesPointer)
-        {
-            Rule[] rules = resources.Rules.Values.ToArray();
-            string rulesPointer = resourcesPointer.AtProperty(SarifPropertyName.Rules);
-
-            for (int i = 0; i < rules.Length; ++i)
+            if (run.VersionControlProvenance != null)
             {
-                Rule rule = rules[i];
-                if (rule.Id != null)
+                VersionControlDetails[] versionControlDetailsArray = run.VersionControlProvenance.ToArray();
+                string versionControlProvenancePointer = runPointer.AtProperty(SarifPropertyName.VersionControlProvenance);
+
+                for (int i = 0; i < versionControlDetailsArray.Length; ++i)
                 {
-                    Analyze(rule, rulesPointer.AtProperty(rule.Id));
+                    Visit(run.VersionControlProvenance[i], versionControlProvenancePointer.AtIndex(i));
                 }
             }
         }
@@ -635,6 +675,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 Visit(threadFlowLocation.Location, threadFlowLocationPointer.AtProperty(SarifPropertyName.Location));
             }
+        }
+
+        private void Visit(Tool tool, string toolPointer)
+        {
+            Analyze(tool, toolPointer);
+        }
+
+        private void Visit(VersionControlDetails versionControlDetails, string versionControlDetailsPointer)
+        {
+            Analyze(versionControlDetails, versionControlDetailsPointer);
         }
 
         private Region GetRegionFromJPointer(string jPointer)

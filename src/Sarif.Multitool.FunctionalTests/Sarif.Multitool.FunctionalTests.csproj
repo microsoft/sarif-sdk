@@ -14,11 +14,7 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
-    <Compile Remove="Rules\UrisMustBeValidTests.cs" />
     <Compile Remove="Rules\UseAbsolutePathsForNestedFileUriFragmentsTests.cs" />
-    <EmbeddedResource Remove="Rules\**" />
-    <EmbeddedResource Remove="TestData\**" />
-    <None Remove="Rules\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,5 +41,5 @@
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
   </ItemGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties TestData_4StepValuesMustFormOneBasedSequence_4StepNotPresentOnAllLocations_1sarif__JSONSchema="http://json.schemastore.org/sarif-2.0.0" TestData_4StepValuesMustFormOneBasedSequence_4NoStepsPresent_1sarif__JSONSchema="http://json.schemastore.org/sarif-2.0.0" TestData_4UriBaseIdRequiresRelativeUri_4AbsoluteUriInFileChange_1sarif__JSONSchema="http://json.schemastore.org/sarif-2.0.0" TestData_4UriBaseIdRequiresRelativeUri_4AbsoluteUriInRelatedLocation_1sarif__JSONSchema="http://json.schemastore.org/sarif-2.0.0" TestData_4StepValuesMustFormOneBasedSequence_4ValidSteps_1sarif__JSONSchema="http://json.schemastore.org/sarif-2.0.0" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties TestData_4StepValuesMustFormOneBasedSequence_4StepNotPresentOnAllLocations_1sarif__JSONSchema="http://json.schemastore.org/sarif-2.0.0" TestData_4UrisMustBeValid_4InvalidHelpUriInRule_1sarif__JSONSchema="http://json.schemastore.org/sarif-2.0.0" TestData_4StepValuesMustFormOneBasedSequence_4NoStepsPresent_1sarif__JSONSchema="http://json.schemastore.org/sarif-2.0.0" TestData_4UriBaseIdRequiresRelativeUri_4AbsoluteUriInFileChange_1sarif__JSONSchema="http://json.schemastore.org/sarif-2.0.0" TestData_4UriBaseIdRequiresRelativeUri_4AbsoluteUriInRelatedLocation_1sarif__JSONSchema="http://json.schemastore.org/sarif-2.0.0" TestData_4StepValuesMustFormOneBasedSequence_4ValidSteps_1sarif__JSONSchema="http://json.schemastore.org/sarif-2.0.0" /></VisualStudio></ProjectExtensions>
 </Project>

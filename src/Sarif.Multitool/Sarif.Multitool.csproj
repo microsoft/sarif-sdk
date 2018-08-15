@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Rules\UrisMustBeValid.cs" />
     <Compile Remove="Rules\UseAbsolutePathsForNestedFileUriFragments.cs" />
   </ItemGroup>
 

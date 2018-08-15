@@ -6,10 +6,12 @@
       "tool": {
         "name": "CodeScanner"
       },
-      "results": [],
-      "files": {
-        "fi%le:///c:/src/file.c": {
-          "mimeType": "text/x-c"
+      "resources": {
+        "rules": {
+          "TST0001": {
+            "id": "TST0001",
+            "helpUri": "ht%tp://www.example.com/rules/tst0001.html"
+          }
         }
       }
     }

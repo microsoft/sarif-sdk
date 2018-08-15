@@ -12,6 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string ConfigurationNotifications = "configurationNotifications";
         public const string Conversion = "conversion";
         public const string ConversionProvenance = "conversionProvenance";
+        public const string DownloadUri = "downloadUri";
         public const string Edges = "edges";
         public const string EndColumn = "endColumn";
         public const string EndLine = "endLine";
@@ -25,6 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Frames = "frames";
         public const string Graphs = "graphs";
         public const string Hashes = "hashes";
+        public const string HelpUri = "helpUri";
         public const string Id = "id";
         public const string Importance = "importance";
         public const string Invocation = "invocation";
@@ -34,6 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Message = "message";
         public const string MessageStrings = "messageStrings";
         public const string Nodes = "nodes";
+        public const string OriginalUriBaseIds = "originalUriBaseIds";
         public const string PhysicalLocation = "physicalLocation";
         public const string Region = "region";
         public const string RelatedLocations = "relatedLocations";
@@ -44,6 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string RichText = "richText";
         public const string Rules = "rules";
         public const string Runs = "runs";
+        public const string Schema = "$schema";
         public const string Stacks = "stacks";
         public const string Stdin = "stdin";
         public const string Stdout = "stdout";
@@ -53,6 +57,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Text = "text";
         public const string ThreadFlows = "threadFlows";
         public const string ToolNotifications = "toolNotifications";
+        public const string Tool = "tool";
         public const string Uri = "uri";
+        public const string VersionControlProvenance = "versionControlProvenance";
+        public const string WorkItemUris = "workItemUris";
     }
 }

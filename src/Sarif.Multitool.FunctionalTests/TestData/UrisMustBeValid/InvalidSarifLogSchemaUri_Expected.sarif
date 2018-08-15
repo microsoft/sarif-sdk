@@ -22,8 +22,8 @@
           "level": "error",
           "message": {
             "arguments": [
-              "/runs/0/files/fi%le:~1~1~1c:~1src~1file.c",
-              "fi%le:///c:/src/file.c"
+              "/$schema",
+              "ht%tp://json.schemastore.org/sarif-2.0.0"
             ]
           },
           "ruleMessageId": "Default",
@@ -31,11 +31,11 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UrisMustBeValid/InvalidUriInFilePropertyName.sarif"
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UrisMustBeValid/InvalidSarifLogSchemaUri.sarif"
                 },
                 "region": {
-                  "startLine": 11,
-                  "startColumn": 35
+                  "startLine": 2,
+                  "startColumn": 55
                 }
               }
             }
@@ -63,27 +63,27 @@
         }
       },
       "files": {
-        "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UrisMustBeValid/InvalidUriInFilePropertyName.sarif": {
+        "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UrisMustBeValid/InvalidSarifLogSchemaUri.sarif": {
           "mimeType": "application/sarif-json"
         }
       },
       "invocations": [
         {
-          "startTime": "2018-08-15T23:04:53.170Z",
-          "endTime": "2018-08-15T23:04:53.959Z",
+          "startTime": "2018-08-15T23:04:50.971Z",
+          "endTime": "2018-08-15T23:04:51.751Z",
           "toolNotifications": [
             {
               "id": "MSG001.AnalyzingTarget",
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UrisMustBeValid/InvalidUriInFilePropertyName.sarif"
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UrisMustBeValid/InvalidSarifLogSchemaUri.sarif"
                 }
               },
               "message": {
-                "text": "Analyzing 'InvalidUriInFilePropertyName.sarif'..."
+                "text": "Analyzing 'InvalidSarifLogSchemaUri.sarif'..."
               },
               "level": "note",
-              "time": "2018-08-15T23:04:53.502Z"
+              "time": "2018-08-15T23:04:51.316Z"
             }
           ]
         }

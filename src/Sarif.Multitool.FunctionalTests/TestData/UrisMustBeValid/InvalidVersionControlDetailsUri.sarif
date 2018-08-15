@@ -7,11 +7,11 @@
         "name": "CodeScanner"
       },
       "results": [],
-      "files": {
-        "fi%le:///c:/src/file.c": {
-          "mimeType": "text/x-c"
+      "versionControlProvenance": [
+        {
+          "uri": "ht%tps://example.com/my-project"
         }
-      }
+      ]
     }
   ]
 }
