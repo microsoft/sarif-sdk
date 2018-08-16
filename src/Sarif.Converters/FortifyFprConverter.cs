@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private Dictionary<Result, string> _resultToSnippetIdDictionary;
         private Dictionary<Result, Dictionary<string, string>> _resultToReplacementDefinitionDictionary;
         private Dictionary<string, Location> _nodeIdToLocationDictionary;
-        private Dictionary<string, Region> _snippetIdToRegionDictionary;
+        private Dictionary<string, Region[]> _snippetIdToRegionsDictionary;
 
         /// <summary>Initializes a new instance of the <see cref="FortifyFprConverter"/> class.</summary>
         public FortifyFprConverter()
@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _resultToSnippetIdDictionary = new Dictionary<Result, string>();
             _resultToReplacementDefinitionDictionary = new Dictionary<Result, Dictionary<string, string>>();
             _nodeIdToLocationDictionary = new Dictionary<string, Location>();
-            _snippetIdToRegionDictionary = new Dictionary<string, Region>();
+            _snippetIdToRegionsDictionary = new Dictionary<string, Region[]>();
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _resultToSnippetIdDictionary.Clear();
             _resultToReplacementDefinitionDictionary.Clear();
             _nodeIdToLocationDictionary.Clear();
-            _snippetIdToRegionDictionary.Clear();
+            _snippetIdToRegionsDictionary.Clear();
 
             ParseFprFile(input);
             AddMessagesToResults();
@@ -650,6 +650,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             // Format: <guid>#<file path>:<start line>:<end line>
             string snippetId = _reader.GetAttribute(_strings.IdAttribute);
             int snippetStartLine = 0;
+            int snippetEndLine = 0;
             int regionStartLine = 0;
             int regionEndLine = 0;
 
@@ -668,6 +669,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     string value = _reader.ReadElementContentAsString();
                     int.TryParse(value, out snippetStartLine);
                 }
+                else if (AtStartOfNonEmpty(_strings.EndLine))
+                {
+                    string value = _reader.ReadElementContentAsString();
+                    int.TryParse(value, out snippetEndLine);
+                }
                 else if (AtStartOfNonEmpty(_strings.Text))
                 {
                     text = _reader.ReadElementContentAsString();
@@ -678,14 +684,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             }
 
-            Region region = new Region
-            {
-                StartLine = regionStartLine,
-                EndLine = regionEndLine
-            };
+            Region region = null;
+            Region contextRegion = null;
 
             if (!string.IsNullOrWhiteSpace(text))
             {
+                region = new Region
+                {
+                    StartLine = regionStartLine,
+                    EndLine = regionEndLine
+                };
+
+                contextRegion = new Region
+                {
+                    StartLine = snippetStartLine,
+                    EndLine = snippetEndLine,
+                    Snippet = new FileContent
+                    {
+                        Text = text
+                    }
+                };
+
                 using (StringReader reader = new StringReader(text))
                 {
                     // Read down to the first line we want to include
@@ -709,7 +728,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 region.Snippet = new FileContent { Text = text };
             }
 
-            _snippetIdToRegionDictionary.Add(snippetId, region);
+            // Regions[0] => physicalLocation.region
+            // Regions[1] => physicalLocation.contextRegion
+            _snippetIdToRegionsDictionary.Add(snippetId, new[] { region, contextRegion });
         }
 
         private void ParseCommandLine()
@@ -843,14 +864,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             foreach (Result result in _results)
             {
                 string snippetId;
-                Region region;
+                Region[] regions;
 
                 if (result.Locations?[0]?.PhysicalLocation?.Region != null &&
                     _resultToSnippetIdDictionary.TryGetValue(result, out snippetId) &&
-                    _snippetIdToRegionDictionary.TryGetValue(snippetId, out region) &&
-                    !string.IsNullOrWhiteSpace(region.Snippet.Text))
+                    _snippetIdToRegionsDictionary.TryGetValue(snippetId, out regions) &&
+                    !string.IsNullOrWhiteSpace(regions[0]?.Snippet.Text))
                 {
-                    result.Locations[0].PhysicalLocation.Region = region;
+                    // Regions[0] => physicalLocation.region
+                    // Regions[1] => physicalLocation.contextRegion
+                    result.Locations[0].PhysicalLocation.Region = regions[0];
+                    result.Locations[0].PhysicalLocation.ContextRegion = regions[1];
                 }
             }
         }
@@ -872,12 +896,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             foreach (ThreadFlowLocation tfl in codeFlow.ThreadFlows[0].Locations)
                             {
                                 string snippetId;
-                                Region region = null;
+                                Region[] regions = null;
 
                                 if (_tflToSnippetIdDictionary.TryGetValue(tfl, out snippetId) &&
-                                    _snippetIdToRegionDictionary.TryGetValue(snippetId, out region))
+                                    _snippetIdToRegionsDictionary.TryGetValue(snippetId, out regions))
                                 {
-                                    tfl.Location.PhysicalLocation.Region = region;
+                                    // Regions[0] => physicalLocation.region
+                                    // Regions[1] => physicalLocation.contextRegion
+                                    tfl.Location.PhysicalLocation.Region = regions[0];
+                                    tfl.Location.PhysicalLocation.ContextRegion = regions[1];
                                 }
                             }
                         }
@@ -904,15 +931,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             {
                                 string nodeId;
                                 string snippetId;
-                                Region region = null;
+                                Region[] regions = null;
                                 Location location = null;
 
                                 if (_tflToNodeIdDictionary.TryGetValue(tfl, out nodeId) &&
                                     _nodeIdToLocationDictionary.TryGetValue(nodeId, out location) &&
                                     _locationToSnippetIdDictionary.TryGetValue(location, out snippetId) &&
-                                    _snippetIdToRegionDictionary.TryGetValue(snippetId, out region))
+                                    _snippetIdToRegionsDictionary.TryGetValue(snippetId, out regions))
                                 {
-                                    location.PhysicalLocation.Region = region;
+                                    // Regions[0] => physicalLocation.region
+                                    // Regions[1] => physicalLocation.contextRegion
+                                    location.PhysicalLocation.Region = regions[0];
+                                    location.PhysicalLocation.ContextRegion = regions[1];
                                     tfl.Location = location;
                                 }
                             }

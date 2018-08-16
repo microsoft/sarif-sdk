@@ -52,6 +52,13 @@
                   "snippet": {
                     "text": "    public class ContentFileViewModel : BaseViewModel"
                   }
+                },
+                "contextRegion": {
+                  "startLine": 3,
+                  "endLine": 9,
+                  "snippet": {
+                    "text": "\nnamespace MS.IT.HRE.CMOE.Web.Models\n{\n    public class ContentFileViewModel : BaseViewModel\n    {\n        #region Public Properties\n\n"
+                  }
                 }
               }
             }
@@ -74,6 +81,13 @@
                             "snippet": {
                               "text": "        public ContentFileViewModel ViewModel { get; set; }"
                             }
+                          },
+                          "contextRegion": {
+                            "startLine": 9,
+                            "endLine": 15,
+                            "snippet": {
+                              "text": "        public CMOEViewModel Model { get; set; }\n\n        [Dependency]\n        public ContentFileViewModel ViewModel { get; set; }\n\n        [Dependency]\n        public ICachedDataProvider CachedData { get; set; }\n"
+                            }
                           }
                         },
                         "message": {
@@ -93,6 +107,13 @@
                             "endLine": 6,
                             "snippet": {
                               "text": "    public class ContentFileViewModel : BaseViewModel"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 3,
+                            "endLine": 9,
+                            "snippet": {
+                              "text": "\nnamespace MS.IT.HRE.CMOE.Web.Models\n{\n    public class ContentFileViewModel : BaseViewModel\n    {\n        #region Public Properties\n\n"
                             }
                           }
                         },
@@ -138,6 +159,13 @@
                   "snippet": {
                     "text": "        private void IsDocumentValid()\r\n        {\r\n            OpenXmlValidator validator = new OpenXmlValidator();\r\n            var errors = validator.Validate(_wordDocument);\r\n            if (errors.Count() != 0)\r\n                _validations.Add(new Validation(GetResource(ResourceKeys.ERROR_DocumentInvalidOrCurrupted)));\r\n        }"
                   }
+                },
+                "contextRegion": {
+                  "startLine": 9,
+                  "endLine": 21,
+                  "snippet": {
+                    "text": "        /// <summary>\n        /// Validate the uploaded document against Open XML regulations\n        /// </summary>\n        private void IsDocumentValid()\n        {\n            OpenXmlValidator validator = new OpenXmlValidator();\n            var errors = validator.Validate(_wordDocument);\n            if (errors.Count() != 0)\n                _validations.Add(new Validation(GetResource(ResourceKeys.ERROR_DocumentInvalidOrCurrupted)));\n        }\n\n    }\n}\n"
+                  }
                 }
               }
             }
@@ -159,6 +187,13 @@
                             "endLine": 18,
                             "snippet": {
                               "text": "        private void IsDocumentValid()\r\n        {\r\n            OpenXmlValidator validator = new OpenXmlValidator();\r\n            var errors = validator.Validate(_wordDocument);\r\n            if (errors.Count() != 0)\r\n                _validations.Add(new Validation(GetResource(ResourceKeys.ERROR_DocumentInvalidOrCurrupted)));\r\n        }"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 9,
+                            "endLine": 21,
+                            "snippet": {
+                              "text": "        /// <summary>\n        /// Validate the uploaded document against Open XML regulations\n        /// </summary>\n        private void IsDocumentValid()\n        {\n            OpenXmlValidator validator = new OpenXmlValidator();\n            var errors = validator.Validate(_wordDocument);\n            if (errors.Count() != 0)\n                _validations.Add(new Validation(GetResource(ResourceKeys.ERROR_DocumentInvalidOrCurrupted)));\n        }\n\n    }\n}\n"
                             }
                           }
                         },
@@ -204,6 +239,13 @@
                   "snippet": {
                     "text": "                byte[] byteFile = System.IO.File.ReadAllBytes(ViewModel.TemplatePath);"
                   }
+                },
+                "contextRegion": {
+                  "startLine": 35,
+                  "endLine": 41,
+                  "snippet": {
+                    "text": "                ViewModel.TemplatePath = (ViewModel.DocumentType == Const.DoucmentTypeKeyResults) ? Server.MapPath(Request.ApplicationPath) + Const.KeyResultsDocumentTemplatePath :\n                                                          Server.MapPath(Request.ApplicationPath) + Const.CompetencyDocumentTemplatePath;\n\n                byte[] byteFile = System.IO.File.ReadAllBytes(ViewModel.TemplatePath);\n\n                // Write the byte array in a memory stream\n                System.IO.MemoryStream streamPackage = new System.IO.MemoryStream();\n"
+                  }
                 }
               }
             }
@@ -226,6 +268,13 @@
                             "snippet": {
                               "text": "        public ActionResult Download(ContentFileViewModel frmContent)"
                             }
+                          },
+                          "contextRegion": {
+                            "startLine": 17,
+                            "endLine": 23,
+                            "snippet": {
+                              "text": "        /// <param name=\"frmContent\"> Download form input parameters </param>\n        /// <returns>Action Result object</returns>\n        [HttpPost, ValidateAntiForgeryToken]\n        public ActionResult Download(ContentFileViewModel frmContent)\n        {\n            try\n            {\n"
+                            }
                           }
                         },
                         "message": {
@@ -245,6 +294,13 @@
                             "endLine": 24,
                             "snippet": {
                               "text": "                this.ViewModel = frmContent;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 21,
+                            "endLine": 27,
+                            "snippet": {
+                              "text": "        {\n            try\n            {\n                this.ViewModel = frmContent;\n\n                if (ViewModel.DocumentId == Guid.Empty)\n                {\n"
                             }
                           }
                         },
@@ -266,6 +322,13 @@
                             "snippet": {
                               "text": "                byte[] byteFile = System.IO.File.ReadAllBytes(ViewModel.TemplatePath);"
                             }
+                          },
+                          "contextRegion": {
+                            "startLine": 35,
+                            "endLine": 41,
+                            "snippet": {
+                              "text": "                ViewModel.TemplatePath = (ViewModel.DocumentType == Const.DoucmentTypeKeyResults) ? Server.MapPath(Request.ApplicationPath) + Const.KeyResultsDocumentTemplatePath :\n                                                          Server.MapPath(Request.ApplicationPath) + Const.CompetencyDocumentTemplatePath;\n\n                byte[] byteFile = System.IO.File.ReadAllBytes(ViewModel.TemplatePath);\n\n                // Write the byte array in a memory stream\n                System.IO.MemoryStream streamPackage = new System.IO.MemoryStream();\n"
+                            }
                           }
                         },
                         "message": {
@@ -286,6 +349,13 @@
                             "snippet": {
                               "text": "                byte[] byteFile = System.IO.File.ReadAllBytes(ViewModel.TemplatePath);"
                             }
+                          },
+                          "contextRegion": {
+                            "startLine": 35,
+                            "endLine": 41,
+                            "snippet": {
+                              "text": "                ViewModel.TemplatePath = (ViewModel.DocumentType == Const.DoucmentTypeKeyResults) ? Server.MapPath(Request.ApplicationPath) + Const.KeyResultsDocumentTemplatePath :\n                                                          Server.MapPath(Request.ApplicationPath) + Const.CompetencyDocumentTemplatePath;\n\n                byte[] byteFile = System.IO.File.ReadAllBytes(ViewModel.TemplatePath);\n\n                // Write the byte array in a memory stream\n                System.IO.MemoryStream streamPackage = new System.IO.MemoryStream();\n"
+                            }
                           }
                         },
                         "message": {
@@ -305,6 +375,13 @@
                             "endLine": 38,
                             "snippet": {
                               "text": "                byte[] byteFile = System.IO.File.ReadAllBytes(ViewModel.TemplatePath);"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 35,
+                            "endLine": 41,
+                            "snippet": {
+                              "text": "                ViewModel.TemplatePath = (ViewModel.DocumentType == Const.DoucmentTypeKeyResults) ? Server.MapPath(Request.ApplicationPath) + Const.KeyResultsDocumentTemplatePath :\n                                                          Server.MapPath(Request.ApplicationPath) + Const.CompetencyDocumentTemplatePath;\n\n                byte[] byteFile = System.IO.File.ReadAllBytes(ViewModel.TemplatePath);\n\n                // Write the byte array in a memory stream\n                System.IO.MemoryStream streamPackage = new System.IO.MemoryStream();\n"
                             }
                           }
                         },
