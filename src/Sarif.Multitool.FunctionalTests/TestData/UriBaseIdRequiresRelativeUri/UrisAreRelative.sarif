@@ -12,15 +12,15 @@
         },
         "analysisToolLogFiles": [
           {
-            "uri": "/c:/src/file.c",
+            "uri": "file.c",
             "uriBaseId": "%SRCROOT%"
           }
         ]
       },
       "files": {
-        "/c:/src/file.c": {
+        "file.c": {
           "fileLocation": {
-            "uri": "/c:/src/file.c",
+            "uri": "file.c",
             "uriBaseId": "%SRCROOT%"
           }
         }
@@ -34,7 +34,7 @@
               "location": {
                 "physicalLocation": {
                   "fileLocation": {
-                    "uri": "/c:/src/file.c",
+                    "uri": "file.c",
                     "uriBaseId": "%SRCROOT%"
                   }
                 }
@@ -55,7 +55,7 @@
           "attachments": [
             {
               "fileLocation": {
-                "uri": "/c:/src/file.c",
+                "uri": "file.c",
                 "uriBaseId": "%SRCROOT%"
               }
             }
@@ -68,18 +68,18 @@
               "physicalLocation": {
                 "fileLocation": {
                   "uriBaseId": "%SRCROOT%",
-                  "uri": "/c:/src/file.c"
+                  "uri": "file.c"
                 }
               }
             }
           ],
           "executableLocation": {
-            "uri": "/c:/src/file.c",
+            "uri": "file.c",
             "uriBaseId": "%SRCROOT%"
           },
           "responseFiles": [
             {
-              "uri": "/c:/src/file.c",
+              "uri": "file.c",
               "uriBaseId": "%SRCROOT%"
             }
           ],
@@ -107,7 +107,7 @@
               "physicalLocation": {
                 "fileLocation": {
                   "uriBaseId": "%SRCROOT%",
-                  "uri": "/c:/src/file.c"
+                  "uri": "file.c"
                 }
               }
             }
@@ -120,12 +120,12 @@
           "level": "error",
           "analysisTarget": {
             "uriBaseId": "%SRCROOT%",
-            "uri": "/c:/src/file.c"
+            "uri": "file.c"
           },
           "attachments": [
             {
               "fileLocation": {
-                "uri": "/c:/src/file.c",
+                "uri": "file.c",
                 "uriBaseId": "%SRCROOT%"
               }
             }
@@ -133,7 +133,7 @@
           "conversionProvenance": [
             {
               "fileLocation": {
-                "uri": "/c:/src/file.c",
+                "uri": "file.c",
                 "uriBaseId": "%SRCROOT%"
               }
             }
@@ -147,7 +147,7 @@
                   "location": {
                     "physicalLocation": {
                       "fileLocation": {
-                        "uri": "/c:/src/file.c",
+                        "uri": "file.c",
                         "uriBaseId": "%SRCROOT%"
                       }
                     }
@@ -167,7 +167,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "/c:/src/file.c",
+                  "uri": "file.c",
                   "uriBaseId": "%SRCROOT%"
                 }
               }
@@ -178,7 +178,7 @@
               "physicalLocation": {
                 "fileLocation": {
                   "uriBaseId": "%SRCROOT%",
-                  "uri": "/c:/src/file.c"
+                  "uri": "file.c"
                 }
               }
             }
@@ -193,7 +193,7 @@
                         "physicalLocation": {
                           "fileLocation": {
                             "uriBaseId": "%SRCROOT%",
-                            "uri": "/c:/src/file.c"
+                            "uri": "file.c"
                           }
                         }
                       }
@@ -211,7 +211,7 @@
                     "physicalLocation": {
                       "fileLocation": {
                         "uriBaseId": "%SRCROOT%",
-                        "uri": "/src/file.c"
+                        "uri": "file.c"
                       }
                     }
                   }
@@ -225,7 +225,7 @@
                 {
                   "fileLocation": {
                     "uriBaseId": "%SRCROOT%",
-                    "uri": "/c:/src/file.c"
+                    "uri": "file.c"
                   },
                   "replacements": [
                     {

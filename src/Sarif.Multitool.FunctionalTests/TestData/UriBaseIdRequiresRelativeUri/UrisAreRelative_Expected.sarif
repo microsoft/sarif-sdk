@@ -19,8 +19,8 @@
       "results": [],
       "invocations": [
         {
-          "startTime": "2018-08-15T20:40:28.658Z",
-          "endTime": "2018-08-15T20:40:29.636Z",
+          "startTime": "2018-08-16T16:08:04.770Z",
+          "endTime": "2018-08-16T16:08:05.663Z",
           "toolNotifications": [
             {
               "id": "MSG001.AnalyzingTarget",
@@ -33,7 +33,7 @@
                 "text": "Analyzing 'UrisAreRelative.sarif'..."
               },
               "level": "note",
-              "time": "2018-08-15T20:40:29.007Z"
+              "time": "2018-08-16T16:08:05.134Z"
             }
           ]
         }

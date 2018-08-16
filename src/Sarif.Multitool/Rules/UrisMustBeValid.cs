@@ -104,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 try
                 {
-                    Uri fileUri = new Uri(uri);
+                    Uri fileUri = new Uri(uri, UriKind.RelativeOrAbsolute);
                 }
                 catch
                 {
