@@ -17,8 +17,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     /// </summary>
     internal class AndroidStudioConverter : ToolFileConverterBase
     {
-        private const string BaseUri = "SRCROOT";
-
         private readonly NameTable _nameTable;
         private readonly AndroidStudioStrings _strings;
 
