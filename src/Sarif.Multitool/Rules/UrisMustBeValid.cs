@@ -102,11 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             if (uri != null)
             {
-                try
-                {
-                    Uri fileUri = new Uri(uri, UriKind.RelativeOrAbsolute);
-                }
-                catch
+                if (!Uri.IsWellFormedUriString(uri, UriKind.RelativeOrAbsolute))
                 {
                     LogResult(pointer, nameof(RuleResources.SARIF1003_Default), uri);
                 }
