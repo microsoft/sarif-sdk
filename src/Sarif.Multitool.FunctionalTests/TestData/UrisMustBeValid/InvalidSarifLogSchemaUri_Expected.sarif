@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Sarif.Multitool",
+        "fullName": "Sarif.Multitool 2.0.0.0",
+        "version": "2.0.0.0",
+        "semanticVersion": "2.0.0",
+        "sarifLoggerVersion": "2.0.0.0",
+        "language": "en-US",
+        "properties": {
+          "Comments": "Command line tool to perform transformations of input files to SARIF.",
+          "CompanyName": "Microsoft",
+          "ProductName": "Microsoft SARIF SDK"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "SARIF1003",
+          "level": "error",
+          "message": {
+            "arguments": [
+              "/$schema",
+              "ht%tp://json.schemastore.org/sarif-2.0.0"
+            ]
+          },
+          "ruleMessageId": "Default",
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UrisMustBeValid/InvalidSarifLogSchemaUri.sarif"
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 55
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "resources": {
+        "rules": {
+          "SARIF1003": {
+            "id": "SARIF1003",
+            "name": {
+              "text": "UrisMustBeValid"
+            },
+            "shortDescription": {
+              "text": "Specify a valid URI reference for every URI-valued property."
+            },
+            "fullDescription": {
+              "text": "Specify a valid URI reference for every URI-valued property."
+            },
+            "messageStrings": {
+              "Default": "{0}: The string \"{1}\" is not a valid URI reference."
+            },
+            "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.0/csprd01/sarif-v2.0-csprd01.html"
+          }
+        }
+      },
+      "files": {
+        "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UrisMustBeValid/InvalidSarifLogSchemaUri.sarif": {
+          "mimeType": "application/sarif-json"
+        }
+      },
+      "invocations": [
+        {
+          "startTime": "2018-08-15T23:04:50.971Z",
+          "endTime": "2018-08-15T23:04:51.751Z",
+          "toolNotifications": [
+            {
+              "id": "MSG001.AnalyzingTarget",
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UrisMustBeValid/InvalidSarifLogSchemaUri.sarif"
+                }
+              },
+              "message": {
+                "text": "Analyzing 'InvalidSarifLogSchemaUri.sarif'..."
+              },
+              "level": "note",
+              "time": "2018-08-15T23:04:51.316Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

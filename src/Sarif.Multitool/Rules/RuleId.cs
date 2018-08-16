@@ -12,7 +12,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string EndTimeMustBeAfterStartTime = "SARIF1007";
         public const string MessagesShouldEndWithPeriod = "SARIF1008";
         public const string StepValuesMustFormOneBasedSequence = "SARIF1009";
-        public const string StepMustAppearOnlyInCodeFlowLocations = "SARIF1010";
         public const string EndLineMustNotBeLessThanStartLine = "SARIF1012";
         public const string EndColumnMustNotBeLessThanStartColumn = "SARIF1013";
         public const string UriBaseIdRequiresRelativeUri = "SARIF1014";

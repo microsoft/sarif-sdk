@@ -14,19 +14,7 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
-    <Compile Remove="Rules\StepMustAppearOnlyInCodeFlowLocationsTests.cs" />
-    <Compile Remove="Rules\StepValuesMustFormOneBasedSequenceTests.cs" />
-    <Compile Remove="Rules\UriBaseIdRequiresRelativeUriTests.cs" />
-    <Compile Remove="Rules\UrisMustBeValidTests.cs" />
     <Compile Remove="Rules\UseAbsolutePathsForNestedFileUriFragmentsTests.cs" />
-    <Compile Remove="TestData\StepMustAppearOnlyInCodeFlowLocations" />
-    <Compile Remove="TestData\StepValuesMustFormOneBasedSequence" />
-    <Compile Remove="TestData\UriBaseIdRequiresRelativeUri" />
-    <Compile Remove="TestData\UrisMustBeValid" />
-    <Compile Remove="TestData\UseAbsolutePathsForNestedFileUriFragmentsTests" />
-    <EmbeddedResource Remove="Rules\**" />
-    <EmbeddedResource Remove="TestData\**" />
-    <None Remove="Rules\**" />
   </ItemGroup>
 
   <ItemGroup>
