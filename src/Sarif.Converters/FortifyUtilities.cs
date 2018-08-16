@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private const string XmlContentElementPattern = "<[/]?Content>";
         private const string XmlParagraphElementPattern = "<[/]?(Alt)?Paragraph>";
         private const string XmlUnsupportedElementPattern = "<[/]?(ConditionalText|IfDef){1}[^>]*>";
-        private const string MultipleNewlinePattern = "(\r\n){2,}";
+        private const string MultipleNewlinePattern = "\\n[\\r\\n ]*\\n";
 
         private static readonly Dictionary<string, string> HtmlToMarkdownConversions = new Dictionary<string, string>
         {
@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             content = Regex.Replace(content, XmlContentElementPattern, string.Empty);
             content = Regex.Replace(content, XmlParagraphElementPattern, Environment.NewLine);
             content = Regex.Replace(content, XmlUnsupportedElementPattern, string.Empty);
-            content = Regex.Replace(content, MultipleNewlinePattern, Environment.NewLine);
+            content = Regex.Replace(content, MultipleNewlinePattern, Environment.NewLine + Environment.NewLine);
 
             foreach (string pattern in HtmlToMarkdownConversions.Keys)
             {

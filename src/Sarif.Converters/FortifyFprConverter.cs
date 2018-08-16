@@ -8,7 +8,6 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Xml;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
@@ -648,9 +647,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private void ParseSnippet()
         {
+            // Format: <guid>#<file path>:<start line>:<end line>
             string snippetId = _reader.GetAttribute(_strings.IdAttribute);
-            int startLine = 0;
-            int endLine = 0;
+            int snippetStartLine = 0;
+            int regionStartLine = 0;
+            int regionEndLine = 0;
+
+            string[] parts = snippetId.Split(':');
+
+            int.TryParse(parts[parts.Length - 2], out regionStartLine);
+            int.TryParse(parts[parts.Length - 1], out regionEndLine);
             string text = null;
 
             _reader.Read();
@@ -660,12 +666,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 if (AtStartOfNonEmpty(_strings.StartLine))
                 {
                     string value = _reader.ReadElementContentAsString();
-                    int.TryParse(value, out startLine);
-                }
-                else if (AtStartOfNonEmpty(_strings.EndLine))
-                {
-                    string value = _reader.ReadElementContentAsString();
-                    int.TryParse(value, out endLine);
+                    int.TryParse(value, out snippetStartLine);
                 }
                 else if (AtStartOfNonEmpty(_strings.Text))
                 {
@@ -679,12 +680,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             Region region = new Region
             {
-                StartLine = startLine,
-                EndLine = endLine
+                StartLine = regionStartLine,
+                EndLine = regionEndLine
             };
 
             if (!string.IsNullOrWhiteSpace(text))
             {
+                using (StringReader reader = new StringReader(text))
+                {
+                    // Read down to the first line we want to include
+                    for (int i = 0; i < regionStartLine - snippetStartLine; i++)
+                    {
+                        reader.ReadLine();
+                    }
+
+                    var sb = new StringBuilder();
+
+                    // Gather the lines we want
+                    for (int i = 0; i <= regionEndLine - regionStartLine; i++)
+                    {
+                        sb.AppendLine(reader.ReadLine());
+                    }
+
+                    // Trim the trailing line break
+                    text = sb.ToString().TrimEnd(new[] { '\r', '\n' });
+                }
+
                 region.Snippet = new FileContent { Text = text };
             }
 
