@@ -36,8 +36,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java"
                 },
                 "region": {
                   "startLine": 31

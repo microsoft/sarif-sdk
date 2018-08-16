@@ -69,7 +69,7 @@ $ScriptName = $([io.Path]::GetFileNameWithoutExtension($PSCommandPath))
 Import-Module -Force $PSScriptRoot\ScriptUtilities.psm1
 Import-Module -Force $PSScriptRoot\Projects.psm1
 
-$SolutionFile = "$SourceRoot\Everything.sln"
+$SolutionFile = "$SourceRoot\Sarif.Sdk.sln"
 $BuildTarget = "Rebuild"
 
 function Invoke-Build {
@@ -96,7 +96,7 @@ function New-SigningDirectory {
         New-DirectorySafely $SigningDirectory\$framework
     }
 
-    foreach ($project in $Projects.NewProduct) {
+    foreach ($project in $Projects.Products) {
         $projectBinDirectory = (Get-ProjectBinDirectory $project, $configuration)
 
         foreach ($framework in $Frameworks.All) {
@@ -108,7 +108,7 @@ function New-SigningDirectory {
                 # Everything we copy is a DLL, _except_ that application projects built for
                 # NetFX have a .exe extension.
                 $fileExtension = ".dll"
-                if ($Projects.NewApplication -contains $project -and $Frameworks.NetFx -contains $framework) {
+                if ($Projects.Applications -contains $project -and $Frameworks.NetFx -contains $framework) {
                     $fileExtension = ".exe"
                 }
 
@@ -116,12 +116,6 @@ function New-SigningDirectory {
                 Copy-Item -Force -Path $fileToCopy -Destination $destinationDirectory
             }
         }
-    }
-
-    # Copy the viewer. Its name doesn't fit the pattern binary name == project name,
-    # so we copy it by hand.
-    foreach ($framework in $Frameworks.NetFX) {
-        Copy-Item -Force -Path $BinRoot\${Platform}_$Configuration\Sarif.Viewer.VisualStudio\Microsoft.Sarif.Viewer.dll -Destination $SigningDirectory\$framework
     }
 }
 
@@ -167,7 +161,7 @@ if (-not $NoTest) {
 }
 
 if (-not $NoPublish) {
-    foreach ($project in $Projects.NewApplication) {
+    foreach ($project in $Projects.Applications) {
         foreach ($framework in $Frameworks.Application) {
             Publish-Application $project $framework
         }

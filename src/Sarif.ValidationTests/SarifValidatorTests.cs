@@ -27,21 +27,30 @@ namespace Microsoft.CodeAnalysis.Sarif
             _schema = SchemaReader.ReadSchema(schemaText, JsonSchemaFile);
         }
 
-        [Theory]
-        [MemberData(nameof(TestCases))]
-        public void ValidatesAllTestFiles(string inputFile)
+        [Fact]
+        public void ValidatesAllTestFiles()
         {
-            string instanceText = File.ReadAllText(inputFile);
             var validator = new Validator(_schema);
+            var sb = new StringBuilder();
 
-            Result[] errors = validator.Validate(instanceText, inputFile);
+            foreach (string inputFile in TestCases)
+            {
+                string instanceText = File.ReadAllText(inputFile);
+                Result[] errors = validator.Validate(instanceText, inputFile);
 
-            // Test errors.Count(), rather than errors.Should().BeEmpty, because the latter
-            // produces a less clear error message: it calls ToString on each member of
-            // errors, and appends it to the string returned by FailureReason. Since
-            // FailureReason already displayed the error messages in VisualStudio format,
-            // there is no reason to append this additional, less well formatted information.
-            errors.Count().Should().Be(0, FailureReason(errors));
+                // Test errors.Count(), rather than errors.Should().BeEmpty, because the latter
+                // produces a less clear error message: it calls ToString on each member of
+                // errors, and appends it to the string returned by FailureReason. Since
+                // FailureReason already displayed the error messages in VisualStudio format,
+                // there is no reason to append this additional, less well formatted information.
+
+                if (errors.Length > 0)
+                {
+                    sb.AppendLine(FailureReason(errors));
+                }
+            }
+
+            sb.Length.Should().Be(0, sb.ToString());
         }
 
         private static readonly string[] s_testFileDirectories = new string[]
@@ -50,13 +59,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             @"v2\SpecExamples"
         };
 
-        private static IEnumerable<object[]> s_testCases;
+        private static IEnumerable<string> s_testCases;
 
         private static string[] InvalidFiles = new string[]
         {
         };
 
-        public static IEnumerable<object[]> TestCases
+        public static IEnumerable<string> TestCases
         {
             get
             {
@@ -79,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                             return allFiles;
                         });
 
-                    s_testCases = sarifFiles.Select(file => new object[] { file });
+                    s_testCases = sarifFiles;
                 }
 
                 return s_testCases;
