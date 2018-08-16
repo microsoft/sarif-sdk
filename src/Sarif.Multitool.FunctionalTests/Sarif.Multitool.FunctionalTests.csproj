@@ -14,10 +14,6 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
-    <Compile Remove="Rules\UseAbsolutePathsForNestedFileUriFragmentsTests.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="TestData\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
