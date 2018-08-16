@@ -15,9 +15,6 @@ before_build:
 
 platform: Any CPU
 
-environment:
-  _CL_: /c /analyze /analyze:quiet- /W4 /analyze:autolog:ext prefast.sarif
-
 install:
   - ps: .\dotnet-install.ps1 --version 2.0.0
 
@@ -25,10 +22,9 @@ configuration:
   - Release
 
 build:
-  project: src/Everything.sln
+  project: src/Sarif.Sdk.sln
 
 after_build:
-  - ps: .\appveyor\Push-PrefastResultsToAppveyor.ps1
   - ps: .\scripts\Run-Tests.ps1 -Configuration Release -AppVeyor
 
 test: off

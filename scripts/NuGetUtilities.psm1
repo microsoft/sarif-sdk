@@ -82,14 +82,14 @@ function New-NuGetPackages($configuration, $projects) {
 
     # We can build the NuGet packages for library projects directly from their
     # project file.
-    foreach ($project in $projects.NewLibrary) {
+    foreach ($project in $projects.Libraries) {
         New-NuGetPackageFromProjectFile $configuration $project $version
     }
 
     # Unfortunately, application projects like MultiTool need to include things
     # that are not specified in the project file, so their packages still require
     # a .nuspec file.
-    foreach ($project in $Projects.NewApplication) {
+    foreach ($project in $Projects.Applications) {
         New-NuGetPackageFromNuSpecFile $configuration $project $version
     }
 }
@@ -142,7 +142,7 @@ function Hide-NuGetPackages {
     Set-NuGetApiKey
 
     $version = Get-PackageVersion -Previous
-    foreach ($project in $Projects.NewProduct) {
+    foreach ($project in $Projects.Products) {
         Hide-NuGetPackage $project $version
     }
 }
