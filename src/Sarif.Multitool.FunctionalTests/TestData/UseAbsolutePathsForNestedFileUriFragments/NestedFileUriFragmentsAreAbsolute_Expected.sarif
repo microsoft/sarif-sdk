@@ -1,47 +1,93 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-1.0.0",
-  "version": "1.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
   "runs": [
     {
-      "id": "a9957393-94c6-464b-9ba5-cf05eb95f245",
       "tool": {
-        "name": "Sarif",
-        "fullName": "Sarif 1.5.31.0",
-        "version": "1.5.31.0",
-        "semanticVersion": "1.5.31",
-        "sarifLoggerVersion": "1.5.31.0",
+        "name": "Sarif.Multitool",
+        "fullName": "Sarif.Multitool 2.0.0.0",
+        "version": "2.0.0.0",
+        "semanticVersion": "2.0.0",
+        "sarifLoggerVersion": "2.0.0.0",
         "language": "en-US",
         "properties": {
-          "Comments": "Object model and utilities for reading and writing files in the SARIF format.",
-          "CompanyName": "Microsoft Corporation",
+          "Comments": "Command line tool to perform transformations of input files to SARIF.",
+          "CompanyName": "Microsoft",
           "ProductName": "Microsoft SARIF SDK"
         }
       },
-      "results": [],
-      "toolNotifications": [
+      "results": [
         {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///G:/Code/sarif-sdk/bld/bin/Microsoft.CodeAnalysis.Sarif.Multitool/AnyCPU_Release/TestData/UseAbsolutePathsForNestedFileUriFragments/NestedFileUriFragmentsAreAbsolute.sarif"
+          "ruleId": "SARIF1002",
+          "level": "error",
+          "message": {
+            "arguments": [
+              "/runs/0/results/0/locations/0/physicalLocation/fileLocation/uri",
+              "file:///c:/bin/myApp.appx#js/minified.js"
+            ]
           },
-          "message": "Analyzing 'NestedFileUriFragmentsAreAbsolute.sarif'...",
-          "level": "note",
-          "time": "2016-08-25T21:26:42.071Z"
+          "ruleMessageId": "Default",
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UseAbsolutePathsForNestedFileUriFragments/NestedFileUriFragmentsAreAbsolute.sarif"
+                },
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 67
+                }
+              }
+            }
+          ]
         }
       ],
-      "files": {
-        "file:///G:/Code/sarif-sdk/bld/bin/Microsoft.CodeAnalysis.Sarif.Multitool/AnyCPU_Release/TestData/UseAbsolutePathsForNestedFileUriFragments/NestedFileUriFragmentsAreAbsolute.sarif": {
-          "mimeType": "application/octet-stream"
+      "resources": {
+        "rules": {
+          "SARIF1002": {
+            "id": "SARIF1002",
+            "name": {
+              "text": "UseAbsolutePathsForNestedFileUriFragments"
+            },
+            "shortDescription": {
+              "text": "When specifying the URI of a nested file with a URI fragment, express the fragment as an absolute path."
+            },
+            "fullDescription": {
+              "text": "When specifying the URI of a nested file with a URI fragment, express the fragment as an absolute path. That is, begin the with a forward slash, for example \"file:///C:/bin/MyApp.zip#/images/grape.jpg\"."
+            },
+            "messageStrings": {
+              "Default": "{0}: The fragment portion of the URI \"{1}\", which specifies the location of a nested file with respect to its parent, does not begin with a forward slash."
+            },
+            "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.0/csprd01/sarif-v2.0-csprd01.html"
+          }
         }
       },
-      "invocation": {
-        "commandLine": "src\\packages\\xunit.runner.console.2.1.0\\tools\\xunit.console.x86.exe  bld\\bin\\Microsoft.CodeAnalysis.Sarif.Multitool\\AnyCPU_Release\\Microsoft.CodeAnalysis.Sarif.Multitool.dll",
-        "startTime": "2016-08-25T21:26:42.071Z",
-        "endTime": "2016-08-25T21:26:42.076Z",
-        "processId": 8856,
-        "fileName": "C:\\Users\\lgolding\\AppData\\Local\\Temp\\108c7547-93f9-41d7-9466-6cf860afad5d\\108c7547-93f9-41d7-9466-6cf860afad5d\\assembly\\dl3\\660ee2c2\\00b7775a_e6e9d101\\Sarif.dll",
-        "workingDirectory": "G:\\Code\\sarif-sdk\\bld\\bin\\Microsoft.CodeAnalysis.Sarif.Multitool\\AnyCPU_Release"
-      }
+      "files": {
+        "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UseAbsolutePathsForNestedFileUriFragments/NestedFileUriFragmentsAreAbsolute.sarif": {
+          "mimeType": "application/sarif-json"
+        }
+      },
+      "invocations": [
+        {
+          "startTime": "2018-08-16T22:41:42.385Z",
+          "endTime": "2018-08-16T22:41:43.170Z",
+          "toolNotifications": [
+            {
+              "id": "MSG001.AnalyzingTarget",
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UseAbsolutePathsForNestedFileUriFragments/NestedFileUriFragmentsAreAbsolute.sarif"
+                }
+              },
+              "message": {
+                "text": "Analyzing 'NestedFileUriFragmentsAreAbsolute.sarif'..."
+              },
+              "level": "note",
+              "time": "2018-08-16T22:41:42.726Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

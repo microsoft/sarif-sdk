@@ -14,10 +14,6 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
-    <Compile Remove="Rules\UseAbsolutePathsForNestedFileUriFragmentsTests.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="TestData\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -40,4 +36,6 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties TestData_4UseAbsolutePathsForNestedFileUriFragments_4NestedFileUriFragmentsAreAbsolute_1sarif__JSONSchema="http://json.schemastore.org/sarif-2.0.0" /></VisualStudio></ProjectExtensions>
 </Project>

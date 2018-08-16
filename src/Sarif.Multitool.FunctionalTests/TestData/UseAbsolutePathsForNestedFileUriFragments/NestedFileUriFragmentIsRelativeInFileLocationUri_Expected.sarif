@@ -22,7 +22,7 @@
           "level": "error",
           "message": {
             "arguments": [
-              "/runs/0/files/file:~1~1~1c:~1bin~1myApp.appx#js~1minified.js",
+              "/runs/0/results/0/locations/0/physicalLocation/fileLocation/uri",
               "file:///c:/bin/myApp.appx#js/minified.js"
             ]
           },
@@ -31,11 +31,11 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UseAbsolutePathsForNestedFileUriFragments/NestedFileUriFragmentIsRelativeInFilePropertyName.sarif"
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UseAbsolutePathsForNestedFileUriFragments/NestedFileUriFragmentIsRelativeInFileLocationUri.sarif"
                 },
                 "region": {
-                  "startLine": 14,
-                  "startColumn": 53
+                  "startLine": 17,
+                  "startColumn": 67
                 }
               }
             }
@@ -63,27 +63,27 @@
         }
       },
       "files": {
-        "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UseAbsolutePathsForNestedFileUriFragments/NestedFileUriFragmentIsRelativeInFilePropertyName.sarif": {
+        "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UseAbsolutePathsForNestedFileUriFragments/NestedFileUriFragmentIsRelativeInFileLocationUri.sarif": {
           "mimeType": "application/sarif-json"
         }
       },
       "invocations": [
         {
-          "startTime": "2018-08-16T22:41:41.159Z",
-          "endTime": "2018-08-16T22:41:41.995Z",
+          "startTime": "2018-08-16T22:41:39.727Z",
+          "endTime": "2018-08-16T22:41:40.710Z",
           "toolNotifications": [
             {
               "id": "MSG001.AnalyzingTarget",
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UseAbsolutePathsForNestedFileUriFragments/NestedFileUriFragmentIsRelativeInFilePropertyName.sarif"
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UseAbsolutePathsForNestedFileUriFragments/NestedFileUriFragmentIsRelativeInFileLocationUri.sarif"
                 }
               },
               "message": {
-                "text": "Analyzing 'NestedFileUriFragmentIsRelativeInFilePropertyName.sarif'..."
+                "text": "Analyzing 'NestedFileUriFragmentIsRelativeInFileLocationUri.sarif'..."
               },
               "level": "note",
-              "time": "2018-08-16T22:41:41.542Z"
+              "time": "2018-08-16T22:41:40.158Z"
             }
           ]
         }

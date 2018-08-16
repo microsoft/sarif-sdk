@@ -20,19 +20,7 @@
             }
           ]
         }
-      ],
-      "files": {
-        "file:///c:/bin/myApp.appx": {
-          "mimeType": "application/vns.ms-appx"
-        },
-        "file:///c:/bin/myApp.appx#/js/minified.js": {
-          "fileLocation": {
-            "uri": "/js/minified.js"
-          },
-          "parentKey": "file:///c:/bin/myApp.appx",
-          "mimeType": "text/javascript"
-        }
-      }
+      ]
     }
   ]
 }
