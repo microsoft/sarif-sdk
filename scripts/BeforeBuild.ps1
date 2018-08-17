@@ -64,7 +64,7 @@ if (-not $NoClean) {
 if (-not $NoRestore) {
     Write-Information "Restoring NuGet packages for $SolutionFile..."
 
-    dotnet restore $SourceRoot\$SolutionFile --configfile $NuGetConfigFile --packages $NuGetPackageRoot --verbosity quiet
+    dotnet restore $SourceRoot\$SolutionFile --configfile $NuGetConfigFile --packages $NuGetPackageRoot --verbosity $NuGetVerbosity
     if ($LASTEXITCODE -ne 0) {
         Exit-WithFailureMessage $ScriptName "NuGet restore failed for $SolutionFile."
     }
