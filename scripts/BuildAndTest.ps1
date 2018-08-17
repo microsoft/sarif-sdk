@@ -6,6 +6,12 @@
     NuGet packages.
 .PARAMETER Configuration
     The build configuration: Release or Debug. Default=Release
+.PARAMETER MSBuildVerbosity
+    Specifies the amount of information for MSBuild to display: quiet, minimal,
+    normal, detailed, or diagnostic. Default=minimal
+.PARAMETER NuGetVerbosity
+    Specifies the amount of information for NuGet to display: quiet, normal,
+    or detailed. Default=quiet
 .PARAMETER NoClean
     Do not remove the outputs from the previous build.
 .PARAMETER NoRestore
@@ -33,6 +39,14 @@ param(
     [string]
     [ValidateSet("Debug", "Release")]
     $Configuration="Release",
+
+    [string]
+    [ValidateSet("quiet", "minimal", "normal", "detailed", "diagnostic")]
+    $MSBuildVerbosity = "minimal",
+
+    [string]
+    [ValidateSet("quiet", "normal", "detailed")]
+    $NuGetVerbosity = "quiet",
 
     [switch]
     $NoClean,
@@ -74,8 +88,6 @@ $ScriptName = $([io.Path]::GetFileNameWithoutExtension($PSCommandPath))
 Import-Module -Force $PSScriptRoot\ScriptUtilities.psm1
 Import-Module -Force $PSScriptRoot\Projects.psm1
 
-$SolutionFile = "Sarif.Sdk.sln"
-$SampleSolutionFile = "Samples\Sarif.Sdk.Sample.sln"
 $BuildTarget = "Rebuild"
 
 function Invoke-MSBuild($solutionFileRelativePath, $logFile = $null) {
@@ -89,7 +101,7 @@ function Invoke-MSBuild($solutionFileRelativePath, $logFile = $null) {
     $solutionFilePath = Join-Path $SourceRoot $solutionFileRelativePath
 
     $arguments =
-        "/verbosity:minimal",
+        "/verbosity:$MSBuildVerbosity",
         "/target:$BuildTarget",
         "/property:Configuration=$Configuration",
         "/fileloggerparameters:$fileLoggerParameters",
@@ -173,7 +185,7 @@ function Set-SarifFileAssociationRegistrySettings {
     }
 }
 
-& $PSScriptRoot\BeforeBuild.ps1 -NoClean:$NoClean -NoRestore:$NoRestore -NoObjectModel:$NoObjectModel
+& $PSScriptRoot\BeforeBuild.ps1 -NuGetVerbosity $NuGetVerbosity -NoClean:$NoClean -NoRestore:$NoRestore -NoObjectModel:$NoObjectModel -NoBuildSample:$NoBuildSample
 if (-not $?) {
     Exit-WithFailureMessage $ScriptName "BeforeBuild failed."
 }
