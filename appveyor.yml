@@ -22,7 +22,7 @@ configuration:
   - Release
 
 build_script:
-  - ps: .\scripts\BuildAndTest.ps1 -NoTest -NoPackage -NoPublish -NoSigningDirectory -Configuration Release -MSBuildVerbosity detailed
+  - ps: .\scripts\BuildAndTest.ps1 -NoTest -NoPackage -NoPublish -NoSigningDirectory -Configuration Release
 
 after_build:
   - ps: .\scripts\Run-Tests.ps1 -Configuration Release -AppVeyor
