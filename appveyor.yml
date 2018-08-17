@@ -11,7 +11,7 @@ branches:
 
 before_build:
   - '"%ProgramFiles(x86)%\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat"'
-  - ps: .\scripts\BeforeBuild.ps1
+  - ps: .\scripts\BeforeBuild.ps1 -NuGetVerbosity detailed
 
 platform: Any CPU
 

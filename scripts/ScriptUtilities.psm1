@@ -16,6 +16,8 @@ $SourceRoot = "$RepoRoot\src"
 $JsonSchemaPath = "$SourceRoot\Sarif\Schemata\Sarif.schema.json"
 $BuildRoot = "$RepoRoot\bld"
 $BinRoot = "$BuildRoot\bin"
+$SolutionFile = "Sarif.Sdk.sln"
+$SampleSolutionFile = "Samples\Sarif.Sdk.Sample.sln"
 
 $SarifExtension = ".sarif"
 
@@ -57,10 +59,12 @@ Export-ModuleMember -Function `
     Write-CommandLine
 
 Export-ModuleMember -Variable `
-    RepoRoot, `
-    SourceRoot, `
-    JsonSchemaPath, `
-    BuildRoot, `
     BinRoot, `
+    BuildRoot, `
+    JsonSchemaPath, `
+    RepoRoot, `
+    Platform, `
+    SampleSolutionFile, `
     SarifExtension, `
-    Platform
+    SolutionFile, `
+    SourceRoot `

@@ -7,16 +7,25 @@
     being performed inline in BuildAndTest.cmd, because AppVeyor cannot run BuildAndTest.
     AppVeyor only allows you to specify the project to build, and a script to run before
     the build step. So that is how we have factored the build scripts.
+.PARAMETER NuGetVerbosity
+    Specifies the amount of information for NuGet to display: quiet, normal,
+    or detailed. Default=quiet
 .PARAMETER NoClean
     Do not remove the outputs from the previous build.
 .PARAMETER NoRestore
     Do not restore NuGet packages.
 .PARAMETER NoObjectModel
     Do not rebuild the SARIF object model from the schema.
+.PARAMETER NoBuildSample
+    Do not build sample.
 #>
 
 [CmdletBinding()]
 param(
+    [string]
+    [ValidateSet("quiet", "normal", "detailed")]
+    $NuGetVerbosity = "quiet",
+
     [switch]
     $NoClean,
 
@@ -24,7 +33,10 @@ param(
     $NoRestore,
 
     [switch]
-    $NoObjectModel
+    $NoObjectModel,
+
+    [switch]
+    $NoBuildSample
 )
 
 Set-StrictMode -Version Latest
@@ -50,15 +62,22 @@ if (-not $NoClean) {
 }
 
 if (-not $NoRestore) {
-    $NuGetConfigFile = "$SourceRoot\NuGet.Config"
+    Write-Information "Restoring NuGet packages for $SolutionFile..."
 
-    dotnet restore $SourceRoot\Sarif.Sdk.sln --configfile $NuGetConfigFile --packages $NuGetPackageRoot --verbosity quiet
-
-    Write-Information "Restoring NuGet packages for Sarif.Sdk.sln..."
+    dotnet restore $SourceRoot\$SolutionFile --configfile $NuGetConfigFile --packages $NuGetPackageRoot --verbosity quiet
     if ($LASTEXITCODE -ne 0) {
-        Exit-WithFailureMessage $ScriptName "NuGet restore failed."
+        Exit-WithFailureMessage $ScriptName "NuGet restore failed for $SolutionFile."
     }
-}
+
+    if (-not $NoBuildSample) {
+        Write-Information "Restoring NuGet packages for $SampleSolutionFile..."
+
+        & $NuGetExePath restore -ConfigFile $NuGetConfigFile -Verbosity $NuGetVerbosity $SourceRoot\$SampleSolutionFile
+        if ($LASTEXITCODE -ne 0) {
+            Exit-WithFailureMessage $ScriptName "NuGet restore failed for $SampleSolutionFile."
+        }
+    }
+    }
 
 if (-not $NoObjectModel) {
     # Generate the SARIF object model classes from the SARIF JSON schema.
