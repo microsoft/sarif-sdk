@@ -14,6 +14,8 @@
     Do not rebuild the SARIF object model from the schema.
 .PARAMETER NoBuild
     Do not build.
+.PARAMETER NoBuildSample
+    Do not build sample.
 .PARAMETER NoTest
     Do not run tests.
 .PARAMETER NoPackage
@@ -43,6 +45,9 @@ param(
 
     [switch]
     $NoBuild,
+
+    [switch]
+    $NoBuildSample,
 
     [switch]
     $NoTest,
@@ -77,6 +82,15 @@ function Invoke-Build {
     msbuild /verbosity:minimal /target:$BuildTarget /property:Configuration=$Configuration /fileloggerparameters:Verbosity=detailed $SolutionFile
     if ($LASTEXITCODE -ne 0) {
         Exit-WithFailureMessage $ScriptName "Build failed."
+    }
+}
+
+function Invoke-BuildSample {
+    $sampleSolutionFile = Join-Path $SourceRoot "Samples\Sarif.Sdk.Sample.sln"
+    Write-Information "Building sample $sampleSolutionFile..."
+    msbuild /verbosity:minimal /target:Rebuild /property:Configuration=$Configuration /fileloggerparameters:Verbosity=detailed`;LogFile=Sample.log $sampleSolutionFile
+    if ($LASTEXITCODE -ne 0) {
+        Exit-WithFailureMessage $ScriptName "Sample build failed."
     }
 }
 
@@ -151,6 +165,10 @@ if (-not $?) {
 
 if (-not $NoBuild) {
     Invoke-Build
+}
+
+if (-not $NoBuildSample) {
+    Invoke-BuildSample
 }
 
 if (-not $NoTest) {
