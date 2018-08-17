@@ -41,6 +41,8 @@ namespace Sarif.Sdk.Sample
             string logText = File.ReadAllText(options.InputFilePath);
             SarifLog log = JsonConvert.DeserializeObject<SarifLog>(logText, settings);
 
+            Console.WriteLine($"The log file \"{options.InputFilePath}\" contains {log.Runs[0]?.Results.Count} results.");
+
             return 0;
         }
 
@@ -52,9 +54,9 @@ namespace Sarif.Sdk.Sample
         static int CreateSarifLogFile(CreateOptions options)
         {
             // We'll use this source file for several defect results -- the
-			// SampleSourceFiles folder should be at the same level as the project folder
+            // SampleSourceFiles folder should be at the same level as the project folder
             // Because this file can actually be accessed by this app, its
-			// content will be embedded in the log file
+            // content will be embedded in the log file.
             var fileLocation = new FileLocation { Uri = new Uri($"file://{AppDomain.CurrentDomain.BaseDirectory}/../../../../SampleSourceFiles/AnalysisSample.cs") };
 
             // Create a list of rules that will be enforced during your analysis
@@ -109,36 +111,28 @@ namespace Sarif.Sdk.Sample
                     StartLine = 16,
                     StartColumn = 19,
                     EndLine = 16,
-                    EndColumn = 38,
-                    Offset = 331, // Offset should account for the BOM, if present in source file
-                    Length = 19
+                    EndColumn = 38
                 },
                 new Region // CA1820
                 {
                     StartLine = 23,
                     StartColumn = 21,
                     EndLine = 23,
-                    EndColumn = 44,
-                    Offset = 507, // Offset should account for the BOM, if present in source file
-                    Length = 23
+                    EndColumn = 44
                 },
                 new Region // CA2105
                 {
                     StartLine = 11,
                     StartColumn = 9,
                     EndLine = 11,
-                    EndColumn = 50,
-                    Offset = 198, // Offset should account for the BOM, if present in source file
-                    Length = 41
+                    EndColumn = 50
                 },
                 new Region // CA2215
                 {
                     StartLine = 32,
                     StartColumn = 9,
                     EndLine = 32,
-                    EndColumn = 30,
-                    Offset = 646, // Offset should account for the BOM, if present in source file
-                    Length = 21
+                    EndColumn = 30
                 }
             };
             #endregion
@@ -164,9 +158,16 @@ namespace Sarif.Sdk.Sample
                                 {
                                     new Replacement
                                     {
-                                        DeletedLength = 6,
-                                        InsertedBytes = ".Length == 0",
-                                        Offset = 524
+                                        DeletedRegion = new Region
+                                        {
+                                            StartLine = 26,
+                                            StartColumn = 38,
+                                            EndColumn = 44
+                                        },
+                                        InsertedContent = new FileContent
+                                        {
+                                            Text = ".Length == 0"
+                                        }
                                     }
                                 }
                             }
@@ -190,9 +191,16 @@ namespace Sarif.Sdk.Sample
                                 {
                                     new Replacement
                                     {
-                                        DeletedLength = 0,
-                                        InsertedBytes = @"\nbase.Dispose();",
-                                        Offset = 656
+                                        DeletedRegion = new Region
+                                        {
+                                            StartLine = 37,
+                                            StartColumn = 1,
+                                            EndColumn = 1
+                                        },
+                                        InsertedContent = new FileContent
+                                        {
+                                            Text = @"            base.Dispose();\n"
+                                        }
                                     }
                                 }
                             }
@@ -209,13 +217,18 @@ namespace Sarif.Sdk.Sample
             {
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
+                    loggingOptions: LoggingOptions.PrettyPrint, // Use PrettyPrint to generate readable (multi-line, indented) JSON
+                    dataToInsert:
+                        OptionallyEmittedData.TextFiles |       // Embed source file content directly in the log file -- great for portability of the log!
+                        OptionallyEmittedData.Hashes,
+                    tool: null,
+                    run: null,
                     analysisTargets: null,
-                    loggingOptions: LoggingOptions.PersistTextFileContents | // <-- embed source file content directly in the log file -- great for portability of the log!
-                                    LoggingOptions.ComputeFileHashes |
-                                    LoggingOptions.PrettyPrint, // <-- use PrettyPrint to generate readable (multi-line, indented) JSON
+                    targetsAreTextFiles: true,
                     prereleaseInfo: null,
                     invocationTokensToRedact: null,
-                    invocationPropertiesToLog: null))
+                    invocationPropertiesToLog: null,
+                    defaultFileEncoding: null))
                 {
                     // Create one result for each rule
                     for (int i = 0; i < rules.Count; i++)
@@ -226,7 +239,7 @@ namespace Sarif.Sdk.Sample
                         var result = new Result()
                         {
                             RuleId = rule.Id,
-                            AnalysisTarget = new FileLocation { Uri = new Uri(@"file://d:/src/module/foo.dll") }, // This is the file that was analyzed
+                            AnalysisTarget = new FileLocation { Uri = new Uri(@"file://d:/src/module/example.dll") }, // This is the file that was analyzed
                             Locations = new[]
                             {
                                 new Location
@@ -256,9 +269,7 @@ namespace Sarif.Sdk.Sample
                                             StartLine = 147,
                                             StartColumn = 19,
                                             EndLine = 147,
-                                            EndColumn = 40,
-                                            Offset = 1245,
-                                            Length = 21
+                                            EndColumn = 40
                                         }
                                     }
                                 }
@@ -334,7 +345,7 @@ namespace Sarif.Sdk.Sample
                                     {
                                         Locations = new[]
                                         {
-                                            new CodeFlowLocation
+                                            new ThreadFlowLocation
                                             {
                                                 // This is the defect statement's location
                                                 Location = new Location
@@ -346,9 +357,9 @@ namespace Sarif.Sdk.Sample
                                                     }
                                                 },
                                                 Step = 1,
-                                                Importance = CodeFlowLocationImportance.Essential
+                                                Importance = ThreadFlowLocationImportance.Essential
                                             },
-                                            new CodeFlowLocation
+                                            new ThreadFlowLocation
                                             {
                                                 // This is the declaration of the array
                                                 Location = new Location
@@ -364,7 +375,7 @@ namespace Sarif.Sdk.Sample
                                                 },
                                                 NestingLevel = 1,
                                                 Step = 2,
-                                                Importance = CodeFlowLocationImportance.Important
+                                                Importance = ThreadFlowLocationImportance.Important
                                             }
                                         }
                                     }
