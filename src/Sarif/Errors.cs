@@ -439,7 +439,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             NotificationLevel level,
             Exception exception,
             bool persistExceptionStack,
-            params object[] args)
+            params string[] args)
         {
             return CreateNotification(uri, notificationId, null, level, exception, persistExceptionStack, args);
         }
@@ -451,7 +451,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             NotificationLevel level,
             Exception exception,
             bool persistExceptionStack,
-            params object[] args)
+            params string[] args)
         {            
             string messageFormat = GetMessageFormatResourceForNotification(notificationId);
 

@@ -185,8 +185,13 @@
 * Multitool improvements--added "rebaseUri" and "absoluteUri" tasks, which will either make the URIs in a SARIF log relative to some base URI, or take base URIs stored in SARIF and make the URIs absolute again.
 * Added a "processing pipeline" model to the SARIF SDK in order to allow easy chaining of operations on SARIF logs (like making all URIs relative/absolute).
 
-## **v2.0.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0))
+## **v2.0.0-csd.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.1)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.1))
 * Convert object model to conform to SARIF v2 CSD.1 draft specification
 * Distinguish textual vs. binary file persistence in rewrite option (and allow for both in multitool rewrite verb)
 *   NOTE: the change above introduces a command-line breaking change. --persist-file-contents is now renamed to --insert
-* Add Regions as possible qualifier to --insert option
+* Add ComprehensiveRegionProperties, RegionSnippets and ContextCodeSnippets as possible qualifier to --insert option
+* Provide SARIF v1.0 object model and v1 <-> v2 transformation API
+
+## **v2.0.0-csd.1.0.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.1.0.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.1.0.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.1.0.1)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.1.0.1))
+* Fix weakly typed CreateNotification calls and make API more strongly typed (BREAKIN CHANGE).
+* Rename OptionallyEmittedData.ContextCodeSnippets to ContextRegionSnippets
