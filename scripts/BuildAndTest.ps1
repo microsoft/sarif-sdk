@@ -74,24 +74,39 @@ $ScriptName = $([io.Path]::GetFileNameWithoutExtension($PSCommandPath))
 Import-Module -Force $PSScriptRoot\ScriptUtilities.psm1
 Import-Module -Force $PSScriptRoot\Projects.psm1
 
-$SolutionFile = "$SourceRoot\Sarif.Sdk.sln"
+$SolutionFile = "Sarif.Sdk.sln"
+$SampleSolutionFile = "Samples\Sarif.Sdk.Sample.sln"
 $BuildTarget = "Rebuild"
 
-function Invoke-Build {
-    Write-Information "Building $SolutionFile..."
-    msbuild /verbosity:minimal /target:$BuildTarget /property:Configuration=$Configuration /fileloggerparameters:Verbosity=detailed $SolutionFile
+function Invoke-MSBuild($solutionFileRelativePath, $logFile = $null) {
+    Write-Information "Building $solutionFileRelativePath..."
+
+    $fileLoggerParameters = "Verbosity=detailed"
+    if ($logFile -ne $null) {
+        $fileLoggerParameters += "`;LogFile=$logFile"
+    }
+
+    $solutionFilePath = Join-Path $SourceRoot $solutionFileRelativePath
+
+    $arguments =
+        "/verbosity:minimal",
+        "/target:$BuildTarget",
+        "/property:Configuration=$Configuration",
+        "/fileloggerparameters:$fileLoggerParameters",
+        $solutionFilePath
+
+    & msbuild  $arguments
     if ($LASTEXITCODE -ne 0) {
-        Exit-WithFailureMessage $ScriptName "Build failed."
+        Exit-WithFailureMessage $ScriptName "Build of $solutionFilePath failed."
     }
 }
 
+function Invoke-Build {
+    Invoke-MSBuild $SolutionFile
+}
+
 function Invoke-BuildSample {
-    $sampleSolutionFile = Join-Path $SourceRoot "Samples\Sarif.Sdk.Sample.sln"
-    Write-Information "Building sample $sampleSolutionFile..."
-    msbuild /verbosity:minimal /target:Rebuild /property:Configuration=$Configuration /fileloggerparameters:Verbosity=detailed`;LogFile=Sample.log $sampleSolutionFile
-    if ($LASTEXITCODE -ne 0) {
-        Exit-WithFailureMessage $ScriptName "Sample build failed."
-    }
+    Invoke-MSBuild $sampleSolutionFile sample.log
 }
 
 # Create a directory containing all files necessary to execute an application.
