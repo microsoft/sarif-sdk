@@ -11,7 +11,7 @@ branches:
 
 before_build:
   - '"%ProgramFiles(x86)%\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat"'
-  - ps: .\scripts\BeforeBuild.ps1
+  - ps: .\scripts\BeforeBuild.ps1 -NuGetVerbosity detailed
 
 platform: Any CPU
 
@@ -21,8 +21,8 @@ install:
 configuration:
   - Release
 
-build:
-  project: src/Sarif.Sdk.sln
+build_script:
+  - ps: .\scripts\BuildAndTest.ps1 -NoTest -NoPackage -NoPublish -NoSigningDirectory -Configuration Release -MSBuildVerbosity detailed
 
 after_build:
   - ps: .\scripts\Run-Tests.ps1 -Configuration Release -AppVeyor

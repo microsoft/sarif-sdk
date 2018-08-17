@@ -15,6 +15,8 @@ Import-Module $PSScriptRoot\Projects.psm1
 
 $NugetExePath = "$RepoRoot\.nuget\NuGet.exe"
 $NuGetPackageRoot = "$SourceRoot\packages"
+$NuGetConfigFile = "$SourceRoot\NuGet.Config"
+
 $PackageSource = "https://nuget.org"
 $PackageOutputDirectoryRoot = Join-Path $BinRoot NuGet
 
@@ -152,4 +154,6 @@ Export-ModuleMember -Function `
     New-NuGetPackages
 
 Export-ModuleMember -Variable `
+    NuGetConfigFile, `
+    NuGetExePath, `
     NuGetPackageRoot
