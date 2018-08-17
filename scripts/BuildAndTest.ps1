@@ -14,6 +14,8 @@
     Do not rebuild the SARIF object model from the schema.
 .PARAMETER NoBuild
     Do not build.
+.PARAMETER NoBuildSample
+    Do not build sample.
 .PARAMETER NoTest
     Do not run tests.
 .PARAMETER NoPackage
@@ -45,6 +47,9 @@ param(
     $NoBuild,
 
     [switch]
+    $NoBuildSample,
+
+    [switch]
     $NoTest,
 
     [switch]
@@ -69,15 +74,39 @@ $ScriptName = $([io.Path]::GetFileNameWithoutExtension($PSCommandPath))
 Import-Module -Force $PSScriptRoot\ScriptUtilities.psm1
 Import-Module -Force $PSScriptRoot\Projects.psm1
 
-$SolutionFile = "$SourceRoot\Sarif.Sdk.sln"
+$SolutionFile = "Sarif.Sdk.sln"
+$SampleSolutionFile = "Samples\Sarif.Sdk.Sample.sln"
 $BuildTarget = "Rebuild"
 
-function Invoke-Build {
-    Write-Information "Building $SolutionFile..."
-    msbuild /verbosity:minimal /target:$BuildTarget /property:Configuration=$Configuration /fileloggerparameters:Verbosity=detailed $SolutionFile
-    if ($LASTEXITCODE -ne 0) {
-        Exit-WithFailureMessage $ScriptName "Build failed."
+function Invoke-MSBuild($solutionFileRelativePath, $logFile = $null) {
+    Write-Information "Building $solutionFileRelativePath..."
+
+    $fileLoggerParameters = "Verbosity=detailed"
+    if ($logFile -ne $null) {
+        $fileLoggerParameters += "`;LogFile=$logFile"
     }
+
+    $solutionFilePath = Join-Path $SourceRoot $solutionFileRelativePath
+
+    $arguments =
+        "/verbosity:minimal",
+        "/target:$BuildTarget",
+        "/property:Configuration=$Configuration",
+        "/fileloggerparameters:$fileLoggerParameters",
+        $solutionFilePath
+
+    & msbuild  $arguments
+    if ($LASTEXITCODE -ne 0) {
+        Exit-WithFailureMessage $ScriptName "Build of $solutionFilePath failed."
+    }
+}
+
+function Invoke-Build {
+    Invoke-MSBuild $SolutionFile
+}
+
+function Invoke-BuildSample {
+    Invoke-MSBuild $sampleSolutionFile sample.log
 }
 
 # Create a directory containing all files necessary to execute an application.
@@ -151,6 +180,10 @@ if (-not $?) {
 
 if (-not $NoBuild) {
     Invoke-Build
+}
+
+if (-not $NoBuildSample) {
+    Invoke-BuildSample
 }
 
 if (-not $NoTest) {
