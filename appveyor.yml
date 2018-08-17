@@ -12,7 +12,6 @@ branches:
 before_build:
   - '"%ProgramFiles(x86)%\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat"'
   - ps: .\scripts\BeforeBuild.ps1
-  - nuget restore src/Samples/Sarif.Sdk.Sample.sln
 
 platform: Any CPU
 
@@ -22,13 +21,8 @@ install:
 configuration:
   - Release
 
-environment:
-  matrix:
-  - solution_name: src/Sarif.Sdk.sln
-  - solution_name: src/Samples/Sarif.Sdk.Sample.sln
-
 build_script:
-  - msbuild %solution_name%
+  - ps: .\scripts\BuildAndTest.ps1 -NoTest -NoPackage -NoPublish -NoSigningDirectory -Configuration Release -Verbosity detailed
 
 after_build:
   - ps: .\scripts\Run-Tests.ps1 -Configuration Release -AppVeyor

@@ -6,6 +6,9 @@
     NuGet packages.
 .PARAMETER Configuration
     The build configuration: Release or Debug. Default=Release
+.PARAMETER MSBuildVerbosity
+    Specifies the amount of information for MSBuild to display: quiet, minimal,
+    normal, detailed, or diagnostic. Default=minimal
 .PARAMETER NoClean
     Do not remove the outputs from the previous build.
 .PARAMETER NoRestore
@@ -33,6 +36,10 @@ param(
     [string]
     [ValidateSet("Debug", "Release")]
     $Configuration="Release",
+
+    [string]
+    [ValidateSet("quiet", "minimal", "normal", "detailed", "diagnostic")]
+    $MSBuildVerbosity = "minimal",
 
     [switch]
     $NoClean,
@@ -89,7 +96,7 @@ function Invoke-MSBuild($solutionFileRelativePath, $logFile = $null) {
     $solutionFilePath = Join-Path $SourceRoot $solutionFileRelativePath
 
     $arguments =
-        "/verbosity:minimal",
+        "/verbosity:$MSBuildVerbosity",
         "/target:$BuildTarget",
         "/property:Configuration=$Configuration",
         "/fileloggerparameters:$fileLoggerParameters",
