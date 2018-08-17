@@ -21,8 +21,13 @@ install:
 configuration:
   - Release
 
-build:
-  project: src/Sarif.Sdk.sln
+environment:
+  matrix:
+  - solution_name: src/Sarif.Sdk.sln
+  - solution_name: src/Samples/Sarif.Sdk.Sample.sln
+
+build_script:
+  - msbuild %solution_name%
 
 after_build:
   - ps: .\scripts\Run-Tests.ps1 -Configuration Release -AppVeyor
