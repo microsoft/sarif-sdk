@@ -68,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             bool insertRegionSnippets = _dataToInsert.Includes(OptionallyEmittedData.RegionSnippets);
             bool overwriteExistingData = _dataToInsert.Includes(OptionallyEmittedData.OverwriteExistingData);
-            bool insertContextCodeSnippets = _dataToInsert.Includes(OptionallyEmittedData.ContextCodeSnippets);
+            bool insertContextCodeSnippets = _dataToInsert.Includes(OptionallyEmittedData.ContextRegionSnippets);
             bool populateRegionProperties = _dataToInsert.Includes(OptionallyEmittedData.ComprehensiveRegionProperties);
 
             if (insertRegionSnippets || populateRegionProperties || insertContextCodeSnippets)

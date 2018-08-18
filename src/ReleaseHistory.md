@@ -193,5 +193,5 @@
 * Provide SARIF v1.0 object model and v1 <-> v2 transformation API
 
 ## **v2.0.0-csd.1.0.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.1.0.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.1.0.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.1.0.1)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.1.0.1))
-* Fix weakly typed CreateNotification calls and make API more strongly typed (BREAKIN CHANGE).
-* Rename OptionallyEmittedData.ContextCodeSnippets to ContextRegionSnippets
+* Fix weakly typed CreateNotification calls and make API more strongly typed (BREAKING CHANGE)
+* Rename OptionallyEmittedData.ContextCodeSnippets to ContextRegionSnippets (BREAKING CHANGE)
