@@ -21,7 +21,7 @@ configuration:
   - Release
 
 build_script:
-  - ps: .\scripts\BuildAndTest.ps1 -NoTest -NoPackage -NoPublish -NoSigningDirectory -Configuration Release
+  - ps: .\scripts\BuildAndTest.ps1 -NoTest -NoPackage -NoPublish -NoSigningDirectory -Configuration Release -Verbose
 
 after_build:
   - ps: .\scripts\Run-Tests.ps1 -Configuration Release -AppVeyor

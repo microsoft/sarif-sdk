@@ -64,7 +64,16 @@ if (-not $NoClean) {
 if (-not $NoRestore) {
     Write-Information "Restoring NuGet packages for $SolutionFile..."
 
-    dotnet restore $SourceRoot\$SolutionFile --configfile $NuGetConfigFile --packages $NuGetPackageRoot --verbosity $NuGetVerbosity
+    $arguments =
+        "restore",
+        "$SourceRoot\$SolutionFile",
+        "--configfile", $NuGetConfigFile,
+        "--packages", $NuGetPackageRoot,
+        "--verbosity", $NuGetVerbosity
+    
+    Write-CommandLine dotnet $arguments
+    dotnet $arguments
+
     if ($LASTEXITCODE -ne 0) {
         Exit-WithFailureMessage $ScriptName "NuGet restore failed for $SolutionFile."
     }
@@ -72,7 +81,14 @@ if (-not $NoRestore) {
     if (-not $NoBuildSample) {
         Write-Information "Restoring NuGet packages for $SampleSolutionFile..."
         try {
-            & $NuGetExePath restore -ConfigFile $NuGetConfigFile -Verbosity $NuGetVerbosity $SourceRoot\$SampleSolutionFile
+            $arguments =
+                "restore",
+                "-ConfigFile", $NuGetConfigFile,
+                "-Verbosity", $NuGetVerbosity,
+                "$SourceRoot\$SampleSolutionFile"
+
+            Write-CommandLine $NuGetExePath $arguments
+            & $NuGetExePath $arguments
         } catch {
             Show-ErrorInformation $_
             Exit-WithFailureMessage $ScriptName "NuGet restore failed for $SampleSolutionFile."
