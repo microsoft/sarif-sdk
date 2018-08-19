@@ -52,6 +52,9 @@ function Write-CommandLine($exeName, $arguments) {
 }
 
 function Show-ErrorInformation($error) {
+    Write-Information "Entering Show-ErrorInformation"
+    Write-Information "Argument is of type " + $error.GetType()
+
     $formatString = "{0} : {1}`n{2}`n" +
                     "    + CategoryInfo          : {3}`n" +
                     "    + FullyQualifiedErrorId : {4}`n"
@@ -63,8 +66,16 @@ function Show-ErrorInformation($error) {
 
     $message = ($formatString -f $fields) + "`n"
 
+    Write-Information "Command name             : " + $error.InvocationInfo.MyCommand.Name
+    Write-Information "Message                  : " + $error.ErrorDetails.Message
+    Write-Information "Position message         : " + $error.InvocationInfo.PositionMessage
+    Write-Information "Category                 : " + $error.CategoryInfo.ToString()
+    Write-Information "Fully qualified error id : " + $error.FullyQualifiedErrorId
+    Write-Information "Formatted message: $message"
+
     $exception = $error.Exception
     while ($exception) {
+        Write-Information "Exception exists."
         $message += $exception.Message + "`n`n"
         $message += "Stack trace:`n"
         $message += $exception.StackTrace + "`n`n"
