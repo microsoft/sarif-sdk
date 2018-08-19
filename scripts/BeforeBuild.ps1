@@ -74,7 +74,8 @@ if (-not $NoRestore) {
         try {
             & $NuGetExePath restore -ConfigFile $NuGetConfigFile -Verbosity $NuGetVerbosity $SourceRoot\$SampleSolutionFile
         } catch {
-            Exit-WithFailureMessage $ScriptName "NuGet restore failed for $SampleSolutionFile.`n$Error"
+            Show-ErrorInformation $_
+            Exit-WithFailureMessage $ScriptName "NuGet restore failed for $SampleSolutionFile."
         }
     }
 }

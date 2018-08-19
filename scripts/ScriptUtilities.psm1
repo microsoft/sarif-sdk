@@ -51,11 +51,38 @@ function Write-CommandLine($exeName, $arguments) {
     Write-Verbose "$exeName $($arguments -join ' ')"
 }
 
+function Show-ErrorInformation($error) {
+    $formatString = "{0} : {1}`n{2}`n" +
+                    "    + CategoryInfo          : {3}`n" +
+                    "    + FullyQualifiedErrorId : {4}`n"
+    $fields = $error.InvocationInfo.MyCommand.Name,
+              $error.ErrorDetails.Message,
+              $error.InvocationInfo.PositionMessage,
+              $error.CategoryInfo.ToString(),
+              $error.FullyQualifiedErrorId
+
+    $message = ($formatString -f $fields) + "`n"
+
+    $exception = $error.Exception
+    while ($exception) {
+        $message += $exception.Message + "`n`n"
+        $message += "Stack trace:`n"
+        $message += $exception.StackTrace + "`n`n"
+        $exception = $exception.InnerException
+        if ($exception) {
+            $message += "Inner exception:`n"
+        }
+    }
+
+    Write-Information $message
+}
+
 Export-ModuleMember -Function `
     Exit-WithFailureMessage, `
+    Get-ProjectBinDirectory, `
     New-DirectorySafely, `
     Remove-DirectorySafely, `
-    Get-ProjectBinDirectory, `
+    Show-ErrorInformation, `
     Write-CommandLine
 
 Export-ModuleMember -Variable `
