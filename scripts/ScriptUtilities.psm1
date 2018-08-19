@@ -55,23 +55,7 @@ function Show-ErrorInformation($error) {
     Write-Information "Entering Show-ErrorInformation"
     Write-Information "Argument is of type $($error.GetType())"
 
-    $formatString = "{0} : {1}`n{2}`n" +
-                    "    + CategoryInfo          : {3}`n" +
-                    "    + FullyQualifiedErrorId : {4}`n"
-    $fields = $error.InvocationInfo.MyCommand.Name,
-              $error.ErrorDetails.Message,
-              $error.InvocationInfo.PositionMessage,
-              $error.CategoryInfo.ToString(),
-              $error.FullyQualifiedErrorId
-
-    $message = ($formatString -f $fields) + "`n"
-
-    Write-Information "Command name             : $($error.InvocationInfo.MyCommand.Name)"
-    Write-Information "Message                  : $($error.ErrorDetails.Message)"
-    Write-Information "Position message         : $($error.InvocationInfo.PositionMessage)"
-    Write-Information "Category                 : $($error.CategoryInfo.ToString())"
-    Write-Information "Fully qualified error id : $($error.FullyQualifiedErrorId)"
-    Write-Information "Formatted message: $message"
+    $message = $error.ToString() + "`n"
 
     $exception = $error.Exception
     while ($exception) {
