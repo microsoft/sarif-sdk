@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         // analysis result as well as a small amount of the code that surrounds it. A 
         // surrounding code snippet is useful to provide additional context on an issue as 
         // well as to serve as a partial fingerprint in result matching scenarios.
-        ContextCodeSnippets = 0x20,
+        ContextRegionSnippets = 0x20,
 
         // Some SARIF data, such as timestamps that denote the start and end of analysis,
         // are not determinitic run-over-run. In order to support caching mechanisms of 

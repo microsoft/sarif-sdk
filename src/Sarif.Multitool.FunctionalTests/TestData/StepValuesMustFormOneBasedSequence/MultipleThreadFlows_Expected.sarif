@@ -1,0 +1,143 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Sarif.Multitool",
+        "fullName": "Sarif.Multitool 2.0.0.0",
+        "version": "2.0.0.0",
+        "semanticVersion": "2.0.0",
+        "sarifLoggerVersion": "2.0.0.0",
+        "language": "en-US",
+        "properties": {
+          "Comments": "Command line tool to perform transformations of input files to SARIF.",
+          "CompanyName": "Microsoft",
+          "ProductName": "Microsoft SARIF SDK"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "SARIF1009",
+          "level": "error",
+          "message": {
+            "arguments": [
+              "/runs/0/results/0/codeFlows/0/threadFlows/0/locations/0/step",
+              "1",
+              "2"
+            ]
+          },
+          "ruleMessageId": "InvalidStepValue",
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/StepValuesMustFormOneBasedSequence/MultipleThreadFlows.sarif"
+                },
+                "region": {
+                  "startLine": 33,
+                  "startColumn": 31
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1009",
+          "level": "error",
+          "message": {
+            "arguments": [
+              "/runs/0/results/0/codeFlows/0/threadFlows/0/locations/1/step",
+              "2",
+              "4"
+            ]
+          },
+          "ruleMessageId": "InvalidStepValue",
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/StepValuesMustFormOneBasedSequence/MultipleThreadFlows.sarif"
+                },
+                "region": {
+                  "startLine": 46,
+                  "startColumn": 31
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1009",
+          "level": "error",
+          "message": {
+            "arguments": [
+              "/runs/0/results/0/codeFlows/0/threadFlows/1/locations/1"
+            ]
+          },
+          "ruleMessageId": "StepNotPresentOnAllLocations",
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/StepValuesMustFormOneBasedSequence/MultipleThreadFlows.sarif"
+                },
+                "region": {
+                  "startLine": 75,
+                  "startColumn": 21
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "resources": {
+        "rules": {
+          "SARIF1009": {
+            "id": "SARIF1009",
+            "name": {
+              "text": "StepValuesMustFormOneBasedSequence"
+            },
+            "shortDescription": {
+              "text": "If the \"step\" property is used on any threadFlowLocation in a threadFlow, then it must be present for every threadFlowLocation in the threadFlow, its value must be 1 for the first threadFlowLocation, and its value must increase by 1 for each succeeding threadFlowLocation."
+            },
+            "fullDescription": {
+              "text": "If the \"step\" property is used on any threadFlowLocation in a threadFlow, then it must be present for every threadFlowLocation in the threadFlow, its value must be 1 for the first threadFlowLocation, and its value must increase by 1 for each succeeding threadFlowLocation."
+            },
+            "messageStrings": {
+              "StepNotPresentOnAllLocations": "{0}: The \"step\" property is absent. The \"step\" property is present on some but not all threadFlowLocations in this threadFlow. If the \"step\" property is used on any threadFlowLocation in a threadFlow, it must be present on every threadFlowLocation in that threadFlow.",
+              "InvalidStepValue": "{0}: The value of the \"step\" property should be {1}, but is {2}. The step values must form a 1-based sequence starting at the first threadFlowLocation in the thread flow."
+            },
+            "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.0/csprd01/sarif-v2.0-csprd01.html"
+          }
+        }
+      },
+      "files": {
+        "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/StepValuesMustFormOneBasedSequence/MultipleThreadFlows.sarif": {
+          "mimeType": "application/sarif-json"
+        }
+      },
+      "invocations": [
+        {
+          "startTime": "2018-08-14T20:20:30.744Z",
+          "endTime": "2018-08-14T20:20:31.718Z",
+          "toolNotifications": [
+            {
+              "id": "MSG001.AnalyzingTarget",
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/StepValuesMustFormOneBasedSequence/MultipleThreadFlows.sarif"
+                }
+              },
+              "message": {
+                "text": "Analyzing 'MultipleThreadFlows.sarif'..."
+              },
+              "level": "note",
+              "time": "2018-08-14T20:20:31.143Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

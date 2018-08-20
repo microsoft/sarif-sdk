@@ -23,19 +23,19 @@ $Frameworks.All = ($Frameworks.Library + $Frameworks.Application | Select -Uniqu
 $Projects = @{}
 
 # Projects built with the VS 2017 project system.
-$Projects.NewLibrary = @(
+$Projects.Libraries = @(
     "Sarif",
     "Sarif.Converters",
     "Sarif.Driver"
 )
 
-$Projects.NewApplication = @(
+$Projects.Applications = @(
     "Sarif.Multitool"
     )
 
-$Projects.NewProduct = $Projects.NewLibrary + $Projects.NewApplication
+$Projects.Products = $Projects.Libraries + $Projects.Applications
 
-$Projects.NewTest = @(
+$Projects.Tests = @(
     "Sarif.UnitTests",
     "Sarif.Converters.UnitTests",
     "Sarif.Driver.UnitTests",
@@ -44,13 +44,6 @@ $Projects.NewTest = @(
     "Sarif.Multitool.FunctionalTests"
     )
 
-$Projects.New = $Projects.NewProduct + $Projects.NewTest
-
-# Projects built with the old project system.
-$Projects.OldProduct = @("Sarif.Viewer.VisualStudio")
-$Projects.OldTest = @("Sarif.Viewer.VisualStudio.UnitTests")
-$Projects.Old = $Projects.OldProduct + $Projects.OldTest
-
-$Projects.All = $Projects.New + $Projects.Old
+$Projects.All = $Projects.Products + $Projects.Tests
 
 Export-ModuleMember -Variable Frameworks, Projects

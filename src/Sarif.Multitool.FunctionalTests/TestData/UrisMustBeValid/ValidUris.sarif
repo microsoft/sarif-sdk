@@ -1,107 +1,45 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-1.0.0",
-  "version": "1.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
   "runs": [
     {
       "tool": {
-        "name": "CodeScanner"
+        "name": "CodeScanner",
+        "downloadUri": "http://www.example.com/tools/codescanner/download.html"
       },
       "results": [
         {
           "ruleId": "TST0001",
           "level": "error",
-          "formattedRuleMessage": {
-            "formatId": "Default"
+          "analysisTarget": {
+            "uri": "file:///c:/src/file.c"
           },
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file:///c:/src/file.c",
-                "region": {
-                  "startLine": 1
-                }
-              },
-              "physicalLocation": {
-                "uri": "file:///c:/src/file2.c",
-                "region": {
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "relatedLocations": [
-            {
-              "physicalLocation": {
-                "uri": "file:///c:/src/file3.c"
-              }
-            }
-          ],
-          "codeFlows": [
-            {
-              "locations": [
-                {
-                  "physicalLocation": {
-                    "uri": "file:///c:/src/file1.c"
-                  }
-                }
-              ]
-            }
-          ],
-          "stacks": [
-            {
-              "frames": [
-                {
-                  "fullyQualifiedLogicalName": "func",
-                  "uri": "file:///c:/src/file1.c"
-                }
-              ]
-            }
-          ],
-          "fixes": [
-            {
-              "description": "The description.",
-              "fileChanges": [
-                {
-                  "uri": "file:///c:/src/file1.c",
-                  "replacements": [
-                    {
-                      "offset": 0,
-                      "deletedLength": 3
-                    }
-                  ]
-                }
-              ]
-            }
+          "workItemUris": [
+            "https://example.com/my-project/issues/42"
           ]
         }
       ],
-      "configurationNotifications": [
-        {
-          "message": "Message.",
-          "physicalLocation": {
-            "uri": "file:///c:/src/file1.c"
-          }
-        }
-      ],
-      "toolNotifications": [
-        {
-          "message": "Message.",
-          "physicalLocation": {
-            "uri": "file:///c:/src/file1.c"
-          }
-        }
-      ],
       "files": {
-        "file:///c:/src/file1.c": {
-          "uri": "file:///c:/src/file1.c"
+        "file:///c:/src/file.c": {
+          "mimeType": "text/x-c"
         }
       },
-      "rules": {
-        "TST0001": {
-          "id": "TST0001",
-          "helpUri": "http://www.example.com/rules/tst0001.html"
+      "originalUriBaseIds": {
+        "SRCROOT": "file:///c:/Code/sarif-sdk/src"
+      },
+      "resources": {
+        "rules": {
+          "TST0001": {
+            "id": "TST0001",
+            "helpUri": "http://www.example.com/rules/tst0001.html"
+          }
         }
-      }
+      },
+      "versionControlProvenance": [
+        {
+          "uri": "https://example.com/my-project"
+        }
+      ]
     }
   ]
 }

@@ -1,46 +1,43 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-1.0.0",
-  "version": "1.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
   "runs": [
     {
-      "id": "73efc698-2c45-4d59-b871-ab73f35cae0e",
       "tool": {
-        "name": "SarifCli",
-        "fullName": "SarifCli 1.0.0.0",
-        "version": "1.0.0.0",
-        "semanticVersion": "1.0.0",
-        "sarifLoggerVersion": "1.5.31.0",
+        "name": "Sarif.Multitool",
+        "fullName": "Sarif.Multitool 2.0.0.0",
+        "version": "2.0.0.0",
+        "semanticVersion": "2.0.0",
+        "sarifLoggerVersion": "2.0.0.0",
         "language": "en-US",
         "properties": {
-          "Comments": "Command line tool for working with SARIF log files.",
-          "CompanyName": "Microsoft Corporation",
+          "Comments": "Command line tool to perform transformations of input files to SARIF.",
+          "CompanyName": "Microsoft",
           "ProductName": "Microsoft SARIF SDK"
         }
       },
-      "toolNotifications": [
+      "results": [],
+      "invocations": [
         {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///G:/Code/sarif-sdk/src/Microsoft.CodeAnalysis.Sarif.Multitool/TestData/EndTimeMustBeAfterStartTime/EndTimeEqualsStartTime.sarif"
-          },
-          "message": "Analyzing 'EndTimeEqualsStartTime.sarif'...",
-          "level": "note",
-          "time": "2016-08-26T23:57:20.601Z"
+          "startTime": "2018-08-09T22:33:59.615Z",
+          "endTime": "2018-08-09T22:34:00.621Z",
+          "toolNotifications": [
+            {
+              "id": "MSG001.AnalyzingTarget",
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/EndTimeMustBeAfterStartTime/EndTimeEqualsStartTime.sarif"
+                }
+              },
+              "message": {
+                "text": "Analyzing 'EndTimeEqualsStartTime.sarif'..."
+              },
+              "level": "note",
+              "time": "2018-08-09T22:34:00.092Z"
+            }
+          ]
         }
-      ],
-      "files": {
-        "file:///G:/Code/sarif-sdk/src/Microsoft.CodeAnalysis.Sarif.Multitool/TestData/EndTimeMustBeAfterStartTime/EndTimeEqualsStartTime.sarif": {
-          "mimeType": "application/octet-stream"
-        }
-      },
-      "invocation": {
-        "commandLine": "\"G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe\"  validate G:\\Code\\sarif-sdk\\src\\Microsoft.CodeAnalysis.Sarif.Multitool\\TestData\\EndTimeMustBeAfterStartTime\\EndTimeEqualsStartTime.sarif -o G:\\Code\\sarif-sdk\\src\\Microsoft.CodeAnalysis.Sarif.Multitool\\TestData\\EndTimeMustBeAfterStartTime\\EndTimeEqualsStartTime_Expected.sarif -j G:\\Code\\sarif-sdk\\src\\Sarif\\Schemata\\Sarif.schema.json ",
-        "startTime": "2016-08-26T23:57:20.507Z",
-        "endTime": "2016-08-26T23:57:20.820Z",
-        "processId": 11104,
-        "fileName": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe",
-        "workingDirectory": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug"
-      }
+      ]
     }
   ]
 }

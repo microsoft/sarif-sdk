@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-1.0.0",
-  "version": "1.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
   "runs": [
     {
       "tool": {
@@ -10,11 +10,12 @@
         {
           "ruleId": "TST0001",
           "level": "error",
-          "message": "Result message with period.",
           "locations": [
             {
-              "analysisTarget": {
-                "uri": "file:///c:/src/file.c",
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///c:/src/file.c"
+                },
                 "region": {
                   "startLine": 1
                 }
@@ -23,16 +24,27 @@
           ],
           "codeFlows": [
             {
-              "message": "CodeFlow message without period",
-              "locations": [
+              "message": {
+                "text": "CodeFlow message without period",
+                "richText": "_Rich_ CodeFlow message without period"
+              },
+              "threadFlows": [
                 {
-                  "physicalLocation": {
-                    "uri": "file:///c:/src/file.c",
-                    "region": {
-                      "startLine": 42,
-                      "startColumn": 12
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///c:/src/file.c"
+                          },
+                          "region": {
+                            "startLine": 42,
+                            "startColumn": 12
+                          }
+                        }
+                      }
                     }
-                  }
+                  ]
                 }
               ]
             }

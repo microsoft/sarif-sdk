@@ -1,0 +1,2143 @@
+{
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "AndroidStudio"
+      },
+      "originalUriBaseIds": {
+        "SRCROOT": "file:///c:/testdata/src/androidstudio/"
+      },
+      "files": {
+        "#SRCROOT#Application/tests/AndroidManifest.xml": {
+          "mimeType": "text/xml",
+          "contents": {
+            "binary": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLQogIENvcHlyaWdodCAoQykgMjAxMyBUaGUgQW5kcm9pZCBPcGVuIFNvdXJjZSBQcm9qZWN0CgogIExpY2Vuc2VkIHVuZGVyIHRoZSBBcGFjaGUgTGljZW5zZSwgVmVyc2lvbiAyLjAgKHRoZSAiTGljZW5zZSIpOwogIHlvdSBtYXkgbm90IHVzZSB0aGlzIGZpbGUgZXhjZXB0IGluIGNvbXBsaWFuY2Ugd2l0aCB0aGUgTGljZW5zZS4KICBZb3UgbWF5IG9idGFpbiBhIGNvcHkgb2YgdGhlIExpY2Vuc2UgYXQKCiAgICAgIGh0dHA6Ly93d3cuYXBhY2hlLm9yZy9saWNlbnNlcy9MSUNFTlNFLTIuMAoKICBVbmxlc3MgcmVxdWlyZWQgYnkgYXBwbGljYWJsZSBsYXcgb3IgYWdyZWVkIHRvIGluIHdyaXRpbmcsIHNvZnR3YXJlCiAgZGlzdHJpYnV0ZWQgdW5kZXIgdGhlIExpY2Vuc2UgaXMgZGlzdHJpYnV0ZWQgb24gYW4gIkFTIElTIiBCQVNJUywKICBXSVRIT1VUIFdBUlJBTlRJRVMgT1IgQ09ORElUSU9OUyBPRiBBTlkgS0lORCwgZWl0aGVyIGV4cHJlc3Mgb3IgaW1wbGllZC4KICBTZWUgdGhlIExpY2Vuc2UgZm9yIHRoZSBzcGVjaWZpYyBsYW5ndWFnZSBnb3Zlcm5pbmcgcGVybWlzc2lvbnMgYW5kCiAgbGltaXRhdGlvbnMgdW5kZXIgdGhlIExpY2Vuc2UuCiAgLS0+CjwhLS0gcGFja2FnZSBuYW1lIG11c3QgYmUgdW5pcXVlIHNvIHN1ZmZpeCB3aXRoICJ0ZXN0cyIgc28gcGFja2FnZSBsb2FkZXIgZG9lc24ndCBpZ25vcmUgdXMgLS0+CjxtYW5pZmVzdCB4bWxuczphbmRyb2lkPSJodHRwOi8vc2NoZW1hcy5hbmRyb2lkLmNvbS9hcGsvcmVzL2FuZHJvaWQiCiAgICAgICAgICBwYWNrYWdlPSJjb20uZXhhbXBsZS5hbmRyb2lkLmFjdGlvbmJhcmNvbXBhdC5zaGFyZWFjdGlvbnByb3ZpZGVyLnRlc3RzIgogICAgICAgICAgYW5kcm9pZDp2ZXJzaW9uQ29kZT0iMSIKICAgICAgICAgIGFuZHJvaWQ6dmVyc2lvbk5hbWU9IjEuMCI+CgogICAgPCEtLSBNaW4vdGFyZ2V0IFNESyB2ZXJzaW9ucyAoPHVzZXMtc2RrPikgbWFuYWdlZCBieSBidWlsZC5ncmFkbGUgLS0+CgogICAgPCEtLSBXZSBhZGQgYW4gYXBwbGljYXRpb24gdGFnIGhlcmUganVzdCBzbyB0aGF0IHdlIGNhbiBpbmRpY2F0ZSB0aGF0CiAgICAgICAgIHRoaXMgcGFja2FnZSBuZWVkcyB0byBsaW5rIGFnYWluc3QgdGhlIGFuZHJvaWQudGVzdCBsaWJyYXJ5LAogICAgICAgICB3aGljaCBpcyBuZWVkZWQgd2hlbiBidWlsZGluZyB0ZXN0IGNhc2VzLiAtLT4KICAgIDxhcHBsaWNhdGlvbj4KICAgICAgICA8dXNlcy1saWJyYXJ5IGFuZHJvaWQ6bmFtZT0iYW5kcm9pZC50ZXN0LnJ1bm5lciIgLz4KICAgIDwvYXBwbGljYXRpb24+CgogICAgPCEtLQogICAgU3BlY2lmaWVzIHRoZSBpbnN0cnVtZW50YXRpb24gdGVzdCBydW5uZXIgdXNlZCB0byBydW4gdGhlIHRlc3RzLgogICAgLS0+CiAgICA8aW5zdHJ1bWVudGF0aW9uCiAgICAgICAgICAgIGFuZHJvaWQ6bmFtZT0iYW5kcm9pZC50ZXN0Lkluc3RydW1lbnRhdGlvblRlc3RSdW5uZXIiCiAgICAgICAgICAgIGFuZHJvaWQ6dGFyZ2V0UGFja2FnZT0iY29tLmV4YW1wbGUuYW5kcm9pZC5hY3Rpb25iYXJjb21wYXQuc2hhcmVhY3Rpb25wcm92aWRlciIKICAgICAgICAgICAgYW5kcm9pZDpsYWJlbD0iVGVzdHMgZm9yIGNvbS5leGFtcGxlLmFuZHJvaWQuYWN0aW9uYmFyY29tcGF0LnNoYXJlYWN0aW9ucHJvdmlkZXIiIC8+Cgo8L21hbmlmZXN0Pg=="
+          },
+          "hashes": [
+            {
+              "value": "9AD26B4DDD58D1B5DBA12D47E5D611E4",
+              "algorithm": "md5"
+            },
+            {
+              "value": "B3E1D8BC3794473890CD191EF82A628B08F35854",
+              "algorithm": "sha-1"
+            },
+            {
+              "value": "91FED4D7FCE8852086802FDA30548A139D603AD117CC3C15BBFD22EEECEC34F5",
+              "algorithm": "sha-256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "Android Resources Validation",
+          "message": {
+            "text": "Cannot resolve symbol 'com.example.android.actionbarcompat.shareactionprovider'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "Application/tests/AndroidManifest.xml",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 37,
+                  "startColumn": 1,
+                  "endLine": 37,
+                  "endColumn": 92,
+                  "charOffset": 1510,
+                  "charLength": 91,
+                  "snippet": {
+                    "text": "            android:targetPackage=\"com.example.android.actionbarcompat.shareactionprovider\""
+                  }
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "ERROR",
+            "attributeKey": "WRONG_REFERENCES_ATTRIBUTES"
+          }
+        }
+      ]
+    },
+    {
+      "tool": {
+        "name": "AndroidStudio"
+      },
+      "originalUriBaseIds": {
+        "SRCROOT": "file:///c:/testdata/src/androidstudio/"
+      },
+      "files": {
+        "#SRCROOT#Application/src/main/java/com/example/android/actionbarcompat/shareactionprovider/content/AssetProvider.java": {
+          "mimeType": "text/x-java-source",
+          "hashes": [
+            {
+              "value": "156B82E0AD0F5DC80CE28732AFD15F2F",
+              "algorithm": "md5"
+            },
+            {
+              "value": "3F45DD7F5A61B585694533923AF405971E8E1607",
+              "algorithm": "sha-1"
+            },
+            {
+              "value": "145B8BB28607455C018D04198B055B53CB37374589BE430C4AEAB4D175062455",
+              "algorithm": "sha-256"
+            }
+          ]
+        }
+      },
+      "logicalLocations": {
+        "Application": {
+          "kind": "module"
+        },
+        "Application\\com.example.android.actionbarcompat.shareactionprovider.content": {
+          "name": "com.example.android.actionbarcompat.shareactionprovider.content",
+          "parentKey": "Application",
+          "kind": "package"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "Declaration can have final modifier",
+          "message": {
+            "text": "Declaration can have final modifier"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "Application/src/main/java/com/example/android/actionbarcompat/shareactionprovider/content/AssetProvider.java",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 1,
+                  "endLine": 36,
+                  "endColumn": 98,
+                  "charOffset": 1249,
+                  "charLength": 97,
+                  "snippet": {
+                    "text": "    public static String CONTENT_URI = \"com.example.android.actionbarcompat.shareactionprovider\";"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "Application\\com.example.android.actionbarcompat.shareactionprovider.content"
+            }
+          ],
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "WARNING_ATTRIBUTES"
+          }
+        }
+      ]
+    },
+    {
+      "tool": {
+        "name": "AndroidStudio"
+      },
+      "originalUriBaseIds": {
+        "SRCROOT": "file:///c:/testdata/src/androidstudio/"
+      },
+      "files": {
+        "#SRCROOT#Application/src/main/java/com/example/android/actionbarcompat/shareactionprovider/content/AssetProvider.java": {
+          "mimeType": "text/x-java-source",
+          "hashes": [
+            {
+              "value": "156B82E0AD0F5DC80CE28732AFD15F2F",
+              "algorithm": "md5"
+            },
+            {
+              "value": "3F45DD7F5A61B585694533923AF405971E8E1607",
+              "algorithm": "sha-1"
+            },
+            {
+              "value": "145B8BB28607455C018D04198B055B53CB37374589BE430C4AEAB4D175062455",
+              "algorithm": "sha-256"
+            }
+          ]
+        }
+      },
+      "logicalLocations": {
+        "Application": {
+          "kind": "module"
+        },
+        "Application\\com.example.android.actionbarcompat.shareactionprovider.content": {
+          "name": "com.example.android.actionbarcompat.shareactionprovider.content",
+          "parentKey": "Application",
+          "kind": "package"
+        },
+        "Application\\com.example.android.actionbarcompat.shareactionprovider.content\\com.example.android.actionbarcompat.shareactionprovider.content.AssetProvider android.content.res.AssetFileDescriptor openAssetFile(android.net.Uri uri, java.lang.String mode)": {
+          "name": "com.example.android.actionbarcompat.shareactionprovider.content.AssetProvider android.content.res.AssetFileDescriptor openAssetFile(android.net.Uri uri, java.lang.String mode)",
+          "parentKey": "Application\\com.example.android.actionbarcompat.shareactionprovider.content",
+          "kind": "member"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "Constant conditions & exceptions",
+          "message": {
+            "text": "Method invocation <code>getAssets</code> may produce <code>java.lang.NullPointerException</code>"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "Application/src/main/java/com/example/android/actionbarcompat/shareactionprovider/content/AssetProvider.java",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 86,
+                  "startColumn": 1,
+                  "endLine": 86,
+                  "endColumn": 56,
+                  "charOffset": 2727,
+                  "charLength": 55,
+                  "snippet": {
+                    "text": "            AssetManager am = getContext().getAssets();"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "Application\\com.example.android.actionbarcompat.shareactionprovider.content\\com.example.android.actionbarcompat.shareactionprovider.content.AssetProvider android.content.res.AssetFileDescriptor openAssetFile(android.net.Uri uri, java.lang.String mode)"
+            }
+          ],
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "WARNING_ATTRIBUTES"
+          }
+        }
+      ]
+    },
+    {
+      "tool": {
+        "name": "AndroidStudio"
+      },
+      "originalUriBaseIds": {
+        "SRCROOT": "file:///c:/testdata/src/androidstudio/"
+      },
+      "files": {
+        "#SRCROOT#Application/src/main/java/com/example/android/actionbarcompat/shareactionprovider/MainActivity.java": {
+          "mimeType": "text/x-java-source",
+          "hashes": [
+            {
+              "value": "8A681E5C1B1ED03B3F192B65B35E3768",
+              "algorithm": "md5"
+            },
+            {
+              "value": "046693EC45212D1D8C6376B7085E00FE4EA1F851",
+              "algorithm": "sha-1"
+            },
+            {
+              "value": "E362CFF04CCFDEA88D54090E7F2A6C4E8F14D3939C16185E917F098AA717DBD3",
+              "algorithm": "sha-256"
+            }
+          ]
+        }
+      },
+      "logicalLocations": {
+        "Application": {
+          "kind": "module"
+        },
+        "Application\\com.example.android.actionbarcompat.shareactionprovider": {
+          "name": "com.example.android.actionbarcompat.shareactionprovider",
+          "parentKey": "Application",
+          "kind": "package"
+        },
+        "Application\\com.example.android.actionbarcompat.shareactionprovider\\com.example.android.actionbarcompat.shareactionprovider.MainActivity java.util.ArrayList<com.example.android.actionbarcompat.shareactionprovider.content.ContentItem> getSampleContent()": {
+          "name": "com.example.android.actionbarcompat.shareactionprovider.MainActivity java.util.ArrayList<com.example.android.actionbarcompat.shareactionprovider.content.ContentItem> getSampleContent()",
+          "parentKey": "Application\\com.example.android.actionbarcompat.shareactionprovider",
+          "kind": "member"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "Explicit type can be replaced with <>",
+          "message": {
+            "text": "Explicit type argument ContentItem can be replaced with <>"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "Application/src/main/java/com/example/android/actionbarcompat/shareactionprovider/MainActivity.java",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 198,
+                  "startColumn": 1,
+                  "endLine": 198,
+                  "endColumn": 69,
+                  "charOffset": 7080,
+                  "charLength": 68,
+                  "snippet": {
+                    "text": "        ArrayList<ContentItem> items = new ArrayList<ContentItem>();"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "Application\\com.example.android.actionbarcompat.shareactionprovider\\com.example.android.actionbarcompat.shareactionprovider.MainActivity java.util.ArrayList<com.example.android.actionbarcompat.shareactionprovider.content.ContentItem> getSampleContent()"
+            }
+          ],
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "NOT_USED_ELEMENT_ATTRIBUTES"
+          }
+        }
+      ]
+    },
+    {
+      "tool": {
+        "name": "AndroidStudio"
+      },
+      "originalUriBaseIds": {
+        "SRCROOT": "file:///c:/testdata/src/androidstudio/"
+      },
+      "files": {
+        "#SRCROOT#Application/tests/src/com/example/android/actionbarcompat/shareactionprovider/tests/SampleTests.java": {
+          "mimeType": "text/x-java-source",
+          "hashes": [
+            {
+              "value": "FDC453BAB72387B8B819671C4CCF4147",
+              "algorithm": "md5"
+            },
+            {
+              "value": "889C9E3E4E8019D7235235E1381B01AE2C554353",
+              "algorithm": "sha-1"
+            },
+            {
+              "value": "FB12369983CB929FA53C5EB34A22CF830A6B47D82D405BFE1912F7B4038681BF",
+              "algorithm": "sha-256"
+            }
+          ]
+        }
+      },
+      "logicalLocations": {
+        "Application": {
+          "kind": "module"
+        },
+        "Application\\com.example.android.actionbarcompat.shareactionprovider.tests": {
+          "name": "com.example.android.actionbarcompat.shareactionprovider.tests",
+          "parentKey": "Application",
+          "kind": "package"
+        },
+        "Application\\com.example.android.actionbarcompat.shareactionprovider.tests\\com.example.android.actionbarcompat.shareactionprovider.tests.SampleTests": {
+          "name": "com.example.android.actionbarcompat.shareactionprovider.tests.SampleTests",
+          "parentKey": "Application\\com.example.android.actionbarcompat.shareactionprovider.tests",
+          "kind": "type"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "Dangling Javadoc comment",
+          "message": {
+            "text": "Dangling Javadoc comment #loc"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "Application/tests/src/com/example/android/actionbarcompat/shareactionprovider/tests/SampleTests.java",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 53,
+                  "startColumn": 1,
+                  "endLine": 53,
+                  "endColumn": 8,
+                  "charOffset": 1746,
+                  "charLength": 7,
+                  "snippet": {
+                    "text": "    /**"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "Application\\com.example.android.actionbarcompat.shareactionprovider.tests\\com.example.android.actionbarcompat.shareactionprovider.tests.SampleTests"
+            }
+          ],
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "WARNING_ATTRIBUTES"
+          }
+        }
+      ]
+    },
+    {
+      "tool": {
+        "name": "AndroidStudio"
+      },
+      "originalUriBaseIds": {
+        "SRCROOT": "file:///c:/testdata/src/androidstudio/"
+      },
+      "files": {
+        "#SRCROOT#Application/tests/AndroidManifest.xml": {
+          "mimeType": "text/xml",
+          "contents": {
+            "binary": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLQogIENvcHlyaWdodCAoQykgMjAxMyBUaGUgQW5kcm9pZCBPcGVuIFNvdXJjZSBQcm9qZWN0CgogIExpY2Vuc2VkIHVuZGVyIHRoZSBBcGFjaGUgTGljZW5zZSwgVmVyc2lvbiAyLjAgKHRoZSAiTGljZW5zZSIpOwogIHlvdSBtYXkgbm90IHVzZSB0aGlzIGZpbGUgZXhjZXB0IGluIGNvbXBsaWFuY2Ugd2l0aCB0aGUgTGljZW5zZS4KICBZb3UgbWF5IG9idGFpbiBhIGNvcHkgb2YgdGhlIExpY2Vuc2UgYXQKCiAgICAgIGh0dHA6Ly93d3cuYXBhY2hlLm9yZy9saWNlbnNlcy9MSUNFTlNFLTIuMAoKICBVbmxlc3MgcmVxdWlyZWQgYnkgYXBwbGljYWJsZSBsYXcgb3IgYWdyZWVkIHRvIGluIHdyaXRpbmcsIHNvZnR3YXJlCiAgZGlzdHJpYnV0ZWQgdW5kZXIgdGhlIExpY2Vuc2UgaXMgZGlzdHJpYnV0ZWQgb24gYW4gIkFTIElTIiBCQVNJUywKICBXSVRIT1VUIFdBUlJBTlRJRVMgT1IgQ09ORElUSU9OUyBPRiBBTlkgS0lORCwgZWl0aGVyIGV4cHJlc3Mgb3IgaW1wbGllZC4KICBTZWUgdGhlIExpY2Vuc2UgZm9yIHRoZSBzcGVjaWZpYyBsYW5ndWFnZSBnb3Zlcm5pbmcgcGVybWlzc2lvbnMgYW5kCiAgbGltaXRhdGlvbnMgdW5kZXIgdGhlIExpY2Vuc2UuCiAgLS0+CjwhLS0gcGFja2FnZSBuYW1lIG11c3QgYmUgdW5pcXVlIHNvIHN1ZmZpeCB3aXRoICJ0ZXN0cyIgc28gcGFja2FnZSBsb2FkZXIgZG9lc24ndCBpZ25vcmUgdXMgLS0+CjxtYW5pZmVzdCB4bWxuczphbmRyb2lkPSJodHRwOi8vc2NoZW1hcy5hbmRyb2lkLmNvbS9hcGsvcmVzL2FuZHJvaWQiCiAgICAgICAgICBwYWNrYWdlPSJjb20uZXhhbXBsZS5hbmRyb2lkLmFjdGlvbmJhcmNvbXBhdC5zaGFyZWFjdGlvbnByb3ZpZGVyLnRlc3RzIgogICAgICAgICAgYW5kcm9pZDp2ZXJzaW9uQ29kZT0iMSIKICAgICAgICAgIGFuZHJvaWQ6dmVyc2lvbk5hbWU9IjEuMCI+CgogICAgPCEtLSBNaW4vdGFyZ2V0IFNESyB2ZXJzaW9ucyAoPHVzZXMtc2RrPikgbWFuYWdlZCBieSBidWlsZC5ncmFkbGUgLS0+CgogICAgPCEtLSBXZSBhZGQgYW4gYXBwbGljYXRpb24gdGFnIGhlcmUganVzdCBzbyB0aGF0IHdlIGNhbiBpbmRpY2F0ZSB0aGF0CiAgICAgICAgIHRoaXMgcGFja2FnZSBuZWVkcyB0byBsaW5rIGFnYWluc3QgdGhlIGFuZHJvaWQudGVzdCBsaWJyYXJ5LAogICAgICAgICB3aGljaCBpcyBuZWVkZWQgd2hlbiBidWlsZGluZyB0ZXN0IGNhc2VzLiAtLT4KICAgIDxhcHBsaWNhdGlvbj4KICAgICAgICA8dXNlcy1saWJyYXJ5IGFuZHJvaWQ6bmFtZT0iYW5kcm9pZC50ZXN0LnJ1bm5lciIgLz4KICAgIDwvYXBwbGljYXRpb24+CgogICAgPCEtLQogICAgU3BlY2lmaWVzIHRoZSBpbnN0cnVtZW50YXRpb24gdGVzdCBydW5uZXIgdXNlZCB0byBydW4gdGhlIHRlc3RzLgogICAgLS0+CiAgICA8aW5zdHJ1bWVudGF0aW9uCiAgICAgICAgICAgIGFuZHJvaWQ6bmFtZT0iYW5kcm9pZC50ZXN0Lkluc3RydW1lbnRhdGlvblRlc3RSdW5uZXIiCiAgICAgICAgICAgIGFuZHJvaWQ6dGFyZ2V0UGFja2FnZT0iY29tLmV4YW1wbGUuYW5kcm9pZC5hY3Rpb25iYXJjb21wYXQuc2hhcmVhY3Rpb25wcm92aWRlciIKICAgICAgICAgICAgYW5kcm9pZDpsYWJlbD0iVGVzdHMgZm9yIGNvbS5leGFtcGxlLmFuZHJvaWQuYWN0aW9uYmFyY29tcGF0LnNoYXJlYWN0aW9ucHJvdmlkZXIiIC8+Cgo8L21hbmlmZXN0Pg=="
+          },
+          "hashes": [
+            {
+              "value": "9AD26B4DDD58D1B5DBA12D47E5D611E4",
+              "algorithm": "md5"
+            },
+            {
+              "value": "B3E1D8BC3794473890CD191EF82A628B08F35854",
+              "algorithm": "sha-1"
+            },
+            {
+              "value": "91FED4D7FCE8852086802FDA30548A139D603AD117CC3C15BBFD22EEECEC34F5",
+              "algorithm": "sha-256"
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "Deprecated API usage in XML",
+          "message": {
+            "text": "'android.test.InstrumentationTestRunner' is deprecated"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "Application/tests/AndroidManifest.xml",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 1,
+                  "endLine": 36,
+                  "endColumn": 66,
+                  "charOffset": 1444,
+                  "charLength": 65,
+                  "snippet": {
+                    "text": "            android:name=\"android.test.InstrumentationTestRunner\""
+                  }
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "DEPRECATED_ATTRIBUTES"
+          }
+        }
+      ]
+    },
+    {
+      "tool": {
+        "name": "AndroidStudio"
+      },
+      "originalUriBaseIds": {
+        "SRCROOT": "file:///c:/testdata/src/androidstudio/"
+      },
+      "files": {
+        "#SRCROOT#Application/src/main/java/com/example/android/actionbarcompat/shareactionprovider/MainActivity.java": {
+          "mimeType": "text/x-java-source",
+          "hashes": [
+            {
+              "value": "8A681E5C1B1ED03B3F192B65B35E3768",
+              "algorithm": "md5"
+            },
+            {
+              "value": "046693EC45212D1D8C6376B7085E00FE4EA1F851",
+              "algorithm": "sha-1"
+            },
+            {
+              "value": "E362CFF04CCFDEA88D54090E7F2A6C4E8F14D3939C16185E917F098AA717DBD3",
+              "algorithm": "sha-256"
+            }
+          ]
+        }
+      },
+      "logicalLocations": {
+        "Application": {
+          "kind": "module"
+        },
+        "Application\\com.example.android.actionbarcompat.shareactionprovider": {
+          "name": "com.example.android.actionbarcompat.shareactionprovider",
+          "parentKey": "Application",
+          "kind": "package"
+        },
+        "Application\\com.example.android.actionbarcompat.shareactionprovider\\com.example.android.actionbarcompat.shareactionprovider.MainActivity void onCreate(android.os.Bundle savedInstanceState)": {
+          "name": "com.example.android.actionbarcompat.shareactionprovider.MainActivity void onCreate(android.os.Bundle savedInstanceState)",
+          "parentKey": "Application\\com.example.android.actionbarcompat.shareactionprovider",
+          "kind": "member"
+        },
+        "Application\\com.example.android.actionbarcompat.shareactionprovider\\com.example.android.actionbarcompat.shareactionprovider.MainActivity": {
+          "name": "com.example.android.actionbarcompat.shareactionprovider.MainActivity",
+          "parentKey": "Application\\com.example.android.actionbarcompat.shareactionprovider",
+          "kind": "type"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "Deprecated API usage",
+          "message": {
+            "text": "'setOnPageChangeListener(android.support.v4.view.ViewPager.OnPageChangeListener)' is deprecated"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "Application/src/main/java/com/example/android/actionbarcompat/shareactionprovider/MainActivity.java",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 68,
+                  "startColumn": 1,
+                  "endLine": 68,
+                  "endColumn": 59,
+                  "charOffset": 2598,
+                  "charLength": 58,
+                  "snippet": {
+                    "text": "        vp.setOnPageChangeListener(mOnPageChangeListener);"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "Application\\com.example.android.actionbarcompat.shareactionprovider\\com.example.android.actionbarcompat.shareactionprovider.MainActivity void onCreate(android.os.Bundle savedInstanceState)"
+            }
+          ],
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "DEPRECATED_ATTRIBUTES"
+          }
+        },
+        {
+          "ruleId": "Deprecated API usage",
+          "message": {
+            "text": "ActionBarActivity is deprecated; use `AppCompatActivity` instead"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "Application/src/main/java/com/example/android/actionbarcompat/shareactionprovider/MainActivity.java",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 46,
+                  "startColumn": 1,
+                  "endLine": 46,
+                  "endColumn": 92,
+                  "charOffset": 1689,
+                  "charLength": 91,
+                  "snippet": {
+                    "text": " * This Activity extends from {@link ActionBarActivity}, which provides all of the function"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "Application\\com.example.android.actionbarcompat.shareactionprovider\\com.example.android.actionbarcompat.shareactionprovider.MainActivity"
+            }
+          ],
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "DEPRECATED_ATTRIBUTES"
+          }
+        },
+        {
+          "ruleId": "Deprecated API usage",
+          "message": {
+            "text": "ActionBarActivity is deprecated; use `AppCompatActivity` instead"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "Application/src/main/java/com/example/android/actionbarcompat/shareactionprovider/MainActivity.java",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 49,
+                  "startColumn": 1,
+                  "endLine": 49,
+                  "endColumn": 54,
+                  "charOffset": 1867,
+                  "charLength": 53,
+                  "snippet": {
+                    "text": "public class MainActivity extends ActionBarActivity {"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "Application\\com.example.android.actionbarcompat.shareactionprovider\\com.example.android.actionbarcompat.shareactionprovider.MainActivity"
+            }
+          ],
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "DEPRECATED_ATTRIBUTES"
+          }
+        }
+      ]
+    },
+    {
+      "tool": {
+        "name": "AndroidStudio"
+      },
+      "originalUriBaseIds": {
+        "SRCROOT": "file:///c:/testdata/src/androidstudio/"
+      },
+      "files": {
+        "#SRCROOT#Application/src/main/java/com/example/android/actionbarcompat/shareactionprovider/content/AssetProvider.java": {
+          "mimeType": "text/x-java-source",
+          "hashes": [
+            {
+              "value": "156B82E0AD0F5DC80CE28732AFD15F2F",
+              "algorithm": "md5"
+            },
+            {
+              "value": "3F45DD7F5A61B585694533923AF405971E8E1607",
+              "algorithm": "sha-1"
+            },
+            {
+              "value": "145B8BB28607455C018D04198B055B53CB37374589BE430C4AEAB4D175062455",
+              "algorithm": "sha-256"
+            }
+          ]
+        }
+      },
+      "logicalLocations": {
+        "Application": {
+          "kind": "module"
+        },
+        "Application\\com.example.android.actionbarcompat.shareactionprovider.content": {
+          "name": "com.example.android.actionbarcompat.shareactionprovider.content",
+          "parentKey": "Application",
+          "kind": "package"
+        },
+        "Application\\com.example.android.actionbarcompat.shareactionprovider.content\\com.example.android.actionbarcompat.shareactionprovider.content.AssetProvider int delete(android.net.Uri uri, java.lang.String selection, java.lang.String[] selectionArgs)": {
+          "name": "com.example.android.actionbarcompat.shareactionprovider.content.AssetProvider int delete(android.net.Uri uri, java.lang.String selection, java.lang.String[] selectionArgs)",
+          "parentKey": "Application\\com.example.android.actionbarcompat.shareactionprovider.content",
+          "kind": "member"
+        },
+        "Application\\com.example.android.actionbarcompat.shareactionprovider.content\\com.example.android.actionbarcompat.shareactionprovider.content.AssetProvider java.lang.String getType(android.net.Uri uri)": {
+          "name": "com.example.android.actionbarcompat.shareactionprovider.content.AssetProvider java.lang.String getType(android.net.Uri uri)",
+          "parentKey": "Application\\com.example.android.actionbarcompat.shareactionprovider.content",
+          "kind": "member"
+        },
+        "Application\\com.example.android.actionbarcompat.shareactionprovider.content\\com.example.android.actionbarcompat.shareactionprovider.content.AssetProvider int update(android.net.Uri uri, android.content.ContentValues values, java.lang.String selection, java.lang.String[] selectionArgs)": {
+          "name": "com.example.android.actionbarcompat.shareactionprovider.content.AssetProvider int update(android.net.Uri uri, android.content.ContentValues values, java.lang.String selection, java.lang.String[] selectionArgs)",
+          "parentKey": "Application\\com.example.android.actionbarcompat.shareactionprovider.content",
+          "kind": "member"
+        },
+        "Application\\com.example.android.actionbarcompat.shareactionprovider.content\\com.example.android.actionbarcompat.shareactionprovider.content.AssetProvider android.net.Uri insert(android.net.Uri uri, android.content.ContentValues values)": {
+          "name": "com.example.android.actionbarcompat.shareactionprovider.content.AssetProvider android.net.Uri insert(android.net.Uri uri, android.content.ContentValues values)",
+          "parentKey": "Application\\com.example.android.actionbarcompat.shareactionprovider.content",
+          "kind": "member"
+        },
+        "Application\\com.example.android.actionbarcompat.shareactionprovider.content\\com.example.android.actionbarcompat.shareactionprovider.content.AssetProvider android.database.Cursor query(android.net.Uri uri, java.lang.String[] projection, java.lang.String selection, java.lang.String[] selectionArgs, java.lang.String sortOrder)": {
+          "name": "com.example.android.actionbarcompat.shareactionprovider.content.AssetProvider android.database.Cursor query(android.net.Uri uri, java.lang.String[] projection, java.lang.String selection, java.lang.String[] selectionArgs, java.lang.String sortOrder)",
+          "parentKey": "Application\\com.example.android.actionbarcompat.shareactionprovider.content",
+          "kind": "member"
+        },
+        "Application\\com.example.android.actionbarcompat.shareactionprovider.content\\com.example.android.actionbarcompat.shareactionprovider.content.AssetProvider android.content.res.AssetFileDescriptor openAssetFile(android.net.Uri uri, java.lang.String mode)": {
+          "name": "com.example.android.actionbarcompat.shareactionprovider.content.AssetProvider android.content.res.AssetFileDescriptor openAssetFile(android.net.Uri uri, java.lang.String mode)",
+          "parentKey": "Application\\com.example.android.actionbarcompat.shareactionprovider.content",
+          "kind": "member"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "@NotNull/@Nullable problems",
+          "message": {
+            "text": "Not annotated parameter overrides @NonNull parameter"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "Application/src/main/java/com/example/android/actionbarcompat/shareactionprovider/content/AssetProvider.java",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 44,
+                  "startColumn": 1,
+                  "endLine": 44,
+                  "endColumn": 75,
+                  "charOffset": 1436,
+                  "charLength": 74,
+                  "snippet": {
+                    "text": "    public int delete(Uri uri, String selection, String[] selectionArgs) {"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "Application\\com.example.android.actionbarcompat.shareactionprovider.content\\com.example.android.actionbarcompat.shareactionprovider.content.AssetProvider int delete(android.net.Uri uri, java.lang.String selection, java.lang.String[] selectionArgs)"
+            }
+          ],
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "WARNING_ATTRIBUTES"
+          }
+        },
+        {
+          "ruleId": "@NotNull/@Nullable problems",
+          "message": {
+            "text": "Not annotated parameter overrides @NonNull parameter"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "Application/src/main/java/com/example/android/actionbarcompat/shareactionprovider/content/AssetProvider.java",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 50,
+                  "startColumn": 1,
+                  "endLine": 50,
+                  "endColumn": 37,
+                  "charOffset": 1593,
+                  "charLength": 36,
+                  "snippet": {
+                    "text": "    public String getType(Uri uri) {"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "Application\\com.example.android.actionbarcompat.shareactionprovider.content\\com.example.android.actionbarcompat.shareactionprovider.content.AssetProvider java.lang.String getType(android.net.Uri uri)"
+            }
+          ],
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "WARNING_ATTRIBUTES"
+          }
+        },
+        {
+          "ruleId": "@NotNull/@Nullable problems",
+          "message": {
+            "text": "Not annotated parameter overrides @NonNull parameter"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "Application/src/main/java/com/example/android/actionbarcompat/shareactionprovider/content/AssetProvider.java",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 69,
+                  "startColumn": 1,
+                  "endLine": 69,
+                  "endColumn": 97,
+                  "charOffset": 2074,
+                  "charLength": 96,
+                  "snippet": {
+                    "text": "    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "Application\\com.example.android.actionbarcompat.shareactionprovider.content\\com.example.android.actionbarcompat.shareactionprovider.content.AssetProvider int update(android.net.Uri uri, android.content.ContentValues values, java.lang.String selection, java.lang.String[] selectionArgs)"
+            }
+          ],
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "WARNING_ATTRIBUTES"
+          }
+        },
+        {
+          "ruleId": "@NotNull/@Nullable problems",
+          "message": {
+            "text": "Not annotated parameter overrides @NonNull parameter"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "Application/src/main/java/com/example/android/actionbarcompat/shareactionprovider/content/AssetProvider.java",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 56,
+                  "startColumn": 1,
+                  "endLine": 56,
+                  "endColumn": 55,
+                  "charOffset": 1722,
+                  "charLength": 54,
+                  "snippet": {
+                    "text": "    public Uri insert(Uri uri, ContentValues values) {"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "Application\\com.example.android.actionbarcompat.shareactionprovider.content\\com.example.android.actionbarcompat.shareactionprovider.content.AssetProvider android.net.Uri insert(android.net.Uri uri, android.content.ContentValues values)"
+            }
+          ],
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "WARNING_ATTRIBUTES"
+          }
+        },
+        {
+          "ruleId": "@NotNull/@Nullable problems",
+          "message": {
+            "text": "Not annotated parameter overrides @NonNull parameter"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "Application/src/main/java/com/example/android/actionbarcompat/shareactionprovider/content/AssetProvider.java",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 62,
+                  "startColumn": 1,
+                  "endLine": 62,
+                  "endColumn": 96,
+                  "charOffset": 1862,
+                  "charLength": 95,
+                  "snippet": {
+                    "text": "    public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs,"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "Application\\com.example.android.actionbarcompat.shareactionprovider.content\\com.example.android.actionbarcompat.shareactionprovider.content.AssetProvider android.database.Cursor query(android.net.Uri uri, java.lang.String[] projection, java.lang.String selection, java.lang.String[] selectionArgs, java.lang.String sortOrder)"
+            }
+          ],
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "WARNING_ATTRIBUTES"
+          }
+        },
+        {
+          "ruleId": "@NotNull/@Nullable problems",
+          "message": {
+            "text": "Not annotated parameter overrides @NonNull parameter"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "Application/src/main/java/com/example/android/actionbarcompat/shareactionprovider/content/AssetProvider.java",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 75,
+                  "startColumn": 1,
+                  "endLine": 75,
+                  "endColumn": 98,
+                  "charOffset": 2253,
+                  "charLength": 97,
+                  "snippet": {
+                    "text": "    public AssetFileDescriptor openAssetFile(Uri uri, String mode) throws FileNotFoundException {"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "Application\\com.example.android.actionbarcompat.shareactionprovider.content\\com.example.android.actionbarcompat.shareactionprovider.content.AssetProvider android.content.res.AssetFileDescriptor openAssetFile(android.net.Uri uri, java.lang.String mode)"
+            }
+          ],
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "WARNING_ATTRIBUTES"
+          }
+        }
+      ]
+    },
+    {
+      "tool": {
+        "name": "AndroidStudio"
+      },
+      "originalUriBaseIds": {
+        "SRCROOT": "file:///c:/testdata/src/androidstudio/"
+      },
+      "files": {
+        "#SRCROOT#LICENSE": {
+          "mimeType": "application/octet-stream",
+          "hashes": [
+            {
+              "value": "30DCDD907CAB8E314B82CE4D19E8A270",
+              "algorithm": "md5"
+            },
+            {
+              "value": "BAF945B4332552614CB3E48E9B3C5227132F9AD6",
+              "algorithm": "sha-1"
+            },
+            {
+              "value": "108365DD9FB3957E32BBC5175DD6FE2010CB399927FB8211FF9FB1BCB82408D8",
+              "algorithm": "sha-256"
+            }
+          ]
+        },
+        "#SRCROOT#Application/tests/AndroidManifest.xml": {
+          "mimeType": "text/xml",
+          "contents": {
+            "binary": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLQogIENvcHlyaWdodCAoQykgMjAxMyBUaGUgQW5kcm9pZCBPcGVuIFNvdXJjZSBQcm9qZWN0CgogIExpY2Vuc2VkIHVuZGVyIHRoZSBBcGFjaGUgTGljZW5zZSwgVmVyc2lvbiAyLjAgKHRoZSAiTGljZW5zZSIpOwogIHlvdSBtYXkgbm90IHVzZSB0aGlzIGZpbGUgZXhjZXB0IGluIGNvbXBsaWFuY2Ugd2l0aCB0aGUgTGljZW5zZS4KICBZb3UgbWF5IG9idGFpbiBhIGNvcHkgb2YgdGhlIExpY2Vuc2UgYXQKCiAgICAgIGh0dHA6Ly93d3cuYXBhY2hlLm9yZy9saWNlbnNlcy9MSUNFTlNFLTIuMAoKICBVbmxlc3MgcmVxdWlyZWQgYnkgYXBwbGljYWJsZSBsYXcgb3IgYWdyZWVkIHRvIGluIHdyaXRpbmcsIHNvZnR3YXJlCiAgZGlzdHJpYnV0ZWQgdW5kZXIgdGhlIExpY2Vuc2UgaXMgZGlzdHJpYnV0ZWQgb24gYW4gIkFTIElTIiBCQVNJUywKICBXSVRIT1VUIFdBUlJBTlRJRVMgT1IgQ09ORElUSU9OUyBPRiBBTlkgS0lORCwgZWl0aGVyIGV4cHJlc3Mgb3IgaW1wbGllZC4KICBTZWUgdGhlIExpY2Vuc2UgZm9yIHRoZSBzcGVjaWZpYyBsYW5ndWFnZSBnb3Zlcm5pbmcgcGVybWlzc2lvbnMgYW5kCiAgbGltaXRhdGlvbnMgdW5kZXIgdGhlIExpY2Vuc2UuCiAgLS0+CjwhLS0gcGFja2FnZSBuYW1lIG11c3QgYmUgdW5pcXVlIHNvIHN1ZmZpeCB3aXRoICJ0ZXN0cyIgc28gcGFja2FnZSBsb2FkZXIgZG9lc24ndCBpZ25vcmUgdXMgLS0+CjxtYW5pZmVzdCB4bWxuczphbmRyb2lkPSJodHRwOi8vc2NoZW1hcy5hbmRyb2lkLmNvbS9hcGsvcmVzL2FuZHJvaWQiCiAgICAgICAgICBwYWNrYWdlPSJjb20uZXhhbXBsZS5hbmRyb2lkLmFjdGlvbmJhcmNvbXBhdC5zaGFyZWFjdGlvbnByb3ZpZGVyLnRlc3RzIgogICAgICAgICAgYW5kcm9pZDp2ZXJzaW9uQ29kZT0iMSIKICAgICAgICAgIGFuZHJvaWQ6dmVyc2lvbk5hbWU9IjEuMCI+CgogICAgPCEtLSBNaW4vdGFyZ2V0IFNESyB2ZXJzaW9ucyAoPHVzZXMtc2RrPikgbWFuYWdlZCBieSBidWlsZC5ncmFkbGUgLS0+CgogICAgPCEtLSBXZSBhZGQgYW4gYXBwbGljYXRpb24gdGFnIGhlcmUganVzdCBzbyB0aGF0IHdlIGNhbiBpbmRpY2F0ZSB0aGF0CiAgICAgICAgIHRoaXMgcGFja2FnZSBuZWVkcyB0byBsaW5rIGFnYWluc3QgdGhlIGFuZHJvaWQudGVzdCBsaWJyYXJ5LAogICAgICAgICB3aGljaCBpcyBuZWVkZWQgd2hlbiBidWlsZGluZyB0ZXN0IGNhc2VzLiAtLT4KICAgIDxhcHBsaWNhdGlvbj4KICAgICAgICA8dXNlcy1saWJyYXJ5IGFuZHJvaWQ6bmFtZT0iYW5kcm9pZC50ZXN0LnJ1bm5lciIgLz4KICAgIDwvYXBwbGljYXRpb24+CgogICAgPCEtLQogICAgU3BlY2lmaWVzIHRoZSBpbnN0cnVtZW50YXRpb24gdGVzdCBydW5uZXIgdXNlZCB0byBydW4gdGhlIHRlc3RzLgogICAgLS0+CiAgICA8aW5zdHJ1bWVudGF0aW9uCiAgICAgICAgICAgIGFuZHJvaWQ6bmFtZT0iYW5kcm9pZC50ZXN0Lkluc3RydW1lbnRhdGlvblRlc3RSdW5uZXIiCiAgICAgICAgICAgIGFuZHJvaWQ6dGFyZ2V0UGFja2FnZT0iY29tLmV4YW1wbGUuYW5kcm9pZC5hY3Rpb25iYXJjb21wYXQuc2hhcmVhY3Rpb25wcm92aWRlciIKICAgICAgICAgICAgYW5kcm9pZDpsYWJlbD0iVGVzdHMgZm9yIGNvbS5leGFtcGxlLmFuZHJvaWQuYWN0aW9uYmFyY29tcGF0LnNoYXJlYWN0aW9ucHJvdmlkZXIiIC8+Cgo8L21hbmlmZXN0Pg=="
+          },
+          "hashes": [
+            {
+              "value": "9AD26B4DDD58D1B5DBA12D47E5D611E4",
+              "algorithm": "md5"
+            },
+            {
+              "value": "B3E1D8BC3794473890CD191EF82A628B08F35854",
+              "algorithm": "sha-1"
+            },
+            {
+              "value": "91FED4D7FCE8852086802FDA30548A139D603AD117CC3C15BBFD22EEECEC34F5",
+              "algorithm": "sha-256"
+            }
+          ]
+        },
+        "#SRCROOT#Application/src/main/java/com/example/android/actionbarcompat/shareactionprovider/content/AssetProvider.java": {
+          "mimeType": "text/x-java-source",
+          "hashes": [
+            {
+              "value": "156B82E0AD0F5DC80CE28732AFD15F2F",
+              "algorithm": "md5"
+            },
+            {
+              "value": "3F45DD7F5A61B585694533923AF405971E8E1607",
+              "algorithm": "sha-1"
+            },
+            {
+              "value": "145B8BB28607455C018D04198B055B53CB37374589BE430C4AEAB4D175062455",
+              "algorithm": "sha-256"
+            }
+          ]
+        },
+        "#SRCROOT#Application/src/main/AndroidManifest.xml": {
+          "mimeType": "text/xml",
+          "contents": {
+            "binary": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCEtLQogQ29weXJpZ2h0IDIwMTMgVGhlIEFuZHJvaWQgT3BlbiBTb3VyY2UgUHJvamVjdAoKIExpY2Vuc2VkIHVuZGVyIHRoZSBBcGFjaGUgTGljZW5zZSwgVmVyc2lvbiAyLjAgKHRoZSAiTGljZW5zZSIpOwogeW91IG1heSBub3QgdXNlIHRoaXMgZmlsZSBleGNlcHQgaW4gY29tcGxpYW5jZSB3aXRoIHRoZSBMaWNlbnNlLgogWW91IG1heSBvYnRhaW4gYSBjb3B5IG9mIHRoZSBMaWNlbnNlIGF0CgogICAgIGh0dHA6Ly93d3cuYXBhY2hlLm9yZy9saWNlbnNlcy9MSUNFTlNFLTIuMAoKIFVubGVzcyByZXF1aXJlZCBieSBhcHBsaWNhYmxlIGxhdyBvciBhZ3JlZWQgdG8gaW4gd3JpdGluZywgc29mdHdhcmUKIGRpc3RyaWJ1dGVkIHVuZGVyIHRoZSBMaWNlbnNlIGlzIGRpc3RyaWJ1dGVkIG9uIGFuICJBUyBJUyIgQkFTSVMsCiBXSVRIT1VUIFdBUlJBTlRJRVMgT1IgQ09ORElUSU9OUyBPRiBBTlkgS0lORCwgZWl0aGVyIGV4cHJlc3Mgb3IgaW1wbGllZC4KIFNlZSB0aGUgTGljZW5zZSBmb3IgdGhlIHNwZWNpZmljIGxhbmd1YWdlIGdvdmVybmluZyBwZXJtaXNzaW9ucyBhbmQKIGxpbWl0YXRpb25zIHVuZGVyIHRoZSBMaWNlbnNlLgotLT4KCjxtYW5pZmVzdCB4bWxuczphbmRyb2lkPSJodHRwOi8vc2NoZW1hcy5hbmRyb2lkLmNvbS9hcGsvcmVzL2FuZHJvaWQiCiAgICBwYWNrYWdlPSJjb20uZXhhbXBsZS5hbmRyb2lkLmFjdGlvbmJhcmNvbXBhdC5zaGFyZWFjdGlvbnByb3ZpZGVyIgogICAgYW5kcm9pZDp2ZXJzaW9uQ29kZT0iMSIKICAgIGFuZHJvaWQ6dmVyc2lvbk5hbWU9IjEuMCI+CgogICAgPCEtLQogICAgICAgIEFjdGlvbkJhckNvbXBhdCBwcm92aWRlcyBhbiBBY3Rpb24gQmFyIGZyb20gQVBJIHY3IG9ud2FyZHMKICAgIC0tPgogICAgPCEtLSBNaW4vdGFyZ2V0IFNESyB2ZXJzaW9ucyAoPHVzZXMtc2RrPikgbWFuYWdlZCBieSBidWlsZC5ncmFkbGUgLS0+CgogICAgPGFwcGxpY2F0aW9uCiAgICAgICAgYW5kcm9pZDppY29uPSJAZHJhd2FibGUvaWNfbGF1bmNoZXIiCiAgICAgICAgYW5kcm9pZDpsYWJlbD0iQHN0cmluZy9hcHBfbmFtZSIKICAgICAgICBhbmRyb2lkOnRoZW1lPSJAc3R5bGUvVGhlbWUuQXBwQ29tcGF0IgogICAgICAgIGFuZHJvaWQ6YWxsb3dCYWNrdXA9InRydWUiPgoKICAgICAgICA8YWN0aXZpdHkKICAgICAgICAgICAgYW5kcm9pZDpuYW1lPSIuTWFpbkFjdGl2aXR5Ij4KICAgICAgICAgICAgPCEtLSBMYXVuY2hlciBJbnRlbnQgZmlsdGVyIC0tPgogICAgICAgICAgICA8aW50ZW50LWZpbHRlcj4KICAgICAgICAgICAgICAgIDxhY3Rpb24gYW5kcm9pZDpuYW1lPSJhbmRyb2lkLmludGVudC5hY3Rpb24uTUFJTiIgLz4KICAgICAgICAgICAgICAgIDxjYXRlZ29yeSBhbmRyb2lkOm5hbWU9ImFuZHJvaWQuaW50ZW50LmNhdGVnb3J5LkxBVU5DSEVSIiAvPgogICAgICAgICAgICA8L2ludGVudC1maWx0ZXI+CiAgICAgICAgPC9hY3Rpdml0eT4KCiAgICAgICAgPCEtLSBDb250ZW50UHJvdmlkZXIgd2hpY2ggc2VydmVzIGZpbGVzIGZyb20gdGhpcyBhcHBsaWNhdGlvbidzIGFzc2V0IGZvbGRlciAtLT4KICAgICAgICA8cHJvdmlkZXIKICAgICAgICAgICAgYW5kcm9pZDpuYW1lPSIuY29udGVudC5Bc3NldFByb3ZpZGVyIgogICAgICAgICAgICBhbmRyb2lkOmF1dGhvcml0aWVzPSJjb20uZXhhbXBsZS5hbmRyb2lkLmFjdGlvbmJhcmNvbXBhdC5zaGFyZWFjdGlvbnByb3ZpZGVyIgogICAgICAgICAgICBhbmRyb2lkOmdyYW50VXJpUGVybWlzc2lvbnM9InRydWUiCiAgICAgICAgICAgIGFuZHJvaWQ6ZXhwb3J0ZWQ9InRydWUiIC8+CgogICAgPC9hcHBsaWNhdGlvbj4KCjwvbWFuaWZlc3Q+"
+          },
+          "hashes": [
+            {
+              "value": "DE9A5C0CF47905C2AE2975A427952509",
+              "algorithm": "md5"
+            },
+            {
+              "value": "94999C46F9CEEFDE847A458447C783E360F0C319",
+              "algorithm": "sha-1"
+            },
+            {
+              "value": "F95E09453918A6BD6F0D7A7E69F0C19322E5DE0C10E858223125F049652491A2",
+              "algorithm": "sha-256"
+            }
+          ]
+        }
+      },
+      "logicalLocations": {
+        "androidstudio": {
+          "kind": "module"
+        },
+        "Application": {
+          "kind": "module"
+        },
+        "Application\\com.example.android.actionbarcompat.shareactionprovider.content": {
+          "name": "com.example.android.actionbarcompat.shareactionprovider.content",
+          "parentKey": "Application",
+          "kind": "package"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'actionbarcompat'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "Application/src/main/AndroidManifest.xml",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 1,
+                  "endLine": 19,
+                  "endColumn": 70,
+                  "charOffset": 700,
+                  "charLength": 69,
+                  "snippet": {
+                    "text": "    package=\"com.example.android.actionbarcompat.shareactionprovider\""
+                  }
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'shareactionprovider'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "Application/src/main/AndroidManifest.xml",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 1,
+                  "endLine": 19,
+                  "endColumn": 70,
+                  "charOffset": 700,
+                  "charLength": 69,
+                  "snippet": {
+                    "text": "    package=\"com.example.android.actionbarcompat.shareactionprovider\""
+                  }
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'actionbarcompat'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "Application/src/main/AndroidManifest.xml",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 46,
+                  "startColumn": 1,
+                  "endLine": 46,
+                  "endColumn": 90,
+                  "charOffset": 1661,
+                  "charLength": 89,
+                  "snippet": {
+                    "text": "            android:authorities=\"com.example.android.actionbarcompat.shareactionprovider\""
+                  }
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'shareactionprovider'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "Application/src/main/AndroidManifest.xml",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 46,
+                  "startColumn": 1,
+                  "endLine": 46,
+                  "endColumn": 90,
+                  "charOffset": 1661,
+                  "charLength": 89,
+                  "snippet": {
+                    "text": "            android:authorities=\"com.example.android.actionbarcompat.shareactionprovider\""
+                  }
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'licensors'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "LICENSE",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 235,
+                  "startColumn": 1,
+                  "endLine": 235,
+                  "endColumn": 59,
+                  "charOffset": 12694,
+                  "charLength": 58,
+                  "snippet": {
+                    "text": "     Considerations for licensors: Our public licenses are"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "androidstudio"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'Licensors'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "LICENSE",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 239,
+                  "startColumn": 1,
+                  "endLine": 239,
+                  "endColumn": 65,
+                  "charOffset": 12936,
+                  "charLength": 64,
+                  "snippet": {
+                    "text": "     irrevocable. Licensors should read and understand the terms"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "androidstudio"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'Licensors'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "LICENSE",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 241,
+                  "startColumn": 1,
+                  "endLine": 241,
+                  "endColumn": 62,
+                  "charOffset": 13068,
+                  "charLength": 61,
+                  "snippet": {
+                    "text": "     Licensors should also secure all rights necessary before"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "androidstudio"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'Licensors'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "LICENSE",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 243,
+                  "startColumn": 1,
+                  "endLine": 243,
+                  "endColumn": 61,
+                  "charOffset": 13190,
+                  "charLength": 60,
+                  "snippet": {
+                    "text": "     material as expected. Licensors should clearly mark any"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "androidstudio"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'licensors'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "LICENSE",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 246,
+                  "startColumn": 1,
+                  "endLine": 246,
+                  "endColumn": 65,
+                  "charOffset": 13380,
+                  "charLength": 64,
+                  "snippet": {
+                    "text": "     limitation to copyright. More considerations for licensors:"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "androidstudio"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'creativecommons'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "LICENSE",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 247,
+                  "startColumn": 1,
+                  "endLine": 247,
+                  "endColumn": 55,
+                  "charOffset": 13445,
+                  "charLength": 54,
+                  "snippet": {
+                    "text": "\twiki.creativecommons.org/Considerations_for_licensors"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "androidstudio"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'licensors'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "LICENSE",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 247,
+                  "startColumn": 1,
+                  "endLine": 247,
+                  "endColumn": 55,
+                  "charOffset": 13445,
+                  "charLength": 54,
+                  "snippet": {
+                    "text": "\twiki.creativecommons.org/Considerations_for_licensors"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "androidstudio"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'creativecommons'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "LICENSE",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 264,
+                  "startColumn": 1,
+                  "endLine": 264,
+                  "endColumn": 55,
+                  "charOffset": 14432,
+                  "charLength": 54,
+                  "snippet": {
+                    "text": "\twiki.creativecommons.org/Considerations_for_licensees"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "androidstudio"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'synched'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "LICENSE",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 292,
+                  "startColumn": 1,
+                  "endLine": 292,
+                  "endColumn": 52,
+                  "charOffset": 15796,
+                  "charLength": 51,
+                  "snippet": {
+                    "text": "     synched in timed relation with a moving image."
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "androidstudio"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'creativecommons'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "LICENSE",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 299,
+                  "startColumn": 1,
+                  "endLine": 299,
+                  "endColumn": 66,
+                  "charOffset": 16117,
+                  "charLength": 65,
+                  "snippet": {
+                    "text": "     creativecommons.org/compatiblelicenses, approved by Creative"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "androidstudio"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'compatiblelicenses'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "LICENSE",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 299,
+                  "startColumn": 1,
+                  "endLine": 299,
+                  "endColumn": 66,
+                  "charOffset": 16117,
+                  "charLength": 65,
+                  "snippet": {
+                    "text": "     creativecommons.org/compatiblelicenses, approved by Creative"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "androidstudio"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'Generis'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "LICENSE",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 304,
+                  "startColumn": 1,
+                  "endLine": 304,
+                  "endColumn": 71,
+                  "charOffset": 16388,
+                  "charLength": 70,
+                  "snippet": {
+                    "text": "     performance, broadcast, sound recording, and Sui Generis Database"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "androidstudio"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'WIPO'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "LICENSE",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 312,
+                  "startColumn": 1,
+                  "endLine": 312,
+                  "endColumn": 67,
+                  "charOffset": 16809,
+                  "charLength": 66,
+                  "snippet": {
+                    "text": "     fulfilling obligations under Article 11 of the WIPO Copyright"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "androidstudio"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'Generis'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "LICENSE",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 352,
+                  "startColumn": 1,
+                  "endLine": 352,
+                  "endColumn": 67,
+                  "charOffset": 18779,
+                  "charLength": 66,
+                  "snippet": {
+                    "text": "  m. Sui Generis Database Rights means rights other than copyright"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "androidstudio"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'sublicensable'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "LICENSE",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 368,
+                  "startColumn": 1,
+                  "endLine": 368,
+                  "endColumn": 67,
+                  "charOffset": 19419,
+                  "charLength": 66,
+                  "snippet": {
+                    "text": "          non-sublicensable, non-exclusive, irrevocable license to"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "androidstudio"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'waivable'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "LICENSE",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 441,
+                  "startColumn": 1,
+                  "endLine": 441,
+                  "endColumn": 66,
+                  "charOffset": 23070,
+                  "charLength": 65,
+                  "snippet": {
+                    "text": "          under any voluntary or waivable statutory or compulsory"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "androidstudio"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'Generis'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "LICENSE",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 514,
+                  "startColumn": 1,
+                  "endLine": 514,
+                  "endColumn": 42,
+                  "charOffset": 26090,
+                  "charLength": 41,
+                  "snippet": {
+                    "text": "Section 4 -- Sui Generis Database Rights."
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "androidstudio"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'Generis'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "LICENSE",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 516,
+                  "startColumn": 1,
+                  "endLine": 516,
+                  "endColumn": 67,
+                  "charOffset": 26133,
+                  "charLength": 66,
+                  "snippet": {
+                    "text": "Where the Licensed Rights include Sui Generis Database Rights that"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "androidstudio"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'Generis'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "LICENSE",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 525,
+                  "startColumn": 1,
+                  "endLine": 525,
+                  "endColumn": 67,
+                  "charOffset": 26530,
+                  "charLength": 66,
+                  "snippet": {
+                    "text": "     contents in a database in which You have Sui Generis Database"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "androidstudio"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'Generis'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "LICENSE",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 526,
+                  "startColumn": 1,
+                  "endLine": 526,
+                  "endColumn": 70,
+                  "charOffset": 26597,
+                  "charLength": 69,
+                  "snippet": {
+                    "text": "     Rights, then the database in which You have Sui Generis Database"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "androidstudio"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'creativecommons'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "LICENSE",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 637,
+                  "startColumn": 1,
+                  "endLine": 637,
+                  "endColumn": 70,
+                  "charOffset": 31731,
+                  "charLength": 69,
+                  "snippet": {
+                    "text": "creativecommons.org/policies, Creative Commons does not authorize the"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "androidstudio"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'creativecommons'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "LICENSE",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 646,
+                  "startColumn": 1,
+                  "endLine": 646,
+                  "endColumn": 58,
+                  "charOffset": 32218,
+                  "charLength": 57,
+                  "snippet": {
+                    "text": "Creative Commons may be contacted at creativecommons.org."
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "androidstudio"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'actionbarcompat'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "Application/tests/AndroidManifest.xml",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 1,
+                  "endLine": 19,
+                  "endColumn": 82,
+                  "charOffset": 811,
+                  "charLength": 81,
+                  "snippet": {
+                    "text": "          package=\"com.example.android.actionbarcompat.shareactionprovider.tests\""
+                  }
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'shareactionprovider'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "Application/tests/AndroidManifest.xml",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 1,
+                  "endLine": 19,
+                  "endColumn": 82,
+                  "charOffset": 811,
+                  "charLength": 81,
+                  "snippet": {
+                    "text": "          package=\"com.example.android.actionbarcompat.shareactionprovider.tests\""
+                  }
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'actionbarcompat'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "Application/tests/AndroidManifest.xml",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 37,
+                  "startColumn": 1,
+                  "endLine": 37,
+                  "endColumn": 92,
+                  "charOffset": 1510,
+                  "charLength": 91,
+                  "snippet": {
+                    "text": "            android:targetPackage=\"com.example.android.actionbarcompat.shareactionprovider\""
+                  }
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'shareactionprovider'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "Application/tests/AndroidManifest.xml",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 37,
+                  "startColumn": 1,
+                  "endLine": 37,
+                  "endColumn": 92,
+                  "charOffset": 1510,
+                  "charLength": 91,
+                  "snippet": {
+                    "text": "            android:targetPackage=\"com.example.android.actionbarcompat.shareactionprovider\""
+                  }
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'actionbarcompat'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "Application/tests/AndroidManifest.xml",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 38,
+                  "startColumn": 1,
+                  "endLine": 38,
+                  "endColumn": 97,
+                  "charOffset": 1602,
+                  "charLength": 96,
+                  "snippet": {
+                    "text": "            android:label=\"Tests for com.example.android.actionbarcompat.shareactionprovider\" />"
+                  }
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'shareactionprovider'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "Application/tests/AndroidManifest.xml",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 38,
+                  "startColumn": 1,
+                  "endLine": 38,
+                  "endColumn": 97,
+                  "charOffset": 1602,
+                  "charLength": 96,
+                  "snippet": {
+                    "text": "            android:label=\"Tests for com.example.android.actionbarcompat.shareactionprovider\" />"
+                  }
+                }
+              }
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'actionbarcompat'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "Application/src/main/java/com/example/android/actionbarcompat/shareactionprovider/content/AssetProvider.java",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 1,
+                  "endLine": 36,
+                  "endColumn": 98,
+                  "charOffset": 1249,
+                  "charLength": 97,
+                  "snippet": {
+                    "text": "    public static String CONTENT_URI = \"com.example.android.actionbarcompat.shareactionprovider\";"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "Application\\com.example.android.actionbarcompat.shareactionprovider.content"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'shareactionprovider'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "Application/src/main/java/com/example/android/actionbarcompat/shareactionprovider/content/AssetProvider.java",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 1,
+                  "endLine": 36,
+                  "endColumn": 98,
+                  "charOffset": 1249,
+                  "charLength": 97,
+                  "snippet": {
+                    "text": "    public static String CONTENT_URI = \"com.example.android.actionbarcompat.shareactionprovider\";"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "Application\\com.example.android.actionbarcompat.shareactionprovider.content"
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        }
+      ]
+    },
+    {
+      "tool": {
+        "name": "AndroidStudio"
+      },
+      "originalUriBaseIds": {
+        "SRCROOT": "file:///c:/testdata/src/androidstudio/"
+      },
+      "files": {
+        "#SRCROOT#Application/src/main/java/com/example/android/actionbarcompat/shareactionprovider/content/ContentItem.java": {
+          "mimeType": "text/x-java-source",
+          "hashes": [
+            {
+              "value": "484BF281771BA9CF74AF3F32E5F144F6",
+              "algorithm": "md5"
+            },
+            {
+              "value": "7DB42C74A8E29ACF373E504F77EA1FD8460A9E4B",
+              "algorithm": "sha-1"
+            },
+            {
+              "value": "CFDBD59D22119221C67620BA669E9F6EF6EBBEB43CC8FF2A92436261BBDF255A",
+              "algorithm": "sha-256"
+            }
+          ]
+        },
+        "#SRCROOT#Application/src/main/java/com/example/android/actionbarcompat/shareactionprovider/MainActivity.java": {
+          "mimeType": "text/x-java-source",
+          "hashes": [
+            {
+              "value": "8A681E5C1B1ED03B3F192B65B35E3768",
+              "algorithm": "md5"
+            },
+            {
+              "value": "046693EC45212D1D8C6376B7085E00FE4EA1F851",
+              "algorithm": "sha-1"
+            },
+            {
+              "value": "E362CFF04CCFDEA88D54090E7F2A6C4E8F14D3939C16185E917F098AA717DBD3",
+              "algorithm": "sha-256"
+            }
+          ]
+        }
+      },
+      "logicalLocations": {
+        "Application": {
+          "kind": "module"
+        },
+        "Application\\com.example.android.actionbarcompat.shareactionprovider": {
+          "name": "com.example.android.actionbarcompat.shareactionprovider",
+          "parentKey": "Application",
+          "kind": "package"
+        },
+        "Application\\com.example.android.actionbarcompat.shareactionprovider\\com.example.android.actionbarcompat.shareactionprovider.MainActivity java.util.ArrayList<com.example.android.actionbarcompat.shareactionprovider.content.ContentItem> getSampleContent()": {
+          "name": "com.example.android.actionbarcompat.shareactionprovider.MainActivity java.util.ArrayList<com.example.android.actionbarcompat.shareactionprovider.content.ContentItem> getSampleContent()",
+          "parentKey": "Application\\com.example.android.actionbarcompat.shareactionprovider",
+          "kind": "member"
+        },
+        "Application\\com.example.android.actionbarcompat.shareactionprovider.content": {
+          "name": "com.example.android.actionbarcompat.shareactionprovider.content",
+          "parentKey": "Application",
+          "kind": "package"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "Declaration access can be weaker",
+          "message": {
+            "text": "Can be private\r\nPossible resolution: private"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "Application/src/main/java/com/example/android/actionbarcompat/shareactionprovider/MainActivity.java",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 197,
+                  "startColumn": 1,
+                  "endLine": 197,
+                  "endColumn": 55,
+                  "charOffset": 7025,
+                  "charLength": 54,
+                  "snippet": {
+                    "text": "    static ArrayList<ContentItem> getSampleContent() {"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "Application\\com.example.android.actionbarcompat.shareactionprovider\\com.example.android.actionbarcompat.shareactionprovider.MainActivity java.util.ArrayList<com.example.android.actionbarcompat.shareactionprovider.content.ContentItem> getSampleContent()"
+            }
+          ],
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "WARNING_ATTRIBUTES"
+          }
+        },
+        {
+          "ruleId": "Declaration access can be weaker",
+          "message": {
+            "text": "Can be private\r\nPossible resolution: private"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "Application/src/main/java/com/example/android/actionbarcompat/shareactionprovider/content/ContentItem.java",
+                  "uriBaseId": "SRCROOT"
+                },
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 1,
+                  "endLine": 36,
+                  "endColumn": 46,
+                  "charOffset": 1275,
+                  "charLength": 45,
+                  "snippet": {
+                    "text": "    public final String contentAssetFilePath;"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "Application\\com.example.android.actionbarcompat.shareactionprovider.content"
+            }
+          ],
+          "properties": {
+            "severity": "WARNING",
+            "attributeKey": "WARNING_ATTRIBUTES"
+          }
+        }
+      ]
+    }
+  ]
+}

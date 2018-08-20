@@ -1,0 +1,118 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Sarif.Multitool",
+        "fullName": "Sarif.Multitool 2.0.0.0",
+        "version": "2.0.0.0",
+        "semanticVersion": "2.0.0",
+        "sarifLoggerVersion": "2.0.0.0",
+        "language": "en-US",
+        "properties": {
+          "Comments": "Command line tool to perform transformations of input files to SARIF.",
+          "CompanyName": "Microsoft",
+          "ProductName": "Microsoft SARIF SDK"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "SARIF1008",
+          "level": "warning",
+          "message": {
+            "arguments": [
+              "/runs/0/results/0/codeFlows/0/threadFlows/0/locations/0/location/message/text",
+              "ThreadFlow location message without period"
+            ]
+          },
+          "ruleMessageId": "Default",
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/MessagesShouldEndWithPeriod/ThreadFlowLocationMessageWithoutPeriod.sarif"
+                },
+                "region": {
+                  "startLine": 33,
+                  "startColumn": 78
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1008",
+          "level": "warning",
+          "message": {
+            "arguments": [
+              "/runs/0/results/0/codeFlows/0/threadFlows/0/locations/0/location/message/richText",
+              "_Rich_ ThreadFlow location message without period"
+            ]
+          },
+          "ruleMessageId": "Default",
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/MessagesShouldEndWithPeriod/ThreadFlowLocationMessageWithoutPeriod.sarif"
+                },
+                "region": {
+                  "startLine": 34,
+                  "startColumn": 89
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "resources": {
+        "rules": {
+          "SARIF1008": {
+            "id": "SARIF1008",
+            "name": {
+              "text": "MessagesShouldEndWithPeriod"
+            },
+            "shortDescription": {
+              "text": "Messages should consist of one or more complete sentences, ending with a period."
+            },
+            "fullDescription": {
+              "text": "Messages should consist of one or more complete sentences, ending with a period."
+            },
+            "messageStrings": {
+              "Default": "{0}: The message \"{1}\" does not end with a period."
+            },
+            "richMessageStrings": {},
+            "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.0/csprd01/sarif-v2.0-csprd01.html"
+          }
+        }
+      },
+      "files": {
+        "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/MessagesShouldEndWithPeriod/ThreadFlowLocationMessageWithoutPeriod.sarif": {
+          "mimeType": "application/sarif-json"
+        }
+      },
+      "invocations": [
+        {
+          "startTime": "2018-08-10T21:59:14.370Z",
+          "endTime": "2018-08-10T21:59:15.209Z",
+          "toolNotifications": [
+            {
+              "id": "MSG001.AnalyzingTarget",
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/MessagesShouldEndWithPeriod/ThreadFlowLocationMessageWithoutPeriod.sarif"
+                }
+              },
+              "message": {
+                "text": "Analyzing 'ThreadFlowLocationMessageWithoutPeriod.sarif'..."
+              },
+              "level": "note",
+              "time": "2018-08-10T21:59:14.746Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -55,8 +55,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradle.properties",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradle.properties"
                 },
                 "region": {
                   "startLine": 8
@@ -79,8 +78,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradle.properties",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradle.properties"
                 },
                 "region": {
                   "startLine": 13
@@ -103,8 +101,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradle.properties",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradle.properties"
                 },
                 "region": {
                   "startLine": 13
@@ -127,8 +124,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradle.properties",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradle.properties"
                 },
                 "region": {
                   "startLine": 17
@@ -151,8 +147,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradle/wrapper/gradle-wrapper.properties",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradle/wrapper/gradle-wrapper.properties"
                 },
                 "region": {
                   "startLine": 3
@@ -175,8 +170,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradle/wrapper/gradle-wrapper.properties",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradle/wrapper/gradle-wrapper.properties"
                 },
                 "region": {
                   "startLine": 5
@@ -199,8 +193,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 30
@@ -223,8 +216,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 31
@@ -247,8 +239,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 33
@@ -271,8 +262,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 34
@@ -295,8 +285,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 35
@@ -319,8 +308,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 40
@@ -343,8 +331,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 41
@@ -367,8 +354,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 43
@@ -391,8 +377,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 45
@@ -415,8 +400,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 46
@@ -439,8 +423,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 47
@@ -463,8 +446,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 60
@@ -487,8 +469,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 64
@@ -511,8 +492,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 73
@@ -535,8 +515,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 74
@@ -559,8 +538,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 76
@@ -583,8 +561,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 78
@@ -607,8 +584,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 85
@@ -631,8 +607,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 93
@@ -655,8 +630,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 94
@@ -679,8 +653,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 99
@@ -703,8 +676,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 110
@@ -727,8 +699,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 110
@@ -751,8 +722,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 113
@@ -775,8 +745,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 114
@@ -799,8 +768,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 115
@@ -823,8 +791,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 116
@@ -847,8 +814,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 118
@@ -871,8 +837,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 119
@@ -895,8 +860,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 119
@@ -919,8 +883,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 119
@@ -943,8 +906,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 121
@@ -967,8 +929,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 122
@@ -991,8 +952,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 125
@@ -1015,8 +975,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 125
@@ -1039,8 +998,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 126
@@ -1063,8 +1021,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 127
@@ -1087,8 +1044,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 128
@@ -1111,8 +1067,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 128
@@ -1135,8 +1090,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 133
@@ -1159,8 +1113,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 133
@@ -1183,8 +1136,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 134
@@ -1207,8 +1159,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 137
@@ -1231,8 +1182,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 137
@@ -1255,8 +1205,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 139
@@ -1279,8 +1228,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 154
@@ -1303,8 +1251,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 161
@@ -1327,8 +1274,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 162
@@ -1351,8 +1297,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 162
@@ -1375,8 +1320,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew"
                 },
                 "region": {
                   "startLine": 164
@@ -1399,8 +1343,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew.bat"
                 },
                 "region": {
                   "startLine": 9
@@ -1423,8 +1366,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew.bat"
                 },
                 "region": {
                   "startLine": 14
@@ -1447,8 +1389,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew.bat"
                 },
                 "region": {
                   "startLine": 15
@@ -1471,8 +1412,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew.bat"
                 },
                 "region": {
                   "startLine": 17
@@ -1495,8 +1435,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew.bat"
                 },
                 "region": {
                   "startLine": 20
@@ -1519,8 +1458,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew.bat"
                 },
                 "region": {
                   "startLine": 24
@@ -1543,8 +1481,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew.bat"
                 },
                 "region": {
                   "startLine": 24
@@ -1567,8 +1504,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew.bat"
                 },
                 "region": {
                   "startLine": 32
@@ -1591,8 +1527,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew.bat"
                 },
                 "region": {
                   "startLine": 38
@@ -1615,8 +1550,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew.bat"
                 },
                 "region": {
                   "startLine": 46
@@ -1639,8 +1573,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew.bat"
                 },
                 "region": {
                   "startLine": 49
@@ -1663,8 +1596,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew.bat"
                 },
                 "region": {
                   "startLine": 51
@@ -1687,8 +1619,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew.bat"
                 },
                 "region": {
                   "startLine": 52
@@ -1711,8 +1642,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew.bat"
                 },
                 "region": {
                   "startLine": 52
@@ -1735,8 +1665,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew.bat"
                 },
                 "region": {
                   "startLine": 60
@@ -1759,8 +1688,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew.bat"
                 },
                 "region": {
                   "startLine": 63
@@ -1783,8 +1711,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew.bat"
                 },
                 "region": {
                   "startLine": 75
@@ -1807,8 +1734,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew.bat"
                 },
                 "region": {
                   "startLine": 75
@@ -1831,8 +1757,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew.bat"
                 },
                 "region": {
                   "startLine": 79
@@ -1855,8 +1780,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew.bat"
                 },
                 "region": {
                   "startLine": 79
@@ -1879,8 +1803,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "gradlew.bat"
                 },
                 "region": {
                   "startLine": 88
@@ -1903,8 +1826,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "app/build.gradle",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "app/build.gradle"
                 },
                 "region": {
                   "startLine": 8
@@ -1927,8 +1849,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "app/src/main/AndroidManifest.xml",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "app/src/main/AndroidManifest.xml"
                 },
                 "region": {
                   "startLine": 3
@@ -1951,8 +1872,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "app/src/main/res/values-w820dp/dimens.xml",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "app/src/main/res/values-w820dp/dimens.xml"
                 },
                 "region": {
                   "startLine": 2
@@ -1975,8 +1895,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java"
                 },
                 "region": {
                   "startLine": 4

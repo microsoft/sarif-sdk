@@ -47,6 +47,13 @@
                   "uri": "file:///C:/repo/src/ContentFileViewModel.cs"
                 },
                 "region": {
+                  "startLine": 6,
+                  "endLine": 6,
+                  "snippet": {
+                    "text": "    public class ContentFileViewModel : BaseViewModel"
+                  }
+                },
+                "contextRegion": {
                   "startLine": 3,
                   "endLine": 9,
                   "snippet": {
@@ -69,6 +76,13 @@
                             "uri": "file:///C:/repo/src/Controllers/ContentFileHandlingController.cs"
                           },
                           "region": {
+                            "startLine": 12,
+                            "endLine": 12,
+                            "snippet": {
+                              "text": "        public ContentFileViewModel ViewModel { get; set; }"
+                            }
+                          },
+                          "contextRegion": {
                             "startLine": 9,
                             "endLine": 15,
                             "snippet": {
@@ -89,6 +103,13 @@
                             "uri": "file:///C:/repo/src/ContentFileViewModel.cs"
                           },
                           "region": {
+                            "startLine": 6,
+                            "endLine": 6,
+                            "snippet": {
+                              "text": "    public class ContentFileViewModel : BaseViewModel"
+                            }
+                          },
+                          "contextRegion": {
                             "startLine": 3,
                             "endLine": 9,
                             "snippet": {
@@ -133,6 +154,13 @@
                   "uri": "file:///C:/repo/src/DocumentValidator.cs"
                 },
                 "region": {
+                  "startLine": 12,
+                  "endLine": 18,
+                  "snippet": {
+                    "text": "        private void IsDocumentValid()\r\n        {\r\n            OpenXmlValidator validator = new OpenXmlValidator();\r\n            var errors = validator.Validate(_wordDocument);\r\n            if (errors.Count() != 0)\r\n                _validations.Add(new Validation(GetResource(ResourceKeys.ERROR_DocumentInvalidOrCurrupted)));\r\n        }"
+                  }
+                },
+                "contextRegion": {
                   "startLine": 9,
                   "endLine": 21,
                   "snippet": {
@@ -155,6 +183,13 @@
                             "uri": "file:///C:/repo/src/DocumentValidator.cs"
                           },
                           "region": {
+                            "startLine": 12,
+                            "endLine": 18,
+                            "snippet": {
+                              "text": "        private void IsDocumentValid()\r\n        {\r\n            OpenXmlValidator validator = new OpenXmlValidator();\r\n            var errors = validator.Validate(_wordDocument);\r\n            if (errors.Count() != 0)\r\n                _validations.Add(new Validation(GetResource(ResourceKeys.ERROR_DocumentInvalidOrCurrupted)));\r\n        }"
+                            }
+                          },
+                          "contextRegion": {
                             "startLine": 9,
                             "endLine": 21,
                             "snippet": {
@@ -199,6 +234,13 @@
                   "uri": "file:///C:/repo/src/Controllers/ContentFileHandlingController.cs"
                 },
                 "region": {
+                  "startLine": 38,
+                  "endLine": 38,
+                  "snippet": {
+                    "text": "                byte[] byteFile = System.IO.File.ReadAllBytes(ViewModel.TemplatePath);"
+                  }
+                },
+                "contextRegion": {
                   "startLine": 35,
                   "endLine": 41,
                   "snippet": {
@@ -221,6 +263,13 @@
                             "uri": "file:///C:/repo/src/Controllers/ContentFileHandlingController.cs"
                           },
                           "region": {
+                            "startLine": 20,
+                            "endLine": 20,
+                            "snippet": {
+                              "text": "        public ActionResult Download(ContentFileViewModel frmContent)"
+                            }
+                          },
+                          "contextRegion": {
                             "startLine": 17,
                             "endLine": 23,
                             "snippet": {
@@ -241,6 +290,13 @@
                             "uri": "file:///C:/repo/src/Controllers/ContentFileHandlingController.cs"
                           },
                           "region": {
+                            "startLine": 24,
+                            "endLine": 24,
+                            "snippet": {
+                              "text": "                this.ViewModel = frmContent;"
+                            }
+                          },
+                          "contextRegion": {
                             "startLine": 21,
                             "endLine": 27,
                             "snippet": {
@@ -261,6 +317,13 @@
                             "uri": "file:///C:/repo/src/Controllers/ContentFileHandlingController.cs"
                           },
                           "region": {
+                            "startLine": 38,
+                            "endLine": 38,
+                            "snippet": {
+                              "text": "                byte[] byteFile = System.IO.File.ReadAllBytes(ViewModel.TemplatePath);"
+                            }
+                          },
+                          "contextRegion": {
                             "startLine": 35,
                             "endLine": 41,
                             "snippet": {
@@ -281,6 +344,13 @@
                             "uri": "file:///C:/repo/src/Controllers/ContentFileHandlingController.cs"
                           },
                           "region": {
+                            "startLine": 38,
+                            "endLine": 38,
+                            "snippet": {
+                              "text": "                byte[] byteFile = System.IO.File.ReadAllBytes(ViewModel.TemplatePath);"
+                            }
+                          },
+                          "contextRegion": {
                             "startLine": 35,
                             "endLine": 41,
                             "snippet": {
@@ -301,6 +371,13 @@
                             "uri": "file:///C:/repo/src/Controllers/ContentFileHandlingController.cs"
                           },
                           "region": {
+                            "startLine": 38,
+                            "endLine": 38,
+                            "snippet": {
+                              "text": "                byte[] byteFile = System.IO.File.ReadAllBytes(ViewModel.TemplatePath);"
+                            }
+                          },
+                          "contextRegion": {
                             "startLine": 35,
                             "endLine": 41,
                             "snippet": {
@@ -342,7 +419,7 @@
               "text": "The framework binder used for binding the HTTP request parameters to the model class in <Replace key=\"PrimaryCall.name\"/> on line <Replace key=\"PrimaryLocation.line\"/> has not been explicitly configured to allow, or disallow, certain attributes.\r\nThe framework binder used for binding the HTTP request parameters to the model class has not been explicitly configured to allow, or disallow, certain attributes."
             },
             "fullDescription": {
-              "text": "To ease development and increase productivity, most modern frameworks allow an object to be automatically instantiated and populated with the HTTP request parameters whose names match an attribute of the class to be bound. Automatic instantiation and population of objects speeds up development, but can lead to serious problems if implemented without caution. Any attribute in the bound classes, or nested classes, will be automatically bound to the HTTP request parameters. Therefore, malicious users will be able to assign a value to any attribute in bound or nested classes, even if they are not exposed to the client through web forms or API contracts.\n\n**Example 1: **With no additional configuration, the following ASP.NET MVC controller method will bind the HTTP request parameters to any attribute in the `RegisterModel` or `Details` classes:\n\n`\npublic ActionResult Register(RegisterModel model)\n{\n    if (ModelState.IsValid)\n    {\n        try\n        {\n            return RedirectToAction(\"Index\", \"Home\");\n        }\n        catch (MembershipCreateUserException e)\n        {\n            ModelState.AddModelError(\"\", \"\");\n        }\n    }\n    return View(model);\n}\n`\n\nWhere `RegisterModel` class is defined as:\n\n`\npublic class RegisterModel\n{\n    [Required]\n    [Display(Name = \"User name\")]\n    public string UserName { get; set; }\n\n    [Required]\n    [DataType(DataType.Password)]\n    [Display(Name = \"Password\")]\n    public string Password { get; set; }\n\n    [DataType(DataType.Password)]\n    [Display(Name = \"Confirm password\")]\n    public string ConfirmPassword { get; set; }\n\n    public Details Details { get; set; }\n\n    public RegisterModel()\n    {\n        Details = new Details();\n    }\n}\n`\n\nand `Details` class is defined as:\n\n`\npublic class Details\n{\n    public Details()\n    {\n        IsAdmin = false;\n    }\n    public bool IsAdmin { get; set; }\n    ...\n}\n`\n\n**Example 2: **When using `TryUpdateModel()` or `UpdateModel()` in ASP.NET MVC or Web API applications, the model binder will automatically try to bind all HTTP request parameters by default:\n\n`\npublic ViewResult Register()\n{\n    var model = new RegisterModel();\n    TryUpdateModel&lt;RegisterModel&gt;(model);\n    return View(\"detail\", model);\n}\n`\n\n**Example 3: **In ASP.NET Web API applications, the model binder will automatically try to bind all HTTP request parameters by default using the configured JSON or XML serializer/deserializer. By default, the binder will try to bind all possible attributes from the HTTP request parameters or body:\n\n`\npublic class ProductsController : ApiController\n{\n  public string SaveProduct([FromBody] Product p)\n  {\n      return p.Name;\n  }\n  ...\n}\n`\n\n**Example 4: **In ASP.NET Web Form applications, the model binder will automatically try to bind all HTTP request parameters when using `TryUpdateModel()` or `UpdateModel()` with IValueProvider interface. \n`\nEmployee emp = new Employee();\nTryUpdateModel(emp, new System.Web.ModelBinding.FormValueProvider(ModelBindingExecutionContext)); \nif (ModelState.IsValid)\n{\n    db.SaveChanges();\n}\n`\n\nand `Employee` class is defined as:\n\n`\n public class Employee\n    {\n        public Employee()\n        {\n            IsAdmin = false;\n            IsManager = false;\n        }\n        public string Name { get; set; }\n        public string Email { get; set; }\n        public bool IsManager { get; set; }\n        public bool IsAdmin { get; set; }\n    }\n`"
+              "text": "To ease development and increase productivity, most modern frameworks allow an object to be automatically instantiated and populated with the HTTP request parameters whose names match an attribute of the class to be bound. Automatic instantiation and population of objects speeds up development, but can lead to serious problems if implemented without caution. Any attribute in the bound classes, or nested classes, will be automatically bound to the HTTP request parameters. Therefore, malicious users will be able to assign a value to any attribute in bound or nested classes, even if they are not exposed to the client through web forms or API contracts.\r\n\r\n**Example 1: **With no additional configuration, the following ASP.NET MVC controller method will bind the HTTP request parameters to any attribute in the `RegisterModel` or `Details` classes:\r\n\r\n`\npublic ActionResult Register(RegisterModel model)\n{\n    if (ModelState.IsValid)\n    {\n        try\n        {\n            return RedirectToAction(\"Index\", \"Home\");\n        }\n        catch (MembershipCreateUserException e)\n        {\n            ModelState.AddModelError(\"\", \"\");\n        }\n    }\n    return View(model);\n}\n`\r\n\r\nWhere `RegisterModel` class is defined as:\r\n\r\n`\npublic class RegisterModel\n{\n    [Required]\n    [Display(Name = \"User name\")]\n    public string UserName { get; set; }\r\n\r\n    [Required]\n    [DataType(DataType.Password)]\n    [Display(Name = \"Password\")]\n    public string Password { get; set; }\r\n\r\n    [DataType(DataType.Password)]\n    [Display(Name = \"Confirm password\")]\n    public string ConfirmPassword { get; set; }\r\n\r\n    public Details Details { get; set; }\r\n\r\n    public RegisterModel()\n    {\n        Details = new Details();\n    }\n}\n`\r\n\r\nand `Details` class is defined as:\r\n\r\n`\npublic class Details\n{\n    public Details()\n    {\n        IsAdmin = false;\n    }\n    public bool IsAdmin { get; set; }\n    ...\n}\n`\r\n\r\n**Example 2: **When using `TryUpdateModel()` or `UpdateModel()` in ASP.NET MVC or Web API applications, the model binder will automatically try to bind all HTTP request parameters by default:\r\n\r\n`\npublic ViewResult Register()\n{\n    var model = new RegisterModel();\n    TryUpdateModel&lt;RegisterModel&gt;(model);\n    return View(\"detail\", model);\n}\n`\r\n\r\n**Example 3: **In ASP.NET Web API applications, the model binder will automatically try to bind all HTTP request parameters by default using the configured JSON or XML serializer/deserializer. By default, the binder will try to bind all possible attributes from the HTTP request parameters or body:\r\n\r\n`\npublic class ProductsController : ApiController\n{\n  public string SaveProduct([FromBody] Product p)\n  {\n      return p.Name;\n  }\n  ...\n}\n`\r\n\r\n**Example 4: **In ASP.NET Web Form applications, the model binder will automatically try to bind all HTTP request parameters when using `TryUpdateModel()` or `UpdateModel()` with IValueProvider interface. \n`\nEmployee emp = new Employee();\nTryUpdateModel(emp, new System.Web.ModelBinding.FormValueProvider(ModelBindingExecutionContext)); \nif (ModelState.IsValid)\n{\n    db.SaveChanges();\n}\n`\r\n\r\nand `Employee` class is defined as:\r\n\r\n`\n public class Employee\n    {\n        public Employee()\n        {\n            IsAdmin = false;\n            IsManager = false;\n        }\n        public string Name { get; set; }\n        public string Email { get; set; }\n        public bool IsManager { get; set; }\n        public bool IsAdmin { get; set; }\n    }\n`"
             }
           },
           "AC21F232-1D82-49B7-9AB1-46FE84CD6424": {
@@ -351,7 +428,7 @@
               "text": "The method <Replace key=\"EnclosingFunction.name\"/> in <Replace key=\"PrimaryLocation.file\"/> is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
             },
             "fullDescription": {
-              "text": "This method is never called or is only called from other dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\n\n**Example 1:** In the following class, the method `DoWork()` can never be called.\n\n`\npublic class Dead {\n  private void DoWork() {\n    Console.Write(\"doing work\");\n  }\n  public static void Main(string[] args) {\n    Console.Write(\"running Dead\");\n  }\n}\n`\n\n**Example 2:** In the following class, two private methods call each other, but since neither one is ever invoked from anywhere else, they are both dead code.\n\n`\npublic class DoubleDead {\n  private void DoTweedledee() {\n    DoTweedledumb();\n  }\n  private void DoTweedledumb() {\n    DoTweedledee();\n  }\n  public static void Main(string[] args) {\n    Console.Write(\"running DoubleDead\");\n  }\n}\n`\n\n(In this case it is a good thing that the methods are dead: invoking either one would cause an infinite loop.)"
+              "text": "This method is never called or is only called from other dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\n\r\n**Example 1:** In the following class, the method `DoWork()` can never be called.\r\n\r\n`\npublic class Dead {\n  private void DoWork() {\n    Console.Write(\"doing work\");\n  }\n  public static void Main(string[] args) {\n    Console.Write(\"running Dead\");\n  }\n}\n`\r\n\r\n**Example 2:** In the following class, two private methods call each other, but since neither one is ever invoked from anywhere else, they are both dead code.\r\n\r\n`\npublic class DoubleDead {\n  private void DoTweedledee() {\n    DoTweedledumb();\n  }\n  private void DoTweedledumb() {\n    DoTweedledee();\n  }\n  public static void Main(string[] args) {\n    Console.Write(\"running DoubleDead\");\n  }\n}\n`\r\n\r\n(In this case it is a good thing that the methods are dead: invoking either one would cause an infinite loop.)"
             }
           },
           "6ED95DD1-4F81-44C6-A260-695DFD41B803": {
@@ -360,7 +437,7 @@
               "text": "Attackers are able to control the file system path argument to <Replace key=\"PrimaryCall.name\"/> at <Replace key=\"PrimaryLocation.file\"/> line <Replace key=\"PrimaryLocation.line\"/>, which allows them to access or modify otherwise protected files.\r\nAllowing user input to control paths used in file system operations could enable an attacker to access or modify otherwise protected system resources."
             },
             "fullDescription": {
-              "text": "Path manipulation errors occur when the following two conditions are met:\n\n1. An attacker is able to specify a path used in an operation on the file system.\n\n2. By specifying the resource, the attacker gains a capability that would not otherwise be permitted.\n\nFor example, the program may give the attacker the ability to overwrite the specified file or run with a configuration controlled by the attacker.\n\r\n\nIn this case, the attacker may specify the value that enters the program at <Replace key=\"SourceFunction\" link=\"SourceLocation\"/> in <Replace key=\"SourceLocation.file\"/> at line <Replace key=\"SourceLocation.line\"/>, and this value is used to access a file system resource at <Replace key=\"SinkFunction\" link=\"SinkLocation\"/> in <Replace key=\"SinkLocation.file\"/> at line <Replace key=\"SinkLocation.line\"/>.\n\r\n\n\n \r\n\n  \nEven though the data in this case is a number, it is unvalidated and thus still considered malicious, hence the vulnerability is still reported but with reduced priority values.\n  \n \r\n\n\n\n**Example 1:** The following code uses input from an HTTP request to create a file name. The programmer has not considered the possibility that an attacker may provide a file name like \"`..\\\\..\\\\Windows\\\\System32\\\\krnl386.exe`\", which will cause the application to delete an important Windows system file.\n\n`\nString rName = Request.Item(\"reportName\");\n...\nFile.delete(\"C:\\\\users\\\\reports\\\\\" + rName);\n`\n\n**Example 2:** The following code uses input from a configuration file to determine which file to open and echo back to the user. If the program runs with privileges and malicious users can change the configuration file, they can use the program to read any file on the system that ends with the extension \".txt\".\n\n`\nsr = new StreamReader(resmngr.GetString(\"sub\")+\".txt\");\nwhile ((line = sr.ReadLine()) != null) {\nConsole.WriteLine(line);\n}\n`"
+              "text": "Path manipulation errors occur when the following two conditions are met:\r\n\r\n1. An attacker is able to specify a path used in an operation on the file system.\r\n\r\n2. By specifying the resource, the attacker gains a capability that would not otherwise be permitted.\r\n\r\nFor example, the program may give the attacker the ability to overwrite the specified file or run with a configuration controlled by the attacker.\r\n\r\nIn this case, the attacker may specify the value that enters the program at <Replace key=\"SourceFunction\" link=\"SourceLocation\"/> in <Replace key=\"SourceLocation.file\"/> at line <Replace key=\"SourceLocation.line\"/>, and this value is used to access a file system resource at <Replace key=\"SinkFunction\" link=\"SinkLocation\"/> in <Replace key=\"SinkLocation.file\"/> at line <Replace key=\"SinkLocation.line\"/>.\r\n\r\nEven though the data in this case is a number, it is unvalidated and thus still considered malicious, hence the vulnerability is still reported but with reduced priority values.\r\n\r\n**Example 1:** The following code uses input from an HTTP request to create a file name. The programmer has not considered the possibility that an attacker may provide a file name like \"`..\\\\..\\\\Windows\\\\System32\\\\krnl386.exe`\", which will cause the application to delete an important Windows system file.\r\n\r\n`\nString rName = Request.Item(\"reportName\");\n...\nFile.delete(\"C:\\\\users\\\\reports\\\\\" + rName);\n`\r\n\r\n**Example 2:** The following code uses input from a configuration file to determine which file to open and echo back to the user. If the program runs with privileges and malicious users can change the configuration file, they can use the program to read any file on the system that ends with the extension \".txt\".\r\n\r\n`\nsr = new StreamReader(resmngr.GetString(\"sub\")+\".txt\");\nwhile ((line = sr.ReadLine()) != null) {\nConsole.WriteLine(line);\n}\n`"
             }
           }
         }

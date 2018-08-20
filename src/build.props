@@ -20,7 +20,20 @@
     <Product Condition=" '$(Product)' == '' ">Microsoft SARIF SDK</Product>
     <Copyright Condition=" '$(Copyright)' == '' ">© Microsoft Corporation. All rights reserved.</Copyright>
     <VersionPrefix Condition=" '$(VersionPrefix)' == ''">2.0.0</VersionPrefix>
-    <VersionSuffix Condition=" '$(VersionSuffix)' == ''">csd.1</VersionSuffix>
+    <VersionSuffix Condition=" '$(VersionSuffix)' == ''">csd.1.0.1</VersionSuffix>
+
+    <!--
+    Whenever you increment VersionPrefix or VersionSuffix, copy the old value(s)
+    into the following properties.
+
+    These properties are defined here, not because our MSBuild .props or .targets
+    files use them (they don't), but rather to make it convenient for you to
+    increment the version number by having all the relevant values in one
+    place. These properties are actually used by the PowerShell script that
+    hides the previous package versions on nuget.org.
+    -->
+    <PreviousVersionPrefix>2.0.0-csd.1</PreviousVersionPrefix>
+    <PreviousVersionSuffix></PreviousVersionSuffix>
   </PropertyGroup>
 
   <PropertyGroup Label="Build">
