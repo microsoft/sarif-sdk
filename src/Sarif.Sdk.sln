@@ -24,6 +24,44 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sarif.FunctionalTests", "Sa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sarif.Multitool.FunctionalTests", "Sarif.Multitool.FunctionalTests\Sarif.Multitool.FunctionalTests.csproj", "{859920F3-DB09-4C1D-9EAD-DFB1D7A03A46}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{078A2EE6-5A13-4AFE-9DE4-97FFE53DAC46}"
+	ProjectSection(SolutionItems) = preProject
+		..\scripts\BeforeBuild.ps1 = ..\scripts\BeforeBuild.ps1
+		..\scripts\BuildAndTest.ps1 = ..\scripts\BuildAndTest.ps1
+		..\scripts\BuildPackagesFromSigningDirectory.ps1 = ..\scripts\BuildPackagesFromSigningDirectory.ps1
+		..\scripts\DelistCurrentPackages.ps1 = ..\scripts\DelistCurrentPackages.ps1
+		..\scripts\Get-VersionConstants.ps1 = ..\scripts\Get-VersionConstants.ps1
+		..\scripts\New-VersionConstantsFile.ps1 = ..\scripts\New-VersionConstantsFile.ps1
+		..\scripts\NuGetUtilities.psm1 = ..\scripts\NuGetUtilities.psm1
+		..\scripts\Projects.psm1 = ..\scripts\Projects.psm1
+		..\scripts\RegistrySettings.ps1 = ..\scripts\RegistrySettings.ps1
+		..\scripts\Run-Tests.ps1 = ..\scripts\Run-Tests.ps1
+		..\scripts\ScriptUtilities.psm1 = ..\scripts\ScriptUtilities.psm1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F476D7CB-35C1-4FC8-BDC7-6C361E8F5AFF}"
+	ProjectSection(SolutionItems) = preProject
+		BinSkim.targets = BinSkim.targets
+		BinSkimConfiguration.xml = BinSkimConfiguration.xml
+		build.common.props = build.common.props
+		build.props = build.props
+		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
+		NuGet.Config = NuGet.Config
+		ReleaseHistory.md = ReleaseHistory.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "root", "root", "{FA0FD5F7-1C5E-4D71-941F-664FA471999A}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitignore = ..\.gitignore
+		..\appveyor.yml = ..\appveyor.yml
+		..\BuildAndTest.cmd = ..\BuildAndTest.cmd
+		..\DelistCurrentPackages.cmd = ..\DelistCurrentPackages.cmd
+		..\dotnet-install.ps1 = ..\dotnet-install.ps1
+		..\NuGet.Config = ..\NuGet.Config
+		..\README.md = ..\README.md
+		..\RunTests.cmd = ..\RunTests.cmd
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -169,6 +207,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{078A2EE6-5A13-4AFE-9DE4-97FFE53DAC46} = {FA0FD5F7-1C5E-4D71-941F-664FA471999A}
+		{F476D7CB-35C1-4FC8-BDC7-6C361E8F5AFF} = {FA0FD5F7-1C5E-4D71-941F-664FA471999A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9EFA21E3-70A0-467C-9D1F-D5AD0DC1C1E6}

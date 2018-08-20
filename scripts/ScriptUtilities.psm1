@@ -51,11 +51,33 @@ function Write-CommandLine($exeName, $arguments) {
     Write-Verbose "$exeName $($arguments -join ' ')"
 }
 
+function Show-ErrorInformation($error) {
+    Write-Information "Entering Show-ErrorInformation"
+    Write-Information "Argument is of type $($error.GetType())"
+
+    $message = $error.ToString() + "`n"
+
+    $exception = $error.Exception
+    while ($exception) {
+        Write-Information "Exception exists."
+        $message += $exception.Message + "`n`n"
+        $message += "Stack trace:`n"
+        $message += $exception.StackTrace + "`n`n"
+        $exception = $exception.InnerException
+        if ($exception) {
+            $message += "Inner exception:`n"
+        }
+    }
+
+    Write-Information $message
+}
+
 Export-ModuleMember -Function `
     Exit-WithFailureMessage, `
+    Get-ProjectBinDirectory, `
     New-DirectorySafely, `
     Remove-DirectorySafely, `
-    Get-ProjectBinDirectory, `
+    Show-ErrorInformation, `
     Write-CommandLine
 
 Export-ModuleMember -Variable `
