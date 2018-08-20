@@ -1,6 +1,6 @@
 # PyLint Test Data Regeneration
 
-## Steps to regenerate Py test data
+## Steps to regenerate PyLint test data
 * mkdir c:\testdata
 * cd c:\testdata
 * pip install pylint
