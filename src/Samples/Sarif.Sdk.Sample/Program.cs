@@ -57,7 +57,7 @@ namespace Sarif.Sdk.Sample
             // SampleSourceFiles folder should be at the same level as the project folder
             // Because this file can actually be accessed by this app, its
             // content will be embedded in the log file.
-            var fileLocation = new FileLocation { Uri = new Uri($"file://{AppDomain.CurrentDomain.BaseDirectory}/../../../../SampleSourceFiles/AnalysisSample.cs") };
+            var fileLocation = new FileLocation { Uri = new Uri($"file://{AppDomain.CurrentDomain.BaseDirectory}/../../../SampleSourceFiles/AnalysisSample.cs") };
 
             // Create a list of rules that will be enforced during your analysis
             #region Rules list
