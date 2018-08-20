@@ -86,9 +86,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
                 }
                 else if (matchingBaselineResult.Count > 1)
                 {
-                    // TODO--what if multiple results match here?  Grab the first?  Group them up? ...?  We do want this to be completely deterministic, which is part of the problem.
-                    // This will remain unsolved in the early implementation.  A discrete difference metric probably makes sense here.
-                    throw new NotImplementedException("Not implemented for early matchers.");
+                    // TODO--what if multiple results match here?  
+                    // Right now we grab the first?  It might be better to group them up? ...?  
+                    // We do want this to be completely deterministic, which is part of the problem--grabbing the first assumes
+                    // the input logs have been made deterministic.
+                    // This will remain unsolved in the early implementation.  
+                    // One thought--A discrete difference metric probably makes sense here.
+                    result = new MatchedResults() { BaselineResult = matchingBaselineResult[0], CurrentResult = currentResult, MatchingAlgorithm = this };
+                    return true;
                 }
             }
             result = null;

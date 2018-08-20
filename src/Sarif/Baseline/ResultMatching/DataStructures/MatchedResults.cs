@@ -25,65 +25,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         {
             Result result = null;
 
-            Dictionary<string, string> ResultMatchingProperties = new Dictionary<string, string>();
-            Dictionary<string, string> OriginalResultMatchingProperties = null;
+            Dictionary<string, object> ResultMatchingProperties = new Dictionary<string, object>();
+            Dictionary<string, object> OriginalResultMatchingProperties = null;
             if (BaselineResult != null && CurrentResult != null)
             {
-                // Result exists.
-                result = CurrentResult.Result.DeepClone();
-                result.CorrelationGuid = BaselineResult.Result.CorrelationGuid;
-                result.SuppressionStates = BaselineResult.Result.SuppressionStates;
-                result.BaselineState = BaselineState.Existing;
-
-                if (!BaselineResult.Result.TryGetProperty(ResultMatchingBaseliner.ResultMatchingResultPropertyName, out OriginalResultMatchingProperties))
-                {
-                    OriginalResultMatchingProperties = new Dictionary<string, string>();
-                }
-
-                if (CurrentResult.OriginalRun.InstanceGuid != null)
-                {
-                    ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, CurrentResult.OriginalRun.InstanceGuid);
-                }
+                result = ExistingResult(ResultMatchingProperties, out OriginalResultMatchingProperties);
             }
             else if (BaselineResult == null && CurrentResult != null)
             {
-                // Result is New.
-                result = CurrentResult.Result.DeepClone();
-                result.CorrelationGuid = Guid.NewGuid().ToString();
-                result.BaselineState = BaselineState.New;
+                result = NewResult(ResultMatchingProperties, out OriginalResultMatchingProperties);
 
-                if (!CurrentResult.Result.TryGetProperty(ResultMatchingBaseliner.ResultMatchingResultPropertyName, out OriginalResultMatchingProperties))
-                {
-                    OriginalResultMatchingProperties = new Dictionary<string, string>();
-                }
-
-                if (CurrentResult.OriginalRun.InstanceGuid != null)
-                {
-                    ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, CurrentResult.OriginalRun.InstanceGuid);
-                }
-                
-                // Potentially temporary.
-                if (CurrentResult.OriginalRun.Invocations != null && CurrentResult.OriginalRun.Invocations.Any() && CurrentResult.OriginalRun.Invocations[0].StartTime != null)
-                {
-                    ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_FoundDateName, CurrentResult.OriginalRun.Invocations[0].StartTime.ToString());
-                }
-                
             }
             else if (BaselineResult != null && CurrentResult == null)
             {
                 // Result is absent.
-                result = BaselineResult.Result.DeepClone();
-                result.BaselineState = BaselineState.Absent;
-
-                if (!BaselineResult.Result.TryGetProperty(ResultMatchingBaseliner.ResultMatchingResultPropertyName, out OriginalResultMatchingProperties))
-                {
-                    OriginalResultMatchingProperties = new Dictionary<string, string>();
-                }
-
-                if (BaselineResult.OriginalRun.InstanceGuid != null)
-                {
-                    ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, BaselineResult.OriginalRun.InstanceGuid);
-                }
+                result = AbsentResult(ResultMatchingProperties, out OriginalResultMatchingProperties);
             }
             else
             {
@@ -97,15 +53,86 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             return result;
         }
 
-        private Dictionary<string, string> MergeDictionaryPreferFirst(Dictionary<string, string> resultMatchingProperties, Dictionary<string, string> originalResultMatchingProperties)
+        private Result AbsentResult(
+            Dictionary<string, object> ResultMatchingProperties, 
+            out Dictionary<string, object> OriginalResultMatchingProperties)
         {
-            Dictionary<string, string> result = resultMatchingProperties;
+            Result result = BaselineResult.Result.DeepClone();
+            result.BaselineState = BaselineState.Absent;
 
-            foreach (var key in originalResultMatchingProperties.Keys)
+            if (!BaselineResult.Result.TryGetProperty(ResultMatchingBaseliner.ResultMatchingResultPropertyName, out OriginalResultMatchingProperties))
+            {
+                OriginalResultMatchingProperties = new Dictionary<string, object>();
+            }
+
+            if (BaselineResult.OriginalRun.InstanceGuid != null)
+            {
+                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, BaselineResult.OriginalRun.InstanceGuid);
+            }
+            return result;
+        }
+
+        private Result NewResult(
+            Dictionary<string, object> ResultMatchingProperties, 
+            out Dictionary<string, object> OriginalResultMatchingProperties)
+        {
+            // Result is New.
+            Result result = CurrentResult.Result.DeepClone();
+            result.CorrelationGuid = Guid.NewGuid().ToString();
+            result.BaselineState = BaselineState.New;
+
+            if (!CurrentResult.Result.TryGetProperty(ResultMatchingBaseliner.ResultMatchingResultPropertyName, out OriginalResultMatchingProperties))
+            {
+                OriginalResultMatchingProperties = new Dictionary<string, object>();
+            }
+
+            if (CurrentResult.OriginalRun.InstanceGuid != null)
+            {
+                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, CurrentResult.OriginalRun.InstanceGuid);
+            }
+
+            // Potentially temporary.
+            if (CurrentResult.OriginalRun.Invocations != null && CurrentResult.OriginalRun.Invocations.Any() && CurrentResult.OriginalRun.Invocations[0].StartTime != null)
+            {
+                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_FoundDateName, CurrentResult.OriginalRun.Invocations[0].StartTime);
+            }
+            return result;
+        }
+
+        private Result ExistingResult(
+            Dictionary<string, object> ResultMatchingProperties, 
+            out Dictionary<string, object> OriginalResultMatchingProperties)
+        {
+            // Result exists.
+            Result  result = CurrentResult.Result.DeepClone();
+            result.CorrelationGuid = BaselineResult.Result.CorrelationGuid;
+            result.SuppressionStates = BaselineResult.Result.SuppressionStates;
+            result.BaselineState = BaselineState.Existing;
+
+            if (!BaselineResult.Result.TryGetProperty(ResultMatchingBaseliner.ResultMatchingResultPropertyName, out OriginalResultMatchingProperties))
+            {
+                OriginalResultMatchingProperties = new Dictionary<string, object>();
+            }
+
+            if (CurrentResult.OriginalRun.InstanceGuid != null)
+            {
+                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, CurrentResult.OriginalRun.InstanceGuid);
+            }
+
+            return result;
+        }
+
+        private Dictionary<string, object> MergeDictionaryPreferFirst(
+            Dictionary<string, object> firstPropertyBag, 
+            Dictionary<string, object> secondPropertyBag)
+        {
+            Dictionary<string, object> result = firstPropertyBag;
+
+            foreach (var key in secondPropertyBag.Keys)
             {
                 if (!result.ContainsKey(key))
                 {
-                    result[key] = originalResultMatchingProperties[key];
+                    result[key] = secondPropertyBag[key];
                 }
             }
             return result;
