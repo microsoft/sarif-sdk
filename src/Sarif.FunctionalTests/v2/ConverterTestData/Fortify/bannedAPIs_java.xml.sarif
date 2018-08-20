@@ -870,7 +870,10 @@
             "fortifyRuleId": "FEAD26B5-C753-4A64-8DD1-C542E684E7E1"
           }
         }
-      ]
+      ],
+      "description": {
+        "text": "On Sep 10, 2014, a source code review was performed over the JavaBannedAPIs code base. 1 files, 27 LOC (Executable) were scanned and reviewed for defects that could lead to potential security vulnerabilities. A total of 46 reviewed findings were uncovered during the analysis."
+      }
     }
   ]
 }

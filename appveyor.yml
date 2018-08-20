@@ -6,6 +6,7 @@ init:
 branches:
   only:
     - master
+    - develop
     - sarif-v1
 
 before_build:

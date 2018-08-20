@@ -93,8 +93,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 EndLine = 13,
                 EndColumn = 12,
 
-                ByteOffset = 3,
-                ByteLength = 11
+                CharOffset = 3,
+                CharLength = 10
             };
             PhysicalLocation physLoc = new PhysicalLocation()
             {
@@ -118,8 +118,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 DeletedRegion = new Region
                 {
-                    ByteLength = 5,
-                    ByteOffset = 10
+                    CharLength = 5,
+                    CharOffset = 10
                 },
                 InsertedContent = new FileContent
                 {

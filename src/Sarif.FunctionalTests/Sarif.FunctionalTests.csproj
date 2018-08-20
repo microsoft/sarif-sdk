@@ -13,6 +13,12 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
+    <Compile Remove="v2\ConverterTestData\FortifyFpr\src\ContentFileHandlingController.cs" />
+    <Compile Remove="v2\ConverterTestData\FortifyFpr\src\ContentFileViewModel.cs" />
+    <Compile Remove="v2\ConverterTestData\FortifyFpr\src\DocumentValidator.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.4.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
     <PackageReference Include="xunit" Version="2.3.1" />
@@ -23,6 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Sarif.Converters\Sarif.Converters.csproj" />
+    <ProjectReference Include="..\Sarif.TestUtilities\Sarif.TestUtilities.csproj" />
     <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj" />
     <ProjectReference Include="..\Sarif\Sarif.csproj" />
   </ItemGroup>
@@ -1060,6 +1067,9 @@
     <None Include="v1\DirectProducerTestData\Roslyn\RoslynLog.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="v2\ConverterTestData\FortifyFpr\src\ContentFileHandlingController.cs" />
+    <None Include="v2\ConverterTestData\FortifyFpr\src\ContentFileViewModel.cs" />
+    <None Include="v2\ConverterTestData\FortifyFpr\src\DocumentValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
@@ -2598,72 +2608,6 @@
     <None Include="v2\ConverterTestData\StaticDriverVerifier\isrroutine_bug1.tt.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="v2\DirectProducerTestData\BinSkim\BinSkim.AllRules.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="v2\DirectProducerTestData\BinSkim\Corrupted_Native_x86_VS2013_Default.exe.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="v2\DirectProducerTestData\BinSkim\ManagedInteropAssemblyForAtlTestLibrary.dll.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="v2\DirectProducerTestData\BinSkim\ManagedResourcesOnly.dll.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="v2\DirectProducerTestData\BinSkim\Managed_x86_VS2013_Wpf.exe.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="v2\DirectProducerTestData\BinSkim\MixedMode_x64_VS2013_Default.dll.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="v2\DirectProducerTestData\BinSkim\MixedMode_x64_VS2013_NoPdb.exe.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="v2\DirectProducerTestData\BinSkim\MixedMode_x86_VS2013_Default.exe.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="v2\DirectProducerTestData\BinSkim\MixedMode_x86_VS2013_MissingPdb.dll.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="v2\DirectProducerTestData\BinSkim\Native_x64_VS2013_Default.dll.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="v2\DirectProducerTestData\BinSkim\Native_x64_VS2015_Default.dll.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="v2\DirectProducerTestData\BinSkim\Native_x86_VS2013_Default.exe.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="v2\DirectProducerTestData\BinSkim\Native_x86_VS2013_PdbMissing.exe.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="v2\DirectProducerTestData\BinSkim\Native_x86_VS2013_ResourceOnly.dll.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="v2\DirectProducerTestData\BinSkim\Native_x86_VS2015_AtlProxyStubPS.dll.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="v2\DirectProducerTestData\BinSkim\Native_x86_VS2015_Default.exe.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="v2\DirectProducerTestData\WebSkim\LocalizedBundleDoubleNesting.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="v2\DirectProducerTestData\WebSkim\NestedLocationsFromAppX.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="v2\DirectProducerTestData\WebSkim\NestedLocationsFromDirectoryNoTrailingSlash.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="v2\DirectProducerTestData\WebSkim\NestedLocationsFromDirectoryTrailingSlash.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="v2\DirectProducerTestData\WebSkim\RelatedLocations.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="v2\DirectProducerTestData\WebSkim\SimpleBundleDoubleNesting.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="v2\ConverterTestData\AndroidStudio\AndroidStudio_issueLog1_raw.xml">
@@ -2800,6 +2744,9 @@
     <None Include="v2\ConverterTestData\Fortify\bannedAPIs_m1.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="v2\ConverterTestData\FortifyFpr\FortifyTest.fpr.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="v2\ConverterTestData\FxCop\FxCopExampleReport2.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -2900,6 +2847,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="v2\ConverterTestData\FortifyFpr\FortifyTest.fpr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <None Include="v2\ConverterTestData\FxCop\FxCopExampleReport2.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -2942,9 +2894,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="v2\ConverterTestData\ClangAnalyzer\RealLog.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="v2\DirectProducerTestData\Roslyn\RoslynLog.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
