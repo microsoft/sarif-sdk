@@ -71,11 +71,10 @@ if (-not $NoRestore) {
 
     if (-not $NoBuildSample) {
         Write-Information "Restoring NuGet packages for $SampleSolutionFile..."
-        Write-Information "SKIPPED NuGet restore of sample solution!"
-        # & $NuGetExePath restore -ConfigFile $NuGetConfigFile -Verbosity $NuGetVerbosity $SourceRoot\$SampleSolutionFile
-        #if ($LASTEXITCODE -ne 0) {
-        #    Exit-WithFailureMessage $ScriptName "NuGet restore failed for $SampleSolutionFile."
-        #}
+         & $NuGetExePath restore -ConfigFile $NuGetConfigFile -Verbosity $NuGetVerbosity $SourceRoot\$SampleSolutionFile
+        if ($LASTEXITCODE -ne 0) {
+            Exit-WithFailureMessage $ScriptName "NuGet restore failed for $SampleSolutionFile."
+        }
     }
 }
 
