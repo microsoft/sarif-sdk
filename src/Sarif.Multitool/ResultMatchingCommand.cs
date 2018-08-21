@@ -9,29 +9,29 @@ using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    class BaselineCommand
+    class ResultMatchingCommand
     {
-        public static int Run(BaselineOptions baselineOptions)
+        public static int Run(ResultMatchingOptions matchingOptions)
         {
             try
             {
                 SarifLog baselineFile = null;
-                if (!string.IsNullOrEmpty(baselineOptions.BaselineFilePath))
+                if (!string.IsNullOrEmpty(matchingOptions.BaselineFilePath))
                 {
-                    baselineFile = MultitoolFileHelpers.ReadSarifFile<SarifLog>(baselineOptions.BaselineFilePath);
+                    baselineFile = MultitoolFileHelpers.ReadSarifFile<SarifLog>(matchingOptions.BaselineFilePath);
                 }
 
-                SarifLog currentFile = MultitoolFileHelpers.ReadSarifFile<SarifLog>(baselineOptions.CurrentFilePath);
+                SarifLog currentFile = MultitoolFileHelpers.ReadSarifFile<SarifLog>(matchingOptions.CurrentFilePath);
                 
                 IResultMatchingBaseliner matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
 
                 SarifLog output = matcher.BaselineSarifLogs(new SarifLog[] { baselineFile }, new SarifLog[] { currentFile });
                 
-                var formatting = baselineOptions.PrettyPrint
+                var formatting = matchingOptions.PrettyPrint
                         ? Newtonsoft.Json.Formatting.Indented
                         : Newtonsoft.Json.Formatting.None;
                 
-                MultitoolFileHelpers.WriteSarifFile(output, baselineOptions.OutputFilePath, formatting);
+                MultitoolFileHelpers.WriteSarifFile(output, matchingOptions.OutputFilePath, formatting);
             }
             catch (Exception ex)
             {

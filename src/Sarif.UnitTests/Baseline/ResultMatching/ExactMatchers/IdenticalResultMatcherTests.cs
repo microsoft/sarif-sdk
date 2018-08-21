@@ -14,43 +14,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
     {
         private static IdenticalResultMatcher matcher = new IdenticalResultMatcher();
         
-        public static Result CreateMatchingResult(string target, string location, string context)
-        {
-            return new Result()
-            {
-                RuleId = "TEST001",
-                AnalysisTarget = new FileLocation()
-                {
-                    Uri = new Uri(target)
-                },
-                Level = ResultLevel.Error,
-                RelatedLocations = new Location[]
-                    {
-                        new Location()
-                        {
-                            PhysicalLocation = new PhysicalLocation()
-                            {
-                                FileLocation = new FileLocation()
-                                {
-                                    Uri = new Uri(location)
-                                },
-                                Region = new Region()
-                                {
-                                    StartLine = 5, Snippet = new FileContent() { Text = context }
-                                }
-                            }
-                        }
-                    }
-            };
-        }
-
-
         [Fact]
         public void IdenticalResultMatcher_MatchesIdenticalResults_Single()
         {
             MatchingResult resultA = new MatchingResult()
             {
-                Result = CreateMatchingResult("file://test", "file://test2", "test context")
+                Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context")
             };
 
             MatchingResult resultB = new MatchingResult()
@@ -70,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
         {
             MatchingResult resultAA = new MatchingResult()
             {
-                Result = CreateMatchingResult("file://test", "file://test2", "test context")
+                Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context")
             };
 
             MatchingResult resultBA = new MatchingResult()
@@ -80,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
 
             MatchingResult resultAB = new MatchingResult()
             {
-                Result = CreateMatchingResult("file://test", "file://test2", "test context2")
+                Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context2")
             };
 
             MatchingResult resultBB = new MatchingResult()
@@ -101,12 +70,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
         {
             MatchingResult resultA = new MatchingResult()
             {
-                Result = CreateMatchingResult("file://test", "file://test2", "test context")
+                Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context")
             };
 
             MatchingResult resultB = new MatchingResult()
             {
-                Result = CreateMatchingResult("file://test", "file://test2", "test context2")
+                Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context2")
             };
 
             IEnumerable<MatchedResults> matchedResults = matcher.MatchResults(new MatchingResult[] { resultA }, new MatchingResult[] { resultB });
@@ -119,22 +88,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
         {
             MatchingResult resultAA = new MatchingResult()
             {
-                Result = CreateMatchingResult("file://test", "file://test2", "test context1")
+                Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context1")
             };
 
             MatchingResult resultBA = new MatchingResult()
             {
-                Result = CreateMatchingResult("file://test", "file://test2", "test context2")
+                Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context2")
             };
 
             MatchingResult resultAB = new MatchingResult()
             {
-                Result = CreateMatchingResult("file://test", "file://test2", "test context3")
+                Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context3")
             };
 
             MatchingResult resultBB = new MatchingResult()
             {
-                Result = CreateMatchingResult("file://test", "file://test2", "test context4")
+                Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context4")
             };
 
 
@@ -148,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
         {
             MatchingResult resultA = new MatchingResult()
             {
-                Result = CreateMatchingResult("file://test", "file://test2", "test context")
+                Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context")
             };
 
             Result changedResultA = resultA.Result.DeepClone();
@@ -172,7 +141,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
         {
             MatchingResult resultAA = new MatchingResult()
             {
-                Result = CreateMatchingResult("file://test", "file://test2", "test context")
+                Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context")
             };
 
             Result changedResultA = resultAA.Result.DeepClone();
@@ -186,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
 
             MatchingResult resultAB = new MatchingResult()
             {
-                Result = CreateMatchingResult("file://test", "file://test2", "test context2")
+                Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context2")
             };
 
             Result changedResultB = resultAB.Result.DeepClone();
@@ -211,7 +180,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
         {
             MatchingResult resultAA = new MatchingResult()
             {
-                Result = CreateMatchingResult("file://test", "file://test2", "test context")
+                Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context")
             };
 
             Result changedResultA = resultAA.Result.DeepClone();
@@ -226,7 +195,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
 
             MatchingResult resultAB = new MatchingResult()
             {
-                Result = CreateMatchingResult("file://test", "file://test2", "test context2")
+                Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context2")
             };
 
             Result changedResultB = resultAB.Result.DeepClone();

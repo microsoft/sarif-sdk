@@ -7,6 +7,11 @@ using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 {
+    /// <summary>
+    /// Result metadata for matching a group of results from a 
+    /// set of runs (such as the current set of results) to a group of results 
+    /// from a different set of runs (such as the prior set of results).
+    /// </summary>
     public class MatchingResult
     {
         public string RuleId { get; set; }

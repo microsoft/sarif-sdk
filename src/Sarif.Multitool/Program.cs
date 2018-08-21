@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 MergeOptions,
                 RebaseUriOptions,
                 AbsoluteUriOptions,
-                BaselineOptions>(args)
+                ResultMatchingOptions>(args)
               .MapResult(
                 (ValidateOptions validateOptions) => new ValidateCommand().Run(validateOptions),
                 (ConvertOptions convertOptions) => ConvertCommand.Run(convertOptions),
@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 (MergeOptions mergeOptions) => MergeCommand.Run(mergeOptions),
                 (RebaseUriOptions rebaseOptions) => RebaseUriCommand.Run(rebaseOptions),
                 (AbsoluteUriOptions absoluteUriOptions) => AbsoluteUriCommand.Run(absoluteUriOptions),
-                (BaselineOptions baselineOptions) => BaselineCommand.Run(baselineOptions),
+                (ResultMatchingOptions baselineOptions) => ResultMatchingCommand.Run(baselineOptions),
                 errs => 1);
         }
     }

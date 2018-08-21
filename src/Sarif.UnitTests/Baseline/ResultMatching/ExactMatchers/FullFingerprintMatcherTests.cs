@@ -17,8 +17,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
         [Fact]
         public void FullFingerprintMatcher_MatchesIdenticalFingerprints()
         {
-            Result resultA = IdenticalResultMatcherTests.CreateMatchingResult(@"http://testtesttest", @"file://testa", "contextual contexty contexts");
-            Result resultB = IdenticalResultMatcherTests.CreateMatchingResult(@"http://notasmuchatest", @"file://differentpath", "different contexty contexts");
+            Result resultA = ResultMatchingTestHelpers.CreateMatchingResult(@"http://testtesttest", @"file://testa", "contextual contexty contexts");
+            Result resultB = ResultMatchingTestHelpers.CreateMatchingResult(@"http://notasmuchatest", @"file://differentpath", "different contexty contexts");
 
             resultA.Fingerprints = new Dictionary<string, string>() { { "FingerprintAlgorithm1", "FingerprintValue1" }, { "FingerprintAlgorithm2", "FingerprintValue2" } };
             resultB.Fingerprints = new Dictionary<string, string>() { { "FingerprintAlgorithm1", "FingerprintValue1" }};
@@ -43,8 +43,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
         [Fact]
         public void FullFingerprintMatcher_DoesNotMatchOnChangedFingerprints()
         {
-            Result resultA = IdenticalResultMatcherTests.CreateMatchingResult(@"http://testtesttest", @"file://testa", "contextual contexty contexts");
-            Result resultB = IdenticalResultMatcherTests.CreateMatchingResult(@"http://testtesttest", @"file://testa", "contextual contexty contexts");
+            Result resultA = ResultMatchingTestHelpers.CreateMatchingResult(@"http://testtesttest", @"file://testa", "contextual contexty contexts");
+            Result resultB = ResultMatchingTestHelpers.CreateMatchingResult(@"http://testtesttest", @"file://testa", "contextual contexty contexts");
 
             resultA.Fingerprints = new Dictionary<string, string>() { { "FingerprintAlgorithm1", "FingerprintValue1" }, { "FingerprintAlgorithm2", "FingerprintValue2" } };
             resultB.Fingerprints = new Dictionary<string, string>() { { "FingerprintAlgorithm1", "FingerprintValue3" }, { "FingerprintAlgorithm2", "FingerprintValue4" } };
@@ -57,8 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             {
                 Result = resultB
             };
-
-
+            
             IEnumerable<MatchedResults> matchedResults = matcher.MatchResults(new MatchingResult[] { matchingResultA }, new MatchingResult[] { matchingResultB });
 
             matchedResults.Should().HaveCount(0);

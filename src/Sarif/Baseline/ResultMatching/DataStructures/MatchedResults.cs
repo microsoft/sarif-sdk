@@ -21,6 +21,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
         public IResultMatcher MatchingAlgorithm;
         
+        /// <summary>
+        /// Creates a new SARIF Result object with contents from the
+        /// most recent result of the matched pair, the appropriate state,
+        /// and some metadata in the property bag about the matching algorithm used.
+        /// </summary>
+        /// <returns>The new SARIF result.</returns>
         public Result CalculateNewBaselineResult()
         {
             Result result = null;
@@ -29,16 +35,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             Dictionary<string, object> OriginalResultMatchingProperties = null;
             if (BaselineResult != null && CurrentResult != null)
             {
+                // Baseline result and current result have been matched => existing.
                 result = ExistingResult(ResultMatchingProperties, out OriginalResultMatchingProperties);
             }
             else if (BaselineResult == null && CurrentResult != null)
             {
+                // No baseline result, present current result => new.
                 result = NewResult(ResultMatchingProperties, out OriginalResultMatchingProperties);
-
             }
             else if (BaselineResult != null && CurrentResult == null)
             {
-                // Result is absent.
+                // Baseline result is present, current result is missing => absent.
                 result = AbsentResult(ResultMatchingProperties, out OriginalResultMatchingProperties);
             }
             else
@@ -91,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, CurrentResult.OriginalRun.InstanceGuid);
             }
 
-            // Potentially temporary.
+            // Potentially temporary -- we persist the "originally found date" forward, and this sets it.
             if (CurrentResult.OriginalRun.Invocations != null && CurrentResult.OriginalRun.Invocations.Any() && CurrentResult.OriginalRun.Invocations[0].StartTime != null)
             {
                 ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_FoundDateName, CurrentResult.OriginalRun.Invocations[0].StartTime);

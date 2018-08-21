@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
 
             public bool ResultMatcherApplies(MatchingResult result)
             {
-                bool? applies = result.Result.Locations?.Select(loc => loc.PhysicalLocation.ContextRegion.Snippet).Any();
+                bool? applies = result.Result.Locations?.Select(loc => loc.PhysicalLocation?.ContextRegion?.Snippet).Where(snippet => !string.IsNullOrEmpty(snippet?.Text)).Any();
 
                 return applies.HasValue ? applies.Value : false;
             }

@@ -66,6 +66,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
                 return ResultEqualityComparer.Instance.GetHashCode(CreateMaskedResult(obj));
             }
 
+            /// <summary>
+            /// We create a deep copy of the result (so as to not change the actual result contents), and mask the
+            /// fields that relate to result matching (status, suppression states, correllation GUID, etc.).
+            /// </summary>
+            /// <param name="result">The original result</param>
+            /// <returns>A masked deep copy of the result.</returns>
             public Result CreateMaskedResult(Result result)
             {
                 Result masked = result.DeepClone();
