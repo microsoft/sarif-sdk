@@ -7,6 +7,13 @@
         "name": "CodeScanner",
         "downloadUri": "tools/codescanner/download.html"
       },
+      "invocations": [
+        {
+          "executableLocation": {
+            "uri": "tools/CodeScanner.exe"
+          }
+        }
+      ],
       "results": [],
       "originalUriBaseIds": {
         "SRCROOT": "Code/sarif-sdk/src"

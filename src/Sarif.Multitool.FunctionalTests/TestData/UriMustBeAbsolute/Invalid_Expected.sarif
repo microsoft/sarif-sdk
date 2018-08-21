@@ -58,8 +58,32 @@
                   "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UriMustBeAbsolute/Invalid.sarif"
                 },
                 "region": {
-                  "startLine": 12,
+                  "startLine": 19,
                   "startColumn": 39
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1015",
+          "level": "error",
+          "message": {
+            "arguments": [
+              "/runs/0/invocations/0/executableLocation/uri",
+              "tools/CodeScanner.exe"
+            ]
+          },
+          "ruleMessageId": "Default",
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UriMustBeAbsolute/Invalid.sarif"
+                },
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 42
                 }
               }
             }
@@ -117,8 +141,8 @@
       },
       "invocations": [
         {
-          "startTime": "2018-08-21T01:11:35.183Z",
-          "endTime": "2018-08-21T01:11:36.007Z",
+          "startTime": "2018-08-21T01:24:34.442Z",
+          "endTime": "2018-08-21T01:24:35.194Z",
           "toolNotifications": [
             {
               "id": "MSG001.AnalyzingTarget",
@@ -131,7 +155,7 @@
                 "text": "Analyzing 'Invalid.sarif'..."
               },
               "level": "note",
-              "time": "2018-08-21T01:11:35.584Z"
+              "time": "2018-08-21T01:24:34.794Z"
             }
           ]
         }
