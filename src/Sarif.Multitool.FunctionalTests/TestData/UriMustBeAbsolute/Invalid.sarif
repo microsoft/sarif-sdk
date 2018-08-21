@@ -14,7 +14,15 @@
           }
         }
       ],
-      "results": [],
+      "results": [
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "workItemUris": [
+            "example.com/my-project/issues/42"
+          ]
+        }
+      ],
       "originalUriBaseIds": {
         "SRCROOT": "Code/sarif-sdk/src"
       },

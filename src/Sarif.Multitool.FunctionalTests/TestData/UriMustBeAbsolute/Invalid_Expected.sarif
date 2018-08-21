@@ -58,8 +58,32 @@
                   "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UriMustBeAbsolute/Invalid.sarif"
                 },
                 "region": {
-                  "startLine": 19,
+                  "startLine": 27,
                   "startColumn": 39
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1015",
+          "level": "error",
+          "message": {
+            "arguments": [
+              "/runs/0/results/0/workItemUris/0",
+              "example.com/my-project/issues/42"
+            ]
+          },
+          "ruleMessageId": "Default",
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UriMustBeAbsolute/Invalid.sarif"
+                },
+                "region": {
+                  "startLine": 22,
+                  "startColumn": 46
                 }
               }
             }
@@ -130,7 +154,7 @@
                   "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UriMustBeAbsolute/Invalid.sarif"
                 },
                 "region": {
-                  "startLine": 23,
+                  "startLine": 31,
                   "startColumn": 41
                 }
               }
@@ -165,8 +189,8 @@
       },
       "invocations": [
         {
-          "startTime": "2018-08-21T01:34:20.986Z",
-          "endTime": "2018-08-21T01:34:21.775Z",
+          "startTime": "2018-08-21T01:37:46.784Z",
+          "endTime": "2018-08-21T01:37:47.596Z",
           "toolNotifications": [
             {
               "id": "MSG001.AnalyzingTarget",
@@ -179,7 +203,7 @@
                 "text": "Analyzing 'Invalid.sarif'..."
               },
               "level": "note",
-              "time": "2018-08-21T01:34:21.358Z"
+              "time": "2018-08-21T01:37:47.175Z"
             }
           ]
         }

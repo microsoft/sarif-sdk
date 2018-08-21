@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
@@ -38,6 +39,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             AnalyzeUri(
                 invocation.ExecutableLocation?.Uri,
                 invocationPointer.AtProperty(SarifPropertyName.ExecutableLocation).AtProperty(SarifPropertyName.Uri));
+        }
+
+        protected override void Analyze(Result result, string resultPointer)
+        {
+            if (result.WorkItemUris != null)
+            {
+                Uri[] workItemUris = result.WorkItemUris.ToArray();
+                string workItemUrisPointer = resultPointer.AtProperty(SarifPropertyName.WorkItemUris);
+
+                for (int i = 0; i < workItemUris.Length; ++i)
+                {
+                    AnalyzeUri(workItemUris[i], workItemUrisPointer.AtIndex(i));
+                }
+            }
         }
 
         protected override void Analyze(Run run, string runPointer)
