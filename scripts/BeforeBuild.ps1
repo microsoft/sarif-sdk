@@ -55,11 +55,34 @@ function Remove-BuildOutput {
     }
 }
 
+# Install-VersionConstantsFile
+#
+# Create a source file containing a class that specifies the NuGet package
+# version number, and place it in the Sarif project directory.
+#
+function Install-VersionConstantsFile {
+    # The name of the project in which to install VersionConstants.cs.
+    $targetProjectName = "Sarif"
+
+    # The element in build.props from which to extract the root of the namespace
+    # used in VersionConstants.cs.
+    $xPath = "/msbuild:Project/msbuild:PropertyGroup[@Label='Build']/msbuild:RootNamespaceBase"
+    $xml = Select-Xml -Path $BuildPropsPath -Namespace $MSBuildXmlNamespaces -XPath $xPath
+    $rootNamespaceBase = $xml.Node.InnerText
+
+    $targetProjectDirectory = "$SourceRoot\$targetProjectName"
+    $rootNamespace = "$rootNamespaceBase.$targetProjectName"
+
+    & $PSScriptRoot\New-VersionConstantsFile.ps1 $targetProjectDirectory $rootNamespace
+}
+
 $ScriptName = $([io.Path]::GetFileNameWithoutExtension($PSCommandPath))
 
 if (-not $NoClean) {
     Remove-BuildOutput
 }
+
+Install-VersionConstantsFile
 
 if (-not $NoRestore) {
     Write-Information "Restoring NuGet packages for $SolutionFile..."
