@@ -55,6 +55,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
+        protected override void Analyze(Rule rule, string rulePointer)
+        {
+            AnalyzeUri(rule.HelpUri, rulePointer.AtProperty(SarifPropertyName.HelpUri));
+        }
+
         protected override void Analyze(Run run, string runPointer)
         {
             if (run.OriginalUriBaseIds != null)

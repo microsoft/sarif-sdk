@@ -26,6 +26,14 @@
       "originalUriBaseIds": {
         "SRCROOT": "Code/sarif-sdk/src"
       },
+      "resources": {
+        "rules": {
+          "TST0001": {
+            "id": "TST0001",
+            "helpUri": "www.example.com/rules/tst0001.html"
+          }
+        }
+      },
       "versionControlProvenance": [
         {
           "uri": "example.com/my-project"
