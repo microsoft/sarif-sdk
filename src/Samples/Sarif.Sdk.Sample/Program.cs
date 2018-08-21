@@ -56,8 +56,6 @@ namespace Sarif.Sdk.Sample
             // We'll use this source file for several defect results -- the
             // SampleSourceFiles folder should be a child of the project folder,
             // two levels up from the folder that contains the EXE (e.g., bin\Debug).
-            // Because this file can actually be accessed by this app, its
-            // content will be embedded in the log file.
             var fileLocation = new FileLocation { Uri = new Uri($"file://{AppDomain.CurrentDomain.BaseDirectory}/../../../SampleSourceFiles/AnalysisSample.cs") };
 
             // Create a list of rules that will be enforced during your analysis
