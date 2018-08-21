@@ -58,6 +58,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             AnalyzeUri(tool.DownloadUri, toolPointer.AtProperty(SarifPropertyName.DownloadUri));
         }
 
+        protected override void Analyze(VersionControlDetails versionControlDetails, string versionControlDetailsPointer)
+        {
+            AnalyzeUri(versionControlDetails.Uri, versionControlDetailsPointer.AtProperty(SarifPropertyName.Uri));
+        }
+
         private void AnalyzeUri(Uri uri, string pointer)
         {
             AnalyzeUri(uri?.OriginalString, pointer);

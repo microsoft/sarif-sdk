@@ -17,7 +17,12 @@
       "results": [],
       "originalUriBaseIds": {
         "SRCROOT": "file:///c:/Code/sarif-sdk/src"
-      }
+      },
+      "versionControlProvenance": [
+        {
+          "uri": "https://example.com/my-project"
+        }
+      ]
     }
   ]
 }
