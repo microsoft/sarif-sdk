@@ -250,7 +250,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The SARIF specification requires the value of this property to be an absolute URI, but &quot;{1}&quot; is a relative URI reference..
+        ///   Looks up a localized string similar to {0}: The value of this property is required to be an absolute URI, but &quot;{1}&quot; is a relative URI reference..
         /// </summary>
         internal static string SARIF1015_Default {
             get {
@@ -259,7 +259,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Certain URIs in the SARIF specification are required to be absolute..
+        ///   Looks up a localized string similar to Certain URIs are required to be absolute..
         /// </summary>
         internal static string SARIF1015_UriMustBeAbsolute {
             get {

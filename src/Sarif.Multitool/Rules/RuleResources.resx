@@ -181,9 +181,9 @@
     <value>If a fileLocation object contains a "uriBaseId" property, the value of the "uri" property must be a relative URI reference.</value>
   </data>
   <data name="SARIF1015_Default" xml:space="preserve">
-    <value>{0}: The SARIF specification requires the value of this property to be an absolute URI, but "{1}" is a relative URI reference.</value>
+    <value>{0}: The value of this property is required to be an absolute URI, but "{1}" is a relative URI reference.</value>
   </data>
   <data name="SARIF1015_UriMustBeAbsolute" xml:space="preserve">
-    <value>Certain URIs in the SARIF specification are required to be absolute.</value>
+    <value>Certain URIs are required to be absolute.</value>
   </data>
 </root>
