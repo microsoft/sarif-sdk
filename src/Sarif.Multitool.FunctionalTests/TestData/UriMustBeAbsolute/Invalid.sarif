@@ -5,7 +5,7 @@
     {
       "tool": {
         "name": "CodeScanner",
-        "downloadUri": "http://www.example.com/tools/codescanner/download.html"
+        "downloadUri": "tools/codescanner/download.html"
       },
       "results": [],
       "originalUriBaseIds": {

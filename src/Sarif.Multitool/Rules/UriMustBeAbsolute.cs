@@ -46,6 +46,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
+        protected override void Analyze(Tool tool, string toolPointer)
+        {
+            AnalyzeUri(tool.DownloadUri, toolPointer.AtProperty(SarifPropertyName.DownloadUri));
+        }
+
         private void AnalyzeUri(Uri uri, string pointer)
         {
             AnalyzeUri(uri?.OriginalString, pointer);
