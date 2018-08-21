@@ -26,17 +26,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.StepValuesMustFormOneBasedSequence;
 
-        protected override IEnumerable<string> MessageResourceNames
+        protected override IEnumerable<string> MessageResourceNames => new string[]
         {
-            get
-            {
-                return new string[]
-                {
-                    nameof(RuleResources.SARIF1009_StepNotPresentOnAllLocations),
-                    nameof(RuleResources.SARIF1009_InvalidStepValue)
-                };
-            }
-        }
+            nameof(RuleResources.SARIF1009_StepNotPresentOnAllLocations),
+            nameof(RuleResources.SARIF1009_InvalidStepValue)
+        };
 
         protected override void Analyze(ThreadFlow threadFlow, string threadFlowPointer)
         {
