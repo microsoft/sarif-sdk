@@ -1,0 +1,44 @@
+{
+  "$schema": "json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner",
+        "downloadUri": "tools/codescanner/download.html"
+      },
+      "invocations": [
+        {
+          "executableLocation": {
+            "uri": "tools/CodeScanner.exe"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "workItemUris": [
+            "example.com/my-project/issues/42"
+          ]
+        }
+      ],
+      "originalUriBaseIds": {
+        "SRCROOT": "Code/sarif-sdk/src"
+      },
+      "resources": {
+        "rules": {
+          "TST0001": {
+            "id": "TST0001",
+            "helpUri": "www.example.com/rules/tst0001.html"
+          }
+        }
+      },
+      "versionControlProvenance": [
+        {
+          "uri": "example.com/my-project"
+        }
+      ]
+    }
+  ]
+}
