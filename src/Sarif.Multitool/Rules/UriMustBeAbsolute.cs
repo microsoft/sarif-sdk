@@ -28,6 +28,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF1015_Default)
         };
 
+        protected override void Analyze(SarifLog log, string logPointer)
+        {
+            AnalyzeUri(log.SchemaUri, logPointer.AtProperty(SarifPropertyName.Schema));
+        }
+
         protected override void Analyze(Run run, string runPointer)
         {
             if (run.OriginalUriBaseIds != null)

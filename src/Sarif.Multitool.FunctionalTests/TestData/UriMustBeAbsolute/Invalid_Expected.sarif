@@ -22,6 +22,30 @@
           "level": "error",
           "message": {
             "arguments": [
+              "/$schema",
+              "json.schemastore.org/sarif-2.0.0"
+            ]
+          },
+          "ruleMessageId": "Default",
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UriMustBeAbsolute/Invalid.sarif"
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 47
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1015",
+          "level": "error",
+          "message": {
+            "arguments": [
               "/runs/0/originalUriBaseIds/SRCROOT",
               "Code/sarif-sdk/src"
             ]
@@ -69,8 +93,8 @@
       },
       "invocations": [
         {
-          "startTime": "2018-08-21T01:00:48.642Z",
-          "endTime": "2018-08-21T01:00:49.402Z",
+          "startTime": "2018-08-21T01:07:17.486Z",
+          "endTime": "2018-08-21T01:07:18.258Z",
           "toolNotifications": [
             {
               "id": "MSG001.AnalyzingTarget",
@@ -83,7 +107,7 @@
                 "text": "Analyzing 'Invalid.sarif'..."
               },
               "level": "note",
-              "time": "2018-08-21T01:00:48.996Z"
+              "time": "2018-08-21T01:07:17.856Z"
             }
           ]
         }
