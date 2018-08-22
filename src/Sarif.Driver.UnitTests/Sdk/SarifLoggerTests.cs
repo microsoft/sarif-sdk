@@ -20,7 +20,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 textWriter,
                 analysisTargets: Enumerable.Empty<string>(),
                 loggingOptions: LoggingOptions.None,
-                prereleaseInfo: null,
                 invocationTokensToRedact: null,
                 invocationPropertiesToLog: null);
 

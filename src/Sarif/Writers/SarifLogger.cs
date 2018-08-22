@@ -99,7 +99,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             Tool tool = null,
             Run run = null,
             IEnumerable<string> analysisTargets = null,
-            string prereleaseInfo = null,
             IEnumerable<string> invocationTokensToRedact = null,
             IEnumerable<string> invocationPropertiesToLog = null,
             string defaultFileEncoding = null)
@@ -107,7 +106,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                   loggingOptions,
                   dataToInsert,
                   tool,
-                  run)
+                  run,
+                  invocationTokensToRedact,
+                  invocationPropertiesToLog)
         {
         }
 
@@ -118,8 +119,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             Tool tool = null,
             Run run = null,
             IEnumerable<string> analysisTargets = null,
-            bool targetsAreTextFiles = true,
-            string prereleaseInfo = null,
             IEnumerable<string> invocationTokensToRedact = null,
             IEnumerable<string> invocationPropertiesToLog = null,
             string defaultFileEncoding = null) : this(textWriter, loggingOptions)

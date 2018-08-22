@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         ""name"": ""Semmle QL""
       },
       ""files"": {
-        ""RelativePath"": {
+        ""#$srcroot#RelativePath"": {
           ""mimeType"": ""application/octet-stream""
         }
       },
@@ -70,16 +70,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         ""name"": ""Semmle QL""
       },
       ""files"": {
-        ""ProjectOne/Microsoft.ResourceManagement.ObjectModel/ClientResource.cs"": {
+        ""#$srcroot#ProjectOne/Microsoft.ResourceManagement.ObjectModel/ClientResource.cs"": {
           ""mimeType"": ""text/x-csharp""
         },
         ""file:///C:/Windows/Company.NET/Framework/v2.0.50727/mscorlib.dll"": {
           ""mimeType"": ""application/octet-stream""
         },
-        ""/ClientClient/Company.ResourceManagement.ObjectModel/ClientAttributeValue.cs"": {
+        ""#$srcroot#/ClientClient/Company.ResourceManagement.ObjectModel/ClientAttributeValue.cs"": {
           ""mimeType"": ""text/x-csharp""
         },
-        ""/ClientClient/Company.ResourceManagement.ObjectModel/ClientAttributeValue_ISerializable.cs"": {
+        ""#$srcroot#/ClientClient/Company.ResourceManagement.ObjectModel/ClientAttributeValue_ISerializable.cs"": {
           ""mimeType"": ""text/x-csharp""
         }
       },

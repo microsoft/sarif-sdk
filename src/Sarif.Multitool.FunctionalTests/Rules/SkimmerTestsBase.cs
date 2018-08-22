@@ -36,7 +36,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     tool: null,
                     run: null,                
                     analysisTargets: new string[] { targetPath },
-                    prereleaseInfo: null,
                     invocationTokensToRedact: null))
             {
                 logger.AnalysisStarted();

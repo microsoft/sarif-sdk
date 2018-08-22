@@ -215,9 +215,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         }
                     }
                 },
-                RuleMessageId = TestMessageStringId,
                 Message = new Message
                 {
+                    MessageId = TestMessageStringId,
                     Arguments = new List<string>
                     {
                         "42",

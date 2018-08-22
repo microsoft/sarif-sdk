@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             // We can't restore any absolute URIs unless someone has
             // deconstructed them using uriBaseId + originalUriBaseIds
-            if (originalUriBaseIds == null) { return false; }
+            if (originalUriBaseIds == null) { return this.Uri.IsAbsoluteUri; }
 
             resolvedUri = this.Uri;
 

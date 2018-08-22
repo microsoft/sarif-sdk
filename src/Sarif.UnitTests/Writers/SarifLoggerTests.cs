@@ -98,7 +98,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     textWriter,
                     analysisTargets: null,
                     loggingOptions: LoggingOptions.None,
-                    prereleaseInfo: null,
                     invocationTokensToRedact: tokensToRedact,
                     invocationPropertiesToLog: new List<string> { "CommandLine" })) { }
 
@@ -167,7 +166,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     textWriter,
                     analysisTargets: new string[] { @"foo.cpp" },
                     loggingOptions: LoggingOptions.None,
-                    prereleaseInfo: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null))
                 {
@@ -276,7 +274,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     textWriter,
                     analysisTargets: new string[] { file },
                     dataToInsert: OptionallyEmittedData.Hashes,
-                    prereleaseInfo: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null))
                 {
@@ -323,7 +320,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     textWriter,
                     analysisTargets: new string[] { file },
                     dataToInsert: OptionallyEmittedData.TextFiles,
-                    prereleaseInfo: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null,
                     defaultFileEncoding: "ImaginaryEncoding"))
@@ -363,7 +359,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     textWriter,
                     analysisTargets: null,
                     dataToInsert: OptionallyEmittedData.Hashes,
-                    prereleaseInfo: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null))
                 {
@@ -499,7 +494,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     textWriter,
                     analysisTargets: null,
                     dataToInsert: OptionallyEmittedData.Hashes,
-                    prereleaseInfo: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null))
                 {                    
@@ -544,7 +538,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     textWriter,
                     analysisTargets: null,
                     dataToInsert: OptionallyEmittedData.Hashes,
-                    prereleaseInfo: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null))
                 {
@@ -586,7 +579,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     textWriter,
                     analysisTargets: null,
                     dataToInsert: OptionallyEmittedData.Hashes,
-                    prereleaseInfo: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: new[] { "WorkingDirectory", "ProcessId" }))
                 {
@@ -632,7 +624,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     textWriter,
                     analysisTargets: null,
                     dataToInsert: OptionallyEmittedData.Hashes,
-                    prereleaseInfo: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: new[] { "WORKINGDIRECTORY", "prOCessID" }))
                 {

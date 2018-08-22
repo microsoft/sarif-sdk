@@ -1877,12 +1877,6 @@
   
   <!-- ############-->
   <ItemGroup>
-    <None Include="v2\ConverterTestData\FxCop\FxCopProjectAllMessageStates.fxcop">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="v2\ConverterTestData\FxCop\FxCopReportAllMessageStates.xml.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="v2\ConverterTestData\PREfast\AA_IndexAlias.cpp.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -2747,25 +2741,10 @@
     <None Include="v2\ConverterTestData\FortifyFpr\FortifyTest.fpr.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="v2\ConverterTestData\FxCop\FxCopExampleReport2.xml.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="v2\ConverterTestData\FxCop\FxCopExceptions.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="v2\ConverterTestData\FxCop\FxCopNoTargets.xml.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="v2\ConverterTestData\FxCop\FxCopReportOneMessage.xml.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="v2\ConverterTestData\FxCop\FxCopReportResource.xml.sarif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="v2\ConverterTestData\FxCop\FxCop_issueLog1_raw.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="v2\ConverterTestData\FxCop\FxCop_issueLog1_raw.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -2852,19 +2831,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="v2\ConverterTestData\FxCop\FxCopExampleReport2.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="v2\ConverterTestData\FxCop\FxCopExceptions.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="v2\ConverterTestData\FxCop\FxCopNoTargets.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="v2\ConverterTestData\FxCop\FxCopReportOneMessage.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="v2\ConverterTestData\FxCop\FxCopReportResource.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -2905,9 +2875,6 @@
     <Folder Include="v2\ConverterTestData\StaticDriverVerifier\check\checkirpmjpnp\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="v2\ConverterTestData\FxCop\FxCopReportAllMessageStates.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="v2\ConverterTestData\PREfast\AA_IndexAlias.cpp.xml" />
     <Content Include="v2\ConverterTestData\PREfast\AA_RememberOldAlias.cpp.xml" />
     <Content Include="v2\ConverterTestData\PREfast\AB_IrrelevantBranch.cpp.xml" />
@@ -3467,6 +3434,15 @@
     <None Update="v2\ConverterTestData\Fortify\src\bannedAPIs.java">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>bannedAPIs.cs</LastGenOutput>
+    </None>
+    <None Update="v2\ConverterTestData\FxCop\SarifSdk.fxcop.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="v2\ConverterTestData\FxCop\SarifSdk.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="v2\ConverterTestData\FxCop\SarifSdk.xml.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="v2\ConverterTestData\PREfast\AB_IrrelevantBranch.cpp.xml">
       <Generator>TextTemplatingFileGenerator</Generator>

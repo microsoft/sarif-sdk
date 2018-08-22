@@ -41,6 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             XmlReaderSettings settings = new XmlReaderSettings
             {
+                DtdProcessing = DtdProcessing.Ignore,
                 XmlResolver = null
             };
 

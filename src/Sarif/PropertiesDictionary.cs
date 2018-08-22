@@ -117,14 +117,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             return false;
         }
 
-        private bool TryConvertFromStringArray<T>(string[] values, out T result)
-        {
-            result = default(T);
-            TypeConverter converter = TypeDescriptor.GetConverter(typeof(T));
-
-            return true;
-        }
-
         private PropertiesDictionary GetSettingsContainer(IOption setting, bool cacheDefault)
         {
             PropertiesDictionary properties = this;
@@ -158,9 +150,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void SaveToJson(string filePath, bool prettyPrint = true)
         {
+
+            Newtonsoft.Json.Formatting formatting = prettyPrint
+                ? Newtonsoft.Json.Formatting.Indented
+                : Newtonsoft.Json.Formatting.None;
+
             var settings = new JsonSerializerSettings
             {
-                Formatting = Newtonsoft.Json.Formatting.Indented
+                Formatting = formatting
             };
              
             File.WriteAllText(filePath, JsonConvert.SerializeObject(this, settings));
@@ -207,6 +204,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             var settings = new XmlReaderSettings
             {
+                DtdProcessing = DtdProcessing.Ignore,
                 XmlResolver = null
             };
 

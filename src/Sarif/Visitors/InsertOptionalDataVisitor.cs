@@ -84,6 +84,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     resolvedUri = node.FileLocation.Uri;
                 }
 
+                if (!resolvedUri.IsAbsoluteUri) goto Exit;
+
                 expandedRegion = _fileRegionsCache.PopulateTextRegionProperties(node.Region, resolvedUri, populateSnippet: insertRegionSnippets);
 
                 FileContent originalSnippet = node.Region.Snippet;
@@ -125,22 +127,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (workToDo)
             {
-                fileLocation.TryReconstructAbsoluteUri(_run.OriginalUriBaseIds, out Uri uri);
-
-                Encoding encoding = null;
-
-                if (!string.IsNullOrWhiteSpace(node.Encoding))
+                if (fileLocation.TryReconstructAbsoluteUri(_run.OriginalUriBaseIds, out Uri uri))
                 {
-                    try
-                    {
-                        encoding = Encoding.GetEncoding(node.Encoding);
-                    }
-                    catch (ArgumentException) { }
-                }
 
-                int length = node.Length;
-                node = FileData.Create(uri, _dataToInsert, node.MimeType, encoding: encoding);
-                node.Length = length;
+                    Encoding encoding = null;
+
+                    if (!string.IsNullOrWhiteSpace(node.Encoding))
+                    {
+                        try
+                        {
+                            encoding = Encoding.GetEncoding(node.Encoding);
+                        }
+                        catch (ArgumentException) { }
+                    }
+
+                    int length = node.Length;
+                    node = FileData.Create(uri, _dataToInsert, node.MimeType, encoding: encoding);
+                    node.Length = length;
+                }
             }
 
             return base.VisitFileData(node);
