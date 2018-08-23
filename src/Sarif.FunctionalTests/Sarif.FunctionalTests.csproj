@@ -3444,6 +3444,12 @@
     <None Update="v2\ConverterTestData\FxCop\SarifSdk.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="v2\ConverterTestData\FxCop\SarifSdkTest.fxcop.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="v2\ConverterTestData\FxCop\SarifSdkTest.xml.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="v2\ConverterTestData\PREfast\AB_IrrelevantBranch.cpp.xml">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AB_IrrelevantBranch.cpp.cs</LastGenOutput>
