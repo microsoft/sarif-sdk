@@ -28,10 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     AddFile(new PhysicalLocation
                     {
-                        FileLocation = new FileLocation
-                        {
-                            Uri = result.AnalysisTarget.Uri
-                        }
+                        FileLocation = result.AnalysisTarget.DeepClone()
                     });
                 }
 
@@ -96,6 +93,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             Uri uri = physicalLocation.FileLocation.Uri;
             string key = UriHelper.MakeValidUri(uri.OriginalString);
+
+            string uriBaseId = physicalLocation.FileLocation.UriBaseId;
+            if (!string.IsNullOrEmpty(uriBaseId))
+            {
+                key = "#" + uriBaseId + "#" + key;
+            }
+
             string filePath = key;
 
             if (uri.IsAbsoluteUri && uri.IsFile)

@@ -42,6 +42,13 @@ function Build-Baselines($toolName)
       $sourceExtension = "fpr"
     }
 
+    if ($ToolName -eq "FxCopProject")
+    {
+      $sourceExtension = "fxcop"
+      $toolName = "FxCop"
+    }
+
+
     Write-Host "Building baselines for $toolName..."
     $toolDirectory = Join-Path "$PSScriptRoot\v2\ConverterTestData" $toolName
     $sourceExtension = "*.$sourceExtension"
@@ -54,17 +61,16 @@ function Build-Baselines($toolName)
         # Actually run the converter
         Remove-Item $outputTemp -ErrorAction SilentlyContinue
         &$utility convert "$input" --tool $toolName --output "$outputTemp" --pretty-print
-
         # Next, perform some rewriting. The PREfast converter in particular cannot embed file contents as the source      
         # SARIF emitted by the compiler does not contain the optional 'files' member of the 'run' object.
-        &$utility rewrite ""$outputTemp"" --output ""$outputTemp"" --pretty-print --insert "TextFiles;Hashes;RegionSnippets;ContextCodeSnippets" --force
+        &$utility rewrite ""$outputTemp"" --output ""$outputTemp"" --pretty-print --insert """TextFiles;Hashes;RegionSnippets;ContextRegionSnippets""" --force
 
         Move-Item $outputTemp $output -Force
     }
 }
 
 $allTools = (Get-ChildItem "$PSScriptRoot\v2\ConverterTestData" -Directory | ForEach-Object { $_.Name })
-if ($ToolName -and ($allTools -inotcontains $ToolName)) {
+if ($ToolName -and $ToolName -ne "FxCopProject" -and ($allTools -inotcontains $ToolName)) {
     Throw "Unrecognized tool name $ToolName"
 }
 

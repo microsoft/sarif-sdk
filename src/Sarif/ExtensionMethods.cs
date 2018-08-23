@@ -15,6 +15,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class ExtensionMethods
     {
+        public static Message ToMessage(this string text)
+        {
+            return new Message { Text = text };
+        }
+
         public static OptionallyEmittedData ToFlags(this IEnumerable<OptionallyEmittedData> optionallyEmittedData)
         {
             OptionallyEmittedData convertedToFlags = OptionallyEmittedData.None;
@@ -178,9 +183,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 text = string.Empty;    // Ensure that it's not null.
 
-                if (rule != null && !string.IsNullOrWhiteSpace(result.RuleMessageId))
+                string messageId = result.Message?.MessageId;
+
+                if (rule != null && !string.IsNullOrWhiteSpace(messageId))
                 {
-                    string ruleMessageId = result.RuleMessageId;
                     string messageString;
 
                     string[] arguments = null;
@@ -195,9 +201,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                         arguments = new string[0];
                     }
 
-                    if (rule.MessageStrings?.ContainsKey(ruleMessageId) == true)
+                    if (rule.MessageStrings?.ContainsKey(messageId) == true)
                     {
-                        messageString = rule.MessageStrings[ruleMessageId];
+                        messageString = rule.MessageStrings[messageId];
 
 #if DEBUG
                         int argumentsCount = arguments.Length;
