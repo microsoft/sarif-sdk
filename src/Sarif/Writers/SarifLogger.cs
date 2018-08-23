@@ -50,12 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         new Uri(target, UriKind.RelativeOrAbsolute),
                         dataToInsert);
 
-                    if (run.Files.ContainsKey(fileDataKey))
-                    {
-                        throw new InvalidOperationException(String.Join(",", analysisTargets));
-                    }
-
-                    run.Files.Add(fileDataKey, fileData);
+                    run.Files[fileDataKey] = fileData;
                 }
             }
 
