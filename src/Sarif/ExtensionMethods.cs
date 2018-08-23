@@ -183,9 +183,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 text = string.Empty;    // Ensure that it's not null.
 
-                string messageId = result.Message?.MessageId;
+                string ruleMessageId = result.RuleMessageId;
 
-                if (rule != null && !string.IsNullOrWhiteSpace(messageId))
+                if (rule != null && !string.IsNullOrWhiteSpace(ruleMessageId))
                 {
                     string messageString;
 
@@ -201,9 +201,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                         arguments = new string[0];
                     }
 
-                    if (rule.MessageStrings?.ContainsKey(messageId) == true)
+                    if (rule.MessageStrings?.ContainsKey(ruleMessageId) == true)
                     {
-                        messageString = rule.MessageStrings[messageId];
+                        messageString = rule.MessageStrings[ruleMessageId];
 
 #if DEBUG
                         int argumentsCount = arguments.Length;

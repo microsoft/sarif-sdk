@@ -47,5 +47,55 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             Assert.True(sb.Length == 0, sb.ToString());
         }
+
+        [Fact]
+        public void SarifExtensions_Result_GetMessageText()
+        {
+            var result = new Result()
+            {
+                Message = new Message()
+                {
+                    Arguments = new List<string> { "fox", "dog" }
+                },
+                RuleMessageId = "ruleStr1"
+            };
+
+            var rule = new Rule()
+            {
+                MessageStrings = new Dictionary<string, string>()
+                {
+                    { "ruleStr1", "The quick brown {0} jumps over the lazy {1}. That {1} sure is lazy!" }
+                }
+            };
+
+            string expected = "The quick brown fox jumps over the lazy dog. That dog sure is lazy!";
+            string actual = result.GetMessageText(rule);
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void SarifExtensions_Result_GetMessageText_Concise()
+        {
+            var result = new Result()
+            {
+                Message = new Message()
+                {
+                    Arguments = new List<string> { "fox", "dog" }
+                },
+                RuleMessageId = "ruleStr1"
+            };
+
+            var rule = new Rule()
+            {
+                MessageStrings = new Dictionary<string, string>()
+                {
+                    { "ruleStr1", "The quick brown {0} jumps over the lazy {1}. That {1} sure is lazy!" }
+                }
+            };
+
+            string expected = "The quick brown fox jumps over the lazy dog.";
+            string actual = result.GetMessageText(rule, true);
+            Assert.Equal(expected, actual);
+        }
     }
 }
