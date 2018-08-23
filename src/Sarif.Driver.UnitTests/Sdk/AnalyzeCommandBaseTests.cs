@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     TestAnalyzeCommand.SUCCESS : TestAnalyzeCommand.FAILURE;
 
             command.RuntimeErrors.Should().Be(runtimeConditions);
-            result.Should().Be(expectedResult, because: command.ExecutionException.ToString());
+            result.Should().Be(expectedResult);
 
             if (expectedExitReason != ExitReason.None)
             {
