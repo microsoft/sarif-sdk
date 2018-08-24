@@ -63,7 +63,7 @@
     <None Include="CodeGenHints.json" />
     <None Include="CopyrightNotice.txt" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <Compile Update="SdkResources.Designer.cs">
       <DesignTime>True</DesignTime>

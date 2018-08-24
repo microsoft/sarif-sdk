@@ -217,12 +217,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 },
                 Message = new Message
                 {
-                    MessageId = TestMessageStringId,
                     Arguments = new List<string>
                     {
                         "42",
                         "54"
-                    }
+                    },
+                    MessageId = TestMessageStringId
                 }
             };
         }
