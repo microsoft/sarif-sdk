@@ -186,9 +186,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (rule != null)
                 {
                     string messageId = result.Message?.MessageId;
+                    string formatString = null;
 
                     if (!string.IsNullOrWhiteSpace(messageId)
-                        && rule.MessageStrings?.ContainsKey(messageId) == true)
+                        && rule.MessageStrings?.TryGetValue(messageId, out formatString) == true)
                     {
                         string[] arguments = null;
 
@@ -202,7 +203,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                             arguments = new string[0];
                         }
 
-                        string formatString = rule.MessageStrings[messageId];
                         text = GetFormattedMessage(formatString, arguments);
                     }
                 }
