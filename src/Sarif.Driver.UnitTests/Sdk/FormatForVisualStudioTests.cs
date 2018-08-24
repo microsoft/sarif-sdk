@@ -221,9 +221,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     {
                         "42",
                         "54"
-                    }
-                },
-                RuleMessageId = TestRuleMessageStringId
+                    },
+                    MessageId = TestRuleMessageStringId
+                }
             };
         }
     }

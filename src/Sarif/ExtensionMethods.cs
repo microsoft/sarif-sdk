@@ -168,10 +168,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static string GetMessageText(this Result result, IRule rule)
         {
-            return GetMessageText(result, rule, null, concise: false);
+            return GetMessageText(result, rule, concise: false);
         }
 
-        public static string GetMessageText(this Result result, IRule rule, Dictionary<string, string> resourceStrings, bool concise = false)
+        public static string GetMessageText(this Result result, IRule rule, bool concise = false)
         {
             if (result == null)
             {
@@ -182,10 +182,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (string.IsNullOrEmpty(text))
             {
                 text = string.Empty;    // Ensure that it's not null.
-
-                string ruleMessageId = result.RuleMessageId;
-                string resourceStringId = result.Message?.MessageId;
-                string formatString = null;
+                
+                string messageId = result.Message?.MessageId;
                 string[] arguments = null;
 
                 if (result.Message?.Arguments != null)
@@ -199,19 +197,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 if (rule != null
-                    && !string.IsNullOrWhiteSpace(ruleMessageId)
-                    && rule.MessageStrings?.ContainsKey(ruleMessageId) == true)
+                    && !string.IsNullOrWhiteSpace(messageId)
+                    && rule.MessageStrings?.ContainsKey(messageId) == true)
                 {
-                    formatString = rule.MessageStrings[ruleMessageId];
-                }
-                else if (!string.IsNullOrWhiteSpace(resourceStringId)
-                         && resourceStrings?.ContainsKey(resourceStringId) == true)
-                {
-                    formatString = resourceStrings[resourceStringId];
-                }
-
-                if (formatString != null)
-                {
+                    string formatString = rule.MessageStrings[messageId];
                     text = GetFormattedMessage(formatString, arguments);
                 }
             }
@@ -254,6 +243,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (text == null)
             {
                 throw new ArgumentNullException(nameof(text));
+            }
+
+            if (text == string.Empty)
+            {
+                return text;
             }
 
             int length = 0;
