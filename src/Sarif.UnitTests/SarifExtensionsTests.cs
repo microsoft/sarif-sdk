@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
-        public void SarifExtensions_Result_GetMessageText()
+        public void SarifExtensions_Result_GetMessageText_WithArguments()
         {
             var result = new Result()
             {

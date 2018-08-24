@@ -182,26 +182,29 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (string.IsNullOrEmpty(text))
             {
                 text = string.Empty;    // Ensure that it's not null.
-                
-                string messageId = result.Message?.MessageId;
-                string[] arguments = null;
 
-                if (result.Message?.Arguments != null)
+                if (rule != null)
                 {
-                    arguments = new string[result.Message.Arguments.Count];
-                    result.Message.Arguments.CopyTo(arguments, 0);
-                }
-                else
-                {
-                    arguments = new string[0];
-                }
+                    string messageId = result.Message?.MessageId;
 
-                if (rule != null
-                    && !string.IsNullOrWhiteSpace(messageId)
-                    && rule.MessageStrings?.ContainsKey(messageId) == true)
-                {
-                    string formatString = rule.MessageStrings[messageId];
-                    text = GetFormattedMessage(formatString, arguments);
+                    if (!string.IsNullOrWhiteSpace(messageId)
+                        && rule.MessageStrings?.ContainsKey(messageId) == true)
+                    {
+                        string[] arguments = null;
+
+                        if (result.Message?.Arguments != null)
+                        {
+                            arguments = new string[result.Message.Arguments.Count];
+                            result.Message.Arguments.CopyTo(arguments, 0);
+                        }
+                        else
+                        {
+                            arguments = new string[0];
+                        }
+
+                        string formatString = rule.MessageStrings[messageId];
+                        text = GetFormattedMessage(formatString, arguments);
+                    }
                 }
             }
 
@@ -215,7 +218,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         internal static string GetFormattedMessage(string formatString, string[] arguments)
         {
-            string result = null;
+            string formattedMessage = null;
 
 #if DEBUG
             int argumentsCount = arguments.Length;
@@ -227,15 +230,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 #endif
 
-            result = string.Format(CultureInfo.InvariantCulture, formatString, arguments);
+            formattedMessage = string.Format(CultureInfo.InvariantCulture, formatString, arguments);
 
 #if DEBUG
             // If this assert fires, an insufficient # of arguments might
             // have been provided to String.Format.
-            Debug.Assert(!result.Contains("{"));
+            Debug.Assert(!formattedMessage.Contains("{"));
 #endif
 
-            return result ?? string.Empty;
+            return formattedMessage ?? string.Empty;
         }
 
         public static string GetFirstSentence(string text)

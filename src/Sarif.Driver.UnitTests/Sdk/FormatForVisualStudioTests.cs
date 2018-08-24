@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     public class FormatForVisualStudioTests
     {
         private const string TestRuleId = "TST0001";
-        private const string TestRuleMessageStringId = "testMessageStringId";
+        private const string TestMessageStringId = "testMessageStringId";
         private const string TestAnalysisTarget = @"C:\dir\file";
 
         private static readonly Rule TestRule = new Rule
@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             FullDescription = new Message { Text = "full description" },
             MessageStrings = new Dictionary<string, string>
             {
-                [TestRuleMessageStringId] = "First: {0}, Second: {1}"
+                [TestMessageStringId] = "First: {0}, Second: {1}"
             }
         };
 
@@ -222,7 +222,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         "42",
                         "54"
                     },
-                    MessageId = TestRuleMessageStringId
+                    MessageId = TestMessageStringId
                 }
             };
         }
