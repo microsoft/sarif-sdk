@@ -49,6 +49,22 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        public void SarifExtensions_Result_GetMessageText_MessageText()
+        {
+            var result = new Result()
+            {
+                Message = new Message()
+                {
+                    Text = "The quick brown fox jumps over the lazy dog."
+                }
+            };
+
+            string expected = "The quick brown fox jumps over the lazy dog.";
+            string actual = result.GetMessageText(null);
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
         public void SarifExtensions_Result_GetMessageText_ResourceString()
         {
             var result = new Result()
@@ -59,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     MessageId = "ResStr2"
                 }
             };
-            
+
             var resourceStrings = new Dictionary<string, string>
             {
                 { "ResStr1", "This is {0} resource string 1" },
