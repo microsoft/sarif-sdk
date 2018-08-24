@@ -168,10 +168,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static string GetMessageText(this Result result, IRule rule)
         {
-            return GetMessageText(result, rule, concise: false);
+            return GetMessageText(result, rule, null, concise: false);
         }
 
-        public static string GetMessageText(this Result result, IRule rule, bool concise)
+        public static string GetMessageText(this Result result, IRule rule, Dictionary<string, string> resourceStrings, bool concise = false)
         {
             if (result == null)
             {
@@ -184,45 +184,35 @@ namespace Microsoft.CodeAnalysis.Sarif
                 text = string.Empty;    // Ensure that it's not null.
 
                 string ruleMessageId = result.RuleMessageId;
+                string resourceStringId = result.Message?.MessageId;
+                string formatString = null;
+                string[] arguments = null;
 
-                if (rule != null && !string.IsNullOrWhiteSpace(ruleMessageId))
+                if (result.Message?.Arguments != null)
                 {
-                    string messageString;
+                    arguments = new string[result.Message.Arguments.Count];
+                    result.Message.Arguments.CopyTo(arguments, 0);
+                }
+                else
+                {
+                    arguments = new string[0];
+                }
 
-                    string[] arguments = null;
+                if (rule != null
+                    && !string.IsNullOrWhiteSpace(ruleMessageId)
+                    && rule.MessageStrings?.ContainsKey(ruleMessageId) == true)
+                {
+                    formatString = rule.MessageStrings[ruleMessageId];
+                }
+                else if (!string.IsNullOrWhiteSpace(resourceStringId)
+                         && resourceStrings?.ContainsKey(resourceStringId) == true)
+                {
+                    formatString = resourceStrings[resourceStringId];
+                }
 
-                    if (result.Message?.Arguments != null)
-                    {
-                        arguments = new string[result.Message.Arguments.Count];
-                        result.Message.Arguments.CopyTo(arguments, 0);
-                    }
-                    else
-                    {
-                        arguments = new string[0];
-                    }
-
-                    if (rule.MessageStrings?.ContainsKey(ruleMessageId) == true)
-                    {
-                        messageString = rule.MessageStrings[ruleMessageId];
-
-#if DEBUG
-                        int argumentsCount = arguments.Length;
-                        for (int i = 0; i < argumentsCount; i++)
-                        {
-                            // If this assert fires, there are too many arguments for the specifier
-                            // or there is an argument is skipped or not consumed in the specifier
-                            Debug.Assert(messageString.Contains("{" + i.ToString(CultureInfo.InvariantCulture) + "}"));
-                        }
-#endif
-
-                        text = string.Format(CultureInfo.InvariantCulture, messageString, arguments);
-
-#if DEBUG
-                        // If this assert fires, an insufficient # of arguments might
-                        // have been provided to String.Format.
-                        Debug.Assert(!text.Contains("{"));
-#endif
-                    }
+                if (formatString != null)
+                {
+                    text = GetFormattedMessage(formatString, arguments);
                 }
             }
 
@@ -232,6 +222,31 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             return text;
+        }
+
+        internal static string GetFormattedMessage(string formatString, string[] arguments)
+        {
+            string result = null;
+
+#if DEBUG
+            int argumentsCount = arguments.Length;
+            for (int i = 0; i < argumentsCount; i++)
+            {
+                // If this assert fires, there are too many arguments for the specifier
+                // or there is an argument is skipped or not consumed in the specifier
+                Debug.Assert(formatString.Contains("{" + i.ToString(CultureInfo.InvariantCulture) + "}"));
+            }
+#endif
+
+            result = string.Format(CultureInfo.InvariantCulture, formatString, arguments);
+
+#if DEBUG
+            // If this assert fires, an insufficient # of arguments might
+            // have been provided to String.Format.
+            Debug.Assert(!result.Contains("{"));
+#endif
+
+            return result ?? string.Empty;
         }
 
         public static string GetFirstSentence(string text)
