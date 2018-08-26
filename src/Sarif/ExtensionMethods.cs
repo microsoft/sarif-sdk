@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 using Microsoft.CodeAnalysis.Sarif.Writers;
@@ -235,86 +236,31 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(text));
             }
 
-            int length = 0;
-            bool withinQuotes = false;
-            bool withinParentheses = false;
-            bool lastEncounteredWasDot = false;
-            bool withinEllipsis = false;
-
-            foreach (char ch in text)
+            if (text == string.Empty)
             {
-                length++;
-                switch (ch)
+                return text;
+            }
+
+            // We will return at most the first line
+            string[] lineBreaks = { Environment.NewLine, "\r", "\n" };
+
+            foreach (string s in lineBreaks)
+            {
+                int index = text.IndexOf(s);
+
+                if (index > -1)
                 {
-                    case '\'':
-                    {
-                        // we'll ignore everything within parenthized text
-                        if (!withinParentheses)
-                        {
-                            withinQuotes = !withinQuotes;
-                        }
-                        lastEncounteredWasDot = false;
-                        break;
-                    }
-
-                    case '(':
-                    {
-                        if (!withinQuotes)
-                        {
-                            withinParentheses = true;
-                        }
-                        lastEncounteredWasDot = false;
-                        break;
-                    }
-
-                    case ')':
-                    {
-                        if (!withinQuotes)
-                        {
-                            withinParentheses = false;
-                        }
-                        lastEncounteredWasDot = false;
-                        break;
-                    }
-
-                    case '.':
-                    {
-                        if (withinQuotes || withinParentheses || withinEllipsis) { continue; }
-                        if (length < text.Length && text[length] == '.')
-                        {
-                            withinEllipsis = true;
-                            lastEncounteredWasDot = false;
-                            break;
-                        }
-
-                        lastEncounteredWasDot = true;
-                        break;
-                    }
-
-                    // If we encounter a line-break, we return all leading text.
-                    case '\n':
-                    case '\r':
-                    {
-                        if (withinQuotes || withinParentheses) { continue; }
-                        return text.Substring(0, length).TrimEnd('\r', '\n', ' ', '.') + ".";
-                    }
-
-                    // If we encounter a space following a period, return 
-                    // all text terminating in the period (inclusive).
-                    case ' ':
-                    {
-                        if (!lastEncounteredWasDot) continue;
-                        if (withinQuotes || withinParentheses) { continue; }
-                        return text.Substring(0, length).TrimEnd('\r', '\n', ' ', '.') + ".";
-                    }
-
-                    default:
-                    {
-                        lastEncounteredWasDot = false;
-                        break;
-                    }
+                    text = text.Substring(0, index);
                 }
             }
+
+            Match match = Regex.Match(text, @"^.*?[.?!][\)""']*(?=\s+\p{P}*[\p{L}\p{N}]|\s*$)", RegexOptions.Compiled);
+
+            if (match.Success)
+            {
+                text = match.Value;
+            }
+
             return text.TrimEnd('.') + ".";
         }
 

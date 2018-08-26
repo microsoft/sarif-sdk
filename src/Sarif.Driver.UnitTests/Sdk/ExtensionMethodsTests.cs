@@ -19,13 +19,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         [InlineData("We append periods", "We append periods.")]
         [InlineData("We append periods\nYes we do", "We append periods.")]
         [InlineData("Embedded periods, e.g., .config, does not fool us. Good return.", "Embedded periods, e.g., .config, does not fool us.")]
-        // Expected failure cases
+        [InlineData("Mismatched 'apostrophes', such as in a contraction don't fool us anymore", "Mismatched 'apostrophes', such as in a contraction don't fool us anymore.")]
+        // Expected bad output cases
         [InlineData("no space after period.cannot return good sentence.", "no space after period.cannot return good sentence.")]
         [InlineData("Misuse of exempli gratis, e.g. as here, fools us.", "Misuse of exempli gratis, e.g.")]
+        [InlineData("Abbreviations such as approx. fool us.", "Abbreviations such as approx.")]
         public void GetFirstSentenceTests(string input, string expected)
         {
             string actual = ExtensionMethods.GetFirstSentence(input);
-
             actual.Should().Be(expected);
         }
     }
