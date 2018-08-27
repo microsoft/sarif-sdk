@@ -271,7 +271,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string pattern = @"^        # Start of string
                                .*?      # Zero or more characters, match fewest
                                [.?!]    # End-of-sentence punctuation characters
-                               [)]""']* # Optional character that could bound the punctuation, such as 'The quick brown (fox.)'
+                               [)""']*  # Optional character that could bound the punctuation, such as 'The quick brown (fox.)'
                                (?=      # Start look-ahead
                                (\s+     # One or more spaces
                                \p{P}*   # Zero or more punctuation characters
