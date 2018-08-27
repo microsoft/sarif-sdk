@@ -63,7 +63,7 @@
     <None Include="CodeGenHints.json" />
     <None Include="CopyrightNotice.txt" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <Compile Update="SdkResources.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -73,9 +73,4 @@
   </ItemGroup>
 
   <Import Project="ToDotNet\ToDotNet.targets" />
-
-  <Target BeforeTargets="PrepareForBuild" Name="CreateVersionConstantsFile">
-    <Exec Command="powershell -ExecutionPolicy RemoteSigned $(MsBuildThisFileDirectory)..\..\scripts\New-VersionConstantsFile.ps1 $(MsBuildThisFileDirectory) $(RootNamespace)" />
-  </Target>
-
 </Project>

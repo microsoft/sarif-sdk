@@ -9,7 +9,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class UseAbsolutePathsForNestedFileUriFragments : SarifValidationSkimmerBase
     {
-        public override string FullDescription => RuleResources.SARIF1002_UseAbsolutePathsForNestedFileUriFragmentsDescription;
+        private Message _fullDescription = new Message
+        {
+            Text = RuleResources.SARIF1002_UseAbsolutePathsForNestedFileUriFragmentsDescription
+        };
+
+        public override Message FullDescription => _fullDescription;
 
         public override ResultLevel DefaultLevel => ResultLevel.Error;
 
@@ -18,66 +23,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.UseAbsolutePathsForNestedFileUriFragments;
 
-        protected override IEnumerable<string> FormatIds
+        protected override IEnumerable<string> MessageResourceNames => new string[]
         {
-            get
-            {
-                return new string[]
-                {
-                    nameof(RuleResources.SARIF1002_Default)
-                };
-            }
+            nameof(RuleResources.SARIF1002_Default)
+        };
+
+        protected override void Analyze(FileLocation fileLocation, string fileLocationPointer)
+        {
+            AnalyzeUri(fileLocation.Uri, fileLocationPointer.AtProperty(SarifPropertyName.Uri));
         }
 
-        protected override void Analyze(FileChange fileChange, string fileChangePointer)
-        {
-            AnalyzeUri(fileChange.Uri, fileChangePointer);
-        }
-
+        // In addition to appearing in fileLocation objects, URIs with fragments might
+        // appear as property names in the run.files dictionary.
         protected override void Analyze(FileData fileData, string fileKey, string filePointer)
         {
-            Uri fileUri;
-            try
-            {
-                fileUri = new Uri(fileKey);
-            }
-            catch (UriFormatException)
+            if (!Uri.IsWellFormedUriString(fileKey, UriKind.RelativeOrAbsolute))
             {
                 // It wasn't a value URI. Rule SARIF1003, UrisMustBeValid, will catch this problem.
                 return;
             }
 
-            if (UriHasNonAbsoluteFragment(fileUri))
-            {
-                LogResult(
-                    filePointer,
-                    nameof(RuleResources.SARIF1002_Default),
-                    fileUri.OriginalString);
-            }
-
-            AnalyzeUri(fileData.Uri, filePointer);
+            Uri fileKeyUri = new Uri(fileKey, UriKind.RelativeOrAbsolute);
+            AnalyzeUri(fileKeyUri, filePointer);
         }
 
-        protected override void Analyze(PhysicalLocation physicalLocation, string physicalLocationPointer)
-        {
-            AnalyzeUri(physicalLocation.Uri, physicalLocationPointer);
-        }
-
-        protected override void Analyze(StackFrame frame, string framePointer)
-        {
-            AnalyzeUri(frame.Uri, framePointer);
-        }
-
-        private void AnalyzeUri(Uri uri, string parentPointer)
+        private void AnalyzeUri(Uri uri, string pointer)
         {
             if (UriHasNonAbsoluteFragment(uri))
             {
-                string uriPointer = parentPointer.AtProperty(SarifPropertyName.Uri);
-
-                LogResult(
-                    uriPointer,
-                    nameof(RuleResources.SARIF1002_Default),
-                    uri.OriginalString);
+                LogResult(pointer, nameof(RuleResources.SARIF1002_Default), uri.OriginalString);
             }
         }
 
@@ -101,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private static readonly Uri _fakeBaseUri = new Uri("file:///root", UriKind.Absolute);
 
-        private Uri MakeFakeAbsoluteUri(Uri relativeUri)
+        private static Uri MakeFakeAbsoluteUri(Uri relativeUri)
         {
             return new Uri(_fakeBaseUri, relativeUri);
         }

@@ -1,19 +1,18 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-1.0.0",
-  "version": "1.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
   "runs": [
     {
-      "id": "c8e08f7b-e61b-4cd0-9c03-85747743db3f",
       "tool": {
-        "name": "SarifCli",
-        "fullName": "SarifCli 1.0.0.0",
-        "version": "1.0.0.0",
-        "semanticVersion": "1.0.0",
-        "sarifLoggerVersion": "1.5.31.0",
+        "name": "Sarif.Multitool",
+        "fullName": "Sarif.Multitool 2.0.0.0",
+        "version": "2.0.0.0",
+        "semanticVersion": "2.0.0",
+        "sarifLoggerVersion": "2.0.0.0",
         "language": "en-US",
         "properties": {
-          "Comments": "Command line tool for working with SARIF log files.",
-          "CompanyName": "Microsoft Corporation",
+          "Comments": "Command line tool to perform transformations of input files to SARIF.",
+          "CompanyName": "Microsoft",
           "ProductName": "Microsoft SARIF SDK"
         }
       },
@@ -21,62 +20,74 @@
         {
           "ruleId": "SARIF1009",
           "level": "error",
-          "formattedRuleMessage": {
-            "formatId": "StepNotPresentOnAllLocations",
+          "message": {
             "arguments": [
-              "/runs/0/results/0/codeFlows/0/locations/1"
+              "/runs/0/results/0/codeFlows/0/threadFlows/0/locations/1"
             ]
           },
+          "ruleMessageId": "StepNotPresentOnAllLocations",
           "locations": [
             {
-              "analysisTarget": {
-                "uri": "file:///G:/Code/sarif-sdk/src/Microsoft.CodeAnalysis.Sarif.Multitool/TestData/StepMustIncreaseByOneFromOne/StepNotPresentOnAllLocations.sarif",
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/StepValuesMustFormOneBasedSequence/StepNotPresentOnAllLocations.sarif"
+                },
                 "region": {
-                  "startLine": 37,
-                  "startColumn": 18
+                  "startLine": 46,
+                  "startColumn": 21
                 }
               }
             }
           ]
         }
       ],
-      "toolNotifications": [
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///G:/Code/sarif-sdk/src/Microsoft.CodeAnalysis.Sarif.Multitool/TestData/StepMustIncreaseByOneFromOne/StepNotPresentOnAllLocations.sarif"
-          },
-          "message": "Analyzing 'StepNotPresentOnAllLocations.sarif'...",
-          "level": "note",
-          "time": "2016-08-29T13:54:49.704Z"
-        }
-      ],
-      "rules": {
-        "SARIF1009": {
-          "id": "SARIF1009",
-          "name": "StepMustIncreaseByOneFromOne",
-          "shortDescription": "If the \"step\" property is used on any annotatedCodeLocation in a code flow, then it must be present for every location in the code flow, its value must be 1 for the first location, and its value must increase by 1 for each succeeding location.",
-          "fullDescription": "If the \"step\" property is used on any annotatedCodeLocation in a code flow, then it must be present for every location in the code flow, its value must be 1 for the first location, and its value must increase by 1 for each succeeding location.",
-          "messageFormats": {
-            "StepNotPresentOnAllLocations": "{0}: The \"step\" property is absent. The \"step\" property is present on some but not all locations in this code flow. If the \"step\" property is used on any location in a code flow, it must be present on every location in that code flow."
-          },
-          "defaultLevel": "error",
-          "helpUri": "https://rawgit.com/sarif-standard/sarif-spec/master/Static%20Analysis%20Results%20Interchange%20Format%20(SARIF).html"
+      "resources": {
+        "rules": {
+          "SARIF1009": {
+            "id": "SARIF1009",
+            "name": {
+              "text": "StepValuesMustFormOneBasedSequence"
+            },
+            "shortDescription": {
+              "text": "If the \"step\" property is used on any threadFlowLocation in a threadFlow, then it must be present for every threadFlowLocation in the threadFlow, its value must be 1 for the first threadFlowLocation, and its value must increase by 1 for each succeeding threadFlowLocation."
+            },
+            "fullDescription": {
+              "text": "If the \"step\" property is used on any threadFlowLocation in a threadFlow, then it must be present for every threadFlowLocation in the threadFlow, its value must be 1 for the first threadFlowLocation, and its value must increase by 1 for each succeeding threadFlowLocation."
+            },
+            "messageStrings": {
+              "StepNotPresentOnAllLocations": "{0}: The \"step\" property is absent. The \"step\" property is present on some but not all threadFlowLocations in this threadFlow. If the \"step\" property is used on any threadFlowLocation in a threadFlow, it must be present on every threadFlowLocation in that threadFlow.",
+              "InvalidStepValue": "{0}: The value of the \"step\" property should be {1}, but is {2}. The step values must form a 1-based sequence starting at the first threadFlowLocation in the thread flow."
+            },
+            "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.0/csprd01/sarif-v2.0-csprd01.html"
+          }
         }
       },
       "files": {
-        "file:///G:/Code/sarif-sdk/src/Microsoft.CodeAnalysis.Sarif.Multitool/TestData/StepMustIncreaseByOneFromOne/StepNotPresentOnAllLocations.sarif": {
-          "mimeType": "application/octet-stream"
+        "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/StepValuesMustFormOneBasedSequence/StepNotPresentOnAllLocations.sarif": {
+          "mimeType": "application/sarif-json"
         }
       },
-      "invocation": {
-        "commandLine": "\"G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe\"  validate G:\\Code\\sarif-sdk\\src\\Microsoft.CodeAnalysis.Sarif.Multitool\\TestData\\StepMustIncreaseByOneFromOne\\StepNotPresentOnAllLocations.sarif -o G:\\Code\\sarif-sdk\\src\\Microsoft.CodeAnalysis.Sarif.Multitool\\TestData\\StepMustIncreaseByOneFromOne\\StepNotPresentOnAllLocations_Expected.sarif -j G:\\Code\\sarif-sdk\\src\\Sarif\\Schemata\\Sarif.schema.json ",
-        "startTime": "2016-08-29T13:54:49.625Z",
-        "endTime": "2016-08-29T13:54:50.000Z",
-        "processId": 8808,
-        "fileName": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe",
-        "workingDirectory": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug"
-      }
+      "invocations": [
+        {
+          "startTime": "2018-08-14T20:20:33.385Z",
+          "endTime": "2018-08-14T20:20:34.151Z",
+          "toolNotifications": [
+            {
+              "id": "MSG001.AnalyzingTarget",
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/StepValuesMustFormOneBasedSequence/StepNotPresentOnAllLocations.sarif"
+                }
+              },
+              "message": {
+                "text": "Analyzing 'StepNotPresentOnAllLocations.sarif'..."
+              },
+              "level": "note",
+              "time": "2018-08-14T20:20:33.713Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -26,8 +26,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "northwindtraders-droid-2/src/main/java/com/northwindtraders/droid/model/Model.java"
                 },
                 "region": {
                   "startLine": 242

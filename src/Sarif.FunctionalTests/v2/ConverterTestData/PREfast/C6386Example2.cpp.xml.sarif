@@ -9,7 +9,24 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6386/c6386example2.cpp": {
-          "mimeType": "text/x-cpp"
+          "mimeType": "text/x-cpp",
+          "contents": {
+            "binary": "dm9pZCBDNjM4Nl9FeGFtcGxlMihpbnQgaSkNCnsNCiAgIGludCBhWzIwXTsJCQkJDQogICBpbnQgaiA9IDE7DQogICBpZiAoaSA8PSAyMSkJCQkJDQogICB7DQogICAgICBhW2ktMV0gPSBqOwkJCQ0KICAgfQ0KfQ=="
+          },
+          "hashes": [
+            {
+              "value": "1EF3465D00ADAD3A2AC0C85E41101DAE",
+              "algorithm": "md5"
+            },
+            {
+              "value": "9932D9ED2BEE41A3E2A6CBD480B02CD83BB32991",
+              "algorithm": "sha-1"
+            },
+            {
+              "value": "94E245CBDB9B4F7B82FBC087058869B58CA3A887CEF6B03439E8A651EC42B812",
+              "algorithm": "sha-256"
+            }
+          ]
         }
       },
       "logicalLocations": {
@@ -33,7 +50,18 @@
                   "startLine": 7,
                   "startColumn": 14,
                   "snippet": {
-                    "text": "      a[i-1] = j;\t\t\t"
+                    "text": "= j;\t\t\t"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 6,
+                  "startColumn": 1,
+                  "endLine": 8,
+                  "endColumn": 5,
+                  "charOffset": 86,
+                  "charLength": 32,
+                  "snippet": {
+                    "text": "   {\r\n      a[i-1] = j;\t\t\t\r\n   }"
                   }
                 }
               },
@@ -59,7 +87,18 @@
                             "startLine": 3,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "   int a[20];\t\t\t\t"
+                              "text": "a[20];\t\t\t\t"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 2,
+                            "startColumn": 1,
+                            "endLine": 4,
+                            "endColumn": 14,
+                            "charOffset": 28,
+                            "charLength": 35,
+                            "snippet": {
+                              "text": "{\r\n   int a[20];\t\t\t\t\r\n   int j = 1;"
                             }
                           }
                         }
@@ -80,7 +119,18 @@
                             "startLine": 4,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "   int j = 1;"
+                              "text": "j = 1;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 3,
+                            "startColumn": 1,
+                            "endLine": 5,
+                            "endColumn": 20,
+                            "charOffset": 31,
+                            "charLength": 53,
+                            "snippet": {
+                              "text": "   int a[20];\t\t\t\t\r\n   int j = 1;\r\n   if (i <= 21)\t\t\t\t"
                             }
                           }
                         }
@@ -98,7 +148,18 @@
                             "startLine": 5,
                             "startColumn": 10,
                             "snippet": {
-                              "text": "   if (i <= 21)\t\t\t\t"
+                              "text": "<= 21)\t\t\t\t"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 4,
+                            "startColumn": 1,
+                            "endLine": 6,
+                            "endColumn": 5,
+                            "charOffset": 50,
+                            "charLength": 40,
+                            "snippet": {
+                              "text": "   int j = 1;\r\n   if (i <= 21)\t\t\t\t\r\n   {"
                             }
                           }
                         }
@@ -118,7 +179,18 @@
                             "startLine": 7,
                             "startColumn": 14,
                             "snippet": {
-                              "text": "      a[i-1] = j;\t\t\t"
+                              "text": "= j;\t\t\t"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 6,
+                            "startColumn": 1,
+                            "endLine": 8,
+                            "endColumn": 5,
+                            "charOffset": 86,
+                            "charLength": 32,
+                            "snippet": {
+                              "text": "   {\r\n      a[i-1] = j;\t\t\t\r\n   }"
                             }
                           }
                         }

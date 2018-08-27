@@ -449,7 +449,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 DecoratedName = decoratedName,
                 FullyQualifiedName = fullyQualifiedLogicalName,
                 Name = GetLogicalLocationName(fullyQualifiedLogicalName),
-                ParentKey = parentKey
+                ParentKey = parentKey,
+                Kind = kind
             };
         }
 
@@ -641,14 +642,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 physicalLocation = new PhysicalLocation
                 {
                     FileLocation = CreateFileLocation(v1PhysicalLocation),
-                    Region = CreateRegion(v1PhysicalLocation.Region, v1PhysicalLocation.Uri)
+                    Region = CreateRegion(v1PhysicalLocation.Region)
                 };
             }
 
             return physicalLocation;
         }
 
-        internal Region CreateRegion(RegionVersionOne v1Region, Uri uri)
+        internal Region CreateRegion(RegionVersionOne v1Region)
         {
             Region region = null;
 
@@ -685,7 +686,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             // So only copy the v1 annotations that refer to the same file as the location.
             if (v1PhysicalLocation != null && v1AnnotationLocation.Uri == v1PhysicalLocation.Uri)
             {
-                region = CreateRegion(v1PhysicalLocation.Region, v1PhysicalLocation.Uri);
+                region = CreateRegion(v1PhysicalLocation.Region);
                 region.Message = CreateMessage(message);
             }
 

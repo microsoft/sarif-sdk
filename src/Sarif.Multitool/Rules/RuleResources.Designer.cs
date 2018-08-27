@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class RuleResources {
@@ -115,60 +115,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do not use the obsolete &quot;id&quot; property of the annotatedCodeLocation object. Instead use &quot;step&quot;, which is an integer-valued property that is 1 for the first annotatedCodeLocation in a codeFlow, and increments by 1 for every subsequent step..
-        /// </summary>
-        internal static string SARIF1004_AnnotatedCodeLocationIdIsObsolete {
-            get {
-                return ResourceManager.GetString("SARIF1004_AnnotatedCodeLocationIdIsObsolete", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: The obsolete annotatedCodeLocation.id property is used.  Remove it, and instead use the &quot;step&quot; property, whose value is an integer which is 1 for the first location in a code flow, and increments by 1 for each subsequent location in the code flow..
-        /// </summary>
-        internal static string SARIF1004_Default {
-            get {
-                return ResourceManager.GetString("SARIF1004_Default", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: The obsolete &quot;id&quot; property is used. This property has been replaced by the &quot;step&quot; property, but the &quot;step&quot; property is used only in annotatedCodeLocations objects that occur within a code flow. Remove the &quot;id&quot; property..
-        /// </summary>
-        internal static string SARIF1004_OnlyInCodeFlow {
-            get {
-                return ResourceManager.GetString("SARIF1004_OnlyInCodeFlow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Do not use the obsolete &quot;essential&quot; property of the annotatedCodeLocation object. Instead use &quot;importance&quot;, which is an string-valued property that must have one of the values &quot;essential&quot;, &quot;important&quot;, or &quot;unimportant&quot;..
-        /// </summary>
-        internal static string SARIF1005_AnnotatedCodeLocationEssentialIsObsolete {
-            get {
-                return ResourceManager.GetString("SARIF1005_AnnotatedCodeLocationEssentialIsObsolete", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: The obsolete &quot;essential&quot; property is used.  Remove it, and instead use the &quot;importance&quot; property, whose value is a string with one of the values &quot;essential&quot;, &quot;important&quot;, or &quot;unimportant&quot;..
-        /// </summary>
-        internal static string SARIF1005_Default {
-            get {
-                return ResourceManager.GetString("SARIF1005_Default", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: The obsolete &quot;essential&quot; property is used. This property has been replaced by the &quot;importance&quot; property, but the &quot;importance&quot; property is used only in annotatedCodeLocations objects that occur within a code flow. Remove the &quot;essential&quot; property..
-        /// </summary>
-        internal static string SARIF1005_OnlyInCodeFlow {
-            get {
-                return ResourceManager.GetString("SARIF1005_OnlyInCodeFlow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0}: The array contains multiple objects with the value &quot;{1}&quot; for the algorithm property..
         /// </summary>
         internal static string SARIF1006_Default {
@@ -223,7 +169,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The value of the &quot;step&quot; property should be {1}, but is {2}. The step values must form a 1-based sequence starting at the first location in the code flow..
+        ///   Looks up a localized string similar to {0}: The value of the &quot;step&quot; property should be {1}, but is {2}. The step values must form a 1-based sequence starting at the first threadFlowLocation in the thread flow..
         /// </summary>
         internal static string SARIF1009_InvalidStepValue {
             get {
@@ -232,7 +178,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The &quot;step&quot; property is absent. The &quot;step&quot; property is present on some but not all locations in this code flow. If the &quot;step&quot; property is used on any location in a code flow, it must be present on every location in that code flow..
+        ///   Looks up a localized string similar to {0}: The &quot;step&quot; property is absent. The &quot;step&quot; property is present on some but not all threadFlowLocations in this threadFlow. If the &quot;step&quot; property is used on any threadFlowLocation in a threadFlow, it must be present on every threadFlowLocation in that threadFlow..
         /// </summary>
         internal static string SARIF1009_StepNotPresentOnAllLocations {
             get {
@@ -241,29 +187,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If the &quot;step&quot; property is used on any annotatedCodeLocation in a code flow, then it must be present for every location in the code flow, its value must be 1 for the first location, and its value must increase by 1 for each succeeding location..
+        ///   Looks up a localized string similar to If the &quot;step&quot; property is used on any threadFlowLocation in a threadFlow, then it must be present for every threadFlowLocation in the threadFlow, its value must be 1 for the first threadFlowLocation, and its value must increase by 1 for each succeeding threadFlowLocation..
         /// </summary>
         internal static string SARIF1009_StepValuesMustFormOneBasedSequence {
             get {
                 return ResourceManager.GetString("SARIF1009_StepValuesMustFormOneBasedSequence", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: The &quot;step&quot; property appears in an annotatedCodeLocation object which does not occur in a code flow. The &quot;step&quot; property must appear only in annotatedCodeLocation objects which occur within code flows..
-        /// </summary>
-        internal static string SARIF1010_Default {
-            get {
-                return ResourceManager.GetString("SARIF1010_Default", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The &quot;step&quot; property must appear only in annotatedCodeLocation objects which occur within code flows..
-        /// </summary>
-        internal static string SARIF1010_StepMustAppearOnlyInCodeFlowLocations {
-            get {
-                return ResourceManager.GetString("SARIF1010_StepMustAppearOnlyInCodeFlowLocations", resourceCulture);
             }
         }
         
@@ -304,7 +232,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This object defines a &quot;uriBaseId&quot; property, which means that the value of the &quot;uri&quot; property must be a relative URI reference, but &quot;{1}&quot; is an absolute URI reference..
+        ///   Looks up a localized string similar to {0}: This fileLocation object contains a &quot;uriBaseId&quot; property, which means that the value of the &quot;uri&quot; property must be a relative URI reference, but &quot;{1}&quot; is an absolute URI reference..
         /// </summary>
         internal static string SARIF1014_Default {
             get {
@@ -313,11 +241,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to For objects which define both a &quot;uri&quot; and a &quot;uriBaseId&quot; property, if the &quot;uriBaseId&quot; property is present, the value of the &quot;uri&quot; property must be a relative URI reference..
+        ///   Looks up a localized string similar to If a fileLocation object contains a &quot;uriBaseId&quot; property, the value of the &quot;uri&quot; property must be a relative URI reference..
         /// </summary>
         internal static string SARIF1014_UriBaseIdRequiresRelativeUri {
             get {
                 return ResourceManager.GetString("SARIF1014_UriBaseIdRequiresRelativeUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: The value of this property is required to be an absolute URI, but &quot;{1}&quot; is a relative URI reference..
+        /// </summary>
+        internal static string SARIF1015_Default {
+            get {
+                return ResourceManager.GetString("SARIF1015_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Certain URIs are required to be absolute..
+        /// </summary>
+        internal static string SARIF1015_UriMustBeAbsolute {
+            get {
+                return ResourceManager.GetString("SARIF1015_UriMustBeAbsolute", resourceCulture);
             }
         }
     }

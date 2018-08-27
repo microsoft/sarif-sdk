@@ -31,5 +31,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             Verify(new StepValuesMustFormOneBasedSequence(), "InvalidStepValues.sarif");
         }
+
+        [Fact(DisplayName = nameof(StepValuesMustFormOneBasedSequence_MultipleThreadFlows))]
+        public void StepValuesMustFormOneBasedSequence_MultipleThreadFlows()
+        {
+            Verify(new StepValuesMustFormOneBasedSequence(), "MultipleThreadFlows.sarif");
+        }
     }
 }

@@ -9,10 +9,6 @@ branches:
     - develop
     - sarif-v1
 
-before_build:
-  - '"%ProgramFiles(x86)%\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat"'
-  - ps: .\scripts\BeforeBuild.ps1
-
 platform: Any CPU
 
 install:
@@ -21,8 +17,8 @@ install:
 configuration:
   - Release
 
-build:
-  project: src/Sarif.Sdk.sln
+build_script:
+  - ps: .\scripts\BuildAndTest.ps1 -NoTest -NoPackage -NoPublish -NoSigningDirectory -Configuration Release
 
 after_build:
   - ps: .\scripts\Run-Tests.ps1 -Configuration Release -AppVeyor
@@ -32,7 +28,7 @@ test: off
 notifications:
   - provider: Email
     to:
-     - vsarcplat@microsoft.com
+     - tse-securitytools@microsoft.com
     subject: '{{projectName}} Build {{status}}: Version: {{buildVersion}}'
     on_build_status_changed: true
 

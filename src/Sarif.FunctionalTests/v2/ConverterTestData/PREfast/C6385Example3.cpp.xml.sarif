@@ -9,7 +9,24 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6385/c6385example3.cpp": {
-          "mimeType": "text/x-cpp"
+          "mimeType": "text/x-cpp",
+          "contents": {
+            "binary": "I3ByYWdtYSB3YXJuaW5nIChkaXNhYmxlIDogNjAwMSkNCnZvaWQgQzYzODVfRXhhbXBsZTMoaW50IGkpDQp7DQogICBpbnQgYVsyMF07CQkJCQ0KICAgaW50IGo7DQogICBpPTIwOw0KICAgaWYgKGkgPj0gMCAmJiBpIDw9IDIwKQkNCiAgIHsNCiAgICAgIGogPSBhW2ldOwkJCQ0KICAgfQ0KfQ=="
+          },
+          "hashes": [
+            {
+              "value": "EC30593DBB0AB90E29A7192B42827809",
+              "algorithm": "md5"
+            },
+            {
+              "value": "D84E884B47A2E70BBEA6EAEEF66155FC69962717",
+              "algorithm": "sha-1"
+            },
+            {
+              "value": "AF27061B4CD09169818AB0A409ECBC155ECB8831DD72F870098CF07187EF57A7",
+              "algorithm": "sha-256"
+            }
+          ]
         }
       },
       "logicalLocations": {
@@ -33,7 +50,18 @@
                   "startLine": 9,
                   "startColumn": 9,
                   "snippet": {
-                    "text": "      j = a[i];\t\t\t"
+                    "text": "= a[i];\t\t\t"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 8,
+                  "startColumn": 1,
+                  "endLine": 10,
+                  "endColumn": 5,
+                  "charOffset": 133,
+                  "charLength": 30,
+                  "snippet": {
+                    "text": "   {\r\n      j = a[i];\t\t\t\r\n   }"
                   }
                 }
               },
@@ -59,7 +87,18 @@
                             "startLine": 4,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "   int a[20];\t\t\t\t"
+                              "text": "a[20];\t\t\t\t"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 3,
+                            "startColumn": 1,
+                            "endLine": 5,
+                            "endColumn": 10,
+                            "charOffset": 62,
+                            "charLength": 31,
+                            "snippet": {
+                              "text": "{\r\n   int a[20];\t\t\t\t\r\n   int j;"
                             }
                           }
                         }
@@ -80,7 +119,18 @@
                             "startLine": 5,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "   int j;"
+                              "text": "j;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 4,
+                            "startColumn": 1,
+                            "endLine": 6,
+                            "endColumn": 9,
+                            "charOffset": 65,
+                            "charLength": 38,
+                            "snippet": {
+                              "text": "   int a[20];\t\t\t\t\r\n   int j;\r\n   i=20;"
                             }
                           }
                         }
@@ -98,7 +148,18 @@
                             "startLine": 6,
                             "startColumn": 5,
                             "snippet": {
-                              "text": "   i=20;"
+                              "text": "=20;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 5,
+                            "startColumn": 1,
+                            "endLine": 7,
+                            "endColumn": 27,
+                            "charOffset": 84,
+                            "charLength": 47,
+                            "snippet": {
+                              "text": "   int j;\r\n   i=20;\r\n   if (i >= 0 && i <= 20)\t"
                             }
                           }
                         }
@@ -119,7 +180,18 @@
                             "startLine": 7,
                             "startColumn": 15,
                             "snippet": {
-                              "text": "   if (i >= 0 && i <= 20)\t"
+                              "text": "&& i <= 20)\t"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 6,
+                            "startColumn": 1,
+                            "endLine": 8,
+                            "endColumn": 5,
+                            "charOffset": 95,
+                            "charLength": 42,
+                            "snippet": {
+                              "text": "   i=20;\r\n   if (i >= 0 && i <= 20)\t\r\n   {"
                             }
                           }
                         }
@@ -139,7 +211,18 @@
                             "startLine": 9,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "      j = a[i];\t\t\t"
+                              "text": "= a[i];\t\t\t"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 8,
+                            "startColumn": 1,
+                            "endLine": 10,
+                            "endColumn": 5,
+                            "charOffset": 133,
+                            "charLength": 30,
+                            "snippet": {
+                              "text": "   {\r\n      j = a[i];\t\t\t\r\n   }"
                             }
                           }
                         }

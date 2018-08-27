@@ -6,6 +6,12 @@
     NuGet packages.
 .PARAMETER Configuration
     The build configuration: Release or Debug. Default=Release
+.PARAMETER MSBuildVerbosity
+    Specifies the amount of information for MSBuild to display: quiet, minimal,
+    normal, detailed, or diagnostic. Default=minimal
+.PARAMETER NuGetVerbosity
+    Specifies the amount of information for NuGet to display: quiet, normal,
+    or detailed. Default=quiet
 .PARAMETER NoClean
     Do not remove the outputs from the previous build.
 .PARAMETER NoRestore
@@ -14,6 +20,8 @@
     Do not rebuild the SARIF object model from the schema.
 .PARAMETER NoBuild
     Do not build.
+.PARAMETER NoBuildSample
+    Do not build sample.
 .PARAMETER NoTest
     Do not run tests.
 .PARAMETER NoPackage
@@ -32,6 +40,14 @@ param(
     [ValidateSet("Debug", "Release")]
     $Configuration="Release",
 
+    [string]
+    [ValidateSet("quiet", "minimal", "normal", "detailed", "diagnostic")]
+    $MSBuildVerbosity = "minimal",
+
+    [string]
+    [ValidateSet("quiet", "normal", "detailed")]
+    $NuGetVerbosity = "quiet",
+
     [switch]
     $NoClean,
 
@@ -43,6 +59,9 @@ param(
 
     [switch]
     $NoBuild,
+
+    [switch]
+    $NoBuildSample,
 
     [switch]
     $NoTest,
@@ -69,15 +88,37 @@ $ScriptName = $([io.Path]::GetFileNameWithoutExtension($PSCommandPath))
 Import-Module -Force $PSScriptRoot\ScriptUtilities.psm1
 Import-Module -Force $PSScriptRoot\Projects.psm1
 
-$SolutionFile = "$SourceRoot\Sarif.Sdk.sln"
 $BuildTarget = "Rebuild"
 
-function Invoke-Build {
-    Write-Information "Building $SolutionFile..."
-    msbuild /verbosity:minimal /target:$BuildTarget /property:Configuration=$Configuration /fileloggerparameters:Verbosity=detailed $SolutionFile
-    if ($LASTEXITCODE -ne 0) {
-        Exit-WithFailureMessage $ScriptName "Build failed."
+function Invoke-MSBuild($solutionFileRelativePath, $logFile = $null) {
+    Write-Information "Building $solutionFileRelativePath..."
+
+    $fileLoggerParameters = "Verbosity=detailed"
+    if ($logFile -ne $null) {
+        $fileLoggerParameters += "`;LogFile=$logFile"
     }
+
+    $solutionFilePath = Join-Path $SourceRoot $solutionFileRelativePath
+
+    $arguments =
+        "/verbosity:$MSBuildVerbosity",
+        "/target:$BuildTarget",
+        "/property:Configuration=$Configuration",
+        "/fileloggerparameters:$fileLoggerParameters",
+        $solutionFilePath
+
+    & msbuild  $arguments
+    if ($LASTEXITCODE -ne 0) {
+        Exit-WithFailureMessage $ScriptName "Build of $solutionFilePath failed."
+    }
+}
+
+function Invoke-Build {
+    Invoke-MSBuild $SolutionFile
+}
+
+function Invoke-BuildSample {
+    Invoke-MSBuild $sampleSolutionFile sample.log
 }
 
 # Create a directory containing all files necessary to execute an application.
@@ -97,7 +138,7 @@ function New-SigningDirectory {
     }
 
     foreach ($project in $Projects.Products) {
-        $projectBinDirectory = (Get-ProjectBinDirectory $project, $configuration)
+        $projectBinDirectory = (Get-ProjectBinDirectory $project $configuration)
 
         foreach ($framework in $Frameworks.All) {
             $sourceDirectory = "$projectBinDirectory\$framework"
@@ -144,7 +185,7 @@ function Set-SarifFileAssociationRegistrySettings {
     }
 }
 
-& $PSScriptRoot\BeforeBuild.ps1 -NoClean:$NoClean -NoRestore:$NoRestore -NoObjectModel:$NoObjectModel
+& $PSScriptRoot\BeforeBuild.ps1 -NuGetVerbosity $NuGetVerbosity -NoClean:$NoClean -NoRestore:$NoRestore -NoObjectModel:$NoObjectModel -NoBuildSample:$NoBuildSample
 if (-not $?) {
     Exit-WithFailureMessage $ScriptName "BeforeBuild failed."
 }
@@ -153,8 +194,12 @@ if (-not $NoBuild) {
     Invoke-Build
 }
 
+if (-not $NoBuildSample) {
+    Invoke-BuildSample
+}
+
 if (-not $NoTest) {
-    & $PSScriptRoot\Run-Tests.ps1
+    & $PSScriptRoot\Run-Tests.ps1 $Configuration
     if (-not $?) {
         Exit-WithFailureMessage $ScriptName "RunTests failed."
     }

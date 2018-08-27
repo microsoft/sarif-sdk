@@ -7,16 +7,25 @@
     being performed inline in BuildAndTest.cmd, because AppVeyor cannot run BuildAndTest.
     AppVeyor only allows you to specify the project to build, and a script to run before
     the build step. So that is how we have factored the build scripts.
+.PARAMETER NuGetVerbosity
+    Specifies the amount of information for NuGet to display: quiet, normal,
+    or detailed. Default=quiet
 .PARAMETER NoClean
     Do not remove the outputs from the previous build.
 .PARAMETER NoRestore
     Do not restore NuGet packages.
 .PARAMETER NoObjectModel
     Do not rebuild the SARIF object model from the schema.
+.PARAMETER NoBuildSample
+    Do not build sample.
 #>
 
 [CmdletBinding()]
 param(
+    [string]
+    [ValidateSet("quiet", "normal", "detailed")]
+    $NuGetVerbosity = "quiet",
+
     [switch]
     $NoClean,
 
@@ -24,7 +33,10 @@ param(
     $NoRestore,
 
     [switch]
-    $NoObjectModel
+    $NoObjectModel,
+
+    [switch]
+    $NoBuildSample
 )
 
 Set-StrictMode -Version Latest
@@ -43,20 +55,49 @@ function Remove-BuildOutput {
     }
 }
 
+# Install-VersionConstantsFile
+#
+# Create a source file containing a class that specifies the NuGet package
+# version number, and place it in the Sarif project directory.
+#
+function Install-VersionConstantsFile {
+    # The name of the project in which to install VersionConstants.cs.
+    $targetProjectName = "Sarif"
+
+    # The element in build.props from which to extract the root of the namespace
+    # used in VersionConstants.cs.
+    $xPath = "/msbuild:Project/msbuild:PropertyGroup[@Label='Build']/msbuild:RootNamespaceBase"
+    $xml = Select-Xml -Path $BuildPropsPath -Namespace $MSBuildXmlNamespaces -XPath $xPath
+    $rootNamespaceBase = $xml.Node.InnerText
+
+    $targetProjectDirectory = "$SourceRoot\$targetProjectName"
+    $rootNamespace = "$rootNamespaceBase.$targetProjectName"
+
+    & $PSScriptRoot\New-VersionConstantsFile.ps1 $targetProjectDirectory $rootNamespace
+}
+
 $ScriptName = $([io.Path]::GetFileNameWithoutExtension($PSCommandPath))
 
 if (-not $NoClean) {
     Remove-BuildOutput
 }
 
+Install-VersionConstantsFile
+
 if (-not $NoRestore) {
-    $NuGetConfigFile = "$SourceRoot\NuGet.Config"
+    Write-Information "Restoring NuGet packages for $SolutionFile..."
 
-    dotnet restore $SourceRoot\Sarif.Sdk.sln --configfile $NuGetConfigFile --packages $NuGetPackageRoot --verbosity quiet
-
-    Write-Information "Restoring NuGet packages for Sarif.Sdk.sln..."
+    dotnet restore $SourceRoot\$SolutionFile --configfile $NuGetConfigFile --packages $NuGetPackageRoot --verbosity $NuGetVerbosity
     if ($LASTEXITCODE -ne 0) {
-        Exit-WithFailureMessage $ScriptName "NuGet restore failed."
+        Exit-WithFailureMessage $ScriptName "NuGet restore failed for $SolutionFile."
+    }
+
+    if (-not $NoBuildSample) {
+        Write-Information "Restoring NuGet packages for $SampleSolutionFile..."
+         & $NuGetExePath restore -ConfigFile $NuGetConfigFile -Verbosity $NuGetVerbosity -OutputDirectory $NuGetSamplesPackageRoot $SourceRoot\$SampleSolutionFile
+        if ($LASTEXITCODE -ne 0) {
+            Exit-WithFailureMessage $ScriptName "NuGet restore failed for $SampleSolutionFile."
+        }
     }
 }
 
