@@ -267,7 +267,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            Match match = Regex.Match(text, @"^.*?[.?!][\)""']*(?=\s+\p{P}*[\p{L}\p{N}]|\s*$)", RegexOptions.Compiled);
+            Match match = Regex.Match(text, @"^.*?[.?!][\)""']*(?=\s+\p{P}*[\p{Lu}\p{N}]|\s*$)", RegexOptions.Compiled);
 
             if (match.Success)
             {

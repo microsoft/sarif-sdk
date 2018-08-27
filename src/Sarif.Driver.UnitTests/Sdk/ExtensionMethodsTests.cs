@@ -10,20 +10,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     public class ExtensionMethodsTests
     {
         [Theory]
-        [InlineData("first (foo.dll) sentence. more text", "first (foo.dll) sentence.")]
-        [InlineData("first 'foo.dll' sentence. more text", "first 'foo.dll' sentence.")]
-        [InlineData("first (') sentence. more text", "first (') sentence.")]
-        [InlineData("first '(' sentence. more text", "first '(' sentence.")]
+        [InlineData("first (foo.dll) sentence. uncapitalized text", "first (foo.dll) sentence. uncapitalized text.")]
+        [InlineData("first 'foo.dll' sentence. uncapitalized text", "first 'foo.dll' sentence. uncapitalized text.")]
+        [InlineData("first (') sentence. uncapitalized text", "first (') sentence. uncapitalized text.")]
+        [InlineData("first '(' sentence. uncapitalized text", "first '(' sentence. uncapitalized text.")]
+        [InlineData("first (foo.dll) sentence. More text", "first (foo.dll) sentence.")]
+        [InlineData("first 'foo.dll' sentence. More text", "first 'foo.dll' sentence.")]
+        [InlineData("first (') sentence. More text", "first (') sentence.")]
+        [InlineData("first '(' sentence. More text", "first '(' sentence.")]
         [InlineData("We extract initial lines.\n more text", "We extract initial lines.")]
         [InlineData("We extract initial lines.\r more text", "We extract initial lines.")]
         [InlineData("We append periods", "We append periods.")]
         [InlineData("We append periods\nYes we do", "We append periods.")]
         [InlineData("Embedded periods, e.g., .config, does not fool us. Good return.", "Embedded periods, e.g., .config, does not fool us.")]
-        [InlineData("Mismatched 'apostrophes', such as in a contraction don't fool us anymore", "Mismatched 'apostrophes', such as in a contraction don't fool us anymore.")]
+        [InlineData("Mismatched 'apostrophes', such as in a contraction, don't fool us anymore", "Mismatched 'apostrophes', such as in a contraction, don't fool us anymore.")]
+        [InlineData("Misuse of exempli gratis, e.g. as here, no longer fools us.", "Misuse of exempli gratis, e.g. as here, no longer fools us.")]
+        [InlineData("Abbreviations such as approx. don't fool us.", "Abbreviations such as approx. don't fool us.")]
         // Expected bad output cases
         [InlineData("no space after period.cannot return good sentence.", "no space after period.cannot return good sentence.")]
-        [InlineData("Misuse of exempli gratis, e.g. as here, fools us.", "Misuse of exempli gratis, e.g.")]
-        [InlineData("Abbreviations such as approx. fool us.", "Abbreviations such as approx.")]
         public void GetFirstSentenceTests(string input, string expected)
         {
             string actual = ExtensionMethods.GetFirstSentence(input);
