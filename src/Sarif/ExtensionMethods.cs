@@ -264,10 +264,24 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (index > -1)
                 {
                     text = text.Substring(0, index);
+                    break;
                 }
             }
 
-            Match match = Regex.Match(text, @"^.*?[.?!][\)""']*(?=\s+\p{P}*[\p{Lu}\p{N}]|\s*$)", RegexOptions.Compiled);
+            string pattern = @"^        # Start of string
+                               .*?      # Zero or more characters, match fewest
+                               [.?!]    # End-of-sentence punctuation characters
+                               [)]""']* # Optional character that could bound the punctuation, such as 'The quick brown (fox.)'
+                               (?=      # Start look-ahead
+                               (\s+     # One or more spaces
+                               \p{P}*   # Zero or more punctuation characters
+                               \p{Lu})  # A capital letter
+                               |        # Or...
+                               \s*$     # Zero or more spaces followed by end of string
+                               )        # End look-ahead";
+
+            RegexOptions options = RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace;
+            Match match = Regex.Match(text, pattern, options);
 
             if (match.Success)
             {

@@ -10,12 +10,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     public class ExtensionMethodsTests
     {
         [Theory]
-        [InlineData("first (foo.dll) sentence. uncapitalized text", "first (foo.dll) sentence. uncapitalized text.")]
-        [InlineData("first 'foo.dll' sentence. uncapitalized text", "first 'foo.dll' sentence. uncapitalized text.")]
+        [InlineData("first (example.dll) sentence. uncapitalized text", "first (example.dll) sentence. uncapitalized text.")]
+        [InlineData("first 'example.dll' sentence. uncapitalized text", "first 'example.dll' sentence. uncapitalized text.")]
         [InlineData("first (') sentence. uncapitalized text", "first (') sentence. uncapitalized text.")]
         [InlineData("first '(' sentence. uncapitalized text", "first '(' sentence. uncapitalized text.")]
-        [InlineData("first (foo.dll) sentence. More text", "first (foo.dll) sentence.")]
-        [InlineData("first 'foo.dll' sentence. More text", "first 'foo.dll' sentence.")]
+        [InlineData("first (example.dll) sentence. More text", "first (example.dll) sentence.")]
+        [InlineData("first 'example.dll' sentence. More text", "first 'example.dll' sentence.")]
         [InlineData("first (') sentence. More text", "first (') sentence.")]
         [InlineData("first '(' sentence. More text", "first '(' sentence.")]
         [InlineData("We extract initial lines.\n more text", "We extract initial lines.")]
