@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 using Microsoft.CodeAnalysis.Sarif.Writers;
@@ -253,86 +254,40 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return text;
             }
 
-            int length = 0;
-            bool withinQuotes = false;
-            bool withinParentheses = false;
-            bool lastEncounteredWasDot = false;
-            bool withinEllipsis = false;
+            // We will return at most the first line
+            string[] lineBreaks = { Environment.NewLine, "\r", "\n" };
 
-            foreach (char ch in text)
+            foreach (string s in lineBreaks)
             {
-                length++;
-                switch (ch)
+                int index = text.IndexOf(s);
+
+                if (index > -1)
                 {
-                    case '\'':
-                    {
-                        // we'll ignore everything within parenthized text
-                        if (!withinParentheses)
-                        {
-                            withinQuotes = !withinQuotes;
-                        }
-                        lastEncounteredWasDot = false;
-                        break;
-                    }
-
-                    case '(':
-                    {
-                        if (!withinQuotes)
-                        {
-                            withinParentheses = true;
-                        }
-                        lastEncounteredWasDot = false;
-                        break;
-                    }
-
-                    case ')':
-                    {
-                        if (!withinQuotes)
-                        {
-                            withinParentheses = false;
-                        }
-                        lastEncounteredWasDot = false;
-                        break;
-                    }
-
-                    case '.':
-                    {
-                        if (withinQuotes || withinParentheses || withinEllipsis) { continue; }
-                        if (length < text.Length && text[length] == '.')
-                        {
-                            withinEllipsis = true;
-                            lastEncounteredWasDot = false;
-                            break;
-                        }
-
-                        lastEncounteredWasDot = true;
-                        break;
-                    }
-
-                    // If we encounter a line-break, we return all leading text.
-                    case '\n':
-                    case '\r':
-                    {
-                        if (withinQuotes || withinParentheses) { continue; }
-                        return text.Substring(0, length).TrimEnd('\r', '\n', ' ', '.') + ".";
-                    }
-
-                    // If we encounter a space following a period, return 
-                    // all text terminating in the period (inclusive).
-                    case ' ':
-                    {
-                        if (!lastEncounteredWasDot) continue;
-                        if (withinQuotes || withinParentheses) { continue; }
-                        return text.Substring(0, length).TrimEnd('\r', '\n', ' ', '.') + ".";
-                    }
-
-                    default:
-                    {
-                        lastEncounteredWasDot = false;
-                        break;
-                    }
+                    text = text.Substring(0, index);
+                    break;
                 }
             }
+
+            string pattern = @"^        # Start of string
+                               .*?      # Zero or more characters, match fewest
+                               [.?!]    # End-of-sentence punctuation characters
+                               [)""']*  # Optional character that could bound the punctuation, such as 'The quick brown (fox.)'
+                               (?=      # Start look-ahead
+                               (\s+     # One or more spaces
+                               \p{P}*   # Zero or more punctuation characters
+                               \p{Lu})  # A capital letter
+                               |        # Or...
+                               \s*$     # Zero or more spaces followed by end of string
+                               )        # End look-ahead";
+
+            RegexOptions options = RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace;
+            Match match = Regex.Match(text, pattern, options);
+
+            if (match.Success)
+            {
+                text = match.Value;
+            }
+
             return text.TrimEnd('.') + ".";
         }
 
