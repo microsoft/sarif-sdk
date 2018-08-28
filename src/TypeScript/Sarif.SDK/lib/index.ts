@@ -7,4 +7,3 @@ export function CreateEmptySarifLog() : Sarif.StaticAnalysisResultsFormatSarifVe
 {
     return { version: "2.0.0", runs: [] };
 }
-
