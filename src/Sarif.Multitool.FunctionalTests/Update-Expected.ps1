@@ -28,11 +28,12 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+Import-Module -Force ..\..\scripts\Projects.psm1
 Import-Module -Force ..\..\scripts\ScriptUtilities.psm1
 
 $ExpectedSuffix = "_Expected$SarifExtension"
 
-$multiToolExePath = "$BinRoot\Sarif.Multitool\AnyCPU_$Configuration\net461\Sarif.Multitool.exe"
+$multiToolExePath = "$BinRoot\${Platform}_$Configuration\Sarif.Multitool\$($Frameworks.NetFx[0])\Sarif.Multitool.exe"
 $testDataPath = Join-Path $PSScriptRoot "TestData"
 
 function Test-IsInputFile($fileName) {

@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Sarif.Multitool",
+        "fullName": "Sarif.Multitool 2.0.0.0",
+        "version": "2.0.0.0",
+        "semanticVersion": "2.0.0",
+        "sarifLoggerVersion": "2.0.0.0",
+        "language": "en-US",
+        "properties": {
+          "Comments": "Command line tool to perform transformations of input files to SARIF.",
+          "CompanyName": "Microsoft",
+          "ProductName": "Microsoft SARIF SDK"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "SARIF1014",
+          "level": "error",
+          "message": {
+            "arguments": [
+              "/runs/0/results/0/locations/0/physicalLocation/fileLocation/uri",
+              "file:///c:/src/file.c"
+            ]
+          },
+          "ruleMessageId": "Default",
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UriBaseIdRequiresRelativeUri/AbsoluteUriInResultLocation.sarif"
+                },
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 48
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "resources": {
+        "rules": {
+          "SARIF1014": {
+            "id": "SARIF1014",
+            "name": {
+              "text": "UriBaseIdRequiresRelativeUri"
+            },
+            "shortDescription": {
+              "text": "If a fileLocation object contains a \"uriBaseId\" property, the value of the \"uri\" property must be a relative URI reference."
+            },
+            "fullDescription": {
+              "text": "If a fileLocation object contains a \"uriBaseId\" property, the value of the \"uri\" property must be a relative URI reference."
+            },
+            "messageStrings": {
+              "Default": "{0}: This fileLocation object contains a \"uriBaseId\" property, which means that the value of the \"uri\" property must be a relative URI reference, but \"{1}\" is an absolute URI reference."
+            },
+            "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.0/csprd01/sarif-v2.0-csprd01.html"
+          }
+        }
+      },
+      "files": {
+        "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UriBaseIdRequiresRelativeUri/AbsoluteUriInResultLocation.sarif": {
+          "mimeType": "application/sarif-json"
+        }
+      },
+      "invocations": [
+        {
+          "startTime": "2018-08-15T20:40:22.854Z",
+          "endTime": "2018-08-15T20:40:23.782Z",
+          "toolNotifications": [
+            {
+              "id": "MSG001.AnalyzingTarget",
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UriBaseIdRequiresRelativeUri/AbsoluteUriInResultLocation.sarif"
+                }
+              },
+              "message": {
+                "text": "Analyzing 'AbsoluteUriInResultLocation.sarif'..."
+              },
+              "level": "note",
+              "time": "2018-08-15T20:40:23.272Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

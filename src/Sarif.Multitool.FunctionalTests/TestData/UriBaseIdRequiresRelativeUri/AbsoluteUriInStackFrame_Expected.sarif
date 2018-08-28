@@ -1,83 +1,93 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-1.0.0",
-  "version": "1.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
   "runs": [
     {
-      "id": "9c9d92eb-9bdf-4a75-b966-bebdcf18fdf9",
       "tool": {
-        "name": "SarifCli",
-        "fullName": "SarifCli 1.0.0.0",
-        "version": "1.0.0.0",
-        "semanticVersion": "1.0.0",
-        "sarifLoggerVersion": "1.5.31.0",
+        "name": "Sarif.Multitool",
+        "fullName": "Sarif.Multitool 2.0.0.0",
+        "version": "2.0.0.0",
+        "semanticVersion": "2.0.0",
+        "sarifLoggerVersion": "2.0.0.0",
         "language": "en-US",
         "properties": {
-          "Comments": "Command line tool for working with SARIF log files.",
-          "CompanyName": "Microsoft Corporation",
+          "Comments": "Command line tool to perform transformations of input files to SARIF.",
+          "CompanyName": "Microsoft",
           "ProductName": "Microsoft SARIF SDK"
         }
       },
       "results": [
         {
-          "ruleId": "SARIF10014",
+          "ruleId": "SARIF1014",
           "level": "error",
-          "formattedRuleMessage": {
-            "formatId": "Default",
+          "message": {
             "arguments": [
-              "/runs/0/results/0/stacks/0/frames/0/uri",
-              "file:///c:/src/file1.c"
+              "/runs/0/results/0/stacks/0/frames/0/location/physicalLocation/fileLocation/uri",
+              "file:///c:/src/file.c"
             ]
           },
+          "ruleMessageId": "Default",
           "locations": [
             {
-              "analysisTarget": {
-                "uri": "file:///G:/Code/sarif-sdk/src/Microsoft.CodeAnalysis.Sarif.Multitool/TestData/UriBaseIdRequiresRelativeUri/AbsoluteUriInStackFrame.sarif",
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UriBaseIdRequiresRelativeUri/AbsoluteUriInStackFrame.sarif"
+                },
                 "region": {
-                  "startLine": 33,
-                  "startColumn": 50
+                  "startLine": 21,
+                  "startColumn": 54
                 }
               }
             }
           ]
         }
       ],
-      "toolNotifications": [
-        {
-          "id": "MSG001.AnalyzingTarget",
-          "physicalLocation": {
-            "uri": "file:///G:/Code/sarif-sdk/src/Microsoft.CodeAnalysis.Sarif.Multitool/TestData/UriBaseIdRequiresRelativeUri/AbsoluteUriInStackFrame.sarif"
-          },
-          "message": "Analyzing 'AbsoluteUriInStackFrame.sarif'...",
-          "level": "note",
-          "time": "2016-09-05T22:29:49.660Z"
-        }
-      ],
-      "rules": {
-        "SARIF10014": {
-          "id": "SARIF10014",
-          "name": "UriBaseIdRequiresRelativeUri",
-          "shortDescription": "For objects which define both a \"uri\" and a \"uriBaseId\" property, if the \"uriBaseId\" property is present, the value of the \"uri\" property must be a relative URI.",
-          "fullDescription": "For objects which define both a \"uri\" and a \"uriBaseId\" property, if the \"uriBaseId\" property is present, the value of the \"uri\" property must be a relative URI.",
-          "messageFormats": {
-            "Default": "{0}: This object defines a \"uriBaseId\" property, which means that the value of the \"uri\" property must be a relative URI reference, but \"{1}\" is an absolute URI reference."
-          },
-          "defaultLevel": "error",
-          "helpUri": "https://rawgit.com/sarif-standard/sarif-spec/master/Static%20Analysis%20Results%20Interchange%20Format%20(SARIF).html"
+      "resources": {
+        "rules": {
+          "SARIF1014": {
+            "id": "SARIF1014",
+            "name": {
+              "text": "UriBaseIdRequiresRelativeUri"
+            },
+            "shortDescription": {
+              "text": "If a fileLocation object contains a \"uriBaseId\" property, the value of the \"uri\" property must be a relative URI reference."
+            },
+            "fullDescription": {
+              "text": "If a fileLocation object contains a \"uriBaseId\" property, the value of the \"uri\" property must be a relative URI reference."
+            },
+            "messageStrings": {
+              "Default": "{0}: This fileLocation object contains a \"uriBaseId\" property, which means that the value of the \"uri\" property must be a relative URI reference, but \"{1}\" is an absolute URI reference."
+            },
+            "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.0/csprd01/sarif-v2.0-csprd01.html"
+          }
         }
       },
       "files": {
-        "file:///G:/Code/sarif-sdk/src/Microsoft.CodeAnalysis.Sarif.Multitool/TestData/UriBaseIdRequiresRelativeUri/AbsoluteUriInStackFrame.sarif": {
-          "mimeType": "text/x-sarif"
+        "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UriBaseIdRequiresRelativeUri/AbsoluteUriInStackFrame.sarif": {
+          "mimeType": "application/sarif-json"
         }
       },
-      "invocation": {
-        "commandLine": "\"G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe\"  validate G:\\Code\\sarif-sdk\\src\\Microsoft.CodeAnalysis.Sarif.Multitool\\TestData\\UriBaseIdRequiresRelativeUri\\AbsoluteUriInStackFrame.sarif -o G:\\Code\\sarif-sdk\\src\\Microsoft.CodeAnalysis.Sarif.Multitool\\TestData\\UriBaseIdRequiresRelativeUri\\AbsoluteUriInStackFrame_Expected.sarif -j G:\\Code\\sarif-sdk\\src\\Sarif\\Schemata\\Sarif.schema.json ",
-        "startTime": "2016-09-05T22:29:49.564Z",
-        "endTime": "2016-09-05T22:29:49.933Z",
-        "processId": 17080,
-        "fileName": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug\\SarifCli.exe",
-        "workingDirectory": "G:\\Code\\sarif-sdk\\bld\\bin\\SarifCli\\AnyCPU_Debug"
-      }
+      "invocations": [
+        {
+          "startTime": "2018-08-15T20:40:25.628Z",
+          "endTime": "2018-08-15T20:40:26.598Z",
+          "toolNotifications": [
+            {
+              "id": "MSG001.AnalyzingTarget",
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UriBaseIdRequiresRelativeUri/AbsoluteUriInStackFrame.sarif"
+                }
+              },
+              "message": {
+                "text": "Analyzing 'AbsoluteUriInStackFrame.sarif'..."
+              },
+              "level": "note",
+              "time": "2018-08-15T20:40:26.017Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

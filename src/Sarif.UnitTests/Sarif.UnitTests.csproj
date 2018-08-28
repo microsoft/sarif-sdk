@@ -48,10 +48,16 @@
     <None Update="TestData\InsertOptionalDataVisitor\CoreTests_ContextCodeSnippets.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="TestData\InsertOptionalDataVisitor\CoreTests_ContextRegionSnippets.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="TestData\InsertOptionalDataVisitor\CoreTests_FlattenedMessages.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestData\InsertOptionalDataVisitor\CoreTests_Hashes+TextFiles+ComprehensiveRegionProperties+RegionSnippets+ContextCodeSnippets+FlattenedMessages.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\InsertOptionalDataVisitor\CoreTests_Hashes+TextFiles+ComprehensiveRegionProperties+RegionSnippets+ContextRegionSnippets+FlattenedMessages.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestData\InsertOptionalDataVisitor\CoreTests_Hashes+TextFiles.sarif">

@@ -1,9 +1,11 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT        
 // license. See LICENSE file in the project root for full license information. 
 
-using Microsoft.CodeAnalysis.Sarif.Visitors;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+
+using Microsoft.CodeAnalysis.Sarif.Visitors;
 
 namespace Microsoft.CodeAnalysis.Sarif.Processors
 {
@@ -29,7 +31,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
                 {
                     return new GenericMappingAction<SarifLog>(log =>
                     {
-                        RebaseUriVisitor visitor = new RebaseUriVisitor(args[0], new Uri(args[1]));
+                        bool rebaseRelativeUris = false;
+                        bool castRelativeUrisArg = bool.TryParse(args[1], out rebaseRelativeUris);
+                        Debug.Assert(castRelativeUrisArg);
+
+                        RebaseUriVisitor visitor = new RebaseUriVisitor(args[0], rebaseRelativeUris, new Uri(args[2]));
                         return visitor.VisitSarifLog(log);
                     });
                 }

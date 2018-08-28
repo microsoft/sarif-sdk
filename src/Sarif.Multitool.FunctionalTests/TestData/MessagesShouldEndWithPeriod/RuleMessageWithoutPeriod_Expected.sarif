@@ -1,0 +1,118 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Sarif.Multitool",
+        "fullName": "Sarif.Multitool 2.0.0.0",
+        "version": "2.0.0.0",
+        "semanticVersion": "2.0.0",
+        "sarifLoggerVersion": "2.0.0.0",
+        "language": "en-US",
+        "properties": {
+          "Comments": "Command line tool to perform transformations of input files to SARIF.",
+          "CompanyName": "Microsoft",
+          "ProductName": "Microsoft SARIF SDK"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "SARIF1008",
+          "level": "warning",
+          "message": {
+            "arguments": [
+              "/runs/0/resources/rules/TST0001/messageStrings/Default",
+              "Rule message without period"
+            ]
+          },
+          "ruleMessageId": "Default",
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/MessagesShouldEndWithPeriod/RuleMessageWithoutPeriod.sarif"
+                },
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 54
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1008",
+          "level": "warning",
+          "message": {
+            "arguments": [
+              "/runs/0/resources/rules/TST0001/richMessageStrings/Default",
+              "_Rich_ rule message without period"
+            ]
+          },
+          "ruleMessageId": "Default",
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/MessagesShouldEndWithPeriod/RuleMessageWithoutPeriod.sarif"
+                },
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 61
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "resources": {
+        "rules": {
+          "SARIF1008": {
+            "id": "SARIF1008",
+            "name": {
+              "text": "MessagesShouldEndWithPeriod"
+            },
+            "shortDescription": {
+              "text": "Messages should consist of one or more complete sentences, ending with a period."
+            },
+            "fullDescription": {
+              "text": "Messages should consist of one or more complete sentences, ending with a period."
+            },
+            "messageStrings": {
+              "Default": "{0}: The message \"{1}\" does not end with a period."
+            },
+            "richMessageStrings": {},
+            "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.0/csprd01/sarif-v2.0-csprd01.html"
+          }
+        }
+      },
+      "files": {
+        "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/MessagesShouldEndWithPeriod/RuleMessageWithoutPeriod.sarif": {
+          "mimeType": "application/sarif-json"
+        }
+      },
+      "invocations": [
+        {
+          "startTime": "2018-08-10T21:59:10.963Z",
+          "endTime": "2018-08-10T21:59:11.764Z",
+          "toolNotifications": [
+            {
+              "id": "MSG001.AnalyzingTarget",
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/MessagesShouldEndWithPeriod/RuleMessageWithoutPeriod.sarif"
+                }
+              },
+              "message": {
+                "text": "Analyzing 'RuleMessageWithoutPeriod.sarif'..."
+              },
+              "level": "note",
+              "time": "2018-08-10T21:59:11.331Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

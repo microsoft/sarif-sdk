@@ -44,8 +44,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "app/src/androidTest/java/microsoft/androidstudioformatexample/ApplicationTest.java",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "app/src/androidTest/java/microsoft/androidstudioformatexample/ApplicationTest.java"
                 },
                 "region": {
                   "startLine": 10
@@ -68,8 +67,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "app/src/main/java/microsoft/androidstudioformatexample/MainActivity.java"
                 },
                 "region": {
                   "startLine": 1

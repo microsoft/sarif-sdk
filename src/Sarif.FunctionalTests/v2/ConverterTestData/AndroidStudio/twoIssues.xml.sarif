@@ -49,8 +49,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "yammer-droid-2/src/test/java/com/yammer/droid/AdditionOperationTest.java",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "yammer-droid-2/src/test/java/com/yammer/droid/AdditionOperationTest.java"
                 },
                 "region": {
                   "startLine": 10
@@ -73,8 +72,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "yammer-droid-2/src/main/java/com/yammer/droid/ui/MessageUIBean.java",
-                  "uriBaseId": "$PROJECT_DIR$"
+                  "uri": "yammer-droid-2/src/main/java/com/yammer/droid/ui/MessageUIBean.java"
                 },
                 "region": {
                   "startLine": 51

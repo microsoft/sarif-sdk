@@ -14,6 +14,8 @@
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.2.1" />
+    <PackageReference Include="Microsoft.Json.Pointer" Version="0.57.0" />
+    <PackageReference Include="Microsoft.Json.Schema.Validation" Version="0.57.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,26 +25,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Rules\EndTimeMustBeAfterStartTime.cs" />
-    <Compile Remove="Rules\HashAlgorithmsMustBeUnique.cs" />
-    <Compile Remove="Rules\ImportanceMustAppearOnlyInCodeFlowLocations.cs" />
-    <Compile Remove="Rules\MessagesShouldEndWithPeriod.cs" />
-    <Compile Remove="Rules\StepMustAppearOnlyInCodeFlowLocations.cs" />
-    <Compile Remove="Rules\StepValuesMustFormOneBasedSequence.cs" />
-    <Compile Remove="Rules\UriBaseIdRequiresRelativeUri.cs" />
-    <Compile Remove="Rules\UrisMustBeValid.cs" />
-    <Compile Remove="Rules\UseAbsolutePathsForNestedFileUriFragments.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="..\..\refs\$(TargetFramework)\*.dll" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="MultitoolResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>MultitoolResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Rules\RuleResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RuleResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -50,6 +41,10 @@
     <EmbeddedResource Update="MultitoolResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>MultitoolResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Rules\RuleResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>RuleResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 </Project>

@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 }
 
                 // In case someone accidentally passes C:\bld\src and meant C:\bld\src\--the base path should always be a folder, not something that points to a file.
-                if (baseUri.GetFileName() != "")
+                if (!string.IsNullOrEmpty(baseUri.GetFileName()))
                 {
                     baseUri = new Uri(baseUri.ToString() + "/");
                 }
@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Directory.CreateDirectory(rebaseOptions.OutputFolderPath);
                 foreach (var sarifLog in sarifFiles)
                 {
-                    sarifLog.Log = sarifLog.Log.RebaseUri(rebaseOptions.BasePathToken, baseUri);
+                    sarifLog.Log = sarifLog.Log.RebaseUri(rebaseOptions.BasePathToken, rebaseOptions.RebaseRelativeUris, baseUri);
 
                     // Write output to file.
                     string outputName = sarifLog.GetOutputFileName(rebaseOptions);

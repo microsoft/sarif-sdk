@@ -9,7 +9,24 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/longmacrocondition/longmacro.cpp": {
-          "mimeType": "text/x-cpp"
+          "mimeType": "text/x-cpp",
+          "contents": {
+            "binary": "I2RlZmluZSBTVUNDRUVERUQoaHJMb25nVmFyKQkJKCgoaW50KShockxvbmdWYXIpKSA+IDQpDQoNCmludCBDNjAwMU1hY3JvRXhwYW5zaW9uX0V4YW1wbGUoaW50IGhyTG9uZ1ZhcikNCnsNCglpbnQgc2ltcGxlVmFyOw0KDQoJaWYgKCBTVUNDRUVERUQoaHJMb25nVmFyKSApDQoJew0KCQlzaW1wbGVWYXIgPSA1Ow0KCX0NCg0KCXJldHVybiBzaW1wbGVWYXI7DQp9"
+          },
+          "hashes": [
+            {
+              "value": "E967C459C6C1539698B3433128A3B8D7",
+              "algorithm": "md5"
+            },
+            {
+              "value": "D1CF9FC77447CC0C135C7FC61E009A45F94DCE00",
+              "algorithm": "sha-1"
+            },
+            {
+              "value": "C33AA82C064C9050609FF4A26DE823ACD5BF17EC382A9257493E82F0566D7EA9",
+              "algorithm": "sha-256"
+            }
+          ]
         }
       },
       "logicalLocations": {
@@ -33,7 +50,18 @@
                   "startLine": 12,
                   "startColumn": 2,
                   "snippet": {
-                    "text": "\treturn simpleVar;"
+                    "text": "return simpleVar;"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 11,
+                  "startColumn": 1,
+                  "endLine": 13,
+                  "endColumn": 2,
+                  "charOffset": 184,
+                  "charLength": 23,
+                  "snippet": {
+                    "text": "\r\n\treturn simpleVar;\r\n}"
                   }
                 }
               },
@@ -59,7 +87,18 @@
                             "startLine": 5,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "\tint simpleVar;"
+                              "text": "simpleVar;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 4,
+                            "startColumn": 1,
+                            "endLine": 6,
+                            "endColumn": 1,
+                            "charOffset": 106,
+                            "charLength": 20,
+                            "snippet": {
+                              "text": "{\r\n\tint simpleVar;\r\n"
                             }
                           }
                         }
@@ -80,7 +119,18 @@
                             "startLine": 7,
                             "startColumn": 7,
                             "snippet": {
-                              "text": "\tif ( SUCCEEDED(hrLongVar) )"
+                              "text": "SUCCEEDED(hrLongVar) )"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 6,
+                            "startColumn": 1,
+                            "endLine": 8,
+                            "endColumn": 3,
+                            "charOffset": 126,
+                            "charLength": 34,
+                            "snippet": {
+                              "text": "\r\n\tif ( SUCCEEDED(hrLongVar) )\r\n\t{"
                             }
                           }
                         }
@@ -100,7 +150,18 @@
                             "startLine": 12,
                             "startColumn": 2,
                             "snippet": {
-                              "text": "\treturn simpleVar;"
+                              "text": "return simpleVar;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 11,
+                            "startColumn": 1,
+                            "endLine": 13,
+                            "endColumn": 2,
+                            "charOffset": 184,
+                            "charLength": 23,
+                            "snippet": {
+                              "text": "\r\n\treturn simpleVar;\r\n}"
                             }
                           }
                         }

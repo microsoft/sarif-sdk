@@ -9,29 +9,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     internal static class FortifyUtilities
     {
-        private const string XmlContentElementPattern = "<[/]?Content>";
-        private const string XmlParagraphElementPattern = "<[/]?(Alt)?Paragraph>";
-        private const string XmlUnsupportedElementPattern = "<[/]?(ConditionalText|IfDef){1}[^>]*>";
-        private const string MultipleNewlinePattern = "(\r\n){2,}";
-
-        private static readonly Dictionary<string, string> HtmlToMarkdownConversions = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> FormattedTextReplacementss = new Dictionary<string, string>
         {
+            // XML <Content> tag
+            { "<[/]?Content>", string.Empty },
+
+            // XML <Paragraph> and <AltParagraph> tags
+            { "<[/]?(Alt)?Paragraph>", Environment.NewLine },
+            
+            // XML <ConditionalText> and <IfDef> tags
+            { "<[/]?(ConditionalText|IfDef){1}[^>]*>", string.Empty },
+            
+            // Multiple newlines, plus (sometimes) spaces
+            { "\\n[\\r\\n ]*\\n", Environment.NewLine + Environment.NewLine },
+            
+            // HTML <b> => Markdown bold
             { "<[/]?b>", "**" },
+            
+            // HTML <i> => Markdown italics
             { "<[/]?i>", "_" },
+            
+            // HTML <code> => Markdown monospace
             { "<[/]?code>", "`" },
+            
+            // HTML <pre> => Markdown monospace
             { "<[/]?pre>", "`" }
         };
 
         internal static string ParseFormattedContentText(string content)
         {
-            content = Regex.Replace(content, XmlContentElementPattern, string.Empty);
-            content = Regex.Replace(content, XmlParagraphElementPattern, Environment.NewLine);
-            content = Regex.Replace(content, XmlUnsupportedElementPattern, string.Empty);
-            content = Regex.Replace(content, MultipleNewlinePattern, Environment.NewLine);
-
-            foreach (string pattern in HtmlToMarkdownConversions.Keys)
+            foreach (string pattern in FormattedTextReplacementss.Keys)
             {
-                content = Regex.Replace(content, pattern, HtmlToMarkdownConversions[pattern]);
+                content = Regex.Replace(content, pattern, FormattedTextReplacementss[pattern], RegexOptions.Compiled);
             }
 
             return content.Trim(new[] { '\r', '\n', ' ' });

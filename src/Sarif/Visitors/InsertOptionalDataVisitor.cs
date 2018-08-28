@@ -68,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             bool insertRegionSnippets = _dataToInsert.Includes(OptionallyEmittedData.RegionSnippets);
             bool overwriteExistingData = _dataToInsert.Includes(OptionallyEmittedData.OverwriteExistingData);
-            bool insertContextCodeSnippets = _dataToInsert.Includes(OptionallyEmittedData.ContextCodeSnippets);
+            bool insertContextCodeSnippets = _dataToInsert.Includes(OptionallyEmittedData.ContextRegionSnippets);
             bool populateRegionProperties = _dataToInsert.Includes(OptionallyEmittedData.ComprehensiveRegionProperties);
 
             if (insertRegionSnippets || populateRegionProperties || insertContextCodeSnippets)
@@ -83,6 +83,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     resolvedUri = node.FileLocation.Uri;
                 }
+
+                if (!resolvedUri.IsAbsoluteUri) goto Exit;
 
                 expandedRegion = _fileRegionsCache.PopulateTextRegionProperties(node.Region, resolvedUri, populateSnippet: insertRegionSnippets);
 
@@ -125,22 +127,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (workToDo)
             {
-                fileLocation.TryReconstructAbsoluteUri(_run.OriginalUriBaseIds, out Uri uri);
-
-                Encoding encoding = null;
-
-                if (!string.IsNullOrWhiteSpace(node.Encoding))
+                if (fileLocation.TryReconstructAbsoluteUri(_run.OriginalUriBaseIds, out Uri uri))
                 {
-                    try
-                    {
-                        encoding = Encoding.GetEncoding(node.Encoding);
-                    }
-                    catch (ArgumentException) { }
-                }
 
-                int length = node.Length;
-                node = FileData.Create(uri, _dataToInsert, node.MimeType, encoding: encoding);
-                node.Length = length;
+                    Encoding encoding = null;
+
+                    if (!string.IsNullOrWhiteSpace(node.Encoding))
+                    {
+                        try
+                        {
+                            encoding = Encoding.GetEncoding(node.Encoding);
+                        }
+                        catch (ArgumentException) { }
+                    }
+
+                    int length = node.Length;
+                    node = FileData.Create(uri, _dataToInsert, node.MimeType, encoding: encoding);
+                    node.Length = length;
+                }
             }
 
             return base.VisitFileData(node);

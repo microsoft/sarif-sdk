@@ -3,13 +3,19 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class UrisMustBeValid : SarifValidationSkimmerBase
     {
-        public override string FullDescription => RuleResources.SARIF1003_UrisMustBeValid;
+        private Message _fullDescription = new Message
+        {
+            Text = RuleResources.SARIF1003_UrisMustBeValid
+        };
+
+        public override Message FullDescription => _fullDescription;
 
         public override ResultLevel DefaultLevel => ResultLevel.Error;
 
@@ -18,80 +24,81 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.UrisMustBeValid;
 
-        protected override IEnumerable<string> FormatIds
+        protected override IEnumerable<string> MessageResourceNames => new string[]
         {
-            get
-            {
-                return new string[]
-                {
-                    nameof(RuleResources.SARIF1003_Default)
-                };
-            }
-        }
+            nameof(RuleResources.SARIF1003_Default)
+        };
 
-        protected override void Analyze(FileChange fileChange, string fileChangePointer)
+        protected override void Analyze(SarifLog log, string logPointer)
         {
-            AnalyzeUri(fileChange.Uri, fileChangePointer);
+            AnalyzeUri(log.SchemaUri, logPointer.AtProperty(SarifPropertyName.Schema));
         }
 
         protected override void Analyze(FileData fileData, string fileKey, string filePointer)
         {
-            // Check the property name, which must be a valid URI.
-            // We can't use AnalyzeUri for this because that method appends "/uri"
-            // to the JSON pointer, whereas here, the JSON pointer we have in
-            // hand (filePointer) already points right to the property we are
-            // examining.
             string fileUriReference = fileKey.UnescapeJsonPointer();
-            try
-            {
-                Uri fileUri = new Uri(fileUriReference);
-            }
-            catch
-            {
-                LogResult(
-                    filePointer,
-                    nameof(RuleResources.SARIF1003_Default),
-                    fileUriReference);
-            }
-
-            // Then check the "uri" property, if any, of the property value.
-            AnalyzeUri(fileData.Uri, filePointer);
+            AnalyzeUri(fileUriReference, filePointer);
         }
 
-        protected override void Analyze(PhysicalLocation physicalLocation, string physicalLocationPointer)
+        protected override void Analyze(FileLocation fileLocation, string fileLocationPointer)
         {
-            AnalyzeUri(physicalLocation.Uri, physicalLocationPointer);
+            AnalyzeUri(fileLocation.Uri, fileLocationPointer.AtProperty(SarifPropertyName.Uri));
         }
 
-        protected override void Analyze(StackFrame frame, string framePointer)
+        protected override void Analyze(Result result, string resultPointer)
         {
-            AnalyzeUri(frame.Uri, framePointer);
+            if (result.WorkItemUris != null)
+            {
+                Uri[] workItemUris = result.WorkItemUris.ToArray();
+                string workItemUrisPointer = resultPointer.AtProperty(SarifPropertyName.WorkItemUris);
+
+                for (int i = 0; i < workItemUris.Length; ++i)
+                {
+                    AnalyzeUri(workItemUris[i], workItemUrisPointer.AtIndex(i));
+                }
+            }
         }
 
         protected override void Analyze(Rule rule, string rulePointer)
         {
-            AnalyzeUri(rule.HelpUri, rulePointer, "helpUri");
+            AnalyzeUri(rule.HelpUri, rulePointer.AtProperty(SarifPropertyName.HelpUri));
         }
 
-        private void AnalyzeUri(
-            Uri uri,
-            string parentPointer,
-            string childPropertyName = SarifPropertyName.Uri)
+        protected override void Analyze(Run run, string runPointer)
+        {
+            if (run.OriginalUriBaseIds != null)
+            {
+                string originalUriBaseIdsPointer = runPointer.AtProperty(SarifPropertyName.OriginalUriBaseIds);
+
+                foreach (string key in run.OriginalUriBaseIds.Keys)
+                {
+                    AnalyzeUri(run.OriginalUriBaseIds[key], originalUriBaseIdsPointer.AtProperty(key));
+                }
+            }
+        }
+
+        protected override void Analyze(Tool tool, string toolPointer)
+        {
+            AnalyzeUri(tool.DownloadUri, toolPointer.AtProperty(SarifPropertyName.DownloadUri));
+        }
+
+        protected override void Analyze(VersionControlDetails versionControlDetails, string versionControlDetailsPointer)
+        {
+            AnalyzeUri(versionControlDetails.Uri, versionControlDetailsPointer.AtProperty(SarifPropertyName.Uri));
+        }
+
+        private void AnalyzeUri(Uri uri, string pointer)
+        {
+            AnalyzeUri(uri?.OriginalString, pointer);
+        }
+
+        private void AnalyzeUri(string uri, string pointer)
         {
             if (uri != null)
             {
-                try
+                if (!Uri.IsWellFormedUriString(uri, UriKind.RelativeOrAbsolute))
                 {
-                    Uri fileUri = new Uri(uri.OriginalString);
-                }
-                catch
-                {
-                    string uriPointer = parentPointer.AtProperty(childPropertyName);
-
-                    LogResult(
-                        uriPointer,
-                        nameof(RuleResources.SARIF1003_Default),
-                        uri.OriginalString);
+                    LogResult(pointer, nameof(RuleResources.SARIF1003_Default), uri);
                 }
             }
         }
