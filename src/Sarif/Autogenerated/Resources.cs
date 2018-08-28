@@ -111,7 +111,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (rules != null)
             {
-                Rules = new Dictionary<string, Rule>(rules);
+                Rules = new Dictionary<string, Rule>();
+                foreach (var value_0 in rules)
+                {
+                    Rules.Add(value_0.Key, new Rule(value_0.Value));
+                }
             }
         }
     }
