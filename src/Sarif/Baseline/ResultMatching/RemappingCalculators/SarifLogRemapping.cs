@@ -5,7 +5,7 @@ using System;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 {
-    internal class SarifLogRemapping
+    public class SarifLogRemapping
     {
         public Func<ExtractedResult, bool> Applies { get; private set; }
 
