@@ -21,12 +21,12 @@
           "ruleId": "SARIF1015",
           "level": "error",
           "message": {
+            "messageId": "Default",
             "arguments": [
               "/$schema",
               "json.schemastore.org/sarif-2.0.0"
             ]
           },
-          "ruleMessageId": "Default",
           "locations": [
             {
               "physicalLocation": {
@@ -45,12 +45,12 @@
           "ruleId": "SARIF1015",
           "level": "error",
           "message": {
+            "messageId": "Default",
             "arguments": [
               "/runs/0/originalUriBaseIds/SRCROOT",
               "Code/sarif-sdk/src"
             ]
           },
-          "ruleMessageId": "Default",
           "locations": [
             {
               "physicalLocation": {
@@ -69,12 +69,12 @@
           "ruleId": "SARIF1015",
           "level": "error",
           "message": {
+            "messageId": "Default",
             "arguments": [
               "/runs/0/results/0/workItemUris/0",
               "example.com/my-project/issues/42"
             ]
           },
-          "ruleMessageId": "Default",
           "locations": [
             {
               "physicalLocation": {
@@ -93,12 +93,12 @@
           "ruleId": "SARIF1015",
           "level": "error",
           "message": {
+            "messageId": "Default",
             "arguments": [
               "/runs/0/resources/rules/TST0001/helpUri",
               "www.example.com/rules/tst0001.html"
             ]
           },
-          "ruleMessageId": "Default",
           "locations": [
             {
               "physicalLocation": {
@@ -117,12 +117,12 @@
           "ruleId": "SARIF1015",
           "level": "error",
           "message": {
+            "messageId": "Default",
             "arguments": [
               "/runs/0/invocations/0/executableLocation/uri",
               "tools/CodeScanner.exe"
             ]
           },
-          "ruleMessageId": "Default",
           "locations": [
             {
               "physicalLocation": {
@@ -141,12 +141,12 @@
           "ruleId": "SARIF1015",
           "level": "error",
           "message": {
+            "messageId": "Default",
             "arguments": [
               "/runs/0/tool/downloadUri",
               "tools/codescanner/download.html"
             ]
           },
-          "ruleMessageId": "Default",
           "locations": [
             {
               "physicalLocation": {
@@ -165,12 +165,12 @@
           "ruleId": "SARIF1015",
           "level": "error",
           "message": {
+            "messageId": "Default",
             "arguments": [
               "/runs/0/versionControlProvenance/0/uri",
               "example.com/my-project"
             ]
           },
-          "ruleMessageId": "Default",
           "locations": [
             {
               "physicalLocation": {

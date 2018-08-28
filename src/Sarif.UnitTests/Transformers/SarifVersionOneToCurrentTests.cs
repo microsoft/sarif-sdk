@@ -1270,11 +1270,11 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
           ""ruleId"": ""C2001"",
           ""level"": ""error"",
           ""message"": {
+            ""messageId"": ""default"",
             ""arguments"": [
               ""ptr""
             ]
           },
-          ""ruleMessageId"": ""default"",
           ""analysisTarget"": {
             ""uri"": ""file:///home/buildAgent/src/collections/list.cpp""
           },
@@ -1517,11 +1517,11 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
         {
           ""ruleId"": ""WEB1079"",
           ""message"": {
+            ""messageId"": ""default"",
             ""arguments"": [
               ""shape""
             ]
           },
-          ""ruleMessageId"": ""default"",
           ""locations"": [
             {
               ""physicalLocation"": {
@@ -1607,11 +1607,11 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
         {
           ""ruleId"": ""WEB1066"",
           ""message"": {
+            ""messageId"": ""default"",
             ""arguments"": [
               ""DIV""
             ]
           },
-          ""ruleMessageId"": ""default"",
           ""locations"": [
             {
               ""physicalLocation"": {
