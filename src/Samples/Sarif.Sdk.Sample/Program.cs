@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 
 namespace Sarif.Sdk.Sample
 {
+    public class Program
     {
         static int Main(string[] args)
         {
