@@ -784,11 +784,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 
                 if (v1Result.FormattedRuleMessage != null)
                 {
-                    result.RuleMessageId = v1Result.FormattedRuleMessage.FormatId;
-
                     if (result.Message == null)
                     {
-                        result.Message = new Message();
+                        result.Message = new Message() { MessageId = v1Result.FormattedRuleMessage.FormatId };
                     }
 
                     result.Message.Arguments = v1Result.FormattedRuleMessage.Arguments;

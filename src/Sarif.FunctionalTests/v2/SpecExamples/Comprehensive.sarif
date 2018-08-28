@@ -170,8 +170,8 @@
             "uri": "file:///home/buildAgent/src/collections/list.cpp"
           },
           "ruleId": "C2001",
-          "ruleMessageId": "default",
           "message": {
+            "messageId": "default",
             "text": "This is the result message with an [embedded link](1), but \\[this one\\] isn't. Here is a [second link](1).",
             "arguments": [
               "ptr"
