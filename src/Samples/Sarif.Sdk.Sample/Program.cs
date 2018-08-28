@@ -260,9 +260,9 @@ namespace Sarif.Sdk.Sample
                             AnalysisTarget = new FileLocation { Uri = new Uri(@"file://d:/src/module/example.dll") }, // This is the file that was analyzed
                             Message = new Message
                             {
+                                MessageId = "Default",
                                 Arguments = messageArguments[i]
                             },
-                            RuleMessageId = "Default",
                             Locations = new[]
                             {
                                 new Location

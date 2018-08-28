@@ -19,9 +19,7 @@ $BuildRoot = "$RepoRoot\bld"
 $BinRoot = "$BuildRoot\bin"
 $SolutionFile = "Sarif.Sdk.sln"
 $SampleSolutionFile = "Samples\Sarif.Sdk.Sample.sln"
-
 $MSBuildXmlNamespaces = @{ msbuild = "http://schemas.microsoft.com/developer/msbuild/2003" }
-
 $SarifExtension = ".sarif"
 
 function Remove-DirectorySafely($dir) {
