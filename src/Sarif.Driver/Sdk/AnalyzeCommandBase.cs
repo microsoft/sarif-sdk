@@ -357,10 +357,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                                     analyzeOptions.OutputFilePath,
                                     loggingOptions,
                                     dataToInsert,
-                                    null, 
-                                    null,
-                                    targets,
-                                    Prerelease,
+                                    tool: null, 
+                                    run: null,
+                                    analysisTargets: targets,
                                     invocationTokensToRedact: GenerateSensitiveTokensList(),
                                     invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog);
                         sarifLogger.AnalysisStarted();

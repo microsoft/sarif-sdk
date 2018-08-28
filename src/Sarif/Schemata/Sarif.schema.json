@@ -1263,11 +1263,6 @@
           "$ref": "#/definitions/message"
         },
 
-        "ruleMessageId": {
-          "description": "A string that identifies the message within the metadata for the rule used in this result.",
-          "type": "string"
-        },
-
         "analysisTarget": {
           "description": "Identifies the file that the analysis tool was instructed to scan. This need not be the same as the file where the result actually occurred.",
           "$ref": "#/definitions/fileLocation"

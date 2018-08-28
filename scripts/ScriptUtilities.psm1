@@ -14,11 +14,12 @@ $RepoRoot = $(Resolve-Path $PSScriptRoot\..).Path
 $Platform = "AnyCPU"
 $SourceRoot = "$RepoRoot\src"
 $JsonSchemaPath = "$SourceRoot\Sarif\Schemata\Sarif.schema.json"
+$BuildPropsPath = "$SourceRoot\build.props"
 $BuildRoot = "$RepoRoot\bld"
 $BinRoot = "$BuildRoot\bin"
 $SolutionFile = "Sarif.Sdk.sln"
 $SampleSolutionFile = "Samples\Sarif.Sdk.Sample.sln"
-
+$MSBuildXmlNamespaces = @{ msbuild = "http://schemas.microsoft.com/developer/msbuild/2003" }
 $SarifExtension = ".sarif"
 
 function Remove-DirectorySafely($dir) {
@@ -60,11 +61,13 @@ Export-ModuleMember -Function `
 
 Export-ModuleMember -Variable `
     BinRoot, `
+    BuildPropsPath, `
     BuildRoot, `
     JsonSchemaPath, `
+    MSBuildXmlNamespaces, `
     RepoRoot, `
     Platform, `
     SampleSolutionFile, `
     SarifExtension, `
     SolutionFile, `
-    SourceRoot `
+    SourceRoot

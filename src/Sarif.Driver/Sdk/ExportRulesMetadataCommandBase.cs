@@ -33,8 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     case (".sarif"):
                     {
                         format = "SARIF";
-                        ImmutableArray<IOptionsProvider> options = DriverUtilities.GetExports<IOptionsProvider>(DefaultPlugInAssemblies);
-                        OutputSarifRulesMetada(outputFilePath, skimmers, options);
+                        OutputSarifRulesMetada(outputFilePath, skimmers);
                         break;
                     }
 
@@ -100,7 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             File.WriteAllText(outputFilePath, sb.ToString());
         }    
 
-        private void OutputSarifRulesMetada(string outputFilePath, ImmutableArray<IRule> skimmers, ImmutableArray<IOptionsProvider> options)
+        private void OutputSarifRulesMetada(string outputFilePath, ImmutableArray<IRule> skimmers)
         {
             var log = new SarifLog();
 
@@ -159,6 +158,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 ContractResolver = SarifContractResolver.Instance,
                 Formatting = Newtonsoft.Json.Formatting.Indented,
             };
+
             File.WriteAllText(outputFilePath, JsonConvert.SerializeObject(log, settings));
         }
 

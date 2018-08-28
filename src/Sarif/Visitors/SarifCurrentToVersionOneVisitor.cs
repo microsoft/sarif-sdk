@@ -800,12 +800,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     result.RuleId = v2Result.RuleId;
                 }
 
-                if (!string.IsNullOrWhiteSpace(v2Result.RuleMessageId))
+                if (!string.IsNullOrWhiteSpace(v2Result.Message?.MessageId))
                 {
                     result.FormattedRuleMessage = new FormattedRuleMessageVersionOne
                     {
                         Arguments = v2Result.Message?.Arguments,
-                        FormatId = v2Result.RuleMessageId
+                        FormatId = v2Result.Message.MessageId
                     };
                 }
             }

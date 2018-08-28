@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 }
 
                 // In case someone accidentally passes C:\bld\src and meant C:\bld\src\--the base path should always be a folder, not something that points to a file.
-                if (baseUri.GetFileName() != "")
+                if (!string.IsNullOrEmpty(baseUri.GetFileName()))
                 {
                     baseUri = new Uri(baseUri.ToString() + "/");
                 }

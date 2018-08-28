@@ -199,7 +199,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             context.RefineIssue("hello!", "test", "25", "error", "source", "myfile.cs", 13);
             Assert.Equal("hello!", context.Message);
-            Assert.Equal("test", context.Result);
+            Assert.Equal("test", context.ResolutionName);
             Assert.Equal("25", context.Certainty);
             Assert.Equal("error", context.Level);
             Assert.Equal("source", context.Path);
@@ -231,7 +231,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Assert.Equal("VeryUsefulCheck", context.Typename);
             Assert.Equal("Breaking", context.FixCategory);
             Assert.Equal("hello!", context.Message);
-            Assert.Equal("test", context.Result);
+            Assert.Equal("test", context.ResolutionName);
             Assert.Equal("25", context.Certainty);
             Assert.Equal("error", context.Level);
             Assert.Equal("source", context.Path);
@@ -246,7 +246,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Assert.Null(context.Type);
             Assert.Null(context.Member);
             Assert.Null(context.Message);
-            Assert.Null(context.Result);
+            Assert.Null(context.ResolutionName);
         }
 
         [Fact]
@@ -269,7 +269,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Assert.Equal("VeryUsefulCheck", context.Typename);
             Assert.Equal("Breaking", context.FixCategory);
             Assert.Equal("hello!", context.Message);
-            Assert.Equal("test", context.Result);
+            Assert.Equal("test", context.ResolutionName);
             Assert.Equal("25", context.Certainty);
             Assert.Equal("error", context.Level);
             Assert.Equal("source", context.Path);
@@ -285,7 +285,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Assert.Null(context.Type);
             Assert.Null(context.Member);
             Assert.Null(context.Message);
-            Assert.Null(context.Result);
+            Assert.Null(context.ResolutionName);
         }
 
         [Fact]
@@ -314,7 +314,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Assert.Null(context.Type);
             Assert.Null(context.Member);
             Assert.Null(context.Message);
-            Assert.Null(context.Result);
+            Assert.Null(context.ResolutionName);
 
             Assert.False(context.Exception);
             Assert.Null(context.ExceptionType);
@@ -360,14 +360,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             context.RefineType("mytype");
             context.RefineMember("mymember(string)");
             context.RefineMessage("CA0000", "VeryUsefulCheck", "1", "FakeCategory", "Breaking", "ExcludedInSource");
-            context.RefineIssue("hello!", "test", "uncertain", "error", @"source", "myfile.cs", 13);
+            context.RefineIssue(null, "test", "uncertain", "error", @"source", "myfile.cs", 13);
+            context.RefineItem("hello!");
 
             string expectedLogicalLocation = "mynamespace.mytype.mymember(string)";
 
             var expectedResult = new Result
             {
                 RuleId = "CA0000",
-                Message = new Message { Text = "hello!" },
+                Message = new Message { Arguments = new List<string>(new string[] { "hello!" }) },
                 SuppressionStates = SuppressionStates.SuppressedInSource,
                 PartialFingerprints = new Dictionary<string, string>(),
                 AnalysisTarget = new FileLocation

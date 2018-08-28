@@ -118,8 +118,7 @@ function Invoke-Build {
 }
 
 function Invoke-BuildSample {
-    Write-Information "SKIPPED build of sample solution!"
-    #Invoke-MSBuild $sampleSolutionFile sample.log
+    Invoke-MSBuild $sampleSolutionFile sample.log
 }
 
 # Create a directory containing all files necessary to execute an application.
@@ -200,7 +199,7 @@ if (-not $NoBuildSample) {
 }
 
 if (-not $NoTest) {
-    & $PSScriptRoot\Run-Tests.ps1
+    & $PSScriptRoot\Run-Tests.ps1 $Configuration
     if (-not $?) {
         Exit-WithFailureMessage $ScriptName "RunTests failed."
     }

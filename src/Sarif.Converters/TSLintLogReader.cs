@@ -113,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        private void NormalizeEntry(JObject entry)
+        private static void NormalizeEntry(JObject entry)
         {
             JProperty fixProperty = entry.Properties().SingleOrDefault(p => p.Name.Equals("fix"));
             if (fixProperty != null)

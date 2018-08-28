@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (region.StartLine == 0)
             {
                 // This means we have a region specified entirely via charOffset
-                PopulatePropertiesFromCharOffsetAndLength(lineIndex, region, fileText);
+                PopulatePropertiesFromCharOffsetAndLength(lineIndex, region);
             }
             else
             {
@@ -125,7 +125,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return this.PopulateTextRegionProperties(region, uri, populateSnippet: true);
         }
 
-        private void PopulatePropertiesFromCharOffsetAndLength(NewLineIndex newLineIndex, Region region, string fileText)
+        private void PopulatePropertiesFromCharOffsetAndLength(NewLineIndex newLineIndex, Region region)
         {
             Debug.Assert(!region.IsBinaryRegion);
             Debug.Assert(region.StartLine == 0);
@@ -168,7 +168,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // with the result that certain properties are populated
 
             // Populated at this point: StartLine
-            PopulateEndLine(lineIndex, region);
+            PopulateEndLine(region);
 
             // Populated at this point: StartLine, EndLine
             PopulateStartColumn(region);
@@ -177,7 +177,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             PopulateEndColumn(lineIndex, region, fileText);
 
             // Populated at this point: StartLine, EndLine, StartColumn, EndColumn
-            PopulateCharOffset(lineIndex, region, fileText);           
+            PopulateCharOffset(lineIndex, region);
 
             // Populated at this point: StartLine, EndLine, StartColumn, EndColumn, CharOffset
             PopulateCharLength(lineIndex, region);
@@ -191,7 +191,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Debug.Assert(region.EndColumn > 0);
         }
 
-        private static void PopulateEndLine(NewLineIndex lineIndex, Region region)
+        private static void PopulateEndLine(Region region)
         {
             // Populated at this point: StartLine
             Debug.Assert(region.StartLine > 0);
@@ -234,7 +234,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        private static void PopulateCharOffset(NewLineIndex lineIndex, Region region, string fileText)
+        private static void PopulateCharOffset(NewLineIndex lineIndex, Region region)
         {
             // Populated at this point: StartLine, EndLine, StartColumn, EndColumn
             Debug.Assert(region.StartLine > 0);
