@@ -216,9 +216,9 @@
       "arguments": {
         "valueTypeName": "Rule",
         "namespaceName": "Microsoft.CodeAnalysis.Sarif",
-        "comparisonKind": "ObjectEquals",
-        "hashKind": "ScalarReferenceType",
-        "initializationKind": "SimpleAssign"
+        "comparisonKind": "EqualityComparerEquals",
+        "hashKind": "ObjectModelType",
+        "initializationKind": "Clone"
       }
     }
   ],
