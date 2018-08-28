@@ -23,6 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     ///</remarks>
     internal sealed class FxCopConverter : ToolFileConverterBase
     {
+        private const string ProjectDirectoryVariable = "$(ProjectDir)";
         /// <summary>
         /// Convert FxCop log to SARIF format stream
         /// </summary>
@@ -46,7 +47,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var context = new FxCopLogReader.Context();
 
             var results = new List<Result>();
+            var rules = new List<Rule>();
             var reader = new FxCopLogReader();
+            reader.RuleRead += (FxCopLogReader.Context current) => { rules.Add(CreateRule(current)); };
             reader.ResultRead += (FxCopLogReader.Context current) => { results.Add(CreateResult(current)); };
             reader.Read(context, input);
 
@@ -78,6 +81,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             output.OpenResults();
             output.WriteResults(results);
             output.CloseResults();
+
+            if (rules.Count > 0)
+            {
+                var rulesDictionary = new Dictionary<string, IRule>();
+
+                foreach (Rule rule in rules)
+                {
+                    rulesDictionary[rule.Id] = rule;
+                }
+
+                output.WriteRules(rulesDictionary);
+            }
+        }
+
+        internal Rule CreateRule(FxCopLogReader.Context context)
+        {
+            var rule = new Rule
+            {
+                Id = context.CheckId,
+                Name = context.RuleTypeName.ToMessage(),
+                MessageStrings = context.Resolutions
+            };
+
+            rule.SetProperty("Category", context.RuleCategory);
+
+            return rule;
         }
 
         internal Result CreateResult(FxCopLogReader.Context context)
@@ -108,7 +137,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             result.RuleId = context.CheckId;
-            result.Message = !string.IsNullOrWhiteSpace(context.Message) ? new Message { Text = context.Message } : null;
+            result.Message = new Message { Arguments = context.Items, MessageId = context.ResolutionName, Text = context.Message };
             var location = new Location();
 
             string sourceFile = GetFilePath(context);
@@ -119,10 +148,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 !string.IsNullOrWhiteSpace(targetFile) &&
                 !sourceFile.Equals(targetFile))
             {
-                result.AnalysisTarget = new FileLocation()
-                {
-                    Uri = new Uri(targetFile, UriKind.RelativeOrAbsolute)
-                };
+                result.AnalysisTarget = BuildFileLocationFromFxCopReference(targetFile);
             }
             else
             {
@@ -135,10 +161,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 location.PhysicalLocation = new PhysicalLocation
                 {
-                    FileLocation = new FileLocation
-                    {
-                        Uri = new Uri(sourceFile, UriKind.RelativeOrAbsolute)
-                    },
+                    FileLocation = BuildFileLocationFromFxCopReference(sourceFile),
                     Region = context.Line == null ? null : Extensions.CreateRegion(context.Line.Value)
                 };
             }
@@ -164,6 +187,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             AddProperty(result, context.FixCategory, "FixCategory");
 
             return result;
+        }
+
+        private FileLocation BuildFileLocationFromFxCopReference(string fileReference)
+        {
+            string uriBaseId = null;
+
+            if (fileReference.StartsWith(ProjectDirectoryVariable + "/"))
+            {
+                uriBaseId = ProjectDirectoryVariable;
+                fileReference = fileReference.Substring(ProjectDirectoryVariable.Length + 1);
+            }
+
+            return new FileLocation()
+            {
+                UriBaseId = uriBaseId,
+                Uri = new Uri(fileReference, UriKind.RelativeOrAbsolute)
+            };
         }
 
         private static ResultLevel ConvertFxCopLevelToResultLevel(string fxcopLevel, out bool mapsDirectlyToSarifName)
@@ -297,10 +337,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     /// </summary>
     internal sealed class FxCopLogReader
     {
+        public delegate void OnRuleRead(Context context);
         public delegate void OnIssueRead(Context context);
 
+        public event OnRuleRead RuleRead;
         public event OnIssueRead ResultRead;
 
+        private bool _readingProjectFile;
         private readonly SparseReaderDispatchTable _dispatchTable;
 
         private const string FxCopReportSchema = "Microsoft.CodeAnalysis.Sarif.Converters.Schemata.FxCopReport.xsd";
@@ -338,21 +381,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             public string FixCategory { get; private set; }
             public string Status { get; private set; }
             public string Message { get; private set; }
-            public string Result { get; private set; }
+            public IList<string> Items { get; set; }
+            public string ResolutionName { get; private set; }
             public string Certainty { get; private set; }
             public string Level { get; private set; }
             public string Path { get; private set; }
             public string File { get; private set; }
             public int? Line { get; private set; }
+            public Dictionary<string, string> Resolutions { get; private set; }
+            public string RuleTypeName { get; private set; }
+            public string RuleCategory { get; private set; }
 
             // calculate result's unique id based on the current context
             public string GetUniqueId()
             {
                 if (Exception)
                 {
-                    return CreateId(ExceptionTarget, ExceptionType, MessageId, Result);
+                    return CreateId(ExceptionTarget, ExceptionType, MessageId, ResolutionName);
                 }
-                return CreateId(MessageId, Result);
+                return CreateId(MessageId, ResolutionName);
             }
 
             private static string CreateId(params string[] parts)
@@ -368,6 +415,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 Report = report;
                 ClearTarget();
+            }
+
+            public void RefineRule(string typeName, string category, string checkId)
+            {
+                RuleTypeName = typeName;
+                RuleCategory = category;
+                CheckId = checkId;
+                ClearResolutions();
             }
 
             public void RefineTarget(string target)
@@ -422,12 +477,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             public void RefineIssue(string message, string result, string certainty, string level, string path, string file, int? line)
             {
                 Message = message;
-                Result = result;
+                ResolutionName = result;
                 Certainty = certainty;
                 Level = level;
                 Path = path;
                 File = file;
                 Line = line;
+            }
+
+            public void RefineItem(string item)
+            {
+                Items = Items ?? new List<string>();
+                Items.Add(item);
+            }
+
+            public void RefineResolution(string name, string formatString)
+            {
+                Resolutions = Resolutions ?? new Dictionary<string, string>();
+                Resolutions[name] = formatString;
             }
 
             public void RefineException(bool isException, string checkId, string target)
@@ -524,6 +591,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             public void ClearIssue()
             {
                 RefineIssue(null, null, null, null, null, null, null);
+                Items = null;
+            }
+
+            public void ClearRule()
+            {
+                RefineRule(null, null, null);
+            }
+
+            public void ClearResolutions()
+            {
+                Resolutions = null;
             }
         }
 
@@ -533,6 +611,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private static class SchemaStrings
         {
             // elements
+            public const string ElementFxCopProject = "FxCopProject";
             public const string ElementFxCopReport = "FxCopReport";
             public const string ElementExceptions = "Exceptions";
             public const string ElementException = "Exception";
@@ -541,6 +620,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             public const string ElementInnerType = "InnerType";
             public const string ElementInnerExceptionMessage = "InnerExceptionMessage";
             public const string ElementInnerStackTrace = "InnerStackTrace";
+            public const string ElementRules = "Rules";
+            public const string ElementRule = "Rule";
             public const string ElementTargets = "Targets";
             public const string ElementTarget = "Target";
             public const string ElementModules = "Modules";
@@ -556,11 +637,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             public const string ElementMessages = "Messages";
             public const string ElementMessage = "Message";
             public const string ElementIssue = "Issue";
+            public const string ElementItem = "Item";
+            public const string ElementResolution = "Resolution";
 
-            // attributes (repot)
+            // attributes (report)
             public const string AttributeVersion = "Version";
 
-            // attributes (target)
+            // attributes (target + rule)
             public const string AttributeName = "Name";
 
             // attributes (type)
@@ -571,7 +654,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             // attributes (member)
             public const string AttributeStatic = "Static";
 
-            // attributes (message)
+            // attributes (message + rule)
             public const string AttributeId = "Id";
             public const string AttributeTypeName = "TypeName";
             public const string AttributeCategory = "Category";
@@ -611,6 +694,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {SchemaStrings.ElementInnerType, ReadInnerExceptionType},
                 {SchemaStrings.ElementInnerExceptionMessage, ReadInnerExceptionMessage},
                 {SchemaStrings.ElementInnerStackTrace, ReadInnerStackTrace},
+                {SchemaStrings.ElementRules, ReadRules},
+                {SchemaStrings.ElementRule, ReadRule},
+                {SchemaStrings.ElementResolution, ReadResolution},
                 {SchemaStrings.ElementTargets, ReadTargets},
                 {SchemaStrings.ElementTarget, ReadTarget},
                 {SchemaStrings.ElementResources, ReadResources},
@@ -625,7 +711,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {SchemaStrings.ElementMember, ReadMember},
                 {SchemaStrings.ElementMessages, ReadMessages},
                 {SchemaStrings.ElementMessage, ReadMessage},
-                {SchemaStrings.ElementIssue, ReadIssue}
+                {SchemaStrings.ElementIssue, ReadIssue},
+                {SchemaStrings.ElementItem, ReadItem},
             };
         }
 
@@ -635,6 +722,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Assembly assembly = typeof(FxCopLogReader).Assembly;
             var settings = new XmlReaderSettings
             {
+                DtdProcessing = DtdProcessing.Ignore,
                 XmlResolver = null
             };
 
@@ -647,7 +735,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             using (var sparseReader = SparseReader.CreateFromStream(_dispatchTable, input, schemaSet))
             {
-                if (sparseReader.LocalName.Equals(SchemaStrings.ElementFxCopReport))
+                // FxCop distinctions between project and report files.
+                // 
+                // 1. Project files are designed to be deterministic in output and therefore
+                //    do not emit any file locations, only logical locations.
+                // 2. Project files do not emit fully-constructed messages, only dynamic
+                //    arguments that can be used with rule format strings to construct a message.
+                // 3. Project files by default persist excluded message but not absent
+                //    messages. Report files by default persist neither excluded or absent
+                //    messages.
+
+                if (sparseReader.LocalName.Equals(SchemaStrings.ElementFxCopProject))
+                {
+                    _readingProjectFile = true;
+
+                    // Skip project information, which should lead us to the report that
+                    // holds emitted messages.
+                    sparseReader.ReadChildren(SchemaStrings.ElementFxCopProject, context);
+                }
+                else if (sparseReader.LocalName.Equals(SchemaStrings.ElementFxCopReport))
                 {
                     ReadFxCopReport(sparseReader, context);
                 }
@@ -759,6 +865,39 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             context.RefineResource(reader.ReadAttributeString(SchemaStrings.AttributeName));
             reader.ReadChildren(SchemaStrings.ElementResource, parent);
             context.ClearResource();
+        }
+
+        private static void ReadRules(SparseReader reader, object parent)
+        {
+            reader.ReadChildren(SchemaStrings.ElementRules, parent);
+        }
+
+        private void ReadRule(SparseReader reader, object parent)
+        {
+            Context context = (Context)parent;
+
+            context.RefineRule(
+                typeName: reader.ReadAttributeString(SchemaStrings.AttributeTypeName),
+                category: reader.ReadAttributeString(SchemaStrings.AttributeCategory),
+                checkId: reader.ReadAttributeString(SchemaStrings.AttributeCheckId));
+
+            reader.ReadChildren(SchemaStrings.ElementRule, parent);
+
+            if (RuleRead != null)
+            {
+                RuleRead(context);
+            }
+
+            context.ClearRule();
+        }
+
+        private static void ReadResolution(SparseReader reader, object parent)
+        {
+            Context context = (Context)parent;
+
+            context.RefineResolution(
+                name: reader.ReadAttributeString(SchemaStrings.AttributeName),
+                formatString: reader.ReadElementContentAsString());
         }
 
         private static void ReadTargets(SparseReader reader, object parent)
@@ -877,7 +1016,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             Context context = (Context)parent;
 
-            string name = reader.ReadAttributeString(SchemaStrings.AttributeName);
+            string resolutionName = reader.ReadAttributeString(SchemaStrings.AttributeName);
             string certainty = reader.ReadAttributeString(SchemaStrings.AttributeCertainty);
             string level = reader.ReadAttributeString(SchemaStrings.AttributeLevel);
 
@@ -885,9 +1024,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string file = reader.ReadAttributeString(SchemaStrings.AttributeFile);
             int? line = reader.ReadAttributeInt(SchemaStrings.AttributeLine);
 
-            string message = reader.ReadElementContentAsString();
+            string message = null;
 
-            context.RefineIssue(message, name, certainty, level, path, file, line);
+            if (_readingProjectFile)
+            {
+                // FxCop does not emit a resolution name attribute in cases where it is "Default"
+                resolutionName = resolutionName ?? "Default";
+                reader.ReadChildren(SchemaStrings.ElementIssue, parent, out message);
+                context.RefineIssue(message, message == null ? resolutionName : null, certainty, level, path, file, line);
+            }
+            else
+            {
+                // An FxCop project file Issue has a fully-formed output
+                // message as its element content.
+                message = reader.ReadElementContentAsString();
+                context.RefineIssue(message, resolutionName, certainty, level, path, file, line);
+            }
 
             if (ResultRead != null)
             {
@@ -895,6 +1047,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             context.ClearIssue();
+        }
+
+        private void ReadItem(SparseReader reader, object parent)
+        {
+            Context context = (Context)parent;
+            context.Items = context.Items ?? new List<string>();
+            context.Items.Add(reader.ReadElementContentAsString());
         }
 
         internal static string MakeExceptionMessage(string kind, string checkId, string type, string message, string stackTrace, string innerType, string innerMessage, string innerStackTrace)

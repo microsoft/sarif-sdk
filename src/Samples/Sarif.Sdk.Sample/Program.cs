@@ -54,10 +54,9 @@ namespace Sarif.Sdk.Sample
         static int CreateSarifLogFile(CreateOptions options)
         {
             // We'll use this source file for several defect results -- the
-            // SampleSourceFiles folder should be at the same level as the project folder
-            // Because this file can actually be accessed by this app, its
-            // content will be embedded in the log file.
-            var fileLocation = new FileLocation { Uri = new Uri($"file://{AppDomain.CurrentDomain.BaseDirectory}/../../../../SampleSourceFiles/AnalysisSample.cs") };
+            // SampleSourceFiles folder should be a child of the project folder,
+            // two levels up from the folder that contains the EXE (e.g., bin\Debug).
+            var fileLocation = new FileLocation { Uri = new Uri($"file://{AppDomain.CurrentDomain.BaseDirectory}../../SampleSourceFiles/AnalysisSample.cs") };
 
             // Create a list of rules that will be enforced during your analysis
             #region Rules list
@@ -67,38 +66,42 @@ namespace Sarif.Sdk.Sample
                 {
                     Id ="CA1819",
                     Name = new Message { Text = "Properties should not return arrays" },
-                    FullDescription = new Message { Text = "Arrays returned by properties are not write-protected, even if the property is read-only. To keep the array tamper-proof, the property must return a copy of the array. Typically, users will not understand the adverse performance implications of calling such a property." }
+                    FullDescription = new Message { Text = "Arrays returned by properties are not write-protected, even if the property is read-only. To keep the array tamper-proof, the property must return a copy of the array. Typically, users will not understand the adverse performance implications of calling such a property." },
+                    MessageStrings = new Dictionary<string, string>
+                    {
+                        { "Default", "The property {0} returns an array." }
+                    }
                 },
                 new Rule
                 {
                     Id ="CA1820",
                     Name = new Message { Text = "Test for empty strings using string length" },
-                    FullDescription = new Message { Text = "Comparing strings by using the String.Length property or the String.IsNullOrEmpty method is significantly faster than using Equals." }
+                    FullDescription = new Message { Text = "Comparing strings by using the String.Length property or the String.IsNullOrEmpty method is significantly faster than using Equals." },
+                    MessageStrings = new Dictionary<string, string>
+                    {
+                        { "Default", "The test for an empty string is performed by a string comparison rather than by testing String.Length." }
+                    }
                 },
                 new Rule
                 {
                     Id ="CA2105",
                     Name = new Message { Text = "Array fields should not be read only" },
-                    FullDescription = new Message { Text = "When you apply the read-only (ReadOnly in Visual Basic) modifier to a field that contains an array, the field cannot be changed to reference a different array. However, the elements of the array stored in a read-only field can be changed." }
+                    FullDescription = new Message { Text = "When you apply the read-only (ReadOnly in Visual Basic) modifier to a field that contains an array, the field cannot be changed to reference a different array. However, the elements of the array stored in a read-only field can be changed." },
+                    MessageStrings = new Dictionary<string, string>
+                    {
+                        { "Default", "The array-valued field {0} is marked readonly." }
+                    }
                 },
                 new Rule
                 {
                     Id ="CA2215",
                     Name = new Message { Text = "Dispose methods should call base class dispose" },
-                    FullDescription = new Message { Text = "If a type inherits from a disposable type, it must call the Dispose method of the base type from its own Dispose method." }
-                },
-                //new Rule
-                //{
-                //    Id ="CA1816",
-                //    Name = new Message { Text = "Call GC.SuppressFinalize correctly" },
-                //    FullDescription = new Message { Text = "A method that is an implementation of Dispose does not call GC.SuppressFinalize, or a method that is not an implementation of Dispose calls GC.SuppressFinalize, or a method calls GC.SuppressFinalize and passes something other than this (Me in Visual Basic)." }
-                //},
-                //new Rule
-                //{
-                //    Id ="CA2006",
-                //    Name = new Message { Text = "Use SafeHandle to encapsulate native resources" },
-                //    FullDescription = new Message { Text = "Use of IntPtr in managed code might indicate a potential security and reliability problem. All uses of IntPtr must be reviewed to determine whether use of a SafeHandle, or similar technology, is required in its place." }
-                //}
+                    FullDescription = new Message { Text = "If a type inherits from a disposable type, it must call the Dispose method of the base type from its own Dispose method." },
+                    MessageStrings = new Dictionary<string, string>
+                    {
+                        { "Default", "The Dispose method does not call the base class Dispose method." }
+                    }
+                }
             };
             #endregion
 
@@ -108,32 +111,47 @@ namespace Sarif.Sdk.Sample
             {
                 new Region // CA1819
                 {
-                    StartLine = 16,
-                    StartColumn = 19,
-                    EndLine = 16,
-                    EndColumn = 38
+                    StartLine = 17,
+                    StartColumn = 16,
+                    EndColumn = 32
                 },
                 new Region // CA1820
                 {
-                    StartLine = 23,
+                    StartLine = 26,
                     StartColumn = 21,
-                    EndLine = 23,
                     EndColumn = 44
                 },
                 new Region // CA2105
                 {
-                    StartLine = 11,
-                    StartColumn = 9,
-                    EndLine = 11,
-                    EndColumn = 50
+                    StartLine = 14,
+                    StartColumn = 17,
+                    EndColumn = 25
                 },
                 new Region // CA2215
                 {
-                    StartLine = 32,
+                    StartLine = 37,
                     StartColumn = 9,
-                    EndLine = 32,
-                    EndColumn = 30
+                    EndColumn = 9
                 }
+            };
+            #endregion
+
+            #region Message arguments
+            string[][] messageArguments = new string[][]
+            {
+                new string[]
+                {
+                    "MyIntArray"
+                },
+
+                null,
+
+                new string[]
+                {
+                    "_myStringArray"
+                },
+
+                null
             };
             #endregion
 
@@ -240,6 +258,11 @@ namespace Sarif.Sdk.Sample
                         {
                             RuleId = rule.Id,
                             AnalysisTarget = new FileLocation { Uri = new Uri(@"file://d:/src/module/example.dll") }, // This is the file that was analyzed
+                            Message = new Message
+                            {
+                                MessageId = "Default",
+                                Arguments = messageArguments[i]
+                            },
                             Locations = new[]
                             {
                                 new Location

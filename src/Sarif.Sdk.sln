@@ -24,6 +24,48 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sarif.FunctionalTests", "Sa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sarif.Multitool.FunctionalTests", "Sarif.Multitool.FunctionalTests\Sarif.Multitool.FunctionalTests.csproj", "{859920F3-DB09-4C1D-9EAD-DFB1D7A03A46}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "root", "root", "{BBDE0751-B8A3-4EA6-A3DF-3CE7BA41EA0F}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitattributes = ..\.gitattributes
+		..\.gitignore = ..\.gitignore
+		..\appveyor.yml = ..\appveyor.yml
+		..\BuildAndTest.cmd = ..\BuildAndTest.cmd
+		..\BuildPackagesFromLayoutDirectory.cmd = ..\BuildPackagesFromLayoutDirectory.cmd
+		..\DelistCurrentPackages.cmd = ..\DelistCurrentPackages.cmd
+		..\dotnet-install.ps1 = ..\dotnet-install.ps1
+		..\LICENSE = ..\LICENSE
+		..\NuGet.Config = ..\NuGet.Config
+		..\PublishSignedPackages.cmd = ..\PublishSignedPackages.cmd
+		..\README.md = ..\README.md
+		..\RunTests.cmd = ..\RunTests.cmd
+		..\triskelion.png = ..\triskelion.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{9CEE4119-25C6-4331-8DB6-C53462DDEA47}"
+	ProjectSection(SolutionItems) = preProject
+		..\scripts\BeforeBuild.ps1 = ..\scripts\BeforeBuild.ps1
+		..\scripts\BuildAndTest.ps1 = ..\scripts\BuildAndTest.ps1
+		..\scripts\BuildPackagesFromSigningDirectory.ps1 = ..\scripts\BuildPackagesFromSigningDirectory.ps1
+		..\scripts\DelistCurrentPackages.ps1 = ..\scripts\DelistCurrentPackages.ps1
+		..\scripts\Get-VersionConstants.ps1 = ..\scripts\Get-VersionConstants.ps1
+		..\scripts\New-VersionConstantsFile.ps1 = ..\scripts\New-VersionConstantsFile.ps1
+		..\scripts\NuGetUtilities.psm1 = ..\scripts\NuGetUtilities.psm1
+		..\scripts\Projects.psm1 = ..\scripts\Projects.psm1
+		..\scripts\RegistrySettings.ps1 = ..\scripts\RegistrySettings.ps1
+		..\scripts\Run-Tests.ps1 = ..\scripts\Run-Tests.ps1
+		..\scripts\ScriptUtilities.psm1 = ..\scripts\ScriptUtilities.psm1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{90E0CA8D-0D63-4576-8E77-D9FD4D0D28BA}"
+	ProjectSection(SolutionItems) = preProject
+		BinSkim.targets = BinSkim.targets
+		BinSkimConfiguration.xml = BinSkimConfiguration.xml
+		build.props = build.props
+		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
+		NuGet.Config = NuGet.Config
+		ReleaseHistory.md = ReleaseHistory.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -169,6 +211,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9CEE4119-25C6-4331-8DB6-C53462DDEA47} = {BBDE0751-B8A3-4EA6-A3DF-3CE7BA41EA0F}
+		{90E0CA8D-0D63-4576-8E77-D9FD4D0D28BA} = {BBDE0751-B8A3-4EA6-A3DF-3CE7BA41EA0F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9EFA21E3-70A0-467C-9D1F-D5AD0DC1C1E6}

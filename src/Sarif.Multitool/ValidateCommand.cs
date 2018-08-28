@@ -70,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
         }
 
-        private SarifLog Deserialize(string logContents)
+        private static SarifLog Deserialize(string logContents)
         {
             JsonSerializerSettings settings = new JsonSerializerSettings
             {
@@ -120,7 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return ok;
         }
 
-        private void PerformSchemaValidation(
+        private static void PerformSchemaValidation(
             string instanceText,
             string instanceFilePath,
             string schemaFilePath,

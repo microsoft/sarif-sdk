@@ -24,16 +24,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.UrisMustBeValid;
 
-        protected override IEnumerable<string> MessageResourceNames
+        protected override IEnumerable<string> MessageResourceNames => new string[]
         {
-            get
-            {
-                return new string[]
-                {
-                    nameof(RuleResources.SARIF1003_Default)
-                };
-            }
-        }
+            nameof(RuleResources.SARIF1003_Default)
+        };
 
         protected override void Analyze(SarifLog log, string logPointer)
         {

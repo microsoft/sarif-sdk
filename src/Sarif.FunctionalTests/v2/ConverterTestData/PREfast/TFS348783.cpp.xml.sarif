@@ -31,10 +31,7 @@
                 },
                 "region": {
                   "startLine": 10,
-                  "startColumn": 11,
-                  "snippet": {
-                    "text": "}"
-                  }
+                  "startColumn": 11
                 }
               },
               "fullyQualifiedLogicalName": "count",
@@ -57,10 +54,7 @@
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 11,
-                            "snippet": {
-                              "text": "  wcscpy_s(buffer,sizeof(buffer),pSource);"
-                            }
+                            "startColumn": 11
                           }
                         }
                       },
@@ -78,10 +72,7 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 11,
-                            "snippet": {
-                              "text": "}"
-                            }
+                            "startColumn": 11
                           }
                         }
                       },
@@ -98,10 +89,7 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 11,
-                            "snippet": {
-                              "text": "}"
-                            }
+                            "startColumn": 11
                           }
                         }
                       },

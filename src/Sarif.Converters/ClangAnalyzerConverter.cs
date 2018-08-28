@@ -88,10 +88,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static IDictionary<string, object> FindDictionary(IDictionary<string, object> dictionary, string key)
         {
-            object getObject;
             Dictionary<string, object> value = null;
 
-            if (dictionary.TryGetValue(key, out getObject))
+            if (dictionary.TryGetValue(key, out object getObject))
             {
                 value = getObject as Dictionary<string, object>;
             }
@@ -101,11 +100,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static int FindInt(IDictionary<string, object> dictionary, string key)
         {
-            object getObject;
             string value = null;
             int returnValue = 0;
 
-            if (dictionary.TryGetValue(key, out getObject))
+            if (dictionary.TryGetValue(key, out object getObject))
             {
                 value = getObject as string;
                 if (!int.TryParse(value, out returnValue))
@@ -119,10 +117,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static string FindString(IDictionary<string, object> dictionary, string key)
         {
-            object getObject;
             string value = null;
 
-            if (dictionary.TryGetValue(key, out getObject))
+            if (dictionary.TryGetValue(key, out object getObject))
             {
                 value = getObject as string;
             }
