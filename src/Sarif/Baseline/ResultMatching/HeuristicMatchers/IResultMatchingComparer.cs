@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
 {
-    interface IResultMatchingComparer : IEqualityComparer<MatchingResult>
+    interface IResultMatchingComparer : IEqualityComparer<ExtractedResult>
     {
         /// <summary>
         /// Checks if the result matcher applies to a particular result.
@@ -15,6 +15,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
         /// </summary>
         /// <param name="result">Matching result to check.</param>
         /// <returns>True if the result matcher applies, false if it does not.</returns>
-        bool ResultMatcherApplies(MatchingResult result);
+        bool ResultMatcherApplies(ExtractedResult result);
     }
 }

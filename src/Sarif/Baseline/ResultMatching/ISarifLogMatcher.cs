@@ -7,8 +7,8 @@ using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 {
-    public interface IResultMatchingBaseliner
+    public interface ISarifLogMatcher
     {
-        SarifLog BaselineSarifLogs(SarifLog[] baseline, SarifLog[] current);
+        IEnumerable<SarifLog> Match(IEnumerable<SarifLog> previousLogs, IEnumerable<SarifLog> currentLogs);
     }
 }

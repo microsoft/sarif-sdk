@@ -6,28 +6,26 @@ using CommandLine;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     [Verb("match-results-forward", HelpText = "Track results run over run by persisting IDs and then matching them forward")]
-    class ResultMatchingOptions : MultitoolOptionsBase
+    internal class ResultMatchingOptions : MultitoolOptionsBase
     {
         [Option(
-            'o',
-            "old",
-            HelpText = "Path to a Sarif Log containing representing the last set of results on a target (or empty if none exists)",
+            'p',
+            "previous",
+            HelpText = "Path to a sarif log containing the previous set of results with result matching annotations on a target (or empty if no previous log exists)",
             Required = false,
             Default = null)]
-        public string BaselineFilePath { get; internal set; }
+        public string PreviousFilePath { get; internal set; }
 
-        [Option(
-            'c',
-            "current",
-            HelpText = "Path to a Sarif Log representing the current set of results",
+        [Value(0,
+            MetaName = "<currentFile>",
+            HelpText = "Path to a sarif log containing the current set of results, without result matching information",
             Required = true)]
         public string CurrentFilePath { get; internal set; }
         
 
         [Option('o', 
             "output-file-path", 
-            HelpText = "Output File Path to put the sarif log with persistent ids assigned.", 
-            Default = "persisted-ids-log.sarif")]
+            HelpText = "File Path to output the annotated sarif log with result matching information.  Defaults to <currentFile>-annotated.sarif")]
         public string OutputFilePath { get; internal set; }
     }
 }

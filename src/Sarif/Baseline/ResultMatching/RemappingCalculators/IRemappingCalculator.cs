@@ -7,6 +7,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 {
     public interface IRemappingCalculator
     {
-        IEnumerable<SarifLogRemapping> CalculatePossibleRemappings(IEnumerable<MatchingResult> baseline, IEnumerable<MatchingResult> current);
+        IEnumerable<SarifLogRemapping> CalculatePossibleRemappings(IEnumerable<ExtractedResult> baseline, IEnumerable<ExtractedResult> current);
     }
 }

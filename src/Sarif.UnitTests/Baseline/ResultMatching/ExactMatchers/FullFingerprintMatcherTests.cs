@@ -23,20 +23,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             resultA.Fingerprints = new Dictionary<string, string>() { { "FingerprintAlgorithm1", "FingerprintValue1" }, { "FingerprintAlgorithm2", "FingerprintValue2" } };
             resultB.Fingerprints = new Dictionary<string, string>() { { "FingerprintAlgorithm1", "FingerprintValue1" }};
 
-            MatchingResult matchingResultA = new MatchingResult()
+            ExtractedResult matchingResultA = new ExtractedResult()
             {
                 Result = resultA
             };
-            MatchingResult matchingResultB = new MatchingResult()
+            ExtractedResult matchingResultB = new ExtractedResult()
             {
                 Result = resultB
             };
         
 
-            IEnumerable<MatchedResults> matchedResults = matcher.MatchResults(new MatchingResult[] { matchingResultA }, new MatchingResult[] { matchingResultB });
+            IEnumerable<MatchedResults> matchedResults = matcher.Match(new ExtractedResult[] { matchingResultA }, new ExtractedResult[] { matchingResultB });
 
             matchedResults.Should().HaveCount(1);
-            matchedResults.First().BaselineResult.Should().BeEquivalentTo(matchingResultA);
+            matchedResults.First().PreviousResult.Should().BeEquivalentTo(matchingResultA);
             matchedResults.First().CurrentResult.Should().BeEquivalentTo(matchingResultB);
         }
         
@@ -49,16 +49,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             resultA.Fingerprints = new Dictionary<string, string>() { { "FingerprintAlgorithm1", "FingerprintValue1" }, { "FingerprintAlgorithm2", "FingerprintValue2" } };
             resultB.Fingerprints = new Dictionary<string, string>() { { "FingerprintAlgorithm1", "FingerprintValue3" }, { "FingerprintAlgorithm2", "FingerprintValue4" } };
 
-            MatchingResult matchingResultA = new MatchingResult()
+            ExtractedResult matchingResultA = new ExtractedResult()
             {
                 Result = resultA
             };
-            MatchingResult matchingResultB = new MatchingResult()
+            ExtractedResult matchingResultB = new ExtractedResult()
             {
                 Result = resultB
             };
             
-            IEnumerable<MatchedResults> matchedResults = matcher.MatchResults(new MatchingResult[] { matchingResultA }, new MatchingResult[] { matchingResultB });
+            IEnumerable<MatchedResults> matchedResults = matcher.Match(new ExtractedResult[] { matchingResultA }, new ExtractedResult[] { matchingResultB });
 
             matchedResults.Should().HaveCount(0);
         }

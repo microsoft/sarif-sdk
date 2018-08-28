@@ -12,16 +12,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
     /// set of runs (such as the current set of results) to a group of results 
     /// from a different set of runs (such as the prior set of results).
     /// </summary>
-    public class MatchingResult
+    public class ExtractedResult
     {
-        public string RuleId { get; set; }
-
         public Result Result { get; set; }
-
-        public Rule Rule { get; set; }
-
-        public Tool Tool { get; set; }
-
+        
         public Run OriginalRun { get; set; }
     }
 }

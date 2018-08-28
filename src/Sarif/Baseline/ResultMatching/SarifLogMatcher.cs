@@ -12,12 +12,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
     /// <summary>
     /// Default Result Matching Baseliner.
     /// </summary>
-    class ResultMatchingBaseliner : IResultMatchingBaseliner
+    internal class SarifLogResultMatcher : ISarifLogMatcher
     {
         public const string ResultMatchingResultPropertyName = "ResultMatching";
 
 
-        public ResultMatchingBaseliner(IEnumerable<IResultMatcher> exactResultMatchers,
+        public SarifLogResultMatcher(IEnumerable<IResultMatcher> exactResultMatchers,
             IEnumerable<IResultMatcher> heuristicMatchers)
         {
             ExactResultMatchers = exactResultMatchers;
@@ -32,40 +32,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         /// with status (compared to baseline) and various baseline-related fields persisted (e.x. work item links,
         /// ID, etc.
         /// </summary>
-        /// <param name="baseline">Array of sarif logs representing the baseline run</param>
-        /// <param name="current">Array of sarif logs representing the current run</param>
+        /// <param name="previousLogs">Array of sarif logs representing the baseline run</param>
+        /// <param name="currentLogs">Array of sarif logs representing the current run</param>
         /// <returns>A SARIF log with the merged set of results.</returns>
-        public SarifLog BaselineSarifLogs(SarifLog[] baseline, SarifLog[] current)
+        public IEnumerable<SarifLog> Match(IEnumerable<SarifLog> previousLogs, IEnumerable<SarifLog> currentLogs)
         {
-            Dictionary<string, List<Run>> runsByToolBaseline = GetRunsByTool(baseline);
-            Dictionary<string, List<Run>> runsByToolCurrent = GetRunsByTool(current);
+            Dictionary<string, List<Run>> runsByToolPrevious = GetRunsByTool(previousLogs);
+            Dictionary<string, List<Run>> runsByToolCurrent = GetRunsByTool(currentLogs);
             
-            List<string> tools = runsByToolBaseline.Keys.ToList();
+            List<string> tools = runsByToolPrevious.Keys.ToList();
             tools.AddRange(runsByToolCurrent.Keys);
             tools = tools.Distinct().ToList();
 
-            List<SarifLog> baselinedByToolLogs = new List<SarifLog>();
+            List<SarifLog> resultToolLogs = new List<SarifLog>();
 
             foreach (var key in tools)
             {
-                Run[] baselineRuns = new Run[0];
-                if (runsByToolBaseline.ContainsKey(key))
+                IEnumerable<Run> baselineRuns = null;
+                if (runsByToolPrevious.ContainsKey(key))
                 {
-                     baselineRuns = runsByToolBaseline[key].ToArray();
+                     baselineRuns = runsByToolPrevious[key];
                 }
-                Run[] currentRuns = new Run[0];
+                IEnumerable<Run> currentRuns = null;
                 if (runsByToolCurrent.ContainsKey(key))
                 {
-                    currentRuns = runsByToolCurrent[key].ToArray();
+                    currentRuns = runsByToolCurrent[key];
                 }
 
-                baselinedByToolLogs.Add(BaselineSarifLogs(baselineRuns, currentRuns));
+                resultToolLogs.Add(BaselineSarifLogs(baselineRuns, currentRuns));
             }
 
-            return baselinedByToolLogs.Merge();
+            return new List<SarifLog> { resultToolLogs.Merge() }.AsEnumerable();
         }
 
-        private static Dictionary<string, List<Run>> GetRunsByTool(SarifLog[] sarifLogs)
+        private static Dictionary<string, List<Run>> GetRunsByTool(IEnumerable<SarifLog> sarifLogs)
         {
             Dictionary<string, List<Run>> runsByTool = new Dictionary<string, List<Run>>();
             if (sarifLogs == null)
@@ -95,11 +95,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             return runsByTool;
         }
 
-        public SarifLog BaselineSarifLogs(Run[] baseline, Run[] current)
+        private SarifLog BaselineSarifLogs(IEnumerable<Run> previous, IEnumerable<Run> current)
         {
             // Spin out SARIF logs into MatchingResult objects.
-            List<MatchingResult> baselineResults = GetMatchingResultsFromRuns(baseline);
-            List<MatchingResult> currentResults = GetMatchingResultsFromRuns(current);
+            List<ExtractedResult> baselineResults = 
+                previous == null ? new List<ExtractedResult>() : GetMatchingResultsFromRuns(previous);
+            List<ExtractedResult> currentResults =
+                current == null ? new List<ExtractedResult>() : GetMatchingResultsFromRuns(current);
             List<MatchedResults> matchedResults = new List<MatchedResults>();
 
             // Calculate exact mappings using exactResultMatchers.
@@ -112,32 +114,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             AddUnmatchedResults(baselineResults, currentResults, matchedResults);
 
             // Create a combined SARIF log with the total results.
-            return ConstructSarifLogFromMatchedResults(matchedResults, baseline, current);
+            return ConstructSarifLogFromMatchedResults(matchedResults, previous, current);
         }
 
-        private static void AddUnmatchedResults(List<MatchingResult> baselineResults, List<MatchingResult> currentResults, List<MatchedResults> matchedResults)
+        private static void AddUnmatchedResults(List<ExtractedResult> baselineResults, List<ExtractedResult> currentResults, List<MatchedResults> matchedResults)
         {
-            foreach (MatchingResult result in baselineResults)
+            foreach (ExtractedResult result in baselineResults)
             {
-                matchedResults.Add(new MatchedResults() { BaselineResult = result, CurrentResult = null });
+                matchedResults.Add(new MatchedResults() { PreviousResult = result, CurrentResult = null });
             }
 
-            foreach (MatchingResult result in currentResults)
+            foreach (ExtractedResult result in currentResults)
             {
-                matchedResults.Add(new MatchedResults() { BaselineResult = null, CurrentResult = result });
+                matchedResults.Add(new MatchedResults() { PreviousResult = null, CurrentResult = result });
             }
         }
 
-        private void CalculateMatches(IEnumerable<IResultMatcher> matchers, List<MatchingResult> baselineResults, List<MatchingResult> currentResults, List<MatchedResults> matchedResults)
+        private void CalculateMatches(IEnumerable<IResultMatcher> matchers, List<ExtractedResult> baselineResults, List<ExtractedResult> currentResults, List<MatchedResults> matchedResults)
         {
             if (matchers != null)
             {
                 foreach (IResultMatcher matcher in matchers)
                 {
-                    IEnumerable<MatchedResults> results = matcher.MatchResults(baselineResults, currentResults);
+                    IEnumerable<MatchedResults> results = matcher.Match(baselineResults, currentResults);
                     foreach (var result in results)
                     {
-                        baselineResults.Remove(result.BaselineResult);
+                        baselineResults.Remove(result.PreviousResult);
                         currentResults.Remove(result.CurrentResult);
                     }
                     matchedResults.AddRange(results);
@@ -145,34 +147,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             }
         }
 
-        public List<MatchingResult> GetMatchingResultsFromRuns(Run[] sarifRuns)
+        private List<ExtractedResult> GetMatchingResultsFromRuns(IEnumerable<Run> sarifRuns)
         {
-            List<MatchingResult> results = new List<MatchingResult>();
+            List<ExtractedResult> results = new List<ExtractedResult>();
 
             foreach (Run run in sarifRuns)
             {
                 foreach (Result result in run.Results)
                 {
                     Rule rule = GetRuleFromResources(result, run.Resources.Rules);
-                    results.Add(new MatchingResult() { RuleId = GetRuleIdFromResult(result, rule), Result = result, Tool = run.Tool, Rule = rule, OriginalRun = run });
+                    results.Add(new ExtractedResult() { Result = result, OriginalRun = run });
                 }
             }
 
             return results;
         }
-
-        private string GetRuleIdFromResult(Result result, Rule rule)
-        {
-            if (rule == null)
-            {
-                return result.RuleId;
-            }
-            else
-            {
-                return rule.Id;
-            }
-        }
-
+        
         private Rule GetRuleFromResources(Result result, IDictionary<string, Rule> rules)
         {
             if (!string.IsNullOrEmpty(result.RuleId))
@@ -185,7 +175,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             return null;
         }
 
-        public SarifLog ConstructSarifLogFromMatchedResults(IEnumerable<MatchedResults> results, Run[] baseline, Run[] currentRuns)
+        private SarifLog ConstructSarifLogFromMatchedResults(IEnumerable<MatchedResults> results, IEnumerable<Run> previous, IEnumerable<Run> currentRuns)
         {
             if(currentRuns == null || !currentRuns.Any())
             {
@@ -193,18 +183,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             }
             
             // Results should all be from the same tool, so we'll pull the log from the first run.
-            Tool tool = currentRuns[0].Tool.DeepClone();
+            Tool tool = currentRuns.First().Tool.DeepClone();
 
             Run run = new Run()
             {
                 Tool = tool,
-                AutomationLogicalId = currentRuns[0].AutomationLogicalId,
-                InstanceGuid = currentRuns[0].InstanceGuid,
+                AutomationLogicalId = currentRuns.First().AutomationLogicalId,
+                InstanceGuid = currentRuns.First().InstanceGuid,
             };
 
-            if (baseline.Count() != 0)
+            if (previous.Count() != 0)
             {
-                run.BaselineInstanceGuid = baseline[0].InstanceGuid;
+                run.BaselineInstanceGuid = previous.First().InstanceGuid;
             }
             
             List<Result> newRunResults = new List<Result>();

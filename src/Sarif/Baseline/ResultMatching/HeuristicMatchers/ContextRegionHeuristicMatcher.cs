@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
 {
-    class ContextRegionHeuristicMatcher : GenericHeuristicMatcher
+    internal class ContextRegionHeuristicMatcher : HeuristicMatcher
     {
         public ContextRegionHeuristicMatcher() : base(ContextRegionResultComparer.Instance) { }
         
@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
         {
             public static readonly ContextRegionResultComparer Instance = new ContextRegionResultComparer();
 
-            public bool Equals(MatchingResult x, MatchingResult y)
+            public bool Equals(ExtractedResult x, ExtractedResult y)
             {
                 IEnumerable<FileContent> xContextRegions = x.Result.Locations.Select(loc => loc.PhysicalLocation.ContextRegion.Snippet);
 
@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
                 return true;
             }
 
-            public int GetHashCode(MatchingResult obj)
+            public int GetHashCode(ExtractedResult obj)
             {
                 int hashCode = -187510987;
                 IEnumerable<FileContent> contextRegions = obj.Result.Locations.Select(loc => loc.PhysicalLocation.ContextRegion.Snippet);
@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
                 return hashCode;
             }
 
-            public bool ResultMatcherApplies(MatchingResult result)
+            public bool ResultMatcherApplies(ExtractedResult result)
             {
                 bool? applies = result.Result.Locations?.Select(loc => loc.PhysicalLocation?.ContextRegion?.Snippet).Where(snippet => !string.IsNullOrEmpty(snippet?.Text)).Any();
 

@@ -8,9 +8,9 @@ using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
 {
-    internal class GenericHeuristicMatcher : IResultMatcher
+    internal class HeuristicMatcher : IResultMatcher
     {
-        public GenericHeuristicMatcher(IResultMatchingComparer comparer, IRemappingCalculator remapper = null)
+        public HeuristicMatcher(IResultMatchingComparer comparer, IRemappingCalculator remapper = null)
         {
             Comparer = comparer;
             Remapper = remapper;
@@ -19,50 +19,50 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
         public IResultMatchingComparer Comparer { get; }
         public IRemappingCalculator Remapper { get; }
 
-        public IEnumerable<MatchedResults> MatchResults(IEnumerable<MatchingResult> baseline, IEnumerable<MatchingResult> current)
+        public IEnumerable<MatchedResults> Match(IEnumerable<ExtractedResult> previousResults, IEnumerable<ExtractedResult> currentResults)
         {
             IEnumerable<SarifLogRemapping> possibleRemappings = null;
-            Dictionary<int, List<MatchingResult>> baselineResults = new Dictionary<int, List<MatchingResult>>();
-            List<MatchedResults> results = new List<MatchedResults>();
+            var baselineResults = new Dictionary<int, List<ExtractedResult>>();
+            var matchedResults = new List<MatchedResults>();
 
             if (Remapper != null)
             {
-                possibleRemappings = Remapper.CalculatePossibleRemappings(baseline, current);
+                possibleRemappings = Remapper.CalculatePossibleRemappings(previousResults, currentResults);
             }
 
-            foreach (var baseResult in baseline)
+            foreach (ExtractedResult previousResult in previousResults)
             {
-                if (Comparer.ResultMatcherApplies(baseResult))
+                if (Comparer.ResultMatcherApplies(previousResult))
                 {
-                    int key = Comparer.GetHashCode(baseResult);
+                    int key = Comparer.GetHashCode(previousResult);
                     if (baselineResults.ContainsKey(key))
                     {
-                        baselineResults[key].Add(baseResult);
+                        baselineResults[key].Add(previousResult);
                     }
                     else
                     {
-                        baselineResults[key] = new List<MatchingResult>() { baseResult };
+                        baselineResults[key] = new List<ExtractedResult>() { previousResult };
                     }
                 }
             }
 
-            foreach (var currResult in current)
+            foreach (ExtractedResult currentResult in currentResults)
             {
-                if (Comparer.ResultMatcherApplies(currResult))
+                if (Comparer.ResultMatcherApplies(currentResult))
                 {
                     MatchedResults result;
-                    if (TryMatchResult(baselineResults, currResult, out result))
+                    if (TryMatchResult(baselineResults, currentResult, out result))
                     {
-                        results.Add(result);
+                        matchedResults.Add(result);
                     }
                     else if (possibleRemappings != null)
                     {
-                        var applicableRemappings = possibleRemappings.Where(rm => rm.Applies(currResult));
+                        var applicableRemappings = possibleRemappings.Where(rm => rm.Applies(currentResult));
                         foreach (SarifLogRemapping remap in applicableRemappings)
                         {
-                            if (TryMatchResult(baselineResults, remap.RemapResult(currResult), out result))
+                            if (TryMatchResult(baselineResults, remap.RemapResult(currentResult), out result))
                             {
-                                results.Add(result);
+                                matchedResults.Add(result);
                                 continue;
                             }
                         }
@@ -70,18 +70,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
                 }
             }
             
-            return results;
+            return matchedResults;
         }
         
-        public bool TryMatchResult(Dictionary<int, List<MatchingResult>> resultDictionary, MatchingResult currentResult, out MatchedResults result)
+        public bool TryMatchResult(Dictionary<int, List<ExtractedResult>> resultDictionary, ExtractedResult currentResult, out MatchedResults result)
         {
             int unmodifiedKey = Comparer.GetHashCode(currentResult);
             if (resultDictionary.ContainsKey(unmodifiedKey))
             {
-                List<MatchingResult> matchingBaselineResult = resultDictionary[unmodifiedKey].Where(b => Comparer.Equals(b, currentResult)).ToList();
+                List<ExtractedResult> matchingBaselineResult = resultDictionary[unmodifiedKey].Where(b => Comparer.Equals(b, currentResult)).ToList();
                 if (matchingBaselineResult.Count == 1)
                 {
-                    result = new MatchedResults() { BaselineResult = matchingBaselineResult[0], CurrentResult = currentResult, MatchingAlgorithm = this };
+                    result = new MatchedResults() { PreviousResult = matchingBaselineResult[0], CurrentResult = currentResult, MatchingAlgorithm = this };
                     return true;
                 }
                 else if (matchingBaselineResult.Count > 1)
@@ -92,7 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
                     // the input logs have been made deterministic.
                     // This will remain unsolved in the early implementation.  
                     // One thought--A discrete difference metric probably makes sense here.
-                    result = new MatchedResults() { BaselineResult = matchingBaselineResult[0], CurrentResult = currentResult, MatchingAlgorithm = this };
+                    result = new MatchedResults() { PreviousResult = matchingBaselineResult[0], CurrentResult = currentResult, MatchingAlgorithm = this };
                     return true;
                 }
             }

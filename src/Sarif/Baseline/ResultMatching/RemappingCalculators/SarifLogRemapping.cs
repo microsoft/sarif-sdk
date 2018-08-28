@@ -5,10 +5,10 @@ using System;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 {
-    public class SarifLogRemapping
+    internal class SarifLogRemapping
     {
-        public Func<MatchingResult, bool> Applies { get; private set; }
+        public Func<ExtractedResult, bool> Applies { get; private set; }
 
-        public Func<MatchingResult, MatchingResult> RemapResult { get; private set; }
+        public Func<ExtractedResult, ExtractedResult> RemapResult { get; private set; }
     }
 }

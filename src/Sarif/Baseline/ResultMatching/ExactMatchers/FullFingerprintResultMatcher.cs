@@ -10,10 +10,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
 {
     internal class FullFingerprintResultMatcher : IResultMatcher
     {
-        public IEnumerable<MatchedResults> MatchResults(IEnumerable<MatchingResult> baseline, IEnumerable<MatchingResult> current)
+        public IEnumerable<MatchedResults> Match(IEnumerable<ExtractedResult> baseline, IEnumerable<ExtractedResult> current)
         {
             List<MatchedResults> matchedResults = new List<MatchedResults>();
-            Dictionary<Tuple<string, string>, List<MatchingResult>> baselineResults = new Dictionary<Tuple<string, string>, List<MatchingResult>>(FingerprintEqualityCalculator.Instance);
+            Dictionary<Tuple<string, string>, List<ExtractedResult>> baselineResults = new Dictionary<Tuple<string, string>, List<ExtractedResult>>(FingerprintEqualityCalculator.Instance);
 
             foreach (var result in baseline)
             {
@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
                     Tuple<string, string> fingerprint = new Tuple<string, string>(key, result.Result.Fingerprints[key]);
                     if(!baselineResults.ContainsKey(fingerprint) || baselineResults[fingerprint] == null)
                     {
-                        baselineResults[fingerprint] = new List<MatchingResult>() { result };
+                        baselineResults[fingerprint] = new List<ExtractedResult>() { result };
                     }
                     else
                     {
@@ -38,9 +38,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
                     Tuple<string, string> fingerprint = new Tuple<string, string>(key, result.Result.Fingerprints[key]);
                     if (baselineResults.ContainsKey(fingerprint) && baselineResults[fingerprint] != null && baselineResults[fingerprint].Count > 0)
                     {
-                        MatchingResult baselineResult = baselineResults[fingerprint].First();
+                        ExtractedResult baselineResult = baselineResults[fingerprint].First();
                         baselineResults[fingerprint].Remove(baselineResult);
-                        matchedResults.Add(new MatchedResults() { BaselineResult = baselineResult, CurrentResult = result, MatchingAlgorithm = this });
+                        matchedResults.Add(new MatchedResults() { PreviousResult = baselineResult, CurrentResult = result, MatchingAlgorithm = this });
                     }
                 }
             }
@@ -88,6 +88,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
 
             internal static readonly FingerprintEqualityCalculator Instance = new FingerprintEqualityCalculator();
         }
-
     }
 }

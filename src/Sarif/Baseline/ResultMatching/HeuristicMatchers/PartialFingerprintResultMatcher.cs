@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
     /// 
     /// TODO:  Handle versioning of partial fingerprints.
     /// </summary>
-    class PartialFingerprintResultMatcher : GenericHeuristicMatcher
+    internal class PartialFingerprintResultMatcher : HeuristicMatcher
     {
         public PartialFingerprintResultMatcher() : base(PartialFingerprintResultComparer.Instance) { }
         
@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
         {
             public static readonly PartialFingerprintResultComparer Instance = new PartialFingerprintResultComparer();
 
-            public bool Equals(MatchingResult x, MatchingResult y)
+            public bool Equals(ExtractedResult x, ExtractedResult y)
             {
                 return CompareDictionaries(x.Result.PartialFingerprints, y.Result.PartialFingerprints);
             }
@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
                     return false;
                 }
 
-                foreach (var key in x.Keys)
+                foreach (string key in x.Keys)
                 {
                     if (!y.ContainsKey(key))
                     {
@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
                 return true;
             }
 
-            public int GetHashCode(MatchingResult obj)
+            public int GetHashCode(ExtractedResult obj)
             {
                 if (obj == null || obj.Result == null || obj.Result.PartialFingerprints == null || !obj.Result.PartialFingerprints.Any())
                 {
@@ -68,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
 
                 int hash = -1324097150;
                 
-                foreach (var key in obj.Result.PartialFingerprints.Keys)
+                foreach (string key in obj.Result.PartialFingerprints.Keys)
                 {
                     int keyHash = key.GetHashCode();
                     int resultHash = obj.Result.PartialFingerprints[key].GetHashCode();
@@ -80,7 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
                 return hash;
             }
 
-            public bool ResultMatcherApplies(MatchingResult result)
+            public bool ResultMatcherApplies(ExtractedResult result)
             {
                 return (result.Result.PartialFingerprints != null && result.Result.PartialFingerprints.Any());
             }

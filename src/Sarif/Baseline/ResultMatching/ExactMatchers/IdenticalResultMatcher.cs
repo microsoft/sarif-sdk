@@ -13,18 +13,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
     /// 
     /// If a run contains multiple identical results, we will match them in order.
     /// </summary>
-    class IdenticalResultMatcher : IResultMatcher
+    internal class IdenticalResultMatcher : IResultMatcher
     {
-        public IEnumerable<MatchedResults> MatchResults(IEnumerable<MatchingResult> baseline, IEnumerable<MatchingResult> current)
+        public IEnumerable<MatchedResults> Match(IEnumerable<ExtractedResult> baseline, IEnumerable<ExtractedResult> current)
         {
             List<MatchedResults> matchedResults = new List<MatchedResults>();
-            Dictionary<Result, List<MatchingResult>> baselineResults = new Dictionary<Result, List<MatchingResult>>(IdenticalResultEqualityComparer.Instance);
+            Dictionary<Result, List<ExtractedResult>> baselineResults = new Dictionary<Result, List<ExtractedResult>>(IdenticalResultEqualityComparer.Instance);
 
             foreach (var result in baseline)
             {
                 if (!baselineResults.ContainsKey(result.Result) || baselineResults[result.Result] == null)
                 {
-                    baselineResults[result.Result] = new List<MatchingResult>() { result };
+                    baselineResults[result.Result] = new List<ExtractedResult>() { result };
                 }
                 else
                 {
@@ -39,9 +39,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
                     if (baselineResults[result.Result].Count != 0)
                     {
                         // Pull the first element from the list and match it.  These results are *identical*, so we can just match them in the order they come in.
-                        MatchingResult baselineResult = baselineResults[result.Result].First();
+                        ExtractedResult baselineResult = baselineResults[result.Result].First();
                         baselineResults[result.Result].Remove(baselineResult);
-                        matchedResults.Add(new MatchedResults() { BaselineResult = baselineResult, CurrentResult = result, MatchingAlgorithm = this });
+                        matchedResults.Add(new MatchedResults() { PreviousResult = baselineResult, CurrentResult = result, MatchingAlgorithm = this });
                     }
                 }
             }
@@ -78,9 +78,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
                 masked.CorrelationGuid = null;
                 masked.SuppressionStates = SuppressionStates.None;
                 masked.BaselineState = BaselineState.None;
-                if(masked.Properties != null && masked.Properties.ContainsKey(ResultMatchingBaseliner.ResultMatchingResultPropertyName))
+                if(masked.Properties != null && masked.Properties.ContainsKey(SarifLogResultMatcher.ResultMatchingResultPropertyName))
                 {
-                    masked.Properties.Remove(ResultMatchingBaseliner.ResultMatchingResultPropertyName);
+                    masked.Properties.Remove(SarifLogResultMatcher.ResultMatchingResultPropertyName);
                     if(masked.Properties.Count == 0)
                     {
                         masked.Properties = null;

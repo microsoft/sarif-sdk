@@ -15,9 +15,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         /// Get a Result Matching Baseliner that matches results between two groups of Sarif Logs using a sensible default set of rules for matching results.
         /// </summary>
         /// <returns>A result matching baseliner instance with the default set of strategies.</returns>
-        public static IResultMatchingBaseliner GetDefaultResultMatchingBaseliner()
+        public static ISarifLogMatcher GetDefaultResultMatchingBaseliner()
         {
-            return new ResultMatchingBaseliner
+            return new SarifLogResultMatcher
                 (
                     // Exact matchers run first, in order.  These should do *no* remapping and offer fast comparisons to filter out
                     // common cases (e.x. identical results).
@@ -40,9 +40,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         /// <param name="exactMatchers"></param>
         /// <param name="heuristicMatchers"></param>
         /// <returns></returns>
-        public static IResultMatchingBaseliner GetResultMatchingBaseliner(List<IResultMatcher> exactMatchers, List<IResultMatcher> heuristicMatchers)
+        public static ISarifLogMatcher GetResultMatchingBaseliner(List<IResultMatcher> exactMatchers, List<IResultMatcher> heuristicMatchers)
         {
-            return new ResultMatchingBaseliner(exactMatchers, heuristicMatchers);
+            return new SarifLogResultMatcher(exactMatchers, heuristicMatchers);
         }
     }
 }

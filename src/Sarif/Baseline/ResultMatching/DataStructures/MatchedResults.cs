@@ -15,12 +15,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         private const string MatchResultMetadata_RunKeyName = "Run";
         private const string MatchResultMetadata_FoundDateName = "FoundDate";
 
-        public MatchingResult BaselineResult;
+        public ExtractedResult PreviousResult { get; set; }
 
-        public MatchingResult CurrentResult;
+        public ExtractedResult CurrentResult { get; set; }
 
-        public IResultMatcher MatchingAlgorithm;
-        
+        public IResultMatcher MatchingAlgorithm { get; set; }
+
         /// <summary>
         /// Creates a new SARIF Result object with contents from the
         /// most recent result of the matched pair, the appropriate state,
@@ -29,24 +29,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         /// <returns>The new SARIF result.</returns>
         public Result CalculateNewBaselineResult()
         {
-            Result result = null;
+            Result result;
 
             Dictionary<string, object> ResultMatchingProperties = new Dictionary<string, object>();
             Dictionary<string, object> OriginalResultMatchingProperties = null;
-            if (BaselineResult != null && CurrentResult != null)
+            if (PreviousResult != null && CurrentResult != null)
             {
                 // Baseline result and current result have been matched => existing.
-                result = ExistingResult(ResultMatchingProperties, out OriginalResultMatchingProperties);
+                result = ConstructExistingResult(ResultMatchingProperties, out OriginalResultMatchingProperties);
             }
-            else if (BaselineResult == null && CurrentResult != null)
+            else if (PreviousResult == null && CurrentResult != null)
             {
                 // No baseline result, present current result => new.
-                result = NewResult(ResultMatchingProperties, out OriginalResultMatchingProperties);
+                result = ConstructNewResult(ResultMatchingProperties, out OriginalResultMatchingProperties);
             }
-            else if (BaselineResult != null && CurrentResult == null)
+            else if (PreviousResult != null && CurrentResult == null)
             {
                 // Baseline result is present, current result is missing => absent.
-                result = AbsentResult(ResultMatchingProperties, out OriginalResultMatchingProperties);
+                result = ConstructAbsentResult(ResultMatchingProperties, out OriginalResultMatchingProperties);
             }
             else
             {
@@ -55,31 +55,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
             ResultMatchingProperties = MergeDictionaryPreferFirst(ResultMatchingProperties, OriginalResultMatchingProperties);
 
-            result.SetProperty(ResultMatchingBaseliner.ResultMatchingResultPropertyName, ResultMatchingProperties);
+            result.SetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, ResultMatchingProperties);
 
             return result;
         }
 
-        private Result AbsentResult(
+        private Result ConstructAbsentResult(
             Dictionary<string, object> ResultMatchingProperties, 
             out Dictionary<string, object> OriginalResultMatchingProperties)
         {
-            Result result = BaselineResult.Result.DeepClone();
+            Result result = PreviousResult.Result.DeepClone();
             result.BaselineState = BaselineState.Absent;
 
-            if (!BaselineResult.Result.TryGetProperty(ResultMatchingBaseliner.ResultMatchingResultPropertyName, out OriginalResultMatchingProperties))
+            if (!PreviousResult.Result.TryGetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, out OriginalResultMatchingProperties))
             {
                 OriginalResultMatchingProperties = new Dictionary<string, object>();
             }
 
-            if (BaselineResult.OriginalRun.InstanceGuid != null)
+            if (PreviousResult.OriginalRun.InstanceGuid != null)
             {
-                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, BaselineResult.OriginalRun.InstanceGuid);
+                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, PreviousResult.OriginalRun.InstanceGuid);
             }
             return result;
         }
 
-        private Result NewResult(
+        private Result ConstructNewResult(
             Dictionary<string, object> ResultMatchingProperties, 
             out Dictionary<string, object> OriginalResultMatchingProperties)
         {
@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             result.CorrelationGuid = Guid.NewGuid().ToString();
             result.BaselineState = BaselineState.New;
 
-            if (!CurrentResult.Result.TryGetProperty(ResultMatchingBaseliner.ResultMatchingResultPropertyName, out OriginalResultMatchingProperties))
+            if (!CurrentResult.Result.TryGetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, out OriginalResultMatchingProperties))
             {
                 OriginalResultMatchingProperties = new Dictionary<string, object>();
             }
@@ -106,17 +106,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             return result;
         }
 
-        private Result ExistingResult(
+        private Result ConstructExistingResult(
             Dictionary<string, object> ResultMatchingProperties, 
             out Dictionary<string, object> OriginalResultMatchingProperties)
         {
             // Result exists.
             Result  result = CurrentResult.Result.DeepClone();
-            result.CorrelationGuid = BaselineResult.Result.CorrelationGuid;
-            result.SuppressionStates = BaselineResult.Result.SuppressionStates;
+            result.CorrelationGuid = PreviousResult.Result.CorrelationGuid;
+            result.SuppressionStates = PreviousResult.Result.SuppressionStates;
             result.BaselineState = BaselineState.Existing;
 
-            if (!BaselineResult.Result.TryGetProperty(ResultMatchingBaseliner.ResultMatchingResultPropertyName, out OriginalResultMatchingProperties))
+            if (!PreviousResult.Result.TryGetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, out OriginalResultMatchingProperties))
             {
                 OriginalResultMatchingProperties = new Dictionary<string, object>();
             }
@@ -135,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         {
             Dictionary<string, object> result = firstPropertyBag;
 
-            foreach (var key in secondPropertyBag.Keys)
+            foreach (string key in secondPropertyBag.Keys)
             {
                 if (!result.ContainsKey(key))
                 {

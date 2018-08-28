@@ -17,68 +17,68 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
         [Fact]
         public void IdenticalResultMatcher_MatchesIdenticalResults_Single()
         {
-            MatchingResult resultA = new MatchingResult()
+            ExtractedResult resultA = new ExtractedResult()
             {
                 Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context")
             };
 
-            MatchingResult resultB = new MatchingResult()
+            ExtractedResult resultB = new ExtractedResult()
             {
                 Result = resultA.Result.DeepClone()
             };
 
-            IEnumerable<MatchedResults> matchedResults = matcher.MatchResults(new MatchingResult[] {resultA }, new MatchingResult[] { resultB });
+            IEnumerable<MatchedResults> matchedResults = matcher.Match(new ExtractedResult[] {resultA }, new ExtractedResult[] { resultB });
 
             matchedResults.Should().HaveCount(1);
-            matchedResults.First().BaselineResult.Should().BeEquivalentTo(resultA);
+            matchedResults.First().PreviousResult.Should().BeEquivalentTo(resultA);
             matchedResults.First().CurrentResult.Should().BeEquivalentTo(resultB);
         }
 
         [Fact]
         public void IdenticalResultMatcher_MatchesIdenticalResults_Multiple()
         {
-            MatchingResult resultAA = new MatchingResult()
+            ExtractedResult resultAA = new ExtractedResult()
             {
                 Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context")
             };
 
-            MatchingResult resultBA = new MatchingResult()
+            ExtractedResult resultBA = new ExtractedResult()
             {
                 Result = resultAA.Result.DeepClone()
             };
 
-            MatchingResult resultAB = new MatchingResult()
+            ExtractedResult resultAB = new ExtractedResult()
             {
                 Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context2")
             };
 
-            MatchingResult resultBB = new MatchingResult()
+            ExtractedResult resultBB = new ExtractedResult()
             {
                 Result = resultAB.Result.DeepClone()
             };
 
 
-            IEnumerable<MatchedResults> matchedResults = matcher.MatchResults(new MatchingResult[] { resultAA, resultAB }, new MatchingResult[] { resultBA, resultBB });
+            IEnumerable<MatchedResults> matchedResults = matcher.Match(new ExtractedResult[] { resultAA, resultAB }, new ExtractedResult[] { resultBA, resultBB });
 
             matchedResults.Should().HaveCount(2);
-            matchedResults.Where(f => f.BaselineResult == resultAA && f.CurrentResult == resultBA).Should().HaveCount(1);
-            matchedResults.Where(f => f.BaselineResult == resultAB && f.CurrentResult == resultBB).Should().HaveCount(1);
+            matchedResults.Where(f => f.PreviousResult == resultAA && f.CurrentResult == resultBA).Should().HaveCount(1);
+            matchedResults.Where(f => f.PreviousResult == resultAB && f.CurrentResult == resultBB).Should().HaveCount(1);
         }
 
         [Fact]
         public void IdenticalResultMatcher_DoesNotMatchDifferentResults_Single()
         {
-            MatchingResult resultA = new MatchingResult()
+            ExtractedResult resultA = new ExtractedResult()
             {
                 Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context")
             };
 
-            MatchingResult resultB = new MatchingResult()
+            ExtractedResult resultB = new ExtractedResult()
             {
                 Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context2")
             };
 
-            IEnumerable<MatchedResults> matchedResults = matcher.MatchResults(new MatchingResult[] { resultA }, new MatchingResult[] { resultB });
+            IEnumerable<MatchedResults> matchedResults = matcher.Match(new ExtractedResult[] { resultA }, new ExtractedResult[] { resultB });
 
             matchedResults.Should().BeEmpty();
         }
@@ -86,28 +86,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
         [Fact]
         public void IdenticalResultMatcher_DoesNotMatchDifferentResults_Multiple()
         {
-            MatchingResult resultAA = new MatchingResult()
+            ExtractedResult resultAA = new ExtractedResult()
             {
                 Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context1")
             };
 
-            MatchingResult resultBA = new MatchingResult()
+            ExtractedResult resultBA = new ExtractedResult()
             {
                 Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context2")
             };
 
-            MatchingResult resultAB = new MatchingResult()
+            ExtractedResult resultAB = new ExtractedResult()
             {
                 Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context3")
             };
 
-            MatchingResult resultBB = new MatchingResult()
+            ExtractedResult resultBB = new ExtractedResult()
             {
                 Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context4")
             };
 
 
-            IEnumerable<MatchedResults> matchedResults = matcher.MatchResults(new MatchingResult[] { resultAA, resultAB }, new MatchingResult[] { resultBA, resultBB });
+            IEnumerable<MatchedResults> matchedResults = matcher.Match(new ExtractedResult[] { resultAA, resultAB }, new ExtractedResult[] { resultBA, resultBB });
 
             matchedResults.Should().BeEmpty();
         }
@@ -115,7 +115,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
         [Fact]
         public void IdenticalResultMatcher_MatchesResults_DifferingOnIdOrStatus_Single()
         {
-            MatchingResult resultA = new MatchingResult()
+            ExtractedResult resultA = new ExtractedResult()
             {
                 Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context")
             };
@@ -124,22 +124,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             changedResultA.CorrelationGuid = Guid.NewGuid().ToString();
             changedResultA.BaselineState = BaselineState.Existing;
 
-            MatchingResult resultB = new MatchingResult()
+            ExtractedResult resultB = new ExtractedResult()
             {
                 Result = changedResultA
             };
 
-            IEnumerable<MatchedResults> matchedResults = matcher.MatchResults(new MatchingResult[] { resultA }, new MatchingResult[] { resultB });
+            IEnumerable<MatchedResults> matchedResults = matcher.Match(new ExtractedResult[] { resultA }, new ExtractedResult[] { resultB });
 
             matchedResults.Should().HaveCount(1);
-            matchedResults.First().BaselineResult.Should().BeEquivalentTo(resultA);
+            matchedResults.First().PreviousResult.Should().BeEquivalentTo(resultA);
             matchedResults.First().CurrentResult.Should().BeEquivalentTo(resultB);
         }
 
         [Fact]
         public void IdenticalResultMatcher_MatchesResults_DifferingOnIdOrStatus_Multiple()
         {
-            MatchingResult resultAA = new MatchingResult()
+            ExtractedResult resultAA = new ExtractedResult()
             {
                 Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context")
             };
@@ -148,12 +148,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             changedResultA.CorrelationGuid = Guid.NewGuid().ToString();
             changedResultA.BaselineState = BaselineState.Existing;
 
-            MatchingResult resultBA = new MatchingResult()
+            ExtractedResult resultBA = new ExtractedResult()
             {
                 Result = changedResultA
             };
 
-            MatchingResult resultAB = new MatchingResult()
+            ExtractedResult resultAB = new ExtractedResult()
             {
                 Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context2")
             };
@@ -162,23 +162,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             changedResultA.CorrelationGuid = Guid.NewGuid().ToString();
             changedResultA.BaselineState = BaselineState.New;
 
-            MatchingResult resultBB = new MatchingResult()
+            ExtractedResult resultBB = new ExtractedResult()
             {
                 Result = changedResultB
             };
 
 
-            IEnumerable<MatchedResults> matchedResults = matcher.MatchResults(new MatchingResult[] { resultAA, resultAB }, new MatchingResult[] { resultBA, resultBB });
+            IEnumerable<MatchedResults> matchedResults = matcher.Match(new ExtractedResult[] { resultAA, resultAB }, new ExtractedResult[] { resultBA, resultBB });
 
             matchedResults.Should().HaveCount(2);
-            matchedResults.Where(f => f.BaselineResult == resultAA && f.CurrentResult == resultBA).Should().HaveCount(1);
-            matchedResults.Where(f => f.BaselineResult == resultAB && f.CurrentResult == resultBB).Should().HaveCount(1);
+            matchedResults.Where(f => f.PreviousResult == resultAA && f.CurrentResult == resultBA).Should().HaveCount(1);
+            matchedResults.Where(f => f.PreviousResult == resultAB && f.CurrentResult == resultBB).Should().HaveCount(1);
         }
 
         [Fact]
         public void IdenticalResultMatcher_MatchesResults_DifferingOnResultMatchingProperties_Multiple()
         {
-            MatchingResult resultAA = new MatchingResult()
+            ExtractedResult resultAA = new ExtractedResult()
             {
                 Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context")
             };
@@ -186,14 +186,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             Result changedResultA = resultAA.Result.DeepClone();
             changedResultA.CorrelationGuid = Guid.NewGuid().ToString();
             changedResultA.BaselineState = BaselineState.Existing;
-            changedResultA.SetProperty(ResultMatchingBaseliner.ResultMatchingResultPropertyName, new Dictionary<string, string> { { "property", "value" } });
+            changedResultA.SetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, new Dictionary<string, string> { { "property", "value" } });
 
-            MatchingResult resultBA = new MatchingResult()
+            ExtractedResult resultBA = new ExtractedResult()
             {
                 Result = changedResultA
             };
 
-            MatchingResult resultAB = new MatchingResult()
+            ExtractedResult resultAB = new ExtractedResult()
             {
                 Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test", "file://test2", "test context2")
             };
@@ -202,18 +202,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             changedResultA.CorrelationGuid = Guid.NewGuid().ToString();
             changedResultA.BaselineState = BaselineState.New;
 
-            changedResultB.SetProperty(ResultMatchingBaseliner.ResultMatchingResultPropertyName, new Dictionary<string, string> { { "property1", "value1" } });
-            MatchingResult resultBB = new MatchingResult()
+            changedResultB.SetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, new Dictionary<string, string> { { "property1", "value1" } });
+            ExtractedResult resultBB = new ExtractedResult()
             {
                 Result = changedResultB
             };
 
 
-            IEnumerable<MatchedResults> matchedResults = matcher.MatchResults(new MatchingResult[] { resultAA, resultAB }, new MatchingResult[] { resultBA, resultBB });
+            IEnumerable<MatchedResults> matchedResults = matcher.Match(new ExtractedResult[] { resultAA, resultAB }, new ExtractedResult[] { resultBA, resultBB });
 
             matchedResults.Should().HaveCount(2);
-            matchedResults.Where(f => f.BaselineResult == resultAA && f.CurrentResult == resultBA).Should().HaveCount(1);
-            matchedResults.Where(f => f.BaselineResult == resultAB && f.CurrentResult == resultBB).Should().HaveCount(1);
+            matchedResults.Where(f => f.PreviousResult == resultAA && f.CurrentResult == resultBA).Should().HaveCount(1);
+            matchedResults.Where(f => f.PreviousResult == resultAB && f.CurrentResult == resultBB).Should().HaveCount(1);
         }
     }
 }

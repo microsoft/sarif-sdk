@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
     {
         private readonly ITestOutputHelper output;
 
-        private readonly ResultMatchingBaseliner baseliner = new ResultMatchingBaseliner(new IResultMatcher[] { ExactMatchers.ExactResultMatcherFactory.GetIdenticalResultMatcher() }, null);
+        private readonly SarifLogResultMatcher baseliner = new SarifLogResultMatcher(new IResultMatcher[] { ExactMatchers.ExactResultMatcherFactory.GetIdenticalResultMatcher() }, null);
 
         public ResultMatchingBaselinerTests(ITestOutputHelper outputHelper)
         {
@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 result.CorrelationGuid = Guid.NewGuid().ToString();
             }
 
-            SarifLog calculatedNextBaseline = baseliner.BaselineSarifLogs(new SarifLog[] { baselineLog }, new SarifLog[] { currentLog });
+            SarifLog calculatedNextBaseline = baseliner.Match(new SarifLog[] { baselineLog }, new SarifLog[] { currentLog }).First();
 
             calculatedNextBaseline.Runs.Should().HaveCount(1);
 
@@ -54,19 +54,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
                 calculatedNextBaseline.Runs[0].Results.Where(r => r.BaselineState == BaselineState.Absent).Should().HaveCount(1);
 
-                calculatedNextBaseline.Runs[0].Results.Where(r => r.BaselineState == BaselineState.Absent).First().TryGetProperty(ResultMatchingBaseliner.ResultMatchingResultPropertyName, out Dictionary<string, string> AbsentResultProperties).Should().BeTrue();
+                calculatedNextBaseline.Runs[0].Results.Where(r => r.BaselineState == BaselineState.Absent).First().TryGetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, out Dictionary<string, string> AbsentResultProperties).Should().BeTrue();
                 AbsentResultProperties.Should().ContainKey("Run");
                 AbsentResultProperties["Run"].Should().BeEquivalentTo(baselineLog.Runs[0].InstanceGuid);
 
                 calculatedNextBaseline.Runs[0].Results.Where(r => r.BaselineState == BaselineState.Existing).Should().HaveCount(currentLog.Runs[0].Results.Count - 1);
 
-                calculatedNextBaseline.Runs[0].Results.Where(r => r.BaselineState == BaselineState.Existing).First().TryGetProperty(ResultMatchingBaseliner.ResultMatchingResultPropertyName, out Dictionary<string, string> CurrentResultProperties).Should().BeTrue();
+                calculatedNextBaseline.Runs[0].Results.Where(r => r.BaselineState == BaselineState.Existing).First().TryGetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, out Dictionary<string, string> CurrentResultProperties).Should().BeTrue();
                 CurrentResultProperties.Should().ContainKey("Run");
                 CurrentResultProperties["Run"].Should().BeEquivalentTo(currentLog.Runs[0].InstanceGuid);
 
                 calculatedNextBaseline.Runs[0].Results.Where(r => r.BaselineState == BaselineState.New).Should().HaveCount(1);
 
-                calculatedNextBaseline.Runs[0].Results.Where(r => r.BaselineState == BaselineState.New).First().TryGetProperty(ResultMatchingBaseliner.ResultMatchingResultPropertyName, out Dictionary<string, string> NewResultProperties).Should().BeTrue();
+                calculatedNextBaseline.Runs[0].Results.Where(r => r.BaselineState == BaselineState.New).First().TryGetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, out Dictionary<string, string> NewResultProperties).Should().BeTrue();
                 NewResultProperties.Should().ContainKey("Run");
                 NewResultProperties["Run"].Should().BeEquivalentTo(currentLog.Runs[0].InstanceGuid);
             }
