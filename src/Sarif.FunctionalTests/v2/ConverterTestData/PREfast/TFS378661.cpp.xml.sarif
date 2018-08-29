@@ -9,7 +9,24 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/fixedbugs/tfs378661.cpp": {
-          "mimeType": "text/x-cpp"
+          "mimeType": "text/x-cpp",
+          "contents": {
+            "binary": "DQovLyBkZWNsYXJhdGlvbiBrZXlldmVudCBmb3IgNjM4NS82DQoNCiNpbmNsdWRlIDxzYWwuaD4NCg0Kdm9pZCBXcml0ZXNBcnJheSgNCglfT3V0X3dyaXRlc18oNSkgbG9uZyAqIHNlcQ0KCSkNCnsNCglzZXFbNV0gPSA0MjsNCn0NCg0Kdm9pZCBXcml0ZXNBcnJheVJhbmdlKA0KCV9PdXRfd3JpdGVzXyhzaXplKSBsb25nICogc2VxLA0KCV9Jbl9yYW5nZV8oNCw0KSBpbnQgc2l6ZSkNCnsNCglzZXFbc2l6ZV0gPSA0MjsNCn0NCg0Kdm9pZCBXcml0ZXNBcnJheUxvb3AoDQoJX091dF93cml0ZXNfKHNpemUpIGxvbmcgKiBzZXEsDQoJaW50IHNpemUpDQp7DQoJaW50IGk7DQoJZm9yIChpPTA7IGk8IHNpemU7IGkrKykNCgl7DQoJCXNlcVtpXSA9IDQ0Ow0KCX0NCglzZXFbaV0gPSA0NDsNCn0NCg0Kdm9pZCBXcml0ZXNBcnJheUNvbXBhcmUoDQoJX091dF93cml0ZXNfKHNpemUpIGxvbmcgKiBzZXEsDQoJaW50IHNpemUpDQp7DQoJaWYgKHNpemUgPT0gNCkNCgl7DQoJCXNlcVswXSA9IDQ0Ow0KCX0NCglzZXFbc2l6ZV0gPSA0NDsNCn0NCg0KDQo="
+          },
+          "hashes": [
+            {
+              "value": "54BD421DB50956469A9AF8A92F3EF864",
+              "algorithm": "md5"
+            },
+            {
+              "value": "21D82C6D39C90C8A13EC0130EF50433F02D83E0A",
+              "algorithm": "sha-1"
+            },
+            {
+              "value": "2A83E3B138696BC725541A38417AB0B80D02C21FB272174806A7420CFEB34EAA",
+              "algorithm": "sha-256"
+            }
+          ]
         }
       },
       "logicalLocations": {
@@ -42,7 +59,18 @@
                   "startLine": 10,
                   "startColumn": 9,
                   "snippet": {
-                    "text": "\tseq[5] = 42;"
+                    "text": "= 42;"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 9,
+                  "startColumn": 1,
+                  "endLine": 11,
+                  "endColumn": 2,
+                  "charOffset": 112,
+                  "charLength": 19,
+                  "snippet": {
+                    "text": "{\r\n\tseq[5] = 42;\r\n}"
                   }
                 }
               },
@@ -68,7 +96,18 @@
                             "startLine": 6,
                             "startColumn": 17,
                             "snippet": {
-                              "text": "void WritesArray("
+                              "text": "("
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 5,
+                            "startColumn": 1,
+                            "endLine": 7,
+                            "endColumn": 28,
+                            "charOffset": 58,
+                            "charLength": 48,
+                            "snippet": {
+                              "text": "\r\nvoid WritesArray(\r\n\t_Out_writes_(5) long * seq"
                             }
                           }
                         }
@@ -89,7 +128,18 @@
                             "startLine": 10,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "\tseq[5] = 42;"
+                              "text": "= 42;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 9,
+                            "startColumn": 1,
+                            "endLine": 11,
+                            "endColumn": 2,
+                            "charOffset": 112,
+                            "charLength": 19,
+                            "snippet": {
+                              "text": "{\r\n\tseq[5] = 42;\r\n}"
                             }
                           }
                         }
@@ -125,7 +175,18 @@
                   "startLine": 17,
                   "startColumn": 12,
                   "snippet": {
-                    "text": "\tseq[size] = 42;"
+                    "text": "= 42;"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 16,
+                  "startColumn": 1,
+                  "endLine": 18,
+                  "endColumn": 2,
+                  "charOffset": 220,
+                  "charLength": 22,
+                  "snippet": {
+                    "text": "{\r\n\tseq[size] = 42;\r\n}"
                   }
                 }
               },
@@ -151,7 +212,18 @@
                             "startLine": 13,
                             "startColumn": 22,
                             "snippet": {
-                              "text": "void WritesArrayRange("
+                              "text": "("
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 12,
+                            "startColumn": 1,
+                            "endLine": 14,
+                            "endColumn": 32,
+                            "charOffset": 133,
+                            "charLength": 57,
+                            "snippet": {
+                              "text": "\r\nvoid WritesArrayRange(\r\n\t_Out_writes_(size) long * seq,"
                             }
                           }
                         }
@@ -172,7 +244,18 @@
                             "startLine": 17,
                             "startColumn": 12,
                             "snippet": {
-                              "text": "\tseq[size] = 42;"
+                              "text": "= 42;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 16,
+                            "startColumn": 1,
+                            "endLine": 18,
+                            "endColumn": 2,
+                            "charOffset": 220,
+                            "charLength": 22,
+                            "snippet": {
+                              "text": "{\r\n\tseq[size] = 42;\r\n}"
                             }
                           }
                         }
@@ -208,7 +291,18 @@
                   "startLine": 29,
                   "startColumn": 9,
                   "snippet": {
-                    "text": "\tseq[i] = 44;"
+                    "text": "= 44;"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 28,
+                  "startColumn": 1,
+                  "endLine": 30,
+                  "endColumn": 2,
+                  "charOffset": 372,
+                  "charLength": 20,
+                  "snippet": {
+                    "text": "\t}\r\n\tseq[i] = 44;\r\n}"
                   }
                 }
               },
@@ -234,7 +328,18 @@
                             "startLine": 20,
                             "startColumn": 21,
                             "snippet": {
-                              "text": "void WritesArrayLoop("
+                              "text": "("
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 19,
+                            "startColumn": 1,
+                            "endLine": 21,
+                            "endColumn": 32,
+                            "charOffset": 244,
+                            "charLength": 56,
+                            "snippet": {
+                              "text": "\r\nvoid WritesArrayLoop(\r\n\t_Out_writes_(size) long * seq,"
                             }
                           }
                         }
@@ -255,7 +360,18 @@
                             "startLine": 24,
                             "startColumn": 6,
                             "snippet": {
-                              "text": "\tint i;"
+                              "text": "i;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 23,
+                            "startColumn": 1,
+                            "endLine": 25,
+                            "endColumn": 25,
+                            "charOffset": 314,
+                            "charLength": 36,
+                            "snippet": {
+                              "text": "{\r\n\tint i;\r\n\tfor (i=0; i< size; i++)"
                             }
                           }
                         }
@@ -273,7 +389,18 @@
                             "startLine": 25,
                             "startColumn": 8,
                             "snippet": {
-                              "text": "\tfor (i=0; i< size; i++)"
+                              "text": "=0; i< size; i++)"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 24,
+                            "startColumn": 1,
+                            "endLine": 26,
+                            "endColumn": 3,
+                            "charOffset": 317,
+                            "charLength": 37,
+                            "snippet": {
+                              "text": "\tint i;\r\n\tfor (i=0; i< size; i++)\r\n\t{"
                             }
                           }
                         }
@@ -291,7 +418,18 @@
                             "startLine": 25,
                             "startColumn": 13,
                             "snippet": {
-                              "text": "\tfor (i=0; i< size; i++)"
+                              "text": "< size; i++)"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 24,
+                            "startColumn": 1,
+                            "endLine": 26,
+                            "endColumn": 3,
+                            "charOffset": 317,
+                            "charLength": 37,
+                            "snippet": {
+                              "text": "\tint i;\r\n\tfor (i=0; i< size; i++)\r\n\t{"
                             }
                           }
                         }
@@ -311,7 +449,18 @@
                             "startLine": 27,
                             "startColumn": 10,
                             "snippet": {
-                              "text": "\t\tseq[i] = 44;"
+                              "text": "= 44;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 26,
+                            "startColumn": 1,
+                            "endLine": 28,
+                            "endColumn": 3,
+                            "charOffset": 352,
+                            "charLength": 22,
+                            "snippet": {
+                              "text": "\t{\r\n\t\tseq[i] = 44;\r\n\t}"
                             }
                           }
                         }
@@ -329,7 +478,18 @@
                             "startLine": 25,
                             "startColumn": 22,
                             "snippet": {
-                              "text": "\tfor (i=0; i< size; i++)"
+                              "text": "++)"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 24,
+                            "startColumn": 1,
+                            "endLine": 26,
+                            "endColumn": 3,
+                            "charOffset": 317,
+                            "charLength": 37,
+                            "snippet": {
+                              "text": "\tint i;\r\n\tfor (i=0; i< size; i++)\r\n\t{"
                             }
                           }
                         }
@@ -350,7 +510,18 @@
                             "startLine": 25,
                             "startColumn": 13,
                             "snippet": {
-                              "text": "\tfor (i=0; i< size; i++)"
+                              "text": "< size; i++)"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 24,
+                            "startColumn": 1,
+                            "endLine": 26,
+                            "endColumn": 3,
+                            "charOffset": 317,
+                            "charLength": 37,
+                            "snippet": {
+                              "text": "\tint i;\r\n\tfor (i=0; i< size; i++)\r\n\t{"
                             }
                           }
                         }
@@ -370,7 +541,18 @@
                             "startLine": 29,
                             "startColumn": 9,
                             "snippet": {
-                              "text": "\tseq[i] = 44;"
+                              "text": "= 44;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 28,
+                            "startColumn": 1,
+                            "endLine": 30,
+                            "endColumn": 2,
+                            "charOffset": 372,
+                            "charLength": 20,
+                            "snippet": {
+                              "text": "\t}\r\n\tseq[i] = 44;\r\n}"
                             }
                           }
                         }
@@ -406,7 +588,18 @@
                   "startLine": 40,
                   "startColumn": 12,
                   "snippet": {
-                    "text": "\tseq[size] = 44;"
+                    "text": "= 44;"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 39,
+                  "startColumn": 1,
+                  "endLine": 41,
+                  "endColumn": 2,
+                  "charOffset": 507,
+                  "charLength": 23,
+                  "snippet": {
+                    "text": "\t}\r\n\tseq[size] = 44;\r\n}"
                   }
                 }
               },
@@ -432,7 +625,18 @@
                             "startLine": 32,
                             "startColumn": 24,
                             "snippet": {
-                              "text": "void WritesArrayCompare("
+                              "text": "("
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 31,
+                            "startColumn": 1,
+                            "endLine": 33,
+                            "endColumn": 32,
+                            "charOffset": 394,
+                            "charLength": 59,
+                            "snippet": {
+                              "text": "\r\nvoid WritesArrayCompare(\r\n\t_Out_writes_(size) long * seq,"
                             }
                           }
                         }
@@ -453,7 +657,18 @@
                             "startLine": 36,
                             "startColumn": 11,
                             "snippet": {
-                              "text": "\tif (size == 4)"
+                              "text": "== 4)"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 35,
+                            "startColumn": 1,
+                            "endLine": 37,
+                            "endColumn": 3,
+                            "charOffset": 467,
+                            "charLength": 22,
+                            "snippet": {
+                              "text": "{\r\n\tif (size == 4)\r\n\t{"
                             }
                           }
                         }
@@ -473,7 +688,18 @@
                             "startLine": 38,
                             "startColumn": 10,
                             "snippet": {
-                              "text": "\t\tseq[0] = 44;"
+                              "text": "= 44;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 37,
+                            "startColumn": 1,
+                            "endLine": 39,
+                            "endColumn": 3,
+                            "charOffset": 487,
+                            "charLength": 22,
+                            "snippet": {
+                              "text": "\t{\r\n\t\tseq[0] = 44;\r\n\t}"
                             }
                           }
                         }
@@ -491,7 +717,18 @@
                             "startLine": 40,
                             "startColumn": 12,
                             "snippet": {
-                              "text": "\tseq[size] = 44;"
+                              "text": "= 44;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 39,
+                            "startColumn": 1,
+                            "endLine": 41,
+                            "endColumn": 2,
+                            "charOffset": 507,
+                            "charLength": 23,
+                            "snippet": {
+                              "text": "\t}\r\n\tseq[size] = 44;\r\n}"
                             }
                           }
                         }

@@ -15,5 +15,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public const string EndLineMustNotBeLessThanStartLine = "SARIF1012";
         public const string EndColumnMustNotBeLessThanStartColumn = "SARIF1013";
         public const string UriBaseIdRequiresRelativeUri = "SARIF1014";
+        public const string UriMustBeAbsolute = "SARIF1015";
     }
 }

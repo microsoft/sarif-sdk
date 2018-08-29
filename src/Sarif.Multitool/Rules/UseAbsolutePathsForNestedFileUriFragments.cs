@@ -23,16 +23,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// </summary>
         public override string Id => RuleId.UseAbsolutePathsForNestedFileUriFragments;
 
-        protected override IEnumerable<string> MessageResourceNames
+        protected override IEnumerable<string> MessageResourceNames => new string[]
         {
-            get
-            {
-                return new string[]
-                {
-                    nameof(RuleResources.SARIF1002_Default)
-                };
-            }
-        }
+            nameof(RuleResources.SARIF1002_Default)
+        };
 
         protected override void Analyze(FileLocation fileLocation, string fileLocationPointer)
         {
@@ -81,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private static readonly Uri _fakeBaseUri = new Uri("file:///root", UriKind.Absolute);
 
-        private Uri MakeFakeAbsoluteUri(Uri relativeUri)
+        private static Uri MakeFakeAbsoluteUri(Uri relativeUri)
         {
             return new Uri(_fakeBaseUri, relativeUri);
         }

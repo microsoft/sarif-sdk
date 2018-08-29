@@ -85,11 +85,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
+        public bool IsEmptyElement { get { return _xmlReader.IsEmptyElement; } }
+
         /// <summary>Reads the children of <see cref="M:XmlReader"/>.</summary>
         /// <param name="tagName">Name of the tag.</param>
         /// <param name="parent">The parent.</param>
         public void ReadChildren(string tagName, object parent)
         {
+            ReadChildren(tagName, parent, out string innerText);
+        }
+
+        /// <summary>Reads the children of <see cref="M:XmlReader"/>.</summary>
+        /// <param name="tagName">Name of the tag.</param>
+        /// <param name="parent">The parent.</param>
+        /// <param name="innerText">The inner text, if any, associated with the tag.</param>
+        public void ReadChildren(string tagName, object parent, out string innerText)
+        {
+            innerText = null;
+
             // check for empty element
             bool isEmpty = _xmlReader.IsEmptyElement;
 
@@ -104,6 +117,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 // Try to call a handler for this element...
                 if (!_dispatchTable.Dispatch(_xmlReader.LocalName, this, parent))
                 {
+                    if (_xmlReader.NodeType == XmlNodeType.Text)
+                    {
+                        innerText = _xmlReader.ReadContentAsString();
+                        continue;
+                    }
+
                     // ... and skip the element if no such handler was registered.
                     Skip();
                 }
