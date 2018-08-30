@@ -179,5 +179,81 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 NewResultProperties["Run"].Should().BeEquivalentTo(currentLog.Runs[0].InstanceGuid);
             }
         }
+
+        [Fact]
+        public void SarifLogResultMatcher_MultipleLogsDuplicateData_WorksAsExpected()
+        {
+            SarifLog current1 = new SarifLog()
+            {
+                Runs = new Run[]
+                {
+                    new Run()
+                    {
+                        Tool = new Tool { Name = "TestTool" },
+                        Files = new Dictionary<string, FileData>()
+                        {
+                            { "testfile", new FileData() { Contents = new FileContent() { Text = "TestFileContents" } } }
+                        },
+                        Results = new Result[0]
+                    }
+                }
+            };
+            SarifLog current2 = new SarifLog()
+            {
+                Runs = new Run[]
+                {
+                    new Run()
+                    {
+                        Tool = new Tool { Name = "TestTool" },
+                        Files = new Dictionary<string, FileData>()
+                        {
+                            { "testfile", new FileData() { Contents = new FileContent() { Text = "TestFileContents" } } }
+                        },
+                        Results = new Result[0],
+                    }
+                }
+            };
+            SarifLog result = baseliner.Match(new SarifLog[0], new SarifLog[] { current1, current2 }).First();
+
+            result.Runs[0].Files.Should().HaveCount(1);
+            
+        }
+
+        [Fact]
+        public void SarifLogResultMatcher_MultipleLogsInvalidData_ThrowsInvalidOperationException()
+        {
+            SarifLog current1 = new SarifLog()
+            {
+                Runs = new Run[]
+                {
+                    new Run()
+                    {
+                        Tool = new Tool { Name = "TestTool" },
+                        Files = new Dictionary<string, FileData>()
+                        {
+                            { "testfile", new FileData() { Contents = new FileContent() { Text = "TestFileContents" } } }
+                        },
+                        Results = new Result[0]
+                    }
+                }
+            };
+            SarifLog current2 = new SarifLog()
+            {
+                Runs = new Run[]
+                {
+                    new Run()
+                    {
+                        Tool = new Tool { Name = "TestTool" },
+                        Files = new Dictionary<string, FileData>()
+                        {
+                            { "testfile", new FileData() { Contents = new FileContent() { Text = "DifferentTestFileContents" } } }
+                        },
+                        Results = new Result[0],
+                    }
+                }
+            };
+            Assert.Throws<InvalidOperationException>(() => baseliner.Match(new SarifLog[0], new SarifLog[] { current1, current2 }));
+
+        }
     }
 }

@@ -272,9 +272,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 {
                     baseDictionary.Add(pair.Key, pair.Value);
                 }
-                else if (duplicateCatch.Equals(baseDictionary[pair.Key], pair.Value))
+                else if (!duplicateCatch.Equals(baseDictionary[pair.Key], pair.Value))
                 {
-                    throw new NotImplementedException("We do not, at this moment, support two different pieces of supporting metadata going to the same key in the same scan.");
+                    throw new InvalidOperationException("We do not, at this moment, support two different pieces of supporting metadata going to the same key in the same scan.");
                 }
             }
         }
