@@ -48,12 +48,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
             foreach (var key in tools)
             {
-                IEnumerable<Run> baselineRuns = null;
+                IEnumerable<Run> baselineRuns = new Run[0];
                 if (runsByToolPrevious.ContainsKey(key))
                 {
                      baselineRuns = runsByToolPrevious[key];
                 }
-                IEnumerable<Run> currentRuns = null;
+                IEnumerable<Run> currentRuns = new Run[0];
                 if (runsByToolCurrent.ContainsKey(key))
                 {
                     currentRuns = runsByToolCurrent[key];
@@ -150,13 +150,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         private List<ExtractedResult> GetMatchingResultsFromRuns(IEnumerable<Run> sarifRuns)
         {
             List<ExtractedResult> results = new List<ExtractedResult>();
-
+            
             foreach (Run run in sarifRuns)
             {
-                foreach (Result result in run.Results)
+                if (run.Results != null)
                 {
-                    Rule rule = GetRuleFromResources(result, run.Resources.Rules);
-                    results.Add(new ExtractedResult() { Result = result, OriginalRun = run });
+                    foreach (Result result in run.Results)
+                    {
+                        Rule rule = GetRuleFromResources(result, run.Resources.Rules);
+                        results.Add(new ExtractedResult() { Result = result, OriginalRun = run });
+                    }
                 }
             }
 
@@ -192,7 +195,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 InstanceGuid = currentRuns.First().InstanceGuid,
             };
 
-            if (previous.Count() != 0)
+            if (previous != null && previous.Count() != 0)
             {
                 run.BaselineInstanceGuid = previous.First().InstanceGuid;
             }
