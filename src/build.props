@@ -22,8 +22,8 @@
     place. These properties are actually used by the PowerShell script that
     hides the previous package versions on nuget.org.
     -->
-    <PreviousVersionPrefix>2.0.0-csd.1</PreviousVersionPrefix>
-    <PreviousVersionSuffix></PreviousVersionSuffix>
+    <PreviousVersionPrefix>2.0.0</PreviousVersionPrefix>
+    <PreviousVersionSuffix>csd.1.0.1</PreviousVersionSuffix>
   </PropertyGroup>
 
   <PropertyGroup Label="Build">
