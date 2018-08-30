@@ -196,3 +196,6 @@
 * Fix weakly typed CreateNotification calls and make API more strongly typed (BREAKING CHANGE)
 * Rename OptionallyEmittedData.ContextCodeSnippets to ContextRegionSnippets (BREAKING CHANGE)
 * Eliminate result.ruleMessageId (in favor of result.message.messageId) (BREAKING CHANGE)
+
+## **v2.0.0-csd.1.0.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.1.0.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.1.0.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.1.0.1)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.1.0.1))
+* Bugfix to result matching algorithm.
