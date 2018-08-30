@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type FileContent for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
     internal sealed class FileContentEqualityComparer : IEqualityComparer<FileContent>
     {
         internal static readonly FileContentEqualityComparer Instance = new FileContentEqualityComparer();

@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// An area within an image.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
     public partial class Rectangle : ISarifNode
     {
         public static IEqualityComparer<Rectangle> ValueComparer => RectangleEqualityComparer.Instance;
