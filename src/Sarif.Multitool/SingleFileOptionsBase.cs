@@ -2,10 +2,11 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using CommandLine;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    public class SingleFileOptionsBase : MultitoolOptionsBase
+    public class SingleFileOptionsBase : CommonOptionsBase
     {
         [Value(0,
             MetaName = "<inputFile>",

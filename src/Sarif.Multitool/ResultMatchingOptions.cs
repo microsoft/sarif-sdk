@@ -2,11 +2,12 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using CommandLine;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     [Verb("match-results-forward", HelpText = "Track results run over run by persisting IDs and then matching them forward")]
-    internal class ResultMatchingOptions : MultitoolOptionsBase
+    internal class ResultMatchingOptions : CommonOptionsBase
     {
         [Option(
             'p',

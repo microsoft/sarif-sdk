@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -17,15 +16,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private string _ruleId;
         private FileRegionsCache _fileRegionsCache;
         private readonly OptionallyEmittedData _dataToInsert;
+        private readonly IDictionary<string, Uri> _originalUriBaseIds;
         
-        public InsertOptionalDataVisitor(OptionallyEmittedData dataToInsert)
+        public InsertOptionalDataVisitor(OptionallyEmittedData dataToInsert, IDictionary<string, Uri> originalUriBaseIds = null)
         {
             _dataToInsert = dataToInsert;
+            _originalUriBaseIds = originalUriBaseIds;
         }
 
         public override Run VisitRun(Run node)
         {
             _run = node;
+
+            if (_originalUriBaseIds != null)
+            {
+                _run.OriginalUriBaseIds = _run.OriginalUriBaseIds ?? new Dictionary<string, Uri>();
+
+                foreach (string key in _originalUriBaseIds.Keys)
+                {
+                    _run.OriginalUriBaseIds[key] = _originalUriBaseIds[key];
+                }
+            }
 
             if (node == null) { return null; }
 
@@ -56,7 +67,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
             }
 
-            return base.VisitRun(node);
+            Run visited = base.VisitRun(node);
+
+            return visited;
         }
 
         public override PhysicalLocation VisitPhysicalLocation(PhysicalLocation node)

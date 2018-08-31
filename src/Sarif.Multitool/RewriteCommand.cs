@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Newtonsoft.Json;
@@ -19,8 +20,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 SarifLog actualLog = MultitoolFileHelpers.ReadSarifFile<SarifLog>(rewriteOptions.InputFilePath);
 
                 OptionallyEmittedData dataToInsert = rewriteOptions.DataToInsert.ToFlags();
+                IDictionary<string, Uri> originalUriBaseIds = ConstructUriBaseIds(rewriteOptions.UriBaseIds);
 
-                SarifLog reformattedLog = new InsertOptionalDataVisitor(dataToInsert).VisitSarifLog(actualLog);
+                SarifLog reformattedLog = new InsertOptionalDataVisitor(dataToInsert, originalUriBaseIds).VisitSarifLog(actualLog);
                 
                 string fileName = CommandUtilities.GetTransformedOutputFileName(rewriteOptions);
 
@@ -37,6 +39,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             return 0;
+        }
+
+        private static IDictionary<string, Uri> ConstructUriBaseIds(IEnumerable<string> uriBaseIds)
+        {
+            if (uriBaseIds == null) { return null; }
+
+            IDictionary<string, Uri> result = new Dictionary<string, Uri>();
+
+            foreach (string uriBaseId in uriBaseIds)
+            {
+                string[] tokens = uriBaseId.Split('=');
+                string key = tokens[0];
+                Uri value = new Uri(tokens[1], UriKind.Absolute);
+                result[key] = value;
+            }
+
+            return result;
         }
 
         private static RewriteOptions ValidateOptions(RewriteOptions rewriteOptions)

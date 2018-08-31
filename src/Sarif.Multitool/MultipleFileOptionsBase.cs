@@ -3,10 +3,11 @@
 
 using System.Collections.Generic;
 using CommandLine;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    internal class MultipleFilesOptionsBase : MultitoolOptionsBase
+    internal class MultipleFilesOptionsBase : CommonOptionsBase
     {
         [Option(
             'r',
