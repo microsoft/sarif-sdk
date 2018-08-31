@@ -50,22 +50,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 visitor.VisitRun(node);
             }
 
-            if (node.Files != null)
-            {
-                // Note, we modify this collection as  we enumerate it.
-                // Hence the need to convert to an array here. Otherwise,
-                // the standard collection enumerator will throw an
-                // exception after we touch the collection.
-                var keys = node.Files.Keys.ToArray();
-                foreach (string key in keys)
-                {
-                    var value = node.Files[key];
-                    if (value != null)
-                    {
-                        node.Files[key] = VisitDictionaryValueNullChecked(key, value);
-                    }
-                }
-            }
 
             Run visited = base.VisitRun(node);
 

@@ -1,7 +1,0 @@
-clang.execstack.sarif
-Corrupted_Native_x86_VS2013_Default.exe.sarif
-gcc.no_fortification_required.sarif
-MixedMode_x86_VS2013_MissingPdb.dll.sarif
-MixedMode_x86_VS2015_Default.exe.sarif
-RefreshFiles.sarif
-Uwp_x86_VS2015_DefaultBlankApp.exe.sarif
