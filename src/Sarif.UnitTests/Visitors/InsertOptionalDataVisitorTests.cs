@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Readers;
@@ -159,6 +160,56 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             // our file paths. e.g., 'c:\build\netcore2.0\etc' is rendered
             // as 'c:\build\etcore2.0'. 
             output.Length.Should().Be(0);
+        }
+
+        [Fact]
+        public void InsertOptionalDataVisitorTests_ResolveOriginalUriBaseIds()
+        {
+            string inputFileName = "InsertOptionalDataVisitor.txt";
+            string testDirectory = GetTestDirectory("InsertOptionalDataVisitor") + @"\";
+            string uriBaseId = "TEST_DIR";
+            string fileKey = "#" + uriBaseId + "#" + inputFileName;
+
+            IDictionary<string, Uri> originalUriBaseIds = new Dictionary<string, Uri> { { uriBaseId, new Uri(testDirectory, UriKind.Absolute) } };
+
+            Run run = new Run()
+            {
+                DefaultFileEncoding = "UTF-8",
+                OriginalUriBaseIds = null,
+                Results = new[]
+                {
+                    new Result()
+                    {
+                        Locations = new []
+                        {
+                            new Location
+                            {
+                                PhysicalLocation = new PhysicalLocation
+                                {
+                                     FileLocation = new FileLocation
+                                     {
+                                        Uri = new Uri(inputFileName, UriKind.Relative),
+                                        UriBaseId = uriBaseId
+                                     }
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+                        
+            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.TextFiles);
+            visitor.VisitRun(run);
+
+            run.OriginalUriBaseIds.Should().BeNull();
+            run.Files.Keys.Count.Should().Be(1);
+            run.Files[fileKey].Contents.Should().BeNull();
+
+            visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.TextFiles, originalUriBaseIds);
+            visitor.VisitRun(run);
+
+            run.OriginalUriBaseIds.Should().Equal(originalUriBaseIds);
+            run.Files[fileKey].Contents.Text.Should().Be(File.ReadAllText(Path.Combine(testDirectory, inputFileName)));
         }
 
         [Fact]

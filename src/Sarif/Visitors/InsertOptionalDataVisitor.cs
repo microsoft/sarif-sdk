@@ -135,21 +135,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             bool overwriteExistingData = _dataToInsert.Includes(OptionallyEmittedData.OverwriteExistingData);
 
             workToDo |= (node.Hashes == null || overwriteExistingData) && _dataToInsert.Includes(OptionallyEmittedData.Hashes);
-            workToDo |= (node.Contents?.Binary == null || overwriteExistingData) && _dataToInsert.Includes(OptionallyEmittedData.TextFiles);
+            workToDo |= (node.Contents?.Text == null || overwriteExistingData) && _dataToInsert.Includes(OptionallyEmittedData.TextFiles);
             workToDo |= (node.Contents?.Binary == null || overwriteExistingData) && _dataToInsert.Includes(OptionallyEmittedData.BinaryFiles);
 
             if (workToDo)
             {
                 if (fileLocation.TryReconstructAbsoluteUri(_run.OriginalUriBaseIds, out Uri uri))
                 {
-
                     Encoding encoding = null;
 
-                    if (!string.IsNullOrWhiteSpace(node.Encoding))
+                    string encodingText = node.Encoding ?? _run.DefaultFileEncoding;
+
+                    if (!string.IsNullOrWhiteSpace(encodingText))
                     {
                         try
                         {
-                            encoding = Encoding.GetEncoding(node.Encoding);
+                            encoding = Encoding.GetEncoding(encodingText);
                         }
                         catch (ArgumentException) { }
                     }
