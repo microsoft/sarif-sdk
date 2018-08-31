@@ -212,41 +212,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             run.Files[fileKey].Contents.Text.Should().Be(File.ReadAllText(Path.Combine(testDirectory, inputFileName)));
         }
 
-        [Fact]
-        public void InsertOptionalDataVisitorTests_VisitDictionaryValueNullChecked_ValidEncoding()
-        {
-            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.OverwriteExistingData | OptionallyEmittedData.TextFiles);
-            visitor.VisitRun(new Run()); // VisitDictionaryValueNullChecked requires a non-null run
-
-            string uriString = "file:///C:/src/foo.cs";
-
-            FileData fileData = FileData.Create(new Uri(uriString), mimeType: "text/x-csharp", encoding: Encoding.UTF8);
-            fileData.Length = 12345;
-
-            FileData outputFileData = visitor.VisitDictionaryValueNullChecked(uriString, fileData);
-            outputFileData.MimeType.Should().Be(fileData.MimeType);
-            outputFileData.Encoding.Should().Be(fileData.Encoding);
-            outputFileData.Length.Should().Be(fileData.Length);
-        }
-
-        [Fact]
-        public void InsertOptionalDataVisitorTests_VisitDictionaryValueNullChecked_InvalidEncoding()
-        {
-            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.OverwriteExistingData | OptionallyEmittedData.TextFiles);
-            visitor.VisitRun(new Run()); // VisitDictionaryValueNullChecked requires a non-null run
-
-            string uriString = "file:///C:/src/foo.cs";
-
-            FileData fileData = FileData.Create(new Uri(uriString), mimeType: "text/x-csharp");
-            fileData.Encoding = "invalid";
-            fileData.Length = 54321;
-
-            FileData outputFileData = visitor.VisitDictionaryValueNullChecked(uriString, fileData);
-            outputFileData.MimeType.Should().Be(fileData.MimeType);
-            outputFileData.Encoding.Should().BeNull();
-            outputFileData.Length.Should().Be(fileData.Length);
-        }
-
         private static string FormatFailureReason(string failureOutput)
         {
             string message = "the rewritten file should matched the supplied SARIF. ";

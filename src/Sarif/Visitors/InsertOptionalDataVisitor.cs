@@ -50,7 +50,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 visitor.VisitRun(node);
             }
 
-
             Run visited = base.VisitRun(node);
 
             return visited;
@@ -111,9 +110,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return base.VisitPhysicalLocation(node);
         }
 
-        internal FileData VisitDictionaryValueNullChecked(string key, FileData node)
+        public override FileData VisitFileData(FileData node)
         {
-            FileLocation fileLocation = FileLocation.CreateFromFilesDictionaryKey(key);
+            FileLocation fileLocation = node.FileLocation;
 
             bool workToDo = false;
             bool overwriteExistingData = _dataToInsert.Includes(OptionallyEmittedData.OverwriteExistingData);
