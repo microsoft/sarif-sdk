@@ -41,7 +41,8 @@ $Projects.Tests = @(
     "Sarif.Driver.UnitTests",
     "Sarif.ValidationTests",
     "Sarif.FunctionalTests",
-    "Sarif.Multitool.FunctionalTests"
+    "Sarif.Multitool.FunctionalTests",
+    "Sarif.Multitool.UnitTests"
     )
 
 $Projects.All = $Projects.Products + $Projects.Tests

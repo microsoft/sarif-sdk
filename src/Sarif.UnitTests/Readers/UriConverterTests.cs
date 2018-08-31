@@ -99,8 +99,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
         {
             string expectedOutput =
 @"{
-  ""$schema"": """ + SarifSchemaUri + @""",
-  ""version"": """ + SarifFormatVersion + @""",
+  ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
+  ""version"": """ + SarifUtilities.SarifFormatVersion + @""",
   ""runs"": [
     {
       ""tool"": {
