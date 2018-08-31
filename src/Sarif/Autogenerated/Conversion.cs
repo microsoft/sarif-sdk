@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Describes how a converter transformed the output of a static analysis tool from the analysis tool's native output format into the SARIF format.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
     public partial class Conversion : ISarifNode
     {
         public static IEqualityComparer<Conversion> ValueComparer => ConversionEqualityComparer.Instance;

@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Represents a directed edge in a graph.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
     public partial class Edge : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Edge> ValueComparer => EdgeEqualityComparer.Instance;

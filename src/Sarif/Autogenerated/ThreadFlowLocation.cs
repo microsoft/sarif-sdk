@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A location visited by an analysis tool in the course of simulating or monitoring the execution of a program.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
     public partial class ThreadFlowLocation : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ThreadFlowLocation> ValueComparer => ThreadFlowLocationEqualityComparer.Instance;

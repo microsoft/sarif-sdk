@@ -10,7 +10,7 @@
     <Product Condition=" '$(Product)' == '' ">Microsoft SARIF SDK</Product>
     <Copyright Condition=" '$(Copyright)' == '' ">© Microsoft Corporation. All rights reserved.</Copyright>
     <VersionPrefix Condition=" '$(VersionPrefix)' == ''">2.0.0</VersionPrefix>
-    <VersionSuffix Condition=" '$(VersionSuffix)' == ''">csd.1.0.1</VersionSuffix>
+    <VersionSuffix Condition=" '$(VersionSuffix)' == ''">csd.1.0.2</VersionSuffix>
 
     <!--
     Whenever you increment VersionPrefix or VersionSuffix, copy the old value(s)
@@ -22,8 +22,8 @@
     place. These properties are actually used by the PowerShell script that
     hides the previous package versions on nuget.org.
     -->
-    <PreviousVersionPrefix>2.0.0-csd.1</PreviousVersionPrefix>
-    <PreviousVersionSuffix></PreviousVersionSuffix>
+    <PreviousVersionPrefix>2.0.0</PreviousVersionPrefix>
+    <PreviousVersionSuffix>csd.1.0.1</PreviousVersionSuffix>
   </PropertyGroup>
 
   <PropertyGroup Label="Build">
