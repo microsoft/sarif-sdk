@@ -1689,7 +1689,7 @@
         }
       },
 
-      "required": [ "tool", "results" ]
+      "required": [ "tool" ]
     },
 
     "stack": {
