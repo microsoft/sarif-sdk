@@ -12,14 +12,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public abstract class JsonTests
     {
-        private const SarifVersion CurrentVersion = SarifVersion.TwoZeroZero;
-
-        protected static readonly string SarifSchemaUri =
-            SarifUtilities.ConvertToSchemaUri(CurrentVersion).OriginalString;
-
-        protected static readonly string SarifFormatVersion =
-            SarifUtilities.ConvertToText(CurrentVersion);
-
         protected static readonly Run DefaultRun = new Run();
         protected static readonly Tool DefaultTool = new Tool();
         protected static readonly Result DefaultResult = new Result();
