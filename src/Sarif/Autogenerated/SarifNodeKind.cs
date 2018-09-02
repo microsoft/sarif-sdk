@@ -28,10 +28,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         CodeFlow,
         /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ThreadFlowLocation" />.
-        /// </summary>
-        ThreadFlowLocation,
-        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Conversion" />.
         /// </summary>
         Conversion,
@@ -48,13 +44,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         ExceptionData,
         /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="FileChange" />.
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ExternalFiles" />.
         /// </summary>
-        FileChange,
+        ExternalFiles,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="FileData" />.
         /// </summary>
         FileData,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="FileChange" />.
+        /// </summary>
+        FileChange,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="FileContent" />.
         /// </summary>
@@ -151,6 +151,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ThreadFlow" />.
         /// </summary>
         ThreadFlow,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ThreadFlowLocation" />.
+        /// </summary>
+        ThreadFlowLocation,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Tool" />.
         /// </summary>

@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// A message that describes the proposed fix, enabling viewers to present the proposed change to an end user.
+        /// A plain text message that describes the proposed fix, enabling viewers to present the proposed change to an end user.
         /// </summary>
         [DataMember(Name = "description", IsRequired = false, EmitDefaultValue = false)]
         public Message Description { get; set; }

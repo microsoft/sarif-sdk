@@ -9,7 +9,7 @@ using System.Runtime.Serialization;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// The replacement of a single range of bytes in a file. Specifies the location within the file where the replacement is to be made, the number of bytes to remove at that location, and a sequence of bytes to insert at that location.
+    /// The replacement of a single region of a file.
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]

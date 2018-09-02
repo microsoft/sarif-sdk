@@ -198,6 +198,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.CorrelationGuid != right.CorrelationGuid)
+            {
+                return false;
+            }
+
             if (left.LogicalId != right.LogicalId)
             {
                 return false;
@@ -392,6 +397,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.InstanceGuid != null)
                 {
                     result = (result * 31) + obj.InstanceGuid.GetHashCode();
+                }
+
+                if (obj.CorrelationGuid != null)
+                {
+                    result = (result * 31) + obj.CorrelationGuid.GetHashCode();
                 }
 
                 if (obj.LogicalId != null)

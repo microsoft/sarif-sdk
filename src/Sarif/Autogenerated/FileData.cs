@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string MimeType { get; set; }
 
         /// <summary>
-        /// The contents of the file, expressed as a MIME Base64-encoded byte sequence.
+        /// The contents of the file.
         /// </summary>
         [DataMember(Name = "contents", IsRequired = false, EmitDefaultValue = false)]
         public FileContent Contents { get; set; }

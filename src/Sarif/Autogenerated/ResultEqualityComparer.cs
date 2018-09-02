@@ -43,6 +43,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.RuleMessageId != right.RuleMessageId)
+            {
+                return false;
+            }
+
             if (!FileLocation.ValueComparer.Equals(left.AnalysisTarget, right.AnalysisTarget))
             {
                 return false;
@@ -366,6 +371,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.Message != null)
                 {
                     result = (result * 31) + obj.Message.ValueGetHashCode();
+                }
+
+                if (obj.RuleMessageId != null)
+                {
+                    result = (result * 31) + obj.RuleMessageId.GetHashCode();
                 }
 
                 if (obj.AnalysisTarget != null)

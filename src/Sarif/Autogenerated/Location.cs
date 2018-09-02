@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// The location where an analysis tool produced a result.
+    /// A location within a programming artifact.
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
@@ -33,13 +33,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// Identifies the file where the analysis tool produced the result.
+        /// Identifies the file and region.
         /// </summary>
         [DataMember(Name = "physicalLocation", IsRequired = false, EmitDefaultValue = false)]
         public PhysicalLocation PhysicalLocation { get; set; }
 
         /// <summary>
-        /// The human-readable fully qualified name of the logical location where the analysis tool produced the result.
+        /// The human-readable fully qualified name of the logical location. If run.logicalLocations is present, this value matches a property name within that object, from which further information about the logical location can be obtained.
         /// </summary>
         [DataMember(Name = "fullyQualifiedLogicalName", IsRequired = false, EmitDefaultValue = false)]
         public string FullyQualifiedLogicalName { get; set; }
