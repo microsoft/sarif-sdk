@@ -1237,12 +1237,6 @@
           "$ref": "#/definitions/message"
         },
 
-        "ruleMessageId": {
-          "description": "A string that identifies the message within the metadata for the rule used in this result.",
-          "type": "string"
-
-        },
-
         "analysisTarget": {
           "description": "Identifies the file that the analysis tool was instructed to scan. This need not be the same as the file where the result actually occurred.",
           "$ref": "#/definitions/fileLocation"
@@ -1507,6 +1501,7 @@
 
         "defaultLevel": {
           "description": "Specifies the default severity level of the result.",
+          "default": "warning",
           "enum": [ "note", "warning", "error", "open" ]
         },
 
@@ -1575,7 +1570,7 @@
         },
 
         "files": {
-          "description": "A dictionary each of whose keys is a URI and each of whose values is a file object.",
+          "description": "A dictionary, each of whose keys is a URI and each of whose values is a file object.",
           "type": "object",
           "additionalProperties": {
             "$ref": "#/definitions/file"
@@ -1583,7 +1578,7 @@
         },
 
         "logicalLocations": {
-          "description": "A dictionary each of whose keys specifies a logical location such as a namespace, type or function.",
+          "description": "A dictionary, each of whose keys specifies a logical location such as a namespace, type or function.",
           "type": "object",
           "additionalProperties": {
             "$ref": "#/definitions/logicalLocation"

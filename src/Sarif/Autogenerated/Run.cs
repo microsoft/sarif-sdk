@@ -63,13 +63,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IDictionary<string, Uri> OriginalUriBaseIds { get; set; }
 
         /// <summary>
-        /// A dictionary each of whose keys is a URI and each of whose values is a file object.
+        /// A dictionary, each of whose keys is a URI and each of whose values is a file object.
         /// </summary>
         [DataMember(Name = "files", IsRequired = false, EmitDefaultValue = false)]
         public IDictionary<string, FileData> Files { get; set; }
 
         /// <summary>
-        /// A dictionary each of whose keys specifies a logical location such as a namespace, type or function.
+        /// A dictionary, each of whose keys specifies a logical location such as a namespace, type or function.
         /// </summary>
         [DataMember(Name = "logicalLocations", IsRequired = false, EmitDefaultValue = false)]
         public IDictionary<string, LogicalLocation> LogicalLocations { get; set; }
