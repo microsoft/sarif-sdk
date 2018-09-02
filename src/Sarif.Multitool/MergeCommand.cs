@@ -32,14 +32,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     combinedLog = new InsertOptionalDataVisitor(dataToInsert).VisitSarifLog(combinedLog);
                 }
 
+                string outputDirectory = mergeOptions.OutputFolderPath ?? Environment.CurrentDirectory;
+
                 // Write output to file.
-                string outputName = Path.Combine(mergeOptions.OutputFolderPath, GetOutputFileName(mergeOptions));
+                string outputName = Path.Combine(outputDirectory, GetOutputFileName(mergeOptions));
                 
                 var formatting = mergeOptions.PrettyPrint
                     ? Formatting.Indented
                     : Formatting.None;
 
                 Directory.CreateDirectory(mergeOptions.OutputFolderPath);
+
                 MultitoolFileHelpers.WriteSarifFile(combinedLog, outputName, formatting);
             }
             catch (Exception ex)

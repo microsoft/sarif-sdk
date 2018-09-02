@@ -75,6 +75,9 @@
     <None Update="TestData\InsertOptionalDataVisitor\InsertOptionalDataVisitor.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="TestData\InsertOptionalDataVisitor\InsertOptionalDataVisitor.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

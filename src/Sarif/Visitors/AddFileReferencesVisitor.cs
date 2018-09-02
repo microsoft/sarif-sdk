@@ -52,7 +52,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 _files[uriText] = new FileData()
                 {
-                    MimeType = mimeType
+                    MimeType = mimeType,
+                    FileLocation = fileLocation
                 };
             }
 

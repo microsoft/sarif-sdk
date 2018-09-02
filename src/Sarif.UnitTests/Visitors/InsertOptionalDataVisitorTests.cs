@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Readers;
@@ -162,38 +163,53 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
-        public void InsertOptionalDataVisitorTests_VisitDictionaryValueNullChecked_ValidEncoding()
+        public void InsertOptionalDataVisitorTests_ResolvesOriginalUriBaseIds()
         {
-            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.OverwriteExistingData | OptionallyEmittedData.TextFiles);
-            visitor.VisitRun(new Run()); // VisitDictionaryValueNullChecked requires a non-null run
+            string inputFileName = "InsertOptionalDataVisitor.txt";
+            string testDirectory = GetTestDirectory("InsertOptionalDataVisitor") + @"\";
+            string uriBaseId = "TEST_DIR";
+            string fileKey = "#" + uriBaseId + "#" + inputFileName;
 
-            string uriString = "file:///C:/src/foo.cs";
+            IDictionary<string, Uri> originalUriBaseIds = new Dictionary<string, Uri> { { uriBaseId, new Uri(testDirectory, UriKind.Absolute) } };
 
-            FileData fileData = FileData.Create(new Uri(uriString), mimeType: "text/x-csharp", encoding: Encoding.UTF8);
-            fileData.Length = 12345;
+            Run run = new Run()
+            {
+                DefaultFileEncoding = "UTF-8",
+                OriginalUriBaseIds = null,
+                Results = new[]
+                {
+                    new Result()
+                    {
+                        Locations = new []
+                        {
+                            new Location
+                            {
+                                PhysicalLocation = new PhysicalLocation
+                                {
+                                     FileLocation = new FileLocation
+                                     {
+                                        Uri = new Uri(inputFileName, UriKind.Relative),
+                                        UriBaseId = uriBaseId
+                                     }
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+                        
+            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.TextFiles);
+            visitor.VisitRun(run);
 
-            FileData outputFileData = visitor.VisitDictionaryValueNullChecked(uriString, fileData);
-            outputFileData.MimeType.Should().Be(fileData.MimeType);
-            outputFileData.Encoding.Should().Be(fileData.Encoding);
-            outputFileData.Length.Should().Be(fileData.Length);
-        }
+            run.OriginalUriBaseIds.Should().BeNull();
+            run.Files.Keys.Count.Should().Be(1);
+            run.Files[fileKey].Contents.Should().BeNull();
 
-        [Fact]
-        public void InsertOptionalDataVisitorTests_VisitDictionaryValueNullChecked_InvalidEncoding()
-        {
-            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.OverwriteExistingData | OptionallyEmittedData.TextFiles);
-            visitor.VisitRun(new Run()); // VisitDictionaryValueNullChecked requires a non-null run
+            visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.TextFiles, originalUriBaseIds);
+            visitor.VisitRun(run);
 
-            string uriString = "file:///C:/src/foo.cs";
-
-            FileData fileData = FileData.Create(new Uri(uriString), mimeType: "text/x-csharp");
-            fileData.Encoding = "invalid";
-            fileData.Length = 54321;
-
-            FileData outputFileData = visitor.VisitDictionaryValueNullChecked(uriString, fileData);
-            outputFileData.MimeType.Should().Be(fileData.MimeType);
-            outputFileData.Encoding.Should().BeNull();
-            outputFileData.Length.Should().Be(fileData.Length);
+            run.OriginalUriBaseIds.Should().Equal(originalUriBaseIds);
+            run.Files[fileKey].Contents.Text.Should().Be(File.ReadAllText(Path.Combine(testDirectory, inputFileName)));
         }
 
         private static string FormatFailureReason(string failureOutput)
