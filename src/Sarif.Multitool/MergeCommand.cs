@@ -41,10 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     ? Formatting.Indented
                     : Formatting.None;
 
-                if (!Directory.Exists(outputDirectory))
-                {
-                    Directory.CreateDirectory(mergeOptions.OutputFolderPath);
-                }
+                Directory.CreateDirectory(mergeOptions.OutputFolderPath);
 
                 MultitoolFileHelpers.WriteSarifFile(combinedLog, outputName, formatting);
             }

@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "force",
             Default = false,
             HelpText = "Force overwrite of output file if it exists.")]
-        public bool Force { get; set; }
+        public bool Force { get; internal set; }
 
         [Option(
             "insert",

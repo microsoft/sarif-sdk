@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
+using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -20,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 SarifLog actualLog = MultitoolFileHelpers.ReadSarifFile<SarifLog>(rewriteOptions.InputFilePath);
 
                 OptionallyEmittedData dataToInsert = rewriteOptions.DataToInsert.ToFlags();
-                IDictionary<string, Uri> originalUriBaseIds = ConstructUriBaseIds(rewriteOptions.UriBaseIds);
+                IDictionary<string, Uri> originalUriBaseIds = rewriteOptions.ConstructUriBaseIdsDictionary();
 
                 SarifLog reformattedLog = new InsertOptionalDataVisitor(dataToInsert, originalUriBaseIds).VisitSarifLog(actualLog);
                 
@@ -39,23 +40,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             return 0;
-        }
-
-        private static IDictionary<string, Uri> ConstructUriBaseIds(IEnumerable<string> uriBaseIds)
-        {
-            if (uriBaseIds == null) { return null; }
-
-            IDictionary<string, Uri> result = new Dictionary<string, Uri>();
-
-            foreach (string uriBaseId in uriBaseIds)
-            {
-                string[] tokens = uriBaseId.Split('=');
-                string key = tokens[0];
-                Uri value = new Uri(tokens[1], UriKind.Absolute);
-                result[key] = value;
-            }
-
-            return result;
         }
 
         private static RewriteOptions ValidateOptions(RewriteOptions rewriteOptions)

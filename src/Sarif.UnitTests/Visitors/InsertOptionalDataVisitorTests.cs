@@ -163,7 +163,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
-        public void InsertOptionalDataVisitorTests_ResolveOriginalUriBaseIds()
+        public void InsertOptionalDataVisitorTests_ResolvesOriginalUriBaseIds()
         {
             string inputFileName = "InsertOptionalDataVisitor.txt";
             string testDirectory = GetTestDirectory("InsertOptionalDataVisitor") + @"\";
