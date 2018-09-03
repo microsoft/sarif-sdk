@@ -527,16 +527,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private void Visit(Resources resources, string resourcesPointer)
         {
-            Rule[] rules = resources.Rules.Values.ToArray();
             string rulesPointer = resourcesPointer.AtProperty(SarifPropertyName.Rules);
 
-            for (int i = 0; i < rules.Length; ++i)
+            foreach (string key in resources.Rules.Keys)
             {
-                Rule rule = rules[i];
-                if (rule.Id != null)
-                {
-                    Visit(rule, rulesPointer.AtProperty(rule.Id));
-                }
+                Visit(resources.Rules[key], rulesPointer.AtProperty(key));
             }
         }
 

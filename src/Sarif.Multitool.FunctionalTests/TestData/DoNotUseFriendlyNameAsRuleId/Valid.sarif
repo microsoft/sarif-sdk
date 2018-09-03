@@ -1,4 +1,4 @@
-{
+﻿{
   "$schema": "http://json.schemastore.org/sarif-2.0.0",
   "version": "2.0.0",
   "runs": [
@@ -9,10 +9,16 @@
       "results": [],
       "resources": {
         "rules": {
-          "ImportantRule": {
-            "id": "ImportantRule",
+          "RULE0001": {
+            "id": "RULE0001",
             "name": {
-              "text": "ImportantRule"
+              "text": "Rule one"
+            }
+          },
+          "RULE0002-1": {
+            "id": "RULE0002",
+            "name": {
+              "text": "Rule two"
             }
           }
         }
