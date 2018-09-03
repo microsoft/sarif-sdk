@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     invocationPropertiesToLog: new List<string> { "CommandLine" })) { }
 
                 string result = sb.ToString();
-                result.Split(new string[] { SarifConstants.RemovedMarker }, StringSplitOptions.None)
+                result.Split(new string[] { SarifConstants.RedactedMarker }, StringSplitOptions.None)
                     .Length.Should().Be(tokensToRedact.Length + 1, "redacting n tokens gives you n+1 removal markers");
             }
         }

@@ -92,7 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             foreach (string tokenToRedact in tokensToRedact)
             {
-                text = text.Replace(tokenToRedact, SarifConstants.RemovedMarker);
+                text = text.Replace(tokenToRedact, SarifConstants.RedactedMarker);
             }
             return text;
         }
@@ -105,7 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             foreach (string tokenToRedact in tokensToRedact)
             {
-                uriText = uriText.Replace(tokenToRedact, SarifConstants.RemovedMarker);
+                uriText = uriText.Replace(tokenToRedact, SarifConstants.RedactedMarker);
             }
             return new Uri(uriText, UriKind.RelativeOrAbsolute);
         }

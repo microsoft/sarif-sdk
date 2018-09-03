@@ -433,7 +433,7 @@
         },
 
         "replacements": {
-          "description": "An array of replacement objects, each of which represents the replacement of a single range of bytes in a single file specified by 'uri'.",
+          "description": "An array of replacement objects, each of which represents the replacement of a single region in a single file specified by 'fileLocation'.",
           "type": "array",
           "minItems": 1,
           "items": {

@@ -200,5 +200,9 @@
 ## **v2.0.0-csd.1.0.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.1.0.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.1.0.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.1.0.2)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.1.0.2))
 * Bugfix to result matching algorithm where empty or null previous log sets caused a NullReferenceException.
 * Bugfix to result matching algorithm where we were incorrectly detecting duplicate data across files, and changed a "NotImplementedException" to the correct "InvalidOperationException".
+
+## **v2.0.0-csd.1.0.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.1.0.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.1.0.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.1.0.3)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.1.0.3))
+* Bugfix to result matching algorithm where empty or null previous log sets caused a NullReferenceException.
+* Bugfix to result matching algorithm where we were incorrectly detecting duplicate data across files, and changed a "NotImplementedException" to the correct "InvalidOperationException".
 * BREAKING CHANGE: invocation.workDirectory is now a FileLocation object (and not a URI expressed as a string)
 * Add run.externalFiles object to schema
