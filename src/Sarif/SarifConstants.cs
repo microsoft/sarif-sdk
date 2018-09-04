@@ -5,6 +5,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class SarifConstants
     {
-        public const string RemovedMarker = "[REMOVED]";
+        public const string RedactedMarker = "[REDACTED]";
     }
 }

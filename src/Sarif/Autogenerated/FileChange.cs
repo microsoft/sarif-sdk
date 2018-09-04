@@ -34,11 +34,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// The location of the file to change.
         /// </summary>
-        [DataMember(Name = "fileLocation", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "fileLocation", IsRequired = true)]
         public FileLocation FileLocation { get; set; }
 
         /// <summary>
-        /// An array of replacement objects, each of which represents the replacement of a single range of bytes in a single file specified by 'fileLocation'.
+        /// An array of replacement objects, each of which represents the replacement of a single region in a single file specified by 'fileLocation'.
         /// </summary>
         [DataMember(Name = "replacements", IsRequired = true)]
         public IList<Replacement> Replacements { get; set; }

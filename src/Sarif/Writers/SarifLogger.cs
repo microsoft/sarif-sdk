@@ -58,12 +58,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             // TODO we should actually redact across the complete log file context
             // by a dedicated rewriting visitor or some other approach.
+
             if (invocationTokensToRedact != null)
             {
                 invocation.CommandLine = Redact(invocation.CommandLine, invocationTokensToRedact);
                 invocation.Machine = Redact(invocation.Machine, invocationTokensToRedact);
                 invocation.Account = Redact(invocation.Account, invocationTokensToRedact);
-                invocation.WorkingDirectory = Redact(invocation.WorkingDirectory, invocationTokensToRedact);
+
+                if (invocation.WorkingDirectory != null)
+                {
+                    invocation.WorkingDirectory.Uri = Redact(invocation.WorkingDirectory.Uri, invocationTokensToRedact);
+                }
 
                 if (invocation.EnvironmentVariables != null)
                 {
@@ -83,13 +88,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static string Redact(string text, IEnumerable<string> tokensToRedact)
         {
-            if (text == null ) { return text; }
+            if (text == null) { return text; }
 
             foreach (string tokenToRedact in tokensToRedact)
             {
-                text = text.Replace(tokenToRedact, SarifConstants.RemovedMarker);
+                text = text.Replace(tokenToRedact, SarifConstants.RedactedMarker);
             }
             return text;
+        }
+
+        private static Uri Redact(Uri uri, IEnumerable<string> tokensToRedact)
+        {
+            if (uri == null) { return uri; }
+
+            string uriText = uri.OriginalString;
+
+            foreach (string tokenToRedact in tokensToRedact)
+            {
+                uriText = uriText.Replace(tokenToRedact, SarifConstants.RedactedMarker);
+            }
+            return new Uri(uriText, UriKind.RelativeOrAbsolute);
         }
 
         public SarifLogger(

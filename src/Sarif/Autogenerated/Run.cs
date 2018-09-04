@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IDictionary<string, Uri> OriginalUriBaseIds { get; set; }
 
         /// <summary>
-        /// A dictionary each of whose keys is a URI and each of whose values is a file object.
+        /// A dictionary, each of whose keys is a URI and each of whose values is a file object.
         /// </summary>
         [DataMember(Name = "files", IsRequired = false, EmitDefaultValue = false)]
         public IDictionary<string, FileData> Files { get; set; }
@@ -99,7 +99,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string InstanceGuid { get; set; }
 
         /// <summary>
-        /// A logical identifier for a run, for example, 'nightly Clang analyzer run'. Multiple runs of the same type can have the same stableId.
+        /// A stable, unique identifier for the equivalence class of logically identical results to which this run belongs, in the form of a GUID.
+        /// </summary>
+        [DataMember(Name = "correlationGuid", IsRequired = false, EmitDefaultValue = false)]
+        public string CorrelationGuid { get; set; }
+
+        /// <summary>
+        /// A logical identifier for a run, for example, 'nightly Clang analyzer run'. Multiple runs of the same type can have the same logical id.
         /// </summary>
         [DataMember(Name = "logicalId", IsRequired = false, EmitDefaultValue = false)]
         public string LogicalId { get; set; }
@@ -201,6 +207,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="instanceGuid">
         /// An initialization value for the <see cref="P: InstanceGuid" /> property.
         /// </param>
+        /// <param name="correlationGuid">
+        /// An initialization value for the <see cref="P: CorrelationGuid" /> property.
+        /// </param>
         /// <param name="logicalId">
         /// An initialization value for the <see cref="P: LogicalId" /> property.
         /// </param>
@@ -231,9 +240,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, Uri> originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, Resources resources, string instanceGuid, string logicalId, Message description, string automationLogicalId, string baselineInstanceGuid, string architecture, string richMessageMimeType, string redactionToken, string defaultFileEncoding, ColumnKind columnKind, IDictionary<string, SerializedPropertyInfo> properties)
+        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, Uri> originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, Resources resources, string instanceGuid, string correlationGuid, string logicalId, Message description, string automationLogicalId, string baselineInstanceGuid, string architecture, string richMessageMimeType, string redactionToken, string defaultFileEncoding, ColumnKind columnKind, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(tool, invocations, conversion, versionControlProvenance, originalUriBaseIds, files, logicalLocations, graphs, results, resources, instanceGuid, logicalId, description, automationLogicalId, baselineInstanceGuid, architecture, richMessageMimeType, redactionToken, defaultFileEncoding, columnKind, properties);
+            Init(tool, invocations, conversion, versionControlProvenance, originalUriBaseIds, files, logicalLocations, graphs, results, resources, instanceGuid, correlationGuid, logicalId, description, automationLogicalId, baselineInstanceGuid, architecture, richMessageMimeType, redactionToken, defaultFileEncoding, columnKind, properties);
         }
 
         /// <summary>
@@ -252,7 +261,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocations, other.Conversion, other.VersionControlProvenance, other.OriginalUriBaseIds, other.Files, other.LogicalLocations, other.Graphs, other.Results, other.Resources, other.InstanceGuid, other.LogicalId, other.Description, other.AutomationLogicalId, other.BaselineInstanceGuid, other.Architecture, other.RichMessageMimeType, other.RedactionToken, other.DefaultFileEncoding, other.ColumnKind, other.Properties);
+            Init(other.Tool, other.Invocations, other.Conversion, other.VersionControlProvenance, other.OriginalUriBaseIds, other.Files, other.LogicalLocations, other.Graphs, other.Results, other.Resources, other.InstanceGuid, other.CorrelationGuid, other.LogicalId, other.Description, other.AutomationLogicalId, other.BaselineInstanceGuid, other.Architecture, other.RichMessageMimeType, other.RedactionToken, other.DefaultFileEncoding, other.ColumnKind, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -273,7 +282,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, Uri> originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, Resources resources, string instanceGuid, string logicalId, Message description, string automationLogicalId, string baselineInstanceGuid, string architecture, string richMessageMimeType, string redactionToken, string defaultFileEncoding, ColumnKind columnKind, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, Uri> originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, Resources resources, string instanceGuid, string correlationGuid, string logicalId, Message description, string automationLogicalId, string baselineInstanceGuid, string architecture, string richMessageMimeType, string redactionToken, string defaultFileEncoding, ColumnKind columnKind, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (tool != null)
             {
@@ -380,6 +389,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             InstanceGuid = instanceGuid;
+            CorrelationGuid = correlationGuid;
             LogicalId = logicalId;
             if (description != null)
             {
