@@ -33,6 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Invocations = "invocations";
         public const string Location = "location";
         public const string Locations = "locations";
+        public const string LogicalLocations = "logicalLocations";
         public const string Message = "message";
         public const string MessageStrings = "messageStrings";
         public const string Nodes = "nodes";

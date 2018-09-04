@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class DoNotUseFriendlyNameAsRuleId : SarifValidationSkimmerBase
     {
-        private Message _fullDescription = new Message
+        private readonly Message _fullDescription = new Message
         {
             Text = RuleResources.SARIF1001_DoNotUseFriendlyNameAsRuleIdDescription
         };
@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF1001_Default)
         };
 
-        protected override void Analyze(Rule rule, string rulePointer)
+        protected override void Analyze(Rule rule, string ruleKey, string rulePointer)
         {
             if (rule.Id != null &&
                 rule.Name != null &&

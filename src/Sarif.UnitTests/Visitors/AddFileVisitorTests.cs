@@ -17,20 +17,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             string filePath = "file:///DOES NOT/EXIST.cpp";
 
-            var run = new Run();
-            run.Results = new List<Result>()
+            var run = new Run
             {
-                new Result
+                Results = new List<Result>()
                 {
-                    Locations = new List<Location>()
+                    new Result
                     {
-                        new Location()
+                        Locations = new List<Location>()
                         {
-                            PhysicalLocation = new PhysicalLocation()
+                            new Location()
                             {
-                                FileLocation = new FileLocation
+                                PhysicalLocation = new PhysicalLocation()
                                 {
-                                    Uri = new Uri(filePath)
+                                    FileLocation = new FileLocation
+                                    {
+                                        Uri = new Uri(filePath)
+                                    }
                                 }
                             }
                         }
