@@ -32,37 +32,37 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// An external reference to a run.conversion object to be merged with the root log file.
+        /// The location of a file containing a run.conversion object to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "conversion", IsRequired = false, EmitDefaultValue = false)]
         public FileLocation Conversion { get; set; }
 
         /// <summary>
-        /// An external reference to a run.files object to be merged with the root log file.
+        /// The location of a file containing a run.files object to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "files", IsRequired = false, EmitDefaultValue = false)]
         public FileLocation Files { get; set; }
 
         /// <summary>
-        /// An external reference to a run.graphs object to be merged with the root log file.
+        /// The location of a file containing a run.graphs object to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "graphs", IsRequired = false, EmitDefaultValue = false)]
         public FileLocation Graphs { get; set; }
 
         /// <summary>
-        /// An external reference to an run.array of invocation objects to be merged with the root log file.
+        /// The location of a file containing an array of invocation objects to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "invocations", IsRequired = false, EmitDefaultValue = false)]
         public FileLocation Invocations { get; set; }
 
         /// <summary>
-        /// An external reference to a run.logicalLocations object to be merged with the root log file.
+        /// The location of a file containing a run.logicalLocations object to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "logicalLocations", IsRequired = false, EmitDefaultValue = false)]
         public FileLocation LogicalLocations { get; set; }
 
         /// <summary>
-        /// An external reference to a run.resources object to be merged with the root log file.
+        /// The location of a file containing a run.resources object to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "resources", IsRequired = false, EmitDefaultValue = false)]
         public FileLocation Resources { get; set; }
