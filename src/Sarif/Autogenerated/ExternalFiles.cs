@@ -50,10 +50,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public FileLocation Graphs { get; set; }
 
         /// <summary>
-        /// The location of a file containing an array of invocation objects to be merged with the root log file.
+        /// An array of external references to arrays of run.invocation objects to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "invocations", IsRequired = false, EmitDefaultValue = false)]
-        public FileLocation Invocations { get; set; }
+        public IList<FileLocation> Invocations { get; set; }
 
         /// <summary>
         /// The location of a file containing a run.logicalLocations object to be merged with the root log file.
@@ -104,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="results">
         /// An initialization value for the <see cref="P: Results" /> property.
         /// </param>
-        public ExternalFiles(FileLocation conversion, FileLocation files, FileLocation graphs, FileLocation invocations, FileLocation logicalLocations, FileLocation resources, IEnumerable<FileLocation> results)
+        public ExternalFiles(FileLocation conversion, FileLocation files, FileLocation graphs, IEnumerable<FileLocation> invocations, FileLocation logicalLocations, FileLocation resources, IEnumerable<FileLocation> results)
         {
             Init(conversion, files, graphs, invocations, logicalLocations, resources, results);
         }
@@ -146,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExternalFiles(this);
         }
 
-        private void Init(FileLocation conversion, FileLocation files, FileLocation graphs, FileLocation invocations, FileLocation logicalLocations, FileLocation resources, IEnumerable<FileLocation> results)
+        private void Init(FileLocation conversion, FileLocation files, FileLocation graphs, IEnumerable<FileLocation> invocations, FileLocation logicalLocations, FileLocation resources, IEnumerable<FileLocation> results)
         {
             if (conversion != null)
             {
@@ -165,7 +165,20 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (invocations != null)
             {
-                Invocations = new FileLocation(invocations);
+                var destination_0 = new List<FileLocation>();
+                foreach (var value_0 in invocations)
+                {
+                    if (value_0 == null)
+                    {
+                        destination_0.Add(null);
+                    }
+                    else
+                    {
+                        destination_0.Add(new FileLocation(value_0));
+                    }
+                }
+
+                Invocations = destination_0;
             }
 
             if (logicalLocations != null)
@@ -180,20 +193,20 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (results != null)
             {
-                var destination_0 = new List<FileLocation>();
-                foreach (var value_0 in results)
+                var destination_1 = new List<FileLocation>();
+                foreach (var value_1 in results)
                 {
-                    if (value_0 == null)
+                    if (value_1 == null)
                     {
-                        destination_0.Add(null);
+                        destination_1.Add(null);
                     }
                     else
                     {
-                        destination_0.Add(new FileLocation(value_0));
+                        destination_1.Add(new FileLocation(value_1));
                     }
                 }
 
-                Results = destination_0;
+                Results = destination_1;
             }
         }
     }

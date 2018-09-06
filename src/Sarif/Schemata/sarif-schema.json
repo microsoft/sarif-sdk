@@ -294,14 +294,14 @@
         },
 
         "invocations": {
-          "description": An array of external references to arrays of run.invocation objects to be merged with the root log file.",
+          "description": "An array of external references to arrays of run.invocation objects to be merged with the root log file.",
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/fileLocation"
           }
-        }
+        },
 
         "logicalLocations": {
           "description": "The location of a file containing a run.logicalLocations object to be merged with the root log file.",
