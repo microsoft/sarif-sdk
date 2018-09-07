@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class UseAbsolutePathsForNestedFileUriFragmentsTests : SkimmerTestsBase
+    public class UseAbsolutePathsForNestedFileUriFragmentsTests : SkimmerTestsBase<UseAbsolutePathsForNestedFileUriFragments>
     {
         [Fact(DisplayName = nameof(UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentsAreAbsolute))]
         public void UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentsAreAbsolute()

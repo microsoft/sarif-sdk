@@ -1,12 +1,11 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Microsoft.CodeAnalysis.Sarif.Multitool.Rules;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class MessagesShouldEndWithPeriodTests : SkimmerTestsBase
+    public class MessagesShouldEndWithPeriodTests : SkimmerTestsBase<MessagesShouldEndWithPeriod>
     {
         [Fact(DisplayName = nameof(MessagesShouldEndWithPeriod_PeriodsAfterAllMessages))]
         public void MessagesShouldEndWithPeriod_PeriodsAfterAllMessages()

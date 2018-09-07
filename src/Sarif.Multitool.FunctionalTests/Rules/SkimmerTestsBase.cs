@@ -10,7 +10,8 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public abstract class SkimmerTestsBase : SarifMultitoolTestBase
+    public abstract class SkimmerTestsBase<TSkimmer> : SarifMultitoolTestBase
+        where TSkimmer : SkimmerBase<SarifValidationContext>
     {
         protected void Verify(SkimmerBase<SarifValidationContext> skimmer, string testFileName)
         {

@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class DoNotUseFriendlyNameAsRuleIdTests : SkimmerTestsBase
+    public class DoNotUseFriendlyNameAsRuleIdTests : SkimmerTestsBase<DoNotUseFriendlyNameAsRuleId>
     {
         [Fact(DisplayName = nameof(DoNotUseFriendlyNameAsRuleId_ReportsInvalidSarif))]
         public void DoNotUseFriendlyNameAsRuleId_ReportsInvalidSarif()

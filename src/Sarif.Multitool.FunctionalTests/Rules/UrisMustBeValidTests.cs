@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     // choose the one in the result.analysisTarget property -- and for any "loose URIs"
     // that occur in the format, such as "rule.helpUri".
 
-    public class UrisMustBeValidTests : SkimmerTestsBase
+    public class UrisMustBeValidTests : SkimmerTestsBase<UrisMustBeValid>
     {
         [Fact(DisplayName = nameof(UrisMustBeValid_InvalidFileLocationUri))]
         public void UrisMustBeValid_InvalidFileLocationUri()

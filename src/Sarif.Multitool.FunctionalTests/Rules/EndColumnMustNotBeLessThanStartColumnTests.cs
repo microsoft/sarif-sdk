@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class EndColumnMustNotBeLessThanStartColumnTests : SkimmerTestsBase
+    public class EndColumnMustNotBeLessThanStartColumnTests : SkimmerTestsBase<EndColumnMustNotBeLessThanStartColumn>
     {
         [Fact(DisplayName = nameof(EndColumnMustNotBeLessThanStartColumn_EndColumnEqualsStartColumn))]
         public void EndColumnMustNotBeLessThanStartColumn_EndColumnEqualsStartColumn()

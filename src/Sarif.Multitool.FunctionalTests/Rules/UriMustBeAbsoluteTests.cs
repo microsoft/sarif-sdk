@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class UriMustBeAbsoluteTests : SkimmerTestsBase
+    public class UriMustBeAbsoluteTests : SkimmerTestsBase<UriMustBeAbsolute>
     {
         [Fact(DisplayName = nameof(UriMustBeAbsolute_ReportsInvalidSarif))]
         public void UriMustBeAbsolute_ReportsInvalidSarif()

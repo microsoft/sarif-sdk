@@ -1,12 +1,11 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Microsoft.CodeAnalysis.Sarif.Multitool.Rules;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class EndTimeMustBeAfterStartTimeTests : SkimmerTestsBase
+    public class EndTimeMustBeAfterStartTimeTests : SkimmerTestsBase<EndTimeMustBeAfterStartTime>
     {
         [Fact(DisplayName = nameof(EndTimeMustBeAfterStartTime_EndTimeIsAfterStartTime))]
         public void EndTimeMustBeAfterStartTime_EndTimeIsAfterStartTime()
