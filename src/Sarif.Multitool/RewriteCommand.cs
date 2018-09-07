@@ -7,6 +7,7 @@ using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
 using Newtonsoft.Json;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
@@ -18,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 rewriteOptions = ValidateOptions(rewriteOptions);
                 
-                SarifLog actualLog = MultitoolFileHelpers.ReadSarifFile<SarifLog>(rewriteOptions.InputFilePath);
+                SarifLog actualLog = FileHelpers.ReadSarifFile<SarifLog>(rewriteOptions.InputFilePath);
 
                 OptionallyEmittedData dataToInsert = rewriteOptions.DataToInsert.ToFlags();
                 IDictionary<string, Uri> originalUriBaseIds = rewriteOptions.ConstructUriBaseIdsDictionary();
@@ -31,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     ? Formatting.Indented
                     : Formatting.None;
 
-                MultitoolFileHelpers.WriteSarifFile(reformattedLog, fileName, formatting);
+                FileHelpers.WriteSarifFile(reformattedLog, fileName, formatting);
             }
             catch(Exception ex)
             {

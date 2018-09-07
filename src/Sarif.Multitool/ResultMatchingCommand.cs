@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Baseline;
 using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
@@ -19,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 SarifLog baselineFile = null;
                 if (!string.IsNullOrEmpty(matchingOptions.PreviousFilePath))
                 {
-                    baselineFile = MultitoolFileHelpers.ReadSarifFile<SarifLog>(matchingOptions.PreviousFilePath);
+                    baselineFile = FileHelpers.ReadSarifFile<SarifLog>(matchingOptions.PreviousFilePath);
                 }
 
                 string outputFilePath = matchingOptions.OutputFilePath;
@@ -28,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     outputFilePath = Path.GetFileNameWithoutExtension(matchingOptions.PreviousFilePath) + "-annotated.sarif";
                 }
 
-                SarifLog currentFile = MultitoolFileHelpers.ReadSarifFile<SarifLog>(matchingOptions.CurrentFilePath);
+                SarifLog currentFile = FileHelpers.ReadSarifFile<SarifLog>(matchingOptions.CurrentFilePath);
                 
                 ISarifLogMatcher matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
 
@@ -38,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         ? Newtonsoft.Json.Formatting.Indented
                         : Newtonsoft.Json.Formatting.None;
                 
-                MultitoolFileHelpers.WriteSarifFile(output, outputFilePath, formatting);
+                FileHelpers.WriteSarifFile(output, outputFilePath, formatting);
             }
             catch (Exception ex)
             {

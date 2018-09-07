@@ -4,7 +4,7 @@
 using CommandLine;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 
-namespace Microsoft.CodeAnalysis.Sarif.Multitool
+namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     public class SingleFileOptionsBase : CommonOptionsBase
     {
@@ -13,18 +13,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             HelpText = "A path to a file to process.",
             Required = true)]
         public string InputFilePath { get; internal set; }
-        
+
         [Option(
             'i',
             "inline",
             Default = false,
-            HelpText = "Write all transformed content to the input file.")]
+            HelpText = "Write all newly generated content to the input file.")]
         public bool Inline { get; internal set; }
-        
+
         [Option(
             'o',
             "output",
-            HelpText = "A file path to the generated SARIF log. Defaults to <input file name>.sarif.")]
+            HelpText = "A file path to the generated SARIF log.")]
         public string OutputFilePath { get; internal set; }
     }
 }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using CommandLine;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 
-namespace Microsoft.CodeAnalysis.Sarif.Multitool
+namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     internal class MultipleFilesOptionsBase : CommonOptionsBase
     {
