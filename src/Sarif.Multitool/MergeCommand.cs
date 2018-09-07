@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Processors;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Newtonsoft.Json;
@@ -16,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             try
             {
-                var sarifFiles = MultitoolFileHelpers.CreateTargetsSet(mergeOptions.TargetFileSpecifiers, mergeOptions.Recurse);
+                var sarifFiles = FileHelpers.CreateTargetsSet(mergeOptions.TargetFileSpecifiers, mergeOptions.Recurse);
 
                 var allRuns = ParseFiles(sarifFiles);
 
@@ -43,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 Directory.CreateDirectory(mergeOptions.OutputFolderPath);
 
-                MultitoolFileHelpers.WriteSarifFile(combinedLog, outputName, formatting);
+                FileHelpers.WriteSarifFile(combinedLog, outputName, formatting);
             }
             catch (Exception ex)
             {
@@ -57,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 	    {
             foreach (var file in sarifFiles)
             {
-                yield return MultitoolFileHelpers.ReadSarifFile<SarifLog>(file);
+                yield return FileHelpers.ReadSarifFile<SarifLog>(file);
             }
         }
         

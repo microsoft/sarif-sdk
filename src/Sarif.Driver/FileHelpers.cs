@@ -4,17 +4,16 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Microsoft.CodeAnalysis.Sarif
+namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     /// <summary>
-    /// Helper functions for the multitool.
+    /// Helper functions for input and output files.
     /// </summary>
-    static class MultitoolFileHelpers
+    static class FileHelpers
     {
         public static T ReadSarifFile<T>(string filePath)
         {
