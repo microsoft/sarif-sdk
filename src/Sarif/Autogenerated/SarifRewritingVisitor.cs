@@ -240,7 +240,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                 node.Conversion = VisitNullChecked(node.Conversion);
                 node.Files = VisitNullChecked(node.Files);
                 node.Graphs = VisitNullChecked(node.Graphs);
-                node.Invocations = VisitNullChecked(node.Invocations);
+                if (node.Invocations != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Invocations.Count; ++index_0)
+                    {
+                        node.Invocations[index_0] = VisitNullChecked(node.Invocations[index_0]);
+                    }
+                }
+
                 node.LogicalLocations = VisitNullChecked(node.LogicalLocations);
                 node.Resources = VisitNullChecked(node.Resources);
                 if (node.Results != null)

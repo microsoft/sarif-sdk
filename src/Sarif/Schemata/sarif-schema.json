@@ -193,7 +193,7 @@
     },
 
     "edgeTraversal": {
-      "description": "Represents the traversal of a single edge in the course of a graph traversal.",
+      "description": "Represents the traversal of a single edge during a graph traversal.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -279,32 +279,37 @@
       "properties": {
 
         "conversion": {
-          "description": "An external reference to a run.conversion object to be merged with the root log file.",
+          "description": "The location of a file containing a run.conversion object to be merged with the root log file.",
           "$ref": "#/definitions/fileLocation"
         },
 
         "files": {
-          "description": "An external reference to a run.files object to be merged with the root log file.",
+          "description": "The location of a file containing a run.files object to be merged with the root log file.",
           "$ref": "#/definitions/fileLocation"
         },
 
         "graphs": {
-          "description": "An external reference to a run.graphs object to be merged with the root log file.",
+          "description": "The location of a file containing a run.graphs object to be merged with the root log file.",
           "$ref": "#/definitions/fileLocation"
         },
 
         "invocations": {
-          "description": "An external reference to an run.array of invocation objects to be merged with the root log file.",
-          "$ref": "#/definitions/fileLocation"
+          "description": "An array of external references to arrays of run.invocation objects to be merged with the root log file.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/fileLocation"
+          }
         },
 
         "logicalLocations": {
-          "description": "An external reference to a run.logicalLocations object to be merged with the root log file.",
+          "description": "The location of a file containing a run.logicalLocations object to be merged with the root log file.",
           "$ref": "#/definitions/fileLocation"
         },
 
         "resources": {
-          "description": "An external reference to a run.resources object to be merged with the root log file.",
+          "description": "The location of a file containing a run.resources object to be merged with the root log file.",
           "$ref": "#/definitions/fileLocation"
         },
 
@@ -677,7 +682,7 @@
         },
 
         "endTime": {
-          "description": "The date and time at which the run ended. See \"Date/time properties\" in the  SARIF spec for the required format.",
+          "description": "The date and time at which the run ended. See \"Date/time properties\" in the SARIF spec for the required format.",
           "type": "string",
           "format": "date-time"
         },
@@ -688,7 +693,7 @@
         },
 
         "toolNotifications": {
-          "description": "A list of runtime conditions detected by the tool in the course of the analysis.",
+          "description": "A list of runtime conditions detected by the tool during the analysis.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/notification"
@@ -749,7 +754,7 @@
         },
 
         "workingDirectory": {
-          "description": "The working directory for the analysis rool run.",
+          "description": "The working directory for the analysis tool run.",
           "$ref": "#/definitions/fileLocation"
         },
 
@@ -1596,7 +1601,7 @@
         },
 
         "results": {
-          "description": "The set of results contained in an SARIF log. The results array can be omitted when a run is solely exporting rules metadata. It must be present (but may be empty) in the event that a log file represents an actual scan.",
+          "description": "The set of results contained in an SARIF log. The results array can be omitted when a run is solely exporting rules metadata. It must be present (but may be empty) if a log file represents an actual scan.",
           "type": "array",
           "minItems": 0,
           "items": {
@@ -1615,7 +1620,7 @@
         },
 
         "correlationGuid": {
-          "description": "A stable, unique identifier for the equivalence class of logically identical results to which this run belongs, in the form of a GUID.",
+          "description": "A stable, unique identifier for the class of related runs to which this run belongs, in the form of a GUID.",
           "type": "string"
         },
 
@@ -1803,7 +1808,7 @@
         },
 
         "locations": {
-          "description": "A temporally ordered array of 'threadFlowLocation' objects, each of which describes a location visited by the tool in the course of producing the result.",
+          "description": "A temporally ordered array of 'threadFlowLocation' objects, each of which describes a location visited by the tool while producing the result.",
           "type": "array",
           "minItems": 1,
           "items": {
@@ -1834,7 +1839,7 @@
     },
 
     "threadFlowLocation": {
-      "description": "A location visited by an analysis tool in the course of simulating or monitoring the execution of a program.",
+      "description": "A location visited by an analysis tool while simulating or monitoring the execution of a program.",
       "additionalProperties": false,
       "type": "object",
       "properties": {

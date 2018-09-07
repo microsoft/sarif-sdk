@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public DateTime StartTime { get; set; }
 
         /// <summary>
-        /// The date and time at which the run ended. See "Date/time properties" in the  SARIF spec for the required format.
+        /// The date and time at which the run ended. See "Date/time properties" in the SARIF spec for the required format.
         /// </summary>
         [DataMember(Name = "endTime", IsRequired = false, EmitDefaultValue = false)]
         public DateTime EndTime { get; set; }
@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int ExitCode { get; set; }
 
         /// <summary>
-        /// A list of runtime conditions detected by the tool in the course of the analysis.
+        /// A list of runtime conditions detected by the tool during the analysis.
         /// </summary>
         [DataMember(Name = "toolNotifications", IsRequired = false, EmitDefaultValue = false)]
         public IList<Notification> ToolNotifications { get; set; }
@@ -141,7 +141,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public FileLocation ExecutableLocation { get; set; }
 
         /// <summary>
-        /// The working directory for the analysis rool run.
+        /// The working directory for the analysis tool run.
         /// </summary>
         [DataMember(Name = "workingDirectory", IsRequired = false, EmitDefaultValue = false)]
         public FileLocation WorkingDirectory { get; set; }

@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<Graph> Graphs { get; set; }
 
         /// <summary>
-        /// The set of results contained in an SARIF log. The results array can be omitted when a run is solely exporting rules metadata. It must be present (but may be empty) in the event that a log file represents an actual scan.
+        /// The set of results contained in an SARIF log. The results array can be omitted when a run is solely exporting rules metadata. It must be present (but may be empty) if a log file represents an actual scan.
         /// </summary>
         [DataMember(Name = "results", IsRequired = false, EmitDefaultValue = false)]
         public IList<Result> Results { get; set; }
@@ -99,7 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string InstanceGuid { get; set; }
 
         /// <summary>
-        /// A stable, unique identifier for the equivalence class of logically identical results to which this run belongs, in the form of a GUID.
+        /// A stable, unique identifier for the class of related runs to which this run belongs, in the form of a GUID.
         /// </summary>
         [DataMember(Name = "correlationGuid", IsRequired = false, EmitDefaultValue = false)]
         public string CorrelationGuid { get; set; }

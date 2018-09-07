@@ -42,9 +42,25 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!FileLocation.ValueComparer.Equals(left.Invocations, right.Invocations))
+            if (!object.ReferenceEquals(left.Invocations, right.Invocations))
             {
-                return false;
+                if (left.Invocations == null || right.Invocations == null)
+                {
+                    return false;
+                }
+
+                if (left.Invocations.Count != right.Invocations.Count)
+                {
+                    return false;
+                }
+
+                for (int index_0 = 0; index_0 < left.Invocations.Count; ++index_0)
+                {
+                    if (!FileLocation.ValueComparer.Equals(left.Invocations[index_0], right.Invocations[index_0]))
+                    {
+                        return false;
+                    }
+                }
             }
 
             if (!FileLocation.ValueComparer.Equals(left.LogicalLocations, right.LogicalLocations))
@@ -69,9 +85,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                for (int index_0 = 0; index_0 < left.Results.Count; ++index_0)
+                for (int index_1 = 0; index_1 < left.Results.Count; ++index_1)
                 {
-                    if (!FileLocation.ValueComparer.Equals(left.Results[index_0], right.Results[index_0]))
+                    if (!FileLocation.ValueComparer.Equals(left.Results[index_1], right.Results[index_1]))
                     {
                         return false;
                     }
@@ -108,7 +124,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (obj.Invocations != null)
                 {
-                    result = (result * 31) + obj.Invocations.ValueGetHashCode();
+                    foreach (var value_0 in obj.Invocations)
+                    {
+                        result = result * 31;
+                        if (value_0 != null)
+                        {
+                            result = (result * 31) + value_0.ValueGetHashCode();
+                        }
+                    }
                 }
 
                 if (obj.LogicalLocations != null)
@@ -123,12 +146,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (obj.Results != null)
                 {
-                    foreach (var value_0 in obj.Results)
+                    foreach (var value_1 in obj.Results)
                     {
                         result = result * 31;
-                        if (value_0 != null)
+                        if (value_1 != null)
                         {
-                            result = (result * 31) + value_0.ValueGetHashCode();
+                            result = (result * 31) + value_1.ValueGetHashCode();
                         }
                     }
                 }

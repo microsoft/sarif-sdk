@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Message Message { get; set; }
 
         /// <summary>
-        /// A temporally ordered array of 'threadFlowLocation' objects, each of which describes a location visited by the tool in the course of producing the result.
+        /// A temporally ordered array of 'threadFlowLocation' objects, each of which describes a location visited by the tool while producing the result.
         /// </summary>
         [DataMember(Name = "locations", IsRequired = true)]
         public IList<ThreadFlowLocation> Locations { get; set; }
