@@ -10,19 +10,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         [Fact(DisplayName = nameof(EndTimeMustBeAfterStartTime_EndTimeIsAfterStartTime))]
         public void EndTimeMustBeAfterStartTime_EndTimeIsAfterStartTime()
         {
-            Verify(new EndTimeMustBeAfterStartTime(), "EndTimeIsAfterStartTime.sarif");
+            Verify("EndTimeIsAfterStartTime.sarif");
         }
 
         [Fact(DisplayName = nameof(EndTimeMustBeAfterStartTime_EndTimeEqualsStartTime))]
         public void EndTimeMustBeAfterStartTime_EndTimeEqualsStartTime()
         {
-            Verify(new EndTimeMustBeAfterStartTime(), "EndTimeEqualsStartTime.sarif");
+            Verify("EndTimeEqualsStartTime.sarif");
         }
 
         [Fact(DisplayName = nameof(EndTimeMustBeAfterStartTime_EndTimeIsBeforeStartTime))]
         public void EndTimeMustBeAfterStartTime_EndTimeIsBeforeStartTime()
         {
-            Verify(new EndTimeMustBeAfterStartTime(), "EndTimeIsBeforeStartTime.sarif");
+            Verify("EndTimeIsBeforeStartTime.sarif");
         }
     }
 }

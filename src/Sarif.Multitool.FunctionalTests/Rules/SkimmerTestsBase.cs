@@ -11,25 +11,32 @@ using Newtonsoft.Json;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public abstract class SkimmerTestsBase<TSkimmer> : SarifMultitoolTestBase
-        where TSkimmer : SkimmerBase<SarifValidationContext>
+        where TSkimmer : SkimmerBase<SarifValidationContext>, new()
     {
-        protected void Verify(SkimmerBase<SarifValidationContext> skimmer, string testFileName)
-        {
-            string ruleName = skimmer.GetType().Name;
-            string testDirectory = Path.Combine(Environment.CurrentDirectory, TestDataDirectory, ruleName);
+        private readonly string _testDirectory;
 
-            string targetPath = Path.Combine(testDirectory, testFileName);
-            string expectedFilePath = MakeExpectedFilePath(testDirectory, testFileName);
-            string actualFilePath = MakeActualFilePath(testDirectory, testFileName);
+        private readonly JsonSerializerSettings _settings = new JsonSerializerSettings
+        {
+            ContractResolver = SarifContractResolver.Instance
+        };
+
+        public SkimmerTestsBase()
+        {
+            string ruleName = typeof(TSkimmer).Name;
+            _testDirectory = Path.Combine(Environment.CurrentDirectory, TestDataDirectory, ruleName);
+        }
+
+        protected void Verify(string testFileName)
+        {
+            var skimmer = new TSkimmer();
+
+            string targetPath = Path.Combine(_testDirectory, testFileName);
+            string expectedFilePath = MakeExpectedFilePath(_testDirectory, testFileName);
+            string actualFilePath = MakeActualFilePath(_testDirectory, testFileName);
 
             string inputLogContents = File.ReadAllText(targetPath);
 
-            JsonSerializerSettings settings = new JsonSerializerSettings
-            {
-                ContractResolver = SarifContractResolver.Instance
-            };
-
-            SarifLog inputLog = JsonConvert.DeserializeObject<SarifLog>(inputLogContents, settings);
+            SarifLog inputLog = JsonConvert.DeserializeObject<SarifLog>(inputLogContents, _settings);
 
             using (var logger = new SarifLogger(
                     actualFilePath,

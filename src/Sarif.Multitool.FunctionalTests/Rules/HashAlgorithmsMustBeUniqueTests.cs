@@ -10,13 +10,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         [Fact(DisplayName = nameof(HashAlgorithmsMustBeUnique_UniqueHashAlgorithms))]
         public void HashAlgorithmsMustBeUnique_UniqueHashAlgorithms()
         {
-            Verify(new HashAlgorithmsMustBeUnique(), "UniqueHashAlgorithms.sarif");
+            Verify("UniqueHashAlgorithms.sarif");
         }
 
         [Fact(DisplayName = nameof(HashAlgorithmsMustBeUnique_NonUniqueHashAlgorithms))]
         public void HashAlgorithmsMustBeUnique_NonUniqueHashAlgorithms()
         {
-            Verify(new HashAlgorithmsMustBeUnique(), "NonUniqueHashAlgorithms.sarif");
+            Verify("NonUniqueHashAlgorithms.sarif");
         }
     }
 }

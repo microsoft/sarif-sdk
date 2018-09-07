@@ -10,37 +10,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         [Fact(DisplayName = nameof(EndLineMustNotBeLessThanStartLine_EndLineEqualsStartLine))]
         public void EndLineMustNotBeLessThanStartLine_EndLineEqualsStartLine()
         {
-            Verify(new EndLineMustNotBeLessThanStartLine(), "EndLineEqualsStartLine.sarif");
+            Verify("EndLineEqualsStartLine.sarif");
         }
 
         [Fact(DisplayName = nameof(EndLineMustNotBeLessThanStartLine_EndLineGreaterThanStartLine))]
         public void EndLineMustNotBeLessThanStartLine_EndLineGreaterThanStartLine()
         {
-            Verify(new EndLineMustNotBeLessThanStartLine(), "EndLineGreaterThanStartLine.sarif");
+            Verify("EndLineGreaterThanStartLine.sarif");
         }
 
         [Fact(DisplayName = nameof(EndLineMustNotBeLessThanStartLine_EndLineLessThanStartLineInCodeFlow))]
         public void EndLineMustNotBeLessThanStartLine_EndLineLessThanStartLineInCodeFlow()
         {
-            Verify(new EndLineMustNotBeLessThanStartLine(), "EndLineLessThanStartLineInCodeFlow.sarif");
+            Verify("EndLineLessThanStartLineInCodeFlow.sarif");
         }
 
         [Fact(DisplayName = nameof(EndLineMustNotBeLessThanStartLine_EndLineLessThanStartLineInRelatedLocation))]
         public void EndLineMustNotBeLessThanStartLine_EndLineLessThanStartLineInRelatedLocation()
         {
-            Verify(new EndLineMustNotBeLessThanStartLine(), "EndLineLessThanStartLineInRelatedLocation.sarif");
+            Verify("EndLineLessThanStartLineInRelatedLocation.sarif");
         }
 
         [Fact(DisplayName = nameof(EndLineMustNotBeLessThanStartLine_EndLineNotSpecified))]
         public void EndLineMustNotBeLessThanStartLine_EndLineNotSpecified()
         {
-            Verify(new EndLineMustNotBeLessThanStartLine(), "EndLineNotSpecified.sarif");
+            Verify("EndLineNotSpecified.sarif");
         }
 
         [Fact(DisplayName = nameof(EndLineMustNotBeLessThanStartLine_EndLineLessThanStartLineInResultLocation))]
         public void EndLineMustNotBeLessThanStartLine_EndLineLessThanStartLineInResultLocation()
         {
-            Verify(new EndLineMustNotBeLessThanStartLine(), "EndLineLessThanStartLineInResultLocation.sarif");
+            Verify("EndLineLessThanStartLineInResultLocation.sarif");
         }
     }
 }

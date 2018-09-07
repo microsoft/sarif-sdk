@@ -21,56 +21,56 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         [Fact(DisplayName = nameof(UrisMustBeValid_InvalidFileLocationUri))]
         public void UrisMustBeValid_InvalidFileLocationUri()
         {
-            Verify(new UrisMustBeValid(), "InvalidFileLocationUri.sarif");
+            Verify("InvalidFileLocationUri.sarif");
         }
 
         [Fact(DisplayName = nameof(UrisMustBeValid_InvalidResultWorkItemUri))]
         public void UrisMustBeValid_InvalidResultWorkItemUri()
         {
-            Verify(new UrisMustBeValid(), "InvalidResultWorkItemUri.sarif");
+            Verify("InvalidResultWorkItemUri.sarif");
         }
 
         [Fact(DisplayName = nameof(UrisMustBeValid_InvalidRuleHelpUri))]
         public void UrisMustBeValid_InvalidRuleHelpUri()
         {
-            Verify(new UrisMustBeValid(), "InvalidRuleHelpUri.sarif");
+            Verify("InvalidRuleHelpUri.sarif");
         }
 
         [Fact(DisplayName = nameof(UrisMustBeValid_InvalidSarifLogSchemaUri))]
         public void UrisMustBeValid_InvalidSarifLogSchemaUri()
         {
-            Verify(new UrisMustBeValid(), "InvalidSarifLogSchemaUri.sarif");
+            Verify("InvalidSarifLogSchemaUri.sarif");
         }
 
         [Fact(DisplayName = nameof(UrisMustBeValid_InvalidToolDownloadUri))]
         public void UrisMustBeValid_InvalidToolDownloadUri()
         {
-            Verify(new UrisMustBeValid(), "InvalidToolDownloadUri.sarif");
+            Verify("InvalidToolDownloadUri.sarif");
         }
 
         [Fact(DisplayName = nameof(UrisMustBeValid_InvalidUriInFilePropertyName))]
         public void UrisMustBeValid_InvalidUriInFilePropertyName()
         {
-            Verify(new UrisMustBeValid(), "InvalidUriInFilePropertyName.sarif");
+            Verify("InvalidUriInFilePropertyName.sarif");
         }
 
         [Fact(DisplayName = nameof(UrisMustBeValid_InvalidUriInOriginalUriBaseIds))]
         public void UrisMustBeValid_InvalidUriInOriginalUriBaseIds()
         {
-            Verify(new UrisMustBeValid(), "InvalidUriInOriginalUriBaseIds.sarif");
+            Verify("InvalidUriInOriginalUriBaseIds.sarif");
         }
 
         [Fact(DisplayName = nameof(UrisMustBeValid_InvalidVersionControlDetailsUri))]
         public void UrisMustBeValid_InvalidVersionControlDetailsUri()
         {
-            Verify(new UrisMustBeValid(), "InvalidVersionControlDetailsUri.sarif");
+            Verify("InvalidVersionControlDetailsUri.sarif");
         }
 
         [Fact(DisplayName = nameof(UrisMustBeValid_ValidUris))]
 
         public void UrisMustBeValid_ValidUris()
         {
-            Verify(new UrisMustBeValid(), "ValidUris.sarif");
+            Verify("ValidUris.sarif");
         }
     }
 }
