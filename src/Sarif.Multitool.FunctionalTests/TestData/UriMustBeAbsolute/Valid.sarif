@@ -38,7 +38,13 @@
         {
           "uri": "https://example.com/my-project"
         }
-      ]
+      ],
+
+      "properties": {
+        "ExpectedResults": {
+          "ResultCount": 0
+        }
+      }
     }
   ]
 }

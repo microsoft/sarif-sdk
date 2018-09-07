@@ -7,10 +7,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class HashAlgorithmsMustBeUniqueTests : SkimmerTestsBase<HashAlgorithmsMustBeUnique>
     {
-        [Fact(DisplayName = nameof(HashAlgorithmsMustBeUnique_UniqueHashAlgorithms))]
-        public void HashAlgorithmsMustBeUnique_UniqueHashAlgorithms()
+        [Fact(DisplayName = nameof(HashAlgorithmsMustBeUnique_AcceptsValidSarif))]
+        public void HashAlgorithmsMustBeUnique_AcceptsValidSarif()
         {
-            Verify("UniqueHashAlgorithms.sarif");
+            Verify("Valid.sarif");
         }
 
         [Fact(DisplayName = nameof(HashAlgorithmsMustBeUnique_NonUniqueHashAlgorithms))]

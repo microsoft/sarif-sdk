@@ -3,6 +3,7 @@
 
 using System;
 using System.IO;
+using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Writers;
@@ -13,6 +14,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     public abstract class SkimmerTestsBase<TSkimmer> : SarifMultitoolTestBase
         where TSkimmer : SkimmerBase<SarifValidationContext>, new()
     {
+        protected class ExpectedResults
+        {
+            public int ResultCount { get; set; }
+        }
+
+        protected const string ExpectedResultsPropertyName = nameof(ExpectedResults);
+
         private readonly string _testDirectory;
 
         private readonly JsonSerializerSettings _settings = new JsonSerializerSettings
@@ -32,14 +40,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             string targetPath = Path.Combine(_testDirectory, testFileName);
             string expectedFilePath = MakeExpectedFilePath(_testDirectory, testFileName);
-            string actualFilePath = MakeActualFilePath(_testDirectory, testFileName);
+            string outputFilePath = MakeActualFilePath(_testDirectory, testFileName);
 
             string inputLogContents = File.ReadAllText(targetPath);
 
             SarifLog inputLog = JsonConvert.DeserializeObject<SarifLog>(inputLogContents, _settings);
 
             using (var logger = new SarifLogger(
-                    actualFilePath,
+                    outputFilePath,
                     LoggingOptions.None,
                     tool: null,
                     run: null,                
@@ -66,14 +74,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 logger.AnalysisStopped(RuntimeConditions.None);
             }
 
-            string actualLogContents = File.ReadAllText(actualFilePath);
-            string expectedLogContents = File.ReadAllText(expectedFilePath);
+            string outputLogContents = File.ReadAllText(outputFilePath);
+            SarifLog outputLog = JsonConvert.DeserializeObject<SarifLog>(outputLogContents, _settings);
 
-            // We can't just compare the text of the log files because properties
-            // like start time, and absolute paths, will differ from run to run.
-            // Until SarifLogger has a "deterministic" option (see http://github.com/Microsoft/sarif-sdk/issues/500),
-            // we perform a selective compare of just the elements we care about.
-            SelectiveCompare(actualLogContents, expectedLogContents);
+            ExpectedResults expectedResults;
+            if (inputLog.Runs[0].TryGetProperty(ExpectedResultsPropertyName, out expectedResults))
+            {
+                Verify(outputLog.Runs[0], expectedResults);
+            }
+        }
+
+        private void Verify(Run run, ExpectedResults expectedResults)
+        {
+            run.Results.Count.Should().Be(expectedResults.ResultCount);
         }
     }
 }

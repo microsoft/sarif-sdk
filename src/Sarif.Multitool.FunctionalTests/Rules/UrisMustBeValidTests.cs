@@ -66,11 +66,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             Verify("InvalidVersionControlDetailsUri.sarif");
         }
 
-        [Fact(DisplayName = nameof(UrisMustBeValid_ValidUris))]
+        [Fact(DisplayName = nameof(UrisMustBeValid_AcceptsValidSarif))]
 
-        public void UrisMustBeValid_ValidUris()
+        public void UrisMustBeValid_AcceptsValidSarif()
         {
-            Verify("ValidUris.sarif");
+            Verify("Valid.sarif");
         }
     }
 }
