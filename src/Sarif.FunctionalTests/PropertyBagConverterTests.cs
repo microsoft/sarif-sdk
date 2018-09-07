@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests
             var serializerSettings = new JsonSerializerSettings
             {
                 ContractResolver = SarifContractResolver.Instance,
-                Formatting = Formatting.Indented,
+                Formatting = Formatting.Indented
             };
 
             SarifLog deserializedLog = JsonConvert.DeserializeObject<SarifLog>(originalLog, serializerSettings);
