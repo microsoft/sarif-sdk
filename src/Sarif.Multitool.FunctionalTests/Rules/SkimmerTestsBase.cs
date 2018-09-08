@@ -34,20 +34,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             _testDirectory = Path.Combine(Environment.CurrentDirectory, TestDataDirectory, ruleName);
         }
 
+        // For the moment, we are supporting two different test designs. For some test files
+        // Example.sarif, there exists a corresponding file Example_Expected.sarif that contains
+        // the expected results of running the rule on the test file. If the "expected" file
+        // exists, we perform a "selective compare" of the expected and actual validation
+        // log file comments. This is the old, deprecated design.
+        // For other test files, the test file itself contains a custom property that summarizes
+        // the expected results. If that property is present, we compare the validation log
+        // with that property. This is the new, preferred design.
         protected void Verify(string testFileName)
         {
             var skimmer = new TSkimmer();
 
             string targetPath = Path.Combine(_testDirectory, testFileName);
-            string expectedFilePath = MakeExpectedFilePath(_testDirectory, testFileName);
-            string outputFilePath = MakeActualFilePath(_testDirectory, testFileName);
+            string actualFilePath = MakeActualFilePath(_testDirectory, testFileName);
 
             string inputLogContents = File.ReadAllText(targetPath);
 
             SarifLog inputLog = JsonConvert.DeserializeObject<SarifLog>(inputLogContents, _settings);
 
             using (var logger = new SarifLogger(
-                    outputFilePath,
+                    actualFilePath,
                     LoggingOptions.None,
                     tool: null,
                     run: null,                
@@ -74,12 +81,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 logger.AnalysisStopped(RuntimeConditions.None);
             }
 
-            string outputLogContents = File.ReadAllText(outputFilePath);
-            SarifLog outputLog = JsonConvert.DeserializeObject<SarifLog>(outputLogContents, _settings);
+            string actualLogContents = File.ReadAllText(actualFilePath);
+
+            string expectedFilePath = MakeExpectedFilePath(_testDirectory, testFileName);
+            if (File.Exists(expectedFilePath))
+            {
+                // The "expected" file exists. Use the old, deprecated verification method.
+                string expectedLogContents = File.ReadAllText(expectedFilePath);
+
+                // We can't just compare the text of the log files because properties
+                // like start time, and absolute paths, will differ from run to run.
+                // Until SarifLogger has a "deterministic" option (see http://github.com/Microsoft/sarif-sdk/issues/500),
+                // we perform a selective compare of just the elements we care about.
+                SelectiveCompare(actualLogContents, expectedLogContents);
+            }
 
             ExpectedResults expectedResults;
             if (inputLog.Runs[0].TryGetProperty(ExpectedResultsPropertyName, out expectedResults))
             {
+                // The custom property exists. Use the new, preferred verification method.
+                SarifLog outputLog = JsonConvert.DeserializeObject<SarifLog>(actualLogContents, _settings);
                 Verify(outputLog.Runs[0], expectedResults);
             }
         }
