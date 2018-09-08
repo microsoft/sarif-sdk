@@ -22,26 +22,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected const string ExpectedResultsPropertyName = nameof(ExpectedResults);
 
         private readonly string _testDirectory;
-
-        private readonly JsonSerializerSettings _settings = new JsonSerializerSettings
-        {
-            ContractResolver = SarifContractResolver.Instance
-        };
+        private readonly JsonSerializerSettings _settings;
 
         public SkimmerTestsBase()
         {
             string ruleName = typeof(TSkimmer).Name;
             _testDirectory = Path.Combine(Environment.CurrentDirectory, TestDataDirectory, ruleName);
+
+            _settings = new JsonSerializerSettings
+            {
+                ContractResolver = SarifContractResolver.Instance
+            };
         }
 
-        // For the moment, we are supporting two different test designs. For some test files
-        // Example.sarif, there exists a corresponding file Example_Expected.sarif that contains
-        // the expected results of running the rule on the test file. If the "expected" file
-        // exists, we perform a "selective compare" of the expected and actual validation
-        // log file comments. This is the old, deprecated design.
-        // For other test files, the test file itself contains a custom property that summarizes
-        // the expected results. If that property is present, we compare the validation log
-        // with that property. This is the new, preferred design.
+        // For the moment, we support two different test designs.
+        //
+        // The new, preferred design (all new tests should be written this way):
+        //
+        // The test file itself contains a custom property that summarizes the expected
+        // results of running the rule on the test file.
+        //
+        // The old, deprecated design:
+        //
+        // To each test file there exists a corresponding file whose name ends in
+        // "_Expected.sarif" that contains the expected results of running the rule
+        // on the test file. We perform a "selective compare" of the expected and
+        // actual validation log file contents.
+        //
+        // As we migrate from the old to the new design, if the custom property exists,
+        // we use the new design, if the "expected" file exists, we use the old design,
+        // and if both the custom property and the "expected" file exist, we execute
+        // both the new and the old style tests.
         protected void Verify(string testFileName)
         {
             var skimmer = new TSkimmer();
