@@ -1,41 +1,40 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Microsoft.CodeAnalysis.Sarif.Multitool.Rules;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class StepValuesMustFormOneBasedSequenceTests : SkimmerTestsBase
+    public class StepValuesMustFormOneBasedSequenceTests : SkimmerTestsBase<StepValuesMustFormOneBasedSequence>
     {
         [Fact(DisplayName = nameof(StepValuesMustFormOneBasedSequence_ValidSteps))]
         public void StepValuesMustFormOneBasedSequence_ValidSteps()
         {
-            Verify(new StepValuesMustFormOneBasedSequence(), "ValidSteps.sarif");
+            Verify("ValidSteps.sarif");
         }
 
         [Fact(DisplayName = nameof(StepValuesMustFormOneBasedSequence_NoStepsPresent))]
         public void StepValuesMustFormOneBasedSequence_NoStepsPresent()
         {
-            Verify(new StepValuesMustFormOneBasedSequence(), "NoStepsPresent.sarif");
+            Verify("NoStepsPresent.sarif");
         }
 
         [Fact(DisplayName = nameof(StepValuesMustFormOneBasedSequence_StepNotPresentOnAllLocations))]
         public void StepValuesMustFormOneBasedSequence_StepNotPresentOnAllLocations()
         {
-            Verify(new StepValuesMustFormOneBasedSequence(), "StepNotPresentOnAllLocations.sarif");
+            Verify("StepNotPresentOnAllLocations.sarif");
         }
 
         [Fact(DisplayName = nameof(StepValuesMustFormOneBasedSequence_InvalidStepValues))]
         public void StepValuesMustFormOneBasedSequence_InvalidStepValues()
         {
-            Verify(new StepValuesMustFormOneBasedSequence(), "InvalidStepValues.sarif");
+            Verify("InvalidStepValues.sarif");
         }
 
         [Fact(DisplayName = nameof(StepValuesMustFormOneBasedSequence_MultipleThreadFlows))]
         public void StepValuesMustFormOneBasedSequence_MultipleThreadFlows()
         {
-            Verify(new StepValuesMustFormOneBasedSequence(), "MultipleThreadFlows.sarif");
+            Verify("MultipleThreadFlows.sarif");
         }
     }
 }

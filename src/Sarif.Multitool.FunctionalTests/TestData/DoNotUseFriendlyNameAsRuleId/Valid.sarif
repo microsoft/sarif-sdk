@@ -22,6 +22,11 @@
             }
           }
         }
+      },
+
+      "properties": {
+        "ExpectedResults": {          "ResultCount":  0
+        }
       }
     }
   ]

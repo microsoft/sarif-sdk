@@ -53,8 +53,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             Array.Copy(args, 0, argsWithPointer, 1, args.Length);
             argsWithPointer[0] = jPointer;
 
-            Context.Logger.Log(this,
-                RuleUtilities.BuildResult(DefaultLevel, Context, region, formatId, argsWithPointer));
+            Result result = RuleUtilities.BuildResult(DefaultLevel, Context, region, formatId, argsWithPointer);
+            result.Locations[0].FullyQualifiedLogicalName = jPointer;
+
+            Context.Logger.Log(this, result);
         }
 
         protected virtual void Analyze(Attachment attachment, string attachmentPointer)
