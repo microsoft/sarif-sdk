@@ -360,15 +360,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         // on the analyze command-line;
                         if (analyzeOptions.ComputeFileHashes) { dataToInsert |= OptionallyEmittedData.Hashes; }
 
-                        var sarifLogger = new SarifLogger(
+                        SarifLogger sarifLogger;
+
+                        if (analyzeOptions.SarifVersion == SarifVersion.TwoZeroZero)
+                        {
+                            sarifLogger = new SarifLogger(
                                     analyzeOptions.OutputFilePath,
                                     loggingOptions,
                                     dataToInsert,
-                                    tool: null, 
+                                    tool: null,
                                     run: null,
                                     analysisTargets: targets,
                                     invocationTokensToRedact: GenerateSensitiveTokensList(),
                                     invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog);
+                        }
+                        else
+                        {
+                            sarifLogger = new SarifOneZeroZeroLogger(
+                                    analyzeOptions.OutputFilePath,
+                                    loggingOptions,
+                                    dataToInsert,
+                                    tool: null,
+                                    run: null,
+                                    analysisTargets: targets,
+                                    invocationTokensToRedact: GenerateSensitiveTokensList(),
+                                    invocationPropertiesToLog: analyzeOptions.InvocationPropertiesToLog);
+                        }
+
                         sarifLogger.AnalysisStarted();
                         aggregatingLogger.Loggers.Add(sarifLogger);
                     },

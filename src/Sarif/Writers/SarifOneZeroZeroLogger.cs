@@ -1,0 +1,70 @@
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+using Microsoft.CodeAnalysis.Sarif.Readers;
+using Microsoft.CodeAnalysis.Sarif.VersionOne;
+using Microsoft.CodeAnalysis.Sarif.Visitors;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+namespace Microsoft.CodeAnalysis.Sarif.Writers
+{
+    /// <summary>
+    /// A SARIF logger that works by generating a SARIF v2 log file which is transformed into 
+    /// SARIF v1 when the instance is disposed. The file location used to produced the preliminary
+    /// v2 content is overwritten in place to produce the transformed v1 file.
+    /// </summary>
+    public class SarifOneZeroZeroLogger : SarifLogger
+    {
+        private string _outputFilePath;
+
+        public SarifOneZeroZeroLogger(
+            string outputFilePath,
+            LoggingOptions loggingOptions = SarifLogger.DefaultLoggingOptions,
+            OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
+            Tool tool = null,
+            Run run = null,
+            IEnumerable<string> analysisTargets = null,
+            IEnumerable<string> invocationTokensToRedact = null,
+            IEnumerable<string> invocationPropertiesToLog = null,
+            string defaultFileEncoding = null)
+            : base(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
+                  loggingOptions,
+                  dataToInsert,
+                  tool,
+                  run,
+                  invocationTokensToRedact,
+                  invocationPropertiesToLog)
+        {
+            _outputFilePath = outputFilePath;
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+
+            JsonSerializerSettings v2Settings = new JsonSerializerSettings()
+            {
+                ContractResolver = SarifContractResolver.Instance,
+                Formatting = PrettyPrint ? Formatting.Indented : Formatting.None
+            };
+
+            string logText = File.ReadAllText(_outputFilePath);
+
+            var v2Log = JsonConvert.DeserializeObject<SarifLog>(logText, v2Settings);
+
+            var transformer = new SarifCurrentToVersionOneVisitor();
+            transformer.VisitSarifLog(v2Log);
+
+            JsonSerializerSettings v1Settings = new JsonSerializerSettings()
+            {
+                ContractResolver = SarifContractResolverVersionOne.Instance,
+                Formatting = PrettyPrint ? Formatting.Indented : Formatting.None
+            };
+
+            File.WriteAllText(_outputFilePath, JsonConvert.SerializeObject(transformer.SarifLogVersionOne, v1Settings));
+        }
+    }
+}

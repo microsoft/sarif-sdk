@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
-    sealed public class SarifLogger : IDisposable, IAnalysisLogger
+    public class SarifLogger : IDisposable, IAnalysisLogger
     {
         private Run _run;
         private TextWriter _textWriter;
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private ResultLogJsonWriter _issueLogJsonWriter;
         private Dictionary<string, IRule> _rules;
 
-        private const LoggingOptions DefaultLoggingOptions = LoggingOptions.PrettyPrint;
+        protected const LoggingOptions DefaultLoggingOptions = LoggingOptions.PrettyPrint;
 
         private static Run CreateRun(
             IEnumerable<string> analysisTargets,
@@ -121,18 +121,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             IEnumerable<string> invocationPropertiesToLog = null,
             string defaultFileEncoding = null)
             : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
-                  loggingOptions,
-                  dataToInsert,
-                  tool,
-                  run,
-                  invocationTokensToRedact,
-                  invocationPropertiesToLog)
+                  loggingOptions: loggingOptions,
+                  dataToInsert: dataToInsert,
+                  tool: tool,
+                  run: run,
+                  analysisTargets: analysisTargets,
+                  invocationTokensToRedact: invocationTokensToRedact,
+                  invocationPropertiesToLog: invocationPropertiesToLog)
         {
         }
 
         public SarifLogger(
             TextWriter textWriter,
-            LoggingOptions loggingOptions = LoggingOptions.PrettyPrint,
+            LoggingOptions loggingOptions = DefaultLoggingOptions,
             OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
             Tool tool = null,
             Run run = null,
@@ -206,7 +207,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public bool Verbose { get { return _loggingOptions.Includes(LoggingOptions.Verbose); } }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             // Disposing the json writer closes the stream but the textwriter 
             // still needs to be disposed or closed to write the results

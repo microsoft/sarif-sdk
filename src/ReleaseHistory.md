@@ -202,7 +202,7 @@
 * Bugfix to result matching algorithm where we were incorrectly detecting duplicate data across files, and changed a "NotImplementedException" to the correct "InvalidOperationException".
 
 ## **v2.0.0-csd.1.0.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.1.0.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.1.0.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.1.0.3)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.1.0.3))
-* Bugfix to result matching algorithm where empty or null previous log sets caused a NullReferenceException.
-* Bugfix to result matching algorithm where we were incorrectly detecting duplicate data across files, and changed a "NotImplementedException" to the correct "InvalidOperationException".
 * BREAKING CHANGE: invocation.workDirectory is now a FileLocation object (and not a URI expressed as a string)
-* Add run.externalFiles object to schema
+* Add run.externalFiles object to schema. Sync generally to OASIS TC schema.
+* Add --sarif-version command to driver (to transform SARIF output to v1 format)
+* Fix bug that persisted tokens to redact as file references.

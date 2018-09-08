@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public FileLocation Graphs { get; set; }
 
         /// <summary>
-        /// An array of external references to arrays of run.invocation objects to be merged with the root log file.
+        /// An array of locations of files containing arrays of run.invocation objects to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "invocations", IsRequired = false, EmitDefaultValue = false)]
         public IList<FileLocation> Invocations { get; set; }
@@ -68,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public FileLocation Resources { get; set; }
 
         /// <summary>
-        /// An array of external references to arrays of run.result objects to be merged with the root log file.
+        /// An array of locations of files containins arrays of run.result objects to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "results", IsRequired = false, EmitDefaultValue = false)]
         public IList<FileLocation> Results { get; set; }
