@@ -10,11 +10,12 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public abstract class SkimmerTestsBase : SarifMultitoolTestBase
+    public abstract class SkimmerTestsBase<TSkimmer> : SarifMultitoolTestBase
+        where TSkimmer : SkimmerBase<SarifValidationContext>, new()
     {
-        protected void Verify(SkimmerBase<SarifValidationContext> skimmer, string testFileName)
+        protected void Verify(string testFileName)
         {
-            string ruleName = skimmer.GetType().Name;
+            string ruleName = typeof(TSkimmer).Name;
             string testDirectory = Path.Combine(Environment.CurrentDirectory, TestDataDirectory, ruleName);
 
             string targetPath = Path.Combine(testDirectory, testFileName);
@@ -29,6 +30,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             };
 
             SarifLog inputLog = JsonConvert.DeserializeObject<SarifLog>(inputLogContents, settings);
+
+            var skimmer = new TSkimmer();
 
             using (var logger = new SarifLogger(
                     actualFilePath,
