@@ -5,18 +5,18 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class UriMustBeAbsoluteTests : SkimmerTestsBase
+    public class UriMustBeAbsoluteTests : SkimmerTestsBase<UriMustBeAbsolute>
     {
         [Fact(DisplayName = nameof(UriMustBeAbsolute_ReportsInvalidSarif))]
         public void UriMustBeAbsolute_ReportsInvalidSarif()
         {
-            Verify(new UriMustBeAbsolute(), "Invalid.sarif");
+            Verify("Invalid.sarif");
         }
 
         [Fact(DisplayName = nameof(UriMustBeAbsolute_AcceptsValidSarif))]
         public void UriMustBeAbsolute_AcceptsValidSarif()
         {
-            Verify(new UriMustBeAbsolute(), "Valid.sarif");
+            Verify("Valid.sarif");
         }
     }
 }

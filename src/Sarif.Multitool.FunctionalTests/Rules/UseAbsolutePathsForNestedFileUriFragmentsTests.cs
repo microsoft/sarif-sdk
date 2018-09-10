@@ -5,24 +5,24 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class UseAbsolutePathsForNestedFileUriFragmentsTests : SkimmerTestsBase
+    public class UseAbsolutePathsForNestedFileUriFragmentsTests : SkimmerTestsBase<UseAbsolutePathsForNestedFileUriFragments>
     {
         [Fact(DisplayName = nameof(UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentsAreAbsolute))]
         public void UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentsAreAbsolute()
         {
-            Verify(new UseAbsolutePathsForNestedFileUriFragments(), "NestedFileUriFragmentsAreAbsolute.sarif");
+            Verify("NestedFileUriFragmentsAreAbsolute.sarif");
         }
 
         [Fact(DisplayName = nameof(UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentIsRelativeInFileLocationUri))]
         public void UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentIsRelativeInFileLocationUri()
         {
-            Verify(new UseAbsolutePathsForNestedFileUriFragments(), "NestedFileUriFragmentIsRelativeInFileLocationUri.sarif");
+            Verify("NestedFileUriFragmentIsRelativeInFileLocationUri.sarif");
         }
 
         [Fact(DisplayName = nameof(UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentIsRelativeInFilePropertyName))]
         public void UseAbsolutePathsForNestedFileUriFragments_NestedFileUriFragmentIsRelativeInFilePropertyName()
         {
-            Verify(new UseAbsolutePathsForNestedFileUriFragments(), "NestedFileUriFragmentIsRelativeInFilePropertyName.sarif");
+            Verify("NestedFileUriFragmentIsRelativeInFilePropertyName.sarif");
         }
     }
 }
