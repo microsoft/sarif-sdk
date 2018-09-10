@@ -92,6 +92,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected virtual void Analyze(Invocation invocation, string invocationPointer)
         {
         }
+        protected virtual void Analyze(LogicalLocation logicalLocation, string logicalLocationKey, string logicalLocationPointer)
+        {
+        }
 
         protected virtual void Analyze(Message message, string messagePointer)
         {
@@ -117,7 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
         }
 
-        protected virtual void Analyze(Rule rule, string rulePointer)
+        protected virtual void Analyze(Rule rule, string ruleKey, string rulePointer)
         {
         }
         protected virtual void Analyze(Run run, string runPointer)
@@ -361,6 +364,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
+        private void Visit(LogicalLocation logicalLocation, string logicalLocationKey, string logicalLocationPointer)
+        {
+            Analyze(logicalLocation, logicalLocationKey, logicalLocationPointer);
+        }
+
         private void Visit(Message message, string messagePointer)
         {
             Analyze(message, messagePointer);
@@ -527,22 +535,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private void Visit(Resources resources, string resourcesPointer)
         {
-            Rule[] rules = resources.Rules.Values.ToArray();
             string rulesPointer = resourcesPointer.AtProperty(SarifPropertyName.Rules);
 
-            for (int i = 0; i < rules.Length; ++i)
+            foreach (string key in resources.Rules.Keys)
             {
-                Rule rule = rules[i];
-                if (rule.Id != null)
-                {
-                    Visit(rule, rulesPointer.AtProperty(rule.Id));
-                }
+                Visit(resources.Rules[key], key, rulesPointer.AtProperty(key));
             }
         }
 
-        private void Visit(Rule rule, string rulePointer)
+        private void Visit(Rule rule, string ruleKey, string rulePointer)
         {
-            Analyze(rule, rulePointer);
+            Analyze(rule, ruleKey, rulePointer);
         }
 
         private void Visit(Run run, string runPointer)
@@ -573,6 +576,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 foreach (string fileKey in files.Keys)
                 {
                     Visit(files[fileKey], fileKey, filesPointer.AtProperty(fileKey));
+                }
+            }
+
+            if (run.LogicalLocations != null)
+            {
+                IDictionary<string, LogicalLocation> logicalLocations = run.LogicalLocations;
+                string logicalLocationsPointer = runPointer.AtProperty(SarifPropertyName.LogicalLocations);
+
+                foreach (string logicalLocationKey in logicalLocations.Keys)
+                {
+                    Visit(logicalLocations[logicalLocationKey], logicalLocationKey, logicalLocationsPointer.AtProperty(logicalLocationKey));
                 }
             }
 

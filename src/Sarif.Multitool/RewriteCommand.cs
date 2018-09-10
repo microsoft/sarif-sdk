@@ -2,9 +2,12 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
+using Microsoft.CodeAnalysis.Sarif.Driver.Sdk;
 using Newtonsoft.Json;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
@@ -16,11 +19,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 rewriteOptions = ValidateOptions(rewriteOptions);
                 
-                SarifLog actualLog = MultitoolFileHelpers.ReadSarifFile<SarifLog>(rewriteOptions.InputFilePath);
+                SarifLog actualLog = FileHelpers.ReadSarifFile<SarifLog>(rewriteOptions.InputFilePath);
 
                 OptionallyEmittedData dataToInsert = rewriteOptions.DataToInsert.ToFlags();
+                IDictionary<string, Uri> originalUriBaseIds = rewriteOptions.ConstructUriBaseIdsDictionary();
 
-                SarifLog reformattedLog = new InsertOptionalDataVisitor(dataToInsert).VisitSarifLog(actualLog);
+                SarifLog reformattedLog = new InsertOptionalDataVisitor(dataToInsert, originalUriBaseIds).VisitSarifLog(actualLog);
                 
                 string fileName = CommandUtilities.GetTransformedOutputFileName(rewriteOptions);
 
@@ -28,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     ? Formatting.Indented
                     : Formatting.None;
 
-                MultitoolFileHelpers.WriteSarifFile(reformattedLog, fileName, formatting);
+                FileHelpers.WriteSarifFile(reformattedLog, fileName, formatting);
             }
             catch(Exception ex)
             {

@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A single file. In some cases, this file might be nested within another file.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
     public partial class FileData : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<FileData> ValueComparer => FileDataEqualityComparer.Instance;
@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string MimeType { get; set; }
 
         /// <summary>
-        /// The contents of the file, expressed as a MIME Base64-encoded byte sequence.
+        /// The contents of the file.
         /// </summary>
         [DataMember(Name = "contents", IsRequired = false, EmitDefaultValue = false)]
         public FileContent Contents { get; set; }

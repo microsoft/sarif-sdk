@@ -487,7 +487,9 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
           ""executableLocation"": {
             ""uri"": ""/bin/tools/CodeScanner""
           },
-          ""workingDirectory"": ""/home/buildAgent/src"",
+          ""workingDirectory"": {
+            ""uri"": ""/home/buildAgent/src""
+          },
           ""environmentVariables"": {
             ""PATH"": ""/usr/local/bin:/bin:/bin/tools:/home/buildAgent/bin"",
             ""HOME"": ""/home/buildAgent"",
@@ -545,7 +547,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
       },
       ""results"": [],
       ""properties"": {
-        ""sarifv2/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""invocations"":[{""commandLine"":""CodeScanner @collections.rsp"",""responseFiles"":[{""uri"":""collections.rsp""}],""startTime"":""2016-07-16T14:18:25.000Z"",""endTime"":""2016-07-16T14:19:01.000Z"",""machine"":""BLD01"",""account"":""buildAgent"",""processId"":1218,""executableLocation"":{""uri"":""/bin/tools/CodeScanner""},""workingDirectory"":""/home/buildAgent/src"",""environmentVariables"":{""PATH"":""/usr/local/bin:/bin:/bin/tools:/home/buildAgent/bin"",""HOME"":""/home/buildAgent"",""TZ"":""EST""}}],""files"":{""collections.rsp"":{""fileLocation"":{""uri"":""collections.rsp""},""contents"":{""text"":""-input src/collections/*.cpp -log out/collections.sarif -rules all -disable C9999""}}},""results"":[]}
+        ""sarifv2/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""invocations"":[{""commandLine"":""CodeScanner @collections.rsp"",""responseFiles"":[{""uri"":""collections.rsp""}],""startTime"":""2016-07-16T14:18:25.000Z"",""endTime"":""2016-07-16T14:19:01.000Z"",""machine"":""BLD01"",""account"":""buildAgent"",""processId"":1218,""executableLocation"":{""uri"":""/bin/tools/CodeScanner""},""workingDirectory"":{""uri"":""/home/buildAgent/src""},""environmentVariables"":{""PATH"":""/usr/local/bin:/bin:/bin/tools:/home/buildAgent/bin"",""HOME"":""/home/buildAgent"",""TZ"":""EST""}}],""files"":{""collections.rsp"":{""fileLocation"":{""uri"":""collections.rsp""},""contents"":{""text"":""-input src/collections/*.cpp -log out/collections.sarif -rules all -disable C9999""}}},""results"":[]}
       }
     }
   ]

@@ -20,16 +20,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 MergeOptions,
                 RebaseUriOptions,
                 AbsoluteUriOptions,
-                BaselineOptions>(args)
+                ResultMatchingOptions>(args)
               .MapResult(
-                (ValidateOptions validateOptions) => new ValidateCommand().Run(validateOptions),
+                (ValidateOptions validateOptions) => new ValidateCommand(new FileSystem()).Run(validateOptions),
                 (ConvertOptions convertOptions) => ConvertCommand.Run(convertOptions),
                 (RewriteOptions rewriteOptions) => RewriteCommand.Run(rewriteOptions),
                 (TransformOptions transformOptions) => TransformCommand.Run(transformOptions),
                 (MergeOptions mergeOptions) => MergeCommand.Run(mergeOptions),
                 (RebaseUriOptions rebaseOptions) => RebaseUriCommand.Run(rebaseOptions),
                 (AbsoluteUriOptions absoluteUriOptions) => AbsoluteUriCommand.Run(absoluteUriOptions),
-                (BaselineOptions baselineOptions) => BaselineCommand.Run(baselineOptions),
+                (ResultMatchingOptions baselineOptions) => ResultMatchingCommand.Run(baselineOptions),
                 errs => 1);
         }
     }

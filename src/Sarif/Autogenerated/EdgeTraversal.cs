@@ -10,10 +10,10 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Represents the traversal of a single edge in the course of a graph traversal.
+    /// Represents the traversal of a single edge during a graph traversal.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
     public partial class EdgeTraversal : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<EdgeTraversal> ValueComparer => EdgeTraversalEqualityComparer.Instance;

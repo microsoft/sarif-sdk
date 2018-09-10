@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A result produced by an analysis tool.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
     public partial class Result : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Result> ValueComparer => ResultEqualityComparer.Instance;
@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// The stable, unique identifier of the rule (if any) to which this notification is relevant. If 'ruleKey' is not specified, this member can be used to retrieve rule metadata from the rules dictionary, if it exists.
+        /// The stable, unique identifier of the rule (if any) to which this notification is relevant. This member can be used to retrieve rule metadata from the rules dictionary, if it exists.
         /// </summary>
         [DataMember(Name = "ruleId", IsRequired = false, EmitDefaultValue = false)]
         public string RuleId { get; set; }
@@ -115,6 +115,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "relatedLocations", IsRequired = false, EmitDefaultValue = false)]
         public IList<Location> RelatedLocations { get; set; }
+
+        /// <summary>
+        /// A set of flags indicating one or more suppression conditions.
+        /// </summary>
         [DataMember(Name = "suppressionStates", IsRequired = false, EmitDefaultValue = false)]
         public SuppressionStates SuppressionStates { get; set; }
 
@@ -137,7 +141,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<Uri> WorkItemUris { get; set; }
 
         /// <summary>
-        /// An array of analysisToolLogFileContents objects which specify the portions of an analysis tool's output that a converter transformed into the result object.
+        /// An array of physicalLocation objects which specify the portions of an analysis tool's output that a converter transformed into the result object.
         /// </summary>
         [DataMember(Name = "conversionProvenance", IsRequired = false, EmitDefaultValue = false)]
         public IList<PhysicalLocation> ConversionProvenance { get; set; }

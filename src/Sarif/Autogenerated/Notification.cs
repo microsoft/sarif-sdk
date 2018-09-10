@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Describes a condition relevant to the tool itself, as opposed to being relevant to a target being analyzed by the tool.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
     public partial class Notification : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Notification> ValueComparer => NotificationEqualityComparer.Instance;
@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Id { get; set; }
 
         /// <summary>
-        /// The stable, unique identifier of the rule (if any) to which this notification is relevant. If 'ruleKey' is not specified, this member can be used to retrieve rule metadata from the rules dictionary, if it exists.
+        /// The stable, unique identifier of the rule (if any) to which this notification is relevant. This member can be used to retrieve rule metadata from the rules dictionary, if it exists.
         /// </summary>
         [DataMember(Name = "ruleId", IsRequired = false, EmitDefaultValue = false)]
         public string RuleId { get; set; }

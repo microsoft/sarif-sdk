@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -17,6 +18,19 @@ namespace Microsoft.CodeAnalysis.Sarif
     public class FileSystem : IFileSystem
     {
         /// <summary>
+        /// Determines whether the given path refers to an existing directory on disk.
+        /// </summary>
+        /// <param name="path">The path to test.</param>
+        /// <returns>
+        /// true if path refers to an existing directory; false if the directory does not exist
+        /// or an error occurs when trying to determine if the specified directory exists.
+        /// </returns>
+        public bool DirectoryExists(string path)
+        {
+            return Directory.Exists(path);
+        }
+
+        /// <summary>
         /// Determines whether the specified file exists.
         /// </summary>
         /// <param name="path">
@@ -29,6 +43,42 @@ namespace Microsoft.CodeAnalysis.Sarif
         public bool FileExists(string path)
         {
             return File.Exists(path);
+        }
+
+        /// <summary>
+        /// Returns the names of subdirectories (including their paths) in the specified directory.
+        /// </summary>
+        /// <param name="path">
+        /// The relative or absolute path to the directory to search. This string is not case-sensitive.
+        /// </param>
+        /// <returns>
+        /// An array of the full names (including paths) of subdirectories in the specified path,
+        /// or an empty array if no directories are found.
+        /// </returns>
+        public IEnumerable<string> GetDirectoriesInDirectory(string path)
+        {
+            return Directory.GetDirectories(path);
+        }
+
+        /// <summary>
+        /// Returns the names of files (including their paths) that match the specified search pattern
+        /// in the specified directory..
+        /// </summary>
+        /// <param name="path">
+        /// The relative or absolute path to the directory to search. This string is not case-sensitive.
+        /// </param>
+        /// <param name="searchPattern">
+        /// The search string to match against the names of files in path. This parameter can contain
+        /// a combination of valid literal path and wildcard (* and ?) characters, but it doesn't
+        /// support regular expressions.
+        /// </param>
+        /// <returns>
+        /// An array of the full names (including paths) for the files in the specified directory
+        /// that match the specified search pattern, or an empty array if no files are found.
+        /// </returns>
+        public IEnumerable<string> GetFilesInDirectory(string path, string searchPattern)
+        {
+            return Directory.GetFiles(path, searchPattern);
         }
 
         /// <summary>

@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A change to a single file.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
     public partial class FileChange : ISarifNode
     {
         public static IEqualityComparer<FileChange> ValueComparer => FileChangeEqualityComparer.Instance;
@@ -34,11 +34,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// The location of the file to change.
         /// </summary>
-        [DataMember(Name = "fileLocation", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "fileLocation", IsRequired = true)]
         public FileLocation FileLocation { get; set; }
 
         /// <summary>
-        /// An array of replacement objects, each of which represents the replacement of a single range of bytes in a single file specified by 'fileLocation'.
+        /// An array of replacement objects, each of which represents the replacement of a single region in a single file specified by 'fileLocation'.
         /// </summary>
         [DataMember(Name = "replacements", IsRequired = true)]
         public IList<Replacement> Replacements { get; set; }

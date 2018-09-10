@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
@@ -34,19 +35,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 // Assume the input log is the "other" version
                 if (transformOptions.Version == 2)
                 {
-                    SarifLogVersionOne actualLog = MultitoolFileHelpers.ReadSarifFile<SarifLogVersionOne>(transformOptions.InputFilePath, SarifContractResolverVersionOne.Instance);
+                    SarifLogVersionOne actualLog = FileHelpers.ReadSarifFile<SarifLogVersionOne>(transformOptions.InputFilePath, SarifContractResolverVersionOne.Instance);
                     var visitor = new SarifVersionOneToCurrentVisitor();
                     visitor.VisitSarifLogVersionOne(actualLog);
 
-                    MultitoolFileHelpers.WriteSarifFile(visitor.SarifLog, fileName, formatting);
+                    FileHelpers.WriteSarifFile(visitor.SarifLog, fileName, formatting);
                 }
                 else
                 {
-                    SarifLog actualLog = MultitoolFileHelpers.ReadSarifFile<SarifLog>(transformOptions.InputFilePath);
+                    SarifLog actualLog = FileHelpers.ReadSarifFile<SarifLog>(transformOptions.InputFilePath);
                     var visitor = new SarifCurrentToVersionOneVisitor();
                     visitor.VisitSarifLog(actualLog);
 
-                    MultitoolFileHelpers.WriteSarifFile(visitor.SarifLogVersionOne, fileName, formatting);
+                    FileHelpers.WriteSarifFile(visitor.SarifLogVersionOne, fileName, formatting);
                 }
             }
             catch (Exception ex)

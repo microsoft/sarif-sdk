@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
     public partial class ThreadFlow : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ThreadFlow> ValueComparer => ThreadFlowEqualityComparer.Instance;
@@ -36,19 +36,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Id { get; set; }
 
         /// <summary>
-        /// A message relevant to the code flow.
+        /// A message relevant to the thread flow.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
         public Message Message { get; set; }
 
         /// <summary>
-        /// An array of 'threadFlowLocation' objects, each of which describes a single location visited by the tool in the course of producing the result.
+        /// A temporally ordered array of 'threadFlowLocation' objects, each of which describes a location visited by the tool while producing the result.
         /// </summary>
         [DataMember(Name = "locations", IsRequired = true)]
         public IList<ThreadFlowLocation> Locations { get; set; }
 
         /// <summary>
-        /// Key/value pairs that provide additional information about the code flow.
+        /// Key/value pairs that provide additional information about the thread flow.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }

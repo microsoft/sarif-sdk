@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Invocation for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
     internal sealed class InvocationEqualityComparer : IEqualityComparer<Invocation>
     {
         internal static readonly InvocationEqualityComparer Instance = new InvocationEqualityComparer();
@@ -26,27 +26,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (ReferenceEquals(left, null) || ReferenceEquals(right, null))
             {
                 return false;
-            }
-
-            if (!object.ReferenceEquals(left.Attachments, right.Attachments))
-            {
-                if (left.Attachments == null || right.Attachments == null)
-                {
-                    return false;
-                }
-
-                if (left.Attachments.Count != right.Attachments.Count)
-                {
-                    return false;
-                }
-
-                for (int index_0 = 0; index_0 < left.Attachments.Count; ++index_0)
-                {
-                    if (!Attachment.ValueComparer.Equals(left.Attachments[index_0], right.Attachments[index_0]))
-                    {
-                        return false;
-                    }
-                }
             }
 
             if (left.CommandLine != right.CommandLine)
@@ -66,9 +45,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                for (int index_1 = 0; index_1 < left.Arguments.Count; ++index_1)
+                for (int index_0 = 0; index_0 < left.Arguments.Count; ++index_0)
                 {
-                    if (left.Arguments[index_1] != right.Arguments[index_1])
+                    if (left.Arguments[index_0] != right.Arguments[index_0])
                     {
                         return false;
                     }
@@ -87,9 +66,30 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                for (int index_2 = 0; index_2 < left.ResponseFiles.Count; ++index_2)
+                for (int index_1 = 0; index_1 < left.ResponseFiles.Count; ++index_1)
                 {
-                    if (!FileLocation.ValueComparer.Equals(left.ResponseFiles[index_2], right.ResponseFiles[index_2]))
+                    if (!FileLocation.ValueComparer.Equals(left.ResponseFiles[index_1], right.ResponseFiles[index_1]))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            if (!object.ReferenceEquals(left.Attachments, right.Attachments))
+            {
+                if (left.Attachments == null || right.Attachments == null)
+                {
+                    return false;
+                }
+
+                if (left.Attachments.Count != right.Attachments.Count)
+                {
+                    return false;
+                }
+
+                for (int index_2 = 0; index_2 < left.Attachments.Count; ++index_2)
+                {
+                    if (!Attachment.ValueComparer.Equals(left.Attachments[index_2], right.Attachments[index_2]))
                     {
                         return false;
                     }
@@ -198,7 +198,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.WorkingDirectory != right.WorkingDirectory)
+            if (!FileLocation.ValueComparer.Equals(left.WorkingDirectory, right.WorkingDirectory))
             {
                 return false;
             }
@@ -280,18 +280,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (obj.Attachments != null)
-                {
-                    foreach (var value_4 in obj.Attachments)
-                    {
-                        result = result * 31;
-                        if (value_4 != null)
-                        {
-                            result = (result * 31) + value_4.ValueGetHashCode();
-                        }
-                    }
-                }
-
                 if (obj.CommandLine != null)
                 {
                     result = (result * 31) + obj.CommandLine.GetHashCode();
@@ -299,19 +287,31 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (obj.Arguments != null)
                 {
-                    foreach (var value_5 in obj.Arguments)
+                    foreach (var value_4 in obj.Arguments)
                     {
                         result = result * 31;
-                        if (value_5 != null)
+                        if (value_4 != null)
                         {
-                            result = (result * 31) + value_5.GetHashCode();
+                            result = (result * 31) + value_4.GetHashCode();
                         }
                     }
                 }
 
                 if (obj.ResponseFiles != null)
                 {
-                    foreach (var value_6 in obj.ResponseFiles)
+                    foreach (var value_5 in obj.ResponseFiles)
+                    {
+                        result = result * 31;
+                        if (value_5 != null)
+                        {
+                            result = (result * 31) + value_5.ValueGetHashCode();
+                        }
+                    }
+                }
+
+                if (obj.Attachments != null)
+                {
+                    foreach (var value_6 in obj.Attachments)
                     {
                         result = result * 31;
                         if (value_6 != null)
@@ -383,7 +383,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (obj.WorkingDirectory != null)
                 {
-                    result = (result * 31) + obj.WorkingDirectory.GetHashCode();
+                    result = (result * 31) + obj.WorkingDirectory.ValueGetHashCode();
                 }
 
                 if (obj.EnvironmentVariables != null)

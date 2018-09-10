@@ -29,6 +29,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public static bool RaiseUnhandledExceptionInDriverCode { get; set; }
 
         public virtual FileFormat ConfigurationFormat { get { return FileFormat.Json; } }
+
+        protected IFileSystem FileSystem { get; }
+
+        protected AnalyzeCommandBase(IFileSystem fileSystem = null)
+        {
+            FileSystem = fileSystem ?? new FileSystem();
+        }
         
         public string DefaultConfigurationPath
         {
@@ -225,7 +232,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return logger;
         }
 
-        private static HashSet<string> CreateTargetsSet(TOptions analyzeOptions)
+        private HashSet<string> CreateTargetsSet(TOptions analyzeOptions)
         {
             HashSet<string> targets = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             foreach (string specifier in analyzeOptions.TargetFileSpecifiers)
@@ -241,7 +248,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
                 }
                 // Currently, we do not filter on any extensions.
-                var fileSpecifier = new FileSpecifier(normalizedSpecifier, recurse: analyzeOptions.Recurse);
+                var fileSpecifier = new FileSpecifier(normalizedSpecifier, recurse: analyzeOptions.Recurse, fileSystem: FileSystem);
                 foreach (string file in fileSpecifier.Files) { targets.Add(file); }
             }
             Debug.Assert(targets.Count > 0);

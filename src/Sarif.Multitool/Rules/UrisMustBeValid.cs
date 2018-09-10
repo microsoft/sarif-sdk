@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class UrisMustBeValid : SarifValidationSkimmerBase
     {
-        private Message _fullDescription = new Message
+        private readonly Message _fullDescription = new Message
         {
             Text = RuleResources.SARIF1003_UrisMustBeValid
         };
@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
-        protected override void Analyze(Rule rule, string rulePointer)
+        protected override void Analyze(Rule rule, string ruleKey, string rulePointer)
         {
             AnalyzeUri(rule.HelpUri, rulePointer.AtProperty(SarifPropertyName.HelpUri));
         }

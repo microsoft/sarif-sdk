@@ -15,8 +15,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         {
             string expected =
 @"{
-  ""$schema"": """ + SarifSchemaUri + @""",
-  ""version"": """ + SarifFormatVersion + @""",
+  ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
+  ""version"": """ + SarifUtilities.SarifFormatVersion + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -53,8 +53,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         {
             string expected =
 @"{
-  ""$schema"": """ + SarifSchemaUri + @""",
-  ""version"": """ + SarifFormatVersion + @""",
+  ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
+  ""version"": """ + SarifUtilities.SarifFormatVersion + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -90,8 +90,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         {
             string expected =
 @"{
-  ""$schema"": """ + SarifSchemaUri + @""",
-  ""version"": """ + SarifFormatVersion + @""",
+  ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
+  ""version"": """ + SarifUtilities.SarifFormatVersion + @""",
   ""runs"": [
     {
       ""tool"": {

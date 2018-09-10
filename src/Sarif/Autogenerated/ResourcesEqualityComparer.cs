@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Resources for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.56.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
     internal sealed class ResourcesEqualityComparer : IEqualityComparer<Resources>
     {
         internal static readonly ResourcesEqualityComparer Instance = new ResourcesEqualityComparer();
@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         return false;
                     }
 
-                    if (!object.Equals(value_2.Value, value_3))
+                    if (!Rule.ValueComparer.Equals(value_2.Value, value_3))
                     {
                         return false;
                     }
