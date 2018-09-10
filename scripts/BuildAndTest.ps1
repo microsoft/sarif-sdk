@@ -161,6 +161,7 @@ function New-SigningDirectory {
 }
 
 # Create registry settings to open SARIF files in Visual Studio by default.
+# If the SARIF Viewer extension is not installed, the file will be opened by the JSON editor.
 function Set-SarifFileAssociationRegistrySettings {
     # You need to be Admin to modify the registry, so create the settings by
     # running a separate script, elevated ("-Verb RunAs").
