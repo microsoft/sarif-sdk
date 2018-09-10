@@ -87,6 +87,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
 
             string actualLogContents = File.ReadAllText(actualFilePath);
+            bool resultsWereVerified = false;
 
             string expectedFilePath = MakeExpectedFilePath(_testDirectory, testFileName);
             if (File.Exists(expectedFilePath))
@@ -99,6 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // Until SarifLogger has a "deterministic" option (see http://github.com/Microsoft/sarif-sdk/issues/500),
                 // we perform a selective compare of just the elements we care about.
                 SelectiveCompare(actualLogContents, expectedLogContents);
+                resultsWereVerified = true;
             }
 
             if (inputLog.Runs[0].TryGetProperty(ExpectedResultsPropertyName, out ExpectedValidationResults expectedResults))
@@ -106,7 +108,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 // The custom property exists. Use the new, preferred verification method.
                 SarifLog outputLog = JsonConvert.DeserializeObject<SarifLog>(actualLogContents, _jsonSerializerSettings);
                 Verify(outputLog.Runs[0], expectedResults);
+                resultsWereVerified = true;
             }
+
+            // Temporary: make sure at least one of the verification methods executed.
+            resultsWereVerified.Should().BeTrue();
         }
 
         private void Verify(Run run, ExpectedValidationResults expectedResults)
