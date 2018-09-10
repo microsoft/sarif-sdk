@@ -2,8 +2,8 @@
   "name": "sarif.sdk",
   "version": "2.0.0",
   "description": "TypeScript helpers for producing and handling SARIF (Static Analysis Results Interchange Format) formatted log files.",
-  "main": "../../bld/bin/js-dist/index.js",
-  "types": "../../bld/bin/js-dist/index.d.ts",
+  "main": "../../../bld/bin/js-dist/index.js",
+  "types": "../../../bld/bin/js-dist/index.d.ts",
   "scripts": {
     "build": ".\\build.sh",
     "test": "mocha -r ts-node/register ./test/*.ts"
@@ -23,15 +23,14 @@
     "url": "https://github.com/Microsoft/sarif-sdk/issues"
   },
   "homepage": "https://github.com/Microsoft/sarif-sdk#readme",
-  "dependencies": {
-    "@types/chai": "^4.1.3",
-    "@types/mocha": "^5.2.0",
-    "json-schema-to-typescript": "^5.4.0",
-    "typescript": "^2.8.3"
-  },
+  "dependencies": {},
   "devDependencies": {
     "chai": "^4.1.2",
     "mocha": "^5.1.1",
-    "ts-node": "^6.0.0"
+    "ts-node": "^6.0.0",
+    "json-schema-to-typescript": "^5.4.0",
+    "@types/chai": "^4.1.3",
+    "@types/mocha": "^5.2.0",
+    "typescript": "^2.8.3"
   }
 }
