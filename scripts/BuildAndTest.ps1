@@ -30,8 +30,8 @@
     Do not run dotnet publish, which creates a layout directory.
 .PARAMETER NoSigningDirectory
     Do not create a directory containing the binaries that need to be signed.
-.PARAMETER Install
-    Install the VSIX.
+.PARAMETER Associate
+    Associate SARIF files with Visual Studio.
 #>
 
 [CmdletBinding()]
@@ -76,7 +76,7 @@ param(
     $NoSigningDirectory,
 
     [switch]
-    $Install
+    $Associate
 )
 
 Set-StrictMode -Version Latest
@@ -160,16 +160,6 @@ function New-SigningDirectory {
     }
 }
 
-function  Install-SarifExtension {
-    $vsixInstallerPaths = Get-ChildItem $BinRoot "*.vsix" -Recurse
-    if (-not $vsixInstallerPaths) {
-        Exit-WithFailureMessage $ScriptName "Cannot install VSIX: .vsix file was not found."
-    }
-
-    Write-Information "Launching VSIX installer..."
-    & $vsixInstallerPaths[0].FullName
-}
-
 # Create registry settings to open SARIF files in Visual Studio by default.
 function Set-SarifFileAssociationRegistrySettings {
     # You need to be Admin to modify the registry, so create the settings by
@@ -221,8 +211,7 @@ if (-not $NoPackage) {
     New-NuGetPackages $Configuration $Projects
 }
 
-if ($Install) {
-    Install-SarifExtension
+if ($Associate) {
     Set-SarifFileAssociationRegistrySettings
 }
 
