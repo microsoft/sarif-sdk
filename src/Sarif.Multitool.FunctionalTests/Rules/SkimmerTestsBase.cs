@@ -3,6 +3,7 @@
 
 using System;
 using System.IO;
+using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Writers;
@@ -15,6 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     {
         private readonly string _testDirectory;
         private readonly JsonSerializerSettings _jsonSerializerSettings;
+        private const string ExpectedResultsPropertyName = "expectedResults";
 
         public SkimmerTestsBase()
         {
@@ -27,10 +29,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             };
         }
 
+        // For the moment, we support two different test designs.
+        //
+        // The new, preferred design (all new tests should be written this way):
+        //
+        // The test file itself contains a custom property that summarizes the expected
+        // results of running the rule on the test file.
+        //
+        // The old, deprecated design:
+        //
+        // To each test file there exists a corresponding file whose name ends in
+        // "_Expected.sarif" that contains the expected results of running the rule
+        // on the test file. We perform a "selective compare" of the expected and
+        // actual validation log file contents.
+        //
+        // As we migrate from the old to the new design, if the custom property exists,
+        // we use the new design, if the "expected" file exists, we use the old design,
+        // and if both the custom property and the "expected" file exist, we execute
+        // both the new and the old style tests.
         protected void Verify(string testFileName)
         {
             string targetPath = Path.Combine(_testDirectory, testFileName);
-            string expectedFilePath = MakeExpectedFilePath(_testDirectory, testFileName);
             string actualFilePath = MakeActualFilePath(_testDirectory, testFileName);
 
             string inputLogContents = File.ReadAllText(targetPath);
@@ -68,13 +87,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
 
             string actualLogContents = File.ReadAllText(actualFilePath);
-            string expectedLogContents = File.ReadAllText(expectedFilePath);
 
-            // We can't just compare the text of the log files because properties
-            // like start time, and absolute paths, will differ from run to run.
-            // Until SarifLogger has a "deterministic" option (see http://github.com/Microsoft/sarif-sdk/issues/500),
-            // we perform a selective compare of just the elements we care about.
-            SelectiveCompare(actualLogContents, expectedLogContents);
+            string expectedFilePath = MakeExpectedFilePath(_testDirectory, testFileName);
+            if (File.Exists(expectedFilePath))
+            {
+                // The "expected" file exists. Use the old, deprecated verification method.
+                string expectedLogContents = File.ReadAllText(expectedFilePath);
+
+                // We can't just compare the text of the log files because properties
+                // like start time, and absolute paths, will differ from run to run.
+                // Until SarifLogger has a "deterministic" option (see http://github.com/Microsoft/sarif-sdk/issues/500),
+                // we perform a selective compare of just the elements we care about.
+                SelectiveCompare(actualLogContents, expectedLogContents);
+            }
+
+            if (inputLog.Runs[0].TryGetProperty(ExpectedResultsPropertyName, out ExpectedValidationResults expectedResults))
+            {
+                // The custom property exists. Use the new, preferred verification method.
+                SarifLog outputLog = JsonConvert.DeserializeObject<SarifLog>(actualLogContents, _jsonSerializerSettings);
+                Verify(outputLog.Runs[0], expectedResults);
+            }
+        }
+
+        private void Verify(Run run, ExpectedValidationResults expectedResults)
+        {
+            run.Results.Count.Should().Be(expectedResults.ResultCount);
         }
     }
 }
