@@ -13,9 +13,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     /// a SARIF test file.
     /// </summary>
     /// <remarks>
-    /// Each SARIF test file will include a property named expectedValidationResults
-    /// in the run's property bag. The test framework will compare the actual results
-    /// with this property.
+    /// Each SARIF test file will include a property named expectedResults in the run's
+    /// property bag. The test framework will compare the actual results with this property.
     /// </remarks>
     public class ExpectedValidationResults
     {
