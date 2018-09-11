@@ -22,6 +22,8 @@
       "files": {
         "file:///c:/src/file.c": {
           "mimeType": "text/x-c"
+        },
+        "#SRCROOT#src/file.c": {
         }
       },
       "originalUriBaseIds": {
