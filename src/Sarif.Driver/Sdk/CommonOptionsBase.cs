@@ -13,14 +13,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "pretty-print",
             Default = false,
             HelpText = "Produce pretty-printed JSON output rather than compact form.")]
-        public bool PrettyPrint { get; internal set; }
+        public bool PrettyPrint { get; set; }
 
         [Option(
             'f',
             "force",
             Default = false,
             HelpText = "Force overwrite of output file if it exists.")]
-        public bool Force { get; internal set; }
+        public bool Force { get; set; }
 
         [Option(
             "insert",
@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "Optionally present data, expressed as a semicolon-delimited list, that should be inserted into the log file. " +
             "Valid values include Hashes, TextFiles, BinaryFiles, EnvironmentVariables, CodeSnippets, SurroundingCodeSnippets " +
             "and NondeterministicProperties.")]
-        public IEnumerable<OptionallyEmittedData> DataToInsert { get; internal set; }
+        public IEnumerable<OptionallyEmittedData> DataToInsert { get; set; }
 
         [Option(
             'u',
@@ -37,6 +37,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             Separator = ';',
             HelpText =
             @"A key + value pair that defines a uriBaseId and its corresponding local file path. E.g., SRC=c:\src;TEST=c:\test")]
-        public IEnumerable<string> UriBaseIds { get; internal set; }
+        public IEnumerable<string> UriBaseIds { get; set; }
+
+        [Option(
+            'v',
+            "sarif-version",
+            HelpText =
+            @"The SARIF version of the output log file. Valid values are OneZeroZero and TwoZeroZero",
+            Default = SarifVersion.TwoZeroZero)]
+        public SarifVersion SarifVersion { get; set; }
     }
 }

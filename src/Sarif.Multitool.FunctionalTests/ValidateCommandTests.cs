@@ -31,6 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             var validateOptions = new ValidateOptions
             {
+                SarifVersion = SarifVersion.TwoZeroZero,
                 TargetFileSpecifiers = new[] { testFilePath },
                 OutputFilePath = actualFilePath,
                 SchemaFilePath = JsonSchemaFile,

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Newtonsoft.Json;
 using Xunit;
 
@@ -505,6 +506,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     ConfigurationFilePath = configFileName ?? TestAnalyzeCommand.DefaultPolicyName,
                     Recurse = true,
                     OutputFilePath = path,
+                    SarifVersion = SarifVersion.TwoZeroZero
                 };
 
                 var command = new TestAnalyzeCommand();
@@ -557,6 +559,52 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             toolNotificationCount.Should().Be(1);
             configurationNotificationCount.Should().Be(0);
+        }
+
+
+        [Fact]
+        public void AnalyzeCommand_PersistsSarifOneZeroZero()
+        {
+            string fileName = GetThisTestAssemblyFilePath();
+            string path = Path.GetTempFileName();
+
+            try
+            {
+                var options = new TestAnalyzeOptions
+                {
+                    TargetFileSpecifiers = new string[] { fileName },
+                    Verbose = true,
+                    Statistics = true,
+                    Quiet = true,
+                    ComputeFileHashes = true,
+                    ConfigurationFilePath = TestAnalyzeCommand.DefaultPolicyName,
+                    Recurse = true,
+                    OutputFilePath = path,
+                    PrettyPrint = true,
+                    SarifVersion = SarifVersion.OneZeroZero
+                };
+
+                var command = new TestAnalyzeCommand();
+                command.DefaultPlugInAssemblies = new Assembly[] { this.GetType().Assembly };
+                int returnValue = command.Run(options);
+
+                returnValue.Should().Be(0);
+
+                command.RuntimeErrors.Should().Be(RuntimeConditions.None);
+
+                JsonSerializerSettings settings = new JsonSerializerSettings()
+                {
+                    ContractResolver = SarifContractResolverVersionOne.Instance
+                };
+
+                SarifLogVersionOne log = JsonConvert.DeserializeObject<SarifLogVersionOne>(File.ReadAllText(path), settings);
+                log.Should().NotBeNull();
+                log.Runs.Count.Should().Be(1);
+            }
+            finally
+            {
+                File.Delete(path);
+            }
         }
 
         [Fact]
