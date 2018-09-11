@@ -586,9 +586,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 var command = new TestAnalyzeCommand();
                 command.DefaultPlugInAssemblies = new Assembly[] { this.GetType().Assembly };
-                int result = command.Run(options);
+                int returnValue = command.Run(options);
 
-                result.Should().Be(0);
+                returnValue.Should().Be(0);
 
                 command.RuntimeErrors.Should().Be(RuntimeConditions.None);
 
@@ -598,9 +598,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 };
 
                 SarifLogVersionOne log = JsonConvert.DeserializeObject<SarifLogVersionOne>(File.ReadAllText(path), settings);
-                Assert.NotNull(log);
-                Assert.Equal<int>(1, log.Runs.Count);
-
+                log.Should().NotBeNull();
+                log.Runs.Count.Should().Be(1);
             }
             finally
             {

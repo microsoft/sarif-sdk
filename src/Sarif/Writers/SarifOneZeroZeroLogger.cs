@@ -31,12 +31,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             IEnumerable<string> invocationPropertiesToLog = null,
             string defaultFileEncoding = null)
             : base(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
-                  loggingOptions,
-                  dataToInsert,
-                  tool,
-                  run,
-                  invocationTokensToRedact,
-                  invocationPropertiesToLog)
+                  loggingOptions: loggingOptions,
+                  dataToInsert: dataToInsert,
+                  tool: tool,
+                  run: run,
+                  analysisTargets: analysisTargets,
+                  invocationTokensToRedact: invocationTokensToRedact,
+                  invocationPropertiesToLog: invocationPropertiesToLog)
         {
             _outputFilePath = outputFilePath;
         }
