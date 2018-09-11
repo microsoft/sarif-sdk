@@ -30,25 +30,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 contract.Converter = SarifVersionConverter.Instance;
 
             else if (objectType == typeof(AnnotatedCodeLocationKindVersionOne))
-                contract.Converter = EnumConverter.Instance;
+                contract.Converter = EnumConverterVersionOne.Instance;
 
             else if (objectType == typeof(AnnotatedCodeLocationImportanceVersionOne))
-                contract.Converter = EnumConverter.Instance;
+                contract.Converter = EnumConverterVersionOne.Instance;
 
             else if (objectType == typeof(ResultLevelVersionOne))
-                contract.Converter = EnumConverter.Instance;
+                contract.Converter = EnumConverterVersionOne.Instance;
 
             else if (objectType == typeof(RuleConfigurationVersionOne))
-                contract.Converter = EnumConverter.Instance;
+                contract.Converter = EnumConverterVersionOne.Instance;
 
             else if (objectType == typeof(NotificationLevelVersionOne))
-                contract.Converter = EnumConverter.Instance;
+                contract.Converter = EnumConverterVersionOne.Instance;
 
             else if (objectType == typeof(AlgorithmKindVersionOne))
-                contract.Converter = EnumConverter.Instance;
+                contract.Converter = EnumConverterVersionOne.Instance;
 
             else if (objectType == typeof(BaselineStateVersionOne))
-                contract.Converter = EnumConverter.Instance;
+                contract.Converter = EnumConverterVersionOne.Instance;
 
             else if (objectType == typeof(SuppressionStatesVersionOne))
                 contract.Converter = FlagsEnumConverter.Instance;
