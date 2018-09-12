@@ -75,10 +75,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IDictionary<string, LogicalLocation> LogicalLocations { get; set; }
 
         /// <summary>
-        /// An array of one or more unique 'graph' objects.
+        /// A dictionary, each of whose keys is the id of a graph and each of whose values is a 'graph' object with that id.
         /// </summary>
         [DataMember(Name = "graphs", IsRequired = false, EmitDefaultValue = false)]
-        public IList<Graph> Graphs { get; set; }
+        public IDictionary<string, Graph> Graphs { get; set; }
 
         /// <summary>
         /// The set of results contained in an SARIF log. The results array can be omitted when a run is solely exporting rules metadata. It must be present (but may be empty) if a log file represents an actual scan.
@@ -240,7 +240,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, Uri> originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, Resources resources, string instanceGuid, string correlationGuid, string logicalId, Message description, string automationLogicalId, string baselineInstanceGuid, string architecture, string richMessageMimeType, string redactionToken, string defaultFileEncoding, ColumnKind columnKind, IDictionary<string, SerializedPropertyInfo> properties)
+        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, Uri> originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, Resources resources, string instanceGuid, string correlationGuid, string logicalId, Message description, string automationLogicalId, string baselineInstanceGuid, string architecture, string richMessageMimeType, string redactionToken, string defaultFileEncoding, ColumnKind columnKind, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(tool, invocations, conversion, versionControlProvenance, originalUriBaseIds, files, logicalLocations, graphs, results, resources, instanceGuid, correlationGuid, logicalId, description, automationLogicalId, baselineInstanceGuid, architecture, richMessageMimeType, redactionToken, defaultFileEncoding, columnKind, properties);
         }
@@ -282,7 +282,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, Uri> originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, Resources resources, string instanceGuid, string correlationGuid, string logicalId, Message description, string automationLogicalId, string baselineInstanceGuid, string architecture, string richMessageMimeType, string redactionToken, string defaultFileEncoding, ColumnKind columnKind, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, Uri> originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, Resources resources, string instanceGuid, string correlationGuid, string logicalId, Message description, string automationLogicalId, string baselineInstanceGuid, string architecture, string richMessageMimeType, string redactionToken, string defaultFileEncoding, ColumnKind columnKind, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (tool != null)
             {
@@ -349,38 +349,29 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (graphs != null)
             {
-                var destination_2 = new List<Graph>();
+                Graphs = new Dictionary<string, Graph>();
                 foreach (var value_4 in graphs)
                 {
-                    if (value_4 == null)
+                    Graphs.Add(value_4.Key, new Graph(value_4.Value));
+                }
+            }
+
+            if (results != null)
+            {
+                var destination_2 = new List<Result>();
+                foreach (var value_5 in results)
+                {
+                    if (value_5 == null)
                     {
                         destination_2.Add(null);
                     }
                     else
                     {
-                        destination_2.Add(new Graph(value_4));
+                        destination_2.Add(new Result(value_5));
                     }
                 }
 
-                Graphs = destination_2;
-            }
-
-            if (results != null)
-            {
-                var destination_3 = new List<Result>();
-                foreach (var value_5 in results)
-                {
-                    if (value_5 == null)
-                    {
-                        destination_3.Add(null);
-                    }
-                    else
-                    {
-                        destination_3.Add(new Result(value_5));
-                    }
-                }
-
-                Results = destination_3;
+                Results = destination_2;
             }
 
             if (resources != null)

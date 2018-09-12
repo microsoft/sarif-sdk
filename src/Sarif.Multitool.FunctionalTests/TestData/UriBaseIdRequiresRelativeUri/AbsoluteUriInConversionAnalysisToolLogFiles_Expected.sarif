@@ -21,12 +21,12 @@
           "ruleId": "SARIF1014",
           "level": "error",
           "message": {
+            "messageId": "Default",
             "arguments": [
               "/runs/0/conversion/analysisToolLogFiles/0/uri",
               "file:///c:/src/file.c"
             ]
           },
-          "ruleMessageId": "Default",
           "locations": [
             {
               "physicalLocation": {
@@ -69,8 +69,8 @@
       },
       "invocations": [
         {
-          "startTime": "2018-08-15T20:40:07.571Z",
-          "endTime": "2018-08-15T20:40:08.500Z",
+          "startTime": "2018-09-12T21:45:36.684Z",
+          "endTime": "2018-09-12T21:45:37.568Z",
           "toolNotifications": [
             {
               "id": "MSG001.AnalyzingTarget",
@@ -83,7 +83,7 @@
                 "text": "Analyzing 'AbsoluteUriInConversionAnalysisToolLogFiles.sarif'..."
               },
               "level": "note",
-              "time": "2018-08-15T20:40:07.992Z"
+              "time": "2018-09-12T21:45:37.052Z"
             }
           ]
         }

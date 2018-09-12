@@ -209,12 +209,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             run.Results = newRunResults;
             
             // Merge run File data, resources, etc...
-            Dictionary<string, FileData> fileData = new Dictionary<string, FileData>();
-            Dictionary<string, Rule> ruleData = new Dictionary<string, Rule>();
-            Dictionary<string, string> messageData = new Dictionary<string, string>();
-            List<Graph> graphs = new List<Graph>();
-            Dictionary<string, LogicalLocation> logicalLocations = new Dictionary<string, LogicalLocation>();
-            List<Invocation> invocations = new List<Invocation>();
+            var fileData = new Dictionary<string, FileData>();
+            var ruleData = new Dictionary<string, Rule>();
+            var messageData = new Dictionary<string, string>();
+            var graphs = new Dictionary<string, Graph>();
+            var logicalLocations = new Dictionary<string, LogicalLocation>();
+            var invocations = new List<Invocation>();
 
             foreach (Run currentRun in currentRuns)
             {
@@ -245,7 +245,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 }
                 if (currentRun.Graphs != null)
                 {
-                    graphs.AddRange(currentRun.Graphs);
+                    MergeDictionaryInto(graphs, currentRun.Graphs, GraphEqualityComparer.Instance);
                 }
                 if (currentRun.Invocations != null)
                 {

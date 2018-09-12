@@ -7,13 +7,6 @@
         "name": "CodeScanner",
         "downloadUri": "tools/codescanner/download.html"
       },
-      "invocations": [
-        {
-          "executableLocation": {
-            "uri": "tools/CodeScanner.exe"
-          }
-        }
-      ],
       "results": [
         {
           "ruleId": "TST0001",

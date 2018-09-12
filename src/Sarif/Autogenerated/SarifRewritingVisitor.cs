@@ -579,14 +579,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (node.Graphs != null)
-                {
-                    for (int index_0 = 0; index_0 < node.Graphs.Count; ++index_0)
-                    {
-                        node.Graphs[index_0] = VisitNullChecked(node.Graphs[index_0]);
-                    }
-                }
-
                 if (node.GraphTraversals != null)
                 {
                     for (int index_0 = 0; index_0 < node.GraphTraversals.Count; ++index_0)
@@ -699,14 +691,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                         {
                             node.LogicalLocations[key] = VisitNullChecked(value);
                         }
-                    }
-                }
-
-                if (node.Graphs != null)
-                {
-                    for (int index_0 = 0; index_0 < node.Graphs.Count; ++index_0)
-                    {
-                        node.Graphs[index_0] = VisitNullChecked(node.Graphs[index_0]);
                     }
                 }
 

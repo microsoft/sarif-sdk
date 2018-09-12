@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// A stable, opaque identifier for the rule.
         /// </summary>
-        [DataMember(Name = "id", IsRequired = true)]
+        [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
         public string Id { get; set; }
 
         /// <summary>
