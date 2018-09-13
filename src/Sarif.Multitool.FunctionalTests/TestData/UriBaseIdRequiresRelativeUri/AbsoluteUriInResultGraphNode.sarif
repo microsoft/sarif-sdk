@@ -10,8 +10,8 @@
         {
           "ruleId": "TST0001",
           "level": "error",
-          "graphs": [
-            {
+          "graphs": {
+            "g1": {
               "id": "g1",
               "nodes": [
                 {
@@ -34,7 +34,7 @@
                 }
               ]
             }
-          ]
+          }
         }
       ]
     }

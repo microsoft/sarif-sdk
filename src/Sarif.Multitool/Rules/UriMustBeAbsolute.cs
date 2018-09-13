@@ -34,13 +34,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             AnalyzeUri(log.SchemaUri, logPointer.AtProperty(SarifPropertyName.Schema));
         }
 
-        protected override void Analyze(Invocation invocation, string invocationPointer)
-        {
-            AnalyzeUri(
-                invocation.ExecutableLocation?.Uri,
-                invocationPointer.AtProperty(SarifPropertyName.ExecutableLocation).AtProperty(SarifPropertyName.Uri));
-        }
-
         protected override void Analyze(Result result, string resultPointer)
         {
             if (result.WorkItemUris != null)

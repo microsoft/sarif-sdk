@@ -1267,6 +1267,12 @@
           "type": "string"
         },
 
+        "occurrenceCount": {
+          "description": "A positive integer specifying the number of times a result with this result object's correlationGuid has been observed",
+          "type": "integer",
+          "minimum": 1
+        },
+
         "partialFingerprints": {
           "description": "A set of strings that contribute to the stable, unique identity of the result.",
           "type": "object",
@@ -1304,11 +1310,9 @@
         },
 
         "graphs": {
-          "description": "An array of one or more unique 'graph' objects.",
-          "type": "array",
-          "minItems": 1,
-          "uniqueItems": true,
-          "items": {
+          "description": "A dictionary, each of whose keys is the id of a graph and each of whose values is a 'graph' object with that id.",
+          "type": "object",
+          "additionalProperties": {
             "$ref": "#/definitions/graph"
           }
         },
@@ -1488,9 +1492,7 @@
             }
           }
         }
-      },
-
-      "required": [ "id" ]
+      }
     },
 
     "ruleConfiguration": {
@@ -1591,11 +1593,9 @@
         },
 
         "graphs": {
-          "description": "An array of one or more unique 'graph' objects.",
-          "type": "array",
-          "minItems": 1,
-          "uniqueItems": true,
-          "items": {
+          "description": "A dictionary, each of whose keys is the id of a graph and each of whose values is a 'graph' object with that id.",
+          "type": "object",
+          "additionalProperties": {
             "$ref": "#/definitions/graph"
           }
         },

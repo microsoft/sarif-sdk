@@ -247,6 +247,17 @@
       }
     }
   ],
+  "Result.Graphs": [
+    {
+      "kind": "DictionaryHint",
+      "arguments": {
+        "valueTypeName": "Graph",
+        "comparisonKind": "EqualityComparerEquals",
+        "hashKind": "ObjectModelType",
+        "initializationKind": "Clone"
+      }
+    }
+  ],
   "Result.Level": [
     {
       "kind": "EnumHint",
@@ -371,6 +382,17 @@
   "Run.Files": [
     {
       "kind": "DictionaryHint"
+    }
+  ],
+  "Run.Graphs": [
+    {
+      "kind": "DictionaryHint",
+      "arguments": {
+        "valueTypeName": "Graph",
+        "comparisonKind": "EqualityComparerEquals",
+        "hashKind": "ObjectModelType",
+        "initializationKind": "Clone"
+      }
     }
   ],
   "Run.LogicalLocations": [
