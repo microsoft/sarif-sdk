@@ -266,7 +266,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Properties = v2Invocation.Properties,
                     ResponseFiles = CreateResponseFilesDictionary(v2Invocation.ResponseFiles),
                     StartTime = v2Invocation.StartTime,
-                    WorkingDirectory = v2Invocation.WorkingDirectory
+                    WorkingDirectory = v2Invocation.WorkingDirectory?.Uri?.OriginalString
                 };
 
                 if (v2Invocation.ConfigurationNotifications != null)

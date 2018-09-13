@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="$(SolutionDir)\Sarif\Schemata\Sarif.schema.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="$(SolutionDir)\Sarif\Schemata\sarif-schema.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="$(SolutionDir)\Sarif.FunctionalTests\v1\**\*.sarif" CopyToOutputDirectory="PreserveNewest" LinkBase="v1" />
     <None Include="$(SolutionDir)\Sarif.FunctionalTests\v2\**\*.sarif" CopyToOutputDirectory="PreserveNewest" LinkBase="v2" />
   </ItemGroup>

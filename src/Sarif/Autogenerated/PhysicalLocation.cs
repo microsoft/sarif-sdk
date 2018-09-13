@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public FileLocation FileLocation { get; set; }
 
         /// <summary>
-        /// The region within the file where the result was detected.
+        /// Specifies a portion of the file.
         /// </summary>
         [DataMember(Name = "region", IsRequired = false, EmitDefaultValue = false)]
         public Region Region { get; set; }

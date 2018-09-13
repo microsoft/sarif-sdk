@@ -24,6 +24,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         private const string V1_0_0_BETA_5 = "1.0.0-beta.5";
         private const string V2_0_0 = "2.0.0";
 
+        public const SarifVersion CurrentVersion = SarifVersion.TwoZeroZero;
+
+        public static readonly string SarifSchemaUri = ConvertToSchemaUri(CurrentVersion).OriginalString;
+        public static readonly string SarifFormatVersion = ConvertToText(CurrentVersion);
+
         /// <summary>
         /// Returns an ISO 8601 compatible universal date time format string with
         /// seconds precision, used to produce times such as "2016-03-02T01:44:50Z"

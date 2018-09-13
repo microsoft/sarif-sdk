@@ -293,7 +293,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Properties = v1Invocation.Properties,
                     ResponseFiles = CreateResponseFilesList(v1Invocation.ResponseFiles),
                     StartTime = v1Invocation.StartTime,
-                    WorkingDirectory = v1Invocation.WorkingDirectory
                 };
 
                 if (!string.IsNullOrWhiteSpace(v1Invocation.FileName))
@@ -301,6 +300,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     invocation.ExecutableLocation = new FileLocation
                     {
                         Uri = new Uri(v1Invocation.FileName, UriKind.RelativeOrAbsolute)
+                    };
+                }
+
+                if (!string.IsNullOrWhiteSpace(v1Invocation.WorkingDirectory))
+                {
+                    invocation.WorkingDirectory = new FileLocation
+                    {
+                        Uri = new Uri(v1Invocation.WorkingDirectory, UriKind.RelativeOrAbsolute)
                     };
                 }
             }

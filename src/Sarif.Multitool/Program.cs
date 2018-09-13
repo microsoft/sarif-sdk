@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 AbsoluteUriOptions,
                 ResultMatchingOptions>(args)
               .MapResult(
-                (ValidateOptions validateOptions) => new ValidateCommand().Run(validateOptions),
+                (ValidateOptions validateOptions) => new ValidateCommand(new FileSystem()).Run(validateOptions),
                 (ConvertOptions convertOptions) => ConvertCommand.Run(convertOptions),
                 (RewriteOptions rewriteOptions) => RewriteCommand.Run(rewriteOptions),
                 (TransformOptions transformOptions) => TransformCommand.Run(transformOptions),

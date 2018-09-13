@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
-    sealed public class SarifLogger : IDisposable, IAnalysisLogger
+    public class SarifLogger : IDisposable, IAnalysisLogger
     {
         private Run _run;
         private TextWriter _textWriter;
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private ResultLogJsonWriter _issueLogJsonWriter;
         private Dictionary<string, IRule> _rules;
 
-        private const LoggingOptions DefaultLoggingOptions = LoggingOptions.PrettyPrint;
+        protected const LoggingOptions DefaultLoggingOptions = LoggingOptions.PrettyPrint;
 
         private static Run CreateRun(
             IEnumerable<string> analysisTargets,
@@ -58,12 +58,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             // TODO we should actually redact across the complete log file context
             // by a dedicated rewriting visitor or some other approach.
+
             if (invocationTokensToRedact != null)
             {
                 invocation.CommandLine = Redact(invocation.CommandLine, invocationTokensToRedact);
                 invocation.Machine = Redact(invocation.Machine, invocationTokensToRedact);
                 invocation.Account = Redact(invocation.Account, invocationTokensToRedact);
-                invocation.WorkingDirectory = Redact(invocation.WorkingDirectory, invocationTokensToRedact);
+
+                if (invocation.WorkingDirectory != null)
+                {
+                    invocation.WorkingDirectory.Uri = Redact(invocation.WorkingDirectory.Uri, invocationTokensToRedact);
+                }
 
                 if (invocation.EnvironmentVariables != null)
                 {
@@ -83,13 +88,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static string Redact(string text, IEnumerable<string> tokensToRedact)
         {
-            if (text == null ) { return text; }
+            if (text == null) { return text; }
 
             foreach (string tokenToRedact in tokensToRedact)
             {
-                text = text.Replace(tokenToRedact, SarifConstants.RemovedMarker);
+                text = text.Replace(tokenToRedact, SarifConstants.RedactedMarker);
             }
             return text;
+        }
+
+        private static Uri Redact(Uri uri, IEnumerable<string> tokensToRedact)
+        {
+            if (uri == null) { return uri; }
+
+            string uriText = uri.OriginalString;
+
+            foreach (string tokenToRedact in tokensToRedact)
+            {
+                uriText = uriText.Replace(tokenToRedact, SarifConstants.RedactedMarker);
+            }
+            return new Uri(uriText, UriKind.RelativeOrAbsolute);
         }
 
         public SarifLogger(
@@ -103,18 +121,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             IEnumerable<string> invocationPropertiesToLog = null,
             string defaultFileEncoding = null)
             : this(new StreamWriter(new FileStream(outputFilePath, FileMode.Create, FileAccess.Write, FileShare.None)),
-                  loggingOptions,
-                  dataToInsert,
-                  tool,
-                  run,
-                  invocationTokensToRedact,
-                  invocationPropertiesToLog)
+                  loggingOptions: loggingOptions,
+                  dataToInsert: dataToInsert,
+                  tool: tool,
+                  run: run,
+                  analysisTargets: analysisTargets,
+                  invocationTokensToRedact: invocationTokensToRedact,
+                  invocationPropertiesToLog: invocationPropertiesToLog)
         {
         }
 
         public SarifLogger(
             TextWriter textWriter,
-            LoggingOptions loggingOptions = LoggingOptions.PrettyPrint,
+            LoggingOptions loggingOptions = DefaultLoggingOptions,
             OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
             Tool tool = null,
             Run run = null,
@@ -188,7 +207,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public bool Verbose { get { return _loggingOptions.Includes(LoggingOptions.Verbose); } }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             // Disposing the json writer closes the stream but the textwriter 
             // still needs to be disposed or closed to write the results

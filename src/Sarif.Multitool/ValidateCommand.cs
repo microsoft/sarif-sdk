@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
-using System.IO;
 using System.Reflection;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Readers;
@@ -17,6 +16,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public override string Prerelease => VersionConstants.Prerelease;
 
         private List<Assembly> _defaultPlugInAssemblies;
+
+        public ValidateCommand(IFileSystem fileSystem = null) : base(fileSystem)
+        {
+        }
 
         public override IEnumerable<Assembly> DefaultPlugInAssemblies
         {
@@ -59,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 // Deserialize will return null if there are any JSON deserialization errors
                 // (which can happen, for example, if a property required by the schema is
                 // missing. In that case, again, there's no point in going on.
-                context.InputLogContents = File.ReadAllText(context.TargetUri.AbsolutePath);
+                context.InputLogContents = FileSystem.ReadAllText(context.TargetUri.OriginalString);
                 context.InputLog = Deserialize(context.InputLogContents);
 
                 if (context.InputLog != null)
@@ -97,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             try
             {
-                string instanceText = File.ReadAllText(instanceFilePath);
+                string instanceText = FileSystem.ReadAllText(instanceFilePath);
                 PerformSchemaValidation(instanceText, instanceFilePath, schemaFilePath, logger);
             }
             catch (JsonSyntaxException ex)
@@ -120,13 +123,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return ok;
         }
 
-        private static void PerformSchemaValidation(
+        private void PerformSchemaValidation(
             string instanceText,
             string instanceFilePath,
             string schemaFilePath,
             IAnalysisLogger logger)
         {
-            string schemaText = File.ReadAllText(schemaFilePath);
+            string schemaText = FileSystem.ReadAllText(schemaFilePath);
             JsonSchema schema = SchemaReader.ReadSchema(schemaText, schemaFilePath);
 
             var validator = new Validator(schema);

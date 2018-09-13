@@ -4,13 +4,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class UrisMustBeValid : SarifValidationSkimmerBase
     {
-        private Message _fullDescription = new Message
+        private readonly Message _fullDescription = new Message
         {
             Text = RuleResources.SARIF1003_UrisMustBeValid
         };
@@ -36,8 +37,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(FileData fileData, string fileKey, string filePointer)
         {
-            string fileUriReference = fileKey.UnescapeJsonPointer();
+            string fileUriReference = RemoveUriBaseIdPrefix(fileKey);
             AnalyzeUri(fileUriReference, filePointer);
+        }
+
+        private const string UriWithPrefixPattern =
+@"^                     # Start of string, followed by
+(?<prefix>              # a prefix consisting of
+    \#                  #    a pound sign (escaped because otherwise it would signify a comment),
+    [^\#]+              #    one or more occurrences of anything that isn't a pound sign,
+    \#                  #    and another pound sign,
+)
+(?<uri>                 # followed by the URI, which is
+    .+                  #     everything
+)
+$                       # up to the end of the string (not strictly needed since the match is greedy).
+";
+
+        private static readonly Regex s_uriWithPrefixRegex =
+            new Regex(UriWithPrefixPattern, RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace);
+
+        private string RemoveUriBaseIdPrefix(string fileKey)
+        {
+            Match match = s_uriWithPrefixRegex.Match(fileKey);
+            return match.Success
+                ? match.Groups["uri"].Value
+                : fileKey;
         }
 
         protected override void Analyze(FileLocation fileLocation, string fileLocationPointer)
@@ -59,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
-        protected override void Analyze(Rule rule, string rulePointer)
+        protected override void Analyze(Rule rule, string ruleKey, string rulePointer)
         {
             AnalyzeUri(rule.HelpUri, rulePointer.AtProperty(SarifPropertyName.HelpUri));
         }

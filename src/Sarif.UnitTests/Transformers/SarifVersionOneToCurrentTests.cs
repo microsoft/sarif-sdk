@@ -645,7 +645,9 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
           ""executableLocation"": {
             ""uri"": ""/bin/tools/CodeScanner""
           },
-          ""workingDirectory"": ""/home/buildAgent/src"",
+          ""workingDirectory"": {
+            ""uri"": ""/home/buildAgent/src""
+          },
           ""environmentVariables"": {
             ""PATH"": ""/usr/local/bin:/bin:/bin/tools:/home/buildAgent/bin"",
             ""HOME"": ""/home/buildAgent"",

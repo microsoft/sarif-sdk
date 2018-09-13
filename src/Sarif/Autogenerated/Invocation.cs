@@ -33,12 +33,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// A set of files relevant to the invocation of the tool.
-        /// </summary>
-        [DataMember(Name = "attachments", IsRequired = false, EmitDefaultValue = false)]
-        public IList<Attachment> Attachments { get; set; }
-
-        /// <summary>
         /// The command line used to invoke the tool.
         /// </summary>
         [DataMember(Name = "commandLine", IsRequired = false, EmitDefaultValue = false)]
@@ -57,13 +51,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<FileLocation> ResponseFiles { get; set; }
 
         /// <summary>
+        /// A set of files relevant to the invocation of the tool.
+        /// </summary>
+        [DataMember(Name = "attachments", IsRequired = false, EmitDefaultValue = false)]
+        public IList<Attachment> Attachments { get; set; }
+
+        /// <summary>
         /// The date and time at which the run started. See "Date/time properties" in the SARIF spec for the required format.
         /// </summary>
         [DataMember(Name = "startTime", IsRequired = false, EmitDefaultValue = false)]
         public DateTime StartTime { get; set; }
 
         /// <summary>
-        /// The date and time at which the run ended. See "Date/time properties" in the  SARIF spec for the required format.
+        /// The date and time at which the run ended. See "Date/time properties" in the SARIF spec for the required format.
         /// </summary>
         [DataMember(Name = "endTime", IsRequired = false, EmitDefaultValue = false)]
         public DateTime EndTime { get; set; }
@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int ExitCode { get; set; }
 
         /// <summary>
-        /// A list of runtime conditions detected by the tool in the course of the analysis.
+        /// A list of runtime conditions detected by the tool during the analysis.
         /// </summary>
         [DataMember(Name = "toolNotifications", IsRequired = false, EmitDefaultValue = false)]
         public IList<Notification> ToolNotifications { get; set; }
@@ -141,10 +141,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public FileLocation ExecutableLocation { get; set; }
 
         /// <summary>
-        /// The working directory for the analysis rool run.
+        /// The working directory for the analysis tool run.
         /// </summary>
         [DataMember(Name = "workingDirectory", IsRequired = false, EmitDefaultValue = false)]
-        public string WorkingDirectory { get; set; }
+        public FileLocation WorkingDirectory { get; set; }
 
         /// <summary>
         /// The environment variables associated with the analysis tool process, expressed as key/value pairs.
@@ -177,7 +177,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public FileLocation StdoutStderr { get; set; }
 
         /// <summary>
-        /// Key/value pairs that provide additional information about the run.
+        /// Key/value pairs that provide additional information about the invocation.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
@@ -192,9 +192,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Initializes a new instance of the <see cref="Invocation" /> class from the supplied values.
         /// </summary>
-        /// <param name="attachments">
-        /// An initialization value for the <see cref="P: Attachments" /> property.
-        /// </param>
         /// <param name="commandLine">
         /// An initialization value for the <see cref="P: CommandLine" /> property.
         /// </param>
@@ -203,6 +200,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </param>
         /// <param name="responseFiles">
         /// An initialization value for the <see cref="P: ResponseFiles" /> property.
+        /// </param>
+        /// <param name="attachments">
+        /// An initialization value for the <see cref="P: Attachments" /> property.
         /// </param>
         /// <param name="startTime">
         /// An initialization value for the <see cref="P: StartTime" /> property.
@@ -267,9 +267,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Invocation(IEnumerable<Attachment> attachments, string commandLine, IEnumerable<string> arguments, IEnumerable<FileLocation> responseFiles, DateTime startTime, DateTime endTime, int exitCode, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, string exitCodeDescription, string exitSignalName, int exitSignalNumber, string processStartFailureMessage, bool toolExecutionSuccessful, string machine, string account, int processId, FileLocation executableLocation, string workingDirectory, IDictionary<string, string> environmentVariables, FileLocation stdin, FileLocation stdout, FileLocation stderr, FileLocation stdoutStderr, IDictionary<string, SerializedPropertyInfo> properties)
+        public Invocation(string commandLine, IEnumerable<string> arguments, IEnumerable<FileLocation> responseFiles, IEnumerable<Attachment> attachments, DateTime startTime, DateTime endTime, int exitCode, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, string exitCodeDescription, string exitSignalName, int exitSignalNumber, string processStartFailureMessage, bool toolExecutionSuccessful, string machine, string account, int processId, FileLocation executableLocation, FileLocation workingDirectory, IDictionary<string, string> environmentVariables, FileLocation stdin, FileLocation stdout, FileLocation stderr, FileLocation stdoutStderr, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(attachments, commandLine, arguments, responseFiles, startTime, endTime, exitCode, toolNotifications, configurationNotifications, exitCodeDescription, exitSignalName, exitSignalNumber, processStartFailureMessage, toolExecutionSuccessful, machine, account, processId, executableLocation, workingDirectory, environmentVariables, stdin, stdout, stderr, stdoutStderr, properties);
+            Init(commandLine, arguments, responseFiles, attachments, startTime, endTime, exitCode, toolNotifications, configurationNotifications, exitCodeDescription, exitSignalName, exitSignalNumber, processStartFailureMessage, toolExecutionSuccessful, machine, account, processId, executableLocation, workingDirectory, environmentVariables, stdin, stdout, stderr, stdoutStderr, properties);
         }
 
         /// <summary>
@@ -288,7 +288,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Attachments, other.CommandLine, other.Arguments, other.ResponseFiles, other.StartTime, other.EndTime, other.ExitCode, other.ToolNotifications, other.ConfigurationNotifications, other.ExitCodeDescription, other.ExitSignalName, other.ExitSignalNumber, other.ProcessStartFailureMessage, other.ToolExecutionSuccessful, other.Machine, other.Account, other.ProcessId, other.ExecutableLocation, other.WorkingDirectory, other.EnvironmentVariables, other.Stdin, other.Stdout, other.Stderr, other.StdoutStderr, other.Properties);
+            Init(other.CommandLine, other.Arguments, other.ResponseFiles, other.Attachments, other.StartTime, other.EndTime, other.ExitCode, other.ToolNotifications, other.ConfigurationNotifications, other.ExitCodeDescription, other.ExitSignalName, other.ExitSignalNumber, other.ProcessStartFailureMessage, other.ToolExecutionSuccessful, other.Machine, other.Account, other.ProcessId, other.ExecutableLocation, other.WorkingDirectory, other.EnvironmentVariables, other.Stdin, other.Stdout, other.Stderr, other.StdoutStderr, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -309,42 +309,42 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Invocation(this);
         }
 
-        private void Init(IEnumerable<Attachment> attachments, string commandLine, IEnumerable<string> arguments, IEnumerable<FileLocation> responseFiles, DateTime startTime, DateTime endTime, int exitCode, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, string exitCodeDescription, string exitSignalName, int exitSignalNumber, string processStartFailureMessage, bool toolExecutionSuccessful, string machine, string account, int processId, FileLocation executableLocation, string workingDirectory, IDictionary<string, string> environmentVariables, FileLocation stdin, FileLocation stdout, FileLocation stderr, FileLocation stdoutStderr, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string commandLine, IEnumerable<string> arguments, IEnumerable<FileLocation> responseFiles, IEnumerable<Attachment> attachments, DateTime startTime, DateTime endTime, int exitCode, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, string exitCodeDescription, string exitSignalName, int exitSignalNumber, string processStartFailureMessage, bool toolExecutionSuccessful, string machine, string account, int processId, FileLocation executableLocation, FileLocation workingDirectory, IDictionary<string, string> environmentVariables, FileLocation stdin, FileLocation stdout, FileLocation stderr, FileLocation stdoutStderr, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            if (attachments != null)
-            {
-                var destination_0 = new List<Attachment>();
-                foreach (var value_0 in attachments)
-                {
-                    if (value_0 == null)
-                    {
-                        destination_0.Add(null);
-                    }
-                    else
-                    {
-                        destination_0.Add(new Attachment(value_0));
-                    }
-                }
-
-                Attachments = destination_0;
-            }
-
             CommandLine = commandLine;
             if (arguments != null)
             {
-                var destination_1 = new List<string>();
-                foreach (var value_1 in arguments)
+                var destination_0 = new List<string>();
+                foreach (var value_0 in arguments)
                 {
-                    destination_1.Add(value_1);
+                    destination_0.Add(value_0);
                 }
 
-                Arguments = destination_1;
+                Arguments = destination_0;
             }
 
             if (responseFiles != null)
             {
-                var destination_2 = new List<FileLocation>();
-                foreach (var value_2 in responseFiles)
+                var destination_1 = new List<FileLocation>();
+                foreach (var value_1 in responseFiles)
+                {
+                    if (value_1 == null)
+                    {
+                        destination_1.Add(null);
+                    }
+                    else
+                    {
+                        destination_1.Add(new FileLocation(value_1));
+                    }
+                }
+
+                ResponseFiles = destination_1;
+            }
+
+            if (attachments != null)
+            {
+                var destination_2 = new List<Attachment>();
+                foreach (var value_2 in attachments)
                 {
                     if (value_2 == null)
                     {
@@ -352,11 +352,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_2.Add(new FileLocation(value_2));
+                        destination_2.Add(new Attachment(value_2));
                     }
                 }
 
-                ResponseFiles = destination_2;
+                Attachments = destination_2;
             }
 
             StartTime = startTime;
@@ -411,7 +411,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 ExecutableLocation = new FileLocation(executableLocation);
             }
 
-            WorkingDirectory = workingDirectory;
+            if (workingDirectory != null)
+            {
+                WorkingDirectory = new FileLocation(workingDirectory);
+            }
+
             if (environmentVariables != null)
             {
                 EnvironmentVariables = new Dictionary<string, string>(environmentVariables);

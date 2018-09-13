@@ -17,7 +17,7 @@
     <None Include="TestData\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Sarif\Schemata\Sarif.schema.json">
+    <None Include="..\Sarif\Schemata\sarif-schema.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

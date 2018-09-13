@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public abstract class SarifMultitoolTestBase
     {
-        protected const string JsonSchemaFile = "Sarif.schema.json";
+        protected const string JsonSchemaFile = "sarif-schema.json";
         protected const string TestDataDirectory = "TestData";
 
         protected static string MakeExpectedFilePath(string testDirectory, string testFileName)

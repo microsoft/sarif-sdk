@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -17,15 +16,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private string _ruleId;
         private FileRegionsCache _fileRegionsCache;
         private readonly OptionallyEmittedData _dataToInsert;
+        private readonly IDictionary<string, Uri> _originalUriBaseIds;
         
-        public InsertOptionalDataVisitor(OptionallyEmittedData dataToInsert)
+        public InsertOptionalDataVisitor(OptionallyEmittedData dataToInsert, IDictionary<string, Uri> originalUriBaseIds = null)
         {
             _dataToInsert = dataToInsert;
+            _originalUriBaseIds = originalUriBaseIds;
         }
 
         public override Run VisitRun(Run node)
         {
             _run = node;
+
+            if (_originalUriBaseIds != null)
+            {
+                _run.OriginalUriBaseIds = _run.OriginalUriBaseIds ?? new Dictionary<string, Uri>();
+
+                foreach (string key in _originalUriBaseIds.Keys)
+                {
+                    _run.OriginalUriBaseIds[key] = _originalUriBaseIds[key];
+                }
+            }
 
             if (node == null) { return null; }
 
@@ -39,24 +50,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 visitor.VisitRun(node);
             }
 
-            if (node.Files != null)
-            {
-                // Note, we modify this collection as  we enumerate it.
-                // Hence the need to convert to an array here. Otherwise,
-                // the standard collection enumerator will throw an
-                // exception after we touch the collection.
-                var keys = node.Files.Keys.ToArray();
-                foreach (string key in keys)
-                {
-                    var value = node.Files[key];
-                    if (value != null)
-                    {
-                        node.Files[key] = VisitDictionaryValueNullChecked(key, value);
-                    }
-                }
-            }
+            Run visited = base.VisitRun(node);
 
-            return base.VisitRun(node);
+            return visited;
         }
 
         public override PhysicalLocation VisitPhysicalLocation(PhysicalLocation node)
@@ -114,29 +110,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return base.VisitPhysicalLocation(node);
         }
 
-        internal FileData VisitDictionaryValueNullChecked(string key, FileData node)
+        public override FileData VisitFileData(FileData node)
         {
-            FileLocation fileLocation = FileLocation.CreateFromFilesDictionaryKey(key);
+            FileLocation fileLocation = node.FileLocation;
 
             bool workToDo = false;
             bool overwriteExistingData = _dataToInsert.Includes(OptionallyEmittedData.OverwriteExistingData);
 
             workToDo |= (node.Hashes == null || overwriteExistingData) && _dataToInsert.Includes(OptionallyEmittedData.Hashes);
-            workToDo |= (node.Contents?.Binary == null || overwriteExistingData) && _dataToInsert.Includes(OptionallyEmittedData.TextFiles);
+            workToDo |= (node.Contents?.Text == null || overwriteExistingData) && _dataToInsert.Includes(OptionallyEmittedData.TextFiles);
             workToDo |= (node.Contents?.Binary == null || overwriteExistingData) && _dataToInsert.Includes(OptionallyEmittedData.BinaryFiles);
 
             if (workToDo)
             {
                 if (fileLocation.TryReconstructAbsoluteUri(_run.OriginalUriBaseIds, out Uri uri))
                 {
-
                     Encoding encoding = null;
 
-                    if (!string.IsNullOrWhiteSpace(node.Encoding))
+                    string encodingText = node.Encoding ?? _run.DefaultFileEncoding;
+
+                    if (!string.IsNullOrWhiteSpace(encodingText))
                     {
                         try
                         {
-                            encoding = Encoding.GetEncoding(node.Encoding);
+                            encoding = Encoding.GetEncoding(encodingText);
                         }
                         catch (ArgumentException) { }
                     }

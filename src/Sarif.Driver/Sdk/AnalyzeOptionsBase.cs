@@ -9,7 +9,7 @@ using CommandLine;
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     [Verb("analyze", HelpText = "Analyze one or more binary files for security and correctness issues.")]
-    public abstract class AnalyzeOptionsBase
+    public abstract class AnalyzeOptionsBase : CommonOptionsBase
     {
         [Value(0,
                HelpText = "One or more specifiers to a file, directory, or filter pattern that resolves to one or more binaries to analyze.")]
@@ -22,23 +22,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public string OutputFilePath { get; set; }
 
         [Option(
-            'f',
-            "force",
-            Default = false,
-            HelpText = "Force overwrite of output file if it exists.")]
-        public bool Force { get; internal set; }
-
-        [Option(
             'v',
             "verbose",
             HelpText = "Emit verbose output. The resulting comprehensive report is designed to provide appropriate evidence for compliance scenarios.")]
         public bool Verbose { get; set; }
-
-        [Option(
-            'p',
-            "pretty-print",
-            HelpText = "Emit indented output. The resulting output will be multi-line, human-readable JSON.")]
-        public bool PrettyPrint { get; set; }
 
         [Option(
             'r',
@@ -93,14 +80,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             "rich-return-code",
             HelpText = "Emit a 'rich' return code consisting of a bitfield of conditions (as opposed to 0 or 1 indicating success or failure.")]
         public bool RichReturnCode { get; set; }
-
-        [Option(
-            "insert",
-            Separator = ';',
-            HelpText =
-            "Optionally present data, expressed as a semicolon-delimited list, that should be inserted into the log file. " +
-            "Valid values include Hashes, TextFiles, BinaryFiles, EnvironmentVariables, CodeSnippets, SurroundingCodeSnippets " +
-            "and NondeterministicProperties.")]
-        public IEnumerable<OptionallyEmittedData> DataToInsert { get; internal set; }
     }
 }

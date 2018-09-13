@@ -5,18 +5,18 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class DoNotUseFriendlyNameAsRuleIdTests : SkimmerTestsBase
+    public class DoNotUseFriendlyNameAsRuleIdTests : SkimmerTestsBase<DoNotUseFriendlyNameAsRuleId>
     {
-        [Fact(DisplayName = nameof(DoNotUseFriendlyNameAsRuleId_RuleIdDoesNotMatchFriendlyName))]
-        public void DoNotUseFriendlyNameAsRuleId_RuleIdDoesNotMatchFriendlyName()
+        [Fact(DisplayName = nameof(DoNotUseFriendlyNameAsRuleId_ReportsInvalidSarif))]
+        public void DoNotUseFriendlyNameAsRuleId_ReportsInvalidSarif()
         {
-            Verify(new DoNotUseFriendlyNameAsRuleId(), "RuleIdDoesNotMatchFriendlyName.sarif");
+            Verify("Invalid.sarif");
         }
 
-        [Fact(DisplayName = nameof(DoNotUseFriendlyNameAsRuleId_RuleIdMatchesFriendlyName))]
-        public void DoNotUseFriendlyNameAsRuleId_RuleIdMatchesFriendlyName()
+        [Fact(DisplayName = nameof(DoNotUseFriendlyNameAsRuleId_AcceptsValidSarif))]
+        public void DoNotUseFriendlyNameAsRuleId_AcceptsValidSarif()
         {
-            Verify(new DoNotUseFriendlyNameAsRuleId(), "RuleIdMatchesFriendlyName.sarif");
+            Verify("Valid.sarif");
         }
     }
 }
