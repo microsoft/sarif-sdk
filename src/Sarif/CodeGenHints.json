@@ -400,11 +400,6 @@
       "kind": "DictionaryHint"
     }
   ],
-  "Run.Rules": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
   "SarifLog.$schema": [
     {
       "kind": "PropertyNameHint",
