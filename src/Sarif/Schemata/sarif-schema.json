@@ -1269,7 +1269,7 @@
         },
 
         "occurrenceCount": {
-          "description": "A positive integer specifying the number of times a result with this result object's correlationGuid has been observed",
+          "description": "A positive integer specifying the number of times this logically unique result was observed in this run.",
           "type": "integer",
           "minimum": 1
         },
