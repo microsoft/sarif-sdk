@@ -761,8 +761,9 @@
         "environmentVariables": {
           "description": "The environment variables associated with the analysis tool process, expressed as key/value pairs.",
           "type": "object",
-          "additionalProperties": true,
-          "default": {}
+          "additionalProperties": {
+            "type":  "string"
+          }
         },
 
         "stdin": {
