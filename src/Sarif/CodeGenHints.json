@@ -146,11 +146,6 @@
       "kind": "DictionaryHint"
     }
   ],
-  "Invocation.ResponseFiles": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
   "location": [
     {
       "kind": "BaseTypeHint",
@@ -401,11 +396,6 @@
     }
   ],
   "Run.OriginalUriBaseIds": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "Run.Rules": [
     {
       "kind": "DictionaryHint"
     }

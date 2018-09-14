@@ -761,8 +761,9 @@
         "environmentVariables": {
           "description": "The environment variables associated with the analysis tool process, expressed as key/value pairs.",
           "type": "object",
-          "additionalProperties": true,
-          "default": {}
+          "additionalProperties": {
+            "type":  "string"
+          }
         },
 
         "stdin": {
@@ -1268,7 +1269,7 @@
         },
 
         "occurrenceCount": {
-          "description": "A positive integer specifying the number of times a result with this result object's correlationGuid has been observed",
+          "description": "A positive integer specifying the number of times this logically unique result was observed in this run.",
           "type": "integer",
           "minimum": 1
         },
@@ -1872,7 +1873,10 @@
 
         "state": {
           "description": "A dictionary, each of whose keys specifies a variable or expression, the associated value of which represents the variable or expression value. For an annotation of kind 'continuation', for example, this dictionary might hold the current assumed values of a set of global variables.",
-          "type": "object"
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
         },
 
         "nestingLevel": {
