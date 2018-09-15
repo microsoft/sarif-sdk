@@ -207,14 +207,7 @@
   ],
   "Resources.Rules": [
     {
-      "kind": "DictionaryHint",
-      "arguments": {
-        "valueTypeName": "Rule",
-        "namespaceName": "Microsoft.CodeAnalysis.Sarif",
-        "comparisonKind": "EqualityComparerEquals",
-        "hashKind": "ObjectModelType",
-        "initializationKind": "Clone"
-      }
+      "kind": "DictionaryHint"
     }
   ],
   "result": [
@@ -244,13 +237,7 @@
   ],
   "Result.Graphs": [
     {
-      "kind": "DictionaryHint",
-      "arguments": {
-        "valueTypeName": "Graph",
-        "comparisonKind": "EqualityComparerEquals",
-        "hashKind": "ObjectModelType",
-        "initializationKind": "Clone"
-      }
+      "kind": "DictionaryHint"
     }
   ],
   "Result.Level": [
@@ -381,13 +368,7 @@
   ],
   "Run.Graphs": [
     {
-      "kind": "DictionaryHint",
-      "arguments": {
-        "valueTypeName": "Graph",
-        "comparisonKind": "EqualityComparerEquals",
-        "hashKind": "ObjectModelType",
-        "initializationKind": "Clone"
-      }
+      "kind": "DictionaryHint"
     }
   ],
   "Run.LogicalLocations": [

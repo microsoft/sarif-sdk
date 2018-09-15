@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string CorrelationGuid { get; set; }
 
         /// <summary>
-        /// A positive integer specifying the number of times a result with this result object's correlationGuid has been observed
+        /// A positive integer specifying the number of times this logically unique result was observed in this run.
         /// </summary>
         [DataMember(Name = "occurrenceCount", IsRequired = false, EmitDefaultValue = false)]
         public int OccurrenceCount { get; set; }
