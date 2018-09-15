@@ -35,6 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="E:\repros\WebGoat.csv" Link="WebGoat.csv" />
     <None Include="v1\ConverterTestData\FxCop\FxCopProjectAllMessageStates.fxcop">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

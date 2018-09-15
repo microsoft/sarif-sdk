@@ -15,6 +15,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>Clang analyzer's file format.</summary>
         public const string ClangAnalyzer = nameof(ClangAnalyzer);
 
+        /// <summary>Contrast Security's file format.</summary>
+        public const string Contrast = nameof(Contrast);
+
         /// <summary>CppCheck's file format.</summary>
         public const string CppCheck = nameof(CppCheck);
 
