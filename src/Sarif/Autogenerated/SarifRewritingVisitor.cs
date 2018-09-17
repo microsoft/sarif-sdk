@@ -544,6 +544,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                if (node.Rules != null)
+                {
+                    var keys = node.Rules.Keys.ToArray();
+                    foreach (var key in keys)
+                    {
+                        var value = node.Rules[key];
+                        if (value != null)
+                        {
+                            node.Rules[key] = VisitNullChecked(value);
+                        }
+                    }
+                }
             }
 
             return node;
@@ -576,6 +588,19 @@ namespace Microsoft.CodeAnalysis.Sarif
                     for (int index_0 = 0; index_0 < node.CodeFlows.Count; ++index_0)
                     {
                         node.CodeFlows[index_0] = VisitNullChecked(node.CodeFlows[index_0]);
+                    }
+                }
+
+                if (node.Graphs != null)
+                {
+                    var keys = node.Graphs.Keys.ToArray();
+                    foreach (var key in keys)
+                    {
+                        var value = node.Graphs[key];
+                        if (value != null)
+                        {
+                            node.Graphs[key] = VisitNullChecked(value);
+                        }
                     }
                 }
 
@@ -690,6 +715,19 @@ namespace Microsoft.CodeAnalysis.Sarif
                         if (value != null)
                         {
                             node.LogicalLocations[key] = VisitNullChecked(value);
+                        }
+                    }
+                }
+
+                if (node.Graphs != null)
+                {
+                    var keys = node.Graphs.Keys.ToArray();
+                    foreach (var key in keys)
+                    {
+                        var value = node.Graphs[key];
+                        if (value != null)
+                        {
+                            node.Graphs[key] = VisitNullChecked(value);
                         }
                     }
                 }
