@@ -893,7 +893,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         BaselineInstanceGuid = v1Run.BaselineId,
                         InstanceGuid = v1Run.Id,
                         Properties = v1Run.Properties,
-                        Results = new List<Result>(),
                         LogicalId = v1Run.StableId,
                         Tool = CreateTool(v1Run.Tool)
                     };
@@ -949,9 +948,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         };
                     }
 
-                    foreach (ResultVersionOne v1Result in v1Run.Results)
+                    if (v1Run.Results != null)
                     {
-                        run.Results.Add(CreateResult(v1Result));
+                        run.Results = new List<Result>();
+
+                        foreach (ResultVersionOne v1Result in v1Run.Results)
+                        {
+                            run.Results.Add(CreateResult(v1Result));
+                        }
                     }
 
                     // Stash the entire v1 run in this v2 run's property bag
