@@ -949,9 +949,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         };
                     }
 
-                    foreach (ResultVersionOne v1Result in v1Run.Results)
+                    if (v1Run.Results != null)
                     {
-                        run.Results.Add(CreateResult(v1Result));
+                        foreach (ResultVersionOne v1Result in v1Run.Results)
+                        {
+                            run.Results.Add(CreateResult(v1Result));
+                        }
                     }
 
                     // Stash the entire v1 run in this v2 run's property bag
