@@ -157,6 +157,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 _serializer.Serialize(_jsonWriter, run.RedactionToken);
             }
 
+            if (run.Resources != null)
+            {
+                _jsonWriter.WritePropertyName("resources");
+                _serializer.Serialize(_jsonWriter, run.Resources);
+            }
+
             _writeConditions |= Conditions.RunInitialized;
         }
 

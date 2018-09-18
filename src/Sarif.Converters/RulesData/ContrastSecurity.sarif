@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": { "name" : "Contrast Security"},
+      "resources": {
+        "rules": {
+          "clickjacking-control-missing": {
+            "configuration": {"defaultLevel": "note"},
+            "id": "clickjacking-control-missing",
+            "name": { "text": "Pages Without Anti-Clickjacking Controls" },
+            "shortDescription": { "text": "One or more pages were observed without sufficient anti-clickjacking controls." },
+            "fullDescription": { "text": "One or more pages were observed without sufficient anti-clickjacking controls. The application doesn't apply anti-framing controls to the given page. Not applying these controls will allow it to be framed by other websites. This can present a few security issues, but the chief concern is that framed pages may be used in Clickjacking attacks." },
+            "help": {
+              "richText": "The application doesn't apply anti-framing controls to the given page. Not applying these controls will allow it to be framed by other websites. This can present a few security issues, but the chief concern is that framed pages may be used in Clickjacking attacks.\r\nClickjacking (also called UI Redress) is an attack whereby an attacker can trick a user into clicking on something different from what it appears they are clicking on. Most attacks will first build a page that entices the user to click on it - for scandalous pictures, monetary rewards, and other promises. The buttons and links on this page are carefully placed so that they overlap with buttons, links or other items on a second page that gets layered on top of the first one.\r\nThe problem for the victim in this scenario is that the link that they'd like to click for the promised rewards on the evil page is actually \"beneath\" a translucent, second page which has been framed into the HTML document. Thus, when they intend to click on **\"Collect Your Prize!\"**, they're really clicking on **\"Transfer Your Money!\"**, or similar.\r\nNumerous real-life Clickjacking attacks have caused damage to Adobe Flash Player, and numerous websites including Facebook, Twitter, YouTube, and others.\r\nThere are generally two controls that prevent framing of a web page: the `X-Frame-Options` header, and so-called `frame-busting JavaScript`. Details about these controls can be found in the **Remediation** tab. **Neither of these anti-framing controls were found** in the HTTP response to the URL(s) reported by this check."
+            },
+            "messageStrings": {
+              "default": "{0} pages observed without sufficient anti-clickjacking controls, e.g., {1}"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

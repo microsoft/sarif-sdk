@@ -10,7 +10,9 @@ using System.Linq;
 using System.Reflection;
 using System.Xml;
 using System.Xml.Schema;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Writers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -21,6 +23,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     ///</remarks>
     internal sealed class ContrastConverter : ToolFileConverterBase
     {
+        private const string ContrastSecurityRulesData = "Microsoft.CodeAnalysis.Sarif.Converters.RulesData.ContrastSecurity.sarif";
+
         /// <summary>
         /// Convert Contrast Security log to SARIF format stream
         /// </summary>
@@ -49,18 +53,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             reader.FindingRead += (ContrastLogReader.Context current) => { results.Add(CreateResult(current)); };
             reader.Read(context, input);
 
-            Tool tool = new Tool
+            Assembly assembly = typeof(ContrastConverter).Assembly;
+
+            SarifLog sarifLog;
+
+            var settings = new JsonSerializerSettings
             {
-                Name = "ContrastSecurity"
+                ContractResolver = SarifContractResolver.Instance,
+                Formatting = Newtonsoft.Json.Formatting.Indented                
             };
+
+            using (var stream = assembly.GetManifestResourceStream(ContrastConverter.ContrastSecurityRulesData))
+            using (var streamReader = new StreamReader(stream))
+            {
+                sarifLog = JsonConvert.DeserializeObject<SarifLog>(streamReader.ReadToEnd(), settings);
+            }
 
             var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, dataToInsert);
             Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
 
-            var run = new Run()
-            {
-                Tool = tool
-            };
+            Run run = sarifLog.Runs[0];
 
             output.Initialize(run);
 
@@ -95,9 +107,80 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             Result result = new Result();
 
-            result.RuleId = context.CheckId;
-            result.Message = new Message { Text = "Unknown" };
+            result.RuleId = context.RuleId;
+
+
+            switch (result.RuleId)
+            {
+                case "clickjacking-control-missing":
+                {
+                    RefineClickJackingControlMissingResult(result, context.Properties);
+                    break;
+                }
+
+                case "authorization-missing-deny":
+                {
+                    RefineClickJackingControlMissingDeny(result, context.Properties);
+                    break;
+                }
+
+
+                default:
+                {
+                    result.Message = new Message { Text = "TBD" };
+                    break;
+                }
+            }
+
             return result;
+        }
+
+        private void RefineClickJackingControlMissingDeny(Result result, IDictionary<string, string> properties)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void RefineClickJackingControlMissingResult(Result result, IDictionary<string, string> properties)
+        {
+            // clickjacking-control-missing instances track the page with observed issue as property keys.
+            // 
+            // <properties name="/webgoat/Content/EncryptVSEncode.aspx">1536704253063</properties>
+            // <properties name="/webgoat/WebGoatCoins/MainPage.aspx">1536704186306</properties>
+
+            IList<Location> locations = new List<Location>();
+
+            foreach (string key in properties.Keys)
+            {
+                locations.Add(new Location
+                {
+                    PhysicalLocation = CreatePhysicalLocation(key)
+                });
+
+                // TODO identify exact nature of the value, which looks like an id for some kind of cache
+                locations[locations.Count - 1].SetProperty("id", properties[key]);
+            }
+
+            string examplePage = properties.Keys.First();
+
+            result.Message = new Message {
+                MessageId = "default",
+                Arguments = new List<string>
+                {
+                    locations.Count.ToString(), // "{0} pages observed without sufficient anti-clickjacking controls,                     
+                    examplePage }               // e.g., {1}
+            };
+        }
+
+        private PhysicalLocation CreatePhysicalLocation(string uri)
+        {
+            return new PhysicalLocation
+            {
+                FileLocation = new FileLocation
+                {
+                    Uri = new Uri(uri, UriKind.Relative),
+                    UriBaseId = "SITE_ROOT"
+                }
+            };
         }
 
         private static void AddProperty(Result result, string value, string key)
@@ -133,22 +216,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// </remarks>
         internal class Context
         {
+            public string RuleId { get; set; }
 
-            public string CheckId { get; set; }
             public string RequestMethod { get; set; }
+
             public string RequestUri { get; set; }
 
-            public void RefineFindings()
-            {
-            }
+            // Holds properties produced by both the <props> and
+            // <properties> elements within Contrast XML
+            public IDictionary<string, string> Properties { get; set; }
 
-            public void ClearFindings()
-            {
+            // One variety of Contrast XML property
+            // persists keys and values as distinct
+            // elements. The following properties
+            // track this mechanism.
+            public string PropertyKey { get; set; }
 
-            }
+            public string PropertyValue { get; set; }
+            
 
             internal void RefineFinding(string ruleId)
             {
+                RuleId = ruleId;
+                ClearProperties();
             }
 
             internal void RefineRequest(string uri, string method)
@@ -157,19 +247,43 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 RequestMethod = method;
             }
 
+            internal void RefineProperties(string key, string value)
+            {
+                if (key == null && value == null)
+                {
+                    Properties = null;
+                    PropertyKey = null;
+                    PropertyValue = null;
+                    return;
+                }
+
+                Properties = Properties ?? new Dictionary<string, string>();
+                Properties.Add(key, value);
+            }
+
+            internal void RefineKey(string key)
+            {
+            }
+
 
             internal void ClearFinding()
             {
+                RefineFinding(null);
             }
 
             internal void ClearRequest()
             {
                 RefineRequest(null, null);
             }
+
+            internal void ClearProperties()
+            {
+                RefineProperties(null, null);
+            }
         }
 
         /// <summary>
-        /// FxCop xml elements and attributes
+        /// COntrast Security exported xml elements and attributes
         /// </summary>
         private static class SchemaStrings
         {
@@ -197,8 +311,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             // attributes
             public const string AttributeRuleId = "ruleId";
             public const string AttributeMethod = "method";
+            public const string AttributeName = "name";
             public const string AttributeUri = "uri";
         }
+
+        // Flag used to distinguish between reading both types of XML-persisted
+        // property bags. We need to distinguish these cases because they share
+        // use of an element named <properties>. There isn't a way to use the 
+        // reader to infer the situation (by examining whether it has children,
+        // for example) due to the parsing mechanism we're using. 
+        //
+        // These appear as direct child elements of a finding and store per-rule data:
+        //   <props>
+        //     <properties name = "someKey" >someValue</properties>
+        //   </props>
+        // 
+        // These are persisted to propagation-event and method-event elements:
+        //   <properties>
+        //     <p>
+        //       <k>someKey</k>
+        //       <v>someValue</v>
+        //     </p>
+        //   </properties>
+        //
+        private bool _readingProps;
 
         /// <summary>
         /// Constructor to hydrate the private members
@@ -278,8 +414,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string ruleId = reader.ReadAttributeString(SchemaStrings.AttributeRuleId);
 
             context.RefineFinding(ruleId);            
-
             reader.ReadChildren(SchemaStrings.ElementFinding, parent);
+
+            if (FindingRead != null)
+            {
+                FindingRead(context);
+            }
 
             context.ClearFinding();
         }
@@ -343,9 +483,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             reader.ReadChildren(SchemaStrings.ElementArgs, parent);
         }
 
-        private static void ReadProperties(SparseReader reader, object parent)
+        private void ReadProperties(SparseReader reader, object parent)
         {
-            reader.ReadChildren(SchemaStrings.ElementProperties, parent);
+            Context context = (Context)parent;
+
+            if (!_readingProps)
+            {
+                // We are reading properties within a propagation or method event, e.g.,
+                //   <properties>
+                //     <p>
+                //       <k>someKey</k>
+                //       <v>someValue</v>
+                //     </p>
+                //   </properties>
+                reader.ReadChildren(SchemaStrings.ElementProperties, parent);
+            }
+            else
+            {
+                // We are reading a properties child element of a finding
+                //   <props>
+                //     <properties name = "someKey" >someValue</properties>
+                //   </props>
+                string key = reader.ReadAttributeString(SchemaStrings.AttributeName);
+                string value = reader.ReadElementContentAsString();
+                context.RefineProperties(key, value);
+            }
         }
 
         private static void ReadP(SparseReader reader, object parent)
@@ -373,9 +535,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             reader.ReadChildren(SchemaStrings.ElementMethodEvent, parent);
         }
 
-        private static void ReadProps(SparseReader reader, object parent)
+        private void ReadProps(SparseReader reader, object parent)
         {
+            _readingProps = true;
             reader.ReadChildren(SchemaStrings.ElementProps, parent);
+            _readingProps = false;
         }
     }
 }
