@@ -120,6 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.SampleModel
         public const string SampleEmptyPath = "CodeCrawler.Empty.log.json";
 
         private static readonly string[] MessageTexts = { "File Scan starting", "File Scan complete", "Rules \u00A9 reloaded", "File Scan \u16A0 timed out \U00010908" };
+        private static readonly object _locker = new object();
 
         public static Log Build()
         {
@@ -164,59 +165,62 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.SampleModel
 
         public static void EnsureSamplesBuilt()
         {
-            Log log = null;
-            JsonSerializer serializer = new JsonSerializer();
-
-            if (!File.Exists(SampleLogPath))
+            lock (_locker)
             {
-                if(log == null) log = Build();
+                Log log = null;
+                JsonSerializer serializer = new JsonSerializer();
 
-                using (JsonTextWriter writer = new JsonTextWriter(new StreamWriter(File.OpenWrite(SampleLogPath))))
+                if (!File.Exists(SampleLogPath))
                 {
-                    serializer.Formatting = Formatting.Indented;
-                    serializer.Serialize(writer, log);
-                }
-            }
+                    if (log == null) log = Build();
 
-            if(!File.Exists(SampleOneLinePath))
-            {
-                if (log == null) log = Build();
-
-                using (JsonTextWriter writer = new JsonTextWriter(new StreamWriter(File.OpenWrite(SampleOneLinePath))))
-                {
-                    serializer.Formatting = Formatting.None;
-                    serializer.Serialize(writer, log);
-                }
-            }
-
-            if (!File.Exists(SampleNoCodeContextsPath))
-            {
-                if (log == null) log = Build();
-
-                log.CodeContexts.Clear();
-                foreach (LogMessage m in log.Messages)
-                {
-                    m.CodeContextID = null;
+                    using (JsonTextWriter writer = new JsonTextWriter(new StreamWriter(File.OpenWrite(SampleLogPath))))
+                    {
+                        serializer.Formatting = Formatting.Indented;
+                        serializer.Serialize(writer, log);
+                    }
                 }
 
-                using (JsonTextWriter writer = new JsonTextWriter(new StreamWriter(File.OpenWrite(SampleNoCodeContextsPath))))
+                if (!File.Exists(SampleOneLinePath))
                 {
-                    serializer.Formatting = Formatting.None;
-                    serializer.Serialize(writer, log);
+                    if (log == null) log = Build();
+
+                    using (JsonTextWriter writer = new JsonTextWriter(new StreamWriter(File.OpenWrite(SampleOneLinePath))))
+                    {
+                        serializer.Formatting = Formatting.None;
+                        serializer.Serialize(writer, log);
+                    }
                 }
-            }
 
-            if (!File.Exists(SampleEmptyPath))
-            {
-                if (log == null) log = Build();
-
-                log.CodeContexts.Clear();
-                log.Messages.Clear();
-
-                using (JsonTextWriter writer = new JsonTextWriter(new StreamWriter(File.OpenWrite(SampleEmptyPath))))
+                if (!File.Exists(SampleNoCodeContextsPath))
                 {
-                    serializer.Formatting = Formatting.Indented;
-                    serializer.Serialize(writer, log);
+                    if (log == null) log = Build();
+
+                    log.CodeContexts.Clear();
+                    foreach (LogMessage m in log.Messages)
+                    {
+                        m.CodeContextID = null;
+                    }
+
+                    using (JsonTextWriter writer = new JsonTextWriter(new StreamWriter(File.OpenWrite(SampleNoCodeContextsPath))))
+                    {
+                        serializer.Formatting = Formatting.None;
+                        serializer.Serialize(writer, log);
+                    }
+                }
+
+                if (!File.Exists(SampleEmptyPath))
+                {
+                    if (log == null) log = Build();
+
+                    log.CodeContexts.Clear();
+                    log.Messages.Clear();
+
+                    using (JsonTextWriter writer = new JsonTextWriter(new StreamWriter(File.OpenWrite(SampleEmptyPath))))
+                    {
+                        serializer.Formatting = Formatting.Indented;
+                        serializer.Serialize(writer, log);
+                    }
                 }
             }
         }
