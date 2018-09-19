@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
 
@@ -17,6 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     {
         internal const string BaseUriDictionaryName = "originalUriBaseIds";
         internal const string IncorrectlyFormattedDictionarySuffix = ".Old";
+        internal const string OriginalFileKey = "OriginalFileKey";
 
         private Uri _baseUri;
         private string _baseName;
@@ -61,23 +63,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             _rebaseRelativeUris = rebaseRelativeUris;
         }
 
-        public override PhysicalLocation VisitPhysicalLocation(PhysicalLocation node)
+        public override FileData VisitFileData(FileData node)
         {
-            PhysicalLocation newNode = base.VisitPhysicalLocation(node);
-            
-            if (string.IsNullOrEmpty(newNode.FileLocation?.UriBaseId))
+            FileData newNode = base.VisitFileData(node);
+
+            RebaseFilesDictionary(newNode);
+
+            return newNode;
+        }
+
+        public override FileLocation VisitFileLocation(FileLocation node)
+        {
+            FileLocation newNode = base.VisitFileLocation(node);
+
+            if (newNode.Uri.IsAbsoluteUri && _baseUri.IsBaseOf(newNode.Uri))
             {
-                if (newNode.FileLocation.Uri.IsAbsoluteUri && _baseUri.IsBaseOf(newNode.FileLocation.Uri))
-                {
-                    newNode.FileLocation.UriBaseId = _baseName;
-                    newNode.FileLocation.Uri = _baseUri.MakeRelativeUri(node.FileLocation.Uri);
-                    RebaseFilesDictionary(newNode);
-                }
-                else if (_rebaseRelativeUris && !newNode.FileLocation.Uri.IsAbsoluteUri)
-                {
-                    newNode.FileLocation.UriBaseId = _baseName;
-                    RebaseFilesDictionary(newNode);
-                }
+                newNode.UriBaseId = _baseName;
+                newNode.Uri = _baseUri.MakeRelativeUri(node.Uri);
+            }
+            else if (_rebaseRelativeUris && !newNode.Uri.IsAbsoluteUri)
+            {
+                newNode.UriBaseId = _baseName;
             }
 
             return newNode;
@@ -87,7 +93,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             _files = node.Files;
 
+            // Save the file key in the property bag so we can remap it during rebasing.
+            foreach (string key in _files.Keys)
+            {
+                _files[key].SetProperty(OriginalFileKey, key);
+            }
+
             Run newRun = base.VisitRun(node);
+
+            // Remove the remapped files (they are duplicated during remapping).
+            foreach (string key in _files.Keys.ToArray())
+            {
+                string originalFileKey = _files[key].GetProperty<string>(OriginalFileKey);
+
+                if (originalFileKey != null)
+                {
+                    if (_files.ContainsKey(originalFileKey))
+                    {
+                        _files.Remove(originalFileKey);
+                    }
+                    else
+                    {
+                        _files[key].RemoveProperty(OriginalFileKey);
+
+                        if (_files[key].Properties.Count == 0)
+                        {
+                            _files[key].Properties = null;
+                        }
+                    }
+                }
+            }
 
             newRun.Files = _files;
 
@@ -109,15 +144,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         /// If we are changing the URIs in Results to be relative, we need to also change the URI keys in the files dictionary
         /// to be relative.
         /// </summary>
-        /// <param name="node">Result location being changed to relative.</param>
-        internal void RebaseFilesDictionary(PhysicalLocation node)
+        /// <param name="node">File location being changed to relative.</param>
+        internal void RebaseFilesDictionary(FileData node)
         {
             _files = _files ?? new Dictionary<string, FileData>(StringComparer.OrdinalIgnoreCase);
 
             FileLocation fileLocation = node.FileLocation;
 
             string uriText = Uri.EscapeUriString(fileLocation.Uri.ToString());
-            string uriTextOriginal = uriText;
+            string uriTextOriginal = node.Properties[OriginalFileKey].SerializedValue;
             string uriTextOriginalWithBase = _baseUri + uriText;
 
             if (!string.IsNullOrEmpty(fileLocation.UriBaseId))
@@ -127,24 +162,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (!_files.ContainsKey(uriText))
             {
-                string mimeType = Writers.MimeType.DetermineFromFileExtension(uriText);
+                _files[uriText] = node;
 
                 if (_files.ContainsKey(uriTextOriginal))
                 {
-                    _files[uriText] = _files[uriTextOriginal];
                     _files.Remove(uriTextOriginal);
                 }
                 else if (_files.ContainsKey(uriTextOriginalWithBase))
                 {
-                    _files[uriText] = _files[uriTextOriginalWithBase];
                     _files.Remove(uriTextOriginalWithBase);
-                }
-                else
-                {
-                    _files[uriText] = new FileData()
-                    {
-                        MimeType = mimeType
-                    };
                 }
             }
         }
