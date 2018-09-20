@@ -18,37 +18,68 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     {
         private JsonSerializer _jsonSerializer;
         private Func<Stream> _streamProvider;
+        private long _start;
 
         private Stream _stream;
-        private Dictionary<string, long> _itemPositions;
+        private Dictionary<int, long> _itemPositions;
 
         public DeferredDictionary(JsonSerializer jsonSerializer, JsonPositionedTextReader reader)
         {
             _jsonSerializer = jsonSerializer;
             _streamProvider = reader.StreamProvider;
-            _itemPositions = Build(jsonSerializer, reader);
+
+            _start = reader.TokenPosition;
+
+            // We have the JsonTextReader and we have to parse through the collection.
+            // We may as well build the map to each value.
+            BuildPositions(reader, _start);
         }
 
-        private static Dictionary<string, long> Build(JsonSerializer serializer, JsonPositionedTextReader reader)
+        private void EnsurePositionsBuilt()
         {
-            Dictionary<string, long> result = new Dictionary<string, long>();
+            if (_itemPositions == null) BuildPositions();
+        }
 
-            while(true)
+        private void BuildPositions()
+        {
+            using (Stream stream = _streamProvider())
+            using (JsonPositionedTextReader reader = new JsonPositionedTextReader(() => stream))
+            {
+                stream.Seek(_start, SeekOrigin.Begin);
+                BuildPositions(reader, _start);
+            }
+        }
+
+        private void BuildPositions(JsonPositionedTextReader reader, long currentOffset)
+        {
+            Dictionary<int, long> result = new Dictionary<int, long>();
+            while (true)
             {
                 reader.Read();
                 if (reader.TokenType == JsonToken.EndObject) break;
 
                 if (reader.TokenType != JsonToken.PropertyName) throw new InvalidDataException($"@({reader.LineNumber}, {reader.LinePosition}): Expected property name, found {reader.TokenType} \"{reader.Value}\".");
+
+                // Read JSON object name (Dictionary key)
                 string key = (string)reader.Value;
+                int keyHash = key.GetHashCode();
 
+                // If reading after the fact, the real byte offset is after where we let the reader start
+                long keyPosition = currentOffset + reader.TokenPosition;
+
+                // Skip the value
                 reader.Read();
-                long position = reader.TokenPosition;
-
                 reader.Skip();
-                result[key] = position;
+
+                // Add the hash to the position to our Dictionary; resolve collisions by incrementing
+                while (result.ContainsKey(keyHash))
+                {
+                    keyHash++;
+                }
+                result[keyHash] = keyPosition;
             }
 
-            return result;
+            _itemPositions = result;
         }
 
         public T this[string key]
@@ -64,11 +95,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             set => throw new NotSupportedException();
         }
 
-        public ICollection<string> Keys => _itemPositions.Keys;
+        // Keys and Values both use the IEnumerator of this class, returning the Key or Value part, respectively.
+        // They call the Count getter if requested by the user to avoid full enumeration until a user requests the Count.
+        public ICollection<string> Keys => new ReadOnlyCollectionAdapter<string>(() => new KeyEnumeratorAdapter<string, T>(this.GetEnumerator()), () => this.Count);
+        public ICollection<T> Values => new ReadOnlyCollectionAdapter<T>(() => new ValueEnumeratorAdapter<string, T>(this.GetEnumerator()), () => this.Count);
 
-        public ICollection<T> Values => throw new NotSupportedException("DeferredDictionary is designed not to load all values at once.");
-
-        public int Count => _itemPositions.Count;
+        public int Count
+        {
+            get
+            {
+                EnsurePositionsBuilt();
+                return _itemPositions.Count;
+            }
+        }
 
         public bool IsReadOnly => true;
 
@@ -99,25 +138,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         }
         #endregion
 
-        public bool TryGetValue(string key, out T value)
-        {
-            value = default(T);
-
-            long position;
-            if (!_itemPositions.TryGetValue(key, out position)) return false;
-
-            if (_stream == null) _stream = _streamProvider();
-            _stream.Seek(position, SeekOrigin.Begin);
-
-            using (JsonTextReader reader = new JsonTextReader(new StreamReader(_stream)))
-            {
-                reader.CloseInput = false;
-                value = _jsonSerializer.Deserialize<T>(reader);
-            }
-
-            return true;
-        }
-
         public bool Contains(KeyValuePair<string, T> item)
         {
             T value;
@@ -127,7 +147,57 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public bool ContainsKey(string key)
         {
-            return _itemPositions.ContainsKey(key);
+            T unused;
+            return this.TryGetValue(key, false, out unused);
+        }
+
+        public bool TryGetValue(string key, out T value)
+        {
+            return TryGetValue(key, true, out value);
+        }
+
+        private bool TryGetValue(string key, bool readValue, out T value)
+        {
+            value = default(T);
+            if (_stream == null) _stream = _streamProvider();
+
+            // Get the hash of the key
+            long keyPosition;
+            int keyHash = key.GetHashCode();
+
+            // Find the position for that hash
+            while (_itemPositions.TryGetValue(keyHash, out keyPosition))
+            {
+                _stream.Seek(keyPosition, SeekOrigin.Begin);
+
+                using (JsonTextReader reader = new JsonTextReader(new StreamReader(_stream)))
+                {
+                    reader.CloseInput = false;
+
+                    // Get the string key for the item with this hash
+                    reader.Read();
+                    string foundKey = (string)reader.Value;
+                    if (reader.TokenType != JsonToken.PropertyName) throw new InvalidDataException($"Did not find JSON object key at position {keyPosition:n0}.");
+
+                    // If it is the correct key, return the item
+                    if (foundKey == key)
+                    {
+                        if (readValue)
+                        {
+                            reader.Read();
+                            value = _jsonSerializer.Deserialize<T>(reader);
+                        }
+
+                        return true;
+                    }
+                }
+
+                // Otherwise, increment the hash (collision resolution) and repeat
+                keyHash++;
+            }
+
+            // If no Dictionary entry for the hash, the item is not present
+            return false;
         }
 
         public void CopyTo(KeyValuePair<string, T>[] array, int arrayIndex)
@@ -143,53 +213,231 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public IEnumerator<KeyValuePair<string, T>> GetEnumerator()
         {
-            return new JsonDeferredDictionaryEnumerator<T>(this);
+            return new JsonDeferredDictionaryEnumerator<T>(_jsonSerializer, _streamProvider, _start);
         }
         
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return new JsonDeferredDictionaryEnumerator<T>(this);
+            return new JsonDeferredDictionaryEnumerator<T>(_jsonSerializer, _streamProvider, _start);
         }
 
+        /// <summary>
+        ///  JsonDeferredDictionaryEnumerator provides enumeration over a Dictionary in a
+        ///  Json object starting at a given position.
+        ///  
+        ///  Items are not pre-loaded and are not kept after enumeration, allowing use with
+        ///  collections too large for memory.
+        /// </summary>
+        /// <typeparam name="U">Dictionary Value item type</typeparam>
         private class JsonDeferredDictionaryEnumerator<U> : IEnumerator<KeyValuePair<string, U>>
         {
-            private IEnumerator<string> _keyEnumerator;
-            private IDictionary<string, U> _dictionary;
+            private JsonSerializer _jsonSerializer;
+            private Func<Stream> _streamProvider;
+            private long _start;
 
-            public JsonDeferredDictionaryEnumerator(IDictionary<string, U> dictionary)
+            private JsonTextReader _jsonTextReader;
+            private Stream _stream;
+
+            public JsonDeferredDictionaryEnumerator(JsonSerializer jsonSerializer, Func<Stream> streamProvider, long start)
             {
-                _keyEnumerator = dictionary.Keys.GetEnumerator();
-                _dictionary = dictionary;
+                _jsonSerializer = jsonSerializer;
+                _streamProvider = streamProvider;
+                _start = start;
+
+                Reset();
             }
 
+            public KeyValuePair<string, U> Current { get; private set; }
             object IEnumerator.Current => Current;
-
-            public KeyValuePair<string, U> Current
-            {
-                get
-                {
-                    string key = _keyEnumerator.Current;
-                    return new KeyValuePair<string, U>(key, _dictionary[key]);
-                }
-            }
 
             public void Dispose()
             {
-                if (_keyEnumerator != null)
+                if (_stream != null)
                 {
-                    _keyEnumerator.Dispose();
-                    _keyEnumerator = null;
+                    _stream.Dispose();
+                    _stream = null;
+                    _jsonTextReader = null;
                 }
             }
 
             public bool MoveNext()
             {
-                return _keyEnumerator.MoveNext();
+                if (_jsonTextReader.TokenType == JsonToken.EndObject) return false;
+
+                // Read the next key
+                string key = (string)_jsonTextReader.Value;
+
+                // Read the value
+                _jsonTextReader.Read();
+                U value = _jsonSerializer.Deserialize<U>(_jsonTextReader);
+
+                // Read EndObject, next is StartObject of next member
+                _jsonTextReader.Read();
+
+                Current = new KeyValuePair<string, U>(key, value);
+                return true;
             }
 
             public void Reset()
             {
-                _keyEnumerator.Reset();
+                Dispose();
+
+                // Open a new Stream
+                _stream = _streamProvider();
+
+                // Seek to the object start
+                _stream.Seek(_start, SeekOrigin.Begin);
+
+                // Build a JsonTextReader
+                _jsonTextReader = new JsonTextReader(new StreamReader(_stream));
+
+                // StartObject
+                _jsonTextReader.Read();
+
+                // PropertyName of first item key
+                _jsonTextReader.Read();
+            }
+        }
+
+        /// <summary>
+        ///  ReadOnlyCollectionAdapter wraps a IEnumerator and Count getters
+        ///  to implement ICollection.
+        /// </summary>
+        /// <typeparam name="U">Collection Item type</typeparam>
+        private class ReadOnlyCollectionAdapter<U> : ICollection<U>
+        {
+            private Func<IEnumerator<U>> _enumeratorFactory;
+            private Func<int> _countGetter;
+            public int Count => _countGetter();
+            public bool IsReadOnly => true;
+
+            public ReadOnlyCollectionAdapter(Func<IEnumerator<U>> enumeratorFactory, Func<int> countGetter)
+            {
+                _enumeratorFactory = enumeratorFactory;
+                _countGetter = countGetter;
+            }
+
+            #region Mutators [Not Supported]
+            public void Add(U item)
+            {
+                throw new NotSupportedException();
+            }
+
+            public void Clear()
+            {
+                throw new NotSupportedException();
+            }
+
+            public bool Remove(U item)
+            {
+                throw new NotSupportedException();
+            }
+            #endregion
+
+            public bool Contains(U item)
+            {
+                EqualityComparer<U> comparer = EqualityComparer<U>.Default;
+
+                foreach(U value in this)
+                {
+                    if (comparer.Equals(item, value)) return true;
+                }
+
+                return false;
+            }
+
+            public void CopyTo(U[] array, int arrayIndex)
+            {
+                if(arrayIndex < 0 || arrayIndex + this.Count > array.Length) throw new ArgumentOutOfRangeException("arrayIndex");
+
+                int index = arrayIndex;
+                foreach(U value in this)
+                {
+                    array[index++] = value;
+                }
+            }
+
+            public IEnumerator<U> GetEnumerator()
+            {
+                return _enumeratorFactory();
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return _enumeratorFactory();
+            }
+        }
+
+
+        /// <summary>
+        ///  ValueEnumeratorAdapter converts an IEnumerator&lt;KeyValuePair&lt;U, V&gt;&gt;
+        ///  into an IEnumerator&lt;U&gt; by returning Current.Key.
+        /// </summary>
+        private class KeyEnumeratorAdapter<U, V> : IEnumerator<U>
+        {
+            private IEnumerator<KeyValuePair<U, V>> _inner;
+
+            public KeyEnumeratorAdapter(IEnumerator<KeyValuePair<U, V>> inner)
+            {
+                _inner = inner;
+            }
+
+            public U Current => _inner.Current.Key;
+            object IEnumerator.Current => Current;
+
+            public void Dispose()
+            {
+                if (_inner != null)
+                {
+                    _inner.Dispose();
+                    _inner = null;
+                }
+            }
+
+            public bool MoveNext()
+            {
+                return _inner.MoveNext();
+            }
+
+            public void Reset()
+            {
+                _inner.Reset();
+            }
+        }
+
+        /// <summary>
+        ///  ValueEnumeratorAdapter converts an IEnumerator&lt;KeyValuePair&lt;U, V&gt;&gt;
+        ///  into an IEnumerator&lt;V&gt; by returning Current.Value.
+        /// </summary>
+        private class ValueEnumeratorAdapter<U, V> : IEnumerator<V>
+        {
+            private IEnumerator<KeyValuePair<U, V>> _inner;
+
+            public ValueEnumeratorAdapter(IEnumerator<KeyValuePair<U, V>> inner)
+            {
+                _inner = inner;
+            }
+
+            public V Current => _inner.Current.Value;
+            object IEnumerator.Current => Current;
+
+            public void Dispose()
+            {
+                if (_inner != null)
+                {
+                    _inner.Dispose();
+                    _inner = null;
+                }
+            }
+
+            public bool MoveNext()
+            {
+                return _inner.MoveNext();
+            }
+
+            public void Reset()
+            {
+                _inner.Reset();
             }
         }
     }
