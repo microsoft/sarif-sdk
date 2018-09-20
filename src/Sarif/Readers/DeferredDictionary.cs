@@ -18,6 +18,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     ///  foreach(KeyValuePair&lt;T, U&gt;> item in dictionary)
     ///  { ... }
     /// </summary>
+    /// <remarks>
+    ///  DeferredDictionary doesn't record anything but the file position of the dictionary in the JSON initially.
+    ///  If you foreach over the KeyValuePairs, it constructs one reader and loads the items as you read them.
+    ///  If you ask for the Keys, Values, or Dictionary[key], it must build a map from each key to the file position for that value,
+    ///  and must seek in the file for each read.
+    ///  
+    ///  Items are expensive to iterate each time; they are not kept in memory. Copy the values to a List or array to keep them.
+    /// </remarks>
     /// <typeparam name="T">Type of items in Dictionary</typeparam>
     public class DeferredDictionary<T> : IDictionary<string, T>
     {

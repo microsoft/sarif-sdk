@@ -17,6 +17,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     ///  foreach(T item in list)
     ///  { ... }
     /// </summary>
+    /// <remarks>
+    ///  DeferredList stores only the file position of the array in the JSON initially.
+    ///  If you foreach over the array, it creates one reader and loads the items as you read them.
+    ///  If you ask for List[index] or the Count, it must build an array of the file position of each item
+    ///  and seek each time you request one.
+    ///  
+    ///  Items are expensive to iterate each time; they are not kept in memory. Copy the values to a List or array to keep them.
+    /// </remarks>
     /// <typeparam name="T">Type of items in list</typeparam>
     public class DeferredList<T> : IList<T>
     {
