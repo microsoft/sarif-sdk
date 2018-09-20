@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
@@ -30,9 +31,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             _start = reader.TokenPosition;
 
-            // We have the JsonTextReader and we have to parse through the collection.
-            // We may as well build the map to each value.
-            BuildPositions(reader, _start);
+            // We have the JsonTextReader, which must scan to after the collection to resume building the outer object
+            // We may as well make the map of element positions.
+            BuildPositions(reader, 0);
         }
 
         private void EnsurePositionsBuilt()
@@ -55,6 +56,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             Dictionary<int, long> result = new Dictionary<int, long>();
             while (true)
             {
+                // Find the position just before the PropertyName (we need to read it back later to confirm the string matches)
+                long keyPosition = currentOffset + reader.TokenPosition + 1;
+
                 reader.Read();
                 if (reader.TokenType == JsonToken.EndObject) break;
 
@@ -63,9 +67,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 // Read JSON object name (Dictionary key)
                 string key = (string)reader.Value;
                 int keyHash = key.GetHashCode();
-
-                // If reading after the fact, the real byte offset is after where we let the reader start
-                long keyPosition = currentOffset + reader.TokenPosition;
 
                 // Skip the value
                 reader.Read();
@@ -170,9 +171,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             {
                 _stream.Seek(keyPosition, SeekOrigin.Begin);
 
-                using (JsonTextReader reader = new JsonTextReader(new StreamReader(_stream)))
+                using (JsonTextReader reader = new JsonTextReader(new JsonObjectMemberStreamReader(_stream)))
                 {
                     reader.CloseInput = false;
+
+                    // Read past the mock object start from JsonObjectMemberStreamReader [so JsonTextReader expects to see a PropertyName]
+                    reader.Read();
 
                     // Get the string key for the item with this hash
                     reader.Read();
@@ -219,6 +223,50 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         IEnumerator IEnumerable.GetEnumerator()
         {
             return new JsonDeferredDictionaryEnumerator<T>(_jsonSerializer, _streamProvider, _start);
+        }
+
+        /// <summary>
+        ///  JsonObjectMemberStreamReader is used to get JsonTextReader to read a property name and
+        ///  value somewhere in an outer object.
+        ///  
+        ///  It alters the first read so that there's a fake outer object (a starting '{') and
+        ///  whitespace and any comma before the property name are hidden.
+        /// </summary>
+        private class JsonObjectMemberStreamReader : StreamReader
+        {
+            private bool _readCalled;
+
+            public JsonObjectMemberStreamReader(Stream stream) : base(stream, Encoding.Default, true, 1024, true)
+            { }
+
+            public override int Read(char[] buffer, int index, int count)
+            {
+                int countRead = 0;
+
+                // We are seeking to a position just before a new PropertyName in an object.
+                if(!_readCalled)
+                {
+                    _readCalled = true;
+
+                    // We'll add a '{' to the JsonTextReader understands we're in an object
+                    buffer[index++] = '{';
+
+                    // Read the remaining desired count
+                    countRead = base.Read(buffer, index + 1, count - 1);
+
+                    // Make everything before the next PropertyName whitespace (old space and comma between items)
+                    for(int i = index + 1; i < index + 1 + countRead; ++i)
+                    {
+                        if (buffer[i] == '"') break;
+                        buffer[i] = ' ';
+                    }
+
+                    // Return the length found plus our added '{'
+                    return countRead + 1;
+                }
+
+                return base.Read(buffer, index, count);
+            }
         }
 
         /// <summary>
