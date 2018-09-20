@@ -55,19 +55,19 @@ namespace SarifDeferredSample
 
                 if (run.Files != null)
                 {
-                    fileCount = run.Files.Count;
-
-                    //foreach (var item in run.Files)
-                    //{
-                    //    FileData file = item.Value;
-                    //    uriLengthTotal += file?.FileLocation?.Uri?.OriginalString?.Length ?? 0;
-                    //}
-
-                    foreach (var key in run.Files.Keys)
+                    foreach (var item in run.Files)
                     {
-                        FileData file = run.Files[key];
+                        FileData file = item.Value;
                         uriLengthTotal += file?.FileLocation?.Uri?.OriginalString?.Length ?? 0;
+                        fileCount++;
                     }
+
+                    //foreach (var key in run.Files.Keys)
+                    //{
+                    //    FileData file = run.Files[key];
+                    //    uriLengthTotal += file?.FileLocation?.Uri?.OriginalString?.Length ?? 0;
+                    //    fileCount++;
+                    //}
                 } 
 
                 return $"Enumerated {fileCount:n0} Files, URI total {uriLengthTotal:n0}b.";

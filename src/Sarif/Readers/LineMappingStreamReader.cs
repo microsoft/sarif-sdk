@@ -42,6 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public long LineAndCharToOffset(int line, int charInLine)
         {
+            if (line == 0 && charInLine == 0) return 0;
             if (line < _firstLineNumber || line > _firstLineNumber + _lineCount) throw new ArgumentOutOfRangeException($"Line must be in the range of lines last read, ({_firstLineNumber} - {_firstLineNumber + _lineCount}). It was {line}.");
 
             int bytesInLine;

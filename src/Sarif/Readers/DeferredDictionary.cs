@@ -13,6 +13,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     ///  DeferredDictionary is an IDictionary&lt;string, T&gt; which uses JSON.NET
     ///  to read the dictionary items as they are accessed. It pre-builds the mapping
     ///  from string to JSON file position for fast retrieval.
+    ///  
+    ///  Enumerate KeyValuePairs for best performance:
+    ///  foreach(KeyValuePair&lt;T, U&gt;> item in dictionary)
+    ///  { ... }
     /// </summary>
     /// <typeparam name="T">Type of items in Dictionary</typeparam>
     public class DeferredDictionary<T> : IDictionary<string, T>
@@ -24,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         private Stream _stream;
         private Dictionary<int, long> _itemPositions;
 
-        public DeferredDictionary(JsonSerializer jsonSerializer, JsonPositionedTextReader reader)
+        public DeferredDictionary(JsonSerializer jsonSerializer, JsonPositionedTextReader reader, bool buildPositionsNow = false)
         {
             _jsonSerializer = jsonSerializer;
             _streamProvider = reader.StreamProvider;
@@ -33,7 +37,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             // We have the JsonTextReader, which must scan to after the collection to resume building the outer object
             // We may as well make the map of element positions.
-            BuildPositions(reader, 0);
+            if (buildPositionsNow)
+            {
+                BuildPositions(reader, 0);
+            }
+            else
+            {
+                reader.Skip();
+            }
         }
 
         private void EnsurePositionsBuilt()
@@ -47,6 +58,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             using (JsonPositionedTextReader reader = new JsonPositionedTextReader(() => stream))
             {
                 stream.Seek(_start, SeekOrigin.Begin);
+                reader.Read();
+
                 BuildPositions(reader, _start);
             }
         }
@@ -161,6 +174,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         {
             value = default(T);
             if (_stream == null) _stream = _streamProvider();
+
+            EnsurePositionsBuilt();
 
             // Get the hash of the key
             long keyPosition;
