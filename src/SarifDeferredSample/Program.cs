@@ -15,9 +15,9 @@ namespace SarifDeferredSample
 
         private static void Main(string[] args)
         {
-            bool deferred = true;
-
             string filePath = args[0];
+            bool deferred = bool.Parse(args[1]);
+            
             SarifLog log = null;
 
             Console.WriteLine($"Loading {filePath}{(deferred ? " (deferred)" : "")}...");
@@ -32,7 +32,7 @@ namespace SarifDeferredSample
                     log = serializer.Deserialize<SarifLog>(reader);
                 }
 
-                return $"Loaded {filePath} ({new FileInfo(filePath).Length / BytesPerMB} MB)";
+                return $"Loaded {filePath} ({(new FileInfo(filePath).Length / BytesPerMB):n1} MB)";
             });
 
             Run run = log.Runs[0];
@@ -47,14 +47,14 @@ namespace SarifDeferredSample
                 }
 
                 // Slower: Count and indexer
-                //messageCount = run.Results.Count;
+                //int messageCount = run.Results.Count;
                 //for (int i = 0; i < messageCount; ++i)
                 //{
                 //    Result result = run.Results[i];
                 //    messageLengthTotal += result?.Message?.Text?.Length ?? 0;
                 //}
 
-                return $"Enumerated {run.Results.Count:n0} Results message total {messageLengthTotal:n0}b";
+                return $"Enumerated {run.Results.Count:n0} Results message total {messageLengthTotal / BytesPerMB:n0}MB";
             });
 
             Measure(() =>
@@ -81,7 +81,7 @@ namespace SarifDeferredSample
                     //}
                 } 
 
-                return $"Enumerated {fileCount:n0} Files, URI total {uriLengthTotal:n0}b.";
+                return $"Enumerated {fileCount:n0} Files, URI total {uriLengthTotal / BytesPerMB:n0}MB.";
             });
 
             GC.KeepAlive(log);
@@ -97,7 +97,7 @@ namespace SarifDeferredSample
             w.Stop();
             long ramAfter = GC.GetTotalMemory(true);
 
-            Console.WriteLine($"{message} in {w.ElapsedMilliseconds:n0}ms using {(ramAfter - ramBefore) / (BytesPerMB):n3}MB RAM.");
+            Console.WriteLine($"{message} in {w.ElapsedMilliseconds:n0}ms and {(ramAfter - ramBefore) / (BytesPerMB):n1}MB RAM.");
         }
 
         private static string SeekAndRead(string filePath, long position)
