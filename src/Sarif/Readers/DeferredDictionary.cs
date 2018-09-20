@@ -32,7 +32,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         {
             _jsonSerializer = jsonSerializer;
             _streamProvider = reader.StreamProvider;
-
             _start = reader.TokenPosition;
 
             // We have the JsonTextReader, which must scan to after the collection to resume building the outer object

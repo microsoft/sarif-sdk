@@ -40,10 +40,19 @@ namespace SarifDeferredSample
             {
                 int messageLengthTotal = 0;
 
+                // Fastest: Enumerate
                 foreach (Result result in run.Results)
                 {
                     messageLengthTotal += result?.Message?.Text?.Length ?? 0;
                 }
+
+                // Slower: Count and indexer
+                //messageCount = run.Results.Count;
+                //for (int i = 0; i < messageCount; ++i)
+                //{
+                //    Result result = run.Results[i];
+                //    messageLengthTotal += result?.Message?.Text?.Length ?? 0;
+                //}
 
                 return $"Enumerated {run.Results.Count:n0} Results message total {messageLengthTotal:n0}b";
             });
@@ -55,6 +64,7 @@ namespace SarifDeferredSample
 
                 if (run.Files != null)
                 {
+                    // Fastest: Enumerate
                     foreach (var item in run.Files)
                     {
                         FileData file = item.Value;
@@ -62,6 +72,7 @@ namespace SarifDeferredSample
                         fileCount++;
                     }
 
+                    // Slower: Keys and indexer
                     //foreach (var key in run.Files.Keys)
                     //{
                     //    FileData file = run.Files[key];

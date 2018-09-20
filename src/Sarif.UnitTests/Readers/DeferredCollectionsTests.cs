@@ -103,6 +103,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 contextsCopy[pair.Key] = pair.Value;
             }
             Assert.Equal(actual.CodeContexts.Count, contextsCopy.Count);
+
+            // Enumerate Keys
+            int keyCount = 0;
+            foreach(string key in actual.CodeContexts.Keys)
+            {
+                Assert.True(contextsCopy.ContainsKey(key));
+                keyCount++;
+            }
+            Assert.Equal(contextsCopy.Count, keyCount);
+
+            // Enumerate Values
+            int valueCount = 0;
+            foreach(CodeContext value in actual.CodeContexts.Values)
+            {
+                Assert.True(contextsCopy.ContainsValue(value));
+                valueCount++;
+            }
+            Assert.Equal(contextsCopy.Count, valueCount);
         }
 
         private static void AssertEqual(Log expected, Log actual)
@@ -113,15 +131,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             Assert.Equal(expected.ApplicationContext, actual.ApplicationContext);
 
             // Validate DeferredDictionary has the right keys and all equal values
-            Assert.Equal(expected.CodeContexts.Count, actual.CodeContexts.Count);
-            foreach(string key in expected.CodeContexts.Keys)
+            foreach(KeyValuePair<string, CodeContext> item in actual.CodeContexts)
             {
-                Assert.Equal(expected.CodeContexts[key], actual.CodeContexts[key]);
+                Assert.Equal(expected.CodeContexts[item.Key], item.Value);
             }
+            Assert.Equal(expected.CodeContexts.Count, actual.CodeContexts.Count);
 
             // Verify DeferredList has the right count and reconstructs identical messages
-            Assert.Equal(expected.Messages.Count, actual.Messages.Count);
-            for(int i = 0; i < expected.Messages.Count; ++i)
+            int count = 0;
+            foreach(LogMessage message in actual.Messages)
+            {
+                Assert.Equal(expected.Messages[count++], message);
+            }
+
+            // Enumerate list again via indexer
+            for (int i = 0; i < actual.Messages.Count; ++i)
             {
                 Assert.Equal(expected.Messages[i], actual.Messages[i]);
             }

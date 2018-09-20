@@ -13,7 +13,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     ///  It uses JSON.NET to read the items from the stream when they are enumerated in the list,
     ///  saving the memory cost of keeping them around.
     ///  
-    ///  DeferredList supports enumerable and in-order access only.
+    ///  Enumerate for best performance:
+    ///  foreach(T item in list)
+    ///  { ... }
     /// </summary>
     /// <typeparam name="T">Type of items in list</typeparam>
     public class DeferredList<T> : IList<T>
@@ -21,53 +23,114 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         private JsonSerializer _jsonSerializer;
         private Func<Stream> _streamProvider;
         private long _start;
+        private int _count;
 
-        private IEnumerator<T> _currentEnumerator;
-        private int _currentIndex;
-
-        public int Count { get; private set; }
-        public bool IsReadOnly => true;
-
-        public DeferredList(JsonSerializer jsonSerializer, JsonPositionedTextReader reader)
+        private Stream _stream;
+        private long[] _itemPositions;
+        
+        public DeferredList(JsonSerializer jsonSerializer, JsonPositionedTextReader reader, bool buildPositionsNow = true)
         {
             _jsonSerializer = jsonSerializer;
             _streamProvider = reader.StreamProvider;
-
             _start = reader.TokenPosition;
+            _count = -1;
+
+            if(buildPositionsNow)
+            {
+                BuildPositions(reader, 0);
+            }
+            else
+            {
+                // We have to skip the array; it is free to get the count now so we don't have to walk again to get it.
+                CountOnly(reader);
+            }
+        }
+
+        private void CountOnly(JsonPositionedTextReader reader)
+        {
             int count = 0;
+
+            // StartArray
+            reader.Read();
+
+            while(true)
+            {
+                reader.Read();
+                if (reader.TokenType == JsonToken.EndArray) break;
+
+                count++;
+                reader.Skip();
+            }
+
+            _count = count;
+        }
+
+        private void EnsurePositionsBuilt()
+        {
+            if (_itemPositions == null) BuildPositions();
+        }
+
+        private void BuildPositions()
+        {
+            using (Stream stream = _streamProvider())
+            using (JsonPositionedTextReader reader = new JsonPositionedTextReader(() => stream))
+            {
+                stream.Seek(_start, SeekOrigin.Begin);
+                reader.Read();
+
+                BuildPositions(reader, _start);
+            }
+        }
+
+        private void BuildPositions(JsonPositionedTextReader reader, long currentOffset)
+        {
+            List<long> positions = new List<long>();
 
             while (true)
             {
                 reader.Read();
                 if (reader.TokenType == JsonToken.EndArray) break;
 
+                positions.Add(currentOffset + reader.TokenPosition);
                 reader.Skip();
-                count++;
             }
 
-            Count = count;
+            _itemPositions = positions.ToArray();
+            _count = positions.Count;
         }
+
+        public int Count
+        {
+            get
+            {
+                if(_count < 0) EnsurePositionsBuilt();
+                return _count;
+            }
+        }
+
+        public bool IsReadOnly => true;
 
         public T this[int index]
         {
             get
             {
-                if(index == 0)
+                EnsurePositionsBuilt();
+                if (_stream == null) _stream = _streamProvider();
+
+                if (index < 0 || index > _itemPositions.Length) throw new IndexOutOfRangeException("index");
+
+                // Seek to the item
+                long position = _itemPositions[index];
+                _stream.Seek(position, SeekOrigin.Begin);
+
+                // Build a JsonTextReader
+                using (JsonTextReader reader = new JsonTextReader(new StreamReader(_stream)))
                 {
-                    if (_currentEnumerator != null) _currentEnumerator.Dispose();
+                    reader.CloseInput = false;
+                    reader.Read();
 
-                    _currentIndex = 0;
-                    _currentEnumerator = this.GetEnumerator();
+                    return _jsonSerializer.Deserialize<T>(reader);
                 }
-
-                if(index != _currentIndex)
-                {
-                    throw new NotSupportedException("DeferredList only allows enumerating items in order.");
-                }
-
-                if (!_currentEnumerator.MoveNext()) throw new IndexOutOfRangeException("index");
-                _currentIndex++;
-                return _currentEnumerator.Current;
             }
 
             set => throw new NotSupportedException();
