@@ -15,8 +15,8 @@ namespace SarifDeferredSample
 
         private static void Main(string[] args)
         {
-            string filePath = args[0];
-            bool deferred = bool.Parse(args[1]);
+            bool deferred = bool.Parse(args[0]);
+            string filePath = args[1];
             
             SarifLog log = null;
 
