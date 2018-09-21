@@ -17,10 +17,15 @@
         }
       },
       "results": [],
+      "files": {
+        "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UriBaseIdRequiresRelativeUri/UrisAreRelative.sarif": {
+          "mimeType": "application/sarif-json"
+        }
+      },
       "invocations": [
         {
-          "startTime": "2018-08-16T16:08:04.770Z",
-          "endTime": "2018-08-16T16:08:05.663Z",
+          "startTime": "2018-09-12T21:45:55.710Z",
+          "endTime": "2018-09-12T21:45:56.652Z",
           "toolNotifications": [
             {
               "id": "MSG001.AnalyzingTarget",
@@ -33,7 +38,7 @@
                 "text": "Analyzing 'UrisAreRelative.sarif'..."
               },
               "level": "note",
-              "time": "2018-08-16T16:08:05.134Z"
+              "time": "2018-09-12T21:45:56.097Z"
             }
           ]
         }

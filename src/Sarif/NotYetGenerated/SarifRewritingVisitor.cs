@@ -586,6 +586,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                if (node.Rules != null)
+                {
+                    var keys = node.Rules.Keys.ToArray();
+                    foreach (var key in keys)
+                    {
+                        var value = node.Rules[key];
+                        if (value != null)
+                        {
+                            node.Rules[key] = VisitNullChecked(value);
+                        }
+                    }
+                }
             }
 
             return node;
@@ -623,9 +635,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (node.Graphs != null)
                 {
-                    for (int index_0 = 0; index_0 < node.Graphs.Count; ++index_0)
+                    var keys = node.Graphs.Keys.ToArray();
+                    foreach (var key in keys)
                     {
-                        node.Graphs[index_0] = VisitNullChecked(node.Graphs[index_0]);
+                        var value = node.Graphs[key];
+                        if (value != null)
+                        {
+                            node.Graphs[key] = VisitNullChecked(value);
+                        }
                     }
                 }
 
@@ -753,9 +770,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (node.Graphs != null)
                 {
-                    for (int index_0 = 0; index_0 < node.Graphs.Count; ++index_0)
+                    var keys = node.Graphs.Keys.ToArray();
+                    foreach (var key in keys)
                     {
-                        node.Graphs[index_0] = VisitNullChecked(node.Graphs[index_0]);
+                        var value = node.Graphs[key];
+                        if (value != null)
+                        {
+                            node.Graphs[key] = VisitNullChecked(value);
+                        }
                     }
                 }
 

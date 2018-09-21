@@ -143,8 +143,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
       ""tool"": {
         ""name"": ""CodeScanner"",
         ""semanticVersion"": ""2.1.0""
-      },
-      ""results"": []
+      }
     }
   ]
 }";
@@ -159,9 +158,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
         ""name"": ""CodeScanner"",
         ""semanticVersion"": ""2.1.0""
       },
-      ""results"": [],
       ""properties"": {
-        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""},""results"":[]}
+        ""sarifv1/run"": {""tool"":{""name"":""CodeScanner"",""semanticVersion"":""2.1.0""}}
       }
     }
   ]

@@ -58,7 +58,7 @@
                   "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UriMustBeAbsolute/Invalid.sarif"
                 },
                 "region": {
-                  "startLine": 27,
+                  "startLine": 20,
                   "startColumn": 39
                 }
               }
@@ -82,7 +82,7 @@
                   "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UriMustBeAbsolute/Invalid.sarif"
                 },
                 "region": {
-                  "startLine": 22,
+                  "startLine": 15,
                   "startColumn": 46
                 }
               }
@@ -106,32 +106,8 @@
                   "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UriMustBeAbsolute/Invalid.sarif"
                 },
                 "region": {
-                  "startLine": 33,
+                  "startLine": 26,
                   "startColumn": 59
-                }
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "SARIF1015",
-          "level": "error",
-          "message": {
-            "messageId": "Default",
-            "arguments": [
-              "/runs/0/invocations/0/executableLocation/uri",
-              "tools/CodeScanner.exe"
-            ]
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UriMustBeAbsolute/Invalid.sarif"
-                },
-                "region": {
-                  "startLine": 13,
-                  "startColumn": 42
                 }
               }
             }
@@ -178,7 +154,7 @@
                   "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UriMustBeAbsolute/Invalid.sarif"
                 },
                 "region": {
-                  "startLine": 39,
+                  "startLine": 32,
                   "startColumn": 41
                 }
               }
@@ -194,13 +170,13 @@
               "text": "UriMustBeAbsolute"
             },
             "shortDescription": {
-              "text": "Certain URIs in the SARIF specification are required to be absolute."
+              "text": "Certain URIs are required to be absolute."
             },
             "fullDescription": {
-              "text": "Certain URIs in the SARIF specification are required to be absolute."
+              "text": "Certain URIs are required to be absolute."
             },
             "messageStrings": {
-              "Default": "{0}: The SARIF specification requires the value of this property to be an absolute URI, but \"{1}\" is a relative URI reference."
+              "Default": "{0}: The value of this property is required to be an absolute URI, but \"{1}\" is a relative URI reference."
             },
             "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.0/csprd01/sarif-v2.0-csprd01.html"
           }
@@ -213,8 +189,8 @@
       },
       "invocations": [
         {
-          "startTime": "2018-08-21T01:40:41.577Z",
-          "endTime": "2018-08-21T01:40:42.450Z",
+          "startTime": "2018-09-12T22:04:27.330Z",
+          "endTime": "2018-09-12T22:04:28.483Z",
           "toolNotifications": [
             {
               "id": "MSG001.AnalyzingTarget",
@@ -227,7 +203,7 @@
                 "text": "Analyzing 'Invalid.sarif'..."
               },
               "level": "note",
-              "time": "2018-08-21T01:40:41.994Z"
+              "time": "2018-09-12T22:04:27.879Z"
             }
           ]
         }

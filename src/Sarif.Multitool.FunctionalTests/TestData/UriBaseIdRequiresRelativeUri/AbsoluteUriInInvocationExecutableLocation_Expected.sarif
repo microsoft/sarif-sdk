@@ -21,12 +21,12 @@
           "ruleId": "SARIF1014",
           "level": "error",
           "message": {
+            "messageId": "Default",
             "arguments": [
               "/runs/0/invocations/0/executableLocation/uri",
               "file:///c:/src/file.c"
             ]
           },
-          "ruleMessageId": "Default",
           "locations": [
             {
               "physicalLocation": {
@@ -69,8 +69,8 @@
       },
       "invocations": [
         {
-          "startTime": "2018-08-15T20:40:13.046Z",
-          "endTime": "2018-08-15T20:40:13.952Z",
+          "startTime": "2018-09-12T21:45:41.936Z",
+          "endTime": "2018-09-12T21:45:42.877Z",
           "toolNotifications": [
             {
               "id": "MSG001.AnalyzingTarget",
@@ -83,7 +83,7 @@
                 "text": "Analyzing 'AbsoluteUriInInvocationExecutableLocation.sarif'..."
               },
               "level": "note",
-              "time": "2018-08-15T20:40:13.432Z"
+              "time": "2018-09-12T21:45:42.322Z"
             }
           ]
         }
