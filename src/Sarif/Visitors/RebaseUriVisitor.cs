@@ -21,7 +21,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         private Uri _baseUri;
         private string _baseName;
-        private string _originalFileKey;
         private bool _rebaseRelativeUris;
         IDictionary<string, FileData> _files;
 
@@ -48,7 +47,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             _baseUri = baseUri;
             _baseName = baseName;
             _rebaseRelativeUris = false;
-            _originalFileKey = Guid.NewGuid().ToString();
 
             Debug.Assert(_baseUri.IsAbsoluteUri);
         }
