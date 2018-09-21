@@ -18,10 +18,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     {
         internal const string BaseUriDictionaryName = "originalUriBaseIds";
         internal const string IncorrectlyFormattedDictionarySuffix = ".Old";
-        internal const string OriginalFileKey = "OriginalFileKey";
 
         private Uri _baseUri;
         private string _baseName;
+        private string _originalFileKey;
         private bool _rebaseRelativeUris;
         IDictionary<string, FileData> _files;
 
@@ -48,6 +48,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             _baseUri = baseUri;
             _baseName = baseName;
             _rebaseRelativeUris = false;
+            _originalFileKey = Guid.NewGuid().ToString();
+
             Debug.Assert(_baseUri.IsAbsoluteUri);
         }
 
@@ -61,15 +63,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Debug.Assert(_baseUri.IsAbsoluteUri);
 
             _rebaseRelativeUris = rebaseRelativeUris;
-        }
-
-        public override FileData VisitFileData(FileData node)
-        {
-            FileData newNode = base.VisitFileData(node);
-
-            RebaseFilesDictionary(newNode);
-
-            return newNode;
         }
 
         public override FileLocation VisitFileLocation(FileLocation node)
@@ -91,40 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override Run VisitRun(Run node)
         {
-            _files = node.Files;
-
-            // Save the file key in the property bag so we can remap it during rebasing.
-            foreach (string key in _files.Keys)
-            {
-                _files[key].SetProperty(OriginalFileKey, key);
-            }
-
             Run newRun = base.VisitRun(node);
-
-            // Remove the remapped files (they are duplicated during remapping).
-            foreach (string key in _files.Keys.ToArray())
-            {
-                string originalFileKey = _files[key].GetProperty<string>(OriginalFileKey);
-
-                if (originalFileKey != null)
-                {
-                    if (_files.ContainsKey(originalFileKey))
-                    {
-                        _files.Remove(originalFileKey);
-                    }
-                    else
-                    {
-                        _files[key].RemoveProperty(OriginalFileKey);
-
-                        if (_files[key].Properties.Count == 0)
-                        {
-                            _files[key].Properties = null;
-                        }
-                    }
-                }
-            }
-
-            newRun.Files = _files;
 
             // If the dictionary doesn't exist, we should add it to the properties.  If it does, we should add/update the existing dictionary.
             IDictionary<string, Uri> baseUriDictionary = new Dictionary<string, Uri>();
@@ -145,34 +105,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         /// to be relative.
         /// </summary>
         /// <param name="node">File location being changed to relative.</param>
-        internal void RebaseFilesDictionary(FileData node)
+        public override FileData VisitFileDataDictionaryEntry(FileData node, ref string key)
         {
-            _files = _files ?? new Dictionary<string, FileData>(StringComparer.OrdinalIgnoreCase);
+            // Force a visit of the file data object, which may rewrite its file location
+            node = base.VisitFileDataDictionaryEntry(node, ref key);
 
             FileLocation fileLocation = node.FileLocation;
 
-            string uriText = Uri.EscapeUriString(fileLocation.Uri.ToString());
-            string uriTextOriginal = node.Properties[OriginalFileKey].SerializedValue;
-            string uriTextOriginalWithBase = _baseUri + uriText;
-
             if (!string.IsNullOrEmpty(fileLocation.UriBaseId))
             {
-                uriText = "#" + fileLocation.UriBaseId + "#" + uriText;
+                string uriText = Uri.EscapeUriString(fileLocation.Uri.ToString());
+                key = "#" + fileLocation.UriBaseId + "#" + uriText;
             }
 
-            if (!_files.ContainsKey(uriText))
-            {
-                _files[uriText] = node;
-
-                if (_files.ContainsKey(uriTextOriginal))
-                {
-                    _files.Remove(uriTextOriginal);
-                }
-                else if (_files.ContainsKey(uriTextOriginalWithBase))
-                {
-                    _files.Remove(uriTextOriginalWithBase);
-                }
-            }
+            return node;
         }
 
         internal static bool TryDeserializePropertyDictionary(SerializedPropertyInfo serializedProperty, out Dictionary<string, Uri> dictionary)

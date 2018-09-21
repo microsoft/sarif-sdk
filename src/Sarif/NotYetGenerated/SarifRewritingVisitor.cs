@@ -125,14 +125,56 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
+
         private T VisitNullChecked<T>(T node) where T : class, ISarifNode
+        {
+            string emptyKey = null;
+            return VisitNullChecked<T>(node, ref emptyKey);
+        }
+
+
+            private T VisitNullChecked<T>(T node, ref string key) where T : class, ISarifNode
         {
             if (node == null)
             {
                 return null;
             }
 
-            return (T)Visit(node);
+            if (key == null)
+            {
+                return (T)Visit(node);
+            }
+
+            return (T)VisitDictionaryEntry(node, ref key);
+        }
+
+        private T VisitDictionaryEntry(ISarifNode node, ref string key) where T : class, ISarifNode
+        {
+            if (node == null)
+            {
+                throw new ArgumentNullException(nameof(key));
+            }
+
+            if (key == null)
+            {
+                throw new ArgumentNullException(nameof(key));
+            }
+
+            switch (node.SarifNodeKind)
+            {
+                case SarifNodeKind.FileData:
+                    return VisitFileDataDictionaryEntry((FileData)node, ref key);
+
+                // add other dictionary things
+
+                default:
+                    throw new InvalidOperationException(); // whoops! unknown type
+            }
+        }
+
+        public virtual FileData VisitFileDataDictionaryEntry(FileData node, ref string key)
+        {
+            return (FileData)Visit(node);
         }
 
         public virtual Attachment VisitAttachment(Attachment node)
@@ -684,7 +726,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                         var value = node.Files[key];
                         if (value != null)
                         {
-                            node.Files[key] = VisitNullChecked(value);
+                            string newKey = key;
+                            node.Files.Remove(key);
+                            value = VisitNullChecked(value, ref newKey);
+
+                            if (newKey != null)
+                            {
+                                node.Files[newKey] = VisitNullChecked(value);
+                            }
                         }
                     }
                 }
