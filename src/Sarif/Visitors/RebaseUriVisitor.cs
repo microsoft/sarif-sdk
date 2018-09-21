@@ -22,7 +22,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private Uri _baseUri;
         private string _baseName;
         private bool _rebaseRelativeUris;
-        IDictionary<string, FileData> _files;
 
         private static JsonSerializerSettings _settings;
 

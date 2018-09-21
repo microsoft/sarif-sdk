@@ -133,7 +133,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
 
-            private T VisitNullChecked<T>(T node, ref string key) where T : class, ISarifNode
+        private T VisitNullChecked<T>(T node, ref string key) where T : class, ISarifNode
         {
             if (node == null)
             {
@@ -148,7 +148,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return (T)VisitDictionaryEntry(node, ref key);
         }
 
-        private T VisitDictionaryEntry(ISarifNode node, ref string key) where T : class, ISarifNode
+        private ISarifNode VisitDictionaryEntry(ISarifNode node, ref string key)
         {
             if (node == null)
             {
