@@ -20,12 +20,14 @@
           "copyright": "Copyright (c) 2016 by Example Corporation. All rights reserved."
         }
       },
+      "originalUriBaseIds": { "TOOLS_ROOT": "file:///bin/tools/" },
       "invocations": [
         {
-          "commandLine": "CodeScanner @collections.rsp",
+          "commandLine": "CodeScanner.exe @collections.rsp",
           "responseFiles": [
             {
-              "uri": "collections.rsp"
+              "uri": "codescanner/config/collections.rsp",
+              "uriBaseId": "TOOLS_ROOT"
             }
           ],
           "startTime": "2016-07-16T14:18:25Z",
@@ -108,10 +110,12 @@
           "account": "buildAgent",
           "processId": 1218,
           "executableLocation": {
-            "uri": "/bin/tools/CodeScanner"
+            "uri": "CodeScanner/CodeScanner.exe",
+            "uriBaseId": "TOOLS_ROOT"
           },
           "workingDirectory": {
-           "uri" : "/home/buildAgent/src"
+            "uri": "CodeScanner/",
+            "uriBaseId": "TOOLS_ROOT"
           },
           "environmentVariables": {
             "PATH": "/usr/local/bin:/bin:/bin/tools:/home/buildAgent/bin",
@@ -143,7 +147,7 @@
           "offset": 17522,
           "length": 4050
         },
-        "collections.rsp": {
+        "#TOOLS_ROOT#codescanner/config/collections.rsp": {
           "contents": {
             "text": "\"-input src/collections/*.cpp -log out/collections.sarif -rules all -disable C9999\"."
           }

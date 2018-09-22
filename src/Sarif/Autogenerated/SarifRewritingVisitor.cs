@@ -749,7 +749,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                             if (newKey != null)
                             {
-                                node.Files[newKey] = VisitNullChecked(value);
+                                node.Files[newKey] = value;
                             }
                         }
                     }
