@@ -3,9 +3,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -19,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             output = testOutput;
         }
-        
+
         [Theory]
         [InlineData("BLDROOT", @"C:\blddir\out\test.dll", @"C:\blddir\out\", "test.dll")]
         [InlineData("SRCROOT", @"C:\blddir\out\test.dll", @"C:\blddir\src\", null)]
@@ -42,7 +44,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 newLocation.FileLocation.UriBaseId.Should().BeEquivalentTo(rootName, "We should set the root name for these.");
                 newLocation.FileLocation.Uri.Should().BeEquivalentTo(baseUri.MakeRelativeUri(locationUri), "Base URI should be relative if the expected difference is there.");
                 newLocation.FileLocation.Uri.ToString().Should().BeEquivalentTo(expectedDifference, "We expect this difference.");
-            } else
+            }
+            else
             {
                 newLocation.Should().BeEquivalentTo(location, "When we have no expected difference, we expect the location to not be changed by the rebase operation.");
             }
@@ -63,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             rebaseUriVisitor.VisitPhysicalLocation(location).Should().BeEquivalentTo(location, "We should not rebase a URI multiple times.");
         }
-        
+
         [Fact]
         public void RebaseUriVisitor_VisitRun_AddsBaseUriDictionaryWhenNotPresent()
         {
@@ -86,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             const string srcRoot = "SRCROOT";
             Uri srcRootUri = new Uri(@"C:\src\root");
-            
+
             const string bldRoot = "BLDROOT";
             Uri bldRootUri = new Uri(@"C:\bld\root");
 
@@ -114,13 +117,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
 
             Run oldRun = RandomSarifLogGenerator.GenerateRandomRun(random);
-            
+
             RebaseUriVisitor rebaseUriVisitor = new RebaseUriVisitor("SRCROOT", new Uri(@"C:\src\"));
 
             Run newRun = rebaseUriVisitor.VisitRun(oldRun);
 
             newRun.OriginalUriBaseIds.Should().ContainKey("SRCROOT");
-            
+
             newRun.Files.Keys.Where(k => k.StartsWith(@"C:\src\")).Should().BeEmpty();
         }
 
@@ -136,17 +139,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Run newRun = rebaseUriVisitor.VisitRun(oldRun);
 
             newRun.OriginalUriBaseIds.Should().ContainKey("SRCROOT");
-            
+
             // Random sarif log generator uses "C:\src\" as the root.
             newRun.Files.Keys.Should().BeEquivalentTo(oldRun.Files.Keys);
-         }
+        }
 
         [Fact]
         public void RebaseUriVisitor_VisitFileData_PatchesUriAndParentUri()
         {
             Uri fileUri = new Uri(@"file://C:/src/root/blah.zip#/stuff.doc");
             string parentKey = @"C:\src\root\blah.zip";
-            FileData fileData = new FileData() { FileLocation = new FileLocation { Uri = fileUri }, ParentKey = parentKey};
+            FileData fileData = new FileData() { FileLocation = new FileLocation { Uri = fileUri }, ParentKey = parentKey };
             Run run = new Run() { Files = new Dictionary<string, FileData>() { { fileUri.ToString(), fileData } }, Results = new List<Result> { new Result() { Locations = new List<Location> { new Location() { PhysicalLocation = new PhysicalLocation() { FileLocation = new FileLocation() { Uri = fileUri } } } } } } };
 
             string srcroot = "SRCROOT";
@@ -178,6 +181,101 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             newFileData.FileLocation.Uri.Should().BeSameAs(fileUri);
             newFileData.FileLocation.UriBaseId.Should().BeNullOrEmpty();
             newFileData.ParentKey.Should().BeSameAs(parentKey);
+        }
+
+
+        [Fact]
+        public void RebaseUriVisitor_VisitFileData_RebasesAllTheThings()
+        {
+            string comprehensiveSarifPath = Path.Combine(Environment.CurrentDirectory, @"v2\Comprehensive.sarif");
+
+            JsonSerializerSettings settings = new JsonSerializerSettings { ContractResolver = SarifContractResolver.Instance };
+
+            string sarifText = File.ReadAllText(comprehensiveSarifPath);
+
+            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifText, settings);
+
+            sarifLog.Runs.Count().Should().Be(1);
+
+            var visitor = new RebaseVerifyingVisitor();
+            visitor.VisitRun(sarifLog.Runs[0]);
+
+            string uriRootText = "file:///home/buildAgent/";
+            string toolsRootBaseId = "TOOLS_ROOT";
+
+            visitor.FileDataParentKeys.Count.Should().Be(4);
+            visitor.FileDataParentKeys.Where(k => k == null).Count().Should().Be(3);
+            visitor.FileDataParentKeys.Where(k => k != null && k.StartsWith(uriRootText)).Count().Should().Be(1);
+
+            visitor.FileDataKeys.Count.Should().Be(4);
+            visitor.FileDataKeys.Where(k => k != null && k.StartsWith(uriRootText)).Count().Should().Be(3);
+            visitor.FileDataKeys.Where(k => k != null && k.StartsWith("#" + toolsRootBaseId + "#")).Count().Should().Be(1);
+
+            visitor.FileLocationUriBaseIds.Count.Should().Be(15);
+            visitor.FileLocationUriBaseIds.Where(u => u == null).Count().Should().Be(12);
+            visitor.FileLocationUriBaseIds.Where(u => u == toolsRootBaseId).Count().Should().Be(3);
+
+            visitor.FileLocationUris.Count.Should().Be(15);
+            visitor.FileLocationUris.Where(u => u != null && u.StartsWith(uriRootText)).Count().Should().Be(11);
+
+            string agentRootBaseId = "AGENT_ROOT";
+
+            var rebaseUriVisitor = new RebaseUriVisitor(agentRootBaseId, new Uri(uriRootText));
+            Run rebasedRun = rebaseUriVisitor.VisitRun(sarifLog.Runs[0]);
+
+            visitor = new RebaseVerifyingVisitor();
+            visitor.VisitRun(rebasedRun);
+
+            visitor.FileDataKeys.Count.Should().Be(4);
+            visitor.FileDataKeys.Where(k => k != null && k.StartsWith("#" + toolsRootBaseId + "#")).Count().Should().Be(1);
+            visitor.FileDataKeys.Where(k => k != null && k.StartsWith("#" + agentRootBaseId + "#")).Count().Should().Be(3);
+
+            visitor.FileDataParentKeys.Count.Should().Be(4);
+            visitor.FileDataParentKeys.Where(k => k == null).Count().Should().Be(3);
+            visitor.FileDataParentKeys.Where(k => k != null && k.StartsWith("#" + agentRootBaseId + "#")).Count().Should().Be(1);
+
+            visitor.FileLocationUriBaseIds.Count.Should().Be(15);
+            // The sole null uri base id is for an embedded item. These always have a URI only
+            visitor.FileLocationUriBaseIds.Where(u => u == null).Count().Should().Be(1);
+            visitor.FileLocationUriBaseIds.Where(u => u == toolsRootBaseId).Count().Should().Be(3);
+            visitor.FileLocationUriBaseIds.Where(u => u == agentRootBaseId).Count().Should().Be(11);
+
+            visitor.FileLocationUris.Count.Should().Be(15);
+            visitor.FileLocationUris.Where(u => u != null && u.StartsWith(uriRootText)).Count().Should().Be(0);
+        }
+
+        private class RebaseVerifyingVisitor : SarifRewritingVisitor
+        {
+            public RebaseVerifyingVisitor()
+            {
+            }
+
+            public override FileData VisitFileDataDictionaryEntry(FileData node, ref string key)
+            {
+                FileDataKeys = FileDataKeys ?? new List<string>();
+                FileDataKeys.Add(key);
+
+                FileDataParentKeys = FileDataParentKeys ?? new List<string>();
+                FileDataParentKeys.Add(node.ParentKey);
+
+                return base.VisitFileDataDictionaryEntry(node, ref key);
+            }
+
+            public override FileLocation VisitFileLocation(FileLocation node)
+            {
+                FileLocationUris = FileLocationUris ?? new List<string>();
+                FileLocationUris.Add(node.Uri.OriginalString);
+
+                FileLocationUriBaseIds = FileLocationUriBaseIds ?? new List<string>();
+                FileLocationUriBaseIds.Add(node.UriBaseId);
+
+                return base.VisitFileLocation(node);
+            }
+
+            public List<string> FileDataKeys { get; set; }
+            public List<string> FileDataParentKeys { get; set; }
+            public List<string> FileLocationUris { get; set; }
+            public List<string> FileLocationUriBaseIds { get; set; }
         }
     }
 }

@@ -82,5 +82,6 @@
 
   <ItemGroup>
     <Folder Include="Baseline\ResultMatching\SarifElementRemappers\" />
+    <None Include="$(SolutionDir)\Sarif.FunctionalTests\v2\SpecExamples\Comprehensive.sarif" CopyToOutputDirectory="PreserveNewest" LinkBase="v2" />
   </ItemGroup>
 </Project>
