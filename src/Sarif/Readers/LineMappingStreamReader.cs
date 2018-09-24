@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System;
 using System.IO;
-using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
@@ -13,79 +12,133 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     /// </summary>
     internal class LineMappingStreamReader : StreamReader
     {
-        // Track bytes read before the current read (to return absolute line offsets) and in the current read
-        private long _bytesReadPreviously;
-        private int _bytesRead;
+        private struct FilePosition
+        {
+            public int LineNumber { get; set; }
+            public int CharInLine { get; set; }
+            public int BufferIndex { get; set; }
+            public long ByteOffset { get; set; }
 
-        // Keep the char index and byte offset of the start of each line in the currently read buffer (byteOffset + _bytesReadPreviously => LineOffset)
-        private int[] _lineStartIndices;
-        private int[] _lineStartByteOffsets;
-        private long _lineCount;
+            public FilePosition(int lineNumber, int charInLine, int bufferIndex, long byteOffset)
+            {
+                this.LineNumber = lineNumber;
+                this.CharInLine = charInLine;
+                this.BufferIndex = bufferIndex;
+                this.ByteOffset = byteOffset;
+            }
+        }
 
-        // Track the first line number and byte offset because it can start before the buffer range
-        private long _firstLineNumber;
-        private int _firstLineCharsBeforeBuffer;
-        private int _lastLineChars;
+        // Track the position corresponding to the first buffer byte and the last one returned
+        private FilePosition _bufferStartPosition;
+        private FilePosition _lastReturnedPosition;
 
         // Keep a copy of the last read buffer and the valid range of it so we can count bytes within the requested line.
         private char[] _buffer;
-        private int _bufferIndex;
         private int _bufferLength;
-
 
         public LineMappingStreamReader(Stream stream) : base(stream)
         {
-            // (1, 1) is the 0th byte, so the line number before the read is 1 and there is one character (the newline before the first line) before the first read.
-            _firstLineNumber = 1;
-            _firstLineCharsBeforeBuffer = 1;
+            _bufferStartPosition = new FilePosition(1, 1, 0, 0);
+            _lastReturnedPosition = _bufferStartPosition;
         }
 
         public long LineAndCharToOffset(int line, int charInLine)
         {
             if (line == 0 && charInLine == 0) return 0;
-            if (line < _firstLineNumber || line > _firstLineNumber + _lineCount) throw new ArgumentOutOfRangeException($"Line must be in the range of lines last read, ({_firstLineNumber} - {_firstLineNumber + _lineCount}). It was {line}.");
 
-            int bytesInLine;
+            FilePosition position = CountUpTo(line, charInLine);
+            _lastReturnedPosition = position;
 
-            if (line == _firstLineNumber)
+            return position.ByteOffset;
+        }
+
+        private FilePosition CountUpTo(int line, int charInLine)
+        {
+            if (line < _bufferStartPosition.LineNumber) throw new ArgumentOutOfRangeException($"Line must be in the range of lines last read, from ({_bufferStartPosition.LineNumber}). Request was for {line}.");
+
+            FilePosition start = _bufferStartPosition;
+
+            // Start from the last returned position if possible
+            if (_lastReturnedPosition.LineNumber < line || (_lastReturnedPosition.LineNumber == line && _lastReturnedPosition.CharInLine <= charInLine))
             {
-                if (charInLine < _firstLineCharsBeforeBuffer || charInLine - _firstLineCharsBeforeBuffer > _bufferLength) throw new ArgumentOutOfRangeException($"Line {line} chars ({_firstLineCharsBeforeBuffer} to {_firstLineCharsBeforeBuffer + _bufferLength} in range. {charInLine} requested was out of range.");
-
-                // For the first line, the offset is total bytes read plus byte count for the characters in the line which are in the current buffer.
-                int charsInBufferForLine = charInLine - _firstLineCharsBeforeBuffer;
-                bytesInLine = this.CurrentEncoding.GetByteCount(_buffer, _bufferIndex, charsInBufferForLine);
-                return _bytesReadPreviously + bytesInLine;
+                start = _lastReturnedPosition;
             }
 
-            // Find the newline starting the line
-            long newlineByteOffset = _bytesReadPreviously + _lineStartByteOffsets[line - (_firstLineNumber + 1)];
-            int newlineCharIndex = _lineStartIndices[line - (_firstLineNumber + 1)];
+            // Calculate where we're scanning the buffer from
+            FilePosition current = start;
+            int bufferIndex = start.BufferIndex;
 
-            // Get the byte count for the characters in the line
-            if (newlineCharIndex + charInLine > _bufferLength)
+            // Find the correct newline
+            for (; current.LineNumber < line && bufferIndex < _bufferLength; bufferIndex++)
             {
-                throw new ArgumentOutOfRangeException($"Line {line} up to char {charInLine} isn't available in buffer. Only {_bufferLength - newlineCharIndex} characters available.");
-            }
-            bytesInLine = this.CurrentEncoding.GetByteCount(_buffer, _bufferIndex + newlineCharIndex, charInLine);
+                if (_buffer[bufferIndex] == '\n')
+                {
+                    current.ByteOffset = current.ByteOffset + this.CurrentEncoding.GetByteCount(_buffer, current.BufferIndex, bufferIndex - current.BufferIndex);
 
-            // Return the byte offset to this specific character
-            long position = newlineByteOffset + bytesInLine;
-            return position;
+                    current.LineNumber++;
+                    current.CharInLine = 0;
+                    current.BufferIndex = bufferIndex;
+                }
+            }
+           
+            // Count bytes on this line
+            if (current.CharInLine < charInLine)
+            {
+                int charsToAdd = charInLine - current.CharInLine;
+                if (bufferIndex + charsToAdd > _bufferLength) throw new ArgumentOutOfRangeException($"Position must be in buffer from last read. ({line}, {charInLine}) requested; ({current.LineNumber}, {current.CharInLine + ((_bufferLength - 1) - current.BufferIndex)}) is end of buffer.");
+
+                current.ByteOffset = current.ByteOffset + this.CurrentEncoding.GetByteCount(_buffer, current.BufferIndex, charsToAdd);
+
+                current.CharInLine = charInLine;
+                current.BufferIndex += charsToAdd;
+            }
+
+            // Return the found position
+            return current;
+        }
+
+        private FilePosition CountUpTo(int index)
+        {
+            if (index < 0 || index >= _bufferLength) throw new IndexOutOfRangeException("index");
+
+            FilePosition current = _lastReturnedPosition;
+            if (_lastReturnedPosition.BufferIndex > index) current = _bufferStartPosition;
+
+            // Find the line number of the index
+            int lastNewlineIndex = current.BufferIndex - current.CharInLine;
+
+            int bufferIndex = current.BufferIndex;
+            for (; bufferIndex <= index; bufferIndex++)
+            {
+                if (_buffer[bufferIndex] == '\n')
+                {
+                    current.LineNumber++;
+                    lastNewlineIndex = bufferIndex;
+                }
+            }
+
+            // Calculate the char of the index
+            current.CharInLine = index - lastNewlineIndex;
+
+            // Count bytes up to the index
+            current.ByteOffset += this.CurrentEncoding.GetByteCount(_buffer, current.BufferIndex, index - current.BufferIndex);
+
+            return current;
         }
 
         public override int Read(char[] buffer, int index, int count)
         {
-            // Track the first line number and char total before the current buffer
-            if (_lineCount > 0)
+            // Count the rest of the last buffer and store the position where this buffer starts
+            if(_bufferLength > 0)
             {
-                _firstLineNumber += _lineCount;
-                _firstLineCharsBeforeBuffer = 0;
+                FilePosition endOfBuffer = CountUpTo(_bufferLength - 1);
+                endOfBuffer.CharInLine++;
+                endOfBuffer.ByteOffset++;
+                endOfBuffer.BufferIndex = 0;
+
+                _bufferStartPosition = endOfBuffer;
+                _lastReturnedPosition = endOfBuffer;
             }
-
-            _firstLineCharsBeforeBuffer += _lastLineChars;
-
-            // Maintain total byte count read
-            _bytesReadPreviously += _bytesRead;
 
             // Read the new buffer
             int charsRead = base.Read(buffer, index, count);
@@ -93,43 +146,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             // Copy buffer so we can map char in line to byte count (real buffer can be shifted by reader, invalidating indices)
             if (_buffer == null || _buffer.Length < buffer.Length) _buffer = new char[buffer.Length];
             Buffer.BlockCopy(buffer, 2 * index, _buffer, 0, 2 * charsRead);
-            _bufferIndex = 0;
             _bufferLength = charsRead;
-
-            // Ensure space to hold start of each line
-            if (_lineStartByteOffsets == null || _lineStartByteOffsets.Length < charsRead) _lineStartByteOffsets = new int[charsRead];
-            if (_lineStartIndices == null || _lineStartIndices.Length < charsRead) _lineStartIndices = new int[charsRead];
-            _lineCount = 0;
-
-            // Find each newline byte offset relative to current read
-            int bytesRead = 0;
-            int lastEnd = index;
-
-            for (int i = index; i < index + charsRead; ++i)
-            {
-                if (buffer[i] == '\n')
-                {
-                    // Count bytes up to this line
-                    bytesRead += this.CurrentEncoding.GetByteCount(buffer, lastEnd, i - lastEnd);
-                    lastEnd = i;
-
-                    // Store the char index and byte offset of the newline for this line
-                    _lineStartIndices[_lineCount] = i - index;
-                    _lineStartByteOffsets[_lineCount] = bytesRead;
-                    _lineCount++;
-                }
-            }
-
-            // Count bytes in last line until end of buffer
-            if (lastEnd < index + charsRead)
-            {
-                bytesRead += this.CurrentEncoding.GetByteCount(buffer, lastEnd, (index + charsRead) - lastEnd);
-            }
-
-            // Count chars in the last line in this buffer
-            _lastLineChars = (index + charsRead) - lastEnd;
-
-            _bytesRead = bytesRead;
+            
             return charsRead;
         }
     }

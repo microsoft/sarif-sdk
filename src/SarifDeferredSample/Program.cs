@@ -15,9 +15,65 @@ namespace SarifDeferredSample
 
         private static void Main(string[] args)
         {
-            bool deferred = bool.Parse(args[0]);
-            string filePath = args[1];
-            
+            //EchoLog(args[0], args[1]);
+            ReadTest(true, args[0]);
+        }
+
+        private static void EchoLog(string filePath, string outputPath, int resultRepeatCount = 1)
+        {
+            SarifLog log = null;
+
+            JsonSerializer serializer = new JsonSerializer();
+            serializer.ContractResolver = SarifDeferredContractResolver.Instance;
+            serializer.Formatting = Formatting.Indented;
+
+            Measure(() =>
+            {
+                using (JsonTextReader reader = new JsonPositionedTextReader(filePath))
+                {
+                    log = serializer.Deserialize<SarifLog>(reader);
+                }
+
+                return $"Loaded {filePath} ({(new FileInfo(filePath).Length / BytesPerMB):n1} MB)";
+            });
+
+            Measure(() =>
+            {
+                using (JsonTextWriter writer = new JsonTextWriter(new StreamWriter(outputPath)))
+                {
+                    serializer.Serialize(writer, log);
+                }
+
+                return $"Wrote {filePath} copy.";
+            });
+        }
+
+        private static void Measure(Func<string> action)
+        {
+            long ramBefore = GC.GetTotalMemory(true);
+            Stopwatch w = Stopwatch.StartNew();
+
+            string message = action();
+
+            w.Stop();
+            long ramAfter = GC.GetTotalMemory(true);
+
+            Console.WriteLine($"{message} in {w.ElapsedMilliseconds:n0}ms and {(ramAfter - ramBefore) / (BytesPerMB):n1}MB RAM.");
+        }
+
+        private static string SeekAndRead(string filePath, long position)
+        {
+            char[] buffer = new char[500];
+            using (StreamReader reader = new StreamReader(filePath))
+            {
+                reader.BaseStream.Seek(position, SeekOrigin.Begin);
+                int length = reader.Read(buffer, 0, buffer.Length);
+                return new string(buffer, 0, length);
+            }
+        }
+
+        private static void ReadTest(bool deferred, string filePath)
+        {
             SarifLog log = null;
 
             Console.WriteLine($"Loading {filePath}{(deferred ? " (deferred)" : "")}...");
@@ -79,7 +135,7 @@ namespace SarifDeferredSample
                     //    uriLengthTotal += file?.FileLocation?.Uri?.OriginalString?.Length ?? 0;
                     //    fileCount++;
                     //}
-                } 
+                }
 
                 return $"Enumerated {fileCount:n0} Files, URI total {uriLengthTotal / BytesPerMB:n0}MB.";
             });
@@ -87,28 +143,5 @@ namespace SarifDeferredSample
             GC.KeepAlive(log);
         }
 
-        private static void Measure(Func<string> action)
-        {
-            long ramBefore = GC.GetTotalMemory(true);
-            Stopwatch w = Stopwatch.StartNew();
-
-            string message = action();
-
-            w.Stop();
-            long ramAfter = GC.GetTotalMemory(true);
-
-            Console.WriteLine($"{message} in {w.ElapsedMilliseconds:n0}ms and {(ramAfter - ramBefore) / (BytesPerMB):n1}MB RAM.");
-        }
-
-        private static string SeekAndRead(string filePath, long position)
-        {
-            char[] buffer = new char[500];
-            using (StreamReader reader = new StreamReader(filePath))
-            {
-                reader.BaseStream.Seek(position, SeekOrigin.Begin);
-                int length = reader.Read(buffer, 0, buffer.Length);
-                return new string(buffer, 0, length);
-            }
-        }
     }
 }
