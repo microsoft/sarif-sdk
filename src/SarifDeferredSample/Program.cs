@@ -17,8 +17,97 @@ namespace SarifDeferredSample
 
         private static void Main(string[] args)
         {
-            EchoNewWriter(args[0], args[1]);
-            //ReadTest(true, args[0]);
+            WriteHuge(args[0], args[1], bool.Parse(args[2]));
+        }
+
+        private static void WriteHuge(string filesListPath, string outputPath, bool useWriter)
+        {
+            SarifLog log = new SarifLog() { Version = SarifVersion.TwoZeroZero };
+            Run run = new Run() { Tool = new Tool() { Name = "FilesList", Version = "1.0" } };
+
+            JsonSerializer serializer = new JsonSerializer();
+            serializer.ContractResolver = SarifDeferredContractResolver.Instance;
+            serializer.Formatting = Formatting.Indented;
+
+            if (useWriter)
+            {
+                using (SarifWriter writer = new SarifWriter(serializer, outputPath, log))
+                {
+                    writer.Write(run);
+
+                    WriteHuge(filesListPath,
+                        (file) => writer.Write(file.FileLocation.Uri.AbsolutePath, file),
+                        (result) => writer.Write(result));
+                }
+            }
+            else
+            {
+                log.Runs = new List<Run>();
+                log.Runs.Add(run);
+
+                run.Files = new Dictionary<string, FileData>();
+                run.Results = new List<Result>();
+
+                WriteHuge(filesListPath,
+                    (file) => run.Files.Add(file.FileLocation.Uri.AbsoluteUri, file),
+                    (result) => run.Results.Add(result));
+
+                using (JsonTextWriter writer = new JsonTextWriter(new StreamWriter(outputPath)))
+                {
+                    serializer.Serialize(writer, log);
+                }
+            }
+        }
+
+        private static void WriteHuge(string filesListPath, Action<FileData> writeFile, Action<Result> writeResult)
+        {
+            using (StreamReader reader = new StreamReader(filesListPath))
+            {
+                // Skip header
+                reader.ReadLine();
+
+                while (!reader.EndOfStream)
+                {
+                    string line = reader.ReadLine();
+                    string[] parts = line.Split('\t');
+                    string filePath = parts[0];
+                    long fileLengthBytes = long.Parse(parts[1]);
+
+                    FileData file = new FileData()
+                    {
+                        FileLocation = new FileLocation() { Uri = new Uri(filePath, UriKind.RelativeOrAbsolute) },
+                        Length = TruncateToInt(fileLengthBytes)
+                    };
+
+                    writeFile(file);
+
+                    if (filePath.EndsWith(".exe"))
+                    {
+                        writeResult(new Result()
+                        {
+                            RuleId = "FS1001",
+                            Message = new Message() { Text = "File is an executable" },
+                            AnalysisTarget = new FileLocation() { Uri = file.FileLocation.Uri }
+                        });
+                    }
+                    else if (fileLengthBytes < 1024)
+                    {
+                        writeResult(new Result()
+                        {
+                            RuleId = "FS1002",
+                            Message = new Message() { Text = "File is too small" },
+                            AnalysisTarget = new FileLocation() { Uri = file.FileLocation.Uri }
+                        });
+                    }
+                }
+            }
+        }
+
+        private static int TruncateToInt(long value)
+        {
+            if (value > int.MaxValue) return int.MaxValue;
+            if (value < int.MinValue) return int.MinValue;
+            return (int)value;
         }
 
         private static void EchoLog(string filePath, string outputPath, int resultRepeatCount = 1)
@@ -67,6 +156,16 @@ namespace SarifDeferredSample
 
                 return $"Loaded {filePath} ({(new FileInfo(filePath).Length / BytesPerMB):n1} MB)";
             });
+
+            //Measure(() =>
+            //{
+            //    using (JsonTextWriter writer = new JsonTextWriter(new StreamWriter(outputPath)))
+            //    {
+            //        serializer.Serialize(writer, log);
+            //    }
+
+            //    return $"Wrote copy of {filePath} to {outputPath}.";
+            //});
 
             Measure(() =>
             {
