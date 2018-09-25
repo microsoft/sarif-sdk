@@ -1,7 +1,9 @@
 ﻿using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 
@@ -15,8 +17,8 @@ namespace SarifDeferredSample
 
         private static void Main(string[] args)
         {
-            //EchoLog(args[0], args[1]);
-            ReadTest(true, args[0]);
+            EchoNewWriter(args[0], args[1]);
+            //ReadTest(true, args[0]);
         }
 
         private static void EchoLog(string filePath, string outputPath, int resultRepeatCount = 1)
@@ -42,6 +44,72 @@ namespace SarifDeferredSample
                 using (JsonTextWriter writer = new JsonTextWriter(new StreamWriter(outputPath)))
                 {
                     serializer.Serialize(writer, log);
+                }
+
+                return $"Wrote {filePath} copy.";
+            });
+        }
+
+        private static void EchoNewWriter(string filePath, string outputPath, int resultRepeatCount = 1)
+        {
+            SarifLog log = null;
+
+            JsonSerializer serializer = new JsonSerializer();
+            serializer.ContractResolver = SarifContractResolver.Instance;
+            serializer.Formatting = Formatting.Indented;
+
+            Measure(() =>
+            {
+                using (JsonTextReader reader = new JsonPositionedTextReader(filePath))
+                {
+                    log = serializer.Deserialize<SarifLog>(reader);
+                }
+
+                return $"Loaded {filePath} ({(new FileInfo(filePath).Length / BytesPerMB):n1} MB)";
+            });
+
+            Measure(() =>
+            {
+                // Capture and clear Runs from the log
+                IList<Run> outputRuns = log.Runs;
+                log.Runs = null;
+
+                // Make a copy without runs to output
+                SarifLog outputLog = new SarifLog(log);
+
+                using (SarifWriter writer = new SarifWriter(serializer, new FileSystemStreamProvider(), outputPath, log))
+                {
+                    foreach (Run run in outputRuns)
+                    {
+                        // Get the large collections
+                        IDictionary<string, FileData> files = run.Files;
+                        IList<Result> results = run.Results;
+
+                        // Clear the copy on the run itself
+                        run.Files = null;
+                        run.Results = null;
+
+                        // Write the base run
+                        writer.Write(run);
+
+                        // Write the files
+                        if (files != null)
+                        {
+                            foreach (KeyValuePair<string, FileData> file in files)
+                            {
+                                writer.Write(file.Key, file.Value);
+                            }
+                        }
+
+                        // Write the results
+                        if (results != null)
+                        {
+                            foreach (Result result in results)
+                            {
+                                writer.Write(result);
+                            }
+                        }
+                    }
                 }
 
                 return $"Wrote {filePath} copy.";
