@@ -1,11 +1,12 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
-using Newtonsoft.Json;
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
@@ -279,7 +280,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 {
                     _readCalled = true;
 
-                    // We'll add a '{' to the JsonTextReader understands we're in an object
+                    // We'll add a '{' so the JsonTextReader understands we're in an object
                     buffer[index++] = '{';
 
                     // Read the remaining desired count
