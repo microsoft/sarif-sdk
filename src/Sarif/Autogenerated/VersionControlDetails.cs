@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The absolute URI of the repository.
         /// </summary>
         [DataMember(Name = "uri", IsRequired = true)]
-        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
+        [JsonConverter(typeof(UriConverter))]
         public Uri Uri { get; set; }
 
         /// <summary>

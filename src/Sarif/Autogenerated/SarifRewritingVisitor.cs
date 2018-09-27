@@ -598,7 +598,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                             if (sarifNode == null)
                             {
-                                throw new InvalidOperationException("Attempded to visit an IRule instance that does not implement ISarifNode");
+                                throw new InvalidOperationException("Attempted to visit an IRule instance that does not implement ISarifNode");
                             }
 
                             node.Rules[key] = (IRule)Visit(sarifNode);

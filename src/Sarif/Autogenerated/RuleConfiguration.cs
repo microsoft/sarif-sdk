@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Specifies the default severity level of the result.
         /// </summary>
         [DataMember(Name = "defaultLevel", IsRequired = false, EmitDefaultValue = false)]
-        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
+        [JsonConverter(typeof(EnumConverter))]
         public RuleConfigurationDefaultLevel DefaultLevel { get; set; }
 
         /// <summary>

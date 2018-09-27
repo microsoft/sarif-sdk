@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A value specifying the severity level of the notification.
         /// </summary>
         [DataMember(Name = "level", IsRequired = false, EmitDefaultValue = false)]
-        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
+        [JsonConverter(typeof(EnumConverter))]
         public NotificationLevel Level { get; set; }
 
         /// <summary>

@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The absolute URI from which the tool can be downloaded.
         /// </summary>
         [DataMember(Name = "downloadUri", IsRequired = false, EmitDefaultValue = false)]
-        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
+        [JsonConverter(typeof(UriConverter))]
         public Uri DownloadUri { get; set; }
 
         /// <summary>

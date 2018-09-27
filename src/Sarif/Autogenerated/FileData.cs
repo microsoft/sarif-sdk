@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The role or roles played by the file in the analysis.
         /// </summary>
         [DataMember(Name = "roles", IsRequired = false, EmitDefaultValue = false)]
-        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.FlagsEnumConverter))]
+        [JsonConverter(typeof(FlagsEnumConverter))]
         public FileRoles Roles { get; set; }
 
         /// <summary>
