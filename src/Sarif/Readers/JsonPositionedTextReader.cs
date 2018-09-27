@@ -14,10 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     /// </summary>
     public class JsonPositionedTextReader : JsonTextReader
     {
-        private LineMappingStreamReader StreamReader { get; set; }
-        private int LastReadLineNumber { get; set; }
-        private int LastReadLinePosition { get; set; }
-
+        private LineMappingStreamReader _streamReader;
         public Func<Stream> StreamProvider { get; private set; }
 
         public JsonPositionedTextReader(string filePath) : this(() => File.OpenRead(filePath))
@@ -29,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         internal JsonPositionedTextReader(Func<Stream> streamProvider, LineMappingStreamReader reader) : base(reader)
         {
             this.StreamProvider = streamProvider;
-            this.StreamReader = reader;
+            this._streamReader = reader;
         }
 
         /// <summary>
@@ -39,6 +36,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         ///  This must be derived by mapping the (Line, Position) the JsonTextReader returns to an absolute offset.
         ///  The offset isn't exposed, and StreamReader and JsonTextReader both buffer, so StreamReader.BaseStream.Position is not correct.
         ///  </remarks>
-        public long TokenPosition => this.StreamReader.LineAndCharToOffset(this.LineNumber, this.LinePosition);
+        public long TokenPosition => this._streamReader.LineAndCharToOffset(this.LineNumber, this.LinePosition);
     }
 }

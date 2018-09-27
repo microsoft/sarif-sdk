@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     ///  Items are expensive to iterate each time; they are not kept in memory. Copy the values to a List or array to keep them.
     /// </remarks>
     /// <typeparam name="T">Type of items in list</typeparam>
-    public class DeferredList<T> : IList<T>
+    public class DeferredList<T> : IList<T>, IDisposable
     {
         private JsonSerializer _jsonSerializer;
         private Func<Stream> _streamProvider;
@@ -202,6 +202,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         IEnumerator IEnumerable.GetEnumerator()
         {
             return new JsonDeferredListEnumerator<T>(_jsonSerializer, _streamProvider, _start);
+        }
+
+        public void Dispose()
+        {
+            if (_stream != null)
+            {
+                _stream.Dispose();
+                _stream = null;
+            }
         }
 
         private class JsonDeferredListEnumerator<U> : IEnumerator<U>

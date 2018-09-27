@@ -7,8 +7,9 @@ using System.IO;
 
 namespace SarifDeferredSample
 {
-    // NOTE: Not being submitted. This is a sample of usage of the Deferred Collections.
-
+    /// <summary>
+    ///  Sample of using SarifDeferredContractResolver to load very large Sarif files with low memory usage.
+    /// </summary>
     internal class Program
     {
         private const float BytesPerMB = (float)(1024 * 1024);
@@ -24,6 +25,7 @@ namespace SarifDeferredSample
 
             Measure(() =>
             {
+                // Use 'SarifDeferredContractResolver' and 'JsonPositionedTextReader' to load a geferred version of the same object graph.
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.ContractResolver = (deferred ? SarifDeferredContractResolver.Instance : SarifContractResolver.Instance);
 
@@ -35,6 +37,7 @@ namespace SarifDeferredSample
                 return $"Loaded {filePath} ({(new FileInfo(filePath).Length / BytesPerMB):n1} MB)";
             });
 
+            // Enumerate collections as normal. Enumeration is efficient. Indexing to items works, but is slower, as a file seek is required per item read.
             Run run = log.Runs[0];
             Measure(() =>
             {
@@ -98,17 +101,6 @@ namespace SarifDeferredSample
             long ramAfter = GC.GetTotalMemory(true);
 
             Console.WriteLine($"{message} in {w.ElapsedMilliseconds:n0}ms and {(ramAfter - ramBefore) / (BytesPerMB):n1}MB RAM.");
-        }
-
-        private static string SeekAndRead(string filePath, long position)
-        {
-            char[] buffer = new char[500];
-            using (StreamReader reader = new StreamReader(filePath))
-            {
-                reader.BaseStream.Seek(position, SeekOrigin.Begin);
-                int length = reader.Read(buffer, 0, buffer.Length);
-                return new string(buffer, 0, length);
-            }
         }
     }
 }
