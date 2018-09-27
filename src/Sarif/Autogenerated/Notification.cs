@@ -6,6 +6,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -60,6 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A value specifying the severity level of the notification.
         /// </summary>
         [DataMember(Name = "level", IsRequired = false, EmitDefaultValue = false)]
+        [Newtonsoft.Json.JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
         public NotificationLevel Level { get; set; }
 
         /// <summary>
@@ -72,6 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The date and time at which the analysis tool generated the notification.
         /// </summary>
         [DataMember(Name = "time", IsRequired = false, EmitDefaultValue = false)]
+        [Newtonsoft.Json.JsonConverter(typeof(DateTimeConverter))]
         public DateTime Time { get; set; }
 
         /// <summary>

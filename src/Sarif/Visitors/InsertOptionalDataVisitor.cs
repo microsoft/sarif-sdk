@@ -161,7 +161,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             if ((node.Text == null || _dataToInsert.Includes(OptionallyEmittedData.OverwriteExistingData)) &&
                 _dataToInsert.Includes(OptionallyEmittedData.FlattenedMessages))
             {
-                Rule rule = null;
+                IRule rule = null;
                 string formatString = null;
                 if (_ruleId != null &&
                     _run.Resources?.Rules.TryGetValue(_ruleId, out rule) == true)

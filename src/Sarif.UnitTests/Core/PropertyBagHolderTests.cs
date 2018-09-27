@@ -266,11 +266,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         internal static void ShouldSerializeAs<T>(this T value, string serializedValue)
         {
-            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-            {
-                ContractResolver = SarifContractResolver.Instance
-            };
-
             string expectedOutput = "{\"properties\":{\"" + PropertyName + "\":" + serializedValue + "}}";
             var inputObject = JsonConvert.DeserializeObject<TestClass>(Input);
             inputObject.GetProperty<long>(PropertyName).Should().Be(12);

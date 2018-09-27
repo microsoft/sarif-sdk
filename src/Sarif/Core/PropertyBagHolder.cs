@@ -99,8 +99,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                         propertyName));
             }
 
-            return JsonConvert.DeserializeObject<T>(Properties[propertyName].SerializedValue);
+            return JsonConvert.DeserializeObject<T>(Properties[propertyName].SerializedValue, _settingsWithComprehensiveV2ContractResolver);
         }
+
+        private static readonly JsonSerializerSettings _settingsWithComprehensiveV2ContractResolver = new JsonSerializerSettings
+        {
+            ContractResolver = new SarifContractResolver(),
+            Formatting = Formatting.None
+        };
 
         public void SetProperty<T>(string propertyName, T value)
         {
@@ -125,13 +131,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 else
                 {
                     // Use the appropriate serializer settings
-                    JsonSerializerSettings settings = null;
+                    JsonSerializerSettings settings = _settingsWithComprehensiveV2ContractResolver;
 
-                    if (propertyName.StartsWith("sarifv2/"))
-                    {
-                        settings = SarifTransformerUtilities.JsonSettingsV2Compact;
-                    }
-                    else if (propertyName.StartsWith("sarifv1/"))
+                    if (propertyName.StartsWith("sarifv1/"))
                     {
                         settings = SarifTransformerUtilities.JsonSettingsV1Compact;
                     }

@@ -6,6 +6,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -42,6 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A value specifying the severity level of the result.
         /// </summary>
         [DataMember(Name = "level", IsRequired = false, EmitDefaultValue = false)]
+        [Newtonsoft.Json.JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
         public ResultLevel Level { get; set; }
 
         /// <summary>
@@ -126,12 +128,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A set of flags indicating one or more suppression conditions.
         /// </summary>
         [DataMember(Name = "suppressionStates", IsRequired = false, EmitDefaultValue = false)]
+        [Newtonsoft.Json.JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.FlagsEnumConverter))]
         public SuppressionStates SuppressionStates { get; set; }
 
         /// <summary>
         /// The state of a result relative to a baseline of a previous run.
         /// </summary>
         [DataMember(Name = "baselineState", IsRequired = false, EmitDefaultValue = false)]
+        [Newtonsoft.Json.JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
         public BaselineState BaselineState { get; set; }
 
         /// <summary>
@@ -144,6 +148,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The URIs of the work items associated with this result
         /// </summary>
         [DataMember(Name = "workItemUris", IsRequired = false, EmitDefaultValue = false)]
+        [Newtonsoft.Json.JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
         public IList<Uri> WorkItemUris { get; set; }
 
         /// <summary>

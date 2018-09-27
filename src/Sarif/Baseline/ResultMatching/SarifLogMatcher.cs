@@ -157,7 +157,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 {
                     foreach (Result result in run.Results)
                     {
-                        Rule rule = GetRuleFromResources(result, run.Resources.Rules);
+                        IRule rule = GetRuleFromResources(result, run.Resources.Rules);
                         results.Add(new ExtractedResult() { Result = result, OriginalRun = run });
                     }
                 }
@@ -166,7 +166,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             return results;
         }
         
-        private Rule GetRuleFromResources(Result result, IDictionary<string, Rule> rules)
+        private IRule GetRuleFromResources(Result result, IDictionary<string, IRule> rules)
         {
             if (!string.IsNullOrEmpty(result.RuleId))
             {
@@ -210,7 +210,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             
             // Merge run File data, resources, etc...
             var fileData = new Dictionary<string, FileData>();
-            var ruleData = new Dictionary<string, Rule>();
+            var ruleData = new Dictionary<string, IRule>();
             var messageData = new Dictionary<string, string>();
             var graphs = new Dictionary<string, Graph>();
             var logicalLocations = new Dictionary<string, LogicalLocation>();
@@ -226,7 +226,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 {
                     if (currentRun.Resources.Rules != null)
                     {
-                        MergeDictionaryInto(ruleData, currentRun.Resources.Rules, RuleEqualityComparer.Instance);
+                        MergeDictionaryInto(ruleData, currentRun.Resources.Rules, IRuleEqualityComparer.Instance);
                     }
                     if (currentRun.Resources.MessageStrings != null)
                     {

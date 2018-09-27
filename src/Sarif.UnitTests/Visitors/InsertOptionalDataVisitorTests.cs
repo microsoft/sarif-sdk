@@ -78,7 +78,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             JsonSerializerSettings settings = new JsonSerializerSettings()
             {
-                ContractResolver = SarifContractResolver.Instance,
                 Formatting = Formatting.Indented
             };
 

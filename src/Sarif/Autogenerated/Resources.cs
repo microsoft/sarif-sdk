@@ -5,6 +5,8 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -41,7 +43,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A dictionary, each of whose keys is a string and each of whose values is a 'rule' object, that describe all rules associated with an analysis tool or a specific run of an analysis tool.
         /// </summary>
         [DataMember(Name = "rules", IsRequired = false, EmitDefaultValue = false)]
-        public IDictionary<string, Rule> Rules { get; set; }
+        [Newtonsoft.Json.JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.RuleDictionaryConverter))]
+        public IDictionary<string, IRule> Rules { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Resources" /> class.
@@ -59,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="rules">
         /// An initialization value for the <see cref="P: Rules" /> property.
         /// </param>
-        public Resources(IDictionary<string, string> messageStrings, IDictionary<string, Rule> rules)
+        public Resources(IDictionary<string, string> messageStrings, IDictionary<string, IRule> rules)
         {
             Init(messageStrings, rules);
         }
@@ -101,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Resources(this);
         }
 
-        private void Init(IDictionary<string, string> messageStrings, IDictionary<string, Rule> rules)
+        private void Init(IDictionary<string, string> messageStrings, IDictionary<string, IRule> rules)
         {
             if (messageStrings != null)
             {
@@ -110,11 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (rules != null)
             {
-                Rules = new Dictionary<string, Rule>();
-                foreach (var value_0 in rules)
-                {
-                    Rules.Add(value_0.Key, new Rule(value_0.Value));
-                }
+                Rules = new Dictionary<string, IRule>(rules);
             }
         }
     }

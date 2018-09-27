@@ -6,6 +6,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -42,6 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Specifies the default severity level of the result.
         /// </summary>
         [DataMember(Name = "defaultLevel", IsRequired = false, EmitDefaultValue = false)]
+        [Newtonsoft.Json.JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
         public RuleConfigurationDefaultLevel DefaultLevel { get; set; }
 
         /// <summary>

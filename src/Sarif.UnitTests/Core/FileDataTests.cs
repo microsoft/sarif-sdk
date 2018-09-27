@@ -197,10 +197,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             FileData fileData = FileData.Create(new Uri("file:///foo.cs"), OptionallyEmittedData.None);
             fileData.Roles = FileRoles.AnalysisTarget;
 
-            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-            {
-                ContractResolver = SarifContractResolver.Instance
-            };
             string result = JsonConvert.SerializeObject(fileData);
 
             result.Should().Be("{\"roles\":[\"analysisTarget\"],\"mimeType\":\"text/x-csharp\"}");
@@ -212,10 +208,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             FileData fileData = FileData.Create(new Uri("file:///foo.cs"), OptionallyEmittedData.None);
             fileData.Roles = FileRoles.ResponseFile | FileRoles.ResultFile;
 
-            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-            {
-                ContractResolver = SarifContractResolver.Instance
-            };
             string actual = JsonConvert.SerializeObject(fileData);
 
             actual.Should().Be("{\"roles\":[\"responseFile\",\"resultFile\"],\"mimeType\":\"text/x-csharp\"}");
@@ -224,10 +216,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void FileData_DeserializeSingleFileRole()
         {
-            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-            {
-                ContractResolver = SarifContractResolver.Instance
-            };
             FileData actual = JsonConvert.DeserializeObject("{\"roles\":[\"analysisTarget\"],\"mimeType\":\"text/x-csharp\"}", typeof(FileData)) as FileData;
             actual.Roles.Should().Be(FileRoles.AnalysisTarget);
         }
@@ -235,10 +223,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void FileData_DeserializeMultipleFileRoles()
         {
-            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-            {
-                ContractResolver = SarifContractResolver.Instance
-            };
             FileData actual = JsonConvert.DeserializeObject("{\"roles\":[\"responseFile\",\"resultFile\"],\"mimeType\":\"text/x-csharp\"}", typeof(FileData)) as FileData;
             actual.Roles.Should().Be(FileRoles.ResponseFile | FileRoles.ResultFile);
         }

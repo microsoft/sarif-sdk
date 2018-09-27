@@ -780,8 +780,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 if (_currentV2Run.Resources?.Rules != null)
                 {
-                    IDictionary<string, Rule> rules = _currentV2Run.Resources.Rules;
-                    Rule v2Rule;
+                    IDictionary<string, IRule> rules = _currentV2Run.Resources.Rules;
+                    IRule v2Rule;
 
                     if (v2Result.RuleId != null &&
                         rules.TryGetValue(v2Result.RuleId, out v2Rule) &&
@@ -813,29 +813,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return result;
         }
 
-        internal RuleVersionOne CreateRule(Rule v2Rule)
+        internal RuleVersionOne CreateRule(IRule v2IRule)
         {
             RuleVersionOne rule = null;
 
-            if (v2Rule != null)
+            Rule v2Rule = v2IRule as Rule;
+            var properties = v2Rule != null ? v2Rule.Properties : null;
+
+            if (v2IRule != null)
             {
                 rule = new RuleVersionOne
                 {
-                    FullDescription = v2Rule.FullDescription?.Text,
-                    HelpUri = v2Rule.HelpUri,
-                    Id = v2Rule.Id,
-                    MessageFormats = v2Rule.MessageStrings,
-                    Name = v2Rule.Name?.Text,
-                    Properties = v2Rule.Properties,
-                    ShortDescription = v2Rule.ShortDescription?.Text
+                    FullDescription = v2IRule.FullDescription?.Text,
+                    HelpUri = v2IRule.HelpUri,
+                    Id = v2IRule.Id,
+                    MessageFormats = v2IRule.MessageStrings,
+                    Name = v2IRule.Name?.Text,
+                    Properties = properties,
+                    ShortDescription = v2IRule.ShortDescription?.Text
                 };
 
-                if (v2Rule.Configuration != null)
+                if (v2IRule.Configuration != null)
                 {
-                    rule.Configuration = v2Rule.Configuration.Enabled ?
+                    rule.Configuration = v2IRule.Configuration.Enabled ?
                             RuleConfigurationVersionOne.Enabled :
                             RuleConfigurationVersionOne.Disabled;
-                    rule.DefaultLevel = Utilities.CreateResultLevelVersionOne(v2Rule.Configuration.DefaultLevel);
+                    rule.DefaultLevel = Utilities.CreateResultLevelVersionOne(v2IRule.Configuration.DefaultLevel);
                 }
             }
 

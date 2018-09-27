@@ -84,7 +84,7 @@ $                       # up to the end of the string (not strictly needed since
             }
         }
 
-        protected override void Analyze(Rule rule, string ruleKey, string rulePointer)
+        protected override void Analyze(IRule rule, string ruleKey, string rulePointer)
         {
             AnalyzeUri(rule.HelpUri, rulePointer.AtProperty(SarifPropertyName.HelpUri));
         }

@@ -6,6 +6,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -66,6 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The absolute URI from which the tool can be downloaded.
         /// </summary>
         [DataMember(Name = "downloadUri", IsRequired = false, EmitDefaultValue = false)]
+        [Newtonsoft.Json.JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
         public Uri DownloadUri { get; set; }
 
         /// <summary>

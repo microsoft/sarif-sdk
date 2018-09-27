@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
 
         private static SarifLogVersionOne GetSarifLogVersionOne(string logText)
         {
-            return JsonConvert.DeserializeObject<SarifLogVersionOne>(logText, SarifTransformerUtilities.JsonSettingsV1);
+            return JsonConvert.DeserializeObject<SarifLogVersionOne>(logText, SarifTransformerUtilities.JsonSettingsV1Indented);
         }
 
         private static SarifLog TransformVersionOneToCurrent(string v1LogText)
@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
         private static void VerifyVersionOneToCurrentTransformation(string v1LogText, string v2LogExpectedText)
         {
             SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
-            string v2LogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
+            string v2LogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2Indented);
             v2LogText.Should().Be(v2LogExpectedText);
         }
 
@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
             string v2ExpectedLogText = GetResourceText($"v2.{v2ExpectedResourceName}");
 
             SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
-            string v2ActualLogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2);
+            string v2ActualLogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsV2Indented);
 
             if (v2ExpectedLogText != v2ActualLogText)
             {

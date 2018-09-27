@@ -16,12 +16,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof(Dictionary<string, IRule>);
+            return objectType == typeof(IDictionary<string, IRule>);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            return existingValue;
+            if (!CanConvert(objectType))
+            {
+                return serializer.Deserialize(reader, objectType);
+            }
+
+            var incoming = (Dictionary<string, Rule>)serializer.Deserialize(reader, typeof(Dictionary<string, Rule>));
+            var outgoing = new Dictionary<string, IRule>();
+
+            foreach (string key in incoming.Keys)
+            {
+                outgoing[key] = incoming[key];
+            }
+            return outgoing;
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)

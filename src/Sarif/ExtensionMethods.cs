@@ -16,6 +16,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class ExtensionMethods
     {
+        public static string Format(this IRule rule, string messageId, IEnumerable<string> arguments)
+        {
+            return string.Format(CultureInfo.CurrentCulture, rule.MessageStrings[messageId], arguments.ToArray());
+        }
+
         public static Message ToMessage(this string text)
         {
             return new Message { Text = text };

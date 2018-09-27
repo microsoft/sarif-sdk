@@ -120,7 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             log.Runs.Add(run);
             run.Resources = new Resources
             {
-                Rules = new Dictionary<string, Rule>()
+                Rules = new Dictionary<string, IRule>()
             };
 
             SortedDictionary<int, Rule> sortedRules = new SortedDictionary<int, Rule>();
@@ -155,7 +155,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             var settings = new JsonSerializerSettings()
             {
-                ContractResolver = SarifContractResolver.Instance,
                 Formatting = Newtonsoft.Json.Formatting.Indented,
             };
 

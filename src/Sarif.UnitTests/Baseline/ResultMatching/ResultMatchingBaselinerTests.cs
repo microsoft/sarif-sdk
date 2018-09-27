@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
         [Fact]
         public void ResultMatchingBaseliner_BaselinesTwoSimpleSarifLogs()
-        {
+        {           
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
             SarifLog baselineLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
             SarifLog currentLog = baselineLog.DeepClone();
@@ -58,11 +58,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 AbsentResultProperties.Should().ContainKey("Run");
                 AbsentResultProperties["Run"].Should().BeEquivalentTo(baselineLog.Runs[0].InstanceGuid);
 
-                calculatedNextBaseline.Runs[0].Results.Where(r => r.BaselineState == BaselineState.Existing).Should().HaveCount(currentLog.Runs[0].Results.Count - 1);
 
-                calculatedNextBaseline.Runs[0].Results.Where(r => r.BaselineState == BaselineState.Existing).First().TryGetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, out Dictionary<string, string> CurrentResultProperties).Should().BeTrue();
-                CurrentResultProperties.Should().ContainKey("Run");
-                CurrentResultProperties["Run"].Should().BeEquivalentTo(currentLog.Runs[0].InstanceGuid);
+                int existingCount = currentLog.Runs[0].Results.Count - 1;
+                calculatedNextBaseline.Runs[0].Results.Where(r => r.BaselineState == BaselineState.Existing).Count().Should().Be(existingCount);
+
+                if (existingCount > 0)
+                {
+                    // In the event that we generated a SARIF run of only a single result, we will not have an 'existing' match
+                    // since we adjusted the sole result value by adding a property to it.
+                    calculatedNextBaseline.Runs[0].Results.Where(r => r.BaselineState == BaselineState.Existing).First().TryGetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, out Dictionary<string, string> CurrentResultProperties).Should().BeTrue();
+                    CurrentResultProperties.Should().ContainKey("Run");
+                    CurrentResultProperties["Run"].Should().BeEquivalentTo(currentLog.Runs[0].InstanceGuid);
+                }
 
                 calculatedNextBaseline.Runs[0].Results.Where(r => r.BaselineState == BaselineState.New).Should().HaveCount(1);
 

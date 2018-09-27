@@ -517,12 +517,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 command.RuntimeErrors.Should().Be(runtimeConditions);
 
-                JsonSerializerSettings settings = new JsonSerializerSettings()
-                {
-                    ContractResolver = SarifContractResolver.Instance
-                };
-
-                SarifLog log = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(path), settings);
+                SarifLog log = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(path));
                 Assert.NotNull(log);
                 Assert.Equal<int>(1, log.Runs.Count);
 

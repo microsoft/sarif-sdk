@@ -20,6 +20,15 @@
           "copyright": "Copyright (c) 2016 by Example Corporation. All rights reserved."
         }
       },
+      "versionControlProvenance": [
+        {
+          "uri": "https://github.com/contoso/example",
+          "branch": "master",
+          "tag": "beta1",
+          "revisionId": "abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd",
+          "timestamp": "2016-07-16T00:00:00Z"
+        }
+      ],
       "originalUriBaseIds": { "TOOLS_ROOT": "file:///bin/tools/" },
       "invocations": [
         {
@@ -150,7 +159,8 @@
         "#TOOLS_ROOT#codescanner/config/collections.rsp": {
           "contents": {
             "text": "\"-input src/collections/*.cpp -log out/collections.sarif -rules all -disable C9999\"."
-          }
+          },
+          "lastModifiedTime": "2016-07-16T05:37:57Z"
         }
       },
       "logicalLocations": {
@@ -253,7 +263,12 @@
                           "text": "Variable \"ptr\" declared."
                         }
                       },
-                      "module": "platform"
+                      "module": "platform",
+                      "executionOrder": 1,
+                      "timestamp": "2016-07-16T08:01:00Z",
+                      "kind": "declaration",
+                      "nestingLevel": 0,
+                      "state": { "value": "[Not initialized}" }
                     },
                     {
                       "step": 2,
@@ -272,7 +287,9 @@
                         },
                         "fullyQualifiedLogicalName": "collections::list:add"
                       },
-                      "module": "platform"
+                      "module": "platform",
+                      "executionOrder": 2,
+                      "timestamp": "2016-07-16T08:02:00Z"
                     },
                     {
                       "step": 3,
@@ -294,7 +311,10 @@
                           "text": "Uninitialized variable \"ptr\" passed to method \"add_core\"."
                         }
                       },
-                      "module": "platform"
+                      "module": "platform",
+                      "executionOrder": 3,
+                      "timestamp": "2016-07-16T08:03:00Z",
+                      "kind": "call"
                     }
                   ]
                 }

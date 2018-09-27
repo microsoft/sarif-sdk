@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
@@ -774,17 +775,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                             if (_currentRun.Resources.Rules == null)
                             {
-                                _currentRun.Resources.Rules = new Dictionary<string, Rule>();
+                                _currentRun.Resources.Rules = new Dictionary<string, IRule>();
                             }
 
-                            IDictionary<string, Rule> rules = _currentRun.Resources.Rules;
+                            IDictionary<string, IRule> rules = _currentRun.Resources.Rules;
 
                             if (!rules.ContainsKey(v1Result.RuleKey))
                             {
-                                rules.Add(v1Result.RuleKey, new Rule());
+                                Rule rule = new Rule() { Id = v1Result.RuleId };
+                                rules.Add(v1Result.RuleKey, rule);
                             }
 
-                            rules[v1Result.RuleKey].Id = v1Result.RuleId;
+                            Debug.Assert(rules[v1Result.RuleKey].Id == v1Result.RuleId);
                         }
                     }
                 }
@@ -903,7 +905,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         run.Resources = new Resources
                         {
-                            Rules = new Dictionary<string, Rule>()
+                            Rules = new Dictionary<string, IRule>()
                         };
 
                         foreach (var pair in v1Run.Rules)

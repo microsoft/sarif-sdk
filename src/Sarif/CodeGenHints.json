@@ -18,6 +18,14 @@
           "override"
         ]
       }
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "Newtonsoft.Json.JsonConverter",
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.PropertyBagConverter)" ]
+      }
     }
   ],
   "codeFlow": [
@@ -81,6 +89,16 @@
       }
     }
   ],
+  "FileData.LastModifiedTime": [
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "Newtonsoft.Json.JsonConverter",
+        "arguments": [ "typeof(DateTimeConverter)" ]
+      }
+    }
+  ],
   "FileData.Roles": [
     {
       "kind": "EnumHint",
@@ -103,6 +121,24 @@
           "RenamedFile",
           "GeneratedFile"
         ]
+      }
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "Newtonsoft.Json.JsonConverter",
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.FlagsEnumConverter)" ]
+      }
+    }
+  ],
+  "FileLocation.Uri": [
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "Newtonsoft.Json.JsonConverter",
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter)" ]
       }
     }
   ],
@@ -141,9 +177,29 @@
       }
     }
   ],
+  "Invocation.EndTime": [
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "Newtonsoft.Json.JsonConverter",
+        "arguments": [ "typeof(DateTimeConverter)" ]
+      }
+    }
+  ],
   "Invocation.EnvironmentVariables": [
     {
       "kind": "DictionaryHint"
+    }
+  ],
+  "Invocation.StartTime": [
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "Newtonsoft.Json.JsonConverter",
+        "arguments": [ "typeof(DateTimeConverter)" ]
+      }
     }
   ],
   "location": [
@@ -176,6 +232,16 @@
       }
     }
   ],
+  "Notification.Time": [
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "Newtonsoft.Json.JsonConverter",
+        "arguments": [ "typeof(DateTimeConverter)" ]
+      }
+    }
+  ],
   "Notification.Level": [
     {
       "kind": "EnumHint",
@@ -187,6 +253,14 @@
           "Note",
           "Error"
         ]
+      }
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "Newtonsoft.Json.JsonConverter",
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter)" ]
       }
     }
   ],
@@ -207,8 +281,24 @@
   ],
   "Resources.Rules": [
     {
-      "kind": "DictionaryHint"
+      "kind": "DictionaryHint",
+      "arguments": {
+        "valueTypeName": "IRule",
+        "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
+        "comparisonKind": "ObjectEquals",
+        "hashKind": "ScalarReferenceType",
+        "initializationKind": "SimpleAssign"
+      }
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "Newtonsoft.Json.JsonConverter",
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.RuleDictionaryConverter)" ]
+      }
     }
+
   ],
   "result": [
     {
@@ -233,6 +323,14 @@
           "Absent"
         ]
       }
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "Newtonsoft.Json.JsonConverter",
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter)" ]
+      }
     }
   ],
   "Result.Graphs": [
@@ -255,6 +353,14 @@
           "Error",
           "Open"
         ]
+      }
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "Newtonsoft.Json.JsonConverter",
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter)" ]
       }
     }
   ],
@@ -281,6 +387,24 @@
           "SuppressedExternally"
         ]
       }
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "Newtonsoft.Json.JsonConverter",
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.FlagsEnumConverter)" ]
+      }
+    }
+  ],
+  "Result.WorkItemUris": [
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "Newtonsoft.Json.JsonConverter",
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter)" ]
+      }
     }
   ],
   "RuleConfiguration.DefaultLevel": [
@@ -297,6 +421,14 @@
           "Open"
         ]
       }
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "Newtonsoft.Json.JsonConverter",
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter)" ]
+      }
     }
   ],
   "rule": [
@@ -312,6 +444,16 @@
         "baseTypeNames": [
           "PropertyBagHolder"
         ]
+      }
+    }
+  ],
+  "Result.HelpUri": [
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "Newtonsoft.Json.JsonConverter",
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter)" ]
       }
     }
   ],
@@ -379,6 +521,14 @@
   "Run.OriginalUriBaseIds": [
     {
       "kind": "DictionaryHint"
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "Newtonsoft.Json.JsonConverter",
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter)" ]
+      }
     }
   ],
   "SarifLog.$schema": [
@@ -386,6 +536,14 @@
       "kind": "PropertyNameHint",
       "arguments": {
         "dotNetPropertyName": "SchemaUri"
+      }
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "Newtonsoft.Json.JsonConverter",
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter)" ]
       }
     }
   ],
@@ -403,7 +561,16 @@
           "TwoZeroZero"
         ]
       }
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "Newtonsoft.Json.JsonConverter",
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.SarifVersionConverter)" ]
+      }
     }
+
   ],
   "stack": [
     {
@@ -445,17 +612,35 @@
       }
     }
   ],
-  "ThreadFlowLocation.State": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
   "ThreadFlowLocation.Importance": [
     {
       "kind": "EnumHint",
       "arguments": {
         "typeName": "ThreadFlowLocationImportance",
         "description": "Values specifying the importance of an \"threadFlowLocation\" within the \"codeFlow\" in which it occurs"
+      }
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "Newtonsoft.Json.JsonConverter",
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter)" ]
+      }
+    }
+  ],
+  "ThreadFlowLocation.State": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
+  "ThreadflowLocation.Timestamp": [
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "Newtonsoft.Json.JsonConverter",
+        "arguments": [ "typeof(DateTimeConverter)" ]
       }
     }
   ],
@@ -469,6 +654,16 @@
       }
     }
   ],
+  "Tool.DownloadUri": [
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "Newtonsoft.Json.JsonConverter",
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter)" ]
+      }
+    }
+  ],
   "versionControlDetails": [
     {
       "kind": "BaseTypeHint",
@@ -476,6 +671,27 @@
         "baseTypeNames": [
           "PropertyBagHolder"
         ]
+      }
+    }
+  ],
+  "VersionControlDetails.Uri": [
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "Newtonsoft.Json.JsonConverter",
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter)" ]
+      }
+    }
+  ],
+
+  "VersionControlDetails.Timestamp": [
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "Newtonsoft.Json.JsonConverter",
+        "arguments": [ "typeof(DateTimeConverter)" ]
       }
     }
   ]

@@ -20,6 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             // Slightly roundabout.  We want to randomly test this, but we also want to be able to repeat this if the test fails.
             int randomSeed = (new Random()).Next();
+
             Random random = new Random(randomSeed);
 
             output.WriteLine($"TestName: {testName} has seed {randomSeed}");
@@ -132,9 +133,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             return dictionary;
         }
 
-        public static IDictionary<string, Rule> GenerateRules(List<string> ruleIds)
+        public static IDictionary<string, IRule> GenerateRules(List<string> ruleIds)
         {
-            Dictionary<string, Rule> dictionary = new Dictionary<string, Rule>();
+            Dictionary<string, IRule> dictionary = new Dictionary<string, IRule>();
 
             foreach (var ruleId in ruleIds)
             {
