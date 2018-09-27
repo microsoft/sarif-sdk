@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The SARIF format version of this log file.
         /// </summary>
         [DataMember(Name = "version", IsRequired = true)]
-        [Newtonsoft.Json.JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.SarifVersionConverter))]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.SarifVersionConverter))]
         public SarifVersion Version { get; set; }
 
         /// <summary>

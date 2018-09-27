@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Specifies the importance of this location in understanding the code flow in which it occurs. The order from most to least important is "essential", "important", "unimportant". Default: "important".
         /// </summary>
         [DataMember(Name = "importance", IsRequired = false, EmitDefaultValue = false)]
-        [Newtonsoft.Json.JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
         public ThreadFlowLocationImportance Importance { get; set; }
 
         /// <summary>

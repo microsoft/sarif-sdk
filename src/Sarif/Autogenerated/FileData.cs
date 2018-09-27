@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The role or roles played by the file in the analysis.
         /// </summary>
         [DataMember(Name = "roles", IsRequired = false, EmitDefaultValue = false)]
-        [Newtonsoft.Json.JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.FlagsEnumConverter))]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.FlagsEnumConverter))]
         public FileRoles Roles { get; set; }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The date and time at which the file was most recently modified. See "Date/time properties" in the SARIF spec for the required format.
         /// </summary>
         [DataMember(Name = "lastModifiedTime", IsRequired = false, EmitDefaultValue = false)]
-        [Newtonsoft.Json.JsonConverter(typeof(DateTimeConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime LastModifiedTime { get; set; }
 
         /// <summary>

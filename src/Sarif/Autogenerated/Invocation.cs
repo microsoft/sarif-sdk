@@ -61,14 +61,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The date and time at which the run started. See "Date/time properties" in the SARIF spec for the required format.
         /// </summary>
         [DataMember(Name = "startTime", IsRequired = false, EmitDefaultValue = false)]
-        [Newtonsoft.Json.JsonConverter(typeof(DateTimeConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime StartTime { get; set; }
 
         /// <summary>
         /// The date and time at which the run ended. See "Date/time properties" in the SARIF spec for the required format.
         /// </summary>
         [DataMember(Name = "endTime", IsRequired = false, EmitDefaultValue = false)]
-        [Newtonsoft.Json.JsonConverter(typeof(DateTimeConverter))]
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime EndTime { get; set; }
 
         /// <summary>

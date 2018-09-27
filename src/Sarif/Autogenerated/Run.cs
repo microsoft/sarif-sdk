@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The absolute URI specified by each uriBaseId symbol on the machine where the tool originally ran.
         /// </summary>
         [DataMember(Name = "originalUriBaseIds", IsRequired = false, EmitDefaultValue = false)]
-        [Newtonsoft.Json.JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
         public IDictionary<string, Uri> OriginalUriBaseIds { get; set; }
 
         /// <summary>

@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A string containing a valid relative or absolute URI.
         /// </summary>
         [DataMember(Name = "uri", IsRequired = true)]
-        [Newtonsoft.Json.JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
         public Uri Uri { get; set; }
 
         /// <summary>
