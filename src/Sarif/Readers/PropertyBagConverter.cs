@@ -34,9 +34,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             var propertyDictionary = new Dictionary<string, SerializedPropertyInfo>();
             foreach (string key in objectDictionary.Keys)
             {
-                Type propertyType = objectDictionary[key].GetType();
+                object value = objectDictionary[key];
+                Type propertyType = value.GetType();
 
-                string serializedValue = objectDictionary[key].ToString();
+                string serializedValue = value.ToString();
                 bool isString = false;
 
                 if (propertyType == typeof(bool))

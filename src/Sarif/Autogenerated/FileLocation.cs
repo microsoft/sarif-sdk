@@ -5,6 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -35,6 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A string containing a valid relative or absolute URI.
         /// </summary>
         [DataMember(Name = "uri", IsRequired = true)]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
         public Uri Uri { get; set; }
 
         /// <summary>

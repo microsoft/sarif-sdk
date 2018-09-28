@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
@@ -781,10 +782,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                             if (!rules.ContainsKey(v1Result.RuleKey))
                             {
-                                rules.Add(v1Result.RuleKey, new Rule());
+                                Rule rule = new Rule() { Id = v1Result.RuleId };
+                                rules.Add(v1Result.RuleKey, rule);
                             }
 
-                            rules[v1Result.RuleKey].Id = v1Result.RuleId;
+                            Debug.Assert(rules[v1Result.RuleKey].Id == v1Result.RuleId);
                         }
                     }
                 }

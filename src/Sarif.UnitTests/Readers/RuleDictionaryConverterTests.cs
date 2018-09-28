@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
       },
       ""results"": [
         {
-          ""ruleId"": ""CA1000"",
+          ""ruleId"": ""CA1000.1"",
           ""message"": {
             ""text"": ""Variable \""count\"" was used without being initialized.""
           }
@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
                 uut.WriteResult(new Result
                 {
-                    RuleId = "CA1000",
+                    RuleId = "CA1000.1",
                     Message = new Message
                     {
                         Text = "Variable \"count\" was used without being initialized."

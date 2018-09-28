@@ -120,7 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
         }
 
-        protected virtual void Analyze(Rule rule, string ruleKey, string rulePointer)
+        protected virtual void Analyze(IRule rule, string ruleKey, string rulePointer)
         {
         }
         protected virtual void Analyze(Run run, string runPointer)
@@ -542,7 +542,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
-        private void Visit(Rule rule, string ruleKey, string rulePointer)
+        private void Visit(IRule rule, string ruleKey, string rulePointer)
         {
             Analyze(rule, ruleKey, rulePointer);
         }

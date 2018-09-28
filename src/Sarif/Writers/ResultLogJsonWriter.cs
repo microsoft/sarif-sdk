@@ -43,7 +43,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             _jsonWriter = jsonWriter;
             _serializer = new JsonSerializer();
-            _serializer.ContractResolver = SarifContractResolver.Instance;
         }
 
         /// <summary>
@@ -243,12 +242,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _jsonWriter.WritePropertyName("resources");
             _jsonWriter.WriteStartObject(); // Begin: resources
-
             _jsonWriter.WritePropertyName("rules");
-            _serializer.Serialize(_jsonWriter, rules, typeof(Dictionary<string, IRule>));
+            _serializer.Serialize(_jsonWriter, rules);
 
             _jsonWriter.WriteEndObject();  // End: resources
-
             _writeConditions |= Conditions.RulesWritten;
         }
 

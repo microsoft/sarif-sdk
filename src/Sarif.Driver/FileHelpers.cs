@@ -15,28 +15,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     /// </summary>
     static class FileHelpers
     {
-        public static T ReadSarifFile<T>(string filePath)
+        public static T ReadSarifFile<T>(string filePath, IContractResolver contractResolver = null)
         {
-            return ReadSarifFile<T>(filePath, SarifContractResolver.Instance);
-        }
-
-        public static T ReadSarifFile<T>(string filePath, IContractResolver contractResolver)
-        {
-            JsonSerializerSettings settings = new JsonSerializerSettings()
-            {
-                ContractResolver = contractResolver
-            };
-
             string logText = File.ReadAllText(filePath);
 
-            return JsonConvert.DeserializeObject<T>(logText, settings);
+            var settings = new JsonSerializerSettings
+            {
+                ContractResolver  = contractResolver,
+            };
+
+
+            return JsonConvert.DeserializeObject<T>(logText);
         }
 
-        public static void WriteSarifFile<T>(T sarifFile, string outputName, Formatting formatting)
+        public static void WriteSarifFile<T>(T sarifFile, string outputName, Formatting formatting = Formatting.None, IContractResolver contractResolver = null)
         {
             var settings = new JsonSerializerSettings
             {
-                ContractResolver = SarifContractResolver.Instance,
+                ContractResolver = contractResolver,
                 Formatting = formatting
             };
 

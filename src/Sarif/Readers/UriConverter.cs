@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System;
-
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
@@ -12,7 +12,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof(Uri);
+            return objectType == typeof(Uri) ||
+                   objectType == typeof(IDictionary<string, Uri>);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
@@ -24,6 +25,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             if (reader.Value is Uri) { return reader.Value; }
 
+            if (objectType == typeof(IList<Uri>) ||
+                objectType == typeof(IDictionary<string, Uri>))
+            {
+                return serializer.Deserialize(reader, objectType);
+            }
+
             return new Uri((string)reader.Value, UriKind.RelativeOrAbsolute);
         }
 
@@ -34,9 +41,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 throw new ArgumentNullException(nameof(writer));
             }
 
-            string path = ((Uri)value).OriginalString;
-            string validUri = UriHelper.MakeValidUri(path);
-            writer.WriteValue(validUri);
+            var uri = value as Uri;
+            if (uri != null)
+            {
+                string path = uri.OriginalString;
+                string validUri = UriHelper.MakeValidUri(path);
+                writer.WriteValue(validUri);
+                return;
+            }
+
+            var uriList = value as IList<Uri>;
+            if (uriList != null)
+            {
+                serializer.Serialize(writer, value, typeof(IList<Uri>));
+                return;
+            }
+
+            serializer.Serialize(writer, value, typeof(IDictionary<string, Uri>));
         }
     }
 }

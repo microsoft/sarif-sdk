@@ -107,7 +107,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             JsonSerializerSettings settings = new JsonSerializerSettings()
             {
                 Formatting = Formatting.Indented,
-                ContractResolver = SarifContractResolver.Instance
             };
 
             string logText = File.ReadAllText(actualFilePath);

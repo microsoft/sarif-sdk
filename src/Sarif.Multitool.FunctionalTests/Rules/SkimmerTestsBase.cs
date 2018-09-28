@@ -15,18 +15,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         where TSkimmer : SkimmerBase<SarifValidationContext>, new()
     {
         private readonly string _testDirectory;
-        private readonly JsonSerializerSettings _jsonSerializerSettings;
         private const string ExpectedResultsPropertyName = "expectedResults";
 
         public SkimmerTestsBase()
         {
             string ruleName = typeof(TSkimmer).Name;
             _testDirectory = Path.Combine(Environment.CurrentDirectory, TestDataDirectory, ruleName);
-
-            _jsonSerializerSettings = new JsonSerializerSettings
-            {
-                ContractResolver = SarifContractResolver.Instance
-            };
         }
 
         // For the moment, we support two different test designs.
@@ -54,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             string inputLogContents = File.ReadAllText(targetPath);
 
-            SarifLog inputLog = JsonConvert.DeserializeObject<SarifLog>(inputLogContents, _jsonSerializerSettings);
+            SarifLog inputLog = JsonConvert.DeserializeObject<SarifLog>(inputLogContents);
 
             var skimmer = new TSkimmer();
 
@@ -106,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             if (inputLog.Runs[0].TryGetProperty(ExpectedResultsPropertyName, out ExpectedValidationResults expectedResults))
             {
                 // The custom property exists. Use the new, preferred verification method.
-                SarifLog outputLog = JsonConvert.DeserializeObject<SarifLog>(actualLogContents, _jsonSerializerSettings);
+                SarifLog outputLog = JsonConvert.DeserializeObject<SarifLog>(actualLogContents);
                 Verify(outputLog.Runs[0], expectedResults);
                 resultsWereVerified = true;
             }

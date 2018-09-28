@@ -102,6 +102,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             return JsonConvert.DeserializeObject<T>(Properties[propertyName].SerializedValue);
         }
 
+        private static readonly JsonSerializerSettings s_settingsWithComprehensiveV2ContractResolver = new JsonSerializerSettings
+        {
+            ContractResolver = new SarifContractResolver(),
+            Formatting = Formatting.None
+        };
+
         public void SetProperty<T>(string propertyName, T value)
         {
             if (Properties == null)
@@ -127,13 +133,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                     // Use the appropriate serializer settings
                     JsonSerializerSettings settings = null;
 
-                    if (propertyName.StartsWith("sarifv2/"))
-                    {
-                        settings = SarifTransformerUtilities.JsonSettingsV2Compact;
-                    }
-                    else if (propertyName.StartsWith("sarifv1/"))
+                    if (propertyName.StartsWith("sarifv1/"))
                     {
                         settings = SarifTransformerUtilities.JsonSettingsV1Compact;
+                    }
+                    else if (propertyName.StartsWith("sarifv2/"))
+                    {
+                        settings = s_settingsWithComprehensiveV2ContractResolver;
                     }
 
                     serializedValue = JsonConvert.SerializeObject(value, settings);

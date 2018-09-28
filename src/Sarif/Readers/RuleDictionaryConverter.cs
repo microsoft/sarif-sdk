@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System;
 using System.Collections.Generic;
+using System.Text;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
@@ -16,17 +17,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof(Dictionary<string, IRule>);
+            return objectType == typeof(IDictionary<string, IRule>);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            return existingValue;
+            return serializer.Deserialize(reader, objectType);
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            if (serializer == null)
+            serializer.Serialize(writer, value, typeof(Dictionary<string, Rule>));
+
+/*            if (serializer == null)
             {
                 throw new ArgumentNullException(nameof(serializer));
             }
@@ -62,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 outgoing[key] = rule;
             }
 
-            serializer.Serialize(writer, outgoing, typeof(Dictionary<string, Rule>));
+            serializer.Serialize(writer, outgoing, typeof(Dictionary<string, Rule>));*/
         }
     }
 }

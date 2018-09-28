@@ -6,6 +6,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -60,6 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The absolute URI specified by each uriBaseId symbol on the machine where the tool originally ran.
         /// </summary>
         [DataMember(Name = "originalUriBaseIds", IsRequired = false, EmitDefaultValue = false)]
+        [JsonConverter(typeof(UriConverter))]
         public IDictionary<string, Uri> OriginalUriBaseIds { get; set; }
 
         /// <summary>

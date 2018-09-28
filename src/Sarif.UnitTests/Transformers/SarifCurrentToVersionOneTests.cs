@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
     {
         private static SarifLog GetSarifLog(string logText)
         {
-            return JsonConvert.DeserializeObject<SarifLog>(logText, SarifTransformerUtilities.JsonSettingsV2);
+            return JsonConvert.DeserializeObject<SarifLog>(logText);
         }
 
         private static SarifLogVersionOne TransformCurrentToVersionOne(string v2LogText)
@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
         private static void VerifyCurrentToVersionOneTransformation(string v2LogText, string v1LogExpectedText)
         {
             SarifLogVersionOne v1Log = TransformCurrentToVersionOne(v2LogText);
-            string v1LogText = JsonConvert.SerializeObject(v1Log, SarifTransformerUtilities.JsonSettingsV1);
+            string v1LogText = JsonConvert.SerializeObject(v1Log, SarifTransformerUtilities.JsonSettingsV1Indented);
             v1LogText.Should().Be(v1LogExpectedText);
         }
 

@@ -189,11 +189,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             string comprehensiveSarifPath = Path.Combine(Environment.CurrentDirectory, @"v2\Comprehensive.sarif");
 
-            JsonSerializerSettings settings = new JsonSerializerSettings { ContractResolver = SarifContractResolver.Instance };
-
             string sarifText = File.ReadAllText(comprehensiveSarifPath);
 
-            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifText, settings);
+            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifText);
 
             sarifLog.Runs.Count().Should().Be(1);
 

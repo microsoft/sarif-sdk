@@ -20,26 +20,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public static readonly string[] DefaultFullyQualifiedNameDelimiters = { ".", "/", "\\", "::" };
 
-        public static readonly JsonSerializerSettings JsonSettingsV1 = new JsonSerializerSettings
+        public static readonly JsonSerializerSettings JsonSettingsV1Indented = new JsonSerializerSettings
         {
             ContractResolver = SarifContractResolverVersionOne.Instance,
             Formatting = Formatting.Indented
         };
 
-        public static readonly JsonSerializerSettings JsonSettingsV2 = new JsonSerializerSettings
+        public static readonly JsonSerializerSettings JsonSettingsIndented = new JsonSerializerSettings
         {
-            ContractResolver = SarifContractResolver.Instance,
             Formatting = Formatting.Indented
         };
 
         public static readonly JsonSerializerSettings JsonSettingsV1Compact = new JsonSerializerSettings
         {
             ContractResolver = SarifContractResolverVersionOne.Instance
-        };
-
-        public static readonly JsonSerializerSettings JsonSettingsV2Compact = new JsonSerializerSettings
-        {
-            ContractResolver = SarifContractResolver.Instance
         };
 
         public static readonly Dictionary<AlgorithmKindVersionOne, string> AlgorithmKindNameMap = new Dictionary<AlgorithmKindVersionOne, string>

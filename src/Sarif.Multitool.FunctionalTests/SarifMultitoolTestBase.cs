@@ -31,13 +31,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         // we perform a selective compare of just the elements we care about.
         protected static void SelectiveCompare(string actualLogContents, string expectedLogContents)
         {
-            var settings = new JsonSerializerSettings()
-            {
-                ContractResolver = SarifContractResolver.Instance
-            };
-
-            SarifLog actualLog = JsonConvert.DeserializeObject<SarifLog>(actualLogContents, settings);
-            SarifLog expectedLog = JsonConvert.DeserializeObject<SarifLog>(expectedLogContents, settings);
+            SarifLog actualLog = JsonConvert.DeserializeObject<SarifLog>(actualLogContents);
+            SarifLog expectedLog = JsonConvert.DeserializeObject<SarifLog>(expectedLogContents);
 
             SelectiveCompare(actualLog, expectedLog);
         }

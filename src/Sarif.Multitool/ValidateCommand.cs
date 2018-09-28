@@ -75,15 +75,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private static SarifLog Deserialize(string logContents)
         {
-            JsonSerializerSettings settings = new JsonSerializerSettings
-            {
-                ContractResolver = SarifContractResolver.Instance
-            };
-
             SarifLog log = null;
             try
             {
-                return JsonConvert.DeserializeObject<SarifLog>(logContents, settings);
+                return JsonConvert.DeserializeObject<SarifLog>(logContents);
             }
             catch (JsonSerializationException)
             {

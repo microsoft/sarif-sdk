@@ -23,21 +23,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private string _baseName;
         private bool _rebaseRelativeUris;
 
-        private static JsonSerializerSettings _settings;
-
-        internal static JsonSerializerSettings JsonSerializerSettings
-        {
-            get
-            {
-                if (_settings == null)
-                {
-                    _settings = new JsonSerializerSettings();
-                    _settings.ContractResolver = SarifContractResolver.Instance;
-                }
-                return _settings;
-            }
-        }
-        
         /// <summary>
         /// Create a RebaseUriVisitor, with a given name for the Base URI and a value for the base URI.
         /// </summary>
@@ -140,7 +125,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             try
             {
-                dictionary = JsonConvert.DeserializeObject<Dictionary<string, Uri>>(serializedProperty.SerializedValue, _settings);
+                dictionary = JsonConvert.DeserializeObject<Dictionary<string, Uri>>(serializedProperty.SerializedValue);
 
                 return true;
             }
@@ -161,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         /// </summary>
         internal static Dictionary<string, Uri> DeserializePropertyDictionary(SerializedPropertyInfo info)
         {
-            return JsonConvert.DeserializeObject<Dictionary<string, Uri>>(info.SerializedValue, _settings);
+            return JsonConvert.DeserializeObject<Dictionary<string, Uri>>(info.SerializedValue);
         }
 
         /// <summary>
@@ -169,7 +154,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         /// </summary>
         internal static SerializedPropertyInfo ReserializePropertyDictionary(Dictionary<string, Uri> dictionary)
         {
-            return new SerializedPropertyInfo(JsonConvert.SerializeObject(dictionary, _settings), false);
+            return new SerializedPropertyInfo(JsonConvert.SerializeObject(dictionary), false);
         }
     }
 }

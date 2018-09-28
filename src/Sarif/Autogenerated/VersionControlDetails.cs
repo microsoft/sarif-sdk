@@ -6,6 +6,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -33,6 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The absolute URI of the repository.
         /// </summary>
         [DataMember(Name = "uri", IsRequired = true)]
+        [JsonConverter(typeof(UriConverter))]
         public Uri Uri { get; set; }
 
         /// <summary>
@@ -57,6 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The date and time at which the revision was created.
         /// </summary>
         [DataMember(Name = "timestamp", IsRequired = false, EmitDefaultValue = false)]
+        [JsonConverter(typeof(DateTimeConverter))]
         public DateTime Timestamp { get; set; }
 
         /// <summary>
