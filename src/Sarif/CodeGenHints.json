@@ -276,7 +276,6 @@
       "kind": "DictionaryHint",
       "arguments": {
         "valueTypeName": "Rule",
-        "namespaceName": "Microsoft.CodeAnalysis.Sarif",
         "comparisonKind": "EqualityComparerEquals",
         "hashKind": "ObjectModelType",
         "initializationKind": "Clone"

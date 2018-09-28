@@ -592,7 +592,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     foreach (var key in keys)
                     {
                         var value = node.Rules[key];
-
                         if (value != null)
                         {
                             node.Rules[key] = VisitNullChecked(value);

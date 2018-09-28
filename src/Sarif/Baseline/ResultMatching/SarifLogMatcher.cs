@@ -157,7 +157,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 {
                     foreach (Result result in run.Results)
                     {
-                        IRule rule = GetRuleFromResources(result, run.Resources.Rules);
+                        Rule rule = GetRuleFromResources(result, run.Resources.Rules);
                         results.Add(new ExtractedResult() { Result = result, OriginalRun = run });
                     }
                 }
@@ -166,7 +166,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             return results;
         }
         
-        private IRule GetRuleFromResources(Result result, IDictionary<string, Rule> rules)
+        private Rule GetRuleFromResources(Result result, IDictionary<string, Rule> rules)
         {
             if (!string.IsNullOrEmpty(result.RuleId))
             {
@@ -226,7 +226,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 {
                     if (currentRun.Resources.Rules != null)
                     {
-                        MergeDictionaryInto(ruleData, currentRun.Resources.Rules, IRuleEqualityComparer.Instance);
+                        MergeDictionaryInto(ruleData, currentRun.Resources.Rules, RuleEqualityComparer.Instance);
                     }
                     if (currentRun.Resources.MessageStrings != null)
                     {
