@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Formatting = Formatting.Indented
         };
 
-        public static readonly JsonSerializerSettings JsonSettingsV2Indented = new JsonSerializerSettings
+        public static readonly JsonSerializerSettings JsonSettingsIndented = new JsonSerializerSettings
         {
             Formatting = Formatting.Indented
         };

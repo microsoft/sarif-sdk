@@ -255,7 +255,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void PropertyBagHolder_SetProperty_SetsDateTimeProperty()
         {
-            new DateTime(2016, 5, 11, 14, 28, 36, 123).ShouldSerializeAs("\"2016-05-11T14:28:36.123Z\"");
+            // DateTime instances should not be converted to UTC when persisted to a property bag.
+            // The reason is that we can't be  sure that the  user has an actual UTC time in hand,
+            // or even the ability to convert the property date time to UTC.
+            new DateTime(2016, 5, 11, 14, 28, 36, 123).ShouldSerializeAs("\"2016-05-11T14:28:36.123\"");
         }
     }
 

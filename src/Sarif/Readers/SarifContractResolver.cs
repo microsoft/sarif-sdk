@@ -56,9 +56,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             else if (objectType == typeof(Dictionary<string, SerializedPropertyInfo>))
                 contract.Converter = PropertyBagConverter.Instance;
 
-            else if (objectType == typeof(SerializedPropertyInfo))
-                contract.Converter = SerializedPropertyInfoConverter.Instance;
-
             return contract;
         }
     }
