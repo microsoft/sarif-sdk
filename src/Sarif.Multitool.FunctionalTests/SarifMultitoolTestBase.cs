@@ -62,8 +62,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             SelectiveCompare(actualToolNotifications, expectedToolNotifications);
 
-            IDictionary<string, IRule> actualRules = actualLog.Runs[0].Resources?.Rules;
-            IDictionary<string, IRule> expectedRules = expectedLog.Runs[0].Resources?.Rules;
+            IDictionary<string, Rule> actualRules = actualLog.Runs[0].Resources?.Rules;
+            IDictionary<string, Rule> expectedRules = expectedLog.Runs[0].Resources?.Rules;
 
             SelectiveCompare(actualRules, expectedRules);
         }
@@ -115,7 +115,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
         }
 
-        private static void SelectiveCompare(IDictionary<string, IRule> actualRules, IDictionary<string, IRule> expectedRules)
+        private static void SelectiveCompare(IDictionary<string, Rule> actualRules, IDictionary<string, Rule> expectedRules)
         {
             bool actualHasRules = actualRules != null && actualRules.Count > 0;
             bool expectedHasRules = expectedRules != null && expectedRules.Count > 0;
@@ -127,8 +127,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 foreach (string key in actualRules.Keys)
                 {
-                    IRule actualRule = actualRules[key];
-                    IRule expectedRule;
+                    Rule actualRule = actualRules[key];
+                    Rule expectedRule;
                     expectedRules.TryGetValue(key, out expectedRule).Should().BeTrue();
 
                     actualRule.Id.Should().Be(expectedRule.Id);

@@ -5,7 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using Microsoft.CodeAnalysis.Sarif.Readers;
+using Microsoft.CodeAnalysis.Sarif;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "rules", IsRequired = false, EmitDefaultValue = false)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.RuleDictionaryConverter))]
-        public IDictionary<string, IRule> Rules { get; set; }
+        public IDictionary<string, Rule> Rules { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Resources" /> class.
@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="rules">
         /// An initialization value for the <see cref="P: Rules" /> property.
         /// </param>
-        public Resources(IDictionary<string, string> messageStrings, IDictionary<string, IRule> rules)
+        public Resources(IDictionary<string, string> messageStrings, IDictionary<string, Rule> rules)
         {
             Init(messageStrings, rules);
         }
@@ -104,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Resources(this);
         }
 
-        private void Init(IDictionary<string, string> messageStrings, IDictionary<string, IRule> rules)
+        private void Init(IDictionary<string, string> messageStrings, IDictionary<string, Rule> rules)
         {
             if (messageStrings != null)
             {
@@ -113,7 +113,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (rules != null)
             {
-                Rules = new Dictionary<string, IRule>(rules);
+                Rules = new Dictionary<string, Rule>();
+                foreach (var value_0 in rules)
+                {
+                    Rules.Add(value_0.Key, new Rule(value_0.Value));
+                }
             }
         }
     }

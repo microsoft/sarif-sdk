@@ -54,13 +54,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        public string RichDescription => throw new NotImplementedException();
-
         public IDictionary<string, string> MessageStrings { get { return new Dictionary<string, string>(); } }
 
         public IDictionary<string, string> RichMessageStrings { get { return new Dictionary<string, string>(); } }
 
-        public Message Help => throw new NotImplementedException();
+        public Message Help { get { return new Message() { Text = "[Empty]" }; } }
 
         public abstract void Analyze(TestAnalysisContext context);
 

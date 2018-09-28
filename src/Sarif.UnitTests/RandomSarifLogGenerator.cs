@@ -133,9 +133,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             return dictionary;
         }
 
-        public static IDictionary<string, IRule> GenerateRules(List<string> ruleIds)
+        public static IDictionary<string, Rule> GenerateRules(List<string> ruleIds)
         {
-            Dictionary<string, IRule> dictionary = new Dictionary<string, IRule>();
+            Dictionary<string, Rule> dictionary = new Dictionary<string, Rule>();
 
             foreach (var ruleId in ruleIds)
             {

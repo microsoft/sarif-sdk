@@ -780,11 +780,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 if (_currentV2Run.Resources?.Rules != null)
                 {
-                    IDictionary<string, IRule> rules = _currentV2Run.Resources.Rules;
-                    IRule v2Rule;
+                    IDictionary<string, Rule> rules = _currentV2Run.Resources.Rules;
 
                     if (v2Result.RuleId != null &&
-                        rules.TryGetValue(v2Result.RuleId, out v2Rule) &&
+                        rules.TryGetValue(v2Result.RuleId, out Rule v2Rule) &&
                         v2Rule.Id != v2Result.RuleId)
                     {
                         result.RuleId = v2Rule.Id;

@@ -120,7 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             log.Runs.Add(run);
             run.Resources = new Resources
             {
-                Rules = new Dictionary<string, IRule>()
+                Rules = new Dictionary<string, Rule>()
             };
 
             SortedDictionary<int, Rule> sortedRules = new SortedDictionary<int, Rule>();

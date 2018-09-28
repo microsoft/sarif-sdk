@@ -592,16 +592,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                     foreach (var key in keys)
                     {
                         var value = node.Rules[key];
+
                         if (value != null)
                         {
-                            ISarifNode sarifNode = value as ISarifNode;
-
-                            if (sarifNode == null)
-                            {
-                                throw new InvalidOperationException("Attempded to visit an IRule instance that does not implement ISarifNode");
-                            }
-
-                            node.Rules[key] = (IRule)Visit(sarifNode);
+                            node.Rules[key] = VisitNullChecked(value);
                         }
                     }
                 }

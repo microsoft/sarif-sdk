@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
         [Fact]
         public void ResultMatchingBaseliner_BaselinesTwoSimpleSarifLogs()
-        {           
+        {
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
             SarifLog baselineLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
             SarifLog currentLog = baselineLog.DeepClone();

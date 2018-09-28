@@ -23,10 +23,10 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests
             const string ComprehensiveTestSamplePath = @"v2\SpecExamples\Comprehensive.sarif";
             string comprehensiveTestSampleContents = File.ReadAllText(ComprehensiveTestSamplePath);
 
-            SarifLog thisLog = JsonConvert.DeserializeObject<SarifLog>(comprehensiveTestSampleContents);
-            SarifLog thatLog = JsonConvert.DeserializeObject<SarifLog>(comprehensiveTestSampleContents);
+            SarifLog expectedLog = JsonConvert.DeserializeObject<SarifLog>(comprehensiveTestSampleContents);
+            SarifLog actualLog = JsonConvert.DeserializeObject<SarifLog>(comprehensiveTestSampleContents);
 
-            thisLog.ValueEquals(thatLog).Should().BeTrue();
+            expectedLog.ValueEquals(actualLog).Should().BeTrue();
         }
     }
 }

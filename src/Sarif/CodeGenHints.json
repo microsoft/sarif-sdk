@@ -18,18 +18,10 @@
           "override"
         ]
       }
-    },
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.PropertyBagConverter)" ]
-      }
     }
   ],
   "codeFlow": [
-    { 
+    {
       "kind": "BaseTypeHint",
       "arguments": {
         "baseTypeNames": [
@@ -283,11 +275,11 @@
     {
       "kind": "DictionaryHint",
       "arguments": {
-        "valueTypeName": "IRule",
-        "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
-        "comparisonKind": "ObjectEquals",
-        "hashKind": "ScalarReferenceType",
-        "initializationKind": "SimpleAssign"
+        "valueTypeName": "Rule",
+        "namespaceName": "Microsoft.CodeAnalysis.Sarif",
+        "comparisonKind": "EqualityComparerEquals",
+        "hashKind": "ObjectModelType",
+        "initializationKind": "Clone"
       }
     },
     {

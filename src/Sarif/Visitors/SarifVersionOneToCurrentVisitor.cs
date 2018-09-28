@@ -775,10 +775,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                             if (_currentRun.Resources.Rules == null)
                             {
-                                _currentRun.Resources.Rules = new Dictionary<string, IRule>();
+                                _currentRun.Resources.Rules = new Dictionary<string, Rule>();
                             }
 
-                            IDictionary<string, IRule> rules = _currentRun.Resources.Rules;
+                            IDictionary<string, Rule> rules = _currentRun.Resources.Rules;
 
                             if (!rules.ContainsKey(v1Result.RuleKey))
                             {
@@ -905,7 +905,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         run.Resources = new Resources
                         {
-                            Rules = new Dictionary<string, IRule>()
+                            Rules = new Dictionary<string, Rule>()
                         };
 
                         foreach (var pair in v1Run.Rules)

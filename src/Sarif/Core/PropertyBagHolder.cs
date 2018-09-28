@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return JsonConvert.DeserializeObject<T>(Properties[propertyName].SerializedValue);
         }
 
-        private static readonly JsonSerializerSettings _settingsWithComprehensiveV2ContractResolver = new JsonSerializerSettings
+        private static readonly JsonSerializerSettings s_settingsWithComprehensiveV2ContractResolver = new JsonSerializerSettings
         {
             ContractResolver = new SarifContractResolver(),
             Formatting = Formatting.None
@@ -139,7 +139,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else if (propertyName.StartsWith("sarifv2/"))
                     {
-                        settings = _settingsWithComprehensiveV2ContractResolver;
+                        settings = s_settingsWithComprehensiveV2ContractResolver;
                     }
 
                     serializedValue = JsonConvert.SerializeObject(value, settings);

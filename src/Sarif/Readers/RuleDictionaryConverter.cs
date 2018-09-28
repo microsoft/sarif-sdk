@@ -22,24 +22,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            if (!CanConvert(objectType))
-            {
-                return serializer.Deserialize(reader, objectType);
-            }
-
-            var incoming = (Dictionary<string, Rule>)serializer.Deserialize(reader, typeof(Dictionary<string, Rule>));
-            var outgoing = new Dictionary<string, IRule>();
-
-            foreach (string key in incoming.Keys)
-            {
-                outgoing[key] = incoming[key];
-            }
-            return outgoing;
+            return serializer.Deserialize(reader, objectType);
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            if (serializer == null)
+            serializer.Serialize(writer, value, typeof(Dictionary<string, Rule>));
+
+/*            if (serializer == null)
             {
                 throw new ArgumentNullException(nameof(serializer));
             }
@@ -75,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 outgoing[key] = rule;
             }
 
-            serializer.Serialize(writer, outgoing, typeof(Dictionary<string, Rule>));
+            serializer.Serialize(writer, outgoing, typeof(Dictionary<string, Rule>));*/
         }
     }
 }

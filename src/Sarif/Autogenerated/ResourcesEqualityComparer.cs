@@ -4,7 +4,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using Microsoft.CodeAnalysis.Sarif.Readers;
+using Microsoft.CodeAnalysis.Sarif;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -59,13 +59,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 foreach (var value_2 in left.Rules)
                 {
-                    IRule value_3;
+                    Rule value_3;
                     if (!right.Rules.TryGetValue(value_2.Key, out value_3))
                     {
                         return false;
                     }
 
-                    if (!IRuleEqualityComparer.Instance.Equals(value_2.Value, value_3))
+                    if (!Rule.ValueComparer.Equals(value_2.Value, value_3))
                     {
                         return false;
                     }

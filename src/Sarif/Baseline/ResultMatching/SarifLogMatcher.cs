@@ -166,7 +166,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             return results;
         }
         
-        private IRule GetRuleFromResources(Result result, IDictionary<string, IRule> rules)
+        private IRule GetRuleFromResources(Result result, IDictionary<string, Rule> rules)
         {
             if (!string.IsNullOrEmpty(result.RuleId))
             {
@@ -210,7 +210,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             
             // Merge run File data, resources, etc...
             var fileData = new Dictionary<string, FileData>();
-            var ruleData = new Dictionary<string, IRule>();
+            var ruleData = new Dictionary<string, Rule>();
             var messageData = new Dictionary<string, string>();
             var graphs = new Dictionary<string, Graph>();
             var logicalLocations = new Dictionary<string, LogicalLocation>();

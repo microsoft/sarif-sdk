@@ -240,15 +240,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             EnsureResultsArrayIsNotOpen();
             EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.RulesWritten);
 
-
             _jsonWriter.WritePropertyName("resources");
+            _jsonWriter.WriteStartObject(); // Begin: resources
+            _jsonWriter.WritePropertyName("rules");
+            _serializer.Serialize(_jsonWriter, rules);
 
-            Resources resources = new Resources
-            {
-                Rules = rules
-            };
-            _serializer.Serialize(_jsonWriter, resources);
-
+            _jsonWriter.WriteEndObject();  // End: resources
             _writeConditions |= Conditions.RulesWritten;
         }
 
