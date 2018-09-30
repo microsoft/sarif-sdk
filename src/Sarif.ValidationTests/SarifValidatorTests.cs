@@ -97,8 +97,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        public object Utilites { get; private set; }
-
         private string FailureReason(Result[] errors)
         {
             var sb = new StringBuilder("file should be valid, but the following errors were found:\n");
