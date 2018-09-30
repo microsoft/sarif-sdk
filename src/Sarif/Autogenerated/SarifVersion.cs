@@ -14,6 +14,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         Unknown,
         OneZeroZeroBetaFive,
         OneZeroZero,
-        TwoZeroZero
+        Current
     }
 }

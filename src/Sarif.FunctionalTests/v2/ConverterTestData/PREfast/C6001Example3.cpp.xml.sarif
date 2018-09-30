@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0",
-  "version": "2.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-beta.2018-09-26",
+  "version": "2.0.0-beta.2018-09-26",
   "runs": [
     {
       "tool": {
@@ -9,24 +9,7 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6001/c6001example3.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "I3ByYWdtYSB3YXJuaW5nIChkaXNhYmxlIDogNDcwMSA0MTAwIDQ3MDApDQppbnQgQzYwMDFfRXhhbXBsZTMoIGJvb2wgYiwgYm9vbCBjICkNCnsNCglpbnQgaTsJCQkJDQoJZ290byBsYWJlbGI7CQkNCmxhYmVsYToJCQkJCQ0KCWdvdG8gbGFiZWxjOw0KbGFiZWxiOgkJCQkJDQoJZ290byBsYWJlbGE7DQpsYWJlbGM6CQkJCQkNCglpbnQgaiA9IGkrMTsJCQ0KCXJldHVybiBqOwkJCQ0KfQ=="
-          },
-          "hashes": [
-            {
-              "value": "9FD4F9AC2711411C10C18FC31F77441D",
-              "algorithm": "md5"
-            },
-            {
-              "value": "90E846D17A05E7172086B4CAD27202C8F21AE30F",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "A8EF8FAEA437E0D4A7FBD1DC081A73B04A35FFC7DC207DFDC0B1A98800F58E1A",
-              "algorithm": "sha-256"
-            }
-          ]
+          "mimeType": "text/x-cpp"
         }
       },
       "logicalLocations": {
@@ -48,21 +31,7 @@
                 },
                 "region": {
                   "startLine": 11,
-                  "startColumn": 6,
-                  "snippet": {
-                    "text": "j = i+1;\t\t"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 10,
-                  "startColumn": 1,
-                  "endLine": 12,
-                  "endColumn": 14,
-                  "charOffset": 173,
-                  "charLength": 44,
-                  "snippet": {
-                    "text": "labelc:\t\t\t\t\t\r\n\tint j = i+1;\t\t\r\n\treturn j;\t\t\t"
-                  }
+                  "startColumn": 6
                 }
               },
               "fullyQualifiedLogicalName": "C6001_Example3",
@@ -85,21 +54,7 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "i;\t\t\t\t"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 3,
-                            "startColumn": 1,
-                            "endLine": 5,
-                            "endColumn": 16,
-                            "charOffset": 82,
-                            "charLength": 31,
-                            "snippet": {
-                              "text": "{\r\n\tint i;\t\t\t\t\r\n\tgoto labelb;\t\t"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
@@ -117,21 +72,7 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 2,
-                            "snippet": {
-                              "text": "goto labelb;\t\t"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 4,
-                            "startColumn": 1,
-                            "endLine": 6,
-                            "endColumn": 13,
-                            "charOffset": 85,
-                            "charLength": 42,
-                            "snippet": {
-                              "text": "\tint i;\t\t\t\t\r\n\tgoto labelb;\t\t\r\nlabela:\t\t\t\t\t"
-                            }
+                            "startColumn": 2
                           }
                         }
                       },
@@ -148,21 +89,7 @@
                           },
                           "region": {
                             "startLine": 8,
-                            "startColumn": 1,
-                            "snippet": {
-                              "text": "labelb:\t\t\t\t\t"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 7,
-                            "startColumn": 1,
-                            "endLine": 9,
-                            "endColumn": 14,
-                            "charOffset": 129,
-                            "charLength": 42,
-                            "snippet": {
-                              "text": "\tgoto labelc;\r\nlabelb:\t\t\t\t\t\r\n\tgoto labela;"
-                            }
+                            "startColumn": 1
                           }
                         }
                       },
@@ -177,21 +104,7 @@
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 2,
-                            "snippet": {
-                              "text": "goto labela;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 8,
-                            "startColumn": 1,
-                            "endLine": 10,
-                            "endColumn": 13,
-                            "charOffset": 144,
-                            "charLength": 41,
-                            "snippet": {
-                              "text": "labelb:\t\t\t\t\t\r\n\tgoto labela;\r\nlabelc:\t\t\t\t\t"
-                            }
+                            "startColumn": 2
                           }
                         }
                       },
@@ -208,21 +121,7 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 1,
-                            "snippet": {
-                              "text": "labela:\t\t\t\t\t"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 5,
-                            "startColumn": 1,
-                            "endLine": 7,
-                            "endColumn": 14,
-                            "charOffset": 98,
-                            "charLength": 44,
-                            "snippet": {
-                              "text": "\tgoto labelb;\t\t\r\nlabela:\t\t\t\t\t\r\n\tgoto labelc;"
-                            }
+                            "startColumn": 1
                           }
                         }
                       },
@@ -237,21 +136,7 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 2,
-                            "snippet": {
-                              "text": "goto labelc;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 6,
-                            "startColumn": 1,
-                            "endLine": 8,
-                            "endColumn": 13,
-                            "charOffset": 115,
-                            "charLength": 41,
-                            "snippet": {
-                              "text": "labela:\t\t\t\t\t\r\n\tgoto labelc;\r\nlabelb:\t\t\t\t\t"
-                            }
+                            "startColumn": 2
                           }
                         }
                       },
@@ -268,21 +153,7 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 1,
-                            "snippet": {
-                              "text": "labelc:\t\t\t\t\t"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 9,
-                            "startColumn": 1,
-                            "endLine": 11,
-                            "endColumn": 16,
-                            "charOffset": 158,
-                            "charLength": 44,
-                            "snippet": {
-                              "text": "\tgoto labela;\r\nlabelc:\t\t\t\t\t\r\n\tint j = i+1;\t\t"
-                            }
+                            "startColumn": 1
                           }
                         }
                       },
@@ -297,21 +168,7 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "j = i+1;\t\t"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 10,
-                            "startColumn": 1,
-                            "endLine": 12,
-                            "endColumn": 14,
-                            "charOffset": 173,
-                            "charLength": 44,
-                            "snippet": {
-                              "text": "labelc:\t\t\t\t\t\r\n\tint j = i+1;\t\t\r\n\treturn j;\t\t\t"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },

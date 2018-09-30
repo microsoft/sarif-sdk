@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0",
-  "version": "2.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-beta.2018-09-26",
+  "version": "2.0.0-beta.2018-09-26",
   "runs": [
     {
       "tool": {
@@ -9,24 +9,7 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandsetvalue.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "dm9pZCBNZXJnZUFsaWFzQW5kVGVuKGludCAqIHJlc3VsdCwgaW50IGIpDQp7DQogICAgaW50IFR3b0VsZW1lbnRBcnJheVtdID0gezEsMn07DQogICAgICANCglpZiAoYiA9PSAxMCk7DQoNCiAgICBpbnQgaW5kZXggPSBiOw0KDQoJKnJlc3VsdCA9IFR3b0VsZW1lbnRBcnJheVtpbmRleF07DQp9DQo="
-          },
-          "hashes": [
-            {
-              "value": "6846DADB68AF727A07B271C5A481C10D",
-              "algorithm": "md5"
-            },
-            {
-              "value": "387C5A61C7E96FAA3EEE82B15CFB2B181E22A28D",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "1EE5C3D8A432B9E1A82BD938DAF5435DA5952FFEC0A15574DE8B7D286E0874CB",
-              "algorithm": "sha-256"
-            }
-          ]
+          "mimeType": "text/x-cpp"
         }
       },
       "logicalLocations": {
@@ -48,21 +31,7 @@
                 },
                 "region": {
                   "startLine": 9,
-                  "startColumn": 10,
-                  "snippet": {
-                    "text": "= TwoElementArray[index];"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 8,
-                  "startColumn": 1,
-                  "endLine": 10,
-                  "endColumn": 2,
-                  "charOffset": 129,
-                  "charLength": 39,
-                  "snippet": {
-                    "text": "\r\n\t*result = TwoElementArray[index];\r\n}"
-                  }
+                  "startColumn": 10
                 }
               },
               "fullyQualifiedLogicalName": "MergeAliasAndTen",
@@ -85,21 +54,7 @@
                           },
                           "region": {
                             "startLine": 3,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "TwoElementArray[] = {1,2};"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 2,
-                            "startColumn": 1,
-                            "endLine": 4,
-                            "endColumn": 7,
-                            "charOffset": 44,
-                            "charLength": 45,
-                            "snippet": {
-                              "text": "{\r\n    int TwoElementArray[] = {1,2};\r\n      "
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
@@ -117,21 +72,7 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 8,
-                            "snippet": {
-                              "text": "== 10);"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 4,
-                            "startColumn": 1,
-                            "endLine": 6,
-                            "endColumn": 1,
-                            "charOffset": 83,
-                            "charLength": 24,
-                            "snippet": {
-                              "text": "      \r\n\tif (b == 10);\r\n"
-                            }
+                            "startColumn": 8
                           }
                         }
                       },
@@ -148,21 +89,7 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "index = b;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 6,
-                            "startColumn": 1,
-                            "endLine": 8,
-                            "endColumn": 1,
-                            "charOffset": 107,
-                            "charLength": 22,
-                            "snippet": {
-                              "text": "\r\n    int index = b;\r\n"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
@@ -180,21 +107,7 @@
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 10,
-                            "snippet": {
-                              "text": "= TwoElementArray[index];"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 8,
-                            "startColumn": 1,
-                            "endLine": 10,
-                            "endColumn": 2,
-                            "charOffset": 129,
-                            "charLength": 39,
-                            "snippet": {
-                              "text": "\r\n\t*result = TwoElementArray[index];\r\n}"
-                            }
+                            "startColumn": 10
                           }
                         }
                       },

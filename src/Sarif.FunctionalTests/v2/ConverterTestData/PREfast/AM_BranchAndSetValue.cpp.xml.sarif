@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0",
-  "version": "2.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-beta.2018-09-26",
+  "version": "2.0.0-beta.2018-09-26",
   "runs": [
     {
       "tool": {
@@ -9,24 +9,7 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandsetvalue.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "DQp2b2lkIENvbXBhcmVUb1RlbihpbnQgKiByZXN1bHQsIGludCBiKQ0Kew0KCWludCBkYXRhWzEwXTsNCiAgICAgIA0KCWlmIChiID09IDEwKTsNCg0KCSpyZXN1bHQgPSBkYXRhW2JdOw0KfQ0K"
-          },
-          "hashes": [
-            {
-              "value": "947E0D9DE15DB57B99D405188F2B0186",
-              "algorithm": "md5"
-            },
-            {
-              "value": "D34D3321C4D0E013AF2F14F14A1ABD9B023C51C7",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "51E4090F115599A2EF9742197F9401AE1C60834B767729CEB50C230AC73DA7E4",
-              "algorithm": "sha-256"
-            }
-          ]
+          "mimeType": "text/x-cpp"
         }
       },
       "logicalLocations": {
@@ -48,21 +31,7 @@
                 },
                 "region": {
                   "startLine": 8,
-                  "startColumn": 10,
-                  "snippet": {
-                    "text": "= data[b];"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 7,
-                  "startColumn": 1,
-                  "endLine": 9,
-                  "endColumn": 2,
-                  "charOffset": 85,
-                  "charLength": 24,
-                  "snippet": {
-                    "text": "\r\n\t*result = data[b];\r\n}"
-                  }
+                  "startColumn": 10
                 }
               },
               "fullyQualifiedLogicalName": "CompareToTen",
@@ -85,21 +54,7 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "data[10];"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 3,
-                            "startColumn": 1,
-                            "endLine": 5,
-                            "endColumn": 7,
-                            "charOffset": 42,
-                            "charLength": 25,
-                            "snippet": {
-                              "text": "{\r\n\tint data[10];\r\n      "
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
@@ -117,21 +72,7 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 8,
-                            "snippet": {
-                              "text": "== 10);"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 5,
-                            "startColumn": 1,
-                            "endLine": 7,
-                            "endColumn": 1,
-                            "charOffset": 61,
-                            "charLength": 24,
-                            "snippet": {
-                              "text": "      \r\n\tif (b == 10);\r\n"
-                            }
+                            "startColumn": 8
                           }
                         }
                       },
@@ -146,21 +87,7 @@
                           },
                           "region": {
                             "startLine": 8,
-                            "startColumn": 10,
-                            "snippet": {
-                              "text": "= data[b];"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 7,
-                            "startColumn": 1,
-                            "endLine": 9,
-                            "endColumn": 2,
-                            "charOffset": 85,
-                            "charLength": 24,
-                            "snippet": {
-                              "text": "\r\n\t*result = data[b];\r\n}"
-                            }
+                            "startColumn": 10
                           }
                         }
                       },
@@ -193,21 +120,7 @@
                 },
                 "region": {
                   "startLine": 8,
-                  "startColumn": 10,
-                  "snippet": {
-                    "text": "= data[b];"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 7,
-                  "startColumn": 1,
-                  "endLine": 9,
-                  "endColumn": 2,
-                  "charOffset": 85,
-                  "charLength": 24,
-                  "snippet": {
-                    "text": "\r\n\t*result = data[b];\r\n}"
-                  }
+                  "startColumn": 10
                 }
               },
               "fullyQualifiedLogicalName": "CompareToTen",
@@ -230,21 +143,7 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "data[10];"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 3,
-                            "startColumn": 1,
-                            "endLine": 5,
-                            "endColumn": 7,
-                            "charOffset": 42,
-                            "charLength": 25,
-                            "snippet": {
-                              "text": "{\r\n\tint data[10];\r\n      "
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
@@ -262,21 +161,7 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 8,
-                            "snippet": {
-                              "text": "== 10);"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 5,
-                            "startColumn": 1,
-                            "endLine": 7,
-                            "endColumn": 1,
-                            "charOffset": 61,
-                            "charLength": 24,
-                            "snippet": {
-                              "text": "      \r\n\tif (b == 10);\r\n"
-                            }
+                            "startColumn": 8
                           }
                         }
                       },
@@ -293,21 +178,7 @@
                           },
                           "region": {
                             "startLine": 8,
-                            "startColumn": 10,
-                            "snippet": {
-                              "text": "= data[b];"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 7,
-                            "startColumn": 1,
-                            "endLine": 9,
-                            "endColumn": 2,
-                            "charOffset": 85,
-                            "charLength": 24,
-                            "snippet": {
-                              "text": "\r\n\t*result = data[b];\r\n}"
-                            }
+                            "startColumn": 10
                           }
                         }
                       },

@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0",
-  "version": "2.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-beta.2018-09-26",
+  "version": "2.0.0-beta.2018-09-26",
   "runs": [
     {
       "tool": {
@@ -9,24 +9,7 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/combinedwarnings/c6001example.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "I3ByYWdtYSB3YXJuaW5nIChkaXNhYmxlIDogNDcwMSkNCmludCBDNjAwMV9FeGFtcGxlMSAoIGJvb2wgYiwgYm9vbCBjKQ0Kew0KICAgaW50IGk7DQogICBpZiAoIGIgJiYgYykNCiAgIHsNCiAgICAgIGkgPSAwOw0KICAgfQ0KICAgcmV0dXJuIGk7IA0KfQ0K"
-          },
-          "hashes": [
-            {
-              "value": "58C6CB07C191B4B567C9CF627DE3D9E9",
-              "algorithm": "md5"
-            },
-            {
-              "value": "19AC7361CE429E8386BD33FB22A013B786B4D86D",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "CBDEE58AD6475FE4A9438240031864A73631EB6D5809918D0D59BD63C86EAC10",
-              "algorithm": "sha-256"
-            }
-          ]
+          "mimeType": "text/x-cpp"
         }
       },
       "logicalLocations": {
@@ -48,21 +31,7 @@
                 },
                 "region": {
                   "startLine": 9,
-                  "startColumn": 4,
-                  "snippet": {
-                    "text": "return i; "
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 8,
-                  "startColumn": 1,
-                  "endLine": 10,
-                  "endColumn": 2,
-                  "charOffset": 123,
-                  "charLength": 22,
-                  "snippet": {
-                    "text": "   }\r\n   return i; \r\n}"
-                  }
+                  "startColumn": 4
                 }
               },
               "fullyQualifiedLogicalName": "C6001_Example1",
@@ -85,21 +54,7 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 8,
-                            "snippet": {
-                              "text": "i;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 3,
-                            "startColumn": 1,
-                            "endLine": 5,
-                            "endColumn": 16,
-                            "charOffset": 72,
-                            "charLength": 29,
-                            "snippet": {
-                              "text": "{\r\n   int i;\r\n   if ( b && c)"
-                            }
+                            "startColumn": 8
                           }
                         }
                       },
@@ -117,21 +72,7 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 11,
-                            "snippet": {
-                              "text": "&& c)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 4,
-                            "startColumn": 1,
-                            "endLine": 6,
-                            "endColumn": 5,
-                            "charOffset": 75,
-                            "charLength": 32,
-                            "snippet": {
-                              "text": "   int i;\r\n   if ( b && c)\r\n   {"
-                            }
+                            "startColumn": 11
                           }
                         }
                       },
@@ -148,21 +89,7 @@
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 4,
-                            "snippet": {
-                              "text": "return i; "
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 8,
-                            "startColumn": 1,
-                            "endLine": 10,
-                            "endColumn": 2,
-                            "charOffset": 123,
-                            "charLength": 22,
-                            "snippet": {
-                              "text": "   }\r\n   return i; \r\n}"
-                            }
+                            "startColumn": 4
                           }
                         }
                       },

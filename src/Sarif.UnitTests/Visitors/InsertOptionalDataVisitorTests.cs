@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Text;
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
@@ -110,7 +108,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             string expectedSarif = File.Exists(expectedFileName) ? File.ReadAllText(expectedFileName) : null;
+            if (expectedSarif != null)
+            {
+                expectedSarif = Utilities.UpdateVersionNumberToCurrent(expectedSarif);
+            }
+
             string actualSarif = JsonConvert.SerializeObject(actualLog, settings);
+            actualSarif = Utilities.UpdateVersionNumberToCurrent(actualSarif);
 
             if (!AreEquivalentSarifLogs(actualSarif, expectedSarif))
             {

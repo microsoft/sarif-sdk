@@ -17,7 +17,7 @@ namespace Sarif.Multitool.UnitTests
             string LogFileContents =
 @"{
   ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": ""2.0.0"",
+  ""version"": """ + SarifUtilities.VCurrent + @""",
   ""runs"": [
     {
       ""tool"": {

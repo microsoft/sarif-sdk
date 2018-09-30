@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0",
-  "version": "2.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-beta.2018-09-26",
+  "version": "2.0.0-beta.2018-09-26",
   "runs": [
     {
       "tool": {
@@ -9,24 +9,7 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/advancedc6305.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "DQojaW5jbHVkZSA8c2FsLmg+DQojaW5jbHVkZSA8c3RyaW5nLmg+DQoNCnZvaWQgQzYzMDVGcm9tQW5ub3RhdGlvbigNCgkJX0luX3JlYWRzX2J5dGVzXyhpbmMpIGludCAqcCwNCgkJaW50IGluYywNCgkJYm9vbCBiKQ0Kew0KICBpbnQgY2IgPSAxOw0KICBpZiAoYikNCgkgIHAgKz1pbmM7DQogIGVsc2UNCgkgIHAgKz0gY2I7DQoNCn0NCg0KaW50IFJlbW92ZVJlZHVuZGFudEtleUV2ZW50czEod2NoYXJfdCAqIHApDQp7DQogICAgaW50IGkgPSA2Ow0KDQogICAgaW50IGogPSBzaXplb2YocCk7DQoNCiAgICBqID0gaiArIHdjc2xlbihwKTsNCg0KICAgIHJldHVybiBpOw0KfQ0KDQppbnQgUmVtb3ZlUmVkdW5kYW50S2V5RXZlbnRzMih3Y2hhcl90ICogcCkNCnsNCglpbnQgaSA9IHNpemVvZihwKTsJIC8vIFllcywgc2l6ZW9mKHdjaGFyX3QqKSBkb2Vzbid0IG1ha2UgYW55IHNlbnNlDQoNCglpID0gd2NzbGVuKHApIC0gaTsNCglpbnQgaiA9IGk7DQoJaSArPSB3Y3NsZW4ocCk7DQoJaSAtPSB3Y3NsZW4ocCk7DQoNCglpID0gd2NzbGVuKHApICsgaTsNCglpID0gd2NzbGVuKHApIC0gaTsNCg0KCXJldHVybiBqOw0KfQ0KDQppbnQgQ29ycmVjdEFsaWFzaW5nKHdjaGFyX3QgKiBwKQ0Kew0KICAgIGludCBpID0gNjsNCiAgICBpbnQgaiA9IHNpemVvZihwKTsNCg0KICAgIGkgKz0gajsNCg0KICAgIGludCBrID0gaSArIHdjc2xlbihwKTsNCg0KICAgIHJldHVybiBrOw0KfQ0KDQppbnQgU2hvd0tleUV2ZW50c1doZW5Ob0xvY2F0aW9uKCkNCnsNCiAgICBpbnQgc291cmNlIFtdID0gezEsIDIsIDMsIDQsIDUsIDYsIDd9Ow0KICAgIGludCAqIHAgPSBzb3VyY2U7DQoNCiAgICBwICs9IHNpemVvZihpbnQpOw0KDQogICAgcmV0dXJuICpwOw0KfQ0KDQp2b2lkIFNob3dLZXlFdmVudHNXaGVuTm9Mb2NhdGlvbjIoKQ0Kew0KCWludCBpID0gMDsNCglpbnQqIHBJID0gJmk7DQoJcEkgKz0gc2l6ZW9mKGludCk7DQp9DQoNCnZvaWQgU2hvd0tleUV2ZW50c0ZvclBvaW50ZXJBcml0aG1ldGljKGludCAqcCkNCnsNCiAgIGludCBjYiA9IHNpemVvZihpbnQpOw0KDQogICBwICs9IGNiICsgMjsNCn0NCg=="
-          },
-          "hashes": [
-            {
-              "value": "1ED2F583AC1E008D64C12BCBCECC227D",
-              "algorithm": "md5"
-            },
-            {
-              "value": "119516CC95286275AE420917C188C8277FCCF5DA",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "83D19417481B5BE47BBB9856D6DF5D289CD17488F3BFD314438AF6CA90D93436",
-              "algorithm": "sha-256"
-            }
-          ]
+          "mimeType": "text/x-cpp"
         }
       },
       "logicalLocations": {
@@ -66,21 +49,7 @@
                 },
                 "region": {
                   "startLine": 12,
-                  "startColumn": 6,
-                  "snippet": {
-                    "text": "+=inc;"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 11,
-                  "startColumn": 1,
-                  "endLine": 13,
-                  "endColumn": 7,
-                  "charOffset": 144,
-                  "charLength": 29,
-                  "snippet": {
-                    "text": "  if (b)\r\n\t  p +=inc;\r\n  else"
-                  }
+                  "startColumn": 6
                 }
               },
               "fullyQualifiedLogicalName": "C6305FromAnnotation",
@@ -103,21 +72,7 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 25,
-                            "snippet": {
-                              "text": "("
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 4,
-                            "startColumn": 1,
-                            "endLine": 6,
-                            "endColumn": 32,
-                            "charOffset": 41,
-                            "charLength": 60,
-                            "snippet": {
-                              "text": "\r\nvoid C6305FromAnnotation(\r\n\t\t_In_reads_bytes_(inc) int *p,"
-                            }
+                            "startColumn": 25
                           }
                         }
                       },
@@ -135,21 +90,7 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 7,
-                            "snippet": {
-                              "text": "cb = 1;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 9,
-                            "startColumn": 1,
-                            "endLine": 11,
-                            "endColumn": 9,
-                            "charOffset": 126,
-                            "charLength": 26,
-                            "snippet": {
-                              "text": "{\r\n  int cb = 1;\r\n  if (b)"
-                            }
+                            "startColumn": 7
                           }
                         }
                       },
@@ -164,21 +105,7 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 7,
-                            "snippet": {
-                              "text": "b)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 10,
-                            "startColumn": 1,
-                            "endLine": 12,
-                            "endColumn": 12,
-                            "charOffset": 129,
-                            "charLength": 36,
-                            "snippet": {
-                              "text": "  int cb = 1;\r\n  if (b)\r\n\t  p +=inc;"
-                            }
+                            "startColumn": 7
                           }
                         }
                       },
@@ -195,21 +122,7 @@
                           },
                           "region": {
                             "startLine": 12,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "+=inc;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 11,
-                            "startColumn": 1,
-                            "endLine": 13,
-                            "endColumn": 7,
-                            "charOffset": 144,
-                            "charLength": 29,
-                            "snippet": {
-                              "text": "  if (b)\r\n\t  p +=inc;\r\n  else"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
@@ -242,21 +155,7 @@
                 },
                 "region": {
                   "startLine": 24,
-                  "startColumn": 7,
-                  "snippet": {
-                    "text": "= j + wcslen(p);"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 23,
-                  "startColumn": 1,
-                  "endLine": 25,
-                  "endColumn": 1,
-                  "charOffset": 284,
-                  "charLength": 26,
-                  "snippet": {
-                    "text": "\r\n    j = j + wcslen(p);\r\n"
-                  }
+                  "startColumn": 7
                 }
               },
               "fullyQualifiedLogicalName": "RemoveRedundantKeyEvents1",
@@ -279,21 +178,7 @@
                           },
                           "region": {
                             "startLine": 20,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "i = 6;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 19,
-                            "startColumn": 1,
-                            "endLine": 21,
-                            "endColumn": 1,
-                            "charOffset": 239,
-                            "charLength": 19,
-                            "snippet": {
-                              "text": "{\r\n    int i = 6;\r\n"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
@@ -308,21 +193,7 @@
                           },
                           "region": {
                             "startLine": 22,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "j = sizeof(p);"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 21,
-                            "startColumn": 1,
-                            "endLine": 23,
-                            "endColumn": 1,
-                            "charOffset": 258,
-                            "charLength": 26,
-                            "snippet": {
-                              "text": "\r\n    int j = sizeof(p);\r\n"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
@@ -340,21 +211,7 @@
                           },
                           "region": {
                             "startLine": 24,
-                            "startColumn": 7,
-                            "snippet": {
-                              "text": "= j + wcslen(p);"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 23,
-                            "startColumn": 1,
-                            "endLine": 25,
-                            "endColumn": 1,
-                            "charOffset": 284,
-                            "charLength": 26,
-                            "snippet": {
-                              "text": "\r\n    j = j + wcslen(p);\r\n"
-                            }
+                            "startColumn": 7
                           }
                         }
                       },
@@ -387,21 +244,7 @@
                 },
                 "region": {
                   "startLine": 38,
-                  "startColumn": 4,
-                  "snippet": {
-                    "text": "= wcslen(p) + i;"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 37,
-                  "startColumn": 1,
-                  "endLine": 39,
-                  "endColumn": 20,
-                  "charOffset": 521,
-                  "charLength": 42,
-                  "snippet": {
-                    "text": "\r\n\ti = wcslen(p) + i;\r\n\ti = wcslen(p) - i;"
-                  }
+                  "startColumn": 4
                 }
               },
               "fullyQualifiedLogicalName": "RemoveRedundantKeyEvents2",
@@ -424,21 +267,7 @@
                           },
                           "region": {
                             "startLine": 31,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "i = sizeof(p);\t // Yes, sizeof(wchar_t*) doesn't make any sense"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 30,
-                            "startColumn": 1,
-                            "endLine": 32,
-                            "endColumn": 1,
-                            "charOffset": 376,
-                            "charLength": 73,
-                            "snippet": {
-                              "text": "{\r\n\tint i = sizeof(p);\t // Yes, sizeof(wchar_t*) doesn't make any sense\r\n"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
@@ -453,21 +282,7 @@
                           },
                           "region": {
                             "startLine": 33,
-                            "startColumn": 4,
-                            "snippet": {
-                              "text": "= wcslen(p) - i;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 32,
-                            "startColumn": 1,
-                            "endLine": 34,
-                            "endColumn": 12,
-                            "charOffset": 449,
-                            "charLength": 34,
-                            "snippet": {
-                              "text": "\r\n\ti = wcslen(p) - i;\r\n\tint j = i;"
-                            }
+                            "startColumn": 4
                           }
                         }
                       },
@@ -482,21 +297,7 @@
                           },
                           "region": {
                             "startLine": 34,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "j = i;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 33,
-                            "startColumn": 1,
-                            "endLine": 35,
-                            "endColumn": 17,
-                            "charOffset": 451,
-                            "charLength": 50,
-                            "snippet": {
-                              "text": "\ti = wcslen(p) - i;\r\n\tint j = i;\r\n\ti += wcslen(p);"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
@@ -511,21 +312,7 @@
                           },
                           "region": {
                             "startLine": 35,
-                            "startColumn": 4,
-                            "snippet": {
-                              "text": "+= wcslen(p);"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 34,
-                            "startColumn": 1,
-                            "endLine": 36,
-                            "endColumn": 17,
-                            "charOffset": 472,
-                            "charLength": 47,
-                            "snippet": {
-                              "text": "\tint j = i;\r\n\ti += wcslen(p);\r\n\ti -= wcslen(p);"
-                            }
+                            "startColumn": 4
                           }
                         }
                       },
@@ -540,21 +327,7 @@
                           },
                           "region": {
                             "startLine": 36,
-                            "startColumn": 4,
-                            "snippet": {
-                              "text": "-= wcslen(p);"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 35,
-                            "startColumn": 1,
-                            "endLine": 37,
-                            "endColumn": 1,
-                            "charOffset": 485,
-                            "charLength": 36,
-                            "snippet": {
-                              "text": "\ti += wcslen(p);\r\n\ti -= wcslen(p);\r\n"
-                            }
+                            "startColumn": 4
                           }
                         }
                       },
@@ -572,21 +345,7 @@
                           },
                           "region": {
                             "startLine": 38,
-                            "startColumn": 4,
-                            "snippet": {
-                              "text": "= wcslen(p) + i;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 37,
-                            "startColumn": 1,
-                            "endLine": 39,
-                            "endColumn": 20,
-                            "charOffset": 521,
-                            "charLength": 42,
-                            "snippet": {
-                              "text": "\r\n\ti = wcslen(p) + i;\r\n\ti = wcslen(p) - i;"
-                            }
+                            "startColumn": 4
                           }
                         }
                       },
@@ -619,21 +378,7 @@
                 },
                 "region": {
                   "startLine": 35,
-                  "startColumn": 4,
-                  "snippet": {
-                    "text": "+= wcslen(p);"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 34,
-                  "startColumn": 1,
-                  "endLine": 36,
-                  "endColumn": 17,
-                  "charOffset": 472,
-                  "charLength": 47,
-                  "snippet": {
-                    "text": "\tint j = i;\r\n\ti += wcslen(p);\r\n\ti -= wcslen(p);"
-                  }
+                  "startColumn": 4
                 }
               },
               "fullyQualifiedLogicalName": "RemoveRedundantKeyEvents2",
@@ -656,21 +401,7 @@
                           },
                           "region": {
                             "startLine": 31,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "i = sizeof(p);\t // Yes, sizeof(wchar_t*) doesn't make any sense"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 30,
-                            "startColumn": 1,
-                            "endLine": 32,
-                            "endColumn": 1,
-                            "charOffset": 376,
-                            "charLength": 73,
-                            "snippet": {
-                              "text": "{\r\n\tint i = sizeof(p);\t // Yes, sizeof(wchar_t*) doesn't make any sense\r\n"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
@@ -685,21 +416,7 @@
                           },
                           "region": {
                             "startLine": 33,
-                            "startColumn": 4,
-                            "snippet": {
-                              "text": "= wcslen(p) - i;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 32,
-                            "startColumn": 1,
-                            "endLine": 34,
-                            "endColumn": 12,
-                            "charOffset": 449,
-                            "charLength": 34,
-                            "snippet": {
-                              "text": "\r\n\ti = wcslen(p) - i;\r\n\tint j = i;"
-                            }
+                            "startColumn": 4
                           }
                         }
                       },
@@ -717,21 +434,7 @@
                           },
                           "region": {
                             "startLine": 34,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "j = i;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 33,
-                            "startColumn": 1,
-                            "endLine": 35,
-                            "endColumn": 17,
-                            "charOffset": 451,
-                            "charLength": 50,
-                            "snippet": {
-                              "text": "\ti = wcslen(p) - i;\r\n\tint j = i;\r\n\ti += wcslen(p);"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
@@ -746,21 +449,7 @@
                           },
                           "region": {
                             "startLine": 35,
-                            "startColumn": 4,
-                            "snippet": {
-                              "text": "+= wcslen(p);"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 34,
-                            "startColumn": 1,
-                            "endLine": 36,
-                            "endColumn": 17,
-                            "charOffset": 472,
-                            "charLength": 47,
-                            "snippet": {
-                              "text": "\tint j = i;\r\n\ti += wcslen(p);\r\n\ti -= wcslen(p);"
-                            }
+                            "startColumn": 4
                           }
                         }
                       },
@@ -793,21 +482,7 @@
                 },
                 "region": {
                   "startLine": 36,
-                  "startColumn": 4,
-                  "snippet": {
-                    "text": "-= wcslen(p);"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 35,
-                  "startColumn": 1,
-                  "endLine": 37,
-                  "endColumn": 1,
-                  "charOffset": 485,
-                  "charLength": 36,
-                  "snippet": {
-                    "text": "\ti += wcslen(p);\r\n\ti -= wcslen(p);\r\n"
-                  }
+                  "startColumn": 4
                 }
               },
               "fullyQualifiedLogicalName": "RemoveRedundantKeyEvents2",
@@ -830,21 +505,7 @@
                           },
                           "region": {
                             "startLine": 31,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "i = sizeof(p);\t // Yes, sizeof(wchar_t*) doesn't make any sense"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 30,
-                            "startColumn": 1,
-                            "endLine": 32,
-                            "endColumn": 1,
-                            "charOffset": 376,
-                            "charLength": 73,
-                            "snippet": {
-                              "text": "{\r\n\tint i = sizeof(p);\t // Yes, sizeof(wchar_t*) doesn't make any sense\r\n"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
@@ -859,21 +520,7 @@
                           },
                           "region": {
                             "startLine": 33,
-                            "startColumn": 4,
-                            "snippet": {
-                              "text": "= wcslen(p) - i;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 32,
-                            "startColumn": 1,
-                            "endLine": 34,
-                            "endColumn": 12,
-                            "charOffset": 449,
-                            "charLength": 34,
-                            "snippet": {
-                              "text": "\r\n\ti = wcslen(p) - i;\r\n\tint j = i;"
-                            }
+                            "startColumn": 4
                           }
                         }
                       },
@@ -888,21 +535,7 @@
                           },
                           "region": {
                             "startLine": 34,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "j = i;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 33,
-                            "startColumn": 1,
-                            "endLine": 35,
-                            "endColumn": 17,
-                            "charOffset": 451,
-                            "charLength": 50,
-                            "snippet": {
-                              "text": "\ti = wcslen(p) - i;\r\n\tint j = i;\r\n\ti += wcslen(p);"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
@@ -917,21 +550,7 @@
                           },
                           "region": {
                             "startLine": 35,
-                            "startColumn": 4,
-                            "snippet": {
-                              "text": "+= wcslen(p);"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 34,
-                            "startColumn": 1,
-                            "endLine": 36,
-                            "endColumn": 17,
-                            "charOffset": 472,
-                            "charLength": 47,
-                            "snippet": {
-                              "text": "\tint j = i;\r\n\ti += wcslen(p);\r\n\ti -= wcslen(p);"
-                            }
+                            "startColumn": 4
                           }
                         }
                       },
@@ -949,21 +568,7 @@
                           },
                           "region": {
                             "startLine": 36,
-                            "startColumn": 4,
-                            "snippet": {
-                              "text": "-= wcslen(p);"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 35,
-                            "startColumn": 1,
-                            "endLine": 37,
-                            "endColumn": 1,
-                            "charOffset": 485,
-                            "charLength": 36,
-                            "snippet": {
-                              "text": "\ti += wcslen(p);\r\n\ti -= wcslen(p);\r\n"
-                            }
+                            "startColumn": 4
                           }
                         }
                       },
@@ -996,21 +601,7 @@
                 },
                 "region": {
                   "startLine": 33,
-                  "startColumn": 4,
-                  "snippet": {
-                    "text": "= wcslen(p) - i;"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 32,
-                  "startColumn": 1,
-                  "endLine": 34,
-                  "endColumn": 12,
-                  "charOffset": 449,
-                  "charLength": 34,
-                  "snippet": {
-                    "text": "\r\n\ti = wcslen(p) - i;\r\n\tint j = i;"
-                  }
+                  "startColumn": 4
                 }
               },
               "fullyQualifiedLogicalName": "RemoveRedundantKeyEvents2",
@@ -1033,21 +624,7 @@
                           },
                           "region": {
                             "startLine": 31,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "i = sizeof(p);\t // Yes, sizeof(wchar_t*) doesn't make any sense"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 30,
-                            "startColumn": 1,
-                            "endLine": 32,
-                            "endColumn": 1,
-                            "charOffset": 376,
-                            "charLength": 73,
-                            "snippet": {
-                              "text": "{\r\n\tint i = sizeof(p);\t // Yes, sizeof(wchar_t*) doesn't make any sense\r\n"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
@@ -1065,21 +642,7 @@
                           },
                           "region": {
                             "startLine": 33,
-                            "startColumn": 4,
-                            "snippet": {
-                              "text": "= wcslen(p) - i;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 32,
-                            "startColumn": 1,
-                            "endLine": 34,
-                            "endColumn": 12,
-                            "charOffset": 449,
-                            "charLength": 34,
-                            "snippet": {
-                              "text": "\r\n\ti = wcslen(p) - i;\r\n\tint j = i;"
-                            }
+                            "startColumn": 4
                           }
                         }
                       },
@@ -1112,21 +675,7 @@
                 },
                 "region": {
                   "startLine": 39,
-                  "startColumn": 4,
-                  "snippet": {
-                    "text": "= wcslen(p) - i;"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 38,
-                  "startColumn": 1,
-                  "endLine": 40,
-                  "endColumn": 1,
-                  "charOffset": 523,
-                  "charLength": 42,
-                  "snippet": {
-                    "text": "\ti = wcslen(p) + i;\r\n\ti = wcslen(p) - i;\r\n"
-                  }
+                  "startColumn": 4
                 }
               },
               "fullyQualifiedLogicalName": "RemoveRedundantKeyEvents2",
@@ -1149,21 +698,7 @@
                           },
                           "region": {
                             "startLine": 31,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "i = sizeof(p);\t // Yes, sizeof(wchar_t*) doesn't make any sense"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 30,
-                            "startColumn": 1,
-                            "endLine": 32,
-                            "endColumn": 1,
-                            "charOffset": 376,
-                            "charLength": 73,
-                            "snippet": {
-                              "text": "{\r\n\tint i = sizeof(p);\t // Yes, sizeof(wchar_t*) doesn't make any sense\r\n"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
@@ -1178,21 +713,7 @@
                           },
                           "region": {
                             "startLine": 33,
-                            "startColumn": 4,
-                            "snippet": {
-                              "text": "= wcslen(p) - i;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 32,
-                            "startColumn": 1,
-                            "endLine": 34,
-                            "endColumn": 12,
-                            "charOffset": 449,
-                            "charLength": 34,
-                            "snippet": {
-                              "text": "\r\n\ti = wcslen(p) - i;\r\n\tint j = i;"
-                            }
+                            "startColumn": 4
                           }
                         }
                       },
@@ -1207,21 +728,7 @@
                           },
                           "region": {
                             "startLine": 34,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "j = i;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 33,
-                            "startColumn": 1,
-                            "endLine": 35,
-                            "endColumn": 17,
-                            "charOffset": 451,
-                            "charLength": 50,
-                            "snippet": {
-                              "text": "\ti = wcslen(p) - i;\r\n\tint j = i;\r\n\ti += wcslen(p);"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
@@ -1236,21 +743,7 @@
                           },
                           "region": {
                             "startLine": 35,
-                            "startColumn": 4,
-                            "snippet": {
-                              "text": "+= wcslen(p);"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 34,
-                            "startColumn": 1,
-                            "endLine": 36,
-                            "endColumn": 17,
-                            "charOffset": 472,
-                            "charLength": 47,
-                            "snippet": {
-                              "text": "\tint j = i;\r\n\ti += wcslen(p);\r\n\ti -= wcslen(p);"
-                            }
+                            "startColumn": 4
                           }
                         }
                       },
@@ -1265,21 +758,7 @@
                           },
                           "region": {
                             "startLine": 36,
-                            "startColumn": 4,
-                            "snippet": {
-                              "text": "-= wcslen(p);"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 35,
-                            "startColumn": 1,
-                            "endLine": 37,
-                            "endColumn": 1,
-                            "charOffset": 485,
-                            "charLength": 36,
-                            "snippet": {
-                              "text": "\ti += wcslen(p);\r\n\ti -= wcslen(p);\r\n"
-                            }
+                            "startColumn": 4
                           }
                         }
                       },
@@ -1294,21 +773,7 @@
                           },
                           "region": {
                             "startLine": 38,
-                            "startColumn": 4,
-                            "snippet": {
-                              "text": "= wcslen(p) + i;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 37,
-                            "startColumn": 1,
-                            "endLine": 39,
-                            "endColumn": 20,
-                            "charOffset": 521,
-                            "charLength": 42,
-                            "snippet": {
-                              "text": "\r\n\ti = wcslen(p) + i;\r\n\ti = wcslen(p) - i;"
-                            }
+                            "startColumn": 4
                           }
                         }
                       },
@@ -1326,21 +791,7 @@
                           },
                           "region": {
                             "startLine": 39,
-                            "startColumn": 4,
-                            "snippet": {
-                              "text": "= wcslen(p) - i;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 38,
-                            "startColumn": 1,
-                            "endLine": 40,
-                            "endColumn": 1,
-                            "charOffset": 523,
-                            "charLength": 42,
-                            "snippet": {
-                              "text": "\ti = wcslen(p) + i;\r\n\ti = wcslen(p) - i;\r\n"
-                            }
+                            "startColumn": 4
                           }
                         }
                       },
@@ -1373,21 +824,7 @@
                 },
                 "region": {
                   "startLine": 51,
-                  "startColumn": 9,
-                  "snippet": {
-                    "text": "k = i + wcslen(p);"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 50,
-                  "startColumn": 1,
-                  "endLine": 52,
-                  "endColumn": 1,
-                  "charOffset": 676,
-                  "charLength": 30,
-                  "snippet": {
-                    "text": "\r\n    int k = i + wcslen(p);\r\n"
-                  }
+                  "startColumn": 9
                 }
               },
               "fullyQualifiedLogicalName": "CorrectAliasing",
@@ -1410,21 +847,7 @@
                           },
                           "region": {
                             "startLine": 46,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "i = 6;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 45,
-                            "startColumn": 1,
-                            "endLine": 47,
-                            "endColumn": 23,
-                            "charOffset": 618,
-                            "charLength": 41,
-                            "snippet": {
-                              "text": "{\r\n    int i = 6;\r\n    int j = sizeof(p);"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
@@ -1439,21 +862,7 @@
                           },
                           "region": {
                             "startLine": 47,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "j = sizeof(p);"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 46,
-                            "startColumn": 1,
-                            "endLine": 48,
-                            "endColumn": 1,
-                            "charOffset": 621,
-                            "charLength": 40,
-                            "snippet": {
-                              "text": "    int i = 6;\r\n    int j = sizeof(p);\r\n"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
@@ -1471,21 +880,7 @@
                           },
                           "region": {
                             "startLine": 49,
-                            "startColumn": 7,
-                            "snippet": {
-                              "text": "+= j;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 48,
-                            "startColumn": 1,
-                            "endLine": 50,
-                            "endColumn": 1,
-                            "charOffset": 661,
-                            "charLength": 15,
-                            "snippet": {
-                              "text": "\r\n    i += j;\r\n"
-                            }
+                            "startColumn": 7
                           }
                         }
                       },
@@ -1503,21 +898,7 @@
                           },
                           "region": {
                             "startLine": 51,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "k = i + wcslen(p);"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 50,
-                            "startColumn": 1,
-                            "endLine": 52,
-                            "endColumn": 1,
-                            "charOffset": 676,
-                            "charLength": 30,
-                            "snippet": {
-                              "text": "\r\n    int k = i + wcslen(p);\r\n"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
@@ -1550,21 +931,7 @@
                 },
                 "region": {
                   "startLine": 61,
-                  "startColumn": 7,
-                  "snippet": {
-                    "text": "+= sizeof(int);"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 60,
-                  "startColumn": 1,
-                  "endLine": 62,
-                  "endColumn": 1,
-                  "charOffset": 833,
-                  "charLength": 25,
-                  "snippet": {
-                    "text": "\r\n    p += sizeof(int);\r\n"
-                  }
+                  "startColumn": 7
                 }
               },
               "fullyQualifiedLogicalName": "ShowKeyEventsWhenNoLocation",
@@ -1587,21 +954,7 @@
                           },
                           "region": {
                             "startLine": 58,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "source [] = {1, 2, 3, 4, 5, 6, 7};"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 57,
-                            "startColumn": 1,
-                            "endLine": 59,
-                            "endColumn": 22,
-                            "charOffset": 763,
-                            "charLength": 68,
-                            "snippet": {
-                              "text": "{\r\n    int source [] = {1, 2, 3, 4, 5, 6, 7};\r\n    int * p = source;"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
@@ -1616,21 +969,7 @@
                           },
                           "region": {
                             "startLine": 59,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "* p = source;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 58,
-                            "startColumn": 1,
-                            "endLine": 60,
-                            "endColumn": 1,
-                            "charOffset": 766,
-                            "charLength": 67,
-                            "snippet": {
-                              "text": "    int source [] = {1, 2, 3, 4, 5, 6, 7};\r\n    int * p = source;\r\n"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
@@ -1645,21 +984,7 @@
                           },
                           "region": {
                             "startLine": 61,
-                            "startColumn": 7,
-                            "snippet": {
-                              "text": "+= sizeof(int);"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 60,
-                            "startColumn": 1,
-                            "endLine": 62,
-                            "endColumn": 1,
-                            "charOffset": 833,
-                            "charLength": 25,
-                            "snippet": {
-                              "text": "\r\n    p += sizeof(int);\r\n"
-                            }
+                            "startColumn": 7
                           }
                         }
                       },
@@ -1692,21 +1017,7 @@
                 },
                 "region": {
                   "startLine": 70,
-                  "startColumn": 5,
-                  "snippet": {
-                    "text": "+= sizeof(int);"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 69,
-                  "startColumn": 1,
-                  "endLine": 71,
-                  "endColumn": 2,
-                  "charOffset": 934,
-                  "charLength": 38,
-                  "snippet": {
-                    "text": "\tint* pI = &i;\r\n\tpI += sizeof(int);\r\n}"
-                  }
+                  "startColumn": 5
                 }
               },
               "fullyQualifiedLogicalName": "ShowKeyEventsWhenNoLocation2",
@@ -1729,21 +1040,7 @@
                           },
                           "region": {
                             "startLine": 68,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "i = 0;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 67,
-                            "startColumn": 1,
-                            "endLine": 69,
-                            "endColumn": 15,
-                            "charOffset": 918,
-                            "charLength": 30,
-                            "snippet": {
-                              "text": "{\r\n\tint i = 0;\r\n\tint* pI = &i;"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
@@ -1758,21 +1055,7 @@
                           },
                           "region": {
                             "startLine": 69,
-                            "startColumn": 5,
-                            "snippet": {
-                              "text": "* pI = &i;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 68,
-                            "startColumn": 1,
-                            "endLine": 70,
-                            "endColumn": 20,
-                            "charOffset": 921,
-                            "charLength": 48,
-                            "snippet": {
-                              "text": "\tint i = 0;\r\n\tint* pI = &i;\r\n\tpI += sizeof(int);"
-                            }
+                            "startColumn": 5
                           }
                         }
                       },
@@ -1787,21 +1070,7 @@
                           },
                           "region": {
                             "startLine": 70,
-                            "startColumn": 5,
-                            "snippet": {
-                              "text": "+= sizeof(int);"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 69,
-                            "startColumn": 1,
-                            "endLine": 71,
-                            "endColumn": 2,
-                            "charOffset": 934,
-                            "charLength": 38,
-                            "snippet": {
-                              "text": "\tint* pI = &i;\r\n\tpI += sizeof(int);\r\n}"
-                            }
+                            "startColumn": 5
                           }
                         }
                       },
@@ -1834,21 +1103,7 @@
                 },
                 "region": {
                   "startLine": 77,
-                  "startColumn": 6,
-                  "snippet": {
-                    "text": "+= cb + 2;"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 76,
-                  "startColumn": 1,
-                  "endLine": 78,
-                  "endColumn": 2,
-                  "charOffset": 1053,
-                  "charLength": 20,
-                  "snippet": {
-                    "text": "\r\n   p += cb + 2;\r\n}"
-                  }
+                  "startColumn": 6
                 }
               },
               "fullyQualifiedLogicalName": "ShowKeyEventsForPointerArithmetic",
@@ -1871,21 +1126,7 @@
                           },
                           "region": {
                             "startLine": 75,
-                            "startColumn": 8,
-                            "snippet": {
-                              "text": "cb = sizeof(int);"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 74,
-                            "startColumn": 1,
-                            "endLine": 76,
-                            "endColumn": 1,
-                            "charOffset": 1024,
-                            "charLength": 29,
-                            "snippet": {
-                              "text": "{\r\n   int cb = sizeof(int);\r\n"
-                            }
+                            "startColumn": 8
                           }
                         }
                       },
@@ -1903,21 +1144,7 @@
                           },
                           "region": {
                             "startLine": 77,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "+= cb + 2;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 76,
-                            "startColumn": 1,
-                            "endLine": 78,
-                            "endColumn": 2,
-                            "charOffset": 1053,
-                            "charLength": 20,
-                            "snippet": {
-                              "text": "\r\n   p += cb + 2;\r\n}"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },

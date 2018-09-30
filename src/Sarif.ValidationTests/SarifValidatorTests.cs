@@ -36,6 +36,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             foreach (string inputFile in TestCases)
             {
                 string instanceText = File.ReadAllText(inputFile);
+                instanceText = Utilities.UpdateVersionNumberToCurrent(instanceText);
+
                 Result[] errors = validator.Validate(instanceText, inputFile);
 
                 // Test errors.Count(), rather than errors.Should().BeEmpty, because the latter
@@ -94,6 +96,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return s_testCases;
             }
         }
+
+        public object Utilites { get; private set; }
 
         private string FailureReason(Result[] errors)
         {

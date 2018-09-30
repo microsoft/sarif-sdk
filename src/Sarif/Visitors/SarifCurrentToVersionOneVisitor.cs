@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class SarifCurrentToVersionOneVisitor : SarifRewritingVisitor
     {
-        private static readonly SarifVersion FromSarifVersion = SarifVersion.TwoZeroZero;
+        private static readonly SarifVersion FromSarifVersion = SarifVersion.Current;
         private static readonly string FromPropertyBagPrefix =
             Utilities.PropertyBagTransformerItemPrefixes[FromSarifVersion];
 

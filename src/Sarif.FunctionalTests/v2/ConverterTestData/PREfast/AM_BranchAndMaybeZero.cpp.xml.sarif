@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0",
-  "version": "2.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-beta.2018-09-26",
+  "version": "2.0.0-beta.2018-09-26",
   "runs": [
     {
       "tool": {
@@ -9,24 +9,7 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_branchandmaybezero.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "Ly8gTWVyZ2UgYnJhbmNoIGtleSBldmVudHMgYW5kIG1heWJlemVybyBrZXkgZXZlbnRzDQoNCnZvaWQgQ29tcGFyZVRvWmVybyhpbnQgKiBpbnB1dCkNCnsNCglpbnQgKiBwID0gaW5wdXQ7DQoJaWYgKDAgPT0gcCkNCgkJaW50IHggPSA1Ow0KCWludCB5ID0gKnA7DQp9DQoNCnZvaWQgQ29tcGFyZVRvWmVyb1BhcmFtKGludCAqIGlucHV0KQ0Kew0KCWlmIChpbnB1dCAhPSAwKQ0KCQlpbnQgeCA9IDU7DQoJaW50IHkgPSAqaW5wdXQ7DQp9DQoNCi8vIEZyb20gYSBoYXJkIHRvIHVuZGVyc3RhbmQgYnVnOg0Kdm9pZCBDb21wbGV4Q29tcGFyZVRvWmVybyhpbnQgKiBpbnB1dCkNCnsNCglpbnQgKiBwID0gaW5wdXQ7DQoJaWYgKCZwWzBdKQ0KCQlpbnQgeCA9IDU7DQoJaW50IHkgPSAqcDsNCn0NCg=="
-          },
-          "hashes": [
-            {
-              "value": "480A9C38ADA1EC4531B286B1CEE414D5",
-              "algorithm": "md5"
-            },
-            {
-              "value": "CFE5E95254F380C24E9DD230E5C195192D20F86E",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "0FF4D066B06031F8A236FB566A2C5D1CA3CAB58A2E037A44F6E98F526707E87F",
-              "algorithm": "sha-256"
-            }
-          ]
+          "mimeType": "text/x-cpp"
         }
       },
       "logicalLocations": {
@@ -54,21 +37,7 @@
                 },
                 "region": {
                   "startLine": 8,
-                  "startColumn": 6,
-                  "snippet": {
-                    "text": "y = *p;"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 7,
-                  "startColumn": 1,
-                  "endLine": 9,
-                  "endColumn": 2,
-                  "charOffset": 124,
-                  "charLength": 29,
-                  "snippet": {
-                    "text": "\t\tint x = 5;\r\n\tint y = *p;\r\n}"
-                  }
+                  "startColumn": 6
                 }
               },
               "fullyQualifiedLogicalName": "CompareToZero",
@@ -91,21 +60,7 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "* p = input;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 4,
-                            "startColumn": 1,
-                            "endLine": 6,
-                            "endColumn": 13,
-                            "charOffset": 88,
-                            "charLength": 34,
-                            "snippet": {
-                              "text": "{\r\n\tint * p = input;\r\n\tif (0 == p)"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
@@ -120,21 +75,7 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 8,
-                            "snippet": {
-                              "text": "== p)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 5,
-                            "startColumn": 1,
-                            "endLine": 7,
-                            "endColumn": 13,
-                            "charOffset": 91,
-                            "charLength": 45,
-                            "snippet": {
-                              "text": "\tint * p = input;\r\n\tif (0 == p)\r\n\t\tint x = 5;"
-                            }
+                            "startColumn": 8
                           }
                         }
                       },
@@ -151,21 +92,7 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 7,
-                            "snippet": {
-                              "text": "x = 5;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 6,
-                            "startColumn": 1,
-                            "endLine": 8,
-                            "endColumn": 13,
-                            "charOffset": 110,
-                            "charLength": 40,
-                            "snippet": {
-                              "text": "\tif (0 == p)\r\n\t\tint x = 5;\r\n\tint y = *p;"
-                            }
+                            "startColumn": 7
                           }
                         }
                       },
@@ -180,21 +107,7 @@
                           },
                           "region": {
                             "startLine": 8,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "y = *p;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 7,
-                            "startColumn": 1,
-                            "endLine": 9,
-                            "endColumn": 2,
-                            "charOffset": 124,
-                            "charLength": 29,
-                            "snippet": {
-                              "text": "\t\tint x = 5;\r\n\tint y = *p;\r\n}"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
@@ -227,21 +140,7 @@
                 },
                 "region": {
                   "startLine": 15,
-                  "startColumn": 6,
-                  "snippet": {
-                    "text": "y = *input;"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 14,
-                  "startColumn": 1,
-                  "endLine": 16,
-                  "endColumn": 2,
-                  "charOffset": 216,
-                  "charLength": 33,
-                  "snippet": {
-                    "text": "\t\tint x = 5;\r\n\tint y = *input;\r\n}"
-                  }
+                  "startColumn": 6
                 }
               },
               "fullyQualifiedLogicalName": "CompareToZeroParam",
@@ -264,21 +163,7 @@
                           },
                           "region": {
                             "startLine": 13,
-                            "startColumn": 12,
-                            "snippet": {
-                              "text": "!= 0)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 12,
-                            "startColumn": 1,
-                            "endLine": 14,
-                            "endColumn": 13,
-                            "charOffset": 195,
-                            "charLength": 33,
-                            "snippet": {
-                              "text": "{\r\n\tif (input != 0)\r\n\t\tint x = 5;"
-                            }
+                            "startColumn": 12
                           }
                         }
                       },
@@ -295,21 +180,7 @@
                           },
                           "region": {
                             "startLine": 15,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "y = *input;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 14,
-                            "startColumn": 1,
-                            "endLine": 16,
-                            "endColumn": 2,
-                            "charOffset": 216,
-                            "charLength": 33,
-                            "snippet": {
-                              "text": "\t\tint x = 5;\r\n\tint y = *input;\r\n}"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
@@ -342,21 +213,7 @@
                 },
                 "region": {
                   "startLine": 24,
-                  "startColumn": 6,
-                  "snippet": {
-                    "text": "y = *p;"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 23,
-                  "startColumn": 1,
-                  "endLine": 25,
-                  "endColumn": 2,
-                  "charOffset": 363,
-                  "charLength": 29,
-                  "snippet": {
-                    "text": "\t\tint x = 5;\r\n\tint y = *p;\r\n}"
-                  }
+                  "startColumn": 6
                 }
               },
               "fullyQualifiedLogicalName": "ComplexCompareToZero",
@@ -379,21 +236,7 @@
                           },
                           "region": {
                             "startLine": 21,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "* p = input;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 20,
-                            "startColumn": 1,
-                            "endLine": 22,
-                            "endColumn": 12,
-                            "charOffset": 328,
-                            "charLength": 33,
-                            "snippet": {
-                              "text": "{\r\n\tint * p = input;\r\n\tif (&p[0])"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
@@ -408,21 +251,7 @@
                           },
                           "region": {
                             "startLine": 22,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "&p[0])"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 21,
-                            "startColumn": 1,
-                            "endLine": 23,
-                            "endColumn": 13,
-                            "charOffset": 331,
-                            "charLength": 44,
-                            "snippet": {
-                              "text": "\tint * p = input;\r\n\tif (&p[0])\r\n\t\tint x = 5;"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
@@ -439,21 +268,7 @@
                           },
                           "region": {
                             "startLine": 24,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "y = *p;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 23,
-                            "startColumn": 1,
-                            "endLine": 25,
-                            "endColumn": 2,
-                            "charOffset": 363,
-                            "charLength": 29,
-                            "snippet": {
-                              "text": "\t\tint x = 5;\r\n\tint y = *p;\r\n}"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },

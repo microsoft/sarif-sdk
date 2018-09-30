@@ -20,14 +20,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             return s_semVer200.IsMatch(versionText);
         }
 
-        private const string V1_0_0 = "1.0.0";
-        private const string V1_0_0_BETA_5 = "1.0.0-beta.5";
-        private const string V2_0_0 = "2.0.0";
+        public const string V1_0_0 = "1.0.0";
+        public const string V1_0_0_BETA_5 = "1.0.0-beta.5";
+        public const string VCurrent = "2.0.0-beta.2018-09-26";
 
-        public const SarifVersion CurrentVersion = SarifVersion.TwoZeroZero;
-
-        public static readonly string SarifSchemaUri = ConvertToSchemaUri(CurrentVersion).OriginalString;
-        public static readonly string SarifFormatVersion = ConvertToText(CurrentVersion);
+        public static readonly string SarifSchemaUri = ConvertToSchemaUri(SarifVersion.Current).OriginalString;
+        public static readonly string SarifFormatVersion = ConvertToText(SarifVersion.Current);
 
         /// <summary>
         /// Returns an ISO 8601 compatible universal date time format string with
@@ -47,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 case V1_0_0_BETA_5: return SarifVersion.OneZeroZeroBetaFive;
                 case V1_0_0: return SarifVersion.OneZeroZero;
-                case V2_0_0: return SarifVersion.TwoZeroZero;
+                case VCurrent: return SarifVersion.Current;
             }
 
             return SarifVersion.Unknown;
@@ -59,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 case SarifVersion.OneZeroZeroBetaFive: { return V1_0_0_BETA_5; }
                 case SarifVersion.OneZeroZero: { return V1_0_0; }
-                case SarifVersion.TwoZeroZero: { return V2_0_0; }
+                case SarifVersion.Current: { return VCurrent; }
             }
             return "unknown";
         }

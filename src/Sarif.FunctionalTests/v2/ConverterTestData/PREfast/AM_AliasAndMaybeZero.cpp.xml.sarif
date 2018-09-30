@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0",
-  "version": "2.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-beta.2018-09-26",
+  "version": "2.0.0-beta.2018-09-26",
   "runs": [
     {
       "tool": {
@@ -9,24 +9,7 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedmerging/am_aliasandmaybezero.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "dm9pZCBNZXJnZUFsaWFzQW5kWmVybyAoKQ0Kew0KICAgIGludCAqIHNvdXJjZSA9IDA7DQoNCiAgICBpbnQgKiB5ID0gc291cmNlOw0KDQogICAgaW50IHJlc3VsdCA9ICp5Ow0KfQ0K"
-          },
-          "hashes": [
-            {
-              "value": "DE1501CE9EA9ED1CAAC5B3DFF2BE450F",
-              "algorithm": "md5"
-            },
-            {
-              "value": "5F5C9BB0823412014E41A42169C360AA8D022B12",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "001CE18E8D320270A377511F5DFD0E177A9A08E0DC8E5AB7FF25C021CA981256",
-              "algorithm": "sha-256"
-            }
-          ]
+          "mimeType": "text/x-cpp"
         }
       },
       "logicalLocations": {
@@ -48,21 +31,7 @@
                 },
                 "region": {
                   "startLine": 7,
-                  "startColumn": 9,
-                  "snippet": {
-                    "text": "result = *y;"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 6,
-                  "startColumn": 1,
-                  "endLine": 8,
-                  "endColumn": 2,
-                  "charOffset": 78,
-                  "charLength": 25,
-                  "snippet": {
-                    "text": "\r\n    int result = *y;\r\n}"
-                  }
+                  "startColumn": 9
                 }
               },
               "fullyQualifiedLogicalName": "MergeAliasAndZero",
@@ -85,21 +54,7 @@
                           },
                           "region": {
                             "startLine": 3,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "* source = 0;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 2,
-                            "startColumn": 1,
-                            "endLine": 4,
-                            "endColumn": 1,
-                            "charOffset": 27,
-                            "charLength": 26,
-                            "snippet": {
-                              "text": "{\r\n    int * source = 0;\r\n"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
@@ -117,21 +72,7 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "* y = source;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 4,
-                            "startColumn": 1,
-                            "endLine": 6,
-                            "endColumn": 1,
-                            "charOffset": 53,
-                            "charLength": 25,
-                            "snippet": {
-                              "text": "\r\n    int * y = source;\r\n"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
@@ -149,21 +90,7 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "result = *y;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 6,
-                            "startColumn": 1,
-                            "endLine": 8,
-                            "endColumn": 2,
-                            "charOffset": 78,
-                            "charLength": 25,
-                            "snippet": {
-                              "text": "\r\n    int result = *y;\r\n}"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },

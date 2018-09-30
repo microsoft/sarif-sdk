@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         public static readonly Dictionary<SarifVersion, string> PropertyBagTransformerItemPrefixes = new Dictionary<SarifVersion, string>()
         {
             { SarifVersion.OneZeroZero, "sarifv1" },
-            { SarifVersion.TwoZeroZero, "sarifv2" }
+            { SarifVersion.Current, "sarifv2" }
         };
 
         public static readonly string[] DefaultFullyQualifiedNameDelimiters = { ".", "/", "\\", "::" };

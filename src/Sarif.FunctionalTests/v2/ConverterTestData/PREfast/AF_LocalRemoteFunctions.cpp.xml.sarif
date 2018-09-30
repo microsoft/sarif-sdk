@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0",
-  "version": "2.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-beta.2018-09-26",
+  "version": "2.0.0-beta.2018-09-26",
   "runs": [
     {
       "tool": {
@@ -9,24 +9,7 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedfunctions/af_localremotefunctions.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "I2luY2x1ZGUgIkFGX0xvY2FsUmVtb3RlRnVuY3Rpb25zLmgiDQoNCnZvaWQgTG9jYWxGdW5jdGlvbihpbnQqIHgpOw0KDQp2b2lkIExvY2FsRnVuY3Rpb24oaW50KiB4LCBpbnQqIHkpOw0KDQppbnQgVXNlTG9jYWxGdW5jdGlvbihpbnQgKiBwKQ0Kew0KCWlmIChwID09IDApDQoJCWludCB4ID0gNTsNCglMb2NhbEZ1bmN0aW9uKHApOw0KICAgIFJlbW90ZUZ1bmN0aW9uKHAsIHApOw0KCXJldHVybiAqcDsNCn0NCg=="
-          },
-          "hashes": [
-            {
-              "value": "D980197597DBE41EC87A4C8F3B0BABAC",
-              "algorithm": "md5"
-            },
-            {
-              "value": "B839BCCF6D22587861AD26D0D9983FF60FACE00B",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "1A670FDC7E510E624E95EFDF7402E9FC7864C8F5BED735036A008388A8FF9146",
-              "algorithm": "sha-256"
-            }
-          ]
+          "mimeType": "text/x-cpp"
         }
       },
       "logicalLocations": {
@@ -48,21 +31,7 @@
                 },
                 "region": {
                   "startLine": 13,
-                  "startColumn": 2,
-                  "snippet": {
-                    "text": "return *p;"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 12,
-                  "startColumn": 1,
-                  "endLine": 14,
-                  "endColumn": 2,
-                  "charOffset": 192,
-                  "charLength": 41,
-                  "snippet": {
-                    "text": "    RemoteFunction(p, p);\r\n\treturn *p;\r\n}"
-                  }
+                  "startColumn": 2
                 }
               },
               "fullyQualifiedLogicalName": "UseLocalFunction",
@@ -85,21 +54,7 @@
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 8,
-                            "snippet": {
-                              "text": "== 0)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 8,
-                            "startColumn": 1,
-                            "endLine": 10,
-                            "endColumn": 13,
-                            "charOffset": 141,
-                            "charLength": 29,
-                            "snippet": {
-                              "text": "{\r\n\tif (p == 0)\r\n\t\tint x = 5;"
-                            }
+                            "startColumn": 8
                           }
                         }
                       },
@@ -116,21 +71,7 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 7,
-                            "snippet": {
-                              "text": "x = 5;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 9,
-                            "startColumn": 1,
-                            "endLine": 11,
-                            "endColumn": 19,
-                            "charOffset": 144,
-                            "charLength": 46,
-                            "snippet": {
-                              "text": "\tif (p == 0)\r\n\t\tint x = 5;\r\n\tLocalFunction(p);"
-                            }
+                            "startColumn": 7
                           }
                         }
                       },
@@ -145,21 +86,7 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 15,
-                            "snippet": {
-                              "text": "(p);"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 10,
-                            "startColumn": 1,
-                            "endLine": 12,
-                            "endColumn": 26,
-                            "charOffset": 158,
-                            "charLength": 59,
-                            "snippet": {
-                              "text": "\t\tint x = 5;\r\n\tLocalFunction(p);\r\n    RemoteFunction(p, p);"
-                            }
+                            "startColumn": 15
                           }
                         }
                       },
@@ -176,21 +103,7 @@
                           },
                           "region": {
                             "startLine": 12,
-                            "startColumn": 19,
-                            "snippet": {
-                              "text": "(p, p);"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 11,
-                            "startColumn": 1,
-                            "endLine": 13,
-                            "endColumn": 12,
-                            "charOffset": 172,
-                            "charLength": 58,
-                            "snippet": {
-                              "text": "\tLocalFunction(p);\r\n    RemoteFunction(p, p);\r\n\treturn *p;"
-                            }
+                            "startColumn": 19
                           }
                         }
                       },
@@ -207,21 +120,7 @@
                           },
                           "region": {
                             "startLine": 13,
-                            "startColumn": 2,
-                            "snippet": {
-                              "text": "return *p;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 12,
-                            "startColumn": 1,
-                            "endLine": 14,
-                            "endColumn": 2,
-                            "charOffset": 192,
-                            "charLength": 41,
-                            "snippet": {
-                              "text": "    RemoteFunction(p, p);\r\n\treturn *p;\r\n}"
-                            }
+                            "startColumn": 2
                           }
                         }
                       },

@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0",
-  "version": "2.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-beta.2018-09-26",
+  "version": "2.0.0-beta.2018-09-26",
   "runs": [
     {
       "tool": {
@@ -9,24 +9,7 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedbranches/ab_irrelevantbranch.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "Ly8gTWFrZSBhIGJyYW5jaCBpcnJlbGV2YW50IGlmIGFuIGVycm9yIG9jY3VycyBvbiBib3RoIHNpZGVzDQoNCmludCBJcnJlbGV2YW50QnJhbmNoXzYwMTEoYm9vbCBmbGFnLCBpbnQgaW5wdXQpDQp7DQoJaW50ICpzb3VyY2UxID0gMCwgKnNvdXJjZTIgPSAwOw0KDQoJaWYgKGZsYWcpIHsNCgkJc291cmNlMiA9ICZpbnB1dDsNCgl9DQoNCglpbnQgKnRhcmdldCA9IHNvdXJjZTE7DQoJcmV0dXJuICp0YXJnZXQ7DQp9DQoNCi8vIFRoaXMgc2hvdWxkIHdvcmsgZXZlbiBpZiB0aGVyZSBhcmUgbXVsdGlwbGUgZGVmZWN0cyANCi8vIGludGVyYWN0aW5nIHdpdGggdGhlIGJyYW5jaA0KDQp2b2lkIEM2Mzg1X01heWJlUmVsZXZhbnRCcmFuY2goaW50IGZsYWcpDQp7DQoJaW50IGRhdGFbMTBdOw0KCWludCBpbmRleCA9IDEwOw0KDQoJaWYgKGZsYWc8MTApIHsNCgkJaW5kZXggPSA5Ow0KCX0NCg0KCWludCBrID0gZGF0YVtpbmRleF07DQp9DQoNCg=="
-          },
-          "hashes": [
-            {
-              "value": "0379CDBC52A47CB11D09CF414DF56BD9",
-              "algorithm": "md5"
-            },
-            {
-              "value": "7E24379672A36D18E7FE6B823C2E5F843DE07C91",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "42B5EBC75430B14892B08E1F8F4CA0BB2AC34185317092AD0301C7CA7BFE9A90",
-              "algorithm": "sha-256"
-            }
-          ]
+          "mimeType": "text/x-cpp"
         }
       },
       "logicalLocations": {
@@ -51,21 +34,7 @@
                 },
                 "region": {
                   "startLine": 12,
-                  "startColumn": 2,
-                  "snippet": {
-                    "text": "return *target;"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 11,
-                  "startColumn": 1,
-                  "endLine": 13,
-                  "endColumn": 2,
-                  "charOffset": 193,
-                  "charLength": 44,
-                  "snippet": {
-                    "text": "\tint *target = source1;\r\n\treturn *target;\r\n}"
-                  }
+                  "startColumn": 2
                 }
               },
               "fullyQualifiedLogicalName": "IrrelevantBranch_6011",
@@ -88,21 +57,7 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "*source1 = 0, *source2 = 0;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 4,
-                            "startColumn": 1,
-                            "endLine": 6,
-                            "endColumn": 1,
-                            "charOffset": 113,
-                            "charLength": 37,
-                            "snippet": {
-                              "text": "{\r\n\tint *source1 = 0, *source2 = 0;\r\n"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
@@ -120,21 +75,7 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 20,
-                            "snippet": {
-                              "text": "*source2 = 0;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 4,
-                            "startColumn": 1,
-                            "endLine": 6,
-                            "endColumn": 1,
-                            "charOffset": 113,
-                            "charLength": 37,
-                            "snippet": {
-                              "text": "{\r\n\tint *source1 = 0, *source2 = 0;\r\n"
-                            }
+                            "startColumn": 20
                           }
                         }
                       },
@@ -149,21 +90,7 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "flag) {"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 6,
-                            "startColumn": 1,
-                            "endLine": 8,
-                            "endColumn": 20,
-                            "charOffset": 150,
-                            "charLength": 35,
-                            "snippet": {
-                              "text": "\r\n\tif (flag) {\r\n\t\tsource2 = &input;"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
@@ -178,21 +105,7 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "*target = source1;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 10,
-                            "startColumn": 1,
-                            "endLine": 12,
-                            "endColumn": 17,
-                            "charOffset": 191,
-                            "charLength": 43,
-                            "snippet": {
-                              "text": "\r\n\tint *target = source1;\r\n\treturn *target;"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
@@ -210,21 +123,7 @@
                           },
                           "region": {
                             "startLine": 12,
-                            "startColumn": 2,
-                            "snippet": {
-                              "text": "return *target;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 11,
-                            "startColumn": 1,
-                            "endLine": 13,
-                            "endColumn": 2,
-                            "charOffset": 193,
-                            "charLength": 44,
-                            "snippet": {
-                              "text": "\tint *target = source1;\r\n\treturn *target;\r\n}"
-                            }
+                            "startColumn": 2
                           }
                         }
                       },
@@ -257,21 +156,7 @@
                 },
                 "region": {
                   "startLine": 27,
-                  "startColumn": 6,
-                  "snippet": {
-                    "text": "k = data[index];"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 26,
-                  "startColumn": 1,
-                  "endLine": 28,
-                  "endColumn": 2,
-                  "charOffset": 448,
-                  "charLength": 26,
-                  "snippet": {
-                    "text": "\r\n\tint k = data[index];\r\n}"
-                  }
+                  "startColumn": 6
                 }
               },
               "fullyQualifiedLogicalName": "C6385_MaybeRelevantBranch",
@@ -294,21 +179,7 @@
                           },
                           "region": {
                             "startLine": 20,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "data[10];"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 19,
-                            "startColumn": 1,
-                            "endLine": 21,
-                            "endColumn": 17,
-                            "charOffset": 374,
-                            "charLength": 35,
-                            "snippet": {
-                              "text": "{\r\n\tint data[10];\r\n\tint index = 10;"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
@@ -326,21 +197,7 @@
                           },
                           "region": {
                             "startLine": 21,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "index = 10;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 20,
-                            "startColumn": 1,
-                            "endLine": 22,
-                            "endColumn": 1,
-                            "charOffset": 377,
-                            "charLength": 34,
-                            "snippet": {
-                              "text": "\tint data[10];\r\n\tint index = 10;\r\n"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
@@ -355,21 +212,7 @@
                           },
                           "region": {
                             "startLine": 23,
-                            "startColumn": 10,
-                            "snippet": {
-                              "text": "<10) {"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 22,
-                            "startColumn": 1,
-                            "endLine": 24,
-                            "endColumn": 13,
-                            "charOffset": 411,
-                            "charLength": 31,
-                            "snippet": {
-                              "text": "\r\n\tif (flag<10) {\r\n\t\tindex = 9;"
-                            }
+                            "startColumn": 10
                           }
                         }
                       },
@@ -384,21 +227,7 @@
                           },
                           "region": {
                             "startLine": 27,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "k = data[index];"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 26,
-                            "startColumn": 1,
-                            "endLine": 28,
-                            "endColumn": 2,
-                            "charOffset": 448,
-                            "charLength": 26,
-                            "snippet": {
-                              "text": "\r\n\tint k = data[index];\r\n}"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
@@ -431,21 +260,7 @@
                 },
                 "region": {
                   "startLine": 27,
-                  "startColumn": 6,
-                  "snippet": {
-                    "text": "k = data[index];"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 26,
-                  "startColumn": 1,
-                  "endLine": 28,
-                  "endColumn": 2,
-                  "charOffset": 448,
-                  "charLength": 26,
-                  "snippet": {
-                    "text": "\r\n\tint k = data[index];\r\n}"
-                  }
+                  "startColumn": 6
                 }
               },
               "fullyQualifiedLogicalName": "C6385_MaybeRelevantBranch",
@@ -468,21 +283,7 @@
                           },
                           "region": {
                             "startLine": 20,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "data[10];"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 19,
-                            "startColumn": 1,
-                            "endLine": 21,
-                            "endColumn": 17,
-                            "charOffset": 374,
-                            "charLength": 35,
-                            "snippet": {
-                              "text": "{\r\n\tint data[10];\r\n\tint index = 10;"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
@@ -500,21 +301,7 @@
                           },
                           "region": {
                             "startLine": 21,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "index = 10;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 20,
-                            "startColumn": 1,
-                            "endLine": 22,
-                            "endColumn": 1,
-                            "charOffset": 377,
-                            "charLength": 34,
-                            "snippet": {
-                              "text": "\tint data[10];\r\n\tint index = 10;\r\n"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },
@@ -532,21 +319,7 @@
                           },
                           "region": {
                             "startLine": 23,
-                            "startColumn": 10,
-                            "snippet": {
-                              "text": "<10) {"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 22,
-                            "startColumn": 1,
-                            "endLine": 24,
-                            "endColumn": 13,
-                            "charOffset": 411,
-                            "charLength": 31,
-                            "snippet": {
-                              "text": "\r\n\tif (flag<10) {\r\n\t\tindex = 9;"
-                            }
+                            "startColumn": 10
                           }
                         }
                       },
@@ -563,21 +336,7 @@
                           },
                           "region": {
                             "startLine": 27,
-                            "startColumn": 6,
-                            "snippet": {
-                              "text": "k = data[index];"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 26,
-                            "startColumn": 1,
-                            "endLine": 28,
-                            "endColumn": 2,
-                            "charOffset": 448,
-                            "charLength": 26,
-                            "snippet": {
-                              "text": "\r\n\tint k = data[index];\r\n}"
-                            }
+                            "startColumn": 6
                           }
                         }
                       },

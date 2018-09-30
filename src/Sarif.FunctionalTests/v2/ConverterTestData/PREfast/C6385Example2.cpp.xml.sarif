@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0",
-  "version": "2.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-beta.2018-09-26",
+  "version": "2.0.0-beta.2018-09-26",
   "runs": [
     {
       "tool": {
@@ -9,24 +9,7 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6385/c6385example2.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "I3ByYWdtYSB3YXJuaW5nIChkaXNhYmxlIDogNjIwMSA2MDAxKQ0Kdm9pZCBDNjM4NV9FeGFtcGxlMihpbnQgaSkNCnsNCiAgIGludCBhWzIwXTsJCQkJDQogICBpbnQgYlsyMV07DQogICBmb3IgKDsgaSA8PSAyMDsgaSsrKSB7CQ0KCSAgIGJbaV0gPSBhW2ldOwkJCQ0KICAgfQ0KfQ=="
-          },
-          "hashes": [
-            {
-              "value": "B1A136C5477B58718A140351D9F8E6FA",
-              "algorithm": "md5"
-            },
-            {
-              "value": "4AC31E60C3825D1A226F345A5C3315EA6030E066",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "8D437755A219B571996E442FA72ABB50863551E9830FDD17B5862E48064097D7",
-              "algorithm": "sha-256"
-            }
-          ]
+          "mimeType": "text/x-cpp"
         }
       },
       "logicalLocations": {
@@ -48,21 +31,7 @@
                 },
                 "region": {
                   "startLine": 7,
-                  "startColumn": 10,
-                  "snippet": {
-                    "text": "= a[i];\t\t\t"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 6,
-                  "startColumn": 1,
-                  "endLine": 8,
-                  "endColumn": 5,
-                  "charOffset": 104,
-                  "charLength": 53,
-                  "snippet": {
-                    "text": "   for (; i <= 20; i++) {\t\r\n\t   b[i] = a[i];\t\t\t\r\n   }"
-                  }
+                  "startColumn": 10
                 }
               },
               "fullyQualifiedLogicalName": "C6385_Example2",
@@ -85,21 +54,7 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 8,
-                            "snippet": {
-                              "text": "a[20];\t\t\t\t"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 3,
-                            "startColumn": 1,
-                            "endLine": 5,
-                            "endColumn": 14,
-                            "charOffset": 67,
-                            "charLength": 35,
-                            "snippet": {
-                              "text": "{\r\n   int a[20];\t\t\t\t\r\n   int b[21];"
-                            }
+                            "startColumn": 8
                           }
                         }
                       },
@@ -117,21 +72,7 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 8,
-                            "snippet": {
-                              "text": "b[21];"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 4,
-                            "startColumn": 1,
-                            "endLine": 6,
-                            "endColumn": 27,
-                            "charOffset": 70,
-                            "charLength": 60,
-                            "snippet": {
-                              "text": "   int a[20];\t\t\t\t\r\n   int b[21];\r\n   for (; i <= 20; i++) {\t"
-                            }
+                            "startColumn": 8
                           }
                         }
                       },
@@ -146,21 +87,7 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 13,
-                            "snippet": {
-                              "text": "<= 20; i++) {\t"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 5,
-                            "startColumn": 1,
-                            "endLine": 7,
-                            "endColumn": 20,
-                            "charOffset": 89,
-                            "charLength": 62,
-                            "snippet": {
-                              "text": "   int b[21];\r\n   for (; i <= 20; i++) {\t\r\n\t   b[i] = a[i];\t\t\t"
-                            }
+                            "startColumn": 13
                           }
                         }
                       },
@@ -177,21 +104,7 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 10,
-                            "snippet": {
-                              "text": "= a[i];\t\t\t"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 6,
-                            "startColumn": 1,
-                            "endLine": 8,
-                            "endColumn": 5,
-                            "charOffset": 104,
-                            "charLength": 53,
-                            "snippet": {
-                              "text": "   for (; i <= 20; i++) {\t\r\n\t   b[i] = a[i];\t\t\t\r\n   }"
-                            }
+                            "startColumn": 10
                           }
                         }
                       },

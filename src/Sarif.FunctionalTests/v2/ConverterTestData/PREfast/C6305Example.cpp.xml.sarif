@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0",
-  "version": "2.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-beta.2018-09-26",
+  "version": "2.0.0-beta.2018-09-26",
   "runs": [
     {
       "tool": {
@@ -9,24 +9,7 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/c6305/c6305example.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "aW50IEM2MzA1X0V4YW1wbGUxIChpbnQgKnApDQp7DQogICBpbnQgaSA9IDA7DQogICBpbnQgY2IgPSBzaXplb2YoaW50KTsNCg0KICAgcCs9Y2I7IC8vRXhwZWN0IDYzMDUNCiAgIHJldHVybiBpOyANCn0NCg=="
-          },
-          "hashes": [
-            {
-              "value": "5EADDAB5A750D12CD3019D1FB397028C",
-              "algorithm": "md5"
-            },
-            {
-              "value": "D5C12208D2C75580CBF3465C2CBFEB92CF591C47",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "94D67C79E26F68BFAE2ED927106FC0D555466817BF34F185D9F5B17E0DF355B2",
-              "algorithm": "sha-256"
-            }
-          ]
+          "mimeType": "text/x-cpp"
         }
       },
       "logicalLocations": {
@@ -48,21 +31,7 @@
                 },
                 "region": {
                   "startLine": 6,
-                  "startColumn": 5,
-                  "snippet": {
-                    "text": "+=cb; //Expect 6305"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 5,
-                  "startColumn": 1,
-                  "endLine": 7,
-                  "endColumn": 14,
-                  "charOffset": 73,
-                  "charLength": 40,
-                  "snippet": {
-                    "text": "\r\n   p+=cb; //Expect 6305\r\n   return i; "
-                  }
+                  "startColumn": 5
                 }
               },
               "fullyQualifiedLogicalName": "C6305_Example1",
@@ -85,21 +54,7 @@
                           },
                           "region": {
                             "startLine": 3,
-                            "startColumn": 8,
-                            "snippet": {
-                              "text": "i = 0;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 2,
-                            "startColumn": 1,
-                            "endLine": 4,
-                            "endColumn": 25,
-                            "charOffset": 29,
-                            "charLength": 42,
-                            "snippet": {
-                              "text": "{\r\n   int i = 0;\r\n   int cb = sizeof(int);"
-                            }
+                            "startColumn": 8
                           }
                         }
                       },
@@ -114,21 +69,7 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 8,
-                            "snippet": {
-                              "text": "cb = sizeof(int);"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 3,
-                            "startColumn": 1,
-                            "endLine": 5,
-                            "endColumn": 1,
-                            "charOffset": 32,
-                            "charLength": 41,
-                            "snippet": {
-                              "text": "   int i = 0;\r\n   int cb = sizeof(int);\r\n"
-                            }
+                            "startColumn": 8
                           }
                         }
                       },
@@ -146,21 +87,7 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 5,
-                            "snippet": {
-                              "text": "+=cb; //Expect 6305"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 5,
-                            "startColumn": 1,
-                            "endLine": 7,
-                            "endColumn": 14,
-                            "charOffset": 73,
-                            "charLength": 40,
-                            "snippet": {
-                              "text": "\r\n   p+=cb; //Expect 6305\r\n   return i; "
-                            }
+                            "startColumn": 5
                           }
                         }
                       },

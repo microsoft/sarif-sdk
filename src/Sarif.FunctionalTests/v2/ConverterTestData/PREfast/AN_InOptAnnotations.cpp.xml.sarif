@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0",
-  "version": "2.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-beta.2018-09-26",
+  "version": "2.0.0-beta.2018-09-26",
   "runs": [
     {
       "tool": {
@@ -9,24 +9,7 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_inoptannotations.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "DQojaW5jbHVkZSA8c2FsLmg+DQoNCnZvaWQgRGVyZWZlcmVuY2VQYXJhbWV0ZXIoX0luX29wdF8gaW50ICogc291cmNlLCBib29sIGZsYWcpDQp7DQogICAgaWYgKGZsYWcpDQogICAgICAgIGludCByZXN1bHQgPSAqc291cmNlOw0KfQ0KDQo="
-          },
-          "hashes": [
-            {
-              "value": "A8ED0980C0DB55DE647A9CCCC96D0781",
-              "algorithm": "md5"
-            },
-            {
-              "value": "C1E75E1A1820C49A1942B53F76B6811CD879A422",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "0B234444A2C38E3924F54080EBC787626184CEBFAFBA17CADB68AF70F4429584",
-              "algorithm": "sha-256"
-            }
-          ]
+          "mimeType": "text/x-cpp"
         }
       },
       "logicalLocations": {
@@ -48,21 +31,7 @@
                 },
                 "region": {
                   "startLine": 7,
-                  "startColumn": 13,
-                  "snippet": {
-                    "text": "result = *source;"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 6,
-                  "startColumn": 1,
-                  "endLine": 8,
-                  "endColumn": 2,
-                  "charOffset": 86,
-                  "charLength": 47,
-                  "snippet": {
-                    "text": "    if (flag)\r\n        int result = *source;\r\n}"
-                  }
+                  "startColumn": 13
                 }
               },
               "fullyQualifiedLogicalName": "DereferenceParameter",
@@ -85,21 +54,7 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 26,
-                            "snippet": {
-                              "text": "(_In_opt_ int * source, bool flag)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 3,
-                            "startColumn": 1,
-                            "endLine": 5,
-                            "endColumn": 2,
-                            "charOffset": 20,
-                            "charLength": 64,
-                            "snippet": {
-                              "text": "\r\nvoid DereferenceParameter(_In_opt_ int * source, bool flag)\r\n{"
-                            }
+                            "startColumn": 26
                           }
                         }
                       },
@@ -117,21 +72,7 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "flag)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 5,
-                            "startColumn": 1,
-                            "endLine": 7,
-                            "endColumn": 30,
-                            "charOffset": 83,
-                            "charLength": 47,
-                            "snippet": {
-                              "text": "{\r\n    if (flag)\r\n        int result = *source;"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
@@ -148,21 +89,7 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 13,
-                            "snippet": {
-                              "text": "result = *source;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 6,
-                            "startColumn": 1,
-                            "endLine": 8,
-                            "endColumn": 2,
-                            "charOffset": 86,
-                            "charLength": 47,
-                            "snippet": {
-                              "text": "    if (flag)\r\n        int result = *source;\r\n}"
-                            }
+                            "startColumn": 13
                           }
                         }
                       },

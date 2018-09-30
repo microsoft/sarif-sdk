@@ -113,34 +113,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         public override FileData VisitFileData(FileData node)
         {
             FileLocation fileLocation = node.FileLocation;
-
-            bool workToDo = false;
-            bool overwriteExistingData = _dataToInsert.Includes(OptionallyEmittedData.OverwriteExistingData);
-
-            workToDo |= (node.Hashes == null || overwriteExistingData) && _dataToInsert.Includes(OptionallyEmittedData.Hashes);
-            workToDo |= (node.Contents?.Text == null || overwriteExistingData) && _dataToInsert.Includes(OptionallyEmittedData.TextFiles);
-            workToDo |= (node.Contents?.Binary == null || overwriteExistingData) && _dataToInsert.Includes(OptionallyEmittedData.BinaryFiles);
-
-            if (workToDo)
+            if (fileLocation != null && _run.OriginalUriBaseIds != null)
             {
-                if (fileLocation.TryReconstructAbsoluteUri(_run.OriginalUriBaseIds, out Uri uri))
+                bool workToDo = false;
+                bool overwriteExistingData = _dataToInsert.Includes(OptionallyEmittedData.OverwriteExistingData);
+
+                workToDo |= (node.Hashes == null || overwriteExistingData) && _dataToInsert.Includes(OptionallyEmittedData.Hashes);
+                workToDo |= (node.Contents?.Text == null || overwriteExistingData) && _dataToInsert.Includes(OptionallyEmittedData.TextFiles);
+                workToDo |= (node.Contents?.Binary == null || overwriteExistingData) && _dataToInsert.Includes(OptionallyEmittedData.BinaryFiles);
+
+                if (workToDo)
                 {
-                    Encoding encoding = null;
-
-                    string encodingText = node.Encoding ?? _run.DefaultFileEncoding;
-
-                    if (!string.IsNullOrWhiteSpace(encodingText))
+                    if (fileLocation.TryReconstructAbsoluteUri(_run.OriginalUriBaseIds, out Uri uri))
                     {
-                        try
-                        {
-                            encoding = Encoding.GetEncoding(encodingText);
-                        }
-                        catch (ArgumentException) { }
-                    }
+                        Encoding encoding = null;
 
-                    int length = node.Length;
-                    node = FileData.Create(uri, _dataToInsert, node.MimeType, encoding: encoding);
-                    node.Length = length;
+                        string encodingText = node.Encoding ?? _run.DefaultFileEncoding;
+
+                        if (!string.IsNullOrWhiteSpace(encodingText))
+                        {
+                            try
+                            {
+                                encoding = Encoding.GetEncoding(encodingText);
+                            }
+                            catch (ArgumentException) { }
+                        }
+
+                        int length = node.Length;
+                        node = FileData.Create(uri, _dataToInsert, node.MimeType, encoding: encoding);
+                        node.Length = length;
+                    }
                 }
             }
 

@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0",
-  "version": "2.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-beta.2018-09-26",
+  "version": "2.0.0-beta.2018-09-26",
   "runs": [
     {
       "tool": {
@@ -9,24 +9,7 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6386/c6386example3.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "dm9pZCBDNjM4Nl9FeGFtcGxlKGludCBpKQ0Kew0KICAgY2hhciBhWzRdOw0KICAgZm9yKGk7IGkgPCA0OyBpKyspDQogICB7DQogICAgICBhW2ldID0gJ2EnOw0KICAgfQ0KICAgICAgYVtpXSA9ICdcMCc7DQp9DQo="
-          },
-          "hashes": [
-            {
-              "value": "A5DBB1B172BD8FC74C817CB4CA60FCF6",
-              "algorithm": "md5"
-            },
-            {
-              "value": "3A9EFC1D1C06DB184060F9D0FAFB7B329EA3649A",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "C204551191A2CF82CC9EA2482ED36A395A438A828411D6CEF3385BAD46F12C8B",
-              "algorithm": "sha-256"
-            }
-          ]
+          "mimeType": "text/x-cpp"
         }
       },
       "logicalLocations": {
@@ -48,21 +31,7 @@
                 },
                 "region": {
                   "startLine": 8,
-                  "startColumn": 12,
-                  "snippet": {
-                    "text": "= '\\0';"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 7,
-                  "startColumn": 1,
-                  "endLine": 9,
-                  "endColumn": 2,
-                  "charOffset": 93,
-                  "charLength": 27,
-                  "snippet": {
-                    "text": "   }\r\n      a[i] = '\\0';\r\n}"
-                  }
+                  "startColumn": 12
                 }
               },
               "fullyQualifiedLogicalName": "C6386_Example",
@@ -85,21 +54,7 @@
                           },
                           "region": {
                             "startLine": 3,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "a[4];"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 2,
-                            "startColumn": 1,
-                            "endLine": 4,
-                            "endColumn": 22,
-                            "charOffset": 27,
-                            "charLength": 39,
-                            "snippet": {
-                              "text": "{\r\n   char a[4];\r\n   for(i; i < 4; i++)"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
@@ -117,21 +72,7 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 8,
-                            "snippet": {
-                              "text": "i; i < 4; i++)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 3,
-                            "startColumn": 1,
-                            "endLine": 5,
-                            "endColumn": 5,
-                            "charOffset": 30,
-                            "charLength": 42,
-                            "snippet": {
-                              "text": "   char a[4];\r\n   for(i; i < 4; i++)\r\n   {"
-                            }
+                            "startColumn": 8
                           }
                         }
                       },
@@ -146,21 +87,7 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 13,
-                            "snippet": {
-                              "text": "< 4; i++)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 3,
-                            "startColumn": 1,
-                            "endLine": 5,
-                            "endColumn": 5,
-                            "charOffset": 30,
-                            "charLength": 42,
-                            "snippet": {
-                              "text": "   char a[4];\r\n   for(i; i < 4; i++)\r\n   {"
-                            }
+                            "startColumn": 13
                           }
                         }
                       },
@@ -175,21 +102,7 @@
                           },
                           "region": {
                             "startLine": 8,
-                            "startColumn": 12,
-                            "snippet": {
-                              "text": "= '\\0';"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 7,
-                            "startColumn": 1,
-                            "endLine": 9,
-                            "endColumn": 2,
-                            "charOffset": 93,
-                            "charLength": 27,
-                            "snippet": {
-                              "text": "   }\r\n      a[i] = '\\0';\r\n}"
-                            }
+                            "startColumn": 12
                           }
                         }
                       },

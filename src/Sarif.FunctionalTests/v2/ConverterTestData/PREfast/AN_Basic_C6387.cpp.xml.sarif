@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0",
-  "version": "2.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-beta.2018-09-26",
+  "version": "2.0.0-beta.2018-09-26",
   "runs": [
     {
       "tool": {
@@ -9,24 +9,7 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_basic_c6387.cpp": {
-          "mimeType": "text/x-cpp",
-          "contents": {
-            "binary": "DQojaW5jbHVkZSA8c2FsLmg+DQoNCg0KZXh0ZXJuIHZvaWQgUmVxdWlyZXNOb3ROdWxsKF9Jbl8gaW50ICogaW5wdXQpOw0KDQpleHRlcm4gdm9pZCBSZXF1aXJlc05vdE51bGxPdXQoX091dF8gaW50ICogaW5wdXQpOw0KDQpleHRlcm4gX1Bvc3RfbWF5YmVudWxsXyBpbnQgKiBNYXlSZXR1cm5OdWxsKCk7DQoNCg0Kdm9pZCBCYXNpY0M2Mzg3KCkNCnsNCiAgICBpbnQgKiBkYXRhID0gMDsNCg0KICAgIFJlcXVpcmVzTm90TnVsbChkYXRhKTsNCn0NCg0KDQp2b2lkIEJhc2ljQzYzODdfT3B0KF9Jbl9vcHRfIGludCAqIGRhdGEpDQp7DQogICAgUmVxdWlyZXNOb3ROdWxsKGRhdGEpOw0KfQ0KDQoNCnZvaWQgQmFzaWNDNjM4N19Qb3N0TnVsbCgpDQp7DQogICAgaW50ICogZGF0YSA9IE1heVJldHVybk51bGwoKTsNCg0KICAgIFJlcXVpcmVzTm90TnVsbChkYXRhKTsNCn0NCg0KDQp2b2lkIEJhc2ljQzYzODdfT3V0KCkNCnsNCiAgICBpbnQgKiBkYXRhID0gMDsNCg0KICAgIFJlcXVpcmVzTm90TnVsbE91dChkYXRhKTsNCn0NCg0KDQojcHJhZ21hIHdhcm5pbmcoc3VwcHJlc3M6IDI4MTk2KQ0Kdm9pZCBCYXNpY0M2Mzg3X091dE5vdE51bGwoX091dHB0cl8gaW50ICoqIHBPdXQpDQp7DQogICAgaW50ICogZGF0YSA9IDA7DQoNCiAgICAqcE91dCA9IGRhdGE7DQp9DQoNCg0Kdm9pZCBCYXNpY0M2Mzg3X091dE1heWJlTnVsbChfT3V0cHRyX3Jlc3VsdF9tYXliZW51bGxfIGludCAqKiBwT3V0KQ0Kew0KICAgIGludCAqIGRhdGEgPSAwOw0KDQogICAgKnBPdXQgPSBkYXRhOyAvLyBObyA2Mzg3DQp9DQoNCg=="
-          },
-          "hashes": [
-            {
-              "value": "88AB58B30FD9EA8F173E4731F8D45532",
-              "algorithm": "md5"
-            },
-            {
-              "value": "14F6D46E6DC333F8A0890B3B966485ED4F000D11",
-              "algorithm": "sha-1"
-            },
-            {
-              "value": "7AA43E8D0B59935A894BC4D0498B75D527A27DB40FCEAAACCABD33E8CAA865D9",
-              "algorithm": "sha-256"
-            }
-          ]
+          "mimeType": "text/x-cpp"
         }
       },
       "logicalLocations": {
@@ -60,21 +43,7 @@
                 },
                 "region": {
                   "startLine": 16,
-                  "startColumn": 20,
-                  "snippet": {
-                    "text": "(data);"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 15,
-                  "startColumn": 1,
-                  "endLine": 17,
-                  "endColumn": 2,
-                  "charOffset": 223,
-                  "charLength": 31,
-                  "snippet": {
-                    "text": "\r\n    RequiresNotNull(data);\r\n}"
-                  }
+                  "startColumn": 20
                 }
               },
               "fullyQualifiedLogicalName": "BasicC6387",
@@ -97,21 +66,7 @@
                           },
                           "region": {
                             "startLine": 14,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "* data = 0;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 13,
-                            "startColumn": 1,
-                            "endLine": 15,
-                            "endColumn": 1,
-                            "charOffset": 199,
-                            "charLength": 24,
-                            "snippet": {
-                              "text": "{\r\n    int * data = 0;\r\n"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
@@ -129,21 +84,7 @@
                           },
                           "region": {
                             "startLine": 16,
-                            "startColumn": 20,
-                            "snippet": {
-                              "text": "(data);"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 15,
-                            "startColumn": 1,
-                            "endLine": 17,
-                            "endColumn": 2,
-                            "charOffset": 223,
-                            "charLength": 31,
-                            "snippet": {
-                              "text": "\r\n    RequiresNotNull(data);\r\n}"
-                            }
+                            "startColumn": 20
                           }
                         }
                       },
@@ -160,21 +101,7 @@
                           },
                           "region": {
                             "startLine": 16,
-                            "startColumn": 20,
-                            "snippet": {
-                              "text": "(data);"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 15,
-                            "startColumn": 1,
-                            "endLine": 17,
-                            "endColumn": 2,
-                            "charOffset": 223,
-                            "charLength": 31,
-                            "snippet": {
-                              "text": "\r\n    RequiresNotNull(data);\r\n}"
-                            }
+                            "startColumn": 20
                           }
                         }
                       },
@@ -207,21 +134,7 @@
                 },
                 "region": {
                   "startLine": 22,
-                  "startColumn": 20,
-                  "snippet": {
-                    "text": "(data);"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 21,
-                  "startColumn": 1,
-                  "endLine": 23,
-                  "endColumn": 2,
-                  "charOffset": 302,
-                  "charLength": 32,
-                  "snippet": {
-                    "text": "{\r\n    RequiresNotNull(data);\r\n}"
-                  }
+                  "startColumn": 20
                 }
               },
               "fullyQualifiedLogicalName": "BasicC6387_Opt",
@@ -244,21 +157,7 @@
                           },
                           "region": {
                             "startLine": 20,
-                            "startColumn": 20,
-                            "snippet": {
-                              "text": "(_In_opt_ int * data)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 19,
-                            "startColumn": 1,
-                            "endLine": 21,
-                            "endColumn": 2,
-                            "charOffset": 258,
-                            "charLength": 45,
-                            "snippet": {
-                              "text": "\r\nvoid BasicC6387_Opt(_In_opt_ int * data)\r\n{"
-                            }
+                            "startColumn": 20
                           }
                         }
                       },
@@ -276,21 +175,7 @@
                           },
                           "region": {
                             "startLine": 22,
-                            "startColumn": 20,
-                            "snippet": {
-                              "text": "(data);"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 21,
-                            "startColumn": 1,
-                            "endLine": 23,
-                            "endColumn": 2,
-                            "charOffset": 302,
-                            "charLength": 32,
-                            "snippet": {
-                              "text": "{\r\n    RequiresNotNull(data);\r\n}"
-                            }
+                            "startColumn": 20
                           }
                         }
                       },
@@ -307,21 +192,7 @@
                           },
                           "region": {
                             "startLine": 22,
-                            "startColumn": 20,
-                            "snippet": {
-                              "text": "(data);"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 21,
-                            "startColumn": 1,
-                            "endLine": 23,
-                            "endColumn": 2,
-                            "charOffset": 302,
-                            "charLength": 32,
-                            "snippet": {
-                              "text": "{\r\n    RequiresNotNull(data);\r\n}"
-                            }
+                            "startColumn": 20
                           }
                         }
                       },
@@ -354,21 +225,7 @@
                 },
                 "region": {
                   "startLine": 30,
-                  "startColumn": 20,
-                  "snippet": {
-                    "text": "(data);"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 29,
-                  "startColumn": 1,
-                  "endLine": 31,
-                  "endColumn": 2,
-                  "charOffset": 406,
-                  "charLength": 31,
-                  "snippet": {
-                    "text": "\r\n    RequiresNotNull(data);\r\n}"
-                  }
+                  "startColumn": 20
                 }
               },
               "fullyQualifiedLogicalName": "BasicC6387_PostNull",
@@ -391,21 +248,7 @@
                           },
                           "region": {
                             "startLine": 28,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "* data = MayReturnNull();"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 27,
-                            "startColumn": 1,
-                            "endLine": 29,
-                            "endColumn": 1,
-                            "charOffset": 368,
-                            "charLength": 38,
-                            "snippet": {
-                              "text": "{\r\n    int * data = MayReturnNull();\r\n"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
@@ -423,21 +266,7 @@
                           },
                           "region": {
                             "startLine": 30,
-                            "startColumn": 20,
-                            "snippet": {
-                              "text": "(data);"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 29,
-                            "startColumn": 1,
-                            "endLine": 31,
-                            "endColumn": 2,
-                            "charOffset": 406,
-                            "charLength": 31,
-                            "snippet": {
-                              "text": "\r\n    RequiresNotNull(data);\r\n}"
-                            }
+                            "startColumn": 20
                           }
                         }
                       },
@@ -454,21 +283,7 @@
                           },
                           "region": {
                             "startLine": 30,
-                            "startColumn": 20,
-                            "snippet": {
-                              "text": "(data);"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 29,
-                            "startColumn": 1,
-                            "endLine": 31,
-                            "endColumn": 2,
-                            "charOffset": 406,
-                            "charLength": 31,
-                            "snippet": {
-                              "text": "\r\n    RequiresNotNull(data);\r\n}"
-                            }
+                            "startColumn": 20
                           }
                         }
                       },
@@ -501,21 +316,7 @@
                 },
                 "region": {
                   "startLine": 38,
-                  "startColumn": 23,
-                  "snippet": {
-                    "text": "(data);"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 37,
-                  "startColumn": 1,
-                  "endLine": 39,
-                  "endColumn": 2,
-                  "charOffset": 490,
-                  "charLength": 34,
-                  "snippet": {
-                    "text": "\r\n    RequiresNotNullOut(data);\r\n}"
-                  }
+                  "startColumn": 23
                 }
               },
               "fullyQualifiedLogicalName": "BasicC6387_Out",
@@ -538,21 +339,7 @@
                           },
                           "region": {
                             "startLine": 36,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "* data = 0;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 35,
-                            "startColumn": 1,
-                            "endLine": 37,
-                            "endColumn": 1,
-                            "charOffset": 466,
-                            "charLength": 24,
-                            "snippet": {
-                              "text": "{\r\n    int * data = 0;\r\n"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
@@ -570,21 +357,7 @@
                           },
                           "region": {
                             "startLine": 38,
-                            "startColumn": 23,
-                            "snippet": {
-                              "text": "(data);"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 37,
-                            "startColumn": 1,
-                            "endLine": 39,
-                            "endColumn": 2,
-                            "charOffset": 490,
-                            "charLength": 34,
-                            "snippet": {
-                              "text": "\r\n    RequiresNotNullOut(data);\r\n}"
-                            }
+                            "startColumn": 23
                           }
                         }
                       },
@@ -601,21 +374,7 @@
                           },
                           "region": {
                             "startLine": 38,
-                            "startColumn": 23,
-                            "snippet": {
-                              "text": "(data);"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 37,
-                            "startColumn": 1,
-                            "endLine": 39,
-                            "endColumn": 2,
-                            "charOffset": 490,
-                            "charLength": 34,
-                            "snippet": {
-                              "text": "\r\n    RequiresNotNullOut(data);\r\n}"
-                            }
+                            "startColumn": 23
                           }
                         }
                       },
@@ -648,21 +407,7 @@
                 },
                 "region": {
                   "startLine": 43,
-                  "startColumn": 27,
-                  "snippet": {
-                    "text": "(_Outptr_ int ** pOut)"
-                  }
-                },
-                "contextRegion": {
-                  "startLine": 42,
-                  "startColumn": 1,
-                  "endLine": 44,
-                  "endColumn": 2,
-                  "charOffset": 530,
-                  "charLength": 85,
-                  "snippet": {
-                    "text": "#pragma warning(suppress: 28196)\r\nvoid BasicC6387_OutNotNull(_Outptr_ int ** pOut)\r\n{"
-                  }
+                  "startColumn": 27
                 }
               },
               "fullyQualifiedLogicalName": "BasicC6387_OutNotNull",
@@ -685,21 +430,7 @@
                           },
                           "region": {
                             "startLine": 45,
-                            "startColumn": 9,
-                            "snippet": {
-                              "text": "* data = 0;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 44,
-                            "startColumn": 1,
-                            "endLine": 46,
-                            "endColumn": 1,
-                            "charOffset": 614,
-                            "charLength": 24,
-                            "snippet": {
-                              "text": "{\r\n    int * data = 0;\r\n"
-                            }
+                            "startColumn": 9
                           }
                         }
                       },
@@ -714,21 +445,7 @@
                           },
                           "region": {
                             "startLine": 47,
-                            "startColumn": 11,
-                            "snippet": {
-                              "text": "= data;"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 46,
-                            "startColumn": 1,
-                            "endLine": 48,
-                            "endColumn": 2,
-                            "charOffset": 638,
-                            "charLength": 22,
-                            "snippet": {
-                              "text": "\r\n    *pOut = data;\r\n}"
-                            }
+                            "startColumn": 11
                           }
                         }
                       },
@@ -746,21 +463,7 @@
                           },
                           "region": {
                             "startLine": 48,
-                            "startColumn": 1,
-                            "snippet": {
-                              "text": "}"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 47,
-                            "startColumn": 1,
-                            "endLine": 49,
-                            "endColumn": 1,
-                            "charOffset": 640,
-                            "charLength": 22,
-                            "snippet": {
-                              "text": "    *pOut = data;\r\n}\r\n"
-                            }
+                            "startColumn": 1
                           }
                         }
                       },
@@ -775,21 +478,7 @@
                           },
                           "region": {
                             "startLine": 43,
-                            "startColumn": 27,
-                            "snippet": {
-                              "text": "(_Outptr_ int ** pOut)"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 42,
-                            "startColumn": 1,
-                            "endLine": 44,
-                            "endColumn": 2,
-                            "charOffset": 530,
-                            "charLength": 85,
-                            "snippet": {
-                              "text": "#pragma warning(suppress: 28196)\r\nvoid BasicC6387_OutNotNull(_Outptr_ int ** pOut)\r\n{"
-                            }
+                            "startColumn": 27
                           }
                         }
                       },

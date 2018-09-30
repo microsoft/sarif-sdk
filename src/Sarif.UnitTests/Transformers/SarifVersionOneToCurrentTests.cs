@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT        
 // license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.IO;
 using System.Reflection;
 using FluentAssertions;
@@ -55,6 +56,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
         {
             string v1LogText = GetResourceText($"v1.{v1InputResourceName}");
             string v2ExpectedLogText = GetResourceText($"v2.{v2ExpectedResourceName}");
+
+            v2ExpectedLogText = Utilities.UpdateVersionNumberToCurrent(v2ExpectedLogText);
 
             SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
             string v2ActualLogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsIndented);
@@ -115,8 +118,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
 
             const string V2LogExpectedText =
 @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
-  ""version"": ""2.0.0"",
+  ""$schema"": ""http://json.schemastore.org/sarif-" + SarifUtilities.VCurrent + @""",
+  ""version"": """ + SarifUtilities.VCurrent + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -150,8 +153,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
 
             const string V2LogExpectedText =
 @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
-  ""version"": ""2.0.0"",
+  ""$schema"": ""http://json.schemastore.org/sarif-" + SarifUtilities.VCurrent + @""",
+  ""version"": """ + SarifUtilities.VCurrent + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -195,8 +198,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
 
             const string V2LogExpectedText =
 @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
-  ""version"": ""2.0.0"",
+  ""$schema"": ""http://json.schemastore.org/sarif-" + SarifUtilities.VCurrent + @""",
+  ""version"": """ + SarifUtilities.VCurrent + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -248,8 +251,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
 
             const string V2LogExpectedText =
 @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
-  ""version"": ""2.0.0"",
+  ""$schema"": ""http://json.schemastore.org/sarif-" + SarifUtilities.VCurrent + @""",
+  ""version"": """ + SarifUtilities.VCurrent + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -313,8 +316,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
 
             const string V2LogExpectedText =
 @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
-  ""version"": ""2.0.0"",
+  ""$schema"": ""http://json.schemastore.org/sarif-" + SarifUtilities.VCurrent + @""",
+  ""version"": """ + SarifUtilities.VCurrent + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -393,8 +396,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
 
             const string V2LogExpectedText =
 @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
-  ""version"": ""2.0.0"",
+  ""$schema"": ""http://json.schemastore.org/sarif-" + SarifUtilities.VCurrent + @""",
+  ""version"": """ + SarifUtilities.VCurrent + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -504,8 +507,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
 
             const string V2LogExpectedText =
 @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
-  ""version"": ""2.0.0"",
+  ""$schema"": ""http://json.schemastore.org/sarif-" + SarifUtilities.VCurrent + @""",
+  ""version"": """ + SarifUtilities.VCurrent + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -619,8 +622,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
 
             const string V2LogExpectedText =
 @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
-  ""version"": ""2.0.0"",
+  ""$schema"": ""http://json.schemastore.org/sarif-" + SarifUtilities.VCurrent + @""",
+  ""version"": """ + SarifUtilities.VCurrent + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -738,8 +741,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
 
             const string V2LogExpectedText =
 @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
-  ""version"": ""2.0.0"",
+  ""$schema"": ""http://json.schemastore.org/sarif-" + SarifUtilities.VCurrent + @""",
+  ""version"": """ + SarifUtilities.VCurrent + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -847,8 +850,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
 
             const string V2LogExpectedText =
 @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
-  ""version"": ""2.0.0"",
+  ""$schema"": ""http://json.schemastore.org/sarif-" + SarifUtilities.VCurrent + @""",
+  ""version"": """ + SarifUtilities.VCurrent + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -977,8 +980,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
 
             const string V2LogExpectedText =
 @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
-  ""version"": ""2.0.0"",
+  ""$schema"": ""http://json.schemastore.org/sarif-" + SarifUtilities.VCurrent + @""",
+  ""version"": """ + SarifUtilities.VCurrent + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -1226,8 +1229,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
 
             const string V2LogExpectedText =
 @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
-  ""version"": ""2.0.0"",
+  ""$schema"": ""http://json.schemastore.org/sarif-" + SarifUtilities.VCurrent + @""",
+  ""version"": """ + SarifUtilities.VCurrent + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -1506,8 +1509,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
 
             const string V2LogExpectedText =
 @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
-  ""version"": ""2.0.0"",
+  ""$schema"": ""http://json.schemastore.org/sarif-" + SarifUtilities.VCurrent + @""",
+  ""version"": """ + SarifUtilities.VCurrent + @""",
   ""runs"": [
     {
       ""tool"": {
