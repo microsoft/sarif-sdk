@@ -25,7 +25,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         public const string SarifSchemaUriBase = "http://json.schemastore.org/sarif-";
 
         public static readonly string SarifSchemaUri = ConvertToSchemaUri(SarifVersion.Current).OriginalString;
-        public static readonly string SarifFormatVersion = ConvertToText(SarifVersion.Current);
 
         /// <summary>
         /// Returns an ISO 8601 compatible universal date time format string with

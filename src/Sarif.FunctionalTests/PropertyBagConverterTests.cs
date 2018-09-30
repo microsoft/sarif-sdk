@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests
         {
             string originalLog =
 @"{
-  ""version"": """ + SarifUtilities.SarifFormatVersion + @""",
+  ""version"": """ + VersionConstants.SemanticVersion + @""",
   ""runs"": [
     {
       ""tool"": {
