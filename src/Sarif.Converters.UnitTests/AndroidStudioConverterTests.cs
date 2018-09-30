@@ -42,9 +42,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Assert.Throws<ArgumentNullException>(() => _converter.Convert(new MemoryStream(), null, OptionallyEmittedData.None));
         }
 
-        private const string EmptyResult = @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-" + SarifUtilities.VCurrent + @""",
-  ""version"": """ + SarifUtilities.VCurrent + @""",
+        private string emptyResult =
+@"{
+  ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
+  ""version"": """ + VersionConstants.SemanticVersion + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -59,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             string androidStudioLog = @"<?xml version=""1.0"" encoding=""UTF-8""?><problems></problems>";
             string actualJson = Utilities.GetConverterJson(_converter, androidStudioLog);
-            actualJson.Should().BeCrossPlatformEquivalent(EmptyResult);
+            actualJson.Should().BeCrossPlatformEquivalent(emptyResult);
         }
 
         [Fact]
@@ -67,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             string androidStudioLog = @"<?xml version=""1.0"" encoding=""UTF-8""?><problems><problem></problem></problems>";
             string actualJson = Utilities.GetConverterJson(_converter, androidStudioLog);
-            actualJson.Should().BeCrossPlatformEquivalent(EmptyResult);
+            actualJson.Should().BeCrossPlatformEquivalent(emptyResult);
         }
 
         [Fact]
@@ -75,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             string androidStudioLog = @"<?xml version=""1.0"" encoding=""UTF-8""?><problems><problem /></problems>";
             string actualJson = Utilities.GetConverterJson(_converter, androidStudioLog);
-            actualJson.Should().BeCrossPlatformEquivalent(EmptyResult);
+            actualJson.Should().BeCrossPlatformEquivalent(emptyResult);
         }
 
         [Fact]

@@ -8,6 +8,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         public const string Prerelease = "beta.2018-09-26";
         public const string AssemblyVersion = "2.0.0";
         public const string FileVersion = AssemblyVersion + ".0";
-        public const string Version = AssemblyVersion + Prerelease;
+        public const string SemanticVersion = AssemblyVersion + "-" + Prerelease;
     }
 }

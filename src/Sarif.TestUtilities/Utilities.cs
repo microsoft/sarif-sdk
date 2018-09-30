@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static string UpdateVersionNumberToCurrent(string logContents)
         {
-            logContents = s_VersionRegex.Replace(logContents, @"""version"": """ + SarifUtilities.VCurrent + @"""");
+            logContents = s_VersionRegex.Replace(logContents, @"""version"": """ + VersionConstants.SemanticVersion + @"""");
             logContents = s_SchemaRegex.Replace(logContents, @"""$schema"": """ + SarifUtilities.SarifSchemaUri + @"""");
 
             return logContents;

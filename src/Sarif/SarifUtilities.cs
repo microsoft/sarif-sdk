@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public const string V1_0_0 = "1.0.0";
         public const string V1_0_0_BETA_5 = "1.0.0-beta.5";
-        public const string VCurrent = "2.0.0-beta.2018-09-26";
+        public const string SarifSchemaUriBase = "http://json.schemastore.org/sarif-";
 
         public static readonly string SarifSchemaUri = ConvertToSchemaUri(SarifVersion.Current).OriginalString;
         public static readonly string SarifFormatVersion = ConvertToText(SarifVersion.Current);
@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 case V1_0_0_BETA_5: return SarifVersion.OneZeroZeroBetaFive;
                 case V1_0_0: return SarifVersion.OneZeroZero;
-                case VCurrent: return SarifVersion.Current;
+                case VersionConstants.SemanticVersion: return SarifVersion.Current;
             }
 
             return SarifVersion.Unknown;
@@ -57,14 +57,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 case SarifVersion.OneZeroZeroBetaFive: { return V1_0_0_BETA_5; }
                 case SarifVersion.OneZeroZero: { return V1_0_0; }
-                case SarifVersion.Current: { return VCurrent; }
+                case SarifVersion.Current: { return VersionConstants.SemanticVersion; }
             }
             return "unknown";
         }
 
         public static Uri ConvertToSchemaUri(this SarifVersion sarifVersion)
         {
-            return new Uri("http://json.schemastore.org/sarif-" + sarifVersion.ConvertToText(), UriKind.Absolute);
+            return new Uri(SarifSchemaUriBase + sarifVersion.ConvertToText(), UriKind.Absolute);
         }
 
         public static Dictionary<string, string> BuildMessageFormats(IEnumerable<string> resourceNames, ResourceManager resourceManager)

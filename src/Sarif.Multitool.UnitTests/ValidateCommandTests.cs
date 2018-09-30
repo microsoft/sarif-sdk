@@ -14,10 +14,10 @@ namespace Sarif.Multitool.UnitTests
         public void ValidateCommand_AcceptsTargetFileWithSpaceInName()
         {
             // A minimal valid log file.
-            string LogFileContents =
+            string logFileContents =
 @"{
   ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + SarifUtilities.VCurrent + @""",
+  ""version"": """ + VersionConstants.SemanticVersion + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -46,7 +46,7 @@ namespace Sarif.Multitool.UnitTests
             mockFileSystem.Setup(x => x.DirectoryExists(LogFileDirectory)).Returns(true);
             mockFileSystem.Setup(x => x.GetDirectoriesInDirectory(It.IsAny<string>())).Returns(new string[0]);
             mockFileSystem.Setup(x => x.GetFilesInDirectory(LogFileDirectory, LogFileName)).Returns(new string[] { logFilePath });
-            mockFileSystem.Setup(x => x.ReadAllText(logFilePath)).Returns(LogFileContents);
+            mockFileSystem.Setup(x => x.ReadAllText(logFilePath)).Returns(logFileContents);
             mockFileSystem.Setup(x => x.ReadAllText(SchemaFilePath)).Returns(SchemaFileContents);
 
             var validateCommand = new ValidateCommand(mockFileSystem.Object);
