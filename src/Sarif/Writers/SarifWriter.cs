@@ -1,8 +1,11 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
@@ -59,9 +62,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             if (run.Files != null) throw new ArgumentException("run must not have Files. Write Files by calling Write() for each FileData.");
             if (run.Results != null) throw new ArgumentException("run must not have Results. Write Results by calling Write() for each Result.");
 
-            // Save the run to serialize later
+            // Save a copy of the run to serialize later
             if (_log.Runs == null) _log.Runs = new List<Run>();
-            _log.Runs.Add(run);
+            _log.Runs.Add(new Run(run));
 
             // Close the previous run's Files and Results logs, if any
             EndFilesLog();
