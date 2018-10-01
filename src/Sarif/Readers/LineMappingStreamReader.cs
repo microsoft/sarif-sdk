@@ -85,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             if (current.CharInLine < charInLine)
             {
                 int charsToAdd = charInLine - current.CharInLine;
-                if (bufferIndex + charsToAdd > _bufferLength) throw new ArgumentOutOfRangeException($"Position must be in buffer from last read. ({line}, {charInLine}) requested; ({current.LineNumber}, {current.CharInLine + ((_bufferLength - 1) - current.BufferIndex)}) is end of buffer.");
+                if (current.BufferIndex + charsToAdd > _bufferLength) throw new ArgumentOutOfRangeException($"Position must be in buffer from last read. ({line}, {charInLine}) requested; ({current.LineNumber}, {current.CharInLine + _bufferLength - current.BufferIndex}) is end of buffer.");
 
                 current.ByteOffset = current.ByteOffset + this.CurrentEncoding.GetByteCount(_buffer, current.BufferIndex, charsToAdd);
 
