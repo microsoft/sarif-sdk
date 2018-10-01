@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     ///  Items are expensive to iterate each time; they are not kept in memory. Copy the values to a List or array to keep them.
     /// </remarks>
     /// <typeparam name="T">Type of items in Dictionary</typeparam>
-    public class DeferredDictionary<T> : IDictionary<string, T>
+    public class DeferredDictionary<T> : IDictionary<string, T>, IDisposable
     {
         private JsonSerializer _jsonSerializer;
         private Func<Stream> _streamProvider;
@@ -56,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         private void EnsurePositionsBuilt()
         {
-            if (_itemPositions == null) BuildPositions();
+            if (_itemPositions == null) { BuildPositions(); }
         }
 
         private void BuildPositions()
@@ -73,16 +74,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         private void BuildPositions(JsonPositionedTextReader reader, long currentOffset)
         {
-            Dictionary<int, long> result = new Dictionary<int, long>();
+            var result = new Dictionary<int, long>();
             while (true)
             {
                 // Find the position just before the PropertyName (we need to read it back later to confirm the string matches)
                 long keyPosition = currentOffset + reader.TokenPosition + 1;
 
                 reader.Read();
-                if (reader.TokenType == JsonToken.EndObject) break;
+                if (reader.TokenType == JsonToken.EndObject) { break; }
 
-                if (reader.TokenType != JsonToken.PropertyName) throw new InvalidDataException($"@({reader.LineNumber}, {reader.LinePosition}): Expected property name, found {reader.TokenType} \"{reader.Value}\".");
+                if (reader.TokenType != JsonToken.PropertyName) { throw new InvalidDataException($"@({reader.LineNumber}, {reader.LinePosition}): Expected property name, found {reader.TokenType} \"{reader.Value}\"."); }
 
                 // Read JSON object name (Dictionary key)
                 string key = (string)reader.Value;
@@ -107,8 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         {
             get
             {
-                T value;
-                if (!this.TryGetValue(key, out value)) throw new KeyNotFoundException(key);
+                if (!this.TryGetValue(key, out T value)) { throw new KeyNotFoundException(key); }
 
                 return value;
             }
@@ -162,7 +162,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         public bool Contains(KeyValuePair<string, T> item)
         {
             T value;
-            if (!this.TryGetValue(item.Key, out value)) return false;
+            if (!this.TryGetValue(item.Key, out value)) { return false; }
             return EqualityComparer<T>.Default.Equals(value, item.Value);
         }
 
@@ -180,7 +180,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         private bool TryGetValue(string key, bool readValue, out T value)
         {
             value = default(T);
-            if (_stream == null) _stream = _streamProvider();
+            if (_stream == null) { _stream = _streamProvider(); }
 
             EnsurePositionsBuilt();
 
@@ -203,7 +203,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                     // Get the string key for the item with this hash
                     reader.Read();
                     string foundKey = (string)reader.Value;
-                    if (reader.TokenType != JsonToken.PropertyName) throw new InvalidDataException($"Did not find JSON object key at position {keyPosition:n0}.");
+                    if (reader.TokenType != JsonToken.PropertyName) { throw new InvalidDataException($"Did not find JSON object key at position {keyPosition:n0}."); }
 
                     // If it is the correct key, return the item
                     if (foundKey == key)
@@ -228,10 +228,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public void CopyTo(KeyValuePair<string, T>[] array, int arrayIndex)
         {
-            if (arrayIndex < 0 || arrayIndex + this.Count > array.Length) throw new ArgumentOutOfRangeException("arrayIndex");
+            if (arrayIndex < 0 || arrayIndex + this.Count > array.Length) { throw new ArgumentOutOfRangeException("arrayIndex"); }
 
             int index = arrayIndex;
-            foreach(KeyValuePair<string, T> item in this)
+            foreach (KeyValuePair<string, T> item in this)
             {
                 array[index++] = item;
             }
@@ -241,10 +241,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         {
             return new JsonDeferredDictionaryEnumerator<T>(_jsonSerializer, _streamProvider, _start);
         }
-        
+
         IEnumerator IEnumerable.GetEnumerator()
         {
             return new JsonDeferredDictionaryEnumerator<T>(_jsonSerializer, _streamProvider, _start);
+        }
+
+        public void Dispose()
+        {
+            if(_stream != null)
+            {
+                _stream.Dispose();
+                _stream = null;
+            }
         }
 
         /// <summary>
@@ -258,7 +267,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         {
             private bool _readCalled;
 
-            public JsonObjectMemberStreamReader(Stream stream) : base(stream, Encoding.Default, true, 1024, true)
+            public JsonObjectMemberStreamReader(Stream stream)
+                : base(stream: stream, encoding: Encoding.Default, detectEncodingFromByteOrderMarks: true, bufferSize: 1024, leaveOpen: true)
             { }
 
             public override int Read(char[] buffer, int index, int count)
@@ -266,20 +276,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 int countRead = 0;
 
                 // We are seeking to a position just before a new PropertyName in an object.
-                if(!_readCalled)
+                if (!_readCalled)
                 {
                     _readCalled = true;
 
-                    // We'll add a '{' to the JsonTextReader understands we're in an object
+                    // We'll add a '{' so the JsonTextReader understands we're in an object
                     buffer[index++] = '{';
 
                     // Read the remaining desired count
                     countRead = base.Read(buffer, index + 1, count - 1);
 
                     // Make everything before the next PropertyName whitespace (old space and comma between items)
-                    for(int i = index + 1; i < index + 1 + countRead; ++i)
+                    for (int i = index + 1; i < index + 1 + countRead; ++i)
                     {
-                        if (buffer[i] == '"') break;
+                        if (buffer[i] == '"') { break; }
                         buffer[i] = ' ';
                     }
 
@@ -408,9 +418,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             {
                 EqualityComparer<U> comparer = EqualityComparer<U>.Default;
 
-                foreach(U value in this)
+                foreach (U value in this)
                 {
-                    if (comparer.Equals(item, value)) return true;
+                    if (comparer.Equals(item, value)) { return true; }
                 }
 
                 return false;
@@ -418,10 +428,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             public void CopyTo(U[] array, int arrayIndex)
             {
-                if(arrayIndex < 0 || arrayIndex + this.Count > array.Length) throw new ArgumentOutOfRangeException("arrayIndex");
+                if (arrayIndex < 0 || arrayIndex + this.Count > array.Length) { throw new ArgumentOutOfRangeException("arrayIndex"); }
 
                 int index = arrayIndex;
-                foreach(U value in this)
+                foreach (U value in this)
                 {
                     array[index++] = value;
                 }

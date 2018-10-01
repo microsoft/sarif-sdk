@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     ///  Items are expensive to iterate each time; they are not kept in memory. Copy the values to a List or array to keep them.
     /// </remarks>
     /// <typeparam name="T">Type of items in list</typeparam>
-    public class DeferredList<T> : IList<T>
+    public class DeferredList<T> : IList<T>, IDisposable
     {
         private JsonSerializer _jsonSerializer;
         private Func<Stream> _streamProvider;
@@ -35,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         private Stream _stream;
         private long[] _itemPositions;
-        
+
         public DeferredList(JsonSerializer jsonSerializer, JsonPositionedTextReader reader, bool buildPositionsNow = true)
         {
             _jsonSerializer = jsonSerializer;
@@ -43,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             _start = reader.TokenPosition;
             _count = -1;
 
-            if(buildPositionsNow)
+            if (buildPositionsNow)
             {
                 BuildPositions(reader, 0);
             }
@@ -61,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             // StartArray
             reader.Read();
 
-            while(true)
+            while (true)
             {
                 reader.Read();
                 if (reader.TokenType == JsonToken.EndArray) break;
@@ -111,7 +112,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         {
             get
             {
-                if(_count < 0) EnsurePositionsBuilt();
+                if (_count < 0) EnsurePositionsBuilt();
                 return _count;
             }
         }
@@ -149,7 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             if (arrayIndex < 0 || arrayIndex + this.Count > array.Length) throw new ArgumentOutOfRangeException("arrayIndex");
 
             int index = arrayIndex;
-            foreach(T item in this)
+            foreach (T item in this)
             {
                 array[index++] = item;
             }
@@ -202,6 +203,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         IEnumerator IEnumerable.GetEnumerator()
         {
             return new JsonDeferredListEnumerator<T>(_jsonSerializer, _streamProvider, _start);
+        }
+
+        public void Dispose()
+        {
+            if (_stream != null)
+            {
+                _stream.Dispose();
+                _stream = null;
+            }
         }
 
         private class JsonDeferredListEnumerator<U> : IEnumerator<U>

@@ -18,13 +18,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     {
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof(IList<T>);
+            return typeof(IList<T>).IsAssignableFrom(objectType);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             JsonPositionedTextReader r = reader as JsonPositionedTextReader;
-            if (r == null) throw new InvalidOperationException($"DeferredListConverter requires a JsonPositionedTextReader be used for deserialization.");
+            if (r == null) throw new InvalidOperationException($"{nameof(DeferredListConverter<T>)} requires a {nameof(JsonPositionedTextReader)} be used for deserialization.");
 
             return new DeferredList<T>(serializer, r);
         }
