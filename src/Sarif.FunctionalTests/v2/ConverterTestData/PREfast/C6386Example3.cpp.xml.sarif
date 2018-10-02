@@ -31,7 +31,21 @@
                 },
                 "region": {
                   "startLine": 8,
-                  "startColumn": 12
+                  "startColumn": 12,
+                  "snippet": {
+                    "text": "= '\\0';"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 7,
+                  "startColumn": 1,
+                  "endLine": 9,
+                  "endColumn": 2,
+                  "charOffset": 93,
+                  "charLength": 27,
+                  "snippet": {
+                    "text": "   }\r\n      a[i] = '\\0';\r\n}"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6386_Example",
@@ -54,7 +68,21 @@
                           },
                           "region": {
                             "startLine": 3,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "a[4];"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 2,
+                            "startColumn": 1,
+                            "endLine": 4,
+                            "endColumn": 22,
+                            "charOffset": 27,
+                            "charLength": 39,
+                            "snippet": {
+                              "text": "{\r\n   char a[4];\r\n   for(i; i < 4; i++)"
+                            }
                           }
                         }
                       },
@@ -72,7 +100,21 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "i; i < 4; i++)"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 3,
+                            "startColumn": 1,
+                            "endLine": 5,
+                            "endColumn": 5,
+                            "charOffset": 30,
+                            "charLength": 42,
+                            "snippet": {
+                              "text": "   char a[4];\r\n   for(i; i < 4; i++)\r\n   {"
+                            }
                           }
                         }
                       },
@@ -87,7 +129,21 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 13
+                            "startColumn": 13,
+                            "snippet": {
+                              "text": "< 4; i++)"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 3,
+                            "startColumn": 1,
+                            "endLine": 5,
+                            "endColumn": 5,
+                            "charOffset": 30,
+                            "charLength": 42,
+                            "snippet": {
+                              "text": "   char a[4];\r\n   for(i; i < 4; i++)\r\n   {"
+                            }
                           }
                         }
                       },
@@ -102,7 +158,21 @@
                           },
                           "region": {
                             "startLine": 8,
-                            "startColumn": 12
+                            "startColumn": 12,
+                            "snippet": {
+                              "text": "= '\\0';"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 7,
+                            "startColumn": 1,
+                            "endLine": 9,
+                            "endColumn": 2,
+                            "charOffset": 93,
+                            "charLength": 27,
+                            "snippet": {
+                              "text": "   }\r\n      a[i] = '\\0';\r\n}"
+                            }
                           }
                         }
                       },

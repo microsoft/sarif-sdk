@@ -31,7 +31,21 @@
                 },
                 "region": {
                   "startLine": 9,
-                  "startColumn": 10
+                  "startColumn": 10,
+                  "snippet": {
+                    "text": "= TwoElementArray[index];"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 8,
+                  "startColumn": 1,
+                  "endLine": 10,
+                  "endColumn": 2,
+                  "charOffset": 129,
+                  "charLength": 39,
+                  "snippet": {
+                    "text": "\r\n\t*result = TwoElementArray[index];\r\n}"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "MergeAliasAndTen",
@@ -54,7 +68,21 @@
                           },
                           "region": {
                             "startLine": 3,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "TwoElementArray[] = {1,2};"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 2,
+                            "startColumn": 1,
+                            "endLine": 4,
+                            "endColumn": 7,
+                            "charOffset": 44,
+                            "charLength": 45,
+                            "snippet": {
+                              "text": "{\r\n    int TwoElementArray[] = {1,2};\r\n      "
+                            }
                           }
                         }
                       },
@@ -72,7 +100,21 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "== 10);"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 4,
+                            "startColumn": 1,
+                            "endLine": 6,
+                            "endColumn": 1,
+                            "charOffset": 83,
+                            "charLength": 24,
+                            "snippet": {
+                              "text": "      \r\n\tif (b == 10);\r\n"
+                            }
                           }
                         }
                       },
@@ -89,7 +131,21 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "index = b;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 6,
+                            "startColumn": 1,
+                            "endLine": 8,
+                            "endColumn": 1,
+                            "charOffset": 107,
+                            "charLength": 22,
+                            "snippet": {
+                              "text": "\r\n    int index = b;\r\n"
+                            }
                           }
                         }
                       },
@@ -107,7 +163,21 @@
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "= TwoElementArray[index];"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 8,
+                            "startColumn": 1,
+                            "endLine": 10,
+                            "endColumn": 2,
+                            "charOffset": 129,
+                            "charLength": 39,
+                            "snippet": {
+                              "text": "\r\n\t*result = TwoElementArray[index];\r\n}"
+                            }
                           }
                         }
                       },

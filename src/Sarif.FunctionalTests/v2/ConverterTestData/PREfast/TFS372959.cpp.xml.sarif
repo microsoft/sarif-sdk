@@ -60,7 +60,21 @@
                 },
                 "region": {
                   "startLine": 15,
-                  "startColumn": 5
+                  "startColumn": 5,
+                  "snippet": {
+                    "text": "+= i; //Expect 6305"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 14,
+                  "startColumn": 1,
+                  "endLine": 16,
+                  "endColumn": 1,
+                  "charOffset": 251,
+                  "charLength": 27,
+                  "snippet": {
+                    "text": "\r\n\t\tp += i; //Expect 6305\r\n"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "Missed6305::MissedAlias",
@@ -83,7 +97,21 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "i = 6;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 9,
+                            "startColumn": 1,
+                            "endLine": 11,
+                            "endColumn": 17,
+                            "charOffset": 203,
+                            "charLength": 34,
+                            "snippet": {
+                              "text": "\t{\r\n\t\tint i = 6;\r\n\t\tj = sizeof(p);"
+                            }
                           }
                         }
                       },
@@ -98,7 +126,21 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "= sizeof(p);"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 10,
+                            "startColumn": 1,
+                            "endLine": 12,
+                            "endColumn": 1,
+                            "charOffset": 207,
+                            "charLength": 32,
+                            "snippet": {
+                              "text": "\t\tint i = 6;\r\n\t\tj = sizeof(p);\r\n"
+                            }
                           }
                         }
                       },
@@ -113,7 +155,21 @@
                           },
                           "region": {
                             "startLine": 13,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "= j;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 12,
+                            "startColumn": 1,
+                            "endLine": 14,
+                            "endColumn": 1,
+                            "charOffset": 239,
+                            "charLength": 12,
+                            "snippet": {
+                              "text": "\r\n\t\ti = j;\r\n"
+                            }
                           }
                         }
                       },
@@ -131,7 +187,21 @@
                           },
                           "region": {
                             "startLine": 15,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "+= i; //Expect 6305"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 14,
+                            "startColumn": 1,
+                            "endLine": 16,
+                            "endColumn": 1,
+                            "charOffset": 251,
+                            "charLength": 27,
+                            "snippet": {
+                              "text": "\r\n\t\tp += i; //Expect 6305\r\n"
+                            }
                           }
                         }
                       },
@@ -164,7 +234,21 @@
                 },
                 "region": {
                   "startLine": 27,
-                  "startColumn": 5
+                  "startColumn": 5,
+                  "snippet": {
+                    "text": "+= j; //Expect 6305"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 26,
+                  "startColumn": 1,
+                  "endLine": 28,
+                  "endColumn": 1,
+                  "charOffset": 379,
+                  "charLength": 27,
+                  "snippet": {
+                    "text": "\r\n\t\tp += j; //Expect 6305\r\n"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "Missed6305::MissedAlias2",
@@ -187,7 +271,21 @@
                           },
                           "region": {
                             "startLine": 22,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "= 6;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 21,
+                            "startColumn": 1,
+                            "endLine": 23,
+                            "endColumn": 21,
+                            "charOffset": 331,
+                            "charLength": 34,
+                            "snippet": {
+                              "text": "\t{\r\n\t\tj = 6;\r\n\t\tint i = sizeof(p);"
+                            }
                           }
                         }
                       },
@@ -202,7 +300,21 @@
                           },
                           "region": {
                             "startLine": 23,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "i = sizeof(p);"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 22,
+                            "startColumn": 1,
+                            "endLine": 24,
+                            "endColumn": 1,
+                            "charOffset": 335,
+                            "charLength": 32,
+                            "snippet": {
+                              "text": "\t\tj = 6;\r\n\t\tint i = sizeof(p);\r\n"
+                            }
                           }
                         }
                       },
@@ -217,7 +329,21 @@
                           },
                           "region": {
                             "startLine": 25,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "= i;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 24,
+                            "startColumn": 1,
+                            "endLine": 26,
+                            "endColumn": 1,
+                            "charOffset": 367,
+                            "charLength": 12,
+                            "snippet": {
+                              "text": "\r\n\t\tj = i;\r\n"
+                            }
                           }
                         }
                       },
@@ -235,7 +361,21 @@
                           },
                           "region": {
                             "startLine": 27,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "+= j; //Expect 6305"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 26,
+                            "startColumn": 1,
+                            "endLine": 28,
+                            "endColumn": 1,
+                            "charOffset": 379,
+                            "charLength": 27,
+                            "snippet": {
+                              "text": "\r\n\t\tp += j; //Expect 6305\r\n"
+                            }
                           }
                         }
                       },
@@ -268,7 +408,21 @@
                 },
                 "region": {
                   "startLine": 39,
-                  "startColumn": 5
+                  "startColumn": 5,
+                  "snippet": {
+                    "text": "+= i; //Expect 6305"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 38,
+                  "startColumn": 1,
+                  "endLine": 40,
+                  "endColumn": 1,
+                  "charOffset": 517,
+                  "charLength": 27,
+                  "snippet": {
+                    "text": "\r\n\t\tp += i; //Expect 6305\r\n"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "Missed6305::MissedAliasPlusAssign",
@@ -291,7 +445,21 @@
                           },
                           "region": {
                             "startLine": 34,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "i = 6;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 33,
+                            "startColumn": 1,
+                            "endLine": 35,
+                            "endColumn": 17,
+                            "charOffset": 468,
+                            "charLength": 34,
+                            "snippet": {
+                              "text": "\t{\r\n\t\tint i = 6;\r\n\t\tj = sizeof(p);"
+                            }
                           }
                         }
                       },
@@ -306,7 +474,21 @@
                           },
                           "region": {
                             "startLine": 35,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "= sizeof(p);"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 34,
+                            "startColumn": 1,
+                            "endLine": 36,
+                            "endColumn": 1,
+                            "charOffset": 472,
+                            "charLength": 32,
+                            "snippet": {
+                              "text": "\t\tint i = 6;\r\n\t\tj = sizeof(p);\r\n"
+                            }
                           }
                         }
                       },
@@ -321,7 +503,21 @@
                           },
                           "region": {
                             "startLine": 37,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "+= j;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 36,
+                            "startColumn": 1,
+                            "endLine": 38,
+                            "endColumn": 1,
+                            "charOffset": 504,
+                            "charLength": 13,
+                            "snippet": {
+                              "text": "\r\n\t\ti += j;\r\n"
+                            }
                           }
                         }
                       },
@@ -339,7 +535,21 @@
                           },
                           "region": {
                             "startLine": 39,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "+= i; //Expect 6305"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 38,
+                            "startColumn": 1,
+                            "endLine": 40,
+                            "endColumn": 1,
+                            "charOffset": 517,
+                            "charLength": 27,
+                            "snippet": {
+                              "text": "\r\n\t\tp += i; //Expect 6305\r\n"
+                            }
                           }
                         }
                       },
@@ -372,7 +582,21 @@
                 },
                 "region": {
                   "startLine": 51,
-                  "startColumn": 5
+                  "startColumn": 5,
+                  "snippet": {
+                    "text": "+= j; //Expect 6305"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 50,
+                  "startColumn": 1,
+                  "endLine": 52,
+                  "endColumn": 1,
+                  "charOffset": 656,
+                  "charLength": 27,
+                  "snippet": {
+                    "text": "\r\n\t\tp += j; //Expect 6305\r\n"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "Missed6305::MissedAliasPlusAssign2",
@@ -395,7 +619,21 @@
                           },
                           "region": {
                             "startLine": 46,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "= 6;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 45,
+                            "startColumn": 1,
+                            "endLine": 47,
+                            "endColumn": 21,
+                            "charOffset": 607,
+                            "charLength": 34,
+                            "snippet": {
+                              "text": "\t{\r\n\t\tj = 6;\r\n\t\tint i = sizeof(p);"
+                            }
                           }
                         }
                       },
@@ -410,7 +648,21 @@
                           },
                           "region": {
                             "startLine": 47,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "i = sizeof(p);"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 46,
+                            "startColumn": 1,
+                            "endLine": 48,
+                            "endColumn": 1,
+                            "charOffset": 611,
+                            "charLength": 32,
+                            "snippet": {
+                              "text": "\t\tj = 6;\r\n\t\tint i = sizeof(p);\r\n"
+                            }
                           }
                         }
                       },
@@ -425,7 +677,21 @@
                           },
                           "region": {
                             "startLine": 49,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "+= i;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 48,
+                            "startColumn": 1,
+                            "endLine": 50,
+                            "endColumn": 1,
+                            "charOffset": 643,
+                            "charLength": 13,
+                            "snippet": {
+                              "text": "\r\n\t\tj += i;\r\n"
+                            }
                           }
                         }
                       },
@@ -443,7 +709,21 @@
                           },
                           "region": {
                             "startLine": 51,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "+= j; //Expect 6305"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 50,
+                            "startColumn": 1,
+                            "endLine": 52,
+                            "endColumn": 1,
+                            "charOffset": 656,
+                            "charLength": 27,
+                            "snippet": {
+                              "text": "\r\n\t\tp += j; //Expect 6305\r\n"
+                            }
                           }
                         }
                       },
@@ -476,7 +756,21 @@
                 },
                 "region": {
                   "startLine": 63,
-                  "startColumn": 5
+                  "startColumn": 5,
+                  "snippet": {
+                    "text": "+= i; //Expect 6305"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 62,
+                  "startColumn": 1,
+                  "endLine": 64,
+                  "endColumn": 1,
+                  "charOffset": 804,
+                  "charLength": 27,
+                  "snippet": {
+                    "text": "\r\n\t\tp += i; //Expect 6305\r\n"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "Missed6305::MissedAlias_LocalIsCorrect",
@@ -499,7 +793,21 @@
                           },
                           "region": {
                             "startLine": 58,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "i = 6;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 57,
+                            "startColumn": 1,
+                            "endLine": 59,
+                            "endColumn": 22,
+                            "charOffset": 750,
+                            "charLength": 39,
+                            "snippet": {
+                              "text": "\t{\r\n\t\tint i = 6;\r\n\t\tint j2 = sizeof(p);"
+                            }
                           }
                         }
                       },
@@ -514,7 +822,21 @@
                           },
                           "region": {
                             "startLine": 59,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "j2 = sizeof(p);"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 58,
+                            "startColumn": 1,
+                            "endLine": 60,
+                            "endColumn": 1,
+                            "charOffset": 754,
+                            "charLength": 37,
+                            "snippet": {
+                              "text": "\t\tint i = 6;\r\n\t\tint j2 = sizeof(p);\r\n"
+                            }
                           }
                         }
                       },
@@ -532,7 +854,21 @@
                           },
                           "region": {
                             "startLine": 61,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "= j2;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 60,
+                            "startColumn": 1,
+                            "endLine": 62,
+                            "endColumn": 1,
+                            "charOffset": 791,
+                            "charLength": 13,
+                            "snippet": {
+                              "text": "\r\n\t\ti = j2;\r\n"
+                            }
                           }
                         }
                       },
@@ -550,7 +886,21 @@
                           },
                           "region": {
                             "startLine": 63,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "+= i; //Expect 6305"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 62,
+                            "startColumn": 1,
+                            "endLine": 64,
+                            "endColumn": 1,
+                            "charOffset": 804,
+                            "charLength": 27,
+                            "snippet": {
+                              "text": "\r\n\t\tp += i; //Expect 6305\r\n"
+                            }
                           }
                         }
                       },
@@ -583,7 +933,21 @@
                 },
                 "region": {
                   "startLine": 75,
-                  "startColumn": 5
+                  "startColumn": 5,
+                  "snippet": {
+                    "text": "+= i; //Expect 6305"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 74,
+                  "startColumn": 1,
+                  "endLine": 76,
+                  "endColumn": 1,
+                  "charOffset": 963,
+                  "charLength": 27,
+                  "snippet": {
+                    "text": "\r\n\t\tp += i; //Expect 6305\r\n"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "Missed6305::MissedAliasPlusAssign_LocalIsCorrect",
@@ -606,7 +970,21 @@
                           },
                           "region": {
                             "startLine": 70,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "i = 6;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 69,
+                            "startColumn": 1,
+                            "endLine": 71,
+                            "endColumn": 22,
+                            "charOffset": 908,
+                            "charLength": 39,
+                            "snippet": {
+                              "text": "\t{\r\n\t\tint i = 6;\r\n\t\tint j2 = sizeof(p);"
+                            }
                           }
                         }
                       },
@@ -621,7 +999,21 @@
                           },
                           "region": {
                             "startLine": 71,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "j2 = sizeof(p);"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 70,
+                            "startColumn": 1,
+                            "endLine": 72,
+                            "endColumn": 1,
+                            "charOffset": 912,
+                            "charLength": 37,
+                            "snippet": {
+                              "text": "\t\tint i = 6;\r\n\t\tint j2 = sizeof(p);\r\n"
+                            }
                           }
                         }
                       },
@@ -639,7 +1031,21 @@
                           },
                           "region": {
                             "startLine": 73,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "+= j2;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 72,
+                            "startColumn": 1,
+                            "endLine": 74,
+                            "endColumn": 1,
+                            "charOffset": 949,
+                            "charLength": 14,
+                            "snippet": {
+                              "text": "\r\n\t\ti += j2;\r\n"
+                            }
                           }
                         }
                       },
@@ -657,7 +1063,21 @@
                           },
                           "region": {
                             "startLine": 75,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "+= i; //Expect 6305"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 74,
+                            "startColumn": 1,
+                            "endLine": 76,
+                            "endColumn": 1,
+                            "charOffset": 963,
+                            "charLength": 27,
+                            "snippet": {
+                              "text": "\r\n\t\tp += i; //Expect 6305\r\n"
+                            }
                           }
                         }
                       },
@@ -690,7 +1110,21 @@
                 },
                 "region": {
                   "startLine": 88,
-                  "startColumn": 4
+                  "startColumn": 4,
+                  "snippet": {
+                    "text": "+=cb; //Expect 6305"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 87,
+                  "startColumn": 1,
+                  "endLine": 89,
+                  "endColumn": 12,
+                  "charOffset": 1106,
+                  "charLength": 37,
+                  "snippet": {
+                    "text": "\r\n\t\tp+=cb; //Expect 6305\r\n\t\treturn i;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "Missed6305::SizeOfMissedForMember",
@@ -713,7 +1147,21 @@
                           },
                           "region": {
                             "startLine": 85,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "i = 0;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 84,
+                            "startColumn": 1,
+                            "endLine": 86,
+                            "endColumn": 20,
+                            "charOffset": 1067,
+                            "charLength": 37,
+                            "snippet": {
+                              "text": "\t{\r\n\t\tint i = 0;\r\n\t\tcb = sizeof(int);"
+                            }
                           }
                         }
                       },
@@ -728,7 +1176,21 @@
                           },
                           "region": {
                             "startLine": 86,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "= sizeof(int);"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 85,
+                            "startColumn": 1,
+                            "endLine": 87,
+                            "endColumn": 1,
+                            "charOffset": 1071,
+                            "charLength": 35,
+                            "snippet": {
+                              "text": "\t\tint i = 0;\r\n\t\tcb = sizeof(int);\r\n"
+                            }
                           }
                         }
                       },
@@ -746,7 +1208,21 @@
                           },
                           "region": {
                             "startLine": 88,
-                            "startColumn": 4
+                            "startColumn": 4,
+                            "snippet": {
+                              "text": "+=cb; //Expect 6305"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 87,
+                            "startColumn": 1,
+                            "endLine": 89,
+                            "endColumn": 12,
+                            "charOffset": 1106,
+                            "charLength": 37,
+                            "snippet": {
+                              "text": "\r\n\t\tp+=cb; //Expect 6305\r\n\t\treturn i;"
+                            }
                           }
                         }
                       },
@@ -779,7 +1255,21 @@
                 },
                 "region": {
                   "startLine": 97,
-                  "startColumn": 4
+                  "startColumn": 4,
+                  "snippet": {
+                    "text": "+=cb2; //Expect 6305"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 96,
+                  "startColumn": 1,
+                  "endLine": 98,
+                  "endColumn": 12,
+                  "charOffset": 1247,
+                  "charLength": 38,
+                  "snippet": {
+                    "text": "\r\n\t\tp+=cb2; //Expect 6305\r\n\t\treturn i;"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "Missed6305::SizeOfMissedForMember_LocalIsCorrect",
@@ -802,7 +1292,21 @@
                           },
                           "region": {
                             "startLine": 94,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "i = 0;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 93,
+                            "startColumn": 1,
+                            "endLine": 95,
+                            "endColumn": 25,
+                            "charOffset": 1203,
+                            "charLength": 42,
+                            "snippet": {
+                              "text": "\t{\r\n\t\tint i = 0;\r\n\t\tint cb2 = sizeof(int);"
+                            }
                           }
                         }
                       },
@@ -817,7 +1321,21 @@
                           },
                           "region": {
                             "startLine": 95,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "cb2 = sizeof(int);"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 94,
+                            "startColumn": 1,
+                            "endLine": 96,
+                            "endColumn": 1,
+                            "charOffset": 1207,
+                            "charLength": 40,
+                            "snippet": {
+                              "text": "\t\tint i = 0;\r\n\t\tint cb2 = sizeof(int);\r\n"
+                            }
                           }
                         }
                       },
@@ -835,7 +1353,21 @@
                           },
                           "region": {
                             "startLine": 97,
-                            "startColumn": 4
+                            "startColumn": 4,
+                            "snippet": {
+                              "text": "+=cb2; //Expect 6305"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 96,
+                            "startColumn": 1,
+                            "endLine": 98,
+                            "endColumn": 12,
+                            "charOffset": 1247,
+                            "charLength": 38,
+                            "snippet": {
+                              "text": "\r\n\t\tp+=cb2; //Expect 6305\r\n\t\treturn i;"
+                            }
                           }
                         }
                       },

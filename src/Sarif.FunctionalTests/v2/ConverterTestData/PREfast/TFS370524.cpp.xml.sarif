@@ -40,7 +40,21 @@
                 },
                 "region": {
                   "startLine": 13,
-                  "startColumn": 7
+                  "startColumn": 7,
+                  "snippet": {
+                    "text": "x = *source;"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 12,
+                  "startColumn": 1,
+                  "endLine": 14,
+                  "endColumn": 1,
+                  "charOffset": 254,
+                  "charLength": 46,
+                  "snippet": {
+                    "text": "\t\tint * target = source;\r\n\t\tint x = *source;\r\n"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "MissedAliases::MissedAlias",
@@ -63,7 +77,21 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "assert = source != 0 ? false : true; // Expects: 'source' may be NULL"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 10,
+                            "startColumn": 1,
+                            "endLine": 12,
+                            "endColumn": 25,
+                            "charOffset": 172,
+                            "charLength": 106,
+                            "snippet": {
+                              "text": "\t{\r\n\t\tbool assert = source != 0 ? false : true; // Expects: 'source' may be NULL\r\n\t\tint * target = source;"
+                            }
                           }
                         }
                       },
@@ -78,7 +106,21 @@
                           },
                           "region": {
                             "startLine": 12,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "* target = source;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 11,
+                            "startColumn": 1,
+                            "endLine": 13,
+                            "endColumn": 19,
+                            "charOffset": 176,
+                            "charLength": 122,
+                            "snippet": {
+                              "text": "\t\tbool assert = source != 0 ? false : true; // Expects: 'source' may be NULL\r\n\t\tint * target = source;\r\n\t\tint x = *source;"
+                            }
                           }
                         }
                       },
@@ -96,7 +138,21 @@
                           },
                           "region": {
                             "startLine": 13,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "x = *source;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 12,
+                            "startColumn": 1,
+                            "endLine": 14,
+                            "endColumn": 1,
+                            "charOffset": 254,
+                            "charLength": 46,
+                            "snippet": {
+                              "text": "\t\tint * target = source;\r\n\t\tint x = *source;\r\n"
+                            }
                           }
                         }
                       },
@@ -129,7 +185,21 @@
                 },
                 "region": {
                   "startLine": 23,
-                  "startColumn": 7
+                  "startColumn": 7,
+                  "snippet": {
+                    "text": "x = *target;"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 22,
+                  "startColumn": 1,
+                  "endLine": 24,
+                  "endColumn": 1,
+                  "charOffset": 472,
+                  "charLength": 46,
+                  "snippet": {
+                    "text": "\t\tint * target = source;\r\n\t\tint x = *target;\r\n"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "MissedAliases::MissedAlias2",
@@ -152,7 +222,21 @@
                           },
                           "region": {
                             "startLine": 21,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "assert = source != 0 ? false : true; // Expects: 'this->source' may be NULL"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 20,
+                            "startColumn": 1,
+                            "endLine": 22,
+                            "endColumn": 25,
+                            "charOffset": 384,
+                            "charLength": 112,
+                            "snippet": {
+                              "text": "\t{\r\n\t\tbool assert = source != 0 ? false : true; // Expects: 'this->source' may be NULL\r\n\t\tint * target = source;"
+                            }
                           }
                         }
                       },
@@ -167,7 +251,21 @@
                           },
                           "region": {
                             "startLine": 22,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "* target = source;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 21,
+                            "startColumn": 1,
+                            "endLine": 23,
+                            "endColumn": 19,
+                            "charOffset": 388,
+                            "charLength": 128,
+                            "snippet": {
+                              "text": "\t\tbool assert = source != 0 ? false : true; // Expects: 'this->source' may be NULL\r\n\t\tint * target = source;\r\n\t\tint x = *target;"
+                            }
                           }
                         }
                       },
@@ -185,7 +283,21 @@
                           },
                           "region": {
                             "startLine": 23,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "x = *target;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 22,
+                            "startColumn": 1,
+                            "endLine": 24,
+                            "endColumn": 1,
+                            "charOffset": 472,
+                            "charLength": 46,
+                            "snippet": {
+                              "text": "\t\tint * target = source;\r\n\t\tint x = *target;\r\n"
+                            }
                           }
                         }
                       },
@@ -218,7 +330,21 @@
                 },
                 "region": {
                   "startLine": 33,
-                  "startColumn": 7
+                  "startColumn": 7,
+                  "snippet": {
+                    "text": "x = *source;"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 32,
+                  "startColumn": 1,
+                  "endLine": 34,
+                  "endColumn": 1,
+                  "charOffset": 696,
+                  "charLength": 40,
+                  "snippet": {
+                    "text": "\t\tsource = target;\r\n\t\tint x = *source;\r\n"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "MissedAliases::MissedAlias3",
@@ -241,7 +367,21 @@
                           },
                           "region": {
                             "startLine": 31,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "assert = target != 0 ? false : true; // Expects: 'target' may be NULL"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 30,
+                            "startColumn": 1,
+                            "endLine": 32,
+                            "endColumn": 19,
+                            "charOffset": 614,
+                            "charLength": 100,
+                            "snippet": {
+                              "text": "\t{\r\n\t\tbool assert = target != 0 ? false : true; // Expects: 'target' may be NULL\r\n\t\tsource = target;"
+                            }
                           }
                         }
                       },
@@ -259,7 +399,21 @@
                           },
                           "region": {
                             "startLine": 32,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "= target;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 31,
+                            "startColumn": 1,
+                            "endLine": 33,
+                            "endColumn": 19,
+                            "charOffset": 618,
+                            "charLength": 116,
+                            "snippet": {
+                              "text": "\t\tbool assert = target != 0 ? false : true; // Expects: 'target' may be NULL\r\n\t\tsource = target;\r\n\t\tint x = *source;"
+                            }
                           }
                         }
                       },
@@ -274,7 +428,21 @@
                           },
                           "region": {
                             "startLine": 33,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "x = *source;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 32,
+                            "startColumn": 1,
+                            "endLine": 34,
+                            "endColumn": 1,
+                            "charOffset": 696,
+                            "charLength": 40,
+                            "snippet": {
+                              "text": "\t\tsource = target;\r\n\t\tint x = *source;\r\n"
+                            }
                           }
                         }
                       },

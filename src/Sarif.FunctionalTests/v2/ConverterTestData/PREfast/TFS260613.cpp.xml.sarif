@@ -34,7 +34,21 @@
                 },
                 "region": {
                   "startLine": 10,
-                  "startColumn": 7
+                  "startColumn": 7,
+                  "snippet": {
+                    "text": "+= offset;"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 9,
+                  "startColumn": 1,
+                  "endLine": 11,
+                  "endColumn": 1,
+                  "charOffset": 134,
+                  "charLength": 49,
+                  "snippet": {
+                    "text": "    int offset = sizeof(int);\r\n    p += offset;\r\n"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "ComplexMismatch1",
@@ -57,7 +71,21 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "source [] = {1, 2, 3, 4, 5, 6, 7};"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 5,
+                            "startColumn": 1,
+                            "endLine": 7,
+                            "endColumn": 22,
+                            "charOffset": 62,
+                            "charLength": 68,
+                            "snippet": {
+                              "text": "{\r\n    int source [] = {1, 2, 3, 4, 5, 6, 7};\r\n    int * p = source;"
+                            }
                           }
                         }
                       },
@@ -72,7 +100,21 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "* p = source;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 6,
+                            "startColumn": 1,
+                            "endLine": 8,
+                            "endColumn": 1,
+                            "charOffset": 65,
+                            "charLength": 67,
+                            "snippet": {
+                              "text": "    int source [] = {1, 2, 3, 4, 5, 6, 7};\r\n    int * p = source;\r\n"
+                            }
                           }
                         }
                       },
@@ -87,7 +129,21 @@
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "offset = sizeof(int);"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 8,
+                            "startColumn": 1,
+                            "endLine": 10,
+                            "endColumn": 17,
+                            "charOffset": 132,
+                            "charLength": 49,
+                            "snippet": {
+                              "text": "\r\n    int offset = sizeof(int);\r\n    p += offset;"
+                            }
                           }
                         }
                       },
@@ -105,7 +161,21 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "+= offset;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 9,
+                            "startColumn": 1,
+                            "endLine": 11,
+                            "endColumn": 1,
+                            "charOffset": 134,
+                            "charLength": 49,
+                            "snippet": {
+                              "text": "    int offset = sizeof(int);\r\n    p += offset;\r\n"
+                            }
                           }
                         }
                       },
@@ -138,7 +208,21 @@
                 },
                 "region": {
                   "startLine": 20,
-                  "startColumn": 7
+                  "startColumn": 7,
+                  "snippet": {
+                    "text": "+= sizeof(int);"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 19,
+                  "startColumn": 1,
+                  "endLine": 21,
+                  "endColumn": 1,
+                  "charOffset": 300,
+                  "charLength": 25,
+                  "snippet": {
+                    "text": "\r\n    p += sizeof(int);\r\n"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "ComplexMismatch2",
@@ -161,7 +245,21 @@
                           },
                           "region": {
                             "startLine": 17,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "source [] = {1, 2, 3, 4, 5, 6, 7};"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 16,
+                            "startColumn": 1,
+                            "endLine": 18,
+                            "endColumn": 22,
+                            "charOffset": 230,
+                            "charLength": 68,
+                            "snippet": {
+                              "text": "{\r\n    int source [] = {1, 2, 3, 4, 5, 6, 7};\r\n    int * p = source;"
+                            }
                           }
                         }
                       },
@@ -176,7 +274,21 @@
                           },
                           "region": {
                             "startLine": 18,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "* p = source;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 17,
+                            "startColumn": 1,
+                            "endLine": 19,
+                            "endColumn": 1,
+                            "charOffset": 233,
+                            "charLength": 67,
+                            "snippet": {
+                              "text": "    int source [] = {1, 2, 3, 4, 5, 6, 7};\r\n    int * p = source;\r\n"
+                            }
                           }
                         }
                       },
@@ -191,7 +303,21 @@
                           },
                           "region": {
                             "startLine": 20,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "+= sizeof(int);"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 19,
+                            "startColumn": 1,
+                            "endLine": 21,
+                            "endColumn": 1,
+                            "charOffset": 300,
+                            "charLength": 25,
+                            "snippet": {
+                              "text": "\r\n    p += sizeof(int);\r\n"
+                            }
                           }
                         }
                       },

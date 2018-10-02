@@ -31,7 +31,21 @@
                 },
                 "region": {
                   "startLine": 7,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "result = *y;"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 6,
+                  "startColumn": 1,
+                  "endLine": 8,
+                  "endColumn": 2,
+                  "charOffset": 78,
+                  "charLength": 25,
+                  "snippet": {
+                    "text": "\r\n    int result = *y;\r\n}"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "MergeAliasAndZero",
@@ -54,7 +68,21 @@
                           },
                           "region": {
                             "startLine": 3,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "* source = 0;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 2,
+                            "startColumn": 1,
+                            "endLine": 4,
+                            "endColumn": 1,
+                            "charOffset": 27,
+                            "charLength": 26,
+                            "snippet": {
+                              "text": "{\r\n    int * source = 0;\r\n"
+                            }
                           }
                         }
                       },
@@ -72,7 +100,21 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "* y = source;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 4,
+                            "startColumn": 1,
+                            "endLine": 6,
+                            "endColumn": 1,
+                            "charOffset": 53,
+                            "charLength": 25,
+                            "snippet": {
+                              "text": "\r\n    int * y = source;\r\n"
+                            }
                           }
                         }
                       },
@@ -90,7 +132,21 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "result = *y;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 6,
+                            "startColumn": 1,
+                            "endLine": 8,
+                            "endColumn": 2,
+                            "charOffset": 78,
+                            "charLength": 25,
+                            "snippet": {
+                              "text": "\r\n    int result = *y;\r\n}"
+                            }
                           }
                         }
                       },

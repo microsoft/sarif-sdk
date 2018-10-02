@@ -31,7 +31,21 @@
                 },
                 "region": {
                   "startLine": 6,
-                  "startColumn": 5
+                  "startColumn": 5,
+                  "snippet": {
+                    "text": "+=cb; //Expect 6305"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 5,
+                  "startColumn": 1,
+                  "endLine": 7,
+                  "endColumn": 14,
+                  "charOffset": 73,
+                  "charLength": 40,
+                  "snippet": {
+                    "text": "\r\n   p+=cb; //Expect 6305\r\n   return i; "
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6305_Example1",
@@ -54,7 +68,21 @@
                           },
                           "region": {
                             "startLine": 3,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "i = 0;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 2,
+                            "startColumn": 1,
+                            "endLine": 4,
+                            "endColumn": 25,
+                            "charOffset": 29,
+                            "charLength": 42,
+                            "snippet": {
+                              "text": "{\r\n   int i = 0;\r\n   int cb = sizeof(int);"
+                            }
                           }
                         }
                       },
@@ -69,7 +97,21 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "cb = sizeof(int);"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 3,
+                            "startColumn": 1,
+                            "endLine": 5,
+                            "endColumn": 1,
+                            "charOffset": 32,
+                            "charLength": 41,
+                            "snippet": {
+                              "text": "   int i = 0;\r\n   int cb = sizeof(int);\r\n"
+                            }
                           }
                         }
                       },
@@ -87,7 +129,21 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "+=cb; //Expect 6305"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 5,
+                            "startColumn": 1,
+                            "endLine": 7,
+                            "endColumn": 14,
+                            "charOffset": 73,
+                            "charLength": 40,
+                            "snippet": {
+                              "text": "\r\n   p+=cb; //Expect 6305\r\n   return i; "
+                            }
                           }
                         }
                       },

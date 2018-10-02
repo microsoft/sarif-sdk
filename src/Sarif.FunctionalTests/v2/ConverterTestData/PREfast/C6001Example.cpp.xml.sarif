@@ -31,7 +31,21 @@
                 },
                 "region": {
                   "startLine": 9,
-                  "startColumn": 4
+                  "startColumn": 4,
+                  "snippet": {
+                    "text": "return i; "
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 8,
+                  "startColumn": 1,
+                  "endLine": 10,
+                  "endColumn": 2,
+                  "charOffset": 123,
+                  "charLength": 22,
+                  "snippet": {
+                    "text": "   }\r\n   return i; \r\n}"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6001_Example1",
@@ -54,7 +68,21 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "i;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 3,
+                            "startColumn": 1,
+                            "endLine": 5,
+                            "endColumn": 16,
+                            "charOffset": 72,
+                            "charLength": 29,
+                            "snippet": {
+                              "text": "{\r\n   int i;\r\n   if ( b && c)"
+                            }
                           }
                         }
                       },
@@ -72,7 +100,21 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 11
+                            "startColumn": 11,
+                            "snippet": {
+                              "text": "&& c)"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 4,
+                            "startColumn": 1,
+                            "endLine": 6,
+                            "endColumn": 5,
+                            "charOffset": 75,
+                            "charLength": 32,
+                            "snippet": {
+                              "text": "   int i;\r\n   if ( b && c)\r\n   {"
+                            }
                           }
                         }
                       },
@@ -89,7 +131,21 @@
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 4
+                            "startColumn": 4,
+                            "snippet": {
+                              "text": "return i; "
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 8,
+                            "startColumn": 1,
+                            "endLine": 10,
+                            "endColumn": 2,
+                            "charOffset": 123,
+                            "charLength": 22,
+                            "snippet": {
+                              "text": "   }\r\n   return i; \r\n}"
+                            }
                           }
                         }
                       },

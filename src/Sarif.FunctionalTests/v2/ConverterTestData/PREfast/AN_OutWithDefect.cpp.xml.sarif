@@ -31,7 +31,21 @@
                 },
                 "region": {
                   "startLine": 4,
-                  "startColumn": 13
+                  "startColumn": 13,
+                  "snippet": {
+                    "text": "(_Out_ int * target, bool flag)"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 3,
+                  "startColumn": 1,
+                  "endLine": 5,
+                  "endColumn": 2,
+                  "charOffset": 20,
+                  "charLength": 48,
+                  "snippet": {
+                    "text": "\r\nvoid Out6101(_Out_ int * target, bool flag)\r\n{"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "Out6101",
@@ -54,7 +68,21 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 13
+                            "startColumn": 13,
+                            "snippet": {
+                              "text": "(_Out_ int * target, bool flag)"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 3,
+                            "startColumn": 1,
+                            "endLine": 5,
+                            "endColumn": 2,
+                            "charOffset": 20,
+                            "charLength": 48,
+                            "snippet": {
+                              "text": "\r\nvoid Out6101(_Out_ int * target, bool flag)\r\n{"
+                            }
                           }
                         }
                       },
@@ -72,7 +100,21 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "flag)"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 5,
+                            "startColumn": 1,
+                            "endLine": 7,
+                            "endColumn": 22,
+                            "charOffset": 67,
+                            "charLength": 39,
+                            "snippet": {
+                              "text": "{\r\n    if (flag)\r\n        *target = 10;"
+                            }
                           }
                         }
                       },
@@ -89,7 +131,21 @@
                           },
                           "region": {
                             "startLine": 8,
-                            "startColumn": 1
+                            "startColumn": 1,
+                            "snippet": {
+                              "text": "}"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 7,
+                            "startColumn": 1,
+                            "endLine": 9,
+                            "endColumn": 1,
+                            "charOffset": 85,
+                            "charLength": 26,
+                            "snippet": {
+                              "text": "        *target = 10;\r\n}\r\n"
+                            }
                           }
                         }
                       },
@@ -104,7 +160,21 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 13
+                            "startColumn": 13,
+                            "snippet": {
+                              "text": "(_Out_ int * target, bool flag)"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 3,
+                            "startColumn": 1,
+                            "endLine": 5,
+                            "endColumn": 2,
+                            "charOffset": 20,
+                            "charLength": 48,
+                            "snippet": {
+                              "text": "\r\nvoid Out6101(_Out_ int * target, bool flag)\r\n{"
+                            }
                           }
                         }
                       },

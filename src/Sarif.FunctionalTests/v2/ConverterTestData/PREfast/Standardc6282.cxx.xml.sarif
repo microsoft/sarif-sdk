@@ -31,7 +31,21 @@
                 },
                 "region": {
                   "startLine": 16,
-                  "startColumn": 13
+                  "startColumn": 13,
+                  "snippet": {
+                    "text": "= 5)\t//@@@Expects:6282"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 15,
+                  "startColumn": 1,
+                  "endLine": 17,
+                  "endColumn": 5,
+                  "charOffset": 519,
+                  "charLength": 43,
+                  "snippet": {
+                    "text": "{\r\n   while (i = 5)\t//@@@Expects:6282\r\n   {"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "f_d",

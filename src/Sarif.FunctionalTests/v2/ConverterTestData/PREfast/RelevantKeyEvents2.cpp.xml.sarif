@@ -31,7 +31,21 @@
                 },
                 "region": {
                   "startLine": 24,
-                  "startColumn": 18
+                  "startColumn": 18,
+                  "snippet": {
+                    "text": "= 0;  //28182"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 23,
+                  "startColumn": 1,
+                  "endLine": 25,
+                  "endColumn": 3,
+                  "charOffset": 394,
+                  "charLength": 64,
+                  "snippet": {
+                    "text": "    list* pNode = pNodeFree;\r\n    pNode->pPrev = 0;  //28182\r\n }"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "fun",
@@ -54,7 +68,21 @@
                           },
                           "region": {
                             "startLine": 12,
-                            "startColumn": 19
+                            "startColumn": 19,
+                            "snippet": {
+                              "text": "== 0)"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 11,
+                            "startColumn": 1,
+                            "endLine": 13,
+                            "endColumn": 6,
+                            "charOffset": 161,
+                            "charLength": 34,
+                            "snippet": {
+                              "text": " {\r\n    if (pNodeFree == 0)\r\n    {"
+                            }
                           }
                         }
                       },
@@ -71,7 +99,21 @@
                           },
                           "region": {
                             "startLine": 14,
-                            "startColumn": 14
+                            "startColumn": 14,
+                            "snippet": {
+                              "text": "*pNode = masterList;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 13,
+                            "startColumn": 1,
+                            "endLine": 15,
+                            "endColumn": 1,
+                            "charOffset": 190,
+                            "charLength": 42,
+                            "snippet": {
+                              "text": "    {\r\n        list *pNode = masterList;\r\n"
+                            }
                           }
                         }
                       },
@@ -86,7 +128,21 @@
                           },
                           "region": {
                             "startLine": 16,
-                            "startColumn": 18
+                            "startColumn": 18,
+                            "snippet": {
+                              "text": "i = nBlockSize-1; i >= 0; i--, pNode--)"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 15,
+                            "startColumn": 1,
+                            "endLine": 17,
+                            "endColumn": 10,
+                            "charOffset": 232,
+                            "charLength": 69,
+                            "snippet": {
+                              "text": "\r\n        for (int i = nBlockSize-1; i >= 0; i--, pNode--)\r\n        {"
+                            }
                           }
                         }
                       },
@@ -101,7 +157,21 @@
                           },
                           "region": {
                             "startLine": 16,
-                            "startColumn": 38
+                            "startColumn": 38,
+                            "snippet": {
+                              "text": ">= 0; i--, pNode--)"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 15,
+                            "startColumn": 1,
+                            "endLine": 17,
+                            "endColumn": 10,
+                            "charOffset": 232,
+                            "charLength": 69,
+                            "snippet": {
+                              "text": "\r\n        for (int i = nBlockSize-1; i >= 0; i--, pNode--)\r\n        {"
+                            }
                           }
                         }
                       },
@@ -118,7 +188,21 @@
                           },
                           "region": {
                             "startLine": 23,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "* pNode = pNodeFree;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 22,
+                            "startColumn": 1,
+                            "endLine": 24,
+                            "endColumn": 31,
+                            "charOffset": 392,
+                            "charLength": 62,
+                            "snippet": {
+                              "text": "\r\n    list* pNode = pNodeFree;\r\n    pNode->pPrev = 0;  //28182"
+                            }
                           }
                         }
                       },
@@ -136,7 +220,21 @@
                           },
                           "region": {
                             "startLine": 24,
-                            "startColumn": 18
+                            "startColumn": 18,
+                            "snippet": {
+                              "text": "= 0;  //28182"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 23,
+                            "startColumn": 1,
+                            "endLine": 25,
+                            "endColumn": 3,
+                            "charOffset": 394,
+                            "charLength": 64,
+                            "snippet": {
+                              "text": "    list* pNode = pNodeFree;\r\n    pNode->pPrev = 0;  //28182\r\n }"
+                            }
                           }
                         }
                       },

@@ -31,7 +31,21 @@
                 },
                 "region": {
                   "startLine": 6,
-                  "startColumn": 5
+                  "startColumn": 5,
+                  "snippet": {
+                    "text": "= '\\0';\t\t\t\t\t\t\t\t"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 5,
+                  "startColumn": 1,
+                  "endLine": 7,
+                  "endColumn": 20,
+                  "charOffset": 49,
+                  "charLength": 79,
+                  "snippet": {
+                    "text": "\tchar *p = ( char * ) malloc( 10 );\t\t\r\n\t*p = '\\0';\t\t\t\t\t\t\t\t\r\n\tfree( p );\t\t\t\t\t\t\t\t"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6011_Example",
@@ -54,7 +68,21 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "*p = ( char * ) malloc( 10 );\t\t"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 4,
+                            "startColumn": 1,
+                            "endLine": 6,
+                            "endColumn": 20,
+                            "charOffset": 46,
+                            "charLength": 61,
+                            "snippet": {
+                              "text": "{\r\n\tchar *p = ( char * ) malloc( 10 );\t\t\r\n\t*p = '\\0';\t\t\t\t\t\t\t\t"
+                            }
                           }
                         }
                       },
@@ -72,7 +100,21 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 5
+                            "startColumn": 5,
+                            "snippet": {
+                              "text": "= '\\0';\t\t\t\t\t\t\t\t"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 5,
+                            "startColumn": 1,
+                            "endLine": 7,
+                            "endColumn": 20,
+                            "charOffset": 49,
+                            "charLength": 79,
+                            "snippet": {
+                              "text": "\tchar *p = ( char * ) malloc( 10 );\t\t\r\n\t*p = '\\0';\t\t\t\t\t\t\t\t\r\n\tfree( p );\t\t\t\t\t\t\t\t"
+                            }
                           }
                         }
                       },

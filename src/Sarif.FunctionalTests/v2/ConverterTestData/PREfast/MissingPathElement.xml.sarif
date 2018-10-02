@@ -31,7 +31,21 @@
                 },
                 "region": {
                   "startLine": 15,
-                  "startColumn": 20
+                  "startColumn": 20,
+                  "snippet": {
+                    "text": "= contentStores[index];"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 14,
+                  "startColumn": 1,
+                  "endLine": 16,
+                  "endColumn": 3,
+                  "charOffset": 259,
+                  "charLength": 48,
+                  "snippet": {
+                    "text": "\r\n\t\tcontentStores[0] = contentStores[index];\r\n\t}"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6385_IndexAlias",

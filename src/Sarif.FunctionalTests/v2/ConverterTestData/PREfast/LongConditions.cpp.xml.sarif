@@ -37,7 +37,21 @@
                 },
                 "region": {
                   "startLine": 16,
-                  "startColumn": 2
+                  "startColumn": 2,
+                  "snippet": {
+                    "text": "return simpleVar;"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 15,
+                  "startColumn": 1,
+                  "endLine": 17,
+                  "endColumn": 2,
+                  "charOffset": 338,
+                  "charLength": 23,
+                  "snippet": {
+                    "text": "\r\n\treturn simpleVar;\r\n}"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6001LongCondition_Example",
@@ -60,7 +74,21 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "simpleVar;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 6,
+                            "startColumn": 1,
+                            "endLine": 8,
+                            "endColumn": 1,
+                            "charOffset": 116,
+                            "charLength": 20,
+                            "snippet": {
+                              "text": "{\r\n\tint simpleVar;\r\n"
+                            }
                           }
                         }
                       },
@@ -78,7 +106,21 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 54
+                            "startColumn": 54,
+                            "snippet": {
+                              "text": "||"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 9,
+                            "startColumn": 1,
+                            "endLine": 11,
+                            "endColumn": 56,
+                            "charOffset": 138,
+                            "charLength": 172,
+                            "snippet": {
+                              "text": "\tif (  ( isInitializzedd && isActivated && !isDefined ) ||\r\n\t\t  ( isInitializzedd && !isActivated && isDefined ) ||\r\n\t\t  ( isInitializzedd && isActivated && !isDefined )  )"
+                            }
                           }
                         }
                       },
@@ -95,7 +137,21 @@
                           },
                           "region": {
                             "startLine": 16,
-                            "startColumn": 2
+                            "startColumn": 2,
+                            "snippet": {
+                              "text": "return simpleVar;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 15,
+                            "startColumn": 1,
+                            "endLine": 17,
+                            "endColumn": 2,
+                            "charOffset": 338,
+                            "charLength": 23,
+                            "snippet": {
+                              "text": "\r\n\treturn simpleVar;\r\n}"
+                            }
                           }
                         }
                       },
@@ -128,7 +184,21 @@
                 },
                 "region": {
                   "startLine": 28,
-                  "startColumn": 2
+                  "startColumn": 2,
+                  "snippet": {
+                    "text": "return simpleVar;"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 27,
+                  "startColumn": 1,
+                  "endLine": 29,
+                  "endColumn": 2,
+                  "charOffset": 475,
+                  "charLength": 23,
+                  "snippet": {
+                    "text": "\r\n\treturn simpleVar;\r\n}"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6001LongCondition15_Example",
@@ -151,7 +221,21 @@
                           },
                           "region": {
                             "startLine": 21,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "simpleVar;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 20,
+                            "startColumn": 1,
+                            "endLine": 22,
+                            "endColumn": 1,
+                            "charOffset": 401,
+                            "charLength": 20,
+                            "snippet": {
+                              "text": "{\r\n\tint simpleVar;\r\n"
+                            }
                           }
                         }
                       },
@@ -169,7 +253,21 @@
                           },
                           "region": {
                             "startLine": 23,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "!isInitializzedd )"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 22,
+                            "startColumn": 1,
+                            "endLine": 24,
+                            "endColumn": 3,
+                            "charOffset": 421,
+                            "charLength": 30,
+                            "snippet": {
+                              "text": "\r\n\tif ( !isInitializzedd )\r\n\t{"
+                            }
                           }
                         }
                       },
@@ -186,7 +284,21 @@
                           },
                           "region": {
                             "startLine": 28,
-                            "startColumn": 2
+                            "startColumn": 2,
+                            "snippet": {
+                              "text": "return simpleVar;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 27,
+                            "startColumn": 1,
+                            "endLine": 29,
+                            "endColumn": 2,
+                            "charOffset": 475,
+                            "charLength": 23,
+                            "snippet": {
+                              "text": "\r\n\treturn simpleVar;\r\n}"
+                            }
                           }
                         }
                       },
@@ -219,7 +331,21 @@
                 },
                 "region": {
                   "startLine": 40,
-                  "startColumn": 2
+                  "startColumn": 2,
+                  "snippet": {
+                    "text": "return simpleVar;"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 39,
+                  "startColumn": 1,
+                  "endLine": 41,
+                  "endColumn": 2,
+                  "charOffset": 606,
+                  "charLength": 23,
+                  "snippet": {
+                    "text": "\r\n\treturn simpleVar;\r\n}"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6001LongCondition14_Example",
@@ -242,7 +368,21 @@
                           },
                           "region": {
                             "startLine": 33,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "simpleVar;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 32,
+                            "startColumn": 1,
+                            "endLine": 34,
+                            "endColumn": 1,
+                            "charOffset": 538,
+                            "charLength": 20,
+                            "snippet": {
+                              "text": "{\r\n\tint simpleVar;\r\n"
+                            }
                           }
                         }
                       },
@@ -260,7 +400,21 @@
                           },
                           "region": {
                             "startLine": 35,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "!isDefined )"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 34,
+                            "startColumn": 1,
+                            "endLine": 36,
+                            "endColumn": 3,
+                            "charOffset": 558,
+                            "charLength": 24,
+                            "snippet": {
+                              "text": "\r\n\tif ( !isDefined )\r\n\t{"
+                            }
                           }
                         }
                       },
@@ -277,7 +431,21 @@
                           },
                           "region": {
                             "startLine": 40,
-                            "startColumn": 2
+                            "startColumn": 2,
+                            "snippet": {
+                              "text": "return simpleVar;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 39,
+                            "startColumn": 1,
+                            "endLine": 41,
+                            "endColumn": 2,
+                            "charOffset": 606,
+                            "charLength": 23,
+                            "snippet": {
+                              "text": "\r\n\treturn simpleVar;\r\n}"
+                            }
                           }
                         }
                       },

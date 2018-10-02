@@ -31,7 +31,21 @@
                 },
                 "region": {
                   "startLine": 22,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "case 4:\t//@@@Expects:6259"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 21,
+                  "startColumn": 1,
+                  "endLine": 23,
+                  "endColumn": 32,
+                  "charOffset": 644,
+                  "charLength": 86,
+                  "snippet": {
+                    "text": "            break;\r\n        case 4:\t//@@@Expects:6259\r\n            /* Not reachable */"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "f_d",

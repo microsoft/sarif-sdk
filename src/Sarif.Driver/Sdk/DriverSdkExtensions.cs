@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
     {
         public static IDictionary<string, Uri> ConstructUriBaseIdsDictionary(this CommonOptionsBase options)
         {
-            if (options.UriBaseIds == null) { return null; }
+            if (options.UriBaseIds == null || options.UriBaseIds.Count() == 0) { return null; }
 
             IDictionary<string, Uri> uriBaseIdsDictionary = new Dictionary<string, Uri>();
 

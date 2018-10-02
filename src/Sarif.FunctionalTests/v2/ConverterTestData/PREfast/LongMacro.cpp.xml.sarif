@@ -31,7 +31,21 @@
                 },
                 "region": {
                   "startLine": 12,
-                  "startColumn": 2
+                  "startColumn": 2,
+                  "snippet": {
+                    "text": "return simpleVar;"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 11,
+                  "startColumn": 1,
+                  "endLine": 13,
+                  "endColumn": 2,
+                  "charOffset": 184,
+                  "charLength": 23,
+                  "snippet": {
+                    "text": "\r\n\treturn simpleVar;\r\n}"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6001MacroExpansion_Example",
@@ -54,7 +68,21 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "simpleVar;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 4,
+                            "startColumn": 1,
+                            "endLine": 6,
+                            "endColumn": 1,
+                            "charOffset": 106,
+                            "charLength": 20,
+                            "snippet": {
+                              "text": "{\r\n\tint simpleVar;\r\n"
+                            }
                           }
                         }
                       },
@@ -72,7 +100,21 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "SUCCEEDED(hrLongVar) )"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 6,
+                            "startColumn": 1,
+                            "endLine": 8,
+                            "endColumn": 3,
+                            "charOffset": 126,
+                            "charLength": 34,
+                            "snippet": {
+                              "text": "\r\n\tif ( SUCCEEDED(hrLongVar) )\r\n\t{"
+                            }
                           }
                         }
                       },
@@ -89,7 +131,21 @@
                           },
                           "region": {
                             "startLine": 12,
-                            "startColumn": 2
+                            "startColumn": 2,
+                            "snippet": {
+                              "text": "return simpleVar;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 11,
+                            "startColumn": 1,
+                            "endLine": 13,
+                            "endColumn": 2,
+                            "charOffset": 184,
+                            "charLength": 23,
+                            "snippet": {
+                              "text": "\r\n\treturn simpleVar;\r\n}"
+                            }
                           }
                         }
                       },

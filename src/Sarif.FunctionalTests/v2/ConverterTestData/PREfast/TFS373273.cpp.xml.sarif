@@ -34,7 +34,21 @@
                 },
                 "region": {
                   "startLine": 16,
-                  "startColumn": 6
+                  "startColumn": 6,
+                  "snippet": {
+                    "text": "y = data[n];"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 15,
+                  "startColumn": 1,
+                  "endLine": 17,
+                  "endColumn": 1,
+                  "charOffset": 452,
+                  "charLength": 21,
+                  "snippet": {
+                    "text": "\r\n\tint y = data[n];\r\n"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "BadFunctionKvtInNewArray",
@@ -57,7 +71,21 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "n = 5;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 9,
+                            "startColumn": 1,
+                            "endLine": 11,
+                            "endColumn": 26,
+                            "charOffset": 242,
+                            "charLength": 41,
+                            "snippet": {
+                              "text": "{\r\n\tint n = 5;\r\n\tint * data = new int[n];"
+                            }
                           }
                         }
                       },
@@ -75,7 +103,21 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "* data = new int[n];"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 10,
+                            "startColumn": 1,
+                            "endLine": 12,
+                            "endColumn": 15,
+                            "charOffset": 245,
+                            "charLength": 54,
+                            "snippet": {
+                              "text": "\tint n = 5;\r\n\tint * data = new int[n];\r\n\tdata[0] = 42;"
+                            }
                           }
                         }
                       },
@@ -93,7 +135,21 @@
                           },
                           "region": {
                             "startLine": 12,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "= 42;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 11,
+                            "startColumn": 1,
+                            "endLine": 13,
+                            "endColumn": 1,
+                            "charOffset": 258,
+                            "charLength": 43,
+                            "snippet": {
+                              "text": "\tint * data = new int[n];\r\n\tdata[0] = 42;\r\n"
+                            }
                           }
                         }
                       },
@@ -108,7 +164,21 @@
                           },
                           "region": {
                             "startLine": 14,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "* data2 = new int[n]; // BAD 'n' is an In/Out argument to 'new' (declared at c:\\future~1\\future~1\\predefined c++ types (compiler internal):23)"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 13,
+                            "startColumn": 1,
+                            "endLine": 15,
+                            "endColumn": 1,
+                            "charOffset": 301,
+                            "charLength": 151,
+                            "snippet": {
+                              "text": "\r\n\tint * data2 = new int[n]; // BAD 'n' is an In/Out argument to 'new' (declared at c:\\future~1\\future~1\\predefined c++ types (compiler internal):23)\r\n"
+                            }
                           }
                         }
                       },
@@ -125,7 +195,21 @@
                           },
                           "region": {
                             "startLine": 16,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "y = data[n];"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 15,
+                            "startColumn": 1,
+                            "endLine": 17,
+                            "endColumn": 1,
+                            "charOffset": 452,
+                            "charLength": 21,
+                            "snippet": {
+                              "text": "\r\n\tint y = data[n];\r\n"
+                            }
                           }
                         }
                       },
@@ -158,7 +242,21 @@
                 },
                 "region": {
                   "startLine": 42,
-                  "startColumn": 6
+                  "startColumn": 6,
+                  "snippet": {
+                    "text": "y = data[n];"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 41,
+                  "startColumn": 1,
+                  "endLine": 43,
+                  "endColumn": 1,
+                  "charOffset": 837,
+                  "charLength": 21,
+                  "snippet": {
+                    "text": "\r\n\tint y = data[n];\r\n"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "BadFunctionKvtInConstructor",
@@ -181,7 +279,21 @@
                           },
                           "region": {
                             "startLine": 36,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "n = 5;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 35,
+                            "startColumn": 1,
+                            "endLine": 37,
+                            "endColumn": 26,
+                            "charOffset": 676,
+                            "charLength": 41,
+                            "snippet": {
+                              "text": "{\r\n\tint n = 5;\r\n\tint * data = new int[n];"
+                            }
                           }
                         }
                       },
@@ -199,7 +311,21 @@
                           },
                           "region": {
                             "startLine": 37,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "* data = new int[n];"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 36,
+                            "startColumn": 1,
+                            "endLine": 38,
+                            "endColumn": 15,
+                            "charOffset": 679,
+                            "charLength": 54,
+                            "snippet": {
+                              "text": "\tint n = 5;\r\n\tint * data = new int[n];\r\n\tdata[0] = 43;"
+                            }
                           }
                         }
                       },
@@ -217,7 +343,21 @@
                           },
                           "region": {
                             "startLine": 38,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "= 43;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 37,
+                            "startColumn": 1,
+                            "endLine": 39,
+                            "endColumn": 1,
+                            "charOffset": 692,
+                            "charLength": 43,
+                            "snippet": {
+                              "text": "\tint * data = new int[n];\r\n\tdata[0] = 43;\r\n"
+                            }
                           }
                         }
                       },
@@ -232,7 +372,21 @@
                           },
                           "region": {
                             "startLine": 40,
-                            "startColumn": 14
+                            "startColumn": 14,
+                            "snippet": {
+                              "text": "* widget = new SampleClass(&n); // BAD 'n' is an Input argument to 'unknown function'"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 39,
+                            "startColumn": 1,
+                            "endLine": 41,
+                            "endColumn": 1,
+                            "charOffset": 735,
+                            "charLength": 102,
+                            "snippet": {
+                              "text": "\r\n\tSampleClass * widget = new SampleClass(&n); // BAD 'n' is an Input argument to 'unknown function'\r\n"
+                            }
                           }
                         }
                       },
@@ -249,7 +403,21 @@
                           },
                           "region": {
                             "startLine": 42,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "y = data[n];"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 41,
+                            "startColumn": 1,
+                            "endLine": 43,
+                            "endColumn": 1,
+                            "charOffset": 837,
+                            "charLength": 21,
+                            "snippet": {
+                              "text": "\r\n\tint y = data[n];\r\n"
+                            }
                           }
                         }
                       },

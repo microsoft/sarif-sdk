@@ -34,7 +34,21 @@
                 },
                 "region": {
                   "startLine": 13,
-                  "startColumn": 10
+                  "startColumn": 10,
+                  "snippet": {
+                    "text": "= data[b];"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 12,
+                  "startColumn": 1,
+                  "endLine": 14,
+                  "endColumn": 2,
+                  "charOffset": 324,
+                  "charLength": 24,
+                  "snippet": {
+                    "text": "\r\n\t*result = data[b];\r\n}"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "DontRememberOldAlias",
@@ -57,7 +71,21 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "data[10];"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 6,
+                            "startColumn": 1,
+                            "endLine": 8,
+                            "endColumn": 7,
+                            "charOffset": 200,
+                            "charLength": 25,
+                            "snippet": {
+                              "text": "{\r\n\tint data[10];\r\n      "
+                            }
                           }
                         }
                       },
@@ -75,7 +103,21 @@
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "index = 9;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 8,
+                            "startColumn": 1,
+                            "endLine": 10,
+                            "endColumn": 69,
+                            "charOffset": 219,
+                            "charLength": 93,
+                            "snippet": {
+                              "text": "      \r\n\tint index = 9;\r\n\tint b = index; // don't care about this alias ('b' not interesting)"
+                            }
                           }
                         }
                       },
@@ -90,7 +132,21 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "b = index; // don't care about this alias ('b' not interesting)"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 9,
+                            "startColumn": 1,
+                            "endLine": 11,
+                            "endColumn": 9,
+                            "charOffset": 227,
+                            "charLength": 95,
+                            "snippet": {
+                              "text": "\tint index = 9;\r\n\tint b = index; // don't care about this alias ('b' not interesting)\r\n\tb = 10;"
+                            }
                           }
                         }
                       },
@@ -105,7 +161,21 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 4
+                            "startColumn": 4,
+                            "snippet": {
+                              "text": "= 10;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 10,
+                            "startColumn": 1,
+                            "endLine": 12,
+                            "endColumn": 1,
+                            "charOffset": 244,
+                            "charLength": 80,
+                            "snippet": {
+                              "text": "\tint b = index; // don't care about this alias ('b' not interesting)\r\n\tb = 10;\r\n"
+                            }
                           }
                         }
                       },
@@ -120,7 +190,21 @@
                           },
                           "region": {
                             "startLine": 13,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "= data[b];"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 12,
+                            "startColumn": 1,
+                            "endLine": 14,
+                            "endColumn": 2,
+                            "charOffset": 324,
+                            "charLength": 24,
+                            "snippet": {
+                              "text": "\r\n\t*result = data[b];\r\n}"
+                            }
                           }
                         }
                       },
@@ -153,7 +237,21 @@
                 },
                 "region": {
                   "startLine": 13,
-                  "startColumn": 10
+                  "startColumn": 10,
+                  "snippet": {
+                    "text": "= data[b];"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 12,
+                  "startColumn": 1,
+                  "endLine": 14,
+                  "endColumn": 2,
+                  "charOffset": 324,
+                  "charLength": 24,
+                  "snippet": {
+                    "text": "\r\n\t*result = data[b];\r\n}"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "DontRememberOldAlias",
@@ -176,7 +274,21 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "data[10];"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 6,
+                            "startColumn": 1,
+                            "endLine": 8,
+                            "endColumn": 7,
+                            "charOffset": 200,
+                            "charLength": 25,
+                            "snippet": {
+                              "text": "{\r\n\tint data[10];\r\n      "
+                            }
                           }
                         }
                       },
@@ -194,7 +306,21 @@
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "index = 9;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 8,
+                            "startColumn": 1,
+                            "endLine": 10,
+                            "endColumn": 69,
+                            "charOffset": 219,
+                            "charLength": 93,
+                            "snippet": {
+                              "text": "      \r\n\tint index = 9;\r\n\tint b = index; // don't care about this alias ('b' not interesting)"
+                            }
                           }
                         }
                       },
@@ -209,7 +335,21 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "b = index; // don't care about this alias ('b' not interesting)"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 9,
+                            "startColumn": 1,
+                            "endLine": 11,
+                            "endColumn": 9,
+                            "charOffset": 227,
+                            "charLength": 95,
+                            "snippet": {
+                              "text": "\tint index = 9;\r\n\tint b = index; // don't care about this alias ('b' not interesting)\r\n\tb = 10;"
+                            }
                           }
                         }
                       },
@@ -224,7 +364,21 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 4
+                            "startColumn": 4,
+                            "snippet": {
+                              "text": "= 10;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 10,
+                            "startColumn": 1,
+                            "endLine": 12,
+                            "endColumn": 1,
+                            "charOffset": 244,
+                            "charLength": 80,
+                            "snippet": {
+                              "text": "\tint b = index; // don't care about this alias ('b' not interesting)\r\n\tb = 10;\r\n"
+                            }
                           }
                         }
                       },
@@ -242,7 +396,21 @@
                           },
                           "region": {
                             "startLine": 13,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "= data[b];"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 12,
+                            "startColumn": 1,
+                            "endLine": 14,
+                            "endColumn": 2,
+                            "charOffset": 324,
+                            "charLength": 24,
+                            "snippet": {
+                              "text": "\r\n\t*result = data[b];\r\n}"
+                            }
                           }
                         }
                       },
@@ -275,7 +443,21 @@
                 },
                 "region": {
                   "startLine": 32,
-                  "startColumn": 12
+                  "startColumn": 12,
+                  "snippet": {
+                    "text": "= *c;"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 31,
+                  "startColumn": 1,
+                  "endLine": 33,
+                  "endColumn": 4,
+                  "charOffset": 632,
+                  "charLength": 33,
+                  "snippet": {
+                    "text": "\t\t\tb = &y;\r\n\t\t\t*result = *c;\r\n\t\t}"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "RememberOldAlias",
@@ -298,7 +480,21 @@
                           },
                           "region": {
                             "startLine": 18,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "* a = 0;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 17,
+                            "startColumn": 1,
+                            "endLine": 19,
+                            "endColumn": 15,
+                            "charOffset": 403,
+                            "charLength": 32,
+                            "snippet": {
+                              "text": "{\r\n\tint * a = 0;\r\n\tint * b = &x;"
+                            }
                           }
                         }
                       },
@@ -316,7 +512,21 @@
                           },
                           "region": {
                             "startLine": 19,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "* b = &x;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 18,
+                            "startColumn": 1,
+                            "endLine": 20,
+                            "endColumn": 15,
+                            "charOffset": 406,
+                            "charLength": 45,
+                            "snippet": {
+                              "text": "\tint * a = 0;\r\n\tint * b = &x;\r\n\tint * c = &y;"
+                            }
                           }
                         }
                       },
@@ -331,7 +541,21 @@
                           },
                           "region": {
                             "startLine": 20,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "* c = &y;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 19,
+                            "startColumn": 1,
+                            "endLine": 21,
+                            "endColumn": 19,
+                            "charOffset": 421,
+                            "charLength": 50,
+                            "snippet": {
+                              "text": "\tint * b = &x;\r\n\tint * c = &y;\r\n\tbool flag = true;"
+                            }
                           }
                         }
                       },
@@ -346,7 +570,21 @@
                           },
                           "region": {
                             "startLine": 21,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "flag = true;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 20,
+                            "startColumn": 1,
+                            "endLine": 22,
+                            "endColumn": 1,
+                            "charOffset": 437,
+                            "charLength": 36,
+                            "snippet": {
+                              "text": "\tint * c = &y;\r\n\tbool flag = true;\r\n"
+                            }
                           }
                         }
                       },
@@ -361,7 +599,21 @@
                           },
                           "region": {
                             "startLine": 23,
-                            "startColumn": 11
+                            "startColumn": 11,
+                            "snippet": {
+                              "text": "i=0; i < 2; i++)"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 22,
+                            "startColumn": 1,
+                            "endLine": 24,
+                            "endColumn": 3,
+                            "charOffset": 473,
+                            "charLength": 32,
+                            "snippet": {
+                              "text": "\r\n\tfor (int i=0; i < 2; i++)\r\n\t{"
+                            }
                           }
                         }
                       },
@@ -376,7 +628,21 @@
                           },
                           "region": {
                             "startLine": 23,
-                            "startColumn": 18
+                            "startColumn": 18,
+                            "snippet": {
+                              "text": "< 2; i++)"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 22,
+                            "startColumn": 1,
+                            "endLine": 24,
+                            "endColumn": 3,
+                            "charOffset": 473,
+                            "charLength": 32,
+                            "snippet": {
+                              "text": "\r\n\tfor (int i=0; i < 2; i++)\r\n\t{"
+                            }
                           }
                         }
                       },
@@ -393,7 +659,21 @@
                           },
                           "region": {
                             "startLine": 25,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "flag) {"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 24,
+                            "startColumn": 1,
+                            "endLine": 26,
+                            "endColumn": 56,
+                            "charOffset": 503,
+                            "charLength": 74,
+                            "snippet": {
+                              "text": "\t{\r\n\t\tif (flag) {\r\n\t\t\tb = a; // care about this alias ('b' is interesting)"
+                            }
                           }
                         }
                       },
@@ -410,7 +690,21 @@
                           },
                           "region": {
                             "startLine": 26,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "= a; // care about this alias ('b' is interesting)"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 25,
+                            "startColumn": 1,
+                            "endLine": 27,
+                            "endColumn": 10,
+                            "charOffset": 507,
+                            "charLength": 81,
+                            "snippet": {
+                              "text": "\t\tif (flag) {\r\n\t\t\tb = a; // care about this alias ('b' is interesting)\r\n\t\t\tc = b;"
+                            }
                           }
                         }
                       },
@@ -428,7 +722,21 @@
                           },
                           "region": {
                             "startLine": 27,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "= b;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 26,
+                            "startColumn": 1,
+                            "endLine": 28,
+                            "endColumn": 17,
+                            "charOffset": 522,
+                            "charLength": 84,
+                            "snippet": {
+                              "text": "\t\t\tb = a; // care about this alias ('b' is interesting)\r\n\t\t\tc = b;\r\n\t\t\tflag = false;"
+                            }
                           }
                         }
                       },
@@ -446,7 +754,21 @@
                           },
                           "region": {
                             "startLine": 28,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "= false;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 27,
+                            "startColumn": 1,
+                            "endLine": 29,
+                            "endColumn": 11,
+                            "charOffset": 579,
+                            "charLength": 39,
+                            "snippet": {
+                              "text": "\t\t\tc = b;\r\n\t\t\tflag = false;\r\n\t\t} else {"
+                            }
                           }
                         }
                       },
@@ -461,7 +783,21 @@
                           },
                           "region": {
                             "startLine": 23,
-                            "startColumn": 24
+                            "startColumn": 24,
+                            "snippet": {
+                              "text": "++)"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 22,
+                            "startColumn": 1,
+                            "endLine": 24,
+                            "endColumn": 3,
+                            "charOffset": 473,
+                            "charLength": 32,
+                            "snippet": {
+                              "text": "\r\n\tfor (int i=0; i < 2; i++)\r\n\t{"
+                            }
                           }
                         }
                       },
@@ -476,7 +812,21 @@
                           },
                           "region": {
                             "startLine": 23,
-                            "startColumn": 18
+                            "startColumn": 18,
+                            "snippet": {
+                              "text": "< 2; i++)"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 22,
+                            "startColumn": 1,
+                            "endLine": 24,
+                            "endColumn": 3,
+                            "charOffset": 473,
+                            "charLength": 32,
+                            "snippet": {
+                              "text": "\r\n\tfor (int i=0; i < 2; i++)\r\n\t{"
+                            }
                           }
                         }
                       },
@@ -493,7 +843,21 @@
                           },
                           "region": {
                             "startLine": 25,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "flag) {"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 24,
+                            "startColumn": 1,
+                            "endLine": 26,
+                            "endColumn": 56,
+                            "charOffset": 503,
+                            "charLength": 74,
+                            "snippet": {
+                              "text": "\t{\r\n\t\tif (flag) {\r\n\t\t\tb = a; // care about this alias ('b' is interesting)"
+                            }
                           }
                         }
                       },
@@ -510,7 +874,21 @@
                           },
                           "region": {
                             "startLine": 30,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "= &x;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 29,
+                            "startColumn": 1,
+                            "endLine": 31,
+                            "endColumn": 11,
+                            "charOffset": 608,
+                            "charLength": 34,
+                            "snippet": {
+                              "text": "\t\t} else {\r\n\t\t\ta = &x;\r\n\t\t\tb = &y;"
+                            }
                           }
                         }
                       },
@@ -525,7 +903,21 @@
                           },
                           "region": {
                             "startLine": 31,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "= &y;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 30,
+                            "startColumn": 1,
+                            "endLine": 32,
+                            "endColumn": 17,
+                            "charOffset": 620,
+                            "charLength": 40,
+                            "snippet": {
+                              "text": "\t\t\ta = &x;\r\n\t\t\tb = &y;\r\n\t\t\t*result = *c;"
+                            }
                           }
                         }
                       },
@@ -540,7 +932,21 @@
                           },
                           "region": {
                             "startLine": 32,
-                            "startColumn": 12
+                            "startColumn": 12,
+                            "snippet": {
+                              "text": "= *c;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 31,
+                            "startColumn": 1,
+                            "endLine": 33,
+                            "endColumn": 4,
+                            "charOffset": 632,
+                            "charLength": 33,
+                            "snippet": {
+                              "text": "\t\t\tb = &y;\r\n\t\t\t*result = *c;\r\n\t\t}"
+                            }
                           }
                         }
                       },

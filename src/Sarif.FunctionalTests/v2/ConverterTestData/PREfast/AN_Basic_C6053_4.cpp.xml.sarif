@@ -34,7 +34,21 @@
                 },
                 "region": {
                   "startLine": 13,
-                  "startColumn": 14
+                  "startColumn": 14,
+                  "snippet": {
+                    "text": "(x);"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 12,
+                  "startColumn": 1,
+                  "endLine": 14,
+                  "endColumn": 2,
+                  "charOffset": 170,
+                  "charLength": 22,
+                  "snippet": {
+                    "text": "\r\n    RequiresZ(x);\r\n}"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "BasicC6053",
@@ -57,7 +71,21 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 13
+                            "startColumn": 13,
+                            "snippet": {
+                              "text": "(x);"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 10,
+                            "startColumn": 1,
+                            "endLine": 12,
+                            "endColumn": 1,
+                            "charOffset": 149,
+                            "charLength": 21,
+                            "snippet": {
+                              "text": "{\r\n    DoesNotZ(x);\r\n"
+                            }
                           }
                         }
                       },
@@ -75,7 +103,21 @@
                           },
                           "region": {
                             "startLine": 13,
-                            "startColumn": 14
+                            "startColumn": 14,
+                            "snippet": {
+                              "text": "(x);"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 12,
+                            "startColumn": 1,
+                            "endLine": 14,
+                            "endColumn": 2,
+                            "charOffset": 170,
+                            "charLength": 22,
+                            "snippet": {
+                              "text": "\r\n    RequiresZ(x);\r\n}"
+                            }
                           }
                         }
                       },
@@ -92,7 +134,21 @@
                           },
                           "region": {
                             "startLine": 13,
-                            "startColumn": 14
+                            "startColumn": 14,
+                            "snippet": {
+                              "text": "(x);"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 12,
+                            "startColumn": 1,
+                            "endLine": 14,
+                            "endColumn": 2,
+                            "charOffset": 170,
+                            "charLength": 22,
+                            "snippet": {
+                              "text": "\r\n    RequiresZ(x);\r\n}"
+                            }
                           }
                         }
                       },
@@ -125,7 +181,21 @@
                 },
                 "region": {
                   "startLine": 21,
-                  "startColumn": 14
+                  "startColumn": 14,
+                  "snippet": {
+                    "text": "(a);"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 20,
+                  "startColumn": 1,
+                  "endLine": 22,
+                  "endColumn": 1,
+                  "charOffset": 244,
+                  "charLength": 21,
+                  "snippet": {
+                    "text": "\r\n    RequiresZ(a);\r\n"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "BasicC6054",
@@ -148,7 +218,21 @@
                           },
                           "region": {
                             "startLine": 19,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "a[5] = {'a'};"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 18,
+                            "startColumn": 1,
+                            "endLine": 20,
+                            "endColumn": 1,
+                            "charOffset": 217,
+                            "charLength": 27,
+                            "snippet": {
+                              "text": "{\r\n    char a[5] = {'a'};\r\n"
+                            }
                           }
                         }
                       },
@@ -166,7 +250,21 @@
                           },
                           "region": {
                             "startLine": 21,
-                            "startColumn": 14
+                            "startColumn": 14,
+                            "snippet": {
+                              "text": "(a);"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 20,
+                            "startColumn": 1,
+                            "endLine": 22,
+                            "endColumn": 1,
+                            "charOffset": 244,
+                            "charLength": 21,
+                            "snippet": {
+                              "text": "\r\n    RequiresZ(a);\r\n"
+                            }
                           }
                         }
                       },
@@ -183,7 +281,21 @@
                           },
                           "region": {
                             "startLine": 21,
-                            "startColumn": 14
+                            "startColumn": 14,
+                            "snippet": {
+                              "text": "(a);"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 20,
+                            "startColumn": 1,
+                            "endLine": 22,
+                            "endColumn": 1,
+                            "charOffset": 244,
+                            "charLength": 21,
+                            "snippet": {
+                              "text": "\r\n    RequiresZ(a);\r\n"
+                            }
                           }
                         }
                       },

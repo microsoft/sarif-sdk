@@ -31,7 +31,21 @@
                 },
                 "region": {
                   "startLine": 10,
-                  "startColumn": 10
+                  "startColumn": 10,
+                  "snippet": {
+                    "text": "(a, \"this string is long\", sizeof (a));\t//@@@Expects: 6059"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 9,
+                  "startColumn": 1,
+                  "endLine": 11,
+                  "endColumn": 2,
+                  "charOffset": 117,
+                  "charLength": 97,
+                  "snippet": {
+                    "text": "  strcpy(a, b);\t\t\t\t\t\t\t\t\t\t\r\n  strncat(a, \"this string is long\", sizeof (a));\t//@@@Expects: 6059\r\n}"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "foo",
@@ -54,7 +68,21 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "a[35];"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 5,
+                            "startColumn": 1,
+                            "endLine": 7,
+                            "endColumn": 39,
+                            "charOffset": 55,
+                            "charLength": 56,
+                            "snippet": {
+                              "text": "{\r\n  char a[35];\r\n  char b[10] = {'a','b','c','d','\\0'};"
+                            }
                           }
                         }
                       },
@@ -72,7 +100,21 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "b[10] = {'a','b','c','d','\\0'};"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 6,
+                            "startColumn": 1,
+                            "endLine": 8,
+                            "endColumn": 3,
+                            "charOffset": 58,
+                            "charLength": 57,
+                            "snippet": {
+                              "text": "  char a[35];\r\n  char b[10] = {'a','b','c','d','\\0'};\r\n  "
+                            }
                           }
                         }
                       },
@@ -87,7 +129,21 @@
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "(a, b);\t\t\t\t\t\t\t\t\t\t"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 8,
+                            "startColumn": 1,
+                            "endLine": 10,
+                            "endColumn": 68,
+                            "charOffset": 113,
+                            "charLength": 98,
+                            "snippet": {
+                              "text": "  \r\n  strcpy(a, b);\t\t\t\t\t\t\t\t\t\t\r\n  strncat(a, \"this string is long\", sizeof (a));\t//@@@Expects: 6059"
+                            }
                           }
                         }
                       },
@@ -104,7 +160,21 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "(a, \"this string is long\", sizeof (a));\t//@@@Expects: 6059"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 9,
+                            "startColumn": 1,
+                            "endLine": 11,
+                            "endColumn": 2,
+                            "charOffset": 117,
+                            "charLength": 97,
+                            "snippet": {
+                              "text": "  strcpy(a, b);\t\t\t\t\t\t\t\t\t\t\r\n  strncat(a, \"this string is long\", sizeof (a));\t//@@@Expects: 6059\r\n}"
+                            }
                           }
                         }
                       },
@@ -121,7 +191,21 @@
                           },
                           "region": {
                             "startLine": 10,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "(a, \"this string is long\", sizeof (a));\t//@@@Expects: 6059"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 9,
+                            "startColumn": 1,
+                            "endLine": 11,
+                            "endColumn": 2,
+                            "charOffset": 117,
+                            "charLength": 97,
+                            "snippet": {
+                              "text": "  strcpy(a, b);\t\t\t\t\t\t\t\t\t\t\r\n  strncat(a, \"this string is long\", sizeof (a));\t//@@@Expects: 6059\r\n}"
+                            }
                           }
                         }
                       },

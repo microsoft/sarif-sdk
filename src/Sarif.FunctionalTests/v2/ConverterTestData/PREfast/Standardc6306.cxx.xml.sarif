@@ -31,7 +31,21 @@
                 },
                 "region": {
                   "startLine": 26,
-                  "startColumn": 11
+                  "startColumn": 11,
+                  "snippet": {
+                    "text": "(\"%d\", v); //@@@Expects:6306; 6273"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 25,
+                  "startColumn": 1,
+                  "endLine": 27,
+                  "endColumn": 15,
+                  "charOffset": 706,
+                  "charLength": 72,
+                  "snippet": {
+                    "text": "\t//code...\r\n    printf(\"%d\", v); //@@@Expects:6306; 6273\r\n    va_end(v);"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "fd",
@@ -54,7 +68,21 @@
                 },
                 "region": {
                   "startLine": 26,
-                  "startColumn": 11
+                  "startColumn": 11,
+                  "snippet": {
+                    "text": "(\"%d\", v); //@@@Expects:6306; 6273"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 25,
+                  "startColumn": 1,
+                  "endLine": 27,
+                  "endColumn": 15,
+                  "charOffset": 706,
+                  "charLength": 72,
+                  "snippet": {
+                    "text": "\t//code...\r\n    printf(\"%d\", v); //@@@Expects:6306; 6273\r\n    va_end(v);"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "fd",

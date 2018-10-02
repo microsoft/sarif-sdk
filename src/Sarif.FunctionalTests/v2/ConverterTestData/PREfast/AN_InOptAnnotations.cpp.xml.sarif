@@ -31,7 +31,21 @@
                 },
                 "region": {
                   "startLine": 7,
-                  "startColumn": 13
+                  "startColumn": 13,
+                  "snippet": {
+                    "text": "result = *source;"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 6,
+                  "startColumn": 1,
+                  "endLine": 8,
+                  "endColumn": 2,
+                  "charOffset": 86,
+                  "charLength": 47,
+                  "snippet": {
+                    "text": "    if (flag)\r\n        int result = *source;\r\n}"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "DereferenceParameter",
@@ -54,7 +68,21 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 26
+                            "startColumn": 26,
+                            "snippet": {
+                              "text": "(_In_opt_ int * source, bool flag)"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 3,
+                            "startColumn": 1,
+                            "endLine": 5,
+                            "endColumn": 2,
+                            "charOffset": 20,
+                            "charLength": 64,
+                            "snippet": {
+                              "text": "\r\nvoid DereferenceParameter(_In_opt_ int * source, bool flag)\r\n{"
+                            }
                           }
                         }
                       },
@@ -72,7 +100,21 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "flag)"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 5,
+                            "startColumn": 1,
+                            "endLine": 7,
+                            "endColumn": 30,
+                            "charOffset": 83,
+                            "charLength": 47,
+                            "snippet": {
+                              "text": "{\r\n    if (flag)\r\n        int result = *source;"
+                            }
                           }
                         }
                       },
@@ -89,7 +131,21 @@
                           },
                           "region": {
                             "startLine": 7,
-                            "startColumn": 13
+                            "startColumn": 13,
+                            "snippet": {
+                              "text": "result = *source;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 6,
+                            "startColumn": 1,
+                            "endLine": 8,
+                            "endColumn": 2,
+                            "charOffset": 86,
+                            "charLength": 47,
+                            "snippet": {
+                              "text": "    if (flag)\r\n        int result = *source;\r\n}"
+                            }
                           }
                         }
                       },

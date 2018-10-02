@@ -64,7 +64,21 @@
                 },
                 "region": {
                   "startLine": 11,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "= 42;"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 10,
+                  "startColumn": 1,
+                  "endLine": 12,
+                  "endColumn": 3,
+                  "charOffset": 200,
+                  "charLength": 21,
+                  "snippet": {
+                    "text": "\t{\r\n\t\t*data = 42;\r\n\t}"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "HResultSucceeded",
@@ -87,7 +101,21 @@
                           },
                           "region": {
                             "startLine": 8,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "* data = 0;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 7,
+                            "startColumn": 1,
+                            "endLine": 9,
+                            "endColumn": 20,
+                            "charOffset": 157,
+                            "charLength": 41,
+                            "snippet": {
+                              "text": "{\r\n\tlong * data = 0;\r\n\tif (SUCCEEDED(hr))"
+                            }
                           }
                         }
                       },
@@ -105,7 +133,21 @@
                           },
                           "region": {
                             "startLine": 9,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "SUCCEEDED(hr))"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 8,
+                            "startColumn": 1,
+                            "endLine": 10,
+                            "endColumn": 3,
+                            "charOffset": 160,
+                            "charLength": 42,
+                            "snippet": {
+                              "text": "\tlong * data = 0;\r\n\tif (SUCCEEDED(hr))\r\n\t{"
+                            }
                           }
                         }
                       },
@@ -122,7 +164,21 @@
                           },
                           "region": {
                             "startLine": 11,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "= 42;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 10,
+                            "startColumn": 1,
+                            "endLine": 12,
+                            "endColumn": 3,
+                            "charOffset": 200,
+                            "charLength": 21,
+                            "snippet": {
+                              "text": "\t{\r\n\t\t*data = 42;\r\n\t}"
+                            }
                           }
                         }
                       },
@@ -155,7 +211,21 @@
                 },
                 "region": {
                   "startLine": 24,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "= 42;"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 23,
+                  "startColumn": 1,
+                  "endLine": 25,
+                  "endColumn": 3,
+                  "charOffset": 349,
+                  "charLength": 21,
+                  "snippet": {
+                    "text": "\t{\r\n\t\t*data = 42;\r\n\t}"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "HResultSucceeded2",
@@ -178,7 +248,21 @@
                           },
                           "region": {
                             "startLine": 17,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "* data = 0;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 16,
+                            "startColumn": 1,
+                            "endLine": 18,
+                            "endColumn": 25,
+                            "charOffset": 272,
+                            "charLength": 46,
+                            "snippet": {
+                              "text": "{\r\n\tlong * data = 0;\r\n\tif (SUCCEEDED(hr) && b)"
+                            }
                           }
                         }
                       },
@@ -196,7 +280,21 @@
                           },
                           "region": {
                             "startLine": 18,
-                            "startColumn": 20
+                            "startColumn": 20,
+                            "snippet": {
+                              "text": "&& b)"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 17,
+                            "startColumn": 1,
+                            "endLine": 19,
+                            "endColumn": 3,
+                            "charOffset": 275,
+                            "charLength": 47,
+                            "snippet": {
+                              "text": "\tlong * data = 0;\r\n\tif (SUCCEEDED(hr) && b)\r\n\t{"
+                            }
                           }
                         }
                       },
@@ -213,7 +311,21 @@
                           },
                           "region": {
                             "startLine": 24,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "= 42;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 23,
+                            "startColumn": 1,
+                            "endLine": 25,
+                            "endColumn": 3,
+                            "charOffset": 349,
+                            "charLength": 21,
+                            "snippet": {
+                              "text": "\t{\r\n\t\t*data = 42;\r\n\t}"
+                            }
                           }
                         }
                       },
@@ -246,7 +358,21 @@
                 },
                 "region": {
                   "startLine": 33,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "= 42;"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 32,
+                  "startColumn": 1,
+                  "endLine": 34,
+                  "endColumn": 3,
+                  "charOffset": 484,
+                  "charLength": 21,
+                  "snippet": {
+                    "text": "\t{\r\n\t\t*data = 42;\r\n\t}"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "HResultSucceeded3",
@@ -269,7 +395,21 @@
                           },
                           "region": {
                             "startLine": 30,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "* data = 0;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 29,
+                            "startColumn": 1,
+                            "endLine": 31,
+                            "endColumn": 32,
+                            "charOffset": 429,
+                            "charLength": 53,
+                            "snippet": {
+                              "text": "{\r\n\tlong * data = 0;\r\n\tif ((SUCCEEDED(hr) || b) && c)"
+                            }
                           }
                         }
                       },
@@ -287,7 +427,21 @@
                           },
                           "region": {
                             "startLine": 31,
-                            "startColumn": 27
+                            "startColumn": 27,
+                            "snippet": {
+                              "text": "&& c)"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 30,
+                            "startColumn": 1,
+                            "endLine": 32,
+                            "endColumn": 3,
+                            "charOffset": 432,
+                            "charLength": 54,
+                            "snippet": {
+                              "text": "\tlong * data = 0;\r\n\tif ((SUCCEEDED(hr) || b) && c)\r\n\t{"
+                            }
                           }
                         }
                       },
@@ -304,7 +458,21 @@
                           },
                           "region": {
                             "startLine": 33,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "= 42;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 32,
+                            "startColumn": 1,
+                            "endLine": 34,
+                            "endColumn": 3,
+                            "charOffset": 484,
+                            "charLength": 21,
+                            "snippet": {
+                              "text": "\t{\r\n\t\t*data = 42;\r\n\t}"
+                            }
                           }
                         }
                       },
@@ -337,7 +505,21 @@
                 },
                 "region": {
                   "startLine": 42,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "= 42;"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 41,
+                  "startColumn": 1,
+                  "endLine": 43,
+                  "endColumn": 3,
+                  "charOffset": 606,
+                  "charLength": 21,
+                  "snippet": {
+                    "text": "\t{\r\n\t\t*data = 42;\r\n\t}"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "HResultSucceeded4",
@@ -360,7 +542,21 @@
                           },
                           "region": {
                             "startLine": 39,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "* data = 0;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 38,
+                            "startColumn": 1,
+                            "endLine": 40,
+                            "endColumn": 29,
+                            "charOffset": 554,
+                            "charLength": 50,
+                            "snippet": {
+                              "text": "{\r\n\tlong * data = 0;\r\n\tif ((!SUCCEEDED(_hResult)))"
+                            }
                           }
                         }
                       },
@@ -378,7 +574,21 @@
                           },
                           "region": {
                             "startLine": 40,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "!SUCCEEDED(_hResult)))"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 39,
+                            "startColumn": 1,
+                            "endLine": 41,
+                            "endColumn": 3,
+                            "charOffset": 557,
+                            "charLength": 51,
+                            "snippet": {
+                              "text": "\tlong * data = 0;\r\n\tif ((!SUCCEEDED(_hResult)))\r\n\t{"
+                            }
                           }
                         }
                       },
@@ -395,7 +605,21 @@
                           },
                           "region": {
                             "startLine": 42,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "= 42;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 41,
+                            "startColumn": 1,
+                            "endLine": 43,
+                            "endColumn": 3,
+                            "charOffset": 606,
+                            "charLength": 21,
+                            "snippet": {
+                              "text": "\t{\r\n\t\t*data = 42;\r\n\t}"
+                            }
                           }
                         }
                       },
@@ -428,7 +652,21 @@
                 },
                 "region": {
                   "startLine": 51,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "= 42;"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 50,
+                  "startColumn": 1,
+                  "endLine": 52,
+                  "endColumn": 3,
+                  "charOffset": 706,
+                  "charLength": 21,
+                  "snippet": {
+                    "text": "\t{\r\n\t\t*data = 42;\r\n\t}"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "HResultFailed",
@@ -451,7 +689,21 @@
                           },
                           "region": {
                             "startLine": 48,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "* data = 0;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 47,
+                            "startColumn": 1,
+                            "endLine": 49,
+                            "endColumn": 17,
+                            "charOffset": 666,
+                            "charLength": 38,
+                            "snippet": {
+                              "text": "{\r\n\tlong * data = 0;\r\n\tif (FAILED(hr))"
+                            }
                           }
                         }
                       },
@@ -469,7 +721,21 @@
                           },
                           "region": {
                             "startLine": 49,
-                            "startColumn": 6
+                            "startColumn": 6,
+                            "snippet": {
+                              "text": "FAILED(hr))"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 48,
+                            "startColumn": 1,
+                            "endLine": 50,
+                            "endColumn": 3,
+                            "charOffset": 669,
+                            "charLength": 39,
+                            "snippet": {
+                              "text": "\tlong * data = 0;\r\n\tif (FAILED(hr))\r\n\t{"
+                            }
                           }
                         }
                       },
@@ -486,7 +752,21 @@
                           },
                           "region": {
                             "startLine": 51,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "= 42;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 50,
+                            "startColumn": 1,
+                            "endLine": 52,
+                            "endColumn": 3,
+                            "charOffset": 706,
+                            "charLength": 21,
+                            "snippet": {
+                              "text": "\t{\r\n\t\t*data = 42;\r\n\t}"
+                            }
                           }
                         }
                       },
@@ -519,7 +799,21 @@
                 },
                 "region": {
                   "startLine": 64,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "= 42;"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 63,
+                  "startColumn": 1,
+                  "endLine": 65,
+                  "endColumn": 3,
+                  "charOffset": 866,
+                  "charLength": 21,
+                  "snippet": {
+                    "text": "\t{\r\n\t\t*data = 42;\r\n\t}"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "HResultFailed2",
@@ -542,7 +836,21 @@
                           },
                           "region": {
                             "startLine": 57,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "* data = 0;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 56,
+                            "startColumn": 1,
+                            "endLine": 58,
+                            "endColumn": 39,
+                            "charOffset": 775,
+                            "charLength": 60,
+                            "snippet": {
+                              "text": "{\r\n\tlong * data = 0;\r\n\tif (FAILED(hr) && b || SUCCEEDED(hr))"
+                            }
                           }
                         }
                       },
@@ -560,7 +868,21 @@
                           },
                           "region": {
                             "startLine": 58,
-                            "startColumn": 22
+                            "startColumn": 22,
+                            "snippet": {
+                              "text": "|| SUCCEEDED(hr))"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 57,
+                            "startColumn": 1,
+                            "endLine": 59,
+                            "endColumn": 3,
+                            "charOffset": 778,
+                            "charLength": 61,
+                            "snippet": {
+                              "text": "\tlong * data = 0;\r\n\tif (FAILED(hr) && b || SUCCEEDED(hr))\r\n\t{"
+                            }
                           }
                         }
                       },
@@ -577,7 +899,21 @@
                           },
                           "region": {
                             "startLine": 64,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "= 42;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 63,
+                            "startColumn": 1,
+                            "endLine": 65,
+                            "endColumn": 3,
+                            "charOffset": 866,
+                            "charLength": 21,
+                            "snippet": {
+                              "text": "\t{\r\n\t\t*data = 42;\r\n\t}"
+                            }
                           }
                         }
                       },
@@ -610,7 +946,21 @@
                 },
                 "region": {
                   "startLine": 73,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "= 42;"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 72,
+                  "startColumn": 1,
+                  "endLine": 74,
+                  "endColumn": 3,
+                  "charOffset": 999,
+                  "charLength": 21,
+                  "snippet": {
+                    "text": "\t{\r\n\t\t*data = 42;\r\n\t}"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "HResultFailed3",
@@ -633,7 +983,21 @@
                           },
                           "region": {
                             "startLine": 70,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "* data = 0;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 69,
+                            "startColumn": 1,
+                            "endLine": 71,
+                            "endColumn": 31,
+                            "charOffset": 945,
+                            "charLength": 52,
+                            "snippet": {
+                              "text": "{\r\n\tlong * data = 0;\r\n\tif ((FAILED(Hr_2) || b) && c)"
+                            }
                           }
                         }
                       },
@@ -651,7 +1015,21 @@
                           },
                           "region": {
                             "startLine": 71,
-                            "startColumn": 26
+                            "startColumn": 26,
+                            "snippet": {
+                              "text": "&& c)"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 70,
+                            "startColumn": 1,
+                            "endLine": 72,
+                            "endColumn": 3,
+                            "charOffset": 948,
+                            "charLength": 53,
+                            "snippet": {
+                              "text": "\tlong * data = 0;\r\n\tif ((FAILED(Hr_2) || b) && c)\r\n\t{"
+                            }
                           }
                         }
                       },
@@ -668,7 +1046,21 @@
                           },
                           "region": {
                             "startLine": 73,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "= 42;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 72,
+                            "startColumn": 1,
+                            "endLine": 74,
+                            "endColumn": 3,
+                            "charOffset": 999,
+                            "charLength": 21,
+                            "snippet": {
+                              "text": "\t{\r\n\t\t*data = 42;\r\n\t}"
+                            }
                           }
                         }
                       },
@@ -701,7 +1093,21 @@
                 },
                 "region": {
                   "startLine": 82,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "= 42;"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 81,
+                  "startColumn": 1,
+                  "endLine": 83,
+                  "endColumn": 3,
+                  "charOffset": 1103,
+                  "charLength": 21,
+                  "snippet": {
+                    "text": "\t{\r\n\t\t*data = 42;\r\n\t}"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "HResultFailed4",
@@ -724,7 +1130,21 @@
                           },
                           "region": {
                             "startLine": 79,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "* data = 0;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 78,
+                            "startColumn": 1,
+                            "endLine": 80,
+                            "endColumn": 20,
+                            "charOffset": 1060,
+                            "charLength": 41,
+                            "snippet": {
+                              "text": "{\r\n\tlong * data = 0;\r\n\tif ((!FAILED(hr)))"
+                            }
                           }
                         }
                       },
@@ -742,7 +1162,21 @@
                           },
                           "region": {
                             "startLine": 80,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "!FAILED(hr)))"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 79,
+                            "startColumn": 1,
+                            "endLine": 81,
+                            "endColumn": 3,
+                            "charOffset": 1063,
+                            "charLength": 42,
+                            "snippet": {
+                              "text": "\tlong * data = 0;\r\n\tif ((!FAILED(hr)))\r\n\t{"
+                            }
                           }
                         }
                       },
@@ -759,7 +1193,21 @@
                           },
                           "region": {
                             "startLine": 82,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "= 42;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 81,
+                            "startColumn": 1,
+                            "endLine": 83,
+                            "endColumn": 3,
+                            "charOffset": 1103,
+                            "charLength": 21,
+                            "snippet": {
+                              "text": "\t{\r\n\t\t*data = 42;\r\n\t}"
+                            }
                           }
                         }
                       },
@@ -792,7 +1240,21 @@
                 },
                 "region": {
                   "startLine": 91,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "= 42;"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 90,
+                  "startColumn": 1,
+                  "endLine": 92,
+                  "endColumn": 3,
+                  "charOffset": 1206,
+                  "charLength": 21,
+                  "snippet": {
+                    "text": "\t{\r\n\t\t*data = 42;\r\n\t}"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "HResultSFalse",
@@ -815,7 +1277,21 @@
                           },
                           "region": {
                             "startLine": 88,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "* data = 0;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 87,
+                            "startColumn": 1,
+                            "endLine": 89,
+                            "endColumn": 20,
+                            "charOffset": 1163,
+                            "charLength": 41,
+                            "snippet": {
+                              "text": "{\r\n\tlong * data = 0;\r\n\tif (hr == S_FALSE)"
+                            }
                           }
                         }
                       },
@@ -833,7 +1309,21 @@
                           },
                           "region": {
                             "startLine": 89,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "== S_FALSE)"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 88,
+                            "startColumn": 1,
+                            "endLine": 90,
+                            "endColumn": 3,
+                            "charOffset": 1166,
+                            "charLength": 42,
+                            "snippet": {
+                              "text": "\tlong * data = 0;\r\n\tif (hr == S_FALSE)\r\n\t{"
+                            }
                           }
                         }
                       },
@@ -850,7 +1340,21 @@
                           },
                           "region": {
                             "startLine": 91,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "= 42;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 90,
+                            "startColumn": 1,
+                            "endLine": 92,
+                            "endColumn": 3,
+                            "charOffset": 1206,
+                            "charLength": 21,
+                            "snippet": {
+                              "text": "\t{\r\n\t\t*data = 42;\r\n\t}"
+                            }
                           }
                         }
                       },
@@ -883,7 +1387,21 @@
                 },
                 "region": {
                   "startLine": 100,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "= 42;"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 99,
+                  "startColumn": 1,
+                  "endLine": 101,
+                  "endColumn": 3,
+                  "charOffset": 1338,
+                  "charLength": 21,
+                  "snippet": {
+                    "text": "\t{\r\n\t\t*data = 42;\r\n\t}"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "HResultSFalse2",
@@ -906,7 +1424,21 @@
                           },
                           "region": {
                             "startLine": 97,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "* data = 0;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 96,
+                            "startColumn": 1,
+                            "endLine": 98,
+                            "endColumn": 32,
+                            "charOffset": 1283,
+                            "charLength": 53,
+                            "snippet": {
+                              "text": "{\r\n\tlong * data = 0;\r\n\tif (b && (c || S_FALSE == hr))"
+                            }
                           }
                         }
                       },
@@ -924,7 +1456,21 @@
                           },
                           "region": {
                             "startLine": 98,
-                            "startColumn": 8
+                            "startColumn": 8,
+                            "snippet": {
+                              "text": "&& (c || S_FALSE == hr))"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 97,
+                            "startColumn": 1,
+                            "endLine": 99,
+                            "endColumn": 3,
+                            "charOffset": 1286,
+                            "charLength": 54,
+                            "snippet": {
+                              "text": "\tlong * data = 0;\r\n\tif (b && (c || S_FALSE == hr))\r\n\t{"
+                            }
                           }
                         }
                       },
@@ -941,7 +1487,21 @@
                           },
                           "region": {
                             "startLine": 100,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "= 42;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 99,
+                            "startColumn": 1,
+                            "endLine": 101,
+                            "endColumn": 3,
+                            "charOffset": 1338,
+                            "charLength": 21,
+                            "snippet": {
+                              "text": "\t{\r\n\t\t*data = 42;\r\n\t}"
+                            }
                           }
                         }
                       },
@@ -974,7 +1534,21 @@
                 },
                 "region": {
                   "startLine": 109,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "= 42;"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 108,
+                  "startColumn": 1,
+                  "endLine": 110,
+                  "endColumn": 3,
+                  "charOffset": 1435,
+                  "charLength": 21,
+                  "snippet": {
+                    "text": "\t{\r\n\t\t*data = 42;\r\n\t}"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "HResultSOk",
@@ -997,7 +1571,21 @@
                           },
                           "region": {
                             "startLine": 106,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "* data = 0;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 105,
+                            "startColumn": 1,
+                            "endLine": 107,
+                            "endColumn": 17,
+                            "charOffset": 1395,
+                            "charLength": 38,
+                            "snippet": {
+                              "text": "{\r\n\tlong * data = 0;\r\n\tif (S_OK == hr)"
+                            }
                           }
                         }
                       },
@@ -1015,7 +1603,21 @@
                           },
                           "region": {
                             "startLine": 107,
-                            "startColumn": 11
+                            "startColumn": 11,
+                            "snippet": {
+                              "text": "== hr)"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 106,
+                            "startColumn": 1,
+                            "endLine": 108,
+                            "endColumn": 3,
+                            "charOffset": 1398,
+                            "charLength": 39,
+                            "snippet": {
+                              "text": "\tlong * data = 0;\r\n\tif (S_OK == hr)\r\n\t{"
+                            }
                           }
                         }
                       },
@@ -1032,7 +1634,21 @@
                           },
                           "region": {
                             "startLine": 109,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "= 42;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 108,
+                            "startColumn": 1,
+                            "endLine": 110,
+                            "endColumn": 3,
+                            "charOffset": 1435,
+                            "charLength": 21,
+                            "snippet": {
+                              "text": "\t{\r\n\t\t*data = 42;\r\n\t}"
+                            }
                           }
                         }
                       },
@@ -1065,7 +1681,21 @@
                 },
                 "region": {
                   "startLine": 118,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "= 42;"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 117,
+                  "startColumn": 1,
+                  "endLine": 119,
+                  "endColumn": 3,
+                  "charOffset": 1543,
+                  "charLength": 21,
+                  "snippet": {
+                    "text": "\t{\r\n\t\t*data = 42;\r\n\t}"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "HResultSOk2",
@@ -1088,7 +1718,21 @@
                           },
                           "region": {
                             "startLine": 115,
-                            "startColumn": 7
+                            "startColumn": 7,
+                            "snippet": {
+                              "text": "* data = 0;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 114,
+                            "startColumn": 1,
+                            "endLine": 116,
+                            "endColumn": 27,
+                            "charOffset": 1493,
+                            "charLength": 48,
+                            "snippet": {
+                              "text": "{\r\n\tlong * data = 0;\r\n\tif ((S_FALSE+S_OK) == hr)"
+                            }
                           }
                         }
                       },
@@ -1106,7 +1750,21 @@
                           },
                           "region": {
                             "startLine": 116,
-                            "startColumn": 21
+                            "startColumn": 21,
+                            "snippet": {
+                              "text": "== hr)"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 115,
+                            "startColumn": 1,
+                            "endLine": 117,
+                            "endColumn": 3,
+                            "charOffset": 1496,
+                            "charLength": 49,
+                            "snippet": {
+                              "text": "\tlong * data = 0;\r\n\tif ((S_FALSE+S_OK) == hr)\r\n\t{"
+                            }
                           }
                         }
                       },
@@ -1123,7 +1781,21 @@
                           },
                           "region": {
                             "startLine": 118,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "= 42;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 117,
+                            "startColumn": 1,
+                            "endLine": 119,
+                            "endColumn": 3,
+                            "charOffset": 1543,
+                            "charLength": 21,
+                            "snippet": {
+                              "text": "\t{\r\n\t\t*data = 42;\r\n\t}"
+                            }
                           }
                         }
                       },

@@ -31,7 +31,21 @@
                 },
                 "region": {
                   "startLine": 8,
-                  "startColumn": 9
+                  "startColumn": 9,
+                  "snippet": {
+                    "text": "= a[i];"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 7,
+                  "startColumn": 1,
+                  "endLine": 9,
+                  "endColumn": 5,
+                  "charOffset": 111,
+                  "charLength": 27,
+                  "snippet": {
+                    "text": "   {\r\n      k = a[i];\r\n   }"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "C6385_Example",
@@ -54,7 +68,21 @@
                           },
                           "region": {
                             "startLine": 3,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "a[5];"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 2,
+                            "startColumn": 1,
+                            "endLine": 4,
+                            "endColumn": 37,
+                            "charOffset": 27,
+                            "charLength": 54,
+                            "snippet": {
+                              "text": "{\r\n   char a[5];\r\n   for (int j=0; j<5; j++) a[j] = 5;"
+                            }
                           }
                         }
                       },
@@ -72,7 +100,21 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 13
+                            "startColumn": 13,
+                            "snippet": {
+                              "text": "j=0; j<5; j++) a[j] = 5;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 3,
+                            "startColumn": 1,
+                            "endLine": 5,
+                            "endColumn": 11,
+                            "charOffset": 30,
+                            "charLength": 63,
+                            "snippet": {
+                              "text": "   char a[5];\r\n   for (int j=0; j<5; j++) a[j] = 5;\r\n   char k;"
+                            }
                           }
                         }
                       },
@@ -87,7 +129,21 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 19
+                            "startColumn": 19,
+                            "snippet": {
+                              "text": "<5; j++) a[j] = 5;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 3,
+                            "startColumn": 1,
+                            "endLine": 5,
+                            "endColumn": 11,
+                            "charOffset": 30,
+                            "charLength": 63,
+                            "snippet": {
+                              "text": "   char a[5];\r\n   for (int j=0; j<5; j++) a[j] = 5;\r\n   char k;"
+                            }
                           }
                         }
                       },
@@ -102,7 +158,21 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 33
+                            "startColumn": 33,
+                            "snippet": {
+                              "text": "= 5;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 3,
+                            "startColumn": 1,
+                            "endLine": 5,
+                            "endColumn": 11,
+                            "charOffset": 30,
+                            "charLength": 63,
+                            "snippet": {
+                              "text": "   char a[5];\r\n   for (int j=0; j<5; j++) a[j] = 5;\r\n   char k;"
+                            }
                           }
                         }
                       },
@@ -117,7 +187,21 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 24
+                            "startColumn": 24,
+                            "snippet": {
+                              "text": "++) a[j] = 5;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 3,
+                            "startColumn": 1,
+                            "endLine": 5,
+                            "endColumn": 11,
+                            "charOffset": 30,
+                            "charLength": 63,
+                            "snippet": {
+                              "text": "   char a[5];\r\n   for (int j=0; j<5; j++) a[j] = 5;\r\n   char k;"
+                            }
                           }
                         }
                       },
@@ -132,7 +216,21 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 19
+                            "startColumn": 19,
+                            "snippet": {
+                              "text": "<5; j++) a[j] = 5;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 3,
+                            "startColumn": 1,
+                            "endLine": 5,
+                            "endColumn": 11,
+                            "charOffset": 30,
+                            "charLength": 63,
+                            "snippet": {
+                              "text": "   char a[5];\r\n   for (int j=0; j<5; j++) a[j] = 5;\r\n   char k;"
+                            }
                           }
                         }
                       },
@@ -147,7 +245,21 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 33
+                            "startColumn": 33,
+                            "snippet": {
+                              "text": "= 5;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 3,
+                            "startColumn": 1,
+                            "endLine": 5,
+                            "endColumn": 11,
+                            "charOffset": 30,
+                            "charLength": 63,
+                            "snippet": {
+                              "text": "   char a[5];\r\n   for (int j=0; j<5; j++) a[j] = 5;\r\n   char k;"
+                            }
                           }
                         }
                       },
@@ -162,7 +274,21 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 24
+                            "startColumn": 24,
+                            "snippet": {
+                              "text": "++) a[j] = 5;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 3,
+                            "startColumn": 1,
+                            "endLine": 5,
+                            "endColumn": 11,
+                            "charOffset": 30,
+                            "charLength": 63,
+                            "snippet": {
+                              "text": "   char a[5];\r\n   for (int j=0; j<5; j++) a[j] = 5;\r\n   char k;"
+                            }
                           }
                         }
                       },
@@ -177,7 +303,21 @@
                           },
                           "region": {
                             "startLine": 4,
-                            "startColumn": 19
+                            "startColumn": 19,
+                            "snippet": {
+                              "text": "<5; j++) a[j] = 5;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 3,
+                            "startColumn": 1,
+                            "endLine": 5,
+                            "endColumn": 11,
+                            "charOffset": 30,
+                            "charLength": 63,
+                            "snippet": {
+                              "text": "   char a[5];\r\n   for (int j=0; j<5; j++) a[j] = 5;\r\n   char k;"
+                            }
                           }
                         }
                       },
@@ -192,7 +332,21 @@
                           },
                           "region": {
                             "startLine": 5,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "k;"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 4,
+                            "startColumn": 1,
+                            "endLine": 6,
+                            "endColumn": 15,
+                            "charOffset": 45,
+                            "charLength": 64,
+                            "snippet": {
+                              "text": "   for (int j=0; j<5; j++) a[j] = 5;\r\n   char k;\r\n   if (i <= 5)"
+                            }
                           }
                         }
                       },
@@ -207,7 +361,21 @@
                           },
                           "region": {
                             "startLine": 6,
-                            "startColumn": 10
+                            "startColumn": 10,
+                            "snippet": {
+                              "text": "<= 5)"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 5,
+                            "startColumn": 1,
+                            "endLine": 7,
+                            "endColumn": 5,
+                            "charOffset": 83,
+                            "charLength": 32,
+                            "snippet": {
+                              "text": "   char k;\r\n   if (i <= 5)\r\n   {"
+                            }
                           }
                         }
                       },
@@ -224,7 +392,21 @@
                           },
                           "region": {
                             "startLine": 8,
-                            "startColumn": 9
+                            "startColumn": 9,
+                            "snippet": {
+                              "text": "= a[i];"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 7,
+                            "startColumn": 1,
+                            "endLine": 9,
+                            "endColumn": 5,
+                            "charOffset": 111,
+                            "charLength": 27,
+                            "snippet": {
+                              "text": "   {\r\n      k = a[i];\r\n   }"
+                            }
                           }
                         }
                       },

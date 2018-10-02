@@ -31,7 +31,21 @@
                 },
                 "region": {
                   "startLine": 19,
-                  "startColumn": 13
+                  "startColumn": 13,
+                  "snippet": {
+                    "text": "| INPUT_VALUE) //@@@Expects:6316"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 18,
+                  "startColumn": 1,
+                  "endLine": 20,
+                  "endColumn": 4,
+                  "charOffset": 587,
+                  "charLength": 52,
+                  "snippet": {
+                    "text": "{\r\n  if (Flags | INPUT_VALUE) //@@@Expects:6316\r\n  {"
+                  }
                 }
               },
               "fullyQualifiedLogicalName": "fd",
