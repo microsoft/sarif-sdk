@@ -21,7 +21,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         public const string V1_0_0 = "1.0.0";
-        public const string V1_0_0_BETA_5 = "1.0.0-beta.5";
         public const string SarifSchemaUriBase = "http://json.schemastore.org/sarif-";
 
         public static readonly string SarifSchemaUri = ConvertToSchemaUri(SarifVersion.Current).OriginalString;
@@ -42,7 +41,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             switch (sarifVersionText)
             {
-                case V1_0_0_BETA_5: return SarifVersion.OneZeroZeroBetaFive;
                 case V1_0_0: return SarifVersion.OneZeroZero;
                 case VersionConstants.SemanticVersion: return SarifVersion.Current;
             }
@@ -54,7 +52,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             switch (sarifVersion)
             {
-                case SarifVersion.OneZeroZeroBetaFive: { return V1_0_0_BETA_5; }
                 case SarifVersion.OneZeroZero: { return V1_0_0; }
                 case SarifVersion.Current: { return VersionConstants.SemanticVersion; }
             }

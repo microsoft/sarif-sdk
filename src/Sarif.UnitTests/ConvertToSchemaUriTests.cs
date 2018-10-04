@@ -16,13 +16,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Tests
         }
 
         [Fact]
-        public void ConvertToSchemaUriTestV100Beta5()
-        {
-            Uri uri = SarifVersion.OneZeroZeroBetaFive.ConvertToSchemaUri();
-            Assert.Equal(SarifUtilities.SarifSchemaUriBase + SarifUtilities.V1_0_0_BETA_5, uri.ToString());
-        }
-
-        [Fact]
         public void ConvertToSchemaUriTestVCurrent()
         {
             Uri uri = SarifVersion.Current.ConvertToSchemaUri();
