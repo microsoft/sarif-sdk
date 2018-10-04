@@ -36,13 +36,34 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// milliseconds precision, used to produce times such as "2016-03-02T01:44:50.123Z"
         public static readonly string SarifDateTimeFormatMillisecondsPrecision = "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fff'Z'";
 
+        private static string s_semanticVersion = null;
+
+        public static string SemanticVersion
+        {
+            get
+            {
+                if (s_semanticVersion == null)
+                {
+                    s_semanticVersion = VersionConstants.AssemblyVersion;
+                    if (!string.IsNullOrWhiteSpace(VersionConstants.Prerelease))
+                    {
+                        s_semanticVersion += "-" + VersionConstants.Prerelease;
+                    }
+                }
+
+                return s_semanticVersion;
+            }
+        }
 
         public static SarifVersion ConvertToSarifVersion(this string sarifVersionText)
         {
-            switch (sarifVersionText)
+            if (sarifVersionText.Equals(SemanticVersion, StringComparison.Ordinal))
             {
-                case V1_0_0: return SarifVersion.OneZeroZero;
-                case VersionConstants.SemanticVersion: return SarifVersion.Current;
+                return SarifVersion.Current;
+            }
+            else if (sarifVersionText.Equals(V1_0_0, StringComparison.Ordinal))
+            {
+                return SarifVersion.OneZeroZero;
             }
 
             return SarifVersion.Unknown;
@@ -53,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             switch (sarifVersion)
             {
                 case SarifVersion.OneZeroZero: { return V1_0_0; }
-                case SarifVersion.Current: { return VersionConstants.SemanticVersion; }
+                case SarifVersion.Current: { return SemanticVersion; }
             }
             return "unknown";
         }

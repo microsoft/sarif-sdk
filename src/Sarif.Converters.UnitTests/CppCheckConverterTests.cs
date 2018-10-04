@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string expected =
 @"{
   ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + VersionConstants.SemanticVersion + @""",
+  ""version"": """ + SarifUtilities.SemanticVersion + @""",
   ""runs"": [
     {
       ""tool"": {

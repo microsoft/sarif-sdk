@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
             string v2LogText =
 @"{
   ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + VersionConstants.SemanticVersion + @""",
+  ""version"": """ + SarifUtilities.SemanticVersion + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
             string v2LogText =
 @"{
   ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + VersionConstants.SemanticVersion + @""",
+  ""version"": """ + SarifUtilities.SemanticVersion + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -116,7 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
             string v2LogText =
 @"{
   ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + VersionConstants.SemanticVersion + @""",
+  ""version"": """ + SarifUtilities.SemanticVersion + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -172,7 +172,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
             string v2LogText =
 @"{
   ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + VersionConstants.SemanticVersion + @""",
+  ""version"": """ + SarifUtilities.SemanticVersion + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -241,7 +241,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
             string v2LogText =
 @"{
   ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + VersionConstants.SemanticVersion + @""",
+  ""version"": """ + SarifUtilities.SemanticVersion + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -337,7 +337,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
             string v2LogText =
 @"{
   ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + VersionConstants.SemanticVersion + @""",
+  ""version"": """ + SarifUtilities.SemanticVersion + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -465,7 +465,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
             string v2LogText =
 @"{
   ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + VersionConstants.SemanticVersion + @""",
+  ""version"": """ + SarifUtilities.SemanticVersion + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -563,7 +563,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
             string v2LogText =
 @"{
   ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + VersionConstants.SemanticVersion + @""",
+  ""version"": """ + SarifUtilities.SemanticVersion + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -700,7 +700,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
             string v2LogText =
 @"{
   ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + VersionConstants.SemanticVersion + @""",
+  ""version"": """ + SarifUtilities.SemanticVersion + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -928,7 +928,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
             string v2LogText =
 @"{
   ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + VersionConstants.SemanticVersion + @""",
+  ""version"": """ + SarifUtilities.SemanticVersion + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -1203,7 +1203,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
             string v2LogText =
 @"{
   ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + VersionConstants.SemanticVersion + @""",
+  ""version"": """ + SarifUtilities.SemanticVersion + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -1694,7 +1694,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
             string v2LogText =
 @"{
   ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + VersionConstants.SemanticVersion + @""",
+  ""version"": """ + SarifUtilities.SemanticVersion + @""",
   ""runs"": [
     {
       ""tool"": {

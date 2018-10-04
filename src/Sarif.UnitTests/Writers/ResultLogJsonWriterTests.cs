@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string expected =
 @"{
   ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + VersionConstants.SemanticVersion + @""",
+  ""version"": """ + SarifUtilities.SemanticVersion + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -152,7 +152,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string expected =
 @"{
   ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + VersionConstants.SemanticVersion + @""",
+  ""version"": """ + SarifUtilities.SemanticVersion + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -189,7 +189,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string expected =
 @"{
   ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + VersionConstants.SemanticVersion + @""",
+  ""version"": """ + SarifUtilities.SemanticVersion + @""",
   ""runs"": [
     {
       ""instanceGuid"": """ + instanceGuid + @""",
@@ -385,7 +385,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string expected =
 @"{
   ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + VersionConstants.SemanticVersion + @""",
+  ""version"": """ + SarifUtilities.SemanticVersion + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -413,7 +413,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string expected =
 @"{
   ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + VersionConstants.SemanticVersion + @""",
+  ""version"": """ + SarifUtilities.SemanticVersion + @""",
   ""runs"": [
     {
       ""tool"": {

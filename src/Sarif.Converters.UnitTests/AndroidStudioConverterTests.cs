@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private string emptyResult =
 @"{
   ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + VersionConstants.SemanticVersion + @""",
+  ""version"": """ + SarifUtilities.SemanticVersion + @""",
   ""runs"": [
     {
       ""tool"": {
