@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         // As the SARIF Technical Committee develops the SARIF specification, it
         // releases incremental versions of the schema, with SemVer versions such as
-        // "2.0.0-beta.2018-09-26". To avoid having to update the version strings
+        // "2.0.0-csd.2.beta.2018-09-26". To avoid having to update the version strings
         // in the test files every time this happens, we replace the version
         // in the test file with the current version after reading the file
         // into memory.

@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-beta.2018-09-26",
-  "version": "2.0.0-beta.2018-09-26",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-09-26",
+  "version": "2.0.0-csd.2.beta.2018-09-26",
   "runs": [
     {
       "tool": {
@@ -19357,7 +19357,7 @@
                   "startColumn": 1,
                   "endLine": 51,
                   "endColumn": 55,
-                  "charOffset": 1830,
+                  "charOffset": 1836,
                   "charLength": 135,
                   "snippet": {
                     "text": "        /// The set of runs contained in this log file.\r\n        /// </summary>\r\n        [DataMember(Name = \"runs\", IsRequired = true)]"
@@ -19635,18 +19635,18 @@
                 "region": {
                   "startLine": 130,
                   "snippet": {
-                    "text": "            if (dictionary.ContainsKey(key))"
+                    "text": "            Version version = assembly.GetName().Version;"
                   }
                 },
                 "contextRegion": {
                   "startLine": 129,
                   "startColumn": 1,
                   "endLine": 131,
-                  "endColumn": 14,
-                  "charOffset": 5248,
-                  "charLength": 70,
+                  "endColumn": 1,
+                  "charOffset": 4779,
+                  "charLength": 139,
                   "snippet": {
-                    "text": "        {\r\n            if (dictionary.ContainsKey(key))\r\n            {"
+                    "text": "            string name = Path.GetFileNameWithoutExtension(assembly.Location);\r\n            Version version = assembly.GetName().Version;\r\n"
                   }
                 }
               },
@@ -19681,18 +19681,18 @@
                 "region": {
                   "startLine": 131,
                   "snippet": {
-                    "text": "            {"
+                    "text": ""
                   }
                 },
                 "contextRegion": {
                   "startLine": 130,
                   "startColumn": 1,
                   "endLine": 132,
-                  "endColumn": 39,
-                  "charOffset": 5259,
-                  "charLength": 99,
+                  "endColumn": 30,
+                  "charOffset": 4859,
+                  "charLength": 90,
                   "snippet": {
-                    "text": "            if (dictionary.ContainsKey(key))\r\n            {\r\n                dictionary[key] = val;"
+                    "text": "            Version version = assembly.GetName().Version;\r\n\r\n            tool.Name = name;"
                   }
                 }
               },
@@ -19727,18 +19727,18 @@
                 "region": {
                   "startLine": 40,
                   "snippet": {
-                    "text": "        public static SarifVersion ConvertToSarifVersion(this string sarifVersionText)"
+                    "text": ""
                   }
                 },
                 "contextRegion": {
                   "startLine": 39,
                   "startColumn": 1,
                   "endLine": 41,
-                  "endColumn": 10,
+                  "endColumn": 45,
                   "charOffset": 1716,
-                  "charLength": 99,
+                  "charLength": 103,
                   "snippet": {
-                    "text": "\r\n        public static SarifVersion ConvertToSarifVersion(this string sarifVersionText)\r\n        {"
+                    "text": "        private static string s_semanticVersion = null;\r\n\r\n        public static string SemanticVersion"
                   }
                 }
               },
@@ -19774,18 +19774,18 @@
                 "region": {
                   "startLine": 40,
                   "snippet": {
-                    "text": "        public static SarifVersion ConvertToSarifVersion(this string sarifVersionText)"
+                    "text": ""
                   }
                 },
                 "contextRegion": {
                   "startLine": 39,
                   "startColumn": 1,
                   "endLine": 41,
-                  "endColumn": 10,
+                  "endColumn": 45,
                   "charOffset": 1716,
-                  "charLength": 99,
+                  "charLength": 103,
                   "snippet": {
-                    "text": "\r\n        public static SarifVersion ConvertToSarifVersion(this string sarifVersionText)\r\n        {"
+                    "text": "        private static string s_semanticVersion = null;\r\n\r\n        public static string SemanticVersion"
                   }
                 }
               },
@@ -19821,18 +19821,18 @@
                 "region": {
                   "startLine": 63,
                   "snippet": {
-                    "text": "            return new Uri(SarifSchemaUriBase + sarifVersion.ConvertToText(), UriKind.Absolute);"
+                    "text": "            }"
                   }
                 },
                 "contextRegion": {
                   "startLine": 62,
                   "startColumn": 1,
                   "endLine": 64,
-                  "endColumn": 10,
-                  "charOffset": 2521,
-                  "charLength": 118,
+                  "endColumn": 80,
+                  "charOffset": 2506,
+                  "charLength": 140,
                   "snippet": {
-                    "text": "        {\r\n            return new Uri(SarifSchemaUriBase + sarifVersion.ConvertToText(), UriKind.Absolute);\r\n        }"
+                    "text": "                return SarifVersion.Current;\r\n            }\r\n            else if (sarifVersionText.Equals(V1_0_0, StringComparison.Ordinal))"
                   }
                 }
               },
@@ -19868,18 +19868,18 @@
                 "region": {
                   "startLine": 52,
                   "snippet": {
-                    "text": "        {"
+                    "text": "                }"
                   }
                 },
                 "contextRegion": {
                   "startLine": 51,
                   "startColumn": 1,
                   "endLine": 53,
-                  "endColumn": 34,
-                  "charOffset": 2091,
-                  "charLength": 120,
+                  "endColumn": 1,
+                  "charOffset": 2192,
+                  "charLength": 42,
                   "snippet": {
-                    "text": "        public static string ConvertToText(this SarifVersion sarifVersion)\r\n        {\r\n            switch (sarifVersion)"
+                    "text": "                    }\r\n                }\r\n"
                   }
                 }
               },
@@ -19914,18 +19914,18 @@
                 "region": {
                   "startLine": 142,
                   "snippet": {
-                    "text": "            return new CodeFlow"
+                    "text": "            }"
                   }
                 },
                 "contextRegion": {
                   "startLine": 141,
                   "startColumn": 1,
                   "endLine": 143,
-                  "endColumn": 14,
-                  "charOffset": 5590,
-                  "charLength": 57,
+                  "endColumn": 1,
+                  "charOffset": 5381,
+                  "charLength": 84,
                   "snippet": {
-                    "text": "        {\r\n            return new CodeFlow\r\n            {"
+                    "text": "                throw new ArgumentNullException(nameof(exception));\r\n            }\r\n"
                   }
                 }
               },
@@ -19956,18 +19956,18 @@
                 "region": {
                   "startLine": 167,
                   "snippet": {
-                    "text": "            encoding = encoding ?? Encoding.UTF8;"
+                    "text": "                    new ThreadFlow"
                   }
                 },
                 "contextRegion": {
                   "startLine": 166,
                   "startColumn": 1,
                   "endLine": 168,
-                  "endColumn": 56,
-                  "charOffset": 6384,
-                  "charLength": 117,
+                  "endColumn": 22,
+                  "charOffset": 6380,
+                  "charLength": 76,
                   "snippet": {
-                    "text": "        {\r\n            encoding = encoding ?? Encoding.UTF8;\r\n            byte[] bytes = Convert.FromBase64String(s);"
+                    "text": "                {\r\n                    new ThreadFlow\r\n                    {"
                   }
                 }
               },
@@ -19999,18 +19999,18 @@
                 "region": {
                   "startLine": 167,
                   "snippet": {
-                    "text": "            encoding = encoding ?? Encoding.UTF8;"
+                    "text": "                    new ThreadFlow"
                   }
                 },
                 "contextRegion": {
                   "startLine": 166,
                   "startColumn": 1,
                   "endLine": 168,
-                  "endColumn": 56,
-                  "charOffset": 6384,
-                  "charLength": 117,
+                  "endColumn": 22,
+                  "charOffset": 6380,
+                  "charLength": 76,
                   "snippet": {
-                    "text": "        {\r\n            encoding = encoding ?? Encoding.UTF8;\r\n            byte[] bytes = Convert.FromBase64String(s);"
+                    "text": "                {\r\n                    new ThreadFlow\r\n                    {"
                   }
                 }
               },
@@ -20046,18 +20046,18 @@
                 "region": {
                   "startLine": 161,
                   "snippet": {
-                    "text": "            byte[] bytes = encoding.GetBytes(s);"
+                    "text": "        public static CodeFlow CreateSingleThreadedCodeFlow(IEnumerable<ThreadFlowLocation> locations = null)"
                   }
                 },
                 "contextRegion": {
                   "startLine": 160,
                   "startColumn": 1,
                   "endLine": 162,
-                  "endColumn": 50,
-                  "charOffset": 6174,
-                  "charLength": 110,
+                  "endColumn": 10,
+                  "charOffset": 6154,
+                  "charLength": 122,
                   "snippet": {
-                    "text": "        {\r\n            byte[] bytes = encoding.GetBytes(s);\r\n            return Convert.ToBase64String(bytes);"
+                    "text": "\r\n        public static CodeFlow CreateSingleThreadedCodeFlow(IEnumerable<ThreadFlowLocation> locations = null)\r\n        {"
                   }
                 }
               },
@@ -20092,18 +20092,18 @@
                 "region": {
                   "startLine": 162,
                   "snippet": {
-                    "text": "            return Convert.ToBase64String(bytes);"
+                    "text": "        {"
                   }
                 },
                 "contextRegion": {
                   "startLine": 161,
                   "startColumn": 1,
                   "endLine": 163,
-                  "endColumn": 10,
-                  "charOffset": 6185,
-                  "charLength": 110,
+                  "endColumn": 32,
+                  "charOffset": 6156,
+                  "charLength": 153,
                   "snippet": {
-                    "text": "            byte[] bytes = encoding.GetBytes(s);\r\n            return Convert.ToBase64String(bytes);\r\n        }"
+                    "text": "        public static CodeFlow CreateSingleThreadedCodeFlow(IEnumerable<ThreadFlowLocation> locations = null)\r\n        {\r\n            return new CodeFlow"
                   }
                 }
               },
@@ -20138,18 +20138,18 @@
                 "region": {
                   "startLine": 174,
                   "snippet": {
-                    "text": "            chars = chars ?? throw new ArgumentNullException(nameof(chars));"
+                    "text": ""
                   }
                 },
                 "contextRegion": {
                   "startLine": 173,
                   "startColumn": 1,
                   "endLine": 175,
-                  "endColumn": 86,
-                  "charOffset": 6637,
-                  "charLength": 174,
+                  "endColumn": 59,
+                  "charOffset": 6624,
+                  "charLength": 71,
                   "snippet": {
-                    "text": "        {\r\n            chars = chars ?? throw new ArgumentNullException(nameof(chars));\r\n            encoding = encoding ?? throw new ArgumentNullException(nameof(encoding));"
+                    "text": "        }\r\n\r\n        public static string GetUtf8Base64String(string s)"
                   }
                 }
               },
@@ -20184,18 +20184,18 @@
                 "region": {
                   "startLine": 183,
                   "snippet": {
-                    "text": "            s = s ?? throw new ArgumentNullException(nameof(s));"
+                    "text": "            return Convert.ToBase64String(bytes);"
                   }
                 },
                 "contextRegion": {
                   "startLine": 182,
                   "startColumn": 1,
                   "endLine": 184,
-                  "endColumn": 86,
-                  "charOffset": 6989,
-                  "charLength": 162,
+                  "endColumn": 10,
+                  "charOffset": 6862,
+                  "charLength": 110,
                   "snippet": {
-                    "text": "        {\r\n            s = s ?? throw new ArgumentNullException(nameof(s));\r\n            encoding = encoding ?? throw new ArgumentNullException(nameof(encoding));"
+                    "text": "            byte[] bytes = encoding.GetBytes(s);\r\n            return Convert.ToBase64String(bytes);\r\n        }"
                   }
                 }
               },
@@ -20231,18 +20231,18 @@
                 "region": {
                   "startLine": 156,
                   "snippet": {
-                    "text": "            return GetBase64String(s, Encoding.UTF8);"
+                    "text": "            {"
                   }
                 },
                 "contextRegion": {
                   "startLine": 155,
                   "startColumn": 1,
                   "endLine": 157,
-                  "endColumn": 10,
-                  "charOffset": 6020,
-                  "charLength": 75,
+                  "endColumn": 42,
+                  "charOffset": 6052,
+                  "charLength": 74,
                   "snippet": {
-                    "text": "        {\r\n            return GetBase64String(s, Encoding.UTF8);\r\n        }"
+                    "text": "            else\r\n            {\r\n                dictionary.Add(key, val);"
                   }
                 }
               },
