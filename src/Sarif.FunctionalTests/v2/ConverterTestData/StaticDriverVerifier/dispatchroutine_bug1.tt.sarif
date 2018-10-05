@@ -286,7 +286,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^&sdv_ControllerIrp=1857"
+                        "currentDataValues": "^\u0026sdv_ControllerIrp=1857"
                       }
                     },
                     {
@@ -307,7 +307,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^&sdv_StartIoIrp=14773"
+                        "currentDataValues": "^\u0026sdv_StartIoIrp=14773"
                       }
                     },
                     {
@@ -328,7 +328,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^&sdv_PowerIrp=15025"
+                        "currentDataValues": "^\u0026sdv_PowerIrp=15025"
                       }
                     },
                     {
@@ -349,7 +349,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^&sdv_harnessIrp=6977"
+                        "currentDataValues": "^\u0026sdv_harnessIrp=6977"
                       }
                     },
                     {
@@ -370,7 +370,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^&sdv_other_harnessIrp=15505"
+                        "currentDataValues": "^\u0026sdv_other_harnessIrp=15505"
                       }
                     },
                     {
@@ -391,7 +391,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^&sdv_IoMakeAssociatedIrp_harnessIrp=6297"
+                        "currentDataValues": "^\u0026sdv_IoMakeAssociatedIrp_harnessIrp=6297"
                       }
                     },
                     {
@@ -412,7 +412,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^&sdv_IoBuildDeviceIoControlRequest_harnessIrp=15265"
+                        "currentDataValues": "^\u0026sdv_IoBuildDeviceIoControlRequest_harnessIrp=15265"
                       }
                     },
                     {
@@ -433,7 +433,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^&sdv_harness_IoBuildDeviceIoControlRequest_IoStatusBlock=7753"
+                        "currentDataValues": "^\u0026sdv_harness_IoBuildDeviceIoControlRequest_IoStatusBlock=7753"
                       }
                     },
                     {
@@ -454,7 +454,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^&sdv_IoBuildSynchronousFsdRequest_harnessIrp=5597"
+                        "currentDataValues": "^\u0026sdv_IoBuildSynchronousFsdRequest_harnessIrp=5597"
                       }
                     },
                     {
@@ -475,7 +475,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^&sdv_harness_IoBuildSynchronousFsdRequest_IoStatusBlock=1845"
+                        "currentDataValues": "^\u0026sdv_harness_IoBuildSynchronousFsdRequest_IoStatusBlock=1845"
                       }
                     },
                     {
@@ -496,7 +496,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^&sdv_IoBuildAsynchronousFsdRequest_harnessIrp=629"
+                        "currentDataValues": "^\u0026sdv_IoBuildAsynchronousFsdRequest_harnessIrp=629"
                       }
                     },
                     {
@@ -517,7 +517,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^&sdv_harness_IoBuildAsynchronousFsdRequest_IoStatusBlock=15013"
+                        "currentDataValues": "^\u0026sdv_harness_IoBuildAsynchronousFsdRequest_IoStatusBlock=15013"
                       }
                     },
                     {
@@ -538,7 +538,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^&sdv_IoInitializeIrp_harnessIrp=2549"
+                        "currentDataValues": "^\u0026sdv_IoInitializeIrp_harnessIrp=2549"
                       }
                     },
                     {
@@ -703,7 +703,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^&sdv_kdpc_val3=5553"
+                        "currentDataValues": "^\u0026sdv_kdpc_val3=5553"
                       }
                     },
                     {
@@ -724,7 +724,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^&sdv_devobj_fdo=14333"
+                        "currentDataValues": "^\u0026sdv_devobj_fdo=14333"
                       }
                     },
                     {
@@ -763,7 +763,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^&sdv_devobj_pdo=2097"
+                        "currentDataValues": "^\u0026sdv_devobj_pdo=2097"
                       }
                     },
                     {
@@ -784,7 +784,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^&sdv_devobj_child_pdo=6537"
+                        "currentDataValues": "^\u0026sdv_devobj_child_pdo=6537"
                       }
                     },
                     {
@@ -805,7 +805,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^&sdv_kinterrupt_val=7765"
+                        "currentDataValues": "^\u0026sdv_kinterrupt_val=7765"
                       }
                     },
                     {
@@ -826,7 +826,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^&sdv_MapRegisterBase_val=6277"
+                        "currentDataValues": "^\u0026sdv_MapRegisterBase_val=6277"
                       }
                     },
                     {
@@ -901,7 +901,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^&sdv_fx_dev_object=14293"
+                        "currentDataValues": "^\u0026sdv_fx_dev_object=14293"
                       }
                     },
                     {
@@ -1066,7 +1066,7 @@
                       "nestingLevel": 2,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^&sdv_devobj_top=5113"
+                        "currentDataValues": "^\u0026sdv_devobj_top=5113"
                       }
                     },
                     {
@@ -1310,7 +1310,7 @@
                       "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^&sdv_harnessStackLocation=4517"
+                        "currentDataValues": "^\u0026sdv_harnessStackLocation=4517"
                       }
                     },
                     {
@@ -1331,7 +1331,7 @@
                       "nestingLevel": 1,
                       "importance": "unimportant",
                       "properties": {
-                        "currentDataValues": "^&sdv_other_harnessStackLocation=15961"
+                        "currentDataValues": "^\u0026sdv_other_harnessStackLocation=15961"
                       }
                     },
                     {

@@ -9,7 +9,24 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/advancedannotations/an_outwithdefect.cpp": {
-          "mimeType": "text/x-cpp"
+          "mimeType": "text/x-cpp",
+          "contents": {
+            "binary": "DQojaW5jbHVkZSA8c2FsLmg+DQoNCnZvaWQgT3V0NjEwMShfT3V0XyBpbnQgKiB0YXJnZXQsIGJvb2wgZmxhZykNCnsNCiAgICBpZiAoZmxhZykNCiAgICAgICAgKnRhcmdldCA9IDEwOw0KfQ0K"
+          },
+          "hashes": [
+            {
+              "value": "0EEB79182D000FD60680709B950E9F5C",
+              "algorithm": "md5"
+            },
+            {
+              "value": "57E30A1593482F6546076CDFDBB798797302D790",
+              "algorithm": "sha-1"
+            },
+            {
+              "value": "8BA2F7E61F57C01650D47BC7F1FF39748DD5C2AF2DAEF71A8B25C839BBDA7F3D",
+              "algorithm": "sha-256"
+            }
+          ]
         }
       },
       "logicalLocations": {

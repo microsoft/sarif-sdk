@@ -12,7 +12,7 @@
         "language": "en-US"
       },
       "originalUriBaseIds": {
-        "SRCROOT": "file:///d:/src/sarif-sdk/"
+        "SRCROOT": "file:///e:/src/sarif-sdk/"
       },
       "files": {
         "#SRCROOT#src/Sarif.UnitTests/TestData/InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt": {

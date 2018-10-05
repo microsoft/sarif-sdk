@@ -9,7 +9,24 @@
       },
       "files": {
         "file:///d:/src/sarif-sdk/src/sarif.functionaltests/convertertestdata/prefast/src/complex/c6001/c6001example3.cpp": {
-          "mimeType": "text/x-cpp"
+          "mimeType": "text/x-cpp",
+          "contents": {
+            "binary": "I3ByYWdtYSB3YXJuaW5nIChkaXNhYmxlIDogNDcwMSA0MTAwIDQ3MDApDQppbnQgQzYwMDFfRXhhbXBsZTMoIGJvb2wgYiwgYm9vbCBjICkNCnsNCglpbnQgaTsJCQkJDQoJZ290byBsYWJlbGI7CQkNCmxhYmVsYToJCQkJCQ0KCWdvdG8gbGFiZWxjOw0KbGFiZWxiOgkJCQkJDQoJZ290byBsYWJlbGE7DQpsYWJlbGM6CQkJCQkNCglpbnQgaiA9IGkrMTsJCQ0KCXJldHVybiBqOwkJCQ0KfQ=="
+          },
+          "hashes": [
+            {
+              "value": "9FD4F9AC2711411C10C18FC31F77441D",
+              "algorithm": "md5"
+            },
+            {
+              "value": "90E846D17A05E7172086B4CAD27202C8F21AE30F",
+              "algorithm": "sha-1"
+            },
+            {
+              "value": "A8EF8FAEA437E0D4A7FBD1DC081A73B04A35FFC7DC207DFDC0B1A98800F58E1A",
+              "algorithm": "sha-256"
+            }
+          ]
         }
       },
       "logicalLocations": {

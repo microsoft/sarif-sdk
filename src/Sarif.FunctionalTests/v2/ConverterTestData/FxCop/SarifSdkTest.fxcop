@@ -22,13 +22,13 @@
   <IgnoreGeneratedCode>False</IgnoreGeneratedCode>
  </ProjectOptions>
  <Targets>
-  <Target Name="$(ProjectDir)/../../../../../../sarif-sdk/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Microsoft.Json.Pointer.dll" Analyze="True" AnalyzeAllChildren="True" />
-  <Target Name="$(ProjectDir)/../../../../../../sarif-sdk/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Microsoft.Json.Schema.dll" Analyze="True" AnalyzeAllChildren="True" />
-  <Target Name="$(ProjectDir)/../../../../../../sarif-sdk/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Microsoft.Json.Schema.Validation.dll" Analyze="True" AnalyzeAllChildren="True" />
-  <Target Name="$(ProjectDir)/../../../../../../sarif-sdk/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Sarif.Converters.dll" Analyze="True" AnalyzeAllChildren="True" />
-  <Target Name="$(ProjectDir)/../../../../../../sarif-sdk/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Sarif.dll" Analyze="True" AnalyzeAllChildren="True" />
-  <Target Name="$(ProjectDir)/../../../../../../sarif-sdk/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Sarif.Driver.dll" Analyze="True" AnalyzeAllChildren="True" />
-  <Target Name="$(ProjectDir)/../../../../../../sarif-sdk/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Sarif.Multitool.exe" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../../../../../../sarif-sdk-test/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Microsoft.Json.Pointer.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../../../../../../sarif-sdk-test/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Microsoft.Json.Schema.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../../../../../../sarif-sdk-test/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Microsoft.Json.Schema.Validation.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../../../../../../sarif-sdk-test/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Sarif.Converters.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../../../../../../sarif-sdk-test/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Sarif.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../../../../../../sarif-sdk-test/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Sarif.Driver.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../../../../../../sarif-sdk-test/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Sarif.Multitool.exe" Analyze="True" AnalyzeAllChildren="True" />
  </Targets>
  <Rules>
   <RuleFiles>
@@ -288,7 +288,7 @@
    </Namespace>
   </Namespaces>
   <Targets>
-   <Target Name="$(ProjectDir)/../../../../../../sarif-sdk/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Microsoft.Json.Pointer.dll">
+   <Target Name="$(ProjectDir)/../../../../../../sarif-sdk-test/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Microsoft.Json.Pointer.dll">
     <Modules>
      <Module Name="microsoft.json.pointer.dll">
       <Messages>
@@ -428,7 +428,7 @@
      </Module>
     </Modules>
    </Target>
-   <Target Name="$(ProjectDir)/../../../../../../sarif-sdk/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Microsoft.Json.Schema.dll">
+   <Target Name="$(ProjectDir)/../../../../../../sarif-sdk-test/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Microsoft.Json.Schema.dll">
     <Modules>
      <Module Name="microsoft.json.schema.dll">
       <Messages>
@@ -1115,7 +1115,7 @@
      </Module>
     </Modules>
    </Target>
-   <Target Name="$(ProjectDir)/../../../../../../sarif-sdk/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Microsoft.Json.Schema.Validation.dll">
+   <Target Name="$(ProjectDir)/../../../../../../sarif-sdk-test/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Microsoft.Json.Schema.Validation.dll">
     <Modules>
      <Module Name="microsoft.json.schema.validation.dll">
       <Messages>
@@ -1372,7 +1372,7 @@
      </Module>
     </Modules>
    </Target>
-   <Target Name="$(ProjectDir)/../../../../../../sarif-sdk/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Sarif.Converters.dll">
+   <Target Name="$(ProjectDir)/../../../../../../sarif-sdk-test/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Sarif.Converters.dll">
     <Modules>
      <Module Name="sarif.converters.dll">
       <Messages>
@@ -2520,7 +2520,7 @@
      </Module>
     </Modules>
    </Target>
-   <Target Name="$(ProjectDir)/../../../../../../sarif-sdk/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Sarif.dll">
+   <Target Name="$(ProjectDir)/../../../../../../sarif-sdk-test/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Sarif.dll">
     <Modules>
      <Module Name="sarif.dll">
       <Messages>
@@ -7538,7 +7538,7 @@
      </Module>
     </Modules>
    </Target>
-   <Target Name="$(ProjectDir)/../../../../../../sarif-sdk/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Sarif.Driver.dll">
+   <Target Name="$(ProjectDir)/../../../../../../sarif-sdk-test/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Sarif.Driver.dll">
     <Modules>
      <Module Name="sarif.driver.dll">
       <Messages>
@@ -8417,7 +8417,7 @@
      </Module>
     </Modules>
    </Target>
-   <Target Name="$(ProjectDir)/../../../../../../sarif-sdk/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Sarif.Multitool.exe">
+   <Target Name="$(ProjectDir)/../../../../../../sarif-sdk-test/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Sarif.Multitool.exe">
     <Modules>
      <Module Name="sarif.multitool.exe">
       <Messages>
