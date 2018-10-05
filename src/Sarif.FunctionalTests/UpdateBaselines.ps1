@@ -2,6 +2,10 @@
     [string]$ToolName
 )
 
+Set-StrictMode -Version Latest
+$ErrorActionPreference = "Stop"
+$InformationPreference = "Continue"
+
 $utility = "$PSScriptRoot\..\..\bld\bin\AnyCPU_Release\Sarif.Multitool\net461\Sarif.Multitool.exe"
 
 function Build-ConverterTool()
@@ -48,7 +52,6 @@ function Build-Baselines($toolName)
       $toolName = "FxCop"
     }
 
-
     Write-Host "Building baselines for $toolName..."
     $toolDirectory = Join-Path "$PSScriptRoot\v2\ConverterTestData" $toolName
     $sourceExtension = "*.$sourceExtension"
@@ -57,7 +60,7 @@ function Build-Baselines($toolName)
         $input = $_.FullName
         $output = "$input.sarif"
         $outputTemp = "$output.temp"
-		
+
         # Actually run the converter
         Remove-Item $outputTemp -ErrorAction SilentlyContinue
         &$utility convert "$input" --tool $toolName --output "$outputTemp" --pretty-print
@@ -72,6 +75,26 @@ function Build-Baselines($toolName)
 $allTools = (Get-ChildItem "$PSScriptRoot\v2\ConverterTestData" -Directory | ForEach-Object { $_.Name })
 if ($ToolName -and $ToolName -ne "FxCopProject" -and ($allTools -inotcontains $ToolName)) {
     Throw "Unrecognized tool name $ToolName"
+}
+
+$EnlistmentRoot = "D:\src\sarif-sdk\"
+$EnlistmentDrive = Split-Path $EnlistmentRoot -Qualifier
+$EnlistmentDirectory = $EnlistmentRoot.Substring($EnlistmentDrive.Length)
+
+if (-not ($PSCommandPath.StartsWith($EnlistmentRoot, [System.StringComparison]::OrdinalIgnoreCase))) {
+    $message = `
+        "ERROR: For this script to work, your enlistment in the sarif-sdk repo must be rooted`n" +
+        "in the directory $EnlistmentRoot. The reason is that the script injects sarif-sdk`n" +
+        "source file content into some of the log files, and the source file paths specified`n" +
+        "in those log files are under $EnlistmentRoot.`n`n" +
+        "If your enlistment is on a drive other than $EnlistmentDrive (for example, if it is on C:),`n" +
+        "you can give the command:`n`n" +
+        "    net use $EnlistmentDrive \\$env:COMPUTERNAME\C$ D:`n`n" +
+        "If your $EnlistmentDrive drive is already in use (for example, if it is assigned to a CD-ROM drive),`n" +
+        "you will need to use the Windows Disk Management UI to reassign the drive letter.`n" +
+        "In any case, the enlistment root directory must be $EnlistmentDirectory."
+    Write-Information $message
+    exit 1
 }
 
 Build-ConverterTool

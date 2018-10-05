@@ -46,9 +46,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public void CppCheckConverter_HandlesEmptyErrorsElement()
         {
             const string source = "<results> <cppcheck version=\"12.34\" /> <errors>   </errors> </results>";
-            const string expected = @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
-  ""version"": ""2.0.0"",
+            string expected =
+@"{
+  ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
+  ""version"": """ + SarifUtilities.SemanticVersion + @""",
   ""runs"": [
     {
       ""tool"": {

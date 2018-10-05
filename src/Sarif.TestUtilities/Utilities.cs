@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
 using Microsoft.CodeAnalysis.Sarif.Converters;
@@ -16,6 +17,27 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class Utilities
     {
+
+        // As the SARIF Technical Committee develops the SARIF specification, it
+        // releases incremental versions of the schema, with SemVer versions such as
+        // "2.0.0-csd.2.beta.2018-09-26". To avoid having to update the version strings
+        // in the test files every time this happens, we replace the version
+        // in the test file with the current version after reading the file
+        // into memory.
+        private const string VersionPropertyPattern = @"""version""\s*:\s*""[^""]+""";
+        private static readonly Regex s_VersionRegex = new Regex(VersionPropertyPattern, RegexOptions.Compiled);
+
+        private const string SchemaPropertyPattern = @"""\$schema""\s*:\s*""[^""]+""";
+        private static readonly Regex s_SchemaRegex = new Regex(SchemaPropertyPattern, RegexOptions.Compiled);
+
+        public static string UpdateVersionNumberToCurrent(string logContents)
+        {
+            logContents = s_VersionRegex.Replace(logContents, @"""version"": """ + SarifUtilities.SemanticVersion + @"""");
+            logContents = s_SchemaRegex.Replace(logContents, @"""$schema"": """ + SarifUtilities.SarifSchemaUri + @"""");
+
+            return logContents;
+        }
+
         public static MemoryStream CreateStreamFromString(string data)
         {
             return new MemoryStream(Encoding.UTF8.GetBytes(data));

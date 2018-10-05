@@ -547,9 +547,8 @@
         "allowMemberCountMismatch": true,
         "zeroValueName": "Unknown",
         "memberNames": [
-          "OneZeroZeroBetaFive",
           "OneZeroZero",
-          "TwoZeroZero"
+          "Current"
         ]
       }
     },

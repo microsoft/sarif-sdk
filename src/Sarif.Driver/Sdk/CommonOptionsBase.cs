@@ -43,8 +43,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             'v',
             "sarif-version",
             HelpText =
-            @"The SARIF version of the output log file. Valid values are OneZeroZero and TwoZeroZero",
-            Default = SarifVersion.TwoZeroZero)]
+            @"The SARIF version of the output log file. Valid values are OneZeroZero and Current",
+            Default = SarifVersion.Current)]
         public SarifVersion SarifVersion { get; set; }
     }
 }

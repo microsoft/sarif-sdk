@@ -362,7 +362,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                         SarifLogger sarifLogger;
 
-                        if (analyzeOptions.SarifVersion == SarifVersion.TwoZeroZero)
+                        if (analyzeOptions.SarifVersion == SarifVersion.Current)
                         {
                             sarifLogger = new SarifLogger(
                                     analyzeOptions.OutputFilePath,

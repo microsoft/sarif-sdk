@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             var validateOptions = new ValidateOptions
             {
-                SarifVersion = SarifVersion.TwoZeroZero,
+                SarifVersion = SarifVersion.Current,
                 TargetFileSpecifiers = new[] { testFilePath },
                 OutputFilePath = actualFilePath,
                 SchemaFilePath = JsonSchemaFile,
@@ -42,6 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             string actualLogContents = File.ReadAllText(actualFilePath);
             string expectedLogContents = File.ReadAllText(expectedFilePath);
+            expectedLogContents = Utilities.UpdateVersionNumberToCurrent(expectedLogContents);
 
             // We can't just compare the text of the log files because properties
             // like start time, and absolute paths, will differ from run to run.

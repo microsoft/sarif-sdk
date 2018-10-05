@@ -103,7 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             var log = new SarifLog();
 
-            SarifVersion sarifVersion = SarifVersion.TwoZeroZero;
+            SarifVersion sarifVersion = SarifVersion.Current;
             log.SchemaUri = sarifVersion.ConvertToSchemaUri();
             log.Version = sarifVersion;
 

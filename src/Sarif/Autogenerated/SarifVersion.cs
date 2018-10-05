@@ -12,8 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     public enum SarifVersion
     {
         Unknown,
-        OneZeroZeroBetaFive,
         OneZeroZero,
-        TwoZeroZero
+        Current
     }
 }
