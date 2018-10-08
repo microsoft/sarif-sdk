@@ -80,7 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                     current.BufferIndex = bufferIndex;
                 }
             }
-           
+
             // Count bytes on this line
             if (current.CharInLine < charInLine)
             {
@@ -101,8 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         {
             if (index < 0 || index >= _bufferLength) throw new IndexOutOfRangeException("index");
 
-            FilePosition current = _lastReturnedPosition;
-            if (_lastReturnedPosition.BufferIndex > index) current = _bufferStartPosition;
+            FilePosition current = (_lastReturnedPosition.BufferIndex <= index ? _lastReturnedPosition : _bufferStartPosition);
 
             // Find the line number of the index
             int lastNewlineIndex = current.BufferIndex - current.CharInLine;
@@ -129,7 +128,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         public override int Read(char[] buffer, int index, int count)
         {
             // Count the rest of the last buffer and store the position where this buffer starts
-            if(_bufferLength > 0)
+            if (_bufferLength > 0)
             {
                 FilePosition endOfBuffer = CountUpTo(_bufferLength - 1);
                 endOfBuffer.CharInLine++;
@@ -147,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             if (_buffer == null || _buffer.Length < buffer.Length) _buffer = new char[buffer.Length];
             Buffer.BlockCopy(buffer, 2 * index, _buffer, 0, 2 * charsRead);
             _bufferLength = charsRead;
-            
+
             return charsRead;
         }
     }
