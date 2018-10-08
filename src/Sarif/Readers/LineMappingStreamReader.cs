@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
+// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System;
 using System.IO;
@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public long LineAndCharToOffset(int line, int charInLine)
         {
-            if (line == 0 && charInLine == 0) return 0;
+            if (line == 0 && charInLine == 0) { return 0; }
 
             FilePosition position = CountUpTo(line, charInLine);
             _lastReturnedPosition = position;
@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         private FilePosition CountUpTo(int line, int charInLine)
         {
-            if (line < _bufferStartPosition.LineNumber) throw new ArgumentOutOfRangeException($"Line must be in the range of lines last read, from ({_bufferStartPosition.LineNumber}). Request was for {line}.");
+            if (line < _bufferStartPosition.LineNumber) { throw new ArgumentOutOfRangeException($"Line must be in the range of lines last read, from ({_bufferStartPosition.LineNumber}). Request was for {line}."); }
 
             FilePosition start = _bufferStartPosition;
 
@@ -85,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             if (current.CharInLine < charInLine)
             {
                 int charsToAdd = charInLine - current.CharInLine;
-                if (current.BufferIndex + charsToAdd > _bufferLength) throw new ArgumentOutOfRangeException($"Position must be in buffer from last read. ({line}, {charInLine}) requested; ({current.LineNumber}, {current.CharInLine + _bufferLength - current.BufferIndex}) is end of buffer.");
+                if (current.BufferIndex + charsToAdd > _bufferLength) { throw new ArgumentOutOfRangeException($"Position must be in buffer from last read. ({line}, {charInLine}) requested; ({current.LineNumber}, {current.CharInLine + _bufferLength - current.BufferIndex}) is end of buffer."); }
 
                 current.ByteOffset = current.ByteOffset + this.CurrentEncoding.GetByteCount(_buffer, current.BufferIndex, charsToAdd);
 
@@ -99,7 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         private FilePosition CountUpTo(int index)
         {
-            if (index < 0 || index >= _bufferLength) throw new IndexOutOfRangeException("index");
+            if (index < 0 || index >= _bufferLength) { throw new IndexOutOfRangeException("index"); }
 
             FilePosition current = (_lastReturnedPosition.BufferIndex <= index ? _lastReturnedPosition : _bufferStartPosition);
 
@@ -143,7 +143,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             int charsRead = base.Read(buffer, index, count);
 
             // Copy buffer so we can map char in line to byte count (real buffer can be shifted by reader, invalidating indices)
-            if (_buffer == null || _buffer.Length < buffer.Length) _buffer = new char[buffer.Length];
+            if (_buffer == null || _buffer.Length < buffer.Length) { _buffer = new char[buffer.Length]; }
             Buffer.BlockCopy(buffer, 2 * index, _buffer, 0, 2 * charsRead);
             _bufferLength = charsRead;
 
