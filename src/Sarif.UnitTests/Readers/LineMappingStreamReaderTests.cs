@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
-using System.Collections.Generic;
-using System.IO;
 using Microsoft.CodeAnalysis.Sarif.Readers.SampleModel;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
+using System.IO;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             for (long i = 0; i < content.Length; ++i)
             {
-                if(content[i] == (byte)'\n')
+                if (content[i] == (byte)'\n')
                 {
                     newlines.Add(i);
                 }
@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                     bytesRead += reader.CurrentEncoding.GetByteCount(buffer, 0, lengthRead);
 
                     // Ask the LineMappingStreamReader for the position of (N, 1) for each line in range
-                    for(; nextLine < newlines.Count; nextLine++)
+                    for (; nextLine < newlines.Count; nextLine++)
                     {
                         long nextNewlinePosition = newlines[nextLine];
                         if (nextNewlinePosition > bytesRead) break;
