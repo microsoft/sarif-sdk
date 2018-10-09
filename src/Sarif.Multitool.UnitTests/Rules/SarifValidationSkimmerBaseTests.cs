@@ -12,6 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.UnitTests.Rules
     {
         private class TestCase
         {
+            internal string Name;
             internal string JsonPointer;
             internal string ExpectedJavaScript;
         };
@@ -23,18 +24,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.UnitTests.Rules
             {
                 new TestCase
                 {
-                    JsonPointer = "/x",
-                    ExpectedJavaScript = "x"
+                    Name = "Single property",
+                    JsonPointer = "/version",
+                    ExpectedJavaScript = "version"
                 },
                 new TestCase
                 {
-                    JsonPointer = "/x/y",
-                    ExpectedJavaScript = "x.y"
+                    Name = "Nested properties",
+                    JsonPointer = "/properties/tags",
+                    ExpectedJavaScript = "properties.tags"
                 },
                 new TestCase
                 {
-                    JsonPointer = "/x/0/y/1",
-                    ExpectedJavaScript = "x[0].y[1]"
+                    Name = "Array indices",
+                    JsonPointer = "/runs/0/results/1",
+                    ExpectedJavaScript = "runs[0].results[1]"
+                },
+                new TestCase
+                {
+                    Name = "Non-identifier property name",
+                    JsonPointer = "/runs/0/files/example.c/mimeType",
+                    ExpectedJavaScript = "runs[0].files['example.c'].mimeType"
                 }
             };
 
@@ -44,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.UnitTests.Rules
                 string actualJavaScript = SarifValidationSkimmerBase.JsonPointerToJavaScript(testCase.JsonPointer);
                 if (string.CompareOrdinal(actualJavaScript, testCase.ExpectedJavaScript) != 0)
                 {
-                    sb.AppendLine($"Input: \"{testCase.JsonPointer}\", Expected: \"{testCase.ExpectedJavaScript}\", Actual: \"{actualJavaScript}\".");
+                    sb.AppendLine($"\nFAILED test case: {testCase.Name}:\n    Input: \"{testCase.JsonPointer}\"\n    Expected: \"{testCase.ExpectedJavaScript}\"\n    Actual: \"{actualJavaScript}\".");
                 }
             }
 

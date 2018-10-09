@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Resources;
+using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.Json.Pointer;
 using Newtonsoft.Json;
@@ -169,12 +170,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 }
                 else
                 {
-                    if (sb.Length > 0) { sb.Append('.'); }
-                    sb.Append(token);
+                    if (TokenIsJavascriptIdentifier(token))
+                    {
+                        if (sb.Length > 0) { sb.Append('.'); }
+                        sb.Append(token);
+                    }
+                    else
+                    {
+                        sb.Append("['" + token + "']");
+                    }
                 }
             }
 
             return sb.ToString();
+        }
+
+        private static readonly string s_javaScriptIdentifierPattern = "^[$_a-zA-Z][$_a-zA-Z0-9]*$";
+        private static readonly Regex s_javaScriptIdentifierRegex = new Regex(s_javaScriptIdentifierPattern, RegexOptions.Compiled);
+
+        private static bool TokenIsJavascriptIdentifier(string token)
+        {
+            return s_javaScriptIdentifierRegex.IsMatch(token);
         }
 
         private void Visit(SarifLog log, string logPointer)
