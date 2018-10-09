@@ -23,8 +23,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.UnitTests.Rules
             {
                 new TestCase
                 {
-                    JsonPointer = "x",
+                    JsonPointer = "/x",
                     ExpectedJavaScript = "x"
+                },
+                new TestCase
+                {
+                    JsonPointer = "/x/y",
+                    ExpectedJavaScript = "x.y"
                 }
             };
 

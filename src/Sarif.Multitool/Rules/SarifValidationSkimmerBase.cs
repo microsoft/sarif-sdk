@@ -157,9 +157,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         // Convert a string in JSON Pointer format to JavaScript syntax.
         // For example, "/runs/0/id/instanceId" => runs[0].id.instanceId.
-        internal static string JsonPointerToJavaScript(string jPointer)
+        internal static string JsonPointerToJavaScript(string pointerString)
         {
-            return jPointer;
+            var sb = new System.Text.StringBuilder();
+            var pointer = new JsonPointer(pointerString);
+            foreach (string token in pointer.ReferenceTokens)
+            {
+                if (sb.Length > 0) { sb.Append('.'); }
+                sb.Append(token);
+            }
+
+            return sb.ToString();
         }
 
         private void Visit(SarifLog log, string logPointer)
