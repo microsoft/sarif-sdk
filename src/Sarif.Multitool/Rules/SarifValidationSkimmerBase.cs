@@ -163,8 +163,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             var pointer = new JsonPointer(pointerString);
             foreach (string token in pointer.ReferenceTokens)
             {
-                if (sb.Length > 0) { sb.Append('.'); }
-                sb.Append(token);
+                if (int.TryParse(token, out int index))
+                {
+                    sb.Append('[' + token + ']');
+                }
+                else
+                {
+                    if (sb.Length > 0) { sb.Append('.'); }
+                    sb.Append(token);
+                }
             }
 
             return sb.ToString();

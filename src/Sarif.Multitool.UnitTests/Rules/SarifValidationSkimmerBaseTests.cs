@@ -30,6 +30,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.UnitTests.Rules
                 {
                     JsonPointer = "/x/y",
                     ExpectedJavaScript = "x.y"
+                },
+                new TestCase
+                {
+                    JsonPointer = "/x/0/y/1",
+                    ExpectedJavaScript = "x[0].y[1]"
                 }
             };
 
