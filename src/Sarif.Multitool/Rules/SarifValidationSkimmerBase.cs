@@ -177,7 +177,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     }
                     else
                     {
-                        sb.Append("['" + token + "']");
+                        sb.Append("['" + token.UnescapeJsonPointer() + "']");
                     }
                 }
             }
