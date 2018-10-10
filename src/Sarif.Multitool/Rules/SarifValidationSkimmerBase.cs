@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Resources;
+using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.Json.Pointer;
@@ -160,7 +161,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         // For example, "/runs/0/id/instanceId" => "runs[0].id.instanceId".
         internal static string JsonPointerToJavaScript(string pointerString)
         {
-            var sb = new System.Text.StringBuilder();
+            var sb = new StringBuilder();
             var pointer = new JsonPointer(pointerString);
             foreach (string token in pointer.ReferenceTokens)
             {
