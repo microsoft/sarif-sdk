@@ -55,8 +55,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.UnitTests.Rules
                 new TestCase
                 {
                     Name = "Property names with non-ASCII characters",
-                    JsonPointer = "/A/madárak/szépek",
-                    ExpectedJavaScript = "A.madárak.szépek"
+                    JsonPointer = "/A/madár/szép",       // Hungarian: "The bird is pretty."
+                    ExpectedJavaScript = "A.madár.szép"
                 }
             };
 
