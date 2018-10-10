@@ -51,6 +51,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.UnitTests.Rules
                     Name = "Non-identifier property name with escapes",
                     JsonPointer = "/runs/0/files/file:~1~1~1c:~1src/mimeType",
                     ExpectedJavaScript = "runs[0].files['file:///c:/src'].mimeType"
+                },
+                new TestCase
+                {
+                    Name = "Property names with non-ASCII characters",
+                    JsonPointer = "/A/madárak/szépek",
+                    ExpectedJavaScript = "A.madárak.szépek"
                 }
             };
 

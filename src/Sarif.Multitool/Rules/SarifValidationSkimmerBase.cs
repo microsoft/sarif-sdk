@@ -185,7 +185,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             return sb.ToString();
         }
 
-        private static readonly string s_javaScriptIdentifierPattern = "^[$_a-zA-Z][$_a-zA-Z0-9]*$";
+        private static readonly string s_javaScriptIdentifierPattern = @"^[$_\p{L}][$_\p{L}0-9]*$";
         private static readonly Regex s_javaScriptIdentifierRegex = new Regex(s_javaScriptIdentifierPattern, RegexOptions.Compiled);
 
         private static bool TokenIsJavascriptIdentifier(string token)
