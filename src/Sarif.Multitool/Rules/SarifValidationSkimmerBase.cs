@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Resources;
+using System.Text;
+using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.Json.Pointer;
 using Newtonsoft.Json;
@@ -51,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             // All messages start with "In {file}, at {jPointer}, ...". Prepend the jPointer to the args.
             string[] argsWithPointer = new string[args.Length + 1];
             Array.Copy(args, 0, argsWithPointer, 1, args.Length);
-            argsWithPointer[0] = jPointer;
+            argsWithPointer[0] = JsonPointerToJavaScript(jPointer);
 
             Context.Logger.Log(this,
                 RuleUtilities.BuildResult(DefaultLevel, Context, region, formatId, argsWithPointer));
@@ -153,6 +155,43 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected virtual void Analyze(VersionControlDetails versionControlDetails, string versionControlDetailsPointer)
         {
+        }
+
+        // Convert a string in JSON Pointer format to JavaScript syntax.
+        // For example, "/runs/0/id/instanceId" => "runs[0].id.instanceId".
+        internal static string JsonPointerToJavaScript(string pointerString)
+        {
+            var sb = new StringBuilder();
+            var pointer = new JsonPointer(pointerString);
+            foreach (string token in pointer.ReferenceTokens)
+            {
+                if (int.TryParse(token, out int index))
+                {
+                    sb.Append('[' + token + ']');
+                }
+                else
+                {
+                    if (TokenIsJavascriptIdentifier(token))
+                    {
+                        if (sb.Length > 0) { sb.Append('.'); }
+                        sb.Append(token);
+                    }
+                    else
+                    {
+                        sb.Append("['" + token.UnescapeJsonPointer() + "']");
+                    }
+                }
+            }
+
+            return sb.ToString();
+        }
+
+        private static readonly string s_javaScriptIdentifierPattern = @"^[$_\p{L}][$_\p{L}0-9]*$";
+        private static readonly Regex s_javaScriptIdentifierRegex = new Regex(s_javaScriptIdentifierPattern, RegexOptions.Compiled);
+
+        private static bool TokenIsJavascriptIdentifier(string token)
+        {
+            return s_javaScriptIdentifierRegex.IsMatch(token);
         }
 
         private void Visit(SarifLog log, string logPointer)
