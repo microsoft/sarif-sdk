@@ -148,7 +148,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 return;
             }
 
-            int step = 0;
             var locations = new List<ThreadFlowLocation>();
             bool pathUsesKeyEvents = defect.Path.SFAs.Any(x => !string.IsNullOrWhiteSpace(x?.KeyEvent?.Id));
 
@@ -168,7 +167,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         PhysicalLocation = fileLocation
                     },
-                    Step = ++step
                 };
 
                 if (pathUsesKeyEvents)

@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
-    public partial class FileChange : ISarifNode
+    public partial class FileChange : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<FileChange> ValueComparer => FileChangeEqualityComparer.Instance;
 

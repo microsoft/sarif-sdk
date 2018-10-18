@@ -105,8 +105,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var run = new Run()
             {
-                InstanceGuid = _runId,
-                AutomationLogicalId = _automationId,
+                Id = new RunAutomationDetails
+                {
+                    InstanceGuid = _runId,
+                    InstanceId = _automationId + "/"
+                },
                 Tool = tool,
                 Invocations = new[] { _invocation }
             };
@@ -224,7 +227,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             if (!string.IsNullOrEmpty(date) && !string.IsNullOrEmpty(time))
             {
                 string dateTime = date + "T" + time;
-                _invocation.StartTime = DateTime.Parse(dateTime, CultureInfo.InvariantCulture);
+                _invocation.StartTimeUtc = DateTime.Parse(dateTime, CultureInfo.InvariantCulture);
             }
 
             // Step past the empty element.
@@ -358,7 +361,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private void ParseLocationFromTrace(Result result)
         {
             CodeFlow codeFlow = result.CodeFlows.First();
-            int step = 0;
             string nodeLabel = null;
             string lastNodeId = null;
 
@@ -374,7 +376,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         var tfl = new ThreadFlowLocation
                         {
-                            Step = ++step
                         };
 
                         _tflToNodeIdDictionary.Add(tfl, nodeId);
@@ -407,7 +408,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                     var tfl = new ThreadFlowLocation
                     {
-                        Step = ++step,
                         Location = new Location
                         {
                             Message = new Message

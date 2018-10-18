@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     // choose the one in the result.analysisTarget property -- and for any "loose URIs"
     // that occur in the format, such as "rule.helpUri".
 
-    public class UrisMustBeValidTests : SkimmerTestsBase<UrisMustBeValid>
+    public class UrisMustBeValidTests : ValidationSkimmerTestsBase<UrisMustBeValid>
     {
         [Fact(DisplayName = nameof(UrisMustBeValid_InvalidFileLocationUri))]
         public void UrisMustBeValid_InvalidFileLocationUri()
@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         [Fact(DisplayName = nameof(UrisMustBeValid_InvalidSarifLogSchemaUri))]
         public void UrisMustBeValid_InvalidSarifLogSchemaUri()
         {
-            Verify("InvalidSarifLogSchemaUri.sarif");
+            Verify("InvalidSarifLogSchemaUri.sarif", disablePrereleaseCompatibilityTransform: true);
         }
 
         [Fact(DisplayName = nameof(UrisMustBeValid_InvalidToolDownloadUri))]

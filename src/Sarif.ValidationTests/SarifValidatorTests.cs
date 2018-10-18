@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using FluentAssertions;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.Json.Schema;
 using Microsoft.Json.Schema.Validation;
 using Xunit;
@@ -36,7 +37,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             foreach (string inputFile in TestCases)
             {
                 string instanceText = File.ReadAllText(inputFile);
-                instanceText = Utilities.UpdateVersionNumberToCurrent(instanceText);
+
+                instanceText = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(instanceText);
 
                 Result[] errors = validator.Validate(instanceText, inputFile);
 
@@ -57,8 +59,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static readonly string[] s_testFileDirectories = new string[]
         {
-            @"v2\ConverterTestData",
-            @"v2\SpecExamples"
+            //@"v2\ConverterTestData",
+            //@"v2\SpecExamples",
+            @"v2\ObsoleteFormats",
         };
 
         private static IEnumerable<string> s_testCases;

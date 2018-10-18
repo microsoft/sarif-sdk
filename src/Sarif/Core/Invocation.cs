@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 PropertiesToLog = propertiesToLog?.Select(p => p.ToUpperInvariant()).ToList()
             };
 
-            invocation.StartTime = DateTime.UtcNow;
+            invocation.StartTimeUtc = DateTime.UtcNow;
 
             if (invocation.ShouldLog(nameof(ProcessId)))
             {

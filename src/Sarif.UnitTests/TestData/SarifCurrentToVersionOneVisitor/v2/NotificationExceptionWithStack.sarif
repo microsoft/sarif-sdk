@@ -1,0 +1,125 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-10-10",
+  "version": "2.0.0-csd.2.beta.2018-10-10",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner",
+        "semanticVersion": "2.1.0"
+      },
+      "invocations": [
+        {
+          "toolNotifications": [
+            {
+              "id": "CTN0001",
+              "message": {
+                "text": "Unhandled exception."
+              },
+              "level": "error",
+              "exception": {
+                "kind": "ExecutionEngine.RuleFailureException",
+                "message": "Unhandled exception during rule evaluation.",
+                "stack": {
+                  "message": {
+                    "text": "This is the stack messasge."
+                  },
+                  "frames": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///C:/src/main.cs"
+                          },
+                          "region": {
+                            "startLine": 15,
+                            "startColumn": 9
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "Rules.SecureHashAlgorithmRule.Evaluate",
+                        "message": {
+                          "text": "Exception thrown"
+                        }
+                      },
+                      "module": "RuleLibrary",
+                      "threadId": 52,
+                      "address": 10092852
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///C:/src/main.cs"
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "Rules.SecureHashAlgorithmRule.Register-0"
+                      },
+                      "module": "RuleLibrary",
+                      "threadId": 52,
+                      "address": 1002485
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///C:/src/utils.cs"
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "ExecutionEngine.Engine.EvaluateRule"
+                      },
+                      "module": "ExecutionEngine",
+                      "threadId": 52,
+                      "address": 10073356,
+                      "offset": 10475
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///C:/src/foobar.cs"
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "ExecutionEngine.Engine.FooBar"
+                      },
+                      "module": "ExecutionEngine",
+                      "threadId": 52,
+                      "address": 10073356,
+                      "offset": 10475
+                    }
+                  ]
+                },
+                "innerExceptions": [
+                  {
+                    "kind": "System.ArgumentException",
+                    "message": "length is < 0"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "logicalLocations": {
+        "Rules.SecureHashAlgorithmRule.Evaluate": {
+          "name": "Evaluate",
+          "kind": "some kind"
+        },
+        "Rules.SecureHashAlgorithmRule.Register": {
+          "name": "InvalidName"
+        },
+        "ExecutionEngine.Engine.FooBar": {
+          "name": "EvaluateRule",
+          "fullyQualifiedName": "ExecutionEngine.Engine.EvaluateRule",
+          "kind": "another kind"
+        },
+        "Rules.SecureHashAlgorithmRule.Register-0": {
+          "name": "Register",
+          "fullyQualifiedName": "Rules.SecureHashAlgorithmRule.Register"
+        },
+        "ExecutionEngine.Engine.EvaluateRule": {
+          "name": "EvaluateRule"
+        }
+      },
+      "results": []
+    }
+  ]
+}

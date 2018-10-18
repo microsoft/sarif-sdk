@@ -72,9 +72,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 OriginalResultMatchingProperties = new Dictionary<string, object>();
             }
 
-            if (PreviousResult.OriginalRun.InstanceGuid != null)
+            if (PreviousResult.OriginalRun.Id.InstanceGuid != null)
             {
-                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, PreviousResult.OriginalRun.InstanceGuid);
+                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, PreviousResult.OriginalRun.Id.InstanceGuid);
             }
             return result;
         }
@@ -93,15 +93,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 OriginalResultMatchingProperties = new Dictionary<string, object>();
             }
 
-            if (CurrentResult.OriginalRun.InstanceGuid != null)
+            if (CurrentResult.OriginalRun.Id.InstanceGuid != null)
             {
-                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, CurrentResult.OriginalRun.InstanceGuid);
+                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, CurrentResult.OriginalRun.Id.InstanceGuid);
             }
 
             // Potentially temporary -- we persist the "originally found date" forward, and this sets it.
-            if (CurrentResult.OriginalRun.Invocations != null && CurrentResult.OriginalRun.Invocations.Any() && CurrentResult.OriginalRun.Invocations[0].StartTime != null)
+            if (CurrentResult.OriginalRun.Invocations != null && CurrentResult.OriginalRun.Invocations.Any() && CurrentResult.OriginalRun.Invocations[0].StartTimeUtc != null)
             {
-                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_FoundDateName, CurrentResult.OriginalRun.Invocations[0].StartTime);
+                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_FoundDateName, CurrentResult.OriginalRun.Invocations[0].StartTimeUtc);
             }
             return result;
         }
@@ -121,9 +121,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 OriginalResultMatchingProperties = new Dictionary<string, object>();
             }
 
-            if (CurrentResult.OriginalRun.InstanceGuid != null)
+            if (CurrentResult.OriginalRun.Id.InstanceGuid != null)
             {
-                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, CurrentResult.OriginalRun.InstanceGuid);
+                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, CurrentResult.OriginalRun.Id.InstanceGuid);
             }
 
             return result;

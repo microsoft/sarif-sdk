@@ -95,9 +95,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var run = new Run()
             {
-                Description = new Message
+                Id = new RunAutomationDetails
                 {
-                    Text = runDescription
+                    Description = new Message
+                    {
+                        Text = runDescription
+                    }
                 },
                 Tool = tool
             };

@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class UriBaseIdRequiresRelativeUriTests : SkimmerTestsBase<UriBaseIdRequiresRelativeUri>
+    public class UriBaseIdRequiresRelativeUriTests : ValidationSkimmerTestsBase<UriBaseIdRequiresRelativeUri>
     {
         [Fact(DisplayName = nameof(UriBaseIdRequiresRelativeUri_UrisAreRelative))]
         public void UriBaseIdRequiresRelativeUri_UrisAreRelative()

@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
-    public partial class RuleConfiguration : ISarifNode
+    public partial class RuleConfiguration : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<RuleConfiguration> ValueComparer => RuleConfigurationEqualityComparer.Instance;
 

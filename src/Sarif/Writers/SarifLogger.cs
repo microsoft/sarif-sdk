@@ -215,9 +215,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 _issueLogJsonWriter.CloseResults();
 
-                if (_run?.Invocations?.Count > 0 && _run.Invocations[0].StartTime != new DateTime())
+                if (_run?.Invocations?.Count > 0 && _run.Invocations[0].StartTimeUtc != new DateTime())
                 {
-                    _run.Invocations[0].EndTime = DateTime.UtcNow;
+                    _run.Invocations[0].EndTimeUtc = DateTime.UtcNow;
                 }
 
                 // Note: we write out the backing rules
@@ -267,7 +267,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             if (_run.Invocations != null && _run.Invocations.Count > 0)
             {
-                _run.Invocations[0].EndTime = DateTime.UtcNow;
+                _run.Invocations[0].EndTimeUtc = DateTime.UtcNow;
             }
         }
 
@@ -438,7 +438,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     Id = Notes.Msg001AnalyzingTarget,
                     Message = new Message { Text = message },
                     Level = NotificationLevel.Note,
-                    Time = DateTime.UtcNow,
+                    TimeUtc = DateTime.UtcNow,
                 });
         }
 

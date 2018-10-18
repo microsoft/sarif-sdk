@@ -191,14 +191,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             Run run = new Run()
             {
                 Tool = tool,
-                AutomationLogicalId = currentRuns.First().AutomationLogicalId,
-                InstanceGuid = currentRuns.First().InstanceGuid,
+                Id = currentRuns.First().Id
             };
 
             if (previous != null && previous.Count() != 0)
-
             {
-                run.BaselineInstanceGuid = previous.First().InstanceGuid;
+                run.BaselineInstanceGuid = previous.First().Id.InstanceGuid;
             }
             
             List<Result> newRunResults = new List<Result>();

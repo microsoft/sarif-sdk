@@ -59,7 +59,7 @@
                 },
                 "region": {
                   "startLine": 20,
-                  "startColumn": 39
+                  "startColumn": 20
                 }
               }
             }
@@ -143,7 +143,7 @@
           "message": {
             "messageId": "Default",
             "arguments": [
-              "/runs/0/versionControlProvenance/0/uri",
+              "/runs/0/versionControlProvenance/0/repositoryUri",
               "example.com/my-project"
             ]
           },
@@ -155,7 +155,7 @@
                 },
                 "region": {
                   "startLine": 32,
-                  "startColumn": 41
+                  "startColumn": 51
                 }
               }
             }

@@ -96,12 +96,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (left.StartTime != right.StartTime)
+            if (left.StartTimeUtc != right.StartTimeUtc)
             {
                 return false;
             }
 
-            if (left.EndTime != right.EndTime)
+            if (left.EndTimeUtc != right.EndTimeUtc)
             {
                 return false;
             }
@@ -321,8 +321,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                result = (result * 31) + obj.StartTime.GetHashCode();
-                result = (result * 31) + obj.EndTime.GetHashCode();
+                result = (result * 31) + obj.StartTimeUtc.GetHashCode();
+                result = (result * 31) + obj.EndTimeUtc.GetHashCode();
                 result = (result * 31) + obj.ExitCode.GetHashCode();
                 if (obj.ToolNotifications != null)
                 {

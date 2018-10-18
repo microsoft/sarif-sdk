@@ -360,7 +360,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _toolNotifications.Add(new Notification
             {
                 Id = id,
-                Time = DateTime.Now,
+                TimeUtc = DateTime.UtcNow,
                 Level = level,
                 Message = new Message { Text = messageWithLineNumber }
             });

@@ -74,8 +74,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitGraph((Graph)node);
                 case SarifNodeKind.GraphTraversal:
                     return VisitGraphTraversal((GraphTraversal)node);
-                case SarifNodeKind.Hash:
-                    return VisitHash((Hash)node);
                 case SarifNodeKind.Invocation:
                     return VisitInvocation((Invocation)node);
                 case SarifNodeKind.Location:
@@ -106,6 +104,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitRuleConfiguration((RuleConfiguration)node);
                 case SarifNodeKind.Run:
                     return VisitRun((Run)node);
+                case SarifNodeKind.RunAutomationDetails:
+                    return VisitRunAutomationDetails((RunAutomationDetails)node);
                 case SarifNodeKind.SarifLog:
                     return VisitSarifLog((SarifLog)node);
                 case SarifNodeKind.Stack:
@@ -262,6 +262,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                node.Message = VisitNullChecked(node.Message);
                 node.Stack = VisitNullChecked(node.Stack);
                 if (node.InnerExceptions != null)
                 {
@@ -335,14 +336,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.FileLocation = VisitNullChecked(node.FileLocation);
-                node.Contents = VisitNullChecked(node.Contents);
-                if (node.Hashes != null)
-                {
-                    for (int index_0 = 0; index_0 < node.Hashes.Count; ++index_0)
-                    {
-                        node.Hashes[index_0] = VisitNullChecked(node.Hashes[index_0]);
-                    }
-                }
+                node.Contents = VisitNullChecked(node.Contents);                
             }
 
             return node;
@@ -414,16 +408,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             return node;
-        }
-
-        public virtual Hash VisitHash(Hash node)
-        {
-            if (node != null)
-            {
-            }
-
-            return node;
-        }
+        }        
 
         public virtual Invocation VisitInvocation(Invocation node)
         {
@@ -592,6 +577,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     foreach (var key in keys)
                     {
                         var value = node.Rules[key];
+
                         if (value != null)
                         {
                             node.Rules[key] = VisitNullChecked(value);
@@ -735,6 +721,19 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
+                if (node.OriginalUriBaseIds != null)
+                {
+                    var keys = node.OriginalUriBaseIds.Keys.ToArray();
+                    foreach (var key in keys)
+                    {
+                        var value = node.OriginalUriBaseIds[key];
+                        if (value != null)
+                        {
+                            node.OriginalUriBaseIds[key] = VisitNullChecked(value);
+                        }
+                    }
+                }
+
                 if (node.Files != null)
                 {
                     var keys = node.Files.Keys.ToArray();
@@ -790,11 +789,30 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 node.Resources = VisitNullChecked(node.Resources);
+
+                node.Id = VisitNullChecked(node.Id);
+                if (node.AggregateIds != null)
+                {
+                    for (int index_0 = 0; index_0 < node.AggregateIds.Count; ++index_0)
+                    {
+                        node.AggregateIds[index_0] = VisitNullChecked(node.AggregateIds[index_0]);
+                    }
+                }
+            }
+
+            return node;
+        }
+
+        public virtual RunAutomationDetails VisitRunAutomationDetails(RunAutomationDetails node)
+        {
+            if (node != null)
+            {
                 node.Description = VisitNullChecked(node.Description);
             }
 
             return node;
         }
+
 
         public virtual SarifLog VisitSarifLog(SarifLog node)
         {

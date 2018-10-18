@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 SarifLog actualLog = FileHelpers.ReadSarifFile<SarifLog>(rewriteOptions.InputFilePath);
 
                 OptionallyEmittedData dataToInsert = rewriteOptions.DataToInsert.ToFlags();
-                IDictionary<string, Uri> originalUriBaseIds = rewriteOptions.ConstructUriBaseIdsDictionary();
+                IDictionary<string, FileLocation> originalUriBaseIds = rewriteOptions.ConstructUriBaseIdsDictionary();
 
                 SarifLog reformattedLog = new InsertOptionalDataVisitor(dataToInsert, originalUriBaseIds).VisitSarifLog(actualLog);
                 

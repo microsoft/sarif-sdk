@@ -83,17 +83,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Encoding { get; set; }
 
         /// <summary>
-        /// An array of hash objects, each of which specifies a hashed value for the file, along with the name of the hash function used to compute the hash.
+        /// A dictionary, each of whose keys is the name of a hash function and each of whose values is the hashed value of the file produced by the specified hash function.
         /// </summary>
         [DataMember(Name = "hashes", IsRequired = false, EmitDefaultValue = false)]
-        public IList<Hash> Hashes { get; set; }
+        public IDictionary<string, string> Hashes { get; set; }
 
         /// <summary>
-        /// The date and time at which the file was most recently modified. See "Date/time properties" in the SARIF spec for the required format.
+        /// The Coordinated Universal Time (UTC) date and time at which the file was most recently modified. See "Date/time properties" in the SARIF spec for the required format.
         /// </summary>
-        [DataMember(Name = "lastModifiedTime", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "lastModifiedTimeUtc", IsRequired = false, EmitDefaultValue = false)]
         [JsonConverter(typeof(DateTimeConverter))]
-        public DateTime LastModifiedTime { get; set; }
+        public DateTime LastModifiedTimeUtc { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the file.
@@ -138,15 +138,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="hashes">
         /// An initialization value for the <see cref="P: Hashes" /> property.
         /// </param>
-        /// <param name="lastModifiedTime">
-        /// An initialization value for the <see cref="P: LastModifiedTime" /> property.
+        /// <param name="lastModifiedTimeUtc">
+        /// An initialization value for the <see cref="P: LastModifiedTimeUtc" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public FileData(FileLocation fileLocation, string parentKey, int offset, int length, FileRoles roles, string mimeType, FileContent contents, string encoding, IEnumerable<Hash> hashes, DateTime lastModifiedTime, IDictionary<string, SerializedPropertyInfo> properties)
+        public FileData(FileLocation fileLocation, string parentKey, int offset, int length, FileRoles roles, string mimeType, FileContent contents, string encoding, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(fileLocation, parentKey, offset, length, roles, mimeType, contents, encoding, hashes, lastModifiedTime, properties);
+            Init(fileLocation, parentKey, offset, length, roles, mimeType, contents, encoding, hashes, lastModifiedTimeUtc, properties);
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.FileLocation, other.ParentKey, other.Offset, other.Length, other.Roles, other.MimeType, other.Contents, other.Encoding, other.Hashes, other.LastModifiedTime, other.Properties);
+            Init(other.FileLocation, other.ParentKey, other.Offset, other.Length, other.Roles, other.MimeType, other.Contents, other.Encoding, other.Hashes, other.LastModifiedTimeUtc, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -186,7 +186,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new FileData(this);
         }
 
-        private void Init(FileLocation fileLocation, string parentKey, int offset, int length, FileRoles roles, string mimeType, FileContent contents, string encoding, IEnumerable<Hash> hashes, DateTime lastModifiedTime, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(FileLocation fileLocation, string parentKey, int offset, int length, FileRoles roles, string mimeType, FileContent contents, string encoding, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (fileLocation != null)
             {
@@ -206,23 +206,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             Encoding = encoding;
             if (hashes != null)
             {
-                var destination_0 = new List<Hash>();
-                foreach (var value_0 in hashes)
-                {
-                    if (value_0 == null)
-                    {
-                        destination_0.Add(null);
-                    }
-                    else
-                    {
-                        destination_0.Add(new Hash(value_0));
-                    }
-                }
-
-                Hashes = destination_0;
+                Hashes = new Dictionary<string, string>(hashes);
             }
 
-            LastModifiedTime = lastModifiedTime;
+            LastModifiedTimeUtc = lastModifiedTimeUtc;
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);

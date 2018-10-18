@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                 foreach (string key in run.OriginalUriBaseIds.Keys)
                 {
-                    AnalyzeUri(run.OriginalUriBaseIds[key], originalUriBaseIdsPointer.AtProperty(key));
+                    AnalyzeUri(run.OriginalUriBaseIds[key].Uri, originalUriBaseIdsPointer.AtProperty(key));
                 }
             }
         }
@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(VersionControlDetails versionControlDetails, string versionControlDetailsPointer)
         {
-            AnalyzeUri(versionControlDetails.Uri, versionControlDetailsPointer.AtProperty(SarifPropertyName.Uri));
+            AnalyzeUri(versionControlDetails.RepositoryUri, versionControlDetailsPointer.AtProperty(SarifPropertyName.RepositoryUri));
         }
 
         private void AnalyzeUri(Uri uri, string pointer)

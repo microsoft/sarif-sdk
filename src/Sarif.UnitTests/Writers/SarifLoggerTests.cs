@@ -199,18 +199,21 @@ namespace Microsoft.CodeAnalysis.Sarif
             double propertyValue = 3.14;
             string logicalId = nameof(logicalId) + ":" + Guid.NewGuid().ToString();
             string baselineInstanceGuid = nameof(baselineInstanceGuid) + ":" + Guid.NewGuid().ToString();
+            string runInstanceGuid = Guid.NewGuid().ToString();
             string automationLogicalId = nameof(automationLogicalId) + ":" + Guid.NewGuid().ToString();
+            string runInstanceId = automationLogicalId + "/" + runInstanceGuid;
             string architecture = nameof(architecture) + ":" + "x86";
             var conversion = new Conversion() { Tool = DefaultTool };
             var utcNow = DateTime.UtcNow;
             var versionControlUri = new Uri("https://www.github.com/contoso/contoso");
-            var versionControlDetails = new VersionControlDetails() { Uri = versionControlUri, Timestamp = DateTime.UtcNow };
+            var versionControlDetails = new VersionControlDetails() { RepositoryUri = versionControlUri, AsOfTimeUtc = DateTime.UtcNow };
             string originalUriBaseIdKey = "testBase";
             Uri originalUriBaseIdValue = new Uri("https://sourceserver.contoso.com");
-            var originalUriBaseIds = new Dictionary<string, Uri>() { { originalUriBaseIdKey, originalUriBaseIdValue } };
+            var originalUriBaseIds = new Dictionary<string, FileLocation>() { { originalUriBaseIdKey, new FileLocation { Uri = originalUriBaseIdValue } } };
             string defaultFileEncoding = "UTF7";
             string richMessageMimeType = "sarif-markdown";
             string redactionToken = "[MY_REDACTION_TOKEN]";
+
 
             var sb = new StringBuilder();
 
@@ -220,9 +223,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 run.SetProperty(propertyName, propertyValue);
 
-                run.LogicalId = logicalId;
+                run.Id = new RunAutomationDetails
+                {
+                    InstanceId = runInstanceId,
+                    InstanceGuid = runInstanceGuid,
+                };
+
                 run.BaselineInstanceGuid = baselineInstanceGuid;
-                run.AutomationLogicalId = automationLogicalId;
                 run.Architecture = architecture;
                 run.Conversion = conversion;
                 run.VersionControlProvenance = new[] { versionControlDetails };
@@ -245,14 +252,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             run = sarifLog.Runs[0];
 
             run.GetProperty<double>(propertyName).Should().Be(propertyValue);
-            run.LogicalId.Should().Be(logicalId);
+            run.Id.InstanceGuid.Should().Be(runInstanceGuid);
             run.BaselineInstanceGuid.Should().Be(baselineInstanceGuid);
-            run.AutomationLogicalId.Should().Be(automationLogicalId);
+            run.Id.InstanceId.Should().Be(runInstanceId);
             run.Architecture.Should().Be(architecture);
             run.Conversion.Tool.Should().BeEquivalentTo(DefaultTool);
             //run.VersionControlProvenance[0].Timestamp.Should().BeEquivalentTo(utcNow);
-            run.VersionControlProvenance[0].Uri.Should().BeEquivalentTo(versionControlUri);
-            run.OriginalUriBaseIds[originalUriBaseIdKey].Should().Be(originalUriBaseIdValue);
+            run.VersionControlProvenance[0].RepositoryUri.Should().BeEquivalentTo(versionControlUri);
+            run.OriginalUriBaseIds[originalUriBaseIdKey].Uri.Should().Be(originalUriBaseIdValue);
             run.DefaultFileEncoding.Should().Be(defaultFileEncoding);
             run.RichMessageMimeType.Should().Be(richMessageMimeType);
             run.RedactionToken.Should().Be(redactionToken);
@@ -295,12 +302,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
             sarifLog.Runs[0].Files[fileDataKey].MimeType.Should().Be(MimeType.Cpp);
-            sarifLog.Runs[0].Files[fileDataKey].Hashes[0].Algorithm.Should().Be("md5");
-            sarifLog.Runs[0].Files[fileDataKey].Hashes[0].Value.Should().Be("4B9DC12934390387862CC4AB5E4A2159");
-            sarifLog.Runs[0].Files[fileDataKey].Hashes[1].Algorithm.Should().Be("sha-1");
-            sarifLog.Runs[0].Files[fileDataKey].Hashes[1].Value.Should().Be("9B59B1C1E3F5F7013B10F6C6B7436293685BAACE");
-            sarifLog.Runs[0].Files[fileDataKey].Hashes[2].Algorithm.Should().Be("sha-256");
-            sarifLog.Runs[0].Files[fileDataKey].Hashes[2].Value.Should().Be("0953D7B3ADA7FED683680D2107EE517A9DBEC2D0AF7594A91F058D104B7A2AEB");
+            sarifLog.Runs[0].Files[fileDataKey].Hashes.Keys.Count.Should().Be(3);
+            sarifLog.Runs[0].Files[fileDataKey].Hashes["md5"].Should().Be("4B9DC12934390387862CC4AB5E4A2159");
+            sarifLog.Runs[0].Files[fileDataKey].Hashes["sha-1"].Should().Be("9B59B1C1E3F5F7013B10F6C6B7436293685BAACE");
+            sarifLog.Runs[0].Files[fileDataKey].Hashes["sha-256"].Should().Be("0953D7B3ADA7FED683680D2107EE517A9DBEC2D0AF7594A91F058D104B7A2AEB");
         }
 
         [Fact]
@@ -558,8 +563,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
 
             Invocation invocation = sarifLog.Runs[0].Invocations?[0];
-            invocation.StartTime.Should().NotBe(DateTime.MinValue);
-            invocation.EndTime.Should().NotBe(DateTime.MinValue);
+            invocation.StartTimeUtc.Should().NotBe(DateTime.MinValue);
+            invocation.EndTimeUtc.Should().NotBe(DateTime.MinValue);
 
             // Other properties should be empty.
             invocation.CommandLine.Should().BeNull();
@@ -601,8 +606,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             Invocation invocation = sarifLog.Runs[0].Invocations[0];
 
             // StartTime and EndTime should still be logged.
-            invocation.StartTime.Should().NotBe(DateTime.MinValue);
-            invocation.EndTime.Should().NotBe(DateTime.MinValue);
+            invocation.StartTimeUtc.Should().NotBe(DateTime.MinValue);
+            invocation.EndTimeUtc.Should().NotBe(DateTime.MinValue);
 
             // Specified properties should be logged.
             invocation.WorkingDirectory.Should().NotBeNull();

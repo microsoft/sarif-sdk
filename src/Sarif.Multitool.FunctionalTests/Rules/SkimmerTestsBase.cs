@@ -11,16 +11,22 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public abstract class SkimmerTestsBase<TSkimmer> : SarifMultitoolTestBase
+    public abstract class ValidationSkimmerTestsBase<TSkimmer> : SarifMultitoolTestBase
         where TSkimmer : SkimmerBase<SarifValidationContext>, new()
     {
         private readonly string _testDirectory;
         private const string ExpectedResultsPropertyName = "expectedResults";
 
-        public SkimmerTestsBase()
+        public ValidationSkimmerTestsBase()
         {
             string ruleName = typeof(TSkimmer).Name;
             _testDirectory = Path.Combine(Environment.CurrentDirectory, TestDataDirectory, ruleName);
+        }
+
+
+        protected void Verify(string testFileName)
+        {
+            Verify(testFileName, disablePrereleaseCompatibilityTransform: false);
         }
 
         // For the moment, we support two different test designs.
@@ -41,12 +47,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         // we use the new design, if the "expected" file exists, we use the old design,
         // and if both the custom property and the "expected" file exist, we execute
         // both the new and the old style tests.
-        protected void Verify(string testFileName)
+        protected void Verify(string testFileName, bool disablePrereleaseCompatibilityTransform)
         {
             string targetPath = Path.Combine(_testDirectory, testFileName);
             string actualFilePath = MakeActualFilePath(_testDirectory, testFileName);
 
             string inputLogContents = File.ReadAllText(targetPath);
+
+            if (!disablePrereleaseCompatibilityTransform)
+            {
+                inputLogContents = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(inputLogContents, formatting: Formatting.Indented);
+            }
 
             SarifLog inputLog = JsonConvert.DeserializeObject<SarifLog>(inputLogContents);
 
@@ -56,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     actualFilePath,
                     LoggingOptions.None,
                     tool: null,
-                    run: null,                
+                    run: null,
                     analysisTargets: new string[] { targetPath },
                     invocationTokensToRedact: null))
             {
@@ -88,6 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 // The "expected" file exists. Use the old, deprecated verification method.
                 string expectedLogContents = File.ReadAllText(expectedFilePath);
+                expectedLogContents = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedLogContents, formatting: Formatting.Indented);
 
                 // We can't just compare the text of the log files because properties
                 // like start time, and absolute paths, will differ from run to run.

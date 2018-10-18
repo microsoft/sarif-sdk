@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Resources;
 using Microsoft.CodeAnalysis.Sarif.Driver;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.Json.Pointer;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -39,6 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override sealed void Analyze(SarifValidationContext context)
         {
             Context = context;
+
             Context.InputLogToken = JToken.Parse(Context.InputLogContents);
 
             Visit(Context.InputLog, logPointer: string.Empty);
