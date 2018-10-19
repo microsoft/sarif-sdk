@@ -211,4 +211,9 @@
 * BREAKING: threadflowLocation.timestamp renamed to 'executionTimeUtc'.
 * BREAKING: versionControlDetails.timestamp renamed to 'asOfTimeUtc'.
 * BREAKING: versionControlDetails.uri renamed to 'repositoryUri'.
+* BREAKING: versionControlDetails.tag renamed to 'revisionTag'
 * BREAKING: exception.message type converted from string to message object.
+* BREAKING: file.hashes is now a string/string dictionary, not an array of 'hash' objects (the type for which is deleted)
+* BREAKING: run.instanceGuid, run.correlationGuid, run.logicalId, run.description combined into new run.id 'runAutomationDetails' object instance.
+* BREAKING: run.automationLogicalId subsumed by run.aggregateIds, an array of 'runAutomationDetails' objects.
+* BREAKING: Remove threadFlowLocation.step
