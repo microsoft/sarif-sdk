@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Resources;
 using Microsoft.CodeAnalysis.Sarif.Driver;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.Json.Pointer;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;

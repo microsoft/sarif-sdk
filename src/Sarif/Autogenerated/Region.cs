@@ -5,6 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -92,6 +93,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Message Message { get; set; }
 
         /// <summary>
+        /// Key/value pairs that provide additional information about the region.
+        /// </summary>
+        [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Region" /> class.
         /// </summary>
         public Region()
@@ -131,9 +138,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="message">
         /// An initialization value for the <see cref="P: Message" /> property.
         /// </param>
-        public Region(int startLine, int startColumn, int endLine, int endColumn, int charOffset, int charLength, int byteOffset, int byteLength, FileContent snippet, Message message)
+        /// <param name="properties">
+        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// </param>
+        public Region(int startLine, int startColumn, int endLine, int endColumn, int charOffset, int charLength, int byteOffset, int byteLength, FileContent snippet, Message message, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(startLine, startColumn, endLine, endColumn, charOffset, charLength, byteOffset, byteLength, snippet, message);
+            Init(startLine, startColumn, endLine, endColumn, charOffset, charLength, byteOffset, byteLength, snippet, message, properties);
         }
 
         /// <summary>
@@ -152,7 +162,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.StartLine, other.StartColumn, other.EndLine, other.EndColumn, other.CharOffset, other.CharLength, other.ByteOffset, other.ByteLength, other.Snippet, other.Message);
+            Init(other.StartLine, other.StartColumn, other.EndLine, other.EndColumn, other.CharOffset, other.CharLength, other.ByteOffset, other.ByteLength, other.Snippet, other.Message, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -173,7 +183,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Region(this);
         }
 
-        private void Init(int startLine, int startColumn, int endLine, int endColumn, int charOffset, int charLength, int byteOffset, int byteLength, FileContent snippet, Message message)
+        private void Init(int startLine, int startColumn, int endLine, int endColumn, int charOffset, int charLength, int byteOffset, int byteLength, FileContent snippet, Message message, IDictionary<string, SerializedPropertyInfo> properties)
         {
             StartLine = startLine;
             StartColumn = startColumn;
@@ -191,6 +201,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (message != null)
             {
                 Message = new Message(message);
+            }
+
+            if (properties != null)
+            {
+                Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
             }
         }
     }

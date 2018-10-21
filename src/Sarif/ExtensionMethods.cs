@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return String.Empty;
             }
 
-            return instanceId.Substring(0, instanceId.LastIndexOf('/') + 1);
+            return instanceId.Substring(0, instanceId.LastIndexOf('/'));
         }
 
         public static string Format(this IRule rule, string messageId, IEnumerable<string> arguments)

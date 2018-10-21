@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public DateTime AsOfTimeUtc { get; set; }
 
         /// <summary>
-        /// Key/value pairs that provide additional information about the revision.
+        /// Key/value pairs that provide additional information about the version control details.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }

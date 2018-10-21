@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Writers
     public class PrereleaseCompatibilityTransformerTests
     {
         [Fact]
-        public void PrereleaseCompatibilityTransformer_UpgradePrereleaseTwoZeroZero()
+        public void PrereleaseCompatibilityTransformer_UpgradesPrereleaseTwoZeroZero()
         {
             string comprehensiveSarifPath = Path.Combine(Environment.CurrentDirectory, @"v2\ObsoleteFormats\ComprehensivePrereleaseTwoZeroZero.sarif");
 
@@ -21,10 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Writers
 
             sarifText = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(sarifText);
 
-            // If this obsolete prerelease v2 file deserializes to the current
-            // version without raising an exception, this step succeeds.
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifText);
-
             JsonConvert.SerializeObject(sarifLog);            
         }
     }

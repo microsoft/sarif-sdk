@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// A description of the role played within the engineering system by this object's containing run object.
+        /// A description of the identity and role played within the engineering system by this object's containing run object.
         /// </summary>
         [DataMember(Name = "description", IsRequired = false, EmitDefaultValue = false)]
         public Message Description { get; set; }
@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string InstanceId { get; set; }
 
         /// <summary>
-        /// A string that uniquely identifies this object's containing run object in the form of a GUID.
+        /// A stable, unique identifer for this object's containing run object in the form of a GUID.
         /// </summary>
         [DataMember(Name = "instanceGuid", IsRequired = false, EmitDefaultValue = false)]
         public string InstanceGuid { get; set; }
@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string CorrelationGuid { get; set; }
 
         /// <summary>
-        /// Key/value pairs that provide additional information about the scan automation details.
+        /// Key/value pairs that provide additional information about the run automation details.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }

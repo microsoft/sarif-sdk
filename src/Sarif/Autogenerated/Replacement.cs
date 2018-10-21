@@ -5,6 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -44,6 +45,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public FileContent InsertedContent { get; set; }
 
         /// <summary>
+        /// Key/value pairs that provide additional information about the replacement.
+        /// </summary>
+        [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Replacement" /> class.
         /// </summary>
         public Replacement()
@@ -59,9 +66,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="insertedContent">
         /// An initialization value for the <see cref="P: InsertedContent" /> property.
         /// </param>
-        public Replacement(Region deletedRegion, FileContent insertedContent)
+        /// <param name="properties">
+        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// </param>
+        public Replacement(Region deletedRegion, FileContent insertedContent, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(deletedRegion, insertedContent);
+            Init(deletedRegion, insertedContent, properties);
         }
 
         /// <summary>
@@ -80,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.DeletedRegion, other.InsertedContent);
+            Init(other.DeletedRegion, other.InsertedContent, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -101,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Replacement(this);
         }
 
-        private void Init(Region deletedRegion, FileContent insertedContent)
+        private void Init(Region deletedRegion, FileContent insertedContent, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (deletedRegion != null)
             {
@@ -111,6 +121,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (insertedContent != null)
             {
                 InsertedContent = new FileContent(insertedContent);
+            }
+
+            if (properties != null)
+            {
+                Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
             }
         }
     }

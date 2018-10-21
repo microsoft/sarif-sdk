@@ -5,6 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -62,6 +63,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<string> Arguments { get; set; }
 
         /// <summary>
+        /// Key/value pairs that provide additional information about the message.
+        /// </summary>
+        [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Message" /> class.
         /// </summary>
         public Message()
@@ -86,9 +93,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="arguments">
         /// An initialization value for the <see cref="P: Arguments" /> property.
         /// </param>
-        public Message(string text, string messageId, string richText, string richMessageId, IEnumerable<string> arguments)
+        /// <param name="properties">
+        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// </param>
+        public Message(string text, string messageId, string richText, string richMessageId, IEnumerable<string> arguments, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(text, messageId, richText, richMessageId, arguments);
+            Init(text, messageId, richText, richMessageId, arguments, properties);
         }
 
         /// <summary>
@@ -107,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Text, other.MessageId, other.RichText, other.RichMessageId, other.Arguments);
+            Init(other.Text, other.MessageId, other.RichText, other.RichMessageId, other.Arguments, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -128,7 +138,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Message(this);
         }
 
-        private void Init(string text, string messageId, string richText, string richMessageId, IEnumerable<string> arguments)
+        private void Init(string text, string messageId, string richText, string richMessageId, IEnumerable<string> arguments, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Text = text;
             MessageId = messageId;
@@ -143,6 +153,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 Arguments = destination_0;
+            }
+
+            if (properties != null)
+            {
+                Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
             }
         }
     }

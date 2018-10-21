@@ -1,15 +1,16 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT        
 // license. See LICENSE file in the project root for full license information.
 
+using System;
+using System.IO;
+using System.Text;
+
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
-using System;
-using System.IO;
-using System.Text;
 using Xunit;
 using Xunit.Abstractions;
 

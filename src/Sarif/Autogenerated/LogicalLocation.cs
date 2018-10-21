@@ -5,6 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -62,6 +63,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Kind { get; set; }
 
         /// <summary>
+        /// Key/value pairs that provide additional information about the logical location.
+        /// </summary>
+        [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="LogicalLocation" /> class.
         /// </summary>
         public LogicalLocation()
@@ -86,9 +93,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="kind">
         /// An initialization value for the <see cref="P: Kind" /> property.
         /// </param>
-        public LogicalLocation(string name, string fullyQualifiedName, string decoratedName, string parentKey, string kind)
+        /// <param name="properties">
+        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// </param>
+        public LogicalLocation(string name, string fullyQualifiedName, string decoratedName, string parentKey, string kind, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(name, fullyQualifiedName, decoratedName, parentKey, kind);
+            Init(name, fullyQualifiedName, decoratedName, parentKey, kind, properties);
         }
 
         /// <summary>
@@ -107,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Name, other.FullyQualifiedName, other.DecoratedName, other.ParentKey, other.Kind);
+            Init(other.Name, other.FullyQualifiedName, other.DecoratedName, other.ParentKey, other.Kind, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -128,13 +138,17 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new LogicalLocation(this);
         }
 
-        private void Init(string name, string fullyQualifiedName, string decoratedName, string parentKey, string kind)
+        private void Init(string name, string fullyQualifiedName, string decoratedName, string parentKey, string kind, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Name = name;
             FullyQualifiedName = fullyQualifiedName;
             DecoratedName = decoratedName;
             ParentKey = parentKey;
             Kind = kind;
+            if (properties != null)
+            {
+                Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
+            }
         }
     }
 }

@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
 
             var resultsFileUri = new Uri($"{defect.SFA.FilePath}{defect.SFA.FileName}", UriKind.Relative);
-            var physicalLocation = new PhysicalLocation(id: 0, fileLocation: new FileLocation(uri: resultsFileUri, uriBaseId: null), region: region, contextRegion: null);
+            var physicalLocation = new PhysicalLocation(id: 0, fileLocation: new FileLocation(uri: resultsFileUri, uriBaseId: null, properties: null), region: region, contextRegion: null, properties: null);
             var location = new Location()
             {
                 PhysicalLocation = physicalLocation,
@@ -160,7 +160,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 };
 
                 var uri = new Uri($"{sfa.FilePath}{sfa.FileName}", UriKind.Relative);
-                var fileLocation = new PhysicalLocation(id: 0, fileLocation: new FileLocation(uri: uri, uriBaseId: null), region: region, contextRegion: null);
+                var fileLocation = new PhysicalLocation(id: 0, fileLocation: new FileLocation(uri: uri, uriBaseId: null, properties: null), region: region, contextRegion: null, properties: null);
                 var threadFlowLocation = new ThreadFlowLocation
                 {
                     Location = new Location

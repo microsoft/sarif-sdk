@@ -108,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     InnerExceptions = v2ExceptionData.InnerExceptions?.Select(CreateExceptionData).ToList(),
                     Kind = v2ExceptionData.Kind,
-                    Message = v2ExceptionData.Message.Text,
+                    Message = v2ExceptionData.Message?.Text,
                     Stack = CreateStack(v2ExceptionData.Stack)
                 };
             }
@@ -236,6 +236,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             foreach (string key in v2Hashes.Keys)
             {
+                // If TryGetValue fails here, algorithm will be assigned the value of 0, which is 'Unknown'
                 Utilities.AlgorithmNameKindMap.TryGetValue(key, out AlgorithmKindVersionOne algorithm);
 
                 v1Hashes.Add(new HashVersionOne { Algorithm = algorithm, Value = v2Hashes[key] });
@@ -864,7 +865,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     run.Files = v2Run.Files?.ToDictionary(v => v.Key, v => CreateFileData(v.Value));
 
                     run.Id = v2Run.Id?.InstanceGuid;
-                    run.AutomationId = v2Run.AggregateIds?.First().InstanceId;
+                    run.AutomationId = v2Run.AggregateIds?.First()?.InstanceId;
 
                     run.StableId = v2Run.Id?.InstanceIdLogicalComponent();
 

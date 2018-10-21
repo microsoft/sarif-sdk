@@ -5,6 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -56,6 +57,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Region ContextRegion { get; set; }
 
         /// <summary>
+        /// Key/value pairs that provide additional information about the physical location.
+        /// </summary>
+        [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="PhysicalLocation" /> class.
         /// </summary>
         public PhysicalLocation()
@@ -77,9 +84,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="contextRegion">
         /// An initialization value for the <see cref="P: ContextRegion" /> property.
         /// </param>
-        public PhysicalLocation(int id, FileLocation fileLocation, Region region, Region contextRegion)
+        /// <param name="properties">
+        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// </param>
+        public PhysicalLocation(int id, FileLocation fileLocation, Region region, Region contextRegion, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, fileLocation, region, contextRegion);
+            Init(id, fileLocation, region, contextRegion, properties);
         }
 
         /// <summary>
@@ -98,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.FileLocation, other.Region, other.ContextRegion);
+            Init(other.Id, other.FileLocation, other.Region, other.ContextRegion, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -119,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new PhysicalLocation(this);
         }
 
-        private void Init(int id, FileLocation fileLocation, Region region, Region contextRegion)
+        private void Init(int id, FileLocation fileLocation, Region region, Region contextRegion, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             if (fileLocation != null)
@@ -135,6 +145,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (contextRegion != null)
             {
                 ContextRegion = new Region(contextRegion);
+            }
+
+            if (properties != null)
+            {
+                Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
             }
         }
     }

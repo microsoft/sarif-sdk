@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
 
-        private ITestOutputHelper _outputHelper;
+        private readonly ITestOutputHelper _outputHelper;
 
         public FileDiffingTests(ITestOutputHelper outputHelper)
         {
@@ -44,20 +44,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
 
-        protected virtual Assembly ThisAssembly { get { return this.GetType().Assembly; } }
+        protected virtual Assembly ThisAssembly => this.GetType().Assembly; 
 
-        protected virtual string TypeUnderTest { get { return this.GetType().Name.Substring(0, this.GetType().Name.Length - "Tests".Length); } }
+        protected virtual string TypeUnderTest => this.GetType().Name.Substring(0, this.GetType().Name.Length - "Tests".Length);
 
-        protected virtual string OutputFolderPath { get { return Path.Combine(Path.GetDirectoryName(ThisAssembly.Location), "UnitTestOutput." + TypeUnderTest); } }
+        protected virtual string OutputFolderPath => Path.Combine(Path.GetDirectoryName(ThisAssembly.Location), "UnitTestOutput." + TypeUnderTest);
 
-        protected virtual string ProductTestDataDirectory {  get { return GetProductTestDataDirectory(TypeUnderTest); } }
+        protected virtual string ProductTestDataDirectory => GetProductTestDataDirectory(TypeUnderTest);
 
-        protected virtual string TestLogResourceNameRoot { get { return "Microsoft.CodeAnalysis.Sarif.UnitTests.TestData." + TypeUnderTest; } }
+        protected virtual string TestLogResourceNameRoot => "Microsoft.CodeAnalysis.Sarif.UnitTests.TestData." + TypeUnderTest;
 
         protected string GetOutputFilePath(string directory, string resourceName)
         {
-            string fileName = string.Format("{0}.sarif",
-                                                Path.GetFileNameWithoutExtension(resourceName));
+            string fileName = Path.GetFileNameWithoutExtension(resourceName) + ".sarif";
             return Path.Combine(OutputFolderPath, directory, fileName);
         }
 

@@ -52,10 +52,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     break;
             }
 
-            string text = modifiedLog ? sarifLog.ToString(formatting) : prereleaseSarifLog;
-
-            return text;
+            return modifiedLog ? sarifLog.ToString(formatting) : prereleaseSarifLog;
         }
+
         private static bool ApplyCoreTransformations(JObject sarifLog)
         {
             bool modifiedLog = UpdateSarifLogVersion(sarifLog); 
@@ -64,29 +63,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (runs != null)
             {
-                // Move result.ruleMessageId: https://github.com/oasis-tcs/sarif-spec/issues/216
-                // Update name of threadflowLocation.executionTimeUtc: https://github.com/oasis-tcs/sarif-spec/issues/242
-                modifiedLog |= UpdateRunResults(runs);
+                foreach (JObject run in runs)
+                {
+                    // Move result.ruleMessageId: https://github.com/oasis-tcs/sarif-spec/issues/216
+                    // Update name of threadflowLocation.executionTimeUtc: https://github.com/oasis-tcs/sarif-spec/issues/242
+                    modifiedLog |= UpdateRunResults(run);
 
-                // invocation.workingDirectory now a file location: https://github.com/oasis-tcs/sarif-spec/issues/222
-                // Update names of invocation.startTimeUtc and endTimeUtc: https://github.com/oasis-tcs/sarif-spec/issues/242
-                // Convert exception.message to message object: https://github.com/oasis-tcs/sarif-spec/issues/240
-                modifiedLog |= UpdateRunInvocations(runs);
+                    // invocation.workingDirectory now a file location: https://github.com/oasis-tcs/sarif-spec/issues/222
+                    // Update names of invocation.startTimeUtc and endTimeUtc: https://github.com/oasis-tcs/sarif-spec/issues/242
+                    // Convert exception.message to message object: https://github.com/oasis-tcs/sarif-spec/issues/240
+                    modifiedLog |= UpdateRunInvocations(run);
 
-                // run.originalUriBaseIds values now file locations: https://github.com/oasis-tcs/sarif-spec/issues/234
-                modifiedLog |= UpdateRunOriginalUriBaseIds(runs);
+                    // run.originalUriBaseIds values now file locations: https://github.com/oasis-tcs/sarif-spec/issues/234
+                    modifiedLog |= UpdateRunOriginalUriBaseIds(run);
 
-                // Convert file.hashes to dictionary: https://github.com/oasis-tcs/sarif-spec/issues/240
-                // Update name of file.lastModifiedTimeUtc: https://github.com/oasis-tcs/sarif-spec/issues/242
-                modifiedLog |= UpdateRunFiles(runs);
+                    // Convert file.hashes to dictionary: https://github.com/oasis-tcs/sarif-spec/issues/240
+                    // Update name of file.lastModifiedTimeUtc: https://github.com/oasis-tcs/sarif-spec/issues/242
+                    modifiedLog |= UpdateRunFiles(run);
 
-                // Update names of notification.startTimeUtc and endTimeUtc: https://github.com/oasis-tcs/sarif-spec/issues/242
-                modifiedLog |= UpdateRunNotifications(runs);
+                    // Update names of notification.startTimeUtc and endTimeUtc: https://github.com/oasis-tcs/sarif-spec/issues/242
+                    modifiedLog |= UpdateRunNotifications(run);
 
-                // Update name to versionControlDetails.repositoryUri: https://github.com/oasis-tcs/sarif-spec/issues/244
-                modifiedLog |= UpdateVersionControlProvenance(runs);
+                    // Update name to versionControlDetails.repositoryUri: https://github.com/oasis-tcs/sarif-spec/issues/244
+                    modifiedLog |= UpdateRunVersionControlProvenance(run);
 
-                modifiedLog |= UpdateRunAutomationDetails(runs);
+                    modifiedLog |= RefactorRunAutomationDetails(run);
+                }
             }
 
             return true;
@@ -113,81 +115,73 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return modifiedLog;
         }
 
-        private static bool UpdateRunAutomationDetails(JArray runs)
+        private static bool RefactorRunAutomationDetails(JObject run)
         {
             bool modifiedRun = false;
 
-            foreach (JObject run in runs)
+            // The properties comprise the run-level runAutomationId in previous versions
+            JToken logicalId = run["logicalId"];
+            JToken description = run["description"]; // 'message' object type
+            JToken instanceGuid = run["instanceGuid"];
+            JToken correlationGuid = run["correlationGuid"];
+
+            if (logicalId != null || description != null ||
+                instanceGuid != null || correlationGuid != null)
             {
-                // The properties comprise the run-level runAutomationId in previous versions
-                JToken logicalId = run["logicalId"];
-                JToken description = run["description"]; // 'message' object type
-                JToken instanceGuid = run["instanceGuid"];
-                JToken correlationGuid = run["correlationGuid"];
+                run.Remove("logicalId");
+                run.Remove("description");
+                run.Remove("instanceGuid");
+                run.Remove("correlationGuid");
 
-                if (logicalId != null || description != null ||
-                    instanceGuid != null || correlationGuid != null)
+                var runId = new JObject();
+
+                if (instanceGuid != null)
                 {
-                    run.Remove("logicalId");
-                    run.Remove("description");
-                    run.Remove("instanceGuid");
-                    run.Remove("correlationGuid");
-
-                    var runId = new JObject();
-
-                    if (instanceGuid != null)
-                    {
-                        // We can only effectively populate the new instanceId in a case where
-                        // the log if previously uniquely identified a run by a guid.
-                        runId["instanceId"] = logicalId + "/" + instanceGuid;
-                    }
-
-                    if (description != null) { runId["description"] = description; }
-                    if (instanceGuid != null) { runId["instanceGuid"] = instanceGuid; }
-                    if (correlationGuid != null) { runId["correlationGuid"] = correlationGuid; }
-
-                    run["id"] = runId;
-
-                    modifiedRun = true;
+                    // We can only effectively populate the new instanceId in a case where
+                    // the log is previously uniquely identified a run by a guid.
+                    runId["instanceId"] = logicalId + "/" + instanceGuid;
                 }
 
-                // This property is an element of what v2 now refers to as aggregateIds
-                JToken automationLogicalId = run["automationLogicalId"];
+                if (description != null) { runId["description"] = description; }
+                if (instanceGuid != null) { runId["instanceGuid"] = instanceGuid; }
+                if (correlationGuid != null) { runId["correlationGuid"] = correlationGuid; }
 
-                if (automationLogicalId != null)
-                {
-                    run.Remove("automationLogicalId");
+                run["id"] = runId;
+                modifiedRun = true;
+            }
 
-                    var aggregateId = new JObject();
+            // This property is an element of what v2 now refers to as aggregateIds
+            JToken automationLogicalId = run["automationLogicalId"];
 
-                    // For the aggregating automat id, we have to provide only the
-                    aggregateId["instanceId"] = automationLogicalId + "/";
+            if (automationLogicalId != null)
+            {
+                run.Remove("automationLogicalId");
 
-                    var aggregateIds = new JArray(aggregateId);
+                var aggregateId = new JObject();
 
-                    run["aggregateIds"] = aggregateIds;
+                // For the aggregating automation id, we can only provide the logical component
+                aggregateId["instanceId"] = automationLogicalId + "/";
 
-                    modifiedRun = true;
-                }
+                run["aggregateIds"] = new JArray(aggregateId);
+                modifiedRun = true;
             }
 
             return modifiedRun;
         }
 
-        private static bool UpdateVersionControlProvenance(JArray runs)
+        private static bool UpdateRunVersionControlProvenance(JObject run)
         {
             bool modifiedRun = false;
 
-            foreach (JObject run in runs)
+            JArray versionControlDetailsArray = (JArray)run["versionControlProvenance"];
+            if (versionControlDetailsArray != null)
             {
-                JArray versionControlDetailsArray = (JArray)run["versionControlProvenance"];
-                if (versionControlDetailsArray == null) { continue; }
-
                 foreach (JObject versionControlDetails in versionControlDetailsArray)
                 {
                     modifiedRun |= UpdateVersionControlDetails(versionControlDetails);
                 }
             }
+
             return modifiedRun;
         }
 
@@ -207,39 +201,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return modifiedVersionControlDetails;
         }
 
-        internal static bool UpdateRunResults(JArray runs)
+        internal static bool UpdateRunResults(JObject run)
         {
             bool modifiedRun = false;
 
-            foreach (JObject run in runs)
+            JArray results = (JArray)run["results"];
+            if (results == null) { return modifiedRun; }
+
+            foreach (JObject result in results)
             {
-                JArray results = (JArray)run["results"];
+                // https://github.com/oasis-tcs/sarif-spec/issues/216
+                //
+                // result.ruleMessageId is removed. This property value
+                // should be expressed as result.message.messageId instead.
+                // e.g.:
+                // "message": { "messageId" : "default"}
 
-                if (results == null) { continue; }
+                string ruleMessageId = (string)result["ruleMessageId"];
 
-                foreach (JObject result in results)
+                if (ruleMessageId != null)
                 {
-                    // https://github.com/oasis-tcs/sarif-spec/issues/216
-                    //
-                    // result.ruleMessageId is deprecated. This property value
-                    // should be expressed as result.message.messageId instead.
-                    // e.g.:
-                    // "message": { "messageId" : "default"}
+                    result.Property("ruleMessageId").Remove();
+                    result["message"]["messageId"] = ruleMessageId;
+                    modifiedRun = true;
+                }
 
-                    string ruleMessageId = (string)result["ruleMessageId"];
-
-                    if (ruleMessageId != null)
-                    {
-                        result.Property("ruleMessageId").Remove();
-                        result["message"]["messageId"] = ruleMessageId;
-                        modifiedRun = true;
-                    }
-
-                    var codeFlows = (JArray)result["codeFlows"];
-                    if (codeFlows != null)
-                    {
-                        modifiedRun |= UpdateCodeFlows(codeFlows);
-                    }
+                var codeFlows = (JArray)result["codeFlows"];
+                if (codeFlows != null)
+                {
+                    modifiedRun |= UpdateCodeFlows(codeFlows);
                 }
             }
             return modifiedRun;
@@ -266,7 +256,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                         // Delete threadFlowLocation.step property: https://github.com/oasis-tcs/sarif-spec/issues/203
                         JToken step = threadFlowLocation["step"];
-                        if (step?.Type == JTokenType.Integer)
+                        if (step != null)
                         {
                             threadFlowLocation.Remove("step");
                             modifiedThreadFlowLocation = true;
@@ -277,25 +267,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return modifiedThreadFlowLocation;
         }
 
-        private static bool UpdateRunInvocations(JArray runs)
+        private static bool UpdateRunInvocations(JObject run)
         {
             bool modifiedRun = false;
 
-            foreach (JObject run in runs)
+            JArray invocations = (JArray)run["invocations"];
+
+            if (invocations != null)
             {
-                JArray invocations = (JArray)run["invocations"];
-
-                if (invocations == null) { continue; }
-
                 foreach (JObject invocation in invocations)
                 {
-                    modifiedRun |= UpdateInvocationObject(invocation);
+                    modifiedRun |= UpdateInvocation(invocation);
                 }
             }
+
             return modifiedRun;
         }
 
-        internal static bool UpdateInvocationObject(JObject invocation)
+        internal static bool UpdateInvocation(JObject invocation)
         {
             bool modifiedInvocation = false;
 
@@ -306,18 +295,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // Now:
             //     "workingDirectory": { "uri" : "/home/buildAgent/src" },
 
-            if (invocation["workingDirectory"]?.Type == JTokenType.String)
-            {
-                string workingDirectory = (string)invocation["workingDirectory"];
-
-                invocation.Property("workingDirectory").Remove();
-
-                var fileLocation = new JProperty("uri", workingDirectory);
-                var fileLocationObject = new JObject(fileLocation);
-                invocation["workingDirectory"] = fileLocationObject;
-
-                modifiedInvocation = true;
-            }
+            modifiedInvocation |= ReplaceUriStringWithFileLocation(invocation, "workingDirectory");
 
             // https://github.com/oasis-tcs/sarif-spec/issues/242
 
@@ -327,7 +305,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return modifiedInvocation;
         }
 
-        private static bool UpdateRunOriginalUriBaseIds(JArray runs)
+        private static bool ReplaceUriStringWithFileLocation(JObject jObject, string propertyName)
+        {
+            bool modifiedObject = false;
+
+            if (jObject[propertyName]?.Type == JTokenType.String)
+            {
+                string uriValue = (string)jObject[propertyName];
+
+                jObject.Property(propertyName).Remove();
+
+                var fileLocation = new JProperty("uri", uriValue);
+                var fileLocationObject = new JObject(fileLocation);
+                jObject[propertyName] = fileLocationObject;
+
+                modifiedObject = true;
+            }
+
+            return modifiedObject;
+        }
+
+        private static bool UpdateRunOriginalUriBaseIds(JObject run)
         {
             bool modifiedRun = false;
 
@@ -342,61 +340,55 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // Now:
             // originalUriBaseIds : { "$(SrcRoot)" : { "uri" : "file://c:/src/myenlistment." } }
 
+            var originalUriBaseIds = (JObject)run["originalUriBaseIds"];
 
-            foreach (JObject run in runs)
+            if (originalUriBaseIds == null) { return modifiedRun; }
+
+            List<JProperty> rewrittenValues = null;
+
+            foreach (JProperty originalUriBaseId in originalUriBaseIds.Properties())
             {
-                var originalUriBaseIds = (JObject)run["originalUriBaseIds"];
+                string key = originalUriBaseId.Name;
+                JToken value = originalUriBaseId.Value;
 
-                if (originalUriBaseIds == null) { continue; }
+                if (value.Type != JTokenType.String) { continue; }
 
-                List<JProperty> rewrittenValues = null;
+                rewrittenValues = rewrittenValues ?? new List<JProperty>();
 
-                foreach (JProperty originalUriBaseId in originalUriBaseIds.Properties())
-                {
-                    string key = originalUriBaseId.Name;
-                    JToken value = originalUriBaseId.Value;
+                var fileLocation = new JProperty("uri", value);
+                var fileLocationObject = new JObject(fileLocation);
+                var newValue = new JProperty(key, fileLocationObject);
 
-                    if (value.Type != JTokenType.String) { continue; }
-
-                    rewrittenValues = rewrittenValues ?? new List<JProperty>();
-
-                    var fileLocation = new JProperty("uri", value);
-                    var fileLocationObject = new JObject(fileLocation);
-                    var newValue = new JProperty(key, fileLocationObject);
-
-                    rewrittenValues.Add(newValue);
-                }
-
-                if (rewrittenValues != null)
-                {
-                    run.Remove("originalUriBaseIds");
-
-                    var rewrittenOriginalUriBaseIds = new JObject(rewrittenValues.ToArray());
-                    run["originalUriBaseIds"] = rewrittenOriginalUriBaseIds;
-
-                    modifiedRun = true;
-                }
+                rewrittenValues.Add(newValue);
             }
+
+            if (rewrittenValues != null)
+            {
+                run.Remove("originalUriBaseIds");
+
+                var rewrittenOriginalUriBaseIds = new JObject(rewrittenValues.ToArray());
+                run["originalUriBaseIds"] = rewrittenOriginalUriBaseIds;
+
+                modifiedRun = true;
+            }
+
             return modifiedRun;
         }
 
-        internal static bool UpdateRunFiles(JArray runs)
+        internal static bool UpdateRunFiles(JObject run)
         {
             bool modifiedRun = false;
 
-            foreach (JObject run in runs)
+            var files = (JObject)run["files"];
+            if (files == null) { return modifiedRun; }
+
+            foreach (JProperty file in files.Properties())
             {
-                var files = (JObject)run["files"];
-                if (files == null) { continue; }
+                var fileObject = (JObject)file.Value;
+                modifiedRun |= UpdateFileHashesProperty(fileObject);
 
-                foreach (JProperty file in files.Properties())
-                {
-                    var fileObject = (JObject)file.Value;
-                    modifiedRun |= UpdateFileHashesProperty(fileObject);
-
-                    // https://github.com/oasis-tcs/sarif-spec/issues/242
-                    modifiedRun |= RenameProperty(fileObject, "lastModifiedTime", "lastModifiedTimeUtc"); ;
-                }
+                // https://github.com/oasis-tcs/sarif-spec/issues/242
+                modifiedRun |= RenameProperty(fileObject, "lastModifiedTime", "lastModifiedTimeUtc"); ;
             }
 
             return modifiedRun;
@@ -450,27 +442,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return modifiedRun;
         }
 
-        internal static bool UpdateRunNotifications(JArray runs)
+        internal static bool UpdateRunNotifications(JObject run)
         {
             bool modifiedRun = false;
 
-            foreach (JObject run in runs)
+            var invocations = (JArray)run["invocations"];
+            if (invocations == null) { return modifiedRun; }
+
+            foreach (JObject invocation in invocations)
             {
-                var invocations = (JArray)run["invocations"];
+                var notifications = (JArray)invocation["configurationNotifications"];
+                if (notifications != null) { modifiedRun |= UpdateNotifications(notifications); }
 
-                if (invocations == null) { continue; }
-
-                foreach (JObject invocation in invocations)
-                {
-                    var notifications = (JArray)invocation["configurationNotifications"];
-                    if (notifications != null) { modifiedRun |= UpdateNotifications(notifications); }
-
-                    notifications = (JArray)invocation["toolNotifications"];
-                    if (notifications != null) { modifiedRun |= UpdateNotifications(notifications); }
-                }
+                notifications = (JArray)invocation["toolNotifications"];
+                if (notifications != null) { modifiedRun |= UpdateNotifications(notifications); }
             }
 
-            return modifiedRun;                
+            return modifiedRun;
         }
 
 
@@ -480,13 +468,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             foreach (JObject notification in notifications)
             {
-                modifiedNotification |= UpdateNotificationObjects(notification);
+                modifiedNotification |= UpdateNotification(notification);
             }
 
             return modifiedNotification;
         }
 
-        private static bool UpdateNotificationObjects(JObject notification)
+        private static bool UpdateNotification(JObject notification)
         {
             bool modifiedNotification = false;
 

@@ -217,3 +217,4 @@
 * BREAKING: run.instanceGuid, run.correlationGuid, run.logicalId, run.description combined into new run.id 'runAutomationDetails' object instance.
 * BREAKING: run.automationLogicalId subsumed by run.aggregateIds, an array of 'runAutomationDetails' objects.
 * BREAKING: Remove threadFlowLocation.step
+* Add result.occurrenceCount (denotes # of occurrences of an identical results within an analysisRun)

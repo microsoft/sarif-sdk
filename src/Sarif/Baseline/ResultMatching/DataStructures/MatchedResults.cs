@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 OriginalResultMatchingProperties = new Dictionary<string, object>();
             }
 
-            if (PreviousResult.OriginalRun.Id.InstanceGuid != null)
+            if (PreviousResult.OriginalRun.Id?.InstanceGuid != null)
             {
                 ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, PreviousResult.OriginalRun.Id.InstanceGuid);
             }
@@ -93,7 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 OriginalResultMatchingProperties = new Dictionary<string, object>();
             }
 
-            if (CurrentResult.OriginalRun.Id.InstanceGuid != null)
+            if (CurrentResult.OriginalRun.Id?.InstanceGuid != null)
             {
                 ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, CurrentResult.OriginalRun.Id.InstanceGuid);
             }
@@ -121,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 OriginalResultMatchingProperties = new Dictionary<string, object>();
             }
 
-            if (CurrentResult.OriginalRun.Id.InstanceGuid != null)
+            if (CurrentResult.OriginalRun.Id?.InstanceGuid != null)
             {
                 ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, CurrentResult.OriginalRun.Id.InstanceGuid);
             }
