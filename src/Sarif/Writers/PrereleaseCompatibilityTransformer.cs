@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 }
             }
 
-            return true;
+            return modifiedLog;
         }
 
         private static bool UpdateSarifLogVersion(JObject sarifLog)
