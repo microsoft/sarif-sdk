@@ -60,6 +60,28 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
+            if (!object.ReferenceEquals(left.Properties, right.Properties))
+            {
+                if (left.Properties == null || right.Properties == null || left.Properties.Count != right.Properties.Count)
+                {
+                    return false;
+                }
+
+                foreach (var value_2 in left.Properties)
+                {
+                    SerializedPropertyInfo value_3;
+                    if (!right.Properties.TryGetValue(value_2.Key, out value_3))
+                    {
+                        return false;
+                    }
+
+                    if (!object.Equals(value_2.Value, value_3))
+                    {
+                        return false;
+                    }
+                }
+            }
+
             return true;
         }
 
@@ -79,16 +101,32 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_0 = 0;
-                    foreach (var value_2 in obj.Parameters)
+                    foreach (var value_4 in obj.Parameters)
                     {
-                        xor_0 ^= value_2.Key.GetHashCode();
-                        if (value_2.Value != null)
+                        xor_0 ^= value_4.Key.GetHashCode();
+                        if (value_4.Value != null)
                         {
-                            xor_0 ^= value_2.Value.GetHashCode();
+                            xor_0 ^= value_4.Value.GetHashCode();
                         }
                     }
 
                     result = (result * 31) + xor_0;
+                }
+
+                if (obj.Properties != null)
+                {
+                    // Use xor for dictionaries to be order-independent.
+                    int xor_1 = 0;
+                    foreach (var value_5 in obj.Properties)
+                    {
+                        xor_1 ^= value_5.Key.GetHashCode();
+                        if (value_5.Value != null)
+                        {
+                            xor_1 ^= value_5.Value.GetHashCode();
+                        }
+                    }
+
+                    result = (result * 31) + xor_1;
                 }
             }
 

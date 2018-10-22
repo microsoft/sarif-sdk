@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
-    public partial class RuleConfiguration : ISarifNode
+    public partial class RuleConfiguration : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<RuleConfiguration> ValueComparer => RuleConfigurationEqualityComparer.Instance;
 
@@ -53,6 +53,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IDictionary<string, SerializedPropertyInfo> Parameters { get; set; }
 
         /// <summary>
+        /// Key/value pairs that provide additional information about the rule configuration.
+        /// </summary>
+        [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="RuleConfiguration" /> class.
         /// </summary>
         public RuleConfiguration()
@@ -71,9 +77,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="parameters">
         /// An initialization value for the <see cref="P: Parameters" /> property.
         /// </param>
-        public RuleConfiguration(bool enabled, RuleConfigurationDefaultLevel defaultLevel, IDictionary<string, SerializedPropertyInfo> parameters)
+        /// <param name="properties">
+        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// </param>
+        public RuleConfiguration(bool enabled, RuleConfigurationDefaultLevel defaultLevel, IDictionary<string, SerializedPropertyInfo> parameters, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(enabled, defaultLevel, parameters);
+            Init(enabled, defaultLevel, parameters, properties);
         }
 
         /// <summary>
@@ -92,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Enabled, other.DefaultLevel, other.Parameters);
+            Init(other.Enabled, other.DefaultLevel, other.Parameters, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -113,13 +122,18 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new RuleConfiguration(this);
         }
 
-        private void Init(bool enabled, RuleConfigurationDefaultLevel defaultLevel, IDictionary<string, SerializedPropertyInfo> parameters)
+        private void Init(bool enabled, RuleConfigurationDefaultLevel defaultLevel, IDictionary<string, SerializedPropertyInfo> parameters, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Enabled = enabled;
             DefaultLevel = defaultLevel;
             if (parameters != null)
             {
                 Parameters = new Dictionary<string, SerializedPropertyInfo>(parameters);
+            }
+
+            if (properties != null)
+            {
+                Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
             }
         }
     }

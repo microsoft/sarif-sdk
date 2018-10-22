@@ -16,9 +16,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private string _ruleId;
         private FileRegionsCache _fileRegionsCache;
         private readonly OptionallyEmittedData _dataToInsert;
-        private readonly IDictionary<string, Uri> _originalUriBaseIds;
+        private readonly IDictionary<string, FileLocation> _originalUriBaseIds;
         
-        public InsertOptionalDataVisitor(OptionallyEmittedData dataToInsert, IDictionary<string, Uri> originalUriBaseIds = null)
+        public InsertOptionalDataVisitor(OptionallyEmittedData dataToInsert, IDictionary<string, FileLocation> originalUriBaseIds = null)
         {
             _dataToInsert = dataToInsert;
             _originalUriBaseIds = originalUriBaseIds;
@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (_originalUriBaseIds != null)
             {
-                _run.OriginalUriBaseIds = _run.OriginalUriBaseIds ?? new Dictionary<string, Uri>();
+                _run.OriginalUriBaseIds = _run.OriginalUriBaseIds ?? new Dictionary<string, FileLocation>();
 
                 foreach (string key in _originalUriBaseIds.Keys)
                 {

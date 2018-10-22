@@ -41,6 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         public override sealed void Analyze(SarifValidationContext context)
         {
             Context = context;
+
             Context.InputLogToken = JToken.Parse(Context.InputLogContents);
 
             Visit(Context.InputLog, logPointer: string.Empty);

@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta.2018-09-26 JSON Schema",
-  "description": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2018-09-12 JSON Schema: a standard format for the output of static analysis tools.",
+  "title": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta.2018-10-10 JSON Schema",
+  "description": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2018-10-10 JSON Schema: a standard format for the output of static analysis tools.",
   "additionalProperties": false,
   "type": "object",
   "properties": {
@@ -14,7 +14,7 @@
 
     "version": {
       "description": "The SARIF format version of this log file.",
-      "enum": [ "2.0.0-csd.2.beta.2018-09-26" ]
+      "enum": [ "2.0.0-csd.2.beta.2018-10-10" ]
     },
 
     "runs": {
@@ -24,6 +24,11 @@
       "items": {
         "$ref": "#/definitions/run"
       }
+    },
+
+    "properties": {
+      "description": "Key/value pairs that provide additional information about the log file.",
+      "$ref": "#/definitions/propertyBag"
     }
   },
 
@@ -94,20 +99,7 @@
 
         "properties": {
           "description": "Key/value pairs that provide additional information about the code flow.",
-          "type": "object",
-          "additionalProperties": true,
-          "properties": {
-
-            "tags": {
-              "description": "A set of distinct strings that provide additional information.",
-              "type": "array",
-              "uniqueItems": true,
-              "default": [],
-              "items": {
-                "type": "string"
-              }
-            }
-          }
+          "$ref": "#/definitions/propertyBag"
         }
       },
 
@@ -138,7 +130,13 @@
           "items": {
             "$ref": "#/definitions/fileLocation"
           }
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the conversion.",
+          "$ref": "#/definitions/propertyBag"
         }
+
       },
 
       "required": [ "tool" ]
@@ -172,20 +170,7 @@
 
         "properties": {
           "description": "Key/value pairs that provide additional information about the edge.",
-          "type": "object",
-          "additionalProperties": true,
-          "properties": {
-
-            "tags": {
-              "description": "A set of distinct strings that provide additional information.",
-              "type": "array",
-              "uniqueItems": true,
-              "default": [],
-              "items": {
-                "type": "string"
-              }
-            }
-          }
+          "$ref": "#/definitions/propertyBag"
         }
       },
 
@@ -223,20 +208,7 @@
 
         "properties": {
           "description": "Key/value pairs that provide additional information about the edge traversal.",
-          "type": "object",
-          "additionalProperties": true,
-          "properties": {
-
-            "tags": {
-              "description": "A set of distinct strings that provide additional information.",
-              "type": "array",
-              "uniqueItems": true,
-              "default": [],
-              "items": {
-                "type": "string"
-              }
-            }
-          }
+          "$ref": "#/definitions/propertyBag"
         }
       },
 
@@ -253,8 +225,8 @@
         },
 
         "message": {
-          "type": "string",
-          "description": "A plain text message that describes the exception."
+          "description": "A message that describes the exception.",
+          "$ref": "#/definitions/message"
         },
 
         "stack": {
@@ -263,11 +235,16 @@
         },
 
         "innerExceptions": {
-          "type": "array",
           "description": "An array of exception objects each of which is considered a cause of this exception.",
+          "type": "array",
           "items": {
             "$ref": "#/definitions/exception"
           }
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the exception",
+          "$ref": "#/definitions/propertyBag"
         }
       }
     },
@@ -321,6 +298,11 @@
           "items": {
             "$ref": "#/definitions/fileLocation"
           }
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the external files",
+          "$ref": "#/definitions/propertyBag"
         }
       }
     },
@@ -391,37 +373,22 @@
         },
 
         "hashes": {
-          "description": "An array of hash objects, each of which specifies a hashed value for the file, along with the name of the hash function used to compute the hash.",
-          "type": "array",
-          "minItems": 1,
-          "uniqueItems": true,
-          "items": {
-            "$ref": "#/definitions/hash"
+          "description": "A dictionary, each of whose keys is the name of a hash function and each of whose values is the hashed value of the file produced by the specified hash function.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
           }
         },
 
-        "lastModifiedTime": {
-          "description": "The date and time at which the file was most recently modified. See \"Date/time properties\" in the SARIF spec for the required format.",
+        "lastModifiedTimeUtc": {
+          "description": "The Coordinated Universal Time (UTC) date and time at which the file was most recently modified. See \"Date/time properties\" in the SARIF spec for the required format.",
           "type": "string",
           "format": "date-time"
         },
 
         "properties": {
           "description": "Key/value pairs that provide additional information about the file.",
-          "type": "object",
-          "additionalProperties": true,
-          "properties": {
-
-            "tags": {
-              "description": "A set of distinct strings that provide additional information.",
-              "type": "array",
-              "uniqueItems": true,
-              "default": [],
-              "items": {
-                "type": "string"
-              }
-            }
-          }
+          "$ref": "#/definitions/propertyBag"
         }
       }
     },
@@ -444,7 +411,13 @@
           "items": {
             "$ref": "#/definitions/replacement"
           }
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the file change.",
+          "$ref": "#/definitions/propertyBag"
         }
+
       },
 
       "required": [ "fileLocation", "replacements" ]
@@ -464,6 +437,11 @@
         "binary": {
           "description": "MIME Base64-encoded content from a binary file, or from a text file in its original encoding.",
           "type": "string"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the external file.",
+          "$ref": "#/definitions/propertyBag"
         }
       }
     },
@@ -483,6 +461,11 @@
         "uriBaseId": {
           "description": "A string which indirectly specifies the absolute URI with respect to which a relative URI in the \"uri\" property is interpreted.",
           "type": "string"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the file location.",
+          "$ref": "#/definitions/propertyBag"
         }
       },
 
@@ -506,6 +489,11 @@
           "items": {
             "$ref": "#/definitions/fileChange"
           }
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the fix.",
+          "$ref": "#/definitions/propertyBag"
         }
       },
       "required": [ "fileChanges" ]
@@ -545,20 +533,7 @@
 
         "properties": {
           "description": "Key/value pairs that provide additional information about the graph.",
-          "type": "object",
-          "additionalProperties": true,
-          "properties": {
-            "tags": {
-
-              "description": "A set of distinct strings that provide additional information.",
-              "type": "array",
-              "uniqueItems": true,
-              "default": [],
-              "items": {
-                "type": "string"
-              }
-            }
-          }
+          "$ref": "#/definitions/propertyBag"
         }
       },
 
@@ -599,43 +574,11 @@
 
         "properties": {
           "description": "Key/value pairs that provide additional information about the graph traversal.",
-          "type": "object",
-          "additionalProperties": true,
-          "properties": {
-            "tags": {
-
-              "description": "A set of distinct strings that provide additional information.",
-              "type": "array",
-              "uniqueItems": true,
-              "default": [],
-              "items": {
-                "type": "string"
-              }
-            }
-          }
+          "$ref": "#/definitions/propertyBag"
         }
       },
 
       "required": [ "graphId", "edgeTraversals" ]
-    },
-
-    "hash": {
-      "description": "A hash value of some file or collection of files, together with the hash function used to compute the hash.",
-      "additionalProperties": false,
-      "type": "object",
-      "properties": {
-
-        "value": {
-          "description": "The hash value of some file or collection of files, computed by the hash function named in the 'algorithm' property.",
-          "type": "string"
-        },
-
-        "algorithm": {
-          "description": "The name of the hash function used to compute the hash value specified in the 'value' property.",
-          "type": "string"
-        }
-      },
-      "required": [ "value", "algorithm" ]
     },
 
     "invocation": {
@@ -675,14 +618,14 @@
           }
         },
 
-        "startTime": {
-          "description": "The date and time at which the run started. See \"Date/time properties\" in the SARIF spec for the required format.",
+        "startTimeUtc": {
+          "description": "The Coordinated Universal Time (UTC) date and time at which the run started. See \"Date/time properties\" in the SARIF spec for the required format.",
           "type": "string",
           "format": "date-time"
         },
 
-        "endTime": {
-          "description": "The date and time at which the run ended. See \"Date/time properties\" in the SARIF spec for the required format.",
+        "endTimeUtc": {
+          "description": "The Coordinated Universal Time (UTC) date and time at which the run ended. See \"Date/time properties\" in the SARIF spec for the required format.",
           "type": "string",
           "format": "date-time"
         },
@@ -788,20 +731,7 @@
 
         "properties": {
           "description": "Key/value pairs that provide additional information about the invocation.",
-          "type": "object",
-          "additionalProperties": true,
-          "properties": {
-            "tags": {
-
-              "description": "A set of distinct strings that provide additional information.",
-              "type": "array",
-              "uniqueItems": true,
-              "default": [],
-              "items": {
-                "type": "string"
-              }
-            }
-          }
+          "$ref": "#/definitions/propertyBag"
         }
       }
     },
@@ -839,20 +769,7 @@
 
         "properties": {
           "description": "Key/value pairs that provide additional information about the location.",
-          "type": "object",
-          "additionalProperties": true,
-          "properties": {
-            "tags": {
-
-              "description": "A set of distinct strings that provide additional information.",
-              "type": "array",
-              "uniqueItems": true,
-              "default": [],
-              "items": {
-                "type": "string"
-              }
-            }
-          }
+          "$ref": "#/definitions/propertyBag"
         }
       }
     },
@@ -886,6 +803,11 @@
         "kind": {
           "description": "The type of construct this logicalLocationComponent refers to. Should be one of 'function', 'member', 'module', 'namespace', 'package', 'parameter', 'resource', 'returnType', 'type', or 'variable', if any of those accurately describe the construct.",
           "type": "string"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the logical location.",
+          "$ref": "#/definitions/propertyBag"
         }
       }
     },
@@ -923,6 +845,11 @@
           "items": {
             "type": "string"
           }
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the message.",
+          "$ref": "#/definitions/propertyBag"
         }
       }
     },
@@ -960,20 +887,7 @@
 
         "properties": {
           "description": "Key/value pairs that provide additional information about the node.",
-          "type": "object",
-          "additionalProperties": true,
-          "properties": {
-
-            "tags": {
-              "description": "A set of distinct strings that provide additional information.",
-              "type": "array",
-              "uniqueItems": true,
-              "default": [],
-              "items": {
-                "type": "string"
-              }
-            }
-          }
+          "$ref": "#/definitions/propertyBag"
         }
       },
 
@@ -1017,8 +931,8 @@
           "type": "integer"
         },
 
-        "time": {
-          "description": "The date and time at which the analysis tool generated the notification.",
+        "timeUtc": {
+          "description": "The Coordinated Universal Time (UTC) date and time at which the analysis tool generated the notification.",
           "type": "string",
           "format": "date-time"
         },
@@ -1030,20 +944,7 @@
 
         "properties": {
           "description": "Key/value pairs that provide additional information about the notification.",
-          "type": "object",
-          "additionalProperties": true,
-          "properties": {
-
-            "tags": {
-              "description": "A set of distinct strings that provide additional information.",
-              "type": "array",
-              "uniqueItems": true,
-              "default": [],
-              "items": {
-                "type": "string"
-              }
-            }
-          }
+          "$ref": "#/definitions/propertyBag"
         }
       },
 
@@ -1074,10 +975,33 @@
         "contextRegion": {
           "description": "Specifies a portion of the file that encloses the region. Allows a viewer to display additional context around the region.",
           "$ref": "#/definitions/region"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the physical location.",
+          "$ref": "#/definitions/propertyBag"
         }
       },
 
       "required": [ "fileLocation" ]
+    },
+
+    "propertyBag": {
+      "description": "Key/value pairs that provide additional information about the object.",
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "tags": {
+
+          "description": "A set of distinct strings that provide additional information.",
+          "type": "array",
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "type": "string"
+          }
+        }
+      }
     },
 
     "rectangle": {
@@ -1109,6 +1033,11 @@
         "message": {
           "description": "A message relevant to the rectangle.",
           "$ref": "#/definitions/message"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the rectangle.",
+          "$ref": "#/definitions/propertyBag"
         }
       }
     },
@@ -1175,6 +1104,11 @@
         "message": {
           "description": "A message relevant to the region.",
           "$ref": "#/definitions/message"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the region.",
+          "$ref": "#/definitions/propertyBag"
         }
       }
     },
@@ -1193,6 +1127,11 @@
         "insertedContent": {
           "description": "The content to insert at the location specified by the 'deletedRegion' property.",
           "$ref": "#/definitions/fileContent"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the replacement.",
+          "$ref": "#/definitions/propertyBag"
         }
       },
 
@@ -1401,20 +1340,7 @@
 
         "properties": {
           "description": "Key/value pairs that provide additional information about the result.",
-          "type": "object",
-          "additionalProperties": true,
-          "properties": {
-
-            "tags": {
-              "description": "A set of distinct strings that provide additional information.",
-              "type": "array",
-              "uniqueItems": true,
-              "default": [],
-              "items": {
-                "type": "string"
-              }
-            }
-          }
+          "$ref": "#/definitions/propertyBag"
         }
       }
     },
@@ -1479,19 +1405,7 @@
 
         "properties": {
           "description": "Key/value pairs that provide additional information about the rule.",
-          "type": "object",
-          "additionalProperties": true,
-          "properties": {
-            "tags": {
-              "description": "A set of distinct strings that provide additional information.",
-              "type": "array",
-              "uniqueItems": true,
-              "default": [],
-              "items": {
-                "type": "string"
-              }
-            }
-          }
+          "$ref": "#/definitions/propertyBag"
         }
       }
     },
@@ -1528,6 +1442,11 @@
               }
             }
           }
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the rule configuration.",
+          "$ref": "#/definitions/propertyBag"
         }
       }
     },
@@ -1569,11 +1488,10 @@
         },
 
         "originalUriBaseIds": {
-          "description": "The absolute URI specified by each uriBaseId symbol on the machine where the tool originally ran.",
+          "description": "The file location specified by each uriBaseId symbol on the machine where the tool originally ran.",
           "type": "object",
           "additionalProperties": {
-            "type": "string",
-            "format": "uri"
+            "$ref": "#/definitions/fileLocation"
           }
         },
 
@@ -1615,29 +1533,18 @@
           "$ref": "#/definitions/resources"
         },
 
-        "instanceGuid": {
-          "description": "A stable, unique identifier for the run, in the form of a GUID.",
-          "type": "string"
+        "id": {
+          "description": "Automation details that describe this run.",
+          "$ref": "#/definitions/runAutomationDetails"
         },
 
-        "correlationGuid": {
-          "description": "A stable, unique identifier for the class of related runs to which this run belongs, in the form of a GUID.",
-          "type": "string"
-        },
-
-        "logicalId": {
-          "description": "A logical identifier for a run, for example, 'nightly Clang analyzer run'. Multiple runs of the same type can have the same logical id.",
-          "type": "string"
-        },
-
-        "description": {
-          "description": "A description of the run.",
-          "$ref": "#/definitions/message"
-        },
-
-        "automationLogicalId": {
-          "description": "A global identifier that allows the run to be correlated with other artifacts produced by a larger automation process.",
-          "type": "string"
+        "aggregateIds": {
+          "description": "Automation details that describe the aggregate of runs to which this run belongs.",
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "#/definitions/runAutomationDetails"
+          }
         },
 
         "baselineInstanceGuid": {
@@ -1673,24 +1580,45 @@
 
         "properties": {
           "description": "Key/value pairs that provide additional information about the run.",
-          "type": "object",
-          "additionalProperties": true,
-          "properties": {
-
-            "tags": {
-              "description": "A set of distinct strings that provide additional information about the run.",
-              "type": "array",
-              "uniqueItems": true,
-              "default": [],
-              "items": {
-                "type": "string"
-              }
-            }
-          }
+          "$ref": "#/definitions/propertyBag"
         }
       },
 
       "required": [ "tool" ]
+    },
+
+
+    "runAutomationDetails": {
+      "description": "Information that describes a run's identity and role within an engineering system process.",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+
+        "description": {
+          "description": "A description of the identity and role played within the engineering system by this object's containing run object.",
+          "$ref": "#/definitions/message"
+        },
+
+        "instanceId": {
+          "description": "A hierarchical string that uniquely identifies this object's containing run object.",
+          "type": "string"
+        },
+
+        "instanceGuid": {
+          "description": "A stable, unique identifer for this object's containing run object in the form of a GUID.",
+          "type": "string"
+        },
+
+        "correlationGuid": {
+          "description": "A stable, unique identifier for the equivalence class of runs to which this object's containing run object belongs in the form of a GUID.",
+          "type": "string"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the run automation details.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      }
     },
 
     "stack": {
@@ -1705,7 +1633,7 @@
         },
 
         "frames": {
-          "description": "An array of stack frames that represent a sequence of calls, rendered in reverse chronological order, that comprise the call stack.",
+          "description": "An array of stack frames that represents a sequence of calls, rendered in reverse chronological order, that comprise the call stack.",
           "type": "array",
           "minItems": 1,
           "items": {
@@ -1715,20 +1643,7 @@
 
         "properties": {
           "description": "Key/value pairs that provide additional information about the stack.",
-          "type": "object",
-          "additionalProperties": true,
-          "properties": {
-
-            "tags": {
-              "description": "A set of distinct strings that provide additional information.",
-              "type": "array",
-              "uniqueItems": true,
-              "default": [],
-              "items": {
-                "type": "string"
-              }
-            }
-          }
+          "$ref": "#/definitions/propertyBag"
         }
       },
       "required": [ "frames" ]
@@ -1776,20 +1691,7 @@
 
         "properties": {
           "description": "Key/value pairs that provide additional information about the stack frame.",
-          "type": "object",
-          "additionalProperties": true,
-          "properties": {
-            "tags": {
-
-              "description": "A set of distinct strings that provide additional information.",
-              "type": "array",
-              "uniqueItems": true,
-              "default": [],
-              "items": {
-                "type": "string"
-              }
-            }
-          }
+          "$ref": "#/definitions/propertyBag"
         }
       }
     },
@@ -1819,20 +1721,7 @@
 
         "properties": {
           "description": "Key/value pairs that provide additional information about the thread flow.",
-          "type": "object",
-          "additionalProperties": true,
-          "properties": {
-
-            "tags": {
-              "description": "A set of distinct strings that provide additional information.",
-              "type": "array",
-              "uniqueItems": true,
-              "default": [],
-              "items": {
-                "type": "string"
-              }
-            }
-          }
+          "$ref": "#/definitions/propertyBag"
         }
       },
 
@@ -1844,12 +1733,6 @@
       "additionalProperties": false,
       "type": "object",
       "properties": {
-
-        "step": {
-          "description": "The 0-based sequence number of the location in the code flow within which it occurs.",
-          "type": "integer",
-          "minimum": 0
-        },
 
         "location": {
           "description": "The code location.",
@@ -1889,8 +1772,8 @@
           "type": "integer"
         },
 
-        "timestamp": {
-          "description": "The time at which this location was executed.",
+        "executionTimeUtc": {
+          "description": "The Coordinated Universal Time (UTC) date and time at which this location was executed.",
           "type": "string",
           "format": "date-time"
         },
@@ -1901,21 +1784,8 @@
         },
 
         "properties": {
-          "description": "Key/value pairs that provide additional information about the code location.",
-          "type": "object",
-          "additionalProperties": true,
-          "properties": {
-
-            "tags": {
-              "description": "A set of distinct strings that provide additional information.",
-              "type": "array",
-              "uniqueItems": true,
-              "default": [],
-              "items": {
-                "type": "string"
-              }
-            }
-          }
+          "description": "Key/value pairs that provide additional information about the threadflow location.",
+          "$ref": "#/definitions/propertyBag"
         }
       }
     },
@@ -1971,20 +1841,7 @@
 
         "properties": {
           "description": "Key/value pairs that provide additional information about the tool.",
-          "type": "object",
-          "additionalProperties": true,
-          "properties": {
-
-            "tags": {
-              "description": "A set of distinct strings that provide additional information.",
-              "type": "array",
-              "uniqueItems": true,
-              "default": [],
-              "items": {
-                "type": "string"
-              }
-            }
-          }
+          "$ref": "#/definitions/propertyBag"
         }
       },
 
@@ -1997,7 +1854,7 @@
       "additionalProperties": false,
       "properties": {
 
-        "uri": {
+        "repositoryUri": {
           "description": "The absolute URI of the repository.",
           "type": "string",
           "format": "uri"
@@ -2013,37 +1870,25 @@
           "type": "string"
         },
 
-        "tag": {
+        "revisionTag": {
           "description": "A tag that has been applied to the revision.",
           "type": "string"
         },
 
-        "timestamp": {
-          "description": "The date and time at which the revision was created.",
+        "asOfTimeUtc": {
+          "description": "A Coordinated Universal Time (UTC) date and time that can be used to synchronize an enlistment to the state of the repository at that time.",
           "type": "string",
           "format": "date-time"
         },
 
         "properties": {
-          "description": "Key/value pairs that provide additional information about the revision.",
-          "type": "object",
-          "additionalProperties": true,
-          "properties": {
-
-            "tags": {
-              "description": "A set of distinct strings that provide additional information.",
-              "type": "array",
-              "uniqueItems": true,
-              "default": [],
-              "items": {
-                "type": "string"
-              }
-            }
-          }
+          "description": "Key/value pairs that provide additional information about the version control details.",
+          "$ref": "#/definitions/propertyBag"
         }
       },
 
-      "required": [ "uri" ]
+      "required": [ "repositoryUri" ]
     }
   }
 }
+  

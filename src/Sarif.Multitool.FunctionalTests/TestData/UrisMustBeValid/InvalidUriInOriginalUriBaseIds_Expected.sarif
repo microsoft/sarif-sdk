@@ -34,8 +34,8 @@
                   "uri": "file:///C:/Code/sarif-sdk/src/Sarif.Multitool.FunctionalTests/TestData/UrisMustBeValid/InvalidUriInOriginalUriBaseIds.sarif"
                 },
                 "region": {
-                  "startLine": 10,
-                  "startColumn": 51
+                  "startLine": 11,
+                  "startColumn": 20
                 }
               }
             }

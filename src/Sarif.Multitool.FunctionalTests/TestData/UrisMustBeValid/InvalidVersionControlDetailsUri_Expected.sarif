@@ -22,7 +22,7 @@
           "level": "error",
           "message": {
             "arguments": [
-              "/runs/0/versionControlProvenance/0/uri",
+              "/runs/0/versionControlProvenance/0/repositoryUri",
               "ht%tps://example.com/my-project"
             ]
           },
@@ -35,7 +35,7 @@
                 },
                 "region": {
                   "startLine": 12,
-                  "startColumn": 50
+                  "startColumn": 60
                 }
               }
             }

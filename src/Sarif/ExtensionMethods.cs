@@ -16,6 +16,40 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class ExtensionMethods
     {
+        public static string InstanceIdInstanceComponent(this RunAutomationDetails runAutomationDetails)
+        {
+            string instanceId = runAutomationDetails.InstanceId;
+
+            if (instanceId == null)
+            {
+                return null;
+            }
+
+            if (instanceId.EndsWith("/"))
+            {
+                return String.Empty;
+            }
+
+            return instanceId.Substring(instanceId.LastIndexOf('/') + 1);
+        }
+
+        public static string InstanceIdLogicalComponent(this RunAutomationDetails runAutomationDetails)
+        {
+            string instanceId = runAutomationDetails.InstanceId;
+
+            if (instanceId == null)
+            {
+                return null;
+            }
+
+            if (!instanceId.Contains("/"))
+            {
+                return String.Empty;
+            }
+
+            return instanceId.Substring(0, instanceId.LastIndexOf('/'));
+        }
+
         public static string Format(this IRule rule, string messageId, IEnumerable<string> arguments)
         {
             return string.Format(CultureInfo.CurrentCulture, rule.MessageStrings[messageId], arguments.ToArray());

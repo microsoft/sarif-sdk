@@ -5,16 +5,17 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2018-09-12 JSON Schema: a standard format for the output of static analysis tools.
+    /// Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2018-10-10 JSON Schema: a standard format for the output of static analysis tools.
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
-    public partial class SarifLog : ISarifNode
+    public partial class SarifLog : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<SarifLog> ValueComparer => SarifLogEqualityComparer.Instance;
 
@@ -52,6 +53,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<Run> Runs { get; set; }
 
         /// <summary>
+        /// Key/value pairs that provide additional information about the log file.
+        /// </summary>
+        [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="SarifLog" /> class.
         /// </summary>
         public SarifLog()
@@ -70,9 +77,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="runs">
         /// An initialization value for the <see cref="P: Runs" /> property.
         /// </param>
-        public SarifLog(Uri schemaUri, SarifVersion version, IEnumerable<Run> runs)
+        /// <param name="properties">
+        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// </param>
+        public SarifLog(Uri schemaUri, SarifVersion version, IEnumerable<Run> runs, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(schemaUri, version, runs);
+            Init(schemaUri, version, runs, properties);
         }
 
         /// <summary>
@@ -91,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.SchemaUri, other.Version, other.Runs);
+            Init(other.SchemaUri, other.Version, other.Runs, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -112,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new SarifLog(this);
         }
 
-        private void Init(Uri schemaUri, SarifVersion version, IEnumerable<Run> runs)
+        private void Init(Uri schemaUri, SarifVersion version, IEnumerable<Run> runs, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (schemaUri != null)
             {
@@ -136,6 +146,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 Runs = destination_0;
+            }
+
+            if (properties != null)
+            {
+                Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
             }
         }
     }

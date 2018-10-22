@@ -40,13 +40,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                 fileData.Contents.Should().BeNull();
                 fileData.Hashes.Count.Should().Be(3);
 
-                foreach (Hash hash in fileData.Hashes)
+                foreach (string algorithm in fileData.Hashes.Keys)
                 {
-                    switch (hash.Algorithm)
+                    switch (algorithm)
                     {
-                        case "md5": { hash.Value.Should().Be(hashes.MD5); break; }
-                        case "sha-1": { hash.Value.Should().Be(hashes.Sha1); break; }
-                        case "sha-256": { hash.Value.Should().Be(hashes.Sha256); break; }
+                        case "md5": { fileData.Hashes[algorithm].Should().Be(hashes.MD5); break; }
+                        case "sha-1": { fileData.Hashes[algorithm].Should().Be(hashes.Sha1); break; }
+                        case "sha-256": { fileData.Hashes[algorithm].Should().Be(hashes.Sha256); break; }
                         default: { true.Should().BeFalse(); break; /* unexpected algorithm kind */ }
                     }
                 }

@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
@@ -78,10 +79,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             Run newRun = rebaseUriVisitor.VisitRun(oldRun);
 
-            IDictionary<string, Uri> baseUriDictionary = newRun.OriginalUriBaseIds;
+            IDictionary<string, FileLocation> baseUriDictionary = newRun.OriginalUriBaseIds;
 
             baseUriDictionary.Should().ContainKey("SRCROOT");
-            baseUriDictionary.Should().ContainValue(new Uri(@"C:\src\root"));
+            baseUriDictionary["SRCROOT"].ValueEquals(new FileLocation { Uri = new Uri(@"C:\src\root") }).Should().BeTrue();
         }
 
         [Fact]
@@ -98,17 +99,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Run oldRun = RandomSarifLogGenerator.GenerateRandomRun(random);
             RebaseUriVisitor rebaseUriVisitor = new RebaseUriVisitor(srcRoot, srcRootUri);
 
-            Dictionary<string, Uri> oldDictionary = new Dictionary<string, Uri>() { { bldRoot, bldRootUri } };
+            var oldDictionary = new Dictionary<string, FileLocation>() { { bldRoot, new FileLocation { Uri = bldRootUri } } };
             oldRun.OriginalUriBaseIds = oldDictionary;
 
             Run newRun = rebaseUriVisitor.VisitRun(oldRun);
 
-            IDictionary<string, Uri> baseUriDictionary = newRun.OriginalUriBaseIds;
+            IDictionary<string, FileLocation> baseUriDictionary = newRun.OriginalUriBaseIds;
 
             baseUriDictionary.Should().ContainKey(srcRoot);
-            baseUriDictionary[srcRoot].Should().BeEquivalentTo(srcRootUri);
+            baseUriDictionary[srcRoot].Uri.Should().BeEquivalentTo(srcRootUri);
             baseUriDictionary.Should().ContainKey(bldRoot);
-            baseUriDictionary[bldRoot].Should().BeEquivalentTo(bldRootUri);
+            baseUriDictionary[bldRoot].Uri.Should().BeEquivalentTo(bldRootUri);
         }
 
         [Fact]
@@ -161,7 +162,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             var newFileData = run.Files["#SRCROOT#blah.zip#/stuff.doc"];
 
             run.OriginalUriBaseIds.Should().ContainKey(srcroot);
-            run.OriginalUriBaseIds[srcroot].OriginalString.Should().Be(@"C:\src\root\");
+            run.OriginalUriBaseIds[srcroot].Uri.Should().Be(@"C:\src\root\");
         }
 
         [Fact]
@@ -183,13 +184,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             newFileData.ParentKey.Should().BeSameAs(parentKey);
         }
 
-
         [Fact]
         public void RebaseUriVisitor_VisitFileData_RebasesAllTheThings()
         {
-            string comprehensiveSarifPath = Path.Combine(Environment.CurrentDirectory, @"v2\Comprehensive.sarif");
+            string comprehensiveSarifPath = Path.Combine(Environment.CurrentDirectory, @"v2\SpecExamples\Comprehensive.sarif");
 
             string sarifText = File.ReadAllText(comprehensiveSarifPath);
+
+            sarifText = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(sarifText);
 
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifText);
 
@@ -209,11 +211,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             visitor.FileDataKeys.Where(k => k != null && k.StartsWith(uriRootText)).Count().Should().Be(3);
             visitor.FileDataKeys.Where(k => k != null && k.StartsWith("#" + toolsRootBaseId + "#")).Count().Should().Be(1);
 
-            visitor.FileLocationUriBaseIds.Count.Should().Be(15);
-            visitor.FileLocationUriBaseIds.Where(u => u == null).Count().Should().Be(12);
+            int uriCount = 16;
+
+            visitor.FileLocationUriBaseIds.Count.Should().Be(uriCount);
+            visitor.FileLocationUriBaseIds.Where(u => u == null).Count().Should().Be(13);
             visitor.FileLocationUriBaseIds.Where(u => u == toolsRootBaseId).Count().Should().Be(3);
 
-            visitor.FileLocationUris.Count.Should().Be(15);
+            visitor.FileLocationUris.Count.Should().Be(uriCount);
             visitor.FileLocationUris.Where(u => u != null && u.StartsWith(uriRootText)).Count().Should().Be(11);
 
             string agentRootBaseId = "AGENT_ROOT";
@@ -232,14 +236,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             visitor.FileDataParentKeys.Where(k => k == null).Count().Should().Be(3);
             visitor.FileDataParentKeys.Where(k => k != null && k.StartsWith("#" + agentRootBaseId + "#")).Count().Should().Be(1);
 
-            visitor.FileLocationUriBaseIds.Count.Should().Be(15);
-            // The sole null uri base id is for an embedded item. These always have a URI only
-            visitor.FileLocationUriBaseIds.Where(u => u == null).Count().Should().Be(1);
+            // Rebasing AGENT_ROOT adds a new file location to uriBaseIds
+            visitor.FileLocationUriBaseIds.Count.Should().Be(uriCount + 1);
+            visitor.FileLocationUriBaseIds.Where(u => u == null).Count().Should().Be(3);
             visitor.FileLocationUriBaseIds.Where(u => u == toolsRootBaseId).Count().Should().Be(3);
             visitor.FileLocationUriBaseIds.Where(u => u == agentRootBaseId).Count().Should().Be(11);
 
-            visitor.FileLocationUris.Count.Should().Be(15);
-            visitor.FileLocationUris.Where(u => u != null && u.StartsWith(uriRootText)).Count().Should().Be(0);
+            visitor.FileLocationUris.Count.Should().Be(17);
+
+            // The AGENT_ROOT originalUriBaseId is the last thing that will include the uriRootText value
+            visitor.FileLocationUris.Where(u => u != null && u.StartsWith(uriRootText)).Count().Should().Be(1);
         }
 
         private class RebaseVerifyingVisitor : SarifRewritingVisitor

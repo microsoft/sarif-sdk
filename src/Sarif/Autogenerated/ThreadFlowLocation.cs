@@ -34,12 +34,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// The 0-based sequence number of the location in the code flow within which it occurs.
-        /// </summary>
-        [DataMember(Name = "step", IsRequired = false, EmitDefaultValue = false)]
-        public int Step { get; set; }
-
-        /// <summary>
         /// The code location.
         /// </summary>
         [DataMember(Name = "location", IsRequired = false, EmitDefaultValue = false)]
@@ -82,10 +76,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int ExecutionOrder { get; set; }
 
         /// <summary>
-        /// The time at which this location was executed.
+        /// The Coordinated Universal Time (UTC) date and time at which this location was executed.
         /// </summary>
-        [DataMember(Name = "timestamp", IsRequired = false, EmitDefaultValue = false)]
-        public DateTime Timestamp { get; set; }
+        [DataMember(Name = "executionTimeUtc", IsRequired = false, EmitDefaultValue = false)]
+        public DateTime ExecutionTimeUtc { get; set; }
 
         /// <summary>
         /// Specifies the importance of this location in understanding the code flow in which it occurs. The order from most to least important is "essential", "important", "unimportant". Default: "important".
@@ -95,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public ThreadFlowLocationImportance Importance { get; set; }
 
         /// <summary>
-        /// Key/value pairs that provide additional information about the code location.
+        /// Key/value pairs that provide additional information about the threadflow location.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
@@ -110,9 +104,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Initializes a new instance of the <see cref="ThreadFlowLocation" /> class from the supplied values.
         /// </summary>
-        /// <param name="step">
-        /// An initialization value for the <see cref="P: Step" /> property.
-        /// </param>
         /// <param name="location">
         /// An initialization value for the <see cref="P: Location" /> property.
         /// </param>
@@ -134,8 +125,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="executionOrder">
         /// An initialization value for the <see cref="P: ExecutionOrder" /> property.
         /// </param>
-        /// <param name="timestamp">
-        /// An initialization value for the <see cref="P: Timestamp" /> property.
+        /// <param name="executionTimeUtc">
+        /// An initialization value for the <see cref="P: ExecutionTimeUtc" /> property.
         /// </param>
         /// <param name="importance">
         /// An initialization value for the <see cref="P: Importance" /> property.
@@ -143,9 +134,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public ThreadFlowLocation(int step, Location location, Stack stack, string kind, string module, IDictionary<string, string> state, int nestingLevel, int executionOrder, DateTime timestamp, ThreadFlowLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
+        public ThreadFlowLocation(Location location, Stack stack, string kind, string module, IDictionary<string, string> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(step, location, stack, kind, module, state, nestingLevel, executionOrder, timestamp, importance, properties);
+            Init(location, stack, kind, module, state, nestingLevel, executionOrder, executionTimeUtc, importance, properties);
         }
 
         /// <summary>
@@ -164,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Step, other.Location, other.Stack, other.Kind, other.Module, other.State, other.NestingLevel, other.ExecutionOrder, other.Timestamp, other.Importance, other.Properties);
+            Init(other.Location, other.Stack, other.Kind, other.Module, other.State, other.NestingLevel, other.ExecutionOrder, other.ExecutionTimeUtc, other.Importance, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -185,9 +176,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ThreadFlowLocation(this);
         }
 
-        private void Init(int step, Location location, Stack stack, string kind, string module, IDictionary<string, string> state, int nestingLevel, int executionOrder, DateTime timestamp, ThreadFlowLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Location location, Stack stack, string kind, string module, IDictionary<string, string> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Step = step;
             if (location != null)
             {
                 Location = new Location(location);
@@ -207,7 +197,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             NestingLevel = nestingLevel;
             ExecutionOrder = executionOrder;
-            Timestamp = timestamp;
+            ExecutionTimeUtc = executionTimeUtc;
             Importance = importance;
             if (properties != null)
             {

@@ -5,12 +5,13 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
-    public partial class ExceptionData : ISarifNode
+    public partial class ExceptionData : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ExceptionData> ValueComparer => ExceptionDataEqualityComparer.Instance;
 
@@ -35,10 +36,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Kind { get; set; }
 
         /// <summary>
-        /// A plain text message that describes the exception.
+        /// A message that describes the exception.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-        public string Message { get; set; }
+        public Message Message { get; set; }
 
         /// <summary>
         /// The sequence of function calls leading to the exception.
@@ -51,6 +52,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "innerExceptions", IsRequired = false, EmitDefaultValue = false)]
         public IList<ExceptionData> InnerExceptions { get; set; }
+
+        /// <summary>
+        /// Key/value pairs that provide additional information about the exception
+        /// </summary>
+        [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExceptionData" /> class.
@@ -74,9 +81,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="innerExceptions">
         /// An initialization value for the <see cref="P: InnerExceptions" /> property.
         /// </param>
-        public ExceptionData(string kind, string message, Stack stack, IEnumerable<ExceptionData> innerExceptions)
+        /// <param name="properties">
+        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// </param>
+        public ExceptionData(string kind, Message message, Stack stack, IEnumerable<ExceptionData> innerExceptions, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(kind, message, stack, innerExceptions);
+            Init(kind, message, stack, innerExceptions, properties);
         }
 
         /// <summary>
@@ -95,7 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Kind, other.Message, other.Stack, other.InnerExceptions);
+            Init(other.Kind, other.Message, other.Stack, other.InnerExceptions, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -116,10 +126,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExceptionData(this);
         }
 
-        private void Init(string kind, string message, Stack stack, IEnumerable<ExceptionData> innerExceptions)
+        private void Init(string kind, Message message, Stack stack, IEnumerable<ExceptionData> innerExceptions, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Kind = kind;
-            Message = message;
+            if (message != null)
+            {
+                Message = new Message(message);
+            }
+
             if (stack != null)
             {
                 Stack = new Stack(stack);
@@ -141,6 +155,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 InnerExceptions = destination_0;
+            }
+
+            if (properties != null)
+            {
+                Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
             }
         }
     }

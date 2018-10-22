@@ -78,10 +78,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _jsonWriter.WriteStartObject(); // Begin: run
 
-            if (!string.IsNullOrEmpty(run.InstanceGuid))
+            if (run.Id != null)
             {
-                _jsonWriter.WritePropertyName("instanceGuid");
-                _serializer.Serialize(_jsonWriter, run.InstanceGuid);
+                _jsonWriter.WritePropertyName("id");
+                _serializer.Serialize(_jsonWriter, run.Id);
             }
 
             if (!string.IsNullOrEmpty(run.BaselineInstanceGuid))
@@ -90,28 +90,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 _serializer.Serialize(_jsonWriter, run.BaselineInstanceGuid);
             }
 
-            if (!string.IsNullOrEmpty(run.AutomationLogicalId))
+            if (run.AggregateIds != null)
             {
-                _jsonWriter.WritePropertyName("automationLogicalId");
-                _serializer.Serialize(_jsonWriter, run.AutomationLogicalId);
-            }
-
-            if (!string.IsNullOrEmpty(run.LogicalId))
-            {
-                _jsonWriter.WritePropertyName("logicalId");
-                _serializer.Serialize(_jsonWriter, run.LogicalId);
+                _jsonWriter.WritePropertyName("aggregateIds");
+                _serializer.Serialize(_jsonWriter, run.AggregateIds);
             }
 
             if (!string.IsNullOrEmpty(run.Architecture))
             {
                 _jsonWriter.WritePropertyName("architecture");
                 _serializer.Serialize(_jsonWriter, run.Architecture);
-            }
-
-            if (run.Description != null)
-            {
-                _jsonWriter.WritePropertyName("description");
-                _serializer.Serialize(_jsonWriter, run.Description);
             }
 
             if (run.Tool != null)

@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.Time != right.Time)
+            if (left.TimeUtc != right.TimeUtc)
             {
                 return false;
             }
@@ -125,7 +125,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 result = (result * 31) + obj.Level.GetHashCode();
                 result = (result * 31) + obj.ThreadId.GetHashCode();
-                result = (result * 31) + obj.Time.GetHashCode();
+                result = (result * 31) + obj.TimeUtc.GetHashCode();
                 if (obj.Exception != null)
                 {
                     result = (result * 31) + obj.Exception.ValueGetHashCode();

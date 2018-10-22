@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             StringBuilder result = new StringBuilder();
             using (var str = new StringWriter(result))
-            using (var json = new JsonTextWriter(str) { Formatting = Formatting.Indented })
+            using (var json = new JsonTextWriter(str) { Formatting = Formatting.Indented, DateTimeZoneHandling = DateTimeZoneHandling.Utc })
             using (var uut = new ResultLogJsonWriter(json))
             {
                 testContent(uut);

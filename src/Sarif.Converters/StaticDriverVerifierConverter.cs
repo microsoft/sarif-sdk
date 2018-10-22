@@ -149,7 +149,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 var threadFlowLocation = new ThreadFlowLocation
                 {
-                    Step = step + 1,
                     Importance = ThreadFlowLocationImportance.Unimportant,
                     Location = new Location
                     {

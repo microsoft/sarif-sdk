@@ -58,18 +58,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<Attachment> Attachments { get; set; }
 
         /// <summary>
-        /// The date and time at which the run started. See "Date/time properties" in the SARIF spec for the required format.
+        /// The Coordinated Universal Time (UTC) date and time at which the run started. See "Date/time properties" in the SARIF spec for the required format.
         /// </summary>
-        [DataMember(Name = "startTime", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "startTimeUtc", IsRequired = false, EmitDefaultValue = false)]
         [JsonConverter(typeof(DateTimeConverter))]
-        public DateTime StartTime { get; set; }
+        public DateTime StartTimeUtc { get; set; }
 
         /// <summary>
-        /// The date and time at which the run ended. See "Date/time properties" in the SARIF spec for the required format.
+        /// The Coordinated Universal Time (UTC) date and time at which the run ended. See "Date/time properties" in the SARIF spec for the required format.
         /// </summary>
-        [DataMember(Name = "endTime", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "endTimeUtc", IsRequired = false, EmitDefaultValue = false)]
         [JsonConverter(typeof(DateTimeConverter))]
-        public DateTime EndTime { get; set; }
+        public DateTime EndTimeUtc { get; set; }
 
         /// <summary>
         /// The process exit code.
@@ -207,11 +207,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="attachments">
         /// An initialization value for the <see cref="P: Attachments" /> property.
         /// </param>
-        /// <param name="startTime">
-        /// An initialization value for the <see cref="P: StartTime" /> property.
+        /// <param name="startTimeUtc">
+        /// An initialization value for the <see cref="P: StartTimeUtc" /> property.
         /// </param>
-        /// <param name="endTime">
-        /// An initialization value for the <see cref="P: EndTime" /> property.
+        /// <param name="endTimeUtc">
+        /// An initialization value for the <see cref="P: EndTimeUtc" /> property.
         /// </param>
         /// <param name="exitCode">
         /// An initialization value for the <see cref="P: ExitCode" /> property.
@@ -270,9 +270,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Invocation(string commandLine, IEnumerable<string> arguments, IEnumerable<FileLocation> responseFiles, IEnumerable<Attachment> attachments, DateTime startTime, DateTime endTime, int exitCode, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, string exitCodeDescription, string exitSignalName, int exitSignalNumber, string processStartFailureMessage, bool toolExecutionSuccessful, string machine, string account, int processId, FileLocation executableLocation, FileLocation workingDirectory, IDictionary<string, string> environmentVariables, FileLocation stdin, FileLocation stdout, FileLocation stderr, FileLocation stdoutStderr, IDictionary<string, SerializedPropertyInfo> properties)
+        public Invocation(string commandLine, IEnumerable<string> arguments, IEnumerable<FileLocation> responseFiles, IEnumerable<Attachment> attachments, DateTime startTimeUtc, DateTime endTimeUtc, int exitCode, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, string exitCodeDescription, string exitSignalName, int exitSignalNumber, string processStartFailureMessage, bool toolExecutionSuccessful, string machine, string account, int processId, FileLocation executableLocation, FileLocation workingDirectory, IDictionary<string, string> environmentVariables, FileLocation stdin, FileLocation stdout, FileLocation stderr, FileLocation stdoutStderr, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(commandLine, arguments, responseFiles, attachments, startTime, endTime, exitCode, toolNotifications, configurationNotifications, exitCodeDescription, exitSignalName, exitSignalNumber, processStartFailureMessage, toolExecutionSuccessful, machine, account, processId, executableLocation, workingDirectory, environmentVariables, stdin, stdout, stderr, stdoutStderr, properties);
+            Init(commandLine, arguments, responseFiles, attachments, startTimeUtc, endTimeUtc, exitCode, toolNotifications, configurationNotifications, exitCodeDescription, exitSignalName, exitSignalNumber, processStartFailureMessage, toolExecutionSuccessful, machine, account, processId, executableLocation, workingDirectory, environmentVariables, stdin, stdout, stderr, stdoutStderr, properties);
         }
 
         /// <summary>
@@ -291,7 +291,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.CommandLine, other.Arguments, other.ResponseFiles, other.Attachments, other.StartTime, other.EndTime, other.ExitCode, other.ToolNotifications, other.ConfigurationNotifications, other.ExitCodeDescription, other.ExitSignalName, other.ExitSignalNumber, other.ProcessStartFailureMessage, other.ToolExecutionSuccessful, other.Machine, other.Account, other.ProcessId, other.ExecutableLocation, other.WorkingDirectory, other.EnvironmentVariables, other.Stdin, other.Stdout, other.Stderr, other.StdoutStderr, other.Properties);
+            Init(other.CommandLine, other.Arguments, other.ResponseFiles, other.Attachments, other.StartTimeUtc, other.EndTimeUtc, other.ExitCode, other.ToolNotifications, other.ConfigurationNotifications, other.ExitCodeDescription, other.ExitSignalName, other.ExitSignalNumber, other.ProcessStartFailureMessage, other.ToolExecutionSuccessful, other.Machine, other.Account, other.ProcessId, other.ExecutableLocation, other.WorkingDirectory, other.EnvironmentVariables, other.Stdin, other.Stdout, other.Stderr, other.StdoutStderr, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -312,7 +312,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Invocation(this);
         }
 
-        private void Init(string commandLine, IEnumerable<string> arguments, IEnumerable<FileLocation> responseFiles, IEnumerable<Attachment> attachments, DateTime startTime, DateTime endTime, int exitCode, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, string exitCodeDescription, string exitSignalName, int exitSignalNumber, string processStartFailureMessage, bool toolExecutionSuccessful, string machine, string account, int processId, FileLocation executableLocation, FileLocation workingDirectory, IDictionary<string, string> environmentVariables, FileLocation stdin, FileLocation stdout, FileLocation stderr, FileLocation stdoutStderr, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string commandLine, IEnumerable<string> arguments, IEnumerable<FileLocation> responseFiles, IEnumerable<Attachment> attachments, DateTime startTimeUtc, DateTime endTimeUtc, int exitCode, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, string exitCodeDescription, string exitSignalName, int exitSignalNumber, string processStartFailureMessage, bool toolExecutionSuccessful, string machine, string account, int processId, FileLocation executableLocation, FileLocation workingDirectory, IDictionary<string, string> environmentVariables, FileLocation stdin, FileLocation stdout, FileLocation stderr, FileLocation stdoutStderr, IDictionary<string, SerializedPropertyInfo> properties)
         {
             CommandLine = commandLine;
             if (arguments != null)
@@ -362,8 +362,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Attachments = destination_2;
             }
 
-            StartTime = startTime;
-            EndTime = endTime;
+            StartTimeUtc = startTimeUtc;
+            EndTimeUtc = endTimeUtc;
             ExitCode = exitCode;
             if (toolNotifications != null)
             {

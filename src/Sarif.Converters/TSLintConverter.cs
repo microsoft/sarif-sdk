@@ -99,7 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             Uri analysisTargetUri = new Uri(entry.Name, UriKind.Relative);
 
-            var physicalLocation = new PhysicalLocation(id: 0, fileLocation: new FileLocation(uri: analysisTargetUri, uriBaseId: null), region: region, contextRegion: null);
+            var physicalLocation = new PhysicalLocation(id: 0, fileLocation: new FileLocation(uri: analysisTargetUri, uriBaseId: null, properties: null), region: region, contextRegion: null, properties: null);
             Location location = new Location()
             {
                 PhysicalLocation = physicalLocation
@@ -135,9 +135,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     replacements.Add(replacement);
                 }
 
-                FileChange sarifFileChange = new FileChange(fileLocation: new FileLocation(uri: analysisTargetUri, uriBaseId: null), replacements: replacements);
+                FileChange sarifFileChange = new FileChange(fileLocation: new FileLocation(uri: analysisTargetUri, uriBaseId: null, properties: null), replacements: replacements, properties: null);
 
-                Fix sarifFix = new Fix(description: null, fileChanges: new List<FileChange>() { sarifFileChange });
+                Fix sarifFix = new Fix(description: null, fileChanges: new List<FileChange>() { sarifFileChange }, properties: null);
                 result.Fixes = new List<Fix> { sarifFix };
             } 
 

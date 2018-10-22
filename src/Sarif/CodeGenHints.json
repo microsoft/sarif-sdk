@@ -20,7 +20,27 @@
       }
     }
   ],
+  "attachment": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
   "codeFlow": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "conversion": [
     {
       "kind": "BaseTypeHint",
       "arguments": {
@@ -63,6 +83,26 @@
       }
     }
   ],
+  "exceptionData": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "externalFiles": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
   "file": [
     {
       "kind": "ClassNameHint",
@@ -81,7 +121,12 @@
       }
     }
   ],
-  "FileData.LastModifiedTime": [
+  "FileData.Hashes": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
+  "FileData.LastModifiedTimeUtc": [
     {
       "kind": "AttributeHint",
       "arguments": {
@@ -124,6 +169,36 @@
       }
     }
   ],
+  "fileChange": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "fileContent": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "fileLocation": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
   "FileLocation.Uri": [
     {
       "kind": "AttributeHint",
@@ -131,6 +206,16 @@
         "namespaceName": "Newtonsoft.Json",
         "typeName": "JsonConverter",
         "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter)" ]
+      }
+    }
+  ],
+  "fix": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
       }
     }
   ],
@@ -169,7 +254,7 @@
       }
     }
   ],
-  "Invocation.EndTime": [
+  "Invocation.EndTimeUtc": [
     {
       "kind": "AttributeHint",
       "arguments": {
@@ -184,7 +269,7 @@
       "kind": "DictionaryHint"
     }
   ],
-  "Invocation.StartTime": [
+  "Invocation.StartTimeUtc": [
     {
       "kind": "AttributeHint",
       "arguments": {
@@ -195,6 +280,26 @@
     }
   ],
   "location": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "logicalLocation": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "message": [
     {
       "kind": "BaseTypeHint",
       "arguments": {
@@ -224,7 +329,7 @@
       }
     }
   ],
-  "Notification.Time": [
+  "Notification.TimeUtc": [
     {
       "kind": "AttributeHint",
       "arguments": {
@@ -253,6 +358,46 @@
         "namespaceName": "Newtonsoft.Json",
         "typeName": "JsonConverter",
         "arguments": [ "typeof(EnumConverter)" ]
+      }
+    }
+  ],
+  "physicalLocation": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "rectangle": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "region": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "replacement": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
       }
     }
   ],
@@ -324,9 +469,24 @@
       }
     }
   ],
+  "Result.Fingerprints": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
   "Result.Graphs": [
     {
       "kind": "DictionaryHint"
+    }
+  ],
+  "Result.HelpUri": [
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "JsonConverter",
+        "arguments": [ "typeof(UriConverter)" ]
+      }
     }
   ],
   "Result.Level": [
@@ -360,11 +520,6 @@
       "kind": "DictionaryHint"
     }
   ],
-  "Result.Fingerprints": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
   "Result.SuppressionStates": [
     {
       "kind": "EnumHint",
@@ -388,13 +543,39 @@
       }
     }
   ],
-  "Result.WorkItemUris": [
+  "rule": [
     {
-      "kind": "AttributeHint",
+      "kind": "InterfaceHint",
       "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(UriConverter)" ]
+        "description": "Interface exposed by objects that provide information about analysis rules."
+      }
+    },
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "Rule.MessageStrings": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
+  "Rule.RichMessageStrings": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
+  "ruleConfiguration": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
       }
     }
   ],
@@ -420,42 +601,6 @@
         "typeName": "JsonConverter",
         "arguments": [ "typeof(EnumConverter)" ]
       }
-    }
-  ],
-  "rule": [
-    {
-      "kind": "InterfaceHint",
-      "arguments": {
-        "description": "Interface exposed by objects that provide information about analysis rules."
-      }
-    },
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "Result.HelpUri": [
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(UriConverter)" ]
-      }
-    }
-  ],
-  "Rule.MessageStrings": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "Rule.RichMessageStrings": [
-    {
-      "kind": "DictionaryHint"
     }
   ],
   "RuleConfiguration.Parameters": [
@@ -512,13 +657,25 @@
   "Run.OriginalUriBaseIds": [
     {
       "kind": "DictionaryHint"
-    },
+    }
+  ],
+  "runAutomationDetails": [
     {
-      "kind": "AttributeHint",
+      "kind": "BaseTypeHint",
       "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(UriConverter)" ]
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "sarifLog": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
       }
     }
   ],
@@ -624,7 +781,7 @@
       "kind": "DictionaryHint"
     }
   ],
-  "ThreadflowLocation.Timestamp": [
+  "ThreadflowLocation.ExecutionTimeUtc": [
     {
       "kind": "AttributeHint",
       "arguments": {
@@ -674,8 +831,7 @@
       }
     }
   ],
-
-  "VersionControlDetails.Timestamp": [
+  "VersionControlDetails.AsOfTimeUtc": [
     {
       "kind": "AttributeHint",
       "arguments": {

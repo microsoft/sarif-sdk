@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Edges = "edges";
         public const string EndColumn = "endColumn";
         public const string EndLine = "endLine";
-        public const string EndTime = "endTime";
+        public const string EndTimeUtc = "endTimeUtc";
         public const string Essential = "essential";
         public const string ExecutableLocation = "executableLocation";
         public const string FileChanges = "fileChanges";
@@ -41,6 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string PhysicalLocation = "physicalLocation";
         public const string Region = "region";
         public const string RelatedLocations = "relatedLocations";
+        public const string RepositoryUri = "repositoryUri";
         public const string Resources = "resources";
         public const string ResponseFiles = "responseFiles";
         public const string Results = "results";

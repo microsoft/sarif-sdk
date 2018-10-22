@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Message Message { get; set; }
 
         /// <summary>
-        /// An array of stack frames that represent a sequence of calls, rendered in reverse chronological order, that comprise the call stack.
+        /// An array of stack frames that represents a sequence of calls, rendered in reverse chronological order, that comprise the call stack.
         /// </summary>
         [DataMember(Name = "frames", IsRequired = true)]
         public IList<StackFrame> Frames { get; set; }

@@ -69,14 +69,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Run newRun = base.VisitRun(node);
 
             // If the dictionary doesn't exist, we should add it to the properties.  If it does, we should add/update the existing dictionary.
-            IDictionary<string, Uri> baseUriDictionary = new Dictionary<string, Uri>();
+            IDictionary<string, FileLocation> baseUriDictionary = new Dictionary<string, FileLocation>();
             if (node.OriginalUriBaseIds != null)
             {
                 baseUriDictionary = node.OriginalUriBaseIds;
             }
             
             // Note--this is an add or update, so if this is run twice with the same base variable, we'll replace the path.
-            baseUriDictionary[_baseName] = _baseUri;
+            baseUriDictionary[_baseName] = new FileLocation { Uri =_baseUri };
             newRun.OriginalUriBaseIds = baseUriDictionary;
 
             return newRun;
