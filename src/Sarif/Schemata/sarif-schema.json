@@ -1429,19 +1429,7 @@
 
         "parameters": {
           "description": "Contains configuration information specific to this rule.",
-          "type": "object",
-          "additionalProperties": true,
-          "properties": {
-            "tags": {
-              "description": "A set of distinct strings that provide additional configuration information.",
-              "type": "array",
-              "uniqueItems": true,
-              "default": [],
-              "items": {
-                "type": "string"
-              }
-            }
-          }
+          "$ref": "#/definitions/propertyBag"
         },
 
         "properties": {

@@ -99,7 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             }
 
             // Potentially temporary -- we persist the "originally found date" forward, and this sets it.
-            if (CurrentResult.OriginalRun.Invocations != null && CurrentResult.OriginalRun.Invocations.Any() && CurrentResult.OriginalRun.Invocations[0].StartTimeUtc != null)
+            if (CurrentResult.OriginalRun?.Invocations?.Any() == true && CurrentResult.OriginalRun.Invocations[0].StartTimeUtc != null)
             {
                 ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_FoundDateName, CurrentResult.OriginalRun.Invocations[0].StartTimeUtc);
             }
