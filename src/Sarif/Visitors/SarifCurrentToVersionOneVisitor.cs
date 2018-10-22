@@ -865,7 +865,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     run.Files = v2Run.Files?.ToDictionary(v => v.Key, v => CreateFileData(v.Value));
 
                     run.Id = v2Run.Id?.InstanceGuid;
-                    run.AutomationId = v2Run.AggregateIds?.First()?.InstanceId;
+                    run.AutomationId = v2Run.AggregateIds?.FirstOrDefault()?.InstanceId;
 
                     run.StableId = v2Run.Id?.InstanceIdLogicalComponent();
 
