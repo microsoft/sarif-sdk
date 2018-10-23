@@ -86,11 +86,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         public void SarifLogResultMatcher_BaselinesSarifLogsWithProperties()
         {
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
+
             SarifLog baselineLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
             SarifLog currentLog = baselineLog.DeepClone();
 
             string sharedPropertyName = nameof(sharedPropertyName);
-            string sharedPropertyValue = Guid.NewGuid().ToString();
+            string currentSharedPropertyValue = Guid.NewGuid().ToString();
+            string baselineSharedPropertyValue = Guid.NewGuid().ToString();
 
             string uniqueToBaselinePropertyName = nameof(uniqueToBaselinePropertyName);
             string uniqueToBaselinePropertyValue = Guid.NewGuid().ToString();
@@ -98,8 +100,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             string uniqueToCurrentPropertyName = nameof(uniqueToCurrentPropertyName);
             string uniqueToCurrentPropertyValue = Guid.NewGuid().ToString();
 
-            baselineLog.Runs[0].SetProperty(sharedPropertyName, sharedPropertyValue);
-            currentLog.Runs[0].SetProperty(sharedPropertyName, sharedPropertyValue);
+            baselineLog.Runs[0].SetProperty(sharedPropertyName, currentSharedPropertyValue);
+            currentLog.Runs[0].SetProperty(sharedPropertyName, currentSharedPropertyValue);
 
             baselineLog.Runs[0].SetProperty(uniqueToBaselinePropertyName, uniqueToBaselinePropertyValue);
             currentLog.Runs[0].SetProperty(uniqueToCurrentPropertyName, uniqueToCurrentPropertyValue);
@@ -110,7 +112,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             calculatedNextBaseline.Runs[0].Properties.Count.Should().Be(3);
 
             // Identical property values should merge without raising exceptions. Unique properties should be aggregated to final property bag.
-            calculatedNextBaseline.Runs[0].GetProperty(sharedPropertyName).Should().Be(sharedPropertyValue);
+
+            // Note: for shared property keys, we prefer the value associated with the current run, not the baseline
+            calculatedNextBaseline.Runs[0].GetProperty(sharedPropertyName).Should().Be(currentSharedPropertyValue);
+            
             calculatedNextBaseline.Runs[0].GetProperty(uniqueToCurrentPropertyName).Should().Be(uniqueToCurrentPropertyValue);
             calculatedNextBaseline.Runs[0].GetProperty(uniqueToBaselinePropertyName).Should().Be(uniqueToBaselinePropertyValue);
         }
