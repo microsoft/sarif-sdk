@@ -36,6 +36,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 currentLog.Runs[0].Results[0].Tags.Add("New Unused Tag");
             }
 
+
+            string propertyName = "WeLikePi";
+            float propertyValue = 3.1415926535897932384626433832795F;
+            currentLog.Runs[0].SetProperty(propertyName, propertyValue);
+
             foreach (Result result in baselineLog.Runs[0].Results)
             {
                 result.CorrelationGuid = Guid.NewGuid().ToString();
@@ -44,6 +49,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             SarifLog calculatedNextBaseline = baseliner.Match(new SarifLog[] { baselineLog }, new SarifLog[] { currentLog }).First();
 
             calculatedNextBaseline.Runs.Should().HaveCount(1);
+
+            calculatedNextBaseline.Runs[0].Properties.Should().NotBeNull();
+            calculatedNextBaseline.Runs[0].GetProperty<float>(propertyName).Should().Be(propertyValue);
 
             if (currentLog.Runs[0].Results.Any())
             {
@@ -72,6 +80,39 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 NewResultProperties.Should().ContainKey("Run");
                 NewResultProperties["Run"].Should().BeEquivalentTo(currentLog.Runs[0].Id.InstanceGuid);
             }
+        }
+
+        [Fact]
+        public void SarifLogResultMatcher_BaselinesSarifLogsWithProperties()
+        {
+            Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
+            SarifLog baselineLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
+            SarifLog currentLog = baselineLog.DeepClone();
+
+            string sharedPropertyName = nameof(sharedPropertyName);
+            string sharedPropertyValue = Guid.NewGuid().ToString();
+
+            string uniqueToBaselinePropertyName = nameof(uniqueToBaselinePropertyName);
+            string uniqueToBaselinePropertyValue = Guid.NewGuid().ToString();
+
+            string uniqueToCurrentPropertyName = nameof(uniqueToCurrentPropertyName);
+            string uniqueToCurrentPropertyValue = Guid.NewGuid().ToString();
+
+            baselineLog.Runs[0].SetProperty(sharedPropertyName, sharedPropertyValue);
+            currentLog.Runs[0].SetProperty(sharedPropertyName, sharedPropertyValue);
+
+            baselineLog.Runs[0].SetProperty(uniqueToBaselinePropertyName, uniqueToBaselinePropertyValue);
+            currentLog.Runs[0].SetProperty(uniqueToCurrentPropertyName, uniqueToCurrentPropertyValue);
+
+            SarifLog calculatedNextBaseline = baseliner.Match(new SarifLog[] { baselineLog }, new SarifLog[] { currentLog }).First();
+
+            calculatedNextBaseline.Runs[0].Properties.Should().NotBeNull();
+            calculatedNextBaseline.Runs[0].Properties.Count.Should().Be(3);
+
+            // Identical property values should merge without raising exceptions. Unique properties should be aggregated to final property bag.
+            calculatedNextBaseline.Runs[0].GetProperty(sharedPropertyName).Should().Be(sharedPropertyValue);
+            calculatedNextBaseline.Runs[0].GetProperty(uniqueToCurrentPropertyName).Should().Be(uniqueToCurrentPropertyValue);
+            calculatedNextBaseline.Runs[0].GetProperty(uniqueToBaselinePropertyName).Should().Be(uniqueToBaselinePropertyValue);
         }
 
         [Fact]
