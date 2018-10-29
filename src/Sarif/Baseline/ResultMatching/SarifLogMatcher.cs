@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Processors;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 {
@@ -178,9 +179,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             return null;
         }
 
-        private SarifLog ConstructSarifLogFromMatchedResults(IEnumerable<MatchedResults> results, IEnumerable<Run> previous, IEnumerable<Run> currentRuns)
+        private SarifLog ConstructSarifLogFromMatchedResults(IEnumerable<MatchedResults> results, IEnumerable<Run> previousRuns, IEnumerable<Run> currentRuns)
         {
-            if(currentRuns == null || !currentRuns.Any())
+            if (currentRuns == null || !currentRuns.Any())
             {
                 throw new ArgumentException(nameof(currentRuns));
             }
@@ -194,11 +195,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 Id = currentRuns.First().Id
             };
 
-            if (previous != null && previous.Count() != 0)
+            IDictionary<string, SerializedPropertyInfo> properties = null;
+
+            if (previousRuns != null && previousRuns.Count() != 0)
             {
-                run.BaselineInstanceGuid = previous.First().Id.InstanceGuid;
+                // We currently only flow the baseline instance id forward (which becomes the 
+                // baseline guid for the merged log) and the baseline properties bag.
+                run.BaselineInstanceGuid = previousRuns.First().Id?.InstanceGuid;
+                properties = previousRuns.First().Properties;
             }
-            
+
+            properties = properties ?? new Dictionary<string, SerializedPropertyInfo>();
+
             List<Result> newRunResults = new List<Result>();
             foreach (MatchedResults resultPair in results)
             {
@@ -249,6 +257,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 {
                     invocations.AddRange(currentRun.Invocations);
                 }
+
+                if (currentRun.Properties != null)
+                {
+                    MergeDictionaryInto(properties, currentRun.Properties, SerializedPropertyInfoEqualityComparer.Instance);
+                }
             }
 
             run.Files = fileData;
@@ -257,13 +270,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             run.Resources = new Resources() { MessageStrings = messageData, Rules = ruleData };
             run.Invocations = invocations;
 
+            if (properties.Count > 0)
+            {
+                run.Properties = properties;
+            }
+
             return new SarifLog()
             {
                 Runs = new Run[] { run },
             };
         }
         
-        private void MergeDictionaryInto<T, S>(Dictionary<T, S> baseDictionary, IDictionary<T, S> dictionaryToAdd, IEqualityComparer<S> duplicateCatch)
+        private void MergeDictionaryInto<T, S>(IDictionary<T, S> baseDictionary, IDictionary<T, S> dictionaryToAdd, IEqualityComparer<S> duplicateCatch)
         {
             foreach (KeyValuePair<T, S> pair in dictionaryToAdd)
             {

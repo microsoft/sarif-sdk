@@ -145,7 +145,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<Attachment> Attachments { get; set; }
 
         /// <summary>
-        /// The URIs of the work items associated with this result
+        /// An absolute URI at which the result can be viewed
+        /// </summary>
+        [DataMember(Name = "hostedViewerUri", IsRequired = false, EmitDefaultValue = false)]
+        [JsonConverter(typeof(UriConverter))]
+        public Uri HostedViewerUri { get; set; }
+
+        /// <summary>
+        /// The URIs of the work items associated with this result.
         /// </summary>
         [DataMember(Name = "workItemUris", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(ItemConverterType = typeof(UriConverter))]
@@ -233,6 +240,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="attachments">
         /// An initialization value for the <see cref="P: Attachments" /> property.
         /// </param>
+        /// <param name="hostedViewerUri">
+        /// An initialization value for the <see cref="P: HostedViewerUri" /> property.
+        /// </param>
         /// <param name="workItemUris">
         /// An initialization value for the <see cref="P: WorkItemUris" /> property.
         /// </param>
@@ -245,9 +255,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Result(string ruleId, ResultLevel level, Message message, FileLocation analysisTarget, IEnumerable<Location> locations, string instanceGuid, string correlationGuid, int occurrenceCount, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IDictionary<string, Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, IEnumerable<Attachment> attachments, IEnumerable<Uri> workItemUris, IEnumerable<PhysicalLocation> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
+        public Result(string ruleId, ResultLevel level, Message message, FileLocation analysisTarget, IEnumerable<Location> locations, string instanceGuid, string correlationGuid, int occurrenceCount, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IDictionary<string, Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, IEnumerable<Attachment> attachments, Uri hostedViewerUri, IEnumerable<Uri> workItemUris, IEnumerable<PhysicalLocation> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(ruleId, level, message, analysisTarget, locations, instanceGuid, correlationGuid, occurrenceCount, partialFingerprints, fingerprints, stacks, codeFlows, graphs, graphTraversals, relatedLocations, suppressionStates, baselineState, attachments, workItemUris, conversionProvenance, fixes, properties);
+            Init(ruleId, level, message, analysisTarget, locations, instanceGuid, correlationGuid, occurrenceCount, partialFingerprints, fingerprints, stacks, codeFlows, graphs, graphTraversals, relatedLocations, suppressionStates, baselineState, attachments, hostedViewerUri, workItemUris, conversionProvenance, fixes, properties);
         }
 
         /// <summary>
@@ -266,7 +276,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.RuleId, other.Level, other.Message, other.AnalysisTarget, other.Locations, other.InstanceGuid, other.CorrelationGuid, other.OccurrenceCount, other.PartialFingerprints, other.Fingerprints, other.Stacks, other.CodeFlows, other.Graphs, other.GraphTraversals, other.RelatedLocations, other.SuppressionStates, other.BaselineState, other.Attachments, other.WorkItemUris, other.ConversionProvenance, other.Fixes, other.Properties);
+            Init(other.RuleId, other.Level, other.Message, other.AnalysisTarget, other.Locations, other.InstanceGuid, other.CorrelationGuid, other.OccurrenceCount, other.PartialFingerprints, other.Fingerprints, other.Stacks, other.CodeFlows, other.Graphs, other.GraphTraversals, other.RelatedLocations, other.SuppressionStates, other.BaselineState, other.Attachments, other.HostedViewerUri, other.WorkItemUris, other.ConversionProvenance, other.Fixes, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -287,7 +297,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Result(this);
         }
 
-        private void Init(string ruleId, ResultLevel level, Message message, FileLocation analysisTarget, IEnumerable<Location> locations, string instanceGuid, string correlationGuid, int occurrenceCount, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IDictionary<string, Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, IEnumerable<Attachment> attachments, IEnumerable<Uri> workItemUris, IEnumerable<PhysicalLocation> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string ruleId, ResultLevel level, Message message, FileLocation analysisTarget, IEnumerable<Location> locations, string instanceGuid, string correlationGuid, int occurrenceCount, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IDictionary<string, Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, IEnumerable<Attachment> attachments, Uri hostedViewerUri, IEnumerable<Uri> workItemUris, IEnumerable<PhysicalLocation> conversionProvenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
         {
             RuleId = ruleId;
             Level = level;
@@ -431,6 +441,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 Attachments = destination_5;
+            }
+
+            if (hostedViewerUri != null)
+            {
+                HostedViewerUri = new Uri(hostedViewerUri.OriginalString, hostedViewerUri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
             }
 
             if (workItemUris != null)
