@@ -4,10 +4,8 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
-using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -40,13 +38,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "tool", IsRequired = true)]
         public Tool Tool { get; set; }
 
-        private static List<Invocation> Empty = new List<Invocation>();
-
         /// <summary>
         /// Describes the invocation of the analysis tool.
         /// </summary>
         [DataMember(Name = "invocations", IsRequired = false, EmitDefaultValue = false)]
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<Invocation> Invocations { get; set; }
 
         /// <summary>

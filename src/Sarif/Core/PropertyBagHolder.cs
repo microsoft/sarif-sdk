@@ -183,16 +183,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public virtual bool ShouldSerializeProperties()
         {
-            // If you hit this code, CodeGenHints.json has declared PropertyBagHolder as a base type for a
-            // definition that does not have the property bag explicitly declared, e.g.:
-            //
-            // "properties": {
-            //    "description": "Key/value pairs that provide additional information about the replacement.",
-            //    "$ref": "#/definitions/propertyBag" 
-            // }
-
-            //throw new InvalidProgramException(this.GetType().FullName + " extends PropertyBagHolder but the schema does not explicitly declare the property bag.");
-
             return PropertyBagHasAtLeastOneNonNullValue();
         }   
 
