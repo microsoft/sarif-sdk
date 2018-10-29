@@ -243,7 +243,7 @@
         },
 
         "properties": {
-          "description": "Key/value pairs that provide additional information about the exception",
+          "description": "Key/value pairs that provide additional information about the exception.",
           "$ref": "#/definitions/propertyBag"
         }
       }
@@ -301,7 +301,7 @@
         },
 
         "properties": {
-          "description": "Key/value pairs that provide additional information about the external files",
+          "description": "Key/value pairs that provide additional information about the external files.",
           "$ref": "#/definitions/propertyBag"
         }
       }
@@ -1308,7 +1308,7 @@
         },
 
         "hostedViewerUri": {
-          "description": "An absolute URI at which the result can be viewed",
+          "description": "An absolute URI at which the result can be viewed.",
           "type": "string",
           "format": "uri"
         },
@@ -1757,7 +1757,7 @@
         },
 
         "nestingLevel": {
-          "description": "An integer representing a containment hierarchy within the thread flow",
+          "description": "An integer representing a containment hierarchy within the thread flow.",
           "type": "integer"
         },
 
