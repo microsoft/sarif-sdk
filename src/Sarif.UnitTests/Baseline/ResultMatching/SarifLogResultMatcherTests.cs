@@ -30,7 +30,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             SarifLog currentLog = baselineLog.DeepClone();
             baselineLog.Runs[0].Id = new RunAutomationDetails { InstanceGuid = Guid.NewGuid().ToString() };
             currentLog.Runs[0].Id = new RunAutomationDetails { InstanceGuid = Guid.NewGuid().ToString() };
-            
+
+            // This code exists to force a result to diverge from the previous run. By modifying this tag, 
+            // we ensure that at least one result will be regarded as new (which implies one result
+            // will be regarded as going absent).
+            if (currentLog.Runs[0].Results.Any())
+            {
+                currentLog.Runs[0].Results[0].Tags.Add("New Unused Tag");
+            }
+
             string propertyName = "WeLikePi";
             float propertyValue = 3.14159F;
             currentLog.Runs[0].SetProperty(propertyName, propertyValue);
