@@ -2,9 +2,10 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 
+using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
 
-namespace Microsoft.CodeAnalysis.Sarif.Readers
+namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
     /// Describes a single entry in a JSON property bag (a JSON object whose keys have

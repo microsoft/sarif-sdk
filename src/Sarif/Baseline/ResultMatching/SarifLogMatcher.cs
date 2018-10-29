@@ -179,7 +179,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             return null;
         }
 
-        private SarifLog ConstructSarifLogFromMatchedResults(IEnumerable<MatchedResults> results, IEnumerable<Run> previous, IEnumerable<Run> currentRuns)
+        private SarifLog ConstructSarifLogFromMatchedResults(IEnumerable<MatchedResults> results, IEnumerable<Run> previousRuns, IEnumerable<Run> currentRuns)
         {
             if (currentRuns == null || !currentRuns.Any())
             {
@@ -197,12 +197,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
             IDictionary<string, SerializedPropertyInfo> properties = null;
 
-            if (previous != null && previous.Count() != 0)
+            if (previousRuns != null && previousRuns.Count() != 0)
             {
                 // We currently only flow the baseline instance id forward (which becomes the 
                 // baseline guid for the merged log) and the baseline properties bag.
-                run.BaselineInstanceGuid = previous.First().Id?.InstanceGuid;
-                properties = previous.First().Properties;
+                run.BaselineInstanceGuid = previousRuns.First().Id?.InstanceGuid;
+                properties = previousRuns.First().Properties;
             }
 
             properties = properties ?? new Dictionary<string, SerializedPropertyInfo>();

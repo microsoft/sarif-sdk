@@ -30,15 +30,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             SarifLog currentLog = baselineLog.DeepClone();
             baselineLog.Runs[0].Id = new RunAutomationDetails { InstanceGuid = Guid.NewGuid().ToString() };
             currentLog.Runs[0].Id = new RunAutomationDetails { InstanceGuid = Guid.NewGuid().ToString() };
-
-            if (currentLog.Runs[0].Results.Any())
-            {
-                currentLog.Runs[0].Results[0].Tags.Add("New Unused Tag");
-            }
-
-
+            
             string propertyName = "WeLikePi";
-            float propertyValue = 3.1415926535897932384626433832795F;
+            float propertyValue = 3.14159F;
             currentLog.Runs[0].SetProperty(propertyName, propertyValue);
 
             foreach (Result result in baselineLog.Runs[0].Results)
