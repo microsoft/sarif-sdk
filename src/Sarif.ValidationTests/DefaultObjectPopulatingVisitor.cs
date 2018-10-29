@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Reflection;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.Json.Schema;
