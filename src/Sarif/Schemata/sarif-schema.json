@@ -1307,8 +1307,14 @@
           }
         },
 
+        "hostedViewerUri": {
+          "description": "An absolute URI at which the result can be viewed",
+          "type": "string",
+          "format": "uri"
+        },
+
         "workItemUris": {
-          "description": "The URIs of the work items associated with this result",
+          "description": "The URIs of the work items associated with this result.",
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
