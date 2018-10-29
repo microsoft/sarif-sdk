@@ -8,6 +8,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public partial class Run
     {
-        public bool ShouldSerializeInvocations() { return this.Invocations != null && this.Invocations.Where((s) => s != null).FirstOrDefault() != null; }
+        public bool ShouldSerializeInvocations() { return this.Invocations != null && this.Invocations.Any((s) => s != null); }
     }
 }

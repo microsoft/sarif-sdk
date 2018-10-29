@@ -8,6 +8,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public partial class Result
     {
-        public bool ShouldSerializeWorkItemUris() { return this.WorkItemUris != null && this.WorkItemUris.Where((s) => s != null).FirstOrDefault() != null; }
+        public bool ShouldSerializeWorkItemUris() { return this.WorkItemUris != null && this.WorkItemUris.Any((s) => s != null); }
     }
 }

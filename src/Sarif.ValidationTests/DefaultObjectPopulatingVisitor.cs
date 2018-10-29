@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         // and emits default (null, 0, false, etc.) values for the remainder. As a result, a
         // default hydration of this class should contain no non-default values for 
         // JSON primitive-valued properties that aren't required
-        public static IDictionary<Type, PrimitiveValueBuilder> PopulateRequiredPrimitives()
+        public static IDictionary<Type, PrimitiveValueBuilder> GetBuildersForRequiredPrimitives()
         {
             return new Dictionary<Type, PrimitiveValueBuilder>()
             {
@@ -36,10 +36,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         // These builders exhaustively populate the generated SARIF file, including non-required JSON primitives
-        public static IDictionary<Type, PrimitiveValueBuilder> PopulateAllPrimitives()
+        public static IDictionary<Type, PrimitiveValueBuilder> GetBuildersForAllPrimitives()
         {
             // The values in this output are designed to allow conformance to the schema. In our schema,.
-            // for example, some integer values must be > 0. And so, out optional integer value is 
+            // for example, some integer values must be > 0. And so, our optional integer value is 
             // written as 1.
             return new Dictionary<Type, PrimitiveValueBuilder>()
             {
@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public DefaultObjectPopulatingVisitor(JsonSchema schema, IDictionary<Type, PrimitiveValueBuilder> primitiveValueBuilders = null)
         {
             _schema = schema;
-            _typeToPropertyValueConstructorMap = primitiveValueBuilders ?? PopulateRequiredPrimitives();
+            _typeToPropertyValueConstructorMap = primitiveValueBuilders ?? GetBuildersForRequiredPrimitives();
         }
 
         private JsonSchema _schema;

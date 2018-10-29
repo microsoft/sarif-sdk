@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             // First, we start with builders that only populate required properties that are backed by primitives.
             IDictionary<Type, DefaultObjectPopulatingVisitor.PrimitiveValueBuilder> propertyValueBuilders =
-                DefaultObjectPopulatingVisitor.PopulateAllPrimitives();
+                DefaultObjectPopulatingVisitor.GetBuildersForAllPrimitives();
 
             ValidateDefaultDocument(propertyValueBuilders);
 
@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             // First, we start with builders that only populate required properties that are backed by primitives.
             IDictionary<Type, DefaultObjectPopulatingVisitor.PrimitiveValueBuilder> propertyValueBuilders =
-                DefaultObjectPopulatingVisitor.PopulateRequiredPrimitives();
+                DefaultObjectPopulatingVisitor.GetBuildersForRequiredPrimitives();
 
             // This test injects a URI into every URI-based property in the format that is a file path with a space.
             // This URI won't be properly percent-encoded unless our UriConverter was invoked during seriallization.
@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void DefaultValuesDoNotSerialize()
         {
-            ValidateDefaultDocument(propertyValueBuilders: DefaultObjectPopulatingVisitor.PopulateRequiredPrimitives());
+            ValidateDefaultDocument(propertyValueBuilders: DefaultObjectPopulatingVisitor.GetBuildersForRequiredPrimitives());
         }
 
         private void ValidateDefaultDocument(IDictionary<Type, DefaultObjectPopulatingVisitor.PrimitiveValueBuilder> propertyValueBuilders)

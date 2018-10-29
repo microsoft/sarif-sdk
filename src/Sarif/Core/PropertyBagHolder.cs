@@ -188,8 +188,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public bool PropertyBagHasAtLeastOneNonNullValue()
         {
-            bool hasAtLeastOneNonNullTag = this.Tags.Where(t => !string.IsNullOrEmpty(t)).Count() > 0;
-            bool hasAtLeastOneNonNullPropertyValue = this.Properties != null && this.Properties.Where(kv => kv.Key != "Tags" && kv.Value != null).Count() > 0;
+            bool hasAtLeastOneNonNullTag = this.Tags.Any(t => !string.IsNullOrEmpty(t));
+            bool hasAtLeastOneNonNullPropertyValue = this.Properties != null && this.Properties.Any(kv => kv.Key != "Tags" && kv.Value != null);
 
             return hasAtLeastOneNonNullTag | hasAtLeastOneNonNullPropertyValue;
         }
