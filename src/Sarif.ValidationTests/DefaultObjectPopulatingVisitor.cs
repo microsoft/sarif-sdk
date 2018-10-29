@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reflection;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.Json.Schema;
@@ -47,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 { typeof(int),     (isRequired) => { return isRequired ? int.MaxValue : 1; } },
                 { typeof(double),  (isRequired) => { return isRequired ? double.MaxValue : 1; } },
                 { typeof(string),  (isRequired) => { return isRequired ? "[Required string value]" : "[Optional string value]"; } },
-                { typeof(DateTime),(isRequired) => { return isRequired ? DateTime.UtcNow : new DateTime(1776, 7, 4).ToUniversalTime(); } },
+                { typeof(DateTime),(isRequired) => { return isRequired ? new DateTime(2018, 10, 31).ToUniversalTime() : new DateTime(1776, 7, 4).ToUniversalTime(); } },
                 { typeof(Uri),     (isRequired) => { return isRequired ? new Uri("https://required.uri.value.contoso.com") : new Uri("https://optional.uri.value.contoso.com"); } }
             };
         }
@@ -58,10 +59,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             _typeToPropertyValueConstructorMap = primitiveValueBuilders ?? GetBuildersForRequiredPrimitives();
         }
 
-        private JsonSchema _schema;
-        private IDictionary<Type, PrimitiveValueBuilder> _typeToPropertyValueConstructorMap;
+        private readonly JsonSchema _schema;
+        private readonly IDictionary<Type, PrimitiveValueBuilder> _typeToPropertyValueConstructorMap;
 
-        // There are two places in the format where object nest references to the defining 
+        // There are two places in the format where objects nest references to the defining 
         // type. 'exception.innerExceptions' is an array of exception objects. 
         // 'node.children' is another collection of nodes. We need to watch for these
         // scenarios to prevent re-entrancy and eventual stack consumption when 
@@ -80,6 +81,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         // unbounded re-entrance populating exception.innerExceptions
         public override ExceptionData VisitExceptionData(ExceptionData node)
         {
+            if (exceptionDataParentCount > 1) { throw new InvalidOperationException(); };
+
             exceptionDataParentCount++;
             node = base.VisitExceptionData(node);
             exceptionDataParentCount--;
@@ -91,6 +94,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         // unbounded re-entrance populating exception.innerExceptions
         public override Node VisitNode(Node node)
         {
+            if (graphNodeParentCount > 1) { throw new InvalidOperationException(); };
+
             graphNodeParentCount++;
             node = base.VisitNode(node);
             graphNodeParentCount--;
