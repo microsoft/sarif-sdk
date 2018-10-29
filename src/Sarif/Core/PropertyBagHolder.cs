@@ -145,7 +145,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     serializedValue = JsonConvert.SerializeObject(value, settings);
                 }
             }
-             
+
             Properties[propertyName] = new SerializedPropertyInfo(serializedValue, isString);
         }
 
@@ -155,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 throw new ArgumentNullException(nameof(other));
             }
-            
+
             // We need the concrete class because the IPropertyBagHolder interface
             // doesn't expose the raw Properties array.
             PropertyBagHolder otherHolder = other as PropertyBagHolder;
@@ -180,5 +180,28 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         [JsonIgnore]
         public TagsCollection Tags { get; }
+
+        public virtual bool ShouldSerializeProperties()
+        {
+            // If you hit this code, CodeGenHints.json has declared PropertyBagHolder as a base type for a
+            // definition that does not have the property bag explicitly declared, e.g.:
+            //
+            // "properties": {
+            //    "description": "Key/value pairs that provide additional information about the replacement.",
+            //    "$ref": "#/definitions/propertyBag" 
+            // }
+
+            //throw new InvalidProgramException(this.GetType().FullName + " extends PropertyBagHolder but the schema does not explicitly declare the property bag.");
+
+            return PropertyBagHasAtLeastOneNonNullValue();
+        }   
+
+        public bool PropertyBagHasAtLeastOneNonNullValue()
+        {
+            bool hasAtLeastOneNonNullTag = this.Tags.Where(t => !string.IsNullOrEmpty(t)).Count() > 0;
+            bool hasAtLeastOneNonNullPropertyValue = this.Properties != null && this.Properties.Where(kv => kv.Key != "Tags" && kv.Value != null).Count() > 0;
+
+            return hasAtLeastOneNonNullTag | hasAtLeastOneNonNullPropertyValue;
+        }
     }
 }

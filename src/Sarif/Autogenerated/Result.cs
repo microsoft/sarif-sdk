@@ -148,6 +148,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The URIs of the work items associated with this result
         /// </summary>
         [DataMember(Name = "workItemUris", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(ItemConverterType = typeof(UriConverter))]
         public IList<Uri> WorkItemUris { get; set; }
 
         /// <summary>

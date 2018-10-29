@@ -5,6 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -56,6 +57,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<Rectangle> Rectangles { get; set; }
 
         /// <summary>
+        /// Key/value pairs that provide additional information about the attachment.
+        /// </summary>
+        [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Attachment" /> class.
         /// </summary>
         public Attachment()
@@ -77,9 +84,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="rectangles">
         /// An initialization value for the <see cref="P: Rectangles" /> property.
         /// </param>
-        public Attachment(Message description, FileLocation fileLocation, IEnumerable<Region> regions, IEnumerable<Rectangle> rectangles)
+        /// <param name="properties">
+        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// </param>
+        public Attachment(Message description, FileLocation fileLocation, IEnumerable<Region> regions, IEnumerable<Rectangle> rectangles, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(description, fileLocation, regions, rectangles);
+            Init(description, fileLocation, regions, rectangles, properties);
         }
 
         /// <summary>
@@ -98,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Description, other.FileLocation, other.Regions, other.Rectangles);
+            Init(other.Description, other.FileLocation, other.Regions, other.Rectangles, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -119,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Attachment(this);
         }
 
-        private void Init(Message description, FileLocation fileLocation, IEnumerable<Region> regions, IEnumerable<Rectangle> rectangles)
+        private void Init(Message description, FileLocation fileLocation, IEnumerable<Region> regions, IEnumerable<Rectangle> rectangles, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (description != null)
             {
@@ -165,6 +175,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 Rectangles = destination_1;
+            }
+
+            if (properties != null)
+            {
+                Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
             }
         }
     }

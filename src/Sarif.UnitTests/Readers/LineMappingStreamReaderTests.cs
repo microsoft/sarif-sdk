@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             for (long i = 0; i < content.Length; ++i)
             {
-                if(content[i] == (byte)'\n')
+                if (content[i] == (byte)'\n')
                 {
                     newlines.Add(i);
                 }
