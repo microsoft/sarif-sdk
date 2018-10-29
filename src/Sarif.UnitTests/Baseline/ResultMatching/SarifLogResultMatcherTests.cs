@@ -94,7 +94,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
             string sharedPropertyName = nameof(sharedPropertyName);
             string currentSharedPropertyValue = Guid.NewGuid().ToString();
-            string baselineSharedPropertyValue = Guid.NewGuid().ToString();
 
             string uniqueToBaselinePropertyName = nameof(uniqueToBaselinePropertyName);
             string uniqueToBaselinePropertyValue = Guid.NewGuid().ToString();
