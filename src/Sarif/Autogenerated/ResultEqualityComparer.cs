@@ -265,6 +265,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
+            if (left.HostedViewerUri != right.HostedViewerUri)
+            {
+                return false;
+            }
+
             if (!object.ReferenceEquals(left.WorkItemUris, right.WorkItemUris))
             {
                 if (left.WorkItemUris == null || right.WorkItemUris == null)
@@ -510,6 +515,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                             result = (result * 31) + value_16.ValueGetHashCode();
                         }
                     }
+                }
+
+                if (obj.HostedViewerUri != null)
+                {
+                    result = (result * 31) + obj.HostedViewerUri.GetHashCode();
                 }
 
                 if (obj.WorkItemUris != null)
