@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IDictionary<string, string> State { get; set; }
 
         /// <summary>
-        /// An integer representing a containment hierarchy within the thread flow
+        /// An integer representing a containment hierarchy within the thread flow.
         /// </summary>
         [DataMember(Name = "nestingLevel", IsRequired = false, EmitDefaultValue = false)]
         public int NestingLevel { get; set; }
