@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             't',
             "target-version",
             HelpText = "The SARIF version to which the input file will be transformed.",
-            Default = 2)]
-        public int Version { get; internal set; }
+            Default = SarifVersion.Current)]
+        public SarifVersion Version { get; internal set; }
     }
 }

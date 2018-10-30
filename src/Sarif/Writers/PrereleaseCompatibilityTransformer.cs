@@ -135,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                 var runId = new JObject();
 
-                if (instanceGuid != null)
+                if (instanceGuid != null && logicalId != null)
                 {
                     // We can only effectively populate the new instanceId in a case where
                     // the log is previously uniquely identified a run by a guid.

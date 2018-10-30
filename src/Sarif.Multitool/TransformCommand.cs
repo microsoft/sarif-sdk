@@ -2,10 +2,12 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.IO;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -16,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             try
             {
-                if (transformOptions.Version < 1 || transformOptions.Version > 2)
+                if (transformOptions.Version != SarifVersion.OneZeroZero && transformOptions.Version != SarifVersion.Current)
                 {
                     Console.WriteLine(MultitoolResources.ErrorInvalidTransformTargetVersion);
                     return 1;
@@ -33,13 +35,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     : Formatting.None;
 
                 // Assume the input log is the "other" version
-                if (transformOptions.Version == 2)
+                if (transformOptions.Version == SarifVersion.Current)
                 {
-                    SarifLogVersionOne actualLog = FileHelpers.ReadSarifFile<SarifLogVersionOne>(transformOptions.InputFilePath, SarifContractResolverVersionOne.Instance);
-                    var visitor = new SarifVersionOneToCurrentVisitor();
-                    visitor.VisitSarifLogVersionOne(actualLog);
+                    string inputFilePath = transformOptions.InputFilePath;
+                    string inputVersion = SniffVersion(inputFilePath);
 
-                    FileHelpers.WriteSarifFile(visitor.SarifLog, fileName, formatting);
+                    if (inputFilePath == null || inputFilePath == "1.0.0")
+                    {
+                        SarifLogVersionOne actualLog = FileHelpers.ReadSarifFile<SarifLogVersionOne>(transformOptions.InputFilePath, SarifContractResolverVersionOne.Instance);
+                        var visitor = new SarifVersionOneToCurrentVisitor();
+                        visitor.VisitSarifLogVersionOne(actualLog);
+                        FileHelpers.WriteSarifFile(visitor.SarifLog, fileName, formatting);
+                    }
+                    else
+                    {
+                        // We have a pre-release v2 file that we should upgrade to current. 
+                        string sarifText = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(File.ReadAllText(inputFilePath), formatting: formatting);
+                        File.WriteAllText(fileName, sarifText);
+                    }
                 }
                 else
                 {
@@ -57,6 +70,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             return 0;
+        }
+
+        private static string SniffVersion(string sarifPath, int tokenCountLimit = 100)
+        {
+            int tokenCount = 0;
+
+            using (JsonTextReader reader = new JsonTextReader(new StreamReader(sarifPath)))
+            {
+                while (reader.Read() && tokenCount < tokenCountLimit)
+                {
+                    if (reader.TokenType == JsonToken.PropertyName && ((string)reader.Value).Equals("version"))
+                    {
+                        reader.Read();
+                        return (string)reader.Value;
+                    }
+
+                    tokenCount++;
+                }
+            }
+            return null;
         }
     }
 }
