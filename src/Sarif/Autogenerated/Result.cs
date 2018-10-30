@@ -145,7 +145,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<Attachment> Attachments { get; set; }
 
         /// <summary>
-        /// An absolute URI at which the result can be viewed
+        /// An absolute URI at which the result can be viewed.
         /// </summary>
         [DataMember(Name = "hostedViewerUri", IsRequired = false, EmitDefaultValue = false)]
         [JsonConverter(typeof(UriConverter))]

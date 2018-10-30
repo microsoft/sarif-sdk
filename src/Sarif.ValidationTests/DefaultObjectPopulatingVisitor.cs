@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.Json.Schema;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -35,10 +34,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             };
         }
 
-        // These builders exhaustively populate the generated SARIF file, including non-required JSON primitives
+        // These builders exhaustively populate the generated SARIF file, including non-required JSON primitives.
         public static IDictionary<Type, PrimitiveValueBuilder> GetBuildersForAllPrimitives()
         {
-            // The values in this output are designed to allow conformance to the schema. In our schema,.
+            // The values in this output are designed to allow conformance to the schema. In our schema,
             // for example, some integer values must be > 0. And so, our optional integer value is 
             // written as 1.
             return new Dictionary<Type, PrimitiveValueBuilder>()
@@ -66,11 +65,23 @@ namespace Microsoft.CodeAnalysis.Sarif
         // 'node.children' is another collection of nodes. We need to watch for these
         // scenarios to prevent re-entrancy and eventual stack consumption when 
         // producing samples of these types.
-        private int graphNodeParentCount;
-        private int exceptionDataParentCount;
+        private bool _visitingGraphNode;
+        private bool _visitingExceptionData;
+
 
         public override object VisitActual(ISarifNode node)
         {
+            // We override a very low level visit, one that occurs for every SARIF object instance.
+            // We do this for two reasons: 1) it would be unnecessarily burdensome to override
+            // every specific VisitXXX method in order to populate it, 2) this approach, even
+            // if undertaken, would be quite fragile. Visit methods that disappear would break our 
+            // build. More worrisome, the code would miss newly introduced types on the visitor.
+            //
+            // We could have avoided the visitor altogether and simply performed recursive reflection
+            // over a root SarifLog instance. We use this mechanism in order to minimize introducing
+            // an entirely one-off construct, to glean whatever small measure of reuse is afforded 
+            // by the visitor, and based on an assumption that future check-ins will utilize 
+            // chained visitors and/or utilize more core visitor functionality. 
             PopulateInstanceWithDefaultMemberValues(node);
 
             return base.VisitActual(node);
@@ -80,11 +91,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         // unbounded re-entrance populating exception.innerExceptions
         public override ExceptionData VisitExceptionData(ExceptionData node)
         {
-            if (exceptionDataParentCount > 1) { throw new InvalidOperationException(); };
-
-            exceptionDataParentCount++;
+            _visitingExceptionData = true;
             node = base.VisitExceptionData(node);
-            exceptionDataParentCount--;
+            _visitingExceptionData = false;
 
             return node;
         }
@@ -93,11 +102,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         // unbounded re-entrance populating exception.innerExceptions
         public override Node VisitNode(Node node)
         {
-            if (graphNodeParentCount > 1) { throw new InvalidOperationException(); };
-
-            graphNodeParentCount++;
+            _visitingGraphNode = true;
             node = base.VisitNode(node);
-            graphNodeParentCount--;
+            _visitingGraphNode = false;
 
             return node;
         }
@@ -113,7 +120,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (property.Name == "SarifNodeKind") { continue; }
 
                 // Property bags and tags are populated via special methods on 
-                // the class rather than direct access of properties.
+                // the class rather than direct access of properties. These 
+                // property names extend from the PropertyBagHolder base type
+                // that all properties-bearing types extend (nearly every SARIF
+                // class at this point).
                 if (property.Name == "PropertyNames" || 
                     property.Name == "Tags")
                 {
@@ -140,9 +150,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private void PopulatePropertyWithDefaultValue(ISarifNode node, PropertyInfo property)
         {
-            object propertyValue = null;
-            Type propertyType = property.PropertyType;
-
             // If we can't set this property, it is not of interest
             if (property.GetAccessors().Length != 2) { return; }
 
@@ -156,20 +163,24 @@ namespace Microsoft.CodeAnalysis.Sarif
             // we have accomplished all the testing we need in any case.
             if (node.SarifNodeKind == SarifNodeKind.ExceptionData &&
                 property.Name == "InnerExceptions" &&
-                exceptionDataParentCount > 0) { return; }
+                _visitingExceptionData) { return; }
 
-            // Sample approach applies for graph node.children
+            // Similar approach applies for graph node.children
             if (node.SarifNodeKind == SarifNodeKind.Node &&
-                property.Name == "Children" && 
-                graphNodeParentCount > 0) { return; }
+                property.Name == "Children" &&
+                _visitingGraphNode) { return; }
+
+            object propertyValue = null;
+            Type propertyType = property.PropertyType;
 
             bool isRequired = PropertyIsRequiredBySchema(node.GetType().Name, property.Name);
 
-            if (_typeToPropertyValueConstructorMap.TryGetValue(propertyType, out PrimitiveValueBuilder propertyValueConstructor))
+            PrimitiveValueBuilder propertyValueBuilder = null;
+            if (_typeToPropertyValueConstructorMap.TryGetValue(propertyType, out propertyValueBuilder))
             {
-                propertyValue = propertyValueConstructor(isRequired);
+                propertyValue = propertyValueBuilder(isRequired);
             }
-            else if (HasParameterlessConstructor(property.PropertyType))
+            else if (HasParameterlessConstructor(propertyType))
             {
                 propertyValue = Activator.CreateInstance(propertyType);
             }
@@ -189,7 +200,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     listElement = Activator.CreateInstance(propertyType.GenericTypeArguments[0]);
                 }
-                else if (_typeToPropertyValueConstructorMap.TryGetValue(genericTypeArgument, out PrimitiveValueBuilder propertyValueBuilder))
+                else if (_typeToPropertyValueConstructorMap.TryGetValue(genericTypeArgument, out propertyValueBuilder))
                 {
                     listElement = propertyValueBuilder(isRequired);
                 }
@@ -238,14 +249,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private string GetJsonNameFor(string name)
         {
-            return name.Substring(0, 1).ToLower() + name.Substring(1);
+            return name.Substring(0, 1).ToLowerInvariant() + name.Substring(1);
         }
 
         private void AddElementToDictionary(object dictionary, object dictionaryValue)
         {
             var dictionaryType = dictionary.GetType();
             MethodInfo method = dictionaryType.GetMethod("Add");
-            method.Invoke(dictionary, new[] { "PlaceholderDictionaryKey", dictionaryValue });
+            method.Invoke(dictionary, new[] { "key", dictionaryValue });
         }
 
         private void AddElementToList(object list, object listElement)
@@ -281,12 +292,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static bool IsList(Type propertyType)
         {
-            return propertyType.Name.StartsWith("IList");
+            return propertyType.IsGenericType && propertyType.GetGenericTypeDefinition() == typeof(IList<>);
         }
 
         private bool IsDictionary(Type propertyType)
         {
-            return propertyType.Name.StartsWith("IDictionary");
+            return propertyType.IsGenericType && propertyType.GetGenericTypeDefinition() == typeof(Dictionary<,>);
         }
 
         private bool HasParameterlessConstructor(Type propertyType)

@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<ExceptionData> InnerExceptions { get; set; }
 
         /// <summary>
-        /// Key/value pairs that provide additional information about the exception
+        /// Key/value pairs that provide additional information about the exception.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }

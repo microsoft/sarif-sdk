@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<FileLocation> Results { get; set; }
 
         /// <summary>
-        /// Key/value pairs that provide additional information about the external files
+        /// Key/value pairs that provide additional information about the external files.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
