@@ -16,6 +16,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class ExtensionMethods
     {
+        public static bool HasAtLeastOneNonNullValue(this IList<string> list)
+        {
+            return list != null && list.Any((s) => s != null);
+        }
+
         public static string InstanceIdInstanceComponent(this RunAutomationDetails runAutomationDetails)
         {
             string instanceId = runAutomationDetails.InstanceId;

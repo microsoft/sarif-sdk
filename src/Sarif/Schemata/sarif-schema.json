@@ -70,6 +70,11 @@
           "items": {
             "$ref": "#/definitions/rectangle"
           }
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the attachment.",
+          "$ref": "#/definitions/propertyBag"
         }
       },
 
@@ -1157,6 +1162,11 @@
           "additionalProperties": {
             "$ref": "#/definitions/rule"
           }
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the resources.",
+          "$ref": "#/definitions/propertyBag"
         }
       }
     },

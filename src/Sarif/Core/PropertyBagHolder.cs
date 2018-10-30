@@ -145,7 +145,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     serializedValue = JsonConvert.SerializeObject(value, settings);
                 }
             }
-             
+
             Properties[propertyName] = new SerializedPropertyInfo(serializedValue, isString);
         }
 
@@ -155,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 throw new ArgumentNullException(nameof(other));
             }
-            
+
             // We need the concrete class because the IPropertyBagHolder interface
             // doesn't expose the raw Properties array.
             PropertyBagHolder otherHolder = other as PropertyBagHolder;
@@ -180,5 +180,18 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         [JsonIgnore]
         public TagsCollection Tags { get; }
+
+        public virtual bool ShouldSerializeProperties()
+        {
+            return PropertyBagHasAtLeastOneNonNullValue();
+        }   
+
+        public bool PropertyBagHasAtLeastOneNonNullValue()
+        {
+            bool hasAtLeastOneNonNullTag = this.Tags.Any(t => !string.IsNullOrEmpty(t));
+            bool hasAtLeastOneNonNullPropertyValue = this.Properties != null && this.Properties.Any(kv => kv.Key != "Tags" && kv.Value != null);
+
+            return hasAtLeastOneNonNullTag | hasAtLeastOneNonNullPropertyValue;
+        }
     }
 }
