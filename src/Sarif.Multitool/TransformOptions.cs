@@ -10,10 +10,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     internal class TransformOptions : SingleFileOptionsBase
     {
         [Option(
-            't',
+            'v',
             "target-version",
             HelpText = "The SARIF version to which the input file will be transformed.",
             Default = SarifVersion.Current)]
-        public SarifVersion Version { get; internal set; }
+        public SarifVersion Version { get; set; }
     }
 }

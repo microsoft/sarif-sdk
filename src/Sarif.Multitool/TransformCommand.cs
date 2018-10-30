@@ -3,6 +3,7 @@
 
 using System;
 using System.IO;
+using System.Text;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
@@ -12,9 +13,18 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    internal static class TransformCommand
+    internal class TransformCommand
     {
-        public static int Run(TransformOptions transformOptions)
+        private bool _testing;
+        private IFileSystem _fileSystem;
+
+        public TransformCommand(IFileSystem fileSystem = null, bool testing = false)
+        {
+            _fileSystem = fileSystem ?? new FileSystem();
+            _testing = testing;
+        }
+
+        public int Run(TransformOptions transformOptions)
         {
             try
             {
@@ -42,25 +52,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                     if (inputFilePath == null || inputFilePath == "1.0.0")
                     {
-                        SarifLogVersionOne actualLog = FileHelpers.ReadSarifFile<SarifLogVersionOne>(transformOptions.InputFilePath, SarifContractResolverVersionOne.Instance);
+                        SarifLogVersionOne actualLog = FileHelpers.ReadSarifFile<SarifLogVersionOne>(_fileSystem, transformOptions.InputFilePath, SarifContractResolverVersionOne.Instance);
                         var visitor = new SarifVersionOneToCurrentVisitor();
                         visitor.VisitSarifLogVersionOne(actualLog);
-                        FileHelpers.WriteSarifFile(visitor.SarifLog, fileName, formatting);
+                        FileHelpers.WriteSarifFile(_fileSystem, visitor.SarifLog, fileName, formatting);
                     }
                     else
                     {
                         // We have a pre-release v2 file that we should upgrade to current. 
-                        string sarifText = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(File.ReadAllText(inputFilePath), formatting: formatting);
-                        File.WriteAllText(fileName, sarifText);
+                        string sarifText = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(_fileSystem.ReadAllText(inputFilePath), formatting: formatting);
+                        _fileSystem.WriteAllText(fileName, sarifText);
                     }
                 }
                 else
                 {
-                    SarifLog actualLog = FileHelpers.ReadSarifFile<SarifLog>(transformOptions.InputFilePath);
+                    SarifLog actualLog = FileHelpers.ReadSarifFile<SarifLog>(_fileSystem, transformOptions.InputFilePath);
                     var visitor = new SarifCurrentToVersionOneVisitor();
                     visitor.VisitSarifLog(actualLog);
 
-                    FileHelpers.WriteSarifFile(visitor.SarifLogVersionOne, fileName, formatting);
+                    FileHelpers.WriteSarifFile(_fileSystem, visitor.SarifLogVersionOne, fileName, formatting);
                 }
             }
             catch (Exception ex)
@@ -72,11 +82,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return 0;
         }
 
-        private static string SniffVersion(string sarifPath, int tokenCountLimit = 100)
+        private string SniffVersion(string sarifPath, int tokenCountLimit = int.MaxValue)
         {
             int tokenCount = 0;
 
-            using (JsonTextReader reader = new JsonTextReader(new StreamReader(sarifPath)))
+            // When we're unit-testing, we'll retrieve a string representation of the file contents and pass this to a stream reader instance.
+            TextReader textReader = _testing ? new StreamReader(new MemoryStream(Encoding.UTF8.GetBytes(_fileSystem.ReadAllText(sarifPath)))) : new StreamReader(sarifPath);
+
+            using (JsonTextReader reader = new JsonTextReader(textReader))
             {
                 while (reader.Read() && tokenCount < tokenCountLimit)
                 {

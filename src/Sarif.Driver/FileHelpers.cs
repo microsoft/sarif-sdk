@@ -3,8 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -15,9 +13,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     /// </summary>
     static class FileHelpers
     {
-        public static T ReadSarifFile<T>(string filePath, IContractResolver contractResolver = null)
+        public static T ReadSarifFile<T>(IFileSystem fileSystem, string filePath, IContractResolver contractResolver = null)
         {
-            string logText = File.ReadAllText(filePath);
+            string logText = fileSystem.ReadAllText(filePath);
 
             var settings = new JsonSerializerSettings
             {
@@ -28,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return JsonConvert.DeserializeObject<T>(logText);
         }
 
-        public static void WriteSarifFile<T>(T sarifFile, string outputName, Formatting formatting = Formatting.None, IContractResolver contractResolver = null)
+        public static void WriteSarifFile<T>(IFileSystem fileSystem, T sarifFile, string outputName, Formatting formatting = Formatting.None, IContractResolver contractResolver = null)
         {
             var settings = new JsonSerializerSettings
             {
@@ -36,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 Formatting = formatting
             };
 
-            File.WriteAllText(outputName, JsonConvert.SerializeObject(sarifFile, settings));
+            fileSystem.WriteAllText(outputName, JsonConvert.SerializeObject(sarifFile, settings));
         }
 
         public static HashSet<string> CreateTargetsSet(IEnumerable<string> targetSpecifiers, bool recurse)

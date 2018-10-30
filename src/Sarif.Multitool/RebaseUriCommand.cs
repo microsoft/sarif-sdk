@@ -10,9 +10,16 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    internal static class RebaseUriCommand
+    internal class RebaseUriCommand
     {
-        public static int Run(RebaseUriOptions rebaseOptions)
+        private IFileSystem _fileSystem;
+
+        public RebaseUriCommand(IFileSystem fileSystem = null)
+        {
+            _fileSystem = fileSystem ?? new FileSystem();
+        }
+
+        public int Run(RebaseUriOptions rebaseOptions)
         {
             try
             {
@@ -41,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         ? Formatting.Indented
                         : Formatting.None;
                     
-                    FileHelpers.WriteSarifFile(sarifLog.Log, outputName, formatting);
+                    FileHelpers.WriteSarifFile(_fileSystem, sarifLog.Log, outputName, formatting);
                 }
             }
             catch (Exception ex)
@@ -53,13 +60,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return 0;
         }
         
-        private static IEnumerable<RebaseUriFile> GetSarifFiles(RebaseUriOptions mergeOptions)
+        private IEnumerable<RebaseUriFile> GetSarifFiles(RebaseUriOptions mergeOptions)
         {
             // Get files names first, as we may write more sarif logs to the same directory as we rebase them.
             HashSet<string> fileNames = FileHelpers.CreateTargetsSet(mergeOptions.TargetFileSpecifiers, mergeOptions.Recurse);
             foreach(var file in fileNames)
             {
-                yield return new RebaseUriFile() { FileName = file, Log = FileHelpers.ReadSarifFile<SarifLog>(file) };
+                yield return new RebaseUriFile() { FileName = file, Log = FileHelpers.ReadSarifFile<SarifLog>(_fileSystem, file) };
             }
         }
         
