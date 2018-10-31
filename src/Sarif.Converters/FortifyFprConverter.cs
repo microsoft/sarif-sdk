@@ -401,7 +401,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     _reader.Read();
 
                     // If we don't have a label, get the <Action> value
-                    if (string.IsNullOrWhiteSpace(nodeLabel))
+                    if (string.IsNullOrWhiteSpace(nodeLabel) && AtStartOf(_strings.Action))
                     {
                         nodeLabel = _reader.ReadElementContentAsString();
                     }
@@ -410,13 +410,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         Location = new Location
                         {
-                            Message = new Message
-                            {
-                                Text = nodeLabel
-                            },
                             PhysicalLocation = physicalLocation
                         }
                     };
+
+                    if (!string.IsNullOrWhiteSpace(nodeLabel))
+                    {
+                        tfl.Location.Message = new Message
+                        {
+                            Text = nodeLabel
+                        };
+                    }
 
                     // Remember the id of the snippet associated with this location.
                     // We'll use it to fill the snippet text when we read the Snippets element later on.
@@ -455,7 +459,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 result.RelatedLocations.Last().PhysicalLocation.Id = 1;
 
-                if (!string.IsNullOrEmpty(lastNodeId))
+                if (!string.IsNullOrEmpty(lastNodeId) && !_resultToSnippetIdDictionary.ContainsKey(result))
                 {
                     _resultToSnippetIdDictionary.Add(result, lastNodeId);
                 }
