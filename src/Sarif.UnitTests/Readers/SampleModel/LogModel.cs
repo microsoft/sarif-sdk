@@ -132,7 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.SampleModel
             // some buried bug that we need to chase down. It's bad because the failure pops up 
             // unpredictably. A common way to resolve this situation is to emit sufficient details
             // during test execution to reliably recreate the failure (e.g., by logging the Random seed
-            // and by consistent using the Random instance to produce the generated content).
+            // and by consistently using the Random instance to produce the generated content).
             //
             // When someone fixes the broken test case, we should also make a call on how to handle 
             // the test content generation. For now, we will make this output deterministic by 
