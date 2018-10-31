@@ -139,7 +139,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.SampleModel
             // deriving the emitted Date from the Random instance with a hard-coded seed of 5.
             // https://github.com/Microsoft/sarif-sdk/issues/1126
             //
-            // Using a hard-coded Random seed to produce generated content is foolish because
+            // Using a hard-coded Random seed to produce generated content is inadvisable because
             // it would be preferable to simply check in the deterministic test content rather
             // than to take the costs to produce it each time. If we stick with the randomly 
             // generated content approach, the next line of code should replace the hard-coded
@@ -148,9 +148,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.SampleModel
             // console testing. We currently do not have sufficient logging in AppVeyor testing
             // to see this output, however. That gap needs to be closed.
             //
-            var random = new Random(5);
+
+            var random = new Random(7);
             
-            return Build(random, new DateTime(random.Next(1, 9999), random.Next(1, 12), random.Next(1, 30)), 500);
+            // Uncomment this code to provoke a failure for debugging
+            //return Build(random, new DateTime(random.Next(1, 9999), random.Next(1, 12), random.Next(1, 30)), 7);
+
+            // Generating 10 rows of content does not fail
+            return Build(random, new DateTime(random.Next(1, 9999), random.Next(1, 12), random.Next(1, 30)), 10);
         }
 
         public static Log Build(Random r, DateTime whenUtc, int messageCount)
