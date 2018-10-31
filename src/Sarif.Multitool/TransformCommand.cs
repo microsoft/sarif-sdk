@@ -96,7 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         var visitor = new SarifCurrentToVersionOneVisitor();
                         visitor.VisitSarifLog(actualLog);
 
-                        FileHelpers.WriteSarifFile(_fileSystem, visitor.SarifLogVersionOne, fileName, formatting);
+                        FileHelpers.WriteSarifFile(_fileSystem, visitor.SarifLogVersionOne, fileName, formatting, SarifContractResolverVersionOne.Instance);
                     }
                 }
             }
