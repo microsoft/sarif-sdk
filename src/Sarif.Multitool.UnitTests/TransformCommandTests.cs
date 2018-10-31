@@ -19,7 +19,7 @@ namespace Sarif.Multitool.UnitTests
         public const string MinimalPrereleaseV2 =
     @"{
   ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
-  ""version"": ""2.0.0-beta.2018-09-26"",
+  ""version"": ""2.0.0-csd.2.beta.2018-09-26"",
   ""runs"": [
     {
       ""tool"": {

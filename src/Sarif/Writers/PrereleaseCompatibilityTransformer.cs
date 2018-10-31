@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                 case "2.0.0-csd.2.beta.2018-10-10":
                 {
-                    // NOthing to do, this is current
+                    // Nothing to do, this is current
                     break;
                 }
 
