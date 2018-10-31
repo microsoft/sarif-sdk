@@ -69,6 +69,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>The string constant "value"</summary>
         public readonly string ValueAttribute;
 
+        /// <summary>The string constant "Unified"</summary>
+        public readonly string Unified;
+
         /// <summary>The string constant "Trace"</summary>
         public readonly string Trace;
 
@@ -199,6 +202,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Def = nameTable.Add("Def");
             KeyAttribute = nameTable.Add("key");
             ValueAttribute = nameTable.Add("value");
+            Unified = nameTable.Add("Unified");
             Trace = nameTable.Add("Trace");
             Entry = nameTable.Add("Entry");
             NodeRef = nameTable.Add("NodeRef");
