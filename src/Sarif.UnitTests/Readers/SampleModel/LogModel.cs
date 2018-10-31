@@ -154,8 +154,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.SampleModel
             // Uncomment this code to provoke a failure for debugging
             //return Build(random, new DateTime(random.Next(1, 9999), random.Next(1, 12), random.Next(1, 30)), 7);
 
-            // Generating 10 rows of content does not fail
-            return Build(random, new DateTime(random.Next(1, 9999), random.Next(1, 12), random.Next(1, 30)), 6);
+            // Generating 5 rows of content does not fail
+            return Build(random, new DateTime(random.Next(1, 9999), random.Next(1, 12), random.Next(1, 30)), 5);
         }
 
         public static Log Build(Random r, DateTime whenUtc, int messageCount)
