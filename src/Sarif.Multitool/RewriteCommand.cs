@@ -11,15 +11,22 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    internal static class RewriteCommand
+    internal class RewriteCommand
     {
-        public static int Run(RewriteOptions rewriteOptions)
+        private readonly IFileSystem _fileSystem;
+
+        public RewriteCommand(IFileSystem fileSystem = null)
+        {
+            _fileSystem = fileSystem ?? new FileSystem();
+        }
+
+        public int Run(RewriteOptions rewriteOptions)
         {
             try
             {
                 rewriteOptions = ValidateOptions(rewriteOptions);
                 
-                SarifLog actualLog = FileHelpers.ReadSarifFile<SarifLog>(rewriteOptions.InputFilePath);
+                SarifLog actualLog = FileHelpers.ReadSarifFile<SarifLog>(_fileSystem, rewriteOptions.InputFilePath);
 
                 OptionallyEmittedData dataToInsert = rewriteOptions.DataToInsert.ToFlags();
                 IDictionary<string, FileLocation> originalUriBaseIds = rewriteOptions.ConstructUriBaseIdsDictionary();
@@ -32,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     ? Formatting.Indented
                     : Formatting.None;
 
-                FileHelpers.WriteSarifFile(reformattedLog, fileName, formatting);
+                FileHelpers.WriteSarifFile(_fileSystem, reformattedLog, fileName, formatting);
             }
             catch(Exception ex)
             {

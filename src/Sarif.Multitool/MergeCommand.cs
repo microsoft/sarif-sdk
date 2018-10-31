@@ -11,9 +11,16 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    internal static class MergeCommand
+    internal class MergeCommand
     {
-        public static int Run(MergeOptions mergeOptions)
+        private readonly IFileSystem _fileSystem;
+
+        public MergeCommand(IFileSystem fileSystem = null)
+        {
+            _fileSystem = fileSystem ?? new FileSystem();
+        }
+    
+        public  int Run(MergeOptions mergeOptions)
         {
             try
             {
@@ -44,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 Directory.CreateDirectory(mergeOptions.OutputFolderPath);
 
-                FileHelpers.WriteSarifFile(combinedLog, outputName, formatting);
+                FileHelpers.WriteSarifFile(_fileSystem, combinedLog, outputName, formatting);
             }
             catch (Exception ex)
             {
@@ -54,11 +61,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return 0;
         }
 
-	    private static IEnumerable<SarifLog> ParseFiles(IEnumerable<string> sarifFiles)
+	    private IEnumerable<SarifLog> ParseFiles(IEnumerable<string> sarifFiles)
 	    {
             foreach (var file in sarifFiles)
             {
-                yield return FileHelpers.ReadSarifFile<SarifLog>(file);
+                yield return FileHelpers.ReadSarifFile<SarifLog>(_fileSystem, file);
             }
         }
         

@@ -22,14 +22,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 AbsoluteUriOptions,
                 ResultMatchingOptions>(args)
               .MapResult(
-                (ValidateOptions validateOptions) => new ValidateCommand(new FileSystem()).Run(validateOptions),
+                (ValidateOptions validateOptions) => new ValidateCommand().Run(validateOptions),
                 (ConvertOptions convertOptions) => ConvertCommand.Run(convertOptions),
-                (RewriteOptions rewriteOptions) => RewriteCommand.Run(rewriteOptions),
-                (TransformOptions transformOptions) => TransformCommand.Run(transformOptions),
-                (MergeOptions mergeOptions) => MergeCommand.Run(mergeOptions),
-                (RebaseUriOptions rebaseOptions) => RebaseUriCommand.Run(rebaseOptions),
-                (AbsoluteUriOptions absoluteUriOptions) => AbsoluteUriCommand.Run(absoluteUriOptions),
-                (ResultMatchingOptions baselineOptions) => ResultMatchingCommand.Run(baselineOptions),
+                (RewriteOptions rewriteOptions) => new RewriteCommand().Run(rewriteOptions),
+                (TransformOptions transformOptions) => new TransformCommand().Run(transformOptions),
+                (MergeOptions mergeOptions) => new MergeCommand().Run(mergeOptions),
+                (RebaseUriOptions rebaseOptions) => new RebaseUriCommand().Run(rebaseOptions),
+                (AbsoluteUriOptions absoluteUriOptions) => new AbsoluteUriCommand().Run(absoluteUriOptions),
+                (ResultMatchingOptions baselineOptions) => new ResultMatchingCommand().Run(baselineOptions),
                 errs => 1);
         }
     }

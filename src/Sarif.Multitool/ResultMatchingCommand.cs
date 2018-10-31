@@ -2,10 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Microsoft.CodeAnalysis.Sarif.Baseline;
 using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 
@@ -13,14 +11,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     internal class ResultMatchingCommand
     {
-        public static int Run(ResultMatchingOptions matchingOptions)
+        private readonly IFileSystem _fileSystem;
+
+        public ResultMatchingCommand(IFileSystem fileSystem = null)
+        {
+            _fileSystem = fileSystem ?? new FileSystem();
+        }
+
+        public int Run(ResultMatchingOptions matchingOptions)
         {
             try
             {
                 SarifLog baselineFile = null;
                 if (!string.IsNullOrEmpty(matchingOptions.PreviousFilePath))
                 {
-                    baselineFile = FileHelpers.ReadSarifFile<SarifLog>(matchingOptions.PreviousFilePath);
+                    baselineFile = FileHelpers.ReadSarifFile<SarifLog>(_fileSystem, matchingOptions.PreviousFilePath);
                 }
 
                 string outputFilePath = matchingOptions.OutputFilePath;
@@ -29,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     outputFilePath = Path.GetFileNameWithoutExtension(matchingOptions.PreviousFilePath) + "-annotated.sarif";
                 }
 
-                SarifLog currentFile = FileHelpers.ReadSarifFile<SarifLog>(matchingOptions.CurrentFilePath);
+                SarifLog currentFile = FileHelpers.ReadSarifFile<SarifLog>(_fileSystem, matchingOptions.CurrentFilePath);
                 
                 ISarifLogMatcher matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
 
@@ -39,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         ? Newtonsoft.Json.Formatting.Indented
                         : Newtonsoft.Json.Formatting.None;
                 
-                FileHelpers.WriteSarifFile(output, outputFilePath, formatting);
+                FileHelpers.WriteSarifFile(_fileSystem, output, outputFilePath, formatting);
             }
             catch (Exception ex)
             {

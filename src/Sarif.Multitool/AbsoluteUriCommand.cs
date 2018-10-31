@@ -10,9 +10,16 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    internal static class AbsoluteUriCommand
+    internal class AbsoluteUriCommand
     {
-        public static int Run(AbsoluteUriOptions absoluteUriOptions)
+        private readonly IFileSystem _fileSystem;
+
+        public AbsoluteUriCommand(IFileSystem fileSystem = null)
+        {
+            _fileSystem = fileSystem ?? new FileSystem();
+        }
+
+        public int Run(AbsoluteUriOptions absoluteUriOptions)
         {
             try
             {
@@ -29,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         ? Formatting.Indented
                         : Formatting.None;
 
-                    FileHelpers.WriteSarifFile(sarifLog.Log, outputName, formatting);
+                    FileHelpers.WriteSarifFile(_fileSystem, sarifLog.Log, outputName, formatting);
                 }
             }
             catch (Exception ex)
@@ -41,13 +48,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return 0;
         }
 
-        private static IEnumerable<AbsoluteUriFile> GetSarifFiles(AbsoluteUriOptions absoluteUriOptions)
+        private IEnumerable<AbsoluteUriFile> GetSarifFiles(AbsoluteUriOptions absoluteUriOptions)
         {
             // Get files names first, as we may write more sarif logs to the same directory as we rebase them.
             HashSet<string> fileNames = FileHelpers.CreateTargetsSet(absoluteUriOptions.TargetFileSpecifiers, absoluteUriOptions.Recurse);
             foreach (var file in fileNames)
             {
-                yield return new AbsoluteUriFile() { FileName = file, Log = FileHelpers.ReadSarifFile<SarifLog>(file) };
+                yield return new AbsoluteUriFile() { FileName = file, Log = FileHelpers.ReadSarifFile<SarifLog>(_fileSystem, file) };
             }
         }
 
