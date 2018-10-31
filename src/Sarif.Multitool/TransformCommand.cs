@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     internal class TransformCommand
     {
-        private bool _testing;
+        private readonly bool _testing;
         private readonly IFileSystem _fileSystem;
 
         public TransformCommand(IFileSystem fileSystem = null, bool testing = false)
