@@ -33,23 +33,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             switch (version)
             {
-                // This case actually handles all SARIF v2 prerelease before we 
-                // started properly updating the schema. 
-                case "2.0.0":
-                {
-                    modifiedLog |= ApplyCoreTransformations(sarifLog);
-                    break;
-                }
 
                 case "2.0.0-csd.2.beta.2018-10-10":
                 {
-                    modifiedLog |= ApplyCoreTransformations(sarifLog);
-                    modifiedLog |= ApplyChangesSinceTechnicalCommitteeMeeting25();
+                    // Nothing to do, this is current
                     break;
                 }
 
                 default:
+                {
+                    modifiedLog |= ApplyCoreTransformations(sarifLog);
                     break;
+                }
             }
 
             return modifiedLog ? sarifLog.ToString(formatting) : prereleaseSarifLog;
@@ -135,7 +130,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                 var runId = new JObject();
 
-                if (instanceGuid != null)
+                if (instanceGuid != null && logicalId != null)
                 {
                     // We can only effectively populate the new instanceId in a case where
                     // the log is previously uniquely identified a run by a guid.
@@ -530,12 +525,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             return modifiedNotification;
-        }
-
-        private static bool ApplyChangesSinceTechnicalCommitteeMeeting25()
-        {
-            // No changes applied in this method
-            return false;
         }
     }
 }

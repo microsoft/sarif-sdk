@@ -114,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.SampleModel
 
     internal class LogModelSampleBuilder
     {
-        public const string SampleLogPath = "CodeCrawler.log.json";
+        public const string SampleLogPath = @"CodeCrawler.log.json";
         public const string SampleOneLinePath = "CodeCrawler.OneLine.log.json";
         public const string SampleNoCodeContextsPath = "CodeCrawler.NoCodeContexts.log.json";
         public const string SampleEmptyPath = "CodeCrawler.Empty.log.json";
