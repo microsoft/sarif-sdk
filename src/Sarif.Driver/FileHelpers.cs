@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
 
 
-            return JsonConvert.DeserializeObject<T>(logText);
+            return JsonConvert.DeserializeObject<T>(logText, settings);
         }
 
         public static void WriteSarifFile<T>(IFileSystem fileSystem, T sarifFile, string outputName, Formatting formatting = Formatting.None, IContractResolver contractResolver = null)

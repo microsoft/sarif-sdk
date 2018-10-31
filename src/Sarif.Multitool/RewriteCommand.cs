@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     internal class RewriteCommand
     {
-        private IFileSystem _fileSystem;
+        private readonly IFileSystem _fileSystem;
 
         public RewriteCommand(IFileSystem fileSystem = null)
         {

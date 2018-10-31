@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     internal class AbsoluteUriCommand
     {
-        private IFileSystem _fileSystem;
+        private readonly IFileSystem _fileSystem;
 
         public AbsoluteUriCommand(IFileSystem fileSystem = null)
         {

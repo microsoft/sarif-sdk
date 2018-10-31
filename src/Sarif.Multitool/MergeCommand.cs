@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     internal class MergeCommand
     {
-        private IFileSystem _fileSystem;
+        private readonly IFileSystem _fileSystem;
 
         public MergeCommand(IFileSystem fileSystem = null)
         {

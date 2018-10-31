@@ -14,6 +14,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             "target-version",
             HelpText = "The SARIF version to which the input file will be transformed.",
             Default = SarifVersion.Current)]
-        public SarifVersion Version { get; set; }
+        public SarifVersion TargetVersion { get; set; }
     }
 }
