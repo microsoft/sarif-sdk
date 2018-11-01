@@ -17,16 +17,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
     {
         public const string ResultMatchingResultPropertyName = "ResultMatching";
 
-
-        public SarifLogResultMatcher(IEnumerable<IResultMatcher> exactResultMatchers,
-            IEnumerable<IResultMatcher> heuristicMatchers)
+        public SarifLogResultMatcher(
+            IEnumerable<IResultMatcher> exactResultMatchers,
+            IEnumerable<IResultMatcher> heuristicMatchers,
+            DictionaryMergeBehaviors propertyBagMergeBehaviors = DictionaryMergeBehaviors.None)
         {
             ExactResultMatchers = exactResultMatchers;
             HeuristicMatchers = heuristicMatchers;
+            PropertyBagMergeBehaviors = propertyBagMergeBehaviors;
         }
 
         public IEnumerable<IResultMatcher> ExactResultMatchers { get; }
         public IEnumerable<IResultMatcher> HeuristicMatchers { get; }
+        public DictionaryMergeBehaviors PropertyBagMergeBehaviors { get; }
 
         /// <summary>
         /// Take two groups of sarif logs, and compute a sarif log containing the complete set of results,
@@ -64,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 resultToolLogs.Add(BaselineSarifLogs(baselineRuns, currentRuns));
             }
 
-            return new List<SarifLog> { resultToolLogs.Merge() }.AsEnumerable();
+            return new List<SarifLog> { resultToolLogs.Merge() };
         }
 
         private static Dictionary<string, List<Run>> GetRunsByTool(IEnumerable<SarifLog> sarifLogs)
@@ -102,8 +105,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             // Spin out SARIF logs into MatchingResult objects.
             List<ExtractedResult> baselineResults = 
                 previous == null ? new List<ExtractedResult>() : GetMatchingResultsFromRuns(previous);
+
             List<ExtractedResult> currentResults =
                 current == null ? new List<ExtractedResult>() : GetMatchingResultsFromRuns(current);
+
             List<MatchedResults> matchedResults = new List<MatchedResults>();
 
             // Calculate exact mappings using exactResultMatchers.
@@ -179,7 +184,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             return null;
         }
 
-        private SarifLog ConstructSarifLogFromMatchedResults(IEnumerable<MatchedResults> results, IEnumerable<Run> previousRuns, IEnumerable<Run> currentRuns)
+        private SarifLog ConstructSarifLogFromMatchedResults(
+            IEnumerable<MatchedResults> results, 
+            IEnumerable<Run> previousRuns, 
+            IEnumerable<Run> currentRuns)
         {
             if (currentRuns == null || !currentRuns.Any())
             {
@@ -199,10 +207,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
             if (previousRuns != null && previousRuns.Count() != 0)
             {
-                // We currently only flow the baseline instance id forward (which becomes the 
-                // baseline guid for the merged log) and the baseline properties bag.
+                // We flow the baseline instance id forward (which becomes the 
+                // baseline guid for the merged log)
                 run.BaselineInstanceGuid = previousRuns.First().Id?.InstanceGuid;
-                properties = previousRuns.First().Properties;
+
+                // We preserve either the most current or the oldest property bag associated with 
+                // a run. Note that this implies ordering of current and previous runs with
+                // the most recent runs being at the front of the enumerable set. This is 
+                // a non-obvious subtlety that we should look at resolving in a cleaned up design
+                properties = PropertyBagMergeBehaviors.HasFlag(DictionaryMergeBehaviors.InitializeFromCurrent)
+                    ? currentRuns.First().Properties
+                    : previousRuns.Last().Properties;
             }
 
             properties = properties ?? new Dictionary<string, SerializedPropertyInfo>();
@@ -228,6 +243,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 {
                     MergeDictionaryInto(fileData, currentRun.Files, FileDataEqualityComparer.Instance);
                 }
+
                 if (currentRun.Resources != null)
                 {
                     if (currentRun.Resources.Rules != null)
@@ -245,14 +261,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                         MergeDictionaryInto(messageData, converted, StringComparer.InvariantCulture);
                     }
                 }
+
                 if (currentRun.LogicalLocations != null)
                 {
                     MergeDictionaryInto(logicalLocations, currentRun.LogicalLocations, LogicalLocationEqualityComparer.Instance);
                 }
+
                 if (currentRun.Graphs != null)
                 {
                     MergeDictionaryInto(graphs, currentRun.Graphs, GraphEqualityComparer.Instance);
                 }
+
                 if (currentRun.Invocations != null)
                 {
                     invocations.AddRange(currentRun.Invocations);

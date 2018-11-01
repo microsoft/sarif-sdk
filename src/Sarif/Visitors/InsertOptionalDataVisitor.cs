@@ -40,9 +40,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (node == null) { return null; }
 
-            bool scrapeFileReferences = _dataToInsert.Includes(OptionallyEmittedData.Hashes) ||
-                                        _dataToInsert.Includes(OptionallyEmittedData.TextFiles) ||
-                                        _dataToInsert.Includes(OptionallyEmittedData.BinaryFiles);
+            bool scrapeFileReferences = _dataToInsert.HasFlag(OptionallyEmittedData.Hashes) ||
+                                        _dataToInsert.HasFlag(OptionallyEmittedData.TextFiles) ||
+                                        _dataToInsert.HasFlag(OptionallyEmittedData.BinaryFiles);
 
             if (scrapeFileReferences)
             {
@@ -62,10 +62,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 goto Exit;
             }
 
-            bool insertRegionSnippets = _dataToInsert.Includes(OptionallyEmittedData.RegionSnippets);
-            bool overwriteExistingData = _dataToInsert.Includes(OptionallyEmittedData.OverwriteExistingData);
-            bool insertContextCodeSnippets = _dataToInsert.Includes(OptionallyEmittedData.ContextRegionSnippets);
-            bool populateRegionProperties = _dataToInsert.Includes(OptionallyEmittedData.ComprehensiveRegionProperties);
+            bool insertRegionSnippets = _dataToInsert.HasFlag(OptionallyEmittedData.RegionSnippets);
+            bool overwriteExistingData = _dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData);
+            bool insertContextCodeSnippets = _dataToInsert.HasFlag(OptionallyEmittedData.ContextRegionSnippets);
+            bool populateRegionProperties = _dataToInsert.HasFlag(OptionallyEmittedData.ComprehensiveRegionProperties);
 
             if (insertRegionSnippets || populateRegionProperties || insertContextCodeSnippets)
             {
@@ -116,11 +116,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             if (fileLocation != null && _run.OriginalUriBaseIds != null)
             {
                 bool workToDo = false;
-                bool overwriteExistingData = _dataToInsert.Includes(OptionallyEmittedData.OverwriteExistingData);
+                bool overwriteExistingData = _dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData);
 
-                workToDo |= (node.Hashes == null || overwriteExistingData) && _dataToInsert.Includes(OptionallyEmittedData.Hashes);
-                workToDo |= (node.Contents?.Text == null || overwriteExistingData) && _dataToInsert.Includes(OptionallyEmittedData.TextFiles);
-                workToDo |= (node.Contents?.Binary == null || overwriteExistingData) && _dataToInsert.Includes(OptionallyEmittedData.BinaryFiles);
+                workToDo |= (node.Hashes == null || overwriteExistingData) && _dataToInsert.HasFlag(OptionallyEmittedData.Hashes);
+                workToDo |= (node.Contents?.Text == null || overwriteExistingData) && _dataToInsert.HasFlag(OptionallyEmittedData.TextFiles);
+                workToDo |= (node.Contents?.Binary == null || overwriteExistingData) && _dataToInsert.HasFlag(OptionallyEmittedData.BinaryFiles);
 
                 if (workToDo)
                 {
@@ -160,8 +160,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override Message VisitMessage(Message node)
         {
-            if ((node.Text == null || _dataToInsert.Includes(OptionallyEmittedData.OverwriteExistingData)) &&
-                _dataToInsert.Includes(OptionallyEmittedData.FlattenedMessages))
+            if ((node.Text == null || _dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData)) &&
+                _dataToInsert.HasFlag(OptionallyEmittedData.FlattenedMessages))
             {
                 Rule rule = null;
                 string formatString = null;

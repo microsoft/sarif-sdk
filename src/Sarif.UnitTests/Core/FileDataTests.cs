@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 FileData fileData = FileData.Create(uri, dataToInsert);
                 fileData.FileLocation.Should().BeNull();
 
-                if (dataToInsert.Includes(OptionallyEmittedData.Hashes))
+                if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
                 {
                     fileData.Hashes.Should().NotBeNull();
                 }
@@ -264,7 +264,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static void Validate(FileData fileData, OptionallyEmittedData dataToInsert)
         {
-            if (dataToInsert.Includes(OptionallyEmittedData.TextFiles))
+            if (dataToInsert.HasFlag(OptionallyEmittedData.TextFiles))
             {
                 fileData.Contents.Should().NotBeNull();
             }
