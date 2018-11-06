@@ -267,12 +267,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             formattedMessage = string.Format(CultureInfo.InvariantCulture, formatString, arguments);
 
-#if DEBUG
-            // If this assert fires, an insufficient # of arguments might
-            // have been provided to String.Format.
-            Debug.Assert(!formattedMessage.Contains("{"));
-#endif
-
             return formattedMessage ?? string.Empty;
         }
 

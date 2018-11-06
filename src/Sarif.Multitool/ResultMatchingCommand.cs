@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
@@ -34,11 +35,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     outputFilePath = Path.GetFileNameWithoutExtension(matchingOptions.PreviousFilePath) + "-annotated.sarif";
                 }
 
-                SarifLog currentFile = FileHelpers.ReadSarifFile<SarifLog>(_fileSystem, matchingOptions.CurrentFilePath);
+                var currentSarifLogs = new List<SarifLog>();
+
+                foreach (string currentFilePath in matchingOptions.CurrentFilePaths)
+                {
+                    currentSarifLogs.Add(FileHelpers.ReadSarifFile<SarifLog>(_fileSystem, currentFilePath));
+                }
                 
                 ISarifLogMatcher matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
 
-                SarifLog output = matcher.Match(new SarifLog[] { baselineFile }, new SarifLog[] { currentFile }).First();
+                SarifLog output = matcher.Match(new SarifLog[] { baselineFile }, currentSarifLogs).First();
                 
                 var formatting = matchingOptions.PrettyPrint
                         ? Newtonsoft.Json.Formatting.Indented
@@ -50,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 Console.WriteLine(ex.ToString());
                 return 1;
-            }
+            } 
 
             return 0;
         }

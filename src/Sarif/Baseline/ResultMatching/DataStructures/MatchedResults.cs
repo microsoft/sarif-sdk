@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         /// and some metadata in the property bag about the matching algorithm used.
         /// </summary>
         /// <returns>The new SARIF result.</returns>
-        public Result CalculateNewBaselineResult()
+        public Result CalculateNewBaselineResult(DictionaryMergeBehavior propertyBagMergeBehavior)
         {
             Result result;
 
@@ -54,6 +54,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             }
 
             ResultMatchingProperties = MergeDictionaryPreferFirst(ResultMatchingProperties, OriginalResultMatchingProperties);
+
+            if (PreviousResult != null &&
+                propertyBagMergeBehavior == DictionaryMergeBehavior.InitializeFromPrevious)
+            {
+                result.Properties = PreviousResult.Result.Properties;
+            }
 
             result.SetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, ResultMatchingProperties);
 

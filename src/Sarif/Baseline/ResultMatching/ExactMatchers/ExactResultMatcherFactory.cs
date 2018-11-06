@@ -8,9 +8,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
         /// <summary>
         /// Returns a result matcher that matches results that are logically identical (i.e. every part of the result is the same, except for fields used in baselining).
         /// </summary>
-        public static IResultMatcher GetIdenticalResultMatcher()
+        public static IResultMatcher GetIdenticalResultMatcher(bool considerPropertyBagsWhenComparing)
         {
-            return new IdenticalResultMatcher();
+            return new IdenticalResultMatcher(considerPropertyBagsWhenComparing);
         }
 
         /// <summary>

@@ -30,20 +30,22 @@ namespace Microsoft.CodeAnalysis.Sarif
             _schema = SchemaReader.ReadSchema(schemaText, JsonSchemaFile);
         }
 
-        //[Fact]
-        internal void ValidateAllTheThings()
+        [Fact]
+        public void ValidateAllTheThings()
         {
             // First, we start with builders that only populate required properties that are backed by primitives.
             IDictionary<Type, DefaultObjectPopulatingVisitor.PrimitiveValueBuilder> propertyValueBuilders =
                 DefaultObjectPopulatingVisitor.GetBuildersForAllPrimitives();
 
-            ValidateDefaultDocument(propertyValueBuilders);
+            Func<SarifLog, SarifLog> callback =
+                (sarifLog) =>
+                {
+                    sarifLog.Runs[0].Tool.FileVersion = "1.0.1.2";
+                    sarifLog.Runs[0].Conversion.Tool.FileVersion = "2.7.1500.12";
+                    return sarifLog;
+                };
 
-            // TODO will build out population mechanism to fix these remaining validation errors in the next change.
-            //
-            // error JSON1015: at "runs[0].tool.fileVersion": The string "{Optional string value}" does not match the regular expression "[0-9]+(\.[0-9]+){3}".
-            // error JSON1015: at "runs[0].conversion.tool.fileVersion": The string "{Optional string value}" does not match the regular expression "[0-9]+(\.[0-9]+){3}".
-            // error JSON1015: at "runs[0].files.PlaceholderDictionaryKey.mimeType": The string "{Optional string value}" does not match the regular expression "[^/]+/.+".
+            ValidateDefaultDocument(propertyValueBuilders, callback);
         }
 
         [Fact]
@@ -67,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             ValidateDefaultDocument(propertyValueBuilders: DefaultObjectPopulatingVisitor.GetBuildersForRequiredPrimitives());
         }
 
-        private void ValidateDefaultDocument(IDictionary<Type, DefaultObjectPopulatingVisitor.PrimitiveValueBuilder> propertyValueBuilders)
+        private void ValidateDefaultDocument(IDictionary<Type, DefaultObjectPopulatingVisitor.PrimitiveValueBuilder> propertyValueBuilders, Func<SarifLog, SarifLog> postPopulationCallback = null)
         {
             var visitor = new DefaultObjectPopulatingVisitor(_schema, propertyValueBuilders);
 
@@ -76,6 +78,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             visitor.Visit(sarifLog);
 
             sarifLog.Version = SarifVersion.Current;
+
+            if (postPopulationCallback != null)
+            {
+                sarifLog = postPopulationCallback(sarifLog);
+            }
 
             string toValidate = JsonConvert.SerializeObject(sarifLog);
 
@@ -93,6 +100,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             sb.Length.Should().Be(0, sb.ToString());
+
+            SarifLog clonedLog = sarifLog.DeepClone();
+            clonedLog.ValueEquals(sarifLog).Should().BeTrue();
+
+            // TODO: why does this line of code provoke a stack overflow exception?
+            // clonedLog.Should().BeEquivalentTo(sarifLog);
         }
 
         [Fact]

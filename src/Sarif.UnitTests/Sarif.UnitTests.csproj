@@ -15,8 +15,11 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
+    <Compile Remove="Baseline\ResultMatching\SarifElementRemappers\**" />
     <Compile Remove="TestData\Transformers\**" />
+    <EmbeddedResource Remove="Baseline\ResultMatching\SarifElementRemappers\**" />
     <EmbeddedResource Remove="TestData\Transformers\**" />
+    <None Remove="Baseline\ResultMatching\SarifElementRemappers\**" />
     <None Remove="TestData\Transformers\**" />
   </ItemGroup>
 
@@ -190,7 +193,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Baseline\ResultMatching\SarifElementRemappers\" />
     <None Include="$(SolutionDir)\Sarif.FunctionalTests\v2\SpecExamples\Comprehensive.sarif" CopyToOutputDirectory="PreserveNewest" LinkBase="v2\SpecExamples" />
     <None Include="$(SolutionDir)\Sarif.FunctionalTests\v2\ObsoleteFormats\ComprehensivePrereleaseTwoZeroZero.sarif" CopyToOutputDirectory="PreserveNewest" LinkBase="v2\ObsoleteFormats" />
   </ItemGroup>
