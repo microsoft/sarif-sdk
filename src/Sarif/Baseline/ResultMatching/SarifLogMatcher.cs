@@ -176,7 +176,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 {
                     foreach (Result result in run.Results)
                     {
-                        Rule rule = GetRuleFromResources(result, run.Resources.Rules);
                         results.Add(new ExtractedResult() { Result = result, OriginalRun = run });
                     }
                 }
@@ -298,9 +297,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                     invocations.AddRange(currentRun.Invocations);
                 }
 
-                if (currentRun.Properties != null)
+                if (PropertyBagMergeBehavior == DictionaryMergeBehavior.InitializeFromCurrent)
                 {
-                    MergeDictionaryInto(properties, currentRun.Properties, SerializedPropertyInfoEqualityComparer.Instance);
+                    properties = currentRun.Properties;
                 }
             }
 
@@ -310,7 +309,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             run.Resources = new Resources() { MessageStrings = messageData, Rules = ruleData };
             run.Invocations = invocations;
 
-            if (properties.Count > 0)
+            if (properties != null && properties.Count > 0)
             {
                 run.Properties = properties;
             }

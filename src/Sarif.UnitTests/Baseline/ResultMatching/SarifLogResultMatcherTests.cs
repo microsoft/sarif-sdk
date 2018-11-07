@@ -15,7 +15,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
     {
         private readonly ITestOutputHelper output;
 
-        private readonly SarifLogResultMatcher baseliner = new SarifLogResultMatcher(new IResultMatcher[] { ExactMatchers.ExactResultMatcherFactory.GetIdenticalResultMatcher(considerPropertyBagsWhenComparing: true) }, null);
+        private readonly SarifLogResultMatcher baseliner = new SarifLogResultMatcher(
+            exactResultMatchers: new [] { ExactMatchers.ExactResultMatcherFactory.GetIdenticalResultMatcher(considerPropertyBagsWhenComparing: true) }, 
+            heuristicMatchers: null,
+            propertyBagMergeBehaviors: DictionaryMergeBehavior.InitializeFromPrevious);
 
         public SarifLogResultMatcherTests(ITestOutputHelper outputHelper)
         {
@@ -41,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
             string propertyName = "WeLikePi";
             float propertyValue = 3.14159F;
-            currentLog.Runs[0].SetProperty(propertyName, propertyValue);
+            baselineLog.Runs[0].SetProperty(propertyName, propertyValue);
 
             foreach (Result result in baselineLog.Runs[0].Results)
             {
@@ -109,16 +112,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
             SarifLog calculatedNextBaseline = baseliner.Match(new SarifLog[] { baselineLog }, new SarifLog[] { currentLog }).First();
 
+            // The default property bag matching behavior is to retain the property bag in its entirety from the baseline
             calculatedNextBaseline.Runs[0].Properties.Should().NotBeNull();
-            calculatedNextBaseline.Runs[0].Properties.Count.Should().Be(3);
+            calculatedNextBaseline.Runs[0].Properties.Count.Should().Be(2);
 
-            // Identical property values should merge without raising exceptions. Unique properties should be aggregated to final property bag.
-
-            // Note: for shared property keys, we prefer the value associated with the current run, not the baseline
             calculatedNextBaseline.Runs[0].GetProperty(sharedPropertyName).Should().Be(currentSharedPropertyValue);
-            
-            calculatedNextBaseline.Runs[0].GetProperty(uniqueToCurrentPropertyName).Should().Be(uniqueToCurrentPropertyValue);
             calculatedNextBaseline.Runs[0].GetProperty(uniqueToBaselinePropertyName).Should().Be(uniqueToBaselinePropertyValue);
+            calculatedNextBaseline.Runs[0].TryGetProperty(uniqueToCurrentPropertyName, out string value).Should().BeFalse();
         }
 
         [Fact]
