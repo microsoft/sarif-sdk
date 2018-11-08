@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentException("Specified file output path exists but is a directory.", nameof(outputFileName));
             }
 
-            if (!loggingOptions.Includes(LoggingOptions.OverwriteExistingOutputFile) && File.Exists(outputFileName))
+            if (!loggingOptions.HasFlag(LoggingOptions.OverwriteExistingOutputFile) && File.Exists(outputFileName))
             {
                 throw new InvalidOperationException("Output file already exists and option to overwrite was not specified.");
             }
@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             using (var outputTextWriter = new StreamWriter(outputTextStream))
             using (var outputJson = new JsonTextWriter(outputTextWriter))
             {
-                if (loggingOptions.Includes(LoggingOptions.PrettyPrint))
+                if (loggingOptions.HasFlag(LoggingOptions.PrettyPrint))
                 {
                     outputJson.Formatting = Formatting.Indented;
                 }

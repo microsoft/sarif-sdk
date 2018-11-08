@@ -73,6 +73,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             return PropertiesToLog != null && PropertiesToLog.Contains(propertyName.ToUpperInvariant());
         }
 
-        public bool ShouldSerializeArguments() { return this.Arguments.HasAtLeastOneNonNullValue(); }
+        public bool ShouldSerializeArguments()
+        {
+            return this.Arguments != null &&
+                (this.Arguments.Where((e) => { return e != null; }).Count() == this.Arguments.Count);
+        }
     }
 }

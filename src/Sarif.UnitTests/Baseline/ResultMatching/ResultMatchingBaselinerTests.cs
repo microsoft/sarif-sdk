@@ -4,10 +4,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
-using FluentAssertions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 {
@@ -15,7 +14,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
     {
         private readonly ITestOutputHelper output;
 
-        private readonly SarifLogResultMatcher baseliner = new SarifLogResultMatcher(new IResultMatcher[] { ExactMatchers.ExactResultMatcherFactory.GetIdenticalResultMatcher() }, null);
+        private readonly SarifLogResultMatcher baseliner = 
+            new SarifLogResultMatcher(
+                exactResultMatchers: new [] { ExactMatchers.ExactResultMatcherFactory.GetIdenticalResultMatcher(considerPropertyBagsWhenComparing: true) }, 
+                heuristicMatchers: null,
+                propertyBagMergeBehaviors: DictionaryMergeBehavior.None);
 
         public ResultMatchingBaselinerTests(ITestOutputHelper outputHelper)
         {

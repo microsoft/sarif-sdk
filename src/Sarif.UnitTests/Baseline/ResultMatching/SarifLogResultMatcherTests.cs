@@ -15,7 +15,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
     {
         private readonly ITestOutputHelper output;
 
-        private readonly SarifLogResultMatcher baseliner = new SarifLogResultMatcher(new IResultMatcher[] { ExactMatchers.ExactResultMatcherFactory.GetIdenticalResultMatcher() }, null);
+        private readonly SarifLogResultMatcher baseliner = new SarifLogResultMatcher(
+            exactResultMatchers: new [] { ExactMatchers.ExactResultMatcherFactory.GetIdenticalResultMatcher(considerPropertyBagsWhenComparing: true) }, 
+            heuristicMatchers: null,
+            propertyBagMergeBehaviors: DictionaryMergeBehavior.InitializeFromPrevious);
 
         public SarifLogResultMatcherTests(ITestOutputHelper outputHelper)
         {
@@ -41,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
             string propertyName = "WeLikePi";
             float propertyValue = 3.14159F;
-            currentLog.Runs[0].SetProperty(propertyName, propertyValue);
+            baselineLog.Runs[0].SetProperty(propertyName, propertyValue);
 
             foreach (Result result in baselineLog.Runs[0].Results)
             {
@@ -109,16 +112,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
             SarifLog calculatedNextBaseline = baseliner.Match(new SarifLog[] { baselineLog }, new SarifLog[] { currentLog }).First();
 
+            // The default property bag matching behavior is to retain the property bag in its entirety from the baseline
             calculatedNextBaseline.Runs[0].Properties.Should().NotBeNull();
-            calculatedNextBaseline.Runs[0].Properties.Count.Should().Be(3);
+            calculatedNextBaseline.Runs[0].Properties.Count.Should().Be(2);
 
-            // Identical property values should merge without raising exceptions. Unique properties should be aggregated to final property bag.
-
-            // Note: for shared property keys, we prefer the value associated with the current run, not the baseline
             calculatedNextBaseline.Runs[0].GetProperty(sharedPropertyName).Should().Be(currentSharedPropertyValue);
-            
-            calculatedNextBaseline.Runs[0].GetProperty(uniqueToCurrentPropertyName).Should().Be(uniqueToCurrentPropertyValue);
             calculatedNextBaseline.Runs[0].GetProperty(uniqueToBaselinePropertyName).Should().Be(uniqueToBaselinePropertyValue);
+            calculatedNextBaseline.Runs[0].TryGetProperty(uniqueToCurrentPropertyName, out string value).Should().BeFalse();
         }
 
         [Fact]
@@ -300,6 +300,59 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             };
             Assert.Throws<InvalidOperationException>(() => baseliner.Match(new SarifLog[0], new SarifLog[] { current1, current2 }));
 
+        }
+
+        [Fact]
+        public void SarifLogResultMatcher_PreservesPropertiesProperly ()
+        {
+            Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
+            SarifLog baselineLog = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, 1);
+            SarifLog currentLog = baselineLog.DeepClone();            
+
+            string baselinePropertyValue = Guid.NewGuid().ToString();
+            string currentPropertyValue = Guid.NewGuid().ToString();
+
+            SetPropertyOnAllFileAndResultObjects(baselineLog, "Key", baselinePropertyValue);
+            SetPropertyOnAllFileAndResultObjects(currentLog, "Key", currentPropertyValue);
+
+            // Retain property bag values from baseline items
+            var matcher = new SarifLogResultMatcher(
+                exactResultMatchers: new IResultMatcher[] { ExactMatchers.ExactResultMatcherFactory.GetIdenticalResultMatcher(considerPropertyBagsWhenComparing: false) },
+                heuristicMatchers: null,
+                propertyBagMergeBehaviors: DictionaryMergeBehavior.InitializeFromPrevious);
+
+            SarifLog matchedLog = matcher.Match(baselineLog.DeepClone(), currentLog.DeepClone());
+            matchedLog.Runs[0].Results.Where((r) => { return r.GetProperty("Key") == baselinePropertyValue; }).Count().Should().Be(matchedLog.Runs[0].Results.Count);
+            matchedLog.Runs[0].Files.Values.Where((r) => { return r.GetProperty("Key") == baselinePropertyValue; }).Count().Should().Be(matchedLog.Runs[0].Files.Count);
+
+            matcher = new SarifLogResultMatcher(
+                            exactResultMatchers: new IResultMatcher[] { ExactMatchers.ExactResultMatcherFactory.GetIdenticalResultMatcher(considerPropertyBagsWhenComparing: false) },
+                            heuristicMatchers: null,
+                            propertyBagMergeBehaviors: DictionaryMergeBehavior.InitializeFromCurrent);
+
+            // Retain property bag values from most current run
+            matchedLog = matcher.Match(baselineLog.DeepClone(), currentLog.DeepClone());
+            matchedLog.Runs[0].Results.Where((r) => { return r.GetProperty("Key") == currentPropertyValue; }).Count().Should().Be(matchedLog.Runs[0].Results.Count);
+            matchedLog.Runs[0].Files.Values.Where((r) => { return r.GetProperty("Key") == currentPropertyValue; }).Count().Should().Be(matchedLog.Runs[0].Files.Count);
+        }
+
+        private void SetPropertyOnAllFileAndResultObjects(SarifLog sarifLog, string propertyKey, string propertyValue)
+        {
+            foreach (Run run in sarifLog.Runs)
+            {
+                foreach (Result result in run.Results)
+                {
+                    result.SetProperty(propertyKey, propertyValue);
+                }
+
+                if (run.Files != null)
+                {
+                    foreach (FileData file in run.Files.Values)
+                    {
+                        file.SetProperty(propertyKey, propertyValue);
+                    }
+                }
+            }            
         }
     }
 }

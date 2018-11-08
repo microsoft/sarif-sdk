@@ -76,16 +76,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             return convertedToFlags;
         }
 
-        public static bool Includes(this OptionallyEmittedData optionallyEmittedData, OptionallyEmittedData otherOptionallyEmittedData)
-        {
-            return (optionallyEmittedData & otherOptionallyEmittedData) == otherOptionallyEmittedData;
-        }
-
-        public static bool Includes(this LoggingOptions loggingOptions, LoggingOptions otherLoggingOptions)
-        {
-            return (loggingOptions & otherLoggingOptions) == otherLoggingOptions;
-        }
-
         public static string GetFileName(this Uri uri)
         {
             if (!uri.IsAbsoluteUri)
@@ -276,12 +266,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 #endif
 
             formattedMessage = string.Format(CultureInfo.InvariantCulture, formatString, arguments);
-
-#if DEBUG
-            // If this assert fires, an insufficient # of arguments might
-            // have been provided to String.Format.
-            Debug.Assert(!formattedMessage.Contains("{"));
-#endif
 
             return formattedMessage ?? string.Empty;
         }

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Collections.Generic;
 using CommandLine;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 
@@ -19,9 +20,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         [Value(0,
             MetaName = "<currentFile>",
-            HelpText = "Path to a sarif log containing the current set of results, without result matching information",
+            HelpText = "Path(s) to sarif log(s) comprising the current set of results, without result matching information",
             Required = true)]
-        public string CurrentFilePath { get; internal set; }
+        public IEnumerable<string> CurrentFilePaths { get; internal set; }
         
 
         [Option('o', 

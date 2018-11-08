@@ -47,19 +47,19 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 string filePath = uri.LocalPath;
 
-                if (dataToInsert.Includes(OptionallyEmittedData.BinaryFiles) &&
+                if (dataToInsert.HasFlag(OptionallyEmittedData.BinaryFiles) &&
                     SarifWriters.MimeType.IsBinaryMimeType(mimeType))
                 {
                     fileData.Contents = GetEncodedFileContents(fileSystem, filePath, mimeType, encoding);
                 }
 
-                if (dataToInsert.Includes(OptionallyEmittedData.TextFiles) &&
+                if (dataToInsert.HasFlag(OptionallyEmittedData.TextFiles) &&
                     SarifWriters.MimeType.IsTextualMimeType(mimeType))
                 {
                     fileData.Contents = GetEncodedFileContents(fileSystem, filePath, mimeType, encoding);
                 }
 
-                if (dataToInsert.Includes(OptionallyEmittedData.Hashes))
+                if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
                 {
                     HashData hashes = HashUtilities.ComputeHashes(filePath);
                     fileData.Hashes = new Dictionary<string, string>

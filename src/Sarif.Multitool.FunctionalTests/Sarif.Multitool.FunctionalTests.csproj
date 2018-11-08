@@ -9,6 +9,7 @@
   <PropertyGroup>
     <AssemblyTitle>SARIF Multitool Functional Tests</AssemblyTitle>
     <Description>Functional tests for the SARIF command line interface tool</Description>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
 
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />

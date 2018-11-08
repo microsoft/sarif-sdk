@@ -15,10 +15,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
     /// </summary>
     internal class IdenticalResultMatcher : IResultMatcher
     {
+        private bool _considerPropertyBagsWhenComparing;
+
+        public  IdenticalResultMatcher(bool considerPropertyBagsWhenComparing)
+        {
+            _considerPropertyBagsWhenComparing = considerPropertyBagsWhenComparing;
+        }
+
         public IEnumerable<MatchedResults> Match(IEnumerable<ExtractedResult> baseline, IEnumerable<ExtractedResult> current)
         {
             List<MatchedResults> matchedResults = new List<MatchedResults>();
-            Dictionary<Result, List<ExtractedResult>> baselineResults = new Dictionary<Result, List<ExtractedResult>>(IdenticalResultEqualityComparer.Instance);
+
+            IdenticalResultEqualityComparer comparer = _considerPropertyBagsWhenComparing
+                ? IdenticalResultEqualityComparer.PropertyBagComparingInstance
+                : IdenticalResultEqualityComparer.PropertyBagIgnoringInstance;
+
+            Dictionary <Result, List<ExtractedResult>> baselineResults = new Dictionary<Result, List<ExtractedResult>>(comparer);
 
             foreach (var result in baseline)
             {
@@ -54,8 +66,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
         /// </summary>
         public class IdenticalResultEqualityComparer : IEqualityComparer<Result>
         {
-            public static readonly IdenticalResultEqualityComparer Instance = new IdenticalResultEqualityComparer();
-            
+            private bool _considerPropertyBagsWhenComparing;
+
+            public IdenticalResultEqualityComparer(bool considerPropertyBagsWhenComparing)
+            {
+                _considerPropertyBagsWhenComparing = considerPropertyBagsWhenComparing;
+            }
+
+            public static readonly IdenticalResultEqualityComparer PropertyBagComparingInstance = new IdenticalResultEqualityComparer(considerPropertyBagsWhenComparing: true);
+
+            public static readonly IdenticalResultEqualityComparer PropertyBagIgnoringInstance = new IdenticalResultEqualityComparer(considerPropertyBagsWhenComparing: false);
+
+
             public bool Equals(Result x, Result y)
             {
                 return ResultEqualityComparer.Instance.Equals(CreateMaskedResult(x), CreateMaskedResult(y));
@@ -78,14 +100,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
                 masked.CorrelationGuid = null;
                 masked.SuppressionStates = SuppressionStates.None;
                 masked.BaselineState = BaselineState.None;
-                if(masked.Properties != null && masked.Properties.ContainsKey(SarifLogResultMatcher.ResultMatchingResultPropertyName))
+
+                if (_considerPropertyBagsWhenComparing)
                 {
-                    masked.Properties.Remove(SarifLogResultMatcher.ResultMatchingResultPropertyName);
-                    if(masked.Properties.Count == 0)
+                    if (masked.Properties != null && masked.Properties.ContainsKey(SarifLogResultMatcher.ResultMatchingResultPropertyName))
                     {
-                        masked.Properties = null;
+                        masked.Properties.Remove(SarifLogResultMatcher.ResultMatchingResultPropertyName);
+                        if (masked.Properties.Count == 0)
+                        {
+                            masked.Properties = null;
+                        }
                     }
                 }
+                else
+                {
+                    masked.Properties?.Clear();
+                }
+
                 return masked;
             }
         }
