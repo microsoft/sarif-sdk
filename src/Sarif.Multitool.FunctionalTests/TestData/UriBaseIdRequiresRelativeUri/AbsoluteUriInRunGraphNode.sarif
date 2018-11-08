@@ -6,8 +6,8 @@
       "tool": {
         "name": "CodeScanner"
       },
-      "graphs": [
-        {
+      "graphs": {
+        "g1": {
           "id": "g1",
           "nodes": [
             {
@@ -30,7 +30,7 @@
             }
           ]
         }
-      ],
+      },
       "results": []
     }
   ]

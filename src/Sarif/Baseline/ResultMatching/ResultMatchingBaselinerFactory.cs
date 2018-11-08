@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers;
 using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers;
 
@@ -23,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                     // common cases (e.x. identical results).
                     new List<IResultMatcher>()
                     {
-                        ExactResultMatcherFactory.GetIdenticalResultMatcher()
+                        ExactResultMatcherFactory.GetIdenticalResultMatcher(considerPropertyBagsWhenComparing: true)
                     },
                     // Heuristic matchers run in order after the exact matchers.
                     // These can do remapping, and catch the long tail of "changed" results.

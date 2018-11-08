@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 using System.IO;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
@@ -14,19 +17,8 @@ namespace Sarif.Multitool.UnitTests
         public void ValidateCommand_AcceptsTargetFileWithSpaceInName()
         {
             // A minimal valid log file.
-            string LogFileContents =
-@"{
-  ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": ""2.0.0"",
-  ""runs"": [
-    {
-      ""tool"": {
-        ""name"": ""TestTool""
-      },
-      ""results"": []
-    }
-  ]
-}";
+            string logFileContents = TransformCommandTests.MinimalCurrentV2;
+
             // A simple schema against which the log file successfully validates.
             // This way, we don't have to read the SARIF schema from disk to run this test.
             const string SchemaFileContents =
@@ -46,7 +38,7 @@ namespace Sarif.Multitool.UnitTests
             mockFileSystem.Setup(x => x.DirectoryExists(LogFileDirectory)).Returns(true);
             mockFileSystem.Setup(x => x.GetDirectoriesInDirectory(It.IsAny<string>())).Returns(new string[0]);
             mockFileSystem.Setup(x => x.GetFilesInDirectory(LogFileDirectory, LogFileName)).Returns(new string[] { logFilePath });
-            mockFileSystem.Setup(x => x.ReadAllText(logFilePath)).Returns(LogFileContents);
+            mockFileSystem.Setup(x => x.ReadAllText(logFilePath)).Returns(logFileContents);
             mockFileSystem.Setup(x => x.ReadAllText(SchemaFilePath)).Returns(SchemaFileContents);
 
             var validateCommand = new ValidateCommand(mockFileSystem.Object);

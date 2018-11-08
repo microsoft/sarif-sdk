@@ -25,7 +25,6 @@ namespace $namespace
         public const string Prerelease = "$versionSuffix";
         public const string AssemblyVersion = "$versionPrefix";
         public const string FileVersion = AssemblyVersion + ".0";
-        public const string Version = AssemblyVersion + Prerelease;
     }
 }
 "@

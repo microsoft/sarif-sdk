@@ -105,8 +105,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var run = new Run()
             {
-                InstanceGuid = _runId,
-                AutomationLogicalId = _automationId,
+                Id = new RunAutomationDetails
+                {
+                    InstanceGuid = _runId,
+                    InstanceId = _automationId + "/"
+                },
                 Tool = tool,
                 Invocations = new[] { _invocation }
             };
@@ -224,7 +227,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             if (!string.IsNullOrEmpty(date) && !string.IsNullOrEmpty(time))
             {
                 string dateTime = date + "T" + time;
-                _invocation.StartTime = DateTime.Parse(dateTime, CultureInfo.InvariantCulture);
+                _invocation.StartTimeUtc = DateTime.Parse(dateTime, CultureInfo.InvariantCulture);
             }
 
             // Step past the empty element.
@@ -327,10 +330,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 Locations = new List<Location>(),
                 RelatedLocations = new List<Location>(),
-                CodeFlows = new []
-                {
-                    SarifUtilities.CreateSingleThreadedCodeFlow()
-                }
+                CodeFlows = new List<CodeFlow>()
             };
 
             _reader.Read();
@@ -346,7 +346,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
                 else if (AtStartOfNonEmpty(_strings.Trace))
                 {
-                    ParseLocationFromTrace(result);
+                    ParseLocationsFromTraces(result);
                 }
 
                 _reader.Read();
@@ -355,82 +355,116 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _results.Add(result);
         }
 
-        private void ParseLocationFromTrace(Result result)
+        private void ParseLocationsFromTraces(Result result)
         {
-            CodeFlow codeFlow = result.CodeFlows.First();
-            int step = 0;
+            CodeFlow codeFlow = null;
             string nodeLabel = null;
             string lastNodeId = null;
 
-            _reader.Read();
-
-            while (!AtEndOf(_strings.Trace))
+            while (!AtEndOf(_strings.Unified))
             {
-                if (AtStartOf(_strings.NodeRef))
+                if (AtStartOf(_strings.Trace))
                 {
-                    string nodeId = _reader.GetAttribute(_strings.IdAttribute);
+                    codeFlow = SarifUtilities.CreateSingleThreadedCodeFlow();
+                    result.CodeFlows.Add(codeFlow);
 
-                    if (!string.IsNullOrWhiteSpace(nodeId))
+                    while (!AtEndOf(_strings.Trace))
                     {
-                        var tfl = new ThreadFlowLocation
+                        if (AtStartOf(_strings.NodeRef))
                         {
-                            Step = ++step
+                            string nodeId = _reader.GetAttribute(_strings.IdAttribute);
+
+                            if (!string.IsNullOrWhiteSpace(nodeId))
+                            {
+                                var tfl = new ThreadFlowLocation();
+                                _tflToNodeIdDictionary.Add(tfl, nodeId);
+                                codeFlow.ThreadFlows[0].Locations.Add(tfl);
+                            }
+
+                            _reader.Read();
+                        }
+                        else if (AtStartOf(_strings.Node))
+                        {
+                            nodeLabel = _reader.GetAttribute(_strings.LabelAttribute);
+                            _reader.Read();
+                        }
+                        else if (AtStartOf(_strings.SourceLocation))
+                        {
+                            // Note: SourceLocation is an empty element (it has only attributes),
+                            // so we can't call AtStartOfNonEmpty here.
+
+                            string snippetId = _reader.GetAttribute(_strings.SnippetAttribute);
+                            PhysicalLocation physicalLocation = ParsePhysicalLocationFromSourceInfo();
+
+                            // Step past the empty SourceLocation element.
+                            _reader.Read();
+
+                            // If we don't have a label, get the <Action> value
+                            if (string.IsNullOrWhiteSpace(nodeLabel) && AtStartOf(_strings.Action))
+                            {
+                                nodeLabel = _reader.ReadElementContentAsString();
+                            }
+
+                            var tfl = new ThreadFlowLocation
+                            {
+                                Location = new Location
+                                {
+                                    PhysicalLocation = physicalLocation
+                                }
+                            };
+
+                            if (!string.IsNullOrWhiteSpace(nodeLabel))
+                            {
+                                tfl.Location.Message = new Message
+                                {
+                                    Text = nodeLabel
+                                };
+                            }
+
+                            // Remember the id of the snippet associated with this location.
+                            // We'll use it to fill the snippet text when we read the Snippets element later on.
+                            if (!string.IsNullOrEmpty(snippetId))
+                            {
+                                _tflToSnippetIdDictionary.Add(tfl, snippetId);
+                            }
+
+                            codeFlow.ThreadFlows[0].Locations.Add(tfl);
+
+                            // Keep track of the snippet associated with the last location in the
+                            // last CodeFlow; that's the snippet that we'll associate with the Result
+                            // as a whole.
+                            lastNodeId = snippetId;
+                        }
+                        else
+                        {
+                            _reader.Read();
+                        }
+                    }
+
+                    if (codeFlow.ThreadFlows[0].Locations.Any())
+                    {
+                        Location location = new Location
+                        {
+                            PhysicalLocation = codeFlow.ThreadFlows[0].Locations.Last().Location?.PhysicalLocation
                         };
 
-                        _tflToNodeIdDictionary.Add(tfl, nodeId);
-                        codeFlow.ThreadFlows[0].Locations.Add(tfl);
-                    }
-
-                    _reader.Read();
-                }
-                else if (AtStartOf(_strings.Node))
-                {
-                    nodeLabel = _reader.GetAttribute(_strings.LabelAttribute);
-                    _reader.Read();
-                }
-                else if (AtStartOf(_strings.SourceLocation))
-                {
-                    // Note: SourceLocation is an empty element (it has only attributes),
-                    // so we can't call AtStartOfNonEmpty here.
-
-                    string snippetId = _reader.GetAttribute(_strings.SnippetAttribute);
-                    PhysicalLocation physicalLocation = ParsePhysicalLocationFromSourceInfo();
-
-                    // Step past the empty SourceLocation element.
-                    _reader.Read();
-
-                    // If we don't have a label, get the <Action> value
-                    if (string.IsNullOrWhiteSpace(nodeLabel))
-                    {
-                        nodeLabel = _reader.ReadElementContentAsString();
-                    }
-
-                    var tfl = new ThreadFlowLocation
-                    {
-                        Step = ++step,
-                        Location = new Location
+                        // Make sure we don't already have this location in the lists
+                        if (!result.Locations.Contains(location, Location.ValueComparer))
                         {
-                            Message = new Message
+                            result.Locations.Add(new Location
                             {
-                                Text = nodeLabel
-                            },
-                            PhysicalLocation = physicalLocation
+                                // TODO: Confirm that the traces are ordered chronologically
+                                // (so that we really do want to use the last one as the
+                                // overall result location).
+                                PhysicalLocation = location.PhysicalLocation.DeepClone()
+                            });
+                            result.RelatedLocations.Add(new Location
+                            {
+                                // Links embedded in the result message refer to related physicalLocation.id
+                                PhysicalLocation = location.PhysicalLocation.DeepClone()
+                            });
                         }
-                    };
-
-                    // Remember the id of the snippet associated with this location.
-                    // We'll use it to fill the snippet text when we read the Snippets element later on.
-                    if (!string.IsNullOrEmpty(snippetId))
-                    {
-                        _tflToSnippetIdDictionary.Add(tfl, snippetId);
                     }
-
-                    codeFlow.ThreadFlows[0].Locations.Add(tfl);
-
-                    // Keep track of the snippet associated with the last location in the
-                    // CodeFlow; that's the snippet that we'll associate with the Result
-                    // as a whole.
-                    lastNodeId = snippetId;
                 }
                 else
                 {
@@ -438,27 +472,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             }
 
-            if (codeFlow.ThreadFlows[0].Locations.Any())
+            if (result.RelatedLocations.Any())
             {
-                result.Locations.Add(new Location
-                {
-                    // TODO: Confirm that the traces are ordered chronologically
-                    // (so that we really do want to use the last one as the
-                    // overall result location).
-                    PhysicalLocation = codeFlow.ThreadFlows[0].Locations.Last().Location?.PhysicalLocation.DeepClone()
-                });
-                result.RelatedLocations.Add(new Location
-                {
-                    // Links embedded in the result message refer to related physicalLocation.id
-                    PhysicalLocation = codeFlow.ThreadFlows[0].Locations.Last().Location?.PhysicalLocation.DeepClone()
-                });
+                Location relatedLocation = result.RelatedLocations.Last();
 
-                result.RelatedLocations.Last().PhysicalLocation.Id = 1;
-
-                if (!string.IsNullOrEmpty(lastNodeId))
+                if (relatedLocation != null)
                 {
-                    _resultToSnippetIdDictionary.Add(result, lastNodeId);
+                    relatedLocation.PhysicalLocation.Id = 1;
                 }
+            }
+
+            if (!string.IsNullOrEmpty(lastNodeId))
+            {
+                _resultToSnippetIdDictionary.Add(result, lastNodeId);
             }
         }
 

@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "configurationNotifications": [
+        {
+          "id": "UnknownRule",
+          "ruleId": "ABC0001",
+          "level": "warning",
+          "message": "Could not disable rule \"ABC0001\" because there is no rule with that id."
+        }
+      ],
+      "toolNotifications": [
+        {
+          "id": "CTN0001",
+          "level": "note",
+          "message": "Run started."
+        }
+      ],
+      "tool": {
+        "name": "CodeScanner",
+        "semanticVersion": "2.1.0"
+      },
+      "results": []
+    }
+  ]
+}

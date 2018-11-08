@@ -15,12 +15,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class SarifCurrentToVersionOneVisitor : SarifRewritingVisitor
     {
-        private static readonly SarifVersion FromSarifVersion = SarifVersion.TwoZeroZero;
+        private static readonly SarifVersion FromSarifVersion = SarifVersion.Current;
         private static readonly string FromPropertyBagPrefix =
             Utilities.PropertyBagTransformerItemPrefixes[FromSarifVersion];
 
-        private RunVersionOne _currentRun = null;
         private Run _currentV2Run = null;
+        private RunVersionOne _currentRun = null;
+
+        public bool EmbedVersionTwoContentInPropertyBag { get; set; }
 
         public SarifLogVersionOne SarifLogVersionOne { get; private set; }
 
@@ -106,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     InnerExceptions = v2ExceptionData.InnerExceptions?.Select(CreateExceptionData).ToList(),
                     Kind = v2ExceptionData.Kind,
-                    Message = v2ExceptionData.Message,
+                    Message = v2ExceptionData.Message?.Text,
                     Stack = CreateStack(v2ExceptionData.Stack)
                 };
             }
@@ -180,7 +182,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 fileData = new FileDataVersionOne
                 {
-                    Hashes = v2FileData.Hashes?.Select(CreateHash).ToList(),
+                    Hashes = CreateHashVersionOneListFromV2Hashes(v2FileData.Hashes),
                     Length = v2FileData.Length,
                     MimeType = v2FileData.MimeType,
                     Offset = v2FileData.Offset,
@@ -226,26 +228,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return fix;
         }
 
-        internal HashVersionOne CreateHash(Hash v2Hash)
+        internal IList<HashVersionOne> CreateHashVersionOneListFromV2Hashes(IDictionary<string, string> v2Hashes)
         {
-            HashVersionOne hash = null;
+            if (v2Hashes == null) { return null; }
 
-            if (v2Hash != null)
+            var v1Hashes = new List<HashVersionOne>();
+
+            foreach (string key in v2Hashes.Keys)
             {
-                AlgorithmKindVersionOne algorithm;
-                if (!Utilities.AlgorithmNameKindMap.TryGetValue(v2Hash.Algorithm, out algorithm))
-                {
-                    algorithm = AlgorithmKindVersionOne.Unknown;
-                }
+                // If TryGetValue fails here, algorithm will be assigned the value of 0, which is 'Unknown'
+                Utilities.AlgorithmNameKindMap.TryGetValue(key, out AlgorithmKindVersionOne algorithm);
 
-                hash = new HashVersionOne
-                {
-                    Algorithm = algorithm,
-                    Value = v2Hash.Value
-                };
+                v1Hashes.Add(new HashVersionOne { Algorithm = algorithm, Value = v2Hashes[key] });
             }
 
-            return hash;
+            return v1Hashes;
         }
 
         internal InvocationVersionOne CreateInvocation(Invocation v2Invocation)
@@ -258,14 +255,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     Account = v2Invocation.Account,
                     CommandLine = v2Invocation.CommandLine,
-                    EndTime = v2Invocation.EndTime,
+                    EndTime = v2Invocation.EndTimeUtc,
                     EnvironmentVariables = v2Invocation.EnvironmentVariables,
                     FileName = v2Invocation.ExecutableLocation?.Uri?.OriginalString,
                     Machine = v2Invocation.Machine,
                     ProcessId = v2Invocation.ProcessId,
                     Properties = v2Invocation.Properties,
                     ResponseFiles = CreateResponseFilesDictionary(v2Invocation.ResponseFiles),
-                    StartTime = v2Invocation.StartTime,
+                    StartTime = v2Invocation.StartTimeUtc,
                     WorkingDirectory = v2Invocation.WorkingDirectory?.Uri?.OriginalString
                 };
 
@@ -351,7 +348,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Properties = v2Notification.Properties,
                     RuleId = v2Notification.RuleId,
                     ThreadId = v2Notification.ThreadId,
-                    Time = v2Notification.Time
+                    Time = v2Notification.TimeUtc
                 };
             }
 
@@ -781,10 +778,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 if (_currentV2Run.Resources?.Rules != null)
                 {
                     IDictionary<string, Rule> rules = _currentV2Run.Resources.Rules;
-                    Rule v2Rule;
 
                     if (v2Result.RuleId != null &&
-                        rules.TryGetValue(v2Result.RuleId, out v2Rule) &&
+                        rules.TryGetValue(v2Result.RuleId, out Rule v2Rule) &&
                         v2Rule.Id != v2Result.RuleId)
                     {
                         result.RuleId = v2Rule.Id;
@@ -813,29 +809,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return result;
         }
 
-        internal RuleVersionOne CreateRule(Rule v2Rule)
+        internal RuleVersionOne CreateRule(IRule v2IRule)
         {
             RuleVersionOne rule = null;
 
-            if (v2Rule != null)
+            Rule v2Rule = v2IRule as Rule;
+            var properties = v2Rule != null ? v2Rule.Properties : null;
+
+            if (v2IRule != null)
             {
                 rule = new RuleVersionOne
                 {
-                    FullDescription = v2Rule.FullDescription?.Text,
-                    HelpUri = v2Rule.HelpUri,
-                    Id = v2Rule.Id,
-                    MessageFormats = v2Rule.MessageStrings,
-                    Name = v2Rule.Name?.Text,
-                    Properties = v2Rule.Properties,
-                    ShortDescription = v2Rule.ShortDescription?.Text
+                    FullDescription = v2IRule.FullDescription?.Text,
+                    HelpUri = v2IRule.HelpUri,
+                    Id = v2IRule.Id,
+                    MessageFormats = v2IRule.MessageStrings,
+                    Name = v2IRule.Name?.Text,
+                    Properties = properties,
+                    ShortDescription = v2IRule.ShortDescription?.Text
                 };
 
-                if (v2Rule.Configuration != null)
+                if (v2IRule.Configuration != null)
                 {
-                    rule.Configuration = v2Rule.Configuration.Enabled ?
+                    rule.Configuration = v2IRule.Configuration.Enabled ?
                             RuleConfigurationVersionOne.Enabled :
                             RuleConfigurationVersionOne.Disabled;
-                    rule.DefaultLevel = Utilities.CreateResultLevelVersionOne(v2Rule.Configuration.DefaultLevel);
+                    rule.DefaultLevel = Utilities.CreateResultLevelVersionOne(v2IRule.Configuration.DefaultLevel);
                 }
             }
 
@@ -862,16 +861,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     _currentRun = run;
 
                     run.Architecture = v2Run.Architecture;
-                    run.AutomationId = v2Run.AutomationLogicalId;
                     run.BaselineId = v2Run.BaselineInstanceGuid;
                     run.Files = v2Run.Files?.ToDictionary(v => v.Key, v => CreateFileData(v.Value));
-                    run.Id = v2Run.InstanceGuid;
+
+                    run.Id = v2Run.Id?.InstanceGuid;
+                    run.AutomationId = v2Run.AggregateIds?.FirstOrDefault()?.InstanceId;
+
+                    run.StableId = v2Run.Id?.InstanceIdLogicalComponent();
+
                     run.Invocation = CreateInvocation(v2Run.Invocations?[0]);
                     run.LogicalLocations = v2Run.LogicalLocations?.ToDictionary(v => v.Key, v => CreateLogicalLocation(v.Value));
                     run.Properties = v2Run.Properties;
                     run.Results = new List<ResultVersionOne>();
                     run.Rules = v2Run.Resources?.Rules?.ToDictionary(v => v.Key, v => CreateRule(v.Value));
-                    run.StableId = v2Run.LogicalId;
                     run.Tool = CreateTool(v2Run.Tool);
 
                     foreach (Result v2Result in v2Run.Results)
@@ -880,7 +882,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     }
 
                     // Stash the entire v2 run in this v1 run's property bag
-                    run.SetProperty($"{FromPropertyBagPrefix}/run", v2Run);
+                    if (EmbedVersionTwoContentInPropertyBag)
+                    {
+                        run.SetProperty($"{FromPropertyBagPrefix}/run", v2Run);
+                    }
                 }
             }
 

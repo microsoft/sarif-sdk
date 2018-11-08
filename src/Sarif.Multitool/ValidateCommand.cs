@@ -3,8 +3,9 @@
 
 using System.Collections.Generic;
 using System.Reflection;
+
 using Microsoft.CodeAnalysis.Sarif.Driver;
-using Microsoft.CodeAnalysis.Sarif.Readers;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.Json.Schema;
 using Microsoft.Json.Schema.Validation;
 using Newtonsoft.Json;
@@ -13,6 +14,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     internal class ValidateCommand : AnalyzeCommandBase<SarifValidationContext, ValidateOptions>
     {
+        internal static bool s_DisablePrereleaseCompatibilityTransform;
+
         public override string Prerelease => VersionConstants.Prerelease;
 
         private List<Assembly> _defaultPlugInAssemblies;
@@ -63,6 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 // (which can happen, for example, if a property required by the schema is
                 // missing. In that case, again, there's no point in going on.
                 context.InputLogContents = FileSystem.ReadAllText(context.TargetUri.OriginalString);
+                context.InputLogContents = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(context.InputLogContents);
                 context.InputLog = Deserialize(context.InputLogContents);
 
                 if (context.InputLog != null)
@@ -75,15 +79,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private static SarifLog Deserialize(string logContents)
         {
-            JsonSerializerSettings settings = new JsonSerializerSettings
-            {
-                ContractResolver = SarifContractResolver.Instance
-            };
-
             SarifLog log = null;
             try
             {
-                return JsonConvert.DeserializeObject<SarifLog>(logContents, settings);
+                return JsonConvert.DeserializeObject<SarifLog>(logContents);
             }
             catch (JsonSerializationException)
             {
@@ -101,6 +100,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             try
             {
                 string instanceText = FileSystem.ReadAllText(instanceFilePath);
+
+                if (!s_DisablePrereleaseCompatibilityTransform)
+                {
+                    instanceText = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(instanceText, forceUpdate: true, formatting: Formatting.Indented);
+                }
+
                 PerformSchemaValidation(instanceText, instanceFilePath, schemaFilePath, logger);
             }
             catch (JsonSyntaxException ex)

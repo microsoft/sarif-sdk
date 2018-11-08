@@ -20,12 +20,23 @@
           "copyright": "Copyright (c) 2016 by Example Corporation. All rights reserved."
         }
       },
+      "versionControlProvenance": [
+        {
+          "uri": "https://github.com/contoso/example",
+          "branch": "master",
+          "tag": "beta1",
+          "revisionId": "abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd",
+          "timestamp": "2016-07-16T00:00:00Z"
+        }
+      ],
+      "originalUriBaseIds": { "TOOLS_ROOT": "file:///bin/tools/" },
       "invocations": [
         {
-          "commandLine": "CodeScanner @collections.rsp",
+          "commandLine": "CodeScanner.exe @collections.rsp",
           "responseFiles": [
             {
-              "uri": "collections.rsp"
+              "uri": "codescanner/config/collections.rsp",
+              "uriBaseId": "TOOLS_ROOT"
             }
           ],
           "startTime": "2016-07-16T14:18:25Z",
@@ -108,10 +119,12 @@
           "account": "buildAgent",
           "processId": 1218,
           "executableLocation": {
-            "uri": "/bin/tools/CodeScanner"
+            "uri": "CodeScanner/CodeScanner.exe",
+            "uriBaseId": "TOOLS_ROOT"
           },
           "workingDirectory": {
-           "uri" : "/home/buildAgent/src"
+            "uri": "CodeScanner/",
+            "uriBaseId": "TOOLS_ROOT"
           },
           "environmentVariables": {
             "PATH": "/usr/local/bin:/bin:/bin/tools:/home/buildAgent/bin",
@@ -143,10 +156,11 @@
           "offset": 17522,
           "length": 4050
         },
-        "collections.rsp": {
+        "#TOOLS_ROOT#codescanner/config/collections.rsp": {
           "contents": {
             "text": "\"-input src/collections/*.cpp -log out/collections.sarif -rules all -disable C9999\"."
-          }
+          },
+          "lastModifiedTime": "2016-07-16T05:37:57Z"
         }
       },
       "logicalLocations": {
@@ -249,7 +263,12 @@
                           "text": "Variable \"ptr\" declared."
                         }
                       },
-                      "module": "platform"
+                      "module": "platform",
+                      "executionOrder": 1,
+                      "timestamp": "2016-07-16T08:01:00Z",
+                      "kind": "declaration",
+                      "nestingLevel": 0,
+                      "state": { "value": "[Not initialized}" }
                     },
                     {
                       "step": 2,
@@ -268,7 +287,9 @@
                         },
                         "fullyQualifiedLogicalName": "collections::list:add"
                       },
-                      "module": "platform"
+                      "module": "platform",
+                      "executionOrder": 2,
+                      "timestamp": "2016-07-16T08:02:00Z"
                     },
                     {
                       "step": 3,
@@ -290,7 +311,10 @@
                           "text": "Uninitialized variable \"ptr\" passed to method \"add_core\"."
                         }
                       },
-                      "module": "platform"
+                      "module": "platform",
+                      "executionOrder": 3,
+                      "timestamp": "2016-07-16T08:03:00Z",
+                      "kind": "call"
                     }
                   ]
                 }

@@ -5,6 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -13,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
-    public partial class FileChange : ISarifNode
+    public partial class FileChange : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<FileChange> ValueComparer => FileChangeEqualityComparer.Instance;
 
@@ -44,6 +45,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<Replacement> Replacements { get; set; }
 
         /// <summary>
+        /// Key/value pairs that provide additional information about the file change.
+        /// </summary>
+        [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="FileChange" /> class.
         /// </summary>
         public FileChange()
@@ -59,9 +66,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="replacements">
         /// An initialization value for the <see cref="P: Replacements" /> property.
         /// </param>
-        public FileChange(FileLocation fileLocation, IEnumerable<Replacement> replacements)
+        /// <param name="properties">
+        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// </param>
+        public FileChange(FileLocation fileLocation, IEnumerable<Replacement> replacements, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(fileLocation, replacements);
+            Init(fileLocation, replacements, properties);
         }
 
         /// <summary>
@@ -80,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.FileLocation, other.Replacements);
+            Init(other.FileLocation, other.Replacements, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -101,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new FileChange(this);
         }
 
-        private void Init(FileLocation fileLocation, IEnumerable<Replacement> replacements)
+        private void Init(FileLocation fileLocation, IEnumerable<Replacement> replacements, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (fileLocation != null)
             {
@@ -124,6 +134,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 Replacements = destination_0;
+            }
+
+            if (properties != null)
+            {
+                Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
             }
         }
     }

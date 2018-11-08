@@ -20,8 +20,6 @@
     Do not rebuild the SARIF object model from the schema.
 .PARAMETER NoBuild
     Do not build.
-.PARAMETER NoBuildSample
-    Do not build sample.
 .PARAMETER NoTest
     Do not run tests.
 .PARAMETER NoPackage
@@ -59,9 +57,6 @@ param(
 
     [switch]
     $NoBuild,
-
-    [switch]
-    $NoBuildSample,
 
     [switch]
     $NoTest,
@@ -176,16 +171,13 @@ function Set-SarifFileAssociationRegistrySettings {
     }
 }
 
-& $PSScriptRoot\BeforeBuild.ps1 -NuGetVerbosity $NuGetVerbosity -NoClean:$NoClean -NoRestore:$NoRestore -NoObjectModel:$NoObjectModel -NoBuildSample:$NoBuildSample
+& $PSScriptRoot\BeforeBuild.ps1 -NuGetVerbosity $NuGetVerbosity -NoClean:$NoClean -NoRestore:$NoRestore -NoObjectModel:$NoObjectModel
 if (-not $?) {
     Exit-WithFailureMessage $ScriptName "BeforeBuild failed."
 }
 
 if (-not $NoBuild) {
     Invoke-Build
-}
-
-if (-not $NoBuildSample) {
     Invoke-BuildSample
 }
 

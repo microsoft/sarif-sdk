@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class MessagesShouldEndWithPeriodTests : SkimmerTestsBase<MessagesShouldEndWithPeriod>
+    public class MessagesShouldEndWithPeriodTests : ValidationSkimmerTestsBase<MessagesShouldEndWithPeriod>
     {
         [Fact(DisplayName = nameof(MessagesShouldEndWithPeriod_PeriodsAfterAllMessages))]
         public void MessagesShouldEndWithPeriod_PeriodsAfterAllMessages()

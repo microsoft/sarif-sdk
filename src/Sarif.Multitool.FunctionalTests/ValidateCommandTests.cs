@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation.  All Rights Reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using System;
 using System.IO;
 using Xunit;
@@ -12,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact(DisplayName = nameof(ValidateCommand_ReportsJsonSyntaxError))]
         public void ValidateCommand_ReportsJsonSyntaxError()
         {
-            Verify("SyntaxError.sarif");
+            Verify("SyntaxError.sarif", disablePreleaseCompatibilityTransform: true);
         }
 
         [Fact(DisplayName = nameof(ValidateCommand_ReportsDeserializationError))]
@@ -21,33 +22,42 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Verify("DeserializationError.sarif");
         }
 
-        private void Verify(string testFileName)
-        { 
-            string testDirectory = Path.Combine(Environment.CurrentDirectory, TestDataDirectory);
-
-            string testFilePath = Path.Combine(TestDataDirectory, testFileName);
-            string expectedFilePath = MakeExpectedFilePath(testDirectory, testFileName);
-            string actualFilePath = MakeActualFilePath(testDirectory, testFileName);
-
-            var validateOptions = new ValidateOptions
+        private void Verify(string testFileName, bool disablePreleaseCompatibilityTransform = false)
+        {
+            try
             {
-                SarifVersion = SarifVersion.TwoZeroZero,
-                TargetFileSpecifiers = new[] { testFilePath },
-                OutputFilePath = actualFilePath,
-                SchemaFilePath = JsonSchemaFile,
-                Quiet = true
-            };
+                ValidateCommand.s_DisablePrereleaseCompatibilityTransform = disablePreleaseCompatibilityTransform;
+                string testDirectory = Path.Combine(Environment.CurrentDirectory, TestDataDirectory);
 
-            new ValidateCommand().Run(validateOptions);
+                string testFilePath = Path.Combine(TestDataDirectory, testFileName);
+                string expectedFilePath = MakeExpectedFilePath(testDirectory, testFileName);
+                string actualFilePath = MakeActualFilePath(testDirectory, testFileName);
 
-            string actualLogContents = File.ReadAllText(actualFilePath);
-            string expectedLogContents = File.ReadAllText(expectedFilePath);
+                var validateOptions = new ValidateOptions
+                {
+                    SarifVersion = SarifVersion.Current,
+                    TargetFileSpecifiers = new[] { testFilePath },
+                    OutputFilePath = actualFilePath,
+                    SchemaFilePath = JsonSchemaFile,
+                    Quiet = true
+                };
 
-            // We can't just compare the text of the log files because properties
-            // like start time, and absolute paths, will differ from run to run.
-            // Until SarifLogger has a "deterministic" option (see http://github.com/Microsoft/sarif-sdk/issues/500),
-            // we perform a selective compare of just the elements we care about.
-            SelectiveCompare(actualLogContents, expectedLogContents);
+                new ValidateCommand().Run(validateOptions);
+
+                string actualLogContents = File.ReadAllText(actualFilePath);
+                string expectedLogContents = File.ReadAllText(expectedFilePath);
+                expectedLogContents = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedLogContents);
+
+                // We can't just compare the text of the log files because properties
+                // like start time, and absolute paths, will differ from run to run.
+                // Until SarifLogger has a "deterministic" option (see http://github.com/Microsoft/sarif-sdk/issues/500),
+                // we perform a selective compare of just the elements we care about.
+                SelectiveCompare(actualLogContents, expectedLogContents);
+            }
+            finally
+            {
+                ValidateCommand.s_DisablePrereleaseCompatibilityTransform = false;
+            }
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 PropertiesToLog = propertiesToLog?.Select(p => p.ToUpperInvariant()).ToList()
             };
 
-            invocation.StartTime = DateTime.UtcNow;
+            invocation.StartTimeUtc = DateTime.UtcNow;
 
             if (invocation.ShouldLog(nameof(ProcessId)))
             {
@@ -71,6 +71,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         private bool ShouldLog(string propertyName)
         {
             return PropertiesToLog != null && PropertiesToLog.Contains(propertyName.ToUpperInvariant());
+        }
+
+        public bool ShouldSerializeArguments()
+        {
+            return this.Arguments != null &&
+                (this.Arguments.Where((e) => { return e != null; }).Count() == this.Arguments.Count);
         }
     }
 }

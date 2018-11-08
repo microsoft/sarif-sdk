@@ -3,8 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -15,32 +13,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
     /// </summary>
     static class FileHelpers
     {
-        public static T ReadSarifFile<T>(string filePath)
+        public static T ReadSarifFile<T>(IFileSystem fileSystem, string filePath, IContractResolver contractResolver = null)
         {
-            return ReadSarifFile<T>(filePath, SarifContractResolver.Instance);
-        }
+            string logText = fileSystem.ReadAllText(filePath);
 
-        public static T ReadSarifFile<T>(string filePath, IContractResolver contractResolver)
-        {
-            JsonSerializerSettings settings = new JsonSerializerSettings()
+            var settings = new JsonSerializerSettings
             {
-                ContractResolver = contractResolver
+                ContractResolver  = contractResolver,
             };
 
-            string logText = File.ReadAllText(filePath);
 
             return JsonConvert.DeserializeObject<T>(logText, settings);
         }
 
-        public static void WriteSarifFile<T>(T sarifFile, string outputName, Formatting formatting)
+        public static void WriteSarifFile<T>(IFileSystem fileSystem, T sarifFile, string outputName, Formatting formatting = Formatting.None, IContractResolver contractResolver = null)
         {
             var settings = new JsonSerializerSettings
             {
-                ContractResolver = SarifContractResolver.Instance,
+                ContractResolver = contractResolver,
                 Formatting = formatting
             };
 
-            File.WriteAllText(outputName, JsonConvert.SerializeObject(sarifFile, settings));
+            fileSystem.WriteAllText(outputName, JsonConvert.SerializeObject(sarifFile, settings));
         }
 
         public static HashSet<string> CreateTargetsSet(IEnumerable<string> targetSpecifiers, bool recurse)

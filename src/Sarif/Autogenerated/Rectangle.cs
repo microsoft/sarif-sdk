@@ -5,6 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -13,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
-    public partial class Rectangle : ISarifNode
+    public partial class Rectangle : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Rectangle> ValueComparer => RectangleEqualityComparer.Instance;
 
@@ -62,6 +63,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Message Message { get; set; }
 
         /// <summary>
+        /// Key/value pairs that provide additional information about the rectangle.
+        /// </summary>
+        [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Rectangle" /> class.
         /// </summary>
         public Rectangle()
@@ -86,9 +93,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="message">
         /// An initialization value for the <see cref="P: Message" /> property.
         /// </param>
-        public Rectangle(double top, double left, double bottom, double right, Message message)
+        /// <param name="properties">
+        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// </param>
+        public Rectangle(double top, double left, double bottom, double right, Message message, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(top, left, bottom, right, message);
+            Init(top, left, bottom, right, message, properties);
         }
 
         /// <summary>
@@ -107,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Top, other.Left, other.Bottom, other.Right, other.Message);
+            Init(other.Top, other.Left, other.Bottom, other.Right, other.Message, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -128,7 +138,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Rectangle(this);
         }
 
-        private void Init(double top, double left, double bottom, double right, Message message)
+        private void Init(double top, double left, double bottom, double right, Message message, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Top = top;
             Left = left;
@@ -137,6 +147,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (message != null)
             {
                 Message = new Message(message);
+            }
+
+            if (properties != null)
+            {
+                Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
             }
         }
     }

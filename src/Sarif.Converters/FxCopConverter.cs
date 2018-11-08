@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (rules.Count > 0)
             {
-                var rulesDictionary = new Dictionary<string, IRule>();
+                IDictionary<string, IRule> rulesDictionary = new Dictionary<string, IRule>();
 
                 foreach (Rule rule in rules)
                 {

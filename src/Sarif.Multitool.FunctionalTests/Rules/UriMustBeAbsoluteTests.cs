@@ -5,12 +5,14 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class UriMustBeAbsoluteTests : SkimmerTestsBase<UriMustBeAbsolute>
+    public class UriMustBeAbsoluteTests : ValidationSkimmerTestsBase<UriMustBeAbsolute>
     {
         [Fact(DisplayName = nameof(UriMustBeAbsolute_ReportsInvalidSarif))]
         public void UriMustBeAbsolute_ReportsInvalidSarif()
         {
-            Verify("Invalid.sarif");
+            // We need to disable compatibility transformations for any files that require
+            // a malformed schema or malformed JSON, as this code fixes those things up
+            Verify("Invalid.sarif", disablePrereleaseCompatibilityTransform: true);
         }
 
         [Fact(DisplayName = nameof(UriMustBeAbsolute_AcceptsValidSarif))]

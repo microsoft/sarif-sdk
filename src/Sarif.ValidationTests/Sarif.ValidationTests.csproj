@@ -4,6 +4,7 @@
     <TargetFrameworks>netcoreapp2.0</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Label="AssemblyAttributes">
@@ -13,7 +14,7 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory).., build.props))\build.props" />
 
   <ItemGroup>
-    <PackageReference Include="FluentAssertions" Version="5.4.0" />
+    <PackageReference Include="FluentAssertions" Version="5.4.1" />
     <PackageReference Include="Microsoft.Json.Schema" Version="0.57.0" />
     <PackageReference Include="Microsoft.Json.Schema.Validation" Version="0.57.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
@@ -25,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Sarif.TestUtilities\Sarif.TestUtilities.csproj" />
     <ProjectReference Include="..\Sarif\Sarif.csproj" />
   </ItemGroup>
 

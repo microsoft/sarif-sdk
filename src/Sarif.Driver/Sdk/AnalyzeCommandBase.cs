@@ -251,8 +251,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 var fileSpecifier = new FileSpecifier(normalizedSpecifier, recurse: analyzeOptions.Recurse, fileSystem: FileSystem);
                 foreach (string file in fileSpecifier.Files) { targets.Add(file); }
             }
-            Debug.Assert(targets.Count > 0);
-            return targets;
+           return targets;
         }
 
         private HashSet<string> ValidateTargetsExist(TContext context, HashSet<string> targets)
@@ -362,7 +361,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                         SarifLogger sarifLogger;
 
-                        if (analyzeOptions.SarifVersion == SarifVersion.TwoZeroZero)
+                        if (analyzeOptions.SarifVersion == SarifVersion.Current)
                         {
                             sarifLogger = new SarifLogger(
                                     analyzeOptions.OutputFilePath,
@@ -682,7 +681,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 exceptionData = new ExceptionData
                 {
                     Kind = ex.GetType().FullName,
-                    Message = ex.Message,
+                    Message = ex.Message.ToMessage(),
                     Stack = Stack.CreateStacks(ex).FirstOrDefault()
                 };
             }

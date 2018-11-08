@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF1001_Default)
         };
 
-        protected override void Analyze(Rule rule, string ruleKey, string rulePointer)
+        protected override void Analyze(IRule rule, string ruleKey, string rulePointer)
         {
             if (rule.Id != null &&
                 rule.Name != null &&

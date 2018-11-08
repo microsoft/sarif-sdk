@@ -9,6 +9,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 {
     public class SarifContractResolver : DefaultContractResolver
     {
+
+        [Obsolete("The default SARIF serialization has been updated so that specifying a contract resolver is no longer required.", error: false)]  
         public static readonly SarifContractResolver Instance = new SarifContractResolver();
 
         protected override JsonContract CreateContract(Type objectType)

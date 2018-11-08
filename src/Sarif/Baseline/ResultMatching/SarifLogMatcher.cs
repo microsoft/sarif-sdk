@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Processors;
+using Microsoft.CodeAnalysis.Sarif.Readers;
+using System.Diagnostics;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 {
@@ -16,16 +18,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
     {
         public const string ResultMatchingResultPropertyName = "ResultMatching";
 
-
-        public SarifLogResultMatcher(IEnumerable<IResultMatcher> exactResultMatchers,
-            IEnumerable<IResultMatcher> heuristicMatchers)
+        public SarifLogResultMatcher(
+            IEnumerable<IResultMatcher> exactResultMatchers,
+            IEnumerable<IResultMatcher> heuristicMatchers,
+            DictionaryMergeBehavior propertyBagMergeBehaviors = DictionaryMergeBehavior.None)
         {
             ExactResultMatchers = exactResultMatchers;
             HeuristicMatchers = heuristicMatchers;
+            PropertyBagMergeBehavior = propertyBagMergeBehaviors;
         }
 
         public IEnumerable<IResultMatcher> ExactResultMatchers { get; }
         public IEnumerable<IResultMatcher> HeuristicMatchers { get; }
+        public DictionaryMergeBehavior PropertyBagMergeBehavior { get; }
+
+        /// <summary>
+        /// Helper function that accepts a single baseline and current SARIF log and matches them.
+        /// </summary>
+        /// <param name="previousLog">Array of sarif logs representing the baseline run</param>
+        /// <param name="currentLogs">Array of sarif logs representing the current run</param>
+        /// <returns>A SARIF log with the merged set of results.</returns>
+        public SarifLog Match(SarifLog previousLog, SarifLog currentLog)
+        {
+            return Match(previousLogs: new[] { previousLog }, currentLogs: new[]{ currentLog }).FirstOrDefault();
+        }
+
 
         /// <summary>
         /// Take two groups of sarif logs, and compute a sarif log containing the complete set of results,
@@ -63,7 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 resultToolLogs.Add(BaselineSarifLogs(baselineRuns, currentRuns));
             }
 
-            return new List<SarifLog> { resultToolLogs.Merge() }.AsEnumerable();
+            return new List<SarifLog> { resultToolLogs.Merge() };
         }
 
         private static Dictionary<string, List<Run>> GetRunsByTool(IEnumerable<SarifLog> sarifLogs)
@@ -101,8 +118,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             // Spin out SARIF logs into MatchingResult objects.
             List<ExtractedResult> baselineResults = 
                 previous == null ? new List<ExtractedResult>() : GetMatchingResultsFromRuns(previous);
+
             List<ExtractedResult> currentResults =
                 current == null ? new List<ExtractedResult>() : GetMatchingResultsFromRuns(current);
+
             List<MatchedResults> matchedResults = new List<MatchedResults>();
 
             // Calculate exact mappings using exactResultMatchers.
@@ -157,7 +176,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 {
                     foreach (Result result in run.Results)
                     {
-                        Rule rule = GetRuleFromResources(result, run.Resources.Rules);
                         results.Add(new ExtractedResult() { Result = result, OriginalRun = run });
                     }
                 }
@@ -178,9 +196,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             return null;
         }
 
-        private SarifLog ConstructSarifLogFromMatchedResults(IEnumerable<MatchedResults> results, IEnumerable<Run> previous, IEnumerable<Run> currentRuns)
+        private SarifLog ConstructSarifLogFromMatchedResults(
+            IEnumerable<MatchedResults> results, 
+            IEnumerable<Run> previousRuns, 
+            IEnumerable<Run> currentRuns)
         {
-            if(currentRuns == null || !currentRuns.Any())
+            if (currentRuns == null || !currentRuns.Any())
             {
                 throw new ArgumentException(nameof(currentRuns));
             }
@@ -191,30 +212,50 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             Run run = new Run()
             {
                 Tool = tool,
-                AutomationLogicalId = currentRuns.First().AutomationLogicalId,
-                InstanceGuid = currentRuns.First().InstanceGuid,
+                Id = currentRuns.First().Id
             };
 
-            if (previous != null && previous.Count() != 0)
+            IDictionary<string, SerializedPropertyInfo> properties = null;
 
+            if (previousRuns != null && previousRuns.Count() != 0)
             {
-                run.BaselineInstanceGuid = previous.First().InstanceGuid;
+                // We flow the baseline instance id forward (which becomes the 
+                // baseline guid for the merged log)
+                run.BaselineInstanceGuid = previousRuns.First().Id?.InstanceGuid;
+
+                // We preserve either the most current or the oldest property bag associated with 
+                // a run. Note that this implies ordering of current and previous runs with
+                // the most recent runs being at the front of the enumerable set. This is 
+                // a non-obvious subtlety that we should look at resolving in a cleaned up design
+                properties = PropertyBagMergeBehavior.HasFlag(DictionaryMergeBehavior.InitializeFromCurrent)
+                    ? currentRuns.First().Properties
+                    : previousRuns.Last().Properties;
             }
-            
+
+            properties = properties ?? new Dictionary<string, SerializedPropertyInfo>();
+
             List<Result> newRunResults = new List<Result>();
             foreach (MatchedResults resultPair in results)
             {
-                newRunResults.Add(resultPair.CalculateNewBaselineResult());
+                newRunResults.Add(resultPair.CalculateNewBaselineResult(PropertyBagMergeBehavior));
             }
             run.Results = newRunResults;
             
             // Merge run File data, resources, etc...
-            Dictionary<string, FileData> fileData = new Dictionary<string, FileData>();
-            Dictionary<string, Rule> ruleData = new Dictionary<string, Rule>();
-            Dictionary<string, string> messageData = new Dictionary<string, string>();
-            List<Graph> graphs = new List<Graph>();
-            Dictionary<string, LogicalLocation> logicalLocations = new Dictionary<string, LogicalLocation>();
-            List<Invocation> invocations = new List<Invocation>();
+            var fileData = new Dictionary<string, FileData>();
+            var ruleData = new Dictionary<string, Rule>();
+            var messageData = new Dictionary<string, string>();
+            var graphs = new Dictionary<string, Graph>();
+            var logicalLocations = new Dictionary<string, LogicalLocation>();
+            var invocations = new List<Invocation>();
+
+            // Generally, we need to maintain all data from previous runs that may be associated with
+            // results. Later, we can consider eliding information that relates to absent
+            // messages (along with the baseline messages themselves that no longer recur).
+            foreach (Run previousRun in previousRuns)
+            {
+                MergeDictionaryInto(fileData, previousRun.Files, FileDataEqualityComparer.Instance);
+            }
 
             foreach (Run currentRun in currentRuns)
             {
@@ -222,6 +263,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 {
                     MergeDictionaryInto(fileData, currentRun.Files, FileDataEqualityComparer.Instance);
                 }
+
                 if (currentRun.Resources != null)
                 {
                     if (currentRun.Resources.Rules != null)
@@ -239,17 +281,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                         MergeDictionaryInto(messageData, converted, StringComparer.InvariantCulture);
                     }
                 }
+
                 if (currentRun.LogicalLocations != null)
                 {
                     MergeDictionaryInto(logicalLocations, currentRun.LogicalLocations, LogicalLocationEqualityComparer.Instance);
                 }
+
                 if (currentRun.Graphs != null)
                 {
-                    graphs.AddRange(currentRun.Graphs);
+                    MergeDictionaryInto(graphs, currentRun.Graphs, GraphEqualityComparer.Instance);
                 }
+
                 if (currentRun.Invocations != null)
                 {
                     invocations.AddRange(currentRun.Invocations);
+                }
+
+                if (PropertyBagMergeBehavior == DictionaryMergeBehavior.InitializeFromCurrent)
+                {
+                    properties = currentRun.Properties;
                 }
             }
 
@@ -259,23 +309,81 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             run.Resources = new Resources() { MessageStrings = messageData, Rules = ruleData };
             run.Invocations = invocations;
 
+            if (properties != null && properties.Count > 0)
+            {
+                run.Properties = properties;
+            }
+
             return new SarifLog()
             {
-                Runs = new Run[] { run },
+                Version = SarifVersion.Current,
+                SchemaUri = new Uri(SarifUtilities.SarifSchemaUri),
+                Runs = new Run[] { run }
             };
         }
-        
-        private void MergeDictionaryInto<T, S>(Dictionary<T, S> baseDictionary, IDictionary<T, S> dictionaryToAdd, IEqualityComparer<S> duplicateCatch)
+
+        private void MergeDictionaryInto<T, S>(
+            IDictionary<T, S> baseDictionary, 
+            IDictionary<T, S> dictionaryToAdd, 
+            IEqualityComparer<S> dictionaryValueComparer)
+        {
+            MergeDictionaryInto(baseDictionary, dictionaryToAdd, dictionaryValueComparer, PropertyBagMergeBehavior);
+        }
+
+        internal static void MergeDictionaryInto<T, S>(
+            IDictionary<T, S> baseDictionary, 
+            IDictionary<T, S> dictionaryToAdd, 
+            IEqualityComparer<S> duplicateCatch, 
+            DictionaryMergeBehavior propertyBagMergeBehavior)
         {
             foreach (KeyValuePair<T, S> pair in dictionaryToAdd)
             {
+
                 if (!baseDictionary.ContainsKey(pair.Key))
                 {
+                    // The baseline does not contain the current dictionary value. This means
+                    // that we can transport all properties associated with the new value.
+
                     baseDictionary.Add(pair.Key, pair.Value);
+                    continue;
                 }
-                else if (!duplicateCatch.Equals(baseDictionary[pair.Key], pair.Value))
+
+                // We have a collision between a current and previously existing dictionary value. We need to strip
+                // the properties, if any, from each value in order to perform a comparison of the core SARIF
+                // data (which must be equivalent between the two instances.
+
+                PropertyBagHolder basePropertyBagHolder, propertyBagHolderToMerge;
+                IDictionary<string, SerializedPropertyInfo> baseProperties = null, propertiesToMerge = null;
+
+                basePropertyBagHolder = baseDictionary[pair.Key] as PropertyBagHolder;
+
+                if (basePropertyBagHolder != null)
                 {
-                    throw new InvalidOperationException("We do not, at this moment, support two different pieces of supporting metadata going to the same key in the same scan.");
+                    propertyBagHolderToMerge = pair.Value as PropertyBagHolder;
+                    Debug.Assert(propertyBagHolderToMerge != null);
+
+                    baseProperties = basePropertyBagHolder.Properties;
+                    basePropertyBagHolder.Properties = null;
+                    propertiesToMerge = propertyBagHolderToMerge.Properties;
+                    propertyBagHolderToMerge.Properties = null;
+                };
+
+                // Now that we've emptied any properties, we can ensure that the base value and the value to 
+                // merge are equivalent. If they aren't we throw: there is no good way to understand which
+                // construct to prefer.
+                S baseValue = baseDictionary[pair.Key];
+                if (!duplicateCatch.Equals(baseValue, pair.Value))
+                {
+                    throw new InvalidOperationException(
+                        "We do not, at this moment, support merging dictionary " +
+                        "value that share a key but have different content.");
+                }
+
+                if (basePropertyBagHolder != null)
+                {
+                    basePropertyBagHolder.Properties = propertyBagMergeBehavior == DictionaryMergeBehavior.InitializeFromCurrent
+                        ? propertiesToMerge
+                        : baseProperties;
                 }
             }
         }
