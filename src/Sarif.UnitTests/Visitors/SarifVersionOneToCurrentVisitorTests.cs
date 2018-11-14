@@ -57,30 +57,40 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
 
             StringBuilder sb = new StringBuilder();
 
-            string expectedFilePath = GetOutputFilePath("expected", v2ExpectedResourceName);
-            string actualFilePath = GetOutputFilePath("actual", v2ExpectedResourceName);
+            string expectedFilePath = null;
+            string actualFilePath = null;
 
-            string expectedRootDirectory = Path.GetDirectoryName(expectedFilePath);
-            string actualRootDirectory = Path.GetDirectoryName(actualFilePath);
-
-            if (!AreEquivalentSarifLogs<SarifLog>(v2ActualLogText, v2ExpectedLogText))
+            if (!Utilities.RunningInAppVeyor)
             {
-                Directory.CreateDirectory(expectedRootDirectory);
-                Directory.CreateDirectory(actualRootDirectory);
-
-                File.WriteAllText(expectedFilePath, v2ExpectedLogText);
-                File.WriteAllText(actualFilePath, v2ActualLogText);
-
-
-                string errorMessage = string.Format(@"V2 conversion from V1 produced unexpected diffs for test: '{0}'.", v1InputResourceName);
-                sb.AppendLine("Check individual differences with:");
-                sb.AppendLine(GenerateDiffCommand(expectedFilePath, actualFilePath) + Environment.NewLine);
-
-                sb.AppendLine("To compare all difference for this test suite:");
-                sb.AppendLine(GenerateDiffCommand(Path.GetDirectoryName(expectedFilePath), Path.GetDirectoryName(actualFilePath)) + Environment.NewLine);
+                expectedFilePath = GetOutputFilePath("expected", v2ExpectedResourceName);
+                actualFilePath = GetOutputFilePath("actual", v2ExpectedResourceName);
             }
 
-            if (s_Rebaseline)
+                if (!AreEquivalentSarifLogs<SarifLog>(v2ActualLogText, v2ExpectedLogText))
+            {
+                string errorMessage = string.Format(@"V2 conversion from V1 produced unexpected diffs for test: '{0}'.", v1InputResourceName);
+                sb.AppendLine(errorMessage);
+
+                if (!Utilities.RunningInAppVeyor)
+                {
+                    string expectedRootDirectory = Path.GetDirectoryName(expectedFilePath);
+                    string actualRootDirectory = Path.GetDirectoryName(actualFilePath);
+
+                    Directory.CreateDirectory(expectedRootDirectory);
+                    Directory.CreateDirectory(actualRootDirectory);
+
+                    File.WriteAllText(expectedFilePath, v2ExpectedLogText);
+                    File.WriteAllText(actualFilePath, v2ActualLogText);
+
+                    sb.AppendLine("Check individual differences with:");
+                    sb.AppendLine(GenerateDiffCommand(expectedFilePath, actualFilePath) + Environment.NewLine);
+
+                    sb.AppendLine("To compare all difference for this test suite:");
+                    sb.AppendLine(GenerateDiffCommand(Path.GetDirectoryName(expectedFilePath), Path.GetDirectoryName(actualFilePath)) + Environment.NewLine);
+                }
+            }
+
+            if (s_Rebaseline && !Utilities.RunningInAppVeyor)
             {
                 // We rewrite to test output directory. This allows subsequent tests to 
                 // pass without requiring a rebuild that recopies SARIF test files
@@ -91,11 +101,9 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
 
                 // We also rewrite the checked in test baselines
                 File.WriteAllText(expectedFilePath, v2ActualLogText);
-
             }
 
             s_Rebaseline.Should().BeFalse();
-
             ValidateResults(sb.ToString());
         }
 
