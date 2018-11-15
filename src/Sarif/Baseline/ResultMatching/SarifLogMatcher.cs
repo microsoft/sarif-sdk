@@ -222,14 +222,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 // We flow the baseline instance id forward (which becomes the 
                 // baseline guid for the merged log)
                 run.BaselineInstanceGuid = previousRuns.First().Id?.InstanceGuid;
+            }
 
-                // We preserve either the most current or the oldest property bag associated with 
-                // a run. Note that this implies ordering of current and previous runs with
-                // the most recent runs being at the front of the enumerable set. This is 
-                // a non-obvious subtlety that we should look at resolving in a cleaned up design
-                properties = PropertyBagMergeBehavior.HasFlag(DictionaryMergeBehavior.InitializeFromCurrent)
-                    ? currentRuns.First().Properties
-                    : previousRuns.Last().Properties;
+
+            if (PropertyBagMergeBehavior.HasFlag(DictionaryMergeBehavior.InitializeFromOldest))
+            {
+                // Find the 'oldest' log file and initialize properties from that log property bag
+                properties = previousRuns.FirstOrDefault() != null
+                    ? previousRuns.First().Properties
+                    : currentRuns.First().Properties;
+            }
+            else
+            {
+                // Find the most recent log file instance and retain its property bag
+                // Find the 'oldest' log file and initialize properties from that log property bag
+                properties = currentRuns.Last().Properties;
             }
 
             properties = properties ?? new Dictionary<string, SerializedPropertyInfo>();
@@ -297,7 +304,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                     invocations.AddRange(currentRun.Invocations);
                 }
 
-                if (PropertyBagMergeBehavior == DictionaryMergeBehavior.InitializeFromCurrent)
+                if (PropertyBagMergeBehavior == DictionaryMergeBehavior.InitializeFromMostRecent)
                 {
                     properties = currentRun.Properties;
                 }
@@ -381,7 +388,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
                 if (basePropertyBagHolder != null)
                 {
-                    basePropertyBagHolder.Properties = propertyBagMergeBehavior == DictionaryMergeBehavior.InitializeFromCurrent
+                    basePropertyBagHolder.Properties = propertyBagMergeBehavior == DictionaryMergeBehavior.InitializeFromMostRecent
                         ? propertiesToMerge
                         : baseProperties;
                 }
