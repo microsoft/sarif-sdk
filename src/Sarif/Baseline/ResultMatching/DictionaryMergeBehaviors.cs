@@ -9,8 +9,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
     {
         None = 0,                      // By default, we will always exclusively  preserve the earliest
                                        // properties that have been generated. We will not attempt any merging.
-        InitializeFromPrevious = None,
-        InitializeFromCurrent = 0x1,   // On setting this bit, we will discard earlier properties
+        InitializeFromOldest = None,
+        InitializeFromMostRecent = 0x1,// On setting this bit, we will discard earlier properties
                                        // in favor of those that are most recently generated.
     }
 }
