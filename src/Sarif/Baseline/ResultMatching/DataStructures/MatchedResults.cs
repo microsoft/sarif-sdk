@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             ResultMatchingProperties = MergeDictionaryPreferFirst(ResultMatchingProperties, OriginalResultMatchingProperties);
 
             if (PreviousResult != null &&
-                propertyBagMergeBehavior == DictionaryMergeBehavior.InitializeFromPrevious)
+                propertyBagMergeBehavior == DictionaryMergeBehavior.InitializeFromOldest)
             {
                 result.Properties = PreviousResult.Result.Properties;
             }
