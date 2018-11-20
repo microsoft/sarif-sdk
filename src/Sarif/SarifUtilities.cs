@@ -45,9 +45,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             switch (sarifVersionText)
             {
-                case V1_0_0_BETA_5: return SarifVersion.OneZeroZeroBetaFive;
                 case V1_0_0: return SarifVersion.OneZeroZero;
-                case V2_0_0: return SarifVersion.TwoZeroZero;
+                case V2_0_0: return SarifVersion.Current;
             }
 
             return SarifVersion.Unknown;

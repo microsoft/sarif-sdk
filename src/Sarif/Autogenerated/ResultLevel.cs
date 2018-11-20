@@ -12,11 +12,11 @@ namespace Microsoft.CodeAnalysis.Sarif
     public enum ResultLevel
     {
         Default,
-        NotApplicable,
-        Pass,
         Note,
         Warning,
         Error,
-        Open
+        Open,
+        NotApplicable,
+        Pass,
     }
 }

@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public const string OverlyLongSessionTimeout = "session-timeout";
         public const string PagesWithoutAntiClickjackingControls = "clickjacking-control-missing";
         public const string ParameterPollution = "parameter-pollution";
-        public const string PathTraversal = "path-traversaal";
+        public const string PathTraversal = "path-traversal";
         public const string RequestValidationDisabled = "request-validation-disabled";
         public const string RequestValidationModeDisabled = "request-validation-control-disabled";
         public const string ResponseWithInsecurelyConfiguredContentSecurityPolicyHeader = "csp-header-insecure";

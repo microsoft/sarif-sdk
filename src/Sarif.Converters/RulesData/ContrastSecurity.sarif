@@ -17,7 +17,7 @@
               "text": "Verifies caching controls are used to protect application content."
             },
             "messageStrings": {
-              "default": "'The {0}' page Cache-Control header did not contain 'no-store' or 'no-cache'; The value observed was '{1}'."
+              "default": "{0} page Cache-Control header(s) did not contain 'no-store' or 'no-cache'; e.g., the value in page '{1}' was observed to be '{2}'."
             },
             "configuration": {
               "defaultLevel": "note"
@@ -83,6 +83,9 @@
             "shortDescription": {
               "text": "Verifies no untrusted data is used in generated HTML pages"
             },
+            "messageStrings": {
+              "default": "A cross-site scripting vulnerability was observed from '{0}' on '{1}' page."
+            },
             "configuration": {
               "defaultLevel": "error"
             }
@@ -95,6 +98,9 @@
             "shortDescription": {
               "text": "Verifies the application does not inadvertently reveal sensitive or technical information to an attacker via detailed error messages."
             },
+            "messageStrings": {
+              "default": "The configuration in '{0}' has 'mode' set to 'Off' in the <customErrors> section."
+            },
             "configuration": {
               "defaultLevel": "warning"
             }
@@ -106,6 +112,9 @@
             },
             "shortDescription": {
               "text": "Verifies the application does not disable ASP.NET event validation."
+            },
+            "messageStrings": {
+              "default": "The configuration in '{0}' has 'enableEventValidation' set to 'false' in the page directive."
             },
             "configuration": {
               "defaultLevel": "warning"
@@ -155,6 +164,9 @@
             "shortDescription": {
               "text": "Verifies forms authentication requests must be submitted over SSL."
             },
+            "messageStrings": {
+              "default": "The configuration in '{0}' is configured to use forms authentication and 'requireSSL' is not set to 'true' in an <authentication> section."
+            },
             "configuration": {
               "defaultLevel": "warning"
             }
@@ -166,6 +178,9 @@
             },
             "shortDescription": {
               "text": "Verifies browsers are notified that the application doesn't want to use autocomplete for the given fields."
+            },
+            "messageStrings": {
+              "default": "'{0}' page contains a <form> element that does not have 'autocomplete' set to 'off'."
             },
             "configuration": {
               "defaultLevel": "note"
@@ -203,6 +218,9 @@
             "shortDescription": {
               "text": "Verifies the HttpOnly flag is not disabled for cookies issued by the application."
             },
+            "messageStrings": {
+              "default": "The configuration in '{0}' has 'httpOnlyCookies' set to 'false' in an <httpCookies> section."
+            },
             "configuration": {
               "defaultLevel": "note"
             }
@@ -226,6 +244,9 @@
             },
             "shortDescription": {
               "text": "Verifies only strong cryptographic algorithms are used."
+            },
+            "messageStrings": {
+              "default": "'{0}' obtained a handle to the cryptographically insecure '{1}' algorithm."
             },
             "configuration": {
               "defaultLevel": "note"
@@ -299,6 +320,9 @@
             "shortDescription": {
               "text": "Verifies HTTP sessions are terminated after reasonable idle periods."
             },
+            "messageStrings": {
+              "default": "The configuration in the <sessionState> section of '{0}' specifies a session timeout value greater than 30 minutes. Session timeouts greater than 30 minutes give attackers extra time to complete attacks and exploits. Specifically, overly long sessions make applications more susceptible to session hijacking and cross-user web attacks, such as Cross-Site Request Forgery (CSRF) and Cross-Site Scripting (XSS). Most sensitive applications in finance, commerce and other security intensive industries tend to specify session timeouts between 15 and 30 minutes."
+            },
             "configuration": {
               "defaultLevel": "note"
             }
@@ -312,7 +336,7 @@
               "text": "Verifies frame-breaking controls are used on every page."
             },
             "messageStrings": {
-              "default": "'{0}' page has insufficient anti-clickjacking controls."
+              "default": "{0} page(s) have insufficient anti-clickjacking controls, e.g. '{1}'."
             },
             "configuration": {
               "defaultLevel": "note"
@@ -331,12 +355,15 @@
             }
           },
           "path-traversaal": {
-            "id": "path-traversaal",
+            "id": "path-traversal",
             "name": {
               "text": "Path Traversal"
             },
             "shortDescription": {
               "text": "Verifies file paths containing untrusted data are not accessed."
+            },
+            "messageStrings": {
+              "default": "Attacker-controlled path traversal was observed from '{0}' on '{1}' page."
             },
             "configuration": {
               "defaultLevel": "error"
@@ -361,6 +388,9 @@
             },
             "shortDescription": {
               "text": "Verifies the application does not disable ASP.NET's Request Validation feature for web controls which helps prevent several attacks such as cross-site scripting."
+            },
+            "messageStrings": {
+              "default": "The configuration in '{0}' has 'ValidateRequest' set to 'false' in the page directive. Request Validation helps prevent several types of attacks including XSS by detecting potentially dangerous character sequences. An exception is thrown by the framework when a potentially dangerous character sequence is encountered. This exception returns an error page to the user and prevents the application from processing the request. An attacker can submit malicious data to the application that may be processed without further input validation. This malicious data could contain XSS or other injection attacks that may have been prevented by ASP.NET request validation. Note that request validation does not provide 100% protection against XSS or other attacks and should be thought of as a defense-in-depth measure."
             },
             "configuration": {
               "defaultLevel": "warning"
@@ -458,6 +488,9 @@
             "shortDescription": {
               "text": "Verifies session cookies have the secure flag."
             },
+            "messageStrings": {
+              "default": "The"
+            },
             "configuration": {
               "defaultLevel": "warning"
             }
@@ -470,6 +503,9 @@
             "shortDescription": {
               "text": "Verifies session IDs aren't being rewritten in the URL."
             },
+            "messageStrings": {
+              "default": "The configuration in the <forms> section of '{0}' has 'UseCookies' set to a value other than 'cookieless'. As a result, the session ID (which is as good as a username and password) is logged to browser history, server logs and proxy logs. More serious, session rewriting can enable session fixcation attacks, in which an attacker causes a victim to use a well-known session id. If the victim authenticates under the attacker's chosen session ID, the attacker can present that session ID to the server and be recognized as the victim."
+            },
             "configuration": {
               "defaultLevel": "warning"
             }
@@ -481,6 +517,9 @@
             },
             "shortDescription": {
               "text": "Verifies no untrusted data is used in dynamic database queries."
+            },
+            "messageStrings": {
+              "default": "SQL injection from {0} was observed on '{1}' page."
             },
             "configuration": {
               "defaultLevel": "error"
@@ -565,6 +604,9 @@
             },
             "shortDescription": {
               "text": "Verifies the application does not send the ASP.NET version header."
+            },
+            "messageStrings": {
+              "default": "The configuration in '{0}' does not explicitly disable 'enableVersionHeader' in the <httpRuntime> section. This attribute value defaults to 'true' when absent. The application will send the version header with all responses and this information may help an attacker refine their attacks. This header is used by Visual Studio to determine which version of ASP.NET is in use. It is not necessary for production sites and can be disabled."
             },
             "configuration": {
               "defaultLevel": "note"
@@ -661,6 +703,9 @@
             },
             "shortDescription": {
               "text": "Verifies the application is not deployed in debug mode."
+            },
+            "messageStrings": {
+              "default": "The configuration in '{0}' had 'debug' set to 'true' in the <compilation> section."
             },
             "configuration": {
               "defaultLevel": "note"
