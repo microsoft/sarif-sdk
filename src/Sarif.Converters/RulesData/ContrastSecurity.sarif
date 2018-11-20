@@ -1,22 +1,693 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0",
-  "version": "2.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-10-10",
+  "version": "2.0.0-csd.2.beta.2018-10-10",
   "runs": [
     {
-      "tool": { "name" : "Contrast Security"},
+      "tool": {
+        "name": "Contrast Security"
+      },
       "resources": {
         "rules": {
-          "clickjacking-control-missing": {
-            "configuration": {"defaultLevel": "note"},
-            "id": "clickjacking-control-missing",
-            "name": { "text": "Pages Without Anti-Clickjacking Controls" },
-            "shortDescription": { "text": "One or more pages were observed without sufficient anti-clickjacking controls." },
-            "fullDescription": { "text": "One or more pages were observed without sufficient anti-clickjacking controls. The application doesn't apply anti-framing controls to the given page. Not applying these controls will allow it to be framed by other websites. This can present a few security issues, but the chief concern is that framed pages may be used in Clickjacking attacks." },
-            "help": {
-              "richText": "The application doesn't apply anti-framing controls to the given page. Not applying these controls will allow it to be framed by other websites. This can present a few security issues, but the chief concern is that framed pages may be used in Clickjacking attacks.\r\nClickjacking (also called UI Redress) is an attack whereby an attacker can trick a user into clicking on something different from what it appears they are clicking on. Most attacks will first build a page that entices the user to click on it - for scandalous pictures, monetary rewards, and other promises. The buttons and links on this page are carefully placed so that they overlap with buttons, links or other items on a second page that gets layered on top of the first one.\r\nThe problem for the victim in this scenario is that the link that they'd like to click for the promised rewards on the evil page is actually \"beneath\" a translucent, second page which has been framed into the HTML document. Thus, when they intend to click on **\"Collect Your Prize!\"**, they're really clicking on **\"Transfer Your Money!\"**, or similar.\r\nNumerous real-life Clickjacking attacks have caused damage to Adobe Flash Player, and numerous websites including Facebook, Twitter, YouTube, and others.\r\nThere are generally two controls that prevent framing of a web page: the `X-Frame-Options` header, and so-called `frame-busting JavaScript`. Details about these controls can be found in the **Remediation** tab. **Neither of these anti-framing controls were found** in the HTTP response to the URL(s) reported by this check."
+          "cache-controls-missing": {
+            "id": "cache-controls-missing",
+            "name": {
+              "text": "Anti-Caching Controls Missing"
+            },
+            "shortDescription": {
+              "text": "Verifies caching controls are used to protect application content."
             },
             "messageStrings": {
-              "default": "{0} pages observed without sufficient anti-clickjacking controls, e.g., {1}"
+              "default": "'The {0}' page Cache-Control header did not contain 'no-store' or 'no-cache'; The value observed was '{1}'."
+            },
+            "configuration": {
+              "defaultLevel": "note"
+            }
+          },
+          "unvalidated forward": {
+            "id": "unvalidated forward",
+            "name": {
+              "text": "Arbitrary Server Side Forwards"
+            },
+            "shortDescription": {
+              "text": "Verifies no untrusted data is used to build a path used in forwards."
+            },
+            "configuration": {
+              "defaultLevel": "error"
+            }
+          },
+          "authorization-rules-misordered": {
+            "id": "authorization-rules-misordered",
+            "name": {
+              "text": "Authorization Rules Misordered"
+            },
+            "shortDescription": {
+              "text": "Verifies the application's authorization rules do not include an allow all user rule before a deny rule."
+            },
+            "configuration": {
+              "defaultLevel": "warning"
+            }
+          },
+          "authorization-missing-deny": {
+            "id": "authorization-missing-deny",
+            "name": {
+              "text": "Authorization Rules Missing Deny Rule"
+            },
+            "shortDescription": {
+              "text": "Verifies the application's authorization rules include a deny rule."
+            },
+            "messageStrings": {
+              "default": "The configuration in '{0}' is missing a <deny> rule in the <authorization> section.",
+              "underLocation": "The configuration under location '{0}' in '{1}' is missing a <deny> rule in the <authorization> section."
+            },
+            "configuration": {
+              "defaultLevel": "warning"
+            }
+          },
+          "cache-control-disabled": {
+            "id": "cache-control-disabled",
+            "name": {
+              "text": "Cache Control Header Disabled"
+            },
+            "shortDescription": {
+              "text": "Verifies the application does not disable the cache control header which helps prevent disclosure of sensitive information via the browser cache."
+            },
+            "configuration": {
+              "defaultLevel": "warning"
+            }
+          },
+          "reflected-xss": {
+            "id": "reflected-xss",
+            "name": {
+              "text": "Cross-Site Scripting"
+            },
+            "shortDescription": {
+              "text": "Verifies no untrusted data is used in generated HTML pages"
+            },
+            "configuration": {
+              "defaultLevel": "error"
+            }
+          },
+          "custom-errors-off": {
+            "id": "custom-errors-off",
+            "name": {
+              "text": "Detailed Error Messages Displayed"
+            },
+            "shortDescription": {
+              "text": "Verifies the application does not inadvertently reveal sensitive or technical information to an attacker via detailed error messages."
+            },
+            "configuration": {
+              "defaultLevel": "warning"
+            }
+          },
+          "event-validation-disabled": {
+            "id": "event-validation-disabled",
+            "name": {
+              "text": "Event Validation Disabled"
+            },
+            "shortDescription": {
+              "text": "Verifies the application does not disable ASP.NET event validation."
+            },
+            "configuration": {
+              "defaultLevel": "warning"
+            }
+          },
+          "session-regenerate": {
+            "id": "session-regenerate",
+            "name": {
+              "text": "Expired Session IDs Not Regenerated"
+            },
+            "shortDescription": {
+              "text": "Verifies the application generates new session IDs rather than allowing attackers to use expired session IDs"
+            },
+            "configuration": {
+              "defaultLevel": "note"
+            }
+          },
+          "forms-auth-redirect": {
+            "id": "forms-auth-redirect",
+            "name": {
+              "text": "Forms Authentication Cross-App Redirect"
+            },
+            "shortDescription": {
+              "text": "Verifies the application does not allow for cross-app redirects for authentication which can expose the forms authentication ticket in the URL."
+            },
+            "configuration": {
+              "defaultLevel": "warning"
+            }
+          },
+          "forms-auth-protection": {
+            "id": "forms-auth-protection",
+            "name": {
+              "text": "Forms Authentication Protection Mode"
+            },
+            "shortDescription": {
+              "text": "Verifies the application is using both encryption and validation for forms authentication."
+            },
+            "configuration": {
+              "defaultLevel": "warning"
+            }
+          },
+          "forms-auth-ssl": {
+            "id": "forms-auth-ssl",
+            "name": {
+              "text": "Forms Authentication SSL"
+            },
+            "shortDescription": {
+              "text": "Verifies forms authentication requests must be submitted over SSL."
+            },
+            "configuration": {
+              "defaultLevel": "warning"
+            }
+          },
+          "autocomplete-missing": {
+            "id": "autocomplete-missing",
+            "name": {
+              "text": "Forms Without Autocomplete Prevention"
+            },
+            "shortDescription": {
+              "text": "Verifies browsers are notified that the application doesn't want to use autocomplete for the given fields."
+            },
+            "configuration": {
+              "defaultLevel": "note"
+            }
+          },
+          "header-checking-disabled": {
+            "id": "header-checking-disabled",
+            "name": {
+              "text": "Header Checking Disabled"
+            },
+            "shortDescription": {
+              "text": "Verifies the application does not disable ASP.NET's defense against header injection."
+            },
+            "configuration": {
+              "defaultLevel": "warning"
+            }
+          },
+          "header-injection": {
+            "id": "header-injection",
+            "name": {
+              "text": "Header Injection"
+            },
+            "shortDescription": {
+              "text": "Verifies untrusted data is not used in an HTTP header"
+            },
+            "configuration": {
+              "defaultLevel": "error"
+            }
+          },
+          "http-only-disabled": {
+            "id": "http-only-disabled",
+            "name": {
+              "text": "HttpOnly Cookie Flag Disabled"
+            },
+            "shortDescription": {
+              "text": "Verifies the HttpOnly flag is not disabled for cookies issued by the application."
+            },
+            "configuration": {
+              "defaultLevel": "note"
+            }
+          },
+          "insecure-auth-protocol": {
+            "id": "insecure-auth-protocol",
+            "name": {
+              "text": "Insecure Authentication Protocol"
+            },
+            "shortDescription": {
+              "text": "Verifies applications don't use weak HTTP authentication protocols."
+            },
+            "configuration": {
+              "defaultLevel": "warning"
+            }
+          },
+          "crypto-bad-cyphers": {
+            "id": "crypto-bad-cyphers",
+            "name": {
+              "text": "Insecure Encryption Algorithms"
+            },
+            "shortDescription": {
+              "text": "Verifies only strong cryptographic algorithms are used."
+            },
+            "configuration": {
+              "defaultLevel": "note"
+            }
+          },
+          "crypto-bad-mac": {
+            "id": "crypto-bad-mac",
+            "name": {
+              "text": "Insecure Hash Algorithms"
+            },
+            "shortDescription": {
+              "text": "Verifies only strong hash algorithms are used"
+            },
+            "configuration": {
+              "defaultLevel": "warning"
+            }
+          },
+          "max-request-length": {
+            "id": "max-request-length",
+            "name": {
+              "text": "Large Max Request Length"
+            },
+            "shortDescription": {
+              "text": "Verifies the application does not allow large requests which could lead to denial of service attacks."
+            },
+            "configuration": {
+              "defaultLevel": "warning"
+            }
+          },
+          "ldap-injection": {
+            "id": "ldap-injection",
+            "name": {
+              "text": "LDAP Injection"
+            },
+            "shortDescription": {
+              "text": "Verifies no untrusted data is used in dynamic LDAP queries."
+            },
+            "configuration": {
+              "defaultLevel": "error"
+            }
+          },
+          "log-injection": {
+            "id": "log-injection",
+            "name": {
+              "text": "Log Injection"
+            },
+            "shortDescription": {
+              "text": "Verifies no untrusted data is put into log files."
+            },
+            "configuration": {
+              "defaultLevel": "note"
+            }
+          },
+          "cmd-injection": {
+            "id": "cmd-injection",
+            "name": {
+              "text": "OS Command Injection"
+            },
+            "shortDescription": {
+              "text": "Verifies no untrusted data is used in commands sent to the operating system."
+            },
+            "configuration": {
+              "defaultLevel": "error"
+            }
+          },
+          "session-timeout": {
+            "id": "session-timeout",
+            "name": {
+              "text": "Overly Long Session Timeout"
+            },
+            "shortDescription": {
+              "text": "Verifies HTTP sessions are terminated after reasonable idle periods."
+            },
+            "configuration": {
+              "defaultLevel": "note"
+            }
+          },
+          "clickjacking-control-missing": {
+            "id": "clickjacking-control-missing",
+            "name": {
+              "text": "Pages Without Anti-Clickjacking Controls"
+            },
+            "shortDescription": {
+              "text": "Verifies frame-breaking controls are used on every page."
+            },
+            "messageStrings": {
+              "default": "'{0}' page has insufficient anti-clickjacking controls."
+            },
+            "configuration": {
+              "defaultLevel": "note"
+            }
+          },
+          "parameter-pollution": {
+            "id": "parameter-pollution",
+            "name": {
+              "text": "Parameter Pollution"
+            },
+            "shortDescription": {
+              "text": "Verifies HTML form tags don't allow attackers to fixate parameter variables and bypass CSRF controls."
+            },
+            "configuration": {
+              "defaultLevel": "warning"
+            }
+          },
+          "path-traversaal": {
+            "id": "path-traversaal",
+            "name": {
+              "text": "Path Traversal"
+            },
+            "shortDescription": {
+              "text": "Verifies file paths containing untrusted data are not accessed."
+            },
+            "configuration": {
+              "defaultLevel": "error"
+            }
+          },
+          "request-validation-disabled": {
+            "id": "request-validation-disabled",
+            "name": {
+              "text": "Request Validation Disabled"
+            },
+            "shortDescription": {
+              "text": "Verifies the application does not disable ASP.NET's Request Validation feature which helps prevent several attacks such as cross-site scripting."
+            },
+            "configuration": {
+              "defaultLevel": "warning"
+            }
+          },
+          "request-validation-control-disabled": {
+            "id": "request-validation-control-disabled",
+            "name": {
+              "text": "Request Validation Mode Disabled"
+            },
+            "shortDescription": {
+              "text": "Verifies the application does not disable ASP.NET's Request Validation feature for web controls which helps prevent several attacks such as cross-site scripting."
+            },
+            "configuration": {
+              "defaultLevel": "warning"
+            }
+          },
+          "csp-header-insecure": {
+            "id": "csp-header-insecure",
+            "name": {
+              "text": "Response With Insecurely Configured Content-Security-Policy Header"
+            },
+            "shortDescription": {
+              "text": "Verifies the requests sent by the application have the Content-Security-Policy header set in a restrictive way."
+            },
+            "configuration": {
+              "defaultLevel": "note"
+            }
+          },
+          "xssprotection-header-disabled": {
+            "id": "xssprotection-header-disabled",
+            "name": {
+              "text": "Response With X-XSS-Protection Disabled"
+            },
+            "shortDescription": {
+              "text": "Verifies the requests sent by the application have the X-XSS-Protection header left default (secure) or set correctly."
+            },
+            "configuration": {
+              "defaultLevel": "note"
+            }
+          },
+          "csp-header-missing": {
+            "id": "csp-header-missing",
+            "name": {
+              "text": "Response Without Content-Security-Policy Header"
+            },
+            "shortDescription": {
+              "text": "Verifies the requests sent by the application have the Content-Security-Policy or Content-Security-Policy-Read-Only header set."
+            },
+            "configuration": {
+              "defaultLevel": "note"
+            }
+          },
+          "xcontenttype-header-missing": {
+            "id": "xcontenttype-header-missing",
+            "name": {
+              "text": "Response Without X-Content-Type-Options Header"
+            },
+            "shortDescription": {
+              "text": "Verifies the requests sent by the application have the X-Content-Type-Options header set correctly."
+            },
+            "configuration": {
+              "defaultLevel": "note"
+            }
+          },
+          "role-manager-protection": {
+            "id": "role-manager-protection",
+            "name": {
+              "text": "Role Manager Protection Mode"
+            },
+            "shortDescription": {
+              "text": "Verifies the application is using both encryption and validation to protect role cookie."
+            },
+            "configuration": {
+              "defaultLevel": "warning"
+            }
+          },
+          "role-manager-ssl": {
+            "id": "role-manager-ssl",
+            "name": {
+              "text": "Role Manager SSL"
+            },
+            "shortDescription": {
+              "text": "Verifies role manager cookies will only be submitted over SSL."
+            },
+            "configuration": {
+              "defaultLevel": "warning"
+            }
+          },
+          "httponly": {
+            "id": "httponly",
+            "name": {
+              "text": "Session Cookie Has No 'HttpOnly' Flag"
+            },
+            "shortDescription": {
+              "text": "Verifies session cookies have the HttpOnly flag."
+            },
+            "configuration": {
+              "defaultLevel": "warning"
+            }
+          },
+          "secure-flag-missing": {
+            "id": "secure-flag-missing",
+            "name": {
+              "text": "Session Cookie Has No 'secure' Flag"
+            },
+            "shortDescription": {
+              "text": "Verifies session cookies have the secure flag."
+            },
+            "configuration": {
+              "defaultLevel": "warning"
+            }
+          },
+          "session-rewriting": {
+            "id": "session-rewriting",
+            "name": {
+              "text": "Session Rewriting"
+            },
+            "shortDescription": {
+              "text": "Verifies session IDs aren't being rewritten in the URL."
+            },
+            "configuration": {
+              "defaultLevel": "warning"
+            }
+          },
+          "sql-injection": {
+            "id": "sql-injection",
+            "name": {
+              "text": "SQL Injection"
+            },
+            "shortDescription": {
+              "text": "Verifies no untrusted data is used in dynamic database queries."
+            },
+            "configuration": {
+              "defaultLevel": "error"
+            }
+          },
+          "stored-xss": {
+            "id": "stored-xss",
+            "name": {
+              "text": "Stored Cross-Site Scripting"
+            },
+            "shortDescription": {
+              "text": "Verifies no untrusted data which was stored in a database is displayed in generated HTML pages"
+            },
+            "configuration": {
+              "defaultLevel": "error"
+            }
+          },
+          "trace-enabled": {
+            "id": "trace-enabled",
+            "name": {
+              "text": "Tracing Enabled"
+            },
+            "shortDescription": {
+              "text": "Verifies the application does not inadvertently reveal technical details and sensitive request information via the ASP.NET Tracing feature."
+            },
+            "configuration": {
+              "defaultLevel": "error"
+            }
+          },
+          "trace-enabled-aspx": {
+            "id": "trace-enabled-aspx",
+            "name": {
+              "text": "Tracing Enabled for ASPX"
+            },
+            "shortDescription": {
+              "text": "Verifies the application does not inadvertently reveal technical details via the ASP.NET Tracing feature for a single ASPX page."
+            },
+            "configuration": {
+              "defaultLevel": "note"
+            }
+          },
+          "trust-boundary-violation": {
+            "id": "trust-boundary-violation",
+            "name": {
+              "text": "Trust Boundary Violation"
+            },
+            "shortDescription": {
+              "text": "Verifies untrusted data is not used in the HTTP session."
+            },
+            "configuration": {
+              "defaultLevel": "warning"
+            }
+          },
+          "plaintext-conn-strings": {
+            "id": "plaintext-conn-strings",
+            "name": {
+              "text": "Unprotected Connection Strings"
+            },
+            "shortDescription": {
+              "text": "Verifies connection strings stored in web.config are encrypted."
+            },
+            "configuration": {
+              "defaultLevel": "warning"
+            }
+          },
+          "unvalidated-redirect": {
+            "id": "unvalidated-redirect",
+            "name": {
+              "text": "Unvalidated Redirect"
+            },
+            "shortDescription": {
+              "text": "Verifies requests are not redirected using untrusted data."
+            },
+            "configuration": {
+              "defaultLevel": "warning"
+            }
+          },
+          "version-header-enabled": {
+            "id": "version-header-enabled",
+            "name": {
+              "text": "Version Header Enabled"
+            },
+            "shortDescription": {
+              "text": "Verifies the application does not send the ASP.NET version header."
+            },
+            "configuration": {
+              "defaultLevel": "note"
+            }
+          },
+          "viewstate-encryption-disabled": {
+            "id": "viewstate-encryption-disabled",
+            "name": {
+              "text": "Viewstate Encryption Disabled"
+            },
+            "shortDescription": {
+              "text": "Verifies that the application does not globally disable encryption of viewstate."
+            },
+            "configuration": {
+              "defaultLevel": "warning"
+            }
+          },
+          "viewstate-mac-disabled": {
+            "id": "viewstate-mac-disabled",
+            "name": {
+              "text": "Viewstate MAC Validation Disabled"
+            },
+            "shortDescription": {
+              "text": "Verifies the application prevents attackers from modifying viewstate values."
+            },
+            "configuration": {
+              "defaultLevel": "warning"
+            }
+          },
+          "wcf-exception-details": {
+            "id": "wcf-exception-details",
+            "name": {
+              "text": "WCF Exception Details"
+            },
+            "shortDescription": {
+              "text": "Verifies the application does not expose exception details for hosted WCF services."
+            },
+            "configuration": {
+              "defaultLevel": "warning"
+            }
+          },
+          "wcf-detect-replays": {
+            "id": "wcf-detect-replays",
+            "name": {
+              "text": "WCF Replay Detection Not Enabled"
+            },
+            "shortDescription": {
+              "text": "Verifies the application uses replay detection for custom bindings."
+            },
+            "configuration": {
+              "defaultLevel": "note"
+            }
+          },
+          "wcf-metdata-enabled": {
+            "id": "wcf-metdata-enabled",
+            "name": {
+              "text": "WCF Service Metadata Enabled"
+            },
+            "shortDescription": {
+              "text": "Verifies the application does not publish metadata for hosted WCF services."
+            },
+            "configuration": {
+              "defaultLevel": "note"
+            }
+          },
+          "weak-membership-config": {
+            "id": "weak-membership-config",
+            "name": {
+              "text": "Weak Membership Configuration"
+            },
+            "shortDescription": {
+              "text": "Verifies membership authentication is configured to help withstand password bruteforce attacks."
+            },
+            "configuration": {
+              "defaultLevel": "note"
+            }
+          },
+          "crypto-weak-randomness": {
+            "id": "crypto-weak-randomness",
+            "name": {
+              "text": "Weak Random Number Generation"
+            },
+            "shortDescription": {
+              "text": "Verifies weak sources of entropy are not used."
+            },
+            "configuration": {
+              "defaultLevel": "note"
+            }
+          },
+          "compilation-debug": {
+            "id": "compilation-debug",
+            "name": {
+              "text": "Web Application Deployed in Debug Mode"
+            },
+            "shortDescription": {
+              "text": "Verifies the application is not deployed in debug mode."
+            },
+            "configuration": {
+              "defaultLevel": "note"
+            }
+          },
+          "xxe": {
+            "id": "xxe",
+            "name": {
+              "text": "XML External Entity Injection (XXE)"
+            },
+            "shortDescription": {
+              "text": "Verifies external entities aren't processed during XML."
+            },
+            "configuration": {
+              "defaultLevel": "error"
+            }
+          },
+          "xpath-injection": {
+            "id": "xpath-injection",
+            "name": {
+              "text": "XPath Injection"
+            },
+            "shortDescription": {
+              "text": "Verifies no untrusted data is used in XPath expression used to retrieve data from an XML database"
+            },
+            "configuration": {
+              "defaultLevel": "error"
             }
           }
         }

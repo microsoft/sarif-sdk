@@ -8,6 +8,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Xml;
 using System.Xml.Schema;
 using Microsoft.CodeAnalysis.Sarif.Readers;
@@ -21,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     /// </summary>
     ///<remarks>
     ///</remarks>
-    internal sealed class ContrastConverter : ToolFileConverterBase
+    internal sealed class ContrastSecurityConverter : ToolFileConverterBase
     {
         private const string ContrastSecurityRulesData = "Microsoft.CodeAnalysis.Sarif.Converters.RulesData.ContrastSecurity.sarif";
 
@@ -50,10 +51,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var results = new List<Result>();
             var rules = new List<Rule>();
             var reader = new ContrastLogReader();
-            reader.FindingRead += (ContrastLogReader.Context current) => { results.Add(CreateResult(current)); };
+            reader.FindingRead += (ContrastLogReader.Context current) => { results.AddRange(CreateResult(current)); };
             reader.Read(context, input);
 
-            Assembly assembly = typeof(ContrastConverter).Assembly;
+            Assembly assembly = typeof(ContrastSecurityConverter).Assembly;
 
             SarifLog sarifLog;
 
@@ -63,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Formatting = Newtonsoft.Json.Formatting.Indented                
             };
 
-            using (var stream = assembly.GetManifestResourceStream(ContrastConverter.ContrastSecurityRulesData))
+            using (var stream = assembly.GetManifestResourceStream(ContrastSecurityConverter.ContrastSecurityRulesData))
             using (var streamReader = new StreamReader(stream))
             {
                 sarifLog = JsonConvert.DeserializeObject<SarifLog>(streamReader.ReadToEnd(), settings);
@@ -103,83 +104,211 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        internal Result CreateResult(ContrastLogReader.Context context)
+        internal IEnumerable<Result> CreateResult(ContrastLogReader.Context context)
         {
-            Result result = new Result();
-
-            result.RuleId = context.RuleId;
-
-
-            switch (result.RuleId)
+            switch (context.RuleId)
             {
+                case ContrastSecurityRuleIds.AntiCachingControlsMissing:
+                {
+                    return ConstructAntiCachingControlsMissingResults(context.Properties);
+                }
+
                 case "clickjacking-control-missing":
                 {
-                    RefineClickJackingControlMissingResult(result, context.Properties);
-                    break;
+                    return ConstructClickJackingControlMissingResults(context.Properties);
                 }
 
                 case "authorization-missing-deny":
                 {
-                    RefineClickJackingControlMissingDeny(result, context.Properties);
-                    break;
+                    return ConstructAuthorizationRulesMissingDenyResults(context.Properties);
                 }
-
 
                 default:
                 {
-                    result.Message = new Message { Text = "TBD" };
-                    break;
+                    return ConstructNotImplementedRuleResult(context.RuleId);
                 }
             }
 
-            return result;
+            throw new InvalidOperationException();
         }
 
-        private void RefineClickJackingControlMissingDeny(Result result, IDictionary<string, string> properties)
+        private IEnumerable<Result> ConstructNotImplementedRuleResult(string ruleId)
         {
-            throw new NotImplementedException();
+            Result result = new Result();
+            result.RuleId = ruleId;
+            result.Message = new Message { Text = "TODO: missing message construction for '" + result.RuleId + "' rule." };
+            return new List<Result> { result };
         }
-
-        private void RefineClickJackingControlMissingResult(Result result, IDictionary<string, string> properties)
+        
+        private IEnumerable<Result> ConstructAntiCachingControlsMissingResults(IDictionary<string, string> properties)
         {
-            // clickjacking-control-missing instances track the page with observed issue as property keys.
-            // 
-            // <properties name="/webgoat/Content/EncryptVSEncode.aspx">1536704253063</properties>
-            // <properties name="/webgoat/WebGoatCoins/MainPage.aspx">1536704186306</properties>
+            // cache-controls-missing : Anti-Caching Controls Missing
 
-            IList<Location> locations = new List<Location>();
+            // default : 'The {0}' page Cache-Control header did not contain 'no-store' or 'no-cache'; The value observed was '{1}'.
+
+
+            var results = new List<Result>();
 
             foreach (string key in properties.Keys)
             {
-                locations.Add(new Location
-                {
-                    PhysicalLocation = CreatePhysicalLocation(key)
-                });
+                string value = properties[key];
+                var result = new Result() { RuleId = ContrastSecurityRuleIds.AntiCachingControlsMissing };
+                result.Locations = new List<Location> {
+                    new Location
+                    {
+                        PhysicalLocation = CreatePhysicalLocation(key)
+                    }};
 
-                // TODO identify exact nature of the value, which looks like an id for some kind of cache
-                locations[locations.Count - 1].SetProperty("id", properties[key]);
+                result.Message = new Message
+                {
+                    MessageId = "default",
+                    Arguments = new List<string>
+                    {
+                        key,   // 'The {0}' page Cache-Control header did not contain 'no-store' or 'no-cache';
+                        value, //The value observed was '{1}'.
+                    }
+                };
+                results.Add(result);
+            }
+            return results;
+        }
+
+        private IEnumerable<Result> ConstructAuthorizationRulesMissingDenyResults(IDictionary<string, string> properties)
+        {
+            // authorization-missing-deny : Authorization Rules Missing Deny Rule
+
+            Result result = new Result();
+            result.RuleId = ContrastSecurityRuleIds.AuthorizationRulesMissingDenyRule;
+
+            // authorization-missing-deny instances track the following properties:
+            // 
+            // <properties name="path">\web.config</properties>
+            // <properties name="locationPath">CustomerLogin.aspx</properties>
+            // <properties name="snippet">10:     &lt;system.web&gt;&#xD;</properties>
+
+            string path = properties[nameof(path)];
+            string locationPath = properties.ContainsKey(nameof(locationPath)) ? properties[nameof(locationPath)] : null;
+            string snippet = properties[nameof(snippet)];
+
+            IList<Location> locations = new List<Location>();
+            locations.Add(new Location
+            {
+                PhysicalLocation = CreatePhysicalLocation(path, CreateRegion(snippet)),
+            });
+
+            result.Locations = locations;
+
+            if (locationPath == null)
+            {
+                result.Message = new Message
+                {
+                    MessageId = "default",
+                    Arguments = new List<string>
+                    {                  // The configuraiton in 
+                        path,          // '{0}' is missing a <deny> rule in the <authorization> section.
+                    }
+                };
+            }
+            else
+            {
+                result.Message = new Message
+                {
+                    MessageId = "underLocation",
+                    Arguments = new List<string>
+                    {                  // The configuration under location 
+                        locationPath,  // '{0}' in 
+                        path,          // '{1}' is missing a <deny> rule in the <authorization> section.
+                    }
+                };
             }
 
-            string examplePage = properties.Keys.First();
+            return new List<Result> { result };
+        }
 
-            result.Message = new Message {
-                MessageId = "default",
-                Arguments = new List<string>
+        private IEnumerable<Result> ConstructClickJackingControlMissingResults(IDictionary<string, string> properties)
+        {
+            // cache-controls-missing : Anti-Caching Controls Missing
+
+            // <properties name="/webgoat/Content/EncryptVSEncode.aspx">1536704253063</properties>
+            // <properties name="/webgoat/WebGoatCoins/MainPage.aspx">1536704186306</properties>
+
+            var results = new List<Result>();
+
+            foreach (string key in properties.Keys)
+            {
+                var result = new Result() { RuleId = ContrastSecurityRuleIds.PagesWithoutAntiClickjackingControls };
+                result.Locations = new List<Location> {
+                    new Location
+                    {
+                        PhysicalLocation = CreatePhysicalLocation(key)
+                    }};
+
+                // TODO identify exact nature of the value, which looks like an id for some kind of cache
+                result.SetProperty("id", properties[key]);
+
+                result.Message = new Message
                 {
-                    locations.Count.ToString(), // "{0} pages observed without sufficient anti-clickjacking controls,                     
-                    examplePage }               // e.g., {1}
+                    MessageId = "default",
+                    Arguments = new List<string>
+                    {
+                        key // '{0}' has insufficient anti-clickjacking controls.
+                    }
+                };
+                results.Add(result);
+            }
+            return results;
+        }
+
+        private Region CreateRegion(string snippet)
+        {
+            int? startLine = null;
+            int endLine = 0;
+
+            snippet = NaiveXmlDecode(snippet);
+
+            string[] lines = snippet.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+            var sb = new StringBuilder();
+
+            foreach (string line in lines)
+            {
+                string[] lineTokens = line.Split(':');
+                
+                if (startLine == null)
+                {
+                    startLine = int.Parse(lineTokens[0]);
+                    endLine = startLine.Value;
+                }
+                else
+                {
+                    endLine++;
+                }
+                sb.AppendLine(lineTokens[1]);                
+            }
+
+            return new Region()
+            {
+                StartLine = startLine.Value,
+                EndLine = endLine,
+                Snippet = new FileContent { Text = sb.ToString() }
             };
         }
 
-        private PhysicalLocation CreatePhysicalLocation(string uri)
+        private string NaiveXmlDecode(string snippet)
+        {
+            return snippet.Replace("&amp;", "&").Replace("&lt;", "<").Replace("&gt;", ">").Replace("&quot;", "\"").Replace("&apos;", "'");
+        }
+
+        private PhysicalLocation CreatePhysicalLocation(string uri, Region contextRegion = null)
         {
             return new PhysicalLocation
             {
                 FileLocation = new FileLocation
                 {
                     Uri = new Uri(uri, UriKind.Relative),
-                    UriBaseId = "SITE_ROOT"
-                }
+                    UriBaseId = "SITE_ROOT"                    
+                },
+                ContextRegion = contextRegion
             };
         }
 
