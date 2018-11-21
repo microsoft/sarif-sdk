@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner"
+      },
+      "results": [
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "src/test.c"
+                },
+                "contextRegion": {
+                  "startLine": 2,
+                  "endLine": 4
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
