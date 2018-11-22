@@ -3,6 +3,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Writers;
@@ -120,9 +121,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             resultsWereVerified.Should().BeTrue();
         }
 
+        // Every validation message begins with a placeholder "{0}: " that specifies the
+        // result location, for example, "runs[0].results[0].locations[0].physicalLocation".
+        // Verify that those detected result locations match the expected locations.
         private void Verify(Run run, ExpectedValidationResults expectedResults)
         {
             run.Results.Count.Should().Be(expectedResults.ResultCount);
+
+            string[] detectedResultLocations = run.Results.Select(r => r.Message.Arguments[0]).OrderBy(loc => loc).ToArray();
+            string[] expectedResultLocations = expectedResults.ResultLocationPointers.OrderBy(loc => loc).ToArray();
+
+            detectedResultLocations.Should().ContainInOrder(expectedResultLocations);
         }
     }
 }
