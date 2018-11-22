@@ -22,6 +22,14 @@
             }
           }
         }
+      },
+      "properties": {
+        "expectedResults": {
+          "resultLocationPointers": [
+            "runs[0].resources.rules.RULE0001",
+            "runs[0].resources.rules['RULE0002-1']"
+          ]
+        }
       }
     }
   ]
