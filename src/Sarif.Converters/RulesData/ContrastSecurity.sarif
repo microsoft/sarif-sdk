@@ -84,7 +84,8 @@
               "text": "Verifies no untrusted data is used in generated HTML pages"
             },
             "messageStrings": {
-              "default": "A cross-site scripting vulnerability was observed from '{0}' on '{1}' page."
+              "default": "A cross-site scripting vulnerability was seen as untrusted data '{0}' on '{1}' was observed going into the HTTP response without validation or encoding.",
+              "hasControlId": "A cross-site scripting vulnerability was seen as untrusted data '{0}' on  '{1}' was accessed within '{2}' control and observed going into the HTTP response without validation or encoding."
             },
             "configuration": {
               "defaultLevel": "error"
@@ -180,7 +181,7 @@
               "text": "Verifies browsers are notified that the application doesn't want to use autocomplete for the given fields."
             },
             "messageStrings": {
-              "default": "'{0}' page contains a <form> element that does not have 'autocomplete' set to 'off'."
+              "default": "{0} pages contain a <form> element that do examplePage, //not have 'autocomplete' set to 'off'; e.g. '{1}'."
             },
             "configuration": {
               "defaultLevel": "note"
@@ -321,7 +322,7 @@
               "text": "Verifies HTTP sessions are terminated after reasonable idle periods."
             },
             "messageStrings": {
-              "default": "The configuration in the <sessionState> section of '{0}' specifies a session timeout value greater than 30 minutes. Session timeouts greater than 30 minutes give attackers extra time to complete attacks and exploits. Specifically, overly long sessions make applications more susceptible to session hijacking and cross-user web attacks, such as Cross-Site Request Forgery (CSRF) and Cross-Site Scripting (XSS). Most sensitive applications in finance, commerce and other security intensive industries tend to specify session timeouts between 15 and 30 minutes."
+              "default": "The configuration in the <{0}> section of '{1}' specified a session timeout value greater than 30 minutes. Session timeouts greater than 30 minutes give attackers extra time to complete attacks and exploits. Specifically, overly long sessions make applications more susceptible to session hijacking and cross-user web attacks, such as Cross-Site Request Forgery (CSRF) and Cross-Site Scripting (XSS). Most sensitive applications in finance, commerce and other security intensive industries tend to specify session timeouts between 15 and 30 minutes."
             },
             "configuration": {
               "defaultLevel": "note"
@@ -354,7 +355,7 @@
               "defaultLevel": "warning"
             }
           },
-          "path-traversaal": {
+          "path-traversal": {
             "id": "path-traversal",
             "name": {
               "text": "Path Traversal"
@@ -489,7 +490,7 @@
               "text": "Verifies session cookies have the secure flag."
             },
             "messageStrings": {
-              "default": "The"
+              "default": "The value of the HttpCookie for the cookie '{0}' did not contain the 'secure' flag; the value observed was '{1}."
             },
             "configuration": {
               "defaultLevel": "warning"
@@ -519,7 +520,7 @@
               "text": "Verifies no untrusted data is used in dynamic database queries."
             },
             "messageStrings": {
-              "default": "SQL injection from {0} was observed on '{1}' page."
+              "default": "SQL injection from untrusted source(s) '{0}' observed on '{1}' page. Untrusted data flowed from '{2}' to dangerous sink '{3}' from a call site in '{4}'."
             },
             "configuration": {
               "defaultLevel": "error"

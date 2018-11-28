@@ -45,9 +45,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 if (result.Stacks != null)
                 {
-                    foreach (IList<ThreadFlowLocation> stack in result.Stacks)
+                    foreach (Stack stack in result.Stacks)
                     {
-                        foreach (ThreadFlowLocation stackFrame in stack)
+                        foreach (StackFrame stackFrame in stack.Frames)
                         {
                             AddFile(stackFrame.Location.PhysicalLocation);
                         }

@@ -14,6 +14,7 @@ using System.Xml.Schema;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -27,6 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private const string ContrastSecurityRulesData = "Microsoft.CodeAnalysis.Sarif.Converters.RulesData.ContrastSecurity.sarif";
 
         private IDictionary<string, Rule> _rules;
+        private IDictionary<string, FileData> _files;
 
         /// <summary>
         /// Convert Contrast Security log to SARIF format stream
@@ -48,7 +50,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             LogicalLocationsDictionary.Clear();
 
-            var context = new  ContrastLogReader.Context();
+            _files = new Dictionary<string, FileData>();
+
+            var context = new ContrastLogReader.Context();
 
             // 1. First we initialize our global rules data from the SARIF we have embedded as a resource
             Assembly assembly = typeof(ContrastSecurityConverter).Assembly;
@@ -57,13 +61,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             using (var stream = assembly.GetManifestResourceStream(ContrastSecurityConverter.ContrastSecurityRulesData))
             using (var streamReader = new StreamReader(stream))
             {
-                sarifLog = JsonConvert.DeserializeObject<SarifLog>(streamReader.ReadToEnd(), new JsonSerializerSettings { ContractResolver = SarifContractResolver.Instance } );
+                sarifLog = JsonConvert.DeserializeObject<SarifLog>(streamReader.ReadToEnd());
             }
 
             // 2. Retain a pointer to the rules dictionary, which we will use to set rule severity
             Run run = sarifLog.Runs[0];
             _rules = run.Resources.Rules;
 
+            run.OriginalUriBaseIds = new Dictionary<string, FileLocation>
+            {
+                {  "SITE_ROOT", new FileLocation { Uri = new Uri(@"E:\src\WebGoat.NET") } } 
+            };
 
             // 3. Now, parse all the contrast XML to create the complete results set
             var results = new List<Result>();
@@ -77,6 +85,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // 5. Finally, complete the SARIF log file with various tables and then the results
             output.Initialize(run);
+
+            foreach (string key in _files.Keys)
+            {
+                fileDictionary[key] = _files[key];
+            }
 
             if (fileDictionary != null && fileDictionary.Any())
             {
@@ -109,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 case ContrastSecurityRuleIds.CrossSiteScripting:
                 {
-                    return ConstructCrossSiteScriptingResult(context.Properties);
+                    return ConstructCrossSiteScriptingResult(context);
                 }
 
                 case ContrastSecurityRuleIds.DetailedErrorMessagesDisplayed:
@@ -174,7 +187,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 case ContrastSecurityRuleIds.SqlInjection:
                 {
-                    return ConstructSqlInjectionResult(context.Properties);
+                    return ConstructSqlInjectionResult(context);
                 }
 
                 case ContrastSecurityRuleIds.VersionHeaderEnabled:
@@ -200,14 +213,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             Result result = new Result()
             {
-                Level = (ResultLevel)_rules[ruleId].Configuration.DefaultLevel,
+                Level = ConvertToResultLevel(_rules[ruleId].Configuration.DefaultLevel),
                 RuleId = ruleId,
                 Message = new Message { Text = "TODO: missing message construction for '" + ruleId + "' rule." }
             };
 
             return result;
         }
-        
+
+        private ResultLevel ConvertToResultLevel(RuleConfigurationDefaultLevel defaultLevel)
+        {
+            switch (defaultLevel)
+            {
+                case RuleConfigurationDefaultLevel.Error: { return ResultLevel.Error; }
+                case RuleConfigurationDefaultLevel.Note: { return ResultLevel.Note; }
+                case RuleConfigurationDefaultLevel.Warning: { return ResultLevel.Warning; }
+                default: { return ResultLevel.Note; }
+            }
+        }
+
         private Result ConstructAntiCachingControlsMissingResult(IDictionary<string, string> properties)
         {
             // cache-controls-missing : Anti-Caching Controls Missing
@@ -217,21 +241,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var locations = new List<Location>();
 
+            string examplePage = null;
+            string exampleHeader = null;
+
             foreach (string key in properties.Keys)
             {
+                if (KeyIsReservedPropertyName(key)) { continue; }
                 string value = properties[key];
                 locations.Add(new Location
                 {
                     PhysicalLocation = CreatePhysicalLocation(key)
                 });
+
+                examplePage = examplePage ?? key;
+                exampleHeader = exampleHeader ?? properties[key];
             }
 
-            string count = locations.Count.ToString();
-            string examplePage = locations[0].PhysicalLocation.FileLocation.Uri.ToString();
-            string exampleHeader = properties[examplePage];
+            string pageCount = locations.Count.ToString();
 
             var result = new Result
             {
+                Level = ConvertToResultLevel(_rules[ContrastSecurityRuleIds.AntiCachingControlsMissing].Configuration.DefaultLevel),
                 RuleId = ContrastSecurityRuleIds.AntiCachingControlsMissing,
                 Locations = locations,
                 Message = new Message
@@ -239,13 +269,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     MessageId = "default",
                     Arguments = new List<string>
                     {
-                        count,         // {0} page Cache-Control header(s) did not contain 'no-store' or 'no-cache';
+                        pageCount,     // {0} page Cache-Control header(s) did not contain 'no-store' or 'no-cache';
                         examplePage,   // e.g., the value in page '{1}' 
                         exampleHeader  // was observed to be '{2}'.
                     }
                 }
             };
-            
+
             return result;
         }
 
@@ -273,6 +303,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             });
 
             result.Locations = locations;
+            result.Level = ConvertToResultLevel(_rules[ContrastSecurityRuleIds.AuthorizationRulesMissingDenyRule].Configuration.DefaultLevel);
 
             if (locationPath == null)
             {
@@ -312,6 +343,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             foreach (string key in properties.Keys)
             {
+                if (KeyIsReservedPropertyName(key)) { continue; }
                 string value = properties[key];
                 locations.Add(new Location
                 {
@@ -319,11 +351,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 });
             }
 
-            string count = locations.Count.ToString();
+            string pageCount = locations.Count.ToString();
             string examplePage = locations[0].PhysicalLocation.FileLocation.Uri.ToString();
 
             var result = new Result
             {
+                Level = ConvertToResultLevel(_rules[ContrastSecurityRuleIds.PagesWithoutAntiClickjackingControls].Configuration.DefaultLevel),
                 RuleId = ContrastSecurityRuleIds.PagesWithoutAntiClickjackingControls,
                 Locations = locations,
                 Message = new Message
@@ -331,25 +364,82 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     MessageId = "default",
                     Arguments = new List<string>
                     {
-                        count,         // {0} page(s) have insufficient anti-clickjacking controls, 
-                        examplePage   // e.g., '{1}' 
-                    },                    
+                        pageCount,  // {0} page(s) have insufficient anti-clickjacking controls, 
+                        examplePage // e.g., '{1}' 
+                    },
                 }
             };
 
             return result;
         }
 
-        private Result ConstructCrossSiteScriptingResult(IDictionary<string, string> properties)
+        private Result ConstructCrossSiteScriptingResult(ContrastLogReader.Context context)
         {
             // reflected-xss : Cross-Site Scripting
 
             // default : A cross-site scripting vulnerability was observed from '{0}' on '{1}' page.
 
-            return ConstructNotImplementedRuleResult(ContrastSecurityRuleIds.AntiCachingControlsMissing);
+            // <properties name="controlID">lblOutput</properties>
+            // <properties name="platform">ASP.NET Web Forms</properties>
+            // <properties name="webforms-page">OWASP.WebGoat.NET.ReflectedXSS</properties>
+            // <properties name="route-signature">OWASP.WebGoat.NET.ReflectedXSS</properties>
+
+            string untrustedData = BuildSourcesString(context.Sources);
+            string page = context.RequestUri;
+            string caller = context.PropagationEvents[context.PropagationEvents.Count - 1].Stack.Frames[0].Location.FullyQualifiedLogicalName;
+            string controlID = context.Properties.ContainsKey(nameof(controlID)) ? context.Properties[nameof(controlID)] : null;
+
+            Result result;
+
+            result = new Result
+            {
+                Level = ConvertToResultLevel(_rules[ContrastSecurityRuleIds.CrossSiteScripting].Configuration.DefaultLevel),
+                RuleId = ContrastSecurityRuleIds.CrossSiteScripting,
+                Locations = new List<Location>()
+                {
+                    new Location
+                    {
+                        PhysicalLocation = CreatePhysicalLocation(page),
+                    }
+                }
+            };
+
+            if (controlID == null)
+            {
+                result.Message = new Message
+                {
+                    MessageId = "default",
+                    Arguments = new List<string>
+                    {                  // A cross-site scripting vulnerability was seen as untrusted data
+                        untrustedData, // '{0}' on 
+                        page,          // '{1}' was observed going into the HTTP response without validation or encoding.
+                    }
+                };
+            }
+            else
+            {
+                result.Message = new Message
+                {
+                    MessageId = "hasControlId",
+                    Arguments = new List<string>
+                    {                  // A cross-site scripting vulnerability was seen as untrusted data
+                        untrustedData, // '{0}' on 
+                        page,          // '{1}' was accessed within 
+                        controlID      // '{2}' control and observed going into the HTTP response without validation or encoding.
+                    }
+                };
+            }
+
+            return result;
         }
 
-        private Result ConstructDetailedErrorMessagesDisplayedResult(IDictionary<string, string> properties)
+
+                    // A cross-site scripting vulnerability was observed as untrusted data '{0}' on  '{1}' was accessed within  '{2}' control and observed going into the HTTP response without validation or encoding.
+    
+
+
+
+    private Result ConstructDetailedErrorMessagesDisplayedResult(IDictionary<string, string> properties)
         {
             // custom-errors-off : Detailed Error Messages Displayed
 
@@ -361,6 +451,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
+                Level = ConvertToResultLevel(_rules[ContrastSecurityRuleIds.DetailedErrorMessagesDisplayed].Configuration.DefaultLevel),
+                RuleId = ContrastSecurityRuleIds.DetailedErrorMessagesDisplayed,
                 Locations = new List<Location>()
                 {
                     new Location
@@ -393,6 +485,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
+                Level = ConvertToResultLevel(_rules[ContrastSecurityRuleIds.EventValidationDisabled].Configuration.DefaultLevel),
+                RuleId = ContrastSecurityRuleIds.EventValidationDisabled,
                 Locations = new List<Location>()
                 {
                     new Location
@@ -417,18 +511,112 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             // forms-auth-ssl : Forms Authentication SSL
 
-            // default : The configuration in '{0}' was configured to use forms authentication and 'resquireSSL' was not set to 'true' in an <authentication> section.
+            // <properties name="path">\web.config</properties>
+            // <properties name="snippet">39:     &lt;!-- set up users --&gt;&#xD;
 
-            return ConstructNotImplementedRuleResult(ContrastSecurityRuleIds.AntiCachingControlsMissing);
+            string path = properties[nameof(path)];
+            string snippet = properties[nameof(snippet)];
+
+            var result = new Result
+            {
+                Level = ConvertToResultLevel(_rules[ContrastSecurityRuleIds.FormsAuthenticationSSL].Configuration.DefaultLevel),
+                RuleId = ContrastSecurityRuleIds.FormsAuthenticationSSL,
+                Locations = new List<Location>()
+                {
+                    new Location
+                    {
+                        PhysicalLocation = CreatePhysicalLocation(path, CreateRegion(snippet)),
+                    }
+                },
+                Message = new Message
+                {
+                    MessageId = "default",
+                    Arguments = new List<string>
+                    {                  // The configuration in 
+                        path,          // '{0}' was configured to use forms authentication and 'resquireSSL' was not set to 'true' in an <authentication> section.
+                    }
+                }
+            };
+
+            return result;
         }
 
         private Result ConstructFormsWithoutAutocompletePreventionResult(IDictionary<string, string> properties)
         {
             // autocomplete-missing : Forms Without Autocomplete Prevention
 
-            // default : '{0}' page contains a <form> element that does not have 'autocomplete' set to 'off'.
+            // <properties name="/webgoat/Content/EncryptVSEncode.aspx">{"html":"\u003cform name\u003d\"aspnetForm\"
 
-            return ConstructNotImplementedRuleResult(ContrastSecurityRuleIds.AntiCachingControlsMissing);
+            var locations = new List<Location>();
+
+            foreach (string key in properties.Keys)
+            {
+                if (KeyIsReservedPropertyName(key)) { continue; }
+
+                string jsonValue = properties[key];
+                JObject root = JObject.Parse(jsonValue);
+                string html = root["html"].Value<string>();
+                string fileDataKey = "#RuntimeGenerated#=" + key;
+
+                fileDataKey = key;
+
+                byte[] htmlBytes = Encoding.UTF8.GetBytes(html);
+                string encoded = System.Convert.ToBase64String(htmlBytes);
+
+
+                _files[fileDataKey] = new FileData
+                {
+                    Contents = new FileContent
+                    {
+                        Text = html,
+                        Binary = encoded
+                    }
+                };
+
+                locations.Add(new Location()
+                {
+                    PhysicalLocation = new PhysicalLocation
+                    {
+                        FileLocation = new FileLocation
+                        {
+                            //UriBaseId = "RuntimeGenerated",
+                            Uri = new Uri(key, UriKind.RelativeOrAbsolute)
+                        },
+                        Region = new Region() { StartLine = 1 }
+                    }
+                });
+            }
+
+            string pageCount = locations.Count.ToString();
+            string examplePage = locations[0].PhysicalLocation.FileLocation.Uri.OriginalString;
+
+            var result = new Result
+            {
+                Level = ConvertToResultLevel(_rules[ContrastSecurityRuleIds.FormsWithoutAutocompletePrevention].Configuration.DefaultLevel),
+                RuleId = ContrastSecurityRuleIds.FormsWithoutAutocompletePrevention,
+                Locations = locations,
+                Message = new Message
+                {
+                    MessageId = "default",
+                    Arguments = new List<string>
+                    {
+                        pageCount,  //'{0}' pages contain a <form> element that do
+                        examplePage, //not have 'autocomplete' set to 'off'; e.g. '{1}'.
+                    }
+                }
+            };
+
+            return result;
+        }
+
+
+
+        private bool KeyIsReservedPropertyName(string key)
+        {
+            return
+                key == "platform" ||
+                key == "webforms-page" ||
+                key == "route-signature";
         }
 
         private Result ConstructHttpOnlyCookieFlagDisabledResult(IDictionary<string, string> properties)
@@ -437,7 +625,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // default : The configuration in '{0}' had 'httpOnlyCookies' set to 'false' in an <httpCookies> section.
 
-            return ConstructNotImplementedRuleResult(ContrastSecurityRuleIds.AntiCachingControlsMissing);
+            return ConstructNotImplementedRuleResult(ContrastSecurityRuleIds.HttpOnlyCookieFlagDisabled);
         }
 
         private Result ConstructInsecureEncryptionAlgorithmsResult(IDictionary<string, string> properties)
@@ -446,25 +634,53 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // default : '{0}' obtained a handle to the cryptographically insecure '{1}' algorithm.
 
-            return ConstructNotImplementedRuleResult(ContrastSecurityRuleIds.AntiCachingControlsMissing);
+            return ConstructNotImplementedRuleResult(ContrastSecurityRuleIds.InsecureEncryptionAlgorithms);
         }
 
         private Result ConstructOverlyLongSessionTimeoutResult(IDictionary<string, string> properties)
         {
             // session-timeout : Overly Long Session Timeout
 
-            // default : The configuration in the <sessionState> section of '{0}' specified a session timeout value greater than 30 minutes. Session timeouts greater than 30 minutes give attackers extra time to complete attacks and exploits. Specifically, overly long sessions make applications more susceptible to session hijacking and cross-user web attacks, such as Cross-Site Request Forgery (CSRF) and Cross-Site Scripting (XSS). Most sensitive applications in finance, commerce and other security intensive industries tend to specify session timeouts between 15 and 30 minutes.
+            // <properties name="path">\web.config</properties>
+            // <properties name="section">sessionState</properties>
+            // <properties name="snippet">52:     &lt;trace enabled="false" ...
 
-            return ConstructNotImplementedRuleResult(ContrastSecurityRuleIds.AntiCachingControlsMissing);
+            string path = properties[nameof(path)];
+            string section = properties[nameof(section)];
+            string snippet = properties[nameof(snippet)];
+
+            var result = new Result
+            {
+                Level = ConvertToResultLevel(_rules[ContrastSecurityRuleIds.OverlyLongSessionTimeout].Configuration.DefaultLevel),
+                RuleId = ContrastSecurityRuleIds.OverlyLongSessionTimeout,
+                Locations = new List<Location>()
+                {
+                    new Location
+                    {
+                        PhysicalLocation = CreatePhysicalLocation(path, CreateRegion(snippet)),
+                    }
+                },
+                Message = new Message
+                {
+                    MessageId = "default",
+                    Arguments = new List<string>
+                    {              // The configuration in the
+                        section,   // <{0}> section of 
+                        path       // '{1}' specified a session timeout value greater than 30 minutes.
+                    }
+                }
+            };
+
+            return result;
         }
 
         private Result ConstructPathTraversalResult(IDictionary<string, string> properties)
         {
-            // path-traversaal : Path Traversal
+            // path-traversal : Path Traversal
 
             // default : Attacker-controlled path traversal was observed from '{0}' on '{1}' page.
 
-            return ConstructNotImplementedRuleResult(ContrastSecurityRuleIds.AntiCachingControlsMissing);
+            return ConstructNotImplementedRuleResult(ContrastSecurityRuleIds.PathTraversal);
         }
 
         private Result ConstructRequestValidationModeDisabledResult(IDictionary<string, string> properties)
@@ -473,7 +689,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // default : The configuration in '{0}' had 'ValidateRequest' set to 'false' in the page directive. Request Validation helps prevent several types of attacks including XSS by detecting potentially dangerous character sequences. An exception is thrown by the framework when a potentially dangerous character sequence is encountered. This exception returns an error page to the user and prevents the application from processing the request. An attacker can submit malicious data to the application that may be processed without further input validation. This malicious data could contain XSS or other injection attacks that may have been prevented by ASP.NET request validation. Note that request validation does not provide 100% protection against XSS or other attacks and should be thought of as a defense-in-depth measure.
 
-            return ConstructNotImplementedRuleResult(ContrastSecurityRuleIds.AntiCachingControlsMissing);
+            return ConstructNotImplementedRuleResult(ContrastSecurityRuleIds.RequestValidationModeDisabled);
         }
 
         private Result ConstructSessionCookieHasNoSecureFlagResult(IDictionary<string, string> properties)
@@ -482,7 +698,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // default : The
 
-            return ConstructNotImplementedRuleResult(ContrastSecurityRuleIds.AntiCachingControlsMissing);
+            return ConstructNotImplementedRuleResult(ContrastSecurityRuleIds.SessionCookieHasNoSecureFlag);
         }
 
         private Result ConstructSessionRewritingResult(IDictionary<string, string> properties)
@@ -491,34 +707,153 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // default : The configuration the the <forms> section of '{0}' has 'UseCookies' set to a value other than 'cookieless'. As a result, the session ID (which is as good as a username and password) is logged to browser history, server logs and proxy logs. More serious, session rewriting can enable session fixcation attacks, in which an attacker causes a victim to use a well-known session id. If the victim authenticates under the attacker's chosen session ID, the attacker can present that session ID to the server and be recognized as the victim.
 
-            return ConstructNotImplementedRuleResult(ContrastSecurityRuleIds.AntiCachingControlsMissing);
+            return ConstructNotImplementedRuleResult(ContrastSecurityRuleIds.SessionRewriting);
         }
 
-        private Result ConstructSqlInjectionResult(IDictionary<string, string> properties)
+        private Result ConstructSqlInjectionResult(ContrastLogReader.Context context)
         {
             // sql-injection : SQL Injection
 
-            // default : SQL injection from {0} was observed on '{1}' page.
+            // <properties name="platform">ASP.NET Web Forms</properties>
+            // <properties name="webforms-page">OWASP.WebGoat.NET.ForgotPassword</properties>
+            // <properties name="route-signature">OWASP.WebGoat.NET.ForgotPassword</properties>
 
-            return ConstructNotImplementedRuleResult(ContrastSecurityRuleIds.AntiCachingControlsMissing);
+            string untrustedData = BuildSourcesString(context.Sources);
+            string page = context.RequestUri;
+            string source = context.PropagationEvents[0].Stack.Frames[0].Location.FullyQualifiedLogicalName;
+            string caller = context.PropagationEvents[context.PropagationEvents.Count - 1].Stack.Frames[0].Location.FullyQualifiedLogicalName;
+            string sink = context.MethodEvent.Stack.Frames[0].Location.FullyQualifiedLogicalName;
+
+            // default : SQL injection from untrusted source(s) '{0}' observed on '{1}' page. Untrusted data flowed from '{2}' to dangerous sink '{3}' in '{4}'.
+
+            var result = new Result
+            {
+                Level = ConvertToResultLevel(_rules[ContrastSecurityRuleIds.SqlInjection].Configuration.DefaultLevel),
+                RuleId = ContrastSecurityRuleIds.SqlInjection,
+                Locations = new List<Location>()
+                {
+                    new Location
+                    {
+                        PhysicalLocation = CreatePhysicalLocation(page),
+                    }
+                },
+                Message = new Message
+                {
+                    MessageId = "default",
+                    Arguments = new List<string>
+                    {
+                        untrustedData, // SQL injection from untrusted source(s) '{0}'
+                        page,          // observed on '{1}' page.
+                        source,        // Untrusted data flowed from '{2}'
+                        sink,          // to dangerous sink '{3}'
+                        caller         // from a call site in '{4}'.
+                    }
+                }
+            };
+
+            result.CodeFlows = new List<CodeFlow>
+            {
+                new CodeFlow
+                {
+                     ThreadFlows = new List<ThreadFlow>
+                     {
+                         new ThreadFlow
+                         {
+                              Locations = context.PropagationEvents
+                         }
+                     }
+                }
+            };
+
+            result.CodeFlows[0].ThreadFlows[0].Locations.Add(context.MethodEvent);
+
+            // ** TODO remove this ** /
+            result.Stacks = new List<Stack>();
+
+            foreach (ThreadFlowLocation threadFlowLocation in result.CodeFlows[0].ThreadFlows[0].Locations)
+            {
+                result.Stacks.Add(threadFlowLocation.Stack);
+            }
+
+            return result;
+        }
+
+        private string BuildSourcesString(HashSet<Tuple<string, string>> sources)
+        {
+            var sb = new StringBuilder();
+            foreach (Tuple<string, string> tuple in sources)
+            {
+                if (tuple.Item1 == null || tuple.Item2 == null) { continue; }
+                // Item1 is the name, Item2 is the source type, e.g., parameter
+                sb.Append(tuple.Item1 + "(" + tuple.Item2 + ")");
+            }
+            return sb.ToString();
         }
 
         private Result ConstructVersionHeaderEnabledResult(IDictionary<string, string> properties)
         {
             // version-header-enabled : Version Header Enabled
 
-            // default : The configurationin '{0}' did not explicitly disable 'enableVersionHeader' in the <httpRuntime> section. This attribute value defaults to 'true' when absent. The application will send the version header with all responses and this information may help an attacker refine their attacks. This header is used by Visual Studio to determine which version of ASP.NET is in use. It is not necessary for production sites and can be disabled.
+            // <properties name="path">\web.config</properties>
 
-            return ConstructNotImplementedRuleResult(ContrastSecurityRuleIds.AntiCachingControlsMissing);
+            string path = properties[nameof(path)];
+
+            var result = new Result
+            {
+                Level = ConvertToResultLevel(_rules[ContrastSecurityRuleIds.VersionHeaderEnabled].Configuration.DefaultLevel),
+                RuleId = ContrastSecurityRuleIds.VersionHeaderEnabled,
+                Locations = new List<Location>()
+                {
+                    new Location
+                    {
+                        PhysicalLocation = CreatePhysicalLocation(path),
+                    }
+                },
+                Message = new Message
+                {
+                    MessageId = "default",
+                    Arguments = new List<string>
+                    {                  // The configuration in 
+                        path,          // '{0}' did not explicitly disable 'enableVersionHeader' in the <httpRuntime> section.
+                    }
+                }
+            };
+
+            return result;
         }
 
         private Result ConstructWebApplicationDeployedinDebugModeResult(IDictionary<string, string> properties)
         {
             // compilation-debug : Web Application Deployed in Debug Mode
 
-            // default : The configuration in '{0}' had 'debug' set to 'true' in the <compilation> section.
+            // <properties name="path">\web.config</properties>
+            // <properties name="snippet">30:   &lt;system.web&gt;&#xD;
 
-            return ConstructNotImplementedRuleResult(ContrastSecurityRuleIds.AntiCachingControlsMissing);
+            string path = properties[nameof(path)];
+            string snippet = properties[nameof(snippet)];
+
+            var result = new Result
+            {
+                Level = ConvertToResultLevel(_rules[ContrastSecurityRuleIds.WebApplicationDeployedinDebugMode].Configuration.DefaultLevel),
+                RuleId = ContrastSecurityRuleIds.WebApplicationDeployedinDebugMode,
+                Locations = new List<Location>()
+                {
+                    new Location
+                    {
+                        PhysicalLocation = CreatePhysicalLocation(path, CreateRegion(snippet)),
+                    }
+                },
+                Message = new Message
+                {
+                    MessageId = "default",
+                    Arguments = new List<string>
+                    {                  // The configuration in 
+                        path,          // '{0}' has 'debug' set to 'true' in the <compilation> section.
+                    }
+                }
+            };
+
+            return result;
         }
 
         private Region CreateRegion(string snippet)
@@ -535,7 +870,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             foreach (string line in lines)
             {
                 string[] lineTokens = line.Split(':');
-                
+
                 if (startLine == null)
                 {
                     startLine = int.Parse(lineTokens[0]);
@@ -545,7 +880,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     endLine++;
                 }
-                sb.AppendLine(lineTokens[1]);                
+                sb.AppendLine(lineTokens[1]);
             }
 
             return new Region()
@@ -564,16 +899,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private PhysicalLocation CreatePhysicalLocation(string uri, Region region = null)
         {
             region = region ?? new Region { StartLine = 1, StartColumn = 1, EndColumn = 1 };
+            //return new PhysicalLocation
+            //{
+            //    FileLocation = new FileLocation
+            //    {
+            //        Uri = new Uri(uri, UriKind.Relative),
+            //        UriBaseId = "SITE_ROOT"
+            //    },
+            //    Region = region,
+            //    ContextRegion = region
+            //};
+
+            uri = @"E:\src\WebGoat.NET" + uri.Replace(@"/", @"\");
+
             return new PhysicalLocation
             {
                 FileLocation = new FileLocation
                 {
-                    Uri = new Uri(uri, UriKind.Relative),
-                    UriBaseId = "SITE_ROOT"                    
+                    Uri = new Uri(uri, UriKind.Absolute)
                 },
                 Region = region,
                 ContextRegion = region
             };
+
         }
 
         private static void AddProperty(Result result, string value, string key)
@@ -626,7 +974,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             public string PropertyKey { get; set; }
 
             public string PropertyValue { get; set; }
-            
+
+            public List<ThreadFlowLocation> PropagationEvents { get; set; }
+
+            public ThreadFlowLocation MethodEvent { get; set; }
+
+            public ThreadFlowLocation CurrentThreadFlowLocation { get; set; }
+
+            public StackFrame Signature { get; set; }
+
+            public HashSet<Tuple<string, string>> Sources { get; set; }
 
             internal void RefineFinding(string ruleId)
             {
@@ -691,6 +1048,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             public const string ElementFrame = "frame";
             public const string ElementReturn = "return";
             public const string ElementEvents = "events";
+            public const string ElementSource = "source";
+            public const string ElementSources = "sources";
             public const string ElementFinding = "finding";
             public const string ElementFindings = "findings";
             public const string ElementRequest = "request";
@@ -704,6 +1063,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             // attributes
             public const string AttributeUri = "uri";
             public const string AttributeName = "name";
+            public const string AttributeType = "type";
             public const string AttributeRuleId = "ruleId";
             public const string AttributeMethod = "method";
         }
@@ -752,6 +1112,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 { SchemaStrings.ElementP, ReadP},
                 { SchemaStrings.ElementReturn, ReadReturn},
                 { SchemaStrings.ElementStack, ReadStack},
+                { SchemaStrings.ElementSource, ReadSource},
+                { SchemaStrings.ElementSources, ReadSources},
                 { SchemaStrings.ElementFrame, ReadFrame},
                 { SchemaStrings.ElementMethodEvent, ReadMethodEvent},
                 { SchemaStrings.ElementProps, ReadProps},
@@ -799,14 +1161,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             reader.ReadChildren(SchemaStrings.ElementFindings, parent);
         }
 
-  
+
         private void ReadFinding(SparseReader reader, object parent)
         {
             Context context = (Context)parent;
 
             string ruleId = reader.ReadAttributeString(SchemaStrings.AttributeRuleId);
 
-            context.RefineFinding(ruleId);            
+            context.RefineFinding(ruleId);
             reader.ReadChildren(SchemaStrings.ElementFinding, parent);
 
             if (FindingRead != null)
@@ -820,15 +1182,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private static void ReadRequest(SparseReader reader, object parent)
         {
             Context context = (Context)parent;
+            context.ClearRequest();
 
-            string uri= reader.ReadAttributeString(SchemaStrings.AttributeUri);
+            string uri = reader.ReadAttributeString(SchemaStrings.AttributeUri);
             string method = reader.ReadAttributeString(SchemaStrings.AttributeMethod);
 
             context.RefineRequest(uri, method);
 
             reader.ReadChildren(SchemaStrings.ElementRequest, parent);
-
-            context.ClearRequest();
         }
 
         private static void ReadBody(SparseReader reader, object parent)
@@ -853,17 +1214,43 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static void ReadEvents(SparseReader reader, object parent)
         {
+            Context context = (Context)parent;
+            context.Signature = null;
+            context.MethodEvent = null;
+            context.PropagationEvents = null;
+            context.CurrentThreadFlowLocation = null;
+            context.Sources = null;
+
             reader.ReadChildren(SchemaStrings.ElementEvents, parent);
         }
 
         private static void ReadPropagationEvent(SparseReader reader, object parent)
         {
             reader.ReadChildren(SchemaStrings.ElementPropagationEvent, parent);
+
+            Context context = (Context)parent;
+            context.PropagationEvents = context.PropagationEvents ?? new List<ThreadFlowLocation>();
+            context.PropagationEvents.Add(context.CurrentThreadFlowLocation);
+            context.CurrentThreadFlowLocation = null;
+            context.Signature = null;
         }
 
         private static void ReadSignature(SparseReader reader, object parent)
         {
-            reader.Skip();
+            Context context = (Context)parent;
+            string signature = reader.ReadElementContentAsString();
+            context.Signature = CreateStackFrameFromSignature(signature);
+        }
+
+        private static StackFrame CreateStackFrameFromSignature(string signature)
+        {
+            return new StackFrame
+            {
+                Location = new Location
+                {
+                    FullyQualifiedLogicalName = signature
+                }
+            };
         }
 
         private static void ReadObject(SparseReader reader, object parent)
@@ -915,17 +1302,49 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static void ReadStack(SparseReader reader, object parent)
         {
+            Context context = (Context)parent;
+            Debug.Assert(context.CurrentThreadFlowLocation == null);
+            context.CurrentThreadFlowLocation = new ThreadFlowLocation
+            {
+                Stack = new Stack()
+                {
+                    Frames = new List<StackFrame> { context.Signature }
+                }
+            };
+
             reader.ReadChildren(SchemaStrings.ElementStack, parent);
+        }
+
+        private static void ReadSources(SparseReader reader, object parent)
+        {
+            reader.ReadChildren(SchemaStrings.ElementSources, parent);
+        }
+
+        private static void ReadSource(SparseReader reader, object parent)
+        {
+            Context context = (Context)parent;
+            string type = reader.ReadAttributeString(SchemaStrings.AttributeType);
+            string name = reader.ReadAttributeString(SchemaStrings.AttributeName);
+            context.Sources = context.Sources ?? new HashSet<Tuple<string, string>>();
+            context.Sources.Add(new Tuple<string, string>(name, type));
+            reader.Skip();
         }
 
         private static void ReadFrame(SparseReader reader, object parent)
         {
-            reader.Skip();
+            Context context = (Context)parent;
+            string frame = reader.ReadElementContentAsString();
+            context.CurrentThreadFlowLocation.Stack.Frames.Add(CreateStackFrameFromSignature(frame));
         }
 
         private static void ReadMethodEvent(SparseReader reader, object parent)
         {
             reader.ReadChildren(SchemaStrings.ElementMethodEvent, parent);
+
+            Context context = (Context)parent;
+            context.MethodEvent = context.CurrentThreadFlowLocation;
+            context.CurrentThreadFlowLocation = null;
+            context.Signature = null;
         }
 
         private void ReadProps(SparseReader reader, object parent)
