@@ -6,6 +6,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -35,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// A stable, opaque identifier for the rule.
         /// </summary>
-        [DataMember(Name = "id", IsRequired = true)]
+        [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
         public string Id { get; set; }
 
         /// <summary>
@@ -78,6 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A URI where the primary documentation for the rule can be found.
         /// </summary>
         [DataMember(Name = "helpUri", IsRequired = false, EmitDefaultValue = false)]
+        [JsonConverter(typeof(UriConverter))]
         public Uri HelpUri { get; set; }
 
         /// <summary>

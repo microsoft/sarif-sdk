@@ -21,12 +21,12 @@
           "ruleId": "SARIF1014",
           "level": "error",
           "message": {
+            "messageId": "Default",
             "arguments": [
               "/runs/0/files/~1c:~1src~1file.c/fileLocation/uri",
               "file:///c:/src/file.c"
             ]
           },
-          "ruleMessageId": "Default",
           "locations": [
             {
               "physicalLocation": {
@@ -69,8 +69,8 @@
       },
       "invocations": [
         {
-          "startTime": "2018-08-15T20:40:10.484Z",
-          "endTime": "2018-08-15T20:40:11.290Z",
+          "startTime": "2018-09-12T21:45:39.285Z",
+          "endTime": "2018-09-12T21:45:40.185Z",
           "toolNotifications": [
             {
               "id": "MSG001.AnalyzingTarget",
@@ -83,7 +83,7 @@
                 "text": "Analyzing 'AbsoluteUriInFilesDictionary.sarif'..."
               },
               "level": "note",
-              "time": "2018-08-15T20:40:10.846Z"
+              "time": "2018-09-12T21:45:39.684Z"
             }
           ]
         }

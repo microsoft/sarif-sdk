@@ -21,12 +21,12 @@
           "ruleId": "SARIF1014",
           "level": "error",
           "message": {
+            "messageId": "Default",
             "arguments": [
               "/runs/0/invocations/0/stdin/uri",
               "file:///c:/log/in.txt"
             ]
           },
-          "ruleMessageId": "Default",
           "locations": [
             {
               "physicalLocation": {
@@ -45,12 +45,12 @@
           "ruleId": "SARIF1014",
           "level": "error",
           "message": {
+            "messageId": "Default",
             "arguments": [
               "/runs/0/invocations/0/stdout/uri",
               "file:///c:/log/out.txt"
             ]
           },
-          "ruleMessageId": "Default",
           "locations": [
             {
               "physicalLocation": {
@@ -69,12 +69,12 @@
           "ruleId": "SARIF1014",
           "level": "error",
           "message": {
+            "messageId": "Default",
             "arguments": [
               "/runs/0/invocations/0/stderr/uri",
               "file:///c:/log/err.txt"
             ]
           },
-          "ruleMessageId": "Default",
           "locations": [
             {
               "physicalLocation": {
@@ -93,12 +93,12 @@
           "ruleId": "SARIF1014",
           "level": "error",
           "message": {
+            "messageId": "Default",
             "arguments": [
               "/runs/0/invocations/0/stdoutStderr/uri",
               "file:///c:/log/out-err.txt"
             ]
           },
-          "ruleMessageId": "Default",
           "locations": [
             {
               "physicalLocation": {
@@ -141,8 +141,8 @@
       },
       "invocations": [
         {
-          "startTime": "2018-08-15T20:40:15.703Z",
-          "endTime": "2018-08-15T20:40:16.676Z",
+          "startTime": "2018-09-12T21:45:44.538Z",
+          "endTime": "2018-09-12T21:45:45.430Z",
           "toolNotifications": [
             {
               "id": "MSG001.AnalyzingTarget",
@@ -155,7 +155,7 @@
                 "text": "Analyzing 'AbsoluteUriInInvocationStandardStreams.sarif'..."
               },
               "level": "note",
-              "time": "2018-08-15T20:40:16.126Z"
+              "time": "2018-09-12T21:45:44.916Z"
             }
           ]
         }

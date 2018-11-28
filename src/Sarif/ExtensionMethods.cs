@@ -16,6 +16,50 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class ExtensionMethods
     {
+        public static bool HasAtLeastOneNonNullValue(this IList<string> list)
+        {
+            return list != null && list.Any((s) => s != null);
+        }
+
+        public static string InstanceIdInstanceComponent(this RunAutomationDetails runAutomationDetails)
+        {
+            string instanceId = runAutomationDetails.InstanceId;
+
+            if (instanceId == null)
+            {
+                return null;
+            }
+
+            if (instanceId.EndsWith("/"))
+            {
+                return String.Empty;
+            }
+
+            return instanceId.Substring(instanceId.LastIndexOf('/') + 1);
+        }
+
+        public static string InstanceIdLogicalComponent(this RunAutomationDetails runAutomationDetails)
+        {
+            string instanceId = runAutomationDetails.InstanceId;
+
+            if (instanceId == null)
+            {
+                return null;
+            }
+
+            if (!instanceId.Contains("/"))
+            {
+                return String.Empty;
+            }
+
+            return instanceId.Substring(0, instanceId.LastIndexOf('/'));
+        }
+
+        public static string Format(this IRule rule, string messageId, IEnumerable<string> arguments)
+        {
+            return string.Format(CultureInfo.CurrentCulture, rule.MessageStrings[messageId], arguments.ToArray());
+        }
+
         public static Message ToMessage(this string text)
         {
             return new Message { Text = text };
@@ -30,16 +74,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             return convertedToFlags;
-        }
-
-        public static bool Includes(this OptionallyEmittedData optionallyEmittedData, OptionallyEmittedData otherOptionallyEmittedData)
-        {
-            return (optionallyEmittedData & otherOptionallyEmittedData) == otherOptionallyEmittedData;
-        }
-
-        public static bool Includes(this LoggingOptions loggingOptions, LoggingOptions otherLoggingOptions)
-        {
-            return (loggingOptions & otherLoggingOptions) == otherLoggingOptions;
         }
 
         public static string GetFileName(this Uri uri)
@@ -232,12 +266,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 #endif
 
             formattedMessage = string.Format(CultureInfo.InvariantCulture, formatString, arguments);
-
-#if DEBUG
-            // If this assert fires, an insufficient # of arguments might
-            // have been provided to String.Format.
-            Debug.Assert(!formattedMessage.Contains("{"));
-#endif
 
             return formattedMessage ?? string.Empty;
         }

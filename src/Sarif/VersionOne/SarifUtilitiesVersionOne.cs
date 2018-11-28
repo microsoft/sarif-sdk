@@ -8,14 +8,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class SarifUtilitiesVersionOne
     {
-        private const string V1_0_0 = "1.0.0";
-
         public static string ConvertToText(this SarifVersionVersionOne sarifVersion)
         {
             switch (sarifVersion)
             {
                 case SarifVersionVersionOne.OneZeroZero:
-                    return V1_0_0;
+                    return SarifUtilities.V1_0_0;
                 default:
                     throw new ArgumentException("Unsupported SARIF version", nameof(sarifVersion));
             }
@@ -23,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static Uri ConvertToSchemaUri(this SarifVersionVersionOne sarifVersion)
         {
-            return new Uri("http://json.schemastore.org/sarif-" + sarifVersion.ConvertToText(), UriKind.Absolute);
+            return new Uri(SarifUtilities.SarifSchemaUriBase + sarifVersion.ConvertToText(), UriKind.Absolute);
         }
     }
 }

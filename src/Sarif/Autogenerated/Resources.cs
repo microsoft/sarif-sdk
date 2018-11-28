@@ -5,7 +5,8 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using Microsoft.CodeAnalysis.Sarif;
+using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -42,7 +43,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A dictionary, each of whose keys is a string and each of whose values is a 'rule' object, that describe all rules associated with an analysis tool or a specific run of an analysis tool.
         /// </summary>
         [DataMember(Name = "rules", IsRequired = false, EmitDefaultValue = false)]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.RuleDictionaryConverter))]
         public IDictionary<string, Rule> Rules { get; set; }
+
+        /// <summary>
+        /// Key/value pairs that provide additional information about the resources.
+        /// </summary>
+        [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Resources" /> class.
@@ -60,9 +68,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="rules">
         /// An initialization value for the <see cref="P: Rules" /> property.
         /// </param>
-        public Resources(IDictionary<string, string> messageStrings, IDictionary<string, Rule> rules)
+        /// <param name="properties">
+        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// </param>
+        public Resources(IDictionary<string, string> messageStrings, IDictionary<string, Rule> rules, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(messageStrings, rules);
+            Init(messageStrings, rules, properties);
         }
 
         /// <summary>
@@ -81,7 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.MessageStrings, other.Rules);
+            Init(other.MessageStrings, other.Rules, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -102,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Resources(this);
         }
 
-        private void Init(IDictionary<string, string> messageStrings, IDictionary<string, Rule> rules)
+        private void Init(IDictionary<string, string> messageStrings, IDictionary<string, Rule> rules, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (messageStrings != null)
             {
@@ -116,6 +127,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     Rules.Add(value_0.Key, new Rule(value_0.Value));
                 }
+            }
+
+            if (properties != null)
+            {
+                Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
             }
         }
     }

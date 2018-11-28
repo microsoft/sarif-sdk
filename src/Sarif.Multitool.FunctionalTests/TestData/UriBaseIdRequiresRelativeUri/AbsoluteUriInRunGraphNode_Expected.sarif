@@ -21,12 +21,12 @@
           "ruleId": "SARIF1014",
           "level": "error",
           "message": {
+            "messageId": "Default",
             "arguments": [
-              "/runs/0/graphs/0/nodes/0/location/physicalLocation/fileLocation/uri",
+              "/runs/0/graphs/g1/nodes/0/location/physicalLocation/fileLocation/uri",
               "file:///c:/src/file.c"
             ]
           },
-          "ruleMessageId": "Default",
           "locations": [
             {
               "physicalLocation": {
@@ -69,8 +69,8 @@
       },
       "invocations": [
         {
-          "startTime": "2018-08-15T20:40:24.190Z",
-          "endTime": "2018-08-15T20:40:25.097Z",
+          "startTime": "2018-09-12T21:45:51.966Z",
+          "endTime": "2018-09-12T21:45:52.828Z",
           "toolNotifications": [
             {
               "id": "MSG001.AnalyzingTarget",
@@ -83,7 +83,7 @@
                 "text": "Analyzing 'AbsoluteUriInRunGraphNode.sarif'..."
               },
               "level": "note",
-              "time": "2018-08-15T20:40:24.587Z"
+              "time": "2018-09-12T21:45:52.318Z"
             }
           ]
         }

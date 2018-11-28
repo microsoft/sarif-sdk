@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="originalUriBaseIds">The original uri base id values associated with the tool run.</param>
         /// <param name="resolvedUri">The reconstructed absolute URI or null (if an absolute URI cannot be reconstructed).</param>
         /// <returns></returns>
-        public bool TryReconstructAbsoluteUri(IDictionary<string, Uri> originalUriBaseIds, out Uri resolvedUri)
+        public bool TryReconstructAbsoluteUri(IDictionary<string, FileLocation> originalUriBaseIds, out Uri resolvedUri)
         {
             resolvedUri = this.Uri.IsAbsoluteUri ? this.Uri : null;
 
@@ -31,9 +31,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (!string.IsNullOrEmpty(this.UriBaseId) &&
                 !this.Uri.IsAbsoluteUri)
             {
-                if (originalUriBaseIds.TryGetValue(this.UriBaseId, out Uri originalUriBaseId))
+                if (originalUriBaseIds.TryGetValue(this.UriBaseId, out FileLocation fileLocation))
                 {
-                    resolvedUri = new Uri(originalUriBaseId, resolvedUri.ToString());
+                    resolvedUri = new Uri(fileLocation.Uri, resolvedUri.ToString());
                 }
             }
 

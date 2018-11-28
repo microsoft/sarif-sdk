@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner",
+        "semanticVersion": "2.1.0"
+      }
+    }
+  ]
+}

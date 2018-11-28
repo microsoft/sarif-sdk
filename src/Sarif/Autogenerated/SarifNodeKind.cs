@@ -76,10 +76,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         GraphTraversal,
         /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Hash" />.
-        /// </summary>
-        Hash,
-        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Invocation" />.
         /// </summary>
         Invocation,
@@ -107,6 +103,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="PhysicalLocation" />.
         /// </summary>
         PhysicalLocation,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="PropertyBag" />.
+        /// </summary>
+        PropertyBag,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Rectangle" />.
         /// </summary>
@@ -139,6 +139,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Run" />.
         /// </summary>
         Run,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="RunAutomationDetails" />.
+        /// </summary>
+        RunAutomationDetails,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Stack" />.
         /// </summary>

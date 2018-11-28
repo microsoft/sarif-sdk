@@ -16,19 +16,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         protected static readonly Tool DefaultTool = new Tool();
         protected static readonly Result DefaultResult = new Result();
 
-        protected JsonTests()
-        {
-            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-            {
-                ContractResolver = SarifContractResolver.Instance
-            };
-        }
-
         protected static string GetJson(Action<ResultLogJsonWriter> testContent)
         {
             StringBuilder result = new StringBuilder();
             using (var str = new StringWriter(result))
-            using (var json = new JsonTextWriter(str) { Formatting = Formatting.Indented })
+            using (var json = new JsonTextWriter(str) { Formatting = Formatting.Indented, DateTimeZoneHandling = DateTimeZoneHandling.Utc })
             using (var uut = new ResultLogJsonWriter(json))
             {
                 testContent(uut);

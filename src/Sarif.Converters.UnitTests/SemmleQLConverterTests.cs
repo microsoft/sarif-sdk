@@ -13,9 +13,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             var semmleCsvInput = SemmleCsvRecord.BuildDefaultRecord().ToCsv();
 
-            string expected = @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
-  ""version"": ""2.0.0"",
+            string expected =
+@"{
+  ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
+  ""version"": """ + SarifUtilities.SemanticVersion + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -61,9 +62,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             string semmleCsvInput = @"Equals on incomparable types,Finds calls of the form x.Equals(y) with incomparable types for x and y.,warning,""Call to Equals() comparing incomparable types[[""""IComparable"""" | """"file://C:/Windows/Company.NET/Framework/v2.0.50727/mscorlib.dll:0:0:0:0""""]] and [[""""ClientAttributeValue""""|""""relative://ClientClient/Company.ResourceManagement.ObjectModel/ClientAttributeValue.cs:7:152:16""""],[""""ClientAttributeValue""""|""""relative://ClientClient/Company.ResourceManagement.ObjectModel/ClientAttributeValue_ISerializable.cs:14:333:16""""]]"",ProjectOne/Microsoft.ResourceManagement.ObjectModel/ClientResource.cs,SuiteOne/SuiteOne_v1.0-servicing_1.0.1.10511.2/ProjectOneClient/Company.ResourceManagement.ObjectModel/ProjectOneResource.cs,865,15,900,100";
 
-            string expected = @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
-  ""version"": ""2.0.0"",
+            string expected =
+@"{
+  ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
+  ""version"": """ + SarifUtilities.SemanticVersion + @""",
   ""runs"": [
     {
       ""tool"": {

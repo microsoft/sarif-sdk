@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
@@ -23,11 +24,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public SarifLog SarifLog { get; private set; }
 
+        public bool EmbedVersionOneContentInPropertyBag { get; set; }
+
         public override SarifLogVersionOne VisitSarifLogVersionOne(SarifLogVersionOne v1SarifLog)
         {
-            SarifLog = new SarifLog(SarifVersion.TwoZeroZero.ConvertToSchemaUri(),
-                                    SarifVersion.TwoZeroZero,
-                                    new List<Run>());
+            SarifLog = new SarifLog(SarifVersion.Current.ConvertToSchemaUri(),
+                                    SarifVersion.Current,
+                                    new List<Run>(),
+                                    properties: null);
 
             foreach (RunVersionOne v1Run in v1SarifLog.Runs)
             {
@@ -71,7 +75,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         }
 
                         ThreadFlowLocation tfl = CreateThreadFlowLocation(v1CodeLocation);
-                        tfl.Step = threadFlow.Locations.Count + 1;
                         tfl.ExecutionOrder = ++executionOrder;
                         threadFlow.Locations.Add(tfl);
                     }
@@ -97,7 +100,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     NestingLevel = _threadFlowLocationNestingLevel,
                     Properties = v1AnnotatedCodeLocation.Properties,
                     State = v1AnnotatedCodeLocation.State,
-                    Step = v1AnnotatedCodeLocation.Step
                 };
 
                 if (v1AnnotatedCodeLocation.Kind == AnnotatedCodeLocationKindVersionOne.Call)
@@ -123,7 +125,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     InnerExceptions = v1ExceptionData.InnerExceptions?.Select(CreateExceptionData).ToList(),
                     Kind = v1ExceptionData.Kind,
-                    Message = v1ExceptionData.Message,
+                    Message = v1ExceptionData.Message?.ToMessage(),
                     Stack = CreateStack(v1ExceptionData.Stack)
                 };
             }
@@ -155,7 +157,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 fileData = new FileData
                 {
-                    Hashes = v1FileData.Hashes?.Select(CreateHash).ToList(),
+                    Hashes = BuildHashesDictionary(v1FileData.Hashes),
                     Length = v1FileData.Length,
                     MimeType = v1FileData.MimeType,
                     Offset = v1FileData.Offset,
@@ -188,6 +190,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return fileData;
+        }
+
+        private IDictionary<string, string> BuildHashesDictionary(IList<HashVersionOne> hashes)
+        {
+            if (hashes == null) { return null; }
+
+            var v2Hashes = new Dictionary<string, string>();
+
+            foreach (HashVersionOne v1Hash in hashes)
+            {
+                v2Hashes[Utilities.AlgorithmKindNameMap[v1Hash.Algorithm]] = v1Hash.Value;
+            }
+
+            return v2Hashes;
         }
 
         internal FileLocation CreateFileLocation(Uri uri, string uriBaseId)
@@ -232,26 +248,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return fix;
         }
 
-        internal Hash CreateHash(HashVersionOne v1Hash)
+        internal KeyValuePair<string, string> CreateHash(HashVersionOne v1Hash)
         {
-            Hash hash = null;
+            if (v1Hash == null) { return new KeyValuePair<string, string>(); }
 
-            if (v1Hash != null)
+            string algorithm;
+            if (!Utilities.AlgorithmKindNameMap.TryGetValue(v1Hash.Algorithm, out algorithm))
             {
-                string algorithm;
-                if (!Utilities.AlgorithmKindNameMap.TryGetValue(v1Hash.Algorithm, out algorithm))
-                {
-                    algorithm = v1Hash.Algorithm.ToString().ToLowerInvariant();
-                }
-
-                hash = new Hash
-                {
-                    Algorithm = algorithm,
-                    Value = v1Hash.Value
-                };
+                algorithm = v1Hash.Algorithm.ToString().ToLowerInvariant();
             }
 
-            return hash;
+            return new KeyValuePair<string, string>(algorithm, v1Hash.Value);
         }
 
         internal Invocation CreateInvocation(InvocationVersionOne v1Invocation,
@@ -286,13 +293,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     Account = v1Invocation.Account,
                     CommandLine = v1Invocation.CommandLine,
-                    EndTime = v1Invocation.EndTime,
+                    EndTimeUtc = v1Invocation.EndTime,
                     EnvironmentVariables = v1Invocation.EnvironmentVariables,
                     Machine = v1Invocation.Machine,
                     ProcessId = v1Invocation.ProcessId,
                     Properties = v1Invocation.Properties,
                     ResponseFiles = CreateResponseFilesList(v1Invocation.ResponseFiles),
-                    StartTime = v1Invocation.StartTime,
+                    StartTimeUtc = v1Invocation.StartTime,
                 };
 
                 if (!string.IsNullOrWhiteSpace(v1Invocation.FileName))
@@ -564,7 +571,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Properties = v1Notification.Properties,
                     RuleId = v1Notification.RuleId,
                     ThreadId = v1Notification.ThreadId,
-                    Time = v1Notification.Time
+                    TimeUtc = v1Notification.Time
                 };
             }
 
@@ -781,10 +788,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                             if (!rules.ContainsKey(v1Result.RuleKey))
                             {
-                                rules.Add(v1Result.RuleKey, new Rule());
+                                Rule rule = new Rule() { Id = v1Result.RuleId };
+                                rules.Add(v1Result.RuleKey, rule);
                             }
 
-                            rules[v1Result.RuleKey].Id = v1Result.RuleId;
+                            Debug.Assert(rules[v1Result.RuleKey].Id == v1Result.RuleId);
                         }
                     }
                 }
@@ -886,15 +894,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     _currentV1Run = v1Run;
 
+                    RunAutomationDetails id = null;
+                    RunAutomationDetails[] aggregateIds = null;
+
+                    if (v1Run.Id != null || v1Run.StableId != null)
+                    {
+                        id = new RunAutomationDetails
+                        {
+                            InstanceGuid = v1Run.Id,
+                            InstanceId = v1Run.StableId != null ? v1Run.StableId + "/" : null
+                        };
+                    }
+
+                    if (v1Run.AutomationId != null)
+                    {
+                        aggregateIds = new[] { new RunAutomationDetails { InstanceId = v1Run.AutomationId + "/" } };
+                    }
+
                     run = new Run()
                     {
                         Architecture = v1Run.Architecture,
-                        AutomationLogicalId = v1Run.AutomationId,
+                        Id = id,
+                        AggregateIds = aggregateIds,
                         BaselineInstanceGuid = v1Run.BaselineId,
-                        InstanceGuid = v1Run.Id,
                         Properties = v1Run.Properties,
-                        Results = new List<Result>(),
-                        LogicalId = v1Run.StableId,
                         Tool = CreateTool(v1Run.Tool)
                     };
 
@@ -949,13 +972,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         };
                     }
 
-                    foreach (ResultVersionOne v1Result in v1Run.Results)
+                    if (v1Run.Results != null)
                     {
-                        run.Results.Add(CreateResult(v1Result));
+                        run.Results = new List<Result>();
+
+                        foreach (ResultVersionOne v1Result in v1Run.Results)
+                        {
+                            run.Results.Add(CreateResult(v1Result));
+                        }
                     }
 
                     // Stash the entire v1 run in this v2 run's property bag
-                    run.SetProperty($"{FromPropertyBagPrefix}/run", v1Run);
+                    if (EmbedVersionOneContentInPropertyBag)
+                    {
+                        run.SetProperty($"{FromPropertyBagPrefix}/run", v1Run);
+                    }
                 }
             }
 

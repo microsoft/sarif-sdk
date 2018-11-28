@@ -31,15 +31,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(Invocation invocation, string invocationPointer)
         {
-            if (invocation.StartTime > invocation.EndTime)
+            if (invocation.StartTimeUtc > invocation.EndTimeUtc)
             {
-                string endTimePointer = invocationPointer.AtProperty(SarifPropertyName.EndTime);
+                string endTimePointer = invocationPointer.AtProperty(SarifPropertyName.EndTimeUtc);
 
                 LogResult(
                     endTimePointer,
                     nameof(RuleResources.SARIF1007_Default),
-                    FormatDateTime(invocation.EndTime),
-                    FormatDateTime(invocation.StartTime));
+                    FormatDateTime(invocation.EndTimeUtc),
+                    FormatDateTime(invocation.StartTimeUtc));
             }
         }
 

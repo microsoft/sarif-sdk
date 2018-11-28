@@ -12,13 +12,15 @@ using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 using Xunit;
-
+using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     public class SarifConverterTests : FileDiffingTests
     {
         public const string TestDirectory = @"v2\ConverterTestData";
+
+        public SarifConverterTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
 
         [Fact]
         public void AndroidStudioConverter_EndToEnd()
@@ -107,7 +109,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             JsonSerializerSettings settings = new JsonSerializerSettings()
             {
                 Formatting = Formatting.Indented,
-                ContractResolver = SarifContractResolver.Instance
             };
 
             string logText = File.ReadAllText(actualFilePath);
@@ -151,9 +152,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             string expectedSarif = File.ReadAllText(expectedFileName);
+            expectedSarif = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarif, forceUpdate: true, formatting: Formatting.Indented);
+
             string actualSarif = File.ReadAllText(generatedFileName);
 
-            if (!AreEquivalentSarifLogs(actualSarif, expectedSarif))
+            if (!AreEquivalentSarifLogs<SarifLog>(actualSarif, expectedSarif))
             {
                 File.WriteAllText(generatedFileName, actualSarif);
 

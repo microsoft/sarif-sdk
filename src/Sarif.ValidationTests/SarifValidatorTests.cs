@@ -7,8 +7,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using FluentAssertions;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.Json.Schema;
 using Microsoft.Json.Schema.Validation;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -28,6 +31,84 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        public void ValidateAllTheThings()
+        {
+            // First, we start with builders that only populate required properties that are backed by primitives.
+            IDictionary<Type, DefaultObjectPopulatingVisitor.PrimitiveValueBuilder> propertyValueBuilders =
+                DefaultObjectPopulatingVisitor.GetBuildersForAllPrimitives();
+
+            Func<SarifLog, SarifLog> callback =
+                (sarifLog) =>
+                {
+                    sarifLog.Runs[0].Tool.FileVersion = "1.0.1.2";
+                    sarifLog.Runs[0].Conversion.Tool.FileVersion = "2.7.1500.12";
+                    return sarifLog;
+                };
+
+            ValidateDefaultDocument(propertyValueBuilders, callback);
+        }
+
+        [Fact]
+        public void ValidatesUriConversion()
+        {
+            // First, we start with builders that only populate required properties that are backed by primitives.
+            IDictionary<Type, DefaultObjectPopulatingVisitor.PrimitiveValueBuilder> propertyValueBuilders =
+                DefaultObjectPopulatingVisitor.GetBuildersForRequiredPrimitives();
+
+            // This test injects a URI into every URI-based property in the format that is a file path with a space.
+            // This URI won't be properly percent-encoded unless our UriConverter was invoked during seriallization.
+            // This test therefore ensures that all URI's in the format are properly associated with that converter.            
+            propertyValueBuilders[typeof(Uri)] = (isRequired) => { return new Uri(@"c:\path with a space\file.txt");  };
+  
+            ValidateDefaultDocument(propertyValueBuilders);
+        }
+
+        [Fact]
+        public void DefaultValuesDoNotSerialize()
+        {
+            ValidateDefaultDocument(propertyValueBuilders: DefaultObjectPopulatingVisitor.GetBuildersForRequiredPrimitives());
+        }
+
+        private void ValidateDefaultDocument(IDictionary<Type, DefaultObjectPopulatingVisitor.PrimitiveValueBuilder> propertyValueBuilders, Func<SarifLog, SarifLog> postPopulationCallback = null)
+        {
+            var visitor = new DefaultObjectPopulatingVisitor(_schema, propertyValueBuilders);
+
+            var sarifLog = new SarifLog();
+
+            visitor.Visit(sarifLog);
+
+            sarifLog.Version = SarifVersion.Current;
+
+            if (postPopulationCallback != null)
+            {
+                sarifLog = postPopulationCallback(sarifLog);
+            }
+
+            string toValidate = JsonConvert.SerializeObject(sarifLog);
+
+            var validator = new Validator(_schema);
+
+            // Guid here simply creates a verifiably non-existent file name. This name is only
+            // used in validation reporting, there's no code that attempts to access the file.
+            Result[] errors = validator.Validate(toValidate, Guid.NewGuid().ToString() + ".sarif");
+
+            var sb = new StringBuilder();
+
+            if (errors.Length > 0)
+            {
+                sb.AppendLine(FailureReason(errors));
+            }
+
+            sb.Length.Should().Be(0, sb.ToString());
+
+            SarifLog clonedLog = sarifLog.DeepClone();
+            clonedLog.ValueEquals(sarifLog).Should().BeTrue();
+
+            // TODO: why does this line of code provoke a stack overflow exception?
+            // clonedLog.Should().BeEquivalentTo(sarifLog);
+        }
+
+        [Fact]
         public void ValidatesAllTestFiles()
         {
             var validator = new Validator(_schema);
@@ -36,13 +117,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             foreach (string inputFile in TestCases)
             {
                 string instanceText = File.ReadAllText(inputFile);
-                Result[] errors = validator.Validate(instanceText, inputFile);
 
-                // Test errors.Count(), rather than errors.Should().BeEmpty, because the latter
-                // produces a less clear error message: it calls ToString on each member of
-                // errors, and appends it to the string returned by FailureReason. Since
-                // FailureReason already displayed the error messages in VisualStudio format,
-                // there is no reason to append this additional, less well formatted information.
+                instanceText = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(instanceText, forceUpdate: true);
+
+                Result[] errors = validator.Validate(instanceText, inputFile);
 
                 if (errors.Length > 0)
                 {
@@ -56,7 +134,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         private static readonly string[] s_testFileDirectories = new string[]
         {
             @"v2\ConverterTestData",
-            @"v2\SpecExamples"
+            @"v2\SpecExamples",
+            @"v2\ObsoleteFormats",
         };
 
         private static IEnumerable<string> s_testCases;

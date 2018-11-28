@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 }
             }
 
-            var invocation = Invocation.Create(dataToInsert.Includes(OptionallyEmittedData.EnvironmentVariables), invocationPropertiesToLog);
+            var invocation = Invocation.Create(dataToInsert.HasFlag(OptionallyEmittedData.EnvironmentVariables), invocationPropertiesToLog);
 
             // TODO we should actually redact across the complete log file context
             // by a dedicated rewriting visitor or some other approach.
@@ -193,19 +193,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        public bool ComputeFileHashes { get { return _dataToInsert.Includes(OptionallyEmittedData.Hashes); } }
+        public bool ComputeFileHashes { get { return _dataToInsert.HasFlag(OptionallyEmittedData.Hashes); } }
 
-        public bool PersistBinaryContents { get { return _dataToInsert.Includes(OptionallyEmittedData.BinaryFiles); } }
+        public bool PersistBinaryContents { get { return _dataToInsert.HasFlag(OptionallyEmittedData.BinaryFiles); } }
 
-        public bool PersistTextFileContents { get { return _dataToInsert.Includes(OptionallyEmittedData.TextFiles); } }
+        public bool PersistTextFileContents { get { return _dataToInsert.HasFlag(OptionallyEmittedData.TextFiles); } }
 
-        public bool PersistEnvironment { get { return _dataToInsert.Includes(OptionallyEmittedData.EnvironmentVariables); } }
+        public bool PersistEnvironment { get { return _dataToInsert.HasFlag(OptionallyEmittedData.EnvironmentVariables); } }
 
-        public bool OverwriteExistingOutputFile { get { return _loggingOptions.Includes(LoggingOptions.OverwriteExistingOutputFile); } }
+        public bool OverwriteExistingOutputFile { get { return _loggingOptions.HasFlag(LoggingOptions.OverwriteExistingOutputFile); } }
 
-        public bool PrettyPrint { get { return _loggingOptions.Includes(LoggingOptions.PrettyPrint); } }
+        public bool PrettyPrint { get { return _loggingOptions.HasFlag(LoggingOptions.PrettyPrint); } }
 
-        public bool Verbose { get { return _loggingOptions.Includes(LoggingOptions.Verbose); } }
+        public bool Verbose { get { return _loggingOptions.HasFlag(LoggingOptions.Verbose); } }
 
         public virtual void Dispose()
         {
@@ -215,9 +215,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 _issueLogJsonWriter.CloseResults();
 
-                if (_run?.Invocations?.Count > 0 && _run.Invocations[0].StartTime != new DateTime())
+                if (_run?.Invocations?.Count > 0 && _run.Invocations[0].StartTimeUtc != new DateTime())
                 {
-                    _run.Invocations[0].EndTime = DateTime.UtcNow;
+                    _run.Invocations[0].EndTimeUtc = DateTime.UtcNow;
                 }
 
                 // Note: we write out the backing rules
@@ -267,7 +267,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             if (_run.Invocations != null && _run.Invocations.Count > 0)
             {
-                _run.Invocations[0].EndTime = DateTime.UtcNow;
+                _run.Invocations[0].EndTimeUtc = DateTime.UtcNow;
             }
         }
 
@@ -438,7 +438,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     Id = Notes.Msg001AnalyzingTarget,
                     Message = new Message { Text = message },
                     Level = NotificationLevel.Note,
-                    Time = DateTime.UtcNow,
+                    TimeUtc = DateTime.UtcNow,
                 });
         }
 

@@ -5,6 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -13,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
-    public partial class FileContent : ISarifNode
+    public partial class FileContent : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<FileContent> ValueComparer => FileContentEqualityComparer.Instance;
 
@@ -44,6 +45,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Binary { get; set; }
 
         /// <summary>
+        /// Key/value pairs that provide additional information about the external file.
+        /// </summary>
+        [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="FileContent" /> class.
         /// </summary>
         public FileContent()
@@ -59,9 +66,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="binary">
         /// An initialization value for the <see cref="P: Binary" /> property.
         /// </param>
-        public FileContent(string text, string binary)
+        /// <param name="properties">
+        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// </param>
+        public FileContent(string text, string binary, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(text, binary);
+            Init(text, binary, properties);
         }
 
         /// <summary>
@@ -80,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Text, other.Binary);
+            Init(other.Text, other.Binary, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -101,10 +111,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new FileContent(this);
         }
 
-        private void Init(string text, string binary)
+        private void Init(string text, string binary, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Text = text;
             Binary = binary;
+            if (properties != null)
+            {
+                Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
+            }
         }
     }
 }

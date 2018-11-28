@@ -1,0 +1,157 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-10-10",
+  "version": "2.0.0-csd.2.beta.2018-10-10",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner",
+        "semanticVersion": "2.1.0"
+      },
+      "invocations": [
+        {
+          "toolNotifications": [
+            {
+              "id": "RegionTest1",
+              "message": {
+                "text": "Ambiguous region end with no start values"
+              },
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///src/base/driver.cs"
+                },
+                "region": {
+                  "charOffset": 8
+                }
+              }
+            },
+            {
+              "id": "RegionTest2",
+              "message": {
+                "text": "startColumn/Line same as charOffset"
+              },
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///src/base/driver.cs"
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 4,
+                  "charOffset": 9
+                }
+              }
+            },
+            {
+              "id": "RegionTest3",
+              "message": {
+                "text": "startColumn/Line same as charOffset"
+              },
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///src/base/driver.cs"
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 1,
+                  "charOffset": 6
+                }
+              }
+            },
+            {
+              "id": "RegionTest4",
+              "message": {
+                "text": "startLine and startColumn only"
+              },
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///src/base/driver.cs"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 2
+                }
+              }
+            },
+            {
+              "id": "RegionTest5",
+              "message": {
+                "text": "startLine only"
+              },
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///src/ui/client.cs"
+                },
+                "region": {
+                  "startLine": 2
+                }
+              }
+            },
+            {
+              "id": "RegionTest6",
+              "message": {
+                "text": "One whole line"
+              },
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///src/ui/client.cs"
+                },
+                "region": {
+                  "startLine": 2,
+                  "endLine": 3,
+                  "message": {
+                    "text": "This region includes all of line 2, excluding the trailing newline sequence"
+                  }
+                }
+              }
+            },
+            {
+              "id": "RegionTest7",
+              "message": {
+                "text": "Unicode text property"
+              },
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///src/ui/unicodeText.cs"
+                },
+                "region": {
+                  "charOffset": 8,
+                  "charLength": 3
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "files": {
+        "file:///src/base/driver.cs": {
+          "fileLocation": {
+            "uri": "file:///src/base/driver.cs"
+          },
+          "encoding": "unicode",
+          "contents": {
+            "binary": "YQBiAGMAZAANAAoAZQBmAGcADQAKAGgAaQBqAGsADQAKAGwAbQBuAA=="
+          }
+        },
+        "file:///src/ui/client.cs": {
+          "fileLocation": {
+            "uri": "file:///src/ui/client.cs"
+          },
+          "mimeType": "text/x-csharp",
+          "contents": {
+            "text": "The quick brown fox\r\njumps over the laazy dog"
+          }
+        },
+        "file:///src/ui/unicodeText.cs": {
+          "fileLocation": {
+            "uri": "file:///src/ui/unicodeText.cs"
+          },
+          "mimeType": "text/x-csharp",
+          "encoding": "unicode",
+          "contents": {
+            "text": "The quick brown fox\r\njumps over the laazy dog"
+          }
+        }
+      },
+      "results": []
+    }
+  ]
+}

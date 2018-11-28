@@ -5,6 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -13,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
-    public partial class ExternalFiles : ISarifNode
+    public partial class ExternalFiles : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ExternalFiles> ValueComparer => ExternalFilesEqualityComparer.Instance;
 
@@ -74,6 +75,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<FileLocation> Results { get; set; }
 
         /// <summary>
+        /// Key/value pairs that provide additional information about the external files.
+        /// </summary>
+        [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ExternalFiles" /> class.
         /// </summary>
         public ExternalFiles()
@@ -104,9 +111,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="results">
         /// An initialization value for the <see cref="P: Results" /> property.
         /// </param>
-        public ExternalFiles(FileLocation conversion, FileLocation files, FileLocation graphs, IEnumerable<FileLocation> invocations, FileLocation logicalLocations, FileLocation resources, IEnumerable<FileLocation> results)
+        /// <param name="properties">
+        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// </param>
+        public ExternalFiles(FileLocation conversion, FileLocation files, FileLocation graphs, IEnumerable<FileLocation> invocations, FileLocation logicalLocations, FileLocation resources, IEnumerable<FileLocation> results, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(conversion, files, graphs, invocations, logicalLocations, resources, results);
+            Init(conversion, files, graphs, invocations, logicalLocations, resources, results, properties);
         }
 
         /// <summary>
@@ -125,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Conversion, other.Files, other.Graphs, other.Invocations, other.LogicalLocations, other.Resources, other.Results);
+            Init(other.Conversion, other.Files, other.Graphs, other.Invocations, other.LogicalLocations, other.Resources, other.Results, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -146,7 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExternalFiles(this);
         }
 
-        private void Init(FileLocation conversion, FileLocation files, FileLocation graphs, IEnumerable<FileLocation> invocations, FileLocation logicalLocations, FileLocation resources, IEnumerable<FileLocation> results)
+        private void Init(FileLocation conversion, FileLocation files, FileLocation graphs, IEnumerable<FileLocation> invocations, FileLocation logicalLocations, FileLocation resources, IEnumerable<FileLocation> results, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (conversion != null)
             {
@@ -207,6 +217,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 Results = destination_1;
+            }
+
+            if (properties != null)
+            {
+                Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
             }
         }
     }

@@ -20,14 +20,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             return s_semVer200.IsMatch(versionText);
         }
 
-        private const string V1_0_0 = "1.0.0";
-        private const string V1_0_0_BETA_5 = "1.0.0-beta.5";
-        private const string V2_0_0 = "2.0.0";
+        public const string V1_0_0 = "1.0.0";
+        public const string SarifSchemaUriBase = "http://json.schemastore.org/sarif-";
 
-        public const SarifVersion CurrentVersion = SarifVersion.TwoZeroZero;
-
-        public static readonly string SarifSchemaUri = ConvertToSchemaUri(CurrentVersion).OriginalString;
-        public static readonly string SarifFormatVersion = ConvertToText(CurrentVersion);
+        public static readonly string SarifSchemaUri = ConvertToSchemaUri(SarifVersion.Current).OriginalString;
 
         /// <summary>
         /// Returns an ISO 8601 compatible universal date time format string with
@@ -40,13 +36,34 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// milliseconds precision, used to produce times such as "2016-03-02T01:44:50.123Z"
         public static readonly string SarifDateTimeFormatMillisecondsPrecision = "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fff'Z'";
 
+        private static string s_semanticVersion = null;
+
+        public static string SemanticVersion
+        {
+            get
+            {
+                if (s_semanticVersion == null)
+                {
+                    s_semanticVersion = VersionConstants.AssemblyVersion;
+                    if (!string.IsNullOrWhiteSpace(VersionConstants.Prerelease))
+                    {
+                        s_semanticVersion += "-" + VersionConstants.Prerelease;
+                    }
+                }
+
+                return s_semanticVersion;
+            }
+        }
 
         public static SarifVersion ConvertToSarifVersion(this string sarifVersionText)
         {
-            switch (sarifVersionText)
+            if (sarifVersionText.Equals(SemanticVersion, StringComparison.Ordinal))
             {
-                case V1_0_0: return SarifVersion.OneZeroZero;
-                case V2_0_0: return SarifVersion.Current;
+                return SarifVersion.Current;
+            }
+            else if (sarifVersionText.Equals(V1_0_0, StringComparison.Ordinal))
+            {
+                return SarifVersion.OneZeroZero;
             }
 
             return SarifVersion.Unknown;
@@ -56,16 +73,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             switch (sarifVersion)
             {
-                case SarifVersion.OneZeroZeroBetaFive: { return V1_0_0_BETA_5; }
                 case SarifVersion.OneZeroZero: { return V1_0_0; }
-                case SarifVersion.TwoZeroZero: { return V2_0_0; }
+                case SarifVersion.Current: { return SemanticVersion; }
             }
             return "unknown";
         }
 
         public static Uri ConvertToSchemaUri(this SarifVersion sarifVersion)
         {
-            return new Uri("http://json.schemastore.org/sarif-" + sarifVersion.ConvertToText(), UriKind.Absolute);
+            return new Uri(SarifSchemaUriBase + sarifVersion.ConvertToText(), UriKind.Absolute);
         }
 
         public static Dictionary<string, string> BuildMessageFormats(IEnumerable<string> resourceNames, ResourceManager resourceManager)

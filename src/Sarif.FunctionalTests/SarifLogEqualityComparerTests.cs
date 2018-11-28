@@ -5,6 +5,7 @@ using System.IO;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.TestUtilities;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 using Xunit;
 
@@ -23,15 +24,12 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests
             const string ComprehensiveTestSamplePath = @"v2\SpecExamples\Comprehensive.sarif";
             string comprehensiveTestSampleContents = File.ReadAllText(ComprehensiveTestSamplePath);
 
-            JsonSerializerSettings settings = new JsonSerializerSettings
-            {
-                ContractResolver = SarifContractResolver.Instance
-            };
+            comprehensiveTestSampleContents = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(comprehensiveTestSampleContents);
 
-            SarifLog expected = JsonConvert.DeserializeObject<SarifLog>(comprehensiveTestSampleContents, settings);
-            SarifLog actual = JsonConvert.DeserializeObject<SarifLog>(comprehensiveTestSampleContents, settings);
+            SarifLog expectedLog = JsonConvert.DeserializeObject<SarifLog>(comprehensiveTestSampleContents);
+            SarifLog actualLog = JsonConvert.DeserializeObject<SarifLog>(comprehensiveTestSampleContents);
 
-            expected.ValueEquals(actual).Should().BeTrue();
+            expectedLog.ValueEquals(actualLog).Should().BeTrue();
         }
     }
 }

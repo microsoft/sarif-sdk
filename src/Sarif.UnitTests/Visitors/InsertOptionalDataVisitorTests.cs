@@ -5,10 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Text;
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif.Readers;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
@@ -20,23 +19,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         // To rebaseline all test files set this value to true and rerun the testa
         private static bool s_rebaseline = false;
 
-        private ITestOutputHelper _outputHelper;
-
-        private static string GetTestDirectory(string subdirectory = "")
+        public InsertOptionalDataVisitorTests(ITestOutputHelper outputHelper) : base (outputHelper)
         {
-            return Path.GetFullPath(Path.Combine(@".\TestData", subdirectory));
-        }
-
-        // Retrieving the source path of the tests is only used in developer ad hoc
-        // rebaselining scenarios. i.e., this path won't be consumed by AppVeyor.
-        private static string GetProductTestDataDirectory(string subdirectory = "")
-        {
-            return Path.GetFullPath(Path.Combine(@"..\..\..\..\..\src\Sarif.UnitTests\TestData", subdirectory));
-        }
-
-        public InsertOptionalDataVisitorTests(ITestOutputHelper outputHelper)
-        {
-            _outputHelper = outputHelper;
         }
 
         [Theory]
@@ -78,15 +62,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             JsonSerializerSettings settings = new JsonSerializerSettings()
             {
-                ContractResolver = SarifContractResolver.Instance,
                 Formatting = Formatting.Indented
             };
 
             try
             {
-                actualLog = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(inputFileName), settings);
+                string logText = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(File.ReadAllText(inputFileName));
+                actualLog = JsonConvert.DeserializeObject<SarifLog>(logText, settings);
 
-                Uri originalUri = actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"];
+                Uri originalUri = actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"].Uri;
                 string uriString = originalUri.ToString();
 
                 // This code rewrites the log persisted URI to match the test environment
@@ -94,13 +78,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 currentDirectory = currentDirectory.Substring(0, currentDirectory.IndexOf(@"\bld\"));
                 uriString = uriString.Replace("REPLACED_AT_TEST_RUNTIME", currentDirectory);
 
-                actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"] = new Uri(uriString, UriKind.Absolute);
+                actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"] = new FileLocation { Uri = new Uri(uriString, UriKind.Absolute) };
 
                 var visitor = new InsertOptionalDataVisitor(optionallyEmittedData);
                 visitor.Visit(actualLog.Runs[0]);
 
                 // Restore the remanufactured URI so that file diffing matches
-                actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"] = originalUri;
+                actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"] = new FileLocation { Uri = originalUri };
             }
             catch (Exception ex)
             {
@@ -111,9 +95,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             string expectedSarif = File.Exists(expectedFileName) ? File.ReadAllText(expectedFileName) : null;
-            string actualSarif = JsonConvert.SerializeObject(actualLog, settings);
+            if (expectedSarif != null)
+            {
+                expectedSarif = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarif);
+            }
 
-            if (!AreEquivalentSarifLogs(actualSarif, expectedSarif))
+            string actualSarif = JsonConvert.SerializeObject(actualLog, settings);
+            actualSarif = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(actualSarif);
+
+            if (!AreEquivalentSarifLogs<SarifLog>(actualSarif, expectedSarif))
             {
                 if (s_rebaseline)
                 {
@@ -148,20 +138,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             ValidateResults(sb.ToString());
         }
 
-        private void ValidateResults(string output)
-        {
-            if (!string.IsNullOrEmpty(output))
-            {
-                _outputHelper.WriteLine(output);
-            }
-
-            // We can't use the 'because' argument here because someone along
-            // the line is stripping \n from output strings. This compromises
-            // our file paths. e.g., 'c:\build\netcore2.0\etc' is rendered
-            // as 'c:\build\etcore2.0'. 
-            output.Length.Should().Be(0);
-        }
-
         [Fact]
         public void InsertOptionalDataVisitorTests_ResolvesOriginalUriBaseIds()
         {
@@ -170,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             string uriBaseId = "TEST_DIR";
             string fileKey = "#" + uriBaseId + "#" + inputFileName;
 
-            IDictionary<string, Uri> originalUriBaseIds = new Dictionary<string, Uri> { { uriBaseId, new Uri(testDirectory, UriKind.Absolute) } };
+            IDictionary<string, FileLocation> originalUriBaseIds = new Dictionary<string, FileLocation> { { uriBaseId, new FileLocation { Uri = new Uri(testDirectory, UriKind.Absolute) } } };
 
             Run run = new Run()
             {

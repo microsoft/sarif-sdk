@@ -2,21 +2,33 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.IO;
+using System.Text;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    internal static class TransformCommand
+    internal class TransformCommand
     {
-        public static int Run(TransformOptions transformOptions)
+        private readonly bool _testing;
+        private readonly IFileSystem _fileSystem;
+
+        public TransformCommand(IFileSystem fileSystem = null, bool testing = false)
+        {
+            _fileSystem = fileSystem ?? new FileSystem();
+            _testing = testing;
+        }
+
+        public int Run(TransformOptions transformOptions)
         {
             try
             {
-                if (transformOptions.Version < 1 || transformOptions.Version > 2)
+                if (transformOptions.TargetVersion != SarifVersion.OneZeroZero && transformOptions.TargetVersion != SarifVersion.Current)
                 {
                     Console.WriteLine(MultitoolResources.ErrorInvalidTransformTargetVersion);
                     return 1;
@@ -32,22 +44,60 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     ? Formatting.Indented
                     : Formatting.None;
 
-                // Assume the input log is the "other" version
-                if (transformOptions.Version == 2)
-                {
-                    SarifLogVersionOne actualLog = FileHelpers.ReadSarifFile<SarifLogVersionOne>(transformOptions.InputFilePath, SarifContractResolverVersionOne.Instance);
-                    var visitor = new SarifVersionOneToCurrentVisitor();
-                    visitor.VisitSarifLogVersionOne(actualLog);
 
-                    FileHelpers.WriteSarifFile(visitor.SarifLog, fileName, formatting);
+                string inputFilePath = transformOptions.InputFilePath;
+                string inputVersion = SniffVersion(inputFilePath);
+
+                // If the user wants to transform to current v2, we check to see whether the input
+                // file is v2 or pre-release v2. We upgrade both formats to current v2. 
+                // 
+                // Correspondingly, if the input file is v2 of any kind, we first ensure that it is 
+                // current v2, then drop it down to v1.
+                // 
+                // We do not support transforming to any obsoleted pre-release v2 formats. 
+                if (transformOptions.TargetVersion == SarifVersion.Current)
+                {
+                    if (inputVersion == "1.0.0")
+                    {
+                        SarifLogVersionOne actualLog = FileHelpers.ReadSarifFile<SarifLogVersionOne>(_fileSystem, transformOptions.InputFilePath, SarifContractResolverVersionOne.Instance);
+                        var visitor = new SarifVersionOneToCurrentVisitor();
+                        visitor.VisitSarifLogVersionOne(actualLog);
+                        FileHelpers.WriteSarifFile(_fileSystem, visitor.SarifLog, fileName, formatting);
+                    }
+                    else
+                    {
+                        // We have a pre-release v2 file that we should upgrade to current. 
+                        string sarifText = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(_fileSystem.ReadAllText(inputFilePath), formatting: formatting);
+                        _fileSystem.WriteAllText(fileName, sarifText);
+                    }
                 }
-                else
+                else 
                 {
-                    SarifLog actualLog = FileHelpers.ReadSarifFile<SarifLog>(transformOptions.InputFilePath);
-                    var visitor = new SarifCurrentToVersionOneVisitor();
-                    visitor.VisitSarifLog(actualLog);
+                    if (inputVersion == "1.0.0")
+                    {
+                        _fileSystem.WriteAllText(fileName, _fileSystem.ReadAllText(inputFilePath));
+                    }
+                    else
+                    {
+                        string currentSarifVersion = SarifUtilities.SemanticVersion;
 
-                    FileHelpers.WriteSarifFile(visitor.SarifLogVersionOne, fileName, formatting);
+                        string sarifText = null;
+
+                        if (inputVersion != currentSarifVersion)
+                        {
+                            // Note that we don't provide formatting here. It is not required to indent the v2 SARIF - it 
+                            // will be transformed to v1 later, where we should apply the indentation settings.
+                            sarifText = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(_fileSystem.ReadAllText(inputFilePath));
+                        }
+
+                        sarifText = sarifText ?? _fileSystem.ReadAllText(inputFilePath);
+                        var actualLog = JsonConvert.DeserializeObject<SarifLog>(sarifText);
+
+                        var visitor = new SarifCurrentToVersionOneVisitor();
+                        visitor.VisitSarifLog(actualLog);
+
+                        FileHelpers.WriteSarifFile(_fileSystem, visitor.SarifLogVersionOne, fileName, formatting, SarifContractResolverVersionOne.Instance);
+                    }
                 }
             }
             catch (Exception ex)
@@ -57,6 +107,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             return 0;
+        }
+
+        private string SniffVersion(string sarifPath)
+        {
+            // When we're unit-testing, we'll retrieve a string representation of the file contents and pass this
+            // to a stream reader instance. We take this approach to prevent the need to load a potentially large file
+            // all at once in the production code.
+            TextReader textReader = _testing 
+                ? new StreamReader(new MemoryStream(Encoding.UTF8.GetBytes(_fileSystem.ReadAllText(sarifPath)))) 
+                : new StreamReader(sarifPath);
+
+            using (JsonTextReader reader = new JsonTextReader(textReader))
+            {
+                while (reader.Read())
+                {
+                    if (reader.TokenType == JsonToken.PropertyName && ((string)reader.Value).Equals("version"))
+                    {
+                        reader.Read();
+                        return (string)reader.Value;
+                    }
+                }
+            }
+            return null;
         }
     }
 }

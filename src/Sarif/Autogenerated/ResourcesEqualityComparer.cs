@@ -4,7 +4,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using Microsoft.CodeAnalysis.Sarif;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -72,6 +72,28 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
+            if (!object.ReferenceEquals(left.Properties, right.Properties))
+            {
+                if (left.Properties == null || right.Properties == null || left.Properties.Count != right.Properties.Count)
+                {
+                    return false;
+                }
+
+                foreach (var value_4 in left.Properties)
+                {
+                    SerializedPropertyInfo value_5;
+                    if (!right.Properties.TryGetValue(value_4.Key, out value_5))
+                    {
+                        return false;
+                    }
+
+                    if (!object.Equals(value_4.Value, value_5))
+                    {
+                        return false;
+                    }
+                }
+            }
+
             return true;
         }
 
@@ -89,12 +111,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_0 = 0;
-                    foreach (var value_4 in obj.MessageStrings)
+                    foreach (var value_6 in obj.MessageStrings)
                     {
-                        xor_0 ^= value_4.Key.GetHashCode();
-                        if (value_4.Value != null)
+                        xor_0 ^= value_6.Key.GetHashCode();
+                        if (value_6.Value != null)
                         {
-                            xor_0 ^= value_4.Value.GetHashCode();
+                            xor_0 ^= value_6.Value.GetHashCode();
                         }
                     }
 
@@ -105,16 +127,32 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_1 = 0;
-                    foreach (var value_5 in obj.Rules)
+                    foreach (var value_7 in obj.Rules)
                     {
-                        xor_1 ^= value_5.Key.GetHashCode();
-                        if (value_5.Value != null)
+                        xor_1 ^= value_7.Key.GetHashCode();
+                        if (value_7.Value != null)
                         {
-                            xor_1 ^= value_5.Value.GetHashCode();
+                            xor_1 ^= value_7.Value.GetHashCode();
                         }
                     }
 
                     result = (result * 31) + xor_1;
+                }
+
+                if (obj.Properties != null)
+                {
+                    // Use xor for dictionaries to be order-independent.
+                    int xor_2 = 0;
+                    foreach (var value_8 in obj.Properties)
+                    {
+                        xor_2 ^= value_8.Key.GetHashCode();
+                        if (value_8.Value != null)
+                        {
+                            xor_2 ^= value_8.Value.GetHashCode();
+                        }
+                    }
+
+                    result = (result * 31) + xor_2;
                 }
             }
 

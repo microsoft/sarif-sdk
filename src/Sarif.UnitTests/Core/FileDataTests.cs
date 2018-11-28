@@ -5,7 +5,6 @@ using System;
 using System.IO;
 using System.Text;
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Moq;
 using Newtonsoft.Json;
@@ -40,13 +39,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                 fileData.Contents.Should().BeNull();
                 fileData.Hashes.Count.Should().Be(3);
 
-                foreach (Hash hash in fileData.Hashes)
+                foreach (string algorithm in fileData.Hashes.Keys)
                 {
-                    switch (hash.Algorithm)
+                    switch (algorithm)
                     {
-                        case "md5": { hash.Value.Should().Be(hashes.MD5); break; }
-                        case "sha-1": { hash.Value.Should().Be(hashes.Sha1); break; }
-                        case "sha-256": { hash.Value.Should().Be(hashes.Sha256); break; }
+                        case "md5": { fileData.Hashes[algorithm].Should().Be(hashes.MD5); break; }
+                        case "sha-1": { fileData.Hashes[algorithm].Should().Be(hashes.Sha1); break; }
+                        case "sha-256": { fileData.Hashes[algorithm].Should().Be(hashes.Sha256); break; }
                         default: { true.Should().BeFalse(); break; /* unexpected algorithm kind */ }
                     }
                 }
@@ -86,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 FileData fileData = FileData.Create(uri, dataToInsert);
                 fileData.FileLocation.Should().BeNull();
 
-                if (dataToInsert.Includes(OptionallyEmittedData.Hashes))
+                if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
                 {
                     fileData.Hashes.Should().NotBeNull();
                 }
@@ -197,10 +196,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             FileData fileData = FileData.Create(new Uri("file:///foo.cs"), OptionallyEmittedData.None);
             fileData.Roles = FileRoles.AnalysisTarget;
 
-            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-            {
-                ContractResolver = SarifContractResolver.Instance
-            };
             string result = JsonConvert.SerializeObject(fileData);
 
             result.Should().Be("{\"roles\":[\"analysisTarget\"],\"mimeType\":\"text/x-csharp\"}");
@@ -212,10 +207,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             FileData fileData = FileData.Create(new Uri("file:///foo.cs"), OptionallyEmittedData.None);
             fileData.Roles = FileRoles.ResponseFile | FileRoles.ResultFile;
 
-            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-            {
-                ContractResolver = SarifContractResolver.Instance
-            };
             string actual = JsonConvert.SerializeObject(fileData);
 
             actual.Should().Be("{\"roles\":[\"responseFile\",\"resultFile\"],\"mimeType\":\"text/x-csharp\"}");
@@ -224,10 +215,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void FileData_DeserializeSingleFileRole()
         {
-            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-            {
-                ContractResolver = SarifContractResolver.Instance
-            };
             FileData actual = JsonConvert.DeserializeObject("{\"roles\":[\"analysisTarget\"],\"mimeType\":\"text/x-csharp\"}", typeof(FileData)) as FileData;
             actual.Roles.Should().Be(FileRoles.AnalysisTarget);
         }
@@ -235,10 +222,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void FileData_DeserializeMultipleFileRoles()
         {
-            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-            {
-                ContractResolver = SarifContractResolver.Instance
-            };
             FileData actual = JsonConvert.DeserializeObject("{\"roles\":[\"responseFile\",\"resultFile\"],\"mimeType\":\"text/x-csharp\"}", typeof(FileData)) as FileData;
             actual.Roles.Should().Be(FileRoles.ResponseFile | FileRoles.ResultFile);
         }
@@ -280,7 +263,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static void Validate(FileData fileData, OptionallyEmittedData dataToInsert)
         {
-            if (dataToInsert.Includes(OptionallyEmittedData.TextFiles))
+            if (dataToInsert.HasFlag(OptionallyEmittedData.TextFiles))
             {
                 fileData.Contents.Should().NotBeNull();
             }

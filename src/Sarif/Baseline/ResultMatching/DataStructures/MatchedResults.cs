@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         /// and some metadata in the property bag about the matching algorithm used.
         /// </summary>
         /// <returns>The new SARIF result.</returns>
-        public Result CalculateNewBaselineResult()
+        public Result CalculateNewBaselineResult(DictionaryMergeBehavior propertyBagMergeBehavior)
         {
             Result result;
 
@@ -55,6 +55,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
             ResultMatchingProperties = MergeDictionaryPreferFirst(ResultMatchingProperties, OriginalResultMatchingProperties);
 
+            if (PreviousResult != null &&
+                propertyBagMergeBehavior == DictionaryMergeBehavior.InitializeFromOldest)
+            {
+                result.Properties = PreviousResult.Result.Properties;
+            }
+
             result.SetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, ResultMatchingProperties);
 
             return result;
@@ -72,9 +78,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 OriginalResultMatchingProperties = new Dictionary<string, object>();
             }
 
-            if (PreviousResult.OriginalRun.InstanceGuid != null)
+            if (PreviousResult.OriginalRun.Id?.InstanceGuid != null)
             {
-                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, PreviousResult.OriginalRun.InstanceGuid);
+                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, PreviousResult.OriginalRun.Id.InstanceGuid);
             }
             return result;
         }
@@ -93,15 +99,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 OriginalResultMatchingProperties = new Dictionary<string, object>();
             }
 
-            if (CurrentResult.OriginalRun.InstanceGuid != null)
+            if (CurrentResult.OriginalRun.Id?.InstanceGuid != null)
             {
-                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, CurrentResult.OriginalRun.InstanceGuid);
+                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, CurrentResult.OriginalRun.Id.InstanceGuid);
             }
 
             // Potentially temporary -- we persist the "originally found date" forward, and this sets it.
-            if (CurrentResult.OriginalRun.Invocations != null && CurrentResult.OriginalRun.Invocations.Any() && CurrentResult.OriginalRun.Invocations[0].StartTime != null)
+            if (CurrentResult.OriginalRun?.Invocations?.Any() == true && CurrentResult.OriginalRun.Invocations[0].StartTimeUtc != null)
             {
-                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_FoundDateName, CurrentResult.OriginalRun.Invocations[0].StartTime);
+                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_FoundDateName, CurrentResult.OriginalRun.Invocations[0].StartTimeUtc);
             }
             return result;
         }
@@ -121,9 +127,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 OriginalResultMatchingProperties = new Dictionary<string, object>();
             }
 
-            if (CurrentResult.OriginalRun.InstanceGuid != null)
+            if (CurrentResult.OriginalRun.Id?.InstanceGuid != null)
             {
-                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, CurrentResult.OriginalRun.InstanceGuid);
+                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, CurrentResult.OriginalRun.Id.InstanceGuid);
             }
 
             return result;

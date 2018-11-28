@@ -1,11 +1,13 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
 using Microsoft.CodeAnalysis.Sarif.Converters;
@@ -16,6 +18,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class Utilities
     {
+        public static bool RunningInAppVeyor { get { return Environment.CommandLine.IndexOf("/logger:appveyor", StringComparison.OrdinalIgnoreCase) != -1; } }
+
         public static MemoryStream CreateStreamFromString(string data)
         {
             return new MemoryStream(Encoding.UTF8.GetBytes(data));

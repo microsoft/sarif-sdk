@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static string CreateFullyQualifiedName(MethodBase methodBase)
         {
-            if (methodBase == null) { return null;  }
+            if (methodBase == null) { return null; }
 
             var sb = new StringBuilder();
 
@@ -157,5 +157,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             return sb.ToString();
         }
+
+        public bool ShouldSerializeParameters() { return this.Parameters.HasAtLeastOneNonNullValue(); }
     }
 }

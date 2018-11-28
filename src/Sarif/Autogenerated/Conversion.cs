@@ -5,6 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -13,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
-    public partial class Conversion : ISarifNode
+    public partial class Conversion : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Conversion> ValueComparer => ConversionEqualityComparer.Instance;
 
@@ -50,6 +51,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<FileLocation> AnalysisToolLogFiles { get; set; }
 
         /// <summary>
+        /// Key/value pairs that provide additional information about the conversion.
+        /// </summary>
+        [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Conversion" /> class.
         /// </summary>
         public Conversion()
@@ -68,9 +75,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="analysisToolLogFiles">
         /// An initialization value for the <see cref="P: AnalysisToolLogFiles" /> property.
         /// </param>
-        public Conversion(Tool tool, Invocation invocation, IEnumerable<FileLocation> analysisToolLogFiles)
+        /// <param name="properties">
+        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// </param>
+        public Conversion(Tool tool, Invocation invocation, IEnumerable<FileLocation> analysisToolLogFiles, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(tool, invocation, analysisToolLogFiles);
+            Init(tool, invocation, analysisToolLogFiles, properties);
         }
 
         /// <summary>
@@ -89,7 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocation, other.AnalysisToolLogFiles);
+            Init(other.Tool, other.Invocation, other.AnalysisToolLogFiles, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -110,7 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Conversion(this);
         }
 
-        private void Init(Tool tool, Invocation invocation, IEnumerable<FileLocation> analysisToolLogFiles)
+        private void Init(Tool tool, Invocation invocation, IEnumerable<FileLocation> analysisToolLogFiles, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (tool != null)
             {
@@ -138,6 +148,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 AnalysisToolLogFiles = destination_0;
+            }
+
+            if (properties != null)
+            {
+                Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
             }
         }
     }

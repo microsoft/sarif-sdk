@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class EndLineMustNotBeLessThanStartLineTests : SkimmerTestsBase<EndLineMustNotBeLessThanStartLine>
+    public class EndLineMustNotBeLessThanStartLineTests : ValidationSkimmerTestsBase<EndLineMustNotBeLessThanStartLine>
     {
         [Fact(DisplayName = nameof(EndLineMustNotBeLessThanStartLine_EndLineEqualsStartLine))]
         public void EndLineMustNotBeLessThanStartLine_EndLineEqualsStartLine()

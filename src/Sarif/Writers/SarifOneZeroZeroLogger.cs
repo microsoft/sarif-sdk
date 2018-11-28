@@ -46,15 +46,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             base.Dispose();
 
-            JsonSerializerSettings v2Settings = new JsonSerializerSettings()
-            {
-                ContractResolver = SarifContractResolver.Instance,
-                Formatting = PrettyPrint ? Formatting.Indented : Formatting.None
-            };
-
             string logText = File.ReadAllText(_outputFilePath);
 
-            var v2Log = JsonConvert.DeserializeObject<SarifLog>(logText, v2Settings);
+            var v2Log = JsonConvert.DeserializeObject<SarifLog>(logText);
 
             var transformer = new SarifCurrentToVersionOneVisitor();
             transformer.VisitSarifLog(v2Log);

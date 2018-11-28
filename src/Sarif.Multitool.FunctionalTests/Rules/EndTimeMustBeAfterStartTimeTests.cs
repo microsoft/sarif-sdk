@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class EndTimeMustBeAfterStartTimeTests : SkimmerTestsBase<EndTimeMustBeAfterStartTime>
+    public class EndTimeMustBeAfterStartTimeTests : ValidationSkimmerTestsBase<EndTimeMustBeAfterStartTime>
     {
         [Fact(DisplayName = nameof(EndTimeMustBeAfterStartTime_EndTimeIsAfterStartTime))]
         public void EndTimeMustBeAfterStartTime_EndTimeIsAfterStartTime()

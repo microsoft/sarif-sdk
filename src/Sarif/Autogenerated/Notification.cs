@@ -6,6 +6,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -60,6 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A value specifying the severity level of the notification.
         /// </summary>
         [DataMember(Name = "level", IsRequired = false, EmitDefaultValue = false)]
+        [JsonConverter(typeof(EnumConverter))]
         public NotificationLevel Level { get; set; }
 
         /// <summary>
@@ -69,10 +71,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int ThreadId { get; set; }
 
         /// <summary>
-        /// The date and time at which the analysis tool generated the notification.
+        /// The Coordinated Universal Time (UTC) date and time at which the analysis tool generated the notification.
         /// </summary>
-        [DataMember(Name = "time", IsRequired = false, EmitDefaultValue = false)]
-        public DateTime Time { get; set; }
+        [DataMember(Name = "timeUtc", IsRequired = false, EmitDefaultValue = false)]
+        [JsonConverter(typeof(DateTimeConverter))]
+        public DateTime TimeUtc { get; set; }
 
         /// <summary>
         /// The runtime exception, if any, relevant to this notification.
@@ -114,8 +117,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="threadId">
         /// An initialization value for the <see cref="P: ThreadId" /> property.
         /// </param>
-        /// <param name="time">
-        /// An initialization value for the <see cref="P: Time" /> property.
+        /// <param name="timeUtc">
+        /// An initialization value for the <see cref="P: TimeUtc" /> property.
         /// </param>
         /// <param name="exception">
         /// An initialization value for the <see cref="P: Exception" /> property.
@@ -123,9 +126,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Notification(string id, string ruleId, PhysicalLocation physicalLocation, Message message, NotificationLevel level, int threadId, DateTime time, ExceptionData exception, IDictionary<string, SerializedPropertyInfo> properties)
+        public Notification(string id, string ruleId, PhysicalLocation physicalLocation, Message message, NotificationLevel level, int threadId, DateTime timeUtc, ExceptionData exception, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, ruleId, physicalLocation, message, level, threadId, time, exception, properties);
+            Init(id, ruleId, physicalLocation, message, level, threadId, timeUtc, exception, properties);
         }
 
         /// <summary>
@@ -144,7 +147,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.RuleId, other.PhysicalLocation, other.Message, other.Level, other.ThreadId, other.Time, other.Exception, other.Properties);
+            Init(other.Id, other.RuleId, other.PhysicalLocation, other.Message, other.Level, other.ThreadId, other.TimeUtc, other.Exception, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -165,7 +168,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Notification(this);
         }
 
-        private void Init(string id, string ruleId, PhysicalLocation physicalLocation, Message message, NotificationLevel level, int threadId, DateTime time, ExceptionData exception, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string id, string ruleId, PhysicalLocation physicalLocation, Message message, NotificationLevel level, int threadId, DateTime timeUtc, ExceptionData exception, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             RuleId = ruleId;
@@ -181,7 +184,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             Level = level;
             ThreadId = threadId;
-            Time = time;
+            TimeUtc = timeUtc;
             if (exception != null)
             {
                 Exception = new ExceptionData(exception);

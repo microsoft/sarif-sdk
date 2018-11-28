@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
 {
     public class IdenticalResultMatcherTests
     {
-        private static IdenticalResultMatcher matcher = new IdenticalResultMatcher();
+        private static IdenticalResultMatcher matcher = new IdenticalResultMatcher(considerPropertyBagsWhenComparing: true);
         
         [Fact]
         public void IdenticalResultMatcher_MatchesIdenticalResults_Single()

@@ -31,9 +31,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Assert.Throws<ArgumentNullException>(() => converter.Convert(null, new ResultLogObjectWriter(), OptionallyEmittedData.None));
         }
 
-        private const string empty = @"{
-  ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
-  ""version"": ""2.0.0"",
+        private string empty =
+@"{
+  ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
+  ""version"": """ + SarifUtilities.SemanticVersion + @""",
   ""runs"": [
     {
       ""tool"": {

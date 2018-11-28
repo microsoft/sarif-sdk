@@ -47,38 +47,26 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 string filePath = uri.LocalPath;
 
-                if (dataToInsert.Includes(OptionallyEmittedData.BinaryFiles) &&
+                if (dataToInsert.HasFlag(OptionallyEmittedData.BinaryFiles) &&
                     SarifWriters.MimeType.IsBinaryMimeType(mimeType))
                 {
                     fileData.Contents = GetEncodedFileContents(fileSystem, filePath, mimeType, encoding);
                 }
 
-                if (dataToInsert.Includes(OptionallyEmittedData.TextFiles) &&
+                if (dataToInsert.HasFlag(OptionallyEmittedData.TextFiles) &&
                     SarifWriters.MimeType.IsTextualMimeType(mimeType))
                 {
                     fileData.Contents = GetEncodedFileContents(fileSystem, filePath, mimeType, encoding);
                 }
 
-                if (dataToInsert.Includes(OptionallyEmittedData.Hashes))
+                if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
                 {
                     HashData hashes = HashUtilities.ComputeHashes(filePath);
-                    fileData.Hashes = new List<Hash>
+                    fileData.Hashes = new Dictionary<string, string>
                     {
-                        new Hash()
-                        {
-                            Value = hashes.MD5,
-                            Algorithm = "md5",
-                        },
-                        new Hash()
-                        {
-                            Value = hashes.Sha1,
-                            Algorithm = "sha-1",
-                        },
-                        new Hash()
-                        {
-                            Value = hashes.Sha256,
-                            Algorithm = "sha-256",
-                        },
+                        { "md5", hashes.MD5 },
+                        { "sha-1", hashes.Sha1 },
+                        { "sha-256", hashes.Sha256 },                        
                     };
                 }
             }

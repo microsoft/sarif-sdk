@@ -16,8 +16,6 @@
     Do not restore NuGet packages.
 .PARAMETER NoObjectModel
     Do not rebuild the SARIF object model from the schema.
-.PARAMETER NoBuildSample
-    Do not build sample.
 #>
 
 [CmdletBinding()]
@@ -33,10 +31,7 @@ param(
     $NoRestore,
 
     [switch]
-    $NoObjectModel,
-
-    [switch]
-    $NoBuildSample
+    $NoObjectModel
 )
 
 Set-StrictMode -Version Latest
@@ -92,12 +87,10 @@ if (-not $NoRestore) {
         Exit-WithFailureMessage $ScriptName "NuGet restore failed for $SolutionFile."
     }
 
-    if (-not $NoBuildSample) {
-        Write-Information "Restoring NuGet packages for $SampleSolutionFile..."
-         & $NuGetExePath restore -ConfigFile $NuGetConfigFile -Verbosity $NuGetVerbosity -OutputDirectory $NuGetSamplesPackageRoot $SourceRoot\$SampleSolutionFile
-        if ($LASTEXITCODE -ne 0) {
-            Exit-WithFailureMessage $ScriptName "NuGet restore failed for $SampleSolutionFile."
-        }
+    Write-Information "Restoring NuGet packages for $SampleSolutionFile..."
+        & $NuGetExePath restore -ConfigFile $NuGetConfigFile -Verbosity $NuGetVerbosity -OutputDirectory $NuGetSamplesPackageRoot $SourceRoot\$SampleSolutionFile
+    if ($LASTEXITCODE -ne 0) {
+        Exit-WithFailureMessage $ScriptName "NuGet restore failed for $SampleSolutionFile."
     }
 }
 

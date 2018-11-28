@@ -7,13 +7,6 @@
         "name": "CodeScanner",
         "downloadUri": "tools/codescanner/download.html"
       },
-      "invocations": [
-        {
-          "executableLocation": {
-            "uri": "tools/CodeScanner.exe"
-          }
-        }
-      ],
       "results": [
         {
           "ruleId": "TST0001",
@@ -24,7 +17,7 @@
         }
       ],
       "originalUriBaseIds": {
-        "SRCROOT": "Code/sarif-sdk/src"
+        "SRCROOT": { "uri": "Code/sarif-sdk/src" }
       },
       "resources": {
         "rules": {
@@ -36,7 +29,7 @@
       },
       "versionControlProvenance": [
         {
-          "uri": "example.com/my-project"
+          "repositoryUri": "example.com/my-project"
         }
       ]
     }

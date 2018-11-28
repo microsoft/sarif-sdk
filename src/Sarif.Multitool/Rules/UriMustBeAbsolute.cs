@@ -34,13 +34,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             AnalyzeUri(log.SchemaUri, logPointer.AtProperty(SarifPropertyName.Schema));
         }
 
-        protected override void Analyze(Invocation invocation, string invocationPointer)
-        {
-            AnalyzeUri(
-                invocation.ExecutableLocation?.Uri,
-                invocationPointer.AtProperty(SarifPropertyName.ExecutableLocation).AtProperty(SarifPropertyName.Uri));
-        }
-
         protected override void Analyze(Result result, string resultPointer)
         {
             if (result.WorkItemUris != null)
@@ -55,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
-        protected override void Analyze(Rule rule, string ruleKey, string rulePointer)
+        protected override void Analyze(IRule rule, string ruleKey, string rulePointer)
         {
             AnalyzeUri(rule.HelpUri, rulePointer.AtProperty(SarifPropertyName.HelpUri));
         }
@@ -68,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                 foreach (string key in run.OriginalUriBaseIds.Keys)
                 {
-                    AnalyzeUri(run.OriginalUriBaseIds[key], originalUriBaseIdsPointer.AtProperty(key));
+                    AnalyzeUri(run.OriginalUriBaseIds[key].Uri, originalUriBaseIdsPointer.AtProperty(key));
                 }
             }
         }
@@ -80,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(VersionControlDetails versionControlDetails, string versionControlDetailsPointer)
         {
-            AnalyzeUri(versionControlDetails.Uri, versionControlDetailsPointer.AtProperty(SarifPropertyName.Uri));
+            AnalyzeUri(versionControlDetails.RepositoryUri, versionControlDetailsPointer.AtProperty(SarifPropertyName.RepositoryUri));
         }
 
         private void AnalyzeUri(Uri uri, string pointer)

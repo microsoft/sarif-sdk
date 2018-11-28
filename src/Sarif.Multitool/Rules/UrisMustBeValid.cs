@@ -84,7 +84,7 @@ $                       # up to the end of the string (not strictly needed since
             }
         }
 
-        protected override void Analyze(Rule rule, string ruleKey, string rulePointer)
+        protected override void Analyze(IRule rule, string ruleKey, string rulePointer)
         {
             AnalyzeUri(rule.HelpUri, rulePointer.AtProperty(SarifPropertyName.HelpUri));
         }
@@ -97,7 +97,7 @@ $                       # up to the end of the string (not strictly needed since
 
                 foreach (string key in run.OriginalUriBaseIds.Keys)
                 {
-                    AnalyzeUri(run.OriginalUriBaseIds[key], originalUriBaseIdsPointer.AtProperty(key));
+                    AnalyzeUri(run.OriginalUriBaseIds[key].Uri, originalUriBaseIdsPointer.AtProperty(key));
                 }
             }
         }
@@ -109,7 +109,7 @@ $                       # up to the end of the string (not strictly needed since
 
         protected override void Analyze(VersionControlDetails versionControlDetails, string versionControlDetailsPointer)
         {
-            AnalyzeUri(versionControlDetails.Uri, versionControlDetailsPointer.AtProperty(SarifPropertyName.Uri));
+            AnalyzeUri(versionControlDetails.RepositoryUri, versionControlDetailsPointer.AtProperty(SarifPropertyName.RepositoryUri));
         }
 
         private void AnalyzeUri(Uri uri, string pointer)

@@ -28,11 +28,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.Step != right.Step)
-            {
-                return false;
-            }
-
             if (!Location.ValueComparer.Equals(left.Location, right.Location))
             {
                 return false;
@@ -85,7 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.Timestamp != right.Timestamp)
+            if (left.ExecutionTimeUtc != right.ExecutionTimeUtc)
             {
                 return false;
             }
@@ -130,7 +125,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                result = (result * 31) + obj.Step.GetHashCode();
                 if (obj.Location != null)
                 {
                     result = (result * 31) + obj.Location.ValueGetHashCode();
@@ -169,7 +163,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 result = (result * 31) + obj.NestingLevel.GetHashCode();
                 result = (result * 31) + obj.ExecutionOrder.GetHashCode();
-                result = (result * 31) + obj.Timestamp.GetHashCode();
+                result = (result * 31) + obj.ExecutionTimeUtc.GetHashCode();
                 result = (result * 31) + obj.Importance.GetHashCode();
                 if (obj.Properties != null)
                 {

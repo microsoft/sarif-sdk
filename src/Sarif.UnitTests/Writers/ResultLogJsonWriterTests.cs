@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string expected =
 @"{
   ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + SarifUtilities.SarifFormatVersion + @""",
+  ""version"": """ + SarifUtilities.SemanticVersion + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -152,7 +152,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string expected =
 @"{
   ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + SarifUtilities.SarifFormatVersion + @""",
+  ""version"": """ + SarifUtilities.SemanticVersion + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -181,19 +181,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         [Fact]
-        public void ResultLogJsonWriter_WritesIdAndAutomationId()
+        public void ResultLogJsonWriter_WritesAutomationDetails()
         {
             string instanceGuid = Guid.NewGuid().ToString();
             string automationLogicalId = Guid.NewGuid().ToString();
+            string instanceId = automationLogicalId + "/" + instanceGuid;
 
             string expected =
 @"{
   ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + SarifUtilities.SarifFormatVersion + @""",
+  ""version"": """ + SarifUtilities.SemanticVersion + @""",
   ""runs"": [
     {
-      ""instanceGuid"": """ + instanceGuid + @""",
-      ""automationLogicalId"": """ + automationLogicalId + @""",
+      ""id"": {
+        ""instanceId"": """ + instanceId + @""",
+        ""instanceGuid"": """ + instanceGuid + @"""
+      },
       ""tool"": {
         ""name"": null
       },
@@ -210,8 +213,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 var run = new Run()
                 {
-                    InstanceGuid = instanceGuid,
-                    AutomationLogicalId = automationLogicalId,
+                    Id = new RunAutomationDetails
+                    {
+                        InstanceGuid = instanceGuid,
+                        InstanceId = automationLogicalId + "/" + instanceGuid
+                    },
                     Tool = DefaultTool,
                 };
                 uut.Initialize(run);
@@ -255,17 +261,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         StartColumn = 12
                     }
                 },
-                Time = DateTime.ParseExact("04/29/2016", ShortDateFormat, CultureInfo.InvariantCulture),
+                TimeUtc = DateTime.ParseExact("04/29/2016", ShortDateFormat, CultureInfo.InvariantCulture),
                 Exception = new ExceptionData
                 {
                     Kind = "System.AggregateException",
-                    Message = "Bad thing",
+                    Message = "Bad thing".ToMessage(),
                     InnerExceptions = new[]
                     {
                         new ExceptionData
                         {
                             Kind = "System.ArgumentNullException",
-                            Message = "x cannot be null",
+                            Message = "x cannot be null".ToMessage(),
                             Stack = new Stack
                             {
                                 Frames = new StackFrame[]
@@ -334,14 +340,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             ""text"": ""This is a test""
           },
           ""level"": ""error"",
-          ""time"": ""2016-04-29T00:00:00.000Z"",
+          ""timeUtc"": ""2016-04-29T00:00:00.000Z"",
           ""exception"": {
             ""kind"": ""System.AggregateException"",
-            ""message"": ""Bad thing"",
+            ""message"": {
+              ""text"": ""Bad thing""
+            },
             ""innerExceptions"": [
               {
                 ""kind"": ""System.ArgumentNullException"",
-                ""message"": ""x cannot be null"",
+                ""message"": {
+                  ""text"": ""x cannot be null""
+                },
                 ""stack"": {
                   ""frames"": [
                     {
@@ -385,7 +395,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string expected =
 @"{
   ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + SarifUtilities.SarifFormatVersion + @""",
+  ""version"": """ + SarifUtilities.SemanticVersion + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -413,7 +423,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string expected =
 @"{
   ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + SarifUtilities.SarifFormatVersion + @""",
+  ""version"": """ + SarifUtilities.SemanticVersion + @""",
   ""runs"": [
     {
       ""tool"": {

@@ -102,6 +102,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             return JsonConvert.DeserializeObject<T>(Properties[propertyName].SerializedValue);
         }
 
+        private static readonly JsonSerializerSettings s_settingsWithComprehensiveV2ContractResolver = new JsonSerializerSettings
+        {
+            ContractResolver = new SarifContractResolver(),
+            Formatting = Formatting.None
+        };
+
         public void SetProperty<T>(string propertyName, T value)
         {
             if (Properties == null)
@@ -127,19 +133,19 @@ namespace Microsoft.CodeAnalysis.Sarif
                     // Use the appropriate serializer settings
                     JsonSerializerSettings settings = null;
 
-                    if (propertyName.StartsWith("sarifv2/"))
-                    {
-                        settings = SarifTransformerUtilities.JsonSettingsV2Compact;
-                    }
-                    else if (propertyName.StartsWith("sarifv1/"))
+                    if (propertyName.StartsWith("sarifv1/"))
                     {
                         settings = SarifTransformerUtilities.JsonSettingsV1Compact;
+                    }
+                    else if (propertyName.StartsWith("sarifv2/"))
+                    {
+                        settings = s_settingsWithComprehensiveV2ContractResolver;
                     }
 
                     serializedValue = JsonConvert.SerializeObject(value, settings);
                 }
             }
-             
+
             Properties[propertyName] = new SerializedPropertyInfo(serializedValue, isString);
         }
 
@@ -149,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 throw new ArgumentNullException(nameof(other));
             }
-            
+
             // We need the concrete class because the IPropertyBagHolder interface
             // doesn't expose the raw Properties array.
             PropertyBagHolder otherHolder = other as PropertyBagHolder;
@@ -174,5 +180,18 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         [JsonIgnore]
         public TagsCollection Tags { get; }
+
+        public virtual bool ShouldSerializeProperties()
+        {
+            return PropertyBagHasAtLeastOneNonNullValue();
+        }   
+
+        public bool PropertyBagHasAtLeastOneNonNullValue()
+        {
+            bool hasAtLeastOneNonNullTag = this.Tags.Any(t => !string.IsNullOrEmpty(t));
+            bool hasAtLeastOneNonNullPropertyValue = this.Properties != null && this.Properties.Any(kv => kv.Key != "Tags" && kv.Value != null);
+
+            return hasAtLeastOneNonNullTag | hasAtLeastOneNonNullPropertyValue;
+        }
     }
 }

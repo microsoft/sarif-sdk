@@ -6,6 +6,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -32,8 +33,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// The absolute URI of the repository.
         /// </summary>
-        [DataMember(Name = "uri", IsRequired = true)]
-        public Uri Uri { get; set; }
+        [DataMember(Name = "repositoryUri", IsRequired = true)]
+        [JsonConverter(typeof(UriConverter))]
+        public Uri RepositoryUri { get; set; }
 
         /// <summary>
         /// A string that uniquely and permanently identifies the revision within the repository.
@@ -50,17 +52,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// A tag that has been applied to the revision.
         /// </summary>
-        [DataMember(Name = "tag", IsRequired = false, EmitDefaultValue = false)]
-        public string Tag { get; set; }
+        [DataMember(Name = "revisionTag", IsRequired = false, EmitDefaultValue = false)]
+        public string RevisionTag { get; set; }
 
         /// <summary>
-        /// The date and time at which the revision was created.
+        /// A Coordinated Universal Time (UTC) date and time that can be used to synchronize an enlistment to the state of the repository at that time.
         /// </summary>
-        [DataMember(Name = "timestamp", IsRequired = false, EmitDefaultValue = false)]
-        public DateTime Timestamp { get; set; }
+        [DataMember(Name = "asOfTimeUtc", IsRequired = false, EmitDefaultValue = false)]
+        [JsonConverter(typeof(DateTimeConverter))]
+        public DateTime AsOfTimeUtc { get; set; }
 
         /// <summary>
-        /// Key/value pairs that provide additional information about the revision.
+        /// Key/value pairs that provide additional information about the version control details.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
@@ -75,8 +78,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Initializes a new instance of the <see cref="VersionControlDetails" /> class from the supplied values.
         /// </summary>
-        /// <param name="uri">
-        /// An initialization value for the <see cref="P: Uri" /> property.
+        /// <param name="repositoryUri">
+        /// An initialization value for the <see cref="P: RepositoryUri" /> property.
         /// </param>
         /// <param name="revisionId">
         /// An initialization value for the <see cref="P: RevisionId" /> property.
@@ -84,18 +87,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="branch">
         /// An initialization value for the <see cref="P: Branch" /> property.
         /// </param>
-        /// <param name="tag">
-        /// An initialization value for the <see cref="P: Tag" /> property.
+        /// <param name="revisionTag">
+        /// An initialization value for the <see cref="P: RevisionTag" /> property.
         /// </param>
-        /// <param name="timestamp">
-        /// An initialization value for the <see cref="P: Timestamp" /> property.
+        /// <param name="asOfTimeUtc">
+        /// An initialization value for the <see cref="P: AsOfTimeUtc" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public VersionControlDetails(Uri uri, string revisionId, string branch, string tag, DateTime timestamp, IDictionary<string, SerializedPropertyInfo> properties)
+        public VersionControlDetails(Uri repositoryUri, string revisionId, string branch, string revisionTag, DateTime asOfTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(uri, revisionId, branch, tag, timestamp, properties);
+            Init(repositoryUri, revisionId, branch, revisionTag, asOfTimeUtc, properties);
         }
 
         /// <summary>
@@ -114,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Uri, other.RevisionId, other.Branch, other.Tag, other.Timestamp, other.Properties);
+            Init(other.RepositoryUri, other.RevisionId, other.Branch, other.RevisionTag, other.AsOfTimeUtc, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -135,17 +138,17 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new VersionControlDetails(this);
         }
 
-        private void Init(Uri uri, string revisionId, string branch, string tag, DateTime timestamp, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Uri repositoryUri, string revisionId, string branch, string revisionTag, DateTime asOfTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            if (uri != null)
+            if (repositoryUri != null)
             {
-                Uri = new Uri(uri.OriginalString, uri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
+                RepositoryUri = new Uri(repositoryUri.OriginalString, repositoryUri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
             }
 
             RevisionId = revisionId;
             Branch = branch;
-            Tag = tag;
-            Timestamp = timestamp;
+            RevisionTag = revisionTag;
+            AsOfTimeUtc = asOfTimeUtc;
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);

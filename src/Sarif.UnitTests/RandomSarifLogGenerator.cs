@@ -20,6 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             // Slightly roundabout.  We want to randomly test this, but we also want to be able to repeat this if the test fails.
             int randomSeed = (new Random()).Next();
+
             Random random = new Random(randomSeed);
 
             output.WriteLine($"TestName: {testName} has seed {randomSeed}");

@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests
         {
             string originalLog =
 @"{
-  ""version"": """ + SarifUtilities.SarifFormatVersion + @""",
+  ""version"": """ + SarifUtilities.SemanticVersion + @""",
   ""runs"": [
     {
       ""tool"": {
@@ -30,13 +30,8 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests
     }
   ]
 }";
-            var serializerSettings = new JsonSerializerSettings
-            {
-                ContractResolver = SarifContractResolver.Instance,
-                Formatting = Formatting.Indented
-            };
-
-            SarifLog deserializedLog = JsonConvert.DeserializeObject<SarifLog>(originalLog, serializerSettings);
+            var settings = new JsonSerializerSettings { Formatting = Formatting.Indented };
+            SarifLog deserializedLog = JsonConvert.DeserializeObject<SarifLog>(originalLog);
             Run run = deserializedLog.Runs[0];
 
             int integerProperty = run.GetProperty<int>("int");
@@ -44,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests
             string stringProperty = run.GetProperty<string>("string");
             stringProperty.Should().Be("'\"\\'");
 
-            string reserializedLog = JsonConvert.SerializeObject(deserializedLog, serializerSettings);
+            string reserializedLog = JsonConvert.SerializeObject(deserializedLog, settings);
 
             reserializedLog.Should().Be(originalLog);
         }
