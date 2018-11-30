@@ -445,45 +445,66 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                                 }
                             }
 
-                            var location = new Location
+                            if (actionType == null)
                             {
-                                PhysicalLocation = physicalLocation
-                            };
+                                // If there is no type attribute on the Action element, we treat
+                                // it as a note about the prior node.
+                                ThreadFlowLocation tfl = codeFlow.ThreadFlows[0].Locations.Last();
 
-                            if (isDefault == true)
-                            {
-                                result.Locations.Add(location.DeepClone());
-                                result.RelatedLocations.Add(location.DeepClone());
-
-                                // Keep track of the snippet associated with the default location.
-                                // That's the snippet that we'll associate with the result.
-                                lastNodeId = snippetId;
-
-                                isDefault = false; // This indicates we have already found the default node.
-                            }
-
-                            var tfl = new ThreadFlowLocation
-                            {
-                                Kind = actionType,
-                                Location = location
-                            };
-
-                            if (!string.IsNullOrWhiteSpace(nodeLabel))
-                            {
-                                tfl.Location.Message = new Message
+                                // Annotate the location with the Action text.
+                                if (tfl?.Location != null)
                                 {
-                                    Text = nodeLabel
-                                };
+                                    tfl.Location.Annotations = new List<Region>();
+                                    Region region = physicalLocation.Region;
+                                    region.Message = new Message
+                                    {
+                                        Text = nodeLabel
+                                    };
+                                    tfl.Location.Annotations.Add(region);
+                                }
                             }
-
-                            // Remember the id of the snippet associated with this location.
-                            // We'll use it to fill the snippet text when we read the Snippets element later on.
-                            if (!string.IsNullOrEmpty(snippetId))
+                            else
                             {
-                                _tflToSnippetIdDictionary.Add(tfl, snippetId);
-                            }
+                                var location = new Location
+                                {
+                                    PhysicalLocation = physicalLocation
+                                };
 
-                            codeFlow.ThreadFlows[0].Locations.Add(tfl);
+                                if (isDefault == true)
+                                {
+                                    result.Locations.Add(location.DeepClone());
+                                    result.RelatedLocations.Add(location.DeepClone());
+
+                                    // Keep track of the snippet associated with the default location.
+                                    // That's the snippet that we'll associate with the result.
+                                    lastNodeId = snippetId;
+
+                                    isDefault = false; // This indicates we have already found the default node.
+                                }
+
+                                var tfl = new ThreadFlowLocation
+                                {
+                                    Kind = actionType,
+                                    Location = location
+                                };
+
+                                if (!string.IsNullOrWhiteSpace(nodeLabel))
+                                {
+                                    tfl.Location.Message = new Message
+                                    {
+                                        Text = nodeLabel
+                                    };
+                                }
+
+                                // Remember the id of the snippet associated with this location.
+                                // We'll use it to fill the snippet text when we read the Snippets element later on.
+                                if (!string.IsNullOrEmpty(snippetId))
+                                {
+                                    _tflToSnippetIdDictionary.Add(tfl, snippetId);
+                                }
+
+                                codeFlow.ThreadFlows[0].Locations.Add(tfl);
+                            }
                         }
                         else
                         {
