@@ -20,6 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Assert.Same(nameTable.Add("UUID"), uut.Uuid);
             Assert.Same(nameTable.Add("Build"), uut.Build);
             Assert.Same(nameTable.Add("BuildID"), uut.BuildId);
+            Assert.Same(nameTable.Add("SourceBasePath"), uut.SourceBasePath);
             Assert.Same(nameTable.Add("SourceFiles"), uut.SourceFiles);
             Assert.Same(nameTable.Add("File"), uut.File);
             Assert.Same(nameTable.Add("size"), uut.SizeAttribute);
@@ -34,9 +35,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Assert.Same(nameTable.Add("Def"), uut.Def);
             Assert.Same(nameTable.Add("key"), uut.KeyAttribute);
             Assert.Same(nameTable.Add("value"), uut.ValueAttribute);
+            Assert.Same(nameTable.Add("Unified"), uut.Unified);
             Assert.Same(nameTable.Add("Trace"), uut.Trace);
             Assert.Same(nameTable.Add("Entry"), uut.Entry);
             Assert.Same(nameTable.Add("NodeRef"), uut.NodeRef);
+            Assert.Same(nameTable.Add("isDefault"), uut.IsDefaultAttribute);
             Assert.Same(nameTable.Add("label"), uut.LabelAttribute);
             Assert.Same(nameTable.Add("SourceLocation"), uut.SourceLocation);
             Assert.Same(nameTable.Add("snippet"), uut.SnippetAttribute);
@@ -56,6 +59,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Assert.Same(nameTable.Add("Snippets"), uut.Snippets);
             Assert.Same(nameTable.Add("Snippet"), uut.Snippet);
             Assert.Same(nameTable.Add("id"), uut.IdAttribute);
+            Assert.Same(nameTable.Add("StartLine"), uut.StartLine);
+            Assert.Same(nameTable.Add("EndLine"), uut.EndLine);
             Assert.Same(nameTable.Add("Text"), uut.Text);
             Assert.Same(nameTable.Add("CommandLine"), uut.CommandLine);
             Assert.Same(nameTable.Add("Argument"), uut.Argument);

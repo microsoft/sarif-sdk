@@ -27,7 +27,6 @@ namespace SarifDeferredSample
             {
                 // Use 'SarifDeferredContractResolver' and 'JsonPositionedTextReader' to load a geferred version of the same object graph.
                 JsonSerializer serializer = new JsonSerializer();
-                serializer.ContractResolver = (deferred ? SarifDeferredContractResolver.Instance : SarifContractResolver.Instance);
 
                 using (JsonTextReader reader = (deferred ? new JsonPositionedTextReader(filePath) : new JsonTextReader(new StreamReader(filePath))))
                 {

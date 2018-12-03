@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     {
         private const string FortifyToolName = "HP Fortify Static Code Analyzer";
         private const string FortifyExecutable = "[REMOVED]insourceanalyzer.exe";
-        private const string FileLocationUriBaseId = "%SRCROOT%";
+        private const string FileLocationUriBaseId = "SRCROOT";
         private const string ReplacementTokenFormat = "<Replace key=\"{0}\"/>";
         private const string EmbeddedLinkFormat = "[{0}](1)";
 
@@ -119,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Invocations = new[] { _invocation }
             };
 
-            if (_originalUriBasePath != null)
+            if (!string.IsNullOrWhiteSpace(_originalUriBasePath))
             {
                 var uri = new Uri(_originalUriBasePath);
                 run.OriginalUriBaseIds = new Dictionary<string, FileLocation>
@@ -437,6 +437,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             if (AtStartOf(_strings.Action))
                             {
                                 actionType = _reader.GetAttribute(_strings.TypeAttribute);
+                                actionType = actionType ?? string.Empty; // We use empty string to indicates there is an
+                                                                         // Action element without a type attribute.
 
                                 // If we don't have a label, get the <Action> value
                                 if (string.IsNullOrWhiteSpace(nodeLabel))
@@ -445,22 +447,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                                 }
                             }
 
-                            if (actionType == null)
+                            if (actionType == string.Empty)
                             {
-                                // If there is no type attribute on the Action element, we treat
-                                // it as a note about the prior node.
-                                ThreadFlowLocation tfl = codeFlow.ThreadFlows[0].Locations.Last();
-
-                                // Annotate the location with the Action text.
-                                if (tfl?.Location != null)
+                                if (codeFlow.ThreadFlows[0].Locations.Count > 0)
                                 {
-                                    tfl.Location.Annotations = new List<Region>();
-                                    Region region = physicalLocation.Region;
-                                    region.Message = new Message
+                                    // If there is no type attribute on the Action element, we treat
+                                    // it as a note about the prior node.
+                                    ThreadFlowLocation tfl = codeFlow.ThreadFlows[0].Locations.Last();
+
+                                    // Annotate the location with the Action text.
+                                    if (tfl?.Location != null)
                                     {
-                                        Text = nodeLabel
-                                    };
-                                    tfl.Location.Annotations.Add(region);
+                                        tfl.Location.Annotations = new List<Region>();
+                                        Region region = physicalLocation.Region;
+                                        region.Message = new Message
+                                        {
+                                            Text = nodeLabel
+                                        };
+                                        tfl.Location.Annotations.Add(region);
+                                    }
                                 }
                             }
                             else
@@ -586,12 +591,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             string path = _reader.GetAttribute(_strings.PathAttribute);
 
+            var uri = new Uri(path, UriKind.RelativeOrAbsolute);
             return new PhysicalLocation
             {
                 FileLocation = new FileLocation
                 {
-                    Uri = new Uri(path, UriKind.Relative),
-                    UriBaseId = FileLocationUriBaseId
+                    Uri = uri,
+                    UriBaseId = uri.IsAbsoluteUri ? null : FileLocationUriBaseId
                 },
                 Region = ParseRegion()
             };
