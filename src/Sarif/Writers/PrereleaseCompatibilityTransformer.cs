@@ -33,21 +33,55 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             switch (version)
             {
+                case "2.0.0-csd.2.beta.2018-11-28":
+                {
+                    // SARIF TC28. Nothing to do.
+                    break;
+                }
 
                 case "2.0.0-csd.2.beta.2018-10-10":
                 {
-                    // Nothing to do, this is current
+                    // 2.0.0-csd.2.beta.2018-10-10 == changes through SARIF TC #25
+                    modifiedLog |= ApplyChangesFromTC25ThroughTC28(sarifLog);
                     break;
                 }
 
                 default:
                 {
                     modifiedLog |= ApplyCoreTransformations(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC25ThroughTC28(sarifLog);
                     break;
                 }
             }
 
             return modifiedLog ? sarifLog.ToString(formatting) : prereleaseSarifLog;
+        }
+
+        private static bool ApplyChangesFromTC25ThroughTC28(JObject sarifLog)
+        {
+            bool modifiedLog = UpdateSarifLogVersion(sarifLog); 
+
+            var runs = (JArray)sarifLog["runs"];
+
+            if (runs != null)
+            {
+                foreach (JObject run in runs)
+                {
+                    // Delete run.architecture. This data could, arguably, be transferred into the run logical
+                    // identifier or we could drop it into a property bag, but realistically, we don't expect
+                    // sufficient existing utilization of this property to warrant preserving it.
+
+                    // Remove run.architecture: https://github.com/oasis-tcs/sarif-spec/issues/262
+                    JToken architecture = run[nameof(architecture)];
+                    if (architecture != null)
+                    {
+                        run.Remove(nameof(architecture));
+                        modifiedLog = true;
+                    }
+                }
+            }
+
+            return modifiedLog;
         }
 
         private static bool ApplyCoreTransformations(JObject sarifLog)

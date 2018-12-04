@@ -860,7 +860,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     run = new RunVersionOne();
                     _currentRun = run;
 
-                    run.Architecture = v2Run.Architecture;
                     run.BaselineId = v2Run.BaselineInstanceGuid;
                     run.Files = v2Run.Files?.ToDictionary(v => v.Key, v => CreateFileData(v.Value));
 

@@ -225,11 +225,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.Architecture != right.Architecture)
-            {
-                return false;
-            }
-
             if (left.RichMessageMimeType != right.RichMessageMimeType)
             {
                 return false;
@@ -420,11 +415,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.BaselineInstanceGuid != null)
                 {
                     result = (result * 31) + obj.BaselineInstanceGuid.GetHashCode();
-                }
-
-                if (obj.Architecture != null)
-                {
-                    result = (result * 31) + obj.Architecture.GetHashCode();
                 }
 
                 if (obj.RichMessageMimeType != null)

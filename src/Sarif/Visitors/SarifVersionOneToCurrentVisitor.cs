@@ -913,7 +913,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     run = new Run()
                     {
-                        Architecture = v1Run.Architecture,
                         Id = id,
                         AggregateIds = aggregateIds,
                         BaselineInstanceGuid = v1Run.BaselineId,

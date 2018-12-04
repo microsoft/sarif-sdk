@@ -218,3 +218,8 @@
 * BREAKING: run.automationLogicalId subsumed by run.aggregateIds, an array of 'runAutomationDetails' objects.
 * BREAKING: Remove threadFlowLocation.step
 * Add result.occurrenceCount (denotes # of occurrences of an identical results within an analysisRun)
+
+## **v2.0.0-csd.2.beta.2018.11.28** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2018.11.28) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2018.11.28) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2018.11.28)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2018.11.28))
+* Result matching improvements
+* Fortify FPR converter improvements
+* BREAKING: remove run.architecture https://github.com/oasis-tcs/sarif-spec/issues/262
