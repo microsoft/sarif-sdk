@@ -8,15 +8,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     public class DoNotUseFriendlyNameAsRuleIdTests : ValidationSkimmerTestsBase<DoNotUseFriendlyNameAsRuleId>
     {
         [Fact(DisplayName = nameof(DoNotUseFriendlyNameAsRuleId_ReportsInvalidSarif))]
-        public void DoNotUseFriendlyNameAsRuleId_ReportsInvalidSarif()
-        {
-            Verify("Invalid.sarif");
-        }
+        public void DoNotUseFriendlyNameAsRuleId_ReportsInvalidSarif() => Verify("Invalid.sarif");
 
         [Fact(DisplayName = nameof(DoNotUseFriendlyNameAsRuleId_AcceptsValidSarif))]
-        public void DoNotUseFriendlyNameAsRuleId_AcceptsValidSarif()
-        {
-            Verify("Valid.sarif");
-        }
+        public void DoNotUseFriendlyNameAsRuleId_AcceptsValidSarif() => Verify("Valid.sarif");
     }
 }

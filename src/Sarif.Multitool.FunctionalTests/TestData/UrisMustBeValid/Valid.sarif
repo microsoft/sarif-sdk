@@ -41,7 +41,12 @@
         {
           "uri": "https://example.com/my-project"
         }
-      ]
+      ],
+      "properties": {
+        "expectedResults": {
+          "resultLocationPointers": []
+        }
+      }
     }
   ]
 }
