@@ -3,16 +3,8 @@
   "version": "2.0.0-csd.2.beta.2018-10-10",
   "runs": [
     {
-      "id": {
-        "instanceId": "CareerGuideAdminTool/"
-      },
       "tool": {
         "name": "HP Fortify Static Code Analyzer"
-      },
-      "originalUriBaseIds": {
-        "SRCROOT": {
-          "uri": "file:///C:/project/"
-        }
       },
       "invocations": [
         {
@@ -25,6 +17,11 @@
           }
         }
       ],
+      "originalUriBaseIds": {
+        "SRCROOT": {
+          "uri": "file:///C:/project/"
+        }
+      },
       "files": {
         "src/Controllers/ContentFileHandlingController.cs": {
           "length": 58665,
@@ -45,6 +42,15 @@
           "length": 51630,
           "mimeType": "text/x-csharp",
           "encoding": "utf-8"
+        },
+        "#SRCROOT#src/Controllers/ContentFileHandlingController.cs": {
+          "mimeType": "text/x-csharp"
+        },
+        "#SRCROOT#src/ContentFileViewModel.cs": {
+          "mimeType": "text/x-csharp"
+        },
+        "#SRCROOT#src/DocumentValidator.cs": {
+          "mimeType": "text/x-csharp"
         }
       },
       "results": [
@@ -465,6 +471,9 @@
             }
           }
         }
+      },
+      "id": {
+        "instanceId": "CareerGuideAdminTool/"
       }
     }
   ]
