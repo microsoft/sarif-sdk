@@ -108,6 +108,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
       },
       ""results"": [
         {
+          ""message"": {
+            ""text"": ""Some testing occurred.""
+         },
           ""locations"": [
             {
               ""physicalLocation"": {
@@ -129,6 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
 
                 var result = new Result
                 {
+                    Message = new Message {  Text = "Some testing occurred."},
                     Locations = new List<Location>
                     {
                         new Location

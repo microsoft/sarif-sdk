@@ -8,6 +8,7 @@
       },
       "results": [
         {
+          "message": "Some testing occurred.",
           "codeFlows": [
             {
               "message": "Path from declaration to usage",

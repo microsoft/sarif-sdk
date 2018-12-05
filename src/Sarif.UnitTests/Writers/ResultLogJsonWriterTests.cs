@@ -26,7 +26,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         ""name"": null
       },
       ""results"": [
-        {}
+        {
+          ""message"": {
+            ""text"": ""Some testing occurred.""
+          }
+        }
       ]
     }
   ]

@@ -23,9 +23,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         ""name"": null
       },
       ""results"": [
-        {
+          {
+            ""message"": {
+              ""text"": ""Some testing occurred.""
+          },
           ""suppressionStates"": [""suppressedInSource""]
-        }
+       }
       ]
     }
   ]
@@ -38,6 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
                 uut.WriteResults(new[] { new Result
                     {
+                        Message = new Message { Text = "Some testing occurred."},
                         SuppressionStates = SuppressionStates.SuppressedInSource
                     }
                 });
@@ -61,7 +65,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         ""name"": null
       },
       ""results"": [
-        {}
+        {
+          ""message"": {
+            ""text"": ""Some testing occurred.""
+        }
+       }
       ]
     }
   ]
@@ -73,6 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
                 uut.WriteResults(new[] { new Result
                     {
+                        Message = new Message { Text = "Some testing occurred."},
                         BaselineState = BaselineState.None
                     }
                 });
@@ -99,6 +108,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
       },
       ""results"": [
         {
+          ""message"": {
+            ""text"": ""Some testing occurred.""
+         },
           ""baselineState"": ""existing""
         }
       ]
@@ -112,6 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
                 uut.WriteResults(new[] { new Result
                     {
+                        Message = new Message { Text = "Some testing occurred. "},
                         BaselineState = BaselineState.Existing
                     }
                 });

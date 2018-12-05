@@ -59,6 +59,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static bool ApplyChangesFromTC25ThroughTC28(JObject sarifLog)
         {
+            // Note: we could have injected the TC26 - TC28 changes into the other helpers in this
+            // code. This would prevent multiple passes over things like the run.results array.
+            // We've isolated the changes here instead simply to keep them grouped together.
+       
             bool modifiedLog = UpdateSarifLogVersion(sarifLog); 
 
             var runs = (JArray)sarifLog["runs"];
@@ -77,6 +81,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     {
                         run.Remove(nameof(architecture));
                         modifiedLog = true;
+                    }
+
+                    var results = (JArray)run["results"];
+                    if (results != null)
+                    {
+                        foreach (JObject result in results)
+                        {
+                            // result.message SHALL be present constraint should be added to schema
+                            // https://github.com/oasis-tcs/sarif-spec/issues/262
+                            JObject message = (JObject)result["message"];
+                            if (message == null)
+                            {
+                                message = new JObject(new JProperty("text", "[No message provided]."));
+                                result["message"] = message;
+                            }
+                        }
                     }
                 }
             }
