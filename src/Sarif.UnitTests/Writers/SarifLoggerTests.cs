@@ -230,7 +230,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 };
 
                 run.BaselineInstanceGuid = baselineInstanceGuid;
-                run.Architecture = architecture;
                 run.Conversion = conversion;
                 run.VersionControlProvenance = new[] { versionControlDetails };
                 run.OriginalUriBaseIds = originalUriBaseIds;
@@ -255,9 +254,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             run.Id.InstanceGuid.Should().Be(runInstanceGuid);
             run.BaselineInstanceGuid.Should().Be(baselineInstanceGuid);
             run.Id.InstanceId.Should().Be(runInstanceId);
-            run.Architecture.Should().Be(architecture);
             run.Conversion.Tool.Should().BeEquivalentTo(DefaultTool);
-            //run.VersionControlProvenance[0].Timestamp.Should().BeEquivalentTo(utcNow);
             run.VersionControlProvenance[0].RepositoryUri.Should().BeEquivalentTo(versionControlUri);
             run.OriginalUriBaseIds[originalUriBaseIdKey].Uri.Should().Be(originalUriBaseIdValue);
             run.DefaultFileEncoding.Should().Be(defaultFileEncoding);
