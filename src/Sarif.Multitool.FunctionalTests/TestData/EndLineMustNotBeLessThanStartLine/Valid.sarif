@@ -15,6 +15,37 @@
           },
           "locations": [
             {
+              "message": {
+                "text": "endLine equals startLine"
+              },
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///c:/src/file.c"
+                },
+                "region": {
+                  "startLine": 1,
+                  "endLine": 1
+                }
+              }
+            },
+            {
+              "message": {
+                "text": "endLine greater than startLine"
+              },
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///c:/src/file.c"
+                },
+                "region": {
+                  "startLine": 1,
+                  "endLine": 2
+                }
+              }
+            },
+            {
+              "message": {
+                "text": "endLine not specified"
+              },
               "physicalLocation": {
                 "fileLocation": {
                   "uri": "file:///c:/src/file.c"
@@ -24,22 +55,14 @@
                 }
               }
             }
-          ],
-          "relatedLocations": [
-            {
-              "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///c:/src/file.c"
-                },
-                "region": {
-                  "startLine": 2,
-                  "endLine": 1
-                }
-              }
-            }
           ]
         }
-      ]
+      ],
+      "properties": {
+        "expectedResults": {
+          "resultLocationPointers": []
+        }
+      }
     }
   ]
 }
