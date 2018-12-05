@@ -9,6 +9,7 @@
       },
       "results": [
         {
+          "message":  { "text":  "Some testing occurred."},
           "ruleId": "TST0001",
           "level": "error",
           "workItemUris": [

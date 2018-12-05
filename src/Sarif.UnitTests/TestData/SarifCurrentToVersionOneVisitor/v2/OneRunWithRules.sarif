@@ -9,16 +9,20 @@
       },
       "results": [
         {
-          "ruleId": "C2009"
+          "ruleId": "C2009",
+          "message": { "text": "Some testing occurred." }
         },
         {
-          "ruleId": "C2002"
+          "ruleId": "C2002",
+          "message": { "text": "Some testing occurred." }
         },
         {
-          "ruleId": "C2003"
+          "ruleId": "C2003",
+          "message": { "text": "Some testing occurred." }
         },
         {
-          "ruleId": "C2003-1"
+          "ruleId": "C2003-1",
+          "message": { "text": "Some testing occurred." }
         }
       ],
       "resources": {
