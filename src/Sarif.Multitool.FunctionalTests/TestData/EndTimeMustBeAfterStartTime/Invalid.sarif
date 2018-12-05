@@ -9,11 +9,18 @@
       "results": [],
       "invocations": [
         {
-          "commandLine": "CodeScanner.exe *.dll",
+          "commandLine": "CodeScanner.exe *.dll end time before start time",
           "startTime": "2016-08-25T21:26:42.049Z",
           "endTime": "2016-08-25T21:26:41.051Z"
         }
-      ]
+      ],
+      "properties": {
+        "expectedResults": {
+          "resultLocationPointers": [
+            "runs[0].invocations[0].endTimeUtc"
+          ]
+        }
+      }
     }
   ]
 }

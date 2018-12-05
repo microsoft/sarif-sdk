@@ -7,22 +7,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class EndTimeMustBeAfterStartTimeTests : ValidationSkimmerTestsBase<EndTimeMustBeAfterStartTime>
     {
-        [Fact(DisplayName = nameof(EndTimeMustBeAfterStartTime_EndTimeIsAfterStartTime))]
-        public void EndTimeMustBeAfterStartTime_EndTimeIsAfterStartTime()
-        {
-            Verify("EndTimeIsAfterStartTime.sarif");
-        }
+        [Fact(DisplayName = nameof(EndTimeMustBeAfterStartTime_ReportsInvalidSarif))]
+        public void EndTimeMustBeAfterStartTime_ReportsInvalidSarif() => Verify("Invalid.sarif");
 
-        [Fact(DisplayName = nameof(EndTimeMustBeAfterStartTime_EndTimeEqualsStartTime))]
-        public void EndTimeMustBeAfterStartTime_EndTimeEqualsStartTime()
-        {
-            Verify("EndTimeEqualsStartTime.sarif");
-        }
-
-        [Fact(DisplayName = nameof(EndTimeMustBeAfterStartTime_EndTimeIsBeforeStartTime))]
-        public void EndTimeMustBeAfterStartTime_EndTimeIsBeforeStartTime()
-        {
-            Verify("EndTimeIsBeforeStartTime.sarif");
-        }
+        [Fact(DisplayName = nameof(EndTimeMustBeAfterStartTime_AcceptsValidSarif))]
+        public void EndTimeMustBeAfterStartTime_AcceptsValidSarif() => Verify("Valid.sarif");
     }
 }
