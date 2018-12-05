@@ -59,7 +59,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static bool ApplyChangesFromTC25ThroughTC28(JObject sarifLog)
         {
-            bool modifiedLog = UpdateSarifLogVersion(sarifLog); 
+            bool modifiedLog = UpdateSarifLogVersion(sarifLog);
+
+            // For completness, this update added run.newlineSequences to the schema
+            // This is a non-breaking (additive) change, so there is no work to do.
+            //https://github.com/oasis-tcs/sarif-spec/issues/169
 
             var runs = (JArray)sarifLog["runs"];
 

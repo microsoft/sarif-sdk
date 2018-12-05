@@ -1571,6 +1571,17 @@
           "type": "string"
         },
 
+        "newlineSequences": {
+          "description": "An ordered list of character sequences that were treated as line breaks when computing region information for the run.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "default": [ "\r\n", "\n" ],
+          "items": {
+            "type": "string"
+          }
+        },
+
         "columnKind": {
           "description": "Specifies the unit in which the tool measures columns.",
           "enum": [ "utf16CodeUnits", "unicodeCodePoints" ]
