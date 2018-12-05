@@ -70,6 +70,29 @@
                 }
               ]
             }
+          ],
+          "stacks": [
+            {
+              "frames": [
+                {
+                  "location": {
+                    "message": {
+                      "text": "endColumn less than startColumn in stackFrame"
+                    },
+                    "physicalLocation": {
+                      "fileLocation": {
+                        "uri": "file:///c:/src/file.c"
+                      },
+                      "region": {
+                        "startLine": 2,
+                        "startColumn": 2,
+                        "endColumn": 1
+                      }
+                    }
+                  }
+                }
+              ]
+            }
           ]
         }
       ],
@@ -78,7 +101,8 @@
           "resultLocationPointers": [
             "runs[0].results[0].locations[0].physicalLocation.region.endColumn",
             "runs[0].results[0].relatedLocations[0].physicalLocation.region.endColumn",
-            "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0].location.physicalLocation.region.endColumn"
+            "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0].location.physicalLocation.region.endColumn",
+            "runs[0].results[0].stacks[0].frames[0].location.physicalLocation.region.endColumn"
           ]
         }
       }
