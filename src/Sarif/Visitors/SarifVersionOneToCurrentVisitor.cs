@@ -1045,7 +1045,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 tool = new Tool()
                 {
-                    FileVersion = v1Tool.FileVersion,
+                    DottedQuadFileVersion = v1Tool.FileVersion,
                     FullName = v1Tool.FullName,
                     Language = v1Tool.Language,
                     Name = v1Tool.Name,

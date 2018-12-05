@@ -99,8 +99,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                             {
                                 message = new JObject(new JProperty("text", "[No message provided]."));
                                 result["message"] = message;
+                                modifiedLog = true;
                             }
                         }
+                    }
+
+                    // Rename fileVersion to dottedQuadFileVersion and specify format constraint
+                    // https://github.com/oasis-tcs/sarif-spec/issues/274
+                    //
+                    // Applies to run.tool.fileVersion and run.conversion.tool.fileVersion
+
+                    modifiedLog |= RenameProperty((JObject)run["tool"], previousName: "fileVersion", newName: "dottedQuadFileVersion");
+
+                    JObject conversion = (JObject)run["conversion"];
+                    if (conversion != null)
+                    {
+                        modifiedLog |= RenameProperty((JObject)conversion["tool"], previousName: "fileVersion", newName: "dottedQuadFileVersion");
                     }
                 }
             }
@@ -449,6 +463,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static bool RenameProperty(JObject jObject, string previousName, string newName)
         {
+            if (jObject == null) { return false; }
+
             JToken propertyValue = jObject[previousName];
             
             if (propertyValue != null)
