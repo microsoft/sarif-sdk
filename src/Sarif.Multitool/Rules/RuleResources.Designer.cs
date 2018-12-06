@@ -266,5 +266,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
                 return ResourceManager.GetString("SARIF1015_UriMustBeAbsolute", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If the &quot;contextRegion&quot; property is present, the &quot;region&quot; property must also be present..
+        /// </summary>
+        internal static string SARIF1016_ContextRegionRequiresRegion {
+            get {
+                return ResourceManager.GetString("SARIF1016_ContextRegionRequiresRegion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This &quot;physicalLocation&quot; object contains a &quot;contextRegion&quot; property, but it does not contain a &quot;region&quot; property..
+        /// </summary>
+        internal static string SARIF1016_Default {
+            get {
+                return ResourceManager.GetString("SARIF1016_Default", resourceCulture);
+            }
+        }
     }
 }

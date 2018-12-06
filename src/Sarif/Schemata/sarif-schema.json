@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta.2018-10-10 JSON Schema",
-  "description": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2018-10-10 JSON Schema: a standard format for the output of static analysis tools.",
+  "description": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2018-11-28 JSON Schema: a standard format for the output of static analysis tools.",
   "additionalProperties": false,
   "type": "object",
   "properties": {
@@ -14,7 +14,7 @@
 
     "version": {
       "description": "The SARIF format version of this log file.",
-      "enum": [ "2.0.0-csd.2.beta.2018-10-10" ]
+      "enum": [ "2.0.0-csd.2.beta.2018-11-28" ]
     },
 
     "runs": {
@@ -1357,7 +1357,8 @@
           "description": "Key/value pairs that provide additional information about the result.",
           "$ref": "#/definitions/propertyBag"
         }
-      }
+      },
+      "required": ["message"]
     },
 
     "rule": {
@@ -1555,11 +1556,6 @@
           "type": "string"
         },
 
-        "architecture": {
-          "description": "The hardware architecture for which the run was targeted.",
-          "type": "string"
-        },
-
         "richMessageMimeType": {
           "description": "The MIME type of all rich text message properties in the run. Default: \"text/markdown;variant=GFM\"",
           "type": "string",
@@ -1574,6 +1570,17 @@
         "defaultFileEncoding": {
           "description": "Specifies the default encoding for any file object that refers to a text file.",
           "type": "string"
+        },
+
+        "newlineSequences": {
+          "description": "An ordered list of character sequences that were treated as line breaks when computing region information for the run.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "default": [ "\r\n", "\n" ],
+          "items": {
+            "type": "string"
+          }
         },
 
         "columnKind": {
@@ -1819,8 +1826,8 @@
           "type": "string"
         },
 
-        "fileVersion": {
-          "description": "The binary version of the tool's primary executable file (for operating systems such as Windows that provide that information).",
+        "dottedQuadFileVersion": {
+          "description": "The binary version of the tool's primary executable file expressed as four non-negative integers separated by a period (for operating systems that express file versions in this way).",
           "type": "string",
           "pattern": "[0-9]+(\\.[0-9]+){3}"
         },

@@ -53,7 +53,7 @@
 * Add SuppressedExternally to SuppressionStates enum
 
 ## **v1.5.26** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.26) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.26)  
-* Breaking change on SarifLogger to explicitly specify hash computation for all files  
+* API BREAKING change on SarifLogger to explicitly specify hash computation for all files  
 * SarifLogger now automatically persists file data for all URIs through format  
 * Add run.stableId, a consistent run-over-run log identifier  
 * Add annotatedCodeLocation.callee and annotatedCodeLocation.calleeKey for annotation call sites  
@@ -64,7 +64,7 @@
 * Ship checked in CommandLine.dll in order to allow this 'beta' NuGet component to ship in Driver non-beta release
 
 ## **v1.5.28** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.28) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.28)
-* Breaking change: rename PropertyBagDictionary to PropertiesDictionary
+* API BREAKING change: rename PropertyBagDictionary to PropertiesDictionary
 * Add 'functionReturn' to annotatedCodeLocation.kind
 * Remove 'source', 'sink' and 'sanitizer' from annotatedCodeLocation.kind
 * Add 'taint' enum to annotatedCodeLocation with values 'source', 'sink' and 'sanitizer'
@@ -82,7 +82,7 @@
 
 ## **v1.5.31** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.31) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.31)
 
-* BREAKING CHANGE: RuleUtilities.BuildResult no longer automatically prepends the target file path to the list of FormattedRuleMessage.Arguments array in the Result object being built.
+* API BREAKING CHANGE: RuleUtilities.BuildResult no longer automatically prepends the target file path to the list of FormattedRuleMessage.Arguments array in the Result object being built.
 
 ## **v1.5.32** [Driver](https://www.nuget.org/packages/Sarif.Driver/1.5.32) | [SDK](https://www.nuget.org/packages/Sarif.Sdk/1.5.32)
 
@@ -193,28 +193,36 @@
 * Provide SARIF v1.0 object model and v1 <-> v2 transformation API
 
 ## **v2.0.0-csd.1.0.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.1.0.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.1.0.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.1.0.1)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.1.0.1))
-* BREAKING CHANGE: Fix weakly typed CreateNotification calls and make API more strongly typed
-* BREAKING CHANGE: Rename OptionallyEmittedData.ContextCodeSnippets to ContextRegionSnippets
-* BREAKING CHANGE: Eliminate result.ruleMessageId (in favor of result.message.messageId)
+* API BREAKING CHANGE: Fix weakly typed CreateNotification calls and make API more strongly typed
+* API BREAKING CHANGE: Rename OptionallyEmittedData.ContextCodeSnippets to ContextRegionSnippets
+* API BREAKING CHANGE: Eliminate result.ruleMessageId (in favor of result.message.messageId)
 
 ## **v2.0.0-csd.1.0.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.1.0.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.1.0.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.1.0.2)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.1.0.2))
 * Bugfix to result matching algorithm where empty or null previous log sets caused a NullReferenceException.
 * Bugfix to result matching algorithm where we were incorrectly detecting duplicate data across files, and changed a "NotImplementedException" to the correct "InvalidOperationException".
 
 ## **v2.0.0-csd.2.beta.2018.10.10** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2018.10.10) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2018.10.10) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2018.10.10)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2018.10.10))
-* BREAKING: invocation.workingDirectory is now a FileLocation object (and not a URI expressed as a string)
-* Add run.externalFiles object to schema. Sync generally to OASIS TC schema.
-* Add --sarif-version command to driver (to transform SARIF output to v1 format)
-* Fix bug that persisted tokens to redact as file references.
-* BREAKING: originalUriBaseIds is now a dictionary of file locations, not strings.
-* BREAKING: Suffix invocation.startTime, invocation.endTime, file.lastModifiedTime and notification.time with Utc (startTimeUtc, endTimeUtc, etc.).
-* BREAKING: threadflowLocation.timestamp renamed to 'executionTimeUtc'.
-* BREAKING: versionControlDetails.timestamp renamed to 'asOfTimeUtc'.
-* BREAKING: versionControlDetails.uri renamed to 'repositoryUri'.
-* BREAKING: versionControlDetails.tag renamed to 'revisionTag'
-* BREAKING: exception.message type converted from string to message object.
-* BREAKING: file.hashes is now a string/string dictionary, not an array of 'hash' objects (the type for which is deleted)
-* BREAKING: run.instanceGuid, run.correlationGuid, run.logicalId, run.description combined into new run.id 'runAutomationDetails' object instance.
-* BREAKING: run.automationLogicalId subsumed by run.aggregateIds, an array of 'runAutomationDetails' objects.
-* BREAKING: Remove threadFlowLocation.step
-* Add result.occurrenceCount (denotes # of occurrences of an identical results within an analysisRun)
+* FEATURE:Add --sarif-version command to driver (to transform SARIF output to v1 format)
+* BUGFIX: Drop erroneous persistence of redaction tokens as files objects.
+* API NON-BREAKING: Add result.occurrenceCount (denotes # of occurrences of an identical results within an analysisRun)
+* API NON-BREAKING: Add run.externalFiles object to schema. Sync generally to OASIS TC schema.
+* API BREAKING: originalUriBaseIds is now a dictionary of file locations, not strings.
+* API BREAKING: Suffix invocation.startTime, invocation.endTime, file.lastModifiedTime and notification.time with Utc (startTimeUtc, endTimeUtc, etc.).
+* API BREAKING: threadflowLocation.timestamp renamed to 'executionTimeUtc'.
+* API BREAKING: versionControlDetails.timestamp renamed to 'asOfTimeUtc'.
+* API BREAKING: versionControlDetails.uri renamed to 'repositoryUri'.
+* API BREAKING: versionControlDetails.tag renamed to 'revisionTag'
+* API BREAKING: exception.message type converted from string to message object.
+* API BREAKING: file.hashes is now a string/string dictionary, not an array of 'hash' objects (the type for which is deleted)
+* API BREAKING: run.instanceGuid, run.correlationGuid, run.logicalId, run.description combined into new run.id 'runAutomationDetails' object instance.
+* API BREAKING: run.automationLogicalId subsumed by run.aggregateIds, an array of 'runAutomationDetails' objects.
+* API BREAKING: Remove threadFlowLocation.step
+* API BREAKING: invocation.workingDirectory is now a FileLocation object (and not a URI expressed as a string)
+
+## **v2.0.0-csd.2.beta.2018.11.28** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2018.11.28) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2018.11.28) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2018.11.28)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2018.11.28))
+* BUGFIX: Result matching improvements in properties persistence
+* FEATURE: Fortify FPR converter improvements
+* API NON-BREAKING: Add run.newlineSequences to schema. https://github.com/oasis-tcs/sarif-spec/issues/169
+* API BREAKING: remove run.architecture https://github.com/oasis-tcs/sarif-spec/issues/262
+* API BREAKING: result.message is now a required property https://github.com/oasis-tcs/sarif-spec/issues/283
+* API BREAKING: rename tool.fileVersion to tool.dottedQuadFileVersion https://github.com/oasis-tcs/sarif-spec/issues/274

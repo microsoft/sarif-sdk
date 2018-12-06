@@ -96,12 +96,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 _serializer.Serialize(_jsonWriter, run.AggregateIds);
             }
 
-            if (!string.IsNullOrEmpty(run.Architecture))
-            {
-                _jsonWriter.WritePropertyName("architecture");
-                _serializer.Serialize(_jsonWriter, run.Architecture);
-            }
-
             if (run.Tool != null)
             {
                 _jsonWriter.WritePropertyName("tool");

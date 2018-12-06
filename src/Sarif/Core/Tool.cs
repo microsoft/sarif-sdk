@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (fileVersion.FileVersion != tool.Version)
             {
-                tool.FileVersion = fileVersion.FileVersion;
+                tool.DottedQuadFileVersion = fileVersion.FileVersion;
             }
 
             tool.FullName = name + " " + tool.Version + (prereleaseInfo ?? "");

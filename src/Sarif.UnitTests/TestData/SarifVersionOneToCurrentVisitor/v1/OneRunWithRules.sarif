@@ -36,18 +36,28 @@
       },
       "results": [
         {
-          "ruleId": "C2001"
+          "ruleId": "C2001",
+          "formattedRuleMessage": {
+            "arguments": [ "someVariable" ],
+            "formatId": "default"
+          }          
         },
         {
           "ruleId": "C2001",
-          "ruleKey": "C2001"
+          "ruleKey": "C2001",
+          "formattedRuleMessage": {
+            "arguments": [ "anotherVariable" ],
+            "formatId": "default"
+          }
         },
         {
           "ruleId": "C2002",
-          "ruleKey": "C2002-1"
+          "ruleKey": "C2002-1",
+          "message": "Some testing occurred."
         },
         {
-          "ruleKey": "C2003"
+          "ruleKey": "C2003",
+          "message": "Some testing occurred."
         }
       ]
     }

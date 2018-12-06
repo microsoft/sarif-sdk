@@ -97,7 +97,7 @@ $                       # up to the end of the string (not strictly needed since
 
                 foreach (string key in run.OriginalUriBaseIds.Keys)
                 {
-                    AnalyzeUri(run.OriginalUriBaseIds[key].Uri, originalUriBaseIdsPointer.AtProperty(key));
+                    AnalyzeUri(run.OriginalUriBaseIds[key].Uri, originalUriBaseIdsPointer.AtProperty(key).AtProperty(SarifPropertyName.Uri));
                 }
             }
         }

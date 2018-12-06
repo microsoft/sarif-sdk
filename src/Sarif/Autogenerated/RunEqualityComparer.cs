@@ -225,11 +225,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.Architecture != right.Architecture)
-            {
-                return false;
-            }
-
             if (left.RichMessageMimeType != right.RichMessageMimeType)
             {
                 return false;
@@ -243,6 +238,27 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (left.DefaultFileEncoding != right.DefaultFileEncoding)
             {
                 return false;
+            }
+
+            if (!object.ReferenceEquals(left.NewlineSequences, right.NewlineSequences))
+            {
+                if (left.NewlineSequences == null || right.NewlineSequences == null)
+                {
+                    return false;
+                }
+
+                if (left.NewlineSequences.Count != right.NewlineSequences.Count)
+                {
+                    return false;
+                }
+
+                for (int index_4 = 0; index_4 < left.NewlineSequences.Count; ++index_4)
+                {
+                    if (left.NewlineSequences[index_4] != right.NewlineSequences[index_4])
+                    {
+                        return false;
+                    }
+                }
             }
 
             if (left.ColumnKind != right.ColumnKind)
@@ -422,11 +438,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.BaselineInstanceGuid.GetHashCode();
                 }
 
-                if (obj.Architecture != null)
-                {
-                    result = (result * 31) + obj.Architecture.GetHashCode();
-                }
-
                 if (obj.RichMessageMimeType != null)
                 {
                     result = (result * 31) + obj.RichMessageMimeType.GetHashCode();
@@ -442,17 +453,29 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.DefaultFileEncoding.GetHashCode();
                 }
 
+                if (obj.NewlineSequences != null)
+                {
+                    foreach (var value_18 in obj.NewlineSequences)
+                    {
+                        result = result * 31;
+                        if (value_18 != null)
+                        {
+                            result = (result * 31) + value_18.GetHashCode();
+                        }
+                    }
+                }
+
                 result = (result * 31) + obj.ColumnKind.GetHashCode();
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_4 = 0;
-                    foreach (var value_18 in obj.Properties)
+                    foreach (var value_19 in obj.Properties)
                     {
-                        xor_4 ^= value_18.Key.GetHashCode();
-                        if (value_18.Value != null)
+                        xor_4 ^= value_19.Key.GetHashCode();
+                        if (value_19.Value != null)
                         {
-                            xor_4 ^= value_18.Value.GetHashCode();
+                            xor_4 ^= value_19.Value.GetHashCode();
                         }
                     }
 

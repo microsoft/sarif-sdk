@@ -111,12 +111,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string BaselineInstanceGuid { get; set; }
 
         /// <summary>
-        /// The hardware architecture for which the run was targeted.
-        /// </summary>
-        [DataMember(Name = "architecture", IsRequired = false, EmitDefaultValue = false)]
-        public string Architecture { get; set; }
-
-        /// <summary>
         /// The MIME type of all rich text message properties in the run. Default: "text/markdown;variant=GFM"
         /// </summary>
         [DataMember(Name = "richMessageMimeType", IsRequired = false, EmitDefaultValue = false)]
@@ -133,6 +127,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "defaultFileEncoding", IsRequired = false, EmitDefaultValue = false)]
         public string DefaultFileEncoding { get; set; }
+
+        /// <summary>
+        /// An ordered list of character sequences that were treated as line breaks when computing region information for the run.
+        /// </summary>
+        [DataMember(Name = "newlineSequences", IsRequired = false, EmitDefaultValue = false)]
+        public IList<string> NewlineSequences { get; set; }
 
         /// <summary>
         /// Specifies the unit in which the tool measures columns.
@@ -195,9 +195,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="baselineInstanceGuid">
         /// An initialization value for the <see cref="P: BaselineInstanceGuid" /> property.
         /// </param>
-        /// <param name="architecture">
-        /// An initialization value for the <see cref="P: Architecture" /> property.
-        /// </param>
         /// <param name="richMessageMimeType">
         /// An initialization value for the <see cref="P: RichMessageMimeType" /> property.
         /// </param>
@@ -207,15 +204,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="defaultFileEncoding">
         /// An initialization value for the <see cref="P: DefaultFileEncoding" /> property.
         /// </param>
+        /// <param name="newlineSequences">
+        /// An initialization value for the <see cref="P: NewlineSequences" /> property.
+        /// </param>
         /// <param name="columnKind">
         /// An initialization value for the <see cref="P: ColumnKind" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, FileLocation> originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, Resources resources, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string architecture, string richMessageMimeType, string redactionToken, string defaultFileEncoding, ColumnKind columnKind, IDictionary<string, SerializedPropertyInfo> properties)
+        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, FileLocation> originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, Resources resources, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string richMessageMimeType, string redactionToken, string defaultFileEncoding, IEnumerable<string> newlineSequences, ColumnKind columnKind, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(tool, invocations, conversion, versionControlProvenance, originalUriBaseIds, files, logicalLocations, graphs, results, resources, id, aggregateIds, baselineInstanceGuid, architecture, richMessageMimeType, redactionToken, defaultFileEncoding, columnKind, properties);
+            Init(tool, invocations, conversion, versionControlProvenance, originalUriBaseIds, files, logicalLocations, graphs, results, resources, id, aggregateIds, baselineInstanceGuid, richMessageMimeType, redactionToken, defaultFileEncoding, newlineSequences, columnKind, properties);
         }
 
         /// <summary>
@@ -234,7 +234,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocations, other.Conversion, other.VersionControlProvenance, other.OriginalUriBaseIds, other.Files, other.LogicalLocations, other.Graphs, other.Results, other.Resources, other.Id, other.AggregateIds, other.BaselineInstanceGuid, other.Architecture, other.RichMessageMimeType, other.RedactionToken, other.DefaultFileEncoding, other.ColumnKind, other.Properties);
+            Init(other.Tool, other.Invocations, other.Conversion, other.VersionControlProvenance, other.OriginalUriBaseIds, other.Files, other.LogicalLocations, other.Graphs, other.Results, other.Resources, other.Id, other.AggregateIds, other.BaselineInstanceGuid, other.RichMessageMimeType, other.RedactionToken, other.DefaultFileEncoding, other.NewlineSequences, other.ColumnKind, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -255,7 +255,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, FileLocation> originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, Resources resources, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string architecture, string richMessageMimeType, string redactionToken, string defaultFileEncoding, ColumnKind columnKind, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, FileLocation> originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, Resources resources, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string richMessageMimeType, string redactionToken, string defaultFileEncoding, IEnumerable<string> newlineSequences, ColumnKind columnKind, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (tool != null)
             {
@@ -386,10 +386,20 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             BaselineInstanceGuid = baselineInstanceGuid;
-            Architecture = architecture;
             RichMessageMimeType = richMessageMimeType;
             RedactionToken = redactionToken;
             DefaultFileEncoding = defaultFileEncoding;
+            if (newlineSequences != null)
+            {
+                var destination_4 = new List<string>();
+                foreach (var value_8 in newlineSequences)
+                {
+                    destination_4.Add(value_8);
+                }
+
+                NewlineSequences = destination_4;
+            }
+
             ColumnKind = columnKind;
             if (properties != null)
             {

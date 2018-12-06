@@ -58,10 +58,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string SemanticVersion { get; set; }
 
         /// <summary>
-        /// The binary version of the tool's primary executable file (for operating systems such as Windows that provide that information).
+        /// The binary version of the tool's primary executable file expressed as four non-negative integers separated by a period (for operating systems that express file versions in this way).
         /// </summary>
-        [DataMember(Name = "fileVersion", IsRequired = false, EmitDefaultValue = false)]
-        public string FileVersion { get; set; }
+        [DataMember(Name = "dottedQuadFileVersion", IsRequired = false, EmitDefaultValue = false)]
+        public string DottedQuadFileVersion { get; set; }
 
         /// <summary>
         /// The absolute URI from which the tool can be downloaded.
@@ -110,8 +110,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="semanticVersion">
         /// An initialization value for the <see cref="P: SemanticVersion" /> property.
         /// </param>
-        /// <param name="fileVersion">
-        /// An initialization value for the <see cref="P: FileVersion" /> property.
+        /// <param name="dottedQuadFileVersion">
+        /// An initialization value for the <see cref="P: DottedQuadFileVersion" /> property.
         /// </param>
         /// <param name="downloadUri">
         /// An initialization value for the <see cref="P: DownloadUri" /> property.
@@ -125,9 +125,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Tool(string name, string fullName, string version, string semanticVersion, string fileVersion, Uri downloadUri, string sarifLoggerVersion, string language, IDictionary<string, SerializedPropertyInfo> properties)
+        public Tool(string name, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, string sarifLoggerVersion, string language, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(name, fullName, version, semanticVersion, fileVersion, downloadUri, sarifLoggerVersion, language, properties);
+            Init(name, fullName, version, semanticVersion, dottedQuadFileVersion, downloadUri, sarifLoggerVersion, language, properties);
         }
 
         /// <summary>
@@ -146,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Name, other.FullName, other.Version, other.SemanticVersion, other.FileVersion, other.DownloadUri, other.SarifLoggerVersion, other.Language, other.Properties);
+            Init(other.Name, other.FullName, other.Version, other.SemanticVersion, other.DottedQuadFileVersion, other.DownloadUri, other.SarifLoggerVersion, other.Language, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -167,13 +167,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Tool(this);
         }
 
-        private void Init(string name, string fullName, string version, string semanticVersion, string fileVersion, Uri downloadUri, string sarifLoggerVersion, string language, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string name, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, string sarifLoggerVersion, string language, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Name = name;
             FullName = fullName;
             Version = version;
             SemanticVersion = semanticVersion;
-            FileVersion = fileVersion;
+            DottedQuadFileVersion = dottedQuadFileVersion;
             if (downloadUri != null)
             {
                 DownloadUri = new Uri(downloadUri.OriginalString, downloadUri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);

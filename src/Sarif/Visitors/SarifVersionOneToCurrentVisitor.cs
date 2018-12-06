@@ -913,7 +913,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     run = new Run()
                     {
-                        Architecture = v1Run.Architecture,
                         Id = id,
                         AggregateIds = aggregateIds,
                         BaselineInstanceGuid = v1Run.BaselineId,
@@ -1046,7 +1045,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 tool = new Tool()
                 {
-                    FileVersion = v1Tool.FileVersion,
+                    DottedQuadFileVersion = v1Tool.FileVersion,
                     FullName = v1Tool.FullName,
                     Language = v1Tool.Language,
                     Name = v1Tool.Name,

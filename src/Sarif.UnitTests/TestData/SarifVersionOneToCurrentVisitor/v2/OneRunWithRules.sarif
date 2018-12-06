@@ -9,16 +9,26 @@
       },
       "results": [
         {
-          "ruleId": "C2001"
+          "ruleId": "C2001",
+          "message": {
+            "arguments": [ "someVariable" ],
+            "messageId": "default"
+          }
         },
         {
-          "ruleId": "C2001"
+          "ruleId": "C2001",
+          "message": {
+            "arguments": [ "anotherVariable" ],
+            "messageId": "default"
+          }
         },
         {
-          "ruleId": "C2002-1"
+          "ruleId": "C2002-1",
+          "message": { "text": "Some testing occurred." }
         },
         {
-          "ruleId": "C2003"
+          "ruleId": "C2003",
+          "message": { "text": "Some testing occurred." }
         }
       ],
       "resources": {

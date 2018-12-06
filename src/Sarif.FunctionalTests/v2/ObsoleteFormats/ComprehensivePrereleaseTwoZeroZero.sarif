@@ -22,6 +22,17 @@
           "copyright": "Copyright (c) 2016 by Example Corporation. All rights reserved."
         }
       },
+      "conversion": {
+        "tool": {
+          "name": "CodeScanner Legacy File Format Converter",
+          "fullName": "CodeScanner Converter Tool",
+          "version": "4.3",
+          "semanticVersion": "4.3.0",
+          "fileVersion": "4.3.0.0",
+          "language": "en-US",
+          "sarifLoggerVersion": "1.25.0"
+        }
+      },
       "versionControlProvenance": [
         {
           "uri": "https://github.com/contoso/example",
