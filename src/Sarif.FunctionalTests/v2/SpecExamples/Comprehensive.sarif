@@ -13,11 +13,22 @@
         "fullName": "CodeScanner 1.1 for Unix (en-US)",
         "version": "2.1",
         "semanticVersion": "2.1.0",
-        "fileVersion": "2.1.0.0",
+        "dottedQuadFileVersion": "2.1.0.0",
         "language": "en-US",
         "sarifLoggerVersion": "1.25.0",
         "properties": {
           "copyright": "Copyright (c) 2016 by Example Corporation. All rights reserved."
+        }
+      },
+      "conversion": {
+        "tool": {
+          "name": "CodeScanner Legacy File Format Converter",
+          "fullName": "CodeScanner Converter Tool",
+          "version": "4.3",
+          "semanticVersion": "4.3.0",
+          "dottedQuadFileVersion": "4.3.0.0",
+          "language": "en-US",
+          "sarifLoggerVersion": "1.25.0"
         }
       },
       "versionControlProvenance": [

@@ -225,3 +225,4 @@
 * API NON-BREAKING: Add run.newlineSequences to schema. https://github.com/oasis-tcs/sarif-spec/issues/169
 * API BREAKING: remove run.architecture https://github.com/oasis-tcs/sarif-spec/issues/262
 * API BREAKING: result.message is now a required property https://github.com/oasis-tcs/sarif-spec/issues/283
+* API BREAKING: rename tool.fileVersion to tool.dottedQuadFileVersion https://github.com/oasis-tcs/sarif-spec/issues/274
