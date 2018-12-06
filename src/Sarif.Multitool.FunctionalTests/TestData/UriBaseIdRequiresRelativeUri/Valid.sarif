@@ -1,0 +1,251 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner"
+      },
+      "conversion": {
+        "tool": {
+          "name": "ConversionTool"
+        },
+        "analysisToolLogFiles": [
+          {
+            "uri": "file.c",
+            "uriBaseId": "%SRCROOT%"
+          }
+        ]
+      },
+      "files": {
+        "file.c": {
+          "fileLocation": {
+            "uri": "file.c",
+            "uriBaseId": "%SRCROOT%"
+          }
+        }
+      },
+      "graphs": {
+        "g1": {
+          "id": "g1",
+          "nodes": [
+            {
+              "id": "n1",
+              "location": {
+                "physicalLocation": {
+                  "fileLocation": {
+                    "uri": "file.c",
+                    "uriBaseId": "%SRCROOT%"
+                  }
+                }
+              }
+            }
+          ],
+          "edges": [
+            {
+              "id": "e1",
+              "sourceNodeId": "n1",
+              "targetNodeId": "n1"
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "attachments": [
+            {
+              "fileLocation": {
+                "uri": "file.c",
+                "uriBaseId": "%SRCROOT%"
+              }
+            }
+          ],
+          "configurationNotifications": [
+            {
+              "message": {
+                "text": "Message."
+              },
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file.c",
+                  "uriBaseId": "%SRCROOT%"
+                }
+              }
+            }
+          ],
+          "executableLocation": {
+            "uri": "file.c",
+            "uriBaseId": "%SRCROOT%"
+          },
+          "responseFiles": [
+            {
+              "uri": "file.c",
+              "uriBaseId": "%SRCROOT%"
+            }
+          ],
+          "stdin": {
+            "uri": "/c:/log/in.txt",
+            "uriBaseId": "%SRCROOT%"
+          },
+          "stdout": {
+            "uri": "/c:/log/out.txt",
+            "uriBaseId": "%SRCROOT%"
+          },
+          "stderr": {
+            "uri": "/c:/log/err.txt",
+            "uriBaseId": "%SRCROOT%"
+          },
+          "stdoutStderr": {
+            "uri": "/c:/log/out-err.txt",
+            "uriBaseId": "%SRCROOT%"
+          },
+          "toolNotifications": [
+            {
+              "message": {
+                "text": "Message."
+              },
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file.c",
+                  "uriBaseId": "%SRCROOT%"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "analysisTarget": {
+            "uri": "file.c",
+            "uriBaseId": "%SRCROOT%"
+          },
+          "attachments": [
+            {
+              "fileLocation": {
+                "uri": "file.c",
+                "uriBaseId": "%SRCROOT%"
+              }
+            }
+          ],
+          "conversionProvenance": [
+            {
+              "fileLocation": {
+                "uri": "file.c",
+                "uriBaseId": "%SRCROOT%"
+              }
+            }
+          ],
+          "graphs": {
+            "g1": {
+              "id": "g1",
+              "nodes": [
+                {
+                  "id": "n1",
+                  "location": {
+                    "physicalLocation": {
+                      "fileLocation": {
+                        "uri": "file.c",
+                        "uriBaseId": "%SRCROOT%"
+                      }
+                    }
+                  }
+                }
+              ],
+              "edges": [
+                {
+                  "id": "e1",
+                  "sourceNodeId": "n1",
+                  "targetNodeId": "n1"
+                }
+              ]
+            }
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file.c",
+                  "uriBaseId": "%SRCROOT%"
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file.c",
+                  "uriBaseId": "%SRCROOT%"
+                }
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file.c",
+                            "uriBaseId": "%SRCROOT%"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "stacks": [
+            {
+              "frames": [
+                {
+                  "location": {
+                    "physicalLocation": {
+                      "fileLocation": {
+                        "uri": "file.c",
+                        "uriBaseId": "%SRCROOT%"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "fixes": [
+            {
+              "fileChanges": [
+                {
+                  "fileLocation": {
+                    "uri": "file.c",
+                    "uriBaseId": "%SRCROOT%"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 0,
+                        "charLength": 1
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "properties": {
+        "expectedResults": {
+          "resultLocationPointers": []
+        }
+      }
+    }
+  ]
+}

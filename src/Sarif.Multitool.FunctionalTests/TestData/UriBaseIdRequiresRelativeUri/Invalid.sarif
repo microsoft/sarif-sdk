@@ -12,7 +12,7 @@
         },
         "analysisToolLogFiles": [
           {
-            "uri": "file.c",
+            "uri": "file:///C:/src/file.c",
             "uriBaseId": "%SRCROOT%"
           }
         ]
@@ -20,7 +20,7 @@
       "files": {
         "file.c": {
           "fileLocation": {
-            "uri": "file.c",
+            "uri": "file:///C:/src/file.c",
             "uriBaseId": "%SRCROOT%"
           }
         }
@@ -34,7 +34,7 @@
               "location": {
                 "physicalLocation": {
                   "fileLocation": {
-                    "uri": "file.c",
+                    "uri": "file:///C:/src/file.c",
                     "uriBaseId": "%SRCROOT%"
                   }
                 }
@@ -55,7 +55,7 @@
           "attachments": [
             {
               "fileLocation": {
-                "uri": "file.c",
+                "uri": "file:///C:/src/file.c",
                 "uriBaseId": "%SRCROOT%"
               }
             }
@@ -67,36 +67,36 @@
               },
               "physicalLocation": {
                 "fileLocation": {
-                  "uriBaseId": "%SRCROOT%",
-                  "uri": "file.c"
+                  "uri": "file:///C:/src/file.c",
+                  "uriBaseId": "%SRCROOT%"
                 }
               }
             }
           ],
           "executableLocation": {
-            "uri": "file.c",
+            "uri": "file:///C:/src/file.c",
             "uriBaseId": "%SRCROOT%"
           },
           "responseFiles": [
             {
-              "uri": "file.c",
+              "uri": "file:///C:/src/file.c",
               "uriBaseId": "%SRCROOT%"
             }
           ],
           "stdin": {
-            "uri": "/c:/log/in.txt",
+            "uri": "file:///c:/log/in.txt",
             "uriBaseId": "%SRCROOT%"
           },
           "stdout": {
-            "uri": "/c:/log/out.txt",
+            "uri": "file:///c:/log/out.txt",
             "uriBaseId": "%SRCROOT%"
           },
           "stderr": {
-            "uri": "/c:/log/err.txt",
+            "uri": "file:///c:/log/err.txt",
             "uriBaseId": "%SRCROOT%"
           },
           "stdoutStderr": {
-            "uri": "/c:/log/out-err.txt",
+            "uri": "file:///c:/log/out-err.txt",
             "uriBaseId": "%SRCROOT%"
           },
           "toolNotifications": [
@@ -106,8 +106,8 @@
               },
               "physicalLocation": {
                 "fileLocation": {
-                  "uriBaseId": "%SRCROOT%",
-                  "uri": "file.c"
+                  "uri": "file:///C:/src/file.c",
+                  "uriBaseId": "%SRCROOT%"
                 }
               }
             }
@@ -119,13 +119,13 @@
           "ruleId": "TST0001",
           "level": "error",
           "analysisTarget": {
-            "uriBaseId": "%SRCROOT%",
-            "uri": "file.c"
+            "uri": "file:///C:/src/file.c",
+            "uriBaseId": "%SRCROOT%"
           },
           "attachments": [
             {
               "fileLocation": {
-                "uri": "file.c",
+                "uri": "file:///C:/src/file.c",
                 "uriBaseId": "%SRCROOT%"
               }
             }
@@ -133,7 +133,7 @@
           "conversionProvenance": [
             {
               "fileLocation": {
-                "uri": "file.c",
+                "uri": "file:///C:/src/file.c",
                 "uriBaseId": "%SRCROOT%"
               }
             }
@@ -147,7 +147,7 @@
                   "location": {
                     "physicalLocation": {
                       "fileLocation": {
-                        "uri": "file.c",
+                        "uri": "file:///C:/src/file.c",
                         "uriBaseId": "%SRCROOT%"
                       }
                     }
@@ -167,7 +167,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "file.c",
+                  "uri": "file:///C:/src/file.c",
                   "uriBaseId": "%SRCROOT%"
                 }
               }
@@ -177,8 +177,8 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uriBaseId": "%SRCROOT%",
-                  "uri": "file.c"
+                  "uri": "file:///C:/src/file.c",
+                  "uriBaseId": "%SRCROOT%"
                 }
               }
             }
@@ -192,8 +192,8 @@
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
-                            "uriBaseId": "%SRCROOT%",
-                            "uri": "file.c"
+                            "uri": "file:///C:/src/file.c",
+                            "uriBaseId": "%SRCROOT%"
                           }
                         }
                       }
@@ -210,8 +210,8 @@
                   "location": {
                     "physicalLocation": {
                       "fileLocation": {
-                        "uriBaseId": "%SRCROOT%",
-                        "uri": "file.c"
+                        "uri": "file:///C:/src/file.c",
+                        "uriBaseId": "%SRCROOT%"
                       }
                     }
                   }
@@ -224,8 +224,8 @@
               "fileChanges": [
                 {
                   "fileLocation": {
-                    "uriBaseId": "%SRCROOT%",
-                    "uri": "file.c"
+                    "uri": "file:///C:/src/file.c",
+                    "uriBaseId": "%SRCROOT%"
                   },
                   "replacements": [
                     {
@@ -240,7 +240,34 @@
             }
           ]
         }
-      ]
+      ],
+      "properties": {
+        "expectedResults": {
+          "resultLocationPointers": [
+            "runs[0].conversion.analysisToolLogFiles[0].uri",
+            "runs[0].files['file.c'].fileLocation.uri",
+            "runs[0].graphs.g1.nodes[0].location.physicalLocation.fileLocation.uri",
+            "runs[0].invocations[0].attachments[0].fileLocation.uri",
+            "runs[0].invocations[0].configurationNotifications[0].physicalLocation.fileLocation.uri",
+            "runs[0].invocations[0].executableLocation.uri",
+            "runs[0].invocations[0].responseFiles[0].uri",
+            "runs[0].invocations[0].stdin.uri",
+            "runs[0].invocations[0].stdout.uri",
+            "runs[0].invocations[0].stderr.uri",
+            "runs[0].invocations[0].stdoutStderr.uri",
+            "runs[0].invocations[0].toolNotifications[0].physicalLocation.fileLocation.uri",
+            "runs[0].results[0].analysisTarget.uri",
+            "runs[0].results[0].attachments[0].fileLocation.uri",
+            "runs[0].results[0].conversionProvenance[0].fileLocation.uri",
+            "runs[0].results[0].graphs.g1.nodes[0].location.physicalLocation.fileLocation.uri",
+            "runs[0].results[0].locations[0].physicalLocation.fileLocation.uri",
+            "runs[0].results[0].relatedLocations[0].physicalLocation.fileLocation.uri",
+            "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0].location.physicalLocation.fileLocation.uri",
+            "runs[0].results[0].stacks[0].frames[0].location.physicalLocation.fileLocation.uri",
+            "runs[0].results[0].fixes[0].fileChanges[0].fileLocation.uri"
+          ]
+        }
+      }
     }
   ]
 }
