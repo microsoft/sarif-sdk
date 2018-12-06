@@ -6,7 +6,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
     public static class RuleId
     {
         public const string DoNotUseFriendlyNameAsRuleId = "SARIF1001";
-        public const string UseAbsolutePathsForNestedFileUriFragments = "SARIF1002";
         public const string UrisMustBeValid = "SARIF1003";
         public const string HashAlgorithmsMustBeUnique = "SARIF1006";
         public const string EndTimeMustNotBeBeforeStartTime = "SARIF1007";
