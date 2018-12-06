@@ -142,11 +142,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The end time of a run must be after the start time. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal..
+        ///   Looks up a localized string similar to The end time of a run must not precede the start time. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal..
         /// </summary>
-        internal static string SARIF1007_EndTimeMustBeAfterStartTime {
+        internal static string SARIF1007_EndTimeMustNotBeBeforeStartTime {
             get {
-                return ResourceManager.GetString("SARIF1007_EndTimeMustBeAfterStartTime", resourceCulture);
+                return ResourceManager.GetString("SARIF1007_EndTimeMustNotBeBeforeStartTime", resourceCulture);
             }
         }
         

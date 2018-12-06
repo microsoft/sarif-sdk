@@ -144,8 +144,8 @@
   <data name="SARIF1007_Default" xml:space="preserve">
     <value>{0}: The end time "{1}" is before the start time "{2}".</value>
   </data>
-  <data name="SARIF1007_EndTimeMustBeAfterStartTime" xml:space="preserve">
-    <value>The end time of a run must be after the start time. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal.</value>
+  <data name="SARIF1007_EndTimeMustNotBeBeforeStartTime" xml:space="preserve">
+    <value>The end time of a run must not precede the start time. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal.</value>
   </data>
   <data name="SARIF1008_Default" xml:space="preserve">
     <value>{0}: The message "{1}" does not end with a period.</value>
