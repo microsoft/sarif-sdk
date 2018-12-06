@@ -116,10 +116,43 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     {
                         modifiedLog |= RenameProperty((JObject)conversion["tool"], previousName: "fileVersion", newName: "dottedQuadFileVersion");
                     }
+
+                    // Remove 'open' from rule configuration default level enumeration
+                    // https://github.com/oasis-tcs/sarif-spec/issues/288
+                    JObject resources = (JObject)run["resources"];
+                    modifiedLog |= RemapRuleDefaultLevelFromOpenToNote(resources);
+
                 }
             }
 
             return modifiedLog;
+        }
+
+        private static bool RemapRuleDefaultLevelFromOpenToNote(JObject resources)
+        {
+            bool modifiedResources = false;
+
+            if (resources == null) { return modifiedResources; }
+
+            JObject rules = (JObject)resources["rules"];
+            if (rules == null ) { return modifiedResources; }
+
+            foreach (JProperty rule in rules.Values<JProperty>())
+            {
+                JObject configuration = (JObject)rule.Value["configuration"];
+                if (configuration == null) { continue; }
+
+                if ("open".Equals((string)configuration["defaultLevel"]))
+                {
+                    // We remap 'open' to 'note'. 'open' is an indicator that analysis is unresolved, i.e., 
+                    // the question of whether a weakness exists is not yet determined. 'note' is the most
+                    // reasonable level to associate with this class of report, if it is emitted. In 
+                    // practice, we don't expect that a current producer exists who is in this condition.
+                    configuration["defaultLevel"] = "note";
+                }
+            }
+
+            return modifiedResources;
         }
 
         private static bool ApplyCoreTransformations(JObject sarifLog)

@@ -429,6 +429,7 @@
         "rules": {
           "C2001": {
             "id": "C2001",
+            "configuration": {"defaultLevel": "open"},
             "shortDescription": {
               "text": "A variable was used without being initialized."
             },
