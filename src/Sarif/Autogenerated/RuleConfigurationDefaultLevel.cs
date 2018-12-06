@@ -14,7 +14,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         None,
         Note,
         Warning,
-        Error,
-        Open
+        Error
     }
 }

@@ -609,8 +609,7 @@
         "memberNames": [
           "Note",
           "Warning",
-          "Error",
-          "Open"
+          "Error"
         ]
       }
     },

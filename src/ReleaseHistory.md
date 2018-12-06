@@ -204,25 +204,26 @@
 ## **v2.0.0-csd.2.beta.2018.10.10** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2018.10.10) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2018.10.10) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2018.10.10)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2018.10.10))
 * FEATURE:Add --sarif-version command to driver (to transform SARIF output to v1 format)
 * BUGFIX: Drop erroneous persistence of redaction tokens as files objects.
-* API NON-BREAKING: Add result.occurrenceCount (denotes # of occurrences of an identical results within an analysisRun)
-* API NON-BREAKING: Add run.externalFiles object to schema. Sync generally to OASIS TC schema.
-* API BREAKING: originalUriBaseIds is now a dictionary of file locations, not strings.
-* API BREAKING: Suffix invocation.startTime, invocation.endTime, file.lastModifiedTime and notification.time with Utc (startTimeUtc, endTimeUtc, etc.).
-* API BREAKING: threadflowLocation.timestamp renamed to 'executionTimeUtc'.
-* API BREAKING: versionControlDetails.timestamp renamed to 'asOfTimeUtc'.
-* API BREAKING: versionControlDetails.uri renamed to 'repositoryUri'.
-* API BREAKING: versionControlDetails.tag renamed to 'revisionTag'
-* API BREAKING: exception.message type converted from string to message object.
-* API BREAKING: file.hashes is now a string/string dictionary, not an array of 'hash' objects (the type for which is deleted)
-* API BREAKING: run.instanceGuid, run.correlationGuid, run.logicalId, run.description combined into new run.id 'runAutomationDetails' object instance.
-* API BREAKING: run.automationLogicalId subsumed by run.aggregateIds, an array of 'runAutomationDetails' objects.
-* API BREAKING: Remove threadFlowLocation.step
-* API BREAKING: invocation.workingDirectory is now a FileLocation object (and not a URI expressed as a string)
+* API NON-BREAKING: Add 'result.occurrenceCount' (denotes # of occurrences of an identical results within an analysisRun)
+* API NON-BREAKING: Add 'run.externalFiles' object to schema. Sync generally to OASIS TC schema.
+* API BREAKING: 'originalUriBaseIds' is now a dictionary of file locations, not strings.
+* API BREAKING: Suffix 'invocation.startTime', 'invocation.endTime', 'file.lastModifiedTime' and 'notification.time' with Utc ('startTimeUtc', 'endTimeUtc', etc.).
+* API BREAKING: 'threadflowLocation.timestamp' renamed to 'executionTimeUtc'.
+* API BREAKING: 'versionControlDetails.timestamp' renamed to 'asOfTimeUtc'.
+* API BREAKING: 'versionControlDetails.uri' renamed to 'repositoryUri'.
+* API BREAKING: 'versionControlDetails.tag' renamed to 'revisionTag'
+* API BREAKING: 'exception.message' type converted from string to message object.
+* API BREAKING: 'file.hashes' is now a string/string dictionary, not an array of 'hash' objects (the type for which is deleted)
+* API BREAKING: 'run.instanceGuid', 'run.correlationGuid', 'run.logicalId', 'run.description' combined into new 'runAutomationDetails' object instance defined at 'run.id'.
+* API BREAKING: 'run.automationLogicalId' subsumed by 'run.aggregateIds', an array of 'runAutomationDetails' objects.
+* API BREAKING: Remove 'threadFlowLocation.step'
+* API BREAKING: 'invocation.workingDirectory' is now a FileLocation object (and not a URI expressed as a string)
 
 ## **v2.0.0-csd.2.beta.2018.11.28** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2018.11.28) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2018.11.28) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2018.11.28)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2018.11.28))
 * BUGFIX: Result matching improvements in properties persistence
 * FEATURE: Fortify FPR converter improvements
-* API NON-BREAKING: Add run.newlineSequences to schema. https://github.com/oasis-tcs/sarif-spec/issues/169
-* API BREAKING: remove run.architecture https://github.com/oasis-tcs/sarif-spec/issues/262
-* API BREAKING: result.message is now a required property https://github.com/oasis-tcs/sarif-spec/issues/283
-* API BREAKING: rename tool.fileVersion to tool.dottedQuadFileVersion https://github.com/oasis-tcs/sarif-spec/issues/274
+* API NON-BREAKING: Add 'run.newlineSequences' to schema. https://github.com/oasis-tcs/sarif-spec/issues/169
+* API BREAKING: remove 'run.architecture' https://github.com/oasis-tcs/sarif-spec/issues/262
+* API BREAKING: 'result.message' is now a required property https://github.com/oasis-tcs/sarif-spec/issues/283
+* API BREAKING: rename 'tool.fileVersion' to 'tool.dottedQuadFileVersion' https://github.com/oasis-tcs/sarif-spec/issues/274
+* API BREAKING: remove 'open' from valid rule default configuration levels. https://github.com/oasis-tcs/sarif-spec/issues/288. The transformer remaps this value to 'note'.
