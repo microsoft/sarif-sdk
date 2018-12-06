@@ -126,10 +126,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         // Verify that those detected result locations match the expected locations.
         private void Verify(Run run, ExpectedValidationResults expectedResults)
         {
-            run.Results.Count.Should().Be(expectedResults.ResultCount);
-
             string[] detectedResultLocations = run.Results.Select(r => r.Message.Arguments[0]).OrderBy(loc => loc).ToArray();
             string[] expectedResultLocations = expectedResults.ResultLocationPointers.OrderBy(loc => loc).ToArray();
+
+            // We could make this assertion at the start of the method. We delay it until here
+            // so that, during debugging, you can set a breakpoint here, and you'll have the
+            // detected and expected result location arrays available to compare.
+            run.Results.Count.Should().Be(expectedResults.ResultCount);
 
             detectedResultLocations.Should().ContainInOrder(expectedResultLocations);
         }

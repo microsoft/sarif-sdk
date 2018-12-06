@@ -12,8 +12,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string ConfigurationNotifications = "configurationNotifications";
         public const string Conversion = "conversion";
         public const string ConversionProvenance = "conversionProvenance";
+        public const string Description = "description";
         public const string DownloadUri = "downloadUri";
         public const string Edges = "edges";
+        public const string EdgeTraversals = "edgeTraversals";
         public const string EndColumn = "endColumn";
         public const string EndLine = "endLine";
         public const string EndTimeUtc = "endTimeUtc";
@@ -24,7 +26,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Files = "files";
         public const string Fixes = "fixes";
         public const string Frames = "frames";
+        public const string FullDescription = "fullDescription";
         public const string Graphs = "graphs";
+        public const string GraphTraversals = "graphTraversals";
         public const string Hashes = "hashes";
         public const string HelpUri = "helpUri";
         public const string Id = "id";
@@ -39,7 +43,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Nodes = "nodes";
         public const string OriginalUriBaseIds = "originalUriBaseIds";
         public const string PhysicalLocation = "physicalLocation";
+        public const string Rectangles = "rectangles";
         public const string Region = "region";
+        public const string Regions = "regions";
         public const string RelatedLocations = "relatedLocations";
         public const string RepositoryUri = "repositoryUri";
         public const string Resources = "resources";
@@ -50,6 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Rules = "rules";
         public const string Runs = "runs";
         public const string Schema = "$schema";
+        public const string ShortDescription = "shortDescription";
         public const string Stacks = "stacks";
         public const string Stdin = "stdin";
         public const string Stdout = "stdout";
