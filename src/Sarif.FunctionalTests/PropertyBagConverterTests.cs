@@ -23,6 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests
       ""tool"": {
         ""name"": ""CodeScanner""
       },
+      ""columnKind"": ""utf16CodeUnits"",
       ""properties"": {
         ""int"": 42,
         ""string"": ""'\""\\'""

@@ -140,7 +140,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "columnKind", IsRequired = false, EmitDefaultValue = false)]
         [JsonConverter(typeof(EnumConverter))]
-        [System.ComponentModel.DefaultValue(ColumnKind.UnicodeCodePoints)]
         public ColumnKind ColumnKind { get; set; }
 
         /// <summary>
