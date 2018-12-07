@@ -8,6 +8,7 @@
       "baselineInstanceGuid": "0A106451-C9B1-4309-A7EE-06988B95F723",
       "automationLogicalId": "Build-14.0.1.2-Release-20160716-13:22:18",
       "architecture": "x86",
+      "columnKind": "utf16CodeUnits",
       "tool": {
         "name": "CodeScanner",
         "fullName": "CodeScanner 1.1 for Unix (en-US)",

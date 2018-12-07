@@ -122,6 +122,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     JObject resources = (JObject)run["resources"];
                     modifiedLog |= RemapRuleDefaultLevelFromOpenToNote(resources);
 
+
+                    // Specify columnKind as ColumndKind.Utf16CodeUnits in cases where the enum is missing from
+                    // the SARIF file. Moving forward, the absence of this enum will be interpreted as
+                    // the new default, which is ColumnKind.UnicodeCodePoints.
+                    // https://github.com/oasis-tcs/sarif-spec/issues/188
+                    JProperty columnKind = (JProperty)run["columnKind"];
+                    if (columnKind == null)
+                    {
+                        run["columnKind"] = "utf16CodeUnits";
+                    }                
                 }
             }
 
