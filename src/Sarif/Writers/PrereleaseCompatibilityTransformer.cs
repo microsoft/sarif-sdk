@@ -127,7 +127,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     // the SARIF file. Moving forward, the absence of this enum will be interpreted as
                     // the new default, which is ColumnKind.UnicodeCodePoints.
                     // https://github.com/oasis-tcs/sarif-spec/issues/188
-                    JProperty columnKind = (JProperty)run["columnKind"];
+                    JValue columnKind = (JValue)run["columnKind"];
                     if (columnKind == null)
                     {
                         run["columnKind"] = "utf16CodeUnits";

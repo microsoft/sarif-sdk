@@ -9,7 +9,7 @@
       },
       "results": [],
       "properties": {
-        "sarifv2/run": {"tool":{"name":"CodeScanner","semanticVersion":"2.1.0"},"results":[]}
+        "sarifv2/run": {"tool":{"name":"CodeScanner","semanticVersion":"2.1.0"},"results":[],"columnKind":"utf16CodeUnits"}
       }
     }
   ]
