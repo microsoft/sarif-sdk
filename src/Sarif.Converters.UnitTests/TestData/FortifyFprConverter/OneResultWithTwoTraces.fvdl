@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FVDL xmlns="xmlns://www.fortifysoftware.com/schema/fvdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.12" xsi:type="FVDL">
+<CreatedTS date="2018-01-01" time="12:00:00"/>
+<UUID>5a7d0e15-42ed-46ec-a156-de4b5a63052a</UUID>
+<Build>
+  <BuildID>The_Build_ID</BuildID>
+  <NumberFiles>1</NumberFiles>
+  <LOC type="Fortify">393</LOC>
+  <LOC type="Line Count">530</LOC>
+  <LOC type="Function Declarations">314</LOC>
+  <LOC type="Function Definitions">202</LOC>
+  <SourceBasePath>C:/projects/myproject/src/</SourceBasePath>
+  <SourceFiles>
+    <File size="8297" timestamp="1538391807572" loc="82" type="csharp" encoding="windows-1252">
+      <Name>Helpers/DBHelper.cs</Name>
+      <LOC type="Fortify">82</LOC>
+      <LOC type="Line Count">108</LOC>
+    </File>
+  </SourceFiles>
+  <ScanTime value="22"/>
+</Build>
+<Vulnerabilities>
+<Vulnerability>
+  <ClassInfo>
+    <ClassID>97A5F38F-524B-4A83-94FA-9387B5265825</ClassID>
+    <Kingdom>Code Quality</Kingdom>
+    <Type>Unreleased Resource</Type>
+    <Subtype>Database</Subtype>
+    <AnalyzerName>controlflow</AnalyzerName>
+    <DefaultSeverity>3.0</DefaultSeverity>
+  </ClassInfo>
+  <InstanceInfo>
+    <InstanceID>15C5FE2ED3B27364BEE7F34C15377588</InstanceID>
+    <InstanceSeverity>3.0</InstanceSeverity>
+    <Confidence>5.0</Confidence>
+  </InstanceInfo>
+  <AnalysisInfo>
+    <Unified>
+      <Context>
+        <Function name="getVSTSDetailsForICTO" namespace="AutoBugLog_WebJob" enclosingClass="DBHelper"/>
+        <FunctionDeclarationSourceLocation path="Helpers/DBHelper.cs" line="135" lineEnd="164" colStart="0" colEnd="0"/>
+      </Context>
+      <ReplacementDefinitions>
+        <Def key="EnclosingFunction.name" value="getVSTSDetailsForICTO()"/>
+        <Def key="FirstTraceLocation.file" value="DBHelper.cs"/>
+        <Def key="FirstTraceLocation.line" value="146"/>
+        <Def key="FirstTransitionFunction" value="ExecuteReader()"/>
+        <Def key="PrimaryLocation.file" value="DBHelper.cs"/>
+      </ReplacementDefinitions>
+      <Trace>
+        <Primary>
+          <Entry>
+            <Node isDefault="true">
+              <SourceLocation path="Helpers/DBHelper.cs" line="146" lineEnd="146" colStart="0" colEnd="0" contextId="1" snippet="A87967CD9524F026C19E77DF60F6D9DC#Helpers/DBHelper.cs:146:146"/>
+              <Action type="Assign">myReader = ExecuteReader()</Action>
+              <Reason>
+                <Rule ruleID="97A5F38F-524B-4A83-94FA-9387B5265825"/>
+              </Reason>
+            </Node>
+          </Entry>
+          <Entry>
+            <Node>
+              <SourceLocation path="Helpers/DBHelper.cs" line="146" lineEnd="146" colStart="0" colEnd="0" contextId="1" snippet="A87967CD9524F026C19E77DF60F6D9DC#Helpers/DBHelper.cs:146:146"/>
+              <Action>myReader refers to a database resource</Action>
+              <Reason>
+                <Internal text="myReader refers to a database resource"/>
+              </Reason>
+            </Node>
+          </Entry>
+          <Entry>
+            <Node detailsOnly="true" label="Branch not taken">
+              <SourceLocation path="Helpers/DBHelper.cs" line="148" lineEnd="148" colStart="0" colEnd="0" snippet="192FB519633F3FE2B54CB4B29E170858#Helpers/DBHelper.cs:148:148"/>
+              <Action type="BranchNotTaken">Branch not taken: (myReader.Read() != true)</Action>
+            </Node>
+          </Entry>
+          <Entry>
+            <Node>
+              <SourceLocation path="Helpers/DBHelper.cs" line="139" lineEnd="139" colStart="0" colEnd="0" contextId="1" snippet="0646DD4ACCD834D1E2FF947AEC219C34#Helpers/DBHelper.cs:139:139"/>
+              <Action type="EndScope">myReader no longer refers to a database resource</Action>
+              <Reason>
+                <Internal text="myReader no longer refers to a database resource"/>
+              </Reason>
+            </Node>
+          </Entry>
+          <Entry>
+            <Node>
+              <SourceLocation path="Helpers/DBHelper.cs" line="139" lineEnd="139" colStart="0" colEnd="0" contextId="1" snippet="0646DD4ACCD834D1E2FF947AEC219C34#Helpers/DBHelper.cs:139:139"/>
+              <Action type="EndScope">myReader end scope : Database resource leaked</Action>
+              <Reason>
+                <Rule ruleID="97A5F38F-524B-4A83-94FA-9387B5265825"/>
+              </Reason>
+            </Node>
+          </Entry>
+        </Primary>
+      </Trace>
+      <Trace>
+        <Primary>
+          <Entry>
+            <Node isDefault="true">
+              <SourceLocation path="Helpers/DBHelper.cs" line="146" lineEnd="146" colStart="0" colEnd="0" contextId="1" snippet="A87967CD9524F026C19E77DF60F6D9DC#Helpers/DBHelper.cs:146:146"/>
+              <Action type="Assign">myReader = ExecuteReader()</Action>
+              <Reason>
+                <Rule ruleID="97A5F38F-524B-4A83-94FA-9387B5265825"/>
+              </Reason>
+            </Node>
+          </Entry>
+          <Entry>
+            <Node>
+              <SourceLocation path="Helpers/DBHelper.cs" line="146" lineEnd="146" colStart="0" colEnd="0" contextId="1" snippet="A87967CD9524F026C19E77DF60F6D9DC#Helpers/DBHelper.cs:146:146"/>
+              <Action>myReader refers to a database resource</Action>
+              <Reason>
+                <Internal text="myReader refers to a database resource"/>
+              </Reason>
+            </Node>
+          </Entry>
+          <Entry>
+            <Node detailsOnly="true" label="Branch taken">
+              <SourceLocation path="Helpers/DBHelper.cs" line="148" lineEnd="148" colStart="0" colEnd="0" snippet="192FB519633F3FE2B54CB4B29E170858#Helpers/DBHelper.cs:148:148"/>
+              <Action type="BranchTaken">Branch taken: (myReader.Read() == true)</Action>
+            </Node>
+          </Entry>
+          <Entry>
+            <Node>
+              <SourceLocation path="Helpers/DBHelper.cs" line="150" lineEnd="150" colStart="0" colEnd="0" contextId="1" snippet="72B4BC159AC5514DF9B8FB0E28B0DAFD#Helpers/DBHelper.cs:150:150"/>
+              <Action type="Return">return</Action>
+              <Reason>
+                <Internal text="return"/>
+              </Reason>
+            </Node>
+          </Entry>
+          <Entry>
+            <Node>
+              <SourceLocation path="Helpers/DBHelper.cs" line="150" lineEnd="150" colStart="0" colEnd="0" contextId="1" snippet="72B4BC159AC5514DF9B8FB0E28B0DAFD#Helpers/DBHelper.cs:150:150"/>
+              <Action type="EndScope">myReader no longer refers to a database resource</Action>
+              <Reason>
+                <Internal text="myReader no longer refers to a database resource"/>
+              </Reason>
+            </Node>
+          </Entry>
+          <Entry>
+            <Node>
+              <SourceLocation path="Helpers/DBHelper.cs" line="150" lineEnd="150" colStart="0" colEnd="0" contextId="1" snippet="72B4BC159AC5514DF9B8FB0E28B0DAFD#Helpers/DBHelper.cs:150:150"/>
+              <Action type="EndScope">myReader end scope : Database resource leaked</Action>
+              <Reason>
+                <Rule ruleID="97A5F38F-524B-4A83-94FA-9387B5265825"/>
+              </Reason>
+            </Node>
+          </Entry>
+        </Primary>
+      </Trace>
+    </Unified>
+  </AnalysisInfo>
+</Vulnerability>
+</Vulnerabilities>
+<UnifiedNodePool>
+</UnifiedNodePool>
+<ContextPool>
+  <Context id="1">
+    <Function name="getVSTSDetailsForICTO" namespace="AutoBugLog_WebJob" enclosingClass="DBHelper"/>
+    <FunctionDeclarationSourceLocation path="Helpers/DBHelper.cs" line="135" lineEnd="164" colStart="0" colEnd="0"/>
+  </Context>
+</ContextPool>
+<Description contentType="preformatted" classID="97A5F38F-524B-4A83-94FA-9387B5265825">
+  <Abstract>&lt;Content&gt;&lt;Paragraph&gt;The function &lt;Replace key="EnclosingFunction.name"/&gt; in &lt;Replace key="PrimaryLocation.file"/&gt; sometimes fails to release a system resource allocated by &lt;Replace key="FirstTransitionFunction"/&gt; on line &lt;Replace key="FirstTraceLocation.line"/&gt;.&lt;AltParagraph&gt;The program can potentially fail to release a system resource.&lt;/AltParagraph&gt;&lt;/Paragraph&gt;&lt;/Content&gt;</Abstract>
+  <Explanation>&lt;Content&gt;The program can potentially fail to release a system resource.
+
+Resource leaks have at least two common causes:
+
+- Error conditions and other exceptional circumstances.
+
+- Confusion over which part of the program is responsible for releasing the resource.
+&lt;Paragraph&gt;
+In this case, there are program paths on which the resource allocated in &lt;Replace key="FirstTraceLocation.file"/&gt; at line &lt;Replace key="FirstTraceLocation.line"/&gt; is not released.
+&lt;/Paragraph&gt;
+Most unreleased resource issues result in general software reliability problems, but if an attacker can intentionally trigger a resource leak, the attacker may be able to launch a denial of service attack by depleting the resource pool.
+
+&lt;b&gt;Example:&lt;/b&gt; Under normal conditions the following code executes a database query, processes the results returned by the database, and closes the allocated &lt;code&gt;SqlConnection&lt;/code&gt; object. But if an exception occurs while executing the SQL or processing the results, the &lt;code&gt;SqlConnection&lt;/code&gt; object will not be closed. If this happens often enough, the database will run out of available cursors and not be able to execute any more SQL queries.
+
+&lt;pre&gt;
+        ...
+        SqlConnection conn = new SqlConnection(connString);
+        SqlCommand cmd = new SqlCommand(queryString);
+        cmd.Connection = conn;
+        conn.Open();
+        SqlDataReader rdr = cmd.ExecuteReader();
+        HarvestResults(rdr);
+        conn.Connection.Close();
+        ...
+&lt;/pre&gt;&lt;/Content&gt;</Explanation>
+  <Recommendations>&lt;Content&gt;Never rely on &lt;code&gt;Finalize()&lt;/code&gt; to reclaim resources. In order for an object's &lt;code&gt;Finalize()&lt;/code&gt; method to be invoked, the garbage collector must determine if the object is eligible for garbage collection. Because the garbage collector is not required to run unless the VM is low on memory, there is no guarantee that an object's &lt;code&gt;Finalize()&lt;/code&gt; method will be invoked in an expedient fashion, if it is ever invoked at all (the language does not guarantee that it will be). When the garbage collector finally does run, it can cause a large number of resources to be reclaimed in a short period of time, which can lead to sudden rise in performance and lower overall system throughput. The effect becomes more pronounced as the load on the system increases.
+
+Instead of explicitly closing objects that manage resources, use the C# keyword 'using', which employs the &lt;code&gt;IDisposable&lt;/code&gt; interface to perform a cleanup. The following two blocks of code achieve the same result:
+
+The following code uses the &lt;code&gt;finally&lt;/code&gt; keyword:
+
+&lt;pre&gt;
+SqlConnection conn;
+try {
+  conn = new SqlConnection(connString);
+  doWork(conn);
+} finally {
+  if (conn != null) {
+    conn.Close();
+  }
+}
+&lt;/pre&gt;
+
+The following code uses the &lt;code&gt;using&lt;/code&gt; keyword:
+
+&lt;pre&gt;
+  using (SqlConnection conn = new SqlConnection(connString)) {
+    doWork(conn);
+  }
+&lt;/pre&gt;&lt;/Content&gt;</Recommendations>
+  <References>
+    <Reference>
+      <Title>CWE ID 404</Title>
+      <Author>Standards Mapping - Common Weakness Enumeration</Author>
+    </Reference>
+    <Reference>
+      <Title>SC-5 Denial of Service Protection (P1)</Title>
+      <Author>Standards Mapping - NIST Special Publication 800-53 Revision 4</Author>
+    </Reference>
+    <Reference>
+      <Title>A9 Application Denial of Service</Title>
+      <Author>Standards Mapping - OWASP Top 10 2004</Author>
+    </Reference>
+    <Reference>
+      <Title>Requirement 6.5.9</Title>
+      <Author>Standards Mapping - Payment Card Industry Data Security Standard Version 1.1</Author>
+    </Reference>
+    <Reference>
+      <Title>Requirement 6.5.6</Title>
+      <Author>Standards Mapping - Payment Card Industry Data Security Standard Version 3.0</Author>
+    </Reference>
+    <Reference>
+      <Title>Requirement 6.5.6</Title>
+      <Author>Standards Mapping - Payment Card Industry Data Security Standard Version 3.1</Author>
+    </Reference>
+    <Reference>
+      <Title>Requirement 6.5.6</Title>
+      <Author>Standards Mapping - Payment Card Industry Data Security Standard Version 3.2</Author>
+    </Reference>
+    <Reference>
+      <Title>Risky Resource Management - CWE ID 404</Title>
+      <Author>Standards Mapping - SANS Top 25 2009</Author>
+    </Reference>
+    <Reference>
+      <Title>APP6080 CAT II</Title>
+      <Author>Standards Mapping - Security Technical Implementation Guide Version 3.1</Author>
+    </Reference>
+    <Reference>
+      <Title>APP6080 CAT II</Title>
+      <Author>Standards Mapping - Security Technical Implementation Guide Version 3.10</Author>
+    </Reference>
+    <Reference>
+      <Title>APP6080 CAT II</Title>
+      <Author>Standards Mapping - Security Technical Implementation Guide Version 3.4</Author>
+    </Reference>
+    <Reference>
+      <Title>APP6080 CAT II</Title>
+      <Author>Standards Mapping - Security Technical Implementation Guide Version 3.5</Author>
+    </Reference>
+    <Reference>
+      <Title>APP6080 CAT II</Title>
+      <Author>Standards Mapping - Security Technical Implementation Guide Version 3.6</Author>
+    </Reference>
+    <Reference>
+      <Title>APP6080 CAT II</Title>
+      <Author>Standards Mapping - Security Technical Implementation Guide Version 3.7</Author>
+    </Reference>
+    <Reference>
+      <Title>APP6080 CAT II</Title>
+      <Author>Standards Mapping - Security Technical Implementation Guide Version 3.9</Author>
+    </Reference>
+    <Reference>
+      <Title>APSC-DV-002400 CAT II</Title>
+      <Author>Standards Mapping - Security Technical Implementation Guide Version 4.1</Author>
+    </Reference>
+    <Reference>
+      <Title>APSC-DV-002400 CAT II</Title>
+      <Author>Standards Mapping - Security Technical Implementation Guide Version 4.2</Author>
+    </Reference>
+    <Reference>
+      <Title>Denial of Service</Title>
+      <Author>Standards Mapping - Web Application Security Consortium 24 + 2</Author>
+    </Reference>
+    <Reference>
+      <Title>Denial of Service (WASC-10)</Title>
+      <Author>Standards Mapping - Web Application Security Consortium Version 2.00</Author>
+    </Reference>
+  </References>
+</Description>
+<Snippets>
+  <Snippet id="A87967CD9524F026C19E77DF60F6D9DC#Helpers/DBHelper.cs:146:146">
+    <File>Helpers/DBHelper.cs</File>
+    <StartLine>143</StartLine>
+    <EndLine>149</EndLine>
+    <Text><![CDATA[                    SqlCommand myCommand = new SqlCommand(string.Format(Query.q_GetVSTSDetailsForICTO, "@icto"), conn);
+                    myCommand.Parameters.Add("@icto", SqlDbType.VarChar).Value = icto;
+                    myCommand.CommandTimeout = 0;
+                    SqlDataReader myReader = myCommand.ExecuteReader();
+
+                    while (myReader.Read())
+                    {
+]]></Text>
+  </Snippet>
+  <Snippet id="192FB519633F3FE2B54CB4B29E170858#Helpers/DBHelper.cs:148:148">
+    <File>Helpers/DBHelper.cs</File>
+    <StartLine>145</StartLine>
+    <EndLine>151</EndLine>
+    <Text><![CDATA[                    myCommand.CommandTimeout = 0;
+                    SqlDataReader myReader = myCommand.ExecuteReader();
+
+                    while (myReader.Read())
+                    {
+                        return new AppICTOItem()
+                        {
+]]></Text>
+  </Snippet>
+  <Snippet id="0646DD4ACCD834D1E2FF947AEC219C34#Helpers/DBHelper.cs:139:139">
+    <File>Helpers/DBHelper.cs</File>
+    <StartLine>136</StartLine>
+    <EndLine>142</EndLine>
+    <Text><![CDATA[        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(ConnectionString))
+                {
+                    conn.Open();                  
+                    
+]]></Text>
+  </Snippet>
+  <Snippet id="72B4BC159AC5514DF9B8FB0E28B0DAFD#Helpers/DBHelper.cs:150:150">
+    <File>Helpers/DBHelper.cs</File>
+    <StartLine>147</StartLine>
+    <EndLine>153</EndLine>
+    <Text><![CDATA[
+                    while (myReader.Read())
+                    {
+                        return new AppICTOItem()
+                        {
+                            VSTSUrl = myReader["VSTS_URL"].ToString(),
+                            AssignedUser = myReader["BugsLoggedToUser"].ToString()
+]]></Text>
+  </Snippet>
+</Snippets>
+<EngineData>
+  <CommandLine>
+    <Argument>-scan</Argument>
+    <Argument>-b</Argument>
+    <Argument>The_Build_ID</Argument>
+    <Argument>-machine-output</Argument>
+    <Argument>-f</Argument>
+    <Argument>C:\projects\myproject\scans\2018-01-01_12:00:00\Scan.fpr</Argument>
+    <Argument>-format</Argument>
+    <Argument>fpr</Argument>
+  </CommandLine>
+  <Errors/>
+  <MachineInfo>
+    <Hostname>SCANMACHINE</Hostname>
+    <Username>johndoe</Username>
+    <Platform>Windows 10</Platform>
+  </MachineInfo>
+</EngineData>
+</FVDL>
