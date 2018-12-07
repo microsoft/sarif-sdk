@@ -56,10 +56,10 @@ function Build-Baselines($toolName)
     $toolDirectory = Join-Path "$PSScriptRoot\v2\ConverterTestData" $toolName
     $sourceExtension = "*.$sourceExtension"
     Get-ChildItem $toolDirectory -Filter $sourceExtension | ForEach-Object {
-        Write-Host "    $_ -> $_.sarif"
         $input = $_.FullName
         $output = "$input.sarif"
         $outputTemp = "$output.temp"
+        Write-Host "$utility convert "$input" --tool $toolName --output "$outputTemp" --pretty-print"
 
         # Actually run the converter
         Remove-Item $outputTemp -ErrorAction SilentlyContinue

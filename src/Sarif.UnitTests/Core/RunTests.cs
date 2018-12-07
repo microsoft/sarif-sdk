@@ -22,7 +22,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             // When explicitly set, we should always preserve that setting
             RoundTripColumnKind(persistedValue: ColumnKind.Utf16CodeUnits, expectedRoundTrippedValue: ColumnKind.Utf16CodeUnits);
             RoundTripColumnKind(persistedValue: ColumnKind.UnicodeCodePoints, expectedRoundTrippedValue: ColumnKind.UnicodeCodePoints);
-
         }
 
         private void RoundTripColumnKind(ColumnKind persistedValue, ColumnKind expectedRoundTrippedValue)
@@ -40,9 +39,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             };
 
             string json = JsonConvert.SerializeObject(sarifLog);
-
-            // We should never see the default value persisted to JSON
-            json.Contains("unicodeCodePoints").Should().BeFalse();
 
             sarifLog = JsonConvert.DeserializeObject<SarifLog>(json);
             sarifLog.Runs[0].ColumnKind.Should().Be(expectedRoundTrippedValue);

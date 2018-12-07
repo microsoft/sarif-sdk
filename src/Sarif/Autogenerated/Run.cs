@@ -154,7 +154,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public Run()
         {
-            this.ColumnKind = ColumnKind.UnicodeCodePoints;
         }
 
         /// <summary>

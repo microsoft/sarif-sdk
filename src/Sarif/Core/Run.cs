@@ -26,9 +26,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 this.ColumnKind = ColumnKind.Utf16CodeUnits;
             }
-            
-            // Second, we do not persist this value if it is set to its default.
-            return this.ColumnKind != ColumnKind.UnicodeCodePoints;
+
+            // Second, we will always explicitly serialize this value. Otherwise, we can't easily
+            // distinguish between earlier versions of the format for which this property was typically absent.
+            return true;
         }
 
         public bool ShouldSerializeFiles() { return this.Files != null && this.Files.Values.Any(); }
