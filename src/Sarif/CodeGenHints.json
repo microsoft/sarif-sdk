@@ -656,6 +656,14 @@
           "unicodeCodePoints"
         ]
       }
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "JsonConverter",
+        "arguments": [ "typeof(EnumConverter)" ]
+      }
     }
   ],
   "Run.Files": [
@@ -738,7 +746,6 @@
         "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.SarifVersionConverter)" ]
       }
     }
-
   ],
   "stack": [
     {

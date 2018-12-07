@@ -63,6 +63,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentNullException(nameof(run.Tool));
             }
 
+            // For this Windows-relevant SDK, if the column kind
+            // isn't explicitly specified, we will set it to Utf16CodeUnits
+            if (run.ColumnKind == ColumnKind.None)
+            {
+                run.ColumnKind = ColumnKind.Utf16CodeUnits;
+            }
+
             this.EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.RunInitialized);
 
             SarifVersion sarifVersion = SarifVersion.Current;

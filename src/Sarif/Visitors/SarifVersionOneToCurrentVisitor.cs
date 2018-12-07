@@ -917,7 +917,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         AggregateIds = aggregateIds,
                         BaselineInstanceGuid = v1Run.BaselineId,
                         Properties = v1Run.Properties,
-                        Tool = CreateTool(v1Run.Tool)
+                        Tool = CreateTool(v1Run.Tool),
+                        ColumnKind = ColumnKind.Utf16CodeUnits
                     };
 
                     _currentRun = run;

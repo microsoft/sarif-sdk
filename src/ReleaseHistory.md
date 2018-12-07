@@ -227,3 +227,4 @@
 * API BREAKING: 'result.message' is now a required property https://github.com/oasis-tcs/sarif-spec/issues/283
 * API BREAKING: rename 'tool.fileVersion' to 'tool.dottedQuadFileVersion' https://github.com/oasis-tcs/sarif-spec/issues/274
 * API BREAKING: remove 'open' from valid rule default configuration levels. https://github.com/oasis-tcs/sarif-spec/issues/288. The transformer remaps this value to 'note'.
+* API BREAKING: 'run.columnKind' default value is now 'unicodeCodePoints'. https://github.com/Microsoft/sarif-sdk/pull/1160. The transformer will inject 'utf16CodeUnits', however, when this property is absent, as this value is a more appropriate default for the Windows platform.

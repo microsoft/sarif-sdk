@@ -6,6 +6,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -138,6 +139,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Specifies the unit in which the tool measures columns.
         /// </summary>
         [DataMember(Name = "columnKind", IsRequired = false, EmitDefaultValue = false)]
+        [JsonConverter(typeof(EnumConverter))]
         public ColumnKind ColumnKind { get; set; }
 
         /// <summary>
