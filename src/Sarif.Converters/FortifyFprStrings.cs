@@ -25,6 +25,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>The string constant "BuildID"</summary>
         public readonly string BuildId;
 
+        /// <summary>The string constant "SourceBasePath"</summary>
+        public readonly string SourceBasePath;
+
         /// <summary>The string constant "SourceFiles"</summary>
         public readonly string SourceFiles;
 
@@ -80,6 +83,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         /// <summary>The string constant "NodeRef"</summary>
         public readonly string NodeRef;
+
+        /// <summary>The string constant "isDefault"</summary>
+        public readonly string IsDefaultAttribute;
 
         /// <summary>The string constant "label"</summary>
         public readonly string LabelAttribute;
@@ -188,6 +194,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Uuid = nameTable.Add("UUID");
             Build = nameTable.Add("Build");
             BuildId = nameTable.Add("BuildID");
+            SourceBasePath = nameTable.Add("SourceBasePath");
             SourceFiles = nameTable.Add("SourceFiles");
             File = nameTable.Add("File");
             SizeAttribute = nameTable.Add("size");
@@ -206,6 +213,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Trace = nameTable.Add("Trace");
             Entry = nameTable.Add("Entry");
             NodeRef = nameTable.Add("NodeRef");
+            IsDefaultAttribute = nameTable.Add("isDefault");
             LabelAttribute = nameTable.Add("label");
             SourceLocation = nameTable.Add("SourceLocation");
             SnippetAttribute = nameTable.Add("snippet");

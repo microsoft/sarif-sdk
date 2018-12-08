@@ -3,7 +3,6 @@
 
 using System;
 using System.IO;
-using System.Reflection;
 using System.Text;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
@@ -18,7 +17,6 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
     public class SarifVersionOneToCurrentVisitorTests : FileDiffingTests
     {
         public SarifVersionOneToCurrentVisitorTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
-
 
         private static SarifLogVersionOne GetSarifLogVersionOne(string logText)
         {
@@ -66,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
                 actualFilePath = GetOutputFilePath("actual", v2ExpectedResourceName);
             }
 
-                if (!AreEquivalentSarifLogs<SarifLog>(v2ActualLogText, v2ExpectedLogText))
+            if (!AreEquivalentSarifLogs<SarifLog>(v2ActualLogText, v2ExpectedLogText))
             {
                 string errorMessage = string.Format(@"V2 conversion from V1 produced unexpected diffs for test: '{0}'.", v1InputResourceName);
                 sb.AppendLine(errorMessage);

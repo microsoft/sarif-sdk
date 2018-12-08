@@ -25,9 +25,13 @@ namespace SarifDeferredSample
 
             Measure(() =>
             {
-                // Use 'SarifDeferredContractResolver' and 'JsonPositionedTextReader' to load a geferred version of the same object graph.
+                // Use 'SarifDeferredContractResolver' and 'JsonPositionedTextReader' to load a deferred version of the same object graph.
                 JsonSerializer serializer = new JsonSerializer();
-                serializer.ContractResolver = (deferred ? SarifDeferredContractResolver.Instance : SarifContractResolver.Instance);
+
+                if (deferred)
+                {
+                    serializer.ContractResolver = SarifDeferredContractResolver.Instance;
+                }
 
                 using (JsonTextReader reader = (deferred ? new JsonPositionedTextReader(filePath) : new JsonTextReader(new StreamReader(filePath))))
                 {

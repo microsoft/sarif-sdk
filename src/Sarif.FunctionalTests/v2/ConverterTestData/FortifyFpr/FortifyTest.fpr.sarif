@@ -17,21 +17,40 @@
           }
         }
       ],
+      "originalUriBaseIds": {
+        "SRCROOT": {
+          "uri": "file:///C:/project/"
+        }
+      },
       "files": {
-        "file:///C:/repo/src/Controllers/ContentFileHandlingController.cs": {
+        "src/Controllers/ContentFileHandlingController.cs": {
           "length": 58665,
           "mimeType": "text/x-csharp",
           "encoding": "utf-8"
         },
-        "file:///C:/repo/src/ContentFileViewModel.cs": {
+        "src/ContentFileViewModel.cs": {
           "length": 9200,
           "mimeType": "text/x-csharp",
           "encoding": "utf-8"
         },
-        "file:///C:/repo/src/DocumentValidator.cs": {
+        "src/DocumentValidator.cs": {
           "length": 51630,
           "mimeType": "text/x-csharp",
           "encoding": "utf-8"
+        },
+        "file:///C:/project/src/Utilities.cs": {
+          "length": 51630,
+          "mimeType": "text/x-csharp",
+          "encoding": "utf-8"
+        },
+        "#SRCROOT#src/Controllers/ContentFileHandlingController.cs": {
+          "mimeType": "text/x-csharp"
+        },
+        "#SRCROOT#src/ContentFileViewModel.cs": {
+          "mimeType": "text/x-csharp"
+        },
+        "#SRCROOT#src/DocumentValidator.cs": {
+          "mimeType": "text/x-csharp"
         }
       },
       "results": [
@@ -44,20 +63,21 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "file:///C:/repo/src/ContentFileViewModel.cs"
+                  "uri": "src/Controllers/ContentFileHandlingController.cs",
+                  "uriBaseId": "SRCROOT"
                 },
                 "region": {
-                  "startLine": 6,
-                  "endLine": 6,
+                  "startLine": 12,
+                  "endLine": 12,
                   "snippet": {
-                    "text": "    public class ContentFileViewModel : BaseViewModel"
+                    "text": "        public ContentFileViewModel ViewModel { get; set; }"
                   }
                 },
                 "contextRegion": {
-                  "startLine": 3,
-                  "endLine": 9,
+                  "startLine": 9,
+                  "endLine": 15,
                   "snippet": {
-                    "text": "\nnamespace MS.IT.HRE.CMOE.Web.Models\n{\n    public class ContentFileViewModel : BaseViewModel\n    {\n        #region Public Properties\n\n"
+                    "text": "        public CMOEViewModel Model { get; set; }\n\n        [Dependency]\n        public ContentFileViewModel ViewModel { get; set; }\n\n        [Dependency]\n        public ICachedDataProvider CachedData { get; set; }\n"
                   }
                 }
               }
@@ -72,7 +92,8 @@
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
-                            "uri": "file:///C:/repo/src/Controllers/ContentFileHandlingController.cs"
+                            "uri": "src/Controllers/ContentFileHandlingController.cs",
+                            "uriBaseId": "SRCROOT"
                           },
                           "region": {
                             "startLine": 12,
@@ -98,7 +119,8 @@
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
-                            "uri": "file:///C:/repo/src/ContentFileViewModel.cs"
+                            "uri": "src/ContentFileViewModel.cs",
+                            "uriBaseId": "SRCROOT"
                           },
                           "region": {
                             "startLine": 6,
@@ -130,11 +152,12 @@
               "physicalLocation": {
                 "id": 1,
                 "fileLocation": {
-                  "uri": "file:///C:/repo/src/ContentFileViewModel.cs"
+                  "uri": "src/Controllers/ContentFileHandlingController.cs",
+                  "uriBaseId": "SRCROOT"
                 },
                 "region": {
-                  "startLine": 6,
-                  "endLine": 6
+                  "startLine": 12,
+                  "endLine": 12
                 }
               }
             }
@@ -149,7 +172,8 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "file:///C:/repo/src/DocumentValidator.cs"
+                  "uri": "src/DocumentValidator.cs",
+                  "uriBaseId": "SRCROOT"
                 },
                 "region": {
                   "startLine": 12,
@@ -177,7 +201,8 @@
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
-                            "uri": "file:///C:/repo/src/DocumentValidator.cs"
+                            "uri": "src/DocumentValidator.cs",
+                            "uriBaseId": "SRCROOT"
                           },
                           "region": {
                             "startLine": 12,
@@ -209,7 +234,8 @@
               "physicalLocation": {
                 "id": 1,
                 "fileLocation": {
-                  "uri": "file:///C:/repo/src/DocumentValidator.cs"
+                  "uri": "src/DocumentValidator.cs",
+                  "uriBaseId": "SRCROOT"
                 },
                 "region": {
                   "startLine": 12,
@@ -228,7 +254,8 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "file:///C:/repo/src/Controllers/ContentFileHandlingController.cs"
+                  "uri": "src/Controllers/ContentFileHandlingController.cs",
+                  "uriBaseId": "SRCROOT"
                 },
                 "region": {
                   "startLine": 38,
@@ -256,7 +283,8 @@
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
-                            "uri": "file:///C:/repo/src/Controllers/ContentFileHandlingController.cs"
+                            "uri": "src/Controllers/ContentFileHandlingController.cs",
+                            "uriBaseId": "SRCROOT"
                           },
                           "region": {
                             "startLine": 20,
@@ -276,13 +304,15 @@
                         "message": {
                           "text": "Download(0)"
                         }
-                      }
+                      },
+                      "kind": "InCall"
                     },
                     {
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
-                            "uri": "file:///C:/repo/src/Controllers/ContentFileHandlingController.cs"
+                            "uri": "src/Controllers/ContentFileHandlingController.cs",
+                            "uriBaseId": "SRCROOT"
                           },
                           "region": {
                             "startLine": 24,
@@ -302,13 +332,15 @@
                         "message": {
                           "text": "set_ViewModel(0 : this.ViewModel)"
                         }
-                      }
+                      },
+                      "kind": "InOutCall"
                     },
                     {
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
-                            "uri": "file:///C:/repo/src/Controllers/ContentFileHandlingController.cs"
+                            "uri": "src/Controllers/ContentFileHandlingController.cs",
+                            "uriBaseId": "SRCROOT"
                           },
                           "region": {
                             "startLine": 38,
@@ -328,13 +360,15 @@
                         "message": {
                           "text": "get_ViewModel(this.ViewModel : return)"
                         }
-                      }
+                      },
+                      "kind": "InOutCall"
                     },
                     {
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
-                            "uri": "file:///C:/repo/src/Controllers/ContentFileHandlingController.cs"
+                            "uri": "src/Controllers/ContentFileHandlingController.cs",
+                            "uriBaseId": "SRCROOT"
                           },
                           "region": {
                             "startLine": 38,
@@ -354,13 +388,15 @@
                         "message": {
                           "text": "get_TemplatePath(this.TemplatePath : return)"
                         }
-                      }
+                      },
+                      "kind": "InOutCall"
                     },
                     {
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
-                            "uri": "file:///C:/repo/src/Controllers/ContentFileHandlingController.cs"
+                            "uri": "src/Controllers/ContentFileHandlingController.cs",
+                            "uriBaseId": "SRCROOT"
                           },
                           "region": {
                             "startLine": 38,
@@ -380,7 +416,8 @@
                         "message": {
                           "text": "ReadAllBytes(0)"
                         }
-                      }
+                      },
+                      "kind": "InCall"
                     }
                   ]
                 }
@@ -392,7 +429,8 @@
               "physicalLocation": {
                 "id": 1,
                 "fileLocation": {
-                  "uri": "file:///C:/repo/src/Controllers/ContentFileHandlingController.cs"
+                  "uri": "src/Controllers/ContentFileHandlingController.cs",
+                  "uriBaseId": "SRCROOT"
                 },
                 "region": {
                   "startLine": 38,

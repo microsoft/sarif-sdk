@@ -14,6 +14,15 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
+    <None Remove="TestData\FortifyFprConverter\OneResultBasic.fpr" />
+    <None Remove="TestData\FortifyFprConverter\OneResultBasic.sarif" />
+    <None Remove="TestData\FortifyFprConverter\OneResultWithTwoTraces.fpr" />
+    <None Remove="TestData\FortifyFprConverter\OneResultWithTwoTraces.sarif" />
+    <None Remove="TestData\FortifyFprConverter\TwoResultsWithNodeRefs.fpr" />
+    <None Remove="TestData\FortifyFprConverter\TwoResultsWithNodeRefs.sarif" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.4.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
     <PackageReference Include="Moq" Version="4.8.3" />
@@ -21,6 +30,15 @@
     <PackageReference Include="xunit.runner.console" Version="2.3.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="TestData\FortifyFprConverter\OneResultBasic.fpr" />
+    <EmbeddedResource Include="TestData\FortifyFprConverter\OneResultBasic.sarif" />
+    <EmbeddedResource Include="TestData\FortifyFprConverter\OneResultWithTwoTraces.fpr" />
+    <EmbeddedResource Include="TestData\FortifyFprConverter\OneResultWithTwoTraces.sarif" />
+    <EmbeddedResource Include="TestData\FortifyFprConverter\TwoResultsWithNodeRefs.fpr" />
+    <EmbeddedResource Include="TestData\FortifyFprConverter\TwoResultsWithNodeRefs.sarif" />
   </ItemGroup>
 
   <ItemGroup>

@@ -6,7 +6,6 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
@@ -28,7 +27,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             return Path.GetFullPath(Path.Combine(@"..\..\..\..\..\src\Sarif.UnitTests\TestData", subdirectory));
         }
 
-
         private readonly ITestOutputHelper _outputHelper;
 
         public FileDiffingTests(ITestOutputHelper outputHelper)
@@ -42,7 +40,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             Directory.CreateDirectory(OutputFolderPath);
         }
-
 
         protected virtual Assembly ThisAssembly => this.GetType().Assembly; 
 
@@ -74,6 +71,21 @@ namespace Microsoft.CodeAnalysis.Sarif
             return text;
         }
 
+        protected byte[] GetResourceBytes(string resourceName)
+        {
+            byte[] bytes = null;
+
+            using (Stream stream = ThisAssembly.GetManifestResourceStream($"{TestLogResourceNameRoot}.{resourceName}"))
+            {
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    stream.CopyTo(memoryStream);
+                    bytes = memoryStream.ToArray();
+                }
+            }
+            return bytes;
+        }
+
         protected void ValidateResults(string output)
         {
             if (!string.IsNullOrEmpty(output))
@@ -87,7 +99,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             // as 'c:\build\etcore2.0'. 
             output.Length.Should().Be(0);
         }
-
 
         protected static string GenerateDiffCommand(string expected, string actual)
         {

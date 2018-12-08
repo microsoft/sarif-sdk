@@ -3,11 +3,8 @@
 
 using System;
 using System.Collections.Generic;
-
-using Microsoft.CodeAnalysis.Sarif.Readers;
-
-using Newtonsoft.Json;
 using System.Globalization;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {

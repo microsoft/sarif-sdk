@@ -17,6 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     {
         private const string FortifyToolName = "HP Fortify Static Code Analyzer";
         private const string FortifyExecutable = "[REMOVED]insourceanalyzer.exe";
+        private const string FileLocationUriBaseId = "SRCROOT";
         private const string ReplacementTokenFormat = "<Replace key=\"{0}\"/>";
         private const string EmbeddedLinkFormat = "[{0}](1)";
 
@@ -28,6 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private Invocation _invocation;
         private string _runId;
         private string _automationId;
+        private string _originalUriBasePath;
         private List<Result> _results = new List<Result>();
         private List<Notification> _toolNotifications;
         private Dictionary<string, FileData> _fileDictionary;
@@ -38,6 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private Dictionary<Result, string> _resultToSnippetIdDictionary;
         private Dictionary<Result, Dictionary<string, string>> _resultToReplacementDefinitionDictionary;
         private Dictionary<string, Location> _nodeIdToLocationDictionary;
+        private Dictionary<string, string> _nodeIdToActionTypeDictionary;
         private Dictionary<string, Region[]> _snippetIdToRegionsDictionary;
 
         /// <summary>Initializes a new instance of the <see cref="FortifyFprConverter"/> class.</summary>
@@ -56,6 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _resultToSnippetIdDictionary = new Dictionary<Result, string>();
             _resultToReplacementDefinitionDictionary = new Dictionary<Result, Dictionary<string, string>>();
             _nodeIdToLocationDictionary = new Dictionary<string, Location>();
+            _nodeIdToActionTypeDictionary = new Dictionary<string, string>();
             _snippetIdToRegionsDictionary = new Dictionary<string, Region[]>();
         }
 
@@ -95,6 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _resultToSnippetIdDictionary.Clear();
             _resultToReplacementDefinitionDictionary.Clear();
             _nodeIdToLocationDictionary.Clear();
+            _nodeIdToActionTypeDictionary.Clear();
             _snippetIdToRegionsDictionary.Clear();
 
             ParseFprFile(input);
@@ -113,6 +118,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Tool = tool,
                 Invocations = new[] { _invocation }
             };
+
+            if (!string.IsNullOrWhiteSpace(_originalUriBasePath))
+            {
+                var uri = new Uri(_originalUriBasePath);
+                run.OriginalUriBaseIds = new Dictionary<string, FileLocation>
+                {
+                    { FileLocationUriBaseId, new FileLocation { Uri = uri } }
+                };
+            }
 
             output.Initialize(run);
 
@@ -243,6 +257,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     _automationId = _reader.ReadElementContentAsString();
                 }
+                else if (AtStartOfNonEmpty(_strings.SourceBasePath))
+                {
+                    _originalUriBasePath = _reader.ReadElementContentAsString();
+                }
                 else if (AtStartOfNonEmpty(_strings.SourceFiles))
                 {
                     ParseSourceFiles();
@@ -360,6 +378,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             CodeFlow codeFlow = null;
             string nodeLabel = null;
             string lastNodeId = null;
+            bool? isDefault = null;
 
             while (!AtEndOf(_strings.Unified))
             {
@@ -385,6 +404,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         }
                         else if (AtStartOf(_strings.Node))
                         {
+                            if (isDefault == null)
+                            {
+                                // We haven't found the default node yet, so check this one.
+                                string isDefaultValue = _reader.GetAttribute(_strings.IsDefaultAttribute);
+                                bool val;
+
+                                if (!string.IsNullOrWhiteSpace(isDefaultValue)
+                                    && bool.TryParse(isDefaultValue, out val)
+                                    && val == true)
+                                {
+                                    // This is the default, set the flag so we know to add a result location
+                                    isDefault = val;
+                                }
+                            }
+
                             nodeLabel = _reader.GetAttribute(_strings.LabelAttribute);
                             _reader.Read();
                         }
@@ -399,41 +433,83 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             // Step past the empty SourceLocation element.
                             _reader.Read();
 
-                            // If we don't have a label, get the <Action> value
-                            if (string.IsNullOrWhiteSpace(nodeLabel) && AtStartOf(_strings.Action))
+                            string actionType = null;
+                            if (AtStartOf(_strings.Action))
                             {
-                                nodeLabel = _reader.ReadElementContentAsString();
+                                actionType = _reader.GetAttribute(_strings.TypeAttribute);
+                                actionType = actionType ?? string.Empty; // We use empty string to indicates there is an
+                                                                         // Action element without a type attribute.
+
+                                // If we don't have a label, get the <Action> value
+                                if (string.IsNullOrWhiteSpace(nodeLabel))
+                                {
+                                    nodeLabel = _reader.ReadElementContentAsString();
+                                }
                             }
 
-                            var tfl = new ThreadFlowLocation
+                            if (actionType == string.Empty)
                             {
-                                Location = new Location
+                                if (codeFlow.ThreadFlows[0].Locations.Count > 0)
+                                {
+                                    // If there is no type attribute on the Action element, we treat
+                                    // it as a note about the prior node.
+                                    ThreadFlowLocation tfl = codeFlow.ThreadFlows[0].Locations.Last();
+
+                                    // Annotate the location with the Action text.
+                                    if (tfl?.Location != null)
+                                    {
+                                        tfl.Location.Annotations = new List<Region>();
+                                        Region region = physicalLocation.Region;
+                                        region.Message = new Message
+                                        {
+                                            Text = nodeLabel
+                                        };
+                                        tfl.Location.Annotations.Add(region);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                var location = new Location
                                 {
                                     PhysicalLocation = physicalLocation
-                                }
-                            };
-
-                            if (!string.IsNullOrWhiteSpace(nodeLabel))
-                            {
-                                tfl.Location.Message = new Message
-                                {
-                                    Text = nodeLabel
                                 };
+
+                                if (isDefault == true)
+                                {
+                                    result.Locations.Add(location.DeepClone());
+                                    result.RelatedLocations.Add(location.DeepClone());
+
+                                    // Keep track of the snippet associated with the default location.
+                                    // That's the snippet that we'll associate with the result.
+                                    lastNodeId = snippetId;
+
+                                    isDefault = false; // This indicates we have already found the default node.
+                                }
+
+                                var tfl = new ThreadFlowLocation
+                                {
+                                    Kind = actionType,
+                                    Location = location
+                                };
+
+                                if (!string.IsNullOrWhiteSpace(nodeLabel))
+                                {
+                                    tfl.Location.Message = new Message
+                                    {
+                                        Text = nodeLabel
+                                    };
+                                }
+
+                                // Remember the id of the snippet associated with this location.
+                                // We'll use it to fill the snippet text when we read the Snippets element later on.
+                                if (!string.IsNullOrEmpty(snippetId))
+                                {
+                                    _tflToSnippetIdDictionary.Add(tfl, snippetId);
+                                }
+
+                                codeFlow.ThreadFlows[0].Locations.Add(tfl);
                             }
-
-                            // Remember the id of the snippet associated with this location.
-                            // We'll use it to fill the snippet text when we read the Snippets element later on.
-                            if (!string.IsNullOrEmpty(snippetId))
-                            {
-                                _tflToSnippetIdDictionary.Add(tfl, snippetId);
-                            }
-
-                            codeFlow.ThreadFlows[0].Locations.Add(tfl);
-
-                            // Keep track of the snippet associated with the last location in the
-                            // last CodeFlow; that's the snippet that we'll associate with the Result
-                            // as a whole.
-                            lastNodeId = snippetId;
                         }
                         else
                         {
@@ -441,30 +517,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         }
                     }
 
-                    if (codeFlow.ThreadFlows[0].Locations.Any())
-                    {
-                        Location location = new Location
-                        {
-                            PhysicalLocation = codeFlow.ThreadFlows[0].Locations.Last().Location?.PhysicalLocation
-                        };
+                    //if (codeFlow.ThreadFlows[0].Locations.Any())
+                    //{
+                    //    Location location = new Location
+                    //    {
+                    //        PhysicalLocation = codeFlow.ThreadFlows[0].Locations.Last().Location?.PhysicalLocation
+                    //    };
 
-                        // Make sure we don't already have this location in the lists
-                        if (!result.Locations.Contains(location, Location.ValueComparer))
-                        {
-                            result.Locations.Add(new Location
-                            {
-                                // TODO: Confirm that the traces are ordered chronologically
-                                // (so that we really do want to use the last one as the
-                                // overall result location).
-                                PhysicalLocation = location.PhysicalLocation.DeepClone()
-                            });
-                            result.RelatedLocations.Add(new Location
-                            {
-                                // Links embedded in the result message refer to related physicalLocation.id
-                                PhysicalLocation = location.PhysicalLocation.DeepClone()
-                            });
-                        }
-                    }
+                    //    // Make sure we don't already have this location in the lists
+                    //    if (!result.Locations.Contains(location, Location.ValueComparer))
+                    //    {
+                    //        result.Locations.Add(new Location
+                    //        {
+                    //            // TODO: Confirm that the traces are ordered chronologically
+                    //            // (so that we really do want to use the last one as the
+                    //            // overall result location).
+                    //            PhysicalLocation = location.PhysicalLocation.DeepClone()
+                    //        });
+                    //        result.RelatedLocations.Add(new Location
+                    //        {
+                    //            // Links embedded in the result message refer to related physicalLocation.id
+                    //            PhysicalLocation = location.PhysicalLocation.DeepClone()
+                    //        });
+                    //    }
+                    //}
                 }
                 else
                 {
@@ -515,11 +591,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             string path = _reader.GetAttribute(_strings.PathAttribute);
 
+            var uri = new Uri(path, UriKind.RelativeOrAbsolute);
             return new PhysicalLocation
             {
                 FileLocation = new FileLocation
                 {
-                    Uri = new Uri(path, UriKind.Relative)
+                    Uri = uri,
+                    UriBaseId = uri.IsAbsoluteUri ? null : FileLocationUriBaseId
                 },
                 Region = ParseRegion()
             };
@@ -632,7 +710,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     // Step past the empty SourceLocation element.
                     _reader.Read();
 
-                    // Get the node text from the Action element
+                    // Get the node text and type attribute from the Action element
+                    string actionType = _reader.GetAttribute(_strings.TypeAttribute);
                     string nodeLabel = _reader.ReadElementContentAsString();
 
                     // Create the location
@@ -646,6 +725,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     };
 
                     _nodeIdToLocationDictionary.Add(nodeId, location);
+                    _nodeIdToActionTypeDictionary.Add(nodeId, actionType);
                     _locationToSnippetIdDictionary.Add(location, snippetId);
                 }
                 else
@@ -957,11 +1037,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             {
                                 string nodeId;
                                 string snippetId;
+                                string actionType;
                                 Region[] regions = null;
                                 Location location = null;
 
                                 if (_tflToNodeIdDictionary.TryGetValue(tfl, out nodeId) &&
                                     _nodeIdToLocationDictionary.TryGetValue(nodeId, out location) &&
+                                    _nodeIdToActionTypeDictionary.TryGetValue(nodeId, out actionType) &&
                                     _locationToSnippetIdDictionary.TryGetValue(location, out snippetId) &&
                                     _snippetIdToRegionsDictionary.TryGetValue(snippetId, out regions))
                                 {
@@ -970,6 +1052,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                                     location.PhysicalLocation.Region = regions[0];
                                     location.PhysicalLocation.ContextRegion = regions[1];
                                     tfl.Location = location;
+                                    tfl.Kind = actionType;
                                 }
                             }
                         }
