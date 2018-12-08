@@ -79,24 +79,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: The fragment portion of the URI &quot;{1}&quot;, which specifies the location of a nested file with respect to its parent, does not begin with a forward slash..
-        /// </summary>
-        internal static string SARIF1002_Default {
-            get {
-                return ResourceManager.GetString("SARIF1002_Default", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to When specifying the URI of a nested file with a URI fragment, express the fragment as an absolute path. That is, begin the with a forward slash, for example &quot;file:///C:/bin/MyApp.zip#/images/grape.jpg&quot;..
-        /// </summary>
-        internal static string SARIF1002_UseAbsolutePathsForNestedFileUriFragmentsDescription {
-            get {
-                return ResourceManager.GetString("SARIF1002_UseAbsolutePathsForNestedFileUriFragmentsDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0}: The string &quot;{1}&quot; is not a valid URI reference..
         /// </summary>
         internal static string SARIF1003_Default {
@@ -142,11 +124,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The end time of a run must be after the start time. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal..
+        ///   Looks up a localized string similar to The end time of a run must not precede the start time. To allow for the possibility that the duration of the run is less than the resolution of the string representation of the time, the start time and the end time may be equal..
         /// </summary>
-        internal static string SARIF1007_EndTimeMustBeAfterStartTime {
+        internal static string SARIF1007_EndTimeMustNotBeBeforeStartTime {
             get {
-                return ResourceManager.GetString("SARIF1007_EndTimeMustBeAfterStartTime", resourceCulture);
+                return ResourceManager.GetString("SARIF1007_EndTimeMustNotBeBeforeStartTime", resourceCulture);
             }
         }
         

@@ -8,11 +8,11 @@ using Microsoft.Json.Pointer;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class EndTimeMustBeAfterStartTime : SarifValidationSkimmerBase
+    public class EndTimeMustNotBeBeforeStartTime : SarifValidationSkimmerBase
     {
         private Message _fullDescription = new Message
         {
-            Text = RuleResources.SARIF1007_EndTimeMustBeAfterStartTime
+            Text = RuleResources.SARIF1007_EndTimeMustNotBeBeforeStartTime
         };
 
         public override Message FullDescription => _fullDescription;
@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// <summary>
         /// SARIF1007
         /// </summary>
-        public override string Id => RuleId.EndTimeMustBeAfterStartTime;
+        public override string Id => RuleId.EndTimeMustNotBeBeforeStartTime;
 
         protected override IEnumerable<string> MessageResourceNames => new string[]
         {
