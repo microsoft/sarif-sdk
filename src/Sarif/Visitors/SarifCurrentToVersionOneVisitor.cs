@@ -305,10 +305,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     ResultFile = CreatePhysicalLocation(v2Location.PhysicalLocation)
                 };
 
-                if (!string.IsNullOrWhiteSpace(v2Location.FullyQualifiedLogicalName) &&
-                    _currentV2Run.LogicalLocations?.ContainsKey(v2Location.FullyQualifiedLogicalName) == true)
+                if (!string.IsNullOrWhiteSpace(v2Location.FullyQualifiedLogicalName))
                 {
-                    location.DecoratedName = _currentV2Run.LogicalLocations[v2Location.FullyQualifiedLogicalName].DecoratedName;
+                    location.DecoratedName = _currentV2Run.LogicalLocations[v2Location.LogicalLocationIndex].DecoratedName;
                 }
             }
 
@@ -869,7 +868,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     run.StableId = v2Run.Id?.InstanceIdLogicalComponent();
 
                     run.Invocation = CreateInvocation(v2Run.Invocations?[0]);
-                    run.LogicalLocations = v2Run.LogicalLocations?.ToDictionary(v => v.Key, v => CreateLogicalLocation(v.Value));
+                    run.LogicalLocations = CreateLogicalLocationsDictionary(v2Run.LogicalLocations);
                     run.Properties = v2Run.Properties;
                     run.Results = new List<ResultVersionOne>();
                     run.Rules = v2Run.Resources?.Rules?.ToDictionary(v => v.Key, v => CreateRule(v.Value));
@@ -889,6 +888,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return run;
+        }
+
+        private IDictionary<string, LogicalLocationVersionOne> CreateLogicalLocationsDictionary(IList<LogicalLocation> logicalLocations)
+        {
+            Dictionary<string, LogicalLocationVersionOne> logicalLocationsVersionOne = null;
+
+            if (logicalLocations != null)
+            {
+                foreach (LogicalLocation logicalLocation in logicalLocations)
+                {
+                    logicalLocationsVersionOne[logicalLocation.FullyQualifiedName] = CreateLogicalLocation(logicalLocation);
+                }
+            }
+
+            return logicalLocationsVersionOne;
         }
 
         internal StackVersionOne CreateStack(Stack v2Stack)
@@ -930,10 +944,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     string fqln = location.FullyQualifiedLogicalName;
 
                     if (_currentV2Run.LogicalLocations != null &&
-                        _currentV2Run.LogicalLocations.ContainsKey(fqln) &&
-                        !string.IsNullOrWhiteSpace(_currentV2Run.LogicalLocations[fqln].FullyQualifiedName))
+                        !string.IsNullOrWhiteSpace(_currentV2Run.LogicalLocations[location.LogicalLocationIndex].FullyQualifiedName))
                     {
-                        stackFrame.FullyQualifiedLogicalName = _currentV2Run.LogicalLocations[fqln].FullyQualifiedName;
+                        stackFrame.FullyQualifiedLogicalName = _currentV2Run.LogicalLocations[location.LogicalLocationIndex].FullyQualifiedName;
                         stackFrame.LogicalLocationKey = fqln;
                     }
                     else

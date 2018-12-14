@@ -38,6 +38,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.LogicalLocationIndex != right.LogicalLocationIndex)
+            {
+                return false;
+            }
+
             if (!Message.ValueComparer.Equals(left.Message, right.Message))
             {
                 return false;
@@ -109,6 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.FullyQualifiedLogicalName.GetHashCode();
                 }
 
+                result = (result * 31) + obj.LogicalLocationIndex.GetHashCode();
                 if (obj.Message != null)
                 {
                     result = (result * 31) + obj.Message.ValueGetHashCode();

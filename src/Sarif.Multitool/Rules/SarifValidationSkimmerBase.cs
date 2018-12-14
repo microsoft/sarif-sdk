@@ -98,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected virtual void Analyze(Invocation invocation, string invocationPointer)
         {
         }
-        protected virtual void Analyze(LogicalLocation logicalLocation, string logicalLocationKey, string logicalLocationPointer)
+        protected virtual void Analyze(LogicalLocation logicalLocation, string logicalLocationPointer)
         {
         }
 
@@ -466,9 +466,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
-        private void Visit(LogicalLocation logicalLocation, string logicalLocationKey, string logicalLocationPointer)
+        private void Visit(LogicalLocation logicalLocation, string logicalLocationPointer)
         {
-            Analyze(logicalLocation, logicalLocationKey, logicalLocationPointer);
+            Analyze(logicalLocation, logicalLocationPointer);
         }
 
         private void Visit(Message message, string messagePointer)
@@ -708,12 +708,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (run.LogicalLocations != null)
             {
-                IDictionary<string, LogicalLocation> logicalLocations = run.LogicalLocations;
                 string logicalLocationsPointer = runPointer.AtProperty(SarifPropertyName.LogicalLocations);
 
-                foreach (string logicalLocationKey in logicalLocations.Keys)
+                for (int i = 0; i < run.LogicalLocations.Count; ++i)
                 {
-                    Visit(logicalLocations[logicalLocationKey], logicalLocationKey, logicalLocationsPointer.AtProperty(logicalLocationKey));
+                    Visit(run.LogicalLocations[i], logicalLocationsPointer.AtIndex(i));
                 }
             }
 

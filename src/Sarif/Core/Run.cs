@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public bool ShouldSerializeInvocations() { return this.Invocations != null && this.Invocations.Any((e) => e != null && !e.ValueEquals(EmptyInvocation)); }
 
-        public bool ShouldSerializeLogicalLocations() { return this.LogicalLocations != null && this.LogicalLocations.Values.Any(); }
+        public bool ShouldSerializeLogicalLocations() { return this.LogicalLocations != null && this.LogicalLocations.Count > 0; }
 
         public bool ShouldSerializeNewlineSequences() { return this.NewlineSequences != null && this.NewlineSequences.Any((s) => s != null); }
     }

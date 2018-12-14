@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-10-10",
-  "version": "2.0.0-csd.2.beta.2018-10-10",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-11-28",
+  "version": "2.0.0-csd.2.beta.2018-11-28",
   "runs": [
     {
       "tool": {
@@ -31,7 +31,8 @@
                     "text": "<area alt=\"Here is some text\" coords=\"10 20 20\" href=\"moon.html\" shape=circle xweb:fixindex=\"0\" />"
                   }
                 }
-              }
+              },
+              "logicalLocationIndex": 0
             }
           ],
           "fixes": [
@@ -121,7 +122,8 @@
                     "text": "<DIV id=\"test1\" xweb:fixindex=\"0\"></DIV>"
                   }
                 }
-              }
+              },
+              "logicalLocationIndex": 0
             }
           ],
           "fixes": [
@@ -172,7 +174,8 @@
             }
           }
         }
-      }
+      },
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

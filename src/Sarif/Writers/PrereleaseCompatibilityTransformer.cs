@@ -87,6 +87,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         modifiedLog = true;
                     }
 
+                    // Logical locations are now an array. We will first transform the previous
+                    // dictionary into the arrays form. We will retain the index for each
+                    // transformed logical location. Later, we will associate these indices
+                    // with results, if applicable.
+                    var logicalLocations= (JObject)run["logicalLcations"];
+                    var logicalLocationToIndexMap = new Dictionary<LogicalLocation, int>();
+
+                    run["logicalLcations"] = ConstructLogicalLocationsArray(logicalLocations, logicalLocationToIndexMap);
+
+
                     var results = (JArray)run["results"];
                     if (results != null)
                     {
@@ -131,11 +141,83 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     if (columnKind == null)
                     {
                         run["columnKind"] = "utf16CodeUnits";
-                    }                
+                    }
                 }
             }
 
             return modifiedLog;
+        }
+
+        private static JToken ConstructLogicalLocationsArray(JObject logicalLocations, Dictionary<LogicalLocation, int> logicalLocationToIndexMap)
+        {
+            if (logicalLocations == null) { return null; }
+
+            JArray transformedLogicalLocations = new JArray();
+            logicalLocationToIndexMap = new Dictionary<LogicalLocation, int>(LogicalLocation.ValueComparer);
+
+            foreach (JProperty logicalLocationEntry in logicalLocations.Values())
+            {
+                JObject logicalLocation = CreateLogicalLocationArrayEntry(logicalLocationEntry, logicalLocationToIndexMap);
+                transformedLogicalLocations.Add(logicalLocation);
+
+            }
+
+            return transformedLogicalLocations;
+        }
+
+        private static void CreateLogicalLocationArrayEntry(
+            JProperty logicalLocationEntry, 
+            Dictionary<LogicalLocation, int> logicalLocationToIndexMap, 
+            Dictionary<string, int> keyToIndexMap = null)
+        {
+            int index;
+            keyToIndexMap = keyToIndexMap ?? new Dictionary<string, int>();
+
+            string fullyQualifiedName = logicalLocationEntry.Name;
+            var logicalLocation = (JObject)logicalLocationEntry.Value;
+
+            // Parent key is no longer relevant and will be removed.
+            // We require 
+            string parentKey = (string)logicalLocationEntry["parentKey"];
+
+            if (parentKey == null)
+            {
+                // No parent key? We are a root location. 
+                logicalLocation["parentIndex"] = -1;
+            }
+            else
+            {
+                // Have we processed our parent yet? If so, retrieve the parentIndex and we're done
+                if (!keyToIndexMap.TryGetValue(parentKey, out index))
+                {
+                    // The parent hasn't been processed yet. We must force 
+                    // its creation to determine its index in our array
+
+                }
+            }
+
+            string existingFullyQualifiedName = (string)logicalLocation["fullyQualifiedName"];
+            if (string.IsNullOrEmpty(existingFullyQualifiedName))
+            {
+                // We use the key as the fullyQualifiedName but only in cases when we don't 
+                // find this property is already set. If the property is set, that may
+                // indicate the key name isn't the FQN but another string value that is
+                // used to resolve a collision between distinct logical locations with 
+                // an identical fully-qualified name.
+                logicalLocation["fullyQualifiedName"] = fullyQualifiedName;
+            }
+
+            LogicalLocation sarifLogicalLocation = JsonConvert.DeserializeObject<LogicalLocation>(logicalLocation.ToString());
+
+            // Theoretically, the dictionary should consists of a unique set of logical 
+            // locations. In practice, however, there's nothing preventing a SARIF user
+            // from emitting duplicated locations. As a result, we will not naively produce
+            // a one-to-one mapping of logical locations to dictionary entry. Instead, we 
+            // will collapse any duplicates that we find into a single array instance
+            if (!logicalLocationToIndexMap.TryGetValue(sarifLogicalLocation, out int index))
+            {
+                logicalLocationToIndexMap[sarifLogicalLocation] = logicalLocationToIndexMap.Count;
+            }
         }
 
         private static bool RemapRuleDefaultLevelFromOpenToNote(JObject resources)

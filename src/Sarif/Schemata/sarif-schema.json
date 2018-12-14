@@ -757,6 +757,13 @@
           "type": "string"
         },
 
+        "logicalLocationIndex": {
+          "description": "The index within the logicalLocations array that specifies the logical location associated with the result.",
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
+        },
+
         "message": {
           "description": "A message relevant to the location.",
           "$ref": "#/definitions/message"
@@ -800,9 +807,11 @@
           "type": "string"
         },
 
-        "parentKey": {
-          "description": "Identifies the key of the immediate parent of the construct in which the result was detected. For example, this property might point to a logical location that represents the namespace that holds a type.",
-          "type": "string"
+        "parentIndex": {
+          "description": "Identifies the indev of the immediate parent of the construct in which the result was detected. For example, this property might point to a logical location that represents the namespace that holds a type.",
+          "type": "integer",
+          "minimum": -1,
+          "default": -1
         },
 
         "kind": {
@@ -1343,6 +1352,17 @@
           }
         },
 
+
+        "conversionProvenance": {
+          "description": "An array of physicalLocation objects which specify the portions of an analysis tool's output that a converter transformed into the result object.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/physicalLocation"
+          }
+        },
+
         "fixes": {
           "description": "An array of 'fix' objects, each of which represents a proposed fix to the problem indicated by the result.",
           "type": "array",
@@ -1508,9 +1528,10 @@
         },
 
         "logicalLocations": {
-          "description": "A dictionary, each of whose keys specifies a logical location such as a namespace, type or function.",
-          "type": "object",
-          "additionalProperties": {
+          "description": "An array of logical locations such as namespaces, types or functions.",
+          "type": "array",
+          "minItems": 0,
+          "items": {
             "$ref": "#/definitions/logicalLocation"
           }
         },
