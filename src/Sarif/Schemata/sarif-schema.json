@@ -1306,6 +1306,14 @@
           ]
         },
 
+        "rank": {
+          "description": "A number representing the priority or importance of the result.",
+          "type":"number",
+          "minimum": 0.0,
+          "maximum": 100.0,
+          "default": 0.0
+        },
+
         "attachments": {
           "description": "A set of files relevant to the result.",
           "type": "array",

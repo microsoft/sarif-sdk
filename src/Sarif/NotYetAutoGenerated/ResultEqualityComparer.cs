@@ -252,6 +252,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.Rank != right.Rank)
+            {
+                return false;
+            }
+
             if (!object.ReferenceEquals(left.Attachments, right.Attachments))
             {
                 if (left.Attachments == null || right.Attachments == null)
@@ -520,6 +525,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 result = (result * 31) + obj.SuppressionStates.GetHashCode();
                 result = (result * 31) + obj.BaselineState.GetHashCode();
+                result = (result * 31) + obj.Rank.GetHashCode();
                 if (obj.Attachments != null)
                 {
                     foreach (var value_16 in obj.Attachments)
