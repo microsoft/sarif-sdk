@@ -1310,8 +1310,7 @@
           "description": "A number representing the priority or importance of the result.",
           "type":"number",
           "minimum": 0.0,
-          "maximum": 100.0,
-          "default": 0.0
+          "maximum": 100.0
         },
 
         "attachments": {
@@ -1449,6 +1448,14 @@
           "description": "Specifies the default severity level of the result.",
           "default": "warning",
           "enum": [ "note", "warning", "error" ]
+        },
+
+        "defaultRank": {
+          "description": "Specifies the default priority or importance of the result.",
+          "type":"number",
+          "minimum": 0.0,
+          "maximum": 100.0,
+          "default": 0.0
         },
 
         "parameters": {

@@ -38,6 +38,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.DefaultRank != right.DefaultRank)
+            {
+                return false;
+            }
+
             if (!object.ReferenceEquals(left.Parameters, right.Parameters))
             {
                 if (left.Parameters == null || right.Parameters == null || left.Parameters.Count != right.Parameters.Count)
@@ -97,6 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 result = (result * 31) + obj.Enabled.GetHashCode();
                 result = (result * 31) + obj.DefaultLevel.GetHashCode();
+                result = (result * 31) + obj.DefaultRank.GetHashCode();
                 if (obj.Parameters != null)
                 {
                     // Use xor for dictionaries to be order-independent.
