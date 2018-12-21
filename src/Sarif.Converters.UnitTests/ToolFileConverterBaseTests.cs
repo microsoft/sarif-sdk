@@ -43,13 +43,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var converter = new LogicalLocationTestConverter();
 
-            string logicalLocationKey = converter.AddLogicalLocation(logicalLocation);
+            int index = converter.AddLogicalLocation(logicalLocation);
+            index.Should().Be(0);
 
-            location.FullyQualifiedLogicalName.Should().Be(logicalLocationKey);
-
-            converter.LogicalLocationsDictionary.Keys.Count.Should().Be(1);
-            converter.LogicalLocationsDictionary.Keys.Should().Contain("a");
-            converter.LogicalLocationsDictionary["a"].ValueEquals(logicalLocation).Should().BeTrue();
+            converter.LogicalLocations.Count.Should().Be(1);
+            converter.LogicalLocations[index].Name.Should().Be("a");
+            converter.LogicalLocations[index].ValueEquals(logicalLocation).Should().BeTrue();
         }
 
         [Fact]
@@ -79,16 +78,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var converter = new LogicalLocationTestConverter();
 
-            string logicalLocationKey = converter.AddLogicalLocation(logicalLocation1);
-            logicalLocationKey.Should().Be(location1.FullyQualifiedLogicalName);
+            int index = converter.AddLogicalLocation(logicalLocation1);
+            index.Should().Be(0);
 
-            logicalLocationKey = converter.AddLogicalLocation(logicalLocation2);
-            logicalLocationKey.Should().Be(location2.FullyQualifiedLogicalName);
+            // Second logical location is identical to previous. So 
+            // we shouldn't add a new instance
+            index = converter.AddLogicalLocation(logicalLocation2);
+            index.Should().Be(0);
 
-            converter.LogicalLocationsDictionary.Keys.Count.Should().Be(1);
-            converter.LogicalLocationsDictionary.Keys.Should().Contain("a");
-            converter.LogicalLocationsDictionary["a"].ValueEquals(logicalLocation1).Should().BeTrue();
-            converter.LogicalLocationsDictionary["a"].ValueEquals(logicalLocation2).Should().BeTrue();
+            converter.LogicalLocations.Count.Should().Be(1);
+            converter.LogicalLocations[index].Name.Should().Be("a");
+            converter.LogicalLocations[index].ValueEquals(logicalLocation1).Should().BeTrue();
         }
 
         [Fact]
@@ -129,21 +129,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var converter = new LogicalLocationTestConverter();
 
-            string logicalLocationKey = converter.AddLogicalLocation(logicalLocation1);
-            logicalLocationKey.Should().Be("a");
+            int index = converter.AddLogicalLocation(logicalLocation1);
+            converter.LogicalLocations[index].Name.Should().Be("a");
+            converter.LogicalLocations[index].FullyQualifiedName.Should().BeNull();
 
-            logicalLocationKey = converter.AddLogicalLocation(logicalLocation2);
-            logicalLocationKey.Should().Be("a-0");
+            index = converter.AddLogicalLocation(logicalLocation2);
+            index.Should().Be(1);
+            converter.LogicalLocations[index].Name.Should().Be("a");
+            converter.LogicalLocations.Count.Should().Be(2);
 
-            logicalLocationKey = converter.AddLogicalLocation(logicalLocation3);
-            logicalLocationKey.Should().Be("a-1");
-
-            converter.LogicalLocationsDictionary.Keys.Count.Should().Be(3);
-            converter.LogicalLocationsDictionary["a"].ValueEquals(logicalLocation1).Should().BeTrue();
-            converter.LogicalLocationsDictionary.Keys.Should().Contain("a-0");
-            converter.LogicalLocationsDictionary["a-0"].ValueEquals(logicalLocation2).Should().BeTrue();
-            converter.LogicalLocationsDictionary.Keys.Should().Contain("a-1");
-            converter.LogicalLocationsDictionary["a-1"].ValueEquals(logicalLocation3).Should().BeTrue();
+            index = converter.AddLogicalLocation(logicalLocation3);
+            index.Should().Be(2);
+            converter.LogicalLocations[index].Name.Should().Be("a");
+            converter.LogicalLocations.Count.Should().Be(3);
         }
     }
 }

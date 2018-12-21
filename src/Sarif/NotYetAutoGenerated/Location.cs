@@ -76,6 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public Location()
         {
+            LogicalLocationIndex = -1;
         }
 
         /// <summary>

@@ -4,6 +4,7 @@
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using System;
 using System.IO;
+using System.Xml;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -19,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Fact(DisplayName = nameof(ValidateCommand_ReportsDeserializationError))]
         public void ValidateCommand_ReportsDeserializationError()
         {
-            Verify("DeserializationError.sarif");
+            Verify("DeserializationError.sarif", disablePreleaseCompatibilityTransform: true);
         }
 
         private void Verify(string testFileName, bool disablePreleaseCompatibilityTransform = false)
@@ -46,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 string actualLogContents = File.ReadAllText(actualFilePath);
                 string expectedLogContents = File.ReadAllText(expectedFilePath);
-                expectedLogContents = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedLogContents);
+                PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedLogContents, forceUpdate: false, formatting: Newtonsoft.Json.Formatting.None, out expectedLogContents);
 
                 // We can't just compare the text of the log files because properties
                 // like start time, and absolute paths, will differ from run to run.

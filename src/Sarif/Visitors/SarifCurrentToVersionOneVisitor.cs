@@ -50,7 +50,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     Annotations = v2Location.Annotations?.Select(CreateAnnotation).ToList(),
                     FullyQualifiedLogicalName = v2Location.FullyQualifiedLogicalName,
-                    LogicalLocationKey = v2Location.FullyQualifiedLogicalName,
                     Message = v2Location.Message?.Text,
                     PhysicalLocation = CreatePhysicalLocation(v2Location.PhysicalLocation),
                     Snippet = v2Location.PhysicalLocation?.Region?.Snippet?.Text
@@ -315,8 +314,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         internal LogicalLocationVersionOne CreateLogicalLocation(LogicalLocation v2LogicalLocation)
-        {
+        {            
             LogicalLocationVersionOne logicalLocation = null;
+            string parentKey = null;
+
+            if (_currentV2Run.LogicalLocations != null && v2LogicalLocation.ParentIndex > -1)
+            {
+                parentKey = _currentV2Run.LogicalLocations[v2LogicalLocation.ParentIndex].FullyQualifiedName;
+            }
 
             if (v2LogicalLocation != null)
             {
@@ -324,7 +329,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     Kind = v2LogicalLocation.Kind,
                     Name = v2LogicalLocation.Name,
-                    ParentKey = v2LogicalLocation.ParentKey
+                    ParentKey = parentKey
                 };
             }
 
@@ -896,6 +901,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (logicalLocations != null)
             {
+                logicalLocationsVersionOne = new Dictionary<string, LogicalLocationVersionOne>();
                 foreach (LogicalLocation logicalLocation in logicalLocations)
                 {
                     logicalLocationsVersionOne[logicalLocation.FullyQualifiedName] = CreateLogicalLocation(logicalLocation);
@@ -947,7 +953,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         !string.IsNullOrWhiteSpace(_currentV2Run.LogicalLocations[location.LogicalLocationIndex].FullyQualifiedName))
                     {
                         stackFrame.FullyQualifiedLogicalName = _currentV2Run.LogicalLocations[location.LogicalLocationIndex].FullyQualifiedName;
-                        stackFrame.LogicalLocationKey = fqln;
+                        stackFrame.LogicalLocationKey = fqln != _currentV2Run.LogicalLocations[location.LogicalLocationIndex].FullyQualifiedName ? fqln : null;
                     }
                     else
                     {

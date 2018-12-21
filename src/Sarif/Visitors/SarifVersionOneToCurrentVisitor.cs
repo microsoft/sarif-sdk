@@ -380,6 +380,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Properties = v1AnnotatedCodeLocation.Properties
                 };
 
+                if (!string.IsNullOrWhiteSpace(location.FullyQualifiedLogicalName))
+                {
+                    if (_v1KeyToV2LogicalLocationMap.TryGetValue(location.FullyQualifiedLogicalName, out LogicalLocation logicalLocation))
+                    {
+                        _logicalLocationToIndexMap.TryGetValue(logicalLocation, out int index);
+                        location.LogicalLocationIndex = index;
+                    }
+                }
+
                 if (!string.IsNullOrWhiteSpace(v1AnnotatedCodeLocation.Snippet))
                 {
                     if (location.PhysicalLocation == null)
@@ -449,14 +458,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             LogicalLocation logicalLocation = null;
 
+            int parentIndex = -1;
+
+            if (!string.IsNullOrEmpty(v1LogicalLocation.ParentKey) &&
+                _v1KeyToV2LogicalLocationMap.TryGetValue(v1LogicalLocation.ParentKey, out LogicalLocation parentLogicalLocation))
+            {
+                _logicalLocationToIndexMap.TryGetValue(parentLogicalLocation, out parentIndex);
+            }
+
             if (v1LogicalLocation != null)
             {
                 logicalLocation = new LogicalLocation
                 {
                     Kind = v1LogicalLocation.Kind,
                     Name = v1LogicalLocation.Name,
-                    ParentKey = v1LogicalLocation.ParentKey,
-                    FullyQualifiedName = fullyQualifiedName != v1LogicalLocation.Name ? fullyQualifiedName : null
+                    FullyQualifiedName = fullyQualifiedName != v1LogicalLocation.Name ? fullyQualifiedName : null,
+                    ParentIndex = parentIndex
                 };
             }
 
@@ -470,7 +487,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 DecoratedName = decoratedName,
                 FullyQualifiedName = fullyQualifiedLogicalName,
                 Name = GetLogicalLocationName(fullyQualifiedLogicalName),
-                ParentKey = parentKey,
                 Kind = kind
             };
         }
@@ -897,20 +913,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         run.LogicalLocations = new List<LogicalLocation>();
                         _v1KeyToV2LogicalLocationMap = _v1KeyToV2LogicalLocationMap ?? new Dictionary<string, LogicalLocation>();
 
-                        foreach (var pair in v1Run.LogicalLocations)
+                        HashSet<string> populatedKeys = new HashSet<string>();
+
+                        foreach (KeyValuePair<string, LogicalLocationVersionOne> pair in v1Run.LogicalLocations)
                         {
-                            // Create the logical location from the v1 version
-                            LogicalLocation logicalLocation = CreateLogicalLocation(pair.Value, fullyQualifiedName: pair.Key);
-
-                            // Remember the index that is associated with the new logical location
-                            _logicalLocationToIndexMap[logicalLocation] = run.LogicalLocations.Count;
-
-                            // Store the old v1 look-up key for the new logical location
-                            // We will use this to generate the index when we walk results
-                            // v1 key -> logical location -> logical location index
-                            _v1KeyToV2LogicalLocationMap[pair.Key] = logicalLocation;
-
-                            run.LogicalLocations.Add(logicalLocation);
+                            PopulateLogicalLocation(
+                                run, 
+                                v1Run.LogicalLocations, 
+                                pair.Key, 
+                                pair.Value,
+                                populatedKeys);
                         }
                     }
 
@@ -950,6 +962,43 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             _currentRun = null;
 
             return run;
+        }
+
+        private void PopulateLogicalLocation(
+            Run v2Run, 
+            IDictionary<string, LogicalLocationVersionOne> v1LogicalLocations, 
+            string fullyQualifiedName, 
+            LogicalLocationVersionOne v1LogicalLocation, 
+            HashSet<string> populatedKeys)
+        {
+            // We saw and populated this one previously, because it was a parent to 
+            // a logical location that we encountered earlier
+            if (populatedKeys.Contains(fullyQualifiedName)) { return; }
+
+            if (v1LogicalLocation.ParentKey != null && !populatedKeys.Contains(v1LogicalLocation.ParentKey))
+            {
+                // Ensure that any parent has been populated 
+                PopulateLogicalLocation(
+                    v2Run, v1LogicalLocations,
+                    v1LogicalLocation.ParentKey,
+                    v1LogicalLocations[v1LogicalLocation.ParentKey],
+                    populatedKeys);
+            }
+
+            // Create the logical location from the v1 version
+            LogicalLocation logicalLocation = CreateLogicalLocation(v1LogicalLocation, fullyQualifiedName);
+
+            // Remember the index that is associated with the new logical location
+            _logicalLocationToIndexMap[logicalLocation] = v2Run.LogicalLocations.Count;
+
+            // Store the old v1 look-up key for the new logical location
+            // We will use this to generate the index when we walk results
+            // v1 key -> logical location -> logical location index
+            _v1KeyToV2LogicalLocationMap[fullyQualifiedName] = logicalLocation;
+
+            v2Run.LogicalLocations.Add(logicalLocation);
+
+            populatedKeys.Add(fullyQualifiedName);
         }
 
         internal Stack CreateStack(StackVersionOne v1Stack)

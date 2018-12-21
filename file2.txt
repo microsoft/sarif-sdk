@@ -11,17 +11,14 @@
         "file:///home/list.txt": {
           "length": 43,
           "mimeType": "text/plain",
-          "contents": {
-            "text": "The quick brown fox jumps over the lazy dog"
-          },
-          "hashes": {
-            "sha-256": "d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"
-          }
+          "contents": { "text": "The quick brown fox jumps over the lazy dog" },
+          "hashes": { "sha-256": "d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592" }
         }
       },
       "logicalLocations": [
         {
           "name": "collections",
+          "parentIndex": 0,
           "kind": "namespace"
         },
         {
@@ -43,28 +40,20 @@
           "level": "error",
           "message": {
             "messageId": "default",
-            "arguments": [
-              "ptr"
-            ]
+            "arguments": [ "ptr" ]
           },
-          "analysisTarget": {
-            "uri": "file:///home/buildAgent/src/collections/list.cpp"
-          },
+          "analysisTarget": { "uri": "file:///home/buildAgent/src/collections/list.cpp" },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///home/buildAgent/src/collections/list.h"
-                },
+                "fileLocation": { "uri": "file:///home/buildAgent/src/collections/list.h" },
                 "region": {
                   "startLine": 1,
                   "startColumn": 1,
                   "endLine": 1,
                   "endColumn": 28,
                   "byteLength": 27,
-                  "snippet": {
-                    "text": "add_core(ptr, offset, val);"
-                  }
+                  "snippet": { "text": "add_core(ptr, offset, val);" }
                 }
               },
               "fullyQualifiedLogicalName": "collections::list::add",
@@ -74,9 +63,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///home/list.txt"
-                },
+                "fileLocation": { "uri": "file:///home/list.txt" },
                 "region": {
                   "startLine": 1,
                   "startColumn": 5,
@@ -85,15 +72,11 @@
               },
               "fullyQualifiedLogicalName": "collections::list::add",
               "logicalLocationIndex": 2,
-              "message": {
-                "text": "\"count\" was declared here."
-              }
+              "message": { "text": "\"count\" was declared here." }
             },
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///home/list.txt"
-                },
+                "fileLocation": { "uri": "file:///home/list.txt" },
                 "region": {
                   "byteOffset": 12,
                   "byteLength": 3
@@ -101,12 +84,10 @@
               },
               "fullyQualifiedLogicalName": "collections::list",
               "logicalLocationIndex": 1,
-              "message": {
-                "text": "Another reference to \"count\" was declared here."
-              }
+              "message": { "text": "Another reference to \"count\" was declared here." }
             }
           ],
-          "suppressionStates": ["suppressedExternally"],
+          "suppressionStates": [ "suppressedExternally" ],
           "baselineState": "existing"
         }
       ],
@@ -114,15 +95,9 @@
         "rules": {
           "C2001": {
             "id": "C2001",
-            "shortDescription": {
-              "text": "A variable was used without being initialized."
-            },
-            "fullDescription": {
-              "text": "A variable was used without being initialized. This can result in runtime errors such as null reference exceptions."
-            },
-            "messageStrings": {
-              "default": "Variable \"{0}\" was used without being initialized."
-            }
+            "shortDescription": { "text": "A variable was used without being initialized." },
+            "fullDescription": { "text": "A variable was used without being initialized. This can result in runtime errors such as null reference exceptions." },
+            "messageStrings": { "default": "Variable \"{0}\" was used without being initialized." }
           }
         }
       },

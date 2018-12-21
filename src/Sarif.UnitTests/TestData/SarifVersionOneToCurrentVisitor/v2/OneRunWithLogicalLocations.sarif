@@ -9,20 +9,20 @@
       },
       "logicalLocations": [
         {
-          "name": "add",
-          "fullyQualifiedName": "collections::list::add",
-          "parentKey": "collections::list",
-          "kind": "function"
+          "name": "collections",
+          "kind": "namespace"
         },
         {
           "name": "list",
           "fullyQualifiedName": "collections::list",
-          "parentKey": "collections",
+          "parentIndex": 0,
           "kind": "type"
         },
         {
-          "name": "collections",
-          "kind": "namespace"
+          "name": "add",
+          "fullyQualifiedName": "collections::list::add",
+          "parentIndex": 1,
+          "kind": "function"
         }
       ],
       "results": [
@@ -46,7 +46,7 @@
           "locations": [
             {
               "fullyQualifiedLogicalName": "collections",
-              "logicalLocationIndex": 2
+              "logicalLocationIndex": 0
             }
           ]
         },
@@ -58,7 +58,7 @@
           "locations": [
             {
               "fullyQualifiedLogicalName": "collections::list::add",
-              "logicalLocationIndex": 0
+              "logicalLocationIndex": 2
             }
           ]
         },

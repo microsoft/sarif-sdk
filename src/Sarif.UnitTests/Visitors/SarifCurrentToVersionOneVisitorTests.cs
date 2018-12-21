@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
             string v2LogText = GetResourceText($"v2.{v2InputResourceName}");
             string v1ExpectedLogText = GetResourceText($"v1.{v1ExpectedResourceName}");
 
-            v2LogText = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(v2LogText, forceUpdate: true, formatting: Formatting.Indented);
+            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(v2LogText, forceUpdate: true, formatting: Formatting.Indented, out v2LogText);
 
             SarifLogVersionOne v1Log = TransformCurrentToVersionOne(v2LogText);
 
@@ -71,11 +71,9 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
 
 
                 string errorMessage = string.Format(@"V2 conversion from V1 produced unexpected diffs for test: '{0}'.", v2InputResourceName);
-                sb.AppendLine("Check individual differences with:");
-                sb.AppendLine(GenerateDiffCommand(expectedFilePath, actualFilePath) + Environment.NewLine);
 
                 sb.AppendLine("To compare all difference for this test suite:");
-                sb.AppendLine(GenerateDiffCommand(Path.GetDirectoryName(expectedFilePath), Path.GetDirectoryName(actualFilePath)) + Environment.NewLine);
+                sb.AppendLine(GenerateDiffCommand("SarifCurrentToVersionOneVisitor", Path.GetDirectoryName(expectedFilePath), Path.GetDirectoryName(actualFilePath)) + Environment.NewLine);
             }
 
             if (s_Rebaseline)
@@ -99,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
 
         private static void VerifyCurrentToVersionOneTransformation(string v2LogText, string v1LogExpectedText)
         {
-            v2LogText = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(v2LogText, forceUpdate: true, formatting: Formatting.Indented);
+            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(v2LogText, forceUpdate: true, formatting: Formatting.Indented, out v2LogText);
             SarifLogVersionOne v1Log = TransformCurrentToVersionOne(v2LogText);
             string v1LogText = JsonConvert.SerializeObject(v1Log, SarifTransformerUtilities.JsonSettingsV1Indented);
             v1LogText.Should().Be(v1LogExpectedText);

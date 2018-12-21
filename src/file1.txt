@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-09-26",
-  "version": "2.0.0-csd.2.beta.2018-09-26",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-11-28",
+  "version": "2.0.0-csd.2.beta.2018-11-28",
   "runs": [
     {
       "tool": {
@@ -12,16 +12,17 @@
           "mimeType": "text/x-cpp"
         }
       },
-      "logicalLocations": {
-        "f": {
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "f",
           "decoratedName": "?f@@YAXH@Z"
         },
-        "f-0": {
+        {
           "name": "f",
           "fullyQualifiedName": "f",
           "decoratedName": "?f@@YAXPAUS@@@Z"
         }
-      },
+      ],
       "results": [
         {
           "ruleId": "26011",
@@ -40,6 +41,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "f",
+              "logicalLocationIndex": 0,
               "properties": {
                 "funcline": "4"
               }
@@ -51,7 +53,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -65,7 +66,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -79,7 +79,6 @@
                       }
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -115,6 +114,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "f",
+              "logicalLocationIndex": 0,
               "properties": {
                 "funcline": "4"
               }
@@ -126,7 +126,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -140,7 +139,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -154,7 +152,6 @@
                       }
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -168,7 +165,6 @@
                       }
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -203,7 +199,8 @@
                   "startColumn": 20
                 }
               },
-              "fullyQualifiedLogicalName": "f-0",
+              "fullyQualifiedLogicalName": "f",
+              "logicalLocationIndex": 0,
               "properties": {
                 "funcline": "30"
               }
@@ -215,7 +212,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -229,7 +225,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -243,7 +238,6 @@
                       }
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -257,7 +251,6 @@
                       }
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -271,7 +264,6 @@
                       }
                     },
                     {
-                      "step": 5,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -285,7 +277,6 @@
                       }
                     },
                     {
-                      "step": 6,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -320,7 +311,8 @@
                   "startColumn": 20
                 }
               },
-              "fullyQualifiedLogicalName": "f-0",
+              "fullyQualifiedLogicalName": "f",
+              "logicalLocationIndex": 0,
               "properties": {
                 "funcline": "30"
               }
@@ -332,7 +324,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -346,7 +337,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -360,7 +350,6 @@
                       }
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -374,7 +363,6 @@
                       }
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -388,7 +376,6 @@
                       }
                     },
                     {
-                      "step": 5,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -402,7 +389,6 @@
                       }
                     },
                     {
-                      "step": 6,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -421,7 +407,8 @@
             }
           ]
         }
-      ]
+      ],
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

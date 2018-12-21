@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 
@@ -16,68 +17,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     {
         protected ToolFileConverterBase()
         {
-            LogicalLocationsDictionary = new Dictionary<string, LogicalLocation>();
+            _logicalLocationToIndexMap = new Dictionary<LogicalLocation, int>(LogicalLocation.ValueComparer);
+            LogicalLocations = new List<LogicalLocation>();
         }
 
         public abstract void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert);
 
         // internal as well as protected it can be exercised by unit tests.
-        protected internal IDictionary<string, LogicalLocation> LogicalLocationsDictionary { get; private set;  }
+        private IDictionary<LogicalLocation, int> _logicalLocationToIndexMap;
 
-        protected internal string AddLogicalLocation(LogicalLocation logicalLocation)
+        protected internal IList<LogicalLocation> LogicalLocations { get; private set; }
+
+        protected internal int AddLogicalLocation(LogicalLocation logicalLocation)
         {
-            return AddLogicalLocation(logicalLocation, delimiter: ".");
-        }
-
-        // internal as well as protected it can be exercised by unit tests.
-        protected internal string AddLogicalLocation(LogicalLocation logicalLocation, string delimiter)
-        {
-            if (logicalLocation == null)
+            if (LogicalLocations.Count == 0)
             {
-                throw new ArgumentNullException(nameof(logicalLocation));
+                // Someone has reset the converter in order to reuse it. 
+                // So we'll clear our index map as well
+                _logicalLocationToIndexMap.Clear();
             }
 
-            int disambiguator = 0;
-
-            string fullyQualifiedLogicalName = logicalLocation.ParentKey == null ?
-                logicalLocation.Name : 
-                logicalLocation.ParentKey + delimiter + logicalLocation.Name;
-            string generatedKey = fullyQualifiedLogicalName;
-
-            logicalLocation.Name = GetLogicalLocationName(logicalLocation.ParentKey, fullyQualifiedLogicalName, delimiter);
-            logicalLocation.FullyQualifiedName = fullyQualifiedLogicalName;
-
-            while (LogicalLocationsDictionary.ContainsKey(generatedKey))
+            int index;
+            if (!_logicalLocationToIndexMap.TryGetValue(logicalLocation, out index))
             {
-                LogicalLocation logLoc = LogicalLocationsDictionary[generatedKey].DeepClone();
-                logLoc.Name = GetLogicalLocationName(logLoc.ParentKey, fullyQualifiedLogicalName, delimiter);
-                logLoc.FullyQualifiedName = fullyQualifiedLogicalName;
-
-                if (logicalLocation.ValueEquals(logLoc))
-                {
-                    break;
-                }
-
-                generatedKey = fullyQualifiedLogicalName + "-" + disambiguator.ToString(CultureInfo.InvariantCulture);
-                ++disambiguator;
+                index = _logicalLocationToIndexMap.Count;
+                _logicalLocationToIndexMap[logicalLocation] = index;
+                LogicalLocations.Add(logicalLocation);
             }
-
-            if (disambiguator == 0)
-            {
-                logicalLocation.FullyQualifiedName = null;
-            }
-
-            if (logicalLocation.Name == generatedKey)
-            {
-                logicalLocation.Name = null;
-            }
-
-            if (!LogicalLocationsDictionary.ContainsKey(generatedKey))
-            {
-                LogicalLocationsDictionary.Add(generatedKey, logicalLocation);
-            }
-
-            return generatedKey;
+            return index;
         }
 
         internal static string GetLogicalLocationName(string parentKey, string fullyQualifiedLogicalName, string delimiter)

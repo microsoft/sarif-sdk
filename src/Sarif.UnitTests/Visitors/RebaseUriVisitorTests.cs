@@ -191,9 +191,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             string sarifText = File.ReadAllText(comprehensiveSarifPath);
 
-            sarifText = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(sarifText);
-
-            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifText);
+            SarifLog sarifLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(sarifText, forceUpdate: false, formatting: Formatting.None, out sarifText);
 
             sarifLog.Runs.Count().Should().Be(1);
 

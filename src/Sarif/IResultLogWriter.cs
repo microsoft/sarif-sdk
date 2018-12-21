@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A dictionary whose keys are strings specifying a logical location and
         /// whose values provide information about each component of the logical location.
         /// </param>
-        void WriteLogicalLocations(IDictionary<string, LogicalLocation> logicalLocationsDictionary);
+        void WriteLogicalLocations(IList<LogicalLocation> logicalLocations);
 
         /// <summary>
         /// Write information about rules to the log. This information may appear

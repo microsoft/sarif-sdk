@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
             string v1LogText = GetResourceText($"v1.{v1InputResourceName}");
             string v2ExpectedLogText = GetResourceText($"v2.{v2ExpectedResourceName}");
 
-            v2ExpectedLogText = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(v2ExpectedLogText, forceUpdate: true, formatting: Formatting.Indented);
+            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(v2ExpectedLogText, forceUpdate: true, formatting: Formatting.Indented, out v2ExpectedLogText);
 
             SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
             string v2ActualLogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsIndented);
@@ -80,11 +80,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
                     File.WriteAllText(expectedFilePath, v2ExpectedLogText);
                     File.WriteAllText(actualFilePath, v2ActualLogText);
 
-                    sb.AppendLine("Check individual differences with:");
-                    sb.AppendLine(GenerateDiffCommand(expectedFilePath, actualFilePath) + Environment.NewLine);
-
                     sb.AppendLine("To compare all difference for this test suite:");
-                    sb.AppendLine(GenerateDiffCommand(Path.GetDirectoryName(expectedFilePath), Path.GetDirectoryName(actualFilePath)) + Environment.NewLine);
+                    sb.AppendLine(GenerateDiffCommand("SarifVersionOneToCurrent", Path.GetDirectoryName(expectedFilePath), Path.GetDirectoryName(actualFilePath)) + Environment.NewLine);
                 }
             }
 

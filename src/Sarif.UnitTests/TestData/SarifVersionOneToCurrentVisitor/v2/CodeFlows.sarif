@@ -33,7 +33,6 @@
                             }
                           }
                         },
-                        "logicalLocationIndex": 0,
                         "message": {
                           "text": "Variable \"str\" declared."
                         }
@@ -54,8 +53,7 @@
                               "text": "Bar();"
                             }
                           }
-                        },
-                        "logicalLocationIndex": 0
+                        }
                       },
                       "module": "platform",
                       "state": {
@@ -76,8 +74,7 @@
                               "text": "int length = str.Length;"
                             }
                           }
-                        },
-                        "logicalLocationIndex": 0
+                        }
                       },
                       "module": "platform",
                       "state": {
@@ -104,7 +101,6 @@
                             }
                           }
                         },
-                        "logicalLocationIndex": 0,
                         "message": {
                           "text": "Method \"GetFoo\" returns null."
                         },
@@ -144,8 +140,7 @@
                               "text": "return;"
                             }
                           }
-                        },
-                        "logicalLocationIndex": 0
+                        }
                       },
                       "module": "platform",
                       "state": {
