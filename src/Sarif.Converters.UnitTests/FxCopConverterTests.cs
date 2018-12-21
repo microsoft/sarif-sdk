@@ -397,6 +397,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             Region = new Region { StartLine = 13 }
                         },
                         FullyQualifiedLogicalName = expectedLogicalLocation,
+                        LogicalLocationIndex = 3
                     }
                 }
             };
@@ -409,9 +410,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var expectedLogicalLocations = new List<LogicalLocation>
             {
                 new LogicalLocation { ParentIndex = -1, Name = "mybinary.dll", Kind = LogicalLocationKind.Module },
-                new LogicalLocation { ParentIndex = 0, Name = "mynamespace", Kind = LogicalLocationKind.Namespace },
-                new LogicalLocation { ParentIndex = 1, Name = "mytype", Kind = LogicalLocationKind.Type },
-                new LogicalLocation { ParentIndex = 2, Name = "mymember(string)", Kind = LogicalLocationKind.Member }
+                new LogicalLocation { ParentIndex = 0, Name = "mynamespace", FullyQualifiedName = "mybinary.dll!mynamespace", Kind = LogicalLocationKind.Namespace },
+                new LogicalLocation { ParentIndex = 1, Name = "mytype", FullyQualifiedName = "mybinary.dll!mynamespace.mytype", Kind = LogicalLocationKind.Type },
+                new LogicalLocation { ParentIndex = 2, Name = "mymember(string)", FullyQualifiedName = "mybinary.dll!mynamespace.mytype.mymember(string)", Kind = LogicalLocationKind.Member }
             };
             var converter = new FxCopConverter();
             Result result = converter.CreateResult(context);
@@ -435,8 +436,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
 
                     new LogicalLocation { ParentIndex = -1, Name = "mynamespace", Kind = LogicalLocationKind.Namespace },
-                    new LogicalLocation { ParentIndex =  0, Name = "mytype", Kind = LogicalLocationKind.Type },
-                    new LogicalLocation { ParentIndex =  1, Name = "mymember(string)", Kind = LogicalLocationKind.Member }
+                    new LogicalLocation { ParentIndex =  0, Name = "mytype",    FullyQualifiedName = "mynamespace.mytype", Kind = LogicalLocationKind.Type },
+                    new LogicalLocation { ParentIndex =  1, Name = "mymember(string)", FullyQualifiedName = "mynamespace.mytype.mymember(string)", Kind = LogicalLocationKind.Member }
             };
 
             var converter = new FxCopConverter();
@@ -458,8 +459,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var expectedLogicalLocations = new List<LogicalLocation>
             {                
-                new LogicalLocation { Kind = LogicalLocationKind.Module },                
-                new LogicalLocation { ParentIndex = 0, Name = "myresource.resx", Kind = LogicalLocationKind.Resource }                
+                new LogicalLocation { Kind = LogicalLocationKind.Module, Name = "mybinary.dll" },                
+                new LogicalLocation { ParentIndex = 0, Name = "myresource.resx", FullyQualifiedName = "mybinary.dll!myresource.resx", Kind = LogicalLocationKind.Resource }                
             };
 
             var converter = new FxCopConverter();

@@ -207,6 +207,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private int AddLogicalLocation(int parentIndex, ref string fullyQualifiedName, string value, string kind, string delimiter = ".")
         {
             fullyQualifiedName = fullyQualifiedName + delimiter + value;
+
+            // Need to decide which item gets preference, name vs. fully qualified name
+            // if both match. The behaviors of various API in the SDK differs on this point.
             var logicalLocation = new LogicalLocation
             {
                 FullyQualifiedName = fullyQualifiedName,
