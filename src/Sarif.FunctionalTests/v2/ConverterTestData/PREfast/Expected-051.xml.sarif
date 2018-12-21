@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-09-26",
-  "version": "2.0.0-csd.2.beta.2018-09-26",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-11-28",
+  "version": "2.0.0-csd.2.beta.2018-11-28",
   "runs": [
     {
       "tool": {
@@ -12,16 +12,17 @@
           "mimeType": "text/x-cpp"
         }
       },
-      "logicalLocations": {
-        "g": {
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "g",
           "decoratedName": "?g@@YAXPAVI@@@Z"
         }
-      },
+      ],
       "results": [
         {
           "ruleId": "26000",
           "message": {
-            "text": "Overflow using expression '& a'\nBuffer accessed is a\nBuffer is of length 10 elements (4 bytes/element) [size of variable]\nAccessing 11 elements (4 bytes/element) starting at element offset 0\nAnnotation on function I::Fill requires that {parameter 2} is of length >= * {parameter 3} elements (4 bytes/element)\n  where {parameter 2} is & a; {parameter 3} is & size\n[Annotation SAL_writableTo(elementCount(* {parameter 3})) at c:\\somepath\\test051.cpp(6)]\n\n\nValues of variables:\nsize = 11\n"
+            "text": "Overflow using expression '& a'\n            Buffer accessed is a\n            Buffer is of length 10 elements (4 bytes/element) [size of variable]\n            Accessing 11 elements (4 bytes/element) starting at element offset 0\n            Annotation on function I::Fill requires that {parameter 2} is of length >= * {parameter 3} elements (4 bytes/element)\n            where {parameter 2} is & a; {parameter 3} is & size\n            [Annotation SAL_writableTo(elementCount(* {parameter 3})) at c:\\somepath\\test051.cpp(6)]\n      \n      \n            Values of variables:\n            size = 11"
           },
           "locations": [
             {
@@ -35,6 +36,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "g",
+              "logicalLocationIndex": 0,
               "properties": {
                 "funcline": "24"
               }
@@ -46,7 +48,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -60,7 +61,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -74,7 +74,6 @@
                       }
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -88,7 +87,6 @@
                       }
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -102,7 +100,6 @@
                       }
                     },
                     {
-                      "step": 5,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -121,7 +118,8 @@
             }
           ]
         }
-      ]
+      ],
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

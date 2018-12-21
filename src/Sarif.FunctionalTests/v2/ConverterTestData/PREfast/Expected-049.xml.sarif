@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-09-26",
-  "version": "2.0.0-csd.2.beta.2018-09-26",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-11-28",
+  "version": "2.0.0-csd.2.beta.2018-11-28",
   "runs": [
     {
       "tool": {
@@ -12,20 +12,24 @@
           "mimeType": "text/x-cpp"
         }
       },
-      "logicalLocations": {
-        "": {
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "",
           "decoratedName": ""
         },
-        "test_b_a": {
+        {
+          "fullyQualifiedName": "test_b_a",
           "decoratedName": "?test_b_a@@YAXPADPBVBase@@@Z"
         },
-        "test_d_b": {
+        {
+          "fullyQualifiedName": "test_d_b",
           "decoratedName": "?test_d_b@@YAXPADPBVDerived@@@Z"
         },
-        "test_d_a": {
+        {
+          "fullyQualifiedName": "test_d_a",
           "decoratedName": "?test_d_a@@YAXPADPBVDerived@@@Z"
         }
-      },
+      ],
       "results": [
         {
           "ruleId": "28204",
@@ -44,6 +48,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "",
+              "logicalLocationIndex": 0,
               "properties": {
                 "funcline": "0"
               }
@@ -53,7 +58,7 @@
         {
           "ruleId": "26015",
           "message": {
-            "text": "Potential overflow using expression 'buf[100]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: any constant is not constrained by (c->Base::a)`29\n\nBuffer buf is a parameter to this function declared on line 29\nBuffer is of length offset(buf)`29 + (c->Base::a)`29 bytes [from annotation SAL_readableTo(elementCount(c->a)) at c:\\somepath\\test049.cpp(29)]\nAccessing the byte at byte offset 100\n\nValues of variables:\nPointer buf is at offset 0 bytes from the start of the buffer\n\nwhere\noffset(buf)`29 == 0\n(c->Base::a)`29 >= 1\n\nOverrun access occurs when\n(c->Base::a)`29 <= 100\n"
+            "text": "Potential overflow using expression 'buf[100]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: any constant is not constrained by (c->Base::a)`29\n\nBuffer buf is a parameter to this function declared on line 29\nBuffer is of length offset(buf)`29 + (c->Base::a)`29 bytes [from annotation SAL_readableTo(elementCount(c->a)) at c:\\somepath\\test049.cpp(29)]\nAccessing the byte at byte offset 100\n\nValues of variables:\nPointer buf is at offset 0 bytes from the start of the buffer\n\nwhere\noffset(buf)`29 == 0\n(c->Base::a)`29 >= 1\n\nOverrun access occurs when\n(c->Base::a)`29 <= 100"
           },
           "locations": [
             {
@@ -67,6 +72,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "test_b_a",
+              "logicalLocationIndex": 1,
               "properties": {
                 "funcline": "29"
               }
@@ -78,7 +84,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -92,7 +97,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -114,7 +118,7 @@
         {
           "ruleId": "26015",
           "message": {
-            "text": "Potential overflow using expression 'buf[100]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: any constant is not constrained by (c->Derived::b)`34\n\nBuffer buf is a parameter to this function declared on line 34\nBuffer is of length offset(buf)`34 + (c->Derived::b)`34 bytes [from annotation SAL_readableTo(elementCount(c->b)) at c:\\somepath\\test049.cpp(34)]\nAccessing the byte at byte offset 100\n\nValues of variables:\nPointer buf is at offset 0 bytes from the start of the buffer\n\nwhere\noffset(buf)`34 == 0\n(c->Derived::b)`34 >= 1\n\nOverrun access occurs when\n(c->Derived::b)`34 <= 100\n"
+            "text": "Potential overflow using expression 'buf[100]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: any constant is not constrained by (c->Derived::b)`34\n\nBuffer buf is a parameter to this function declared on line 34\nBuffer is of length offset(buf)`34 + (c->Derived::b)`34 bytes [from annotation SAL_readableTo(elementCount(c->b)) at c:\\somepath\\test049.cpp(34)]\nAccessing the byte at byte offset 100\n\nValues of variables:\nPointer buf is at offset 0 bytes from the start of the buffer\n\nwhere\noffset(buf)`34 == 0\n(c->Derived::b)`34 >= 1\n\nOverrun access occurs when\n(c->Derived::b)`34 <= 100"
           },
           "locations": [
             {
@@ -128,6 +132,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "test_d_b",
+              "logicalLocationIndex": 2,
               "properties": {
                 "funcline": "34"
               }
@@ -139,7 +144,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -153,7 +157,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -175,7 +178,7 @@
         {
           "ruleId": "26015",
           "message": {
-            "text": "Potential overflow using expression 'buf[100]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: any constant is not constrained by (c->Base::a)`40\n\nBuffer buf is a parameter to this function declared on line 40\nBuffer is of length offset(buf)`40 + (c->Base::a)`40 bytes [from annotation SAL_readableTo(elementCount(c->Base.a)) at c:\\somepath\\test049.cpp(40)]\nAccessing the byte at byte offset 100\n\nValues of variables:\nPointer buf is at offset 0 bytes from the start of the buffer\n\nwhere\noffset(buf)`40 == 0\n(c->Base::a)`40 >= 1\n\nOverrun access occurs when\n(c->Base::a)`40 <= 100\n"
+            "text": "Potential overflow using expression 'buf[100]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: any constant is not constrained by (c->Base::a)`40\n\nBuffer buf is a parameter to this function declared on line 40\nBuffer is of length offset(buf)`40 + (c->Base::a)`40 bytes [from annotation SAL_readableTo(elementCount(c->Base.a)) at c:\\somepath\\test049.cpp(40)]\nAccessing the byte at byte offset 100\n\nValues of variables:\nPointer buf is at offset 0 bytes from the start of the buffer\n\nwhere\noffset(buf)`40 == 0\n(c->Base::a)`40 >= 1\n\nOverrun access occurs when\n(c->Base::a)`40 <= 100"
           },
           "locations": [
             {
@@ -189,6 +192,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "test_d_a",
+              "logicalLocationIndex": 3,
               "properties": {
                 "funcline": "40"
               }
@@ -200,7 +204,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -214,7 +217,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -233,7 +235,8 @@
             }
           ]
         }
-      ]
+      ],
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

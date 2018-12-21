@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-09-26",
-  "version": "2.0.0-csd.2.beta.2018-09-26",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-11-28",
+  "version": "2.0.0-csd.2.beta.2018-11-28",
   "runs": [
     {
       "tool": {
@@ -12,39 +12,45 @@
           "mimeType": "text/x-cpp"
         }
       },
-      "logicalLocations": {
-        "f": {
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "f",
           "decoratedName": "?f@@YAXPADIPBD@Z"
         },
-        "f1": {
+        {
+          "fullyQualifiedName": "f1",
           "decoratedName": "?f1@@YAXPADIPBD@Z"
         },
-        "f2": {
+        {
+          "fullyQualifiedName": "f2",
           "decoratedName": "?f2@@YAXPADIPBD@Z"
         },
-        "foo": {
+        {
+          "fullyQualifiedName": "foo",
           "decoratedName": "?foo@@YAXPAGI@Z"
         },
-        "GetComputerName": {
+        {
+          "fullyQualifiedName": "GetComputerName",
           "decoratedName": "?GetComputerName@@YAXPADPAI@Z"
         },
-        "TestFields": {
+        {
+          "fullyQualifiedName": "TestFields",
           "decoratedName": "?TestFields@@YAXPADHH@Z"
         },
-        "f-0": {
-          "name": "f",
+        {
           "fullyQualifiedName": "f",
           "decoratedName": "?f@@YAXPADPAI@Z"
         },
-        "Division": {
+        {
+          "fullyQualifiedName": "Division",
           "decoratedName": "?Division@@YAXXZ"
         }
-      },
+      ],
       "results": [
         {
           "ruleId": "26007",
           "message": {
-            "text": "Possibly incorrect single element annotation on buffer\nRead overflow using expression '* q'\nBuffer q is a parameter to this function declared on line 7\nBuffer lengths are from an assumed __in annotation on the parameter\nBuffer is of length offset(q)`7 + 1 bytes [from annotation valid(elementCount(1)) at c:\\somepath\\test071.cpp(7)]\nAccessing the byte at byte offset 1\n\nValues of variables:\nPointer q is at offset 1 bytes from the start of the buffer\n\nwhere\noffset(q)`7 == 0\n{loop iterations}'9 == 0\n\nThere are other instances of this error:\nPossibly incorrect single element annotation on buffer at line 11\nPossibly incorrect single element annotation on buffer at line 13\n"
+            "text": "Possibly incorrect single element annotation on buffer\nRead overflow using expression '* q'\nBuffer q is a parameter to this function declared on line 7\nBuffer lengths are from an assumed __in annotation on the parameter\nBuffer is of length offset(q)`7 + 1 bytes [from annotation valid(elementCount(1)) at c:\\somepath\\test071.cpp(7)]\nAccessing the byte at byte offset 1\n\nValues of variables:\nPointer q is at offset 1 bytes from the start of the buffer\n\nwhere\noffset(q)`7 == 0\n{loop iterations}'9 == 0\n\nThere are other instances of this error:\nPossibly incorrect single element annotation on buffer at line 11\nPossibly incorrect single element annotation on buffer at line 13"
           },
           "locations": [
             {
@@ -58,6 +64,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "f",
+              "logicalLocationIndex": 0,
               "properties": {
                 "funcline": "7"
               }
@@ -69,7 +76,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -83,7 +89,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -97,7 +102,6 @@
                       }
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -111,7 +115,6 @@
                       }
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -125,7 +128,6 @@
                       }
                     },
                     {
-                      "step": 5,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -139,7 +141,6 @@
                       }
                     },
                     {
-                      "step": 6,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -153,7 +154,6 @@
                       }
                     },
                     {
-                      "step": 7,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -175,7 +175,7 @@
         {
           "ruleId": "26007",
           "message": {
-            "text": "Possibly incorrect single element annotation on buffer\nRead overflow using expression '* q'\nBuffer q is a parameter to this function declared on line 21\nBuffer lengths are from an assumed __in annotation on the parameter\nBuffer is of length offset(q)`21 + 1 bytes [from annotation valid(elementCount(1)) at c:\\somepath\\test071.cpp(21)]\nAccessing the byte at byte offset 1\n\nValues of variables:\nPointer q is at offset 1 bytes from the start of the buffer\n\nwhere\noffset(q)`21 == 0\n{loop iterations}'23 == 0\n\nThere are other instances of this error:\nPossibly incorrect single element annotation on buffer at line 25\nPossibly incorrect single element annotation on buffer at line 27\n"
+            "text": "Possibly incorrect single element annotation on buffer\nRead overflow using expression '* q'\nBuffer q is a parameter to this function declared on line 21\nBuffer lengths are from an assumed __in annotation on the parameter\nBuffer is of length offset(q)`21 + 1 bytes [from annotation valid(elementCount(1)) at c:\\somepath\\test071.cpp(21)]\nAccessing the byte at byte offset 1\n\nValues of variables:\nPointer q is at offset 1 bytes from the start of the buffer\n\nwhere\noffset(q)`21 == 0\n{loop iterations}'23 == 0\n\nThere are other instances of this error:\nPossibly incorrect single element annotation on buffer at line 25\nPossibly incorrect single element annotation on buffer at line 27"
           },
           "locations": [
             {
@@ -189,6 +189,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "f1",
+              "logicalLocationIndex": 1,
               "properties": {
                 "funcline": "21"
               }
@@ -200,7 +201,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -214,7 +214,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -228,7 +227,6 @@
                       }
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -242,7 +240,6 @@
                       }
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -256,7 +253,6 @@
                       }
                     },
                     {
-                      "step": 5,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -270,7 +266,6 @@
                       }
                     },
                     {
-                      "step": 6,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -284,7 +279,6 @@
                       }
                     },
                     {
-                      "step": 7,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -306,7 +300,7 @@
         {
           "ruleId": "26014",
           "message": {
-            "text": "Potential overflow using expression '* (p ++)'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer p is a parameter to this function declared on line 21\nBuffer is of length offset(p)`21 + n`21 bytes [from annotation SAL_writableTo(elementCount(n)) at c:\\somepath\\test071.cpp(21)]\nAccessing the byte at byte offset 1\n\nValues of variables:\nPointer p is at offset 2 bytes from the start of the buffer\n\nwhere\noffset(p)`21 == 0\nn`21 >= 1\n\nOverrun access occurs when\nn`21 == 1\n"
+            "text": "Potential overflow using expression '* (p ++)'\nThis is likely to be due to incorrect or insufficient validation of the buffer access\nBuffer p is a parameter to this function declared on line 21\nBuffer is of length offset(p)`21 + n`21 bytes [from annotation SAL_writableTo(elementCount(n)) at c:\\somepath\\test071.cpp(21)]\nAccessing the byte at byte offset 1\n\nValues of variables:\nPointer p is at offset 2 bytes from the start of the buffer\n\nwhere\noffset(p)`21 == 0\nn`21 >= 1\n\nOverrun access occurs when\nn`21 == 1"
           },
           "locations": [
             {
@@ -320,6 +314,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "f1",
+              "logicalLocationIndex": 1,
               "properties": {
                 "funcline": "21"
               }
@@ -331,7 +326,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -345,7 +339,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -359,7 +352,6 @@
                       }
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -373,7 +365,6 @@
                       }
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -387,7 +378,6 @@
                       }
                     },
                     {
-                      "step": 5,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -401,7 +391,6 @@
                       }
                     },
                     {
-                      "step": 6,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -415,7 +404,6 @@
                       }
                     },
                     {
-                      "step": 7,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -429,7 +417,6 @@
                       }
                     },
                     {
-                      "step": 8,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -443,7 +430,6 @@
                       }
                     },
                     {
-                      "step": 9,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -457,7 +443,6 @@
                       }
                     },
                     {
-                      "step": 10,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -471,7 +456,6 @@
                       }
                     },
                     {
-                      "step": 11,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -493,7 +477,7 @@
         {
           "ruleId": "26007",
           "message": {
-            "text": "Possibly incorrect single element annotation on buffer\nRead overflow using expression '* q'\nBuffer q is a parameter to this function declared on line 34\nBuffer lengths are from an assumed __in annotation on the parameter\nBuffer is of length offset(q)`34 + 1 bytes [from annotation valid(elementCount(1)) at c:\\somepath\\test071.cpp(34)]\nAccessing the byte at byte offset 1\n\nValues of variables:\nPointer q is at offset 1 bytes from the start of the buffer\n\nwhere\noffset(q)`34 == 0\n{loop iterations}'38 == 0\n\nThere are other instances of this error:\nPossibly incorrect single element annotation on buffer at line 40\nPossibly incorrect single element annotation on buffer at line 42\n"
+            "text": "Possibly incorrect single element annotation on buffer\nRead overflow using expression '* q'\nBuffer q is a parameter to this function declared on line 34\nBuffer lengths are from an assumed __in annotation on the parameter\nBuffer is of length offset(q)`34 + 1 bytes [from annotation valid(elementCount(1)) at c:\\somepath\\test071.cpp(34)]\nAccessing the byte at byte offset 1\n\nValues of variables:\nPointer q is at offset 1 bytes from the start of the buffer\n\nwhere\noffset(q)`34 == 0\n{loop iterations}'38 == 0\n\nThere are other instances of this error:\nPossibly incorrect single element annotation on buffer at line 40\nPossibly incorrect single element annotation on buffer at line 42"
           },
           "locations": [
             {
@@ -507,6 +491,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "f2",
+              "logicalLocationIndex": 2,
               "properties": {
                 "funcline": "34"
               }
@@ -518,7 +503,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -532,7 +516,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -546,7 +529,6 @@
                       }
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -560,7 +542,6 @@
                       }
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -574,7 +555,6 @@
                       }
                     },
                     {
-                      "step": 5,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -588,7 +568,6 @@
                       }
                     },
                     {
-                      "step": 6,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -610,7 +589,7 @@
         {
           "ruleId": "26011",
           "message": {
-            "text": "Potential Underflow using expression 'buf[sizeInChars - 1]'\nBuffer buf is a parameter to this function declared on line 48\nBuffer is of length offset(buf)`48 + size`48 bytes [from annotation SAL_writableTo(byteCount(size)) at c:\\somepath\\test071.cpp(48)]\nAccessing 2 bytes starting at byte offset 2*{size / 2}`50 - 2\n\nValues of variables:\nPointer buf is at offset 0 bytes from the start of the buffer\nsizeInChars = {size / 2}`50\n\nwhere\noffset(buf)`48 == 0\nsize`48 == 2*{size / 2}`50 + {(size`48) % 2}`50\nsize`48 >= 1\n{(size`48) % 2}`50 <= 1\n{(size`48) % 2}`50 >= 0\n{size / 2}`50 >= 0\n\nUnderflow access occurs when\n2*{size / 2}`50 <= 1\n"
+            "text": "Potential Underflow using expression 'buf[sizeInChars - 1]'\nBuffer buf is a parameter to this function declared on line 48\nBuffer is of length offset(buf)`48 + size`48 bytes [from annotation SAL_writableTo(byteCount(size)) at c:\\somepath\\test071.cpp(48)]\nAccessing 2 bytes starting at byte offset 2*{size / 2}`50 - 2\n\nValues of variables:\nPointer buf is at offset 0 bytes from the start of the buffer\nsizeInChars = {size / 2}`50\n\nwhere\noffset(buf)`48 == 0\nsize`48 == 2*{size / 2}`50 + {(size`48) % 2}`50\nsize`48 >= 1\n{(size`48) % 2}`50 <= 1\n{(size`48) % 2}`50 >= 0\n{size / 2}`50 >= 0\n\nUnderflow access occurs when\n2*{size / 2}`50 <= 1"
           },
           "locations": [
             {
@@ -624,6 +603,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "foo",
+              "logicalLocationIndex": 3,
               "properties": {
                 "funcline": "48"
               }
@@ -635,7 +615,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -649,7 +628,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -663,7 +641,6 @@
                       }
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -677,7 +654,6 @@
                       }
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -699,7 +675,7 @@
         {
           "ruleId": "26030",
           "message": {
-            "text": "Postcondition violation that could result in overflow\nBuffer buf is a parameter to this function declared on line 70\nBuffer is of length offset(buf)`70 + (*size)`70 bytes [from annotation SAL_writableTo(elementCount(* size)) at c:\\somepath\\test071.cpp(70)]\nAccessing (*size)`70 + 1 bytes starting at byte offset 0\nAnnotation on function GetComputerName requires that buf is of length >= * size + 1 elements (1 bytes/element)\n[Annotation SAL_readableTo(elementCount(* size + 1)) at c:\\somepath\\test071.cpp(70)]\n\n\nValues of variables:\n(*size) = (*size)`70\nPointer buf is at offset 0 bytes from the start of the buffer\n\nwhere\noffset(buf)`70 == 0\n(*size)`70 >= 1\n"
+            "text": "Postcondition violation that could result in overflow\nBuffer buf is a parameter to this function declared on line 70\nBuffer is of length offset(buf)`70 + (*size)`70 bytes [from annotation SAL_writableTo(elementCount(* size)) at c:\\somepath\\test071.cpp(70)]\nAccessing (*size)`70 + 1 bytes starting at byte offset 0\nAnnotation on function GetComputerName requires that buf is of length >= * size + 1 elements (1 bytes/element)\n[Annotation SAL_readableTo(elementCount(* size + 1)) at c:\\somepath\\test071.cpp(70)]\n\n\nValues of variables:\n(*size) = (*size)`70\nPointer buf is at offset 0 bytes from the start of the buffer\n\nwhere\noffset(buf)`70 == 0\n(*size)`70 >= 1"
           },
           "locations": [
             {
@@ -713,6 +689,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "GetComputerName",
+              "logicalLocationIndex": 4,
               "properties": {
                 "funcline": "70"
               }
@@ -724,7 +701,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -746,7 +722,7 @@
         {
           "ruleId": "26015",
           "message": {
-            "text": "Potential overflow using expression 'buf[rtlStr.len - 1]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: rtlStr.RtlString::len`110 is not constrained by size`103\n\nBuffer buf is a parameter to this function declared on line 103\nBuffer is of length offset(buf)`103 + size`103 bytes [from annotation SAL_writableTo(elementCount(size)) at c:\\somepath\\test071.cpp(103)]\nAccessing the byte at byte offset rtlStr.RtlString::len`110 - 1\n\nValues of variables:\nPointer buf is at offset 0 bytes from the start of the buffer\nrtlStr.RtlString::len = rtlStr.RtlString::len`110\n\nwhere\noffset(buf)`103 == 0\nsize`103 >= 1\n\nOverrun access occurs when\nrtlStr.RtlString::len`110 >= size`103 + 1\n"
+            "text": "Potential overflow using expression 'buf[rtlStr.len - 1]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: rtlStr.RtlString::len`110 is not constrained by size`103\n\nBuffer buf is a parameter to this function declared on line 103\nBuffer is of length offset(buf)`103 + size`103 bytes [from annotation SAL_writableTo(elementCount(size)) at c:\\somepath\\test071.cpp(103)]\nAccessing the byte at byte offset rtlStr.RtlString::len`110 - 1\n\nValues of variables:\nPointer buf is at offset 0 bytes from the start of the buffer\nrtlStr.RtlString::len = rtlStr.RtlString::len`110\n\nwhere\noffset(buf)`103 == 0\nsize`103 >= 1\n\nOverrun access occurs when\nrtlStr.RtlString::len`110 >= size`103 + 1"
           },
           "locations": [
             {
@@ -760,6 +736,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestFields",
+              "logicalLocationIndex": 5,
               "properties": {
                 "funcline": "103"
               }
@@ -771,7 +748,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -785,7 +761,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -799,7 +774,6 @@
                       }
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -813,7 +787,6 @@
                       }
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -827,7 +800,6 @@
                       }
                     },
                     {
-                      "step": 5,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -841,7 +813,6 @@
                       }
                     },
                     {
-                      "step": 6,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -863,7 +834,7 @@
         {
           "ruleId": "26011",
           "message": {
-            "text": "Potential Underflow using expression 'buf[rtlStr.len - 1]'\nBuffer buf is a parameter to this function declared on line 103\nBuffer is of length offset(buf)`103 + size`103 bytes [from annotation SAL_writableTo(elementCount(size)) at c:\\somepath\\test071.cpp(103)]\nAccessing the byte at byte offset rtlStr.RtlString::len`110 - 1\n\nValues of variables:\nPointer buf is at offset 0 bytes from the start of the buffer\nrtlStr.RtlString::len = rtlStr.RtlString::len`110\n\nUnderflow access occurs when\noffset(buf)`103 == 0\nrtlStr.RtlString::len`110 <= 0\n\nThere are other instances of this error:\nPotential Underflow using expression 'buf[i]' at line 113\n"
+            "text": "Potential Underflow using expression 'buf[rtlStr.len - 1]'\nBuffer buf is a parameter to this function declared on line 103\nBuffer is of length offset(buf)`103 + size`103 bytes [from annotation SAL_writableTo(elementCount(size)) at c:\\somepath\\test071.cpp(103)]\nAccessing the byte at byte offset rtlStr.RtlString::len`110 - 1\n\nValues of variables:\nPointer buf is at offset 0 bytes from the start of the buffer\nrtlStr.RtlString::len = rtlStr.RtlString::len`110\n\nUnderflow access occurs when\noffset(buf)`103 == 0\nrtlStr.RtlString::len`110 <= 0\n\nThere are other instances of this error:\nPotential Underflow using expression 'buf[i]' at line 113"
           },
           "locations": [
             {
@@ -877,6 +848,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestFields",
+              "logicalLocationIndex": 5,
               "properties": {
                 "funcline": "103"
               }
@@ -888,7 +860,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -902,7 +873,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -916,7 +886,6 @@
                       }
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -930,7 +899,6 @@
                       }
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -944,7 +912,6 @@
                       }
                     },
                     {
-                      "step": 5,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -958,7 +925,6 @@
                       }
                     },
                     {
-                      "step": 6,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -980,7 +946,7 @@
         {
           "ruleId": "26015",
           "message": {
-            "text": "Potential overflow using expression '(void *)buf'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: any constant is not constrained by (*pch)`116\n\nBuffer buf is a parameter to this function declared on line 116\nBuffer is of length offset(buf)`116 + (*pch)`116 bytes [from annotation SAL_writableTo(elementCount(* pch)) at c:\\somepath\\test071.cpp(116)]\nAccessing 10 bytes starting at byte offset 0\nAnnotation on function memcpy requires that {parameter 1} is of length >= {parameter 3} bytes\n  where {parameter 1} is (void *)buf; {parameter 3} is 10\n[Annotation _Out_(byteCount({parameter 3}))]\n\n\nValues of variables:\nPointer buf is at offset 0 bytes from the start of the buffer\n\nwhere\noffset(buf)`116 == 0\n(*pch)`116 >= 1\n\nOverrun access occurs when\n(*pch)`116 <= 9\n"
+            "text": "Potential overflow using expression '(void *)buf'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: any constant is not constrained by (*pch)`116\n\nBuffer buf is a parameter to this function declared on line 116\nBuffer is of length offset(buf)`116 + (*pch)`116 bytes [from annotation SAL_writableTo(elementCount(* pch)) at c:\\somepath\\test071.cpp(116)]\nAccessing 10 bytes starting at byte offset 0\nAnnotation on function memcpy requires that {parameter 1} is of length >= {parameter 3} bytes\n  where {parameter 1} is (void *)buf; {parameter 3} is 10\n[Annotation _Out_(byteCount({parameter 3}))]\n\n\nValues of variables:\nPointer buf is at offset 0 bytes from the start of the buffer\n\nwhere\noffset(buf)`116 == 0\n(*pch)`116 >= 1\n\nOverrun access occurs when\n(*pch)`116 <= 9"
           },
           "locations": [
             {
@@ -994,6 +960,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "f",
+              "logicalLocationIndex": 6,
               "properties": {
                 "funcline": "116"
               }
@@ -1005,7 +972,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1019,7 +985,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1041,7 +1006,7 @@
         {
           "ruleId": "26015",
           "message": {
-            "text": "Potential overflow using expression 'buf[cb / 2]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: {cb / 2}`136 is not constrained by any constant\n\nBuffer accessed is buf\nBuffer is of length 100 elements (2 bytes/element) [size of variable]\nAccessing the element (2 bytes/element) at element offset {cb / 2}`136\n\nValues of variables:\ncb = cb`134a\n\nwhere\ncb`134a == 2*{cb / 2}`136 + {(cb`134a) % 2}`136\ncb`134a >= 0\n{(cb`134a) % 2}`136 <= 1\n{(cb`134a) % 2}`136 >= 0\n{cb / 2}`136 >= 0\n\nOverrun access occurs when\n{cb / 2}`136 >= 100\n"
+            "text": "Potential overflow using expression 'buf[cb / 2]'\nBuffer access is apparently unbounded by the buffer size.  \n\nIn particular: {cb / 2}`136 is not constrained by any constant\n\nBuffer accessed is buf\nBuffer is of length 100 elements (2 bytes/element) [size of variable]\nAccessing the element (2 bytes/element) at element offset {cb / 2}`136\n\nValues of variables:\ncb = cb`134a\n\nwhere\ncb`134a == 2*{cb / 2}`136 + {(cb`134a) % 2}`136\ncb`134a >= 0\n{(cb`134a) % 2}`136 <= 1\n{(cb`134a) % 2}`136 >= 0\n{cb / 2}`136 >= 0\n\nOverrun access occurs when\n{cb / 2}`136 >= 100"
           },
           "locations": [
             {
@@ -1055,6 +1020,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "Division",
+              "logicalLocationIndex": 7,
               "properties": {
                 "funcline": "128"
               }
@@ -1066,7 +1032,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1080,7 +1045,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1094,7 +1058,6 @@
                       }
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1108,7 +1071,6 @@
                       }
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1122,7 +1084,6 @@
                       }
                     },
                     {
-                      "step": 5,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1136,7 +1097,6 @@
                       }
                     },
                     {
-                      "step": 6,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1155,7 +1115,8 @@
             }
           ]
         }
-      ]
+      ],
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }
