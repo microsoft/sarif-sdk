@@ -158,6 +158,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (!AreEquivalentSarifLogs<SarifLog>(actualSarif, expectedSarif))
             {
+                File.WriteAllText(expectedFileName, expectedSarif);
                 File.WriteAllText(generatedFileName, actualSarif);
 
                 string errorMessage = "The output of the {0} converter did not match for input {1}.";
