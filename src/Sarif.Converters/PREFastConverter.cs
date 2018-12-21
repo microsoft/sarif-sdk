@@ -229,6 +229,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private string RemovePREfastNewLine(string content)
         {
             // TODO: need to accept this change soon
+            // https://github.com/Microsoft/sarif-sdk/issues/1169
             //return content.Replace("PREFAST_NEWLINE\n", string.Empty).Trim();
             return content.Replace("PREFAST_NEWLINE\n", string.Empty);
         }

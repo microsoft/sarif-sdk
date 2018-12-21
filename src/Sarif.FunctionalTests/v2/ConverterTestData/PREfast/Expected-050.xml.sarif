@@ -26,7 +26,7 @@
         {
           "ruleId": "26011",
           "message": {
-            "text": "Potential read underflow using expression 'a[i]'\n            Buffer accessed is a\n            Buffer is of length 10 elements (4 bytes/element) [size of variable]\n            Accessing the element (4 bytes/element) at element offset i`4\n      \n            Values of variables:\n            i = i`4\n      \n            Underflow access occurs when\n            i`4 + 1 <= 0\n      \n            There are other instances of this error:\n            Potential Underflow using expression 'a[a[1]]' at line 11\n            Potential Underflow using expression 'a[a[2]]' at line 18"
+            "text": "\n      Potential read underflow using expression 'a[i]'\n            Buffer accessed is a\n            Buffer is of length 10 elements (4 bytes/element) [size of variable]\n            Accessing the element (4 bytes/element) at element offset i`4\n      \n            Values of variables:\n            i = i`4\n      \n            Underflow access occurs when\n            i`4 + 1 <= 0\n      \n            There are other instances of this error:\n            Potential Underflow using expression 'a[a[1]]' at line 11\n            Potential Underflow using expression 'a[a[2]]' at line 18\n          "
           },
           "locations": [
             {
@@ -99,7 +99,7 @@
         {
           "ruleId": "26000",
           "message": {
-            "text": "Overflow using expression 'a[a[0]]'\n            Buffer accessed is a\n            Buffer is of length 10 elements (4 bytes/element) [size of variable]\n            Accessing the element (4 bytes/element) at element offset 10\n      \n            Values of variables:\n            a[0] = 10\n      \n            There are other instances of this error:\n            Potential read overflow using expression 'a[i]' at line 7\n            Potential overflow using expression 'a[a[1]]' at line 11\n            Overflow using expression 'a[a[0]]' at line 15\n            Potential overflow using expression 'a[a[2]]' at line 18"
+            "text": "\n      Overflow using expression 'a[a[0]]'\n            Buffer accessed is a\n            Buffer is of length 10 elements (4 bytes/element) [size of variable]\n            Accessing the element (4 bytes/element) at element offset 10\n      \n            Values of variables:\n            a[0] = 10\n      \n            There are other instances of this error:\n            Potential read overflow using expression 'a[i]' at line 7\n            Potential overflow using expression 'a[a[1]]' at line 11\n            Overflow using expression 'a[a[0]]' at line 15\n            Potential overflow using expression 'a[a[2]]' at line 18\n          "
           },
           "locations": [
             {
@@ -185,7 +185,7 @@
         {
           "ruleId": "26017",
           "message": {
-            "text": "Potential overflow using expression 'arr[(s->a[1]).x]'\n            Buffer accessed is arr\n            Buffer is of length 10 elements (4 bytes/element) [size of variable]\n            Accessing the element (4 bytes/element) at element offset (s->S::a)[0].S1::x`33\n      \n            Values of variables:\n            (s->S::a)[0].S1::x = (s->S::a)[0].S1::x`33\n            Pointer s is at offset 0 bytes from the start of s\n      \n            Overrun access occurs when\n            (s->S::a)[0].S1::x`33 >= 10"
+            "text": "\n      Potential overflow using expression 'arr[(s->a[1]).x]'\n            Buffer accessed is arr\n            Buffer is of length 10 elements (4 bytes/element) [size of variable]\n            Accessing the element (4 bytes/element) at element offset (s->S::a)[0].S1::x`33\n      \n            Values of variables:\n            (s->S::a)[0].S1::x = (s->S::a)[0].S1::x`33\n            Pointer s is at offset 0 bytes from the start of s\n      \n            Overrun access occurs when\n            (s->S::a)[0].S1::x`33 >= 10\n          "
           },
           "locations": [
             {
@@ -297,7 +297,7 @@
         {
           "ruleId": "26011",
           "message": {
-            "text": "Potential Underflow using expression 'arr[(s->a[1]).x]'\n            Buffer accessed is arr\n            Buffer is of length 10 elements (4 bytes/element) [size of variable]\n            Accessing the element (4 bytes/element) at element offset (s->S::a)[0].S1::x`33\n      \n            Values of variables:\n            (s->S::a)[0].S1::x = (s->S::a)[0].S1::x`33\n            Pointer s is at offset 0 bytes from the start of s\n      \n            Underflow access occurs when\n            (s->S::a)[0].S1::x`33 + 1 <= 0"
+            "text": "\n      Potential Underflow using expression 'arr[(s->a[1]).x]'\n            Buffer accessed is arr\n            Buffer is of length 10 elements (4 bytes/element) [size of variable]\n            Accessing the element (4 bytes/element) at element offset (s->S::a)[0].S1::x`33\n      \n            Values of variables:\n            (s->S::a)[0].S1::x = (s->S::a)[0].S1::x`33\n            Pointer s is at offset 0 bytes from the start of s\n      \n            Underflow access occurs when\n            (s->S::a)[0].S1::x`33 + 1 <= 0\n          "
           },
           "locations": [
             {

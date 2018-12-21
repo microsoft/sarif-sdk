@@ -75,7 +75,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var run = new Run()
             {
-                Tool = tool
+                Tool = tool,
+                ColumnKind = ColumnKind.Utf16CodeUnits
             };
 
             output.Initialize(run);
@@ -154,10 +155,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 bool foundUriBaseId = RemoveBadRoot(file, out uri);
                 location.PhysicalLocation.FileLocation.Uri = uri;
 
-                if (foundUriBaseId)
-                {
-                    location.PhysicalLocation.FileLocation.UriBaseId = PROJECT_DIR;
-                }
+                // TODO enable this change after current work
+                // https://github.com/Microsoft/sarif-sdk/issues/1168
+                // 
+                //if (foundUriBaseId)
+                //{
+                //    location.PhysicalLocation.FileLocation.UriBaseId = PROJECT_DIR;
+                //}
             }
 
             result.Locations = new List<Location> { location };
@@ -205,9 +209,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             fullyQualifiedName = fullyQualifiedName + delimiter + value;
             var logicalLocation = new LogicalLocation
             {
-                FullyQualifiedName = fullyQualifiedName != value ? fullyQualifiedName : null,
+                FullyQualifiedName = fullyQualifiedName,
                 Kind = kind,
-                Name = value,
+                Name = value != fullyQualifiedName ? value : null,
                 ParentIndex = parentIndex
             };
 
