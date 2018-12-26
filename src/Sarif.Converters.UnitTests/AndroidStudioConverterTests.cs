@@ -213,7 +213,7 @@ Possible resolution: delete", result.Message.Text);
             loc.PhysicalLocation.Should().BeNull();
         }
 
-        public static void ValidateLogicalLocations(IList<LogicalLocation> expectedLogicalLocations, IList<LogicalLocation> actualLogicalLocations)
+        internal static void ValidateLogicalLocations(IList<LogicalLocation> expectedLogicalLocations, IList<LogicalLocation> actualLogicalLocations)
         {
             for (int i = 0; i < expectedLogicalLocations.Count; i++)
             {
