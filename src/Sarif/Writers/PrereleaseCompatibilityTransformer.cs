@@ -2,7 +2,9 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
+using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -22,14 +24,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private const string SchemaPropertyPattern = @"""\$schema""\s*:\s*""[^""]+""";
         private static readonly Regex s_SchemaRegex = new Regex(SchemaPropertyPattern, RegexOptions.Compiled);
 
-        public static string UpdateToCurrentVersion(string prereleaseSarifLog, bool forceUpdate = false, Formatting formatting = Formatting.None)
+        public static SarifLog UpdateToCurrentVersion(
+            string prereleaseSarifLog, 
+            bool forceUpdate, 
+            Formatting formatting, 
+            out string updatedLog)
         {
             bool modifiedLog = false;
+            updatedLog = null;
+
+            if (prereleaseSarifLog == null) { return null; }
+
             JObject sarifLog = JObject.Parse(prereleaseSarifLog);
 
             // Some tests update the semantic version to current for non-updated content. For this situation, we 
             // allow the test code to force a transform, despite the fact that the provided version doesn't call for it.
             string version = forceUpdate ? "2.0.0" : (string)sarifLog["version"];
+
+            Dictionary<string, int> fullyQualifiedLogicalNameToIndexMap = null;
 
             switch (version)
             {
@@ -42,27 +54,46 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 case "2.0.0-csd.2.beta.2018-10-10":
                 {
                     // 2.0.0-csd.2.beta.2018-10-10 == changes through SARIF TC #25
-                    modifiedLog |= ApplyChangesFromTC25ThroughTC28(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC25ThroughTC28(sarifLog, out fullyQualifiedLogicalNameToIndexMap);
                     break;
                 }
 
                 default:
                 {
                     modifiedLog |= ApplyCoreTransformations(sarifLog);
-                    modifiedLog |= ApplyChangesFromTC25ThroughTC28(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC25ThroughTC28(sarifLog, out fullyQualifiedLogicalNameToIndexMap);
                     break;
                 }
             }
 
-            return modifiedLog ? sarifLog.ToString(formatting) : prereleaseSarifLog;
+            SarifLog transformedSarifLog = null;
+            var settings = new JsonSerializerSettings { Formatting = formatting };
+
+            if (fullyQualifiedLogicalNameToIndexMap != null)
+            {
+                Debug.Assert(modifiedLog == true);
+                transformedSarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifLog.ToString());
+                var indexUpdatingVisitor = new UpdateIndicesVisitor(fullyQualifiedLogicalNameToIndexMap);
+                indexUpdatingVisitor.Visit(transformedSarifLog);
+                updatedLog = JsonConvert.SerializeObject(transformedSarifLog, settings);
+            }
+            else
+            {
+                updatedLog = modifiedLog ? sarifLog.ToString(formatting) : prereleaseSarifLog;
+                transformedSarifLog = JsonConvert.DeserializeObject<SarifLog>(updatedLog);
+            }
+
+            return transformedSarifLog;
         }
 
-        private static bool ApplyChangesFromTC25ThroughTC28(JObject sarifLog)
+        private static bool ApplyChangesFromTC25ThroughTC28(JObject sarifLog, out Dictionary<string, int> fullyQualifiedLogicalNameToIndexMap)
         {
+            fullyQualifiedLogicalNameToIndexMap = null;
+
             // Note: we could have injected the TC26 - TC28 changes into the other helpers in this
             // code. This would prevent multiple passes over things like the run.results array.
             // We've isolated the changes here instead simply to keep them grouped together.
-       
+
             bool modifiedLog = UpdateSarifLogVersion(sarifLog); 
 
             // For completness, this update added run.newlineSequences to the schema
@@ -87,20 +118,61 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         modifiedLog = true;
                     }
 
+                    // Logical locations are now an array. We will first transform the previous
+                    // dictionary into the arrays form. We will retain the index for each
+                    // transformed logical location. Later, we will associate these indices
+                    // with results, if applicable.
+                    var logicalLocations = run["logicalLocations"] as JObject;
+                    Dictionary<LogicalLocation, int> logicalLocationToIndexMap = null;
+
+                    if (logicalLocations != null)
+                    {
+                        logicalLocationToIndexMap = new Dictionary<LogicalLocation, int>(LogicalLocation.ValueComparer);
+                        var jObjectToIndexMap = new Dictionary<JObject, int>();
+
+                        run["logicalLocations"] =
+                            ConstructLogicalLocationsArray(
+                                logicalLocations,
+                                jObjectToIndexMap,
+                                logicalLocationToIndexMap,
+                                out fullyQualifiedLogicalNameToIndexMap);
+                    }
+
                     var results = (JArray)run["results"];
                     if (results != null)
                     {
+                        JArray rewrittenResults = null;
+
                         foreach (JObject result in results)
                         {
                             // result.message SHALL be present constraint should be added to schema
                             // https://github.com/oasis-tcs/sarif-spec/issues/262
                             JObject message = (JObject)result["message"];
+
                             if (message == null)
                             {
                                 message = new JObject(new JProperty("text", "[No message provided]."));
                                 result["message"] = message;
                                 modifiedLog = true;
                             }
+
+                            // If this value is non-null, we have converted to a logical locations array
+                            // We must therefore update every SARIF location to persist its 
+                            // logicalLocationIndex, if relevant.
+                            if (logicalLocations != null)
+                            {
+                                var logicalLocationIndexRemapper = new LogicalLocationIndexRemapper(null, logicalLocationToIndexMap);
+                                var sarifResult = JsonConvert.DeserializeObject<Result>(result.ToString());
+                                logicalLocationIndexRemapper.Visit(sarifResult);
+                                rewrittenResults = rewrittenResults ?? new JArray();
+                                rewrittenResults.Add(JToken.Parse(JsonConvert.SerializeObject(sarifResult)));
+                            }
+                        }
+
+                        if (rewrittenResults != null)
+                        {
+                            run["results"] = rewrittenResults;
+                            modifiedLog = true;
                         }
                     }
 
@@ -122,7 +194,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     JObject resources = (JObject)run["resources"];
                     modifiedLog |= RemapRuleDefaultLevelFromOpenToNote(resources);
 
-
                     // Specify columnKind as ColumndKind.Utf16CodeUnits in cases where the enum is missing from
                     // the SARIF file. Moving forward, the absence of this enum will be interpreted as
                     // the new default, which is ColumnKind.UnicodeCodePoints.
@@ -131,11 +202,125 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     if (columnKind == null)
                     {
                         run["columnKind"] = "utf16CodeUnits";
-                    }                
+                    }
                 }
             }
 
             return modifiedLog;
+        }
+
+        private static JArray ConstructLogicalLocationsArray(
+            JObject logicalLocations,
+            Dictionary<JObject, int> jObjectToIndexMap,
+            Dictionary<LogicalLocation, int> logicalLocationToIndexMap,
+            out Dictionary<string, int> fullyQualifiedLogicalNameToIndexMap)
+        {
+            fullyQualifiedLogicalNameToIndexMap = null;
+
+            if (logicalLocations == null) { return null; }
+
+            logicalLocationToIndexMap = new Dictionary<LogicalLocation, int>(LogicalLocation.ValueComparer);
+
+            fullyQualifiedLogicalNameToIndexMap = new Dictionary<string, int>();
+
+            foreach (JProperty logicalLocationEntry in logicalLocations.Properties())
+            {
+                // This condition may occur if we've already processed a parent logical
+                // location that happened to be enumerated after one of its children
+                if (fullyQualifiedLogicalNameToIndexMap.ContainsKey(logicalLocationEntry.Name)) { continue; }
+
+                fullyQualifiedLogicalNameToIndexMap = CreateLogicalLocationArrayEntry(
+                    logicalLocations,
+                    logicalLocationEntry.Name, 
+                    (JObject)logicalLocationEntry.Value,
+                    logicalLocationToIndexMap, 
+                    jObjectToIndexMap,
+                    fullyQualifiedLogicalNameToIndexMap);
+            }
+
+            var updatedArrayElements = new JObject[jObjectToIndexMap.Count];
+
+            foreach (KeyValuePair<JObject, int> keyValuePair in jObjectToIndexMap)
+            {
+                int index = keyValuePair.Value;
+                JObject updatedLogicalLocation = keyValuePair.Key;
+                updatedArrayElements[index] = updatedLogicalLocation;
+            }
+
+            return new JArray(updatedArrayElements);
+        }
+
+        private static Dictionary<string, int> CreateLogicalLocationArrayEntry(
+            JObject logicalLocationsDictionary,
+            string keyName,
+            JObject logicalLocation,
+            Dictionary<LogicalLocation, int> logicalLocationToIndexMap,
+            Dictionary<JObject, int> jObjectToIndexMap,
+            Dictionary<string, int> keyToIndexMap)
+        {
+            keyToIndexMap = keyToIndexMap ?? new Dictionary<string, int>();
+
+            string fullyQualifiedName = keyName;
+
+            // Parent key is no longer relevant and will be removed.
+            // We require 
+            string parentKey = (string)logicalLocation["parentKey"];
+
+            if (parentKey == null)
+            {
+                // No parent key? We are a root location. 
+                logicalLocation["parentIndex"] = -1;
+            }
+            else
+            {
+                // Have we processed our parent yet? If so, retrieve the parentIndex and we're done.
+                if (!keyToIndexMap.TryGetValue(parentKey, out int parentIndex))
+                {
+                    // The parent hasn't been processed yet. We must force its creation
+                    // determine its index in our array. This code path results in 
+                    // an array order that does not precisely match the enumeration
+                    // order of the logical locations dictionary.
+                    keyToIndexMap = CreateLogicalLocationArrayEntry(
+                        logicalLocationsDictionary,
+                        parentKey,
+                        (JObject)logicalLocationsDictionary[parentKey],
+                        logicalLocationToIndexMap,
+                        jObjectToIndexMap,
+                        keyToIndexMap);
+
+                    parentIndex = keyToIndexMap[parentKey];
+                }
+                logicalLocation.Remove("parentKey");
+                logicalLocation["parentIndex"] = parentIndex;
+            }
+
+            string existingFullyQualifiedName = (string)logicalLocation["fullyQualifiedName"];
+            if (string.IsNullOrEmpty(existingFullyQualifiedName))
+            {
+                // We use the key as the fullyQualifiedName but only in cases when we don't 
+                // find this property is already set. If the property is set, that may
+                // indicate the key name isn't the FQN but another string value that is
+                // used to resolve a collision between distinct logical locations with 
+                // an identical fully-qualified name.
+                logicalLocation["fullyQualifiedName"] = fullyQualifiedName;
+            }
+
+            LogicalLocation sarifLogicalLocation = JsonConvert.DeserializeObject<LogicalLocation>(logicalLocation.ToString());
+
+            // Theoretically, the dictionary should consists of a unique set of logical 
+            // locations. In practice, however, there's nothing preventing a SARIF user
+            // from emitting duplicated locations. As a result, we will not naively produce
+            // a one-to-one mapping of logical locations to dictionary entry. Instead, we 
+            // will collapse any duplicates that we find into a single array instance
+            if (!logicalLocationToIndexMap.TryGetValue(sarifLogicalLocation, out int index))
+            {
+                index = logicalLocationToIndexMap.Count;
+                logicalLocationToIndexMap[sarifLogicalLocation] = index;
+                jObjectToIndexMap[logicalLocation] = index;
+                keyToIndexMap[fullyQualifiedName] = index;
+            }
+
+            return keyToIndexMap;
         }
 
         private static bool RemapRuleDefaultLevelFromOpenToNote(JObject resources)

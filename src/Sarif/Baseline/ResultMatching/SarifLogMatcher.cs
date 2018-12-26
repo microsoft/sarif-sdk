@@ -8,6 +8,7 @@ using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Processors;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using System.Diagnostics;
+using Microsoft.CodeAnalysis.Sarif.Visitors;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 {
@@ -57,9 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             Dictionary<string, List<Run>> runsByToolPrevious = GetRunsByTool(previousLogs);
             Dictionary<string, List<Run>> runsByToolCurrent = GetRunsByTool(currentLogs);
             
-            List<string> tools = runsByToolPrevious.Keys.ToList();
-            tools.AddRange(runsByToolCurrent.Keys);
-            tools = tools.Distinct().ToList();
+            List<string> tools = runsByToolPrevious.Keys.Union(runsByToolCurrent.Keys).ToList();
 
             List<SarifLog> resultToolLogs = new List<SarifLog>();
 
@@ -224,7 +223,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 run.BaselineInstanceGuid = previousRuns.First().Id?.InstanceGuid;
             }
 
-
             if (PropertyBagMergeBehavior.HasFlag(DictionaryMergeBehavior.InitializeFromOldest))
             {
                 // Find the 'oldest' log file and initialize properties from that log property bag
@@ -239,22 +237,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 properties = currentRuns.Last().Properties;
             }
 
+            var remappedLogicalLocations = new Dictionary<LogicalLocation, int>();
+
             properties = properties ?? new Dictionary<string, SerializedPropertyInfo>();
 
             List<Result> newRunResults = new List<Result>();
             foreach (MatchedResults resultPair in results)
             {
-                newRunResults.Add(resultPair.CalculateNewBaselineResult(PropertyBagMergeBehavior));
+                Result result = resultPair.CalculateBasedlinedResult(PropertyBagMergeBehavior);
+                newRunResults.Add(result);
+
+                var logicalLocationIndexRemapper = new LogicalLocationIndexRemapper(resultPair.LogicalLocations, remappedLogicalLocations);
+                logicalLocationIndexRemapper.VisitResult(result);
             }
+
             run.Results = newRunResults;
             
             // Merge run File data, resources, etc...
-            var fileData = new Dictionary<string, FileData>();
-            var ruleData = new Dictionary<string, Rule>();
-            var messageData = new Dictionary<string, string>();
             var graphs = new Dictionary<string, Graph>();
-            var logicalLocations = new Dictionary<string, LogicalLocation>();
-            var invocations = new List<Invocation>();
+            var ruleData = new Dictionary<string, Rule>();
+            var fileData = new Dictionary<string, FileData>();
+            var messageData = new Dictionary<string, string>();
+            var invocations = new List<Invocation>();            
 
             // Generally, we need to maintain all data from previous runs that may be associated with
             // results. Later, we can consider eliding information that relates to absent
@@ -289,11 +293,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                     }
                 }
 
-                if (currentRun.LogicalLocations != null)
-                {
-                    MergeDictionaryInto(logicalLocations, currentRun.LogicalLocations, LogicalLocationEqualityComparer.Instance);
-                }
-
                 if (currentRun.Graphs != null)
                 {
                     MergeDictionaryInto(graphs, currentRun.Graphs, GraphEqualityComparer.Instance);
@@ -312,7 +311,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
             run.Files = fileData;
             run.Graphs = graphs;
-            run.LogicalLocations = logicalLocations;
+            run.LogicalLocations = new List<LogicalLocation>(remappedLogicalLocations.Keys);
             run.Resources = new Resources() { MessageStrings = messageData, Rules = ruleData };
             run.Invocations = invocations;
 

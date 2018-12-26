@@ -23,7 +23,44 @@
         "name": "CodeScanner",
         "semanticVersion": "2.1.0"
       },
-      "results": []
+      "results": [
+        {
+          "ruleId": "TEST1001",
+          "message": "A result fired against 'collections::list'.",
+          "locations": [
+            {
+              "fullyQualifiedLogicalName": "collections::list"
+            }
+          ]
+        },
+        {
+          "ruleId": "TEST1001",
+          "message": "A result fired against 'collections'.",
+          "locations": [
+            {
+              "fullyQualifiedLogicalName": "collections"
+            }
+          ]
+        },
+        {
+          "ruleId": "TEST1001",
+          "message": "A result fired against 'collections::list::add'.",
+          "locations": [
+            {
+              "fullyQualifiedLogicalName": "collections::list::add"
+            }
+          ]
+        },
+        {
+          "ruleId": "TEST1002",
+          "message": "A second result fired against 'collections::list'.",
+          "locations": [
+            {
+              "fullyQualifiedLogicalName": "collections::list"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

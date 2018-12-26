@@ -33,7 +33,7 @@
                   "uri": "file:///C:/Code/sarif-sdk/bld/bin/Sarif.Multitool.FunctionalTests/AnyCPU_Debug/netcoreapp2.0/TestData/DeserializationError.sarif"
                 },
                 "region": {
-                  "startLine": 15,
+                  "startLine": 13,
                   "startColumn": 13
                 }
               }

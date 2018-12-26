@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-10-10",
-  "version": "2.0.0-csd.2.beta.2018-10-10",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-11-28",
+  "version": "2.0.0-csd.2.beta.2018-11-28",
   "runs": [
     {
       "tool": {
@@ -14,30 +14,29 @@
           "contents": {
             "text": "The quick brown fox jumps over the lazy dog"
           },
-          "hashes": [
-            {
-              "value": "d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592",
-              "algorithm": "sha-256"
-            }
-          ]
+          "hashes": {
+            "sha-256": "d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"
+          }
         }
       },
-      "logicalLocations": {
-        "collections::list::add": {
-          "name": "add",
-          "decoratedName": "?add@list@collections@@QAEXH@Z",
-          "parentKey": "collections::list",
-          "kind": "function"
+      "logicalLocations": [
+        {
+          "name": "collections",
+          "kind": "namespace"
         },
-        "collections::list": {
+        {
           "name": "list",
-          "parentKey": "collections",
+          "fullyQualifiedName": "collections::list",
+          "parentIndex": 0,
           "kind": "type"
         },
-        "collections": {
-          "kind": "namespace"
+        {
+          "name": "add",
+          "fullyQualifiedName": "collections::list::add",
+          "parentIndex": 1,
+          "kind": "function"
         }
-      },
+      ],
       "results": [
         {
           "ruleId": "C2001",
@@ -68,7 +67,8 @@
                   }
                 }
               },
-              "fullyQualifiedLogicalName": "collections::list::add"
+              "fullyQualifiedLogicalName": "collections::list::add",
+              "logicalLocationIndex": 2
             }
           ],
           "relatedLocations": [
@@ -84,6 +84,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "collections::list::add",
+              "logicalLocationIndex": 2,
               "message": {
                 "text": "\"count\" was declared here."
               }
@@ -98,9 +99,10 @@
                   "byteLength": 3
                 }
               },
-              "fullyQualifiedLogicalName": "collections::list::add",
+              "fullyQualifiedLogicalName": "collections::list",
+              "logicalLocationIndex": 1,
               "message": {
-                "text": "\"count\" was declared here."
+                "text": "Another reference to \"count\" was declared here."
               }
             }
           ],
@@ -123,7 +125,8 @@
             }
           }
         }
-      }
+      },
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

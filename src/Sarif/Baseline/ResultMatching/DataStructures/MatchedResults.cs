@@ -21,13 +21,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
         public IResultMatcher MatchingAlgorithm { get; set; }
 
+        public IList<LogicalLocation> LogicalLocations { get; set; }
+
         /// <summary>
         /// Creates a new SARIF Result object with contents from the
         /// most recent result of the matched pair, the appropriate state,
         /// and some metadata in the property bag about the matching algorithm used.
         /// </summary>
         /// <returns>The new SARIF result.</returns>
-        public Result CalculateNewBaselineResult(DictionaryMergeBehavior propertyBagMergeBehavior)
+        public Result CalculateBasedlinedResult(DictionaryMergeBehavior propertyBagMergeBehavior)
         {
             Result result;
 
@@ -82,6 +84,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             {
                 ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, PreviousResult.OriginalRun.Id.InstanceGuid);
             }
+
+            LogicalLocations = PreviousResult.OriginalRun.LogicalLocations;
+
             return result;
         }
 
@@ -109,6 +114,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             {
                 ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_FoundDateName, CurrentResult.OriginalRun.Invocations[0].StartTimeUtc);
             }
+
+            LogicalLocations = CurrentResult.OriginalRun.LogicalLocations;
+
             return result;
         }
 
@@ -131,6 +139,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             {
                 ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, CurrentResult.OriginalRun.Id.InstanceGuid);
             }
+
+            LogicalLocations = CurrentResult.OriginalRun.LogicalLocations;
 
             return result;
         }

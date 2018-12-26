@@ -152,18 +152,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             string expectedSarif = File.ReadAllText(expectedFileName);
-            expectedSarif = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarif, forceUpdate: true, formatting: Formatting.Indented);
+            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarif, forceUpdate: true, formatting: Formatting.Indented, out expectedSarif);
 
             string actualSarif = File.ReadAllText(generatedFileName);
 
             if (!AreEquivalentSarifLogs<SarifLog>(actualSarif, expectedSarif))
             {
+                File.WriteAllText(expectedFileName, expectedSarif);
                 File.WriteAllText(generatedFileName, actualSarif);
 
                 string errorMessage = "The output of the {0} converter did not match for input {1}.";
                 sb.AppendLine(string.Format(CultureInfo.CurrentCulture, errorMessage, toolFormat, inputFileName));
                 sb.AppendLine("Check differences with:");
-                sb.AppendLine(GenerateDiffCommand(expectedFileName, generatedFileName));
+                sb.AppendLine(GenerateDiffCommand(toolFormat, expectedFileName, generatedFileName));
             }
             return generatedFileName;
         }

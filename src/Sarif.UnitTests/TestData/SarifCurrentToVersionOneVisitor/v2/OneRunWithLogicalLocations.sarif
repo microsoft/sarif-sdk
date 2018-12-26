@@ -22,7 +22,52 @@
           "kind": "namespace"
         }
       },
-      "results": []
+      "results": [
+        {
+          "ruleId": "TEST1001",
+          "message": {
+            "text": "A result fired against 'collections::list'."
+          },
+          "locations": [
+            {
+              "fullyQualifiedLogicalName": "collections::list"
+            }
+          ]
+        },
+        {
+          "ruleId": "TEST1001",
+          "message": {
+            "text": "A result fired against 'collections'."
+          },
+          "locations": [
+            {
+              "fullyQualifiedLogicalName": "collections"
+            }
+          ]
+        },
+        {
+          "ruleId": "TEST1001",
+          "message": {
+            "text": "A result fired against 'collections::list::add'."
+          },
+          "locations": [
+            {
+              "fullyQualifiedLogicalName": "collections::list::add"
+            }
+          ]
+        },
+        {
+          "ruleId": "TEST1002",
+          "message": {
+            "text": "A second result fired against 'collections::list'."
+          },
+          "locations": [
+            {
+              "fullyQualifiedLogicalName": "collections::list"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

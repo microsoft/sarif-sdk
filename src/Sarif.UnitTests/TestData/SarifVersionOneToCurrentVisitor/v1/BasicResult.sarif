@@ -82,7 +82,7 @@
               "fullyQualifiedLogicalName": "collections::list::add"
             },
             {
-              "message": "\"count\" was declared here.",
+              "message": "Another reference to \"count\" was declared here.",
               "physicalLocation": {
                 "uri": "file:///home/list.txt",
                 "region": {
@@ -90,7 +90,7 @@
                   "length": 3
                 }
               },
-              "fullyQualifiedLogicalName": "collections::list::add"
+              "fullyQualifiedLogicalName": "collections::list"
             }
           ]
         }

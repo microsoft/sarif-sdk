@@ -67,7 +67,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     else
                     {
                         // We have a pre-release v2 file that we should upgrade to current. 
-                        string sarifText = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(_fileSystem.ReadAllText(inputFilePath), formatting: formatting);
+                        PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
+                            _fileSystem.ReadAllText(inputFilePath),
+                            forceUpdate: false, 
+                            formatting: formatting,
+                            out string sarifText);
+
                         _fileSystem.WriteAllText(fileName, sarifText);
                     }
                 }
@@ -81,17 +86,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     {
                         string currentSarifVersion = SarifUtilities.SemanticVersion;
 
-                        string sarifText = null;
+                        string sarifText = _fileSystem.ReadAllText(inputFilePath);
+                        SarifLog actualLog = null;
 
                         if (inputVersion != currentSarifVersion)
                         {
                             // Note that we don't provide formatting here. It is not required to indent the v2 SARIF - it 
                             // will be transformed to v1 later, where we should apply the indentation settings.
-                            sarifText = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(_fileSystem.ReadAllText(inputFilePath));
+                            actualLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
+                                sarifText,
+                                forceUpdate: false,
+                                formatting: Formatting.None,
+                                out sarifText);
                         }
-
-                        sarifText = sarifText ?? _fileSystem.ReadAllText(inputFilePath);
-                        var actualLog = JsonConvert.DeserializeObject<SarifLog>(sarifText);
+                        else
+                        {
+                            actualLog = JsonConvert.DeserializeObject<SarifLog>(sarifText);
+                        }
 
                         var visitor = new SarifCurrentToVersionOneVisitor();
                         visitor.VisitSarifLog(actualLog);

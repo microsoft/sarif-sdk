@@ -65,9 +65,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 // Deserialize will return null if there are any JSON deserialization errors
                 // (which can happen, for example, if a property required by the schema is
                 // missing. In that case, again, there's no point in going on.
-                context.InputLogContents = FileSystem.ReadAllText(context.TargetUri.OriginalString);
-                context.InputLogContents = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(context.InputLogContents);
-                context.InputLog = Deserialize(context.InputLogContents);
+                string sarifText = FileSystem.ReadAllText(context.TargetUri.OriginalString);
+
+                PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
+                    context.InputLogContents,
+                    forceUpdate: false, 
+                    formatting: Formatting.None,
+                    out sarifText);
+
+                context.InputLogContents = sarifText;
+                context.InputLog = context.InputLogContents != null ? Deserialize(context.InputLogContents) : null;
 
                 if (context.InputLog != null)
                 {
@@ -103,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (!s_DisablePrereleaseCompatibilityTransform)
                 {
-                    instanceText = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(instanceText, forceUpdate: true, formatting: Formatting.Indented);
+                    PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(instanceText, forceUpdate: true, formatting: Formatting.Indented, out instanceText);
                 }
 
                 PerformSchemaValidation(instanceText, instanceFilePath, schemaFilePath, logger);

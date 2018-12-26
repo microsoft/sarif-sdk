@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentNullException(nameof(output));
             }
 
-            LogicalLocationsDictionary.Clear();
+            LogicalLocations.Clear();
 
             XmlReaderSettings settings = new XmlReaderSettings
             {
@@ -75,7 +75,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var run = new Run()
             {
-                Tool = tool
+                Tool = tool,
+                ColumnKind = ColumnKind.Utf16CodeUnits
             };
 
             output.Initialize(run);
@@ -85,9 +86,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 output.WriteFiles(fileDictionary);
             }
 
-            if (LogicalLocationsDictionary != null && LogicalLocationsDictionary.Any())
+            if (LogicalLocations != null && LogicalLocations.Any())
             {
-                output.WriteLogicalLocations(LogicalLocationsDictionary);
+                output.WriteLogicalLocations(LogicalLocations);
             }
 
             output.OpenResults();
@@ -138,7 +139,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             SetSarifResultPropertiesForProblem(result, problem);
             var location = new Location();
-            location.FullyQualifiedLogicalName = CreateFullyQualifiedLogicalName(problem);
+            location.FullyQualifiedLogicalName = AddLogicalLocationEntriesForProblem(problem, out int logicalLocationIndex);
+            location.LogicalLocationIndex = logicalLocationIndex;
 
             Uri uri;
             string file = problem.File;
@@ -150,8 +152,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     Region = problem.Line <= 0 ? null : Extensions.CreateRegion(problem.Line)
                 };
 
-                RemoveBadRoot(file, out uri);
+                bool foundUriBaseId = RemoveBadRoot(file, out uri);
                 location.PhysicalLocation.FileLocation.Uri = uri;
+
+                // TODO enable this change after current work
+                // https://github.com/Microsoft/sarif-sdk/issues/1168
+                // 
+                //if (foundUriBaseId)
+                //{
+                //    location.PhysicalLocation.FileLocation.UriBaseId = PROJECT_DIR;
+                //}
             }
 
             result.Locations = new List<Location> { location };
@@ -159,42 +169,61 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return result;
         }
 
-        private string CreateFullyQualifiedLogicalName(AndroidStudioProblem problem)
+        // This method adds entries to the LogicalLocations array for the logical
+        // location where the problem occurs, and for each of its ancestor logical
+        // locations. It returns the fully qualified name of the logical location,
+        // and it fill an out parameter with the index within LogicalLocations
+        // of the newly created entry for the logical location.
+        private string AddLogicalLocationEntriesForProblem(AndroidStudioProblem problem, out int index)
         {
-            string parentLogicalLocationKey = null;
+            index = -1;
+            string fullyQualifiedName = null;
+            string delimiter = string.Empty;
 
-            parentLogicalLocationKey = AddLogicalLocation(parentLogicalLocationKey, problem.Module, LogicalLocationKind.Module);
-            parentLogicalLocationKey = AddLogicalLocation(parentLogicalLocationKey, problem.Package, LogicalLocationKind.Package);
+            if (!string.IsNullOrEmpty(problem.Module))
+            {
+                index = AddLogicalLocation(index, ref fullyQualifiedName, problem.Module, LogicalLocationKind.Module, delimiter);
+                delimiter = @"\";
+            }
+
+            if (!string.IsNullOrEmpty(problem.Package))
+            {
+                index = AddLogicalLocation(index, ref fullyQualifiedName, problem.Package, LogicalLocationKind.Package, delimiter);
+                delimiter = @"\";
+            }
 
             if (problem.EntryPointName != null)
             {
                 if ("class".Equals(problem.EntryPointType, StringComparison.OrdinalIgnoreCase))
                 {
-                    parentLogicalLocationKey = AddLogicalLocation(parentLogicalLocationKey, problem.EntryPointName, LogicalLocationKind.Type);
+                    index = AddLogicalLocation(index, ref fullyQualifiedName, problem.EntryPointName, LogicalLocationKind.Type, delimiter);
+
                 }
                 else if ("method".Equals(problem.EntryPointType, StringComparison.OrdinalIgnoreCase))
                 {
-                    parentLogicalLocationKey = AddLogicalLocation(parentLogicalLocationKey, problem.EntryPointName, LogicalLocationKind.Member);
+                    index = AddLogicalLocation(index, ref fullyQualifiedName, problem.EntryPointName, LogicalLocationKind.Member, delimiter);
                 }
+                // TODO: 'file' is another entry point type. should we be doing something here?
             }
 
-            return parentLogicalLocationKey;
+            return fullyQualifiedName;
         }
 
-        private string AddLogicalLocation(string parentKey, string value, string kind, string delimiter = @"\")
+        private int AddLogicalLocation(int parentIndex, ref string fullyQualifiedName, string value, string kind, string delimiter = ".")
         {
-            if (!String.IsNullOrEmpty(value))
-            {
-                var logicalLocation = new LogicalLocation
-                {
-                    ParentKey = parentKey,
-                    Kind = kind,
-                    Name = value
-                };
+            fullyQualifiedName = fullyQualifiedName + delimiter + value;
 
-                return AddLogicalLocation(logicalLocation, delimiter);
-            }
-            return parentKey;
+            // Need to decide which item gets preference, name vs. fully qualified name
+            // if both match. The behaviors of various API in the SDK differs on this point.
+            var logicalLocation = new LogicalLocation
+            {
+                FullyQualifiedName = fullyQualifiedName,
+                Kind = kind,
+                Name = value != fullyQualifiedName ? value : null,
+                ParentIndex = parentIndex
+            };
+
+            return AddLogicalLocation(logicalLocation);
         }
 
         /// <summary>Generates a user-facing description for a problem, using the description supplied at

@@ -93,26 +93,28 @@ namespace Microsoft.CodeAnalysis.Sarif
                 _outputHelper.WriteLine(output);
             }
 
-            // We can't use the 'because' argument here because someone along
-            // the line is stripping \n from output strings. This compromises
-            // our file paths. e.g., 'c:\build\netcore2.0\etc' is rendered
-            // as 'c:\build\etcore2.0'. 
-            output.Length.Should().Be(0);
+            output.Length.Should().Be(0, because: output);
         }
 
-        protected static string GenerateDiffCommand(string expected, string actual)
+        protected static string GenerateDiffCommand(string suiteName, string expected, string actual)
         {
-            // This helper works to generate both a file or directory compare
-            expected = Path.GetFullPath(expected).Replace(@"\", @"\\");
-            actual = Path.GetFullPath(actual).Replace(@"\", @"\\");
+            actual = Path.GetFullPath(actual);
+            expected = Path.GetFullPath(expected);
 
-            string beyondCompare = TryFindBeyondCompare();
-            if (beyondCompare != null)
+            string diffText =  String.Format(CultureInfo.InvariantCulture, "%DIFF% \"{0}\" \"{1}\"", expected, actual);
+
+            string qualifier = String.Empty;
+
+            if (File.Exists(expected))
             {
-                return String.Format(CultureInfo.InvariantCulture, "\"{0}\" \"{1}\" \"{2}\" /title1=Expected /title2=Actual", beyondCompare, expected, actual);
+                qualifier = Path.GetFileNameWithoutExtension(expected);
             }
 
-            return String.Format(CultureInfo.InvariantCulture, "windiff \"{0}\" \"{1}\"", expected, actual);
+            string fullPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            fullPath = Path.Combine(fullPath, "Diff" + suiteName + qualifier + ".cmd");
+
+            File.WriteAllText(fullPath, diffText);
+            return fullPath;
         }
 
         protected static bool AreEquivalentSarifLogs<T>(string actualSarif, string expectedSarif, IContractResolver contractResolver = null)
@@ -133,37 +135,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             JToken expectedToken = JToken.Parse(expectedSarif);
 
             return JToken.DeepEquals(generatedToken, expectedToken);
-        }
-
-        protected static string TryFindBeyondCompare()
-        {
-            string programFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
-            for (int idx = 4; idx >= 3; --idx)
-            {
-                string beyondComparePath = String.Format(CultureInfo.InvariantCulture, "{0}\\Beyond Compare {1}\\BComp.exe", programFiles, idx);
-                if (File.Exists(beyondComparePath))
-                {
-                    return beyondComparePath;
-                }
-            }
-
-            programFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
-            for (int idx = 4; idx >= 3; --idx)
-            {
-                string beyondComparePath = String.Format(CultureInfo.InvariantCulture, "{0}\\Beyond Compare {1}\\BComp.exe", programFiles, idx);
-                if (File.Exists(beyondComparePath))
-                {
-                    return beyondComparePath;
-                }
-            }
-
-            string beyondCompare2Path = programFiles + "\\Beyond Compare 2\\BC2.exe";
-            if (File.Exists(beyondCompare2Path))
-            {
-                return beyondCompare2Path;
-            }
-
-            return null;
         }
     }
 }

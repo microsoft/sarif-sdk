@@ -118,7 +118,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 string instanceText = File.ReadAllText(inputFile);
 
-                instanceText = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(instanceText, forceUpdate: true);
+                PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(instanceText, forceUpdate: true, formatting: Formatting.None, out instanceText);
 
                 Result[] errors = validator.Validate(instanceText, inputFile);
 

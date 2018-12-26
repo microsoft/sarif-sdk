@@ -756,14 +756,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (node.LogicalLocations != null)
                 {
-                    var keys = node.LogicalLocations.Keys.ToArray();
-                    foreach (var key in keys)
+                    for (int index_0 = 0; index_0 < node.LogicalLocations.Count; ++index_0)
                     {
-                        var value = node.LogicalLocations[key];
-                        if (value != null)
-                        {
-                            node.LogicalLocations[key] = VisitNullChecked(value);
-                        }
+                        node.LogicalLocations[index_0] = VisitNullChecked(node.LogicalLocations[index_0]);
                     }
                 }
 

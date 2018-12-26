@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-10-10",
-  "version": "2.0.0-csd.2.beta.2018-10-10",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-11-28",
+  "version": "2.0.0-csd.2.beta.2018-11-28",
   "runs": [
     {
       "tool": {
@@ -172,7 +172,8 @@
             }
           }
         }
-      }
+      },
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

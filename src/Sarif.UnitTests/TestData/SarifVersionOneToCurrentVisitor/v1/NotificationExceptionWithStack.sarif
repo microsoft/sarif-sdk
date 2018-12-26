@@ -43,8 +43,8 @@
                   "module": "ExecutionEngine",
                   "threadId": 52,
                   "fullyQualifiedLogicalName": "ExecutionEngine.Engine.EvaluateRule",
-                  "logicalLocationKey": "ExecutionEngine.Engine.FooBar",
-                  "uri": "file:///C:/src/foobar.cs",
+                  "logicalLocationKey": "ExecutionEngine.Engine.TestTarget",
+                  "uri": "file:///C:/src/testtarget.cs",
                   "address": 10073356,
                   "offset": 10475
                 }
@@ -67,8 +67,8 @@
         "Rules.SecureHashAlgorithmRule.Register": {
           "name": "InvalidName"
         },
-        "ExecutionEngine.Engine.FooBar": {
-          "name": "FooBar",
+        "ExecutionEngine.Engine.TestTarget": {
+          "name": "TestTarget",
           "kind": "another kind"
         }
       },

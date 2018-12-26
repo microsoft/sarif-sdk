@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             byte[] fprData = GetResourceBytes(fprResourceName);
             string expectedSarifText = GetResourceText(expectedSarifResourceName);
-            expectedSarifText = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarifText);
+            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarifText, forceUpdate: false, formatting: Newtonsoft.Json.Formatting.None, out expectedSarifText);
 
             var converter = new FortifyFprConverter();
             string actualSarifText = Utilities.GetConverterJson(converter, fprData);
@@ -56,11 +56,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     File.WriteAllText(expectedFilePath, expectedSarifText);
                     File.WriteAllText(actualFilePath, actualSarifText);
 
-                    sb.AppendLine("Check individual differences with:");
-                    sb.AppendLine(GenerateDiffCommand(expectedFilePath, actualFilePath) + Environment.NewLine);
-
                     sb.AppendLine("To compare all difference for this test suite:");
-                    sb.AppendLine(GenerateDiffCommand(Path.GetDirectoryName(expectedFilePath), Path.GetDirectoryName(actualFilePath)) + Environment.NewLine);
+                    sb.AppendLine(GenerateDiffCommand("FortifyFprConverterTests", Path.GetDirectoryName(expectedFilePath), Path.GetDirectoryName(actualFilePath)) + Environment.NewLine);
                 }
 
                 ValidateResults(sb.ToString());

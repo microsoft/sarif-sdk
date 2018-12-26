@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// A dictionary whose keys are strings specifying a logical location and
         /// whose values provide information about each component of the logical location.
         /// </param>
-        public void WriteLogicalLocations(IDictionary<string, LogicalLocation> logicalLocationDictionary)
+        public void WriteLogicalLocations(IList<LogicalLocation> logicalLocations)
         {
             throw new NotImplementedException();
         }

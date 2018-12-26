@@ -67,9 +67,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             try
             {
-                string logText = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(File.ReadAllText(inputFileName));
-                actualLog = JsonConvert.DeserializeObject<SarifLog>(logText, settings);
-
+                string logText = File.ReadAllText(inputFileName);
+                actualLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(logText, forceUpdate: false, formatting: Formatting.None, out logText);
+                
                 Uri originalUri = actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"].Uri;
                 string uriString = originalUri.ToString();
 
@@ -97,11 +97,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             string expectedSarif = File.Exists(expectedFileName) ? File.ReadAllText(expectedFileName) : null;
             if (expectedSarif != null)
             {
-                expectedSarif = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarif);
+                PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarif, forceUpdate:false, formatting: Formatting.None, out expectedSarif);
             }
 
             string actualSarif = JsonConvert.SerializeObject(actualLog, settings);
-            actualSarif = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(actualSarif);
+            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(actualSarif, forceUpdate: false, formatting: Formatting.None, out actualSarif);
 
             if (!AreEquivalentSarifLogs<SarifLog>(actualSarif, expectedSarif))
             {
@@ -125,10 +125,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     string errorMessage = "Expanding optional data for input '{0}' produced unexpected results for the following options: '{1}'.";
                     sb.AppendLine(string.Format(CultureInfo.CurrentCulture, errorMessage, inputFileName, optionallyEmittedData));
-                    sb.AppendLine("Check individual differences with:");
-                    sb.AppendLine(GenerateDiffCommand(expectedFileName, actualFileName) + Environment.NewLine);
+
                     sb.AppendLine("To compare all difference for this test suite:");
-                    sb.AppendLine(GenerateDiffCommand(Path.GetDirectoryName(expectedFileName), Path.GetDirectoryName(actualFileName)) + Environment.NewLine);
+                    sb.AppendLine(GenerateDiffCommand("InsertOptionalData", Path.GetDirectoryName(expectedFileName), Path.GetDirectoryName(actualFileName)) + Environment.NewLine);
                 }
             }
 

@@ -180,11 +180,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// A dictionary whose keys are strings specifying a logical location and
         /// whose values provide information about each component of the logical location.
         /// </param>
-        public void WriteLogicalLocations(IDictionary<string, LogicalLocation> logicalLocationsDictionary)
+        public void WriteLogicalLocations(IList<LogicalLocation> logicalLocations)
         {
-            if (logicalLocationsDictionary == null)
+            if (logicalLocations == null)
             {
-                throw new ArgumentNullException(nameof(logicalLocationsDictionary));
+                throw new ArgumentNullException(nameof(logicalLocations));
             }
 
             EnsureInitialized();
@@ -192,7 +192,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.LogicalLocationsWritten);
 
             _jsonWriter.WritePropertyName("logicalLocations");
-            _serializer.Serialize(_jsonWriter, logicalLocationsDictionary, typeof(Dictionary<string, LogicalLocation>));
+            _serializer.Serialize(_jsonWriter, logicalLocations);
 
             _writeConditions |= Conditions.LogicalLocationsWritten;
         }

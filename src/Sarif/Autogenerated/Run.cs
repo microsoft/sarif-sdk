@@ -70,10 +70,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IDictionary<string, FileData> Files { get; set; }
 
         /// <summary>
-        /// A dictionary, each of whose keys specifies a logical location such as a namespace, type or function.
+        /// An array of logical locations such as namespaces, types or functions.
         /// </summary>
         [DataMember(Name = "logicalLocations", IsRequired = false, EmitDefaultValue = false)]
-        public IDictionary<string, LogicalLocation> LogicalLocations { get; set; }
+        public IList<LogicalLocation> LogicalLocations { get; set; }
 
         /// <summary>
         /// A dictionary, each of whose keys is the id of a graph and each of whose values is a 'graph' object with that id.
@@ -215,7 +215,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, FileLocation> originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, Resources resources, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string richMessageMimeType, string redactionToken, string defaultFileEncoding, IEnumerable<string> newlineSequences, ColumnKind columnKind, IDictionary<string, SerializedPropertyInfo> properties)
+        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, FileLocation> originalUriBaseIds, IDictionary<string, FileData> files, IEnumerable<LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, Resources resources, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string richMessageMimeType, string redactionToken, string defaultFileEncoding, IEnumerable<string> newlineSequences, ColumnKind columnKind, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(tool, invocations, conversion, versionControlProvenance, originalUriBaseIds, files, logicalLocations, graphs, results, resources, id, aggregateIds, baselineInstanceGuid, richMessageMimeType, redactionToken, defaultFileEncoding, newlineSequences, columnKind, properties);
         }
@@ -257,7 +257,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, FileLocation> originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, Resources resources, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string richMessageMimeType, string redactionToken, string defaultFileEncoding, IEnumerable<string> newlineSequences, ColumnKind columnKind, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, FileLocation> originalUriBaseIds, IDictionary<string, FileData> files, IEnumerable<LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, Resources resources, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string richMessageMimeType, string redactionToken, string defaultFileEncoding, IEnumerable<string> newlineSequences, ColumnKind columnKind, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (tool != null)
             {
@@ -325,11 +325,20 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (logicalLocations != null)
             {
-                LogicalLocations = new Dictionary<string, LogicalLocation>();
+                var destination_2 = new List<LogicalLocation>();
                 foreach (var value_4 in logicalLocations)
                 {
-                    LogicalLocations.Add(value_4.Key, new LogicalLocation(value_4.Value));
+                    if (value_4 == null)
+                    {
+                        destination_2.Add(null);
+                    }
+                    else
+                    {
+                        destination_2.Add(new LogicalLocation(value_4));
+                    }
                 }
+
+                LogicalLocations = destination_2;
             }
 
             if (graphs != null)
@@ -343,20 +352,20 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (results != null)
             {
-                var destination_2 = new List<Result>();
+                var destination_3 = new List<Result>();
                 foreach (var value_6 in results)
                 {
                     if (value_6 == null)
                     {
-                        destination_2.Add(null);
+                        destination_3.Add(null);
                     }
                     else
                     {
-                        destination_2.Add(new Result(value_6));
+                        destination_3.Add(new Result(value_6));
                     }
                 }
 
-                Results = destination_2;
+                Results = destination_3;
             }
 
             if (resources != null)
@@ -371,20 +380,20 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (aggregateIds != null)
             {
-                var destination_3 = new List<RunAutomationDetails>();
+                var destination_4 = new List<RunAutomationDetails>();
                 foreach (var value_7 in aggregateIds)
                 {
                     if (value_7 == null)
                     {
-                        destination_3.Add(null);
+                        destination_4.Add(null);
                     }
                     else
                     {
-                        destination_3.Add(new RunAutomationDetails(value_7));
+                        destination_4.Add(new RunAutomationDetails(value_7));
                     }
                 }
 
-                AggregateIds = destination_3;
+                AggregateIds = destination_4;
             }
 
             BaselineInstanceGuid = baselineInstanceGuid;
@@ -393,13 +402,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             DefaultFileEncoding = defaultFileEncoding;
             if (newlineSequences != null)
             {
-                var destination_4 = new List<string>();
+                var destination_5 = new List<string>();
                 foreach (var value_8 in newlineSequences)
                 {
-                    destination_4.Add(value_8);
+                    destination_5.Add(value_8);
                 }
 
-                NewlineSequences = destination_4;
+                NewlineSequences = destination_5;
             }
 
             ColumnKind = columnKind;

@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
                 Graphs = new Dictionary<string, Graph>(),
                 Files = new Dictionary<string, FileData>(),
                 Invocations = new Invocation[] { },
-                LogicalLocations = new Dictionary<string, LogicalLocation>()
+                LogicalLocations = new List<LogicalLocation>()
             };
 
             run.Files.Should().NotBeNull();
