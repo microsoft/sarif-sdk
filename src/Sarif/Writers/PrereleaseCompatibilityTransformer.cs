@@ -172,6 +172,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         if (rewrittenResults != null)
                         {
                             run["results"] = rewrittenResults;
+                            modifiedLog = true;
                         }
                     }
 
@@ -257,7 +258,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             Dictionary<JObject, int> jObjectToIndexMap,
             Dictionary<string, int> keyToIndexMap)
         {
-            int index;
             keyToIndexMap = keyToIndexMap ?? new Dictionary<string, int>();
 
             string fullyQualifiedName = keyName;
@@ -273,8 +273,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
             else
             {
-                // Have we processed our parent yet? If so, retrieve the parentIndex and we're done
-                if (!keyToIndexMap.TryGetValue(parentKey, out index))
+                // Have we processed our parent yet? If so, retrieve the parentIndex and we're done.
+                if (!keyToIndexMap.TryGetValue(parentKey, out int parentIndex))
                 {
                     // The parent hasn't been processed yet. We must force its creation
                     // determine its index in our array. This code path results in 
@@ -288,10 +288,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         jObjectToIndexMap,
                         keyToIndexMap);
 
-                    index = keyToIndexMap[parentKey];
+                    parentIndex = keyToIndexMap[parentKey];
                 }
                 logicalLocation.Remove("parentKey");
-                logicalLocation["parentIndex"] = index;
+                logicalLocation["parentIndex"] = parentIndex;
             }
 
             string existingFullyQualifiedName = (string)logicalLocation["fullyQualifiedName"];
@@ -312,7 +312,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // from emitting duplicated locations. As a result, we will not naively produce
             // a one-to-one mapping of logical locations to dictionary entry. Instead, we 
             // will collapse any duplicates that we find into a single array instance
-            if (!logicalLocationToIndexMap.TryGetValue(sarifLogicalLocation, out index))
+            if (!logicalLocationToIndexMap.TryGetValue(sarifLogicalLocation, out int index))
             {
                 index = logicalLocationToIndexMap.Count;
                 logicalLocationToIndexMap[sarifLogicalLocation] = index;

@@ -139,7 +139,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             SetSarifResultPropertiesForProblem(result, problem);
             var location = new Location();
-            location.FullyQualifiedLogicalName = CreateFullyQualifiedLogicalName(problem, out int logicalLocationIndex);
+            location.FullyQualifiedLogicalName = AddLogicalLocationEntriesForProblem(problem, out int logicalLocationIndex);
             location.LogicalLocationIndex = logicalLocationIndex;
 
             Uri uri;
@@ -169,7 +169,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return result;
         }
 
-        private string CreateFullyQualifiedLogicalName(AndroidStudioProblem problem, out int index)
+        // This method adds entries to the LogicalLocations array for the logical
+        // location where the problem occurs, and for each of its ancestor logical
+        // locations. It returns the fully qualified name of the logical location,
+        // and it fill an out parameter with the index within LogicalLocations
+        // of the newly created entry for the logical location.
+        private string AddLogicalLocationEntriesForProblem(AndroidStudioProblem problem, out int index)
         {
             index = -1;
             string fullyQualifiedName = null;
