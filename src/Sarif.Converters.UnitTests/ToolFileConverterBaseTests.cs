@@ -9,7 +9,7 @@ using Xunit;
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     /// <summary>
-    /// The logic for populating the logicalLocations dictionary is encapsulated
+    /// The logic for populating the logicalLocations array is encapsulated
     /// in the abstract base class <see cref="ToolFileConverterBase"/>, from which
     /// converters such as <see cref="FxCopConverter"/> and <see cref="AndroidStudioConverter"/>
     /// derive. These unit tests exercise that logic.
@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     public class ToolFileConverterBaseTests
     {
         // A do-nothing converter, to demonstrate that the base class logic to
-        // populate the logicalLocations dictionary is independent of any
+        // populate the logicalLocations array is independent of any
         // particular converter.
         private class LogicalLocationTestConverter : ToolFileConverterBase
         {

@@ -18,19 +18,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public IDictionary<LogicalLocation, int> RemappedLogicalLocations { get; private set; }
 
-        public override Location VisitLocation(Location node)
+        public override Result VisitResult(Result node)
         {
             if (_previousLogicalLocations == null) { return node; }
 
-            LogicalLocation logicalLocation = _previousLogicalLocations[node.LogicalLocationIndex];
+            return base.VisitResult(node);
+        }
 
-            if (!RemappedLogicalLocations.TryGetValue(logicalLocation, out int remappedIndex))
+        public override Location VisitLocation(Location node)
+        {
+            if (node.LogicalLocationIndex != -1)
             {
-                remappedIndex = RemappedLogicalLocations.Count;
-                RemappedLogicalLocations[logicalLocation] = remappedIndex;
-            }
+                LogicalLocation logicalLocation = _previousLogicalLocations[node.LogicalLocationIndex];
 
-            node.LogicalLocationIndex = remappedIndex;
+                if (!RemappedLogicalLocations.TryGetValue(logicalLocation, out int remappedIndex))
+                {
+                    remappedIndex = RemappedLogicalLocations.Count;
+                    RemappedLogicalLocations[logicalLocation] = remappedIndex;
+                }
+
+                node.LogicalLocationIndex = remappedIndex;
+            }
 
             return node;
         }

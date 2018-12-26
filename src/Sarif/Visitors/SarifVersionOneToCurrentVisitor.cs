@@ -32,6 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         public override SarifLogVersionOne VisitSarifLogVersionOne(SarifLogVersionOne v1SarifLog)
         {
             _logicalLocationToIndexMap = new Dictionary<LogicalLocation, int>(LogicalLocation.ValueComparer);
+            _v1KeyToV2LogicalLocationMap = new Dictionary<string, LogicalLocation>();
 
             SarifLog = new SarifLog(SarifVersion.Current.ConvertToSchemaUri(),
                                     SarifVersion.Current,
@@ -911,8 +912,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     if (v1Run.LogicalLocations != null)
                     {
                         run.LogicalLocations = new List<LogicalLocation>();
-                        _v1KeyToV2LogicalLocationMap = _v1KeyToV2LogicalLocationMap ?? new Dictionary<string, LogicalLocation>();
-
                         HashSet<string> populatedKeys = new HashSet<string>();
 
                         foreach (KeyValuePair<string, LogicalLocationVersionOne> pair in v1Run.LogicalLocations)

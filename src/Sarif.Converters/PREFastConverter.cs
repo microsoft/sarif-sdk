@@ -117,9 +117,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private int AddLogicalLocation(string name, string decoratedName)
         {
+            const string ScopeOperator = "::";
             string fullyQualifiedName = name;
 
-            name = name.Contains("::") ? name.Substring(name.LastIndexOf("::") + "::".Length) : null;
+            name = name.Contains(ScopeOperator) ? name.Substring(name.LastIndexOf(ScopeOperator) + ScopeOperator.Length) : null;
 
             var logicalLocation = new LogicalLocation
             {
@@ -129,7 +130,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 ParentIndex = -1
             };
 
-            return AddLogicalLocation(logicalLocation);            
+            return AddLogicalLocation(logicalLocation);
         }
 
         private void SetRank(Defect defect, Result result)

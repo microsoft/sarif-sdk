@@ -30,8 +30,7 @@
           },
           "locations": [
             {
-              "fullyQualifiedLogicalName": "collections::list",
-              "logicalLocationIndex": 1
+              "fullyQualifiedLogicalName": "collections::list"
             }
           ]
         },
@@ -42,8 +41,7 @@
           },
           "locations": [
             {
-              "fullyQualifiedLogicalName": "collections",
-              "logicalLocationIndex": 2
+              "fullyQualifiedLogicalName": "collections"
             }
           ]
         },
@@ -54,8 +52,7 @@
           },
           "locations": [
             {
-              "fullyQualifiedLogicalName": "collections::list::add",
-              "logicalLocationIndex": 0
+              "fullyQualifiedLogicalName": "collections::list::add"
             }
           ]
         },
@@ -66,8 +63,7 @@
           },
           "locations": [
             {
-              "fullyQualifiedLogicalName": "collections::list",
-              "logicalLocationIndex": 1
+              "fullyQualifiedLogicalName": "collections::list"
             }
           ]
         }

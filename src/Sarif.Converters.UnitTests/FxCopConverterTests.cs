@@ -330,11 +330,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     {
         private static void ValidateLogicalLocations(IList<LogicalLocation> expectedLogicalLocations, IList<LogicalLocation> actualLogicalLocations)
         {
+            actualLogicalLocations.Count.Should().Be(expectedLogicalLocations.Count);
+
             for (int i = 0; i < expectedLogicalLocations.Count; i++)
             {
                 expectedLogicalLocations[i].ValueEquals(actualLogicalLocations[i]).Should().BeTrue();
             }
-            actualLogicalLocations.Count.Should().Be(expectedLogicalLocations.Count);
         }
 
         [Fact]
@@ -421,7 +422,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         [Fact]
-        public void FxCopConverter_CreateIssue_FakeContext_NoModule_Member()
+        public void FxCopConverter_CreateResult_FakeContext_NoModule_Member()
         {
             var context = TestHelper.CreateProjectContext();
 

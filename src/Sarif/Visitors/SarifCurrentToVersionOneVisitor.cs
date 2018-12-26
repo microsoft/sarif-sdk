@@ -306,7 +306,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 if (!string.IsNullOrWhiteSpace(v2Location.FullyQualifiedLogicalName))
                 {
-                    location.DecoratedName = _currentV2Run.LogicalLocations[v2Location.LogicalLocationIndex].DecoratedName;
+                    if (v2Location.LogicalLocationIndex != -1)
+                    {
+                        location.DecoratedName = _currentV2Run.LogicalLocations[v2Location.LogicalLocationIndex].DecoratedName;
+                    }
                 }
             }
 
