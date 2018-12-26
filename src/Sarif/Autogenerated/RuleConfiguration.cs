@@ -47,6 +47,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public RuleConfigurationDefaultLevel DefaultLevel { get; set; }
 
         /// <summary>
+        /// Specifies the default priority or importance of the result.
+        /// </summary>
+        [DataMember(Name = "defaultRank", IsRequired = false, EmitDefaultValue = false)]
+        public double DefaultRank { get; set; }
+
+        /// <summary>
         /// Contains configuration information specific to this rule.
         /// </summary>
         [DataMember(Name = "parameters", IsRequired = false, EmitDefaultValue = false)]
@@ -74,15 +80,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="defaultLevel">
         /// An initialization value for the <see cref="P: DefaultLevel" /> property.
         /// </param>
+        /// <param name="defaultRank">
+        /// An initialization value for the <see cref="P: DefaultRank" /> property.
+        /// </param>
         /// <param name="parameters">
         /// An initialization value for the <see cref="P: Parameters" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public RuleConfiguration(bool enabled, RuleConfigurationDefaultLevel defaultLevel, IDictionary<string, SerializedPropertyInfo> parameters, IDictionary<string, SerializedPropertyInfo> properties)
+        public RuleConfiguration(bool enabled, RuleConfigurationDefaultLevel defaultLevel, double defaultRank, IDictionary<string, SerializedPropertyInfo> parameters, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(enabled, defaultLevel, parameters, properties);
+            Init(enabled, defaultLevel, defaultRank, parameters, properties);
         }
 
         /// <summary>
@@ -101,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Enabled, other.DefaultLevel, other.Parameters, other.Properties);
+            Init(other.Enabled, other.DefaultLevel, other.DefaultRank, other.Parameters, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -122,10 +131,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new RuleConfiguration(this);
         }
 
-        private void Init(bool enabled, RuleConfigurationDefaultLevel defaultLevel, IDictionary<string, SerializedPropertyInfo> parameters, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(bool enabled, RuleConfigurationDefaultLevel defaultLevel, double defaultRank, IDictionary<string, SerializedPropertyInfo> parameters, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Enabled = enabled;
             DefaultLevel = defaultLevel;
+            DefaultRank = defaultRank;
             if (parameters != null)
             {
                 Parameters = new Dictionary<string, SerializedPropertyInfo>(parameters);
