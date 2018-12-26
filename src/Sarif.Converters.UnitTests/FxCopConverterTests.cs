@@ -330,12 +330,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     {
         private static void ValidateLogicalLocations(IList<LogicalLocation> expectedLogicalLocations, IList<LogicalLocation> actualLogicalLocations)
         {
-            actualLogicalLocations.Count.Should().Be(expectedLogicalLocations.Count);
-
-            for (int i = 0; i < expectedLogicalLocations.Count; i++)
-            {
-                expectedLogicalLocations[i].ValueEquals(actualLogicalLocations[i]).Should().BeTrue();
-            }
+            // If we end up with more shared helper code, we could extend these tests types from a common base.
+            AndroidStudioConverterTests.ValidateLogicalLocations(expectedLogicalLocations, actualLogicalLocations);
         }
 
         [Fact]
