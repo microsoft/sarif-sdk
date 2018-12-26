@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     /// <summary>
     /// Base class for tool file converters. Encapsulates the common logic
-    /// for populating the logicalLocations dictionary.
+    /// for populating the logicalLocations array.
     /// </summary>
     public abstract class ToolFileConverterBase
     {
@@ -23,10 +23,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         public abstract void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert);
 
-        // internal as well as protected it can be exercised by unit tests.
-        private IDictionary<LogicalLocation, int> _logicalLocationToIndexMap;
+        // internal as well as protected so it can be exercised by unit tests.
+        private readonly IDictionary<LogicalLocation, int> _logicalLocationToIndexMap;
 
-        protected internal IList<LogicalLocation> LogicalLocations { get; private set; }
+        protected internal IList<LogicalLocation> LogicalLocations { get; }
 
         protected internal int AddLogicalLocation(LogicalLocation logicalLocation)
         {
@@ -37,8 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 _logicalLocationToIndexMap.Clear();
             }
 
-            int index;
-            if (!_logicalLocationToIndexMap.TryGetValue(logicalLocation, out index))
+            if (!_logicalLocationToIndexMap.TryGetValue(logicalLocation, out int index))
             {
                 index = _logicalLocationToIndexMap.Count;
                 _logicalLocationToIndexMap[logicalLocation] = index;

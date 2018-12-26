@@ -337,7 +337,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     FullyQualifiedLogicalName = v1Location.LogicalLocationKey ?? v1Location.FullyQualifiedLogicalName,
                     PhysicalLocation = CreatePhysicalLocation(v1Location.ResultFile),
-                    Properties = v1Location.Properties,
+                    Properties = v1Location.Properties
                 };
 
                 if (!string.IsNullOrWhiteSpace(location.FullyQualifiedLogicalName))

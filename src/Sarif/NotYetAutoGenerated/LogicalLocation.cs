@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string DecoratedName { get; set; }
 
         /// <summary>
-        /// Identifies the indev of the immediate parent of the construct in which the result was detected. For example, this property might point to a logical location that represents the namespace that holds a type.
+        /// Identifies the index of the immediate parent of the construct in which the result was detected. For example, this property might point to a logical location that represents the namespace that holds a type.
         /// </summary>
         [DataMember(Name = "parentIndex", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]

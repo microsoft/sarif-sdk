@@ -17,11 +17,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override Location VisitLocation(Location node)
         {
-            int index;
-
             if (_fullyQualifiedNameToIndexMap != null && !string.IsNullOrEmpty(node.FullyQualifiedLogicalName))
             {
-                if (_fullyQualifiedNameToIndexMap.TryGetValue(node.FullyQualifiedLogicalName, out index))
+                if (_fullyQualifiedNameToIndexMap.TryGetValue(node.FullyQualifiedLogicalName, out int index))
                 {
                     node.LogicalLocationIndex = index;
                 }
