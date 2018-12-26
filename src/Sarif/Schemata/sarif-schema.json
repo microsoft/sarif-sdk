@@ -808,7 +808,7 @@
         },
 
         "parentIndex": {
-          "description": "Identifies the indev of the immediate parent of the construct in which the result was detected. For example, this property might point to a logical location that represents the namespace that holds a type.",
+          "description": "Identifies the index of the immediate parent of the construct in which the result was detected. For example, this property might point to a logical location that represents the namespace that holds a type.",
           "type": "integer",
           "minimum": -1,
           "default": -1

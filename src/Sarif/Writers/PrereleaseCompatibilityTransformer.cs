@@ -224,7 +224,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             foreach (JProperty logicalLocationEntry in logicalLocations.Properties())
             {
-                // This condition may occur if we've already procssed a parent logical
+                // This condition may occur if we've already processed a parent logical
                 // location that happened to be enumerated after one of its children
                 if (fullyQualifiedLogicalNameToIndexMap.ContainsKey(logicalLocationEntry.Name)) { continue; }
 
@@ -290,7 +290,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                     index = keyToIndexMap[parentKey];
                 }
-                logicalLocation["parentKey"] = null;
+                logicalLocation.Remove("parentKey");
                 logicalLocation["parentIndex"] = index;
             }
 

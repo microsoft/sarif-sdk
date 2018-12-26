@@ -756,12 +756,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (node.LogicalLocations != null)
                 {
-                    if (node.LogicalLocations != null)
+                    for (int index_0 = 0; index_0 < node.LogicalLocations.Count; ++index_0)
                     {
-                        for (int index_0 = 0; index_0 < node.LogicalLocations.Count; ++index_0)
-                        {
-                            node.LogicalLocations[index_0] = VisitNullChecked(node.LogicalLocations[index_0]);
-                        }
+                        node.LogicalLocations[index_0] = VisitNullChecked(node.LogicalLocations[index_0]);
                     }
                 }
 

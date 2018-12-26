@@ -58,9 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             Dictionary<string, List<Run>> runsByToolPrevious = GetRunsByTool(previousLogs);
             Dictionary<string, List<Run>> runsByToolCurrent = GetRunsByTool(currentLogs);
             
-            List<string> tools = runsByToolPrevious.Keys.ToList();
-            tools.AddRange(runsByToolCurrent.Keys);
-            tools = tools.Distinct().ToList();
+            List<string> tools = runsByToolPrevious.Keys.Union(runsByToolCurrent.Keys).ToList();
 
             List<SarifLog> resultToolLogs = new List<SarifLog>();
 
@@ -247,7 +245,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             foreach (MatchedResults resultPair in results)
             {
                 Result result = resultPair.CalculateBasedlinedResult(PropertyBagMergeBehavior);
-                newRunResults.Add(resultPair.CalculateBasedlinedResult(PropertyBagMergeBehavior));
+                newRunResults.Add(result);
 
                 var logicalLocationIndexRemapper = new LogicalLocationIndexRemapper(resultPair.LogicalLocations, remappedLogicalLocations);
                 logicalLocationIndexRemapper.VisitResult(result);

@@ -34,9 +34,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// the log. This information may appear after the results, as the full list of
         /// logical locations will not be known until all results have been generated.
         /// </summary>
-        /// <param name="logicalLocationDictionary">
-        /// A dictionary whose keys are strings specifying a logical location and
-        /// whose values provide information about each component of the logical location.
+        /// <param name="logicalLocations">
+        /// An array whose elements contain information about the components of the
+        /// logical locations where results were found.
         /// </param>
         void WriteLogicalLocations(IList<LogicalLocation> logicalLocations);
 
