@@ -229,7 +229,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 // location that happened to be enumerated after one of its children
                 if (fullyQualifiedLogicalNameToIndexMap.ContainsKey(logicalLocationEntry.Name)) { continue; }
 
-                fullyQualifiedLogicalNameToIndexMap = CreateLogicalLocationArrayEntry(
+                AddEntryToFullyQualifiedNameToIndexMap(
                     logicalLocations,
                     logicalLocationEntry.Name, 
                     (JObject)logicalLocationEntry.Value,
@@ -250,7 +250,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return new JArray(updatedArrayElements);
         }
 
-        private static Dictionary<string, int> CreateLogicalLocationArrayEntry(
+        private static void AddEntryToFullyQualifiedNameToIndexMap(
             JObject logicalLocationsDictionary,
             string keyName,
             JObject logicalLocation,
@@ -258,7 +258,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             Dictionary<JObject, int> jObjectToIndexMap,
             Dictionary<string, int> keyToIndexMap)
         {
-            keyToIndexMap = keyToIndexMap ?? new Dictionary<string, int>();
+            if (keyToIndexMap == null)
+            {
+                throw new ArgumentNullException(nameof(keyToIndexMap));
+            }
+
+            if (logicalLocation == null)
+            {
+                throw new ArgumentNullException(nameof(logicalLocation));
+            }
 
             string fullyQualifiedName = keyName;
 
@@ -280,7 +288,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     // determine its index in our array. This code path results in 
                     // an array order that does not precisely match the enumeration
                     // order of the logical locations dictionary.
-                    keyToIndexMap = CreateLogicalLocationArrayEntry(
+                    AddEntryToFullyQualifiedNameToIndexMap(
                         logicalLocationsDictionary,
                         parentKey,
                         (JObject)logicalLocationsDictionary[parentKey],
@@ -319,8 +327,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 jObjectToIndexMap[logicalLocation] = index;
                 keyToIndexMap[fullyQualifiedName] = index;
             }
-
-            return keyToIndexMap;
         }
 
         private static bool RemapRuleDefaultLevelFromOpenToNote(JObject resources)
