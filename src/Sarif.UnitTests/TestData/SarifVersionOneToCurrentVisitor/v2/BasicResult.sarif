@@ -33,6 +33,7 @@
         {
           "name": "add",
           "fullyQualifiedName": "collections::list::add",
+          "decoratedName": "?add@list@collections@@QAEXH@Z",
           "parentIndex": 1,
           "kind": "function"
         }

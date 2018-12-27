@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
         // are constructed to automatically fail when baselining, to prevent this property from being mistakenly
         // checked in as 'true'. When rebaselining, be sure to scrutinize baseline file deltas carefully to
         // ensure any modifications are correct.
-        private static bool s_Rebaseline = true;
+        private static bool s_Rebaseline = false;
 
         public SarifVersionOneToCurrentVisitorTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
 
