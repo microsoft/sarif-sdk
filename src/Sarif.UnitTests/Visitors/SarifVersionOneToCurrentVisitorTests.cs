@@ -16,6 +16,12 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
 {
     public class SarifVersionOneToCurrentVisitorTests : FileDiffingTests
     {
+        // IMPORTANT: set this static member to true and rerun tests in order to reset all baselines. The test
+        // are constructed to automatically fail when baselining, to prevent this property from being mistakenly
+        // checked in as 'true'. When rebaselining, be sure to scrutinize baseline file deltas carefully to
+        // ensure any modifications are correct.
+        private static bool s_Rebaseline = true;
+
         public SarifVersionOneToCurrentVisitorTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
 
         private static SarifLogVersionOne GetSarifLogVersionOne(string logText)
@@ -38,8 +44,6 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
             string v2LogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsIndented);
             v2LogText.Should().Be(v2LogExpectedText);
         }
-
-        private static bool s_Rebaseline = false;
 
         private void VerifyVersionOneToCurrentTransformationFromResource(string v1InputResourceName, string v2ExpectedResourceName = null)
         {
