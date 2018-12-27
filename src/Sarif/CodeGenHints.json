@@ -209,6 +209,23 @@
       }
     }
   ],
+  "FileLocation.FileIndex": [
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "JsonProperty",
+        "arguments": [ "DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate" ]
+      }
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "typeName": "System.ComponentModel.DefaultValue",
+        "arguments": [ "-1" ]
+      }
+    }
+  ],
   "fix": [
     {
       "kind": "BaseTypeHint",
@@ -286,6 +303,23 @@
         "baseTypeNames": [
           "PropertyBagHolder"
         ]
+      }
+    }
+  ],
+  "Location.LogicalLocationIndex": [
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "JsonProperty",
+        "arguments": [ "DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate" ]
+      }
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "typeName": "System.ComponentModel.DefaultValue",
+        "arguments": [ "-1" ]
       }
     }
   ],

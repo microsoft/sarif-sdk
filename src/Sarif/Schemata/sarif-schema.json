@@ -468,6 +468,13 @@
           "type": "string"
         },
 
+        "fileIndex": {
+          "description": "The index within the run files array that specifies the file object associated with the file location.",
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
+        },
+
         "properties": {
           "description": "Key/value pairs that provide additional information about the file location.",
           "$ref": "#/definitions/propertyBag"
@@ -1535,7 +1542,7 @@
         },
 
         "files": {
-          "description": "A dictionary, each of whose keys is a URI and each of whose values is a file object.",
+          "description": "An array of file objects relevant to the run.",
           "type": "object",
           "additionalProperties": {
             "$ref": "#/definitions/file"
