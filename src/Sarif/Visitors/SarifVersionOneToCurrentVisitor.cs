@@ -22,6 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private Run _currentRun;
         private RunVersionOne _currentV1Run;
         private int _threadFlowLocationNestingLevel;
+        private IDictionary<string, string> _v1KeyToFullyQualifiedNameMap;
         private Dictionary<LogicalLocation, int> _logicalLocationToIndexMap;
         private Dictionary<string, LogicalLocation> _v1KeyToV2LogicalLocationMap;
 
@@ -336,7 +337,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 location = new Location
                 {
-                    FullyQualifiedLogicalName = v1Location.LogicalLocationKey ?? v1Location.FullyQualifiedLogicalName,
+                    FullyQualifiedLogicalName = v1Location.FullyQualifiedLogicalName ?? v1Location.LogicalLocationKey,
                     PhysicalLocation = CreatePhysicalLocation(v1Location.ResultFile),
                     Properties = v1Location.Properties
                 };
@@ -381,9 +382,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Properties = v1AnnotatedCodeLocation.Properties
                 };
 
-                if (!string.IsNullOrWhiteSpace(location.FullyQualifiedLogicalName))
+                string logicalLocationKey = v1AnnotatedCodeLocation.LogicalLocationKey ?? v1AnnotatedCodeLocation.FullyQualifiedLogicalName;
+
+                if (!string.IsNullOrWhiteSpace(logicalLocationKey))
                 {
-                    if (_v1KeyToV2LogicalLocationMap.TryGetValue(location.FullyQualifiedLogicalName, out LogicalLocation logicalLocation))
+                    if (_v1KeyToV2LogicalLocationMap.TryGetValue(logicalLocationKey, out LogicalLocation logicalLocation))
                     {
                         _logicalLocationToIndexMap.TryGetValue(logicalLocation, out int index);
                         location.LogicalLocationIndex = index;
@@ -429,19 +432,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 Message = CreateMessage(message)
             };
 
-            LogicalLocation logicalLocation = new LogicalLocation();
+            logicalLocationKey = logicalLocationKey ?? fullyQualifiedLogicalName;
 
-            logicalLocation.FullyQualifiedName = fullyQualifiedLogicalName;
-            logicalLocation.Name = GetLogicalLocationName(fullyQualifiedLogicalName);
-            location.FullyQualifiedLogicalName = logicalLocationKey;
+            // Retrieve logical location so that we can acquire the index
+            LogicalLocation logicalLocation;
+            _v1KeyToV2LogicalLocationMap.TryGetValue(logicalLocationKey, out logicalLocation);            
 
-            if (_logicalLocationToIndexMap.TryGetValue(logicalLocation, out int index))
+            location.FullyQualifiedLogicalName = fullyQualifiedLogicalName ?? logicalLocation?.FullyQualifiedName;
+
+            int logicalLocationIndex;
+            if (logicalLocation == null || !_logicalLocationToIndexMap.TryGetValue(logicalLocation, out logicalLocationIndex))
             {
-                index = _logicalLocationToIndexMap.Count;
-                _logicalLocationToIndexMap[logicalLocation] = index;
+                logicalLocationIndex = -1;
             }
 
-            location.LogicalLocationIndex = index;
+            location.LogicalLocationIndex = logicalLocationIndex;
 
             if (uri != null)
             {
@@ -479,17 +484,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return logicalLocation;
-        }
-
-        internal LogicalLocation CreateLogicalLocation(string fullyQualifiedLogicalName, string parentKey = null, string decoratedName = null, string kind = null)
-        {
-            return new LogicalLocation
-            {
-                DecoratedName = decoratedName,
-                FullyQualifiedName = fullyQualifiedLogicalName,
-                Name = GetLogicalLocationName(fullyQualifiedLogicalName),
-                Kind = kind
-            };
         }
 
         internal string GetLogicalLocationName(string fullyQualifiedLogicalName)
@@ -909,6 +903,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         }
                     }
 
+                    // Pass 1 over results. In this phase, we're simply collecting fully qualified names that
+                    // may be duplicated in the logical locations dictionary. We're doing this so that we 
+                    // can properly construct the v2 logical instances in the converted array (i.e., we can't
+                    // populate the v2 logicalLocation.FullyQualifiedName property in cases where the 
+                    // v1 key is a synthesized value and not actually the fully qualified name)
+                    var visitor = new VersionOneLogicalLocationKeyToFullyQualifiedNameMappingVisitor();
+                    visitor.VisitRunVersionOne(v1Run);
+
+                    _v1KeyToFullyQualifiedNameMap = visitor.LogicalLocationKeyToFullyQualifiedNameMap;
+
                     if (v1Run.LogicalLocations != null)
                     {
                         run.LogicalLocations = new List<LogicalLocation>();
@@ -918,7 +922,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         {
                             PopulateLogicalLocation(
                                 run, 
-                                v1Run.LogicalLocations, 
+                                v1Run.LogicalLocations,
+                                _v1KeyToFullyQualifiedNameMap,
                                 pair.Key, 
                                 pair.Value,
                                 populatedKeys);
@@ -965,23 +970,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         private void PopulateLogicalLocation(
             Run v2Run, 
-            IDictionary<string, LogicalLocationVersionOne> v1LogicalLocations, 
-            string fullyQualifiedName, 
+            IDictionary<string, LogicalLocationVersionOne> v1LogicalLocations,
+            IDictionary<string, string> keyToFullyQualifiedNameMap,
+            string logicalLocationKey, 
             LogicalLocationVersionOne v1LogicalLocation, 
             HashSet<string> populatedKeys)
         {
             // We saw and populated this one previously, because it was a parent to 
             // a logical location that we encountered earlier
-            if (populatedKeys.Contains(fullyQualifiedName)) { return; }
+            if (populatedKeys.Contains(logicalLocationKey)) { return; }
 
             if (v1LogicalLocation.ParentKey != null && !populatedKeys.Contains(v1LogicalLocation.ParentKey))
             {
                 // Ensure that any parent has been populated 
                 PopulateLogicalLocation(
                     v2Run, v1LogicalLocations,
+                    keyToFullyQualifiedNameMap,
                     v1LogicalLocation.ParentKey,
                     v1LogicalLocations[v1LogicalLocation.ParentKey],
                     populatedKeys);
+            }
+
+            string fullyQualifiedName;
+
+            if (!keyToFullyQualifiedNameMap.TryGetValue(logicalLocationKey, out fullyQualifiedName))
+            {
+                // If we don't find a remapping, the dictionary key itself comprises
+                // the fully qualified name.
+                fullyQualifiedName = logicalLocationKey;
             }
 
             // Create the logical location from the v1 version
@@ -993,11 +1009,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             // Store the old v1 look-up key for the new logical location
             // We will use this to generate the index when we walk results
             // v1 key -> logical location -> logical location index
-            _v1KeyToV2LogicalLocationMap[fullyQualifiedName] = logicalLocation;
+            _v1KeyToV2LogicalLocationMap[logicalLocationKey] = logicalLocation;
 
             v2Run.LogicalLocations.Add(logicalLocation);
 
-            populatedKeys.Add(fullyQualifiedName);
+            populatedKeys.Add(logicalLocationKey);
         }
 
         internal Stack CreateStack(StackVersionOne v1Stack)
