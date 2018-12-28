@@ -156,6 +156,22 @@
               "message": {
                 "text": "Another reference to \"count\" was declared here."
               }
+            },
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///home/buildAgent/src/collections/list_collision.cpp"
+                },
+                "region": {
+                  "startLine": 12,
+                  "endLine": 12
+                }
+              },
+              "fullyQualifiedLogicalName": "collections::list",
+              "logicalLocationIndex": 3,
+              "message": {
+                "text": "This reference to \"collections::list\" is not relevant to the problem."
+              }
             }
           ],
           "suppressionStates": ["suppressedExternally"],
