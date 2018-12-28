@@ -370,7 +370,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Location location = null;
 
             if (v1AnnotatedCodeLocation != null)
-            {
+            {                
                 location = new Location
                 {
                     Annotations = v1AnnotatedCodeLocation.Annotations?.SelectMany(a => a.Locations,
@@ -379,7 +379,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                                                                                                          a.Message))
                                                                       .Where(r => r != null)
                                                                       .ToList(),
-                    FullyQualifiedLogicalName = v1AnnotatedCodeLocation.LogicalLocationKey ?? v1AnnotatedCodeLocation.FullyQualifiedLogicalName,
+                    FullyQualifiedLogicalName = v1AnnotatedCodeLocation.FullyQualifiedLogicalName,
                     Message = CreateMessage(v1AnnotatedCodeLocation.Message),
                     PhysicalLocation = CreatePhysicalLocation(v1AnnotatedCodeLocation.PhysicalLocation),
                     Properties = v1AnnotatedCodeLocation.Properties

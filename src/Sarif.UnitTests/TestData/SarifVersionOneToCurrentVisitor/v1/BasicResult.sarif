@@ -136,6 +136,18 @@
                 }
               },
               "fullyQualifiedLogicalName": "collections::list"
+            },
+            {
+              "message": "This reference to \"collections::list\" is not relevant to the problem.",
+              "physicalLocation": {
+                "uri": "file:///home/buildAgent/src/collections/list_collision.cpp",
+                "region": {
+                  "startLine": 12,
+                  "endLine": 12
+                }
+              },
+              "fullyQualifiedLogicalName": "collections::list",
+              "logicalLocationKey": "collections::list-KEY_COLLISION"
             }
           ]
         }
