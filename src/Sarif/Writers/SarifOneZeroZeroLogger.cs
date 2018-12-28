@@ -50,8 +50,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             var v2Log = JsonConvert.DeserializeObject<SarifLog>(logText);
 
-            var transformer = new SarifCurrentToVersionOneVisitor();
-            transformer.VisitSarifLog(v2Log);
+            // TODO ENABLE
+            //var transformer = new SarifCurrentToVersionOneVisitor();
+            //transformer.VisitSarifLog(v2Log);
 
             JsonSerializerSettings v1Settings = new JsonSerializerSettings()
             {
@@ -59,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 Formatting = PrettyPrint ? Formatting.Indented : Formatting.None
             };
 
-            File.WriteAllText(_outputFilePath, JsonConvert.SerializeObject(transformer.SarifLogVersionOne, v1Settings));
+            //File.WriteAllText(_outputFilePath, JsonConvert.SerializeObject(transformer.SarifLogVersionOne, v1Settings));
         }
     }
 }

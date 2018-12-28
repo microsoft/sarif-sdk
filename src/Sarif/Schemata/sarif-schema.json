@@ -1543,8 +1543,9 @@
 
         "files": {
           "description": "An array of file objects relevant to the run.",
-          "type": "object",
-          "additionalProperties": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
             "$ref": "#/definitions/file"
           }
         },

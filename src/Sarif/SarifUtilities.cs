@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
@@ -206,6 +207,23 @@ namespace Microsoft.CodeAnalysis.Sarif
             
             byte[] bytes = encoding.GetBytes(s);
             return bytes.Length;
+        }
+
+        internal static bool UnitTesting = false;
+
+        internal static void DebugAssert(bool conditional)
+        {
+            if (UnitTesting)
+            {
+                if (!conditional)
+                {
+                    throw new InvalidOperationException("Assert condition failed during unit test execution.");
+                }
+            }
+            else
+            {
+                Debug.Assert(conditional);
+            }
         }
     }
 }
