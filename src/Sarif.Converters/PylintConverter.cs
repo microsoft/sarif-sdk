@@ -91,7 +91,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
 
             var fileUri = new Uri($"{defect.FilePath}", UriKind.RelativeOrAbsolute);
-            var physicalLocation = new PhysicalLocation(id: 0, fileLocation: new FileLocation(uri: fileUri, uriBaseId: null, properties: null), region: region, contextRegion: null, properties: null);
+            var physicalLocation = new PhysicalLocation
+            {
+                FileLocation = new FileLocation
+                {
+                    Uri = fileUri
+                },
+                Region = region
+            };
 
             var location = new Location
             {
