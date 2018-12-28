@@ -38,6 +38,7 @@
                             "endColumn": 9
                           }
                         },
+                        "fullyQualifiedLogicalName": "Ambiguous.Item",
                         "logicalLocationIndex": 0,
                         "message": {
                           "text": "Exception thrown"
@@ -54,7 +55,8 @@
                             "uri": "file:///C:/src/main.cs"
                           }
                         },
-                        "logicalLocationIndex": 0
+                        "fullyQualifiedLogicalName": "Rules.SecureHashAlgorithmRule.Register",
+                        "logicalLocationIndex": 1
                       },
                       "module": "RuleLibrary",
                       "threadId": 52,
@@ -67,7 +69,7 @@
                             "uri": "file:///C:/src/utils.cs"
                           }
                         },
-                        "logicalLocationIndex": 0
+                        "fullyQualifiedLogicalName": "ExecutionEngine.Engine.EvaluateRule"
                       },
                       "module": "ExecutionEngine",
                       "threadId": 52,
@@ -81,10 +83,10 @@
                             "uri": "file:///C:/src/testtarget.cs"
                           }
                         },
-                        "fullyQualifiedLogicalName": "ExecutionEngine.Engine.TestTarget",
-                        "logicalLocationIndex": 0
+                        "fullyQualifiedLogicalName": "Ambiguous.Item",
+                        "logicalLocationIndex": 2
                       },
-                      "module": "ExecutionEngine",
+                      "module": "Target",
                       "threadId": 52,
                       "address": 10073356,
                       "offset": 10475
@@ -106,17 +108,17 @@
       ],
       "logicalLocations": [
         {
-          "name": "Evaluate",
-          "fullyQualifiedName": "Rules.SecureHashAlgorithmRule.Evaluate",
+          "name": "Item",
+          "fullyQualifiedName": "Ambiguous.Item",
           "kind": "some kind"
         },
         {
-          "name": "InvalidName",
+          "name": "Register",
           "fullyQualifiedName": "Rules.SecureHashAlgorithmRule.Register"
         },
         {
-          "name": "TestTarget",
-          "fullyQualifiedName": "ExecutionEngine.Engine.TestTarget",
+          "name": "Item",
+          "fullyQualifiedName": "Ambiguous.Item",
           "kind": "another kind"
         }
       ],

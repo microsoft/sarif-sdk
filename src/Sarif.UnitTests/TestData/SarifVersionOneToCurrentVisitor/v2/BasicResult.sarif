@@ -27,17 +27,69 @@
         {
           "name": "list",
           "fullyQualifiedName": "collections::list",
+          "decoratedName": "?add@list@@_decorated_type_name",
           "parentIndex": 0,
           "kind": "type"
         },
         {
           "name": "add",
           "fullyQualifiedName": "collections::list::add",
+          "decoratedName": "?add@list@collections@@QAEXH@Z",
           "parentIndex": 1,
           "kind": "function"
+        },
+        {
+          "name": "list",
+          "fullyQualifiedName": "collections::list",
+          "decoratedName": "?add@list@@_decorated_member_name",
+          "parentIndex": 0,
+          "kind": "member"
         }
       ],
       "results": [
+        {
+          "ruleId": "C2001",
+          "message": {
+            "messageId": "default",
+            "arguments": [
+              "collections::list"
+            ]
+          },
+          "analysisTarget": {
+            "uri": "file:///home/buildAgent/src/collections/list.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///home/buildAgent/src/collections/list.h"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 28,
+                  "byteLength": 27
+                }
+              },
+              "fullyQualifiedLogicalName": "collections::list",
+              "logicalLocationIndex": 1
+            },
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///home/buildAgent/src/collections/list_collision.cpp"
+                },
+                "region": {
+                  "startLine": 12,
+                  "endLine": 12
+                }
+              },
+              "fullyQualifiedLogicalName": "collections::list",
+              "logicalLocationIndex": 3
+            }
+          ]
+        },
         {
           "ruleId": "C2001",
           "level": "error",
@@ -104,6 +156,22 @@
               "message": {
                 "text": "Another reference to \"count\" was declared here."
               }
+            },
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///home/buildAgent/src/collections/list_collision.cpp"
+                },
+                "region": {
+                  "startLine": 12,
+                  "endLine": 12
+                }
+              },
+              "fullyQualifiedLogicalName": "collections::list",
+              "logicalLocationIndex": 3,
+              "message": {
+                "text": "This reference to \"collections::list\" is not relevant to the problem."
+              }
             }
           ],
           "suppressionStates": ["suppressedExternally"],
@@ -122,6 +190,15 @@
             },
             "messageStrings": {
               "default": "Variable \"{0}\" was used without being initialized."
+            }
+          },
+          "C2002": {
+            "id": "C2002",
+            "shortDescription": {
+              "text": "A potentially confusing naming collision exists."
+            },
+            "messageStrings": {
+              "default": "The fully qualified name \"{0}\" is shared between multiple constructs in this component, potentially compromising maintainability."
             }
           }
         }
