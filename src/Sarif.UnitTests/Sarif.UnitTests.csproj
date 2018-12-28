@@ -15,11 +15,11 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
-    <Compile Remove="Baseline\ResultMatching\SarifElementRemappers\**" />
+    <Compile Remove="Baseline\**" />
     <Compile Remove="TestData\Transformers\**" />
-    <EmbeddedResource Remove="Baseline\ResultMatching\SarifElementRemappers\**" />
+    <EmbeddedResource Remove="Baseline\**" />
     <EmbeddedResource Remove="TestData\Transformers\**" />
-    <None Remove="Baseline\ResultMatching\SarifElementRemappers\**" />
+    <None Remove="Baseline\**" />
     <None Remove="TestData\Transformers\**" />
   </ItemGroup>
 

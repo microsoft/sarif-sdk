@@ -40,7 +40,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (analysisTargets != null)
             {
-                run.Files = new Dictionary<string, FileData>();
+                run.GetFileIndex()
+                run.Files = new List<FileData>();
 
                 foreach (string target in analysisTargets)
                 {
@@ -383,14 +384,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        private void CaptureFile(Uri uri)
+        private void CaptureFile(Uri uri, string uriBaseId)
         { 
             if (uri == null) { return; }
 
-            _run.Files = _run.Files ?? new Dictionary<string, FileData>();
+            _run.Files = _run.Files ?? new List<FileData>();
 
-            string fileDataKey = UriHelper.MakeValidUri(uri.OriginalString);
-            if (_run.Files.ContainsKey(fileDataKey))
+            FileLocation fileDataKey = new FileLocation
+            {
+                Uri = new Uri(UriHelper.MakeValidUri(uri.OriginalString)),
+                UriBaseId = uriBaseId
+            };                
+                
+                ;
+
+            if (_run.Files.Contains(fileDataKey))
             {
                 // Already populated
                 return;

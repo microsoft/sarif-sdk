@@ -66,11 +66,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         /// <param name="run">A run to fix the Files dictionary of.</param>
         private void FixFiles(Run run)
         {
-            Dictionary<string, FileData> newDictionary = new Dictionary<string, FileData>();
+            var newList = new List<FileData>(run.Files.Count);
 
-            foreach (var key in run.Files.Keys)
+            for (int i = 0; i < run.Files.Count; i++)
             {
-                FileData newNode = run.Files[key];
+                FileData newNode = run.Files[i];
 
                 Uri baseUri;
                 // Node has a UriBaseId && we're going to rewrite it.
@@ -91,10 +91,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
 
                 // fix dictionary
-                newDictionary[newNode.FileLocation.Uri.ToString()] = newNode;
+                newList[i] = newNode;
             }
 
-            run.Files = newDictionary;
+            run.Files = newList;
         }
 
         private static Uri CombineUris(Uri baseUri, Uri relativeUri)
