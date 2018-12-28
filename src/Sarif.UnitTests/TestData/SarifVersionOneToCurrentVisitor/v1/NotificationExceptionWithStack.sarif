@@ -18,7 +18,7 @@
                   "message": "Exception thrown",
                   "module": "RuleLibrary",
                   "threadId": 52,
-                  "fullyQualifiedLogicalName": "Rules.SecureHashAlgorithmRule.Evaluate",
+                  "fullyQualifiedLogicalName": "Ambiguous.Item",
                   "uri": "file:///C:/src/main.cs",
                   "address": 10092852,
                   "line": 15,
@@ -40,10 +40,10 @@
                   "offset": 10475
                 },
                 {
-                  "module": "ExecutionEngine",
+                  "module": "Target",
                   "threadId": 52,
-                  "fullyQualifiedLogicalName": "ExecutionEngine.Engine.EvaluateRule",
-                  "logicalLocationKey": "ExecutionEngine.Engine.TestTarget",
+                  "fullyQualifiedLogicalName": "Ambiguous.Item",
+                  "logicalLocationKey": "SYNTHESIZED_KEY",
                   "uri": "file:///C:/src/testtarget.cs",
                   "address": 10073356,
                   "offset": 10475
@@ -60,15 +60,15 @@
         }
       ],
       "logicalLocations": {
-        "Rules.SecureHashAlgorithmRule.Evaluate": {
-          "name": "Evaluate",
+        "Ambiguous.Item": {
+          "name": "Item",
           "kind": "some kind"
         },
         "Rules.SecureHashAlgorithmRule.Register": {
-          "name": "InvalidName"
+          "name": "Register"
         },
-        "ExecutionEngine.Engine.TestTarget": {
-          "name": "TestTarget",
+        "SYNTHESIZED_KEY": {
+          "name": "Item",
           "kind": "another kind"
         }
       },
