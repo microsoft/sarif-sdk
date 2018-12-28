@@ -13,20 +13,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     /// common fully qualified name (but which are different types), the visitor creates a mapping between
     /// the logical location key and its associated fully qualified name. This allows the v2 transformation
     /// in particular to more easily populate its logical location equivalents. Additionally, the visitor 
-    /// stores a mapping from fully qualified name to decorated name, if one exists. These data (the
+    /// stores a mapping from logical location key to decorated name, if one exists. These data (the
     /// decorated name and fully qualified name) moved from the location object to the logical location
     /// object in v2.
     /// </summary>
-    public class VersionOneLogicalLocationKeyToFullyQualifiedNameMappingVisitor : SarifRewritingVisitorVersionOne
+    public class VersionOneLogicalLocationKeyToLogicalLocationDataVisitor : SarifRewritingVisitorVersionOne
     {
-        public VersionOneLogicalLocationKeyToFullyQualifiedNameMappingVisitor()
+        public VersionOneLogicalLocationKeyToLogicalLocationDataVisitor()
         {
-            FullyQualifiedNameToDecoratedNameMap = new Dictionary<string, string>();
+            LogicalLocationKeyToDecoratedNameMap = new Dictionary<string, string>();
             LogicalLocationKeyToFullyQualifiedNameMap = new Dictionary<string, string>();
         }
-        public IDictionary<string, string> FullyQualifiedNameToDecoratedNameMap { get; set; }
+        public IDictionary<string, string> LogicalLocationKeyToDecoratedNameMap { get; }
 
-        public IDictionary<string, string> LogicalLocationKeyToFullyQualifiedNameMap { get; set; }
+        public IDictionary<string, string> LogicalLocationKeyToFullyQualifiedNameMap { get; }
 
         public override LocationVersionOne VisitLocationVersionOne(LocationVersionOne node)
         {
@@ -39,8 +39,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (!string.IsNullOrEmpty(node.DecoratedName))
             {
-                string fullyQualifiedName = node.FullyQualifiedLogicalName ?? node.LogicalLocationKey;
-                FullyQualifiedNameToDecoratedNameMap[fullyQualifiedName] = node.DecoratedName;
+                string key = node.LogicalLocationKey ?? node.FullyQualifiedLogicalName;
+                LogicalLocationKeyToDecoratedNameMap[key] = node.DecoratedName;
             }
 
             return base.VisitLocationVersionOne(node);
@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 LogicalLocationKeyToFullyQualifiedNameMap[node.LogicalLocationKey] = node.FullyQualifiedLogicalName;
             }
 
-            // v1 stack frame does not reference a decorated name
+            // v1 annotated code location does not reference a decorated name
 
             return base.VisitAnnotatedCodeLocationVersionOne(node);
         }

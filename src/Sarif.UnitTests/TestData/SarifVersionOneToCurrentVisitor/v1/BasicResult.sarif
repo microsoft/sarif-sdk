@@ -31,12 +31,57 @@
           "kind": "type",
           "parentKey": "collections"
         },
+        "collections::list-KEY_COLLISION": {
+          "name": "list",
+          "kind": "member",
+          "parentKey": "collections"
+        },
         "collections": {
           "name": "collections",
           "kind": "namespace"
         }
       },
       "results": [
+        {
+          "ruleId": "C2001",
+          "formattedRuleMessage": {
+            "formatId": "default",
+            "arguments": [
+              "collections::list"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///home/buildAgent/src/collections/list.cpp"
+              },
+              "resultFile": {
+                "uri": "file:///home/buildAgent/src/collections/list.h",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 28,
+                  "length": 27
+                }
+              },
+              "fullyQualifiedLogicalName": "collections::list",
+              "decoratedName": "?add@list@@_decorated_type_name"
+            },
+            {
+              "resultFile": {
+                "uri": "file:///home/buildAgent/src/collections/list_collision.cpp",
+                "region": {
+                  "startLine": 12,
+                  "endLine": 12
+                }
+              },
+              "fullyQualifiedLogicalName": "collections::list",
+              "logicalLocationKey": "collections::list-KEY_COLLISION",
+              "decoratedName": "?add@list@@_decorated_member_name"
+            }
+          ]
+        },
         {
           "ruleId": "C2001",
           "formattedRuleMessage": {
@@ -102,6 +147,13 @@
           "fullDescription": "A variable was used without being initialized. This can result in runtime errors such as null reference exceptions.",
           "messageFormats": {
             "default": "Variable \"{0}\" was used without being initialized."
+          }
+        },
+        "C2002": {
+          "id": "C2002",
+          "shortDescription": "A potentially confusing naming collision exists.",
+          "messageFormats": {
+            "default": "The fully qualified name \"{0}\" is shared between multiple constructs in this component, potentially compromising maintainability."
           }
         }
       }
