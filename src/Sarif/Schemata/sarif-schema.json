@@ -469,7 +469,7 @@
         },
 
         "fileIndex": {
-          "description": "The index within the run files array that specifies the file object associated with the file location.",
+          "description": "The index within the run files array of the file object associated with the file location.",
           "type": "integer",
           "default": -1,
           "minimum": -1
@@ -765,7 +765,7 @@
         },
 
         "logicalLocationIndex": {
-          "description": "The index within the logicalLocations array that specifies the logical location associated with the result.",
+          "description": "The index within the logical locations array of the logical location associated with the result.",
           "type": "integer",
           "default": -1,
           "minimum": -1
@@ -1543,9 +1543,8 @@
 
         "files": {
           "description": "An array of file objects relevant to the run.",
-          "type": "array",
-          "minItems": 0,
-          "items": {
+          "type": "object",
+          "additionalProperties": {
             "$ref": "#/definitions/file"
           }
         },
