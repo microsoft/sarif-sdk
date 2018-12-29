@@ -7,9 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Converters.PREFastObjectModel;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 using System.Xml;
-using Microsoft.CodeAnalysis.Sarif.Visitors;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {

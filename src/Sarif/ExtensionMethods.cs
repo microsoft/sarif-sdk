@@ -10,8 +10,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml;
 
-using Microsoft.CodeAnalysis.Sarif.Writers;
-
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class ExtensionMethods

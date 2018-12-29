@@ -90,7 +90,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     newNode.FileLocation.UriBaseId = null;
                 }
 
-                // fix dictionary
                 newList[i] = newNode;
             }
 

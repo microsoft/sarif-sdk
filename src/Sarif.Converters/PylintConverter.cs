@@ -4,10 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.CodeAnalysis.Sarif.Converters.PylintObjectModel;
-using Microsoft.CodeAnalysis.Sarif.Visitors;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
