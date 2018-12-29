@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 XmlResolver = null
             };
 
-            ISet<Result> results;
+            IList<Result> results;
             using (XmlReader xmlReader = XmlReader.Create(input, settings))
             {
                 results = ProcessAndroidStudioLog(xmlReader);
@@ -73,33 +73,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var run = new Run()
             {
-                Tool = tool,
-                ColumnKind = ColumnKind.Utf16CodeUnits
+                Tool = new Tool { Name = ToolFormat.AndroidStudio },
+                ColumnKind = ColumnKind.Utf16CodeUnits,
+                LogicalLocations = this.LogicalLocations
             };
 
-            output.Initialize(run);
-            
-            var visitor = new AddFileReferencesVisitor();
-            visitor.VisitRun(run);
-
-            foreach (Result result in results)
-            {
-                visitor.VisitResult(result);
-            }
-
-            if (run.Files != null && run.Files.Count > 0)
-            {
-                output.WriteFiles(run.Files);
-            }
-
-            if (LogicalLocations != null && LogicalLocations.Any())
-            {
-                output.WriteLogicalLocations(LogicalLocations);
-            }
-
-            output.OpenResults();
-            output.WriteResults(results);
-            output.CloseResults();
+            PersistResults(output, results, run);
         }
 
         /// <summary>Processes an Android Studio log and writes issues therein to an instance of
@@ -108,9 +87,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <returns>
         /// A list of the <see cref="Result"/> objects translated from the AndroidStudio format.
         /// </returns>
-        private ISet<Result> ProcessAndroidStudioLog(XmlReader xmlReader)
+        private IList<Result> ProcessAndroidStudioLog(XmlReader xmlReader)
         {
-            var results = new HashSet<Result>(Result.ValueComparer);
+            var results = new List<Result>();
 
             int problemsDepth = xmlReader.Depth;
             xmlReader.ReadStartElement(_strings.Problems);

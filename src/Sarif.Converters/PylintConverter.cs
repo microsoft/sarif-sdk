@@ -27,18 +27,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             PylintLog log = logReader.ReadLog(input);
 
-            Tool tool = new Tool
-            {
-                Name = "Pylint"
-            };
-
-            var run = new Run()
-            {
-                Tool = tool
-            };
-
-            output.Initialize(run);
-
             var results = new List<Result>();
 
             foreach (PylintLogEntry entry in log)
@@ -46,22 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 results.Add(CreateResult(entry));
             }
 
-            var visitor = new AddFileReferencesVisitor();
-            visitor.VisitRun(run);
-
-            foreach (Result result in results)
-            {
-                visitor.VisitResult(result);
-            }
-
-            if (run.Files != null && run.Files.Count > 0)
-            {
-                output.WriteFiles(run.Files);
-            }
-
-            output.OpenResults();
-            output.WriteResults(results);
-            output.CloseResults();
+            PersistResults(output, results, ToolFormat.Pylint);
         }
 
         internal Result CreateResult(PylintLogEntry defect)

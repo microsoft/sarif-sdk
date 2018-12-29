@@ -27,19 +27,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             LogicalLocations.Clear();
 
-            var tool = new Tool
-            {
-                Name = ToolFormat.PREfast,
-                FullName = "PREfast Code Analysis"
-            };
-
-            var run = new Run()
-            {
-                Tool = tool,
-                ColumnKind = ColumnKind.Utf16CodeUnits
-            };
-
-            output.Initialize(run);
 
             XmlReaderSettings settings = new XmlReaderSettings
             {
@@ -58,27 +45,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     results.Add(CreateResult(entry));
                 }
 
-                var visitor = new AddFileReferencesVisitor();
-                visitor.VisitRun(run);
-
-                foreach (Result result in results)
+                var run = new Run()
                 {
-                    visitor.VisitResult(result);
-                }
+                    Tool = new Tool { Name = ToolFormat.PREfast, FullName = "PREfast Code Analysis" },
+                    ColumnKind = ColumnKind.Utf16CodeUnits
+                };
 
-                if (run.Files != null && run.Files.Count > 0)
-                {
-                    output.WriteFiles(run.Files);
-                }
+                run.LogicalLocations = LogicalLocations;
 
-                if (LogicalLocations != null && LogicalLocations.Any())
-                {
-                    output.WriteLogicalLocations(LogicalLocations);
-                }
-
-                output.OpenResults();
-                output.WriteResults(results);
-                output.CloseResults();
+                PersistResults(output, results, run);
             }
         }
 

@@ -86,11 +86,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             }
 
-            var tool = new Tool
-            {
-                Name = "Fortify"
-            };
-
             var run = new Run()
             {
                 Id = new RunAutomationDetails
@@ -100,27 +95,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         Text = runDescription
                     }
                 },
-                Tool = tool
+                Tool = new Tool {  Name = "Fortify" }
             };
 
-            output.Initialize(run);
-
-            var visitor = new AddFileReferencesVisitor();
-            visitor.VisitRun(run);
-
-            foreach (Result result in results)
-            {
-                visitor.VisitResult(result);
-            }
-
-            if (run.Files != null && run.Files.Count > 0)
-            {
-                output.WriteFiles(run.Files);
-            }
-
-            output.OpenResults();
-            output.WriteResults(results);
-            output.CloseResults();
+            PersistResults(output, results, run);
         }
 
         /// <summary>Converts a Fortify result to a static analysis results interchange format result.</summary>

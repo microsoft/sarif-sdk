@@ -114,35 +114,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             reader.ReadEndElement(); // </results>
 
-            var tool = new Tool
-            {
-                Name = "CppCheck",
-                Version = version,
-            };
-
             var run = new Run()
             {
-                Tool = tool
+                Tool = new Tool {  Name = ToolFormat.CppCheck, Version = version }
             };
 
-            output.Initialize(run);
-
-            var visitor = new AddFileReferencesVisitor();
-            visitor.VisitRun(run);
-
-            foreach (Result result in results)
-            {
-                visitor.VisitResult(result);
-            }
-
-            if (run.Files != null && run.Files.Count > 0)
-            {
-                output.WriteFiles(run.Files);
-            }
-
-            output.OpenResults();
-            output.WriteResults(results);
-            output.CloseResults();
+            PersistResults(output, results, run);
         }
     }
 }

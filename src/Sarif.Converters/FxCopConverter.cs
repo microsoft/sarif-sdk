@@ -54,51 +54,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             reader.ResultRead += (FxCopLogReader.Context current) => { results.Add(CreateResult(current)); };
             reader.Read(context, input);
 
-            Tool tool = new Tool
-            {
-                Name = "FxCop"
-            };
-
             var run = new Run()
             {
-                Tool = tool
+                Tool = new Tool {  Name = ToolFormat.FxCop}
             };
-
-            output.Initialize(run);
-
-            var visitor = new AddFileReferencesVisitor();
-            visitor.VisitRun(run);
-
-            foreach (Result result in results)
-            {
-                visitor.VisitResult(result);
-            }
-
-            if (run.Files != null && run.Files.Count > 0)
-            {
-                output.WriteFiles(run.Files);
-            }
-
-            if (LogicalLocations != null && LogicalLocations.Any())
-            {
-                output.WriteLogicalLocations(LogicalLocations);
-            }
-
-            output.OpenResults();
-            output.WriteResults(results);
-            output.CloseResults();
 
             if (rules.Count > 0)
             {
-                IDictionary<string, IRule> rulesDictionary = new Dictionary<string, IRule>();
+                IDictionary<string, Rule> rulesDictionary = new Dictionary<string, Rule>();
 
                 foreach (Rule rule in rules)
                 {
                     rulesDictionary[rule.Id] = rule;
                 }
 
-                output.WriteRules(rulesDictionary);
+                run.Resources = new Resources
+                {
+                    Rules = rulesDictionary
+                };
             }
+
+            PersistResults(output, results, run);
         }
 
         internal Rule CreateRule(FxCopLogReader.Context context)

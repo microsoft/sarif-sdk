@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
+using Microsoft.CodeAnalysis.Sarif.Visitors;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -74,6 +77,55 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             return logicalName;
+        }
+
+        protected static Run PersistResults(IResultLogWriter output, IList<Result> results, string toolName)
+        {
+            var run = new Run()
+            {
+                Tool = new Tool { Name = toolName },
+                ColumnKind = ColumnKind.Utf16CodeUnits
+            };
+
+            return PersistResults(output, results, run);
+        }
+
+        protected static Run PersistResults(IResultLogWriter output, IList<Result> results, Run run)
+        {
+            output.Initialize(run);
+
+            if (run.Invocations.Any())
+            {
+                // TODO: add WriteInvocations to IResultLogWriter
+                // https://github.com/Microsoft/sarif-sdk/issues/1190
+                (output as ResultLogJsonWriter).WriteInvocations(run.Invocations);
+            }
+
+            run.Results = results;
+            var visitor = new AddFileReferencesVisitor();
+            visitor.VisitRun(run);
+
+            if (run.Files.Any())
+            {
+                output.WriteFiles(run.Files);
+            }
+
+            if (run.LogicalLocations.Any())
+            {
+                output.WriteLogicalLocations(run.LogicalLocations);
+            }
+
+            output.OpenResults();
+            output.WriteResults(run.Results);
+            output.CloseResults();
+
+            // TODO: should we move these to be emitted at the beginning of the file? What order fo we prefer generaally
+            if (run.Resources?.Rules != null)
+            {
+                output.WriteRules(run.Resources?.Rules);
+            }
+
+            return run;
         }
     }
 }

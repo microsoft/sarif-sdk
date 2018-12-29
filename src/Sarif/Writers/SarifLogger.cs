@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private JsonTextWriter _jsonTextWriter;
         private OptionallyEmittedData _dataToInsert;
         private ResultLogJsonWriter _issueLogJsonWriter;
-        private Dictionary<string, IRule> _rules;
+        private Dictionary<string, Rule> _rules;
 
         protected const LoggingOptions DefaultLoggingOptions = LoggingOptions.PrettyPrint;
 
@@ -192,11 +192,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _issueLogJsonWriter = new ResultLogJsonWriter(_jsonTextWriter);
         }
 
-        public Dictionary<string, IRule> Rules
+        public Dictionary<string, Rule> Rules
         {
             get
             {
-                _rules = _rules ?? new Dictionary<string, IRule>();
+                _rules = _rules ?? new Dictionary<string, Rule>();
                 return _rules;
             }
         }
@@ -306,7 +306,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 return;
             }
 
-            Rules[result.RuleId] = rule;
+            // TODO: we need to finish eliminating the IRule interface from the OM
+            // https://github.com/Microsoft/sarif-sdk/issues/1189
+            Rules[result.RuleId] = (Rule)rule;
 
             CaptureFilesInResult(result);
             _issueLogJsonWriter.WriteResult(result);
@@ -456,7 +458,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (context.Rule != null)
             {
-                Rules[context.Rule.Id] = context.Rule;
+                // TODO: finish removing IRule from the SDK
+                // https://github.com/Microsoft/sarif-sdk/issues/1189
+                Rules[context.Rule.Id] = (Rule)context.Rule;
             }
 
             ruleMessageId = RuleUtilities.NormalizeRuleMessageId(ruleMessageId, context.Rule.Id);

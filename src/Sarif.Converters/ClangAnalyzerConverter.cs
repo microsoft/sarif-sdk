@@ -59,34 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                 }
 
-                var tool = new Tool
-                {
-                    Name = "Clang"
-                };
-
-                var run = new Run()
-                {
-                    Tool = tool
-                };
-
-                output.Initialize(run);
-
-                var visitor = new AddFileReferencesVisitor();
-                visitor.VisitRun(run);
-
-                foreach (Result result in results)
-                {
-                    visitor.VisitResult(result);
-                }
-
-                if (run.Files != null && run.Files.Count > 0)
-                {
-                    output.WriteFiles(run.Files);
-                }
-
-                output.OpenResults();
-                output.WriteResults(results);
-                output.CloseResults();
+                PersistResults(output, results, ToolFormat.ClangAnalyzer);
             }
             finally
             {
@@ -163,7 +136,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     int fileNumber = FindInt(location, "file");
                     if (_files != null && fileNumber < _files.Count)
                     {
-                        fileName = _files[fileNumber] as string;
+                        fileName = (string)_files[fileNumber];
                     }
                 }
 
