@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using Microsoft.CodeAnalysis.Sarif.Visitors;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -70,9 +71,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Name = "AndroidStudio"
             };
 
-            var fileInfoFactory = new FileInfoFactory(null, dataToInsert);
-            Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
-
             var run = new Run()
             {
                 Tool = tool,
@@ -80,10 +78,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
 
             output.Initialize(run);
+            
+            var visitor = new AddFileReferencesVisitor();
+            visitor.VisitRun(run);
 
-            if (fileDictionary != null && fileDictionary.Any())
+            foreach (Result result in results)
             {
-                output.WriteFiles(fileDictionary);
+                visitor.VisitResult(result);
+            }
+
+            if (run.Files != null && run.Files.Count > 0)
+            {
+                output.WriteFiles(run.Files);
             }
 
             if (LogicalLocations != null && LogicalLocations.Any())

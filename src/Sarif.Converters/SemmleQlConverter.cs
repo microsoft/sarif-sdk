@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using CsvHelper;
+using Microsoft.CodeAnalysis.Sarif.Visitors;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -67,9 +68,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var results = GetResultsFromStream(input);
 
-			var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, dataToInsert);
-			Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
-
             var tool = new Tool
             {
                 Name = "Semmle QL"
@@ -82,7 +80,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             output.Initialize(run);
 
-			output.WriteFiles(fileDictionary);
+            var visitor = new AddFileReferencesVisitor();
+            visitor.VisitRun(run);
+
+            foreach (Result result in results)
+            {
+                visitor.VisitResult(result);
+            }
+
+            if (run.Files != null && run.Files.Count > 0)
+            {
+                output.WriteFiles(run.Files);
+            }
 
             output.OpenResults();
             output.WriteResults(results);

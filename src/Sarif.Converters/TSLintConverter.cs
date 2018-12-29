@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Converters.TSLintObjectModel;
+using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
@@ -45,12 +46,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 results.Add(CreateResult(entry));
             }
 
-            var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, dataToInsert);
-            Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
-            
-            if (fileDictionary?.Any() == true)
+            var visitor = new AddFileReferencesVisitor();
+            visitor.VisitRun(run);
+
+            foreach (Result result in results)
             {
-                output.WriteFiles(fileDictionary);
+                visitor.VisitResult(result);
+            }
+
+            if (run.Files != null && run.Files.Count > 0)
+            {
+                output.WriteFiles(run.Files);
             }
 
             output.OpenResults();

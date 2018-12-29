@@ -40,18 +40,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (analysisTargets != null)
             {
-                run.GetFileIndex()
                 run.Files = new List<FileData>();
 
                 foreach (string target in analysisTargets)
                 {
-                    string fileDataKey = UriHelper.MakeValidUri(target);
+                    Uri uri = new Uri(UriHelper.MakeValidUri(target));
 
                     var fileData = FileData.Create(
                         new Uri(target, UriKind.RelativeOrAbsolute),
                         dataToInsert);
 
-                    run.Files[fileDataKey] = fileData;
+                    var fileLocation = new FileLocation
+                    {
+                        Uri = uri
+                    };
+
+                    fileData.FileLocation = fileLocation;
+
+                    // This call will insert the file object into run.Files if not already present
+                    fileData.FileLocation.FileIndex = run.GetFileIndex(fileData.FileLocation, addToFilesTableIfNotPresent: true);
                 }
             }
 
@@ -309,7 +316,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             if (result.AnalysisTarget != null)
             {
-                CaptureFile(result.AnalysisTarget.Uri);
+                CaptureFile(result.AnalysisTarget);
             }
 
             if (result.Locations != null)
@@ -318,7 +325,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     if (location.PhysicalLocation != null)
                     {
-                        CaptureFile(location.PhysicalLocation.FileLocation?.Uri);
+                        CaptureFile(location.PhysicalLocation.FileLocation);
                     }
                 }
             }
@@ -329,7 +336,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     if (relatedLocation.PhysicalLocation != null)
                     {
-                        CaptureFile(relatedLocation.PhysicalLocation.FileLocation?.Uri);
+                        CaptureFile(relatedLocation.PhysicalLocation.FileLocation);
                     }
                 }
             }
@@ -340,7 +347,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     foreach (StackFrame frame in stack.Frames)
                     {
-                        CaptureFile(frame.Location?.PhysicalLocation?.FileLocation?.Uri);
+                        CaptureFile(frame.Location?.PhysicalLocation?.FileLocation);
                     }
                 }
             }
@@ -364,7 +371,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     {
                         foreach (FileChange fileChange in fix.FileChanges)
                         {
-                            CaptureFile(fileChange.FileLocation.Uri);
+                            CaptureFile(fileChange.FileLocation);
                         }
                     }
                 }
@@ -379,40 +386,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 if (tfl.Location?.PhysicalLocation != null)
                 {
-                    CaptureFile(tfl.Location.PhysicalLocation.FileLocation?.Uri);
+                    CaptureFile(tfl.Location.PhysicalLocation.FileLocation);
                 }
             }
         }
 
-        private void CaptureFile(Uri uri, string uriBaseId)
-        { 
-            if (uri == null) { return; }
-
-            _run.Files = _run.Files ?? new List<FileData>();
-
-            FileLocation fileDataKey = new FileLocation
+        private void CaptureFile(FileLocation fileLocation)
+        {             
+            if (fileLocation == null || fileLocation.Uri == null)
             {
-                Uri = new Uri(UriHelper.MakeValidUri(uri.OriginalString)),
-                UriBaseId = uriBaseId
-            };                
-                
-                ;
-
-            if (_run.Files.Contains(fileDataKey))
-            {
-                // Already populated
                 return;
             }
 
             Encoding encoding = null;
-
             try
             {
                 encoding = Encoding.GetEncoding(_run.DefaultFileEncoding);
             }
             catch (ArgumentException) { } // Unrecognized or null encoding name
 
-            _run.Files[fileDataKey] = FileData.Create(uri, _dataToInsert, null, encoding);
+            _run.GetFileIndex(
+                fileLocation, 
+                addToFilesTableIfNotPresent: true,
+                _dataToInsert,
+                encoding);
         }
 
         public void AnalyzingTarget(IAnalysisContext context)

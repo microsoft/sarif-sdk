@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.CodeAnalysis.Sarif.Converters.PylintObjectModel;
+using Microsoft.CodeAnalysis.Sarif.Visitors;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -45,12 +46,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 results.Add(CreateResult(entry));
             }
 
-            var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, dataToInsert);
-            Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
+            var visitor = new AddFileReferencesVisitor();
+            visitor.VisitRun(run);
 
-            if (fileDictionary?.Any() == true)
+            foreach (Result result in results)
             {
-                output.WriteFiles(fileDictionary);
+                visitor.VisitResult(result);
+            }
+
+            if (run.Files != null && run.Files.Count > 0)
+            {
+                output.WriteFiles(run.Files);
             }
 
             output.OpenResults();

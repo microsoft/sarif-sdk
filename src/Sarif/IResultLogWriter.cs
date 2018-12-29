@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A dictionary whose keys are the strings representing the locations of scanned files
         /// and whose values provide information about those files.
         /// </param>
-        void WriteFiles(IDictionary<string, FileData> fileDictionary);
+        void WriteFiles(IList<FileData> fileDictionary);
 
         /// <summary>
         /// Write information about the logical locations where results were produced to

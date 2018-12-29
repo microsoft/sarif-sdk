@@ -150,15 +150,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// after the results, as the full list of scanned files might not be known until
         /// all results have been generated.
         /// </summary>
-        /// <param name="fileDictionary">
+        /// <param name="files">
         /// A dictionary whose keys are the URIs of scanned files and whose values provide
         /// information about those files.
         /// </param>
-        public void WriteFiles(IDictionary<string, FileData> fileDictionary)
+        public void WriteFiles(IList<FileData> files)
         {
-            if (fileDictionary == null)
+            if (files == null)
             {
-                throw new ArgumentNullException(nameof(fileDictionary));
+                throw new ArgumentNullException(nameof(files));
             }
 
             EnsureInitialized();
@@ -166,7 +166,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.FilesWritten);
 
             _jsonWriter.WritePropertyName("files");
-            _serializer.Serialize(_jsonWriter, fileDictionary, typeof(Dictionary<Uri, FileData>));
+            _serializer.Serialize(_jsonWriter, files);
 
             _writeConditions |= Conditions.FilesWritten;
         }

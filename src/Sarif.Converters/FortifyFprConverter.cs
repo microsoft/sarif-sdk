@@ -9,6 +9,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
@@ -132,9 +133,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             (output as ResultLogJsonWriter).WriteInvocations(run.Invocations);
 
-            if (_fileDictionary.Any())
+            var visitor = new AddFileReferencesVisitor();
+            visitor.VisitRun(run);
+
+            foreach (Result result in _results)
             {
-                output.WriteFiles(_fileDictionary);
+                visitor.VisitResult(result);
+            }
+
+            if (run.Files != null && run.Files.Count > 0)
+            {
+                output.WriteFiles(run.Files);
             }
 
             output.OpenResults();

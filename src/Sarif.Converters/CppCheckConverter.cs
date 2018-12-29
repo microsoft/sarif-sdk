@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
-
+using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
@@ -120,9 +120,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Version = version,
             };
 
-            var fileInfoFactory = new FileInfoFactory(uri => MimeType.Cpp, dataToInsert);
-            Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
-
             var run = new Run()
             {
                 Tool = tool
@@ -130,7 +127,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             output.Initialize(run);
 
-            if (fileDictionary != null && fileDictionary.Count > 0) { output.WriteFiles(fileDictionary); }
+            var visitor = new AddFileReferencesVisitor();
+            visitor.VisitRun(run);
+
+            foreach (Result result in results)
+            {
+                visitor.VisitResult(result);
+            }
+
+            if (run.Files != null && run.Files.Count > 0)
+            {
+                output.WriteFiles(run.Files);
+            }
 
             output.OpenResults();
             output.WriteResults(results);

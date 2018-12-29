@@ -16,7 +16,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private IDictionary<FileLocation, int> _fileToIndexMap;
 
-        public int GetFileIndex(FileLocation fileLocation, bool addToFilesTableIfNotPresent = true)
+        public int GetFileIndex(
+            FileLocation fileLocation, 
+            bool addToFilesTableIfNotPresent = true,
+            OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
+            System.Text.Encoding encoding = null)
         {
             if (fileLocation == null) throw new ArgumentNullException(nameof(fileLocation));
 
@@ -44,9 +48,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             // of the file object. The file index, of course, does not relate to the
             // file identity. We consciously exclude the properties as well.
 
+            // We will normalize the input fileLocation.Uri to make URIs more consistent
+            // throughout the emitted log.
+            fileLocation.Uri = new Uri(UriHelper.MakeValidUri(fileLocation.Uri.OriginalString));
+
             var filesTableKey = new FileLocation
             {
-                Uri = new Uri(UriHelper.MakeValidUri(fileLocation.Uri.OriginalString)),
+                Uri = fileLocation.Uri,
                 UriBaseId = fileLocation.UriBaseId
             };
 
@@ -57,12 +65,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     fileIndex = this.Files.Count;
 
-                    // We did not find our item. We will set the index
-                    fileLocation.FileIndex = fileIndex;
-
                     string mimeType = Writers.MimeType.DetermineFromFileExtension(filesTableKey.Uri.ToString());
 
-                    var fileData = FileData.Create(filesTableKey.Uri);
+                    var fileData = FileData.Create(
+                        filesTableKey.Uri,
+                        dataToInsert,
+                        mimeType: mimeType,
+                        encoding);
+
                     fileData.FileLocation = fileLocation;
 
                     this.Files.Add(new FileData
@@ -80,6 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
+            fileLocation.FileIndex = fileIndex;
             return fileIndex;
         }
 
