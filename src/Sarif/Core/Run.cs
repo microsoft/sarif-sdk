@@ -136,13 +136,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public bool ShouldSerializeFiles() { return this.Files != null && this.Files.Count > 0; }
+        public bool ShouldSerializeFiles() { return this.Files.Any(); }
 
         public bool ShouldSerializeGraphs() { return this.Graphs != null && this.Graphs.Values.Any(); }
 
         public bool ShouldSerializeInvocations() { return this.Invocations != null && this.Invocations.Any((e) => e != null && !e.ValueEquals(EmptyInvocation)); }
 
-        public bool ShouldSerializeLogicalLocations() { return this.LogicalLocations != null && this.LogicalLocations.Count > 0; }
+        public bool ShouldSerializeLogicalLocations() { return this.LogicalLocations.Any(); }
 
         public bool ShouldSerializeNewlineSequences() { return this.NewlineSequences != null && this.NewlineSequences.Any((s) => s != null); }
     }
