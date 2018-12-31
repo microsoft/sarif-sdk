@@ -67,39 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var results = GetResultsFromStream(input);
 
-            var tool = new Tool
-            {
-                Name = "Semmle QL"
-            };
-
-            var run = new Run()
-            {
-                Tool = tool
-            };
-
-            output.Initialize(run);
-
-            var visitor = new AddFileReferencesVisitor();
-            visitor.VisitRun(run);
-
-            foreach (Result result in results)
-            {
-                visitor.VisitResult(result);
-            }
-
-            if (run.Files != null && run.Files.Count > 0)
-            {
-                output.WriteFiles(run.Files);
-            }
-
-            output.OpenResults();
-            output.WriteResults(results);
-            output.CloseResults();
-
-            if (_toolNotifications.Any())
-            {
-                output.WriteToolNotifications(_toolNotifications);
-            }
+            PersistResults(output, results, "Semmle QL");
         }
 
         private Result[] GetResultsFromStream(Stream input)

@@ -63,17 +63,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 results = ProcessAndroidStudioLog(xmlReader);
             }
-
-            var tool = new Tool
-            {
-                Name = "AndroidStudio"
-            };
-
+            
             var run = new Run()
             {
                 Tool = new Tool { Name = ToolFormat.AndroidStudio },
                 ColumnKind = ColumnKind.Utf16CodeUnits,
-                LogicalLocations = this.LogicalLocations
+                LogicalLocations = this.LogicalLocations,
             };
 
             PersistResults(output, results, run);
