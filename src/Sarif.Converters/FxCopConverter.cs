@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var run = new Run()
             {
-                Tool = new Tool {  Name = ToolFormat.FxCop}
+                Tool = new Tool {  Name = "FxCop"}
             };
 
             if (rules.Count > 0)

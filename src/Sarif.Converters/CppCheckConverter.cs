@@ -114,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var run = new Run()
             {
-                Tool = new Tool {  Name = ToolFormat.CppCheck, Version = version }
+                Tool = new Tool {  Name = "CppCheck", Version = version }
             };
 
             PersistResults(output, results, run);

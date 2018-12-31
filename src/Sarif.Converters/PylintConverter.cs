@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 results.Add(CreateResult(entry));
             }
 
-            PersistResults(output, results, ToolFormat.Pylint);
+            PersistResults(output, results, "Pylint");
         }
 
         internal Result CreateResult(PylintLogEntry defect)

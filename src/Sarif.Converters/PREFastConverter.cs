@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 var run = new Run()
                 {
-                    Tool = new Tool { Name = ToolFormat.PREfast, FullName = "PREfast Code Analysis" },
+                    Tool = new Tool { Name = "PREfast", FullName = "PREfast Code Analysis" },
                     ColumnKind = ColumnKind.Utf16CodeUnits,
                     LogicalLocations = LogicalLocations
                 };

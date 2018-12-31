@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                 }
 
-                PersistResults(output, results, ToolFormat.ClangAnalyzer);
+                PersistResults(output, results, "Clang Analyzer");
             }
             finally
             {
