@@ -146,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         /// <summary>
-        /// Write information about scanned files to the log. This information may appear
+        /// A list containing information about the relevant files. This information may appear
         /// after the results, as the full list of scanned files might not be known until
         /// all results have been generated.
         /// </summary>
