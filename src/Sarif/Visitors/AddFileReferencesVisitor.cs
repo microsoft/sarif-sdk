@@ -38,7 +38,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             // Next, visit all run file locations. This will add any
             // previously unknown file objects to the files table.
             base.VisitRun(run);
-
             return _currentRun;
         }
 

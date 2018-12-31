@@ -40,6 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (analysisTargets != null)
             {
+                run.GetFileIndex()
                 run.Files = new List<FileData>();
 
                 foreach (string target in analysisTargets)
