@@ -2,10 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using Microsoft.CodeAnalysis.Sarif.Readers;
-using Microsoft.CodeAnalysis.Sarif.VersionOne;
-using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.IO;
 

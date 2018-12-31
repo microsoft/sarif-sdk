@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.using System;
-using System;
 using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
@@ -39,7 +38,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             // Next, visit all run file locations. This will add any
             // previously unknown file objects to the files table.
             base.VisitRun(run);
-
             return _currentRun;
         }
 
@@ -47,11 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             node.FileIndex = _currentRun.GetFileIndex(node, addToFilesTableIfNotPresent: true);            
 
-            return base.VisitFileLocation(node);
-
-
-
-            
+            return base.VisitFileLocation(node);            
         }
     }
 }

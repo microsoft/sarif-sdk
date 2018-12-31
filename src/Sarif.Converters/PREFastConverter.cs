@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Converters.PREFastObjectModel;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 using System.Xml;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
@@ -26,19 +25,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             LogicalLocations.Clear();
 
-            var tool = new Tool
-            {
-                Name = ToolFormat.PREfast,
-                FullName = "PREfast Code Analysis"
-            };
-
-            var run = new Run()
-            {
-                Tool = tool,
-                ColumnKind = ColumnKind.Utf16CodeUnits
-            };
-
-            output.Initialize(run);
 
             XmlReaderSettings settings = new XmlReaderSettings
             {
@@ -57,22 +43,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     results.Add(CreateResult(entry));
                 }
 
-                var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, dataToInsert);
-                Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
-
-                if (fileDictionary?.Any() == true)
+                var run = new Run()
                 {
-                    output.WriteFiles(fileDictionary);
-                }
+                    Tool = new Tool { Name = "PREfast", FullName = "PREfast Code Analysis" },
+                    ColumnKind = ColumnKind.Utf16CodeUnits,
+                    LogicalLocations = LogicalLocations
+                };
 
-                if (LogicalLocations != null && LogicalLocations.Any())
-                {
-                    output.WriteLogicalLocations(LogicalLocations);
-                }
-
-                output.OpenResults();
-                output.WriteResults(results);
-                output.CloseResults();
+                PersistResults(output, results, run);
             }
         }
 

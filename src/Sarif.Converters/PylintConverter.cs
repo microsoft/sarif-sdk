@@ -4,8 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.CodeAnalysis.Sarif.Converters.PylintObjectModel;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
@@ -26,18 +24,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             PylintLog log = logReader.ReadLog(input);
 
-            Tool tool = new Tool
-            {
-                Name = "Pylint"
-            };
-
-            var run = new Run()
-            {
-                Tool = tool
-            };
-
-            output.Initialize(run);
-
             var results = new List<Result>();
 
             foreach (PylintLogEntry entry in log)
@@ -45,17 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 results.Add(CreateResult(entry));
             }
 
-            var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, dataToInsert);
-            Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
-
-            if (fileDictionary?.Any() == true)
-            {
-                output.WriteFiles(fileDictionary);
-            }
-
-            output.OpenResults();
-            output.WriteResults(results);
-            output.CloseResults();
+            PersistResults(output, results, "Pylint");
         }
 
         internal Result CreateResult(PylintLogEntry defect)

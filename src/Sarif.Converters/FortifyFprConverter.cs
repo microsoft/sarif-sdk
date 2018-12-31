@@ -31,9 +31,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private string _automationId;
         private string _originalUriBasePath;
         private List<Result> _results = new List<Result>();
-        private List<Notification> _toolNotifications;
         private Dictionary<string, FileData> _fileDictionary;
-        private Dictionary<string, IRule> _ruleDictionary;
+        private Dictionary<string, Rule> _ruleDictionary;
         private Dictionary<ThreadFlowLocation, string> _tflToNodeIdDictionary;
         private Dictionary<ThreadFlowLocation, string> _tflToSnippetIdDictionary;
         private Dictionary<Location, string> _locationToSnippetIdDictionary;
@@ -50,9 +49,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _strings = new FortifyFprStrings(_nameTable);
 
             _results = new List<Result>();
-            _toolNotifications = new List<Notification>();
             _fileDictionary = new Dictionary<string, FileData>();
-            _ruleDictionary = new Dictionary<string, IRule>();
+            _ruleDictionary = new Dictionary<string, Rule>();
             _tflToNodeIdDictionary = new Dictionary<ThreadFlowLocation, string>();
             _tflToSnippetIdDictionary = new Dictionary<ThreadFlowLocation, string>();
             _locationToSnippetIdDictionary = new Dictionary<Location, string>();
@@ -89,8 +87,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
 
             _invocation = new Invocation();
+            _invocation.ToolNotifications = new List<Notification>();
             _results.Clear();
-            _toolNotifications.Clear();
             _fileDictionary.Clear();
             _ruleDictionary.Clear();
             _tflToNodeIdDictionary.Clear();
@@ -116,7 +114,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     InstanceId = _automationId + "/"
                 },
                 Tool = tool,
-                Invocations = new[] { _invocation }
+                Invocations = new[] { _invocation },
+                Resources = new Resources {  Rules = _ruleDictionary}
             };
 
             if (!string.IsNullOrWhiteSpace(_originalUriBasePath))
@@ -128,28 +127,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 };
             }
 
-            output.Initialize(run);
-
-            (output as ResultLogJsonWriter).WriteInvocations(run.Invocations);
-
-            if (_fileDictionary.Any())
-            {
-                output.WriteFiles(_fileDictionary);
-            }
-
-            output.OpenResults();
-            output.WriteResults(_results);
-            output.CloseResults();
-
-            if (_ruleDictionary.Any())
-            {
-                output.WriteRules(_ruleDictionary);
-            }
-
-            if (_toolNotifications.Any())
-            {
-                output.WriteToolNotifications(_toolNotifications);
-            }
+            PersistResults(output, _results, run);
         }
 
         private void ParseFprFile(Stream input)
@@ -871,7 +849,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     string errorCode = _reader.GetAttribute(_strings.CodeAttribute);
                     string message = _reader.ReadElementContentAsString();
 
-                    _toolNotifications.Add(new Notification
+                    _invocation.ToolNotifications.Add(new Notification
                     {
                         Id = errorCode,
                         Level = NotificationLevel.Error,
@@ -930,7 +908,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             foreach (Result result in _results)
             {
-                IRule rule;
+                Rule rule;
                 if (_ruleDictionary.TryGetValue(result.RuleId, out rule))
                 {
                     Message message = rule.ShortDescription ?? rule.FullDescription;

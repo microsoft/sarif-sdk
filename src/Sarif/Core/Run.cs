@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -16,13 +17,20 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private IDictionary<FileLocation, int> _fileToIndexMap;
 
-        public int GetFileIndex(FileLocation fileLocation, bool addToFilesTableIfNotPresent = true)
+        public int GetFileIndex(
+            FileLocation fileLocation,
+            bool addToFilesTableIfNotPresent = true,
+            OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
+            Encoding encoding = null)
         {
-            if (fileLocation == null) throw new ArgumentNullException(nameof(fileLocation));
+            if (fileLocation == null) { throw new ArgumentNullException(nameof(fileLocation)); }
 
-            if (this.Files == null || this.Files.Count == 0)
+            if (this.Files?.Count == 0)
             {
-                return -1;
+                if (!addToFilesTableIfNotPresent)
+                {
+                    return -1;
+                }
             }
 
             if (_fileToIndexMap == null)
@@ -42,34 +50,37 @@ namespace Microsoft.CodeAnalysis.Sarif
             // When we perform a files table look-up, only the uri and uriBaseId
             // are relevant; these properties together comprise the unique identity
             // of the file object. The file index, of course, does not relate to the
-            // file identity. We consciously exclude the properties as well.
+            // file identity. We consciously exclude the properties bag as well.
+
+            // We will normalize the input fileLocation.Uri to make URIs more consistent
+            // throughout the emitted log.
+            fileLocation.Uri = new Uri(UriHelper.MakeValidUri(fileLocation.Uri.OriginalString));
 
             var filesTableKey = new FileLocation
             {
-                Uri = new Uri(UriHelper.MakeValidUri(fileLocation.Uri.OriginalString)),
+                Uri = fileLocation.Uri,
                 UriBaseId = fileLocation.UriBaseId
             };
 
-            int fileIndex;
-            if (!_fileToIndexMap.TryGetValue(filesTableKey, out fileIndex))
+
+            if (!_fileToIndexMap.TryGetValue(filesTableKey, out int fileIndex))
             {
                 if (addToFilesTableIfNotPresent)
                 {
                     fileIndex = this.Files.Count;
 
-                    // We did not find our item. We will set the index
-                    fileLocation.FileIndex = fileIndex;
-
                     string mimeType = Writers.MimeType.DetermineFromFileExtension(filesTableKey.Uri.ToString());
 
-                    var fileData = FileData.Create(filesTableKey.Uri);
+                    var fileData = FileData.Create(
+                        filesTableKey.Uri,
+                        dataToInsert,
+                        mimeType: mimeType,
+                        encoding);
+
                     fileData.FileLocation = fileLocation;
 
-                    this.Files.Add(new FileData
-                    {
-                        MimeType = mimeType,
-                        FileLocation = filesTableKey
-                    });
+                    this.Files.Add(fileData);
+
                     _fileToIndexMap[filesTableKey] = fileIndex;
                 }
                 else
@@ -80,6 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
+            fileLocation.FileIndex = fileIndex;
             return fileIndex;
         }
 
@@ -96,13 +108,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 var fileLocation = new FileLocation
                 {
                     Uri = fileData.FileLocation.Uri,
-                    UriBaseId = fileData.FileLocation.UriBaseId
+                    UriBaseId = fileData.FileLocation.UriBaseId,
+                    FileIndex = i
                 };
 
                 _fileToIndexMap[fileLocation] = i;
-
-                // For good measure, we'll explicitly populate the file index property
-                this.Files[i].FileLocation.FileIndex = i;
             }
         }
 
@@ -125,13 +135,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public bool ShouldSerializeFiles() { return this.Files != null && this.Files.Count > 0; }
+        public bool ShouldSerializeFiles() { return this.Files?.Count > 0; }
 
         public bool ShouldSerializeGraphs() { return this.Graphs != null && this.Graphs.Values.Any(); }
 
         public bool ShouldSerializeInvocations() { return this.Invocations != null && this.Invocations.Any((e) => e != null && !e.ValueEquals(EmptyInvocation)); }
 
-        public bool ShouldSerializeLogicalLocations() { return this.LogicalLocations != null && this.LogicalLocations.Count > 0; }
+        public bool ShouldSerializeLogicalLocations() { return this.LogicalLocations?.Count > 0; }
 
         public bool ShouldSerializeNewlineSequences() { return this.NewlineSequences != null && this.NewlineSequences.Any((s) => s != null); }
     }
