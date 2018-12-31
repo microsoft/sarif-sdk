@@ -87,7 +87,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
         }
 
-        protected virtual void Analyze(FileData fileData, string fileKey, string filePointer)
+        protected virtual void Analyze(FileData fileData, string filePointer)
         {
         }
 
@@ -302,9 +302,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
-        private void Visit(FileData fileData, string fileKey, string filePointer)
+        private void Visit(FileData fileData, string filePointer)
         {
-            Analyze(fileData, fileKey, filePointer);
+            Analyze(fileData, filePointer);
 
             if (fileData.FileLocation != null)
             {
@@ -697,12 +697,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (run.Files != null)
             {
-                IDictionary<string, FileData> files = run.Files;
                 string filesPointer = runPointer.AtProperty(SarifPropertyName.Files);
 
-                foreach (string fileKey in files.Keys)
+                for (int i = 0; i < run.Files.Count; ++i)
                 {
-                    Visit(files[fileKey], fileKey, filesPointer.AtProperty(fileKey));
+                    Visit(run.Files[i], filesPointer.AtIndex(i));
                 }
             }
 
