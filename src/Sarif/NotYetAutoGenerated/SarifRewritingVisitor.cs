@@ -88,6 +88,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitNotification((Notification)node);
                 case SarifNodeKind.PhysicalLocation:
                     return VisitPhysicalLocation((PhysicalLocation)node);
+                case SarifNodeKind.PropertyBag:
+                    return VisitPropertyBag((PropertyBag)node);
                 case SarifNodeKind.Rectangle:
                     return VisitRectangle((Rectangle)node);
                 case SarifNodeKind.Region:
@@ -98,6 +100,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitResources((Resources)node);
                 case SarifNodeKind.Result:
                     return VisitResult((Result)node);
+                case SarifNodeKind.ResultProvenance:
+                    return VisitResultProvenance((ResultProvenance)node);
                 case SarifNodeKind.Rule:
                     return VisitRule((Rule)node);
                 case SarifNodeKind.RuleConfiguration:
@@ -125,13 +129,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-
         private T VisitNullChecked<T>(T node) where T : class, ISarifNode
         {
             string emptyKey = null;
             return VisitNullChecked<T>(node, ref emptyKey);
         }
-
 
         private T VisitNullChecked<T>(T node, ref string key) where T : class, ISarifNode
         {
@@ -336,7 +338,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.FileLocation = VisitNullChecked(node.FileLocation);
-                node.Contents = VisitNullChecked(node.Contents);                
+                node.Contents = VisitNullChecked(node.Contents);
             }
 
             return node;
@@ -408,7 +410,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             return node;
-        }        
+        }
 
         public virtual Invocation VisitInvocation(Invocation node)
         {
@@ -535,6 +537,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             return node;
         }
 
+        public virtual PropertyBag VisitPropertyBag(PropertyBag node)
+        {
+            if (node != null)
+            {
+            }
+
+            return node;
+        }
+
         public virtual Rectangle VisitRectangle(Rectangle node)
         {
             if (node != null)
@@ -656,19 +667,28 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (node.ConversionProvenance != null)
-                {
-                    for (int index_0 = 0; index_0 < node.ConversionProvenance.Count; ++index_0)
-                    {
-                        node.ConversionProvenance[index_0] = VisitNullChecked(node.ConversionProvenance[index_0]);
-                    }
-                }
-
+                node.Provenance = VisitNullChecked(node.Provenance);
                 if (node.Fixes != null)
                 {
                     for (int index_0 = 0; index_0 < node.Fixes.Count; ++index_0)
                     {
                         node.Fixes[index_0] = VisitNullChecked(node.Fixes[index_0]);
+                    }
+                }
+            }
+
+            return node;
+        }
+
+        public virtual ResultProvenance VisitResultProvenance(ResultProvenance node)
+        {
+            if (node != null)
+            {
+                if (node.ConversionSources != null)
+                {
+                    for (int index_0 = 0; index_0 < node.ConversionSources.Count; ++index_0)
+                    {
+                        node.ConversionSources[index_0] = VisitNullChecked(node.ConversionSources[index_0]);
                     }
                 }
             }
