@@ -1711,7 +1711,6 @@
       "required": [ "tool" ]
     },
 
-
     "runAutomationDetails": {
       "description": "Information that describes a run's identity and role within an engineering system process.",
       "additionalProperties": false,
