@@ -446,6 +446,16 @@
       }
     }
   ],
+  "resultProvenance": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
   "Result.BaselineState": [
     {
       "kind": "EnumHint",

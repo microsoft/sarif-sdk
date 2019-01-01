@@ -1412,10 +1412,14 @@
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
-          "default": [],
           "items": {
             "$ref": "#/definitions/physicalLocation"
           }
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the result.",
+          "$ref": "#/definitions/propertyBag"
         }
       }
     },

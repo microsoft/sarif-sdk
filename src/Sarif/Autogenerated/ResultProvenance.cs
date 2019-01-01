@@ -5,6 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -13,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
-    public partial class ResultProvenance : ISarifNode
+    public partial class ResultProvenance : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ResultProvenance> ValueComparer => ResultProvenanceEqualityComparer.Instance;
 
@@ -68,6 +69,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<PhysicalLocation> ConversionSources { get; set; }
 
         /// <summary>
+        /// Key/value pairs that provide additional information about the result.
+        /// </summary>
+        [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ResultProvenance" /> class.
         /// </summary>
         public ResultProvenance()
@@ -95,9 +102,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="conversionSources">
         /// An initialization value for the <see cref="P: ConversionSources" /> property.
         /// </param>
-        public ResultProvenance(DateTime firstDetectionTimeUtc, DateTime lastDetectionTimeUtc, string firstDetectionRunInstanceGuid, string lastDetectionRunInstanceGuid, int invocationIndex, IEnumerable<PhysicalLocation> conversionSources)
+        /// <param name="properties">
+        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// </param>
+        public ResultProvenance(DateTime firstDetectionTimeUtc, DateTime lastDetectionTimeUtc, string firstDetectionRunInstanceGuid, string lastDetectionRunInstanceGuid, int invocationIndex, IEnumerable<PhysicalLocation> conversionSources, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(firstDetectionTimeUtc, lastDetectionTimeUtc, firstDetectionRunInstanceGuid, lastDetectionRunInstanceGuid, invocationIndex, conversionSources);
+            Init(firstDetectionTimeUtc, lastDetectionTimeUtc, firstDetectionRunInstanceGuid, lastDetectionRunInstanceGuid, invocationIndex, conversionSources, properties);
         }
 
         /// <summary>
@@ -116,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.FirstDetectionTimeUtc, other.LastDetectionTimeUtc, other.FirstDetectionRunInstanceGuid, other.LastDetectionRunInstanceGuid, other.InvocationIndex, other.ConversionSources);
+            Init(other.FirstDetectionTimeUtc, other.LastDetectionTimeUtc, other.FirstDetectionRunInstanceGuid, other.LastDetectionRunInstanceGuid, other.InvocationIndex, other.ConversionSources, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -137,7 +147,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ResultProvenance(this);
         }
 
-        private void Init(DateTime firstDetectionTimeUtc, DateTime lastDetectionTimeUtc, string firstDetectionRunInstanceGuid, string lastDetectionRunInstanceGuid, int invocationIndex, IEnumerable<PhysicalLocation> conversionSources)
+        private void Init(DateTime firstDetectionTimeUtc, DateTime lastDetectionTimeUtc, string firstDetectionRunInstanceGuid, string lastDetectionRunInstanceGuid, int invocationIndex, IEnumerable<PhysicalLocation> conversionSources, IDictionary<string, SerializedPropertyInfo> properties)
         {
             FirstDetectionTimeUtc = firstDetectionTimeUtc;
             LastDetectionTimeUtc = lastDetectionTimeUtc;
@@ -160,6 +170,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 ConversionSources = destination_0;
+            }
+
+            if (properties != null)
+            {
+                Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
             }
         }
     }

@@ -36,18 +36,6 @@ function Get-PackageDirectoryName($configuration) {
     Join-Path $PackageOutputDirectoryRoot $configuration
 }
 
-# Get the value of the MSBuild property that specifies the "package license expression"
-# that NuGet.exe uses to set a package's license URL.
-function Get-PackageLicenseExpression() {
-    $buildPropsPath = "$PSScriptRoot\..\src\build.props"
-    $namespace = @{ msbuild = "http://schemas.microsoft.com/developer/msbuild/2003" }
-    $xPath = "/msbuild:Project/msbuild:PropertyGroup[@Label='Package']/msbuild:PackageLicenseExpression"
-    $xml = Select-Xml -Path $buildPropsPath -Namespace $namespace -XPath $xPath
-    $packageLicenseExpression = $xml.Node.InnerText
-
-    $packageLicenseExpression
-}
-
 function New-NuGetPackageFromProjectFile($configuration, $project, $version) {
     $projectFile = "$SourceRoot\$project\$project.csproj"
 
@@ -67,13 +55,13 @@ function New-NuGetPackageFromProjectFile($configuration, $project, $version) {
     }
 }
 
-function New-NuGetPackageFromNuSpecFile($configuration, $project, $version, $packageLicenseExpression, $suffix = "") {
+function New-NuGetPackageFromNuSpecFile($configuration, $project, $version, $suffix = "") {
     $nuspecFile = "$SourceRoot\NuGet\$project.nuspec"
 
     $arguments=
         "pack", $nuspecFile,
         "-Symbols",
-        "-Properties", "platform=$Platform;configuration=$configuration;version=$version;packageLicenseExpression=$packageLicenseExpression",
+        "-Properties", "platform=$Platform;configuration=$configuration;version=$version",
         "-Verbosity", "Quiet",
         "-BasePath", ".\",
         "-OutputDirectory", (Get-PackageDirectoryName $configuration)
@@ -104,9 +92,8 @@ function New-NuGetPackages($configuration, $projects) {
     # Unfortunately, application projects like MultiTool need to include things
     # that are not specified in the project file, so their packages still require
     # a .nuspec file.
-    $packageLicenseExpression = Get-PackageLicenseExpression
     foreach ($project in $Projects.Applications) {
-        New-NuGetPackageFromNuSpecFile $configuration $project $version $packageLicenseExpression
+        New-NuGetPackageFromNuSpecFile $configuration $project $version
     }
 }
 

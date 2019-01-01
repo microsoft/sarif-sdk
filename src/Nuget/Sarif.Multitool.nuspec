@@ -10,7 +10,7 @@
     <description>Multi-purpose command line tool for analyzing and manipulating SARIF files</description>
     <releaseNotes>Version $version$ of the .NET SARIF Multitool (for SARIF v2.0.0)</releaseNotes>
     <copyright>© Microsoft Corporation. All rights reserved.</copyright>
-    <license type="expression">$packageLicenseExpression$</license>
+    <license type="expression">MIT</license>
     <projectUrl>https://github.com/microsoft/sarif-sdk</projectUrl>
     <iconUrl>https://go.microsoft.com/fwlink/?linkid=2008860</iconUrl>
     <tags>SARIF command line static analysis</tags>
