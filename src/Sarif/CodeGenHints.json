@@ -93,7 +93,17 @@
       }
     }
   ],
-  "externalFiles": [
+  "externalPropertyFile": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "externalPropertyFiles": [
     {
       "kind": "BaseTypeHint",
       "arguments": {

@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Rewriting visitor for the Sarif object model.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
-    public abstract class SarifRewritingVisitor
+    public abstract partial class SarifRewritingVisitor
     {
         /// <summary>
         /// Starts a rewriting visit of a node in the Sarif object model.
@@ -58,8 +58,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitEdgeTraversal((EdgeTraversal)node);
                 case SarifNodeKind.ExceptionData:
                     return VisitExceptionData((ExceptionData)node);
-                case SarifNodeKind.ExternalFiles:
-                    return VisitExternalFiles((ExternalFiles)node);
+                case SarifNodeKind.ExternalPropertyFile:
+                    return VisitExternalPropertyFile((ExternalPropertyFile)node);
+                case SarifNodeKind.ExternalPropertyFiles:
+                    return VisitExternalPropertyFiles((ExternalPropertyFiles)node);
                 case SarifNodeKind.FileChange:
                     return VisitFileChange((FileChange)node);
                 case SarifNodeKind.FileContent:
@@ -88,6 +90,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitNotification((Notification)node);
                 case SarifNodeKind.PhysicalLocation:
                     return VisitPhysicalLocation((PhysicalLocation)node);
+                case SarifNodeKind.PropertyBag:
+                    return VisitPropertyBag((PropertyBag)node);
                 case SarifNodeKind.Rectangle:
                     return VisitRectangle((Rectangle)node);
                 case SarifNodeKind.Region:
@@ -125,56 +129,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-
         private T VisitNullChecked<T>(T node) where T : class, ISarifNode
         {
             string emptyKey = null;
             return VisitNullChecked<T>(node, ref emptyKey);
-        }
-
-
-        private T VisitNullChecked<T>(T node, ref string key) where T : class, ISarifNode
-        {
-            if (node == null)
-            {
-                return null;
-            }
-
-            if (key == null)
-            {
-                return (T)Visit(node);
-            }
-
-            return (T)VisitDictionaryEntry(node, ref key);
-        }
-
-        private ISarifNode VisitDictionaryEntry(ISarifNode node, ref string key)
-        {
-            if (node == null)
-            {
-                throw new ArgumentNullException(nameof(key));
-            }
-
-            if (key == null)
-            {
-                throw new ArgumentNullException(nameof(key));
-            }
-
-            switch (node.SarifNodeKind)
-            {
-                case SarifNodeKind.FileData:
-                    return VisitFileDataDictionaryEntry((FileData)node, ref key);
-
-                // add other dictionary things
-
-                default:
-                    throw new InvalidOperationException(); // whoops! unknown type
-            }
-        }
-
-        public virtual FileData VisitFileDataDictionaryEntry(FileData node, ref string key)
-        {
-            return (FileData)Visit(node);
         }
 
         public virtual Attachment VisitAttachment(Attachment node)
@@ -276,13 +234,31 @@ namespace Microsoft.CodeAnalysis.Sarif
             return node;
         }
 
-        public virtual ExternalFiles VisitExternalFiles(ExternalFiles node)
+        public virtual ExternalPropertyFile VisitExternalPropertyFile(ExternalPropertyFile node)
+        {
+            if (node != null)
+            {
+                node.FileLocation = VisitNullChecked(node.FileLocation);
+            }
+
+            return node;
+        }
+
+        public virtual ExternalPropertyFiles VisitExternalPropertyFiles(ExternalPropertyFiles node)
         {
             if (node != null)
             {
                 node.Conversion = VisitNullChecked(node.Conversion);
-                node.Files = VisitNullChecked(node.Files);
                 node.Graphs = VisitNullChecked(node.Graphs);
+                node.Resources = VisitNullChecked(node.Resources);
+                if (node.Files != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Files.Count; ++index_0)
+                    {
+                        node.Files[index_0] = VisitNullChecked(node.Files[index_0]);
+                    }
+                }
+
                 if (node.Invocations != null)
                 {
                     for (int index_0 = 0; index_0 < node.Invocations.Count; ++index_0)
@@ -291,8 +267,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                node.LogicalLocations = VisitNullChecked(node.LogicalLocations);
-                node.Resources = VisitNullChecked(node.Resources);
+                if (node.LogicalLocations != null)
+                {
+                    for (int index_0 = 0; index_0 < node.LogicalLocations.Count; ++index_0)
+                    {
+                        node.LogicalLocations[index_0] = VisitNullChecked(node.LogicalLocations[index_0]);
+                    }
+                }
+
+
                 if (node.Results != null)
                 {
                     for (int index_0 = 0; index_0 < node.Results.Count; ++index_0)
@@ -336,7 +319,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.FileLocation = VisitNullChecked(node.FileLocation);
-                node.Contents = VisitNullChecked(node.Contents);                
+                node.Contents = VisitNullChecked(node.Contents);
             }
 
             return node;
@@ -408,7 +391,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             return node;
-        }        
+        }
 
         public virtual Invocation VisitInvocation(Invocation node)
         {
@@ -530,6 +513,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                 node.FileLocation = VisitNullChecked(node.FileLocation);
                 node.Region = VisitNullChecked(node.Region);
                 node.ContextRegion = VisitNullChecked(node.ContextRegion);
+            }
+
+            return node;
+        }
+
+        public virtual PropertyBag VisitPropertyBag(PropertyBag node)
+        {
+            if (node != null)
+            {
             }
 
             return node;
@@ -784,7 +776,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 node.Resources = VisitNullChecked(node.Resources);
-
                 node.Id = VisitNullChecked(node.Id);
                 if (node.AggregateIds != null)
                 {
@@ -793,6 +784,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                         node.AggregateIds[index_0] = VisitNullChecked(node.AggregateIds[index_0]);
                     }
                 }
+
+                node.ExternalPropertyFiles = VisitNullChecked(node.ExternalPropertyFiles);
             }
 
             return node;
@@ -807,7 +800,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             return node;
         }
-
 
         public virtual SarifLog VisitSarifLog(SarifLog node)
         {
