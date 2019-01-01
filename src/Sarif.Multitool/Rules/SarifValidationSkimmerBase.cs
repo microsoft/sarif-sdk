@@ -130,6 +130,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
         }
 
+        protected virtual void Analyze(ResultProvenance resultProvenance, string resultProvenancePointer)
+        {
+        }
+
         protected virtual void Analyze(IRule rule, string ruleKey, string rulePointer)
         {
         }
@@ -575,14 +579,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 }
             }
 
-            if (result.ConversionProvenance != null)
+            if (result.Provenance != null)
             {
-                string conversionProvenancePointer = resultPointer.AtProperty(SarifPropertyName.ConversionProvenance);
-
-                for (int i = 0; i < result.ConversionProvenance.Count; ++i)
-                {
-                    Visit(result.ConversionProvenance[i], conversionProvenancePointer.AtIndex(i));
-                }
+                Visit(result.Provenance, resultPointer.AtProperty(SarifPropertyName.Provenance));
             }
 
             if (result.Graphs != null)
@@ -658,6 +657,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             foreach (string key in resources.Rules.Keys)
             {
                 Visit(resources.Rules[key], key, rulesPointer.AtProperty(key));
+            }
+        }
+
+        private void Visit(ResultProvenance resultProvenance, string resultProvenancePointer)
+        {
+            Analyze(resultProvenance, resultProvenancePointer);
+
+            string conversionSourcesPointer = resultProvenancePointer.AtProperty(SarifPropertyName.ConversionSources);
+            for (int i = 0; i < resultProvenance.ConversionSources.Count; ++i)
+            {
+                Visit(resultProvenance.ConversionSources[i], conversionSourcesPointer.AtIndex(i));
             }
         }
 
