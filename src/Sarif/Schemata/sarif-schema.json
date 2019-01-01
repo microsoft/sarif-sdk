@@ -1457,8 +1457,7 @@
           "description": "Key/value pairs that provide additional information about the result.",
           "$ref": "#/definitions/propertyBag"
         }
-      },
-      "required": [ "message" ]
+      }
     },
 
     "rule": {

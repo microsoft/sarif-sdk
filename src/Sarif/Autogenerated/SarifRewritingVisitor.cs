@@ -102,6 +102,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitResources((Resources)node);
                 case SarifNodeKind.Result:
                     return VisitResult((Result)node);
+                case SarifNodeKind.ResultProvenance:
+                    return VisitResultProvenance((ResultProvenance)node);
                 case SarifNodeKind.Rule:
                     return VisitRule((Rule)node);
                 case SarifNodeKind.RuleConfiguration:
@@ -274,7 +276,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                         node.LogicalLocations[index_0] = VisitNullChecked(node.LogicalLocations[index_0]);
                     }
                 }
-
 
                 if (node.Results != null)
                 {
@@ -559,27 +560,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return node;
         }
 
-        public virtual Resources VisitResources(Resources node)
-        {
-            if (node != null)
-            {
-                if (node.Rules != null)
-                {
-                    var keys = node.Rules.Keys.ToArray();
-                    foreach (var key in keys)
-                    {
-                        var value = node.Rules[key];
 
-                        if (value != null)
-                        {
-                            node.Rules[key] = VisitNullChecked(value);
-                        }
-                    }
-                }
-            }
-
-            return node;
-        }
 
         public virtual Result VisitResult(Result node)
         {
@@ -648,19 +629,28 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (node.ConversionProvenance != null)
-                {
-                    for (int index_0 = 0; index_0 < node.ConversionProvenance.Count; ++index_0)
-                    {
-                        node.ConversionProvenance[index_0] = VisitNullChecked(node.ConversionProvenance[index_0]);
-                    }
-                }
-
+                node.Provenance = VisitNullChecked(node.Provenance);
                 if (node.Fixes != null)
                 {
                     for (int index_0 = 0; index_0 < node.Fixes.Count; ++index_0)
                     {
                         node.Fixes[index_0] = VisitNullChecked(node.Fixes[index_0]);
+                    }
+                }
+            }
+
+            return node;
+        }
+
+        public virtual ResultProvenance VisitResultProvenance(ResultProvenance node)
+        {
+            if (node != null)
+            {
+                if (node.ConversionSources != null)
+                {
+                    for (int index_0 = 0; index_0 < node.ConversionSources.Count; ++index_0)
+                    {
+                        node.ConversionSources[index_0] = VisitNullChecked(node.ConversionSources[index_0]);
                     }
                 }
             }

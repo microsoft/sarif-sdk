@@ -57,5 +57,26 @@ namespace Microsoft.CodeAnalysis.Sarif
             return (FileData)Visit(node);
         }
 
+        public virtual Resources VisitResources(Resources node)
+        {
+            if (node != null)
+            {
+                if (node.Rules != null)
+                {
+                    var keys = node.Rules.Keys.ToArray();
+                    foreach (var key in keys)
+                    {
+                        var value = node.Rules[key];
+
+                        if (value != null)
+                        {
+                            node.Rules[key] = VisitNullChecked(value);
+                        }
+                    }
+                }
+            }
+
+            return node;
+        }
     }
 }
