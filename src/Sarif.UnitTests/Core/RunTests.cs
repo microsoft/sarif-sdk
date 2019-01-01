@@ -98,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         // to the second array element. Tests that depend on a fileIndex
                         // of '0' are suspect because 0 is a value that might be set as
                         // a default in some code paths, due to a bug
-                        FileLocation = new FileLocation{ Uri = new Uri("unused")}
+                        FileLocation = new FileLocation{ Uri = new Uri("unused", UriKind.RelativeOrAbsolute)}
                     },
                     new FileData
                     {

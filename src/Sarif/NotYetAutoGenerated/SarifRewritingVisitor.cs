@@ -162,19 +162,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             switch (node.SarifNodeKind)
             {
-                case SarifNodeKind.FileData:
-                    return VisitFileDataDictionaryEntry((FileData)node, ref key);
-
-                // add other dictionary things
+                // Add other dictionary things. 
 
                 default:
                     throw new InvalidOperationException(); // whoops! unknown type
             }
-        }
-
-        public virtual FileData VisitFileDataDictionaryEntry(FileData node, ref string key)
-        {
-            return (FileData)Visit(node);
         }
 
         public virtual Attachment VisitAttachment(Attachment node)
@@ -336,7 +328,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.FileLocation = VisitNullChecked(node.FileLocation);
-                node.Contents = VisitNullChecked(node.Contents);                
+                node.Contents = VisitNullChecked(node.Contents);
             }
 
             return node;
@@ -408,7 +400,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             return node;
-        }        
+        }
 
         public virtual Invocation VisitInvocation(Invocation node)
         {

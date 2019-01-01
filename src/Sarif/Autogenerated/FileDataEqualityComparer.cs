@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.ParentKey != right.ParentKey)
+            if (left.ParentIndex != right.ParentIndex)
             {
                 return false;
             }
@@ -135,11 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.FileLocation.ValueGetHashCode();
                 }
 
-                if (obj.ParentKey != null)
-                {
-                    result = (result * 31) + obj.ParentKey.GetHashCode();
-                }
-
+                result = (result * 31) + obj.ParentIndex.GetHashCode();
                 result = (result * 31) + obj.Offset.GetHashCode();
                 result = (result * 31) + obj.Length.GetHashCode();
                 result = (result * 31) + obj.Roles.GetHashCode();

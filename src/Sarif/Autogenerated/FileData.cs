@@ -40,10 +40,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public FileLocation FileLocation { get; set; }
 
         /// <summary>
-        /// Identifies the key of the immediate parent of the file, if this file is nested.
+        /// Identifies the index of the immediate parent of the file, if this file is nested.
         /// </summary>
-        [DataMember(Name = "parentKey", IsRequired = false, EmitDefaultValue = false)]
-        public string ParentKey { get; set; }
+        [DataMember(Name = "parentIndex", IsRequired = false, EmitDefaultValue = false)]
+        public int ParentIndex { get; set; }
 
         /// <summary>
         /// The offset in bytes of the file within its containing file.
@@ -114,8 +114,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="fileLocation">
         /// An initialization value for the <see cref="P: FileLocation" /> property.
         /// </param>
-        /// <param name="parentKey">
-        /// An initialization value for the <see cref="P: ParentKey" /> property.
+        /// <param name="parentIndex">
+        /// An initialization value for the <see cref="P: ParentIndex" /> property.
         /// </param>
         /// <param name="offset">
         /// An initialization value for the <see cref="P: Offset" /> property.
@@ -144,9 +144,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public FileData(FileLocation fileLocation, string parentKey, int offset, int length, FileRoles roles, string mimeType, FileContent contents, string encoding, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
+        public FileData(FileLocation fileLocation, int parentIndex, int offset, int length, FileRoles roles, string mimeType, FileContent contents, string encoding, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(fileLocation, parentKey, offset, length, roles, mimeType, contents, encoding, hashes, lastModifiedTimeUtc, properties);
+            Init(fileLocation, parentIndex, offset, length, roles, mimeType, contents, encoding, hashes, lastModifiedTimeUtc, properties);
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.FileLocation, other.ParentKey, other.Offset, other.Length, other.Roles, other.MimeType, other.Contents, other.Encoding, other.Hashes, other.LastModifiedTimeUtc, other.Properties);
+            Init(other.FileLocation, other.ParentIndex, other.Offset, other.Length, other.Roles, other.MimeType, other.Contents, other.Encoding, other.Hashes, other.LastModifiedTimeUtc, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -186,14 +186,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new FileData(this);
         }
 
-        private void Init(FileLocation fileLocation, string parentKey, int offset, int length, FileRoles roles, string mimeType, FileContent contents, string encoding, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(FileLocation fileLocation, int parentIndex, int offset, int length, FileRoles roles, string mimeType, FileContent contents, string encoding, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (fileLocation != null)
             {
                 FileLocation = new FileLocation(fileLocation);
             }
 
-            ParentKey = parentKey;
+            ParentIndex = parentIndex;
             Offset = offset;
             Length = length;
             Roles = roles;

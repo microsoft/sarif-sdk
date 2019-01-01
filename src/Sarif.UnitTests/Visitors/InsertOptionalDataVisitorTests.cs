@@ -177,14 +177,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             visitor.VisitRun(run);
 
             run.OriginalUriBaseIds.Should().BeNull();
-            run.Files.Keys.Count.Should().Be(1);
-            run.Files[fileKey].Contents.Should().BeNull();
+            run.Files.Count.Should().Be(1);
+            run.Files[0].Contents.Should().BeNull();
 
             visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.TextFiles, originalUriBaseIds);
             visitor.VisitRun(run);
 
             run.OriginalUriBaseIds.Should().Equal(originalUriBaseIds);
-            run.Files[fileKey].Contents.Text.Should().Be(File.ReadAllText(Path.Combine(testDirectory, inputFileName)));
+            run.Files[0].Contents.Text.Should().Be(File.ReadAllText(Path.Combine(testDirectory, inputFileName)));
         }
 
         private static string FormatFailureReason(string failureOutput)
