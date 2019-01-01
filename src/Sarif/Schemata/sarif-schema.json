@@ -1355,7 +1355,8 @@
           "description": "A number representing the priority or importance of the result.",
           "type": "number",
           "minimum": 0.0,
-          "maximum": 100.0
+          "maximum": 100.0,
+          "default": 0.0
         },
 
         "attachments": {
@@ -1385,25 +1386,9 @@
           }
         },
 
-        "conversionProvenance": {
-          "description": "An array of physicalLocation objects which specify the portions of an analysis tool's output that a converter transformed into the result object.",
-          "type": "array",
-          "minItems": 1,
-          "uniqueItems": true,
-          "items": {
-            "$ref": "#/definitions/physicalLocation"
-          }
-        },
-
-
-        "conversionProvenance": {
-          "description": "An array of physicalLocation objects which specify the portions of an analysis tool's output that a converter transformed into the result object.",
-          "type": "array",
-          "minItems": 1,
-          "uniqueItems": true,
-          "items": {
-            "$ref": "#/definitions/physicalLocation"
-          }
+        "provenance": {
+          "description": "Information about how and when the result was detected.",
+          "$ref": "#/definitions/resultProvenance"
         },
 
         "fixes": {
@@ -1413,6 +1398,58 @@
           "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/fix"
+          }
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the result.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      },
+      "required": ["message"]
+    },
+
+    "resultProvenance": {
+      "description": "Contains information about how and when a result was detected.",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+
+        "firstDetectionTimeUtc": {
+          "description": "The Coordinated Universal Time (UTC) date and time at which the result was first detected. See \"Date/time properties\" in the SARIF spec for the required format.",
+          "type": "string",
+          "format": "date-time"
+        },
+
+        "lastDetectionTimeUtc": {
+          "description": "The Coordinated Universal Time (UTC) date and time at which the result was most recently detected. See \"Date/time properties\" in the SARIF spec for the required format.",
+          "type": "string",
+          "format": "date-time"
+        },
+
+        "firstDetectionRunInstanceGuid": {
+          "description": "A GUID-valued string equal to the id.instanceGuid property of the run in which the result was first detected.",
+          "type": "string"
+        },
+
+        "lastDetectionRunInstanceGuid": {
+          "description": "A GUID-valued string equal to the id.instanceGuid property of the run in which the result was most recently detected.",
+          "type": "string"
+        },
+
+        "invocationIndex": {
+          "description": "The index within the run.invocations array of the invocation object which describes the tool invocation that detected the result.",
+          "type": "integer",
+          "minimum": -1
+        },
+
+        "conversionSources": {
+          "description": "An array of physicalLocation objects which specify the portions of an analysis tool's output that a converter transformed into the result.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/physicalLocation"
           }
         },
 

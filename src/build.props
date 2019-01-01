@@ -77,12 +77,17 @@
   </PropertyGroup>
 
   <PropertyGroup Label="Package">
-    <Authors Condition=" '$(Authors)' == '' ">$(Company)</Authors>
-    <Owners Condition=" '$(Authors)' == '' ">$(Company),tse-securitytools</Owners>
-    <PackageRequireLicenseAcceptance Condition=" '$(PackageRequireLicenseAcceptance)' == '' ">false</PackageRequireLicenseAcceptance>
-    <PackageLicenseUrl Condition=" '$(PackageLicenseUrl)' == '' ">https://github.com/Microsoft/sarif-sdk/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageProjectUrl Condition=" '$(PackageProjectUrl)' == '' ">https://github.com/Microsoft/sarif-sdk</PackageProjectUrl>
-    <PackageIconUrl Condition=" '$(PackageIconUrl)' == '' ">https://go.microsoft.com/fwlink/?linkid=2008860</PackageIconUrl>
+    <Title>$(AssemblyTitle)</Title>
+    <Authors>$(Company)</Authors>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/Microsoft/sarif-sdk</PackageProjectUrl>
+    <PackageIconUrl>https://go.microsoft.com/fwlink/?linkid=2008860</PackageIconUrl>
+    <!--
+    Don't complain about SemVer 2.0.0-compatible version strings.
+    See https://github.com/NuGet/Home/issues/4687#issuecomment-393302779.
+    -->
+    <NoWarn>NU5105</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

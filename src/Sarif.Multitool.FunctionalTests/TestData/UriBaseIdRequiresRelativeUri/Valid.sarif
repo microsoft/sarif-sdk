@@ -130,14 +130,16 @@
               }
             }
           ],
-          "conversionProvenance": [
-            {
-              "fileLocation": {
-                "uri": "file.c",
-                "uriBaseId": "%SRCROOT%"
+          "provenance": {
+            "conversionSources": [
+              {
+                "fileLocation": {
+                  "uri": "file.c",
+                  "uriBaseId": "%SRCROOT%"
+                }
               }
-            }
-          ],
+            ]
+          },
           "graphs": {
             "g1": {
               "id": "g1",

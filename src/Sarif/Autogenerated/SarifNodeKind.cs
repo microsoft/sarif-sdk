@@ -132,6 +132,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         Result,
         /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ResultProvenance" />.
+        /// </summary>
+        ResultProvenance,
+        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Rule" />.
         /// </summary>
         Rule,

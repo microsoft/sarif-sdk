@@ -130,14 +130,16 @@
               }
             }
           ],
-          "conversionProvenance": [
-            {
-              "fileLocation": {
-                "uri": "file:///C:/src/file.c",
-                "uriBaseId": "%SRCROOT%"
+          "provenance": {
+            "conversionSources": [
+              {
+                "fileLocation": {
+                  "uri": "file:///C:/src/file.c",
+                  "uriBaseId": "%SRCROOT%"
+                }
               }
-            }
-          ],
+            ]
+          },
           "graphs": {
             "g1": {
               "id": "g1",
@@ -258,7 +260,7 @@
             "runs[0].invocations[0].toolNotifications[0].physicalLocation.fileLocation.uri",
             "runs[0].results[0].analysisTarget.uri",
             "runs[0].results[0].attachments[0].fileLocation.uri",
-            "runs[0].results[0].conversionProvenance[0].fileLocation.uri",
+            "runs[0].results[0].provenance.conversionSources[0].fileLocation.uri",
             "runs[0].results[0].graphs.g1.nodes[0].location.physicalLocation.fileLocation.uri",
             "runs[0].results[0].locations[0].physicalLocation.fileLocation.uri",
             "runs[0].results[0].relatedLocations[0].physicalLocation.fileLocation.uri",

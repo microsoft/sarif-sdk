@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string CodeFlows = "codeFlows";
         public const string ConfigurationNotifications = "configurationNotifications";
         public const string Conversion = "conversion";
-        public const string ConversionProvenance = "conversionProvenance";
+        public const string ConversionSources = "conversionSources";
         public const string Description = "description";
         public const string DownloadUri = "downloadUri";
         public const string Edges = "edges";
@@ -43,6 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Nodes = "nodes";
         public const string OriginalUriBaseIds = "originalUriBaseIds";
         public const string PhysicalLocation = "physicalLocation";
+        public const string Provenance = "provenance";
         public const string Rectangles = "rectangles";
         public const string Region = "region";
         public const string Regions = "regions";
