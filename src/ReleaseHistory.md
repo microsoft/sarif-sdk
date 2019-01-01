@@ -231,4 +231,5 @@
 * API BREAKING: Remove 'open' from valid rule default configuration levels. https://github.com/oasis-tcs/sarif-spec/issues/288. The transformer remaps this value to 'note'.
 * API BREAKING: 'run.columnKind' default value is now 'unicodeCodePoints'. https://github.com/Microsoft/sarif-sdk/pull/1160. The transformer will inject 'utf16CodeUnits', however, when this property is absent, as this value is a more appropriate default for the Windows platform.
 * API BREAKING: Make 'run.logicalLocations' an array, not a dictionary. Add result.logicalLocationIndex to point to associated logical location.
-* API BREAKING: 'run.externalFiles' renamed to 'run.externalPropertyFiles', which is not a bundle of external property file objects. NOTE: no transformation is provided for legacy versions of the external property files API.
+* API BREAKING: 'run.externalFiles' renamed to 'run.externalPropertyFiles', which is not a bundle of external property file objects. NOTE: no transformation will be provided for legacy versions of the external property files API.
+* API BREAKING: rework 'result.provenance' object, including moving result.conversionProvenance to 'result.provenance.conversionSources'. NOTE: no transformation currently exists for this update.
