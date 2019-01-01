@@ -77,6 +77,7 @@
   </PropertyGroup>
 
   <PropertyGroup Label="Package">
+    <Title Condition=" '$(Title)' == '' ">$(AssemblyTitle)</Title>
     <Authors Condition=" '$(Authors)' == '' ">$(Company)</Authors>
     <PackageRequireLicenseAcceptance Condition=" '$(PackageRequireLicenseAcceptance)' == '' ">false</PackageRequireLicenseAcceptance>
     <PackageLicenseUrl Condition=" '$(PackageLicenseUrl)' == '' ">https://github.com/Microsoft/sarif-sdk/blob/master/LICENSE</PackageLicenseUrl>
