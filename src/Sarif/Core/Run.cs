@@ -17,6 +17,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private IDictionary<FileLocation, int> _fileToIndexMap;
 
+        public Uri GetExpandedUriBaseIdValue(string key, string currentValue = null)
+        {
+            throw new InvalidOperationException("Author this code along with tests");
+        }
+
         public int GetFileIndex(
             FileLocation fileLocation,
             bool addToFilesTableIfNotPresent = true,
@@ -54,14 +59,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             // We will normalize the input fileLocation.Uri to make URIs more consistent
             // throughout the emitted log.
-            fileLocation.Uri = new Uri(UriHelper.MakeValidUri(fileLocation.Uri.OriginalString));
+            fileLocation.Uri = new Uri(UriHelper.MakeValidUri(fileLocation.Uri.OriginalString), UriKind.RelativeOrAbsolute);
 
             var filesTableKey = new FileLocation
             {
                 Uri = fileLocation.Uri,
                 UriBaseId = fileLocation.UriBaseId
             };
-
 
             if (!_fileToIndexMap.TryGetValue(filesTableKey, out int fileIndex))
             {
@@ -97,11 +101,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private void InitializeFileToIndexMap()
         {
-            _fileToIndexMap = new Dictionary<FileLocation, int>();
+            _fileToIndexMap = new Dictionary<FileLocation, int>(FileLocation.ValueComparer);
 
             // First, we'll initialize our file object to index map
             // with any files that already exist in the table
-            for (int i = 0; i < this.Files.Count; i++)
+            for (int i = 0; i < this.Files?.Count; i++)
             {
                 FileData fileData = this.Files[i];
 
@@ -109,7 +113,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     Uri = fileData.FileLocation.Uri,
                     UriBaseId = fileData.FileLocation.UriBaseId,
-                    FileIndex = i
                 };
 
                 _fileToIndexMap[fileLocation] = i;

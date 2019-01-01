@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             output.Initialize(run);
 
-            if (run.Invocations.Any())
+            if (run.Invocations?.Count > 0)
             {
                 // TODO: add WriteInvocations to IResultLogWriter
                 // https://github.com/Microsoft/sarif-sdk/issues/1190
@@ -102,21 +102,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var visitor = new AddFileReferencesVisitor();
             visitor.VisitRun(run);
 
-            if (run.Files.Any())
+            if (run.Results != null)
+            {
+                output.OpenResults();
+                output.WriteResults(run.Results);
+                output.CloseResults();
+            }
+
+            if (run.Files?.Count > 0)
             {
                 output.WriteFiles(run.Files);
             }
 
-            if (run.LogicalLocations.Any())
+            if (run.LogicalLocations?.Count > 0)
             {
                 output.WriteLogicalLocations(run.LogicalLocations);
             }
 
-            output.OpenResults();
-            output.WriteResults(run.Results);
-            output.CloseResults();
-
-            // TODO: should we move these to be emitted at the beginning of the file? What order fo we prefer generaally
             if (run.Resources?.Rules != null)
             {
                 output.WriteRules(run.Resources?.Rules);

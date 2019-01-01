@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
                 {
                     return new GenericMappingAction<SarifLog>(log =>
                     {
-                        AbsoluteUrisVisitor visitor = new AbsoluteUrisVisitor();
+                        MakeUrisAbsoluteVisitor visitor = new MakeUrisAbsoluteVisitor();
                         return visitor.VisitSarifLog(log);
                     });
                 }

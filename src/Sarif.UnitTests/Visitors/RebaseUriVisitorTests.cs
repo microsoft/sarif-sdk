@@ -125,7 +125,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             newRun.OriginalUriBaseIds.Should().ContainKey("SRCROOT");
 
-            newRun.Files.Keys.Where(k => k.StartsWith(@"C:\src\")).Should().BeEmpty();
+            newRun.Files.Where(f => f.FileLocation.Uri.OriginalString.StartsWith(@"C:\src\")).Should().BeEmpty();
         }
 
         [Fact]
@@ -142,46 +142,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             newRun.OriginalUriBaseIds.Should().ContainKey("SRCROOT");
 
             // Random sarif log generator uses "C:\src\" as the root.
-            newRun.Files.Keys.Should().BeEquivalentTo(oldRun.Files.Keys);
+            newRun.Files.Should().BeEquivalentTo(oldRun.Files);
         }
 
         [Fact]
-        public void RebaseUriVisitor_VisitFileData_PatchesUriAndParentUri()
+        public void RebaseUriVisitor_VisitFileData_PatchesParentUri()
         {
-            Uri fileUri = new Uri(@"file://C:/src/root/blah.zip#/stuff.doc");
-            string parentKey = @"C:\src\root\blah.zip";
-            FileData fileData = new FileData() { FileLocation = new FileLocation { Uri = fileUri }, ParentKey = parentKey };
-            Run run = new Run() { Files = new Dictionary<string, FileData>() { { fileUri.ToString(), fileData } }, Results = new List<Result> { new Result() { Locations = new List<Location> { new Location() { PhysicalLocation = new PhysicalLocation() { FileLocation = new FileLocation() { Uri = fileUri } } } } } } };
+            Uri rootfileUri = new Uri(@"file://C:/src/root/blah.zip#/stuff.doc");
+            Uri childFileUri = new Uri(@"/stuff.doc");
+
+            FileData rootFileData = new FileData() { FileLocation = new FileLocation { Uri = rootfileUri }, ParentIndex = -1 };
+            FileData childFileData = new FileData() { FileLocation = new FileLocation { Uri = childFileUri }, ParentIndex = 0 };
+            Run run = new Run
+            {
+                Files = new List<FileData>
+                {
+                    new FileData { FileLocation = new FileLocation { Uri = rootfileUri, FileIndex = -0 }, ParentIndex = -1 },
+                    new FileData { FileLocation = new FileLocation { Uri = childFileUri, FileIndex = 1 }, ParentIndex = 0 },
+                    new FileData { FileLocation = new FileLocation { Uri = childFileUri, FileIndex = -1 }, ParentIndex = -1 }
+                },
+                Results = new List<Result> { new Result { Locations = new List<Location> { new Location { PhysicalLocation = new PhysicalLocation() { FileLocation = new FileLocation() { Uri = childFileUri, FileIndex = 1 } } } } } }
+            };
 
             string srcroot = "SRCROOT";
-            RebaseUriVisitor rebaseUriVisitor = new RebaseUriVisitor(srcroot, new Uri(@"C:\src\root\"));
+            Uri rootUriBaseId = new Uri(@"C:\src\root\");
+            RebaseUriVisitor rebaseUriVisitor = new RebaseUriVisitor(srcroot, rootUriBaseId);
 
             run = rebaseUriVisitor.VisitRun(run);
 
-            run.Files.Should().ContainKey("#SRCROOT#blah.zip#/stuff.doc");
-            var newFileData = run.Files["#SRCROOT#blah.zip#/stuff.doc"];
-
+            run.Files[0].FileLocation.Uri.Should().Be(rootUriBaseId);            
             run.OriginalUriBaseIds.Should().ContainKey(srcroot);
             run.OriginalUriBaseIds[srcroot].Uri.Should().Be(@"C:\src\root\");
-        }
-
-        [Fact]
-        public void RebaseUriVisitor_VisitFileData_DoesNotPatchUriAndParentWhenNotAppropriate()
-        {
-            Uri fileUri = new Uri(@"file://C:/src/root/blah.zip#/stuff.doc");
-            string parentKey = @"C:\src\root\blah.zip";
-            FileData fileData = new FileData() { FileLocation = new FileLocation { Uri = fileUri }, ParentKey = parentKey };
-            Run run = new Run() { Files = new Dictionary<string, FileData>() { { fileUri.ToString(), fileData } }, Results = new List<Result> { new Result() { Locations = new List<Location> { new Location() { PhysicalLocation = new PhysicalLocation() { FileLocation = new FileLocation() { Uri = fileUri } } } } } } };
-
-            string bldroot = "BLDROOT";
-            RebaseUriVisitor rebaseUriVisitor = new RebaseUriVisitor(bldroot, new Uri(@"C:\bld\"));
-
-            run.Files.Should().ContainKey(fileUri.ToString());
-            var newFileData = run.Files[fileUri.ToString()];
-
-            newFileData.FileLocation.Uri.Should().BeSameAs(fileUri);
-            newFileData.FileLocation.UriBaseId.Should().BeNullOrEmpty();
-            newFileData.ParentKey.Should().BeSameAs(parentKey);
         }
 
         [Fact]
@@ -250,17 +241,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             public RebaseVerifyingVisitor()
             {
-            }
-
-            public override FileData VisitFileDataDictionaryEntry(FileData node, ref string key)
-            {
-                FileDataKeys = FileDataKeys ?? new List<string>();
-                FileDataKeys.Add(key);
-
-                FileDataParentKeys = FileDataParentKeys ?? new List<string>();
-                FileDataParentKeys.Add(node.ParentKey);
-
-                return base.VisitFileDataDictionaryEntry(node, ref key);
             }
 
             public override FileLocation VisitFileLocation(FileLocation node)

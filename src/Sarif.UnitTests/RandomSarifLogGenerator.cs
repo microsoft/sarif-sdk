@@ -115,13 +115,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             return results;
         }
 
-        public static IDictionary<string, FileData> GenerateFiles(List<Uri> filePaths)
+        public static IList<FileData> GenerateFiles(List<Uri> filePaths)
         {
-            Dictionary<string, FileData> dictionary = new Dictionary<string, FileData>();
-            foreach (var path in filePaths)
+            var files = new List<FileData>();
+            foreach (Uri path in filePaths)
             {
-                dictionary.Add(
-                    path.ToString(), 
+                files.Add(
                     new FileData()
                     {
                         FileLocation = new FileLocation
@@ -130,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         }
                     });
             }
-            return dictionary;
+            return files;
         }
 
         public static IDictionary<string, Rule> GenerateRules(List<string> ruleIds)

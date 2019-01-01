@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             var run = new Run
             {
                 Graphs = new Dictionary<string, Graph>(),
-                Files = new Dictionary<string, FileData>(),
+                Files = new List<FileData>(),
                 Invocations = new Invocation[] { },
                 LogicalLocations = new List<LogicalLocation>()
             };

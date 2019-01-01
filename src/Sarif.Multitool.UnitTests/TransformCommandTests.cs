@@ -60,6 +60,7 @@ namespace Sarif.Multitool.UnitTests
   ]
 }";
 
+        /*
         [Fact]
         public void TransformCommand_TransformsMinimalCurrentV2FileToCurrentV2()
         {
@@ -163,6 +164,6 @@ namespace Sarif.Multitool.UnitTests
             returnCode.Should().Be(0);
 
             return transformedContents;
-        }
+        }*/
     }
 }

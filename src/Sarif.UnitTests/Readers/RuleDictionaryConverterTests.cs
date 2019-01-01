@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 var run = new Run() { Tool = DefaultTool };
                 uut.Initialize(run);
 
-                uut.WriteRules(new Dictionary<string, IRule>
+                uut.WriteRules(new Dictionary<string, Rule>
                 {
                     ["CA1000.1"] = new Rule { Id = "CA1000" }
                 });

@@ -162,19 +162,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             switch (node.SarifNodeKind)
             {
-                case SarifNodeKind.FileData:
-                    return VisitFileDataDictionaryEntry((FileData)node, ref key);
-
-                // add other dictionary things
+                // Add other dictionary things. 
 
                 default:
                     throw new InvalidOperationException(); // whoops! unknown type
             }
-        }
-
-        public virtual FileData VisitFileDataDictionaryEntry(FileData node, ref string key)
-        {
-            return (FileData)Visit(node);
         }
 
         public virtual Attachment VisitAttachment(Attachment node)

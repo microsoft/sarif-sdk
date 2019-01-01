@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Information about the rule that can be configured at runtime.
         /// </summary>
         [DataMember(Name = "configuration", IsRequired = false, EmitDefaultValue = false)]
-        public virtual RuleConfiguration Configuration { get; set; }
+        public virtualRuleConfiguration Configuration { get; set; }
 
         /// <summary>
         /// A URI where the primary documentation for the rule can be found.

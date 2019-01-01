@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     [Export(typeof(IRule)), Export(typeof(IOptionsProvider)), Export(typeof(ISkimmer<TestAnalysisContext>))]
     internal class SimpleTestRule : TestRuleBase, IOptionsProvider
     {
-        public override string Id => "TEST002";
+        public new string Id => "TEST002";
 
         public override Message FullDescription { get { return new Message { Text = String.Empty }; } }
 

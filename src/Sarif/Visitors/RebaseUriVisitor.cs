@@ -80,44 +80,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return newRun;
         }
 
-        /// <summary>
-        /// If we are changing the URIs in Results to be relative, we need to also change the URI keys in the files dictionary
-        /// to be relative.
-        /// </summary>
-        /// <param name="node">File location being changed to relative.</param>
-        public override FileData VisitFileDataDictionaryEntry(FileData node, ref string key)
-        {
-            string originalKey = key;
-            
-            // Force a visit of the file data object, which may rewrite its file location
-            node = base.VisitFileDataDictionaryEntry(node, ref key);
-
-            FileLocation fileLocation = node.FileLocation;
-
-            if (fileLocation != null && !string.IsNullOrEmpty(fileLocation.UriBaseId))
-            {
-                string uriText = Uri.EscapeUriString(fileLocation.Uri.ToString());
-                key = "#" + fileLocation.UriBaseId + "#" + uriText;
-            }
-            else
-            {
-                // In the event that FileData.FileLocation.UriBaseId is not populated, 
-                // we'll simply transform the key on the basis of visitor configuration
-                if (key.StartsWith(_baseUri.OriginalString, StringComparison.Ordinal))
-                {
-                    key = "#" + _baseName + "#" + key.Substring(_baseUri.OriginalString.Length);
-                }
-            }
-
-            if (node.ParentKey != null &&
-                node.ParentKey.StartsWith(_baseUri.OriginalString, StringComparison.Ordinal))
-            {
-                Debug.Assert(key != originalKey);
-                node.ParentKey = "#" + _baseName + "#" + node.ParentKey.Substring(_baseUri.OriginalString.Length);
-            }
-
-            return node;
-        }
 
         internal static bool TryDeserializePropertyDictionary(SerializedPropertyInfo serializedProperty, out Dictionary<string, Uri> dictionary)
         {
