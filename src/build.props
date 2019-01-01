@@ -83,6 +83,11 @@
     <PackageLicenseExpression Condition=" '$(PackageLicenseExpression)' == '' ">MIT</PackageLicenseExpression>
     <PackageProjectUrl Condition=" '$(PackageProjectUrl)' == '' ">https://github.com/Microsoft/sarif-sdk</PackageProjectUrl>
     <PackageIconUrl Condition=" '$(PackageIconUrl)' == '' ">https://go.microsoft.com/fwlink/?linkid=2008860</PackageIconUrl>
+    <!--
+    Don't complain about SemVer 2.0.0-compatible version strings.
+    See https://github.com/NuGet/Home/issues/4687#issuecomment-393302779.
+    -->
+    <NoWarn>NU5105</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
