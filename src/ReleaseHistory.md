@@ -220,11 +220,14 @@
 * API BREAKING: 'invocation.workingDirectory' is now a FileLocation object (and not a URI expressed as a string)
 
 ## **v2.0.0-csd.2.beta.2018.11.28** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2018.11.28) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2018.11.28) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2018.11.28)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2018.11.28))
-* BUGFIX: Result matching improvements in properties persistence
-* FEATURE: Fortify FPR converter improvements
+* BUGFIX: Result matching improvements in properties persistence.
+* FEATURE: Fortify FPR converter improvements.
+* API Non-BREAKING: Remove uniqueness requirement from 'result.locations'.
 * API NON-BREAKING: Add 'run.newlineSequences' to schema. https://github.com/oasis-tcs/sarif-spec/issues/169
-* API BREAKING: remove 'run.architecture' https://github.com/oasis-tcs/sarif-spec/issues/262
+* API NON-BREAKING: Add result.rank'. Add 'ruleConfiguration.defaultRank'.
+* API BREAKING: Remove 'run.architecture' https://github.com/oasis-tcs/sarif-spec/issues/262
 * API BREAKING: 'result.message' is now a required property https://github.com/oasis-tcs/sarif-spec/issues/283
-* API BREAKING: rename 'tool.fileVersion' to 'tool.dottedQuadFileVersion' https://github.com/oasis-tcs/sarif-spec/issues/274
-* API BREAKING: remove 'open' from valid rule default configuration levels. https://github.com/oasis-tcs/sarif-spec/issues/288. The transformer remaps this value to 'note'.
+* API BREAKING: Rename 'tool.fileVersion' to 'tool.dottedQuadFileVersion' https://github.com/oasis-tcs/sarif-spec/issues/274
+* API BREAKING: Remove 'open' from valid rule default configuration levels. https://github.com/oasis-tcs/sarif-spec/issues/288. The transformer remaps this value to 'note'.
 * API BREAKING: 'run.columnKind' default value is now 'unicodeCodePoints'. https://github.com/Microsoft/sarif-sdk/pull/1160. The transformer will inject 'utf16CodeUnits', however, when this property is absent, as this value is a more appropriate default for the Windows platform.
+* API BREAKING: Make 'run.logicalLocations' an array, not a dictionary. Add result.logicalLocationIndex to point to associated logical location.
