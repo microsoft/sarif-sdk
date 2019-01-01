@@ -78,7 +78,6 @@
 
   <PropertyGroup Label="Package">
     <Authors Condition=" '$(Authors)' == '' ">$(Company)</Authors>
-    <Owners Condition=" '$(Authors)' == '' ">$(Company),tse-securitytools</Owners>
     <PackageRequireLicenseAcceptance Condition=" '$(PackageRequireLicenseAcceptance)' == '' ">false</PackageRequireLicenseAcceptance>
     <PackageLicenseUrl Condition=" '$(PackageLicenseUrl)' == '' ">https://github.com/Microsoft/sarif-sdk/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl Condition=" '$(PackageProjectUrl)' == '' ">https://github.com/Microsoft/sarif-sdk</PackageProjectUrl>
