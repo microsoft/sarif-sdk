@@ -344,9 +344,9 @@
           "items": {
             "$ref": "#/definitions/externalPropertyFile"
           }
-
         }
-      },
+      }
+    },
 
     "file": {
       "description": "A single file. In some cases, this file might be nested within another file.",

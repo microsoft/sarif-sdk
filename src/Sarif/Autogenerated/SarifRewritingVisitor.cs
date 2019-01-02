@@ -560,8 +560,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             return node;
         }
 
-
-
         public virtual Result VisitResult(Result node)
         {
             if (node != null)
@@ -724,14 +722,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                         var value = node.Files[key];
                         if (value != null)
                         {
-                            string newKey = key;
-                            node.Files.Remove(key);
-                            value = VisitNullChecked(value, ref newKey);
+                                string newKey = key;
+                                node.Files.Remove(key);
+                                value = VisitNullChecked(value, ref newKey);
 
-                            if (newKey != null)
-                            {
-                                node.Files[newKey] = value;
-                            }
+                                if (newKey != null)
+                                {
+                                    node.Files[newKey] = value;
+                                }
                         }
                     }
                 }
