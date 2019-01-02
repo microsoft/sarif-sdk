@@ -143,6 +143,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public ColumnKind ColumnKind { get; set; }
 
         /// <summary>
+        /// References to external property files that should be inlined with the content of a root log file.
+        /// </summary>
+        [DataMember(Name = "externalPropertyFiles", IsRequired = false, EmitDefaultValue = false)]
+        public ExternalPropertyFiles ExternalPropertyFiles { get; set; }
+
+        /// <summary>
         /// Key/value pairs that provide additional information about the run.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
@@ -212,12 +218,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="columnKind">
         /// An initialization value for the <see cref="P: ColumnKind" /> property.
         /// </param>
+        /// <param name="externalPropertyFiles">
+        /// An initialization value for the <see cref="P: ExternalPropertyFiles" /> property.
+        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, FileLocation> originalUriBaseIds, IDictionary<string, FileData> files, IEnumerable<LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, Resources resources, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string richMessageMimeType, string redactionToken, string defaultFileEncoding, IEnumerable<string> newlineSequences, ColumnKind columnKind, IDictionary<string, SerializedPropertyInfo> properties)
+        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, FileLocation> originalUriBaseIds, IDictionary<string, FileData> files, IEnumerable<LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, Resources resources, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string richMessageMimeType, string redactionToken, string defaultFileEncoding, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFiles externalPropertyFiles, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(tool, invocations, conversion, versionControlProvenance, originalUriBaseIds, files, logicalLocations, graphs, results, resources, id, aggregateIds, baselineInstanceGuid, richMessageMimeType, redactionToken, defaultFileEncoding, newlineSequences, columnKind, properties);
+            Init(tool, invocations, conversion, versionControlProvenance, originalUriBaseIds, files, logicalLocations, graphs, results, resources, id, aggregateIds, baselineInstanceGuid, richMessageMimeType, redactionToken, defaultFileEncoding, newlineSequences, columnKind, externalPropertyFiles, properties);
         }
 
         /// <summary>
@@ -236,7 +245,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocations, other.Conversion, other.VersionControlProvenance, other.OriginalUriBaseIds, other.Files, other.LogicalLocations, other.Graphs, other.Results, other.Resources, other.Id, other.AggregateIds, other.BaselineInstanceGuid, other.RichMessageMimeType, other.RedactionToken, other.DefaultFileEncoding, other.NewlineSequences, other.ColumnKind, other.Properties);
+            Init(other.Tool, other.Invocations, other.Conversion, other.VersionControlProvenance, other.OriginalUriBaseIds, other.Files, other.LogicalLocations, other.Graphs, other.Results, other.Resources, other.Id, other.AggregateIds, other.BaselineInstanceGuid, other.RichMessageMimeType, other.RedactionToken, other.DefaultFileEncoding, other.NewlineSequences, other.ColumnKind, other.ExternalPropertyFiles, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -257,7 +266,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, FileLocation> originalUriBaseIds, IDictionary<string, FileData> files, IEnumerable<LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, Resources resources, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string richMessageMimeType, string redactionToken, string defaultFileEncoding, IEnumerable<string> newlineSequences, ColumnKind columnKind, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, FileLocation> originalUriBaseIds, IDictionary<string, FileData> files, IEnumerable<LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, Resources resources, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string richMessageMimeType, string redactionToken, string defaultFileEncoding, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFiles externalPropertyFiles, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (tool != null)
             {
@@ -412,6 +421,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             ColumnKind = columnKind;
+            if (externalPropertyFiles != null)
+            {
+                ExternalPropertyFiles = new ExternalPropertyFiles(externalPropertyFiles);
+            }
+
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
