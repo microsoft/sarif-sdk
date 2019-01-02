@@ -19,6 +19,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.UnitTests.Sdk
 
         public override string Id => throw new NotImplementedException();
 
+        public override IList<string> DeprecatedIds => throw new NotImplementedException();
+
         public override Message FullDescription => throw new NotImplementedException();
 
         protected override ResourceManager ResourceManager => throw new NotImplementedException();

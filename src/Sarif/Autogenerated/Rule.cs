@@ -40,6 +40,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Id { get; set; }
 
         /// <summary>
+        /// An array of stable, opaque identifiers by which this rule was known in some previous version of the analysis tool.
+        /// </summary>
+        [DataMember(Name = "deprecatedIds", IsRequired = false, EmitDefaultValue = false)]
+        public IList<string> DeprecatedIds { get; set; }
+
+        /// <summary>
         /// A rule identifier that is understandable to an end user.
         /// </summary>
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
@@ -107,6 +113,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="id">
         /// An initialization value for the <see cref="P: Id" /> property.
         /// </param>
+        /// <param name="deprecatedIds">
+        /// An initialization value for the <see cref="P: DeprecatedIds" /> property.
+        /// </param>
         /// <param name="name">
         /// An initialization value for the <see cref="P: Name" /> property.
         /// </param>
@@ -134,9 +143,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public Rule(string id, Message name, Message shortDescription, Message fullDescription, IDictionary<string, string> messageStrings, IDictionary<string, string> richMessageStrings, RuleConfiguration configuration, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
+        public Rule(string id, IEnumerable<string> deprecatedIds, Message name, Message shortDescription, Message fullDescription, IDictionary<string, string> messageStrings, IDictionary<string, string> richMessageStrings, RuleConfiguration configuration, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, name, shortDescription, fullDescription, messageStrings, richMessageStrings, configuration, helpUri, help, properties);
+            Init(id, deprecatedIds, name, shortDescription, fullDescription, messageStrings, richMessageStrings, configuration, helpUri, help, properties);
         }
 
         /// <summary>
@@ -155,7 +164,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.Name, other.ShortDescription, other.FullDescription, other.MessageStrings, other.RichMessageStrings, other.Configuration, other.HelpUri, other.Help, other.Properties);
+            Init(other.Id, other.DeprecatedIds, other.Name, other.ShortDescription, other.FullDescription, other.MessageStrings, other.RichMessageStrings, other.Configuration, other.HelpUri, other.Help, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -176,9 +185,20 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Rule(this);
         }
 
-        private void Init(string id, Message name, Message shortDescription, Message fullDescription, IDictionary<string, string> messageStrings, IDictionary<string, string> richMessageStrings, RuleConfiguration configuration, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string id, IEnumerable<string> deprecatedIds, Message name, Message shortDescription, Message fullDescription, IDictionary<string, string> messageStrings, IDictionary<string, string> richMessageStrings, RuleConfiguration configuration, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
+            if (deprecatedIds != null)
+            {
+                var destination_0 = new List<string>();
+                foreach (var value_0 in deprecatedIds)
+                {
+                    destination_0.Add(value_0);
+                }
+
+                DeprecatedIds = destination_0;
+            }
+
             if (name != null)
             {
                 Name = new Message(name);

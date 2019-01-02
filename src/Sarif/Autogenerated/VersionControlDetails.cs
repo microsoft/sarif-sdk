@@ -10,6 +10,9 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
+    /// <summary>
+    /// Specifies the information necessary to retrieve a desired revision from a version control system.
+    /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
     public partial class VersionControlDetails : PropertyBagHolder, ISarifNode
@@ -63,6 +66,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public DateTime AsOfTimeUtc { get; set; }
 
         /// <summary>
+        /// The location in the local file system to which the root of the repository was mapped at the time of the analysis.
+        /// </summary>
+        [DataMember(Name = "mappedTo", IsRequired = false, EmitDefaultValue = false)]
+        public FileLocation MappedTo { get; set; }
+
+        /// <summary>
         /// Key/value pairs that provide additional information about the version control details.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
@@ -93,12 +102,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="asOfTimeUtc">
         /// An initialization value for the <see cref="P: AsOfTimeUtc" /> property.
         /// </param>
+        /// <param name="mappedTo">
+        /// An initialization value for the <see cref="P: MappedTo" /> property.
+        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public VersionControlDetails(Uri repositoryUri, string revisionId, string branch, string revisionTag, DateTime asOfTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
+        public VersionControlDetails(Uri repositoryUri, string revisionId, string branch, string revisionTag, DateTime asOfTimeUtc, FileLocation mappedTo, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(repositoryUri, revisionId, branch, revisionTag, asOfTimeUtc, properties);
+            Init(repositoryUri, revisionId, branch, revisionTag, asOfTimeUtc, mappedTo, properties);
         }
 
         /// <summary>
@@ -117,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.RepositoryUri, other.RevisionId, other.Branch, other.RevisionTag, other.AsOfTimeUtc, other.Properties);
+            Init(other.RepositoryUri, other.RevisionId, other.Branch, other.RevisionTag, other.AsOfTimeUtc, other.MappedTo, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -138,7 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new VersionControlDetails(this);
         }
 
-        private void Init(Uri repositoryUri, string revisionId, string branch, string revisionTag, DateTime asOfTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Uri repositoryUri, string revisionId, string branch, string revisionTag, DateTime asOfTimeUtc, FileLocation mappedTo, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (repositoryUri != null)
             {
@@ -149,6 +161,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             Branch = branch;
             RevisionTag = revisionTag;
             AsOfTimeUtc = asOfTimeUtc;
+            if (mappedTo != null)
+            {
+                MappedTo = new FileLocation(mappedTo);
+            }
+
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);

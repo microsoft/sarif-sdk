@@ -224,6 +224,8 @@
 * FEATURE: Fortify FPR converter improvements.
 * API Non-BREAKING: Remove uniqueness requirement from 'result.locations'.
 * API NON-BREAKING: Add 'run.newlineSequences' to schema. https://github.com/oasis-tcs/sarif-spec/issues/169
+* API NON-BREAKING: Add 'rule.deprecatedIds' to schema. https://github.com/oasis-tcs/sarif-spec/issues/293
+* API NON-BREAKING: Add 'versionControlDetails.mappedTo'. https://github.com/oasis-tcs/sarif-spec/issues/248
 * API NON-BREAKING: Add result.rank'. Add 'ruleConfiguration.defaultRank'.
 * API BREAKING: Remove 'run.architecture' https://github.com/oasis-tcs/sarif-spec/issues/262
 * API BREAKING: 'result.message' is now a required property https://github.com/oasis-tcs/sarif-spec/issues/283

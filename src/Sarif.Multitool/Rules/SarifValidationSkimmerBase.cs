@@ -835,6 +835,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         private void Visit(VersionControlDetails versionControlDetails, string versionControlDetailsPointer)
         {
             Analyze(versionControlDetails, versionControlDetailsPointer);
+
+            if (versionControlDetails.MappedTo != null)
+            {
+                Visit(versionControlDetails.MappedTo, versionControlDetailsPointer.AtProperty(SarifPropertyName.MappedTo));
+            }
         }
 
         private Region GetRegionFromJPointer(string jPointer)

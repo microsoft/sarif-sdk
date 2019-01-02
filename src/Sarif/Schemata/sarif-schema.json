@@ -1471,6 +1471,16 @@
           "type": "string"
         },
 
+        "deprecatedIds": {
+          "description": "An array of stable, opaque identifiers by which this rule was known in some previous version of the analysis tool.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+
         "name": {
           "description": "A rule identifier that is understandable to an end user.",
           "$ref": "#/definitions/message"
@@ -1972,7 +1982,7 @@
     },
 
     "versionControlDetails": {
-      "descriptipn": "Specifies the information necessary to retrieve a desired revision from a version control system.",
+      "description": "Specifies the information necessary to retrieve a desired revision from a version control system.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -2002,6 +2012,11 @@
           "description": "A Coordinated Universal Time (UTC) date and time that can be used to synchronize an enlistment to the state of the repository at that time.",
           "type": "string",
           "format": "date-time"
+        },
+
+        "mappedTo": {
+          "description": "The location in the local file system to which the root of the repository was mapped at the time of the analysis.",
+          "$ref": "#/definitions/fileLocation"
         },
 
         "properties": {
