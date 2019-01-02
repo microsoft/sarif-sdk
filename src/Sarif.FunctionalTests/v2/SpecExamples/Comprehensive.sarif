@@ -45,11 +45,7 @@
           }
         }
       ],
-      "originalUriBaseIds": {
-        "TOOLS_ROOT": {
-          "uri": "file:///bin/tools/"
-        }
-      },
+      "originalUriBaseIds": { "TOOLS_ROOT": "file:///bin/tools/" },
       "invocations": [
         {
           "commandLine": "CodeScanner.exe @collections.rsp",
@@ -59,8 +55,8 @@
               "uriBaseId": "TOOLS_ROOT"
             }
           ],
-          "startTimeUtc": "2016-07-16T14:18:25Z",
-          "endTimeUtc": "2016-07-16T14:19:01Z",
+          "startTime": "2016-07-16T14:18:25Z",
+          "endTime": "2016-07-16T14:19:01Z",
           "configurationNotifications": [
             {
               "id": "UnknownRule",
@@ -409,14 +405,6 @@
               ]
             }
           ],
-          "provenance": {
-            "firstDetectionTimeUtc": "2018-07-15T14:20:42Z",
-            "firstDetectionRunInstanceGuid": "8F62D8A0-C14F-4516-9959-1A663BA6FB99",
-            "lastDetectionTimeUtc": "2018-07-16T14:20:42Z",
-            "lastDetectionRunInstanceGuid": "BC650830-A9FE-44CB-8818-AD6C387279A0",
-            "invocationIndex": 0,
-            "conversionSources": []
-          },
           "fixes": [
             {
               "description": {
