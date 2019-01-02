@@ -93,7 +93,7 @@
       }
     }
   ],
-  "externalFiles": [
+  "externalPropertyFile": [
     {
       "kind": "BaseTypeHint",
       "arguments": {

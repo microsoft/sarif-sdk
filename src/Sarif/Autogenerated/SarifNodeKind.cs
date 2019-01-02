@@ -44,9 +44,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         ExceptionData,
         /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ExternalFiles" />.
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ExternalPropertyFile" />.
         /// </summary>
-        ExternalFiles,
+        ExternalPropertyFile,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ExternalPropertyFiles" />.
+        /// </summary>
+        ExternalPropertyFiles,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="FileData" />.
         /// </summary>

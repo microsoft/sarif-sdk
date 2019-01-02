@@ -254,60 +254,96 @@
       }
     },
 
-    "externalFiles": {
-      "description": "References to external files that should be inlined with the content of a root log file.",
+    "externalPropertyFile": {
+      "type": "object",
+      "properties": {
+        "fileLocation": {
+          "description": "The location of the external property file.",
+          "$ref": "#/definitions/fileLocation"
+        },
+
+        "instanceGuid": {
+          "description": "A stable, unique identifer for the external property file in the form of a GUID.",
+          "type": "string"
+        },
+
+        "itemCount": {
+          "description": "A non-negative integer specifying the number of items contained in the external property file.",
+          "type": "integer",
+          "minimum": 0
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the external property file.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      }
+    },
+
+    "externalPropertyFiles": {
+      "description": "References to external property files that should be inlined with the content of a root log file.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
 
         "conversion": {
-          "description": "The location of a file containing a run.conversion object to be merged with the root log file.",
-          "$ref": "#/definitions/fileLocation"
-        },
-
-        "files": {
-          "description": "The location of a file containing a run.files object to be merged with the root log file.",
-          "$ref": "#/definitions/fileLocation"
+          "description": "An external property file containing a run.conversion object to be merged with the root log file.",
+          "$ref": "#/definitions/externalPropertyFile"
         },
 
         "graphs": {
-          "description": "The location of a file containing a run.graphs object to be merged with the root log file.",
-          "$ref": "#/definitions/fileLocation"
+          "description": "An external property file containing a run.graphs object to be merged with the root log file.",
+          "$ref": "#/definitions/externalPropertyFile"
         },
 
-        "invocations": {
-          "description": "An array of locations of files containing arrays of run.invocation objects to be merged with the root log file.",
+        "resources": {
+          "description": "An external property file containing a run.resources object to be merged with the root log file.",
+          "$ref": "#/definitions/externalPropertyFile"
+        },
+
+        "properties": {
+          "description": "An external property file containing a run.properties object to be merged with the root log file.",
+          "$ref": "#/definitions/externalPropertyFile"
+        },
+
+        "files": {
+          "description": "An array of external property files containing run.files arrays to be merged with the root log file.",
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
           "items": {
-            "$ref": "#/definitions/fileLocation"
+            "$ref": "#/definitions/externalPropertyFile"
+          }
+        },
+
+        "invocations": {
+          "description": "An array of external property files containing run.invocations arrays to be merged with the root log file.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/externalPropertyFile"
           }
         },
 
         "logicalLocations": {
-          "description": "The location of a file containing a run.logicalLocations object to be merged with the root log file.",
-          "$ref": "#/definitions/fileLocation"
-        },
-
-        "resources": {
-          "description": "The location of a file containing a run.resources object to be merged with the root log file.",
-          "$ref": "#/definitions/fileLocation"
-        },
-
-        "results": {
-          "description": "An array of locations of files containins arrays of run.result objects to be merged with the root log file.",
+          "description": "An array of external property files containing run.logicalLocations arrays to be merged with the root log file.",
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
           "items": {
-            "$ref": "#/definitions/fileLocation"
+            "$ref": "#/definitions/externalPropertyFile"
           }
         },
 
-        "properties": {
-          "description": "Key/value pairs that provide additional information about the external files.",
-          "$ref": "#/definitions/propertyBag"
+        "results": {
+          "description": "An array of external property files containing run.results arrays to be merged with the root log file.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/externalPropertyFile"
+          }
         }
       }
     },
@@ -1317,7 +1353,7 @@
 
         "rank": {
           "description": "A number representing the priority or importance of the result.",
-          "type":"number",
+          "type": "number",
           "minimum": 0.0,
           "maximum": 100.0,
           "default": 0.0
@@ -1518,7 +1554,7 @@
 
         "defaultRank": {
           "description": "Specifies the default priority or importance for results generated by this rule.",
-          "type":"number",
+          "type": "number",
           "minimum": 0.0,
           "maximum": 100.0,
           "default": 0.0
@@ -1671,6 +1707,11 @@
           "default": "unicodeCodePoints"
         },
 
+        "externalPropertyFiles": {
+          "description": "References to external property files that should be inlined with the content of a root log file.",
+          "$ref": "#/definitions/externalPropertyFiles"
+        },
+
         "properties": {
           "description": "Key/value pairs that provide additional information about the run.",
           "$ref": "#/definitions/propertyBag"
@@ -1679,7 +1720,6 @@
 
       "required": [ "tool" ]
     },
-
 
     "runAutomationDetails": {
       "description": "Information that describes a run's identity and role within an engineering system process.",
