@@ -20,6 +20,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         string Id { get; }
 
         /// <summary>
+        /// An array of stable, opaque identifiers by which this rule was known in some previous version of the analysis tool.
+        /// </summary>
+        IList<string> DeprecatedIds { get; }
+
+        /// <summary>
         /// A rule identifier that is understandable to an end user.
         /// </summary>
         Message Name { get; }

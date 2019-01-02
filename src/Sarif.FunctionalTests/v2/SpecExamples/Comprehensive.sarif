@@ -38,7 +38,11 @@
           "branch": "master",
           "tag": "beta1",
           "revisionId": "abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd",
-          "timestamp": "2016-07-16T00:00:00Z"
+          "timestamp": "2016-07-16T00:00:00Z",
+          "mappedTo": {
+            "uri": "/example",
+            "uriBaseId": "SRCROOT"
+          }
         }
       ],
       "originalUriBaseIds": { "TOOLS_ROOT": "file:///bin/tools/" },
@@ -431,6 +435,10 @@
         "rules": {
           "C2001": {
             "id": "C2001",
+            "deprecatedIds": [
+              "C0001",
+              "C1001"
+            ],
             "shortDescription": {
               "text": "A variable was used without being initialized."
             },

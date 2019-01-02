@@ -264,6 +264,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (!ExternalPropertyFiles.ValueComparer.Equals(left.ExternalPropertyFiles, right.ExternalPropertyFiles))
+            {
+                return false;
+            }
+
             if (!object.ReferenceEquals(left.Properties, right.Properties))
             {
                 if (left.Properties == null || right.Properties == null || left.Properties.Count != right.Properties.Count)
@@ -456,6 +461,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 result = (result * 31) + obj.ColumnKind.GetHashCode();
+                if (obj.ExternalPropertyFiles != null)
+                {
+                    result = (result * 31) + obj.ExternalPropertyFiles.ValueGetHashCode();
+                }
+
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
