@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
@@ -22,22 +21,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public Uri HelpUri { get; set; }
 
         public abstract string Id { get; }
+        public virtual IList<string> DeprecatedIds => null;
 
-        public virtual ResultLevel DefaultLevel { get { return ResultLevel.Warning; } }
+        public virtual ResultLevel DefaultLevel => ResultLevel.Warning;
 
-        public virtual Message Name { get { return new Message { Text = this.GetType().Name }; } }
+        public virtual Message Name => new Message { Text = this.GetType().Name };
 
-        public virtual Message FullDescription { get { return new Message { Text = this.GetType().Name + " full description." }; } }
+        public virtual Message FullDescription => new Message { Text = this.GetType().Name + " full description." };
 
-        public virtual Message ShortDescription { get { return new Message { Text = this.GetType().Name + " short description." }; } }
+        public virtual Message ShortDescription => new Message { Text = this.GetType().Name + " short description." };
 
         public IDictionary<string, string> MessageFormats
-        {
-            get
-            {
-                return new Dictionary<string, string> { { nameof(SdkResources.NotApplicable_InvalidMetadata), SdkResources.NotApplicable_InvalidMetadata } };
-            }
-        }
+            => new Dictionary<string, string> { { nameof(SdkResources.NotApplicable_InvalidMetadata), SdkResources.NotApplicable_InvalidMetadata } };
+
 
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
@@ -54,11 +50,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        public IDictionary<string, string> MessageStrings { get { return new Dictionary<string, string>(); } }
+        public IDictionary<string, string> MessageStrings => new Dictionary<string, string>();
 
-        public IDictionary<string, string> RichMessageStrings { get { return new Dictionary<string, string>(); } }
+        public IDictionary<string, string> RichMessageStrings => new Dictionary<string, string>();
 
-        public Message Help { get { return new Message() { Text = "[Empty]" }; } }
+        public Message Help => new Message() { Text = "[Empty]" };
 
         public abstract void Analyze(TestAnalysisContext context);
 
@@ -70,7 +66,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public virtual void Initialize(TestAnalysisContext context)
         {
-
         }
     }
 }

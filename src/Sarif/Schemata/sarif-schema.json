@@ -1435,6 +1435,16 @@
           "type": "string"
         },
 
+        "deprecatedIds": {
+          "description": "An array of stable, opaque identifiers by which this rule was known in some previous version of the analysis tool.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+
         "name": {
           "description": "A rule identifier that is understandable to an end user.",
           "$ref": "#/definitions/message"

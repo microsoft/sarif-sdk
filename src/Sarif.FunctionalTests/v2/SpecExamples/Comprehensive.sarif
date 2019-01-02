@@ -38,10 +38,18 @@
           "branch": "master",
           "tag": "beta1",
           "revisionId": "abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd",
-          "timestamp": "2016-07-16T00:00:00Z"
+          "timestamp": "2016-07-16T00:00:00Z",
+          "mappedTo": {
+            "uri": "/example",
+            "uriBaseId": "SRCROOT"
+          }
         }
       ],
-      "originalUriBaseIds": { "TOOLS_ROOT": "file:///bin/tools/" },
+      "originalUriBaseIds": {
+        "TOOLS_ROOT": {
+          "uri": "file:///bin/tools/"
+        }
+      },
       "invocations": [
         {
           "commandLine": "CodeScanner.exe @collections.rsp",
@@ -51,8 +59,8 @@
               "uriBaseId": "TOOLS_ROOT"
             }
           ],
-          "startTime": "2016-07-16T14:18:25Z",
-          "endTime": "2016-07-16T14:19:01Z",
+          "startTimeUtc": "2016-07-16T14:18:25Z",
+          "endTimeUtc": "2016-07-16T14:19:01Z",
           "configurationNotifications": [
             {
               "id": "UnknownRule",
@@ -439,6 +447,10 @@
         "rules": {
           "C2001": {
             "id": "C2001",
+            "deprecatedIds": [
+              "C0001",
+              "C1001"
+            ],
             "shortDescription": {
               "text": "A variable was used without being initialized."
             },

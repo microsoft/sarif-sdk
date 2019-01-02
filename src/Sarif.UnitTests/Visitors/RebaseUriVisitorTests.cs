@@ -209,7 +209,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             visitor.FileDataKeys.Where(k => k != null && k.StartsWith(uriRootText)).Count().Should().Be(3);
             visitor.FileDataKeys.Where(k => k != null && k.StartsWith("#" + toolsRootBaseId + "#")).Count().Should().Be(1);
 
-            int uriCount = 16;
+            int uriCount = 17;
 
             visitor.FileLocationUriBaseIds.Count.Should().Be(uriCount);
             visitor.FileLocationUriBaseIds.Where(u => u == null).Count().Should().Be(13);
@@ -240,7 +240,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             visitor.FileLocationUriBaseIds.Where(u => u == toolsRootBaseId).Count().Should().Be(3);
             visitor.FileLocationUriBaseIds.Where(u => u == agentRootBaseId).Count().Should().Be(11);
 
-            visitor.FileLocationUris.Count.Should().Be(17);
+            visitor.FileLocationUris.Count.Should().Be(uriCount + 1);
 
             // The AGENT_ROOT originalUriBaseId is the last thing that will include the uriRootText value
             visitor.FileLocationUris.Where(u => u != null && u.StartsWith(uriRootText)).Count().Should().Be(1);

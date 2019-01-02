@@ -67,6 +67,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         abstract public string Id { get; }
 
+        // This one isn't abstract because there's no point in forcing every skimmer to implement it.
+        public virtual IList<string> DeprecatedIds => null;
+
         abstract public Message FullDescription { get; }
 
         public virtual Message ShortDescription
