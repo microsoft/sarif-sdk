@@ -2,8 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.CodeDom.Compiler;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -13,6 +11,11 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     public abstract partial class SarifRewritingVisitor
     {
+        // NOTE: this partial class is intended to alleviate some manual work that repeatedly needs to
+        //       be done when updating the schema (as our current code emit doesn't handle all 
+        //       constructs required by this class. At some point, either the code emit will be
+        //       updated or alternately we will have eliminated the need to visit dictionaries in 
+        //       the format, and this partial class can be deleted again.
         private T VisitNullChecked<T>(T node, ref string key) where T : class, ISarifNode
         {
             if (node == null)

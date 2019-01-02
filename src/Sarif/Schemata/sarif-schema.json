@@ -301,6 +301,11 @@
           "$ref": "#/definitions/externalPropertyFile"
         },
 
+        "properties": {
+          "description": "An external property file containing a run.properties object to be merged with the root log file.",
+          "$ref": "#/definitions/externalPropertyFile"
+        },
+
         "files": {
           "description": "An array of external property files containing run.files arrays to be merged with the root log file.",
           "type": "array",
@@ -339,14 +344,9 @@
           "items": {
             "$ref": "#/definitions/externalPropertyFile"
           }
-        },
 
-        "properties": {
-          "description": "Key/value pairs that provide additional information about the external property files.",
-          "$ref": "#/definitions/propertyBag"
         }
-      }
-    },
+      },
 
     "file": {
       "description": "A single file. In some cases, this file might be nested within another file.",
