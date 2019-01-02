@@ -243,6 +243,16 @@
           ]
         }
       ],
+      "versionControlProvenance": [
+        {
+          "repositoryUri": "https://github.com/example-corp/browser",
+          "revisionId": "de67ef7",
+          "mappedTo": {
+            "uri": "file:///C:/src/file.c",
+            "uriBaseId": "%SRCROOT%"
+          }
+        }
+      ],
       "properties": {
         "expectedResults": {
           "resultLocationPointers": [
@@ -266,7 +276,8 @@
             "runs[0].results[0].relatedLocations[0].physicalLocation.fileLocation.uri",
             "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0].location.physicalLocation.fileLocation.uri",
             "runs[0].results[0].stacks[0].frames[0].location.physicalLocation.fileLocation.uri",
-            "runs[0].results[0].fixes[0].fileChanges[0].fileLocation.uri"
+            "runs[0].results[0].fixes[0].fileChanges[0].fileLocation.uri",
+            "runs[0].versionControlProvenance[0].mappedTo.uri"
           ]
         }
       }

@@ -913,6 +913,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                node.MappedTo = VisitNullChecked(node.MappedTo);
             }
 
             return node;

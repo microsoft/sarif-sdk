@@ -243,6 +243,16 @@
           ]
         }
       ],
+      "versionControlProvenance": [
+        {
+          "repositoryUri": "https://github.com/example-corp/browser",
+          "revisionId": "de67ef7",
+          "mappedTo": {
+            "uri": "/browser",
+            "uriBaseId": "%SRCROOT%"
+          }
+        }
+      ],
       "properties": {
         "expectedResults": {
           "resultLocationPointers": []
