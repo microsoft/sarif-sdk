@@ -716,21 +716,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (node.Files != null)
                 {
-                    var keys = node.Files.Keys.ToArray();
-                    foreach (var key in keys)
+                    for (int index_0 = 0; index_0 < node.Files.Count; ++index_0)
                     {
-                        var value = node.Files[key];
-                        if (value != null)
-                        {
-                                string newKey = key;
-                                node.Files.Remove(key);
-                                value = VisitNullChecked(value, ref newKey);
-
-                                if (newKey != null)
-                                {
-                                    node.Files[newKey] = value;
-                                }
-                        }
+                        node.Files[index_0] = VisitNullChecked(node.Files[index_0]);
                     }
                 }
 
