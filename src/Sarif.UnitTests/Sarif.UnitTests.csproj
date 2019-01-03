@@ -34,6 +34,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\NestedFiles.sarif" />
+    <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\NestedFiles.sarif" />
     <None Remove="TestData\SarifCurrentToVersionOneVisitor\v1\Minimum.sarif" />
     <None Remove="TestData\SarifCurrentToVersionOneVisitor\v1\MinimumWithTwoRuns.sarif" />
     <None Remove="TestData\SarifCurrentToVersionOneVisitor\v1\NotificationExceptionWithStack.sarif" />
@@ -89,6 +91,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\NestedFiles.sarif" />
+    <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\NestedFiles.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\v1\Minimum.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\v1\MinimumWithTwoRuns.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\v1\NotificationExceptionWithStack.sarif" />
