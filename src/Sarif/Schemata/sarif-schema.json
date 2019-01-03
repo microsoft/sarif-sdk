@@ -20,7 +20,8 @@
     "runs": {
       "description": "The set of runs contained in this log file.",
       "type": "array",
-      "minItems": 1,
+      "minItems": 0,
+      "uniqueItems": false,
       "items": {
         "$ref": "#/definitions/run"
       }
@@ -55,8 +56,9 @@
         "regions": {
           "description": "An array of regions of interest within the attachment.",
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
           "uniqueItems": true,
+          "default": [],
           "items": {
             "$ref": "#/definitions/region"
           }
@@ -65,8 +67,9 @@
         "rectangles": {
           "description": "An array of rectangles specifying areas of interest within the image.",
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
           "uniqueItems": true,
+          "default": [],
           "items": {
             "$ref": "#/definitions/rectangle"
           }
@@ -96,7 +99,7 @@
           "description": "An array of one or more unique threadFlow objects, each of which describes the progress of a program through a thread of execution.",
           "type": "array",
           "minItems": 1,
-          "uniqueItems": true,
+          "uniqueItems": false,
           "items": {
             "$ref": "#/definitions/threadFlow"
           }
@@ -130,8 +133,9 @@
         "analysisToolLogFiles": {
           "description": "The locations of the analysis tool's per-run log files.",
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
           "uniqueItems": true,
+          "default": [],
           "items": {
             "$ref": "#/definitions/fileLocation"
           }
@@ -242,6 +246,9 @@
         "innerExceptions": {
           "description": "An array of exception objects each of which is considered a cause of this exception.",
           "type": "array",
+          "minItems": 0,
+          "uniqueItems": false,
+          "default": [],
           "items": {
             "$ref": "#/definitions/exception"
           }
@@ -379,8 +386,9 @@
         "roles": {
           "description": "The role or roles played by the file in the analysis.",
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
           "uniqueItems": true,
+          "default": [],
           "items": {
             "enum": [
               "analysisTarget",
@@ -451,6 +459,7 @@
           "description": "An array of replacement objects, each of which represents the replacement of a single region in a single file specified by 'fileLocation'.",
           "type": "array",
           "minItems": 1,
+          "uniqueItems": false,
           "items": {
             "$ref": "#/definitions/replacement"
           }
@@ -536,6 +545,8 @@
         "fileChanges": {
           "description": "One or more file changes that comprise a fix for a result.",
           "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/fileChange"
           }
@@ -568,6 +579,9 @@
         "nodes": {
           "description": "An array of node objects representing the nodes of the graph.",
           "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
           "items": {
             "$ref": "#/definitions/node"
           }
@@ -576,6 +590,9 @@
         "edges": {
           "description": "An array of edge objects representing the edges of the graph.",
           "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
           "items": {
             "$ref": "#/definitions/edge"
           }
@@ -587,7 +604,7 @@
         }
       },
 
-      "required": [ "id", "nodes", "edges" ]
+      "required": [ "id" ]
     },
 
     "graphTraversal": {
@@ -617,6 +634,9 @@
         "edgeTraversals": {
           "description": "The sequences of edges traversed by this graph traversal.",
           "type": "array",
+          "minItems": 0,
+          "uniqueItems": false,
+          "default": [],
           "items": {
             "$ref": "#/definitions/edgeTraversal"
           }
@@ -628,7 +648,7 @@
         }
       },
 
-      "required": [ "graphId", "edgeTraversals" ]
+      "required": [ "graphId" ]
     },
 
     "invocation": {
@@ -645,6 +665,8 @@
         "arguments": {
           "description": "An array of strings, containing in order the command line arguments passed to the tool from the operating system.",
           "type": "array",
+          "minItems": 0,
+          "uniqueItems": false,
           "items": {
             "type": "string"
           }
@@ -653,6 +675,8 @@
         "responseFiles": {
           "description": "The locations of any response files specified on the tool's command line.",
           "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/fileLocation"
           }
@@ -661,8 +685,9 @@
         "attachments": {
           "description": "A set of files relevant to the invocation of the tool.",
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
           "uniqueItems": true,
+          "default": [],
           "items": {
             "$ref": "#/definitions/attachment"
           }
@@ -688,6 +713,9 @@
         "toolNotifications": {
           "description": "A list of runtime conditions detected by the tool during the analysis.",
           "type": "array",
+          "minItems": 0,
+          "uniqueItems": false,
+          "default": [],
           "items": {
             "$ref": "#/definitions/notification"
           }
@@ -696,6 +724,9 @@
         "configurationNotifications": {
           "description": "A list of conditions detected by the tool that are relevant to the tool's configuration.",
           "type": "array",
+          "minItems": 0,
+          "uniqueItems": false,
+          "default": [],
           "items": {
             "$ref": "#/definitions/notification"
           }
@@ -817,8 +848,9 @@
         "annotations": {
           "description": "A set of regions relevant to the location.",
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
           "uniqueItems": true,
+          "default": [],
           "items": {
             "$ref": "#/definitions/region"
           }
@@ -901,6 +933,9 @@
         "arguments": {
           "description": "An array of strings to substitute into the message string.",
           "type": "array",
+          "minItems": 0,
+          "uniqueItems": false,
+          "default": [],
           "items": {
             "type": "string"
           }
@@ -938,7 +973,9 @@
         "children": {
           "description": "Array of child nodes.",
           "type": "array",
+          "minItems": 0,
           "uniqueItems": true,
+          "default": [],
           "items": {
             "$ref": "#/definitions/node"
           }
@@ -1054,6 +1091,7 @@
 
           "description": "A set of distinct strings that provide additional information.",
           "type": "array",
+          "minItems": 0,
           "uniqueItems": true,
           "default": [],
           "items": {
@@ -1252,9 +1290,11 @@
         },
 
         "locations": {
-          "description": "One or more locations where the result occurred. Specify only one location unless the problem indicated by the result can only be corrected by making a change at every specified location.",
+          "description": "The set of locations where the result was detected. Specify only one location unless the problem indicated by the result can only be corrected by making a change at every specified location.",
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
+          "uniqueItems": false,
+          "default": [],
           "items": {
             "$ref": "#/definitions/location"
           }
@@ -1295,8 +1335,9 @@
         "stacks": {
           "description": "An array of 'stack' objects relevant to the result.",
           "type": "array",
-          "minItems": 1,
-          "uniqueItems": true,
+          "minItems": 0,
+          "uniqueItems": false,
+          "default": [],
           "items": {
             "$ref": "#/definitions/stack"
           }
@@ -1305,8 +1346,9 @@
         "codeFlows": {
           "description": "An array of 'codeFlow' objects relevant to the result.",
           "type": "array",
-          "minItems": 1,
-          "uniqueItems": true,
+          "minItems": 0,
+          "uniqueItems": false,
+          "default": [],
           "items": {
             "$ref": "#/definitions/codeFlow"
           }
@@ -1333,8 +1375,9 @@
         "relatedLocations": {
           "description": "A set of locations relevant to this result.",
           "type": "array",
-          "minItems": 1,
-          "uniqueItems": true,
+          "minItems": 0,
+          "uniqueItems": false,
+          "default": [],
           "items": {
             "$ref": "#/definitions/location"
           }
@@ -1343,6 +1386,8 @@
         "suppressionStates": {
           "description": "A set of flags indicating one or more suppression conditions.",
           "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
           "items": {
             "enum": [
               "suppressedInSource",
@@ -1371,8 +1416,9 @@
         "attachments": {
           "description": "A set of files relevant to the result.",
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
           "uniqueItems": true,
+          "default": [],
           "items": {
             "$ref": "#/definitions/attachment"
           }
@@ -1387,7 +1433,7 @@
         "workItemUris": {
           "description": "The URIs of the work items associated with this result.",
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
           "uniqueItems": true,
           "items": {
             "type": "string",
@@ -1403,8 +1449,9 @@
         "fixes": {
           "description": "An array of 'fix' objects, each of which represents a proposed fix to the problem indicated by the result.",
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
           "uniqueItems": true,
+          "default": [],
           "items": {
             "$ref": "#/definitions/fix"
           }
@@ -1457,6 +1504,7 @@
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
+          "default": [],
           "items": {
             "$ref": "#/definitions/physicalLocation"
           }
@@ -1595,8 +1643,9 @@
         "invocations": {
           "description": "Describes the invocation of the analysis tool.",
           "type": "array",
-          "minItems": 1,
-          "uniqueItems": true,
+          "minItems": 0,
+          "uniqueItems": false,
+          "default": [],
           "items": {
             "$ref": "#/definitions/invocation"
           }
@@ -1610,8 +1659,9 @@
         "versionControlProvenance": {
           "description": "Specifies the revision in version control of the files that were scanned.",
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
           "uniqueItems": true,
+          "default": [],
           "items": {
             "$ref": "#/definitions/versionControlDetails"
           }
@@ -1638,6 +1688,8 @@
           "description": "An array of logical locations such as namespaces, types or functions.",
           "type": "array",
           "minItems": 0,
+          "uniqueItems": false,
+          "default": [],
           "items": {
             "$ref": "#/definitions/logicalLocation"
           }
@@ -1655,6 +1707,7 @@
           "description": "The set of results contained in an SARIF log. The results array can be omitted when a run is solely exporting rules metadata. It must be present (but may be empty) if a log file represents an actual scan.",
           "type": "array",
           "minItems": 0,
+          "uniqueItems": false,
           "items": {
             "$ref": "#/definitions/result"
           }
@@ -1674,6 +1727,8 @@
           "description": "Automation details that describe the aggregate of runs to which this run belongs.",
           "type": "array",
           "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
           "items": {
             "$ref": "#/definitions/runAutomationDetails"
           }
@@ -1778,7 +1833,8 @@
         "frames": {
           "description": "An array of stack frames that represents a sequence of calls, rendered in reverse chronological order, that comprise the call stack.",
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
+          "uniqueItems": false,
           "items": {
             "$ref": "#/definitions/stackFrame"
           }
@@ -1826,6 +1882,9 @@
         "parameters": {
           "description": "The parameters of the call that is executing.",
           "type": "array",
+          "minItems": 0,
+          "uniqueItems": false,
+          "default": [],
           "items": {
             "type": "string",
             "default": []
@@ -1857,6 +1916,7 @@
           "description": "A temporally ordered array of 'threadFlowLocation' objects, each of which describes a location visited by the tool while producing the result.",
           "type": "array",
           "minItems": 1,
+          "uniqueItems": false,
           "items": {
             "$ref": "#/definitions/threadFlowLocation"
           }
