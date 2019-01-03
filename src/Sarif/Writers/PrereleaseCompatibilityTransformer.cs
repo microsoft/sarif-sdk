@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             bool modifiedLog = false;
             updatedLog = null;
 
-            if (prereleaseSarifLog == null) { return null; }
+            if (string.IsNullOrEmpty(prereleaseSarifLog)) { return null; }
 
             JObject sarifLog = JObject.Parse(prereleaseSarifLog);
 

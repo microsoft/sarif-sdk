@@ -5,7 +5,9 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
+using System.Text;
 using FluentAssertions;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
@@ -41,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Directory.CreateDirectory(OutputFolderPath);
         }
 
-        protected virtual Assembly ThisAssembly => this.GetType().Assembly; 
+        protected virtual Assembly ThisAssembly => this.GetType().Assembly;
 
         protected virtual string TypeUnderTest => this.GetType().Name.Substring(0, this.GetType().Name.Length - "Tests".Length);
 
@@ -50,6 +52,69 @@ namespace Microsoft.CodeAnalysis.Sarif
         protected virtual string ProductTestDataDirectory => GetProductTestDataDirectory(TypeUnderTest);
 
         protected virtual string TestLogResourceNameRoot => "Microsoft.CodeAnalysis.Sarif.UnitTests.TestData." + TypeUnderTest;
+
+        protected virtual string ConstructTestOutputFromInputResource(string inputResource) { return string.Empty; }
+
+        protected virtual bool RebaselineExpectedResults => false;
+
+        protected virtual void RunTest(string resourceName)
+        {
+            // When retrieving constructed test content, we pass the resourceName is the test
+            // specified it. When constructing actual and expected file names from this data, 
+            // however, we will ensure that the name has the ".sarif" extension. We do this
+            // for test classes such as the Fortify converter that operate again non-SARIF inputs.
+            string actualSarifText = ConstructTestOutputFromInputResource("Inputs." + resourceName);
+
+            resourceName = Path.GetFileNameWithoutExtension(resourceName) + ".sarif";
+
+            var sb = new StringBuilder();
+
+            string expectedSarifText = GetResourceText("ExpectedOutputs." + resourceName);
+            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarifText, forceUpdate: false, Formatting.Indented, out expectedSarifText);
+
+            if (!AreEquivalentSarifLogs<SarifLog>(actualSarifText, expectedSarifText))
+            {
+                string errorMessage = string.Format(@"there should be no unexpected diffs detected comparing actual results to '{0}'.", resourceName);
+                sb.AppendLine(errorMessage);
+
+                if (!Utilities.RunningInAppVeyor)
+                {
+                    string expectedFilePath = null;
+                    string actualFilePath = null;
+
+                    expectedFilePath = GetOutputFilePath("ExpectedOutputs", resourceName);
+                    actualFilePath = GetOutputFilePath("ActualOutputs", resourceName);
+
+                    string expectedRootDirectory = Path.GetDirectoryName(expectedFilePath);
+                    string actualRootDirectory = Path.GetDirectoryName(actualFilePath);
+
+                    Directory.CreateDirectory(expectedRootDirectory);
+                    Directory.CreateDirectory(actualRootDirectory);
+
+                    File.WriteAllText(expectedFilePath, expectedSarifText);
+                    File.WriteAllText(actualFilePath, actualSarifText);
+
+                    sb.AppendLine("To compare all difference for this test suite:");
+                    sb.AppendLine(GenerateDiffCommand(TypeUnderTest, Path.GetDirectoryName(expectedFilePath), Path.GetDirectoryName(actualFilePath)) + Environment.NewLine);
+
+                    if (RebaselineExpectedResults)
+                    {
+                        string testDirectory = Path.Combine(GetProductTestDataDirectory(TypeUnderTest), "ExpectedOutputs");
+                        Directory.CreateDirectory(testDirectory);
+
+                        // We retrieve all test strings from embedded resources. To rebaseline, we need to
+                        // compute the enlistment location from which these resources are compiled.
+
+                        expectedFilePath = Path.Combine(testDirectory, resourceName);
+                        File.WriteAllText(expectedFilePath, actualSarifText);
+                    }
+                }
+
+                ValidateResults(sb.ToString());
+            }
+
+            RebaselineExpectedResults.Should().BeFalse();
+        }
 
         protected string GetOutputFilePath(string directory, string resourceName)
         {
@@ -63,6 +128,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             using (Stream stream = ThisAssembly.GetManifestResourceStream($"{TestLogResourceNameRoot}.{resourceName}"))
             {
+                if (stream == null) { return string.Empty; }
+
                 using (StreamReader reader = new StreamReader(stream))
                 {
                     text = reader.ReadToEnd();
@@ -126,9 +193,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 ContractResolver = contractResolver
             };
 
-            // Make sure we can successfully deserialize what was just generated
+            // Make sure we can successfully roundtrip what was just generated
             T actualLog = JsonConvert.DeserializeObject<T>(actualSarif, settings);
-
             actualSarif = JsonConvert.SerializeObject(actualLog, settings);
 
             JToken generatedToken = JToken.Parse(actualSarif);
