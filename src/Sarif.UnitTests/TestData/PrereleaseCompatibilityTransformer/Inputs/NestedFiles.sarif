@@ -7,7 +7,13 @@
         "name": "CodeScanner",
         "semanticVersion": "2.1.0"
       },
-      "results": []
+      "files": {
+        "file.txt": {"mimeType": "text/plain"}
+      },
+      "results": [
+        { "ruleId": "C1001", "message": {"messageId": "default"}, "locations": [{"physicalLocation": {"fileLocation": {"uri": "file.txt"}}}]}
+      ],
+      "resources": { "rules": { "C1001": { "messageStrings": { "default": "Review all plaintext content for geopolitically sensitive terms." } } } }
     }
   ]
 }
