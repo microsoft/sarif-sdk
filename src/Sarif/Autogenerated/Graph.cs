@@ -47,13 +47,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// An array of node objects representing the nodes of the graph.
         /// </summary>
-        [DataMember(Name = "nodes", IsRequired = true)]
+        [DataMember(Name = "nodes", IsRequired = false, EmitDefaultValue = false)]
         public IList<Node> Nodes { get; set; }
 
         /// <summary>
         /// An array of edge objects representing the edges of the graph.
         /// </summary>
-        [DataMember(Name = "edges", IsRequired = true)]
+        [DataMember(Name = "edges", IsRequired = false, EmitDefaultValue = false)]
         public IList<Edge> Edges { get; set; }
 
         /// <summary>
