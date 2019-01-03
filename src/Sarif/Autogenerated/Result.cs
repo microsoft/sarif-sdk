@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public FileLocation AnalysisTarget { get; set; }
 
         /// <summary>
-        /// One or more locations where the result occurred. Specify only one location unless the problem indicated by the result can only be corrected by making a change at every specified location.
+        /// The set of locations where the result was detected. Specify only one location unless the problem indicated by the result can only be corrected by making a change at every specified location.
         /// </summary>
         [DataMember(Name = "locations", IsRequired = false, EmitDefaultValue = false)]
         public IList<Location> Locations { get; set; }

@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// The sequences of edges traversed by this graph traversal.
         /// </summary>
-        [DataMember(Name = "edgeTraversals", IsRequired = true)]
+        [DataMember(Name = "edgeTraversals", IsRequired = false, EmitDefaultValue = false)]
         public IList<EdgeTraversal> EdgeTraversals { get; set; }
 
         /// <summary>
