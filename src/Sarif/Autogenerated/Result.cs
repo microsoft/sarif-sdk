@@ -4,6 +4,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
@@ -14,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A result produced by an analysis tool.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class Result : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Result> ValueComparer => ResultEqualityComparer.Instance;
@@ -43,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A value specifying the severity level of the result.
         /// </summary>
         [DataMember(Name = "level", IsRequired = false, EmitDefaultValue = false)]
-        [JsonConverter(typeof(EnumConverter))]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
         public ResultLevel Level { get; set; }
 
         /// <summary>
@@ -62,6 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The set of locations where the result was detected. Specify only one location unless the problem indicated by the result can only be corrected by making a change at every specified location.
         /// </summary>
         [DataMember(Name = "locations", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<Location> Locations { get; set; }
 
         /// <summary>
@@ -98,12 +100,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An array of 'stack' objects relevant to the result.
         /// </summary>
         [DataMember(Name = "stacks", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<Stack> Stacks { get; set; }
 
         /// <summary>
         /// An array of 'codeFlow' objects relevant to the result.
         /// </summary>
         [DataMember(Name = "codeFlows", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<CodeFlow> CodeFlows { get; set; }
 
         /// <summary>
@@ -122,6 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A set of locations relevant to this result.
         /// </summary>
         [DataMember(Name = "relatedLocations", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<Location> RelatedLocations { get; set; }
 
         /// <summary>
@@ -135,19 +140,22 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The state of a result relative to a baseline of a previous run.
         /// </summary>
         [DataMember(Name = "baselineState", IsRequired = false, EmitDefaultValue = false)]
-        [JsonConverter(typeof(EnumConverter))]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
         public BaselineState BaselineState { get; set; }
 
         /// <summary>
         /// A number representing the priority or importance of the result.
         /// </summary>
         [DataMember(Name = "rank", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(0)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public double Rank { get; set; }
 
         /// <summary>
         /// A set of files relevant to the result.
         /// </summary>
         [DataMember(Name = "attachments", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<Attachment> Attachments { get; set; }
 
         /// <summary>
@@ -174,6 +182,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An array of 'fix' objects, each of which represents a proposed fix to the problem indicated by the result.
         /// </summary>
         [DataMember(Name = "fixes", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<Fix> Fixes { get; set; }
 
         /// <summary>
@@ -187,82 +196,83 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public Result()
         {
+            Rank = 0;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Result" /> class from the supplied values.
         /// </summary>
         /// <param name="ruleId">
-        /// An initialization value for the <see cref="P: RuleId" /> property.
+        /// An initialization value for the <see cref="P:RuleId" /> property.
         /// </param>
         /// <param name="level">
-        /// An initialization value for the <see cref="P: Level" /> property.
+        /// An initialization value for the <see cref="P:Level" /> property.
         /// </param>
         /// <param name="message">
-        /// An initialization value for the <see cref="P: Message" /> property.
+        /// An initialization value for the <see cref="P:Message" /> property.
         /// </param>
         /// <param name="analysisTarget">
-        /// An initialization value for the <see cref="P: AnalysisTarget" /> property.
+        /// An initialization value for the <see cref="P:AnalysisTarget" /> property.
         /// </param>
         /// <param name="locations">
-        /// An initialization value for the <see cref="P: Locations" /> property.
+        /// An initialization value for the <see cref="P:Locations" /> property.
         /// </param>
         /// <param name="instanceGuid">
-        /// An initialization value for the <see cref="P: InstanceGuid" /> property.
+        /// An initialization value for the <see cref="P:InstanceGuid" /> property.
         /// </param>
         /// <param name="correlationGuid">
-        /// An initialization value for the <see cref="P: CorrelationGuid" /> property.
+        /// An initialization value for the <see cref="P:CorrelationGuid" /> property.
         /// </param>
         /// <param name="occurrenceCount">
-        /// An initialization value for the <see cref="P: OccurrenceCount" /> property.
+        /// An initialization value for the <see cref="P:OccurrenceCount" /> property.
         /// </param>
         /// <param name="partialFingerprints">
-        /// An initialization value for the <see cref="P: PartialFingerprints" /> property.
+        /// An initialization value for the <see cref="P:PartialFingerprints" /> property.
         /// </param>
         /// <param name="fingerprints">
-        /// An initialization value for the <see cref="P: Fingerprints" /> property.
+        /// An initialization value for the <see cref="P:Fingerprints" /> property.
         /// </param>
         /// <param name="stacks">
-        /// An initialization value for the <see cref="P: Stacks" /> property.
+        /// An initialization value for the <see cref="P:Stacks" /> property.
         /// </param>
         /// <param name="codeFlows">
-        /// An initialization value for the <see cref="P: CodeFlows" /> property.
+        /// An initialization value for the <see cref="P:CodeFlows" /> property.
         /// </param>
         /// <param name="graphs">
-        /// An initialization value for the <see cref="P: Graphs" /> property.
+        /// An initialization value for the <see cref="P:Graphs" /> property.
         /// </param>
         /// <param name="graphTraversals">
-        /// An initialization value for the <see cref="P: GraphTraversals" /> property.
+        /// An initialization value for the <see cref="P:GraphTraversals" /> property.
         /// </param>
         /// <param name="relatedLocations">
-        /// An initialization value for the <see cref="P: RelatedLocations" /> property.
+        /// An initialization value for the <see cref="P:RelatedLocations" /> property.
         /// </param>
         /// <param name="suppressionStates">
-        /// An initialization value for the <see cref="P: SuppressionStates" /> property.
+        /// An initialization value for the <see cref="P:SuppressionStates" /> property.
         /// </param>
         /// <param name="baselineState">
-        /// An initialization value for the <see cref="P: BaselineState" /> property.
+        /// An initialization value for the <see cref="P:BaselineState" /> property.
         /// </param>
         /// <param name="rank">
-        /// An initialization value for the <see cref="P: Rank" /> property.
+        /// An initialization value for the <see cref="P:Rank" /> property.
         /// </param>
         /// <param name="attachments">
-        /// An initialization value for the <see cref="P: Attachments" /> property.
+        /// An initialization value for the <see cref="P:Attachments" /> property.
         /// </param>
         /// <param name="hostedViewerUri">
-        /// An initialization value for the <see cref="P: HostedViewerUri" /> property.
+        /// An initialization value for the <see cref="P:HostedViewerUri" /> property.
         /// </param>
         /// <param name="workItemUris">
-        /// An initialization value for the <see cref="P: WorkItemUris" /> property.
+        /// An initialization value for the <see cref="P:WorkItemUris" /> property.
         /// </param>
         /// <param name="provenance">
-        /// An initialization value for the <see cref="P: Provenance" /> property.
+        /// An initialization value for the <see cref="P:Provenance" /> property.
         /// </param>
         /// <param name="fixes">
-        /// An initialization value for the <see cref="P: Fixes" /> property.
+        /// An initialization value for the <see cref="P:Fixes" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
         public Result(string ruleId, ResultLevel level, Message message, FileLocation analysisTarget, IEnumerable<Location> locations, string instanceGuid, string correlationGuid, int occurrenceCount, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IDictionary<string, Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, double rank, IEnumerable<Attachment> attachments, Uri hostedViewerUri, IEnumerable<Uri> workItemUris, ResultProvenance provenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
         {

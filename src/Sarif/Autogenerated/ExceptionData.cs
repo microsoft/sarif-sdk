@@ -6,11 +6,12 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class ExceptionData : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ExceptionData> ValueComparer => ExceptionDataEqualityComparer.Instance;
@@ -51,6 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An array of exception objects each of which is considered a cause of this exception.
         /// </summary>
         [DataMember(Name = "innerExceptions", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<ExceptionData> InnerExceptions { get; set; }
 
         /// <summary>
@@ -70,19 +72,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Initializes a new instance of the <see cref="ExceptionData" /> class from the supplied values.
         /// </summary>
         /// <param name="kind">
-        /// An initialization value for the <see cref="P: Kind" /> property.
+        /// An initialization value for the <see cref="P:Kind" /> property.
         /// </param>
         /// <param name="message">
-        /// An initialization value for the <see cref="P: Message" /> property.
+        /// An initialization value for the <see cref="P:Message" /> property.
         /// </param>
         /// <param name="stack">
-        /// An initialization value for the <see cref="P: Stack" /> property.
+        /// An initialization value for the <see cref="P:Stack" /> property.
         /// </param>
         /// <param name="innerExceptions">
-        /// An initialization value for the <see cref="P: InnerExceptions" /> property.
+        /// An initialization value for the <see cref="P:InnerExceptions" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
         public ExceptionData(string kind, Message message, Stack stack, IEnumerable<ExceptionData> innerExceptions, IDictionary<string, SerializedPropertyInfo> properties)
         {

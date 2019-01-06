@@ -4,6 +4,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
@@ -14,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Describes a condition relevant to the tool itself, as opposed to being relevant to a target being analyzed by the tool.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class Notification : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Notification> ValueComparer => NotificationEqualityComparer.Instance;
@@ -61,7 +62,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A value specifying the severity level of the notification.
         /// </summary>
         [DataMember(Name = "level", IsRequired = false, EmitDefaultValue = false)]
-        [JsonConverter(typeof(EnumConverter))]
+        [DefaultValue(NotificationLevel.Warning)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
         public NotificationLevel Level { get; set; }
 
         /// <summary>
@@ -74,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The Coordinated Universal Time (UTC) date and time at which the analysis tool generated the notification.
         /// </summary>
         [DataMember(Name = "timeUtc", IsRequired = false, EmitDefaultValue = false)]
-        [JsonConverter(typeof(DateTimeConverter))]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter))]
         public DateTime TimeUtc { get; set; }
 
         /// <summary>
@@ -94,37 +97,38 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public Notification()
         {
+            Level = NotificationLevel.Warning;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Notification" /> class from the supplied values.
         /// </summary>
         /// <param name="id">
-        /// An initialization value for the <see cref="P: Id" /> property.
+        /// An initialization value for the <see cref="P:Id" /> property.
         /// </param>
         /// <param name="ruleId">
-        /// An initialization value for the <see cref="P: RuleId" /> property.
+        /// An initialization value for the <see cref="P:RuleId" /> property.
         /// </param>
         /// <param name="physicalLocation">
-        /// An initialization value for the <see cref="P: PhysicalLocation" /> property.
+        /// An initialization value for the <see cref="P:PhysicalLocation" /> property.
         /// </param>
         /// <param name="message">
-        /// An initialization value for the <see cref="P: Message" /> property.
+        /// An initialization value for the <see cref="P:Message" /> property.
         /// </param>
         /// <param name="level">
-        /// An initialization value for the <see cref="P: Level" /> property.
+        /// An initialization value for the <see cref="P:Level" /> property.
         /// </param>
         /// <param name="threadId">
-        /// An initialization value for the <see cref="P: ThreadId" /> property.
+        /// An initialization value for the <see cref="P:ThreadId" /> property.
         /// </param>
         /// <param name="timeUtc">
-        /// An initialization value for the <see cref="P: TimeUtc" /> property.
+        /// An initialization value for the <see cref="P:TimeUtc" /> property.
         /// </param>
         /// <param name="exception">
-        /// An initialization value for the <see cref="P: Exception" /> property.
+        /// An initialization value for the <see cref="P:Exception" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
         public Notification(string id, string ruleId, PhysicalLocation physicalLocation, Message message, NotificationLevel level, int threadId, DateTime timeUtc, ExceptionData exception, IDictionary<string, SerializedPropertyInfo> properties)
         {

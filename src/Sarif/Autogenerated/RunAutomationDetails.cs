@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Information that describes a run's identity and role within an engineering system process.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class RunAutomationDetails : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<RunAutomationDetails> ValueComparer => RunAutomationDetailsEqualityComparer.Instance;
@@ -73,19 +73,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Initializes a new instance of the <see cref="RunAutomationDetails" /> class from the supplied values.
         /// </summary>
         /// <param name="description">
-        /// An initialization value for the <see cref="P: Description" /> property.
+        /// An initialization value for the <see cref="P:Description" /> property.
         /// </param>
         /// <param name="instanceId">
-        /// An initialization value for the <see cref="P: InstanceId" /> property.
+        /// An initialization value for the <see cref="P:InstanceId" /> property.
         /// </param>
         /// <param name="instanceGuid">
-        /// An initialization value for the <see cref="P: InstanceGuid" /> property.
+        /// An initialization value for the <see cref="P:InstanceGuid" /> property.
         /// </param>
         /// <param name="correlationGuid">
-        /// An initialization value for the <see cref="P: CorrelationGuid" /> property.
+        /// An initialization value for the <see cref="P:CorrelationGuid" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
         public RunAutomationDetails(Message description, string instanceId, string instanceGuid, string correlationGuid, IDictionary<string, SerializedPropertyInfo> properties)
         {

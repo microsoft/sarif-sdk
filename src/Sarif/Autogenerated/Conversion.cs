@@ -6,6 +6,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -13,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Describes how a converter transformed the output of a static analysis tool from the analysis tool's native output format into the SARIF format.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class Conversion : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Conversion> ValueComparer => ConversionEqualityComparer.Instance;
@@ -48,6 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The locations of the analysis tool's per-run log files.
         /// </summary>
         [DataMember(Name = "analysisToolLogFiles", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<FileLocation> AnalysisToolLogFiles { get; set; }
 
         /// <summary>
@@ -67,16 +69,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Initializes a new instance of the <see cref="Conversion" /> class from the supplied values.
         /// </summary>
         /// <param name="tool">
-        /// An initialization value for the <see cref="P: Tool" /> property.
+        /// An initialization value for the <see cref="P:Tool" /> property.
         /// </param>
         /// <param name="invocation">
-        /// An initialization value for the <see cref="P: Invocation" /> property.
+        /// An initialization value for the <see cref="P:Invocation" /> property.
         /// </param>
         /// <param name="analysisToolLogFiles">
-        /// An initialization value for the <see cref="P: AnalysisToolLogFiles" /> property.
+        /// An initialization value for the <see cref="P:AnalysisToolLogFiles" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
         public Conversion(Tool tool, Invocation invocation, IEnumerable<FileLocation> analysisToolLogFiles, IDictionary<string, SerializedPropertyInfo> properties)
         {

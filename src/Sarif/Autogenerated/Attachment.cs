@@ -6,6 +6,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -13,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A file relevant to a tool invocation or to a result.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class Attachment : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Attachment> ValueComparer => AttachmentEqualityComparer.Instance;
@@ -48,12 +49,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An array of regions of interest within the attachment.
         /// </summary>
         [DataMember(Name = "regions", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<Region> Regions { get; set; }
 
         /// <summary>
         /// An array of rectangles specifying areas of interest within the image.
         /// </summary>
         [DataMember(Name = "rectangles", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<Rectangle> Rectangles { get; set; }
 
         /// <summary>
@@ -73,19 +76,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Initializes a new instance of the <see cref="Attachment" /> class from the supplied values.
         /// </summary>
         /// <param name="description">
-        /// An initialization value for the <see cref="P: Description" /> property.
+        /// An initialization value for the <see cref="P:Description" /> property.
         /// </param>
         /// <param name="fileLocation">
-        /// An initialization value for the <see cref="P: FileLocation" /> property.
+        /// An initialization value for the <see cref="P:FileLocation" /> property.
         /// </param>
         /// <param name="regions">
-        /// An initialization value for the <see cref="P: Regions" /> property.
+        /// An initialization value for the <see cref="P:Regions" /> property.
         /// </param>
         /// <param name="rectangles">
-        /// An initialization value for the <see cref="P: Rectangles" /> property.
+        /// An initialization value for the <see cref="P:Rectangles" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
         public Attachment(Message description, FileLocation fileLocation, IEnumerable<Region> regions, IEnumerable<Rectangle> rectangles, IDictionary<string, SerializedPropertyInfo> properties)
         {

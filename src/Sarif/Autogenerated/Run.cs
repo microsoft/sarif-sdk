@@ -4,6 +4,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
@@ -14,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Describes a single run of an analysis tool, and contains the output of that run.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class Run : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Run> ValueComparer => RunEqualityComparer.Instance;
@@ -43,6 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Describes the invocation of the analysis tool.
         /// </summary>
         [DataMember(Name = "invocations", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<Invocation> Invocations { get; set; }
 
         /// <summary>
@@ -55,6 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Specifies the revision in version control of the files that were scanned.
         /// </summary>
         [DataMember(Name = "versionControlProvenance", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<VersionControlDetails> VersionControlProvenance { get; set; }
 
         /// <summary>
@@ -73,6 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An array of logical locations such as namespaces, types or functions.
         /// </summary>
         [DataMember(Name = "logicalLocations", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<LogicalLocation> LogicalLocations { get; set; }
 
         /// <summary>
@@ -103,6 +107,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Automation details that describe the aggregate of runs to which this run belongs.
         /// </summary>
         [DataMember(Name = "aggregateIds", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<RunAutomationDetails> AggregateIds { get; set; }
 
         /// <summary>
@@ -115,6 +120,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The MIME type of all rich text message properties in the run. Default: "text/markdown;variant=GFM"
         /// </summary>
         [DataMember(Name = "richMessageMimeType", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue("text/markdown;variant=GFM")]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public string RichMessageMimeType { get; set; }
 
         /// <summary>
@@ -133,13 +140,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An ordered list of character sequences that were treated as line breaks when computing region information for the run.
         /// </summary>
         [DataMember(Name = "newlineSequences", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<string> NewlineSequences { get; set; }
 
         /// <summary>
         /// Specifies the unit in which the tool measures columns.
         /// </summary>
         [DataMember(Name = "columnKind", IsRequired = false, EmitDefaultValue = false)]
-        [JsonConverter(typeof(EnumConverter))]
+        [DefaultValue(ColumnKind.UnicodeCodePoints)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
         public ColumnKind ColumnKind { get; set; }
 
         /// <summary>
@@ -159,70 +169,72 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public Run()
         {
+            RichMessageMimeType = "text/markdown;variant=GFM";
+            ColumnKind = ColumnKind.UnicodeCodePoints;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Run" /> class from the supplied values.
         /// </summary>
         /// <param name="tool">
-        /// An initialization value for the <see cref="P: Tool" /> property.
+        /// An initialization value for the <see cref="P:Tool" /> property.
         /// </param>
         /// <param name="invocations">
-        /// An initialization value for the <see cref="P: Invocations" /> property.
+        /// An initialization value for the <see cref="P:Invocations" /> property.
         /// </param>
         /// <param name="conversion">
-        /// An initialization value for the <see cref="P: Conversion" /> property.
+        /// An initialization value for the <see cref="P:Conversion" /> property.
         /// </param>
         /// <param name="versionControlProvenance">
-        /// An initialization value for the <see cref="P: VersionControlProvenance" /> property.
+        /// An initialization value for the <see cref="P:VersionControlProvenance" /> property.
         /// </param>
         /// <param name="originalUriBaseIds">
-        /// An initialization value for the <see cref="P: OriginalUriBaseIds" /> property.
+        /// An initialization value for the <see cref="P:OriginalUriBaseIds" /> property.
         /// </param>
         /// <param name="files">
-        /// An initialization value for the <see cref="P: Files" /> property.
+        /// An initialization value for the <see cref="P:Files" /> property.
         /// </param>
         /// <param name="logicalLocations">
-        /// An initialization value for the <see cref="P: LogicalLocations" /> property.
+        /// An initialization value for the <see cref="P:LogicalLocations" /> property.
         /// </param>
         /// <param name="graphs">
-        /// An initialization value for the <see cref="P: Graphs" /> property.
+        /// An initialization value for the <see cref="P:Graphs" /> property.
         /// </param>
         /// <param name="results">
-        /// An initialization value for the <see cref="P: Results" /> property.
+        /// An initialization value for the <see cref="P:Results" /> property.
         /// </param>
         /// <param name="resources">
-        /// An initialization value for the <see cref="P: Resources" /> property.
+        /// An initialization value for the <see cref="P:Resources" /> property.
         /// </param>
         /// <param name="id">
-        /// An initialization value for the <see cref="P: Id" /> property.
+        /// An initialization value for the <see cref="P:Id" /> property.
         /// </param>
         /// <param name="aggregateIds">
-        /// An initialization value for the <see cref="P: AggregateIds" /> property.
+        /// An initialization value for the <see cref="P:AggregateIds" /> property.
         /// </param>
         /// <param name="baselineInstanceGuid">
-        /// An initialization value for the <see cref="P: BaselineInstanceGuid" /> property.
+        /// An initialization value for the <see cref="P:BaselineInstanceGuid" /> property.
         /// </param>
         /// <param name="richMessageMimeType">
-        /// An initialization value for the <see cref="P: RichMessageMimeType" /> property.
+        /// An initialization value for the <see cref="P:RichMessageMimeType" /> property.
         /// </param>
         /// <param name="redactionToken">
-        /// An initialization value for the <see cref="P: RedactionToken" /> property.
+        /// An initialization value for the <see cref="P:RedactionToken" /> property.
         /// </param>
         /// <param name="defaultFileEncoding">
-        /// An initialization value for the <see cref="P: DefaultFileEncoding" /> property.
+        /// An initialization value for the <see cref="P:DefaultFileEncoding" /> property.
         /// </param>
         /// <param name="newlineSequences">
-        /// An initialization value for the <see cref="P: NewlineSequences" /> property.
+        /// An initialization value for the <see cref="P:NewlineSequences" /> property.
         /// </param>
         /// <param name="columnKind">
-        /// An initialization value for the <see cref="P: ColumnKind" /> property.
+        /// An initialization value for the <see cref="P:ColumnKind" /> property.
         /// </param>
         /// <param name="externalPropertyFiles">
-        /// An initialization value for the <see cref="P: ExternalPropertyFiles" /> property.
+        /// An initialization value for the <see cref="P:ExternalPropertyFiles" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
         public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, FileLocation> originalUriBaseIds, IDictionary<string, FileData> files, IEnumerable<LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, Resources resources, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string richMessageMimeType, string redactionToken, string defaultFileEncoding, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFiles externalPropertyFiles, IDictionary<string, SerializedPropertyInfo> properties)
         {
