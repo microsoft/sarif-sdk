@@ -46,11 +46,18 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             return resolvedUri != null;
         }
-        public static FileLocation CreateFromFilesDictionaryKey(string key)
+
+        public static FileLocation CreateFromFilesDictionaryKey(string key, string parentKey = null)
         {
             string uriBaseId = null;
+            string originalKey = key;
 
-            if (key.StartsWith("#"))
+            // A parent key indicates we're looking at an item that's nested within a container
+            if (!string.IsNullOrEmpty(parentKey))
+            {
+                key = originalKey.Substring(parentKey.Length).Trim(new[] { '#' });
+            }
+            else if (key.StartsWith("#"))
             {
                 string[] tokens = key.Split(new[] { '#' }, StringSplitOptions.RemoveEmptyEntries);
                 uriBaseId = tokens[0];
@@ -59,10 +66,21 @@ namespace Microsoft.CodeAnalysis.Sarif
                 key = key.Substring(uriBaseId.Length + 2);
             }
 
+            // At this point, if the key still contains an octothorpe, we are dealing with a 
+            // reference to a nested item (which we didn't identify because the caller to this
+            // utility did not have the parent key in hand).
+            if (key.Contains("#"))
+            {
+                key = key.Substring(key.IndexOf('#')).Trim(new[] { '#' });
+
+                // A uriBaseId is only valid for a location that refers to a root container
+                uriBaseId = null;
+            }
+
             return new FileLocation()
             {
-                 Uri = new Uri(key, UriKind.RelativeOrAbsolute),
-                 UriBaseId = uriBaseId
+                Uri = new Uri(UriHelper.MakeValidUri(key), UriKind.RelativeOrAbsolute),
+                UriBaseId = uriBaseId
             };
         }
     }

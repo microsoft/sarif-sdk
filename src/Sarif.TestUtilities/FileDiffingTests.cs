@@ -110,7 +110,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                ValidateResults(sb.ToString());
+                if (!RebaselineExpectedResults)
+                {
+                    ValidateResults(sb.ToString());
+                }
             }
 
             RebaselineExpectedResults.Should().BeFalse();

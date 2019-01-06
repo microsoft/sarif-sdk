@@ -41,6 +41,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             return node;
         }
-
     }
 }

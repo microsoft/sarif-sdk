@@ -42,9 +42,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (!string.IsNullOrEmpty(expectedDifference))
             {
-                newLocation.FileLocation.UriBaseId.Should().BeEquivalentTo(rootName, "We should set the root name for these.");
-                newLocation.FileLocation.Uri.Should().BeEquivalentTo(baseUri.MakeRelativeUri(locationUri), "Base URI should be relative if the expected difference is there.");
-                newLocation.FileLocation.Uri.ToString().Should().BeEquivalentTo(expectedDifference, "We expect this difference.");
+                newLocation.FileLocation.UriBaseId.Should().BeEquivalentTo(rootName, because: "we should set the root name for these.");
+                newLocation.FileLocation.Uri.Should().BeEquivalentTo(baseUri.MakeRelativeUri(locationUri), because: "the base URI should be relative if the expected difference is there.");
+                newLocation.FileLocation.Uri.ToString().Should().BeEquivalentTo(expectedDifference);
             }
             else
             {
@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             };
             RebaseUriVisitor rebaseUriVisitor = new RebaseUriVisitor("SRCROOT", new Uri(@"C:\bld\src\"));
 
-            rebaseUriVisitor.VisitPhysicalLocation(location).Should().BeEquivalentTo(location, "We should not rebase a URI multiple times.");
+            rebaseUriVisitor.VisitPhysicalLocation(location).Should().BeEquivalentTo(location, because: "we should not rebase a URI multiple times.");
         }
 
         [Fact]
