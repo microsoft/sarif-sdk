@@ -147,7 +147,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A number representing the priority or importance of the result.
         /// </summary>
         [DataMember(Name = "rank", IsRequired = false, EmitDefaultValue = false)]
-        [DefaultValue(0)]
+        [DefaultValue(0.0)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public double Rank { get; set; }
 

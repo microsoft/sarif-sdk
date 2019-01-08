@@ -40,6 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
       ""tool"": {
         ""name"": ""Clang""
       },
+      ""columnKind"": ""utf16CodeUnits"",
       ""results"": []
     }
   ]

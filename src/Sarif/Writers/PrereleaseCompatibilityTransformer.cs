@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             SarifLog transformedSarifLog = null;
-            var settings = new JsonSerializerSettings { Formatting = formatting };
+            var settings = new JsonSerializerSettings { Formatting = formatting, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate };
 
             if (fullyQualifiedLogicalNameToIndexMap != null)
             {
@@ -80,7 +80,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             else
             {
                 updatedLog = modifiedLog ? sarifLog.ToString(formatting) : prereleaseSarifLog;
-                transformedSarifLog = JsonConvert.DeserializeObject<SarifLog>(updatedLog);
+                transformedSarifLog = JsonConvert.DeserializeObject<SarifLog>(updatedLog, settings);
+                updatedLog = JsonConvert.SerializeObject(transformedSarifLog);
             }
 
             return transformedSarifLog;

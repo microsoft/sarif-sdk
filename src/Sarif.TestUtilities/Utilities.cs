@@ -64,6 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     var json = new JsonTextWriter(output)
                     {
                         Formatting = Newtonsoft.Json.Formatting.Indented,
+                         
                         CloseOutput = false
                     };
 

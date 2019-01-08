@@ -516,7 +516,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                     var result = new Result()
                     {
-                        RuleId = ruleId
+                        RuleId = ruleId,
+                        Message = new Message { Text = "Some testing occurred." }
                     };
 
                     sarifLogger.Log(rule, result);

@@ -170,7 +170,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Run()
         {
             RichMessageMimeType = "text/markdown;variant=GFM";
-            ColumnKind = ColumnKind.UnicodeCodePoints;
+            ColumnKind = ColumnKind.Utf16CodeUnits;
         }
 
         /// <summary>
