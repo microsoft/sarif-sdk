@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 // above this call). We are required to regenerate it, however, in order to properly 
                 // elide default values, etc. I could not find a way for the JToken driven
                 // ToString()/text-generating mechanism to honor default value ignore/populate settings.
-                //updatedLog = JsonConvert.SerializeObject(transformedSarifLog);
+                updatedLog = JsonConvert.SerializeObject(transformedSarifLog);
             }
 
             return transformedSarifLog;

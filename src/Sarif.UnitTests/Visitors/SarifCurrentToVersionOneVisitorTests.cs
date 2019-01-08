@@ -69,7 +69,6 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
                 File.WriteAllText(expectedFilePath, v1ExpectedLogText);
                 File.WriteAllText(actualFilePath, v1ActualLogText);
 
-
                 string errorMessage = string.Format(@"V2 conversion from V1 produced unexpected diffs for test: '{0}'.", v2InputResourceName);
 
                 sb.AppendLine("To compare all difference for this test suite:");
