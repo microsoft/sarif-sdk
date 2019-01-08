@@ -78,7 +78,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _jsonWriter.WriteStartObject(); // Begin: run
 
-
             if (run.Id != null)
             {
                 _jsonWriter.WritePropertyName("id");
@@ -139,13 +138,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 _serializer.Serialize(_jsonWriter, run.RedactionToken);
             }
 
-            // For this Windows-relevant SDK, if the column kind
-            // isn't explicitly specified, we will set it to Utf16CodeUnits
-            if (run.ColumnKind == ColumnKind.None)
-            {
-                run.ColumnKind = ColumnKind.Utf16CodeUnits;
-            }
-
+            // For this Windows-relevant SDK, if the column kind isn't explicitly set,
+            // we will set it to Utf16CodeUnits. Our jschema-generated OM is tweaked to 
+            // always persist this property.
             _jsonWriter.WritePropertyName("columnKind");
             _jsonWriter.WriteValue(run.ColumnKind == ColumnKind.UnicodeCodePoints ? "unicodeCodePoints" : "utf16CodeUnits");
 

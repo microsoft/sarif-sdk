@@ -124,12 +124,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             JsonSerializerSettings settings = new JsonSerializerSettings()
             {
                 ContractResolver = contractResolver,
-                DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate,
-                NullValueHandling = NullValueHandling.Ignore
             };
 
             // Make sure we can successfully deserialize what was just generated
             T actualLog = JsonConvert.DeserializeObject<T>(actualSarif, settings);
+
+            actualSarif = JsonConvert.SerializeObject(actualLog, settings);
 
             JToken generatedToken = JToken.Parse(actualSarif);
             JToken expectedToken = JToken.Parse(expectedSarif);

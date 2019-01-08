@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 // above this call). We are required to regenerate it, however, in order to properly 
                 // elide default values, etc. I could not find a way for the JToken driven
                 // ToString()/text-generating mechanism to honor default value ignore/populate settings.
-                updatedLog = JsonConvert.SerializeObject(transformedSarifLog);
+                //updatedLog = JsonConvert.SerializeObject(transformedSarifLog);
             }
 
             return transformedSarifLog;
@@ -186,13 +186,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     // https://github.com/oasis-tcs/sarif-spec/issues/274
                     //
                     // Applies to run.tool.fileVersion and run.conversion.tool.fileVersion
+                    // 
+                    // We will also explicitly apply the default tool.language value of "en-US".
 
-                    modifiedLog |= RenameProperty((JObject)run["tool"], previousName: "fileVersion", newName: "dottedQuadFileVersion");
+                    JObject tool = (JObject)run["tool"];
+                    modifiedLog |= RenameProperty(tool, previousName: "fileVersion", newName: "dottedQuadFileVersion");
+                    if (tool != null && tool["language"] == null) { tool["language"] = "en-US"; }
 
                     JObject conversion = (JObject)run["conversion"];
                     if (conversion != null)
                     {
-                        modifiedLog |= RenameProperty((JObject)conversion["tool"], previousName: "fileVersion", newName: "dottedQuadFileVersion");
+                        tool = (JObject)conversion["tool"];
+                        modifiedLog |= RenameProperty(tool, previousName: "fileVersion", newName: "dottedQuadFileVersion");
+                        if (tool != null && tool["language"] == null) { tool["language"] = "en-US"; }
                     }
 
                     // Remove 'open' from rule configuration default level enumeration

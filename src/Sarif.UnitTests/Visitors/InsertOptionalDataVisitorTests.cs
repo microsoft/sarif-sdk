@@ -97,7 +97,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             string expectedSarif = File.Exists(expectedFileName) ? File.ReadAllText(expectedFileName) : null;
             if (expectedSarif != null)
             {
-                PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarif, forceUpdate:false, formatting: Formatting.None, out expectedSarif);
+                SarifLog v2Log = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarif, forceUpdate:false, formatting: Formatting.None, out expectedSarif);
+                // In order to bring the expected text into exact conformance with the prerelease transformer, we need to round-trip it through JsonConvert.
+                // The reason is that the JToken.ToString() code in the prerelease transformer doesn't provide a way (that I can find) to set default value
+                // ignore/populate settings. We could do this round-tripping in the prerelease transformer itself, at the cost of performing this additional work.
+                expectedSarif = JsonConvert.SerializeObject(v2Log);
             }
 
             string actualSarif = JsonConvert.SerializeObject(actualLog, settings);
