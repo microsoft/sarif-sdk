@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public SarifLoggerTests(ITestOutputHelper output)
         {
             this.output = output;
-        }
+        }      
 
         [Fact]
         public void SarifLogger_RedactedCommandLine()
@@ -169,15 +169,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null))
                 {
-                    string ruleId = "RuleId";
-                    var rule = new Rule() { Id = ruleId };
-
-                    var result = new Result()
-                    {
-                        RuleId = ruleId
-                    };
-
-                    sarifLogger.Log(rule, result);
+                    LogDefaultResult(sarifLogger);
                 }
             }
 
@@ -281,15 +273,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null))
                 {
-                    string ruleId = "RuleId";
-                    var rule = new Rule() { Id = ruleId };
-
-                    var result = new Result()
-                    {
-                        RuleId = ruleId
-                    };
-
-                    sarifLogger.Log(rule, result);
+                    LogDefaultResult(sarifLogger);
                 }
             }
 
@@ -326,15 +310,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     invocationPropertiesToLog: null,
                     defaultFileEncoding: "ImaginaryEncoding"))
                 {
-                    string ruleId = "RuleId";
-                    var rule = new Rule() { Id = ruleId };
-
-                    var result = new Result()
-                    {
-                        RuleId = ruleId
-                    };
-
-                    sarifLogger.Log(rule, result);
+                    LogDefaultResult(sarifLogger);
                 }
             }
 
@@ -370,6 +346,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     var result = new Result()
                     {
                         RuleId = ruleId,
+                        Message = new Message { Text = "Some testing occurred." },
                         AnalysisTarget = new FileLocation { Uri = new Uri(@"file:///file0.cpp") },
                         Locations = new[]
                         {
@@ -395,9 +372,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                                     FileLocation = new FileLocation
                                     {
                                         Uri = new Uri(@"file:///file2.cpp")
+                                    },
+                                    Replacements = new[]
+                                    {
+                                        new Replacement {
+                                            DeletedRegion = new Region { StartLine = 1}
+                                        }
                                     }
                                    }
-                                }
+                                },
                             }
                         },
                         RelatedLocations = new[]
@@ -501,13 +484,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {                    
                     var toolNotification = new Notification
                     {
-                        PhysicalLocation = new PhysicalLocation { FileLocation = new FileLocation { Uri = new Uri(@"file:///file0.cpp") } }
+                        PhysicalLocation = new PhysicalLocation { FileLocation = new FileLocation { Uri = new Uri(@"file:///file.cpp") } },
+                        Message = new Message { Text = "A notification was raised." }
                     };
                     sarifLogger.LogToolNotification(toolNotification);
 
                     var configurationNotification = new Notification
                     {
-                        PhysicalLocation = new PhysicalLocation { FileLocation = new FileLocation { Uri = new Uri(@"file:///file0.cpp") } }
+                        PhysicalLocation = new PhysicalLocation { FileLocation = new FileLocation { Uri = new Uri(@"file:///file.cpp") } },
+                        Message = new Message { Text = "A notification was raised." }
                     };
                     sarifLogger.LogConfigurationNotification(configurationNotification);
 
@@ -544,16 +529,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null))
                 {
-
-                    string ruleId = "RuleId";
-                    var rule = new Rule() { Id = ruleId };
-
-                    var result = new Result()
-                    {
-                        RuleId = ruleId
-                    };
-
-                    sarifLogger.Log(rule, result);
+                    LogDefaultResult(sarifLogger);
                 }
             }
 
@@ -585,16 +561,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: new[] { "WorkingDirectory", "ProcessId" }))
                 {
-
-                    string ruleId = "RuleId";
-                    var rule = new Rule() { Id = ruleId };
-
-                    var result = new Result()
-                    {
-                        RuleId = ruleId
-                    };
-
-                    sarifLogger.Log(rule, result);
+                    LogDefaultResult(sarifLogger);
                 }
             }
 
@@ -630,16 +597,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: new[] { "WORKINGDIRECTORY", "prOCessID" }))
                 {
-
-                    string ruleId = "RuleId";
-                    var rule = new Rule() { Id = ruleId };
-
-                    var result = new Result()
-                    {
-                        RuleId = ruleId
-                    };
-
-                    sarifLogger.Log(rule, result);
+                    LogDefaultResult(sarifLogger);
                 }
             }
 
@@ -651,6 +609,21 @@ namespace Microsoft.CodeAnalysis.Sarif
             // Specified properties should be logged.
             invocation.WorkingDirectory.Should().NotBeNull();
             invocation.ProcessId.Should().NotBe(0);
+        }
+
+        private void LogDefaultResult(SarifLogger sarifLogger)
+        {
+            Rule rule = new Rule { Id = "RuleId" };
+            sarifLogger.Log(rule, CreateDefaultResult(rule));
+        }
+
+        private Result CreateDefaultResult(Rule rule)
+        {           
+            return new Result()
+            {
+                RuleId = rule.Id,
+                Message = new Message { Text = "Some testing occurred." }
+            };
         }
 
         [Fact]

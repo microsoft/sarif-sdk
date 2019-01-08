@@ -1081,7 +1081,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     DottedQuadFileVersion = v1Tool.FileVersion,
                     FullName = v1Tool.FullName,
-                    Language = v1Tool.Language,
+                    Language = v1Tool.Language ?? "en-US",
                     Name = v1Tool.Name,
                     Properties = v1Tool.Properties,
                     SarifLoggerVersion = v1Tool.SarifLoggerVersion,
