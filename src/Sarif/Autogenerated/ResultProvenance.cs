@@ -6,6 +6,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -13,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Contains information about how and when a result was detected.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class ResultProvenance : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ResultProvenance> ValueComparer => ResultProvenanceEqualityComparer.Instance;
@@ -66,6 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An array of physicalLocation objects which specify the portions of an analysis tool's output that a converter transformed into the result.
         /// </summary>
         [DataMember(Name = "conversionSources", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<PhysicalLocation> ConversionSources { get; set; }
 
         /// <summary>
@@ -85,25 +87,25 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Initializes a new instance of the <see cref="ResultProvenance" /> class from the supplied values.
         /// </summary>
         /// <param name="firstDetectionTimeUtc">
-        /// An initialization value for the <see cref="P: FirstDetectionTimeUtc" /> property.
+        /// An initialization value for the <see cref="P:FirstDetectionTimeUtc" /> property.
         /// </param>
         /// <param name="lastDetectionTimeUtc">
-        /// An initialization value for the <see cref="P: LastDetectionTimeUtc" /> property.
+        /// An initialization value for the <see cref="P:LastDetectionTimeUtc" /> property.
         /// </param>
         /// <param name="firstDetectionRunInstanceGuid">
-        /// An initialization value for the <see cref="P: FirstDetectionRunInstanceGuid" /> property.
+        /// An initialization value for the <see cref="P:FirstDetectionRunInstanceGuid" /> property.
         /// </param>
         /// <param name="lastDetectionRunInstanceGuid">
-        /// An initialization value for the <see cref="P: LastDetectionRunInstanceGuid" /> property.
+        /// An initialization value for the <see cref="P:LastDetectionRunInstanceGuid" /> property.
         /// </param>
         /// <param name="invocationIndex">
-        /// An initialization value for the <see cref="P: InvocationIndex" /> property.
+        /// An initialization value for the <see cref="P:InvocationIndex" /> property.
         /// </param>
         /// <param name="conversionSources">
-        /// An initialization value for the <see cref="P: ConversionSources" /> property.
+        /// An initialization value for the <see cref="P:ConversionSources" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
         public ResultProvenance(DateTime firstDetectionTimeUtc, DateTime lastDetectionTimeUtc, string firstDetectionRunInstanceGuid, string lastDetectionRunInstanceGuid, int invocationIndex, IEnumerable<PhysicalLocation> conversionSources, IDictionary<string, SerializedPropertyInfo> properties)
         {

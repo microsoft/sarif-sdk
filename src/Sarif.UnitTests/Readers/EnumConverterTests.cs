@@ -13,8 +13,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             Assert.Equal("M", EnumConverter.ConvertToPascalCase("m"));
             Assert.Equal("MD", EnumConverter.ConvertToPascalCase("md"));
             Assert.Equal("MD5", EnumConverter.ConvertToPascalCase("md5"));
-            Assert.Equal("MDFoo", EnumConverter.ConvertToPascalCase("mdFoo"));
-            Assert.Equal("Mfoo", EnumConverter.ConvertToPascalCase("mfoo"));
+            Assert.Equal("MDExample", EnumConverter.ConvertToPascalCase("mdExample"));
+            Assert.Equal("Mexample", EnumConverter.ConvertToPascalCase("mexample"));
 
             // NOTE: our heuristics for identifying two letter terms that
             // require casing as a group are necessarily limited to our 
@@ -33,8 +33,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             Assert.Equal("m", EnumConverter.ConvertToCamelCase("M"));
             Assert.Equal("md", EnumConverter.ConvertToCamelCase("MD"));
             Assert.Equal("md5", EnumConverter.ConvertToCamelCase("MD5"));
-            Assert.Equal("mdFoo", EnumConverter.ConvertToCamelCase("MDFoo"));
-            Assert.Equal("mfoo", EnumConverter.ConvertToCamelCase("Mfoo"));
+            Assert.Equal("mdExample", EnumConverter.ConvertToCamelCase("MDExample"));
+            Assert.Equal("mexample", EnumConverter.ConvertToCamelCase("Mexample"));
 
             // NOTE: our heuristics for identifying two letter terms that
             // require casing as a group are necessarily limited to our 

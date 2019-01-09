@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2018-11-28 JSON Schema: a standard format for the output of static analysis tools.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class SarifLog : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<SarifLog> ValueComparer => SarifLogEqualityComparer.Instance;
@@ -70,16 +70,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Initializes a new instance of the <see cref="SarifLog" /> class from the supplied values.
         /// </summary>
         /// <param name="schemaUri">
-        /// An initialization value for the <see cref="P: SchemaUri" /> property.
+        /// An initialization value for the <see cref="P:SchemaUri" /> property.
         /// </param>
         /// <param name="version">
-        /// An initialization value for the <see cref="P: Version" /> property.
+        /// An initialization value for the <see cref="P:Version" /> property.
         /// </param>
         /// <param name="runs">
-        /// An initialization value for the <see cref="P: Runs" /> property.
+        /// An initialization value for the <see cref="P:Runs" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
         public SarifLog(Uri schemaUri, SarifVersion version, IEnumerable<Run> runs, IDictionary<string, SerializedPropertyInfo> properties)
         {

@@ -190,7 +190,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             JsonSerializerSettings settings = new JsonSerializerSettings()
             {
-                ContractResolver = contractResolver
+                ContractResolver = contractResolver,
             };
 
             // Make sure we can successfully roundtrip what was just generated

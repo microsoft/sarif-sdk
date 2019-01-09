@@ -39,7 +39,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public ResultLogJsonWriter(JsonWriter jsonWriter)
         {
             _jsonWriter = jsonWriter;
-            _serializer = new JsonSerializer();
+            _serializer = new JsonSerializer()
+            {
+                DefaultValueHandling = DefaultValueHandling.Ignore
+            };
         }
 
         /// <summary>
@@ -58,13 +61,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             if (run.Tool == null)
             {
                 throw new ArgumentNullException(nameof(run.Tool));
-            }
-
-            // For this Windows-relevant SDK, if the column kind
-            // isn't explicitly specified, we will set it to Utf16CodeUnits
-            if (run.ColumnKind == ColumnKind.None)
-            {
-                run.ColumnKind = ColumnKind.Utf16CodeUnits;
             }
 
             this.EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.RunInitialized);
@@ -130,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 _serializer.Serialize(_jsonWriter, run.DefaultFileEncoding);
             }
 
-            if (run.RichMessageMimeType != null)
+            if (run.RichMessageMimeType != null && run.RichMessageMimeType != "text/markdown;variant=GFM")
             {
                 _jsonWriter.WritePropertyName("richMessageMimeType");
                 _serializer.Serialize(_jsonWriter, run.RichMessageMimeType);
@@ -141,6 +137,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 _jsonWriter.WritePropertyName("redactionToken");
                 _serializer.Serialize(_jsonWriter, run.RedactionToken);
             }
+
+            // For this Windows-relevant SDK, if the column kind isn't explicitly set,
+            // we will set it to Utf16CodeUnits. Our jschema-generated OM is tweaked to 
+            // always persist this property.
+            _jsonWriter.WritePropertyName("columnKind");
+            _jsonWriter.WriteValue(run.ColumnKind == ColumnKind.UnicodeCodePoints ? "unicodeCodePoints" : "utf16CodeUnits");
 
             _writeConditions |= Conditions.RunInitialized;
         }
@@ -280,7 +282,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 OpenResults();
             }
 
-            _serializer.Serialize(_jsonWriter, result, typeof(Result));
+            _serializer.Serialize(_jsonWriter, result);
         }
 
         /// <summary>

@@ -165,7 +165,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 fileData = new FileData
                 {
-                    Hashes = BuildHashesDictionary(v1FileData.Hashes),
+                    Hashes = v1FileData.Hashes?.Select(CreateHash).ToDictionary(p => p.Key, p => p.Value),
                     Length = v1FileData.Length,
                     MimeType = v1FileData.MimeType,
                     Offset = v1FileData.Offset,
@@ -198,20 +198,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return fileData;
-        }
-
-        private IDictionary<string, string> BuildHashesDictionary(IList<HashVersionOne> hashes)
-        {
-            if (hashes == null) { return null; }
-
-            var v2Hashes = new Dictionary<string, string>();
-
-            foreach (HashVersionOne v1Hash in hashes)
-            {
-                v2Hashes[Utilities.AlgorithmKindNameMap[v1Hash.Algorithm]] = v1Hash.Value;
-            }
-
-            return v2Hashes;
         }
 
         internal FileLocation CreateFileLocation(Uri uri, string uriBaseId)
@@ -1081,7 +1067,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     DottedQuadFileVersion = v1Tool.FileVersion,
                     FullName = v1Tool.FullName,
-                    Language = v1Tool.Language,
+                    Language = v1Tool.Language ?? "en-US",
                     Name = v1Tool.Name,
                     Properties = v1Tool.Properties,
                     SarifLoggerVersion = v1Tool.SarifLoggerVersion,

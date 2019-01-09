@@ -6,6 +6,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -13,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Represents a node in a graph.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class Node : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Node> ValueComparer => NodeEqualityComparer.Instance;
@@ -54,6 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Array of child nodes.
         /// </summary>
         [DataMember(Name = "children", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<Node> Children { get; set; }
 
         /// <summary>
@@ -73,19 +75,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Initializes a new instance of the <see cref="Node" /> class from the supplied values.
         /// </summary>
         /// <param name="id">
-        /// An initialization value for the <see cref="P: Id" /> property.
+        /// An initialization value for the <see cref="P:Id" /> property.
         /// </param>
         /// <param name="label">
-        /// An initialization value for the <see cref="P: Label" /> property.
+        /// An initialization value for the <see cref="P:Label" /> property.
         /// </param>
         /// <param name="location">
-        /// An initialization value for the <see cref="P: Location" /> property.
+        /// An initialization value for the <see cref="P:Location" /> property.
         /// </param>
         /// <param name="children">
-        /// An initialization value for the <see cref="P: Children" /> property.
+        /// An initialization value for the <see cref="P:Children" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
         public Node(string id, Message label, Location location, IEnumerable<Node> children, IDictionary<string, SerializedPropertyInfo> properties)
         {

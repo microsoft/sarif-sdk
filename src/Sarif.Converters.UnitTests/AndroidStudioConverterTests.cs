@@ -51,6 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
       ""tool"": {
         ""name"": ""AndroidStudio""
       },
+      ""columnKind"": ""utf16CodeUnits"",
       ""results"": []
     }
   ]

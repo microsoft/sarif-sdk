@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// An area within an image.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class Rectangle : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Rectangle> ValueComparer => RectangleEqualityComparer.Instance;
@@ -79,22 +79,22 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Initializes a new instance of the <see cref="Rectangle" /> class from the supplied values.
         /// </summary>
         /// <param name="top">
-        /// An initialization value for the <see cref="P: Top" /> property.
+        /// An initialization value for the <see cref="P:Top" /> property.
         /// </param>
         /// <param name="left">
-        /// An initialization value for the <see cref="P: Left" /> property.
+        /// An initialization value for the <see cref="P:Left" /> property.
         /// </param>
         /// <param name="bottom">
-        /// An initialization value for the <see cref="P: Bottom" /> property.
+        /// An initialization value for the <see cref="P:Bottom" /> property.
         /// </param>
         /// <param name="right">
-        /// An initialization value for the <see cref="P: Right" /> property.
+        /// An initialization value for the <see cref="P:Right" /> property.
         /// </param>
         /// <param name="message">
-        /// An initialization value for the <see cref="P: Message" /> property.
+        /// An initialization value for the <see cref="P:Message" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
         public Rectangle(double top, double left, double bottom, double right, Message message, IDictionary<string, SerializedPropertyInfo> properties)
         {

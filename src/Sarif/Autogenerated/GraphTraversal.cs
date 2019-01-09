@@ -6,6 +6,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -13,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Represents a path through a graph.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class GraphTraversal : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<GraphTraversal> ValueComparer => GraphTraversalEqualityComparer.Instance;
@@ -54,6 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The sequences of edges traversed by this graph traversal.
         /// </summary>
         [DataMember(Name = "edgeTraversals", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<EdgeTraversal> EdgeTraversals { get; set; }
 
         /// <summary>
@@ -73,19 +75,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Initializes a new instance of the <see cref="GraphTraversal" /> class from the supplied values.
         /// </summary>
         /// <param name="graphId">
-        /// An initialization value for the <see cref="P: GraphId" /> property.
+        /// An initialization value for the <see cref="P:GraphId" /> property.
         /// </param>
         /// <param name="description">
-        /// An initialization value for the <see cref="P: Description" /> property.
+        /// An initialization value for the <see cref="P:Description" /> property.
         /// </param>
         /// <param name="initialState">
-        /// An initialization value for the <see cref="P: InitialState" /> property.
+        /// An initialization value for the <see cref="P:InitialState" /> property.
         /// </param>
         /// <param name="edgeTraversals">
-        /// An initialization value for the <see cref="P: EdgeTraversals" /> property.
+        /// An initialization value for the <see cref="P:EdgeTraversals" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
         public GraphTraversal(string graphId, Message description, IDictionary<string, string> initialState, IEnumerable<EdgeTraversal> edgeTraversals, IDictionary<string, SerializedPropertyInfo> properties)
         {

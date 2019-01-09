@@ -4,6 +4,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
@@ -14,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A logical location of a construct that produced a result.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class LogicalLocation : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<LogicalLocation> ValueComparer => LogicalLocationEqualityComparer.Instance;
@@ -55,8 +56,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Identifies the index of the immediate parent of the construct in which the result was detected. For example, this property might point to a logical location that represents the namespace that holds a type.
         /// </summary>
         [DataMember(Name = "parentIndex", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [System.ComponentModel.DefaultValue(-1)]
         public int ParentIndex { get; set; }
 
         /// <summary>
@@ -83,22 +84,22 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Initializes a new instance of the <see cref="LogicalLocation" /> class from the supplied values.
         /// </summary>
         /// <param name="name">
-        /// An initialization value for the <see cref="P: Name" /> property.
+        /// An initialization value for the <see cref="P:Name" /> property.
         /// </param>
         /// <param name="fullyQualifiedName">
-        /// An initialization value for the <see cref="P: FullyQualifiedName" /> property.
+        /// An initialization value for the <see cref="P:FullyQualifiedName" /> property.
         /// </param>
         /// <param name="decoratedName">
-        /// An initialization value for the <see cref="P: DecoratedName" /> property.
+        /// An initialization value for the <see cref="P:DecoratedName" /> property.
         /// </param>
         /// <param name="parentIndex">
-        /// An initialization value for the <see cref="P: ParentIndex" /> property.
+        /// An initialization value for the <see cref="P:ParentIndex" /> property.
         /// </param>
         /// <param name="kind">
-        /// An initialization value for the <see cref="P: Kind" /> property.
+        /// An initialization value for the <see cref="P:Kind" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
         public LogicalLocation(string name, string fullyQualifiedName, string decoratedName, int parentIndex, string kind, IDictionary<string, SerializedPropertyInfo> properties)
         {

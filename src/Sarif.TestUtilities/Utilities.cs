@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
 using Microsoft.CodeAnalysis.Sarif.Converters;
@@ -63,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     var json = new JsonTextWriter(output)
                     {
-                        Formatting = Newtonsoft.Json.Formatting.Indented,
+                        Formatting = Newtonsoft.Json.Formatting.Indented,                         
                         CloseOutput = false
                     };
 

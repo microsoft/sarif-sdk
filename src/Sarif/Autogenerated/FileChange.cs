@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A change to a single file.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class FileChange : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<FileChange> ValueComparer => FileChangeEqualityComparer.Instance;
@@ -61,13 +61,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Initializes a new instance of the <see cref="FileChange" /> class from the supplied values.
         /// </summary>
         /// <param name="fileLocation">
-        /// An initialization value for the <see cref="P: FileLocation" /> property.
+        /// An initialization value for the <see cref="P:FileLocation" /> property.
         /// </param>
         /// <param name="replacements">
-        /// An initialization value for the <see cref="P: Replacements" /> property.
+        /// An initialization value for the <see cref="P:Replacements" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
         public FileChange(FileLocation fileLocation, IEnumerable<Replacement> replacements, IDictionary<string, SerializedPropertyInfo> properties)
         {
