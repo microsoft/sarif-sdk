@@ -164,7 +164,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
-                    analysisTargets: new string[] { @"foo.cpp" },
+                    analysisTargets: new string[] { @"example.cpp" },
                     loggingOptions: LoggingOptions.None,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null))

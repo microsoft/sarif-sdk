@@ -13,6 +13,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     public class CppCheckErrorTests
     {
         private readonly ImmutableArray<CppCheckLocation> _dummyLocations = ImmutableArray.Create(new CppCheckLocation("file.cpp", 42));
+        private const string ExampleFileName = "example.cpp";
+        private const string ExampleFileName2 = "example2.cpp";
 
         [Fact]
         public void CppCheckError_PassesThroughConstructorParameters()
@@ -44,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public void CppCheckError_ErrorWithSingleLocationIsConvertedToSarifIssue()
         {
             Result result = new CppCheckError("id", "message", "verbose", "my fancy severity", ImmutableArray.Create(
-                new CppCheckLocation("foo.cpp", 1234)
+                new CppCheckLocation(ExampleFileName, 1234)
                 )).ToSarifIssue();
             Assert.Equal("id", result.RuleId);
             Assert.Equal("verbose", result.Message.Text);
@@ -55,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         FileLocation = new FileLocation
                         {
-                            Uri = new Uri("foo.cpp", UriKind.RelativeOrAbsolute)
+                            Uri = new Uri(ExampleFileName, UriKind.RelativeOrAbsolute)
                         },
                         Region = new Region { StartLine = 1234 }
                     }
@@ -68,8 +70,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public void CppCheckError_ErrorWithMultipleLocationsFillsOutCodeFlow()
         {
             Result result = new CppCheckError("id", "message", "verbose", "my fancy severity", ImmutableArray.Create(
-                new CppCheckLocation("foo.cpp", 1234),
-                new CppCheckLocation("bar.cpp", 5678)
+                new CppCheckLocation(ExampleFileName, 1234),
+                new CppCheckLocation(ExampleFileName2, 5678)
                 )).ToSarifIssue();
 
             result.Locations.SequenceEqual(new[] { new Location {
@@ -77,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         {
                             FileLocation = new FileLocation
                             {
-                                Uri = new Uri("bar.cpp", UriKind.RelativeOrAbsolute)
+                                Uri = new Uri(ExampleFileName2, UriKind.RelativeOrAbsolute)
                             },
                             Region = new Region { StartLine = 5678 }
                         }
@@ -94,7 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             {
                                 FileLocation = new FileLocation
                                 {
-                                    Uri = new Uri("foo.cpp", UriKind.RelativeOrAbsolute)
+                                    Uri = new Uri(ExampleFileName, UriKind.RelativeOrAbsolute)
                                 },
                                 Region = new Region { StartLine = 1234 },
                             }
@@ -108,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             {
                                 FileLocation = new FileLocation
                                 {
-                                    Uri = new Uri("bar.cpp", UriKind.RelativeOrAbsolute)
+                                    Uri = new Uri(ExampleFileName2, UriKind.RelativeOrAbsolute)
                                 },
                                 Region = new Region { StartLine = 5678 }
                             }
@@ -151,26 +153,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void CppCheckError_CanParseErrorWithSingleLocation()
         {
-            string errorXml = exampleErrorXmlOpen + " <location file=\"foo.cpp\" line=\"42\" /> " + exampleErrorClose;
+            string errorXml = exampleErrorXmlOpen + " <location file=\"" + ExampleFileName + "\" line=\"42\" /> " + exampleErrorClose;
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(errorXml))
             {
                 var uut = Parse(xml);
                 AssertOuterPropertiesAreExampleError(uut);
-                uut.Locations.Should().Equal(new[] { new CppCheckLocation("foo.cpp", 42) });
+                uut.Locations.Should().Equal(new[] { new CppCheckLocation(ExampleFileName, 42) });
             }
         }
 
         [Fact]
         public void CppCheckError_CanParseErrorWithMultipleLocations()
         {
-            string errorXml = exampleErrorXmlOpen + " <location file=\"foo.cpp\" line=\"42\" />  <location file=\"bar.cpp\" line=\"1729\" /> " + exampleErrorClose;
+            string errorXml = exampleErrorXmlOpen + " <location file=\"" + ExampleFileName + "\" line=\"42\" />  <location file=\"" + ExampleFileName2 + "\" line=\"1729\" /> " + exampleErrorClose;
             using (XmlReader xml = Utilities.CreateXmlReaderFromString(errorXml))
             {
                 var uut = Parse(xml);
                 AssertOuterPropertiesAreExampleError(uut);
                 uut.Locations.Should().Equal(new[] {
-                    new CppCheckLocation("foo.cpp", 42),
-                    new CppCheckLocation("bar.cpp", 1729)
+                    new CppCheckLocation(ExampleFileName, 42),
+                    new CppCheckLocation(ExampleFileName2, 1729)
                 });
             }
         }
@@ -178,7 +180,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void CppCheckError_InvalidParse_BadRootNodeDetected()
         {
-            using (XmlReader xml = Utilities.CreateXmlReaderFromString("<foobar />"))
+            using (XmlReader xml = Utilities.CreateXmlReaderFromString("<badnode />"))
             {
                 Assert.Throws<XmlException>(() => Parse(xml));
             }
@@ -187,7 +189,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void CppCheckError_InvalidParse_BadChildrenNodeDetected()
         {
-            using (XmlReader xml = Utilities.CreateXmlReaderFromString(exampleErrorXmlOpen + "<foobar />" + exampleErrorClose))
+            using (XmlReader xml = Utilities.CreateXmlReaderFromString(exampleErrorXmlOpen + "<badchild />" + exampleErrorClose))
             {
                 Assert.Throws<XmlException>(() => Parse(xml));
             }
