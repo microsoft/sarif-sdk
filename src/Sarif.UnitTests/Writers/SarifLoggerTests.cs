@@ -169,7 +169,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null))
                 {
-                    LogDefaultResult(sarifLogger);
+                    LogSimpleResult(sarifLogger);
                 }
             }
 
@@ -273,7 +273,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null))
                 {
-                    LogDefaultResult(sarifLogger);
+                    LogSimpleResult(sarifLogger);
                 }
             }
 
@@ -310,7 +310,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     invocationPropertiesToLog: null,
                     defaultFileEncoding: "ImaginaryEncoding"))
                 {
-                    LogDefaultResult(sarifLogger);
+                    LogSimpleResult(sarifLogger);
                 }
             }
 
@@ -529,7 +529,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null))
                 {
-                    LogDefaultResult(sarifLogger);
+                    LogSimpleResult(sarifLogger);
                 }
             }
 
@@ -561,7 +561,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: new[] { "WorkingDirectory", "ProcessId" }))
                 {
-                    LogDefaultResult(sarifLogger);
+                    LogSimpleResult(sarifLogger);
                 }
             }
 
@@ -597,7 +597,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: new[] { "WORKINGDIRECTORY", "prOCessID" }))
                 {
-                    LogDefaultResult(sarifLogger);
+                    LogSimpleResult(sarifLogger);
                 }
             }
 
@@ -611,15 +611,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             invocation.ProcessId.Should().NotBe(0);
         }
 
-        private void LogDefaultResult(SarifLogger sarifLogger)
+        private void LogSimpleResult(SarifLogger sarifLogger)
         {
             Rule rule = new Rule { Id = "RuleId" };
-            sarifLogger.Log(rule, CreateDefaultResult(rule));
+            sarifLogger.Log(rule, CreateSimpleResult(rule));
         }
 
-        private Result CreateDefaultResult(Rule rule)
+        private Result CreateSimpleResult(Rule rule)
         {           
-            return new Result()
+            return new Result
             {
                 RuleId = rule.Id,
                 Message = new Message { Text = "Some testing occurred." }
