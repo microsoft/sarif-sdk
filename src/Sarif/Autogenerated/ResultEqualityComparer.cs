@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Result for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     internal sealed class ResultEqualityComparer : IEqualityComparer<Result>
     {
         internal static readonly ResultEqualityComparer Instance = new ResultEqualityComparer();
@@ -74,15 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            // We only insist that a correlation guid matches a non-null value. The reason is that
-            // a newly generated result will never have a correlation guid to start, only the baseline
-            // result has this value. Our value comparison should therefore not refer to the correlation
-            // guid unless both results have populated the value. In the case when a newly occuring result
-            // matches a result with an existing correlation guid, the correlation guid subsequently 
-            // needs to flow to the newly matched result.
-            if (left.CorrelationGuid != null &&
-                right.CorrelationGuid != null &&
-                left.CorrelationGuid != right.CorrelationGuid)
+            if (left.CorrelationGuid != right.CorrelationGuid)
             {
                 return false;
             }
@@ -351,13 +343,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
             }
-
-            // If we find a null correlation guid on either side, we will overwrite that null
-            // value with the value of the object being compared to. As a result, both results
-            // will exit this comparison in an equivalent state, with both CorrelationGuid 
-            // properties sharing the same value or both being null.
-            if (left.CorrelationGuid == null) { left.CorrelationGuid = right.CorrelationGuid; }
-            if (right.CorrelationGuid == null) { right.CorrelationGuid = left.CorrelationGuid; }
 
             return true;
         }

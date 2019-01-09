@@ -104,8 +104,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
   ""runs"": [
     {
       ""tool"": {
-        ""name"": null
+        ""name"": ""DefaultTool""
       },
+      ""columnKind"": ""utf16CodeUnits"",
       ""results"": [
         {
           ""message"": {

@@ -4,6 +4,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
@@ -14,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// The analysis tool that was run.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class Tool : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Tool> ValueComparer => ToolEqualityComparer.Instance;
@@ -80,6 +81,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The tool language (expressed as an ISO 649 two-letter lowercase culture code) and region (expressed as an ISO 3166 two-letter uppercase subculture code associated with a country or region).
         /// </summary>
         [DataMember(Name = "language", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue("en-US")]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public string Language { get; set; }
 
         /// <summary>
@@ -93,37 +96,38 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public Tool()
         {
+            Language = "en-US";
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Tool" /> class from the supplied values.
         /// </summary>
         /// <param name="name">
-        /// An initialization value for the <see cref="P: Name" /> property.
+        /// An initialization value for the <see cref="P:Name" /> property.
         /// </param>
         /// <param name="fullName">
-        /// An initialization value for the <see cref="P: FullName" /> property.
+        /// An initialization value for the <see cref="P:FullName" /> property.
         /// </param>
         /// <param name="version">
-        /// An initialization value for the <see cref="P: Version" /> property.
+        /// An initialization value for the <see cref="P:Version" /> property.
         /// </param>
         /// <param name="semanticVersion">
-        /// An initialization value for the <see cref="P: SemanticVersion" /> property.
+        /// An initialization value for the <see cref="P:SemanticVersion" /> property.
         /// </param>
         /// <param name="dottedQuadFileVersion">
-        /// An initialization value for the <see cref="P: DottedQuadFileVersion" /> property.
+        /// An initialization value for the <see cref="P:DottedQuadFileVersion" /> property.
         /// </param>
         /// <param name="downloadUri">
-        /// An initialization value for the <see cref="P: DownloadUri" /> property.
+        /// An initialization value for the <see cref="P:DownloadUri" /> property.
         /// </param>
         /// <param name="sarifLoggerVersion">
-        /// An initialization value for the <see cref="P: SarifLoggerVersion" /> property.
+        /// An initialization value for the <see cref="P:SarifLoggerVersion" /> property.
         /// </param>
         /// <param name="language">
-        /// An initialization value for the <see cref="P: Language" /> property.
+        /// An initialization value for the <see cref="P:Language" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
         public Tool(string name, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, string sarifLoggerVersion, string language, IDictionary<string, SerializedPropertyInfo> properties)
         {

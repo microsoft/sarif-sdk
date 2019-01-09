@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class ExternalPropertyFile : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ExternalPropertyFile> ValueComparer => ExternalPropertyFileEqualityComparer.Instance;
@@ -64,16 +64,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Initializes a new instance of the <see cref="ExternalPropertyFile" /> class from the supplied values.
         /// </summary>
         /// <param name="fileLocation">
-        /// An initialization value for the <see cref="P: FileLocation" /> property.
+        /// An initialization value for the <see cref="P:FileLocation" /> property.
         /// </param>
         /// <param name="instanceGuid">
-        /// An initialization value for the <see cref="P: InstanceGuid" /> property.
+        /// An initialization value for the <see cref="P:InstanceGuid" /> property.
         /// </param>
         /// <param name="itemCount">
-        /// An initialization value for the <see cref="P: ItemCount" /> property.
+        /// An initialization value for the <see cref="P:ItemCount" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
         public ExternalPropertyFile(FileLocation fileLocation, string instanceGuid, int itemCount, IDictionary<string, SerializedPropertyInfo> properties)
         {

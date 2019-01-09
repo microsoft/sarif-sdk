@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             byte[] fprData = GetResourceBytes(fprResourceName);
             string expectedSarifText = GetResourceText(expectedSarifResourceName);
-            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarifText, forceUpdate: false, formatting: Newtonsoft.Json.Formatting.None, out expectedSarifText);
+            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarifText, forceUpdate: false, formatting: Newtonsoft.Json.Formatting.Indented, out expectedSarifText);
 
             var converter = new FortifyFprConverter();
             string actualSarifText = Utilities.GetConverterJson(converter, fprData);

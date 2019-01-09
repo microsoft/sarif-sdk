@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Specifies the location of a file.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class FileLocation : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<FileLocation> ValueComparer => FileLocationEqualityComparer.Instance;
@@ -63,13 +63,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Initializes a new instance of the <see cref="FileLocation" /> class from the supplied values.
         /// </summary>
         /// <param name="uri">
-        /// An initialization value for the <see cref="P: Uri" /> property.
+        /// An initialization value for the <see cref="P:Uri" /> property.
         /// </param>
         /// <param name="uriBaseId">
-        /// An initialization value for the <see cref="P: UriBaseId" /> property.
+        /// An initialization value for the <see cref="P:UriBaseId" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
         public FileLocation(Uri uri, string uriBaseId, IDictionary<string, SerializedPropertyInfo> properties)
         {

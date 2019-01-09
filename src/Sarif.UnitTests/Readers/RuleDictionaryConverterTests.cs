@@ -21,8 +21,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
   ""runs"": [
     {
       ""tool"": {
-        ""name"": null
+        ""name"": ""DefaultTool""
       },
+      ""columnKind"": ""utf16CodeUnits"",
       ""resources"": {
         ""rules"": {
           ""CA1000.1"": {

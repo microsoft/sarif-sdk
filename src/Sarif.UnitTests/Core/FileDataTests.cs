@@ -193,7 +193,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void FileData_SerializeSingleFileRole()
         {
-            FileData fileData = FileData.Create(new Uri("file:///foo.cs"), OptionallyEmittedData.None);
+            FileData fileData = FileData.Create(new Uri("file:///example.cs"), OptionallyEmittedData.None);
             fileData.Roles = FileRoles.AnalysisTarget;
 
             string result = JsonConvert.SerializeObject(fileData);
@@ -204,7 +204,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void FileData_SerializeMultipleFileRoles()
         {
-            FileData fileData = FileData.Create(new Uri("file:///foo.cs"), OptionallyEmittedData.None);
+            FileData fileData = FileData.Create(new Uri("file:///example.cs"), OptionallyEmittedData.None);
             fileData.Roles = FileRoles.ResponseFile | FileRoles.ResultFile;
 
             string actual = JsonConvert.SerializeObject(fileData);

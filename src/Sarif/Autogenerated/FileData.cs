@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A single file. In some cases, this file might be nested within another file.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class FileData : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<FileData> ValueComparer => FileDataEqualityComparer.Instance;
@@ -61,6 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The role or roles played by the file in the analysis.
         /// </summary>
         [DataMember(Name = "roles", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(FlagsEnumConverter))]
         public FileRoles Roles { get; set; }
 
@@ -112,37 +113,37 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Initializes a new instance of the <see cref="FileData" /> class from the supplied values.
         /// </summary>
         /// <param name="fileLocation">
-        /// An initialization value for the <see cref="P: FileLocation" /> property.
+        /// An initialization value for the <see cref="P:FileLocation" /> property.
         /// </param>
         /// <param name="parentKey">
-        /// An initialization value for the <see cref="P: ParentKey" /> property.
+        /// An initialization value for the <see cref="P:ParentKey" /> property.
         /// </param>
         /// <param name="offset">
-        /// An initialization value for the <see cref="P: Offset" /> property.
+        /// An initialization value for the <see cref="P:Offset" /> property.
         /// </param>
         /// <param name="length">
-        /// An initialization value for the <see cref="P: Length" /> property.
+        /// An initialization value for the <see cref="P:Length" /> property.
         /// </param>
         /// <param name="roles">
-        /// An initialization value for the <see cref="P: Roles" /> property.
+        /// An initialization value for the <see cref="P:Roles" /> property.
         /// </param>
         /// <param name="mimeType">
-        /// An initialization value for the <see cref="P: MimeType" /> property.
+        /// An initialization value for the <see cref="P:MimeType" /> property.
         /// </param>
         /// <param name="contents">
-        /// An initialization value for the <see cref="P: Contents" /> property.
+        /// An initialization value for the <see cref="P:Contents" /> property.
         /// </param>
         /// <param name="encoding">
-        /// An initialization value for the <see cref="P: Encoding" /> property.
+        /// An initialization value for the <see cref="P:Encoding" /> property.
         /// </param>
         /// <param name="hashes">
-        /// An initialization value for the <see cref="P: Hashes" /> property.
+        /// An initialization value for the <see cref="P:Hashes" /> property.
         /// </param>
         /// <param name="lastModifiedTimeUtc">
-        /// An initialization value for the <see cref="P: LastModifiedTimeUtc" /> property.
+        /// An initialization value for the <see cref="P:LastModifiedTimeUtc" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
         public FileData(FileLocation fileLocation, string parentKey, int offset, int length, FileRoles roles, string mimeType, FileContent contents, string encoding, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
         {

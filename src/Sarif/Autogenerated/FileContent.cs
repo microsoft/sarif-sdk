@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Represents content from an external file.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class FileContent : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<FileContent> ValueComparer => FileContentEqualityComparer.Instance;
@@ -61,13 +61,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Initializes a new instance of the <see cref="FileContent" /> class from the supplied values.
         /// </summary>
         /// <param name="text">
-        /// An initialization value for the <see cref="P: Text" /> property.
+        /// An initialization value for the <see cref="P:Text" /> property.
         /// </param>
         /// <param name="binary">
-        /// An initialization value for the <see cref="P: Binary" /> property.
+        /// An initialization value for the <see cref="P:Binary" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
         public FileContent(string text, string binary, IDictionary<string, SerializedPropertyInfo> properties)
         {

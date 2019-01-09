@@ -56,6 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         ""name"": ""CppCheck"",
         ""version"": ""12.34.0""
       },
+      ""columnKind"": ""utf16CodeUnits"",
       ""results"": []
     }
   ]

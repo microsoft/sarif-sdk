@@ -123,7 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             JsonSerializerSettings settings = new JsonSerializerSettings()
             {
-                ContractResolver = contractResolver
+                ContractResolver = contractResolver,
             };
 
             // Make sure we can successfully deserialize what was just generated

@@ -52,9 +52,11 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
             string v1LogText = GetResourceText($"v1.{v1InputResourceName}");
             string v2ExpectedLogText = GetResourceText($"v2.{v2ExpectedResourceName}");
 
-            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(v2ExpectedLogText, forceUpdate: true, formatting: Formatting.Indented, out v2ExpectedLogText);
+            SarifLog v2Log = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(v2ExpectedLogText, forceUpdate: true, formatting: Formatting.Indented, out v2ExpectedLogText);
+            // Round-trip here in order to force default value ignore/populate behaviors.
+            v2ExpectedLogText = JsonConvert.SerializeObject(v2Log);
 
-            SarifLog v2Log = TransformVersionOneToCurrent(v1LogText);
+            v2Log = TransformVersionOneToCurrent(v1LogText);
             string v2ActualLogText = JsonConvert.SerializeObject(v2Log, SarifTransformerUtilities.JsonSettingsIndented);
 
             StringBuilder sb = new StringBuilder();
