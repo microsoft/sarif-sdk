@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 { typeof(bool),    (isRequired) => { return isRequired; } },
                 { typeof(int),     (isRequired) => { return isRequired ? int.MaxValue : 0; } },
                 { typeof(double),  (isRequired) => { return isRequired ? double.MaxValue : 0; } },
-                { typeof(string),  (isRequired) => { return isRequired ? "Required string value." : null; } },
+                { typeof(string),  (isRequired) => { return isRequired ? "string/required" : null; } },
                 { typeof(DateTime),(isRequired) => { return isRequired ? DateTime.UtcNow : new DateTime(); } },
                 { typeof(Uri),     (isRequired) => { return isRequired ? new Uri("https://required.uri.contoso.com") : null; } }
             };
@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 { typeof(bool),    (isRequired) => { return true; } },
                 { typeof(int),     (isRequired) => { return isRequired ? int.MaxValue : 1; } },
                 { typeof(double),  (isRequired) => { return isRequired ? double.MaxValue : 1; } },
-                { typeof(string),  (isRequired) => { return isRequired ? "[Required string value]" : "[Optional string value]"; } },
+                { typeof(string),  (isRequired) => { return isRequired ? "string/required" : "string/optional"; } },
                 { typeof(DateTime),(isRequired) => { return isRequired ? new DateTime(2018, 10, 31).ToUniversalTime() : new DateTime(1776, 7, 4).ToUniversalTime(); } },
                 { typeof(Uri),     (isRequired) => { return isRequired ? new Uri("https://required.uri.value.contoso.com") : new Uri("https://optional.uri.value.contoso.com"); } }
             };
