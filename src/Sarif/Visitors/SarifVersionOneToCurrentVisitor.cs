@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
-using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Utilities = Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities;
@@ -169,7 +168,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Length = v1FileData.Length,
                     MimeType = v1FileData.MimeType,
                     Offset = v1FileData.Offset,
+#if FILES_ARRAY_WORKS
                     ParentKey = v1FileData.ParentKey,
+#endif
                     Properties = v1FileData.Properties
                 };
 
@@ -574,9 +575,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         // We have contents, so mention this file in _currentRun.files
                         if (_currentRun.Files == null)
                         {
-                            _currentRun.Files = new Dictionary<string, FileData>();
+                            _currentRun.Files = new List<FileData>();
                         }
 
+#if FILES_ARRAY_WORKS
                         if (!_currentRun.Files.ContainsKey(key))
                         {
                             _currentRun.Files.Add(key, new FileData());
@@ -589,6 +591,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                             Text = responseFileToContentsDictionary[key]
                         };
                         responseFile.FileLocation = fileLocation;
+#endif
                     }
                 }
             }
@@ -887,11 +890,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     if (v1Run.Files != null)
                     {
-                        run.Files = new Dictionary<string, FileData>();
+                        run.Files = new List<FileData>();
 
                         foreach (var pair in v1Run.Files)
                         {
+#if FILES_ARRAY_WORKS
                             run.Files.Add(pair.Key, CreateFileData(pair.Value));
+#endif
                         }
                     }
 

@@ -16,11 +16,8 @@
 
   <ItemGroup>
     <Compile Remove="Baseline\**" />
-    <Compile Remove="TestData\Transformers\**" />
     <EmbeddedResource Remove="Baseline\**" />
-    <EmbeddedResource Remove="TestData\Transformers\**" />
     <None Remove="Baseline\**" />
-    <None Remove="TestData\Transformers\**" />
   </ItemGroup>
 
   <ItemGroup>
