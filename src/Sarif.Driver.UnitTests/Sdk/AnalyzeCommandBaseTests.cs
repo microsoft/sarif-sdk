@@ -8,7 +8,6 @@ using System.Linq;
 using System.Reflection;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Readers;
-using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Newtonsoft.Json;
 using Xunit;
 

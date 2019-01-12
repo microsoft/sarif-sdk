@@ -4,6 +4,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
@@ -47,11 +48,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string UriBaseId { get; set; }
 
         /// <summary>
-        /// The index within the run files array that specifies the file object associated with the file location.
+        /// The index within the run files array of the file object associated with the file location.
         /// </summary>
         [DataMember(Name = "fileIndex", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [System.ComponentModel.DefaultValue(-1)]
         public int FileIndex { get; set; }
 
         /// <summary>
@@ -78,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An initialization value for the <see cref="P:UriBaseId" /> property.
         /// </param>
         /// <param name="fileIndex">
-        /// An initialization value for the <see cref="P: FileIndex" /> property.
+        /// An initialization value for the <see cref="P:FileIndex" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.

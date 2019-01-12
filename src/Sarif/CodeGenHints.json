@@ -132,7 +132,7 @@
       "arguments": {
         "namespaceName": "Newtonsoft.Json",
         "typeName": "JsonConverter",
-        "arguments": [ "typeof(DateTimeConverter)" ]
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter)" ]
       }
     }
   ],
@@ -209,23 +209,6 @@
       }
     }
   ],
-  "FileLocation.FileIndex": [
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonProperty",
-        "arguments": [ "DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate" ]
-      }
-    },
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "typeName": "System.ComponentModel.DefaultValue",
-        "arguments": [ "-1" ]
-      }
-    }
-  ],
   "fix": [
     {
       "kind": "BaseTypeHint",
@@ -277,7 +260,7 @@
       "arguments": {
         "namespaceName": "Newtonsoft.Json",
         "typeName": "JsonConverter",
-        "arguments": [ "typeof(DateTimeConverter)" ]
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter)" ]
       }
     }
   ],
@@ -292,7 +275,7 @@
       "arguments": {
         "namespaceName": "Newtonsoft.Json",
         "typeName": "JsonConverter",
-        "arguments": [ "typeof(DateTimeConverter)" ]
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter)" ]
       }
     }
   ],
@@ -303,23 +286,6 @@
         "baseTypeNames": [
           "PropertyBagHolder"
         ]
-      }
-    }
-  ],
-  "Location.LogicalLocationIndex": [
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonProperty",
-        "arguments": [ "DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate" ]
-      }
-    },
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "typeName": "System.ComponentModel.DefaultValue",
-        "arguments": [ "-1" ]
       }
     }
   ],
@@ -854,7 +820,7 @@
       "arguments": {
         "namespaceName": "Newtonsoft.Json",
         "typeName": "JsonConverter",
-        "arguments": [ "typeof(DateTimeConverter)" ]
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter)" ]
       }
     }
   ],
@@ -904,7 +870,7 @@
       "arguments": {
         "namespaceName": "Newtonsoft.Json",
         "typeName": "JsonConverter",
-        "arguments": [ "typeof(DateTimeConverter)" ]
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter)" ]
       }
     }
   ]
