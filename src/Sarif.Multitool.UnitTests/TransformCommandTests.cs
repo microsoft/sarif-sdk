@@ -2,6 +2,13 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using Microsoft.CodeAnalysis.Sarif;
+using Microsoft.CodeAnalysis.Sarif.Multitool;
+using Microsoft.CodeAnalysis.Sarif.Readers;
+using Microsoft.CodeAnalysis.Sarif.VersionOne;
+using FluentAssertions;
+using Moq;
+using Newtonsoft.Json;
+using Xunit;
 
 namespace Sarif.Multitool.UnitTests
 {
@@ -51,7 +58,6 @@ namespace Sarif.Multitool.UnitTests
   ]
 }";
 
-        /*        
         [Fact]
         public void TransformCommand_TransformsMinimalCurrentV2FileToCurrentV2()
         {
@@ -61,6 +67,7 @@ namespace Sarif.Multitool.UnitTests
             RunTransformationToV2Test(logFileContents);
         }
 
+        /*
         [Fact]
         public void TransformCommand_TransformsMinimalPrereleaseV2FileToCurrentV2()
         {
@@ -111,7 +118,9 @@ namespace Sarif.Multitool.UnitTests
         {
             RunTransformationToV1Test(MinimalV1);
         }
-        
+        }
+*/
+
         private static void RunTransformationToV2Test(string logFileContents)
         {
             string transformedContents = RunTransformationCore(logFileContents, SarifVersion.Current);
@@ -122,7 +131,7 @@ namespace Sarif.Multitool.UnitTests
             sarifLog.Version.Should().Be(SarifVersion.Current);
         }
 
-        
+
         private void RunTransformationToV1Test(string logFileContents)
         {
             string transformedContents = RunTransformationCore(logFileContents, SarifVersion.OneZeroZero);
@@ -156,6 +165,6 @@ namespace Sarif.Multitool.UnitTests
             returnCode.Should().Be(0);
 
             return transformedContents;
-        }*/
+        }
     }
 }

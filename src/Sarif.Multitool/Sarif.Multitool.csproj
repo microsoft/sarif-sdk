@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <Compile Remove="ResultMatchingCommand.cs" />
-    <Compile Remove="TransformCommand.cs" />
   </ItemGroup>
 
   <ItemGroup>

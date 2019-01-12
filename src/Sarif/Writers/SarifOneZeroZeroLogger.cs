@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
@@ -15,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     /// </summary>
     public class SarifOneZeroZeroLogger : SarifLogger
     {
-        private string _outputFilePath;
+        private readonly string _outputFilePath;
 
         public SarifOneZeroZeroLogger(
             string outputFilePath,
@@ -47,9 +48,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             var v2Log = JsonConvert.DeserializeObject<SarifLog>(logText);
 
-            // TODO ENABLE
-            //var transformer = new SarifCurrentToVersionOneVisitor();
-            //transformer.VisitSarifLog(v2Log);
+            var transformer = new SarifCurrentToVersionOneVisitor();
+            transformer.VisitSarifLog(v2Log);
 
             JsonSerializerSettings v1Settings = new JsonSerializerSettings()
             {

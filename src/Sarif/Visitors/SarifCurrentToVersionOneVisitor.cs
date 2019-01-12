@@ -147,16 +147,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private string GetFileEncodingName(Uri uri)
         {
             string encodingName = null;
-            IDictionary<string, FileData> filesDictionary = _currentV2Run.Files;
-
+            IList<FileData> files = _currentV2Run.Files;
+#if FILES_ARRAY_WORKS
             FileData fileData;
             if (uri != null &&
-                filesDictionary != null &&
-                filesDictionary.TryGetValue(uri.OriginalString, out fileData))
+                files != null &&
+                files.TryGetValue(uri.OriginalString, out fileData))
             {
                 encodingName = fileData.Encoding;
             }
-
+#endif
             return encodingName;
         }
 
@@ -185,7 +185,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Length = v2FileData.Length,
                     MimeType = v2FileData.MimeType,
                     Offset = v2FileData.Offset,
+#if FILES_ARRAY_WORKS
                     ParentKey = v2FileData.ParentKey,
+#endif
                     Properties = v2FileData.Properties,
                     Uri = v2FileData.FileLocation?.Uri,
                     UriBaseId = v2FileData.FileLocation?.UriBaseId
@@ -601,6 +603,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (uri != null && _currentV2Run.Files != null)
             {
+#if FILES_ARRAY_WORKS
                 FileData fileData;
                 if (_currentV2Run.Files.TryGetValue(uri.OriginalString, out fileData))
                 {
@@ -651,6 +654,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         failureReason = $"Encoding for file '{uri.OriginalString}' could not be determined";
                     }
                 }
+#endif
             }
 
             if (stream == null && failureReason == null)
@@ -728,12 +732,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     string key = fileLocation.Uri.OriginalString;
                     string fileContent = null;
+#if FILES_ARRAY_WORKS
                     FileData responseFile;
-
                     if (_currentV2Run.Files != null && _currentV2Run.Files.TryGetValue(key, out responseFile))
                     {
                         fileContent = responseFile.Contents?.Text;
                     }
+#endif
 
                     responseFiles.Add(key, fileContent);
                 }
@@ -868,8 +873,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     _currentRun = run;
 
                     run.BaselineId = v2Run.BaselineInstanceGuid;
+#if FILES_ARRAY_WORKS
                     run.Files = v2Run.Files?.ToDictionary(v => v.Key, v => CreateFileData(v.Value));
-
+#endif
                     run.Id = v2Run.Id?.InstanceGuid;
                     run.AutomationId = v2Run.AggregateIds?.FirstOrDefault()?.InstanceId;
 

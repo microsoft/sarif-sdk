@@ -31,11 +31,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Visitors\SarifCurrentToVersionOneVisitor.cs" />
-    <Compile Remove="Visitors\SarifVersionOneToCurrentVisitor.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
     <PackageReference Include="System.Collections.Immutable" Version="1.5.0" />
   </ItemGroup>
