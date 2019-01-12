@@ -42,6 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string version = forceUpdate ? "2.0.0" : (string)sarifLog["version"];
 
             Dictionary<string, int> fullyQualifiedLogicalNameToIndexMap = null;
+            Dictionary<string, int> fileLocationKeyToIndexMap = null;
 
             switch (version)
             {
@@ -54,14 +55,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 case "2.0.0-csd.2.beta.2018-10-10":
                 {
                     // 2.0.0-csd.2.beta.2018-10-10 == changes through SARIF TC #25
-                    modifiedLog |= ApplyChangesFromTC25ThroughTC28(sarifLog, out fullyQualifiedLogicalNameToIndexMap);
+                    modifiedLog |= ApplyChangesFromTC25ThroughTC28(
+                        sarifLog, 
+                        out fullyQualifiedLogicalNameToIndexMap,
+                        out fileLocationKeyToIndexMap);
                     break;
                 }
 
                 default:
                 {
                     modifiedLog |= ApplyCoreTransformations(sarifLog);
-                    modifiedLog |= ApplyChangesFromTC25ThroughTC28(sarifLog, out fullyQualifiedLogicalNameToIndexMap);
+                    modifiedLog |= ApplyChangesFromTC25ThroughTC28(
+                        sarifLog, 
+                        out fullyQualifiedLogicalNameToIndexMap,
+                        out fileLocationKeyToIndexMap);
                     break;
                 }
             }
@@ -69,11 +76,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             SarifLog transformedSarifLog = null;
             var settings = new JsonSerializerSettings { Formatting = formatting, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate };
 
-            if (fullyQualifiedLogicalNameToIndexMap != null)
+            if (fullyQualifiedLogicalNameToIndexMap != null  || fileLocationKeyToIndexMap != null)
             {
                 Debug.Assert(modifiedLog == true);
                 transformedSarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifLog.ToString());
-                var indexUpdatingVisitor = new UpdateIndicesVisitor(fullyQualifiedLogicalNameToIndexMap);
+                var indexUpdatingVisitor = new UpdateIndicesVisitor(fullyQualifiedLogicalNameToIndexMap, fileLocationKeyToIndexMap);
                 indexUpdatingVisitor.Visit(transformedSarifLog);
                 updatedLog = JsonConvert.SerializeObject(transformedSarifLog, settings);
             }
@@ -92,9 +99,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return transformedSarifLog;
         }
 
-        private static bool ApplyChangesFromTC25ThroughTC28(JObject sarifLog, out Dictionary<string, int> fullyQualifiedLogicalNameToIndexMap)
+        private static bool ApplyChangesFromTC25ThroughTC28(
+            JObject sarifLog, 
+            out Dictionary<string, int> fullyQualifiedLogicalNameToIndexMap,
+            out Dictionary<string, int> keyToIndexMap)
         {
             fullyQualifiedLogicalNameToIndexMap = null;
+            keyToIndexMap = null;
 
             // Note: we could have injected the TC26 - TC28 changes into the other helpers in this
             // code. This would prevent multiple passes over things like the run.results array.
@@ -134,15 +145,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     if (logicalLocations != null)
                     {
                         logicalLocationToIndexMap = new Dictionary<LogicalLocation, int>(LogicalLocation.ValueComparer);
-                        var jObjectToIndexMap = new Dictionary<JObject, int>();
 
                         run["logicalLocations"] =
                             ConstructLogicalLocationsArray(
                                 logicalLocations,
-                                jObjectToIndexMap,
                                 logicalLocationToIndexMap,
                                 out fullyQualifiedLogicalNameToIndexMap);
                     }
+
+                    // Files are now persisted to an array. We will persist a mapping from
+                    // previous file key to file index. We will associate the index with
+                    // each result when we iterate over run.results later.
+                    var files = run["files"] as JObject;                    
+
+                    if (files != null)
+                    {
+                        keyToIndexMap= new Dictionary<string, int>();
+
+                        run["files"] =
+                            ConstructFilesArray(
+                                files,
+                                keyToIndexMap);
+                    }
+
 
                     var results = (JArray)run["results"];
                     if (results != null)
@@ -162,17 +187,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                                 modifiedLog = true;
                             }
 
-                            // If this value is non-null, we have converted to a logical locations array
-                            // We must therefore update every SARIF location to persist its 
-                            // logicalLocationIndex, if relevant.
-                            if (logicalLocations != null)
-                            {
-                                var logicalLocationIndexRemapper = new LogicalLocationIndexRemapper(null, logicalLocationToIndexMap);
-                                var sarifResult = JsonConvert.DeserializeObject<Result>(result.ToString());
-                                logicalLocationIndexRemapper.Visit(sarifResult);
-                                rewrittenResults = rewrittenResults ?? new JArray();
-                                rewrittenResults.Add(JToken.Parse(JsonConvert.SerializeObject(sarifResult)));
-                            }
+                            //// If this value is non-null, we have converted to a logical locations array
+                            //// We must therefore update every SARIF location to persist its 
+                            //// logicalLocationIndex, if relevant.
+                            //if (logicalLocations != null)
+                            //{
+                            //    var logicalLocationIndexRemapper = new LogicalLocationIndexRemapper(null, logicalLocationToIndexMap);
+                            //    var sarifResult = JsonConvert.DeserializeObject<Result>(result.ToString());
+                            //    logicalLocationIndexRemapper.Visit(sarifResult);
+                            //    rewrittenResults = rewrittenResults ?? new JArray();
+                            //    rewrittenResults.Add(JToken.Parse(JsonConvert.SerializeObject(sarifResult)));
+                            //}
                         }
 
                         if (rewrittenResults != null)
@@ -221,9 +246,96 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return modifiedLog;
         }
 
+        private static JToken ConstructFilesArray(JObject files, Dictionary<string, int> keyToIndexMap)
+        { 
+            if (files == null) { return null; }
+
+            Dictionary<JObject, int> jObjectToIndexMap = new Dictionary<JObject, int>();
+
+            foreach (JProperty fileEntry in files.Properties())
+            {
+                AddEntryToFileLocationToIndexMap(
+                    files,
+                    fileEntry.Name,
+                    (JObject)fileEntry.Value,
+                    jObjectToIndexMap,
+                    keyToIndexMap);
+            }
+
+            var updatedArrayElements = new JObject[jObjectToIndexMap.Count];
+
+            foreach (KeyValuePair<JObject, int> keyValuePair in jObjectToIndexMap)
+            {
+                int index = keyValuePair.Value;
+                JObject updatedLogicalLocation = keyValuePair.Key;
+                updatedArrayElements[index] = updatedLogicalLocation;
+            }
+
+            return new JArray(updatedArrayElements);
+        }
+
+        private static void AddEntryToFileLocationToIndexMap(JObject filesDictionary, string key, JObject file, Dictionary<JObject, int> jObjectToIndexMap, Dictionary<string, int> keyToIndexMap)
+        {
+            keyToIndexMap = keyToIndexMap ?? throw new ArgumentNullException(nameof(keyToIndexMap));
+            jObjectToIndexMap = jObjectToIndexMap ?? throw new ArgumentNullException(nameof(jObjectToIndexMap));
+
+            // We've seen this key before. This happens when we order files processing in order to ensure
+            // that a parent key has been transformed before its children (to produce a parent index value).
+            if (keyToIndexMap.ContainsKey(key)) { return; }
+
+            // Parent key is no longer relevant and will be removed.
+            string parentKey = (string)file["parentKey"];
+            int parentIndex;
+
+            if (parentKey == null)
+            {
+                // No parent key? We are a root location. 
+                file["parentIndex"] = -1;
+            }
+            else
+            {
+                // Have we processed our parent yet? If so, retrieve the parentIndex and we're done.
+                if (!keyToIndexMap.TryGetValue(parentKey, out parentIndex))
+                {
+                    // The parent hasn't been processed yet. We must force its creation
+                    // determine its index in our array. This code path results in 
+                    // an array order that does not precisely match the enumeration
+                    // order of the original files dictionary.
+                    AddEntryToFileLocationToIndexMap(
+                        filesDictionary,
+                        parentKey,
+                        (JObject)filesDictionary[parentKey],
+                        jObjectToIndexMap,
+                        keyToIndexMap);
+
+                    parentIndex = keyToIndexMap[parentKey];
+                }
+                file.Remove("parentKey");
+                file["parentIndex"] = parentIndex;
+            }
+
+            var fileLocationKey = FileLocation.CreateFromFilesDictionaryKey(key, parentKey);
+
+            JObject fileLocationObject = new JObject();
+            file["fileLocation"] = fileLocationObject;
+            fileLocationObject["uri"] = fileLocationKey.Uri;
+            fileLocationObject["uriBaseId"] = fileLocationKey.UriBaseId;
+                
+            if (!keyToIndexMap.TryGetValue(key, out int fileIndex))
+            {
+                fileIndex = keyToIndexMap.Count;
+                jObjectToIndexMap[file] = fileIndex;
+                keyToIndexMap[key] = fileIndex;
+                fileLocationObject["fileIndex"] = fileIndex;
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
+        }
+
         private static JArray ConstructLogicalLocationsArray(
             JObject logicalLocations,
-            Dictionary<JObject, int> jObjectToIndexMap,
             Dictionary<LogicalLocation, int> logicalLocationToIndexMap,
             out Dictionary<string, int> fullyQualifiedLogicalNameToIndexMap)
         {
@@ -231,6 +343,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (logicalLocations == null) { return null; }
 
+            Dictionary<JObject, int> jObjectToIndexMap = new Dictionary<JObject, int>();
             logicalLocationToIndexMap = new Dictionary<LogicalLocation, int>(LogicalLocation.ValueComparer);
 
             fullyQualifiedLogicalNameToIndexMap = new Dictionary<string, int>();
@@ -270,15 +383,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             Dictionary<JObject, int> jObjectToIndexMap,
             Dictionary<string, int> keyToIndexMap)
         {
-            if (keyToIndexMap == null)
-            {
-                throw new ArgumentNullException(nameof(keyToIndexMap));
-            }
-
-            if (logicalLocation == null)
-            {
-                throw new ArgumentNullException(nameof(logicalLocation));
-            }
+            keyToIndexMap = keyToIndexMap ?? throw new ArgumentNullException(nameof(keyToIndexMap));
+            logicalLocation = logicalLocation ?? throw new ArgumentNullException(nameof(logicalLocation));
 
             string fullyQualifiedName = keyName;
 
