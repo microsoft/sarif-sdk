@@ -146,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Specifies the unit in which the tool measures columns.
         /// </summary>
-        [DataMember(Name = "columnKind", IsRequired = false)]
+        [DataMember(Name = "columnKind", IsRequired = false, EmitDefaultValue = false)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
         public ColumnKind ColumnKind { get; set; }
 

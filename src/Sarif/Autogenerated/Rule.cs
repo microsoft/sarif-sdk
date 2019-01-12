@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Describes an analysis rule.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
     public partial class Rule : PropertyBagHolder, IRule, ISarifNode
     {
         public static IEqualityComparer<Rule> ValueComparer => RuleEqualityComparer.Instance;
@@ -111,37 +111,37 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Initializes a new instance of the <see cref="Rule" /> class from the supplied values.
         /// </summary>
         /// <param name="id">
-        /// An initialization value for the <see cref="P:Id" /> property.
+        /// An initialization value for the <see cref="P: Id" /> property.
         /// </param>
         /// <param name="deprecatedIds">
-        /// An initialization value for the <see cref="P:DeprecatedIds" /> property.
+        /// An initialization value for the <see cref="P: DeprecatedIds" /> property.
         /// </param>
         /// <param name="name">
-        /// An initialization value for the <see cref="P:Name" /> property.
+        /// An initialization value for the <see cref="P: Name" /> property.
         /// </param>
         /// <param name="shortDescription">
-        /// An initialization value for the <see cref="P:ShortDescription" /> property.
+        /// An initialization value for the <see cref="P: ShortDescription" /> property.
         /// </param>
         /// <param name="fullDescription">
-        /// An initialization value for the <see cref="P:FullDescription" /> property.
+        /// An initialization value for the <see cref="P: FullDescription" /> property.
         /// </param>
         /// <param name="messageStrings">
-        /// An initialization value for the <see cref="P:MessageStrings" /> property.
+        /// An initialization value for the <see cref="P: MessageStrings" /> property.
         /// </param>
         /// <param name="richMessageStrings">
-        /// An initialization value for the <see cref="P:RichMessageStrings" /> property.
+        /// An initialization value for the <see cref="P: RichMessageStrings" /> property.
         /// </param>
         /// <param name="configuration">
-        /// An initialization value for the <see cref="P:Configuration" /> property.
+        /// An initialization value for the <see cref="P: Configuration" /> property.
         /// </param>
         /// <param name="helpUri">
-        /// An initialization value for the <see cref="P:HelpUri" /> property.
+        /// An initialization value for the <see cref="P: HelpUri" /> property.
         /// </param>
         /// <param name="help">
-        /// An initialization value for the <see cref="P:Help" /> property.
+        /// An initialization value for the <see cref="P: Help" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P:Properties" /> property.
+        /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
         public Rule(string id, IEnumerable<string> deprecatedIds, Message name, Message shortDescription, Message fullDescription, IDictionary<string, string> messageStrings, IDictionary<string, string> richMessageStrings, RuleConfiguration configuration, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
         {
