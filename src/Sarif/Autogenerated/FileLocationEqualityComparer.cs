@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type FileLocation for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     internal sealed class FileLocationEqualityComparer : IEqualityComparer<FileLocation>
     {
         internal static readonly FileLocationEqualityComparer Instance = new FileLocationEqualityComparer();

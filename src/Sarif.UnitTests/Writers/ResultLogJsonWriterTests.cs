@@ -23,8 +23,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
   ""runs"": [
     {
       ""tool"": {
-        ""name"": null
+        ""name"": ""DefaultTool""
       },
+      ""columnKind"": ""utf16CodeUnits"",
       ""results"": [
         {
           ""message"": {
@@ -160,8 +161,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
   ""runs"": [
     {
       ""tool"": {
-        ""name"": null
+        ""name"": ""DefaultTool""
       },
+      ""columnKind"": ""utf16CodeUnits"",
       ""invocations"": [
         {
           ""commandLine"": ""/a /b c.dll"",
@@ -202,8 +204,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         ""instanceGuid"": """ + instanceGuid + @"""
       },
       ""tool"": {
-        ""name"": null
+        ""name"": ""DefaultTool""
       },
+      ""columnKind"": ""utf16CodeUnits"",
       ""invocations"": [
         {
           ""commandLine"": ""/a /b c.dll"",
@@ -403,8 +406,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
   ""runs"": [
     {
       ""tool"": {
-        ""name"": null
+        ""name"": ""DefaultTool""
       },
+      ""columnKind"": ""utf16CodeUnits"",
       ""configurationNotifications"": [
 " + SerializedNotification + @"
       ]
@@ -431,8 +435,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
   ""runs"": [
     {
       ""tool"": {
-        ""name"": null
+        ""name"": ""DefaultTool""
       },
+      ""columnKind"": ""utf16CodeUnits"",
       ""toolNotifications"": [
 " + SerializedNotification + @"
       ]

@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type PropertyBag for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     internal sealed class PropertyBagEqualityComparer : IEqualityComparer<PropertyBag>
     {
         internal static readonly PropertyBagEqualityComparer Instance = new PropertyBagEqualityComparer();

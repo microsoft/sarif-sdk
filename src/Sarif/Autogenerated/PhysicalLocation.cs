@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A physical location relevant to a result. Specifies a reference to a programming artifact together with a range of bytes or characters within that artifact.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class PhysicalLocation : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<PhysicalLocation> ValueComparer => PhysicalLocationEqualityComparer.Instance;
@@ -73,19 +73,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Initializes a new instance of the <see cref="PhysicalLocation" /> class from the supplied values.
         /// </summary>
         /// <param name="id">
-        /// An initialization value for the <see cref="P: Id" /> property.
+        /// An initialization value for the <see cref="P:Id" /> property.
         /// </param>
         /// <param name="fileLocation">
-        /// An initialization value for the <see cref="P: FileLocation" /> property.
+        /// An initialization value for the <see cref="P:FileLocation" /> property.
         /// </param>
         /// <param name="region">
-        /// An initialization value for the <see cref="P: Region" /> property.
+        /// An initialization value for the <see cref="P:Region" /> property.
         /// </param>
         /// <param name="contextRegion">
-        /// An initialization value for the <see cref="P: ContextRegion" /> property.
+        /// An initialization value for the <see cref="P:ContextRegion" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
         public PhysicalLocation(int id, FileLocation fileLocation, Region region, Region contextRegion, IDictionary<string, SerializedPropertyInfo> properties)
         {

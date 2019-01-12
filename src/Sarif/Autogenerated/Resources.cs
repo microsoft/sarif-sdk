@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Container for items that require localization.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class Resources : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Resources> ValueComparer => ResourcesEqualityComparer.Instance;
@@ -63,13 +63,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Initializes a new instance of the <see cref="Resources" /> class from the supplied values.
         /// </summary>
         /// <param name="messageStrings">
-        /// An initialization value for the <see cref="P: MessageStrings" /> property.
+        /// An initialization value for the <see cref="P:MessageStrings" /> property.
         /// </param>
         /// <param name="rules">
-        /// An initialization value for the <see cref="P: Rules" /> property.
+        /// An initialization value for the <see cref="P:Rules" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
         public Resources(IDictionary<string, string> messageStrings, IDictionary<string, Rule> rules, IDictionary<string, SerializedPropertyInfo> properties)
         {

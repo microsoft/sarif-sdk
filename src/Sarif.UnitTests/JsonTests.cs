@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     public abstract class JsonTests
     {
         protected static readonly Run DefaultRun = new Run();
-        protected static readonly Tool DefaultTool = new Tool();
+        protected static readonly Tool DefaultTool = new Tool() { Name = "DefaultTool" };
         protected static readonly Result DefaultResult = new Result { Message = new Message { Text = "Some testing occurred." } };
 
         protected static string GetJson(Action<ResultLogJsonWriter> testContent)
