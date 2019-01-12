@@ -100,21 +100,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 throw;
             }
         }
-        
-        /// <summary>
-        /// Internal as used in testing as a helper.
-        /// </summary>
-        internal static Dictionary<string, Uri> DeserializePropertyDictionary(SerializedPropertyInfo info)
-        {
-            return JsonConvert.DeserializeObject<Dictionary<string, Uri>>(info.SerializedValue);
-        }
-
-        /// <summary>
-        /// Internal as used in testing as a helper.
-        /// </summary>
-        internal static SerializedPropertyInfo ReserializePropertyDictionary(Dictionary<string, FileLocation> dictionary)
-        {
-            return new SerializedPropertyInfo(JsonConvert.SerializeObject(dictionary), false);
-        }
     }
 }

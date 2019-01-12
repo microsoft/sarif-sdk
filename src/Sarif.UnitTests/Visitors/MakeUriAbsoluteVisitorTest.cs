@@ -27,7 +27,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             if (uriBaseIdMapping != null)
             {
                 run.Properties = new Dictionary<string, SerializedPropertyInfo>();
-                run.Properties[RebaseUriVisitor.BaseUriDictionaryName] = RebaseUriVisitor.ReserializePropertyDictionary(uriBaseIdMapping);
             }
 
             run.OriginalUriBaseIds = uriBaseIdMapping;
