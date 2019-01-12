@@ -19,7 +19,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public Uri GetExpandedUriBaseIdValue(string key, string currentValue = null)
         {
-            throw new InvalidOperationException("Author this code along with tests");
+            FileLocation fileLocation = this.OriginalUriBaseIds[key];
+
+            if (fileLocation.UriBaseId == null)
+            {
+                return fileLocation.Uri;
+            }
+            throw new InvalidOperationException("Author this code along with tests for originalUriBaseIds that are nested");
         }
 
         public int GetFileIndex(

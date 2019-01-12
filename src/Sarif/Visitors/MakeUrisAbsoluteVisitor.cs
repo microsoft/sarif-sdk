@@ -19,7 +19,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             if ( _run.OriginalUriBaseIds!= null &&
                 !string.IsNullOrEmpty(node?.UriBaseId) &&
-                _run.OriginalUriBaseIds.ContainsKey(node.UriBaseId))
+                _run.OriginalUriBaseIds.ContainsKey(node.UriBaseId) && 
+                !_run.OriginalUriBaseIds.Values.Contains(node))
             {
                 Uri baseUri = _run.GetExpandedUriBaseIdValue(node.UriBaseId);
                 node.Uri = CombineUris(baseUri, node.Uri);
@@ -29,9 +30,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return node;
         }
 
-        private Uri CombineUris(Uri baseUri, Uri uri)
+        internal static Uri CombineUris(Uri absoluteBaseUri, Uri relativeUri)
         {
-            throw new NotImplementedException();
+            if (!absoluteBaseUri.IsAbsoluteUri)
+            {
+                throw new ArgumentException("absoluteBaseUri is not an absolute Uri", nameof(absoluteBaseUri));
+            }
+
+            if (relativeUri.IsAbsoluteUri)
+            {
+                throw new ArgumentException("relativeUri is not a relative Uri", nameof(relativeUri));
+            }
+
+            Uri test = new Uri("src/archive.zip#archive2.gz", UriKind.Relative);
+
+            Uri result =  new Uri(absoluteBaseUri, relativeUri);
+            return result;
         }
     }
 }

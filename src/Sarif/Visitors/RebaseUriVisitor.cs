@@ -112,7 +112,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         /// <summary>
         /// Internal as used in testing as a helper.
         /// </summary>
-        internal static SerializedPropertyInfo ReserializePropertyDictionary(Dictionary<string, Uri> dictionary)
+        internal static SerializedPropertyInfo ReserializePropertyDictionary(Dictionary<string, FileLocation> dictionary)
         {
             return new SerializedPropertyInfo(JsonConvert.SerializeObject(dictionary), false);
         }
