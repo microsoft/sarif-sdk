@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 (ValidateOptions validateOptions) => new ValidateCommand().Run(validateOptions),
                 (ConvertOptions convertOptions) => ConvertCommand.Run(convertOptions),
                 (RewriteOptions rewriteOptions) => new RewriteCommand().Run(rewriteOptions),
-                //(TransformOptions transformOptions) => new TransformCommand().Run(transformOptions),
+                (TransformOptions transformOptions) => new TransformCommand().Run(transformOptions),
                 (MergeOptions mergeOptions) => new MergeCommand().Run(mergeOptions),
                 (RebaseUriOptions rebaseOptions) => new RebaseUriCommand().Run(rebaseOptions),
                 (AbsoluteUriOptions absoluteUriOptions) => new AbsoluteUriCommand().Run(absoluteUriOptions),
