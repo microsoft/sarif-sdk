@@ -82,13 +82,13 @@ namespace Sarif.Multitool.UnitTests
             RunTransformationToV2Test(logFileContents);
         }
 
-        /*
         [Fact]
         public void TransformCommand_TransformsMinimalV1FileToCurrentV2()
         {
             RunTransformationToV2Test(MinimalV1);
         }
-        
+
+        /*
         [Fact]
         public void TransformCommand_TransformsMinimalCurrentV2FileToV1()
         {
