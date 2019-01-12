@@ -88,7 +88,6 @@ namespace Sarif.Multitool.UnitTests
             RunTransformationToV2Test(MinimalV1);
         }
 
-        /*
         [Fact]
         public void TransformCommand_TransformsMinimalCurrentV2FileToV1()
         {
@@ -118,8 +117,6 @@ namespace Sarif.Multitool.UnitTests
         {
             RunTransformationToV1Test(MinimalV1);
         }
-        }
-*/
 
         private static void RunTransformationToV2Test(string logFileContents)
         {
