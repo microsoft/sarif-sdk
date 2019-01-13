@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     /// <summary>
-    /// A visitory that, given a URI base id (e.g., "%SRCROOT%") and its value (e.g., "C:\src\root\"),
+    /// A visitor that, given a URI base id (e.g., "%SRCROOT%") and its value (e.g., "C:\src\root\"),
     /// rebases the URIs in a SARIF log to make the log independent of absolute paths (i.e., machine independent).
     /// </summary>
     public class RebaseUriVisitor : SarifRewritingVisitor
