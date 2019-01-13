@@ -942,6 +942,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     FileDataVersionOne fileDataVersionOne = CreateFileData(fileData);
                     string key = fileData.FileLocation.Uri.OriginalString;
 
+                    // There's no need to repeat the URI in the v1 FileData object
+                    // if it matches the dictionary key.
+                    if (fileDataVersionOne.Uri.OriginalString.Equals(key))
+                    {
+                        fileDataVersionOne.Uri = null;
+                    }
+
                     filesVersionOne[key] = fileDataVersionOne;
                 }
             }
