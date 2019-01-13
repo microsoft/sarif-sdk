@@ -15,28 +15,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     public class RebaseUriVisitor : SarifRewritingVisitor
     {
         internal const string BaseUriDictionaryName = "originalUriBaseIds";
-        internal const string IncorrectlyFormattedDictionarySuffix = ".Old";
 
-        private Uri _baseUri;
-        private string _baseName;
-        private bool _rebaseRelativeUris;
-
-        /// <summary>
-        /// Create a RebaseUriVisitor, with a given name for the Base URI and a value for the base URI.
-        /// </summary>
-        public RebaseUriVisitor(string baseName, Uri baseUri)
-        {
-            _baseUri = baseUri;
-            _baseName = baseName;
-            _rebaseRelativeUris = false;
-
-            Debug.Assert(_baseUri.IsAbsoluteUri);
-        }
+        private readonly Uri _baseUri;
+        private readonly string _baseName;
+        private readonly bool _rebaseRelativeUris;
 
         /// <summary>
         /// Create a RebaseUriVisitor, with a given name for the Base URI and a value for the base URI.
         /// </summary>
-        public RebaseUriVisitor(string baseName, bool rebaseRelativeUris, Uri baseUri)
+        public RebaseUriVisitor(string baseName, Uri baseUri, bool rebaseRelativeUris = false)
         {
             _baseUri = baseUri;
             _baseName = baseName;

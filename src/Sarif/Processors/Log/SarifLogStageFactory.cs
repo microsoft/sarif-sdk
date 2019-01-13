@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
                         bool castRelativeUrisArg = bool.TryParse(args[1], out rebaseRelativeUris);
                         Debug.Assert(castRelativeUrisArg);
 
-                        RebaseUriVisitor visitor = new RebaseUriVisitor(args[0], rebaseRelativeUris, new Uri(args[2]));
+                        RebaseUriVisitor visitor = new RebaseUriVisitor(args[0], new Uri(args[2]), rebaseRelativeUris);
                         return visitor.VisitSarifLog(log);
                     });
                 }
