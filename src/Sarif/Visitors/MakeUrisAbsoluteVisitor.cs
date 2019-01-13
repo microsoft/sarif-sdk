@@ -34,18 +34,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             if (!absoluteBaseUri.IsAbsoluteUri)
             {
-                throw new ArgumentException("absoluteBaseUri is not an absolute Uri", nameof(absoluteBaseUri));
+                throw new ArgumentException($"{nameof(absoluteBaseUri)} is not an absolute URI", nameof(absoluteBaseUri));
             }
 
             if (relativeUri.IsAbsoluteUri)
             {
-                throw new ArgumentException("relativeUri is not a relative Uri", nameof(relativeUri));
+                throw new ArgumentException($"${nameof(relativeUri)} is not a relative URI", nameof(relativeUri));
             }
 
-            Uri test = new Uri("src/archive.zip#archive2.gz", UriKind.Relative);
-
-            Uri result =  new Uri(absoluteBaseUri, relativeUri);
-            return result;
+            return new Uri(absoluteBaseUri, relativeUri);
         }
     }
 }
