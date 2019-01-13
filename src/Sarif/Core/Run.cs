@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private IDictionary<FileLocation, int> _fileToIndexMap;
 
-        public Uri GetExpandedUriBaseIdValue(string key, string currentValue = null)
+        public Uri ExpandUrisWithUriBaseId(string key, string currentValue = null)
         {
             FileLocation fileLocation = this.OriginalUriBaseIds[key];
 

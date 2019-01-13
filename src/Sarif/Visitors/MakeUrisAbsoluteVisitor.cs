@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 _run.OriginalUriBaseIds.ContainsKey(node.UriBaseId) && 
                 !_run.OriginalUriBaseIds.Values.Contains(node))
             {
-                Uri baseUri = _run.GetExpandedUriBaseIdValue(node.UriBaseId);
+                Uri baseUri = _run.ExpandUrisWithUriBaseId(node.UriBaseId);
                 node.Uri = CombineUris(baseUri, node.Uri);
                 node.UriBaseId = null;
             }
