@@ -11,26 +11,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class MakeUriAbsoluteVisitorTest
     {
-        private Run GenerateRunForTest(Dictionary<string, FileLocation> uriBaseIdMapping)
+        private Run GenerateRunForTest(Dictionary<string, FileLocation> originalUriBaseIds)
         {
-            Run run = new Run();
-            run.Files = new List<FileData>(new[]
+            return new Run
             {
-                new FileData() { FileLocation=new FileLocation{ Uri=new Uri("src/file1.cs", UriKind.Relative), UriBaseId="%TEST1%", FileIndex = 0 } },
-                new FileData() { FileLocation=new FileLocation{ Uri=new Uri("src/file2.dll", UriKind.Relative), UriBaseId="%TEST2%", FileIndex = 1 } },
-                new FileData() { FileLocation=new FileLocation{ Uri=new Uri("src/archive.zip", UriKind.Relative), UriBaseId="%TEST1%", FileIndex = 2 } },
-                new FileData() { FileLocation=new FileLocation{ Uri=new Uri("file3.cs", UriKind.Relative), FileIndex = 3 }, ParentIndex = 2 },
-                new FileData() { FileLocation=new FileLocation{ Uri=new Uri("archive2.gz", UriKind.Relative), FileIndex = 4 }, ParentIndex = 2 },
-                new FileData() { FileLocation=new FileLocation{ Uri=new Uri("file4.cs", UriKind.Relative), FileIndex = 5 }, ParentIndex = 4 },
-            });
+                Files = new List<FileData>(new[]
+                {
+                    new FileData { FileLocation=new FileLocation{ Uri=new Uri("src/file1.cs", UriKind.Relative), UriBaseId="%TEST1%", FileIndex = 0 } },
+                    new FileData { FileLocation=new FileLocation{ Uri=new Uri("src/file2.dll", UriKind.Relative), UriBaseId="%TEST2%", FileIndex = 1 } },
+                    new FileData { FileLocation=new FileLocation{ Uri=new Uri("src/archive.zip", UriKind.Relative), UriBaseId="%TEST1%", FileIndex = 2 } },
+                    new FileData { FileLocation=new FileLocation{ Uri=new Uri("file3.cs", UriKind.Relative), FileIndex = 3 }, ParentIndex = 2 },
+                    new FileData { FileLocation=new FileLocation{ Uri=new Uri("archive2.gz", UriKind.Relative), FileIndex = 4 }, ParentIndex = 2 },
+                    new FileData { FileLocation=new FileLocation{ Uri=new Uri("file4.cs", UriKind.Relative), FileIndex = 5 }, ParentIndex = 4 },
+                }),
 
-            if (uriBaseIdMapping != null)
-            {
-                run.Properties = new Dictionary<string, SerializedPropertyInfo>();
-            }
-
-            run.OriginalUriBaseIds = uriBaseIdMapping;
-            return run;
+                OriginalUriBaseIds = originalUriBaseIds
+            };
         }
 
         [Fact]
