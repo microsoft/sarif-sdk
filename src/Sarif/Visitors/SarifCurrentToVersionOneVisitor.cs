@@ -907,7 +907,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         // v2 run.files array to find the required FileData object, we construct a
         // dictionary from the array so we can access the required FileData object
         // directly.
-        private IDictionary<string, FileData> CreateV2FileDataDictionary(IList<FileData> v2Files)
+        private static IDictionary<string, FileData> CreateV2FileDataDictionary(IList<FileData> v2Files)
         {
             IDictionary<string, FileData> v2FileDataDictionary = null;
 
@@ -917,17 +917,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 foreach (FileData v2File in v2Files)
                 {
-                    // This simple implementation assumes that all the URIs are distinct.
-                    // That means it can't handle nested files, or files specified by way of a
-                    // uriBaseId.
-                    // TODO: Handle these cases.
-                    string key = v2File.FileLocation.Uri.OriginalString;
+                    string key = CreateFileDictionaryKey(v2File, v2Files);
 
                     v2FileDataDictionary[key] = v2File;
                 }
             }
 
             return v2FileDataDictionary;
+        }
+
+        // Given a v2 FileData object, synthesize a key that will be used to locate that object
+        // in the v2 file data dictionary. We will use the same key to locate the corresponding
+        // v1 FileData object when we create the v1 run.files dictionary.
+        //
+        // This method is necessary because, although ideally we would use the FileData
+        // object's URI as the dictionary key, it is possible for two FileData objects to
+        // have the same URI. For example:
+        //
+        //    1. Nested files with the same name might exist in two different containers.
+        //    2. There might be two files with the same URI but difference uriBaseIds.
+        //
+        // To deal with Case #1, we synthesize a key as follows:
+        //
+        //    <root file URI>#<nested file path>/<level 2 nested file path>/...
+        //
+        // To deal with Case #2, we would follow the chain or uriBaseIds, prepending
+        // the value of each one to the URI.
+        //
+        // WE DO NOT YET HANDLE CASE #2.
+        private static string CreateFileDictionaryKey(FileData v2File, IList<FileData> v2Files)
+        {
+            return v2File.FileLocation.Uri.OriginalString;
         }
 
         private IDictionary<string, FileDataVersionOne> ConvertV2FilesArrayToV1FilesDictionary(IList<FileData> files)
