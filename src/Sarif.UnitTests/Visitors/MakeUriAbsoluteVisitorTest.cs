@@ -189,24 +189,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             MakeUrisAbsoluteVisitor.CombineUris(
                 absoluteBaseUri: absoluteUri,
                 relativeUri: relativeUri);
-            
-            // Pass relative uri where absolute expected
-            var action = new Action(() => 
-                {
-                    MakeUrisAbsoluteVisitor.CombineUris(
-                        absoluteBaseUri: relativeUri,
-                        relativeUri: relativeUri);
-                });
+
+            // Pass relative URI where absolute expected.
+            Action action = () => 
+            {
+                MakeUrisAbsoluteVisitor.CombineUris(
+                    absoluteBaseUri: relativeUri,
+                    relativeUri: relativeUri);
+            };
 
             action.Should().Throw<ArgumentException>();
 
-            // Pass absolute uri where relative expected
-            action = new Action(() =>
+            // Pass absolute URI where relative expected.
+            action = () =>
             {
                 MakeUrisAbsoluteVisitor.CombineUris(
                     absoluteBaseUri: absoluteUri,
                     relativeUri: absoluteUri);
-            });
+            };
 
             action.Should().Throw<ArgumentException>();
         }
