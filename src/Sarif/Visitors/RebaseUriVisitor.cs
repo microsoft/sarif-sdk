@@ -52,10 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             Run newRun = base.VisitRun(node);
 
-            if (newRun.OriginalUriBaseIds == null)
-            {
-                newRun.OriginalUriBaseIds = new Dictionary<string, FileLocation>();
-            }
+            newRun.OriginalUriBaseIds = newRun.OriginalUriBaseIds ?? new Dictionary<string, FileLocation>();
 
             // Note--this is an add or update, so if this is run twice with the same base variable, we'll replace the path.
             newRun.OriginalUriBaseIds[_uriBaseId] = new FileLocation { Uri =_baseUri };
