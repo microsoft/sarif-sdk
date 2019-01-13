@@ -22,6 +22,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private Run _currentV2Run = null;
         private RunVersionOne _currentRun = null;
 
+        // To understand the purpose of this field, see the comment on CreateV2FileDataDictionary.
+        private IDictionary<string, FileData> _v2FileDataDictionary;
+
         public bool EmbedVersionTwoContentInPropertyBag { get; set; }
 
         public SarifLogVersionOne SarifLogVersionOne { get; private set; }
@@ -731,16 +734,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 foreach (FileLocation fileLocation in v2ResponseFilesList)
                 {
                     string key = fileLocation.Uri.OriginalString;
-                    string fileContent = null;
-#if FILES_ARRAY_WORKS
-                    FileData responseFile;
-                    if (_currentV2Run.Files != null && _currentV2Run.Files.TryGetValue(key, out responseFile))
+                    if (_v2FileDataDictionary != null && _v2FileDataDictionary.TryGetValue(key, out FileData responseFile))
                     {
-                        fileContent = responseFile.Contents?.Text;
+                        responseFiles.Add(key, responseFile.Contents?.Text);
                     }
-#endif
-
-                    responseFiles.Add(key, fileContent);
                 }
             }
 
@@ -872,6 +869,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     run = new RunVersionOne();
                     _currentRun = run;
 
+                    _v2FileDataDictionary = CreateV2FileDataDictionary(v2Run.Files);
+
                     run.BaselineId = v2Run.BaselineInstanceGuid;
                     run.Files = ConvertV2FilesArrayToV1FilesDictionary(v2Run.Files);
                     run.Id = v2Run.Id?.InstanceGuid;
@@ -900,6 +899,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return run;
+        }
+
+        // In SARIF v1, run.files was a dictionary, whereas in v2 it is an array.
+        // During the v2-to-v1 conversion, it is sometimes necessary to look up
+        // information from a v2 FileData object. Rather than having to search the
+        // v2 run.files array to find the required FileData object, we construct a
+        // dictionary from the array so we can access the required FileData object
+        // directly.
+        private IDictionary<string, FileData> CreateV2FileDataDictionary(IList<FileData> v2Files)
+        {
+            IDictionary<string, FileData> v2FileDataDictionary = null;
+
+            if (v2Files != null)
+            {
+                v2FileDataDictionary = new Dictionary<string, FileData>();
+
+                foreach (FileData v2File in v2Files)
+                {
+                    // This simple implementation assumes that all the URIs are distinct.
+                    // That means it can't handle nested files, or files specified by way of a
+                    // uriBaseId.
+                    // TODO: Handle these cases.
+                    string key = v2File.FileLocation.Uri.OriginalString;
+
+                    v2FileDataDictionary[key] = v2File;
+                }
+            }
+
+            return v2FileDataDictionary;
         }
 
         private IDictionary<string, FileDataVersionOne> ConvertV2FilesArrayToV1FilesDictionary(IList<FileData> files)
