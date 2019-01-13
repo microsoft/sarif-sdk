@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
@@ -65,27 +64,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             newRun.OriginalUriBaseIds = baseUriDictionary;
 
             return newRun;
-        }
-
-
-        internal static bool TryDeserializePropertyDictionary(SerializedPropertyInfo serializedProperty, out Dictionary<string, Uri> dictionary)
-        {
-            try
-            {
-                dictionary = JsonConvert.DeserializeObject<Dictionary<string, Uri>>(serializedProperty.SerializedValue);
-
-                return true;
-            }
-            // Didn't deserialize correctly
-            catch (Exception ex)
-            {
-                if(ex is JsonSerializationException || ex is ArgumentNullException)
-                {
-                    dictionary = null;
-                    return false;
-                }
-                throw;
-            }
         }
     }
 }
