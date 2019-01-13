@@ -14,7 +14,7 @@ using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
+namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
 {
     public class SarifCurrentToVersionOneVisitorTests : FileDiffingTests
     {
@@ -69,9 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Transformers
                 File.WriteAllText(expectedFilePath, v1ExpectedLogText);
                 File.WriteAllText(actualFilePath, v1ActualLogText);
 
-
-                string errorMessage = string.Format(@"V2 conversion from V1 produced unexpected diffs for test: '{0}'.", v2InputResourceName);
-
+                sb.AppendLine($"Conversion from current to V1 produced unexpected diffs for test: '{v2InputResourceName}'.");
                 sb.AppendLine("To compare all difference for this test suite:");
                 sb.AppendLine(GenerateDiffCommand("SarifCurrentToVersionOneVisitor", Path.GetDirectoryName(expectedFilePath), Path.GetDirectoryName(actualFilePath)) + Environment.NewLine);
             }

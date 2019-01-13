@@ -873,9 +873,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     _currentRun = run;
 
                     run.BaselineId = v2Run.BaselineInstanceGuid;
-#if FILES_ARRAY_WORKS
-                    run.Files = v2Run.Files?.ToDictionary(v => v.Key, v => CreateFileData(v.Value));
-#endif
+                    run.Files = ConvertV2FilesArrayToV1FilesDictionary(v2Run.Files);
                     run.Id = v2Run.Id?.InstanceGuid;
                     run.AutomationId = v2Run.AggregateIds?.FirstOrDefault()?.InstanceId;
 
@@ -902,6 +900,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return run;
+        }
+
+        private IDictionary<string, FileDataVersionOne> ConvertV2FilesArrayToV1FilesDictionary(IList<FileData> files)
+        {
+            Dictionary<string, FileDataVersionOne> filesVersionOne = null;
+
+            if (files != null)
+            {
+                filesVersionOne = new Dictionary<string, FileDataVersionOne>();
+                foreach (FileData fileData in files)
+                {
+                    FileDataVersionOne fileDataVersionOne = CreateFileData(fileData);
+                    string key = fileData.FileLocation.Uri.OriginalString;
+
+                    filesVersionOne[key] = fileDataVersionOne;
+                }
+            }
+
+            return filesVersionOne;
         }
 
         private IDictionary<string, LogicalLocationVersionOne> CreateLogicalLocationsDictionary(IList<LogicalLocation> logicalLocations)
