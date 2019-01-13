@@ -3,31 +3,31 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     /// <summary>
-    /// A class that, given a variable name (e.x. "%SRCROOT%") and a value (e.x. "C:\src\root\"), rebases the URIs in a SARIF log 
-    /// in order to make a SARIF log not depend on absolute paths/be machine independent.
+    /// A class that, given a variable name (e.g. "%SRCROOT%") and a value (e.g. "C:\src\root\"), rebases the URIs in a SARIF log 
+    /// in order to make the log independent of absolute paths (i.e., machine independent).
     /// </summary>
     public class RebaseUriVisitor : SarifRewritingVisitor
     {
-        internal const string BaseUriDictionaryName = "originalUriBaseIds";
-
         private readonly Uri _baseUri;
-        private readonly string _baseName;
+        private readonly string _uriBaseId;
         private readonly bool _rebaseRelativeUris;
 
         /// <summary>
         /// Create a RebaseUriVisitor, with a given name for the Base URI and a value for the base URI.
         /// </summary>
-        public RebaseUriVisitor(string baseName, Uri baseUri, bool rebaseRelativeUris = false)
+        public RebaseUriVisitor(string uriBaseId, Uri baseUri, bool rebaseRelativeUris = false)
         {
-            _baseUri = baseUri;
-            _baseName = baseName;
-            Debug.Assert(_baseUri.IsAbsoluteUri);
+            if (!baseUri.IsAbsoluteUri)
+            {
+                throw new ArgumentException($"{nameof(baseUri)} must be an absolute URI.", nameof(baseUri));
+            }
 
+            _baseUri = baseUri;
+            _uriBaseId = uriBaseId;
             _rebaseRelativeUris = rebaseRelativeUris;
         }
 
@@ -37,12 +37,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (newNode.Uri.IsAbsoluteUri && _baseUri.IsBaseOf(newNode.Uri))
             {
-                newNode.UriBaseId = _baseName;
+                newNode.UriBaseId = _uriBaseId;
                 newNode.Uri = _baseUri.MakeRelativeUri(node.Uri);
             }
             else if (_rebaseRelativeUris && !newNode.Uri.IsAbsoluteUri)
             {
-                newNode.UriBaseId = _baseName;
+                newNode.UriBaseId = _uriBaseId;
             }
 
             return newNode;
@@ -52,16 +52,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             Run newRun = base.VisitRun(node);
 
-            // If the dictionary doesn't exist, we should add it to the properties.  If it does, we should add/update the existing dictionary.
-            IDictionary<string, FileLocation> baseUriDictionary = new Dictionary<string, FileLocation>();
-            if (node.OriginalUriBaseIds != null)
+            if (newRun.OriginalUriBaseIds == null)
             {
-                baseUriDictionary = node.OriginalUriBaseIds;
+                newRun.OriginalUriBaseIds = new Dictionary<string, FileLocation>();
             }
-            
+
             // Note--this is an add or update, so if this is run twice with the same base variable, we'll replace the path.
-            baseUriDictionary[_baseName] = new FileLocation { Uri =_baseUri };
-            newRun.OriginalUriBaseIds = baseUriDictionary;
+            newRun.OriginalUriBaseIds[_uriBaseId] = new FileLocation { Uri =_baseUri };
 
             return newRun;
         }
