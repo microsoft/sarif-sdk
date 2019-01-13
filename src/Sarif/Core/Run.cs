@@ -17,9 +17,15 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private IDictionary<FileLocation, int> _fileToIndexMap;
 
-        public Uri GetExpandedUriBaseIdValue(string key, string currentValue = null)
+        public Uri ExpandUrisWithUriBaseId(string key, string currentValue = null)
         {
-            throw new InvalidOperationException("Author this code along with tests");
+            FileLocation fileLocation = this.OriginalUriBaseIds[key];
+
+            if (fileLocation.UriBaseId == null)
+            {
+                return fileLocation.Uri;
+            }
+            throw new InvalidOperationException("Author this code along with tests for originalUriBaseIds that are nested");
         }
 
         public int GetFileIndex(

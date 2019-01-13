@@ -31,11 +31,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
                 {
                     return new GenericMappingAction<SarifLog>(log =>
                     {
-                        bool rebaseRelativeUris = false;
-                        bool castRelativeUrisArg = bool.TryParse(args[1], out rebaseRelativeUris);
+                        bool castRelativeUrisArg = bool.TryParse(args[1], out bool rebaseRelativeUris);
                         Debug.Assert(castRelativeUrisArg);
 
-                        RebaseUriVisitor visitor = new RebaseUriVisitor(args[0], rebaseRelativeUris, new Uri(args[2]));
+                        RebaseUriVisitor visitor = new RebaseUriVisitor(args[0], new Uri(args[2]), rebaseRelativeUris);
                         return visitor.VisitSarifLog(log);
                     });
                 }
@@ -56,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors
             }
         }
         
-        private static Func<SarifLog, SarifLog, SarifLog> mergeFunction =
+        private readonly static Func<SarifLog, SarifLog, SarifLog> mergeFunction =
             (accumulator, nextLog) =>
             {
                 if (nextLog.Runs == null)
