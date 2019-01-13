@@ -7,8 +7,8 @@ using System.Collections.Generic;
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     /// <summary>
-    /// A class that, given a variable name (e.g. "%SRCROOT%") and a value (e.g. "C:\src\root\"), rebases the URIs in a SARIF log 
-    /// in order to make the log independent of absolute paths (i.e., machine independent).
+    /// A visitory that, given a URI base id (e.g., "%SRCROOT%") and its value (e.g., "C:\src\root\"),
+    /// rebases the URIs in a SARIF log to make the log independent of absolute paths (i.e., machine independent).
     /// </summary>
     public class RebaseUriVisitor : SarifRewritingVisitor
     {
@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private readonly bool _rebaseRelativeUris;
 
         /// <summary>
-        /// Create a RebaseUriVisitor, with a given name for the Base URI and a value for the base URI.
+        /// Create a new instance of the RebaseUriVisitor class with the specified URI base id and its value.
         /// </summary>
         public RebaseUriVisitor(string uriBaseId, Uri baseUri, bool rebaseRelativeUris = false)
         {
@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             newRun.OriginalUriBaseIds = newRun.OriginalUriBaseIds ?? new Dictionary<string, FileLocation>();
 
-            // Note--this is an add or update, so if this is run twice with the same base variable, we'll replace the path.
+            // Add dictionary entry if it doesn't exist, or replace it if it does.
             newRun.OriginalUriBaseIds[_uriBaseId] = new FileLocation { Uri =_baseUri };
 
             return newRun;
