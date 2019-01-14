@@ -7,6 +7,8 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using FluentAssertions;
+using Microsoft.CodeAnalysis.Sarif.Readers;
+using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -30,10 +32,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         private readonly ITestOutputHelper _outputHelper;
+        private readonly bool _testProducesSarifCurrentVersion;
 
-        public FileDiffingTests(ITestOutputHelper outputHelper)
+        public FileDiffingTests(ITestOutputHelper outputHelper, bool testProducesSarifCurrentVersion = true)
         {
             _outputHelper = outputHelper;
+            _testProducesSarifCurrentVersion = testProducesSarifCurrentVersion;
 
             if (Directory.Exists(OutputFolderPath))
             {
@@ -70,20 +74,27 @@ namespace Microsoft.CodeAnalysis.Sarif
             var sb = new StringBuilder();
 
             string expectedSarifText = GetResourceText("ExpectedOutputs." + resourceName);
-            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarifText, forceUpdate: false, Formatting.Indented, out expectedSarifText);
 
-            if (!AreEquivalentSarifLogs<SarifLog>(actualSarifText, expectedSarifText))
+            bool passed;
+            if (_testProducesSarifCurrentVersion)
+            {
+                PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarifText, forceUpdate: false, Formatting.Indented, out expectedSarifText);
+                passed = AreEquivalentSarifLogs<SarifLog>(actualSarifText, expectedSarifText);
+            }
+            else
+            {
+                passed = AreEquivalentSarifLogs<SarifLogVersionOne>(actualSarifText, expectedSarifText, SarifContractResolverVersionOne.Instance);
+            }
+
+            if (!passed)
             {
                 string errorMessage = string.Format(@"there should be no unexpected diffs detected comparing actual results to '{0}'.", resourceName);
                 sb.AppendLine(errorMessage);
 
                 if (!Utilities.RunningInAppVeyor)
                 {
-                    string expectedFilePath = null;
-                    string actualFilePath = null;
-
-                    expectedFilePath = GetOutputFilePath("ExpectedOutputs", resourceName);
-                    actualFilePath = GetOutputFilePath("ActualOutputs", resourceName);
+                    string expectedFilePath = GetOutputFilePath("ExpectedOutputs", resourceName);
+                    string actualFilePath = GetOutputFilePath("ActualOutputs", resourceName);
 
                     string expectedRootDirectory = Path.GetDirectoryName(expectedFilePath);
                     string actualRootDirectory = Path.GetDirectoryName(actualFilePath);

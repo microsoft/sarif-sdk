@@ -1,12 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT        
 // license. See LICENSE file in the project root for full license information.
 
-using System;
-using System.IO;
-using System.Text;
-
-using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.Sarif.Writers;
@@ -18,153 +12,54 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
 {
     public class SarifCurrentToVersionOneVisitorTests : FileDiffingTests
     {
-        public SarifCurrentToVersionOneVisitorTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
+        public SarifCurrentToVersionOneVisitorTests(ITestOutputHelper outputHelper)
+            : base(outputHelper, testProducesSarifCurrentVersion: false) { }
 
-        private static SarifLog GetSarifLog(string logText)
+        protected override string ConstructTestOutputFromInputResource(string inputResource)
         {
-            return JsonConvert.DeserializeObject<SarifLog>(logText);
-        }
-
-        private static SarifLogVersionOne TransformCurrentToVersionOne(string v2LogText)
-        {
-            SarifLog v2Log = GetSarifLog(v2LogText);
+            string v2LogText = GetResourceText(inputResource);
+            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(v2LogText, forceUpdate: true, formatting: Formatting.Indented, out v2LogText);
+            SarifLog v2Log = JsonConvert.DeserializeObject<SarifLog>(v2LogText);
 
             var transformer = new SarifCurrentToVersionOneVisitor
             {
                 EmbedVersionTwoContentInPropertyBag = false
             };
+
             transformer.VisitSarifLog(v2Log);
 
-            return transformer.SarifLogVersionOne;
-        }
-
-        private void VerifyCurrentToVersionOneTransformationFromResource(string resourceName)
-        {
-            string v2LogText = GetResourceText($"Inputs.{resourceName}");
-            string v1ExpectedLogText = GetResourceText($"ExpectedOutputs.{resourceName}");
-
-            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(v2LogText, forceUpdate: true, formatting: Formatting.Indented, out v2LogText);
-
-            SarifLogVersionOne v1Log = TransformCurrentToVersionOne(v2LogText);
-
-            string v1ActualLogText = JsonConvert.SerializeObject(v1Log, SarifTransformerUtilities.JsonSettingsV1Indented);
-
-            StringBuilder sb = new StringBuilder();
-
-            string expectedFilePath = GetOutputFilePath("ExpectedOutputs", resourceName);
-            string actualFilePath = GetOutputFilePath("ActualOutputs", resourceName);
-
-            string expectedRootDirectory = Path.GetDirectoryName(expectedFilePath);
-            string actualRootDirectory = Path.GetDirectoryName(actualFilePath);
-
-            if (!AreEquivalentSarifLogs<SarifLogVersionOne>(v1ActualLogText, v1ExpectedLogText, SarifContractResolverVersionOne.Instance))
-            {
-                Directory.CreateDirectory(expectedRootDirectory);
-                Directory.CreateDirectory(actualRootDirectory);
-
-                File.WriteAllText(expectedFilePath, v1ExpectedLogText);
-                File.WriteAllText(actualFilePath, v1ActualLogText);
-
-                sb.AppendLine($"Conversion from current to V1 produced unexpected diffs for test: '{resourceName}'.");
-                sb.AppendLine("To compare all difference for this test suite:");
-                sb.AppendLine(GenerateDiffCommand("SarifCurrentToVersionOneVisitor", Path.GetDirectoryName(expectedFilePath), Path.GetDirectoryName(actualFilePath)) + Environment.NewLine);
-            }
-
-            if (RebaselineExpectedResults)
-            {
-                // We rewrite to test output directory. This allows subsequent tests to 
-                // pass without requiring a rebuild that recopies SARIF test files
-                File.WriteAllText(expectedFilePath, v1ActualLogText);
-
-                string subdirectory = ProductTestDataDirectory;
-                expectedFilePath = Path.Combine(ProductTestDataDirectory, "v2", Path.GetFileName(expectedFilePath));
-
-                // We also rewrite the checked in test baselines
-                File.WriteAllText(expectedFilePath, v1ActualLogText);
-
-            }
-
-            RebaselineExpectedResults.Should().BeFalse();
-
-            ValidateResults(sb.ToString());
-        }
-
-        private static void VerifyCurrentToVersionOneTransformation(string v2LogText, string v1LogExpectedText)
-        {
-            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(v2LogText, forceUpdate: true, formatting: Formatting.Indented, out v2LogText);
-            SarifLogVersionOne v1Log = TransformCurrentToVersionOne(v2LogText);
-            string v1LogText = JsonConvert.SerializeObject(v1Log, SarifTransformerUtilities.JsonSettingsV1Indented);
-            v1LogText.Should().Be(v1LogExpectedText);
+            SarifLogVersionOne v1Log = transformer.SarifLogVersionOne;
+            return JsonConvert.SerializeObject(v1Log, SarifTransformerUtilities.JsonSettingsV1Indented);
         }
 
         [Fact]
-        public void SarifTransformerTests_ToVersionOne_RestoreFromPropertyBag()
-        {
-            string testName = "RestoreFromPropertyBag.sarif";
-            VerifyCurrentToVersionOneTransformationFromResource(testName);
-        }
+        public void SarifTransformerTests_ToVersionOne_RestoreFromPropertyBag() => RunTest("RestoreFromPropertyBag.sarif");
 
         [Fact]
-        public void SarifTransformerTests_ToVersionOne_Minimum()
-        {
-            string testName = "Minimum.sarif";
-            VerifyCurrentToVersionOneTransformationFromResource(testName);
-        }
+        public void SarifTransformerTests_ToVersionOne_Minimum() => RunTest("Minimum.sarif");
 
         [Fact]
-        public void SarifTransformerTests_ToVersionOne_OneRunWithLogicalLocations()
-        {
-            string testName = "OneRunWithLogicalLocations.sarif";
-            VerifyCurrentToVersionOneTransformationFromResource(testName);
-        }
+        public void SarifTransformerTests_ToVersionOne_OneRunWithLogicalLocations() => RunTest("OneRunWithLogicalLocations.sarif");
 
         [Fact]
-        public void SarifTransformerTests_ToVersionOne_OneRunWithFiles()
-        {
-            string testName = "OneRunWithFiles.sarif";
-            VerifyCurrentToVersionOneTransformationFromResource(testName);
-        }
+        public void SarifTransformerTests_ToVersionOne_OneRunWithFiles() => RunTest("OneRunWithFiles.sarif");
 
         [Fact]
-        public void SarifTransformerTests_ToVersionOne_OneRunWithRules()
-        {
-            string testName = "OneRunWithRules.sarif";
-            VerifyCurrentToVersionOneTransformationFromResource(testName);
-        }
+        public void SarifTransformerTests_ToVersionOne_OneRunWithRules() => RunTest("OneRunWithRules.sarif");
 
         [Fact]
-        public void SarifTransformerTests_ToVersionOne_OneRunWithBasicInvocation()
-        {
-            string testName = "OneRunWithBasicInvocation.sarif";
-            VerifyCurrentToVersionOneTransformationFromResource(testName);
-        }
+        public void SarifTransformerTests_ToVersionOne_OneRunWithBasicInvocation() => RunTest("OneRunWithBasicInvocation.sarif");
 
         [Fact]
-        public void SarifTransformerTests_ToVersionOne_NotificationExceptionWithStack()
-        {
-            string testName = "NotificationExceptionWithStack.sarif";
-            VerifyCurrentToVersionOneTransformationFromResource(testName);
-        }
+        public void SarifTransformerTests_ToVersionOne_NotificationExceptionWithStack() => RunTest("NotificationExceptionWithStack.sarif");
 
         [Fact]
-        public void SarifTransformerTests_ToVersionOne_ResultLocations()
-        {
-            string testName = "ResultLocations.sarif";
-            VerifyCurrentToVersionOneTransformationFromResource(testName);
-        }
+        public void SarifTransformerTests_ToVersionOne_ResultLocations() => RunTest("ResultLocations.sarif");
 
         [Fact]
-        public void SarifTransformerTests_ToVersionOne_TwoResultsWithFixes()
-        {
-            string testName = "TwoResultsWithFixes.sarif";
-            VerifyCurrentToVersionOneTransformationFromResource(testName);
-        }
+        public void SarifTransformerTests_ToVersionOne_TwoResultsWithFixes() => RunTest("TwoResultsWithFixes.sarif");
 
         [Fact]
-        public void SarifTransformerTests_ToVersionOne_Regions()
-        {
-            string testName = "Regions.sarif";
-            VerifyCurrentToVersionOneTransformationFromResource(testName);
-        }
+        public void SarifTransformerTests_ToVersionOne_Regions() => RunTest("Regions.sarif");
     }
 }
