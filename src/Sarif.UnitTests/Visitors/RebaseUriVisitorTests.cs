@@ -230,15 +230,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         private class RebaseVerifyingVisitor : SarifRewritingVisitor
         {
-            public RebaseVerifyingVisitor()
-            {
-            }
-
-            public override object Visit(ISarifNode node)
-            {
-                return base.Visit(node);
-            }
-
             public override FileLocation VisitFileLocation(FileLocation node)
             {
                 FileLocationUris = FileLocationUris ?? new List<string>();
