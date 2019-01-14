@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private RunVersionOne _currentRun = null;
 
         // To understand the purpose of this field, see the comment on CreateV2FileDataDictionary.
-        private IDictionary<string, FileData> _v2FileDataDictionary;
+        private IDictionary<string, FileData> _v2FileDictionary;
 
         public bool EmbedVersionTwoContentInPropertyBag { get; set; }
 
@@ -734,7 +734,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 foreach (FileLocation fileLocation in v2ResponseFilesList)
                 {
                     string key = fileLocation.Uri.OriginalString;
-                    if (_v2FileDataDictionary != null && _v2FileDataDictionary.TryGetValue(key, out FileData responseFile))
+                    if (_v2FileDictionary != null && _v2FileDictionary.TryGetValue(key, out FileData responseFile))
                     {
                         responseFiles.Add(key, responseFile.Contents?.Text);
                     }
@@ -869,10 +869,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     run = new RunVersionOne();
                     _currentRun = run;
 
-                    _v2FileDataDictionary = CreateV2FileDataDictionary(v2Run.Files);
+                    _v2FileDictionary = CreateV2FileDictionary(v2Run.Files);
 
                     run.BaselineId = v2Run.BaselineInstanceGuid;
-                    run.Files = ConvertV2FilesArrayToV1FilesDictionary(v2Run.Files);
+                    run.Files = CreateV1FileDictionaryFromV2FileDictionary();
                     run.Id = v2Run.Id?.InstanceGuid;
                     run.AutomationId = v2Run.AggregateIds?.FirstOrDefault()?.InstanceId;
 
@@ -907,7 +907,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         // v2 run.files array to find the required FileData object, we construct a
         // dictionary from the array so we can access the required FileData object
         // directly.
-        private static IDictionary<string, FileData> CreateV2FileDataDictionary(IList<FileData> v2Files)
+        private static IDictionary<string, FileData> CreateV2FileDictionary(IList<FileData> v2Files)
         {
             IDictionary<string, FileData> v2FileDataDictionary = null;
 
@@ -947,20 +947,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         // WE DO NOT YET HANDLE CASE #2.
         private static string CreateFileDictionaryKey(FileData v2File, IList<FileData> v2Files)
         {
-            return v2File.FileLocation.Uri.OriginalString;
+            var sb = new StringBuilder(v2File.FileLocation.Uri.OriginalString);
+            while (v2File.ParentIndex != -1)
+            {
+                FileData parentFile = v2Files[v2File.ParentIndex];
+
+                // The convention for building the key is as follows:
+                // The root file URI is separated from the chain of nested files by '#';
+                // The nested file URIs are separated from each other by '/'.
+                string separator = parentFile.ParentIndex == -1 ? "#" : "/";
+
+                sb.Insert(0, separator);
+                sb.Insert(0, parentFile.FileLocation.Uri.OriginalString);
+
+                v2File = parentFile;
+            }
+
+            return sb.ToString();
         }
 
-        private IDictionary<string, FileDataVersionOne> ConvertV2FilesArrayToV1FilesDictionary(IList<FileData> files)
+        private IDictionary<string, FileDataVersionOne> CreateV1FileDictionaryFromV2FileDictionary()
         {
             Dictionary<string, FileDataVersionOne> filesVersionOne = null;
 
-            if (files != null)
+            if (_v2FileDictionary != null)
             {
                 filesVersionOne = new Dictionary<string, FileDataVersionOne>();
-                foreach (FileData fileData in files)
+                foreach (KeyValuePair<string, FileData> entry in _v2FileDictionary)
                 {
-                    FileDataVersionOne fileDataVersionOne = CreateFileData(fileData);
-                    string key = fileData.FileLocation.Uri.OriginalString;
+                    FileDataVersionOne fileDataVersionOne = CreateFileData(entry.Value);
+                    string key = entry.Key;
 
                     // There's no need to repeat the URI in the v1 FileData object
                     // if it matches the dictionary key.
