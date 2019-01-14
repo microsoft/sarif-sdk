@@ -31,6 +31,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_ComprehensiveRegionProperties.sarif" />
+    <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_ContextRegionSnippets.sarif" />
+    <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_FlattenedMessages.sarif" />
+    <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_Hashes+TextFiles+ComprehensiveRegionProperties+RegionSnippets+ContextRegionSnippets+FlattenedMessages.sarif" />
+    <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_Hashes+TextFiles.sarif" />
+    <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_Hashes.sarif" />
+    <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_RegionSnippets.sarif" />
+    <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_TextFiles.sarif" />
+    <None Remove="TestData\InsertOptionalDataVisitor\Inputs\CoreTests.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\NestedFiles.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\NestedFiles.sarif" />
     <None Remove="TestData\SarifCurrentToVersionOneVisitor\v1\Minimum.sarif" />
@@ -88,6 +97,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_ComprehensiveRegionProperties.sarif" />
+    <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_ContextRegionSnippets.sarif" />
+    <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_FlattenedMessages.sarif" />
+    <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_Hashes+TextFiles+ComprehensiveRegionProperties+RegionSnippets+ContextRegionSnippets+FlattenedMessages.sarif" />
+    <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_Hashes+TextFiles.sarif" />
+    <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_Hashes.sarif" />
+    <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_RegionSnippets.sarif" />
+    <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_TextFiles.sarif" />
+    <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\Inputs\CoreTests.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\NestedFiles.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\NestedFiles.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\v1\Minimum.sarif" />

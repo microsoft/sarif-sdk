@@ -4,15 +4,15 @@ using System;
 
 namespace Microsoft.CodeAnalysis.Sarif.Core
 {
-    public class FileKey
+    public class FileDataKey
     {
-        public FileKey()
+        public FileDataKey()
         {
-            ParentIndex = -1;
+            FileIndex = -1;
         }
 
         public Uri Uri;
         public string UriBaseId;
-        public int ParentIndex;
+        public int FileIndex;
     }
 }

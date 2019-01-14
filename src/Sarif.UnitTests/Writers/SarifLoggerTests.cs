@@ -463,7 +463,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 string fileName = @"file" + i + ".cpp";
                 string fileDataKey = "file:///" + fileName;
-                sarifLog.Runs[0].Files.Where(f => f.FileLocation.Uri.AbsolutePath.Contains(fileDataKey)).Any().Should().BeTrue();
+                sarifLog.Runs[0].Files.Where(f => f.FileLocation.Uri.AbsoluteUri.ToString().Contains(fileDataKey)).Any().Should().BeTrue();
             }
 
             sarifLog.Runs[0].Files.Count.Should().Be(fileCount);

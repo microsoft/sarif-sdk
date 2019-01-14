@@ -191,14 +191,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             string uriRootText = "file:///home/buildAgent/";
             string toolsRootBaseId = "TOOLS_ROOT";
 
-            visitor.FileDataParentKeys.Count.Should().Be(4);
-            visitor.FileDataParentKeys.Where(k => k == null).Count().Should().Be(3);
-            visitor.FileDataParentKeys.Where(k => k != null && k.StartsWith(uriRootText)).Count().Should().Be(1);
-
-            visitor.FileDataKeys.Count.Should().Be(4);
-            visitor.FileDataKeys.Where(k => k != null && k.StartsWith(uriRootText)).Count().Should().Be(3);
-            visitor.FileDataKeys.Where(k => k != null && k.StartsWith("#" + toolsRootBaseId + "#")).Count().Should().Be(1);
-
             int uriCount = 17;
 
             visitor.FileLocationUriBaseIds.Count.Should().Be(uriCount);
@@ -240,6 +232,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             public RebaseVerifyingVisitor()
             {
+            }
+
+            public override object Visit(ISarifNode node)
+            {
+                return base.Visit(node);
             }
 
             public override FileLocation VisitFileLocation(FileLocation node)

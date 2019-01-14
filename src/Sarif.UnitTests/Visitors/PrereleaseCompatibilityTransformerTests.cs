@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT        
 // license. See LICENSE file in the project root for full license information. 
 
+using Microsoft.CodeAnalysis.Sarif.TestUtilities;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 using Xunit;
@@ -8,9 +9,11 @@ using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
-    public class PrereleaseCompatibilityTransformerTests : FileDiffingTests
+    public class PrereleaseCompatibilityTransformerTests : FileDiffingTests, IClassFixture<PrereleaseCompatibilityTransformerTests.PrereleaseCompatibilityTransformerTestsFixture>
     {
-        public PrereleaseCompatibilityTransformerTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
+        public class PrereleaseCompatibilityTransformerTestsFixture : DeletesOutputsDirectoryOnClassInitializationFixture { }
+
+        public PrereleaseCompatibilityTransformerTests(ITestOutputHelper outputHelper) : base (outputHelper){ }
 
         protected override bool RebaselineExpectedResults => false;
 

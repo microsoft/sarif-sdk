@@ -46,6 +46,22 @@
             "fileIndex": 3
           },
           "mimeType": "text/plain"
+        },
+        {
+          "fileLocation": {
+            "uri": "/archive_two.zip",
+            "fileIndex": 4
+          },
+          "parentIndex": 0,
+          "mimeType": "application/zip"
+        },
+        {
+          "fileLocation": {
+            "uri": "/file.txt",
+            "fileIndex": 5
+          },
+          "parentIndex": 4,
+          "mimeType": "text/plain"
         }
       ],
       "results": [
@@ -63,7 +79,7 @@
                 }
               },
               "properties": {
-                "k": "file.txt"
+                "key": "file.txt"
               }
             }
           ]
@@ -81,7 +97,7 @@
                   "uriBaseId": "SUB",
                   "fileIndex": 2,
                   "properties": {
-                    "k": "#SUB#file.txt"
+                    "key": "#SUB#file.txt"
                   }
                 }
               }
@@ -100,7 +116,26 @@
                   "uri": "/file.txt",
                   "fileIndex": 1,
                   "properties": {
-                    "k": "file://c:/archive_one.zip#/file.txt"
+                    "key": "file://c:/archive_one.zip#/file.txt"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "C1",
+          "message": {
+            "messageId": "a"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "/archive_two.zip/file.txt",
+                  "fileIndex": 5,
+                  "properties": {
+                    "key": "file://c:/archive_one.zip#/archive_two.zip/file.txt"
                   }
                 }
               }

@@ -701,7 +701,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (node.OriginalUriBaseIds != null)
+                // OriginalUriBaseIds are directories, not files. We'll disable this visit until the
+                // schema can catch up with this reality.
+                // https://github.com/oasis-tcs/sarif-spec/issues/306
+                /*if (node.OriginalUriBaseIds != null)
                 {
                     var keys = node.OriginalUriBaseIds.Keys.ToArray();
                     foreach (var key in keys)
@@ -712,7 +715,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                             node.OriginalUriBaseIds[key] = VisitNullChecked(value);
                         }
                     }
-                }
+                }*/
 
                 if (node.Files != null)
                 {
