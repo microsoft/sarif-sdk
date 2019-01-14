@@ -22,8 +22,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private Run _currentV2Run = null;
         private RunVersionOne _currentRun = null;
 
-        // To understand the purpose of this field, see the comment on CreateV2FileDataDictionary.
-        private IDictionary<string, FileData> _v2FileDictionary;
+        // To understand the purpose of these fields, see the comment on CreateFileKeyIndexMappings.
+        private IDictionary<string, int> _fileKeyToIndexDictionary;
+        private IDictionary<int, string> _fileIndexToKeyDictionary;
 
         public bool EmbedVersionTwoContentInPropertyBag { get; set; }
 
@@ -176,21 +177,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return encoding;
         }
 
-        internal FileDataVersionOne CreateFileData(FileData v2FileData)
+        private FileDataVersionOne CreateFileData(FileData v2FileData)
         {
             FileDataVersionOne fileData = null;
 
             if (v2FileData != null)
             {
+                int parentIndex = v2FileData.ParentIndex;
+                string parentKey = parentIndex == -1
+                    ? null
+                    : _fileIndexToKeyDictionary?[parentIndex];
+
                 fileData = new FileDataVersionOne
                 {
                     Hashes = CreateHashVersionOneListFromV2Hashes(v2FileData.Hashes),
                     Length = v2FileData.Length,
                     MimeType = v2FileData.MimeType,
                     Offset = v2FileData.Offset,
-#if FILES_ARRAY_WORKS
-                    ParentKey = v2FileData.ParentKey,
-#endif
+                    ParentKey = parentKey,
                     Properties = v2FileData.Properties,
                     Uri = v2FileData.FileLocation?.Uri,
                     UriBaseId = v2FileData.FileLocation?.UriBaseId
@@ -734,8 +738,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 foreach (FileLocation fileLocation in v2ResponseFilesList)
                 {
                     string key = fileLocation.Uri.OriginalString;
-                    if (_v2FileDictionary != null && _v2FileDictionary.TryGetValue(key, out FileData responseFile))
+                    if (_fileKeyToIndexDictionary != null && _fileKeyToIndexDictionary.TryGetValue(key, out int responseFileIndex))
                     {
+                        FileData responseFile = _currentV2Run.Files[responseFileIndex];
                         responseFiles.Add(key, responseFile.Contents?.Text);
                     }
                 }
@@ -869,10 +874,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     run = new RunVersionOne();
                     _currentRun = run;
 
-                    _v2FileDictionary = CreateV2FileDictionary(v2Run.Files);
+                    CreateFileKeyIndexMappings(v2Run.Files, out _fileKeyToIndexDictionary, out _fileIndexToKeyDictionary);
 
                     run.BaselineId = v2Run.BaselineInstanceGuid;
-                    run.Files = CreateV1FileDictionaryFromV2FileDictionary();
+                    run.Files = CreateV1FileDictionary();
                     run.Id = v2Run.Id?.InstanceGuid;
                     run.AutomationId = v2Run.AggregateIds?.FirstOrDefault()?.InstanceId;
 
@@ -906,24 +911,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         // information from a v2 FileData object. Rather than having to search the
         // v2 run.files array to find the required FileData object, we construct a
         // dictionary from the array so we can access the required FileData object
-        // directly.
-        private static IDictionary<string, FileData> CreateV2FileDictionary(IList<FileData> v2Files)
+        // directly. It turns out that we need mappings in both directions: from
+        // array index to dictionary key, and vice versa.
+        private static void CreateFileKeyIndexMappings(
+            IList<FileData> v2Files,
+            out IDictionary<string, int> fileKeyToIndexDictionary,
+            out IDictionary<int, string> fileIndexToKeyDictionary)
         {
-            IDictionary<string, FileData> v2FileDataDictionary = null;
+            fileKeyToIndexDictionary = null;
+            fileIndexToKeyDictionary = null;
 
             if (v2Files != null)
             {
-                v2FileDataDictionary = new Dictionary<string, FileData>();
+                fileKeyToIndexDictionary = new Dictionary<string, int>();
+                fileIndexToKeyDictionary = new Dictionary<int, string>();
 
-                foreach (FileData v2File in v2Files)
+                for (int index = 0; index < v2Files.Count; ++index)
                 {
+                    FileData v2File = v2Files[index];
                     string key = CreateFileDictionaryKey(v2File, v2Files);
 
-                    v2FileDataDictionary[key] = v2File;
+                    fileKeyToIndexDictionary[key] = index;
+                    fileIndexToKeyDictionary[index] = key;
                 }
             }
-
-            return v2FileDataDictionary;
         }
 
         // Given a v2 FileData object, synthesize a key that will be used to locate that object
@@ -966,17 +977,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return sb.ToString();
         }
 
-        private IDictionary<string, FileDataVersionOne> CreateV1FileDictionaryFromV2FileDictionary()
+        private IDictionary<string, FileDataVersionOne> CreateV1FileDictionary()
         {
             Dictionary<string, FileDataVersionOne> filesVersionOne = null;
 
-            if (_v2FileDictionary != null)
+            if (_fileKeyToIndexDictionary != null)
             {
                 filesVersionOne = new Dictionary<string, FileDataVersionOne>();
-                foreach (KeyValuePair<string, FileData> entry in _v2FileDictionary)
+                foreach (KeyValuePair<string, int> entry in _fileKeyToIndexDictionary)
                 {
-                    FileDataVersionOne fileDataVersionOne = CreateFileData(entry.Value);
                     string key = entry.Key;
+                    int index = entry.Value;
+                    FileData v2File = _currentV2Run.Files[index];
+                    FileDataVersionOne fileDataVersionOne = CreateFileData(v2File);
 
                     // There's no need to repeat the URI in the v1 FileData object
                     // if it matches the dictionary key.

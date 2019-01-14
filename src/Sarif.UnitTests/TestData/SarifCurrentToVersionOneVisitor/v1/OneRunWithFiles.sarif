@@ -27,7 +27,7 @@
           }
         },
         "file:///home/buildAgent/bin/app.zip#/docs/intro.docx": {
-          "uri": "file:///docs/intro.docx",
+          "uri": "/docs/intro.docx",
           "parentKey": "file:///home/buildAgent/bin/app.zip",
           "offset": 17522,
           "length": 4050,
