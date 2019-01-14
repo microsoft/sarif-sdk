@@ -38,14 +38,10 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
             return transformer.SarifLogVersionOne;
         }
 
-        private bool s_Rebaseline = false;
-
-        private void VerifyCurrentToVersionOneTransformationFromResource(string v2InputResourceName, string v1ExpectedResourceName = null)
+        private void VerifyCurrentToVersionOneTransformationFromResource(string resourceName)
         {
-            v1ExpectedResourceName = v1ExpectedResourceName ?? v2InputResourceName;
-
-            string v2LogText = GetResourceText($"v2.{v2InputResourceName}");
-            string v1ExpectedLogText = GetResourceText($"v1.{v1ExpectedResourceName}");
+            string v2LogText = GetResourceText($"Inputs.{resourceName}");
+            string v1ExpectedLogText = GetResourceText($"ExpectedOutputs.{resourceName}");
 
             PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(v2LogText, forceUpdate: true, formatting: Formatting.Indented, out v2LogText);
 
@@ -55,8 +51,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
 
             StringBuilder sb = new StringBuilder();
 
-            string expectedFilePath = GetOutputFilePath("expected", v1ExpectedResourceName);
-            string actualFilePath = GetOutputFilePath("actual", v1ExpectedResourceName);
+            string expectedFilePath = GetOutputFilePath("ExpectedOutputs", resourceName);
+            string actualFilePath = GetOutputFilePath("ActualOutputs", resourceName);
 
             string expectedRootDirectory = Path.GetDirectoryName(expectedFilePath);
             string actualRootDirectory = Path.GetDirectoryName(actualFilePath);
@@ -69,12 +65,12 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                 File.WriteAllText(expectedFilePath, v1ExpectedLogText);
                 File.WriteAllText(actualFilePath, v1ActualLogText);
 
-                sb.AppendLine($"Conversion from current to V1 produced unexpected diffs for test: '{v2InputResourceName}'.");
+                sb.AppendLine($"Conversion from current to V1 produced unexpected diffs for test: '{resourceName}'.");
                 sb.AppendLine("To compare all difference for this test suite:");
                 sb.AppendLine(GenerateDiffCommand("SarifCurrentToVersionOneVisitor", Path.GetDirectoryName(expectedFilePath), Path.GetDirectoryName(actualFilePath)) + Environment.NewLine);
             }
 
-            if (s_Rebaseline)
+            if (RebaselineExpectedResults)
             {
                 // We rewrite to test output directory. This allows subsequent tests to 
                 // pass without requiring a rebuild that recopies SARIF test files
@@ -88,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
 
             }
 
-            s_Rebaseline.Should().BeFalse();
+            RebaselineExpectedResults.Should().BeFalse();
 
             ValidateResults(sb.ToString());
         }
