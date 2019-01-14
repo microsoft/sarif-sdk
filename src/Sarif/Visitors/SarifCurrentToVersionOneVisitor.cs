@@ -152,15 +152,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             string encodingName = null;
             IList<FileData> files = _currentV2Run.Files;
-#if FILES_ARRAY_WORKS
-            FileData fileData;
+
             if (uri != null &&
-                files != null &&
-                files.TryGetValue(uri.OriginalString, out fileData))
+                files != null
+                && _fileKeyToIndexDictionary != null
+                && _fileKeyToIndexDictionary.TryGetValue(uri.OriginalString, out int index))
             {
-                encodingName = fileData.Encoding;
+                encodingName = files[index].Encoding;
             }
-#endif
+
             return encodingName;
         }
 
@@ -503,9 +503,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private int ConvertCharOffsetToByteOffset(int charOffset, Uri uri)
         {
             int byteOffset = 0;
-            Encoding encoding;
 
-            using (StreamReader reader = GetFileStreamReader(uri, out encoding))
+            using (StreamReader reader = GetFileStreamReader(uri, out Encoding encoding))
             {
                 if (reader != null)
                 {
@@ -525,9 +524,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private int GetRegionByteLength(Region v2Region, Uri uri)
         {
             int byteLength = 0;
-            Encoding encoding;
 
-            using (StreamReader reader = GetFileStreamReader(uri, out encoding))
+            using (StreamReader reader = GetFileStreamReader(uri, out Encoding encoding))
             {
                 if (reader != null)
                 {
@@ -579,9 +577,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private int GetRegionEndColumn(Region v2Region, Uri uri)
         {
             int endColumn = 0;
-            Encoding encoding;
 
-            using (StreamReader reader = GetFileStreamReader(uri, out encoding))
+            using (StreamReader reader = GetFileStreamReader(uri, out Encoding encoding))
             {
                 if (reader != null)
                 {
@@ -607,13 +604,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Stream stream = null;
             encoding = null;
             string failureReason = null;
+            IList<FileData> files = _currentV2Run.Files;
 
-            if (uri != null && _currentV2Run.Files != null)
+            if (uri != null && files != null && _fileKeyToIndexDictionary != null)
             {
-#if FILES_ARRAY_WORKS
-                FileData fileData;
-                if (_currentV2Run.Files.TryGetValue(uri.OriginalString, out fileData))
+                if (_fileKeyToIndexDictionary.TryGetValue(uri.OriginalString, out int index)
+                    && index < files.Count)
                 {
+                    FileData fileData = files[index];
+
                     // We need the encoding because the content might have been transcoded to UTF-8
                     string encodingName = fileData.Encoding ?? _currentV2Run.DefaultFileEncoding;
                     encoding = GetFileEncoding(encodingName);
@@ -661,7 +660,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         failureReason = $"Encoding for file '{uri.OriginalString}' could not be determined";
                     }
                 }
-#endif
             }
 
             if (stream == null && failureReason == null)
@@ -827,8 +825,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             RuleVersionOne rule = null;
 
-            Rule v2Rule = v2IRule as Rule;
-            var properties = v2Rule != null ? v2Rule.Properties : null;
+            var properties = v2IRule is Rule v2Rule ? v2Rule.Properties : null;
 
             if (v2IRule != null)
             {
