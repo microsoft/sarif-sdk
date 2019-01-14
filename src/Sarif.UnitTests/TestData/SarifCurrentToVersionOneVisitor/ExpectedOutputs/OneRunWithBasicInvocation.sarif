@@ -27,9 +27,7 @@
         }
       },
       "files": {
-        "collections.rsp": {
-          "uri": "collections.rsp"
-        }
+        "collections.rsp": {}
       },
       "results": []
     }

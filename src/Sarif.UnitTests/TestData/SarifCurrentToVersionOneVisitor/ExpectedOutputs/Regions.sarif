@@ -11,16 +11,13 @@
       "invocation": {},
       "files": {
         "file:///src/base/driver.cs": {
-          "uri": "file:///src/base/driver.cs",
           "contents": "YQBiAGMAZAANAAoAZQBmAGcADQAKAGgAaQBqAGsADQAKAGwAbQBuAA=="
         },
         "file:///src/ui/client.cs": {
-          "uri": "file:///src/ui/client.cs",
           "mimeType": "text/x-csharp",
           "contents": "VGhlIHF1aWNrIGJyb3duIGZveA0KanVtcHMgb3ZlciB0aGUgbGFhenkgZG9n"
         },
         "file:///src/ui/unicodeText.cs": {
-          "uri": "file:///src/ui/unicodeText.cs",
           "mimeType": "text/x-csharp",
           "contents": "VGhlIHF1aWNrIGJyb3duIGZveA0KanVtcHMgb3ZlciB0aGUgbGFhenkgZG9n"
         }
