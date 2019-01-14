@@ -962,9 +962,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 // The convention for building the key is as follows:
                 // The root file URI is separated from the chain of nested files by '#';
                 // The nested file URIs are separated from each other by '/'.
-                string separator = parentFile.ParentIndex == -1 ? "#" : "/";
+                if (parentFile.ParentIndex == -1)
+                {
+                    sb.Insert(0, '#');
+                }
+                else
+                {
+                    string path = parentFile.FileLocation.Uri.OriginalString;
+                    if (path.Length == 0 || path[0] != '/')
+                    {
+                        sb.Insert(0, '/');
+                    }
+                }
 
-                sb.Insert(0, separator);
                 sb.Insert(0, parentFile.FileLocation.Uri.OriginalString);
 
                 v2File = parentFile;

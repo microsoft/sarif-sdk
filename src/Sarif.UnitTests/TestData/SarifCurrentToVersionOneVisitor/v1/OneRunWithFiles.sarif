@@ -32,6 +32,20 @@
           "offset": 17522,
           "length": 4050,
           "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        },
+        "file:///home/buildAgent/bin/app.zip#/data.zip": {
+          "uri": "/data.zip",
+          "parentKey": "file:///home/buildAgent/bin/app.zip",
+          "offset": 901299,
+          "length": 170633,
+          "mimeType": "application/zip"
+        },
+        "file:///home/buildAgent/bin/app.zip#/data.zip/state-data/wa.dat": {
+          "uri": "/state-data/wa.dat",
+          "parentKey": "file:///home/buildAgent/bin/app.zip#/data.zip",
+          "offset": 475,
+          "length": 8214,
+          "mimeType": "application/octet-stream"
         }
       },
       "results": []
