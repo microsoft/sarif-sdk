@@ -1,19 +1,29 @@
 ﻿// Copyright (c) Microsoft. All rights reserved. Licensed under the MIT        
 // license. See LICENSE file in the project root for full license information.
 
-using System;
 using System.IO;
 
 namespace Microsoft.CodeAnalysis.Sarif.TestUtilities
 {
     /// <summary>
-    /// This class is invoked a single time on initializing an xunit class for testing. It deletes
-    /// any existing test output files that may have been produced by the previous run. This fixture
-    /// is required because individual tests in test classes result in an object instantiation for
-    /// each test case. The FileDiffingTests pattern, by design outputs a bundle of outputs to 
-    /// a common directory, to allow diffing an entire directory of failing tests. If each test
-    /// case deleted this directory, the results would be that only the last test failure would
-    /// exist in the common outputs location
+    /// This class is an XUnit "class fixture." If a test class is marked with the interface
+    /// IClassFixture&lt;T>, then before XUnit runs any tests from the class, it will instantiate
+    /// T (which must have a parameterless constructor). If T implements IDisposable, then after
+    /// xUnit runs the last test method from the class, it will dispose the fixture. This mechanism
+    /// allows class-level setup and teardown (although I don't know why they don't just reflect
+    /// for static methods like ClassSetup and ClassTeardown).
+    ///
+    /// See https://xunit.github.io/docs/shared-context for more information about xUnit class fixtures.
+    ///
+    /// This particular fixture deletes any existing test output files that may have been produced
+    /// by a previous run. It is designed for use on test classes that derive from FileDiffingTests.
+    /// It is required because FileDiffingTests emits the outputs from each test to a common directory,
+    /// to allow diffing an entire directory of failing tests. If each test case deleted this directory,
+    /// then at the end it would contain only the output from the last failing test.
+    ///
+    /// Each class that derives from FileDiffingTests can declare its own derived fixture class if
+    /// it wants to override the virtual TypeUnderTest or OutputFolderPath properties, but there seems
+    /// no good reason to do this.
     /// </summary>
     public abstract class DeletesOutputsDirectoryOnClassInitializationFixture
     {
