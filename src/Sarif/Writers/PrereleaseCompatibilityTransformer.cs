@@ -151,6 +151,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                                 logicalLocations,
                                 logicalLocationToIndexMap,
                                 out fullyQualifiedLogicalNameToIndexMap);
+
+                        modifiedLog |= fullyQualifiedLogicalNameToIndexMap.Count > 0;
                     }
 
                     // Files are now persisted to an array. We will persist a mapping from
@@ -166,6 +168,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                             ConstructFilesArray(
                                 files,
                                 keyToIndexMap);
+
+                        modifiedLog |= keyToIndexMap.Count > 0;
                     }
 
 
@@ -798,7 +802,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             bool modifiedRun = false;
 
-            var files = (JObject)run["files"];
+            var files = run["files"] as JObject;
             if (files == null) { return modifiedRun; }
 
             foreach (JProperty file in files.Properties())
