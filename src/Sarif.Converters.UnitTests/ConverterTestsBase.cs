@@ -5,6 +5,7 @@ using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif.Converters;
 using Microsoft.CodeAnalysis.Sarif.TestUtilities;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -13,6 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         public SarifLog RunTestCase(string inputData, string expectedResult, bool prettyPrint = true)
         {
+            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedResult, forceUpdate: false, formatting: Formatting.Indented, out expectedResult);
             var converter = new T();
 
             // First retrieve converter JSON. This code will raise appropriate exceptions 

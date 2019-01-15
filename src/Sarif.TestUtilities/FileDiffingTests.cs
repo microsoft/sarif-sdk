@@ -198,7 +198,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return fullPath;
         }
 
-        protected static bool AreEquivalentSarifLogs<T>(string actualSarif, string expectedSarif, IContractResolver contractResolver = null)
+        public static bool AreEquivalentSarifLogs<T>(string actualSarif, string expectedSarif, IContractResolver contractResolver = null)
         {
             expectedSarif = expectedSarif ?? "{}";
 

@@ -17,17 +17,12 @@ namespace Microsoft.CodeAnalysis.Sarif.TestUtilities
         {
             Execute.Assertion
                 .ForCondition(
-                    string.Equals(RemoveLineEndings(expected), RemoveLineEndings(assertion.Subject), StringComparison.OrdinalIgnoreCase)
+                    FileDiffingTests.AreEquivalentSarifLogs<SarifLog>(actualSarif: assertion.Subject, expected)
                 )
                 .BecauseOf(because, becauseArgs)
                 .FailWith(TestUtilityResources.BeCrossPlatformEquivalentError);
 
             return new AndConstraint<StringAssertions>(assertion);
-        }
-
-        private static string RemoveLineEndings(string input)
-        {
-            return Regex.Replace(input, @"\s+", "");
         }
     }
 }
