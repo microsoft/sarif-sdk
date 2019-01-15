@@ -77,6 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 if (addToFilesTableIfNotPresent)
                 {
+                    this.Files = this.Files ?? new List<FileData>();
                     fileIndex = this.Files.Count;
 
                     string mimeType = Writers.MimeType.DetermineFromFileExtension(filesTableKey.Uri.ToString());

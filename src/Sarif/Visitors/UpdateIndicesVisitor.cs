@@ -9,12 +9,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     public class UpdateIndicesVisitor : SarifRewritingVisitor
     {
         private IDictionary<string, int> _fullyQualifiedLogicalNameToIndexMap;
-        private IDictionary<string, int> _fileLocationKeyToIndexMap;
+        private IDictionary<FileLocation, int> _fileLocationToIndexMap;
 
-        public UpdateIndicesVisitor(IDictionary<string, int> fullyQualifiedLogicalNameToIndexMap, IDictionary<string, int> fileLocationKeyToIndexMap)
+        public UpdateIndicesVisitor(IDictionary<string, int> fullyQualifiedLogicalNameToIndexMap, IDictionary<FileLocation, int> fileLocationToIndexMap)
         {
             _fullyQualifiedLogicalNameToIndexMap = fullyQualifiedLogicalNameToIndexMap;
-            _fileLocationKeyToIndexMap = fileLocationKeyToIndexMap;
+            _fileLocationToIndexMap = fileLocationToIndexMap;
         }
 
         public override Location VisitLocation(Location node)
@@ -32,24 +32,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override FileLocation VisitFileLocation(FileLocation node)
         {
-
-            if (_fileLocationKeyToIndexMap != null)
+            if (_fileLocationToIndexMap != null)
             {
-                string key = node.Uri.OriginalString;
-
-
-                string uriBaseId = node.UriBaseId;
-                if (!string.IsNullOrEmpty(uriBaseId))
+                if (_fileLocationToIndexMap.TryGetValue(node, out int index))
                 {
-                    key = "#" + uriBaseId + "#" + key;
-                }
-
-                if (_fileLocationKeyToIndexMap.TryGetValue(key, out int index))
-                {
-                    var fileLocation = FileLocation.CreateFromFilesDictionaryKey(key);
-                    node.Uri = new Uri(UriHelper.MakeValidUri(fileLocation.Uri.OriginalString), UriKind.RelativeOrAbsolute);
-                    node.UriBaseId = fileLocation.UriBaseId;
-                    node.FileIndex = index;
+                   node.FileIndex = index;
                 }
             }
 

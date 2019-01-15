@@ -80,7 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 Debug.Assert(modifiedLog == true);
                 transformedSarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifLog.ToString());
-                var indexUpdatingVisitor = new UpdateIndicesVisitor(fullyQualifiedLogicalNameToIndexMap, fileLocationKeyToIndexMap);
+                var indexUpdatingVisitor = new UpdateIndicesVisitor(fullyQualifiedLogicalNameToIndexMap, null);
                 indexUpdatingVisitor.Visit(transformedSarifLog);
                 updatedLog = JsonConvert.SerializeObject(transformedSarifLog, settings);
             }

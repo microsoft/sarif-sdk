@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                 foreach (string target in analysisTargets)
                 {
-                    Uri uri = new Uri(UriHelper.MakeValidUri(target));
+                    Uri uri = new Uri(UriHelper.MakeValidUri(target), UriKind.RelativeOrAbsolute);
 
                     var fileData = FileData.Create(
                         new Uri(target, UriKind.RelativeOrAbsolute),
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     fileData.FileLocation = fileLocation;
 
                     // This call will insert the file object into run.Files if not already present
-                    fileData.FileLocation.FileIndex = run.GetFileIndex(fileData.FileLocation, addToFilesTableIfNotPresent: true);
+                    fileData.FileLocation.FileIndex = run.GetFileIndex(fileData.FileLocation, addToFilesTableIfNotPresent: true, dataToInsert);
                 }
             }
 

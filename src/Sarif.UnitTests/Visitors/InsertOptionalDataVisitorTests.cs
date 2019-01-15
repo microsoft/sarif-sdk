@@ -3,10 +3,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
-using System.Text;
 using FluentAssertions;
+using Microsoft.CodeAnalysis.Sarif.TestUtilities;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 using Xunit;
@@ -14,127 +13,101 @@ using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
-    public class InsertOptionalDataVisitorTests : FileDiffingTests
+
+    public class InsertOptionalDataVisitorTests : FileDiffingTests, IClassFixture<InsertOptionalDataVisitorTests.InsertOptionalDataVisitorTestsFixture>
     {
-        // To rebaseline all test files set this value to true and rerun the testa
-        private static bool s_rebaseline = false;
+        public class InsertOptionalDataVisitorTestsFixture : DeletesOutputsDirectoryOnClassInitializationFixture { }
 
-        public InsertOptionalDataVisitorTests(ITestOutputHelper outputHelper) : base (outputHelper)
+        private OptionallyEmittedData _currentOptionallyEmittedData;
+
+        public InsertOptionalDataVisitorTests(ITestOutputHelper outputHelper, InsertOptionalDataVisitorTestsFixture fixture) : base (outputHelper)
         {
         }
 
-        [Theory]
-        [InlineData(OptionallyEmittedData.Hashes)]
-        [InlineData(OptionallyEmittedData.TextFiles)]
-        [InlineData(OptionallyEmittedData.RegionSnippets)]
-        [InlineData(OptionallyEmittedData.FlattenedMessages)]
-        [InlineData(OptionallyEmittedData.ContextRegionSnippets)]
-        [InlineData(OptionallyEmittedData.ComprehensiveRegionProperties)]
-        [InlineData(OptionallyEmittedData.ComprehensiveRegionProperties | OptionallyEmittedData.RegionSnippets | OptionallyEmittedData.TextFiles | OptionallyEmittedData.Hashes | OptionallyEmittedData.ContextRegionSnippets | OptionallyEmittedData.FlattenedMessages)]
-        public void InsertOptionalDataVisitorTests_InsertsOptionalDataForCommonConditions(OptionallyEmittedData optionallyEmittedData)
-        {
-            string testDirectory = GetTestDirectory("InsertOptionalDataVisitor");
+        protected override bool RebaselineExpectedResults => false;
 
-            string inputFileName = "CoreTests";
-            RunTest(testDirectory, inputFileName, optionallyEmittedData);
+        protected override string ConstructTestOutputFromInputResource(string inputResourceName)
+        {
+            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
+                GetResourceText(inputResourceName),
+                forceUpdate: false,
+                formatting: Formatting.Indented, out string transformedLog);
+
+            SarifLog actualLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(transformedLog, forceUpdate: false, formatting: Formatting.None, out transformedLog);
+
+            Uri originalUri = actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"].Uri;
+            string uriString = originalUri.ToString();
+
+            // This code rewrites the log persisted URI to match the test environment
+            string currentDirectory = Environment.CurrentDirectory;
+            currentDirectory = currentDirectory.Substring(0, currentDirectory.IndexOf(@"\bld\"));
+            uriString = uriString.Replace("REPLACED_AT_TEST_RUNTIME", currentDirectory);
+
+            actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"] = new FileLocation { Uri = new Uri(uriString, UriKind.Absolute) };
+
+            var visitor = new InsertOptionalDataVisitor(_currentOptionallyEmittedData);
+            visitor.Visit(actualLog.Runs[0]);
+
+            // Restore the remanufactured URI so that file diffing matches
+            actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"] = new FileLocation { Uri = originalUri };
+
+            return JsonConvert.SerializeObject(actualLog, Formatting.Indented);
         }
 
-        private void RunTest(string testDirectory, string inputFileName, OptionallyEmittedData optionallyEmittedData)
+        private void RunTest(string inputResourceName, OptionallyEmittedData optionallyEmittedData)
         {
-            var sb = new StringBuilder();
+            _currentOptionallyEmittedData = optionallyEmittedData;
+            string expectedOutputResourceName = Path.GetFileNameWithoutExtension(inputResourceName);
+            expectedOutputResourceName = expectedOutputResourceName + "_" + optionallyEmittedData.ToString().Replace(", ", "+");
+            RunTest(inputResourceName, expectedOutputResourceName);
+        }
 
-            string optionsNameSuffix = "_" + NormalizeOptionallyEmittedDataToString(optionallyEmittedData);
+        [Fact]
+        public void InsertOptionalDataVisitor_PersistsHashes()
+        {
+            RunTest("CoreTests.sarif", OptionallyEmittedData.Hashes);
+        }
 
-            string expectedFileName = inputFileName + optionsNameSuffix + ".sarif";
-            string actualFileName = @"Actual\" + inputFileName + optionsNameSuffix + ".sarif";
-            inputFileName = inputFileName + ".sarif";
+        [Fact]
+        public void InsertOptionalDataVisitor_PersistsTextFiles()
+        {
+            RunTest("CoreTests.sarif", OptionallyEmittedData.TextFiles);
+        }
 
-            expectedFileName = Path.Combine(testDirectory, expectedFileName);
-            actualFileName = Path.Combine(testDirectory, actualFileName);
-            inputFileName = Path.Combine(testDirectory, inputFileName);
+        [Fact]
+        public void InsertOptionalDataVisitor_PersistsRegionSnippets()
+        {
+            RunTest("CoreTests.sarif", OptionallyEmittedData.RegionSnippets);
+        }
 
-            string actualDirectory = Path.GetDirectoryName(actualFileName);
-            if (!Directory.Exists(actualDirectory)) { Directory.CreateDirectory(actualDirectory); }
+        [Fact]
+        public void InsertOptionalDataVisitor_PersistsFlattenedMessages()
+        {
+            RunTest("CoreTests.sarif", OptionallyEmittedData.FlattenedMessages);
+        }
 
-            File.Exists(inputFileName).Should().BeTrue();
+        [Fact]
+        public void InsertOptionalDataVisitor_PersistsContextRegionSnippets()
+        {
+            RunTest("CoreTests.sarif", OptionallyEmittedData.ContextRegionSnippets);
+        }
 
-            SarifLog actualLog;
+        [Fact]
+        public void InsertOptionalDataVisitor_PersistsComprehensiveRegionProperties()
+        {
+            RunTest("CoreTests.sarif", OptionallyEmittedData.ComprehensiveRegionProperties);
+        }
 
-            JsonSerializerSettings settings = new JsonSerializerSettings()
-            {
-                Formatting = Formatting.Indented
-            };
-
-            try
-            {
-                string logText = File.ReadAllText(inputFileName);
-                actualLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(logText, forceUpdate: false, formatting: Formatting.None, out logText);
-                
-                Uri originalUri = actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"].Uri;
-                string uriString = originalUri.ToString();
-
-                // This code rewrites the log persisted URI to match the test environment
-                string currentDirectory = Environment.CurrentDirectory;
-                currentDirectory = currentDirectory.Substring(0, currentDirectory.IndexOf(@"\bld\"));
-                uriString = uriString.Replace("REPLACED_AT_TEST_RUNTIME", currentDirectory);
-
-                actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"] = new FileLocation { Uri = new Uri(uriString, UriKind.Absolute) };
-
-                var visitor = new InsertOptionalDataVisitor(optionallyEmittedData);
-                visitor.Visit(actualLog.Runs[0]);
-
-                // Restore the remanufactured URI so that file diffing matches
-                actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"] = new FileLocation { Uri = originalUri };
-            }
-            catch (Exception ex)
-            {
-                sb.AppendFormat(CultureInfo.InvariantCulture, "Unhandled exception processing input '{0}' with the following options: '{1}'.\r\n", inputFileName, optionallyEmittedData);
-                sb.AppendLine(ex.ToString());
-                ValidateResults(sb.ToString());
-                return;
-            }
-
-            string expectedSarif = File.Exists(expectedFileName) ? File.ReadAllText(expectedFileName) : null;
-            if (expectedSarif != null)
-            {
-                PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarif, forceUpdate:false, formatting: Formatting.None, out expectedSarif);
-            }
-
-            string actualSarif = JsonConvert.SerializeObject(actualLog, settings);
-            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(actualSarif, forceUpdate: false, formatting: Formatting.None, out actualSarif);
-
-            if (!AreEquivalentSarifLogs<SarifLog>(actualSarif, expectedSarif))
-            {
-                if (s_rebaseline)
-                {
-                    // We rewrite to test output directory. This allows subsequent tests to 
-                    // pass without requiring a rebuild that recopies SARIF test files
-                    File.WriteAllText(expectedFileName, actualSarif);
-
-                    string subdirectory = Path.GetFileName(testDirectory);
-                    string productTestDirectory = GetProductTestDataDirectory(subdirectory);
-                    expectedFileName = Path.GetFileName(expectedFileName);
-                    expectedFileName = Path.Combine(productTestDirectory, expectedFileName);
-
-                    // We also rewrite the checked in test baselines
-                    File.WriteAllText(expectedFileName, actualSarif);
-                }
-                else
-                {
-                    File.WriteAllText(actualFileName, actualSarif);
-
-                    string errorMessage = "Expanding optional data for input '{0}' produced unexpected results for the following options: '{1}'.";
-                    sb.AppendLine(string.Format(CultureInfo.CurrentCulture, errorMessage, inputFileName, optionallyEmittedData));
-
-                    sb.AppendLine("To compare all difference for this test suite:");
-                    sb.AppendLine(GenerateDiffCommand("InsertOptionalData", Path.GetDirectoryName(expectedFileName), Path.GetDirectoryName(actualFileName)) + Environment.NewLine);
-                }
-            }
-
-            // Add this check to prevent us from unexpectedly checking in this static with the wrong value
-            s_rebaseline.Should().BeFalse();
-
-            ValidateResults(sb.ToString());
+        [Fact]
+        public void InsertOptionalDataVisitor_PersistsAll()
+        {
+            RunTest("CoreTests.sarif", 
+                OptionallyEmittedData.ComprehensiveRegionProperties | 
+                OptionallyEmittedData.RegionSnippets | 
+                OptionallyEmittedData.TextFiles | 
+                OptionallyEmittedData.Hashes | 
+                OptionallyEmittedData.ContextRegionSnippets | 
+                OptionallyEmittedData.FlattenedMessages);
         }
 
         [Fact]

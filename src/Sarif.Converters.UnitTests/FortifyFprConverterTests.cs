@@ -1,13 +1,16 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using Microsoft.CodeAnalysis.Sarif.TestUtilities;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    public class FortifyFprConverterTests : FileDiffingTests
+    public class FortifyFprConverterTests : FileDiffingTests, IClassFixture<FortifyFprConverterTests.FortifyFprConverterTestsFixture>
     {
+        public class FortifyFprConverterTestsFixture : DeletesOutputsDirectoryOnClassInitializationFixture { }
+
         protected override string TestLogResourceNameRoot => "Microsoft.CodeAnalysis.Sarif.Converters.UnitTests.TestData." + TypeUnderTest;
 
         public FortifyFprConverterTests(ITestOutputHelper outputHelper) : base(outputHelper) { }

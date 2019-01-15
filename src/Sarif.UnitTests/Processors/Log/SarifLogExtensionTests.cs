@@ -78,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors.Log
                 logs.Add(log);
             }
             logs.RebaseUri("SRCROOT", false, new Uri(RandomSarifLogGenerator.GeneratorBaseUri)).MakeUrisAbsolute();
-
+          
             // All file URIs should be absolute.
             logs.All(
                 log =>

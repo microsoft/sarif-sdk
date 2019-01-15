@@ -13,6 +13,7 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
+using Xunit;
 using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -39,11 +40,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             _outputHelper = outputHelper;
             _testProducesSarifCurrentVersion = testProducesSarifCurrentVersion;
 
-            if (Directory.Exists(OutputFolderPath))
-            {
-                Directory.Delete(OutputFolderPath, recursive: true);
-            }
-
             Directory.CreateDirectory(OutputFolderPath);
         }
 
@@ -57,23 +53,24 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         protected virtual string TestLogResourceNameRoot => "Microsoft.CodeAnalysis.Sarif.UnitTests.TestData." + TypeUnderTest;
 
-        protected virtual string ConstructTestOutputFromInputResource(string inputResource) { return string.Empty; }
+        protected virtual string ConstructTestOutputFromInputResource(string inputResourceName) { return string.Empty; }
 
         protected virtual bool RebaselineExpectedResults => false;
 
-        protected virtual void RunTest(string resourceName)
+        protected virtual void RunTest(string inputResourceName, string expectedOutputResourceName = null)
         {
+            expectedOutputResourceName = expectedOutputResourceName ?? inputResourceName;
             // When retrieving constructed test content, we pass the resourceName is the test
             // specified it. When constructing actual and expected file names from this data, 
             // however, we will ensure that the name has the ".sarif" extension. We do this
             // for test classes such as the Fortify converter that operate again non-SARIF inputs.
-            string actualSarifText = ConstructTestOutputFromInputResource("Inputs." + resourceName);
+            string actualSarifText = ConstructTestOutputFromInputResource("Inputs." + inputResourceName);
 
-            resourceName = Path.GetFileNameWithoutExtension(resourceName) + ".sarif";
+            expectedOutputResourceName = Path.GetFileNameWithoutExtension(expectedOutputResourceName) + ".sarif";
 
             var sb = new StringBuilder();
 
-            string expectedSarifText = GetResourceText("ExpectedOutputs." + resourceName);
+            string expectedSarifText = GetResourceText("ExpectedOutputs." + expectedOutputResourceName);
 
             bool passed;
             if (_testProducesSarifCurrentVersion)
@@ -88,13 +85,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (!passed)
             {
-                string errorMessage = string.Format(@"there should be no unexpected diffs detected comparing actual results to '{0}'.", resourceName);
+                string errorMessage = string.Format(@"there should be no unexpected diffs detected comparing actual results to '{0}'.", inputResourceName);
                 sb.AppendLine(errorMessage);
 
                 if (!Utilities.RunningInAppVeyor)
                 {
-                    string expectedFilePath = GetOutputFilePath("ExpectedOutputs", resourceName);
-                    string actualFilePath = GetOutputFilePath("ActualOutputs", resourceName);
+                    string expectedFilePath = GetOutputFilePath("ExpectedOutputs", expectedOutputResourceName);
+                    string actualFilePath = GetOutputFilePath("ActualOutputs", expectedOutputResourceName);
 
                     string expectedRootDirectory = Path.GetDirectoryName(expectedFilePath);
                     string actualRootDirectory = Path.GetDirectoryName(actualFilePath);
@@ -116,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         // We retrieve all test strings from embedded resources. To rebaseline, we need to
                         // compute the enlistment location from which these resources are compiled.
 
-                        expectedFilePath = Path.Combine(testDirectory, resourceName);
+                        expectedFilePath = Path.Combine(testDirectory, expectedOutputResourceName);
                         File.WriteAllText(expectedFilePath, actualSarifText);
                     }
                 }
