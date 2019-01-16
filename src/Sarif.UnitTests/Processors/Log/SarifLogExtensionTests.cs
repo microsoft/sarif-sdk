@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
+using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -70,30 +71,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors.Log
         public void AbsoluteUri_ReversesRebasedURIs()
         {
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
-            List<SarifLog> logs = new List<SarifLog>();
             int count = random.Next(10) + 1;
             for (int i = 0; i < count; i++)
             {
                 SarifLog log = RandomSarifLogGenerator.GenerateSarifLogWithRuns(random, random.Next(10));
-                logs.Add(log);
-            }
-            logs.RebaseUri("SRCROOT", false, new Uri(RandomSarifLogGenerator.GeneratorBaseUri)).MakeUrisAbsolute();
-          
-            // All file URIs should be absolute.
-            logs.All(
-                log =>
-                    log.Runs == null ||
-                    log.Runs.All(
-                        run =>
-                            run.Results == null ||
-                            run.Results.All(
-                                result =>
-                                    result.Locations == null ||
-                                    result.Locations.All(
-                                        location =>
-                                            !location.PhysicalLocation.FileLocation.Uri.IsAbsoluteUri
-                                            && !string.IsNullOrEmpty(location.PhysicalLocation.FileLocation.UriBaseId)))))
-                .Should().BeTrue();
+                string inputSarifText = JsonConvert.SerializeObject(log, Formatting.Indented);
+
+                log.RebaseUri("SRCROOT", false, new Uri(RandomSarifLogGenerator.GeneratorBaseUri)).MakeUrisAbsolute();
+
+                string outputSarifText = JsonConvert.SerializeObject(log, Formatting.Indented);
+
+                if (log.Runs == null) { continue; }
+
+                log.Runs.All(
+                    run =>
+                        run.Results == null ||
+                        run.Results.All(
+                            result =>
+                                result.Locations == null ||
+                                result.Locations.All(
+                                    location =>
+                                        location.PhysicalLocation.FileLocation.Uri.IsAbsoluteUri
+                                        && string.IsNullOrEmpty(location.PhysicalLocation.FileLocation.UriBaseId))))
+                   .Should().BeTrue();
+            }         
         }
 
         [Fact]

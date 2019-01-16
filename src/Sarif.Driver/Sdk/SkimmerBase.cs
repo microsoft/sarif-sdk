@@ -7,17 +7,12 @@ using System.Resources;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    public abstract class SkimmerBase<TContext>  : PropertyBagHolder, ISkimmer<TContext>
+    public abstract class SkimmerBase<TContext>  : Rule, ISkimmer<TContext>
     {
         public SkimmerBase()
         {
             this.Options = new Dictionary<string, string>();
         }
-
-        abstract public Uri HelpUri { get;  }
-
-        abstract public Message Help { get; }
-
         private IDictionary<string, string> messageStrings;
         private IDictionary<string, string> richMessageStrings;
 
@@ -27,11 +22,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         virtual protected IEnumerable<string> RichMessageResourceNames => new List<string>();
 
-        virtual public RuleConfiguration Configuration {  get; }
 
         virtual public ResultLevel DefaultLevel { get { return ResultLevel.Warning; } }
 
-        virtual public IDictionary<string, string> MessageStrings
+        override public IDictionary<string, string> MessageStrings
         {
             get
             {
@@ -43,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        virtual public IDictionary<string, string> RichMessageStrings
+        override public IDictionary<string, string> RichMessageStrings
         {
             get
             {
@@ -65,14 +59,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return RuleUtilities.BuildDictionary(ResourceManager, RichMessageResourceNames,ruleId: Id, prefix: "Rich");
         }
 
-        abstract public string Id { get; }
+        public override string Id => throw new InvalidOperationException($"The {nameof(Id)} property must be overridden in the SkimmerBase-derived class.");
 
-        // This one isn't abstract because there's no point in forcing every skimmer to implement it.
-        public virtual IList<string> DeprecatedIds => null;
+        public override Message FullDescription => throw new InvalidOperationException($"The {nameof(FullDescription)} property must be overridden in the SkimmerBase-derived class.");
 
-        abstract public Message FullDescription { get; }
-
-        public virtual Message ShortDescription
+        public override Message ShortDescription
         {
             get { return new Message { Text = FirstSentence(FullDescription.Text) }; }
         }
@@ -105,7 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return fullDescription.Substring(0, length) + (truncated ? "..." : "");
         }
 
-        public virtual Message Name {  get { return new Message { Text = this.GetType().Name }; } }
+        public override Message Name {  get { return new Message { Text = this.GetType().Name }; } }
 
         public IDictionary<string, string> Options { get; }
 

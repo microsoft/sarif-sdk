@@ -9,12 +9,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     public class UpdateIndicesVisitor : SarifRewritingVisitor
     {
         private IDictionary<string, int> _fullyQualifiedLogicalNameToIndexMap;
-        private IDictionary<FileLocation, int> _fileLocationToIndexMap;
+        private IDictionary<string, int> _fileLocationKeyToIndexMap;
 
-        public UpdateIndicesVisitor(IDictionary<string, int> fullyQualifiedLogicalNameToIndexMap, IDictionary<FileLocation, int> fileLocationToIndexMap)
+        public UpdateIndicesVisitor(IDictionary<string, int> fullyQualifiedLogicalNameToIndexMap, IDictionary<string, int> fileLocationKeyToIndexMap)
         {
             _fullyQualifiedLogicalNameToIndexMap = fullyQualifiedLogicalNameToIndexMap;
-            _fileLocationToIndexMap = fileLocationToIndexMap;
+            _fileLocationKeyToIndexMap = fileLocationKeyToIndexMap;
         }
 
         public override Location VisitLocation(Location node)
@@ -32,11 +32,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override FileLocation VisitFileLocation(FileLocation node)
         {
-            if (_fileLocationToIndexMap != null)
+
+            if (_fileLocationKeyToIndexMap != null)
             {
-                if (_fileLocationToIndexMap.TryGetValue(node, out int index))
+                string key = node.Uri.OriginalString;
+
+                string uriBaseId = node.UriBaseId;
+                if (!string.IsNullOrEmpty(uriBaseId))
                 {
-                   node.FileIndex = index;
+                    key = "#" + uriBaseId + "#" + key;
+                }
+
+                if (_fileLocationKeyToIndexMap.TryGetValue(key, out int index))
+                {
+                    var fileLocation = FileLocation.CreateFromFilesDictionaryKey(key);
+                    node.Uri = new Uri(UriHelper.MakeValidUri(fileLocation.Uri.OriginalString), UriKind.RelativeOrAbsolute);
+                    node.UriBaseId = fileLocation.UriBaseId;
+                    node.FileIndex = index;
                 }
             }
 

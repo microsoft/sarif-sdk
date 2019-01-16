@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 [_remappedFullyQualifiedLogicalName] = remappedIndex
             };
 
-            var visitor = new UpdateIndicesVisitor(fullyQualifiedLogicalNameToIndexMap, fileLocationToIndexMap: null);
+            var visitor = new UpdateIndicesVisitor(fullyQualifiedLogicalNameToIndexMap, fileLocationKeyToIndexMap: null);
             visitor.VisitResult(result);
 
             result.Locations[0].LogicalLocationIndex.Should().Be(remappedIndex);
@@ -72,12 +72,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             var result = _result.DeepClone();
             int remappedIndex = 42 * 42;
 
-            var fileLocationToIndexMap = new Dictionary<FileLocation, int>()
+            FileLocation fileLocation = result.Locations[0].PhysicalLocation.FileLocation;
+
+            var fileLocationKeyToIndexMap = new Dictionary<string, int>()
             {
-                [result.Locations[0].PhysicalLocation.FileLocation] = remappedIndex
+                ["#" + fileLocation.UriBaseId + "#" + fileLocation.Uri.OriginalString] = remappedIndex
             };
 
-            var visitor = new UpdateIndicesVisitor(fullyQualifiedLogicalNameToIndexMap: null, fileLocationToIndexMap: fileLocationToIndexMap);
+            var visitor = new UpdateIndicesVisitor(fullyQualifiedLogicalNameToIndexMap: null, fileLocationKeyToIndexMap: fileLocationKeyToIndexMap);
             visitor.VisitResult(result);
 
             result.Locations[0].LogicalLocationIndex.Should().Be(Int32.MaxValue);

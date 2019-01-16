@@ -26,6 +26,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 node.Uri = CombineUris(baseUri, node.Uri);
                 node.UriBaseId = null;
             }
+            else
+            {
+                System.Diagnostics.Debug.Assert(false);
+            }
 
             return node;
         }
