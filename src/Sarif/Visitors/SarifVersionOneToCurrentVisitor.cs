@@ -68,10 +68,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     foreach (AnnotatedCodeLocationVersionOne v1CodeLocation in v1CodeFlow.Locations)
                     {
-                        ThreadFlow threadFlow;
                         int threadId = v1CodeLocation.ThreadId;
 
-                        if (!threadFlowDictionary.TryGetValue(threadId, out threadFlow))
+                        if (!threadFlowDictionary.TryGetValue(threadId, out ThreadFlow threadFlow))
                         {
                             threadFlow = new ThreadFlow
                             {
@@ -247,8 +246,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             if (v1Hash == null) { return new KeyValuePair<string, string>(); }
 
-            string algorithm;
-            if (!Utilities.AlgorithmKindNameMap.TryGetValue(v1Hash.Algorithm, out algorithm))
+            if (!Utilities.AlgorithmKindNameMap.TryGetValue(v1Hash.Algorithm, out string algorithm))
             {
                 algorithm = v1Hash.Algorithm.ToString().ToLowerInvariant();
             }
@@ -425,13 +423,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             logicalLocationKey = logicalLocationKey ?? fullyQualifiedLogicalName;
 
             // Retrieve logical location so that we can acquire the index
-            LogicalLocation logicalLocation;
-            _v1KeyToV2LogicalLocationMap.TryGetValue(logicalLocationKey, out logicalLocation);            
+            _v1KeyToV2LogicalLocationMap.TryGetValue(logicalLocationKey, out LogicalLocation logicalLocation);            
 
             location.FullyQualifiedLogicalName = fullyQualifiedLogicalName ?? logicalLocation?.FullyQualifiedName;
 
-            int logicalLocationIndex;
-            if (logicalLocation == null || !_v2LogicalLocationToIndexMap.TryGetValue(logicalLocation, out logicalLocationIndex))
+            if (logicalLocation == null || !_v2LogicalLocationToIndexMap.TryGetValue(logicalLocation, out int logicalLocationIndex))
             {
                 logicalLocationIndex = -1;
             }
@@ -992,9 +988,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     populatedKeys);
             }
 
-            string fullyQualifiedName;
-
-            if (!keyToFullyQualifiedNameMap.TryGetValue(logicalLocationKey, out fullyQualifiedName))
+            if (!keyToFullyQualifiedNameMap.TryGetValue(logicalLocationKey, out string fullyQualifiedName))
             {
                 // If we don't find a remapping, the dictionary key itself comprises
                 // the fully qualified name.
