@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Assert.Throws<ArgumentNullException>(() => _converter.Convert(new MemoryStream(), null, OptionallyEmittedData.None));
         }
 
-        private string emptyResult =
+        private readonly string emptyResult =
 @"{
   ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
   ""version"": """ + SarifUtilities.SemanticVersion + @""",
