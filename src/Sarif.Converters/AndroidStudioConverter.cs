@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// </returns>
         private IList<Result> ProcessAndroidStudioLog(XmlReader xmlReader)
         {
-            var results = new List<Result>();
+            var results = new HashSet<Result>(Result.ValueComparer);
 
             int problemsDepth = xmlReader.Depth;
             xmlReader.ReadStartElement(_strings.Problems);
@@ -98,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             xmlReader.ReadEndElement(); // </problems>
 
-            return results;
+            return new List<Result>(results);
         }
 
         public Result ConvertProblemToSarifResult(AndroidStudioProblem problem)
