@@ -888,11 +888,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         run.Files = new List<FileData>();
 
-                        foreach (var pair in v1Run.Files)
+                        foreach (KeyValuePair<string, FileDataVersionOne> pair in v1Run.Files)
                         {
-#if FILES_ARRAY_WORKS
-                            run.Files.Add(pair.Key, CreateFileData(pair.Value));
-#endif
+                            FileDataVersionOne fileDataVersionOne = pair.Value;
+                            if (fileDataVersionOne.Uri == null)
+                            {
+                                fileDataVersionOne.Uri = new Uri(pair.Key, UriKind.RelativeOrAbsolute);
+                            }
+
+                            run.Files.Add(CreateFileData(fileDataVersionOne));
                         }
                     }
 
