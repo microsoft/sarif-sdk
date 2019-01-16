@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             bool passed;
             if (_testProducesSarifCurrentVersion)
             {
-                PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarifText, forceUpdate: false, Formatting.Indented, out expectedSarifText);
+                PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarifText, forceUpdate: true, Formatting.Indented, out expectedSarifText);
                 passed = AreEquivalent<SarifLog>(actualSarifText, expectedSarifText);
             }
             else
