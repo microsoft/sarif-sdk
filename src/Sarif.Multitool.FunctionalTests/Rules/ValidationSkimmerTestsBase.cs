@@ -89,30 +89,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         private void Verify(Run run, ExpectedValidationResults expectedResults)
         {
             HashSet<string> actualResultLocations = new HashSet<string>(run.Results.Select(r => r.Message.Arguments[0]));
-            HashSet<string> unexpectedlyAbsentResultLocations = new HashSet<string>(expectedResults.ResultLocationPointers);
 
-            List<string> unexpectedNewIssues = new List<string>();
+            IEnumerable<string> unexpectedNewResultLocations = actualResultLocations.Except(expectedResults.ResultLocationPointers);
+            unexpectedNewResultLocations.Count().Should().Be(0);
 
-            foreach(string location in actualResultLocations)
-            {
-                if (unexpectedlyAbsentResultLocations.Contains(location))
-                {
-                    // Happy path. Actual location found in expected
-                    unexpectedlyAbsentResultLocations.Remove(location);
-                }
-                else
-                {
-                    // Bad new unexpected issue 
-                    unexpectedNewIssues.Add(location);
-                }
-            }
-
-            // No new issues
-            unexpectedNewIssues.Count.Should().Be(0);
-
-            // No unexpectedly absent issues. If we found everything we expected,
-            // then our expected results should be empty
-            unexpectedlyAbsentResultLocations.Count.Should().Be(0);
+            IEnumerable<string> unexpectedlyAbsentResultLocations = expectedResults.ResultLocationPointers.Except(actualResultLocations);
+            unexpectedlyAbsentResultLocations.Count().Should().Be(0);
         }
     }
 }
