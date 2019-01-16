@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
   ""runs"": [
     {
       ""tool"": {
-        ""name"": ""Clang""
+        ""name"": ""Clang Analyzer""
       },
       ""columnKind"": ""utf16CodeUnits"",
       ""results"": []
