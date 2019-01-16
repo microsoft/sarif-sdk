@@ -1,50 +1,12 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-09-26",
-  "version": "2.0.0-csd.2.beta.2018-09-26",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-11-28",
+  "version": "2.0.0-csd.2.beta.2018-11-28",
   "runs": [
     {
       "tool": {
         "name": "AndroidStudio"
       },
-      "files": {
-        "gradle.properties": {
-          "mimeType": "text/x-java-properties"
-        },
-        "gradle/wrapper/gradle-wrapper.properties": {
-          "mimeType": "text/x-java-properties"
-        },
-        "gradlew": {
-          "mimeType": "application/octet-stream"
-        },
-        "gradlew.bat": {
-          "mimeType": "text/x-bat"
-        },
-        "app/build.gradle": {
-          "mimeType": "application/octet-stream"
-        },
-        "app/src/main/AndroidManifest.xml": {
-          "mimeType": "text/xml"
-        },
-        "app/src/main/res/values-w820dp/dimens.xml": {
-          "mimeType": "text/xml"
-        },
-        "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java": {
-          "mimeType": "text/x-java-source"
-        }
-      },
-      "logicalLocations": {
-        "AndroidStudioFormatExample": {
-          "kind": "module"
-        },
-        "app": {
-          "kind": "module"
-        },
-        "app\\microsoft.androidstudioformatexample": {
-          "name": "microsoft.androidstudioformatexample",
-          "parentKey": "app",
-          "kind": "package"
-        }
-      },
+      "columnKind": "utf16CodeUnits",
       "results": [
         {
           "ruleId": "Typo",
@@ -55,13 +17,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradle.properties"
+                  "uri": "gradle.properties",
+                  "fileIndex": 0
                 },
                 "region": {
                   "startLine": 8
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -78,13 +42,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradle.properties"
+                  "uri": "gradle.properties",
+                  "fileIndex": 0
                 },
                 "region": {
                   "startLine": 13
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -101,13 +67,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradle.properties"
+                  "uri": "gradle.properties",
+                  "fileIndex": 0
                 },
                 "region": {
                   "startLine": 13
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -124,13 +92,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradle.properties"
+                  "uri": "gradle.properties",
+                  "fileIndex": 0
                 },
                 "region": {
                   "startLine": 17
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -147,13 +117,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradle/wrapper/gradle-wrapper.properties"
+                  "uri": "gradle/wrapper/gradle-wrapper.properties",
+                  "fileIndex": 1
                 },
                 "region": {
                   "startLine": 3
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -170,13 +142,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradle/wrapper/gradle-wrapper.properties"
+                  "uri": "gradle/wrapper/gradle-wrapper.properties",
+                  "fileIndex": 1
                 },
                 "region": {
                   "startLine": 5
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -193,13 +167,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 30
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -216,13 +192,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 31
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -239,13 +217,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 33
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -262,13 +242,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 34
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -285,13 +267,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 35
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -308,13 +292,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 40
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -331,13 +317,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 41
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -354,13 +342,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 43
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -377,13 +367,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 45
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -400,13 +392,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 46
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -423,13 +417,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 47
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -446,13 +442,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 60
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -469,13 +467,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 64
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -492,13 +492,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 73
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -515,13 +517,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 74
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -538,13 +542,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 76
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -561,13 +567,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 78
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -584,13 +592,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 85
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -607,13 +617,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 93
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -630,13 +642,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 94
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -653,13 +667,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 99
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -676,13 +692,40 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 110
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'Xdock'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "gradlew",
+                  "fileIndex": 2
+                },
+                "region": {
+                  "startLine": 110
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -699,13 +742,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 110
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -722,13 +767,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 113
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -745,13 +792,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 114
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -768,13 +817,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 115
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -791,13 +842,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 116
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -814,13 +867,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 118
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -837,13 +892,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 119
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -860,13 +917,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 119
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -883,13 +942,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 119
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -906,13 +967,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 121
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -929,36 +992,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 122
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
-            }
-          ],
-          "properties": {
-            "severity": "TYPO",
-            "attributeKey": "TYPO"
-          }
-        },
-        {
-          "ruleId": "Typo",
-          "message": {
-            "text": "Typo: In word 'OURCYGPATTERN'"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "fileLocation": {
-                  "uri": "gradlew"
-                },
-                "region": {
-                  "startLine": 125
-                }
-              },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -975,13 +1017,65 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
+                },
+                "region": {
+                  "startLine": 122
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'OURCYGPATTERN'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 125
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'ROOTDIRS'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "gradlew",
+                  "fileIndex": 2
+                },
+                "region": {
+                  "startLine": 125
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -998,13 +1092,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 126
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1021,13 +1117,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 127
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1044,13 +1142,40 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 128
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'OURCYGPATTERN'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "gradlew",
+                  "fileIndex": 2
+                },
+                "region": {
+                  "startLine": 128
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1067,13 +1192,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 128
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1090,13 +1217,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 133
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1113,13 +1242,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 133
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1136,13 +1267,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 134
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1159,13 +1292,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 137
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1182,13 +1317,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 137
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1205,13 +1342,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 139
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1228,13 +1367,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 154
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1251,13 +1392,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 161
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1274,13 +1417,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 162
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1297,13 +1442,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 162
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1320,13 +1467,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew"
+                  "uri": "gradlew",
+                  "fileIndex": 2
                 },
                 "region": {
                   "startLine": 164
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1343,13 +1492,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat"
+                  "uri": "gradlew.bat",
+                  "fileIndex": 3
                 },
                 "region": {
                   "startLine": 9
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1366,13 +1517,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat"
+                  "uri": "gradlew.bat",
+                  "fileIndex": 3
                 },
                 "region": {
                   "startLine": 14
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1389,13 +1542,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat"
+                  "uri": "gradlew.bat",
+                  "fileIndex": 3
                 },
                 "region": {
                   "startLine": 15
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1412,13 +1567,40 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat"
+                  "uri": "gradlew.bat",
+                  "fileIndex": 3
+                },
+                "region": {
+                  "startLine": 15
+                }
+              },
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
+            }
+          ],
+          "properties": {
+            "severity": "TYPO",
+            "attributeKey": "TYPO"
+          }
+        },
+        {
+          "ruleId": "Typo",
+          "message": {
+            "text": "Typo: In word 'DIRNAME'"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "gradlew.bat",
+                  "fileIndex": 3
                 },
                 "region": {
                   "startLine": 17
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1435,13 +1617,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat"
+                  "uri": "gradlew.bat",
+                  "fileIndex": 3
                 },
                 "region": {
                   "startLine": 20
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1458,13 +1642,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat"
+                  "uri": "gradlew.bat",
+                  "fileIndex": 3
                 },
                 "region": {
                   "startLine": 24
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1481,13 +1667,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat"
+                  "uri": "gradlew.bat",
+                  "fileIndex": 3
                 },
                 "region": {
                   "startLine": 24
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1504,13 +1692,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat"
+                  "uri": "gradlew.bat",
+                  "fileIndex": 3
                 },
                 "region": {
                   "startLine": 32
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1527,13 +1717,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat"
+                  "uri": "gradlew.bat",
+                  "fileIndex": 3
                 },
                 "region": {
                   "startLine": 38
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1550,13 +1742,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat"
+                  "uri": "gradlew.bat",
+                  "fileIndex": 3
                 },
                 "region": {
                   "startLine": 46
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1573,13 +1767,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat"
+                  "uri": "gradlew.bat",
+                  "fileIndex": 3
                 },
                 "region": {
                   "startLine": 49
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1596,13 +1792,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat"
+                  "uri": "gradlew.bat",
+                  "fileIndex": 3
                 },
                 "region": {
                   "startLine": 51
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1619,13 +1817,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat"
+                  "uri": "gradlew.bat",
+                  "fileIndex": 3
                 },
                 "region": {
                   "startLine": 52
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1642,13 +1842,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat"
+                  "uri": "gradlew.bat",
+                  "fileIndex": 3
                 },
                 "region": {
                   "startLine": 52
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1665,13 +1867,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat"
+                  "uri": "gradlew.bat",
+                  "fileIndex": 3
                 },
                 "region": {
                   "startLine": 60
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1688,13 +1892,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat"
+                  "uri": "gradlew.bat",
+                  "fileIndex": 3
                 },
                 "region": {
                   "startLine": 63
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1711,13 +1917,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat"
+                  "uri": "gradlew.bat",
+                  "fileIndex": 3
                 },
                 "region": {
                   "startLine": 75
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1734,13 +1942,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat"
+                  "uri": "gradlew.bat",
+                  "fileIndex": 3
                 },
                 "region": {
                   "startLine": 75
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1757,13 +1967,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat"
+                  "uri": "gradlew.bat",
+                  "fileIndex": 3
                 },
                 "region": {
                   "startLine": 79
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1780,13 +1992,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat"
+                  "uri": "gradlew.bat",
+                  "fileIndex": 3
                 },
                 "region": {
                   "startLine": 79
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1803,13 +2017,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "gradlew.bat"
+                  "uri": "gradlew.bat",
+                  "fileIndex": 3
                 },
                 "region": {
                   "startLine": 88
                 }
               },
-              "fullyQualifiedLogicalName": "AndroidStudioFormatExample"
+              "fullyQualifiedLogicalName": "AndroidStudioFormatExample",
+              "logicalLocationIndex": 0
             }
           ],
           "properties": {
@@ -1826,13 +2042,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "app/build.gradle"
+                  "uri": "app/build.gradle",
+                  "fileIndex": 4
                 },
                 "region": {
                   "startLine": 8
                 }
               },
-              "fullyQualifiedLogicalName": "app"
+              "fullyQualifiedLogicalName": "app",
+              "logicalLocationIndex": 1
             }
           ],
           "properties": {
@@ -1849,13 +2067,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "app/src/main/AndroidManifest.xml"
+                  "uri": "app/src/main/AndroidManifest.xml",
+                  "fileIndex": 5
                 },
                 "region": {
                   "startLine": 3
                 }
               },
-              "fullyQualifiedLogicalName": "app"
+              "fullyQualifiedLogicalName": "app",
+              "logicalLocationIndex": 1
             }
           ],
           "properties": {
@@ -1872,13 +2092,15 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "app/src/main/res/values-w820dp/dimens.xml"
+                  "uri": "app/src/main/res/values-w820dp/dimens.xml",
+                  "fileIndex": 6
                 },
                 "region": {
                   "startLine": 2
                 }
               },
-              "fullyQualifiedLogicalName": "app"
+              "fullyQualifiedLogicalName": "app",
+              "logicalLocationIndex": 1
             }
           ],
           "properties": {
@@ -1895,19 +2117,95 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java"
+                  "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
+                  "fileIndex": 7
                 },
                 "region": {
                   "startLine": 4
                 }
               },
-              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample"
+              "fullyQualifiedLogicalName": "app\\microsoft.androidstudioformatexample",
+              "logicalLocationIndex": 2
             }
           ],
           "properties": {
             "severity": "TYPO",
             "attributeKey": "TYPO"
           }
+        }
+      ],
+      "files": [
+        {
+          "fileLocation": {
+            "uri": "gradle.properties",
+            "fileIndex": 0
+          },
+          "mimeType": "text/x-java-properties"
+        },
+        {
+          "fileLocation": {
+            "uri": "gradle/wrapper/gradle-wrapper.properties",
+            "fileIndex": 1
+          },
+          "mimeType": "text/x-java-properties"
+        },
+        {
+          "fileLocation": {
+            "uri": "gradlew",
+            "fileIndex": 2
+          },
+          "mimeType": "application/octet-stream"
+        },
+        {
+          "fileLocation": {
+            "uri": "gradlew.bat",
+            "fileIndex": 3
+          },
+          "mimeType": "text/x-bat"
+        },
+        {
+          "fileLocation": {
+            "uri": "app/build.gradle",
+            "fileIndex": 4
+          },
+          "mimeType": "application/octet-stream"
+        },
+        {
+          "fileLocation": {
+            "uri": "app/src/main/AndroidManifest.xml",
+            "fileIndex": 5
+          },
+          "mimeType": "text/xml"
+        },
+        {
+          "fileLocation": {
+            "uri": "app/src/main/res/values-w820dp/dimens.xml",
+            "fileIndex": 6
+          },
+          "mimeType": "text/xml"
+        },
+        {
+          "fileLocation": {
+            "uri": "app/src/main/java/microsoft/androidstudioformatexample/NamespaceTypo.java",
+            "fileIndex": 7
+          },
+          "mimeType": "text/x-java-source"
+        }
+      ],
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "AndroidStudioFormatExample",
+          "kind": "module"
+        },
+        {
+          "fullyQualifiedName": "app",
+          "kind": "module"
+        },
+        {
+          "name": "microsoft.androidstudioformatexample",
+          "fullyQualifiedName": "app\\microsoft.androidstudioformatexample",
+          "parentIndex": 1,
+          "kind": "package"
         }
       ]
     }
