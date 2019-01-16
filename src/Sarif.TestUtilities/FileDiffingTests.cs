@@ -76,11 +76,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (_testProducesSarifCurrentVersion)
             {
                 PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarifText, forceUpdate: false, Formatting.Indented, out expectedSarifText);
-                passed = AreEquivalentSarifLogs<SarifLog>(actualSarifText, expectedSarifText);
+                passed = AreEquivalent<SarifLog>(actualSarifText, expectedSarifText);
             }
             else
             {
-                passed = AreEquivalentSarifLogs<SarifLogVersionOne>(actualSarifText, expectedSarifText, SarifContractResolverVersionOne.Instance);
+                passed = AreEquivalent<SarifLogVersionOne>(actualSarifText, expectedSarifText, SarifContractResolverVersionOne.Instance);
             }
 
             if (!passed)
@@ -195,8 +195,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             return fullPath;
         }
 
-        public static bool AreEquivalentSarifLogs<T>(string actualSarif, string expectedSarif, IContractResolver contractResolver = null)
+        public static bool AreEquivalent<T>(string actualSarif, string expectedSarif, IContractResolver contractResolver = null)
         {
+            if (actualSarif.Equals(expectedSarif)) { return true; }
+
             expectedSarif = expectedSarif ?? "{}";
 
             JsonSerializerSettings settings = new JsonSerializerSettings()
@@ -205,8 +207,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             };
 
             // Make sure we can successfully roundtrip what was just generated
-            T actualLog = JsonConvert.DeserializeObject<T>(actualSarif, settings);
-            actualSarif = JsonConvert.SerializeObject(actualLog, settings);
+            T actualSarifObject = JsonConvert.DeserializeObject<T>(actualSarif, settings);
+            actualSarif = JsonConvert.SerializeObject(actualSarifObject, settings);
 
             JToken generatedToken = JToken.Parse(actualSarif);
             JToken expectedToken = JToken.Parse(expectedSarif);
