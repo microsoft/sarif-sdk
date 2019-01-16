@@ -156,7 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 Files = new List<FileData>
                 {
-                    new FileData { FileLocation = new FileLocation { Uri = rootfileUri, FileIndex = -0 }, ParentIndex = -1 },
+                    new FileData { FileLocation = new FileLocation { Uri = rootfileUri, FileIndex = 0 }, ParentIndex = -1 },
                     new FileData { FileLocation = new FileLocation { Uri = childFileUri, FileIndex = 1 }, ParentIndex = 0 },
                     new FileData { FileLocation = new FileLocation { Uri = childFileUri, FileIndex = 2 }, ParentIndex = -1 }
                 },
@@ -170,6 +170,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             run = rebaseUriVisitor.VisitRun(run);
 
             run.Files[0].FileLocation.Uri.Should().Be("blah.zip");
+            run.Files[0].FileLocation.UriBaseId.Should().Be("SRCROOT");
             run.OriginalUriBaseIds.Should().ContainKey(srcroot);
             run.OriginalUriBaseIds[srcroot].Uri.Should().Be(@"C:\src\root\");
         }
