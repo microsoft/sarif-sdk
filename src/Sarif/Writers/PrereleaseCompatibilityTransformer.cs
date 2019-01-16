@@ -221,14 +221,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                     JObject tool = (JObject)run["tool"];
                     modifiedLog |= RenameProperty(tool, previousName: "fileVersion", newName: "dottedQuadFileVersion");
-                    if (tool != null && tool["language"] == null) { tool["language"] = "en-US"; }
+                    if (tool != null && tool["language"] == null)
+                    {
+                        tool["language"] = "en-US";
+                        modifiedLog = true;
+                    }
 
                     JObject conversion = (JObject)run["conversion"];
                     if (conversion != null)
                     {
                         tool = (JObject)conversion["tool"];
                         modifiedLog |= RenameProperty(tool, previousName: "fileVersion", newName: "dottedQuadFileVersion");
-                        if (tool != null && tool["language"] == null) { tool["language"] = "en-US"; }
+                        if (tool != null && tool["language"] == null)
+                        {
+                            tool["language"] = "en-US";
+                            modifiedLog = true;
+                        }
                     }
 
                     // Remove 'open' from rule configuration default level enumeration
@@ -244,6 +252,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     if (columnKind == null)
                     {
                         run["columnKind"] = "utf16CodeUnits";
+                        modifiedLog = true;
                     }
                 }
             }
@@ -819,7 +828,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static bool RenameProperty(JObject jObject, string previousName, string newName)
         {
-            if (jObject == null) { return false; }
+            bool renamedProperty = false;
+
+            if (jObject == null) { return renamedProperty; }
 
             JToken propertyValue = jObject[previousName];
             
@@ -827,9 +838,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 jObject.Remove(previousName);
                 jObject[newName] = propertyValue;
+                renamedProperty = true;
             }
 
-            return propertyValue != null;
+            return renamedProperty;
         }
 
         private static bool UpdateFileHashesProperty(JObject file)
