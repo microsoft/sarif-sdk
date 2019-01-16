@@ -31,7 +31,7 @@
               },
               "level": "error",
               "threadId": 52,
-              "time": "2016-07-16T14:18:43.119Z",
+              "timeUtc": "2016-07-16T14:18:43.119Z",
               "exception": {
                 "kind": "ExecutionEngine.RuleFailureException",
                 "message": {
