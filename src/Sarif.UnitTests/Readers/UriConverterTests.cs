@@ -152,7 +152,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
                 uut.WriteResults(new[] { result });
             });
 
-            actualOutput.Should().BeCrossPlatformEquivalent(expectedOutput);
+            actualOutput.Should().BeCrossPlatformEquivalent<SarifLog>(expectedOutput);
         }
     }
 }

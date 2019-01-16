@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                     }
                 });
             });
-            actual.Should().BeCrossPlatformEquivalent(expected);
+            actual.Should().BeCrossPlatformEquivalent<SarifLog>(expected);
 
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
             Assert.Equal(SuppressionStates.SuppressedInSource, sarifLog.Runs[0].Results[0].SuppressionStates);
@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 });
             });
 
-            actual.Should().BeCrossPlatformEquivalent(expected);
+            actual.Should().BeCrossPlatformEquivalent<SarifLog>(expected);
 
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
             Assert.Equal(SuppressionStates.None, sarifLog.Runs[0].Results[0].SuppressionStates);
@@ -127,12 +127,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
                 uut.WriteResults(new[] { new Result
                     {
-                        Message = new Message { Text = "Some testing occurred. "},
+                        Message = new Message { Text = "Some testing occurred."},
                         BaselineState = BaselineState.Existing
                     }
                 });
             });
-            actual.Should().BeCrossPlatformEquivalent(expected);
+            actual.Should().BeCrossPlatformEquivalent<SarifLog>(expected);
 
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
             Assert.Equal(SuppressionStates.None, sarifLog.Runs[0].Results[0].SuppressionStates);

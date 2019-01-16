@@ -80,7 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 Debug.Assert(modifiedLog == true);
                 transformedSarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifLog.ToString());
-                var indexUpdatingVisitor = new UpdateIndicesVisitor(fullyQualifiedLogicalNameToIndexMap, null);
+                var indexUpdatingVisitor = new UpdateIndicesVisitor(fullyQualifiedLogicalNameToIndexMap, fileLocationKeyToIndexMap);
                 indexUpdatingVisitor.Visit(transformedSarifLog);
                 updatedLog = JsonConvert.SerializeObject(transformedSarifLog, settings);
             }
@@ -93,7 +93,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 // above this call). We are required to regenerate it, however, in order to properly 
                 // elide default values, etc. I could not find a way for the JToken driven
                 // ToString()/text-generating mechanism to honor default value ignore/populate settings.
-                updatedLog = JsonConvert.SerializeObject(transformedSarifLog);
+                if (forceUpdate || modifiedLog)
+                {
+                    updatedLog = JsonConvert.SerializeObject(transformedSarifLog, formatting);
+                }
             }
 
             return transformedSarifLog;

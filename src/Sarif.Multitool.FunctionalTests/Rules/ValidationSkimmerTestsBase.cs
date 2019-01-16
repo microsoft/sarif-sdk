@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using FluentAssertions;
@@ -87,15 +88,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         // Verify that those detected result locations match the expected locations.
         private void Verify(Run run, ExpectedValidationResults expectedResults)
         {
-            string[] detectedResultLocations = run.Results.Select(r => r.Message.Arguments[0]).OrderBy(loc => loc).ToArray();
-            string[] expectedResultLocations = expectedResults.ResultLocationPointers.OrderBy(loc => loc).ToArray();
+            HashSet<string> actualResultLocations = new HashSet<string>(run.Results.Select(r => r.Message.Arguments[0]));
+            HashSet<string> unexpectedlyAbsentResultLocations = new HashSet<string>(expectedResults.ResultLocationPointers);
 
-            // We could make this assertion at the start of the method. We delay it until here
-            // so that, during debugging, you can set a breakpoint here, and you'll have the
-            // detected and expected result location arrays available to compare.
-            run.Results.Count.Should().Be(expectedResults.ResultCount);
+            List<string> unexpectedNewIssues = new List<string>();
 
-            detectedResultLocations.Should().ContainInOrder(expectedResultLocations);
+            foreach(string location in actualResultLocations)
+            {
+                if (unexpectedlyAbsentResultLocations.Contains(location))
+                {
+                    // Happy path. Actual location found in expected
+                    unexpectedlyAbsentResultLocations.Remove(location);
+                }
+                else
+                {
+                    // Bad new unexpected issue 
+                    unexpectedNewIssues.Add(location);
+                }
+            }
+
+            // No new issues
+            unexpectedNewIssues.Count.Should().Be(0);
+
+            // No unexpectedly absent issues. If we found everything we expected,
+            // then our expected results should be empty
+            unexpectedlyAbsentResultLocations.Count.Should().Be(0);
         }
     }
 }
