@@ -49,8 +49,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
         {
             v2ExpectedResourceName = v2ExpectedResourceName ?? v1InputResourceName;
 
-            string v1LogText = GetResourceText($"v1.{v1InputResourceName}");
-            string v2ExpectedLogText = GetResourceText($"v2.{v2ExpectedResourceName}");
+            string v1LogText = GetResourceText($"Inputs.{v1InputResourceName}");
+            string v2ExpectedLogText = GetResourceText($"ExpectedOutputs.{v2ExpectedResourceName}");
 
             PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(v2ExpectedLogText, forceUpdate: true, formatting: Formatting.Indented, out v2ExpectedLogText);
 
@@ -96,7 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
                 File.WriteAllText(expectedFilePath, v2ActualLogText);
 
                 string subdirectory = ProductTestDataDirectory;
-                expectedFilePath = Path.Combine(ProductTestDataDirectory, "v2", Path.GetFileName(expectedFilePath));
+                expectedFilePath = Path.Combine(ProductTestDataDirectory, "ExpectedOutputs", Path.GetFileName(expectedFilePath));
 
                 // We also rewrite the checked in test baselines
                 File.WriteAllText(expectedFilePath, v2ActualLogText);
