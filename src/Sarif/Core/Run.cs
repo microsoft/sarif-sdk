@@ -118,8 +118,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 var fileLocation = new FileLocation
                 {
-                    Uri = fileData.FileLocation.Uri,
-                    UriBaseId = fileData.FileLocation.UriBaseId,
+                    Uri = fileData.FileLocation?.Uri,
+                    UriBaseId = fileData.FileLocation?.UriBaseId,
                 };
 
                 _fileToIndexMap[fileLocation] = i;
