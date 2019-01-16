@@ -88,8 +88,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         // Verify that those detected result locations match the expected locations.
         private void Verify(Run run, ExpectedValidationResults expectedResults)
         {
-            HashSet<string> actualResultLocations = new HashSet<string>(run.Results.Select(r => r.Message.Arguments[0]).OrderBy(loc => loc));
-            HashSet<string> unexpectedlyAbsentResultLocations = new HashSet<string>(expectedResults.ResultLocationPointers.OrderBy(loc => loc));
+            HashSet<string> actualResultLocations = new HashSet<string>(run.Results.Select(r => r.Message.Arguments[0]));
+            HashSet<string> unexpectedlyAbsentResultLocations = new HashSet<string>(expectedResults.ResultLocationPointers);
 
             List<string> unexpectedNewIssues = new List<string>();
 

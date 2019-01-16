@@ -127,7 +127,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
                 uut.WriteResults(new[] { new Result
                     {
-                        Message = new Message { Text = "Some testing occurred. "},
+                        Message = new Message { Text = "Some testing occurred."},
                         BaselineState = BaselineState.Existing
                     }
                 });
