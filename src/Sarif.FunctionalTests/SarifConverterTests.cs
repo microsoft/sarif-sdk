@@ -155,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             string actualSarif = File.ReadAllText(generatedFileName);
 
-            if (!AreEquivalentSarifLogs<SarifLog>(actualSarif, expectedSarif))
+            if (!AreEquivalent<SarifLog>(actualSarif, expectedSarif))
             {
                 File.WriteAllText(expectedFileName, expectedSarif);
                 File.WriteAllText(generatedFileName, actualSarif);

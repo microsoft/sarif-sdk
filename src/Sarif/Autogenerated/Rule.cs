@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An array of stable, opaque identifiers by which this rule was known in some previous version of the analysis tool.
         /// </summary>
         [DataMember(Name = "deprecatedIds", IsRequired = false, EmitDefaultValue = false)]
-        public IList<string> DeprecatedIds { get; set; }
+        public virtual IList<string> DeprecatedIds { get; set; }
 
         /// <summary>
         /// A rule identifier that is understandable to an end user.
