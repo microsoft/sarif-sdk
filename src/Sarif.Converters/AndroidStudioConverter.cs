@@ -82,6 +82,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// </returns>
         private IList<Result> ProcessAndroidStudioLog(XmlReader xmlReader)
         {
+            // The SARIF spec actually allows for non-unique results to be persisted to the 
+            // results array. We currently enforce uniqueness in the Android converter. We could
+            // consider loosening this moving forward. The current behavior is primarily
+            // intended to minimize test breaks while SARIF v2 is finalized.
             var results = new HashSet<Result>(Result.ValueComparer);
 
             int problemsDepth = xmlReader.Depth;
