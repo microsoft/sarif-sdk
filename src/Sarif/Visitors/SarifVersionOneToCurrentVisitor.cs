@@ -179,15 +179,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Properties = v1FileData.Properties
                 };
 
-                if (v1FileData.Uri != null)
-                {
-                    fileData.FileLocation = new FileLocation
-                    {
-                        Uri = v1FileData.Uri,
-                        UriBaseId = v1FileData.UriBaseId,
-                        FileIndex = _v1FileKeytoV2IndexDictionary[key]
-                    };
-                }
+                fileData.FileLocation = FileLocation.CreateFromFilesDictionaryKey(key, parentKey);
+                fileData.FileLocation.FileIndex = _v1FileKeytoV2IndexDictionary[key];
 
                 if (v1FileData.Contents != null)
                 {
