@@ -78,5 +78,18 @@ namespace Microsoft.CodeAnalysis.Sarif
             return this.Arguments != null &&
                 (this.Arguments.Where((e) => { return e != null; }).Count() == this.Arguments.Count);
         }
+
+        public bool ShouldSerializeToolNotifications()
+        {
+            return this.ToolNotifications != null &&
+                    this.ToolNotifications.Where((n) => { return n != null; }).Any();
+        }
+
+        public bool ShouldSerializeConfigurationNotifications()
+        {
+            return this.ConfigurationNotifications != null &&
+                    this.ConfigurationNotifications.Where((n) => { return n != null; }).Any();
+        }
+
     }
 }

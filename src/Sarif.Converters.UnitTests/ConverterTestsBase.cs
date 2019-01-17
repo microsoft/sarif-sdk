@@ -12,9 +12,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public class ConverterTestsBase<T> where T : ToolFileConverterBase, new()
     {
-        public SarifLog RunTestCase(string inputData, string expectedResult, bool prettyPrint = true)
+        public SarifLog RunTestCase(string inputData, string expectedResult, bool prettyPrint = true, bool forceV2Transform = false)
         {
-            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedResult, forceUpdate: false, formatting: Formatting.Indented, out expectedResult);
+            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedResult, forceUpdate: forceV2Transform, formatting: Formatting.Indented, out expectedResult);
             var converter = new T();
 
             // First retrieve converter JSON. This code will raise appropriate exceptions 

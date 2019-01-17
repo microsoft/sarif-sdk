@@ -7,6 +7,7 @@ branches:
   only:
     - master
     - develop
+    - files-array
     - sarif-v1
 
 platform: Any CPU

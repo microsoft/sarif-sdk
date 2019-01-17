@@ -34,5 +34,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             RunTest("NestedFiles.sarif");
         }
+
+        [Fact]
+        public void PrereleaseCompatibilityTransformer_ComprehensiveFileProperties()
+        {
+            RunTest("ComprehensiveFileProperties.sarif");
+        }
     }
 }

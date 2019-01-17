@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private string _automationId;
         private string _originalUriBasePath;
         private List<Result> _results = new List<Result>();
-        private Dictionary<string, FileData> _fileDictionary;
+        private HashSet<FileData> _files;
         private Dictionary<string, Rule> _ruleDictionary;
         private Dictionary<ThreadFlowLocation, string> _tflToNodeIdDictionary;
         private Dictionary<ThreadFlowLocation, string> _tflToSnippetIdDictionary;
@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _strings = new FortifyFprStrings(_nameTable);
 
             _results = new List<Result>();
-            _fileDictionary = new Dictionary<string, FileData>();
+            _files = new HashSet<FileData>(FileData.ValueComparer);
             _ruleDictionary = new Dictionary<string, Rule>();
             _tflToNodeIdDictionary = new Dictionary<ThreadFlowLocation, string>();
             _tflToSnippetIdDictionary = new Dictionary<ThreadFlowLocation, string>();
@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _invocation = new Invocation();
             _invocation.ToolNotifications = new List<Notification>();
             _results.Clear();
-            _fileDictionary.Clear();
+            _files.Clear();
             _ruleDictionary.Clear();
             _tflToNodeIdDictionary.Clear();
             _tflToSnippetIdDictionary.Clear();
@@ -113,6 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     InstanceGuid = _runId,
                     InstanceId = _automationId + "/"
                 },
+                Files = new List<FileData>(_files),
                 Tool = tool,
                 Invocations = new[] { _invocation },
                 Resources = new Resources {  Rules = _ruleDictionary}
@@ -293,14 +294,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (!string.IsNullOrEmpty(fileName))
             {
+                Uri uri = new Uri(fileName, UriKind.RelativeOrAbsolute);
                 var fileData = new FileData
                 {
                     Encoding = encoding,
                     MimeType = MimeType.DetermineFromFileExtension(fileName),
-                    Length = length
+                    Length = length,
+                    FileLocation = new FileLocation
+                    { 
+                        Uri = uri,
+                        UriBaseId = uri.IsAbsoluteUri ? null : FileLocationUriBaseId
+                    }
                 };
 
-                _fileDictionary.Add(fileName, fileData);
+                _files.Add(fileData);
             }
         }
 
