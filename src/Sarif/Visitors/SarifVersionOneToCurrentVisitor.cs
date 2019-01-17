@@ -570,38 +570,53 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 foreach (string key in responseFileToContentsDictionary.Keys)
                 {
-                    var fileLocation = new FileLocation
+                    // If the response file is mentioned in Run.Files, use the FileLocation
+                    // object from there (which, conveniently, already has the FileIndex property
+                    // set); otherwise create a new FileLocation.
+                    FileLocation fileLocation = null;
+                    FileData responseFile = null;
+                    bool existsInRunFiles = _v1FileKeytoV2IndexMap.TryGetValue(key, out int responseFileIndex);
+                    if (existsInRunFiles)
                     {
-                        Uri = new Uri(key, UriKind.RelativeOrAbsolute)
-                    };
-                    fileLocations.Add(fileLocation);
-
-                    if (_currentRun != null && !string.IsNullOrWhiteSpace(responseFileToContentsDictionary[key]))
+                        responseFile = _currentRun.Files[responseFileIndex];
+                        fileLocation = responseFile.FileLocation;
+                    }
+                    else
                     {
-                        // We have contents, so mention this file in _currentRun.files
-                        if (_currentRun.Files == null)
+                        fileLocation = new FileLocation
                         {
-                            _currentRun.Files = new List<FileData>();
-                        }
+                            Uri = new Uri(key, UriKind.RelativeOrAbsolute)
+                        };
+                    }
 
-                        FileData responseFile;
-                        if (_v1FileKeytoV2IndexMap.TryGetValue(key, out int responseFileIndex))
+                    // If this response file has contents, add it to Run.Files, if it
+                    // isn't already there.
+                    if (!string.IsNullOrWhiteSpace(responseFileToContentsDictionary[key]))
+                    {
+                        if (!existsInRunFiles)
                         {
-                            responseFile = _currentRun.Files[responseFileIndex];
-                        }
-                        else
-                        {
-                            responseFile = new FileData();
+                            _currentRun.Files = _currentRun.Files ?? new List<FileData>();
+                            fileLocation.FileIndex = _currentRun.Files.Count;
+
+                            responseFile = new FileData
+                            {
+                                FileLocation = fileLocation
+                            };
+
                             _currentRun.Files.Add(responseFile);
                         }
 
+                        // At this point, responseFile is guaranteed to be initialized and to exist
+                        // in Run.Files, either because it previously existed in Run.Files and we
+                        // obtained it above, or because it didn't exist and we just created it and
+                        // added it to Run.Files. Either way, we can now add the content.
                         responseFile.Contents = new FileContent
                         {
                             Text = responseFileToContentsDictionary[key]
                         };
-
-                        responseFile.FileLocation = fileLocation;
                     }
+
+                    fileLocations.Add(fileLocation);
                 }
             }
 
