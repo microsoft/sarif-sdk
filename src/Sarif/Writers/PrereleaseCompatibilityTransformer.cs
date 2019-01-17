@@ -281,8 +281,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             foreach (KeyValuePair<JObject, int> keyValuePair in jObjectToIndexMap)
             {
                 int index = keyValuePair.Value;
-                JObject updatedLogicalLocation = keyValuePair.Key;
-                updatedArrayElements[index] = updatedLogicalLocation;
+                JObject updatedFileData = keyValuePair.Key;
+                updatedArrayElements[index] = updatedFileData;
             }
 
             return new JArray(updatedArrayElements);
@@ -333,7 +333,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             file["fileLocation"] = fileLocationObject;
             fileLocationObject["uri"] = fileLocationKey.Uri;
             fileLocationObject["uriBaseId"] = fileLocationKey.UriBaseId;
-                
+
             if (!keyToIndexMap.TryGetValue(key, out int fileIndex))
             {
                 fileIndex = keyToIndexMap.Count;

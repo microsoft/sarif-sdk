@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
         protected override string ConstructTestOutputFromInputResource(string inputResourceName)
         {
             string v1LogText = GetResourceText(inputResourceName);
-            SarifLogVersionOne v1Log = JsonConvert.DeserializeObject<SarifLogVersionOne>(v1LogText, SarifTransformerUtilities.JsonSettingsV1Indented); ;
+            SarifLogVersionOne v1Log = JsonConvert.DeserializeObject<SarifLogVersionOne>(v1LogText, SarifTransformerUtilities.JsonSettingsV1Indented);
             var transformer = new SarifVersionOneToCurrentVisitor();
             transformer.VisitSarifLogVersionOne(v1Log);
 

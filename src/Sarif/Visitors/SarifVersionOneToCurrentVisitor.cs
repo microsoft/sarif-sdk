@@ -21,6 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private Run _currentRun;
         private RunVersionOne _currentV1Run;
         private int _threadFlowLocationNestingLevel;
+        private IDictionary<string, int> _v1FileKeytoV2IndexDictionary;
         private IDictionary<string, string> _v1KeyToFullyQualifiedNameMap;
         private IDictionary<LogicalLocation, int> _v2LogicalLocationToIndexMap;
         private IDictionary<string, LogicalLocation> _v1KeyToV2LogicalLocationMap;
@@ -155,21 +156,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return fileChange;
         }
 
-        internal FileData CreateFileData(FileDataVersionOne v1FileData)
+        internal FileData CreateFileData(FileDataVersionOne v1FileData, string key)
         {
+            if (key == null) { throw new ArgumentNullException(nameof(key)); }
+
             FileData fileData = null;
 
             if (v1FileData != null)
             {
+                string parentKey = v1FileData.ParentKey;
+                int parentIndex = parentKey == null
+                    ? -1
+                    : _v1FileKeytoV2IndexDictionary[parentKey];
+
                 fileData = new FileData
                 {
                     Hashes = v1FileData.Hashes?.Select(CreateHash).ToDictionary(p => p.Key, p => p.Value),
                     Length = v1FileData.Length,
                     MimeType = v1FileData.MimeType,
                     Offset = v1FileData.Offset,
-#if FILES_ARRAY_WORKS
-                    ParentKey = v1FileData.ParentKey,
-#endif
+                    ParentIndex = parentIndex,
                     Properties = v1FileData.Properties
                 };
 
@@ -178,7 +184,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     fileData.FileLocation = new FileLocation
                     {
                         Uri = v1FileData.Uri,
-                        UriBaseId = v1FileData.UriBaseId
+                        UriBaseId = v1FileData.UriBaseId,
+                        FileIndex = _v1FileKeytoV2IndexDictionary[key]
                     };
                 }
 
@@ -842,6 +849,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     _currentV1Run = v1Run;
 
+                    _v1FileKeytoV2IndexDictionary = CreateFileKeyToIndexMapping(v1Run.Files);
+
                     RunAutomationDetails id = null;
                     RunAutomationDetails[] aggregateIds = null;
 
@@ -896,7 +905,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                                 fileDataVersionOne.Uri = new Uri(pair.Key, UriKind.RelativeOrAbsolute);
                             }
 
-                            run.Files.Add(CreateFileData(fileDataVersionOne));
+                            run.Files.Add(CreateFileData(fileDataVersionOne, pair.Key));
                         }
                     }
 
@@ -965,6 +974,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             _currentRun = null;
 
             return run;
+        }
+
+        private static IDictionary<string, int> CreateFileKeyToIndexMapping(
+            IDictionary<string, FileDataVersionOne> v1Files)
+        {
+            IDictionary<string, int> fileKeyToIndexDictionary = null;
+
+            if (v1Files != null)
+            {
+                fileKeyToIndexDictionary = new Dictionary<string, int>();
+
+                int index = 0;
+                foreach (KeyValuePair<string, FileDataVersionOne> entry in v1Files)
+                {
+                    fileKeyToIndexDictionary[entry.Key] = index++;
+                }
+            }
+
+            return fileKeyToIndexDictionary;
         }
 
         private void PopulateLogicalLocation(

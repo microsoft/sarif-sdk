@@ -11,6 +11,13 @@ namespace Microsoft.CodeAnalysis.Sarif.TestUtilities
 {
     public static class AssertionExtensions
     {
+        /// <summary>
+        /// Asserts that two strings are identical except for their casing and end of line conventions.
+        /// </summary>
+        /// <remarks>
+        /// This is useful for comparing logs that might have been generated on platforms with different
+        /// end of line conventions.
+        /// </remarks>
         public static AndConstraint<StringAssertions> BeCrossPlatformEquivalentStrings(
             this StringAssertions assertion,
             string expected, string because = "", params object[] becauseArgs)
