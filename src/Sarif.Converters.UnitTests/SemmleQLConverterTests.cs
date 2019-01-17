@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     }
   ]
 }";
-            RunTestCase(semmleCsvInput, expected, prettyPrint: true);
+            RunTestCase(semmleCsvInput, expected, prettyPrint: true, forceV2Transform: true);
         }
 
         [Fact]
@@ -153,7 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif
   ]
 }";
 
-            RunTestCase(semmleCsvInput, expected, prettyPrint: true);
+            RunTestCase(semmleCsvInput, expected, prettyPrint: true, forceV2Transform: true);
         }
 
         private class SemmleCsvRecord
