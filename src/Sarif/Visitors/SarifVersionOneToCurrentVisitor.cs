@@ -21,7 +21,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private Run _currentRun;
         private RunVersionOne _currentV1Run;
         private int _threadFlowLocationNestingLevel;
-        private IDictionary<string, int> _v1FileKeytoV2IndexDictionary;
+        private IDictionary<string, int> _v1FileKeytoV2IndexMap;
+        private IDictionary<Tuple<Uri, string>, int> _v2FileToIndexMap;
         private IDictionary<string, string> _v1KeyToFullyQualifiedNameMap;
         private IDictionary<LogicalLocation, int> _v2LogicalLocationToIndexMap;
         private IDictionary<string, LogicalLocation> _v1KeyToV2LogicalLocationMap;
@@ -167,7 +168,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 string parentKey = v1FileData.ParentKey;
                 int parentIndex = parentKey == null
                     ? -1
-                    : _v1FileKeytoV2IndexDictionary[parentKey];
+                    : _v1FileKeytoV2IndexMap[parentKey];
 
                 fileData = new FileData
                 {
@@ -180,7 +181,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 };
 
                 fileData.FileLocation = FileLocation.CreateFromFilesDictionaryKey(key, parentKey);
-                fileData.FileLocation.FileIndex = _v1FileKeytoV2IndexDictionary[key];
+                fileData.FileLocation.FileIndex = _v1FileKeytoV2IndexMap[key];
 
                 if (v1FileData.Contents != null)
                 {
@@ -206,11 +207,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (uri != null)
             {
-                fileLocation = new FileLocation
+                var fileToIndexKey = new Tuple<Uri, string>(uri, uriBaseId);
+
+                if (_v2FileToIndexMap.TryGetValue(fileToIndexKey, out int fileIndex))
                 {
-                    Uri = uri,
-                    UriBaseId = uriBaseId
-                };
+                    fileLocation = _currentRun.Files[fileIndex].FileLocation;
+                }
+                else
+                {
+                    fileLocation = new FileLocation
+                    {
+                        Uri = uri,
+                        UriBaseId = uriBaseId
+                    };
+                }
             }
 
             return fileLocation;
@@ -575,7 +585,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         }
 
                         FileData responseFile;
-                        if (_v1FileKeytoV2IndexDictionary.TryGetValue(key, out int responseFileIndex))
+                        if (_v1FileKeytoV2IndexMap.TryGetValue(key, out int responseFileIndex))
                         {
                             responseFile = _currentRun.Files[responseFileIndex];
                         }
@@ -845,7 +855,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     _currentV1Run = v1Run;
 
-                    _v1FileKeytoV2IndexDictionary = CreateFileKeyToIndexMapping(v1Run.Files);
+                    CreateFileKeyToIndexMappings(v1Run.Files, out _v1FileKeytoV2IndexMap, out _v2FileToIndexMap);
 
                     RunAutomationDetails id = null;
                     RunAutomationDetails[] aggregateIds = null;
@@ -972,21 +982,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return run;
         }
 
-        private static IDictionary<string, int> CreateFileKeyToIndexMapping(
-            IDictionary<string, FileDataVersionOne> v1Files)
+        private static void CreateFileKeyToIndexMappings(
+            IDictionary<string, FileDataVersionOne> v1Files,
+            out IDictionary<string, int> v1FileKeyToV2IndexMap,
+            out IDictionary<Tuple<Uri, string>, int> v2FileToIndexMap)
         {
-            IDictionary<string, int> fileKeyToIndexDictionary = new Dictionary<string, int>();
+            v1FileKeyToV2IndexMap = new Dictionary<string, int>();
+            v2FileToIndexMap = new Dictionary<Tuple<Uri, string>, int>();
 
             if (v1Files != null)
             {
                 int index = 0;
                 foreach (KeyValuePair<string, FileDataVersionOne> entry in v1Files)
                 {
-                    fileKeyToIndexDictionary[entry.Key] = index++;
+                    v1FileKeyToV2IndexMap[entry.Key] = index;
+
+                    FileLocation keyFileLocation = FileLocation.CreateFromFilesDictionaryKey(entry.Key, entry.Value.ParentKey);
+                    v2FileToIndexMap[new Tuple<Uri, string>(keyFileLocation.Uri, keyFileLocation.UriBaseId)] = index;
+
+                    ++index;
                 }
             }
-
-            return fileKeyToIndexDictionary;
         }
 
         private void PopulateLogicalLocation(
