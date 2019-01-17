@@ -574,20 +574,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                             _currentRun.Files = new List<FileData>();
                         }
 
-#if FILES_ARRAY_WORKS
-                        if (!_currentRun.Files.ContainsKey(key))
+                        FileData responseFile;
+                        if (_v1FileKeytoV2IndexDictionary.TryGetValue(key, out int responseFileIndex))
                         {
-                            _currentRun.Files.Add(key, new FileData());
+                            responseFile = _currentRun.Files[responseFileIndex];
                         }
-
-                        FileData responseFile = _currentRun.Files[key];
+                        else
+                        {
+                            responseFile = new FileData();
+                            _currentRun.Files.Add(responseFile);
+                        }
 
                         responseFile.Contents = new FileContent
                         {
                             Text = responseFileToContentsDictionary[key]
                         };
+
                         responseFile.FileLocation = fileLocation;
-#endif
                     }
                 }
             }
@@ -972,12 +975,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private static IDictionary<string, int> CreateFileKeyToIndexMapping(
             IDictionary<string, FileDataVersionOne> v1Files)
         {
-            IDictionary<string, int> fileKeyToIndexDictionary = null;
+            IDictionary<string, int> fileKeyToIndexDictionary = new Dictionary<string, int>();
 
             if (v1Files != null)
             {
-                fileKeyToIndexDictionary = new Dictionary<string, int>();
-
                 int index = 0;
                 foreach (KeyValuePair<string, FileDataVersionOne> entry in v1Files)
                 {
