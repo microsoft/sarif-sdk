@@ -25,43 +25,56 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
         }
 
         [Fact]
-        public void SarifTransformerTests_ToCurrent_RestoreFromPropertyBag() => RunTest("RestoreFromPropertyBag.sarif");
+        public void SarifTransformerTests_ToCurrent_RestoreFromPropertyBag()
+            => RunTest("RestoreFromPropertyBag.sarif");
 
         [Fact]
-        public void SarifTransformerTests_ToCurrent_Minimum() => RunTest("Minimum.sarif");
+        public void SarifTransformerTests_ToCurrent_Minimum()
+            => RunTest("Minimum.sarif");
 
         [Fact]
-        public void SarifTransformerTests_ToCurrent_MinimumWithTwoRuns() => RunTest("MinimumWithTwoRuns.sarif");
+        public void SarifTransformerTests_ToCurrent_MinimumWithTwoRuns()
+            => RunTest("MinimumWithTwoRuns.sarif");
 
         [Fact]
-        public void SarifTransformerTests_ToCurrent_MinimumWithPropertyAndTags() => RunTest("MinimumWithPropertiesAndTags.sarif");
+        public void SarifTransformerTests_ToCurrent_MinimumWithPropertyAndTags()
+            => RunTest("MinimumWithPropertiesAndTags.sarif");
 
         [Fact]
-        public void SarifTransformerTests_ToCurrent_OneRunWithLogicalLocations() => RunTest("OneRunWithLogicalLocations.sarif");
+        public void SarifTransformerTests_ToCurrent_OneRunWithLogicalLocations()
+            => RunTest("OneRunWithLogicalLocations.sarif");
 
         [Fact]
-        public void SarifTransformerTests_ToCurrent_OneRunWithFiles() => RunTest("OneRunWithFiles.sarif");
+        public void SarifTransformerTests_ToCurrent_OneRunWithFiles()
+            => RunTest("OneRunWithFiles.sarif");
 
         [Fact]
-        public void SarifTransformerTests_ToCurrent_OneRunWitRules() => RunTest("OneRunWithRules.sarif");
+        public void SarifTransformerTests_ToCurrent_OneRunWitRules()
+            => RunTest("OneRunWithRules.sarif");
 
         [Fact]
-        public void SarifTransformerTests_ToCurrent_OneRunWithBasicInvocation() => RunTest("OneRunWithBasicInvocation.sarif");
+        public void SarifTransformerTests_ToCurrent_OneRunWithBasicInvocation()
+            => RunTest("OneRunWithBasicInvocation.sarif");
 
         [Fact]
-        public void SarifTransformerTests_ToCurrent_OneRunWithInvocationAndNotifications() => RunTest("OneRunWithInvocationAndNotifications.sarif");
+        public void SarifTransformerTests_ToCurrent_OneRunWithInvocationAndNotifications()
+            => RunTest("OneRunWithInvocationAndNotifications.sarif");
 
         [Fact]
-        public void SarifTransformerTests_ToCurrent_OneRunWithNotificationsButNoInvocations() => RunTest("OneRunWithNotificationsButNoInvocations.sarif");
+        public void SarifTransformerTests_ToCurrent_OneRunWithNotificationsButNoInvocations()
+            => RunTest("OneRunWithNotificationsButNoInvocations.sarif");
 
         [Fact]
-        public void SarifTransformerTests_ToCurrent_NotificationExceptionWithStack() => RunTest("NotificationExceptionWithStack.sarif");
+        public void SarifTransformerTests_ToCurrent_NotificationExceptionWithStack()
+            => RunTest("NotificationExceptionWithStack.sarif");
 
         [Fact]
-        public void SarifTransformerTests_ToCurrent_BasicResult() => RunTest("BasicResult.sarif");
+        public void SarifTransformerTests_ToCurrent_BasicResult()
+            => RunTest("BasicResult.sarif");
 
         [Fact]
-        public void SarifTransformerTests_ToCurrent_TwoResultsWithFixes() => RunTest("TwoResultsWithFixes.sarif");
+        public void SarifTransformerTests_ToCurrent_TwoResultsWithFixes()
+            => RunTest("TwoResultsWithFixes.sarif");
 
         [Fact]
         public void SarifTransformerTests_ToCurrent_CodeFlows() => RunTest("CodeFlows.sarif");

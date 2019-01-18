@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.TestUtilities
     public static class AssertionExtensions
     {
         /// <summary>
-        /// Asserts that two strings are identical except for their casing and end of line conventions.
+        /// Asserts that two strings are identical except for their end of line conventions.
         /// </summary>
         /// <remarks>
         /// This is useful for comparing logs that might have been generated on platforms with different
@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.TestUtilities
         {
             Execute.Assertion
                 .ForCondition(
-                    string.Equals(RemoveLineEndings(expected), RemoveLineEndings(assertion.Subject), StringComparison.OrdinalIgnoreCase)
+                    string.Equals(RemoveLineEndings(expected), RemoveLineEndings(assertion.Subject), StringComparison.Ordinal)
                 )
                 .BecauseOf(because, becauseArgs)
                 .FailWith(TestUtilityResources.BeCrossPlatformEquivalentError);
