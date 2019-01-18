@@ -22,7 +22,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private RunVersionOne _currentV1Run;
         private int _threadFlowLocationNestingLevel;
         private IDictionary<string, int> _v1FileKeytoV2IndexMap;
+
+        // We use Tuple containing a uri, uriBaseId pair, rather than using a FileLocation object
+        // as the dictionary key.This is because when we create a new FileLocation object and try
+        // to decide if it's present in Run.Files, the FileIndex properties will never match (the
+        // FileLocation objects in Run.Files have the property, whereas newly created FileLocation
+        // objects have it set to its default of -1). We just want to compare the URI and uriBaseId.
         private IDictionary<Tuple<Uri, string>, int> _v2FileToIndexMap;
+
         private IDictionary<string, string> _v1KeyToFullyQualifiedNameMap;
         private IDictionary<LogicalLocation, int> _v2LogicalLocationToIndexMap;
         private IDictionary<string, LogicalLocation> _v1KeyToV2LogicalLocationMap;
@@ -591,7 +598,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     // If this response file has contents, add it to Run.Files, if it
                     // isn't already there.
-                    if (!string.IsNullOrWhiteSpace(responseFileToContentsDictionary[key]))
+                    string responseFileText = responseFileToContentsDictionary[key];
+                    if (!string.IsNullOrWhiteSpace(responseFileText))
                     {
                         if (!existsInRunFiles)
                         {
@@ -612,7 +620,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         // added it to Run.Files. Either way, we can now add the content.
                         responseFile.Contents = new FileContent
                         {
-                            Text = responseFileToContentsDictionary[key]
+                            Text = responseFileText
                         };
                     }
 

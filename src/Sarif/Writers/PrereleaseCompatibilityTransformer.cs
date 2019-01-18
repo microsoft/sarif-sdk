@@ -221,22 +221,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                     JObject tool = (JObject)run["tool"];
                     modifiedLog |= RenameProperty(tool, previousName: "fileVersion", newName: "dottedQuadFileVersion");
-                    if (tool != null && tool["language"] == null)
-                    {
-                        tool["language"] = "en-US";
-                        modifiedLog = true;
-                    }
+                    PopulatePropertyIfAbsent(tool, "language", "en-US", ref modifiedLog);
 
                     JObject conversion = (JObject)run["conversion"];
                     if (conversion != null)
                     {
                         tool = (JObject)conversion["tool"];
                         modifiedLog |= RenameProperty(tool, previousName: "fileVersion", newName: "dottedQuadFileVersion");
-                        if (tool != null && tool["language"] == null)
-                        {
-                            tool["language"] = "en-US";
-                            modifiedLog = true;
-                        }
+                        PopulatePropertyIfAbsent(tool, "language", "en-US", ref modifiedLog);
                     }
 
                     // Remove 'open' from rule configuration default level enumeration
@@ -248,16 +240,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     // the SARIF file. Moving forward, the absence of this enum will be interpreted as
                     // the new default, which is ColumnKind.UnicodeCodePoints.
                     // https://github.com/oasis-tcs/sarif-spec/issues/188
-                    JValue columnKind = (JValue)run["columnKind"];
-                    if (columnKind == null)
-                    {
-                        run["columnKind"] = "utf16CodeUnits";
-                        modifiedLog = true;
-                    }
+                    PopulatePropertyIfAbsent(run, "columnKind", "utf16CodeUnits", ref modifiedLog);
                 }
             }
 
             return modifiedLog;
+        }
+
+        private static void PopulatePropertyIfAbsent(JObject jObject, string propertyName, string value, ref bool modifiedLog)
+        {
+            if (jObject != null && jObject[propertyName] == null)
+            {
+                jObject[propertyName] = value;
+                modifiedLog = true;
+            }
         }
 
         private static JToken ConstructFilesArray(JObject files, Dictionary<string, int> keyToIndexMap)
