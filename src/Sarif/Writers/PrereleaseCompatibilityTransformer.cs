@@ -142,10 +142,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     // dictionary into the arrays form. We will retain the index for each
                     // transformed logical location. Later, we will associate these indices
                     // with results, if applicable.
-                    var logicalLocations = run["logicalLocations"] as JObject;
                     Dictionary<LogicalLocation, int> logicalLocationToIndexMap = null;
 
-                    if (logicalLocations != null)
+                    if (run["logicalLocations"] is JObject logicalLocations)
                     {
                         logicalLocationToIndexMap = new Dictionary<LogicalLocation, int>(LogicalLocation.ValueComparer);
 
@@ -161,11 +160,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     // Files are now persisted to an array. We will persist a mapping from
                     // previous file key to file index. We will associate the index with
                     // each result when we iterate over run.results later.
-                    var files = run["files"] as JObject;                    
 
-                    if (files != null)
+                    if (run["files"] is JObject files)
                     {
-                        keyToIndexMap= new Dictionary<string, int>();
+                        keyToIndexMap = new Dictionary<string, int>();
 
                         run["files"] =
                             ConstructFilesArray(
@@ -223,14 +221,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                     JObject tool = (JObject)run["tool"];
                     modifiedLog |= RenameProperty(tool, previousName: "fileVersion", newName: "dottedQuadFileVersion");
-                    if (tool != null && tool["language"] == null) { tool["language"] = "en-US"; }
+                    PopulatePropertyIfAbsent(tool, "language", "en-US", ref modifiedLog);
 
                     JObject conversion = (JObject)run["conversion"];
                     if (conversion != null)
                     {
                         tool = (JObject)conversion["tool"];
                         modifiedLog |= RenameProperty(tool, previousName: "fileVersion", newName: "dottedQuadFileVersion");
-                        if (tool != null && tool["language"] == null) { tool["language"] = "en-US"; }
+                        PopulatePropertyIfAbsent(tool, "language", "en-US", ref modifiedLog);
                     }
 
                     // Remove 'open' from rule configuration default level enumeration
@@ -242,15 +240,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     // the SARIF file. Moving forward, the absence of this enum will be interpreted as
                     // the new default, which is ColumnKind.UnicodeCodePoints.
                     // https://github.com/oasis-tcs/sarif-spec/issues/188
-                    JValue columnKind = (JValue)run["columnKind"];
-                    if (columnKind == null)
-                    {
-                        run["columnKind"] = "utf16CodeUnits";
-                    }
+                    PopulatePropertyIfAbsent(run, "columnKind", "utf16CodeUnits", ref modifiedLog);
                 }
             }
 
             return modifiedLog;
+        }
+
+        private static void PopulatePropertyIfAbsent(JObject jObject, string propertyName, string value, ref bool modifiedLog)
+        {
+            if (jObject != null && jObject[propertyName] == null)
+            {
+                jObject[propertyName] = value;
+                modifiedLog = true;
+            }
         }
 
         private static JToken ConstructFilesArray(JObject files, Dictionary<string, int> keyToIndexMap)
@@ -274,8 +277,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             foreach (KeyValuePair<JObject, int> keyValuePair in jObjectToIndexMap)
             {
                 int index = keyValuePair.Value;
-                JObject updatedLogicalLocation = keyValuePair.Key;
-                updatedArrayElements[index] = updatedLogicalLocation;
+                JObject updatedFileData = keyValuePair.Key;
+                updatedArrayElements[index] = updatedFileData;
             }
 
             return new JArray(updatedArrayElements);
@@ -292,7 +295,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             // Parent key is no longer relevant and will be removed.
             string parentKey = (string)file["parentKey"];
-            int parentIndex;
 
             if (parentKey == null)
             {
@@ -302,7 +304,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             else
             {
                 // Have we processed our parent yet? If so, retrieve the parentIndex and we're done.
-                if (!keyToIndexMap.TryGetValue(parentKey, out parentIndex))
+                if (!keyToIndexMap.TryGetValue(parentKey, out int parentIndex))
                 {
                     // The parent hasn't been processed yet. We must force its creation
                     // determine its index in our array. This code path results in 
@@ -327,7 +329,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             file["fileLocation"] = fileLocationObject;
             fileLocationObject["uri"] = fileLocationKey.Uri;
             fileLocationObject["uriBaseId"] = fileLocationKey.UriBaseId;
-                
+
             if (!keyToIndexMap.TryGetValue(key, out int fileIndex))
             {
                 fileIndex = keyToIndexMap.Count;
@@ -583,10 +585,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 run.Remove("automationLogicalId");
 
-                var aggregateId = new JObject();
-
-                // For the aggregating automation id, we can only provide the logical component
-                aggregateId["instanceId"] = automationLogicalId + "/";
+                var aggregateId = new JObject
+                {
+                    // For the aggregating automation id, we can only provide the logical component
+                    ["instanceId"] = automationLogicalId + "/"
+                };
 
                 run["aggregateIds"] = new JArray(aggregateId);
                 modifiedRun = true;
@@ -805,8 +808,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             bool modifiedRun = false;
 
-            var files = run["files"] as JObject;
-            if (files == null) { return modifiedRun; }
+            if (!(run["files"] is JObject files)) { return modifiedRun; }
 
             foreach (JProperty file in files.Properties())
             {
@@ -822,7 +824,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static bool RenameProperty(JObject jObject, string previousName, string newName)
         {
-            if (jObject == null) { return false; }
+            bool renamedProperty = false;
+
+            if (jObject == null) { return renamedProperty; }
 
             JToken propertyValue = jObject[previousName];
             
@@ -830,9 +834,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 jObject.Remove(previousName);
                 jObject[newName] = propertyValue;
+                renamedProperty = true;
             }
 
-            return propertyValue != null;
+            return renamedProperty;
         }
 
         private static bool UpdateFileHashesProperty(JObject file)
