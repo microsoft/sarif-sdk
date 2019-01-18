@@ -10,11 +10,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     {
         private IDictionary<string, int> _fullyQualifiedLogicalNameToIndexMap;
         private IDictionary<string, int> _fileLocationKeyToIndexMap;
+        private IDictionary<string, int> _ruleKeyToIndexMap;
+        private Resources _resources;
 
-        public UpdateIndicesVisitor(IDictionary<string, int> fullyQualifiedLogicalNameToIndexMap, IDictionary<string, int> fileLocationKeyToIndexMap)
+        public UpdateIndicesVisitor(
+            IDictionary<string, int> fullyQualifiedLogicalNameToIndexMap, 
+            IDictionary<string, int> fileLocationKeyToIndexMap,
+            IDictionary<string, int> ruleKeyToIndexMap)
         {
             _fullyQualifiedLogicalNameToIndexMap = fullyQualifiedLogicalNameToIndexMap;
             _fileLocationKeyToIndexMap = fileLocationKeyToIndexMap;
+            _ruleKeyToIndexMap = ruleKeyToIndexMap;
+        }
+
+        public override Result VisitResult(Result node)
+        {
+            if (_ruleKeyToIndexMap != null)
+            {
+                if (_ruleKeyToIndexMap.TryGetValue(node.RuleId, out int ruleIndex))
+                {
+                    node.RuleIndex = ruleIndex;
+
+                    // We need to update the rule id, as it previously referred to a synthesized 
+                    // key that resolved some collision in the resources.rules collection.
+                    node.RuleId = _resources.Rules[ruleIndex].Id;
+                }
+            }
+
+            return base.VisitResult(node);
+        }
+
+        public override Run VisitRun(Run node)
+        {
+            _resources = node.Resources;
+            return base.VisitRun(node);
         }
 
         public override Location VisitLocation(Location node)

@@ -1248,10 +1248,13 @@
           }
         },
 
+
         "rules": {
-          "description": "A dictionary, each of whose keys is a string and each of whose values is a 'rule' object, that describe all rules associated with an analysis tool or a specific run of an analysis tool.",
-          "type": "object",
-          "additionalProperties": {
+          "description": "An array of rule objects relevant to the run.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "items": {
             "$ref": "#/definitions/rule"
           }
         },
@@ -1272,6 +1275,13 @@
         "ruleId": {
           "description": "The stable, unique identifier of the rule (if any) to which this notification is relevant. This member can be used to retrieve rule metadata from the rules dictionary, if it exists.",
           "type": "string"
+        },
+
+        "ruleIndex": {
+          "description": "The index within the run resources array of the rule object associated with this result.",
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
         },
 
         "level": {
@@ -1679,6 +1689,7 @@
           "description": "An array of file objects relevant to the run.",
           "type": "array",
           "minItems": 0,
+          "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/file"
           }

@@ -42,8 +42,10 @@
     <None Remove="TestData\InsertOptionalDataVisitor\Inputs\CoreTests.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ComprehensiveFileProperties.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\NestedFiles.sarif" />
+    <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\RuleIdCollisions.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\ComprehensiveFileProperties.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\NestedFiles.sarif" />
+    <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\RuleIdCollisions.sarif" />
     <None Remove="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\Minimum.sarif" />
     <None Remove="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\MinimumWithTwoRuns.sarif" />
     <None Remove="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\NotificationExceptionWithStack.sarif" />
@@ -109,8 +111,10 @@
     <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_TextFiles.sarif" />
     <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\Inputs\CoreTests.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ComprehensiveFileProperties.sarif" />
+    <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\RuleIdCollisions.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\NestedFiles.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\ComprehensiveFileProperties.sarif" />
+    <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\RuleIdCollisions.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\NestedFiles.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\Minimum.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\MinimumWithTwoRuns.sarif" />

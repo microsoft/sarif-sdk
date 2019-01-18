@@ -27,9 +27,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         // Retrieving the source path of the tests is only used in developer ad hoc
         // rebaselining scenarios. i.e., this path won't be consumed by AppVeyor.
-        public static string GetProductTestDataDirectory(string subdirectory = "")
+        public static string GetProductTestDataDirectory(string testBinaryName, string subdirectory = "")
         {
-            return Path.GetFullPath(Path.Combine(@"..\..\..\..\..\src\Sarif.UnitTests\TestData", subdirectory));
+            return Path.GetFullPath(Path.Combine($@"..\..\..\..\..\src\{testBinaryName}\TestData", subdirectory));
         }
 
         private readonly ITestOutputHelper _outputHelper;
@@ -44,6 +44,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         protected virtual Assembly ThisAssembly => this.GetType().Assembly;
+
+        protected virtual string TestBinaryName => Path.GetFileNameWithoutExtension(ThisAssembly.Location);
 
         protected virtual string TypeUnderTest => this.GetType().Name.Substring(0, this.GetType().Name.Length - "Tests".Length);
 
@@ -83,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 passed = AreEquivalent<SarifLogVersionOne>(actualSarifText, expectedSarifText, SarifContractResolverVersionOne.Instance);
             }
 
-            if (!passed)
+            if (!passed || RebaselineExpectedResults)
             {
                 string errorMessage = string.Format(@"there should be no unexpected diffs detected comparing actual results to '{0}'.", inputResourceName);
                 sb.AppendLine(errorMessage);
@@ -107,7 +109,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                     if (RebaselineExpectedResults)
                     {
-                        string testDirectory = Path.Combine(GetProductTestDataDirectory(TypeUnderTest), "ExpectedOutputs");
+                        string testDirectory = Path.Combine(GetProductTestDataDirectory(TestBinaryName, TypeUnderTest), "ExpectedOutputs");
                         Directory.CreateDirectory(testDirectory);
 
                         // We retrieve all test strings from embedded resources. To rebaseline, we need to

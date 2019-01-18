@@ -763,9 +763,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                                 _currentRun.Resources = new Resources();
                             }
 
+#if TRANSFORM_CODE_AUTHORED
                             if (_currentRun.Resources.Rules == null)
                             {
-                                _currentRun.Resources.Rules = new Dictionary<string, Rule>();
+                                _currentRun.Resources.Rules = new List<string, Rule>();
                             }
 
                             IDictionary<string, Rule> rules = _currentRun.Resources.Rules;
@@ -777,6 +778,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                             }
 
                             Debug.Assert(rules[v1Result.RuleKey].Id == v1Result.RuleId);
+#endif
                         }
                     }
                 }
@@ -909,6 +911,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     _currentRun = run;
 
+#if TRANSFORM_CODE_AUTHORED
                     if (v1Run.Rules != null)
                     {
                         run.Resources = new Resources
@@ -921,6 +924,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                             run.Resources.Rules.Add(pair.Key, CreateRule(pair.Value));
                         }
                     }
+#endif
 
                     if (v1Run.Files != null)
                     {

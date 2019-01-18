@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             var result = _result.DeepClone();
 
-            var visitor = new UpdateIndicesVisitor(null, null);
+            var visitor = new UpdateIndicesVisitor(null, null, null);
             visitor.VisitResult(result);
 
             result.Locations[0].LogicalLocationIndex.Should().Be(Int32.MaxValue);
@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 [_remappedFullyQualifiedLogicalName] = remappedIndex
             };
 
-            var visitor = new UpdateIndicesVisitor(fullyQualifiedLogicalNameToIndexMap, fileLocationKeyToIndexMap: null);
+            var visitor = new UpdateIndicesVisitor(fullyQualifiedLogicalNameToIndexMap, fileLocationKeyToIndexMap: null, ruleKeyToIndexMap: null);
             visitor.VisitResult(result);
 
             result.Locations[0].LogicalLocationIndex.Should().Be(remappedIndex);
@@ -79,11 +79,48 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 ["#" + fileLocation.UriBaseId + "#" + fileLocation.Uri.OriginalString] = remappedIndex
             };
 
-            var visitor = new UpdateIndicesVisitor(fullyQualifiedLogicalNameToIndexMap: null, fileLocationKeyToIndexMap: fileLocationKeyToIndexMap);
+            var visitor = new UpdateIndicesVisitor(fullyQualifiedLogicalNameToIndexMap: null, fileLocationKeyToIndexMap: fileLocationKeyToIndexMap, ruleKeyToIndexMap: null);
             visitor.VisitResult(result);
 
             result.Locations[0].LogicalLocationIndex.Should().Be(Int32.MaxValue);
             result.Locations[0].PhysicalLocation.FileLocation.FileIndex.Should().Be(remappedIndex);
+        }
+
+        [Fact]
+        public void UpdateIndicesVisitor_RemapsRuleIds()
+        {
+            int remappedIndex = 0;
+            string actualRuleId = "ActualId";
+            
+            var ruleKeyToIndexMap = new Dictionary<string, int>()
+            {
+                ["COLLISION"] = remappedIndex
+            };
+
+            var result = _result.DeepClone();
+            result.RuleId = "COLLISION";
+            result.RuleIndex = 42;
+
+            var run = new Run
+            {
+                Resources = new Resources
+                {
+                    Rules = new List<Rule>
+                    {
+                        new Rule { Id = actualRuleId }
+                    }
+                },
+                Results = new List<Result>
+                {
+                    result
+                }
+            };
+
+            var visitor = new UpdateIndicesVisitor(fullyQualifiedLogicalNameToIndexMap: null, fileLocationKeyToIndexMap: null, ruleKeyToIndexMap: ruleKeyToIndexMap);
+            visitor.VisitRun(run);
+
+            result.RuleId.Should().Be(actualRuleId);
+            result.RuleIndex.Should().Be(remappedIndex);
         }
 
         [Fact]
@@ -99,7 +136,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 [_remappedFullyQualifiedLogicalName] = remappedIndex
             };
 
-            var visitor = new UpdateIndicesVisitor(fullyQualifiedLogicalNameToIndexMap, null);
+            var visitor = new UpdateIndicesVisitor(fullyQualifiedLogicalNameToIndexMap, null, null);
             visitor.VisitResult(result);
 
             result.ValueEquals(originalResult).Should().BeTrue();
@@ -113,12 +150,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             int remappedIndex = 42 * 2;
 
-            var fileLocationToIndexMap = new Dictionary<FileLocation, int>(FileLocation.ValueComparer)
+            var fileLocationKeyToIndexMap = new Dictionary<string, int>()
             {
-                [new FileLocation { Uri = _remappedUri, UriBaseId = _remappedUriBaseId }] = remappedIndex
+                ["#" + _remappedUriBaseId + "#" + _remappedUri] = remappedIndex
             };
 
-            var visitor = new UpdateIndicesVisitor(fullyQualifiedLogicalNameToIndexMap: null, null);
+            var visitor = new UpdateIndicesVisitor(fullyQualifiedLogicalNameToIndexMap: null, fileLocationKeyToIndexMap: fileLocationKeyToIndexMap, null);
             visitor.VisitResult(result);
 
             result.ValueEquals(originalResult).Should().BeTrue();

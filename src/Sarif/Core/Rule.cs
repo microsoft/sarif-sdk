@@ -13,5 +13,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             return string.Format(CultureInfo.CurrentCulture, this.MessageStrings[messageId], arguments.ToArray());
         }
+
+        public bool ShouldSerializeDeprecatedIds()
+        {
+            return this.DeprecatedIds != null &&
+                (this.DeprecatedIds.Where((e) => { return e != null; }).Count() == this.DeprecatedIds.Count);
+        }
+
     }
 }

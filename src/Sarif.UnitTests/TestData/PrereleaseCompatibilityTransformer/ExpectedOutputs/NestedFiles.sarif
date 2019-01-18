@@ -66,7 +66,7 @@
       ],
       "results": [
         {
-          "ruleId": "C1",
+          "ruleIndex": 0,
           "message": {
             "messageId": "a"
           },
@@ -85,7 +85,7 @@
           ]
         },
         {
-          "ruleId": "C1",
+          "ruleIndex": 0,
           "message": {
             "messageId": "a"
           },
@@ -105,7 +105,7 @@
           ]
         },
         {
-          "ruleId": "C1",
+          "ruleIndex": 0,
           "message": {
             "messageId": "a"
           },
@@ -124,7 +124,7 @@
           ]
         },
         {
-          "ruleId": "C1",
+          "ruleIndex": 0,
           "message": {
             "messageId": "a"
           },
@@ -144,13 +144,13 @@
         }
       ],
       "resources": {
-        "rules": {
-          "C1": {
+        "rules": [
+          {
             "messageStrings": {
               "a": "Review all plaintext content for geopolitically sensitive terms."
             }
           }
-        }
+        ]
       },
       "columnKind": "utf16CodeUnits"
     }

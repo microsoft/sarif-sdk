@@ -47,11 +47,11 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
         [Fact]
         public void SarifTransformerTests_ToCurrent_OneRunWithFiles()
             => RunTest("OneRunWithFiles.sarif");
-
+#if TRANSFORM_CODE_AUTHORED
         [Fact]
         public void SarifTransformerTests_ToCurrent_OneRunWitRules()
             => RunTest("OneRunWithRules.sarif");
-
+#endif
         [Fact]
         public void SarifTransformerTests_ToCurrent_OneRunWithBasicInvocation()
             => RunTest("OneRunWithBasicInvocation.sarif");
@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
         [Fact]
         public void SarifTransformerTests_ToCurrent_NotificationExceptionWithStack()
             => RunTest("NotificationExceptionWithStack.sarif");
-
+#if TRANSFORM_CODE_AUTHORED
         [Fact]
         public void SarifTransformerTests_ToCurrent_BasicResult()
             => RunTest("BasicResult.sarif");
@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
         [Fact]
         public void SarifTransformerTests_ToCurrent_TwoResultsWithFixes()
             => RunTest("TwoResultsWithFixes.sarif");
-
+#endif
         [Fact]
         public void SarifTransformerTests_ToCurrent_CodeFlows() => RunTest("CodeFlows.sarif");
     }
