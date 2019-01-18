@@ -1,0 +1,31 @@
+{
+  "name": "eslint.formatter.sarif",
+  "version": "2.0.0",
+  "description": "ESLint formatter for the SARIF v2.0 static analysis file format",
+  "main": "sarif.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node test/sarif.js"
+  },
+  "repository": {
+    "type": "github",
+    "url": "git+https://github.com/Microsoft/sarif-sdk.git"
+  },
+  "keywords": [
+    "eslint",
+    "formatter",
+    "eslint formatter",
+    "sarif",
+    "sarif formatter",
+    "sarif eslint",
+    "eslint sarif"
+  ],
+  "author": "Chris Meyer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Microsoft/sarif-sdk/issues"
+  },
+  "homepage": "https://github.com/Microsoft/sarif-sdk#readme"
+}
