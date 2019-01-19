@@ -1,0 +1,132 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-11-28",
+  "version": "2.0.0-csd.2.beta.2018-11-28",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner",
+        "semanticVersion": "2.1.0"
+      },
+      "files": [
+        {
+          "fileLocation": {
+            "uri": "/file.txt",
+            "fileIndex": 0
+          },
+          "parentIndex": 1,
+          "mimeType": "text/plain"
+        },
+        {
+          "fileLocation": {
+            "uri": "file:///c:/archive_one.zip",
+            "fileIndex": 1
+          },
+          "mimeType": "application/zip"
+        },
+        {
+          "fileLocation": {
+            "uri": "file.txt",
+            "uriBaseId": "SUB",
+            "fileIndex": 2
+          },
+          "mimeType": "text/plain"
+        },
+        {
+          "fileLocation": {
+            "uri": "file.txt",
+            "fileIndex": 3
+          },
+          "mimeType": "text/plain"
+        },
+        {
+          "fileLocation": {
+            "uri": "/file.txt",
+            "fileIndex": 4
+          },
+          "parentIndex": 5,
+          "mimeType": "text/plain"
+        },
+        {
+          "fileLocation": {
+            "uri": "/archive_two.zip",
+            "fileIndex": 5
+          },
+          "parentIndex": 1,
+          "mimeType": "application/zip"
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "C1",
+          "message": {
+            "text": "a"
+          },
+          "analysisTarget": {
+            "uri": "file.txt",
+            "fileIndex": 3
+          },
+          "locations": [
+            {
+              "properties": {
+                "key": "file.txt"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "C1",
+          "message": {
+            "text": "a"
+          },
+          "analysisTarget": {
+            "uri": "file.txt",
+            "uriBaseId": "SUB",
+            "fileIndex": 2
+          },
+          "locations": [
+            {
+              "properties": {
+                "key": "#SUB#file.txt"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "C1",
+          "message": {
+            "text": "a"
+          },
+          "analysisTarget": {
+            "uri": "/file.txt",
+            "fileIndex": 0
+          },
+          "locations": [
+            {
+              "properties": {
+                "key": "file://c:/archive_one.zip#/file.txt"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "C1",
+          "message": {
+            "text": "a"
+          },
+          "analysisTarget": {
+            "uri": "/file.txt",
+            "fileIndex": 4
+          },
+          "locations": [
+            {
+              "properties": {
+                "key": "file://c:/archive_one.zip#/archive_two.zip/file.txt"
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}
