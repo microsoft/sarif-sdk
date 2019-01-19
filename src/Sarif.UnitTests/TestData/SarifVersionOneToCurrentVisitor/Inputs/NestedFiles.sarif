@@ -16,9 +16,6 @@
         "file://c:/archive_one.zip": {
           "mimeType": "application/zip"
         },
-        "#SUB#file.txt": {
-          "mimeType": "text/plain"
-        },
         "file.txt": {
           "mimeType": "text/plain"
         },
@@ -45,19 +42,6 @@
               "properties": {
                 "key": "file.txt"
               }
-            }
-          ]
-        },
-        {
-          "ruleId": "C1",
-          "message": "a",
-          "locations": [
-            {
-              "analysisTarget": {
-                "uri": "file.txt",
-                "uriBaseId": "SUB"
-              },
-             "properties": { "key": "#SUB#file.txt" }
             }
           ]
         },

@@ -26,30 +26,22 @@
         {
           "fileLocation": {
             "uri": "file.txt",
-            "uriBaseId": "SUB",
             "fileIndex": 2
           },
           "mimeType": "text/plain"
         },
         {
           "fileLocation": {
-            "uri": "file.txt",
+            "uri": "/file.txt",
             "fileIndex": 3
           },
-          "mimeType": "text/plain"
-        },
-        {
-          "fileLocation": {
-            "uri": "/file.txt",
-            "fileIndex": 4
-          },
-          "parentIndex": 5,
+          "parentIndex": 4,
           "mimeType": "text/plain"
         },
         {
           "fileLocation": {
             "uri": "/archive_two.zip",
-            "fileIndex": 5
+            "fileIndex": 4
           },
           "parentIndex": 1,
           "mimeType": "application/zip"
@@ -66,7 +58,7 @@
               "physicalLocation": {
                 "fileLocation": {
                   "uri": "file.txt",
-                  "fileIndex": 3
+                  "fileIndex": 2
                 }
               },
               "properties": {
@@ -84,27 +76,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "file.txt",
-                  "uriBaseId": "SUB",
-                  "fileIndex": 2
-                }
-              },
-              "properties": {
-                "key": "#SUB#file.txt"
-              }
-            }
-          ]
-        },
-        {
-          "ruleId": "C1",
-          "message": {
-            "text": "a"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file:///c:/archive_one.zip",
+                  "uri": "/file.txt",
                   "fileIndex": 0
                 }
               },
@@ -123,8 +95,8 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "file:///c:/archive_one.zip",
-                  "fileIndex": 4
+                  "uri": "/file.txt",
+                  "fileIndex": 3
                 }
               },
               "properties": {

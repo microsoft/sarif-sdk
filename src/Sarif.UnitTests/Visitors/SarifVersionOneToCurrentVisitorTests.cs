@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
         public void SarifTransformerTests_ToCurrent_MinimumWithPropertyAndTags()
             => RunTest("MinimumWithPropertiesAndTags.sarif");
 
-        [Fact(Skip = "NYI")]
+        [Fact]
         public void SarifTransformerTests_ToCurrent_NestedFiles()
             => RunTest("NestedFiles.sarif");
 
