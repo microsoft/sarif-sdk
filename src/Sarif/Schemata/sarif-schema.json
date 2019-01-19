@@ -1254,6 +1254,7 @@
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
+          "default": [],
           "items": {
             "$ref": "#/definitions/rule"
           }

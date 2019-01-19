@@ -99,7 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             var result = _result.DeepClone();
             result.RuleId = "COLLISION";
-            result.RuleIndex = 42;
+            result.RuleIndex = -1;
 
             var run = new Run
             {

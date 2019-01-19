@@ -158,7 +158,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         logicalLocationToIndexMap = new Dictionary<LogicalLocation, int>(LogicalLocation.ValueComparer);
 
                         run["logicalLocations"] =
-                            ConstructLogicalLocationsArray(
+                            ConvertLogicalLocationsDictionaryToArray(
                                 logicalLocations,
                                 logicalLocationToIndexMap,
                                 out fullyQualifiedLogicalNameToIndexMap);
@@ -175,7 +175,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         fileKeyToIndexMap = new Dictionary<string, int>();
 
                         run["files"] =
-                            ConstructFilesArray(
+                            ConvertFilesDictionaryToArray(
                                 files,
                                 fileKeyToIndexMap);
 
@@ -193,7 +193,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         if (resources["rules"] is JObject rules)
                         {
                             resources["rules"] =
-                                ConstructRulesArray(
+                                ConvertRulesDictionaryToArray(
                                     rules,
                                     ruleKeyToIndexMap);
                         }
@@ -256,7 +256,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return modifiedLog;
         }
 
-        private static JToken ConstructRulesArray(JObject rules, Dictionary<string, int> ruleKeyToIndexMap)
+        private static JToken ConvertRulesDictionaryToArray(JObject rules, Dictionary<string, int> ruleKeyToIndexMap)
         {
             if (rules == null) { return null; }
 
@@ -272,28 +272,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     ruleKeyToIndexMap);
             }
 
-            var updatedArrayElements = new JObject[jObjectToIndexMap.Count];
+            var rulesArray = new JObject[jObjectToIndexMap.Count];
 
             foreach (KeyValuePair<JObject, int> keyValuePair in jObjectToIndexMap)
             {
                 int index = keyValuePair.Value;
                 JObject updatedFileData = keyValuePair.Key;
-                updatedArrayElements[index] = updatedFileData;
+                rulesArray[index] = updatedFileData;
             }
 
-            return new JArray(updatedArrayElements);
+            return new JArray(rulesArray);
         }
 
 
-        private static void AddEntryToRuleToIndexMap(JObject rulesDictionary, string key, JObject file, Dictionary<JObject, int> jObjectToIndexMap, Dictionary<string, int> ruleKeyToIndexMap)
+        private static void AddEntryToRuleToIndexMap(JObject rulesDictionary, string key, JObject rule, Dictionary<JObject, int> jObjectToIndexMap, Dictionary<string, int> ruleKeyToIndexMap)
         {
             ruleKeyToIndexMap = ruleKeyToIndexMap ?? throw new ArgumentNullException(nameof(ruleKeyToIndexMap));
             jObjectToIndexMap = jObjectToIndexMap ?? throw new ArgumentNullException(nameof(jObjectToIndexMap));
 
+            if (rule["id"] == null)
+            {
+                // This condition indicates there was no collision between the rules dictionary key
+                // and the corresponding rule id. So we will explicitly populate the rule id so
+                // this data isn't lost, compromising log readability.
+                rule["id"] = key;
+            }
+
             if (!ruleKeyToIndexMap.TryGetValue(key, out int ruleIndex))
             {
                 ruleIndex = ruleKeyToIndexMap.Count;
-                jObjectToIndexMap[file] = ruleIndex;
+                jObjectToIndexMap[rule] = ruleIndex;
                 ruleKeyToIndexMap[key] = ruleIndex;
             }
             else
@@ -311,7 +319,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        private static JToken ConstructFilesArray(JObject files, Dictionary<string, int> keyToIndexMap)
+        private static JToken ConvertFilesDictionaryToArray(JObject files, Dictionary<string, int> keyToIndexMap)
         { 
             if (files == null) { return null; }
 
@@ -327,16 +335,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     keyToIndexMap);
             }
 
-            var updatedArrayElements = new JObject[jObjectToIndexMap.Count];
+            var filesArray = new JObject[jObjectToIndexMap.Count];
 
             foreach (KeyValuePair<JObject, int> keyValuePair in jObjectToIndexMap)
             {
                 int index = keyValuePair.Value;
                 JObject updatedFileData = keyValuePair.Key;
-                updatedArrayElements[index] = updatedFileData;
+                filesArray[index] = updatedFileData;
             }
 
-            return new JArray(updatedArrayElements);
+            return new JArray(filesArray);
         }
 
         private static void AddEntryToFileLocationToIndexMap(JObject filesDictionary, string key, JObject file, Dictionary<JObject, int> jObjectToIndexMap, Dictionary<string, int> keyToIndexMap)
@@ -398,7 +406,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        private static JArray ConstructLogicalLocationsArray(
+        private static JArray ConvertLogicalLocationsDictionaryToArray(
             JObject logicalLocations,
             Dictionary<LogicalLocation, int> logicalLocationToIndexMap,
             out Dictionary<string, int> fullyQualifiedLogicalNameToIndexMap)
@@ -427,16 +435,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     fullyQualifiedLogicalNameToIndexMap);
             }
 
-            var updatedArrayElements = new JObject[jObjectToIndexMap.Count];
+            var logicalLocationsArray = new JObject[jObjectToIndexMap.Count];
 
             foreach (KeyValuePair<JObject, int> keyValuePair in jObjectToIndexMap)
             {
                 int index = keyValuePair.Value;
                 JObject updatedLogicalLocation = keyValuePair.Key;
-                updatedArrayElements[index] = updatedLogicalLocation;
+                logicalLocationsArray[index] = updatedLogicalLocation;
             }
 
-            return new JArray(updatedArrayElements);
+            return new JArray(logicalLocationsArray);
         }
 
         private static void AddEntryToFullyQualifiedNameToIndexMap(

@@ -66,6 +66,7 @@
       ],
       "results": [
         {
+          "ruleId": "C1",
           "ruleIndex": 0,
           "message": {
             "messageId": "a"
@@ -85,6 +86,7 @@
           ]
         },
         {
+          "ruleId": "C1",
           "ruleIndex": 0,
           "message": {
             "messageId": "a"
@@ -105,6 +107,7 @@
           ]
         },
         {
+          "ruleId": "C1",
           "ruleIndex": 0,
           "message": {
             "messageId": "a"
@@ -124,6 +127,7 @@
           ]
         },
         {
+          "ruleId": "C1",
           "ruleIndex": 0,
           "message": {
             "messageId": "a"
@@ -146,6 +150,7 @@
       "resources": {
         "rules": [
           {
+            "id": "C1",
             "messageStrings": {
               "a": "Review all plaintext content for geopolitically sensitive terms."
             }

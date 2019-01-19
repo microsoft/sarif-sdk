@@ -306,21 +306,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 return;
             }
 
-            // TODO: we need to finish eliminating the IRule interface from the OM
-            // https://github.com/Microsoft/sarif-sdk/issues/1189
-            if (!RuleToIndexMap.TryGetValue((Rule)iRule, out int ruleIndex))
-            {
-                ruleIndex = _ruleToIndexMap.Count;
-                _ruleToIndexMap[(Rule)iRule] = ruleIndex;
-                _run.Resources = _run.Resources ?? new Resources();
-                _run.Resources.Rules = _run.Resources.Rules ?? new List<Rule>();
-                _run.Resources.Rules.Add((Rule)iRule);
-            }
-
-            result.RuleIndex = ruleIndex;
+            result.RuleIndex = LogRule(iRule);
 
             CaptureFilesInResult(result);
             _issueLogJsonWriter.WriteResult(result);
+        }
+
+        private int LogRule(IRule iRule)
+        {
+            // TODO: we need to finish eliminating the IRule interface from the OM
+            // https://github.com/Microsoft/sarif-sdk/issues/1189
+            Rule rule = (Rule)iRule;
+
+            if (!RuleToIndexMap.TryGetValue(rule, out int ruleIndex))
+            {
+                ruleIndex = _ruleToIndexMap.Count;
+                _ruleToIndexMap[rule] = ruleIndex;
+                _run.Resources = _run.Resources ?? new Resources();
+                _run.Resources.Rules = _run.Resources.Rules ?? new List<Rule>();
+                _run.Resources.Rules.Add(rule);
+            }
+
+            return ruleIndex;
         }
 
         private void CaptureFilesInResult(Result result)
@@ -468,16 +475,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             int ruleIndex = -1;
             if (context.Rule != null)
             {
-                // TODO: finish removing IRule from the SDK
-                // https://github.com/Microsoft/sarif-sdk/issues/1189
-                if (!_ruleToIndexMap.TryGetValue((Rule)context.Rule, out ruleIndex))
-                {
-                    ruleIndex = _ruleToIndexMap.Count;
-                    _ruleToIndexMap[(Rule)context.Rule] = ruleIndex;
-                    _run.Resources = _run.Resources ?? new Resources();
-                    _run.Resources.Rules = _run.Resources.Rules ?? new List<Rule>();
-                    _run.Resources.Rules.Add((Rule)context.Rule);
-                }
+                ruleIndex = LogRule(context.Rule);
             }
 
             ruleMessageId = RuleUtilities.NormalizeRuleMessageId(ruleMessageId, context.Rule.Id);

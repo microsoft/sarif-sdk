@@ -165,15 +165,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 string formatString = null;
                 Rule rule = _ruleIndex != -1 ? _run.Resources.Rules[_ruleIndex] : null;
-
-                if (rule != null && rule.MessageStrings.TryGetValue(node.MessageId, out formatString))
+            
+                if (rule != null &&
+                    rule.MessageStrings != null &&
+                    rule.MessageStrings.TryGetValue(node.MessageId, out formatString))
                 {
-                    // Otherwise, pick it up from the 
                     node.Text = node.Arguments?.Count > 0 
                         ? rule.Format(node.MessageId, node.Arguments) 
                         : formatString;
                 }
-                else if (_run.Resources?.MessageStrings?.TryGetValue(node.MessageId, out formatString) == true)
+
+                if (node.Text == null &&
+                    _run.Resources?.MessageStrings?.TryGetValue(node.MessageId, out formatString) == true)
                 {
                     node.Text = node.Arguments?.Count > 0
                         ? string.Format(CultureInfo.CurrentCulture, formatString, node.Arguments.ToArray())

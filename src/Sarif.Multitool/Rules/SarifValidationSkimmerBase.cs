@@ -654,7 +654,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             string rulesPointer = resourcesPointer.AtProperty(SarifPropertyName.Rules);
 
-
             for (int i = 0; i < resources.Rules.Count; ++i)
             {
                 Visit(resources.Rules[i], rulesPointer.AtIndex(i));

@@ -8,9 +8,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class UpdateIndicesVisitor : SarifRewritingVisitor
     {
-        private IDictionary<string, int> _fullyQualifiedLogicalNameToIndexMap;
-        private IDictionary<string, int> _fileLocationKeyToIndexMap;
-        private IDictionary<string, int> _ruleKeyToIndexMap;
+        private readonly IDictionary<string, int> _fullyQualifiedLogicalNameToIndexMap;
+        private readonly IDictionary<string, int> _fileLocationKeyToIndexMap;
+        private readonly IDictionary<string, int> _ruleKeyToIndexMap;
         private Resources _resources;
 
         public UpdateIndicesVisitor(
