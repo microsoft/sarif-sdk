@@ -80,7 +80,12 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
         public void SarifTransformerTests_ToCurrent_TwoResultsWithFixes()
             => RunTest("TwoResultsWithFixes.sarif");
 
+        [Fact(Skip = "NYI")]
+        public void SarifTransformerTests_ToCurrent_UriBaseId()
+            => RunTest("UriBaseId.sarif");
+
         [Fact]
-        public void SarifTransformerTests_ToCurrent_CodeFlows() => RunTest("CodeFlows.sarif");
+        public void SarifTransformerTests_ToCurrent_CodeFlows()
+            => RunTest("CodeFlows.sarif");
     }
 }

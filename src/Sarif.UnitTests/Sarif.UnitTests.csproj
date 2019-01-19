@@ -83,6 +83,7 @@
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\OneRunWithRules.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\RestoreFromPropertyBag.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\TwoResultsWithFixes.sarif" />
+    <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\UriBaseId.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\BasicResult.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\CodeFlows.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\Minimum.sarif" />
@@ -98,6 +99,7 @@
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\OneRunWithRules.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\RestoreFromPropertyBag.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\TwoResultsWithFixes.sarif" />
+    <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\UriBaseId.sarif" />
   </ItemGroup>
 
   <ItemGroup>
@@ -153,6 +155,7 @@
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\OneRunWithRules.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\RestoreFromPropertyBag.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\TwoResultsWithFixes.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\UriBaseId.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\BasicResult.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\CodeFlows.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\Minimum.sarif" />
@@ -168,6 +171,7 @@
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\OneRunWithRules.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\RestoreFromPropertyBag.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\TwoResultsWithFixes.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\UriBaseId.sarif" />
   </ItemGroup>
 
   <ItemGroup>

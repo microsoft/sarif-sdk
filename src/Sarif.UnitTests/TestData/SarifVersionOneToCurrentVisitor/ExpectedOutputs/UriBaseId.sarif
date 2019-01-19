@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-11-28",
+  "version": "2.0.0-csd.2.beta.2018-11-28",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner",
+        "semanticVersion": "2.1.0"
+      },
+      "files": [
+        {
+          "fileLocation": {
+            "uri": "file.txt",
+            "uriBaseId": "SRCROOT",
+            "fileIndex": 0
+          },
+          "mimeType": "text/plain"
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "C1",
+          "message": {
+            "text": "a"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file.txt",
+                  "uriBaseId": "SRCROOT",
+                  "fileIndex": 0
+                }
+              },
+              "properties": {
+                "key": "file.txt"
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}
