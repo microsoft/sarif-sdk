@@ -343,7 +343,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 location = new Location
                 {
                     FullyQualifiedLogicalName = v1Location.FullyQualifiedLogicalName,
-                    PhysicalLocation = CreatePhysicalLocation(v1Location.ResultFile),
+                    PhysicalLocation = CreatePhysicalLocation(v1Location.ResultFile ?? v1Location.AnalysisTarget),
                     Properties = v1Location.Properties
                 };
 
@@ -733,7 +733,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 };
 
                 // The spec says that analysisTarget is required only if it differs from the result file.
-                if (v1Result.Locations?[0]?.AnalysisTarget?.Uri != v1Result.Locations?[0]?.ResultFile?.Uri)
+                Uri analysisTargetUri = v1Result.Locations?[0]?.AnalysisTarget?.Uri;
+                Uri resultFileUri = v1Result.Locations?[0]?.ResultFile?.Uri;
+                if (analysisTargetUri != null && resultFileUri != null && analysisTargetUri != resultFileUri)
                 {
                     result.AnalysisTarget = CreateFileLocation(v1Result.Locations[0].AnalysisTarget);
                 }

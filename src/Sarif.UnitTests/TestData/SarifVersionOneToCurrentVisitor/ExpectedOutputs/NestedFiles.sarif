@@ -61,12 +61,14 @@
           "message": {
             "text": "a"
           },
-          "analysisTarget": {
-            "uri": "file.txt",
-            "fileIndex": 3
-          },
           "locations": [
             {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file.txt",
+                  "fileIndex": 3
+                }
+              },
               "properties": {
                 "key": "file.txt"
               }
@@ -78,13 +80,15 @@
           "message": {
             "text": "a"
           },
-          "analysisTarget": {
-            "uri": "file.txt",
-            "uriBaseId": "SUB",
-            "fileIndex": 2
-          },
           "locations": [
             {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file.txt",
+                  "uriBaseId": "SUB",
+                  "fileIndex": 2
+                }
+              },
               "properties": {
                 "key": "#SUB#file.txt"
               }
@@ -96,12 +100,14 @@
           "message": {
             "text": "a"
           },
-          "analysisTarget": {
-            "uri": "/file.txt",
-            "fileIndex": 0
-          },
           "locations": [
             {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///c:/archive_one.zip",
+                  "fileIndex": 0
+                }
+              },
               "properties": {
                 "key": "file://c:/archive_one.zip#/file.txt"
               }
@@ -113,12 +119,14 @@
           "message": {
             "text": "a"
           },
-          "analysisTarget": {
-            "uri": "/file.txt",
-            "fileIndex": 4
-          },
           "locations": [
             {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///c:/archive_one.zip",
+                  "fileIndex": 4
+                }
+              },
               "properties": {
                 "key": "file://c:/archive_one.zip#/archive_two.zip/file.txt"
               }
