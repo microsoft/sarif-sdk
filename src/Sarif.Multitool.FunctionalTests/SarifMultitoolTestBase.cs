@@ -46,38 +46,38 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private static void SelectiveCompare(SarifLog actualLog, SarifLog expectedLog)
         {
-            Result[] actualResults = SafeListToArray(actualLog.Runs[0].Results);
-            Result[] expectedResults = SafeListToArray(expectedLog.Runs[0].Results);
+            IList<Result> actualResults = actualLog.Runs[0].Results;
+            IList<Result> expectedResults = expectedLog.Runs[0].Results;
 
             SelectiveCompare(actualResults, expectedResults);
 
-            Notification[] actualConfigurationNotifications = SafeListToArray(actualLog.Runs[0].Invocations?[0]?.ConfigurationNotifications);
-            Notification[] expectedConfigurationNotifications = SafeListToArray(expectedLog.Runs[0].Invocations?[0]?.ConfigurationNotifications);
+            IList<Notification> actualConfigurationNotifications = actualLog.Runs[0].Invocations?[0]?.ConfigurationNotifications;
+            IList<Notification> expectedConfigurationNotifications = expectedLog.Runs[0].Invocations?[0]?.ConfigurationNotifications;
 
             SelectiveCompare(actualConfigurationNotifications, expectedConfigurationNotifications);
 
-            Notification[] actualToolNotifications = SafeListToArray(actualLog.Runs[0].Invocations?[0]?.ToolNotifications);
-            Notification[] expectedToolNotifications = SafeListToArray(expectedLog.Runs[0].Invocations[0]?.ToolNotifications);
+            IList<Notification> actualToolNotifications = actualLog.Runs[0].Invocations?[0]?.ToolNotifications;
+            IList<Notification> expectedToolNotifications = expectedLog.Runs[0].Invocations[0]?.ToolNotifications;
 
             SelectiveCompare(actualToolNotifications, expectedToolNotifications);
 
-            IDictionary<string, Rule> actualRules = actualLog.Runs[0].Resources?.Rules;
-            IDictionary<string, Rule> expectedRules = expectedLog.Runs[0].Resources?.Rules;
+            IList<Rule> actualRules = actualLog.Runs[0].Resources?.Rules;
+            IList<Rule> expectedRules = expectedLog.Runs[0].Resources?.Rules;
 
             SelectiveCompare(actualRules, expectedRules);
         }
 
-        private static void SelectiveCompare(Notification[] actualNotifications, Notification[] expectedNotifications)
+        private static void SelectiveCompare(IList<Notification> actualNotifications, IList<Notification> expectedNotifications)
         {
-            bool actualHasNotifications = actualNotifications != null && actualNotifications.Length > 0;
-            bool expectedHasNotifications = expectedNotifications != null && expectedNotifications.Length > 0;
+            bool actualHasNotifications = actualNotifications != null && actualNotifications.Count > 0;
+            bool expectedHasNotifications = expectedNotifications != null && expectedNotifications.Count > 0;
             actualHasNotifications.Should().Be(expectedHasNotifications);
 
             if (actualHasNotifications && expectedHasNotifications)
             {
-                actualNotifications.Length.Should().Be(expectedNotifications.Length);
+                actualNotifications.Count.Should().Be(expectedNotifications.Count);
 
-                for (int i = 0; i < actualNotifications.Length; ++i)
+                for (int i = 0; i < actualNotifications.Count; ++i)
                 {
                     Notification actualNotification = actualNotifications[i];
                     Notification expectedNotification = expectedNotifications[i];
@@ -89,17 +89,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
         }
 
-        private static void SelectiveCompare(Result[] actualResults, Result[] expectedResults)
+        private static void SelectiveCompare(IList<Result> actualResults, IList<Result> expectedResults)
         {
-            bool actualHasResults = actualResults != null && actualResults.Length > 0;
-            bool expectedHasResults = expectedResults != null && expectedResults.Length > 0;
+            bool actualHasResults = actualResults != null && actualResults.Count > 0;
+            bool expectedHasResults = expectedResults != null && expectedResults.Count > 0;
             actualHasResults.Should().Be(expectedHasResults);
 
             if (actualHasResults && expectedHasResults)
             {
-                actualResults.Length.Should().Be(expectedResults.Length);
+                actualResults.Count.Should().Be(expectedResults.Count);
 
-                for (int i = 0; i < actualResults.Length; ++i)
+                for (int i = 0; i < actualResults.Count; ++i)
                 {
                     Result actualResult = actualResults[i];
                     Result expectedResult = expectedResults[i];
@@ -114,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
         }
 
-        private static void SelectiveCompare(IDictionary<string, Rule> actualRules, IDictionary<string, Rule> expectedRules)
+        private static void SelectiveCompare(IList<Rule> actualRules, IList<Rule> expectedRules)
         {
             bool actualHasRules = actualRules != null && actualRules.Count > 0;
             bool expectedHasRules = expectedRules != null && expectedRules.Count > 0;
@@ -124,20 +124,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 actualRules.Count.Should().Be(expectedRules.Count);
 
-                foreach (string key in actualRules.Keys)
+                for (int i = 0; i < actualRules.Count; ++i)
                 {
-                    Rule actualRule = actualRules[key];
-                    Rule expectedRule;
-                    expectedRules.TryGetValue(key, out expectedRule).Should().BeTrue();
+                    Rule actualRule = actualRules[i];
+                    Rule expectedRule = expectedRules[i];
 
                     actualRule.Id.Should().Be(expectedRule.Id);
                 }
             }
-        }
-
-        private static T[] SafeListToArray<T>(IList<T> list)
-        {
-            return list == null ? null : list.ToArray();
         }
     }
 }

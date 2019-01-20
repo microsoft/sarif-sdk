@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private JsonTextWriter _jsonTextWriter;
         private OptionallyEmittedData _dataToInsert;
         private ResultLogJsonWriter _issueLogJsonWriter;
-        private Dictionary<string, Rule> _rules;
+        private IDictionary<Rule, int> _ruleToIndexMap;
 
         protected const LoggingOptions DefaultLoggingOptions = LoggingOptions.PrettyPrint;
 
@@ -192,12 +192,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _issueLogJsonWriter = new ResultLogJsonWriter(_jsonTextWriter);
         }
 
-        public Dictionary<string, Rule> Rules
+        public IDictionary<Rule, int> RuleToIndexMap
         {
             get
             {
-                _rules = _rules ?? new Dictionary<string, Rule>();
-                return _rules;
+                _ruleToIndexMap = _ruleToIndexMap ?? new Dictionary<Rule, int>(Rule.ValueComparer);
+                return _ruleToIndexMap;
             }
         }
 
@@ -231,9 +231,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 // Note: we write out the backing rules
                 // to prevent the property accessor from populating
                 // this data with an empty collection.
-                if (_rules != null)
+                if (_ruleToIndexMap != null)
                 {
-                    _issueLogJsonWriter.WriteRules(_rules);
+                    _issueLogJsonWriter.WriteRules(new List<Rule>(_ruleToIndexMap.Keys));
                 }
 
                 if (_run?.Files != null)
@@ -279,11 +279,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        public void Log(IRule rule, Result result)
+        public void Log(IRule iRule, Result result)
         {
-            if (rule == null)
+            if (iRule == null)
             {
-                throw new ArgumentNullException(nameof(rule));
+                throw new ArgumentNullException(nameof(iRule));
             }
 
             if (result == null)
@@ -291,12 +291,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentNullException(nameof(result));
             }
 
-            if (rule.Id != result.RuleId)
+            if (iRule.Id != result.RuleId)
             {
                 //The rule id '{0}' specified by the result does not match the actual id of the rule '{1}'
                 string message = string.Format(CultureInfo.InvariantCulture, SdkResources.ResultRuleIdDoesNotMatchRule,
                     result.RuleId.ToString(),
-                    rule.Id.ToString());
+                    iRule.Id.ToString());
 
                 throw new ArgumentException(message);
             }
@@ -306,12 +306,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 return;
             }
 
-            // TODO: we need to finish eliminating the IRule interface from the OM
-            // https://github.com/Microsoft/sarif-sdk/issues/1189
-            Rules[result.RuleId] = (Rule)rule;
+            result.RuleIndex = LogRule(iRule);
 
             CaptureFilesInResult(result);
             _issueLogJsonWriter.WriteResult(result);
+        }
+
+        private int LogRule(IRule iRule)
+        {
+            // TODO: we need to finish eliminating the IRule interface from the OM
+            // https://github.com/Microsoft/sarif-sdk/issues/1189
+            Rule rule = (Rule)iRule;
+
+            if (!RuleToIndexMap.TryGetValue(rule, out int ruleIndex))
+            {
+                ruleIndex = _ruleToIndexMap.Count;
+                _ruleToIndexMap[rule] = ruleIndex;
+                _run.Resources = _run.Resources ?? new Resources();
+                _run.Resources.Rules = _run.Resources.Rules ?? new List<Rule>();
+                _run.Resources.Rules.Add(rule);
+            }
+
+            return ruleIndex;
         }
 
         private void CaptureFilesInResult(Result result)
@@ -456,35 +472,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentNullException(nameof(context));
             }
 
+            int ruleIndex = -1;
             if (context.Rule != null)
             {
-                // TODO: finish removing IRule from the SDK
-                // https://github.com/Microsoft/sarif-sdk/issues/1189
-                Rules[context.Rule.Id] = (Rule)context.Rule;
+                ruleIndex = LogRule(context.Rule);
             }
 
             ruleMessageId = RuleUtilities.NormalizeRuleMessageId(ruleMessageId, context.Rule.Id);
-            LogJsonIssue(messageKind, context.TargetUri.LocalPath, region, context.Rule.Id, ruleMessageId, arguments);
+            LogJsonIssue(messageKind, context.TargetUri.LocalPath, region, context.Rule.Id, ruleIndex, ruleMessageId, arguments);
         }
 
-        private void LogJsonIssue(ResultLevel level, string targetPath, Region region, string ruleId, string ruleMessageId, params string[] arguments)
+        private void LogJsonIssue(ResultLevel level, string targetPath, Region region, string ruleId, int ruleIndex, string ruleMessageId, params string[] arguments)
         {
             if (!ShouldLog(level))
             {
                 return;
             }
 
-            Result result = new Result();
-
-            result.RuleId = ruleId;
-
-            result.Message = new Message()
+            Result result = new Result
             {
-                MessageId = ruleMessageId,
-                Arguments = arguments
+                RuleId = ruleId,
+                RuleIndex = ruleIndex,
+                Message = new Message
+                {
+                    MessageId = ruleMessageId,
+                    Arguments = arguments
+                },
+                Level = level
             };
-
-            result.Level = level;
 
             if (targetPath != null)
             {

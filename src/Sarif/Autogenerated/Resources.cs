@@ -40,11 +40,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IDictionary<string, string> MessageStrings { get; set; }
 
         /// <summary>
-        /// A dictionary, each of whose keys is a string and each of whose values is a 'rule' object, that describe all rules associated with an analysis tool or a specific run of an analysis tool.
+        /// An array of rule objects relevant to the run.
         /// </summary>
         [DataMember(Name = "rules", IsRequired = false, EmitDefaultValue = false)]
-        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.RuleDictionaryConverter))]
-        public IDictionary<string, Rule> Rules { get; set; }
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public IList<Rule> Rules { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the resources.
@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Resources(IDictionary<string, string> messageStrings, IDictionary<string, Rule> rules, IDictionary<string, SerializedPropertyInfo> properties)
+        public Resources(IDictionary<string, string> messageStrings, IEnumerable<Rule> rules, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(messageStrings, rules, properties);
         }
@@ -113,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Resources(this);
         }
 
-        private void Init(IDictionary<string, string> messageStrings, IDictionary<string, Rule> rules, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(IDictionary<string, string> messageStrings, IEnumerable<Rule> rules, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (messageStrings != null)
             {
@@ -122,11 +122,20 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (rules != null)
             {
-                Rules = new Dictionary<string, Rule>();
+                var destination_0 = new List<Rule>();
                 foreach (var value_0 in rules)
                 {
-                    Rules.Add(value_0.Key, new Rule(value_0.Value));
+                    if (value_0 == null)
+                    {
+                        destination_0.Add(null);
+                    }
+                    else
+                    {
+                        destination_0.Add(new Rule(value_0));
+                    }
                 }
+
+                Rules = destination_0;
             }
 
             if (properties != null)

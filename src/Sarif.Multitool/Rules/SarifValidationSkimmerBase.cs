@@ -134,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
         }
 
-        protected virtual void Analyze(IRule rule, string ruleKey, string rulePointer)
+        protected virtual void Analyze(IRule rule, string rulePointer)
         {
         }
         protected virtual void Analyze(Run run, string runPointer)
@@ -654,9 +654,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             string rulesPointer = resourcesPointer.AtProperty(SarifPropertyName.Rules);
 
-            foreach (string key in resources.Rules.Keys)
+            for (int i = 0; i < resources.Rules.Count; ++i)
             {
-                Visit(resources.Rules[key], key, rulesPointer.AtProperty(key));
+                Visit(resources.Rules[i], rulesPointer.AtIndex(i));
             }
         }
 
@@ -671,9 +671,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
-        private void Visit(IRule rule, string ruleKey, string rulePointer)
+        private void Visit(IRule rule, string rulePointer)
         {
-            Analyze(rule, ruleKey, rulePointer);
+            Analyze(rule, rulePointer);
 
             if (rule.ShortDescription != null)
             {

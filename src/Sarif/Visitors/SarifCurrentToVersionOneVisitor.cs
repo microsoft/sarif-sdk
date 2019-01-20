@@ -788,6 +788,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 if (_currentV2Run.Resources?.Rules != null)
                 {
+#if TRANSFORM_CODE_AUTHORED
                     IDictionary<string, Rule> rules = _currentV2Run.Resources.Rules;
 
                     if (v2Result.RuleId != null &&
@@ -801,6 +802,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         result.RuleId = v2Result.RuleId;
                     }
+#endif
                 }
                 else
                 {
@@ -883,7 +885,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     run.LogicalLocations = CreateLogicalLocationVersionOneDictionary(v2Run.LogicalLocations);
                     run.Properties = v2Run.Properties;
                     run.Results = new List<ResultVersionOne>();
+
+#if TRANSFORM_CODE_AUTHORED
                     run.Rules = v2Run.Resources?.Rules?.ToDictionary(v => v.Key, v => CreateRuleVersionOne(v.Value));
+#endif
                     run.Tool = CreateToolVersionOne(v2Run.Tool);
 
                     foreach (Result v2Result in v2Run.Results)

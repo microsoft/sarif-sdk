@@ -217,7 +217,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
 
-        public void WriteRules(IDictionary<string, Rule> rules)
+        public void WriteRules(IList<Rule> rules)
         {
             if (rules == null)
             {

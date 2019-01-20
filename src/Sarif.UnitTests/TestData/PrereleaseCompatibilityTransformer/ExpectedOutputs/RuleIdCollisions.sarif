@@ -7,30 +7,10 @@
         "name": "CodeScanner",
         "semanticVersion": "2.1.0"
       },
-      "files": [
-        {
-          "fileLocation": {
-            "uri": "file.txt",
-            "uriBaseId": "SUB",
-            "fileIndex": 0
-          },
-          "length": 3945,
-          "roles": ["addedFile"],
-          "mimeType": "text/plain"
-        },
-        {
-          "fileLocation": {
-            "uri": "file.txt",
-            "fileIndex": 1
-          },
-          "mimeType": "text/plain",
-          "encoding": "utf8"
-        }
-      ],
       "results": [
         {
-          "ruleId": "C1",
-          "ruleIndex": 0,
+          "ruleId": "SHARED-ID",
+          "ruleIndex": 1,
           "message": {
             "messageId": "a"
           },
@@ -38,18 +18,14 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "file.txt",
-                  "fileIndex": 1
+                  "uri": "file.txt"
                 }
-              },
-              "properties": {
-                "key": "file.txt"
               }
             }
           ]
         },
         {
-          "ruleId": "C1",
+          "ruleId": "SHARED-ID",
           "ruleIndex": 0,
           "message": {
             "messageId": "a"
@@ -58,12 +34,7 @@
             {
               "physicalLocation": {
                 "fileLocation": {
-                  "uri": "file.txt",
-                  "uriBaseId": "SUB",
-                  "fileIndex": 0,
-                  "properties": {
-                    "key": "#SUB#file.txt"
-                  }
+                  "uri": "file.png"
                 }
               }
             }
@@ -73,7 +44,13 @@
       "resources": {
         "rules": [
           {
-            "id": "C1",
+            "id": "SHARED-ID",
+            "messageStrings": {
+              "a": "Review all image content for geopolitically sensitive graphics."
+            }
+          },
+          {
+            "id": "SHARED-ID",
             "messageStrings": {
               "a": "Review all plaintext content for geopolitically sensitive terms."
             }

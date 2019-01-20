@@ -29,6 +29,7 @@
       "results": [
         {
           "ruleId": "31D4607A-A3FF-447C-908A-CA2BBE4CE4B7",
+          "ruleIndex": 0,
           "message": {
             "text": "Sample abstract text. SQL injection vulnerability."
           },
@@ -127,8 +128,8 @@
         }
       ],
       "resources": {
-        "rules": {
-          "31D4607A-A3FF-447C-908A-CA2BBE4CE4B7": {
+        "rules": [
+          {
             "id": "31D4607A-A3FF-447C-908A-CA2BBE4CE4B7",
             "shortDescription": {
               "text": "Sample abstract text. SQL injection vulnerability."
@@ -137,7 +138,7 @@
               "text": "The quick brown fox jumps over the lazy dog.\nThis section explains the rule in detail."
             }
           }
-        }
+        ]
       }
     }
   ]
