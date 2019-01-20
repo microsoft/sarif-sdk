@@ -44,21 +44,23 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
         [Fact]
         public void SarifTransformerTests_ToVersionOne_OneRunWithFiles() => RunTest("OneRunWithFiles.sarif");
 
+#if TRANSFORM_CODE_AUTHORED
         [Fact]
         public void SarifTransformerTests_ToVersionOne_OneRunWithRules() => RunTest("OneRunWithRules.sarif");
-
+#endif
         [Fact]
         public void SarifTransformerTests_ToVersionOne_OneRunWithBasicInvocation() => RunTest("OneRunWithBasicInvocation.sarif");
 
         [Fact]
         public void SarifTransformerTests_ToVersionOne_NotificationExceptionWithStack() => RunTest("NotificationExceptionWithStack.sarif");
 
+#if TRANSFORM_CODE_AUTHORED
         [Fact]
         public void SarifTransformerTests_ToVersionOne_ResultLocations() => RunTest("ResultLocations.sarif");
 
         [Fact]
         public void SarifTransformerTests_ToVersionOne_TwoResultsWithFixes() => RunTest("TwoResultsWithFixes.sarif");
-
+#endif
         [Fact]
         public void SarifTransformerTests_ToVersionOne_Regions() => RunTest("Regions.sarif");
     }

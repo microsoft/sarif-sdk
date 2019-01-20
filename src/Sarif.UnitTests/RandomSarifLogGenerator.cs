@@ -132,13 +132,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             return files;
         }
 
-        public static IDictionary<string, Rule> GenerateRules(List<string> ruleIds)
+        public static IList<Rule> GenerateRules(List<string> ruleIds)
         {
-            Dictionary<string, Rule> dictionary = new Dictionary<string, Rule>();
+            var rules = new List<Rule>();
 
             foreach (var ruleId in ruleIds)
             {
-                dictionary.Add(ruleId, 
+                rules.Add( 
                     new Rule()
                     {
                         Id = ruleId,
@@ -148,7 +148,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         }
                     });
             }
-            return dictionary;
+            return rules;
         }
     }
 }

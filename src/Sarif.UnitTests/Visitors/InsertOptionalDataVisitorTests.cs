@@ -111,6 +111,103 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
+        public void InsertOptionalDataVisitorTests_FlattensGlobalMessageString()
+        {
+            string ruleId = nameof(ruleId);
+            string globalMessageId = nameof(globalMessageId);
+            string globalMessageValue = nameof(globalMessageValue);
+
+            var run = new Run
+            {
+                Results = new List<Result>
+                {
+                    new Result
+                    {
+                        RuleId = ruleId,
+                        RuleIndex = 0,
+                        Message = new Message
+                        {
+                             MessageId = globalMessageId
+                        }
+                    }
+                },
+                Resources = new Resources
+                {
+                    MessageStrings = new Dictionary<string, string>
+                    {
+                        [globalMessageId] = globalMessageValue
+                    },
+                    Rules = new List<Rule>
+                    {
+                        new Rule
+                        {
+                            Id = ruleId
+                        }
+                    }
+                }
+            };
+
+            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.FlattenedMessages);
+            visitor.Visit(run);
+
+            run.Results[0].Message.Text.Should().Be(globalMessageValue);
+        }
+
+
+        [Fact]
+        public void InsertOptionalDataVisitorTests_FlattensFixMessage()
+        {
+            string ruleId = nameof(ruleId);
+            string globalMessageId = nameof(globalMessageId);
+            string globalMessageValue = nameof(globalMessageValue);
+
+            var run = new Run
+            {
+                Results = new List<Result>
+                {
+                    new Result
+                    {
+                        RuleId = ruleId,
+                        RuleIndex = 0,
+                        Message = new Message
+                        {
+                             Text = "Some testing occurred."
+                        },
+                        Fixes = new List<Fix>
+                        {
+                            new Fix
+                            {
+                                Description = new Message
+                                {
+                                    MessageId = globalMessageId
+                                }
+                            }
+                        }
+                    }
+                },
+                Resources = new Resources
+                {
+                    MessageStrings = new Dictionary<string, string>
+                    {
+                        [globalMessageId] = globalMessageValue
+                    },
+                    Rules = new List<Rule>
+                    {
+                        new Rule
+                        {
+                            Id = ruleId
+                        }
+                    }
+                }
+            };
+
+            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.FlattenedMessages);
+            visitor.Visit(run);
+
+            run.Results[0].Fixes[0].Description.Text.Should().Be(globalMessageValue);
+        }
+
+        [Fact]
         public void InsertOptionalDataVisitorTests_ResolvesOriginalUriBaseIds()
         {
             string inputFileName = "InsertOptionalDataVisitor.txt";

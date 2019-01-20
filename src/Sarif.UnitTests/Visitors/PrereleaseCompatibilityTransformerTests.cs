@@ -40,5 +40,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             RunTest("ComprehensiveFileProperties.sarif");
         }
+
+        [Fact]
+        public void PrereleaseCompatibilityTransformer_RuleIdCollisions()
+        {
+            RunTest("RuleIdCollisions.sarif");
+        }
     }
 }

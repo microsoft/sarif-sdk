@@ -43,6 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             Dictionary<string, int> fullyQualifiedLogicalNameToIndexMap = null;
             Dictionary<string, int> fileLocationKeyToIndexMap = null;
+            Dictionary<string, int> ruleKeyToIndexMap = null;
 
             switch (version)
             {
@@ -58,7 +59,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC25ThroughTC28(
                         sarifLog, 
                         out fullyQualifiedLogicalNameToIndexMap,
-                        out fileLocationKeyToIndexMap);
+                        out fileLocationKeyToIndexMap,
+                        out ruleKeyToIndexMap);
                     break;
                 }
 
@@ -68,7 +70,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC25ThroughTC28(
                         sarifLog, 
                         out fullyQualifiedLogicalNameToIndexMap,
-                        out fileLocationKeyToIndexMap);
+                        out fileLocationKeyToIndexMap,
+                        out ruleKeyToIndexMap);
                     break;
                 }
             }
@@ -76,11 +79,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             SarifLog transformedSarifLog = null;
             var settings = new JsonSerializerSettings { Formatting = formatting, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate };
 
-            if (fullyQualifiedLogicalNameToIndexMap != null  || fileLocationKeyToIndexMap != null)
+            if (fullyQualifiedLogicalNameToIndexMap != null  || fileLocationKeyToIndexMap != null || ruleKeyToIndexMap != null)
             {
-                Debug.Assert(modifiedLog == true);
                 transformedSarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifLog.ToString());
-                var indexUpdatingVisitor = new UpdateIndicesVisitor(fullyQualifiedLogicalNameToIndexMap, fileLocationKeyToIndexMap);
+
+                var indexUpdatingVisitor = new UpdateIndicesVisitor(
+                    fullyQualifiedLogicalNameToIndexMap, 
+                    fileLocationKeyToIndexMap,
+                    ruleKeyToIndexMap);
+
                 indexUpdatingVisitor.Visit(transformedSarifLog);
                 updatedLog = JsonConvert.SerializeObject(transformedSarifLog, settings);
             }
@@ -105,10 +112,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private static bool ApplyChangesFromTC25ThroughTC28(
             JObject sarifLog, 
             out Dictionary<string, int> fullyQualifiedLogicalNameToIndexMap,
-            out Dictionary<string, int> keyToIndexMap)
+            out Dictionary<string, int> fileKeyToIndexMap,
+            out Dictionary<string, int> ruleKeyToIndexMap)
         {
             fullyQualifiedLogicalNameToIndexMap = null;
-            keyToIndexMap = null;
+            fileKeyToIndexMap = null;
+            ruleKeyToIndexMap = null;
 
             // Note: we could have injected the TC26 - TC28 changes into the other helpers in this
             // code. This would prevent multiple passes over things like the run.results array.
@@ -149,7 +158,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         logicalLocationToIndexMap = new Dictionary<LogicalLocation, int>(LogicalLocation.ValueComparer);
 
                         run["logicalLocations"] =
-                            ConstructLogicalLocationsArray(
+                            ConvertLogicalLocationsDictionaryToArray(
                                 logicalLocations,
                                 logicalLocationToIndexMap,
                                 out fullyQualifiedLogicalNameToIndexMap);
@@ -163,19 +172,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                     if (run["files"] is JObject files)
                     {
-                        keyToIndexMap = new Dictionary<string, int>();
+                        fileKeyToIndexMap = new Dictionary<string, int>();
 
                         run["files"] =
-                            ConstructFilesArray(
+                            ConvertFilesDictionaryToArray(
                                 files,
-                                keyToIndexMap);
+                                fileKeyToIndexMap);
 
-                        modifiedLog |= keyToIndexMap.Count > 0;
+                        modifiedLog |= fileKeyToIndexMap.Count > 0;
                     }
 
+                    if (run["resources"] is JObject resources)
+                    {
+                        // Remove 'open' from rule configuration default level enumeration
+                        // https://github.com/oasis-tcs/sarif-spec/issues/288
+                        modifiedLog |= RemapRuleDefaultLevelFromOpenToNote(resources);
 
-                    var results = (JArray)run["results"];
-                    if (results != null)
+                        ruleKeyToIndexMap = new Dictionary<string, int>();
+
+                        if (resources["rules"] is JObject rules)
+                        {
+                            resources["rules"] =
+                                ConvertRulesDictionaryToArray(
+                                    rules,
+                                    ruleKeyToIndexMap);
+                        }
+
+                        modifiedLog |= ruleKeyToIndexMap.Count > 0;
+                    }
+
+                    if (run["results"] is JArray results)
                     {
                         JArray rewrittenResults = null;
 
@@ -191,18 +217,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                                 result["message"] = message;
                                 modifiedLog = true;
                             }
-
-                            //// If this value is non-null, we have converted to a logical locations array
-                            //// We must therefore update every SARIF location to persist its 
-                            //// logicalLocationIndex, if relevant.
-                            //if (logicalLocations != null)
-                            //{
-                            //    var logicalLocationIndexRemapper = new LogicalLocationIndexRemapper(null, logicalLocationToIndexMap);
-                            //    var sarifResult = JsonConvert.DeserializeObject<Result>(result.ToString());
-                            //    logicalLocationIndexRemapper.Visit(sarifResult);
-                            //    rewrittenResults = rewrittenResults ?? new JArray();
-                            //    rewrittenResults.Add(JToken.Parse(JsonConvert.SerializeObject(sarifResult)));
-                            //}
                         }
 
                         if (rewrittenResults != null)
@@ -231,11 +245,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         PopulatePropertyIfAbsent(tool, "language", "en-US", ref modifiedLog);
                     }
 
-                    // Remove 'open' from rule configuration default level enumeration
-                    // https://github.com/oasis-tcs/sarif-spec/issues/288
-                    JObject resources = (JObject)run["resources"];
-                    modifiedLog |= RemapRuleDefaultLevelFromOpenToNote(resources);
-
                     // Specify columnKind as ColumndKind.Utf16CodeUnits in cases where the enum is missing from
                     // the SARIF file. Moving forward, the absence of this enum will be interpreted as
                     // the new default, which is ColumnKind.UnicodeCodePoints.
@@ -247,6 +256,60 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return modifiedLog;
         }
 
+        private static JToken ConvertRulesDictionaryToArray(JObject rules, Dictionary<string, int> ruleKeyToIndexMap)
+        {
+            if (rules == null) { return null; }
+
+            Dictionary<JObject, int> jObjectToIndexMap = new Dictionary<JObject, int>();
+
+            foreach (JProperty ruleEntry in rules.Properties())
+            {
+                AddEntryToRuleToIndexMap(
+                    rules,
+                    ruleEntry.Name,
+                    (JObject)ruleEntry.Value,
+                    jObjectToIndexMap,
+                    ruleKeyToIndexMap);
+            }
+
+            var rulesArray = new JObject[jObjectToIndexMap.Count];
+
+            foreach (KeyValuePair<JObject, int> keyValuePair in jObjectToIndexMap)
+            {
+                int index = keyValuePair.Value;
+                JObject updatedFileData = keyValuePair.Key;
+                rulesArray[index] = updatedFileData;
+            }
+
+            return new JArray(rulesArray);
+        }
+
+
+        private static void AddEntryToRuleToIndexMap(JObject rulesDictionary, string key, JObject rule, Dictionary<JObject, int> jObjectToIndexMap, Dictionary<string, int> ruleKeyToIndexMap)
+        {
+            ruleKeyToIndexMap = ruleKeyToIndexMap ?? throw new ArgumentNullException(nameof(ruleKeyToIndexMap));
+            jObjectToIndexMap = jObjectToIndexMap ?? throw new ArgumentNullException(nameof(jObjectToIndexMap));
+
+            if (rule["id"] == null)
+            {
+                // This condition indicates there was no collision between the rules dictionary key
+                // and the corresponding rule id. So we will explicitly populate the rule id so
+                // this data isn't lost, compromising log readability.
+                rule["id"] = key;
+            }
+
+            if (!ruleKeyToIndexMap.TryGetValue(key, out int ruleIndex))
+            {
+                ruleIndex = ruleKeyToIndexMap.Count;
+                jObjectToIndexMap[rule] = ruleIndex;
+                ruleKeyToIndexMap[key] = ruleIndex;
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
+        }
+
         private static void PopulatePropertyIfAbsent(JObject jObject, string propertyName, string value, ref bool modifiedLog)
         {
             if (jObject != null && jObject[propertyName] == null)
@@ -256,7 +319,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        private static JToken ConstructFilesArray(JObject files, Dictionary<string, int> keyToIndexMap)
+        private static JToken ConvertFilesDictionaryToArray(JObject files, Dictionary<string, int> keyToIndexMap)
         { 
             if (files == null) { return null; }
 
@@ -272,16 +335,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     keyToIndexMap);
             }
 
-            var updatedArrayElements = new JObject[jObjectToIndexMap.Count];
+            var filesArray = new JObject[jObjectToIndexMap.Count];
 
             foreach (KeyValuePair<JObject, int> keyValuePair in jObjectToIndexMap)
             {
                 int index = keyValuePair.Value;
                 JObject updatedFileData = keyValuePair.Key;
-                updatedArrayElements[index] = updatedFileData;
+                filesArray[index] = updatedFileData;
             }
 
-            return new JArray(updatedArrayElements);
+            return new JArray(filesArray);
         }
 
         private static void AddEntryToFileLocationToIndexMap(JObject filesDictionary, string key, JObject file, Dictionary<JObject, int> jObjectToIndexMap, Dictionary<string, int> keyToIndexMap)
@@ -343,7 +406,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        private static JArray ConstructLogicalLocationsArray(
+        private static JArray ConvertLogicalLocationsDictionaryToArray(
             JObject logicalLocations,
             Dictionary<LogicalLocation, int> logicalLocationToIndexMap,
             out Dictionary<string, int> fullyQualifiedLogicalNameToIndexMap)
@@ -372,16 +435,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     fullyQualifiedLogicalNameToIndexMap);
             }
 
-            var updatedArrayElements = new JObject[jObjectToIndexMap.Count];
+            var logicalLocationsArray = new JObject[jObjectToIndexMap.Count];
 
             foreach (KeyValuePair<JObject, int> keyValuePair in jObjectToIndexMap)
             {
                 int index = keyValuePair.Value;
                 JObject updatedLogicalLocation = keyValuePair.Key;
-                updatedArrayElements[index] = updatedLogicalLocation;
+                logicalLocationsArray[index] = updatedLogicalLocation;
             }
 
-            return new JArray(updatedArrayElements);
+            return new JArray(logicalLocationsArray);
         }
 
         private static void AddEntryToFullyQualifiedNameToIndexMap(
@@ -477,6 +540,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     // reasonable level to associate with this class of report, if it is emitted. In 
                     // practice, we don't expect that a current producer exists who is in this condition.
                     configuration["defaultLevel"] = "note";
+                    modifiedResources = true;
                 }
             }
 

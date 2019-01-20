@@ -33,6 +33,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.RuleIndex != right.RuleIndex)
+            {
+                return false;
+            }
+
             if (left.Level != right.Level)
             {
                 return false;
@@ -362,6 +367,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.RuleId.GetHashCode();
                 }
 
+                result = (result * 31) + obj.RuleIndex.GetHashCode();
                 result = (result * 31) + obj.Level.GetHashCode();
                 if (obj.Message != null)
                 {
