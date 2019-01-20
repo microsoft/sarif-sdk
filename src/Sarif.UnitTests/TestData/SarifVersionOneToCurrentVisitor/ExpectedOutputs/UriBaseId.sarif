@@ -11,8 +11,23 @@
         {
           "fileLocation": {
             "uri": "file.txt",
-            "uriBaseId": "SRCROOT",
             "fileIndex": 0
+          },
+          "mimeType": "text/plain"
+        },
+        {
+          "fileLocation": {
+            "uri": "file.txt",
+            "uriBaseId": "SRCROOT",
+            "fileIndex": 1
+          },
+          "mimeType": "text/plain"
+        },
+        {
+          "fileLocation": {
+            "uri": "file.txt",
+            "uriBaseId": "TESTROOT",
+            "fileIndex": 2
           },
           "mimeType": "text/plain"
         }
@@ -28,12 +43,51 @@
               "physicalLocation": {
                 "fileLocation": {
                   "uri": "file.txt",
-                  "uriBaseId": "SRCROOT",
                   "fileIndex": 0
                 }
               },
               "properties": {
+                "key": "file.txt"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "C1",
+          "message": {
+            "text": "a"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file.txt",
+                  "uriBaseId": "SRCROOT",
+                  "fileIndex": 1
+                }
+              },
+              "properties": {
                 "key": "#SRCROOT#file.txt"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "C1",
+          "message": {
+            "text": "a"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file.txt",
+                  "uriBaseId": "TESTROOT",
+                  "fileIndex": 2
+                }
+              },
+              "properties": {
+                "key": "#TESTROOT#file.txt"
               }
             }
           ]
