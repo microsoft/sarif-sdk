@@ -181,6 +181,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 };
 
                 fileData.FileLocation = FileLocation.CreateFromFilesDictionaryKey(key, parentKey);
+                fileData.FileLocation.UriBaseId = v1FileData.UriBaseId;
                 fileData.FileLocation.FileIndex = _v1FileKeytoV2IndexMap[key];
 
                 if (v1FileData.Contents != null)
@@ -871,7 +872,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     _currentV1Run = v1Run;
 
-                    _v1FileKeytoV2IndexMap = CreateFileKeyToIndexMappings(v1Run.Files);
+                    _v1FileKeytoV2IndexMap = CreateFileKeyToIndexMapping(v1Run.Files);
 
                     RunAutomationDetails id = null;
                     RunAutomationDetails[] aggregateIds = null;
@@ -998,7 +999,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return run;
         }
 
-        private static IDictionary<string, int> CreateFileKeyToIndexMappings(IDictionary<string, FileDataVersionOne> v1Files)
+        private static IDictionary<string, int> CreateFileKeyToIndexMapping(IDictionary<string, FileDataVersionOne> v1Files)
         {
             var v1FileKeyToV2IndexMap = new Dictionary<string, int>();
 
