@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner",
+        "semanticVersion": "2.1.0"
+      },
+      "files": {
+        "file://c:/archive_one.zip#/file.txt": {
+          "mimeType": "text/plain",
+          "parentKey": "file://c:/archive_one.zip",
+          "uri": "/file.txt"
+        },
+        "file://c:/archive_one.zip": {
+          "mimeType": "application/zip"
+        },
+        "file.txt": {
+          "mimeType": "text/plain"
+        },
+        "file://c:/archive_one.zip#/archive_two.zip/file.txt": {
+          "mimeType": "text/plain",
+          "parentKey": "file://c:/archive_one.zip#/archive_two.zip",
+          "uri": "/file.txt"
+        },
+        "file://c:/archive_one.zip#/archive_two.zip": {
+          "mimeType": "application/zip",
+          "parentKey": "file://c:/archive_one.zip",
+          "uri": "/archive_two.zip"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "C1",
+          "message": "a",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file.txt"
+              },
+              "properties": {
+                "key": "file.txt"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "C1",
+          "message": "a",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file://c:/archive_one.zip#/file.txt"
+              },
+              "properties": { "key": "file://c:/archive_one.zip#/file.txt" }
+            }
+          ]
+        },
+        {
+          "ruleId": "C1",
+          "message": "a",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file://c:/archive_one.zip#/archive_two.zip/file.txt"
+              },
+              "properties": { "key": "file://c:/archive_one.zip#/archive_two.zip/file.txt" }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -23,13 +23,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private int _threadFlowLocationNestingLevel;
         private IDictionary<string, int> _v1FileKeytoV2IndexMap;
 
-        // We use Tuple containing a uri, uriBaseId pair, rather than using a FileLocation object
-        // as the dictionary key.This is because when we create a new FileLocation object and try
-        // to decide if it's present in Run.Files, the FileIndex properties will never match (the
-        // FileLocation objects in Run.Files have the property, whereas newly created FileLocation
-        // objects have it set to its default of -1). We just want to compare the URI and uriBaseId.
-        private IDictionary<Tuple<Uri, string>, int> _v2FileToIndexMap;
-
         private IDictionary<string, string> _v1KeyToFullyQualifiedNameMap;
         private IDictionary<LogicalLocation, int> _v2LogicalLocationToIndexMap;
         private IDictionary<string, LogicalLocation> _v1KeyToV2LogicalLocationMap;
@@ -188,6 +181,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 };
 
                 fileData.FileLocation = FileLocation.CreateFromFilesDictionaryKey(key, parentKey);
+                fileData.FileLocation.UriBaseId = v1FileData.UriBaseId;
                 fileData.FileLocation.FileIndex = _v1FileKeytoV2IndexMap[key];
 
                 if (v1FileData.Contents != null)
@@ -214,9 +208,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (uri != null)
             {
-                var fileToIndexKey = new Tuple<Uri, string>(uri, uriBaseId);
-
-                if (_v2FileToIndexMap.TryGetValue(fileToIndexKey, out int fileIndex))
+                if (_v1FileKeytoV2IndexMap.TryGetValue(uri.OriginalString, out int fileIndex))
                 {
                     fileLocation = _currentRun.Files[fileIndex].FileLocation;
                 }
@@ -343,7 +335,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 location = new Location
                 {
                     FullyQualifiedLogicalName = v1Location.FullyQualifiedLogicalName,
-                    PhysicalLocation = CreatePhysicalLocation(v1Location.ResultFile),
+                    PhysicalLocation = CreatePhysicalLocation(v1Location.ResultFile ?? v1Location.AnalysisTarget),
                     Properties = v1Location.Properties
                 };
 
@@ -733,7 +725,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 };
 
                 // The spec says that analysisTarget is required only if it differs from the result file.
-                if (v1Result.Locations?[0]?.AnalysisTarget?.Uri != v1Result.Locations?[0]?.ResultFile?.Uri)
+                Uri analysisTargetUri = v1Result.Locations?[0]?.AnalysisTarget?.Uri;
+                Uri resultFileUri = v1Result.Locations?[0]?.ResultFile?.Uri;
+                if (analysisTargetUri != null && resultFileUri != null && analysisTargetUri != resultFileUri)
                 {
                     result.AnalysisTarget = CreateFileLocation(v1Result.Locations[0].AnalysisTarget);
                 }
@@ -880,7 +874,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     _currentV1Run = v1Run;
 
-                    CreateFileKeyToIndexMappings(v1Run.Files, out _v1FileKeytoV2IndexMap, out _v2FileToIndexMap);
+                    _v1FileKeytoV2IndexMap = CreateFileKeyToIndexMapping(v1Run.Files);
 
                     RunAutomationDetails id = null;
                     RunAutomationDetails[] aggregateIds = null;
@@ -1009,27 +1003,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return run;
         }
 
-        private static void CreateFileKeyToIndexMappings(
-            IDictionary<string, FileDataVersionOne> v1Files,
-            out IDictionary<string, int> v1FileKeyToV2IndexMap,
-            out IDictionary<Tuple<Uri, string>, int> v2FileToIndexMap)
+        private static IDictionary<string, int> CreateFileKeyToIndexMapping(IDictionary<string, FileDataVersionOne> v1Files)
         {
-            v1FileKeyToV2IndexMap = new Dictionary<string, int>();
-            v2FileToIndexMap = new Dictionary<Tuple<Uri, string>, int>();
+            var v1FileKeyToV2IndexMap = new Dictionary<string, int>();
 
             if (v1Files != null)
             {
                 int index = 0;
                 foreach (KeyValuePair<string, FileDataVersionOne> entry in v1Files)
                 {
-                    v1FileKeyToV2IndexMap[entry.Key] = index;
-
-                    FileLocation keyFileLocation = FileLocation.CreateFromFilesDictionaryKey(entry.Key, entry.Value.ParentKey);
-                    v2FileToIndexMap[new Tuple<Uri, string>(keyFileLocation.Uri, keyFileLocation.UriBaseId)] = index;
-
-                    ++index;
+                    v1FileKeyToV2IndexMap[entry.Key] = index++;
                 }
             }
+
+            return v1FileKeyToV2IndexMap;
         }
 
         private void PopulateLogicalLocation(

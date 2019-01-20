@@ -75,6 +75,7 @@
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\Minimum.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\MinimumWithPropertiesAndTags.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\MinimumWithTwoRuns.sarif" />
+    <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\NestedFiles.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\NotificationExceptionWithStack.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\OneRunWithBasicInvocation.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\OneRunWithFiles.sarif" />
@@ -84,9 +85,11 @@
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\OneRunWithRules.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\RestoreFromPropertyBag.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\TwoResultsWithFixes.sarif" />
+    <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\UriBaseId.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\BasicResult.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\CodeFlows.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\Minimum.sarif" />
+    <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\NestedFiles.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\MinimumWithPropertiesAndTags.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\MinimumWithTwoRuns.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\NotificationExceptionWithStack.sarif" />
@@ -98,6 +101,7 @@
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\OneRunWithRules.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\RestoreFromPropertyBag.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\TwoResultsWithFixes.sarif" />
+    <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\UriBaseId.sarif" />
   </ItemGroup>
 
   <ItemGroup>
@@ -145,6 +149,7 @@
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\Minimum.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\MinimumWithPropertiesAndTags.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\MinimumWithTwoRuns.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\NestedFiles.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\NotificationExceptionWithStack.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\OneRunWithBasicInvocation.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\OneRunWithFiles.sarif" />
@@ -154,11 +159,13 @@
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\OneRunWithRules.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\RestoreFromPropertyBag.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\TwoResultsWithFixes.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\UriBaseId.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\BasicResult.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\CodeFlows.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\Minimum.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\MinimumWithPropertiesAndTags.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\MinimumWithTwoRuns.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\NestedFiles.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\NotificationExceptionWithStack.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\OneRunWithBasicInvocation.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\OneRunWithFiles.sarif" />
@@ -168,6 +175,7 @@
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\OneRunWithRules.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\RestoreFromPropertyBag.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\TwoResultsWithFixes.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\UriBaseId.sarif" />
   </ItemGroup>
 
   <ItemGroup>
@@ -223,4 +231,6 @@
     <None Include="$(SolutionDir)\Sarif.FunctionalTests\v2\SpecExamples\Comprehensive.sarif" CopyToOutputDirectory="PreserveNewest" LinkBase="v2\SpecExamples" />
     <None Include="$(SolutionDir)\Sarif.FunctionalTests\v2\ObsoleteFormats\ComprehensivePrereleaseTwoZeroZero.sarif" CopyToOutputDirectory="PreserveNewest" LinkBase="v2\ObsoleteFormats" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 </Project>

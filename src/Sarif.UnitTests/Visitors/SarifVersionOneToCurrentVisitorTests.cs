@@ -41,6 +41,10 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
             => RunTest("MinimumWithPropertiesAndTags.sarif");
 
         [Fact]
+        public void SarifTransformerTests_ToCurrent_NestedFiles()
+            => RunTest("NestedFiles.sarif");
+
+        [Fact]
         public void SarifTransformerTests_ToCurrent_OneRunWithLogicalLocations()
             => RunTest("OneRunWithLogicalLocations.sarif");
 
@@ -77,6 +81,11 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
             => RunTest("TwoResultsWithFixes.sarif");
 #endif
         [Fact]
-        public void SarifTransformerTests_ToCurrent_CodeFlows() => RunTest("CodeFlows.sarif");
+        public void SarifTransformerTests_ToCurrent_UriBaseId()
+            => RunTest("UriBaseId.sarif");
+
+        [Fact]
+        public void SarifTransformerTests_ToCurrent_CodeFlows()
+            => RunTest("CodeFlows.sarif");
     }
 }
