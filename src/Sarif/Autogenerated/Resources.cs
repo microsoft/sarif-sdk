@@ -6,6 +6,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -42,6 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An array of rule objects relevant to the run.
         /// </summary>
         [DataMember(Name = "rules", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<Rule> Rules { get; set; }
 
         /// <summary>

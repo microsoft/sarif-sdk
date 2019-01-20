@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public bool ShouldSerializeDeprecatedIds()
         {
-            return this.DeprecatedIds?.Count(e => e != null) > 1;
+            return this.DeprecatedIds?.Count(e => e != null) > 0;
         }
     }
 }
