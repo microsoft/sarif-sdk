@@ -33,7 +33,7 @@
                 }
               },
               "properties": {
-                "key": "file.txt"
+                "key": "#SRCROOT#file.txt"
               }
             }
           ]
