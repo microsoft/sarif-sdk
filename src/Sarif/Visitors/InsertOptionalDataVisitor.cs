@@ -149,6 +149,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return base.VisitFileData(node);
         }
 
+        public override Notification VisitNotification(Notification node)
+        {
+            _ruleIndex = node.RuleIndex;
+            node = base.VisitNotification(node);
+            _ruleIndex = -1;
+
+            return node;
+        }
+
         public override Result VisitResult(Result node)
         {
             _ruleIndex = node.RuleIndex;

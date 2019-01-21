@@ -1006,6 +1006,13 @@
           "type": "string"
         },
 
+        "ruleIndex": {
+          "description": "The index within the run resources array of the rule object associated with this notification.",
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
+        },
+
         "physicalLocation": {
           "description": "The file and region relevant to this notification.",
           "$ref": "#/definitions/physicalLocation"
