@@ -101,14 +101,14 @@
         }
       ],
       "rules": {
-        "WEB1079.AttributeValueIsNotQuoted": {
+        "WEB1079": {
           "id": "WEB1079",
           "shortDescription": "The attribute value is not quoted.",
           "messageFormats": {
             "default": "The  value of the '{0}' attribute is not quoted. Wrap the attribute value in single or double quotes."
           }
         },
-        "WEB1066.TagNameIsNotLowercase": {
+        "WEB1066": {
           "id": "WEB1066",
           "shortDescription": "The tag name is not lowercase.",
           "messageFormats": {
