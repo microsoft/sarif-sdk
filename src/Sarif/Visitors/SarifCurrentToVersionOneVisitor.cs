@@ -805,7 +805,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return result;
         }
 
-        internal RuleVersionOne CreateRuleVersionOne(IRule v2IRule)
+        internal static RuleVersionOne CreateRuleVersionOne(IRule v2IRule)
         {
             RuleVersionOne rule = null;
 
@@ -870,9 +870,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     run.Properties = v2Run.Properties;
                     run.Results = new List<ResultVersionOne>();
 
-#if TRANSFORM_CODE_AUTHORED
-                    run.Rules = v2Run.Resources?.Rules?.ToDictionary(v => v.Key, v => CreateRuleVersionOne(v.Value));
-#endif
+                    run.Rules = ConvertRulesArrayToDictionary(_currentV2Run.Resources?.Rules, _v2RuleIndexToV1KeyMap);
                     run.Tool = CreateToolVersionOne(v2Run.Tool);
 
                     foreach (Result v2Result in v2Run.Results)
@@ -1060,6 +1058,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return ruleKey;
+        }
+
+        private static IDictionary<string, RuleVersionOne> ConvertRulesArrayToDictionary(
+            IList<Rule> v2Rules,
+            IDictionary<int, string> v2RuleIndexToV1KeyMap)
+        {
+            IDictionary<string, RuleVersionOne> v1Rules = null;
+
+            if (v2Rules != null)
+            {
+                v1Rules = new Dictionary<string, RuleVersionOne>();
+                for (int i = 0; i < v2Rules.Count; ++i)
+                {
+                    Rule v2Rule = v2Rules[i];
+
+                    RuleVersionOne v1Rule = CreateRuleVersionOne(v2Rule);
+                    string key = GetV1RuleKeyFromV2Index(i, v2RuleIndexToV1KeyMap);
+                    if (key == null)
+                    {
+                        key = v2Rule.Id;
+                    }
+
+                    v1Rules[key] = v1Rule;
+                }
+            }
+
+            return v1Rules;
         }
 
         internal StackVersionOne CreateStackVersionOne(Stack v2Stack)

@@ -45,10 +45,16 @@
           "defaultLevel": "error",
           "helpUri": "http://www.domain.com/rules/c2002.html"
         },
+        "C2003": {
+          "id": "C2003",
+          "name": "Rule C2003 for C#",
+          "shortDescription": "C# rules were meant to be broken.",
+          "fullDescription": "Rent internal rebellion competence biography photograph."
+        },
         "C2003-1": {
           "id": "C2003",
-          "name": "Rule C2003",
-          "shortDescription": "Rules were meant to be broken.",
+          "name": "Rule C2003 for VB",
+          "shortDescription": "VB rules were meant to be broken.",
           "fullDescription": "Rent internal rebellion competence biography photograph."
         }
       }
