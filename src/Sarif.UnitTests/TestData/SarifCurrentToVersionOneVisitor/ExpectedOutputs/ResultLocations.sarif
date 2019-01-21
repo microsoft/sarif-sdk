@@ -8,18 +8,18 @@
         "language": "en-US"
       },
       "logicalLocations": {
-        "collections::list::add": {
-          "name": "add",
-          "parentKey": "collections::list",
-          "kind": "function"
+        "collections": {
+          "kind": "namespace"
         },
         "collections::list": {
           "name": "list",
           "parentKey": "collections",
           "kind": "type"
         },
-        "collections": {
-          "kind": "namespace"
+        "collections::list::add": {
+          "name": "add",
+          "parentKey": "collections::list",
+          "kind": "function"
         }
       },
       "results": [
