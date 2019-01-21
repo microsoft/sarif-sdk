@@ -525,12 +525,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (resources == null) { return modifiedResources; }
 
-            JObject rules = (JObject)resources["rules"];
+            var rules = (JArray)resources["rules"];
             if (rules == null ) { return modifiedResources; }
 
-            foreach (JProperty rule in rules.Values<JProperty>())
+            foreach (JObject rule in rules)
             {
-                JObject configuration = (JObject)rule.Value["configuration"];
+                var configuration = (JObject)rule["configuration"];
                 if (configuration == null) { continue; }
 
                 if ("open".Equals((string)configuration["defaultLevel"]))
