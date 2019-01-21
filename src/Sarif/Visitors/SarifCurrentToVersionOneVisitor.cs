@@ -1077,6 +1077,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     string key = GetV1RuleKeyFromV2Index(i, v2RuleIndexToV1KeyMap);
                     if (key == null)
                     {
+                        // If there is only one rule with this id, then there was no need to
+                        // synthesize a unique dictionary key, and the rule id serves as the key.
                         key = v2Rule.Id;
                     }
 
