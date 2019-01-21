@@ -22,6 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             _dataToInsert = dataToInsert;
             _originalUriBaseIds = originalUriBaseIds;
+            _ruleIndex = -1;
         }
 
         public override Run VisitRun(Run node)
@@ -147,15 +148,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return base.VisitFileData(node);
-        }
-
-        public override Notification VisitNotification(Notification node)
-        {
-            _ruleIndex = node.RuleIndex;
-            node = base.VisitNotification(node);
-            _ruleIndex = -1;
-
-            return node;
         }
 
         public override Result VisitResult(Result node)

@@ -229,8 +229,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 });
             configurationNotifications.Add(toolNotifications[0]);
 
-            // Shared message id with an overriding rule id
-            run.Invocations[0].ToolNotifications.Add(
+            // Shared message id with an overriding rule id. This message 
+            // should still be retrieved from the global strings table.
+            toolNotifications.Add(
                 new Notification
                 {
                     Id = NotificationId,
@@ -239,7 +240,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 });
             configurationNotifications.Add(toolNotifications[1]);
 
-            run.Invocations[0].ToolNotifications.Add(
+            toolNotifications.Add(
                 new Notification
                 {
                     Id = NotificationId,
@@ -248,15 +249,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 });
             configurationNotifications.Add(toolNotifications[2]);
 
-            run.Invocations[0].ToolNotifications.Add(
-                new Notification
-                {
-                    Id = NotificationId,
-                    RuleIndex = RuleIndex,
-                    Message = new Message { MessageId = UniqueRuleMessageId }
-                });
-            configurationNotifications.Add(toolNotifications[3]);
-
 
             var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.FlattenedMessages);
             visitor.Visit(run);
@@ -264,14 +256,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             toolNotifications[0].Message.Text.Should().Be(SharedKeyGlobalMessageValue);
             configurationNotifications[0].Message.Text.Should().Be(SharedKeyGlobalMessageValue);
 
-            toolNotifications[1].Message.Text.Should().Be(SharedKeyRuleMessageValue);
-            configurationNotifications[1].Message.Text.Should().Be(SharedKeyRuleMessageValue);
+            toolNotifications[1].Message.Text.Should().Be(SharedKeyGlobalMessageValue);
+            configurationNotifications[1].Message.Text.Should().Be(SharedKeyGlobalMessageValue);
 
             toolNotifications[2].Message.Text.Should().Be(UniqueGlobalMessageValue);
             configurationNotifications[2].Message.Text.Should().Be(UniqueGlobalMessageValue);
-
-            toolNotifications[3].Message.Text.Should().Be(UniqueRuleMessageValue);
-            configurationNotifications[3].Message.Text.Should().Be(UniqueRuleMessageValue);
         }
 
 
