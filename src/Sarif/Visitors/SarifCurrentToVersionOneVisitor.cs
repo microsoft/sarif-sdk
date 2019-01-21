@@ -23,8 +23,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private RunVersionOne _currentRun = null;
 
         // To understand the purpose of these fields, see the comment on CreateFileKeyIndexMappings.
-        private IDictionary<string, int> _v1FileKeyToV2IndexDictionary;
-        private IDictionary<int, string> _v2FileIndexToV1KeyDictionary;
+        private IDictionary<string, int> _v1FileKeyToV2IndexMap;
+        private IDictionary<int, string> _v2FileIndexToV1KeyMap;
+
+        // To understand the purpose of this field, see the comment on CreateRuleIndexToKeyMapping.
+        private IDictionary<int, string> _v2RuleIndexToV1KeyMap;
 
         public bool EmbedVersionTwoContentInPropertyBag { get; set; }
 
@@ -155,8 +158,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (uri != null &&
                 files != null
-                && _v1FileKeyToV2IndexDictionary != null
-                && _v1FileKeyToV2IndexDictionary.TryGetValue(uri.OriginalString, out int index))
+                && _v1FileKeyToV2IndexMap != null
+                && _v1FileKeyToV2IndexMap.TryGetValue(uri.OriginalString, out int index))
             {
                 encodingName = files[index].Encoding;
             }
@@ -186,7 +189,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 int parentIndex = v2FileData.ParentIndex;
                 string parentKey = parentIndex == -1
                     ? null
-                    : _v2FileIndexToV1KeyDictionary?[parentIndex];
+                    : _v2FileIndexToV1KeyMap?[parentIndex];
 
                 fileData = new FileDataVersionOne
                 {
@@ -606,9 +609,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             string failureReason = null;
             IList<FileData> files = _currentV2Run.Files;
 
-            if (uri != null && files != null && _v1FileKeyToV2IndexDictionary != null)
+            if (uri != null && files != null && _v1FileKeyToV2IndexMap != null)
             {
-                if (_v1FileKeyToV2IndexDictionary.TryGetValue(uri.OriginalString, out int index))
+                if (_v1FileKeyToV2IndexMap.TryGetValue(uri.OriginalString, out int index))
                 {
                     FileData fileData = files[index];
 
@@ -735,7 +738,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 foreach (FileLocation fileLocation in v2ResponseFilesList)
                 {
                     string key = fileLocation.Uri.OriginalString;
-                    if (_v1FileKeyToV2IndexDictionary != null && _v1FileKeyToV2IndexDictionary.TryGetValue(key, out int responseFileIndex))
+                    if (_v1FileKeyToV2IndexMap != null && _v1FileKeyToV2IndexMap.TryGetValue(key, out int responseFileIndex))
                     {
                         FileData responseFile = _currentV2Run.Files[responseFileIndex];
                         responseFiles.Add(key, responseFile.Contents?.Text);
@@ -786,28 +789,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     }
                 }
 
-                if (_currentV2Run.Resources?.Rules != null)
-                {
-#if TRANSFORM_CODE_AUTHORED
-                    IDictionary<string, Rule> rules = _currentV2Run.Resources.Rules;
-
-                    if (v2Result.RuleId != null &&
-                        rules.TryGetValue(v2Result.RuleId, out Rule v2Rule) &&
-                        v2Rule.Id != v2Result.RuleId)
-                    {
-                        result.RuleId = v2Rule.Id;
-                        result.RuleKey = v2Result.RuleId;
-                    }
-                    else
-                    {
-                        result.RuleId = v2Result.RuleId;
-                    }
-#endif
-                }
-                else
-                {
-                    result.RuleId = v2Result.RuleId;
-                }
+                result.RuleId = v2Result.RuleId;
+                result.RuleKey = GetV1RuleKeyFromV2Index(v2Result.RuleIndex, _v2RuleIndexToV1KeyMap);
 
                 if (!string.IsNullOrWhiteSpace(v2Result.Message?.MessageId))
                 {
@@ -872,7 +855,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     run = new RunVersionOne();
                     _currentRun = run;
 
-                    CreateFileKeyIndexMappings(v2Run.Files, out _v1FileKeyToV2IndexDictionary, out _v2FileIndexToV1KeyDictionary);
+                    CreateFileKeyIndexMappings(v2Run.Files, out _v1FileKeyToV2IndexMap, out _v2FileIndexToV1KeyMap);
+                    _v2RuleIndexToV1KeyMap = CreateV2RuleIndexToV1KeyMapping(v2Run.Resources?.Rules);
 
                     run.BaselineId = v2Run.BaselineInstanceGuid;
                     run.Files = CreateFileDataVersionOneDictionary();
@@ -992,10 +976,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             Dictionary<string, FileDataVersionOne> filesVersionOne = null;
 
-            if (_v1FileKeyToV2IndexDictionary != null)
+            if (_v1FileKeyToV2IndexMap != null)
             {
                 filesVersionOne = new Dictionary<string, FileDataVersionOne>();
-                foreach (KeyValuePair<string, int> entry in _v1FileKeyToV2IndexDictionary)
+                foreach (KeyValuePair<string, int> entry in _v1FileKeyToV2IndexMap)
                 {
                     string key = entry.Key;
                     int index = entry.Value;
@@ -1030,6 +1014,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return logicalLocationsVersionOne;
+        }
+
+        private static IDictionary<int, string> CreateV2RuleIndexToV1KeyMapping(IList<Rule> rules)
+        {
+            var v2RuleIndexToV1KeyMap = new Dictionary<int, string>();
+
+            if (rules != null)
+            {
+
+            }
+
+            return v2RuleIndexToV1KeyMap;
+        }
+
+        private static string GetV1RuleKeyFromV2Index(
+            int ruleIndex,
+            IDictionary<int, string> v2RuleIndexToV1KeyMap)
+        {
+            string ruleKey = null;
+            if (0 <= ruleIndex && ruleIndex < v2RuleIndexToV1KeyMap?.Count)
+            {
+                v2RuleIndexToV1KeyMap.TryGetValue(ruleIndex, out ruleKey);
+            }
+
+            return ruleKey;
         }
 
         internal StackVersionOne CreateStackVersionOne(Stack v2Stack)
