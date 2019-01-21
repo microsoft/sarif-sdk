@@ -1016,13 +1016,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return logicalLocationsVersionOne;
         }
 
+        // In SARIF v1, run.resources.rules was a dictionary, whereas in v2 it is an array.
+        // Normally, the lookup key into the v1 rules dictionary is the rule id. But some
+        // tools allow multiple rules to have the same id. In that case we must synthesize
+        // a unique key for each rule with that id. We choose "<ruleId>-<n>", where <n> is
+        // 1 for the second occurrence, 2 for the third, and so on.
         private static IDictionary<int, string> CreateV2RuleIndexToV1KeyMapping(IList<Rule> rules)
         {
             var v2RuleIndexToV1KeyMap = new Dictionary<int, string>();
 
             if (rules != null)
             {
+                // Keep track of how many distinct rules have each id.
+                var ruleIdToCountMap = new Dictionary<string, int>();
 
+                for (int i = 0; i < rules.Count; ++i)
+                {
+                    Rule rule = rules[i];
+                    if (rule.Id != null)
+                    {
+                        ruleIdToCountMap[rule.Id] = ruleIdToCountMap.ContainsKey(rule.Id)
+                            ? ruleIdToCountMap[rule.Id] + 1
+                            : 1;
+
+                        v2RuleIndexToV1KeyMap[i] = ruleIdToCountMap[rule.Id] == 1
+                            ? null
+                            : rule.Id + '-' + (ruleIdToCountMap[rule.Id] - 1).ToString();
+                    }
+                }
             }
 
             return v2RuleIndexToV1KeyMap;
