@@ -184,10 +184,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                     if (run["resources"] is JObject resources)
                     {
-                        // Remove 'open' from rule configuration default level enumeration
-                        // https://github.com/oasis-tcs/sarif-spec/issues/288
-                        modifiedLog |= RemapRuleDefaultLevelFromOpenToNote(resources);
-
                         ruleKeyToIndexMap = new Dictionary<string, int>();
 
                         if (resources["rules"] is JObject rules)
@@ -199,6 +195,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         }
 
                         modifiedLog |= ruleKeyToIndexMap.Count > 0;
+
+                        // Remove 'open' from rule configuration default level enumeration
+                        // https://github.com/oasis-tcs/sarif-spec/issues/288
+                        modifiedLog |= RemapRuleDefaultLevelFromOpenToNote(resources);
                     }
 
                     if (run["results"] is JArray results)
@@ -525,12 +525,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (resources == null) { return modifiedResources; }
 
-            JObject rules = (JObject)resources["rules"];
+            var rules = (JArray)resources["rules"];
             if (rules == null ) { return modifiedResources; }
 
-            foreach (JProperty rule in rules.Values<JProperty>())
+            foreach (JObject rule in rules)
             {
-                JObject configuration = (JObject)rule.Value["configuration"];
+                var configuration = (JObject)rule["configuration"];
                 if (configuration == null) { continue; }
 
                 if ("open".Equals((string)configuration["defaultLevel"]))

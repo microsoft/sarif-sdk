@@ -9,25 +9,29 @@
       },
       "results": [
         {
-          "ruleId": "C2009",
+          "ruleId": "C2001",
+          "ruleIndex":  0,
           "message": { "text": "Some testing occurred." }
         },
         {
           "ruleId": "C2002",
+          "ruleIndex": 1,
           "message": { "text": "Some testing occurred." }
         },
         {
           "ruleId": "C2003",
+          "ruleIndex": 2,
           "message": { "text": "Some testing occurred." }
         },
         {
-          "ruleId": "C2003-1",
+          "ruleId": "C2003",
+          "ruleIndex": 3,
           "message": { "text": "Some testing occurred." }
         }
       ],
       "resources": {
-        "rules": {
-          "C2001": {
+        "rules": [
+          {
             "id": "C2001",
             "shortDescription": {
               "text": "A variable was used without being initialized."
@@ -39,7 +43,7 @@
               "some_key": "FoxForceFive"
             }
           },
-          "C2002": {
+          {
             "id": "C2002",
             "fullDescription": {
               "text": "Catfish season continuous hen lamb include dose copy grant."
@@ -50,19 +54,31 @@
             },
             "helpUri": "http://www.domain.com/rules/c2002.html"
           },
-          "C2003-1": {
+          {
             "id": "C2003",
             "name": {
-              "text": "Rule C2003"
+              "text": "Rule C2003 for C#"
             },
             "shortDescription": {
-              "text": "Rules were meant to be broken."
+              "text": "C# rules were meant to be broken."
+            },
+            "fullDescription": {
+              "text": "Rent internal rebellion competence biography photograph."
+            }
+          },
+          {
+            "id": "C2003",
+            "name": {
+              "text": "Rule C2003 for VB"
+            },
+            "shortDescription": {
+              "text": "VB rules were meant to be broken."
             },
             "fullDescription": {
               "text": "Rent internal rebellion competence biography photograph."
             }
           }
-        }
+        ]
       }
     }
   ]
