@@ -47,6 +47,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string RuleId { get; set; }
 
         /// <summary>
+        /// The index within the run resources array of the rule object associated with this notification.
+        /// </summary>
+        [DataMember(Name = "ruleIndex", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(-1)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public int RuleIndex { get; set; }
+
+        /// <summary>
         /// The file and region relevant to this notification.
         /// </summary>
         [DataMember(Name = "physicalLocation", IsRequired = false, EmitDefaultValue = false)]
@@ -97,6 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public Notification()
         {
+            RuleIndex = -1;
             Level = NotificationLevel.Warning;
         }
 
@@ -108,6 +117,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </param>
         /// <param name="ruleId">
         /// An initialization value for the <see cref="P:RuleId" /> property.
+        /// </param>
+        /// <param name="ruleIndex">
+        /// An initialization value for the <see cref="P:RuleIndex" /> property.
         /// </param>
         /// <param name="physicalLocation">
         /// An initialization value for the <see cref="P:PhysicalLocation" /> property.
@@ -130,9 +142,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Notification(string id, string ruleId, PhysicalLocation physicalLocation, Message message, NotificationLevel level, int threadId, DateTime timeUtc, ExceptionData exception, IDictionary<string, SerializedPropertyInfo> properties)
+        public Notification(string id, string ruleId, int ruleIndex, PhysicalLocation physicalLocation, Message message, NotificationLevel level, int threadId, DateTime timeUtc, ExceptionData exception, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, ruleId, physicalLocation, message, level, threadId, timeUtc, exception, properties);
+            Init(id, ruleId, ruleIndex, physicalLocation, message, level, threadId, timeUtc, exception, properties);
         }
 
         /// <summary>
@@ -151,7 +163,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.RuleId, other.PhysicalLocation, other.Message, other.Level, other.ThreadId, other.TimeUtc, other.Exception, other.Properties);
+            Init(other.Id, other.RuleId, other.RuleIndex, other.PhysicalLocation, other.Message, other.Level, other.ThreadId, other.TimeUtc, other.Exception, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -172,10 +184,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Notification(this);
         }
 
-        private void Init(string id, string ruleId, PhysicalLocation physicalLocation, Message message, NotificationLevel level, int threadId, DateTime timeUtc, ExceptionData exception, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string id, string ruleId, int ruleIndex, PhysicalLocation physicalLocation, Message message, NotificationLevel level, int threadId, DateTime timeUtc, ExceptionData exception, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             RuleId = ruleId;
+            RuleIndex = ruleIndex;
             if (physicalLocation != null)
             {
                 PhysicalLocation = new PhysicalLocation(physicalLocation);

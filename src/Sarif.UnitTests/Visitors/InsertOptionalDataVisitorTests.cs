@@ -110,101 +110,230 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 OptionallyEmittedData.FlattenedMessages);
         }
 
-        [Fact]
-        public void InsertOptionalDataVisitorTests_FlattensGlobalMessageString()
-        {
-            string ruleId = nameof(ruleId);
-            string globalMessageId = nameof(globalMessageId);
-            string globalMessageValue = nameof(globalMessageValue);
+        private const int RuleIndex = 0;
+        private const string RuleId = nameof(RuleId);
+        private const string NotificationId = nameof(NotificationId);
 
+        private const string SharedMessageId = nameof(SharedMessageId);
+        private const string SharedKeyRuleMessageValue = nameof(SharedKeyRuleMessageValue);
+        private const string SharedKeyGlobalMessageValue = nameof(UniqueGlobalMessageValue);
+
+        private const string UniqueRuleMessageId = nameof(UniqueRuleMessageId);
+        private const string UniqueRuleMessageValue = nameof(UniqueRuleMessageValue);
+
+        private const string UniqueGlobalMessageId = nameof(UniqueGlobalMessageId);
+        private const string UniqueGlobalMessageValue = nameof(UniqueGlobalMessageValue);
+
+        private static Run CreateBasicRunForMessageStringLookupTesting()
+        {
+            // Returns a run object that defines unique string instances both
+            // for an individual rule and in the global strings object. Also
+            // defines values for a key that is shared between the rule object
+            // and the global table. Used for evaluating string look-up semantics.
             var run = new Run
             {
-                Results = new List<Result>
-                {
-                    new Result
-                    {
-                        RuleId = ruleId,
-                        RuleIndex = 0,
-                        Message = new Message
-                        {
-                             MessageId = globalMessageId
-                        }
-                    }
-                },
+                Results = new List<Result> { }, // add non-null collections for convenience
+                Invocations = new List<Invocation> { new Invocation { } },
                 Resources = new Resources
                 {
                     MessageStrings = new Dictionary<string, string>
                     {
-                        [globalMessageId] = globalMessageValue
+                        [UniqueGlobalMessageId] = UniqueGlobalMessageValue,
+                        [SharedMessageId] = SharedKeyGlobalMessageValue
                     },
                     Rules = new List<Rule>
                     {
                         new Rule
                         {
-                            Id = ruleId
+                            Id = RuleId,
+                            MessageStrings = new Dictionary<string, string>
+                            {
+                                [UniqueRuleMessageId] = UniqueRuleMessageValue,
+                                [SharedMessageId] = SharedKeyRuleMessageValue
+                            }
                         }
                     }
                 }
             };
 
+            run.Invocations[0].ToolNotifications = new List<Notification>();
+            run.Invocations[0].ConfigurationNotifications = new List<Notification>();
+
+            return run;
+        }
+
+        [Fact]
+        public void InsertOptionalDataVisitorTests_FlattensMessageStringsInResult()
+        {
+            Run run = CreateBasicRunForMessageStringLookupTesting();
+
+            run.Results.Add(
+                new Result
+                {
+                    RuleId = RuleId,
+                    RuleIndex = RuleIndex,
+                    Message = new Message
+                    {
+                        MessageId = UniqueGlobalMessageId
+                    }
+                });
+
+            run.Results.Add(
+                new Result
+                {
+                    RuleId = RuleId,
+                    RuleIndex = RuleIndex,
+                    Message = new Message
+                    {
+                        MessageId = UniqueRuleMessageId
+                    }
+                });
+
+
+            run.Results.Add(
+                new Result
+                {
+                    RuleId = RuleId,
+                    RuleIndex = RuleIndex,
+                    Message = new Message
+                    {
+                        MessageId = SharedMessageId
+                    }
+                });
+
+
             var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.FlattenedMessages);
             visitor.Visit(run);
 
-            run.Results[0].Message.Text.Should().Be(globalMessageValue);
+            run.Results[0].Message.Text.Should().Be(UniqueGlobalMessageValue);
+            run.Results[1].Message.Text.Should().Be(UniqueRuleMessageValue);
+
+            // Prefer rule-specific value in the event of a message id collision
+            run.Results[2].Message.Text.Should().Be(SharedKeyRuleMessageValue);
+        }
+
+        [Fact]
+        public void InsertOptionalDataVisitorTests_FlattensMessageStringsInNotification()
+        {
+            Run run = CreateBasicRunForMessageStringLookupTesting();
+
+            IList<Notification> toolNotifications = run.Invocations[0].ToolNotifications;
+            IList<Notification> configurationNotifications = run.Invocations[0].ConfigurationNotifications;
+
+            // Shared message id with no overriding rule id
+            toolNotifications.Add(
+                new Notification
+                {
+                    Id = NotificationId,
+                    Message = new Message {  MessageId = SharedMessageId}
+                });
+            configurationNotifications.Add(toolNotifications[0]);
+
+            // Shared message id with an overriding rule id. This message 
+            // should still be retrieved from the global strings table.
+            toolNotifications.Add(
+                new Notification
+                {
+                    Id = NotificationId,
+                    RuleIndex = RuleIndex,
+                    Message = new Message { MessageId = SharedMessageId }
+                });
+            configurationNotifications.Add(toolNotifications[1]);
+
+            toolNotifications.Add(
+                new Notification
+                {
+                    Id = NotificationId,
+                    RuleIndex = RuleIndex,
+                    Message = new Message { MessageId = UniqueGlobalMessageId }
+                });
+            configurationNotifications.Add(toolNotifications[2]);
+
+
+            var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.FlattenedMessages);
+            visitor.Visit(run);
+
+            toolNotifications[0].Message.Text.Should().Be(SharedKeyGlobalMessageValue);
+            configurationNotifications[0].Message.Text.Should().Be(SharedKeyGlobalMessageValue);
+
+            toolNotifications[1].Message.Text.Should().Be(SharedKeyGlobalMessageValue);
+            configurationNotifications[1].Message.Text.Should().Be(SharedKeyGlobalMessageValue);
+
+            toolNotifications[2].Message.Text.Should().Be(UniqueGlobalMessageValue);
+            configurationNotifications[2].Message.Text.Should().Be(UniqueGlobalMessageValue);
         }
 
 
         [Fact]
-        public void InsertOptionalDataVisitorTests_FlattensFixMessage()
+        public void InsertOptionalDataVisitorTests_FlattensMessageStringsInFix()
         {
-            string ruleId = nameof(ruleId);
-            string globalMessageId = nameof(globalMessageId);
-            string globalMessageValue = nameof(globalMessageValue);
+            Run run = CreateBasicRunForMessageStringLookupTesting();
 
-            var run = new Run
-            {
-                Results = new List<Result>
+            run.Results.Add(
+                new Result
                 {
-                    new Result
+                    RuleId = RuleId,
+                    RuleIndex = RuleIndex,
+                    Message = new Message
                     {
-                        RuleId = ruleId,
-                        RuleIndex = 0,
-                        Message = new Message
+                        Text = "Some testing occurred."
+                    },
+                    Fixes = new List<Fix>
+                    {
+                        new Fix
                         {
-                             Text = "Some testing occurred."
-                        },
-                        Fixes = new List<Fix>
-                        {
-                            new Fix
+                            Description = new Message
                             {
-                                Description = new Message
-                                {
-                                    MessageId = globalMessageId
-                                }
+                                MessageId = UniqueGlobalMessageId
+                            }
+                        },
+                        new Fix
+                        {
+                            Description = new Message
+                            {
+                                MessageId = UniqueRuleMessageId
+                            }
+                        },
+                        new Fix
+                        {
+                            Description = new Message
+                            {
+                                MessageId = SharedMessageId
                             }
                         }
                     }
-                },
-                Resources = new Resources
+                });
+            run.Results.Add(
+                new Result
                 {
-                    MessageStrings = new Dictionary<string, string>
+                    RuleId = "RuleWithNoRulesMetadata",
+                    Message = new Message
                     {
-                        [globalMessageId] = globalMessageValue
+                        Text = "Some testing occurred."
                     },
-                    Rules = new List<Rule>
+                    Fixes = new List<Fix>
                     {
-                        new Rule
+                        new Fix
                         {
-                            Id = ruleId
+                            Description = new Message
+                            {
+                                MessageId = SharedMessageId
+                            }
                         }
                     }
-                }
-            };
+                });
 
             var visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.FlattenedMessages);
             visitor.Visit(run);
 
-            run.Results[0].Fixes[0].Description.Text.Should().Be(globalMessageValue);
+            run.Results[0].Fixes[0].Description.Text.Should().Be(UniqueGlobalMessageValue);
+            run.Results[0].Fixes[1].Description.Text.Should().Be(UniqueRuleMessageValue);
+
+            // Prefer rule-specific value in the event of a message id collision
+            run.Results[0].Fixes[2].Description.Text.Should().Be(SharedKeyRuleMessageValue);
+
+            // Prefer global value in the event of no rules metadata
+            run.Results[1].Fixes[0].Description.Text.Should().Be(SharedKeyGlobalMessageValue);
         }
 
         [Fact]

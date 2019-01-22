@@ -22,6 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             _dataToInsert = dataToInsert;
             _originalUriBaseIds = originalUriBaseIds;
+            _ruleIndex = -1;
         }
 
         public override Run VisitRun(Run node)
