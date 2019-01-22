@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta.2018-10-10 JSON Schema",
+  "title": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta.2018-11-28 JSON Schema",
   "description": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2018-11-28 JSON Schema: a standard format for the output of static analysis tools.",
   "additionalProperties": false,
   "type": "object",
@@ -347,7 +347,7 @@
           "description": "An array of external property files containing run.results arrays to be merged with the root log file.",
           "type": "array",
           "minItems": 1,
-          "uniqueItems": true,
+          "uniqueItems": false,
           "items": {
             "$ref": "#/definitions/externalPropertyFile"
           }
@@ -1002,8 +1002,15 @@
         },
 
         "ruleId": {
-          "description": "The stable, unique identifier of the rule (if any) to which this notification is relevant. This member can be used to retrieve rule metadata from the rules dictionary, if it exists.",
+          "description": "The stable, unique identifier of the rule, if any, to which this notification is relevant.",
           "type": "string"
+        },
+
+        "ruleIndex": {
+          "description": "The index within the run resources array of the rule object, if any, associated with this notification.",
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
         },
 
         "physicalLocation": {
@@ -1274,7 +1281,7 @@
       "properties": {
 
         "ruleId": {
-          "description": "The stable, unique identifier of the rule (if any) to which this notification is relevant. This member can be used to retrieve rule metadata from the rules dictionary, if it exists.",
+          "description": "The stable, unique identifier of the rule, if any, to which this notification is relevant. This member can be used to retrieve rule metadata from the rules dictionary, if it exists.",
           "type": "string"
         },
 

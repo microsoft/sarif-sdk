@@ -23,8 +23,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private RunVersionOne _currentRun = null;
 
         // To understand the purpose of these fields, see the comment on CreateFileKeyIndexMappings.
-        private IDictionary<string, int> _v1FileKeyToV2IndexDictionary;
-        private IDictionary<int, string> _v2FileIndexToV1KeyDictionary;
+        private IDictionary<string, int> _v1FileKeyToV2IndexMap;
+        private IDictionary<int, string> _v2FileIndexToV1KeyMap;
+
+        // To understand the purpose of this field, see the comment on CreateRuleIndexToKeyMapping.
+        private IDictionary<int, string> _v2RuleIndexToV1KeyMap;
 
         public bool EmbedVersionTwoContentInPropertyBag { get; set; }
 
@@ -155,8 +158,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (uri != null &&
                 files != null
-                && _v1FileKeyToV2IndexDictionary != null
-                && _v1FileKeyToV2IndexDictionary.TryGetValue(uri.OriginalString, out int index))
+                && _v1FileKeyToV2IndexMap != null
+                && _v1FileKeyToV2IndexMap.TryGetValue(uri.OriginalString, out int index))
             {
                 encodingName = files[index].Encoding;
             }
@@ -186,7 +189,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 int parentIndex = v2FileData.ParentIndex;
                 string parentKey = parentIndex == -1
                     ? null
-                    : _v2FileIndexToV1KeyDictionary?[parentIndex];
+                    : _v2FileIndexToV1KeyMap?[parentIndex];
 
                 fileData = new FileDataVersionOne
                 {
@@ -606,9 +609,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             string failureReason = null;
             IList<FileData> files = _currentV2Run.Files;
 
-            if (uri != null && files != null && _v1FileKeyToV2IndexDictionary != null)
+            if (uri != null && files != null && _v1FileKeyToV2IndexMap != null)
             {
-                if (_v1FileKeyToV2IndexDictionary.TryGetValue(uri.OriginalString, out int index))
+                if (_v1FileKeyToV2IndexMap.TryGetValue(uri.OriginalString, out int index))
                 {
                     FileData fileData = files[index];
 
@@ -735,7 +738,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 foreach (FileLocation fileLocation in v2ResponseFilesList)
                 {
                     string key = fileLocation.Uri.OriginalString;
-                    if (_v1FileKeyToV2IndexDictionary != null && _v1FileKeyToV2IndexDictionary.TryGetValue(key, out int responseFileIndex))
+                    if (_v1FileKeyToV2IndexMap != null && _v1FileKeyToV2IndexMap.TryGetValue(key, out int responseFileIndex))
                     {
                         FileData responseFile = _currentV2Run.Files[responseFileIndex];
                         responseFiles.Add(key, responseFile.Contents?.Text);
@@ -786,27 +789,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     }
                 }
 
-                if (_currentV2Run.Resources?.Rules != null)
-                {
-#if TRANSFORM_CODE_AUTHORED
-                    IDictionary<string, Rule> rules = _currentV2Run.Resources.Rules;
+                result.RuleId = v2Result.RuleId;
+                string ruleKey = GetV1RuleKeyFromV2Index(v2Result.RuleIndex, _v2RuleIndexToV1KeyMap);
 
-                    if (v2Result.RuleId != null &&
-                        rules.TryGetValue(v2Result.RuleId, out Rule v2Rule) &&
-                        v2Rule.Id != v2Result.RuleId)
-                    {
-                        result.RuleId = v2Rule.Id;
-                        result.RuleKey = v2Result.RuleId;
-                    }
-                    else
-                    {
-                        result.RuleId = v2Result.RuleId;
-                    }
-#endif
-                }
-                else
+                // If the rules dictionary key is the same as the rule id, don't set result.RuleKey;
+                // leave it null. This way, we don't unnecessarily persist ruleKey in the v1 SARIF file.
+                // That is, we persist
+                //
+                //   "ruleId": "TST0001"
+                //
+                // instead of
+                //
+                //   "ruleId": "TST0001",
+                //   "ruleKey": "TST0001"
+                //
+                if (ruleKey != result.RuleId)
                 {
-                    result.RuleId = v2Result.RuleId;
+                    result.RuleKey = ruleKey;
                 }
 
                 if (!string.IsNullOrWhiteSpace(v2Result.Message?.MessageId))
@@ -822,7 +821,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return result;
         }
 
-        internal RuleVersionOne CreateRuleVersionOne(IRule v2IRule)
+        internal static RuleVersionOne CreateRuleVersionOne(IRule v2IRule)
         {
             RuleVersionOne rule = null;
 
@@ -872,7 +871,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     run = new RunVersionOne();
                     _currentRun = run;
 
-                    CreateFileKeyIndexMappings(v2Run.Files, out _v1FileKeyToV2IndexDictionary, out _v2FileIndexToV1KeyDictionary);
+                    CreateFileKeyIndexMappings(v2Run.Files, out _v1FileKeyToV2IndexMap, out _v2FileIndexToV1KeyMap);
+                    _v2RuleIndexToV1KeyMap = CreateV2RuleIndexToV1KeyMapping(v2Run.Resources?.Rules);
 
                     run.BaselineId = v2Run.BaselineInstanceGuid;
                     run.Files = CreateFileDataVersionOneDictionary();
@@ -886,9 +886,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     run.Properties = v2Run.Properties;
                     run.Results = new List<ResultVersionOne>();
 
-#if TRANSFORM_CODE_AUTHORED
-                    run.Rules = v2Run.Resources?.Rules?.ToDictionary(v => v.Key, v => CreateRuleVersionOne(v.Value));
-#endif
+                    run.Rules = ConvertRulesArrayToDictionary(_currentV2Run.Resources?.Rules, _v2RuleIndexToV1KeyMap);
                     run.Tool = CreateToolVersionOne(v2Run.Tool);
 
                     foreach (Result v2Result in v2Run.Results)
@@ -992,10 +990,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             Dictionary<string, FileDataVersionOne> filesVersionOne = null;
 
-            if (_v1FileKeyToV2IndexDictionary != null)
+            if (_v1FileKeyToV2IndexMap != null)
             {
                 filesVersionOne = new Dictionary<string, FileDataVersionOne>();
-                foreach (KeyValuePair<string, int> entry in _v1FileKeyToV2IndexDictionary)
+                foreach (KeyValuePair<string, int> entry in _v1FileKeyToV2IndexMap)
                 {
                     string key = entry.Key;
                     int index = entry.Value;
@@ -1030,6 +1028,73 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return logicalLocationsVersionOne;
+        }
+
+        // In SARIF v1, run.resources.rules was a dictionary, whereas in v2 it is an array.
+        // Normally, the lookup key into the v1 rules dictionary is the rule id. But some
+        // tools allow multiple rules to have the same id. In that case we must synthesize
+        // a unique key for each rule with that id. We choose "<ruleId>-<n>", where <n> is
+        // 1 for the second occurrence, 2 for the third, and so on.
+        private static IDictionary<int, string> CreateV2RuleIndexToV1KeyMapping(IList<Rule> rules)
+        {
+            var v2RuleIndexToV1KeyMap = new Dictionary<int, string>();
+
+            if (rules != null)
+            {
+                // Keep track of how many distinct rules have each id.
+                var ruleIdToCountMap = new Dictionary<string, int>();
+
+                for (int i = 0; i < rules.Count; ++i)
+                {
+                    string ruleId = rules[i].Id;
+                    if (ruleId != null)
+                    {
+                        ruleIdToCountMap[ruleId] = ruleIdToCountMap.ContainsKey(ruleId)
+                            ? ruleIdToCountMap[ruleId] + 1
+                            : 1;
+
+                        v2RuleIndexToV1KeyMap[i] = ruleIdToCountMap[ruleId] == 1
+                            ? ruleId
+                            : ruleId + '-' + (ruleIdToCountMap[ruleId] - 1).ToString();
+                    }
+                }
+            }
+
+            return v2RuleIndexToV1KeyMap;
+        }
+
+        private static string GetV1RuleKeyFromV2Index(
+            int ruleIndex,
+            IDictionary<int, string> v2RuleIndexToV1KeyMap)
+        {
+            v2RuleIndexToV1KeyMap.TryGetValue(ruleIndex, out string ruleKey);
+
+            // If TryGetValue returned false, ruleKey was set to default(string),
+            // otherwise known as null, which is what we want.
+            return ruleKey;
+        }
+
+        private static IDictionary<string, RuleVersionOne> ConvertRulesArrayToDictionary(
+            IList<Rule> v2Rules,
+            IDictionary<int, string> v2RuleIndexToV1KeyMap)
+        {
+            IDictionary<string, RuleVersionOne> v1Rules = null;
+
+            if (v2Rules != null)
+            {
+                v1Rules = new Dictionary<string, RuleVersionOne>();
+                for (int i = 0; i < v2Rules.Count; ++i)
+                {
+                    Rule v2Rule = v2Rules[i];
+
+                    RuleVersionOne v1Rule = CreateRuleVersionOne(v2Rule);
+                    string key = GetV1RuleKeyFromV2Index(i, v2RuleIndexToV1KeyMap);
+
+                    v1Rules[key] = v1Rule;
+                }
+            }
+
+            return v1Rules;
         }
 
         internal StackVersionOne CreateStackVersionOne(Stack v2Stack)
