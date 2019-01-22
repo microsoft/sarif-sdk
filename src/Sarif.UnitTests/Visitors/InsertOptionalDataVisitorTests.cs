@@ -116,7 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         private const string SharedMessageId = nameof(SharedMessageId);
         private const string SharedKeyRuleMessageValue = nameof(SharedKeyRuleMessageValue);
-        private const string SharedKeyGlobalMessageValue = nameof(UniqueGlobalMessageValue);
+        private const string SharedKeyGlobalMessageValue = nameof(SharedKeyGlobalMessageValue);
 
         private const string UniqueRuleMessageId = nameof(UniqueRuleMessageId);
         private const string UniqueRuleMessageValue = nameof(UniqueRuleMessageValue);
@@ -133,7 +133,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             var run = new Run
             {
                 Results = new List<Result> { }, // add non-null collections for convenience
-                Invocations = new List<Invocation> { new Invocation { } },
+                Invocations = new List<Invocation>
+                {
+                    new Invocation
+                    {
+                        ToolNotifications = new List<Notification>{ },
+                        ConfigurationNotifications = new List<Notification>{ }
+                    }
+                },
                 Resources = new Resources
                 {
                     MessageStrings = new Dictionary<string, string>
@@ -155,9 +162,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     }
                 }
             };
-
-            run.Invocations[0].ToolNotifications = new List<Notification>();
-            run.Invocations[0].ConfigurationNotifications = new List<Notification>();
 
             return run;
         }
@@ -229,23 +233,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 });
             configurationNotifications.Add(toolNotifications[0]);
 
-            // Shared message id with an overriding rule id. This message 
-            // should still be retrieved from the global strings table.
-            toolNotifications.Add(
-                new Notification
-                {
-                    Id = NotificationId,
-                    RuleIndex = RuleIndex,
-                    Message = new Message { MessageId = SharedMessageId }
-                });
-            configurationNotifications.Add(toolNotifications[1]);
 
+            // Notification that refers to a rule that does not contain a message with 
+            // the same id as the specified notification id.In this case it is no surprise
+            // that the message comes from the global string table.
             toolNotifications.Add(
                 new Notification
                 {
                     Id = NotificationId,
                     RuleIndex = RuleIndex,
                     Message = new Message { MessageId = UniqueGlobalMessageId }
+                });
+            configurationNotifications.Add(toolNotifications[1]);
+
+
+            // Notification that refers to a rule that contains a message with the same
+            // id as the specified notification message id. The message should still be
+            // retrieved from the global strings table.
+            toolNotifications.Add(
+                new Notification
+                {
+                    Id = NotificationId,
+                    RuleIndex = RuleIndex,
+                    Message = new Message { MessageId = SharedMessageId }
                 });
             configurationNotifications.Add(toolNotifications[2]);
 
@@ -256,11 +266,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             toolNotifications[0].Message.Text.Should().Be(SharedKeyGlobalMessageValue);
             configurationNotifications[0].Message.Text.Should().Be(SharedKeyGlobalMessageValue);
 
-            toolNotifications[1].Message.Text.Should().Be(SharedKeyGlobalMessageValue);
-            configurationNotifications[1].Message.Text.Should().Be(SharedKeyGlobalMessageValue);
+            toolNotifications[1].Message.Text.Should().Be(UniqueGlobalMessageValue);
+            configurationNotifications[1].Message.Text.Should().Be(UniqueGlobalMessageValue);
 
-            toolNotifications[2].Message.Text.Should().Be(UniqueGlobalMessageValue);
-            configurationNotifications[2].Message.Text.Should().Be(UniqueGlobalMessageValue);
+            toolNotifications[2].Message.Text.Should().Be(SharedKeyGlobalMessageValue);
+            configurationNotifications[2].Message.Text.Should().Be(SharedKeyGlobalMessageValue);
         }
 
 
