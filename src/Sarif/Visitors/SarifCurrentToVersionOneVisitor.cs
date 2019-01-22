@@ -790,7 +790,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
 
                 result.RuleId = v2Result.RuleId;
-                result.RuleKey = GetV1RuleKeyFromV2Index(v2Result.RuleIndex, _v2RuleIndexToV1KeyMap);
+                string ruleKey = GetV1RuleKeyFromV2Index(v2Result.RuleIndex, _v2RuleIndexToV1KeyMap);
+
+                // If the rules dictionary key is the same as the rule id, don't set result.RuleKey;
+                // leave it null. This way, we don't unnecessarily persist ruleKey in the v1 SARIF file.
+                // That is, we persist
+                //
+                //   "ruleId": "TST0001"
+                //
+                // instead of
+                //
+                //   "ruleId": "TST0001",
+                //   "ruleKey": "TST0001"
+                //
+                if (ruleKey != result.RuleId)
+                {
+                    result.RuleKey = ruleKey;
+                }
 
                 if (!string.IsNullOrWhiteSpace(v2Result.Message?.MessageId))
                 {
@@ -1030,16 +1046,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 for (int i = 0; i < rules.Count; ++i)
                 {
-                    Rule rule = rules[i];
-                    if (rule.Id != null)
+                    string ruleId = rules[i].Id;
+                    if (ruleId != null)
                     {
-                        ruleIdToCountMap[rule.Id] = ruleIdToCountMap.ContainsKey(rule.Id)
-                            ? ruleIdToCountMap[rule.Id] + 1
+                        ruleIdToCountMap[ruleId] = ruleIdToCountMap.ContainsKey(ruleId)
+                            ? ruleIdToCountMap[ruleId] + 1
                             : 1;
 
-                        v2RuleIndexToV1KeyMap[i] = ruleIdToCountMap[rule.Id] == 1
-                            ? null
-                            : rule.Id + '-' + (ruleIdToCountMap[rule.Id] - 1).ToString();
+                        v2RuleIndexToV1KeyMap[i] = ruleIdToCountMap[ruleId] == 1
+                            ? ruleId
+                            : ruleId + '-' + (ruleIdToCountMap[ruleId] - 1).ToString();
                     }
                 }
             }
@@ -1051,12 +1067,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             int ruleIndex,
             IDictionary<int, string> v2RuleIndexToV1KeyMap)
         {
-            string ruleKey = null;
-            if (0 <= ruleIndex && ruleIndex < v2RuleIndexToV1KeyMap?.Count)
-            {
-                v2RuleIndexToV1KeyMap.TryGetValue(ruleIndex, out ruleKey);
-            }
+            v2RuleIndexToV1KeyMap.TryGetValue(ruleIndex, out string ruleKey);
 
+            // If TryGetValue returned false, ruleKey was set to default(string),
+            // otherwise known as null, which is what we want.
             return ruleKey;
         }
 
@@ -1075,12 +1089,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     RuleVersionOne v1Rule = CreateRuleVersionOne(v2Rule);
                     string key = GetV1RuleKeyFromV2Index(i, v2RuleIndexToV1KeyMap);
-                    if (key == null)
-                    {
-                        // If there is only one rule with this id, then there was no need to
-                        // synthesize a unique dictionary key, and the rule id serves as the key.
-                        key = v2Rule.Id;
-                    }
 
                     v1Rules[key] = v1Rule;
                 }
