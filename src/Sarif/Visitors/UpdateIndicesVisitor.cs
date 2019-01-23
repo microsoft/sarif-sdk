@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             if (_ruleKeyToIndexMap != null)
             {
-                if (_ruleKeyToIndexMap.TryGetValue(node.RuleId, out int ruleIndex))
+                if (node.RuleId != null &&_ruleKeyToIndexMap.TryGetValue(node.RuleId, out int ruleIndex))
                 {
                     node.RuleIndex = ruleIndex;
 
