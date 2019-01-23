@@ -41,13 +41,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Id { get; set; }
 
         /// <summary>
-        /// The stable, unique identifier of the rule (if any) to which this notification is relevant. This member can be used to retrieve rule metadata from the rules dictionary, if it exists.
+        /// The stable, unique identifier of the rule, if any, to which this notification is relevant.
         /// </summary>
         [DataMember(Name = "ruleId", IsRequired = false, EmitDefaultValue = false)]
         public string RuleId { get; set; }
 
         /// <summary>
-        /// The index within the run resources array of the rule object associated with this notification.
+        /// The index within the run resources array of the rule object, if any, associated with this notification.
         /// </summary>
         [DataMember(Name = "ruleIndex", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
