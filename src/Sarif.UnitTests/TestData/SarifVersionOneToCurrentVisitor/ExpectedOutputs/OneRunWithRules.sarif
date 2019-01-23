@@ -23,7 +23,7 @@
           }
         },
         {
-          "ruleId": "C2002-1",
+          "ruleId": "C2002",
           "message": { "text": "Some testing occurred." }
         },
         {
@@ -70,9 +70,6 @@
             "configuration": {
               "defaultLevel": "note"
             }
-          },
-          "C2002-1": {
-            "id": "C2002"
           }
         }
       }
