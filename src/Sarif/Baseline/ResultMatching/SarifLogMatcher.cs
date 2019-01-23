@@ -237,7 +237,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 properties = currentRuns.Last().Properties;
             }
 
-            var remappedLogicalLocations = new Dictionary<LogicalLocation, int>();
+            var indexRemappingVisitor = new RemapIndicesVisitor();
 
             properties = properties ?? new Dictionary<string, SerializedPropertyInfo>();
 
@@ -247,8 +247,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 Result result = resultPair.CalculateBasedlinedResult(PropertyBagMergeBehavior);
                 newRunResults.Add(result);
 
-                var logicalLocationIndexRemapper = new LogicalLocationIndexRemapper(resultPair.LogicalLocations, remappedLogicalLocations);
-                logicalLocationIndexRemapper.VisitResult(result);
+                indexRemappingVisitor.HistoricalFiles = resultPair.Run.Files;
+                indexRemappingVisitor.HistoricalLogicalLocations = resultPair.Run.LogicalLocations;
+
+                indexRemappingVisitor.VisitResult(result);
             }
 
             run.Results = newRunResults;
@@ -260,26 +262,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             var messageData = new Dictionary<string, string>();
             var invocations = new List<Invocation>();            
 
-            // Generally, we need to maintain all data from previous runs that may be associated with
-            // results. Later, we can consider eliding information that relates to absent
-            // messages (along with the baseline messages themselves that no longer recur).
-            foreach (Run previousRun in previousRuns)
-            {
-                MergeDictionaryInto(fileData, previousRun.Files, FileDataEqualityComparer.Instance);
-            }
-
             foreach (Run currentRun in currentRuns)
             {
-                if (currentRun.Files != null)
-                {
-                    MergeDictionaryInto(fileData, currentRun.Files, FileDataEqualityComparer.Instance);
-                }
-
                 if (currentRun.Resources != null)
                 {
                     if (currentRun.Resources.Rules != null)
                     {
-                        MergeDictionaryInto(ruleData, currentRun.Resources.Rules, RuleEqualityComparer.Instance);
+                        // MergeDictionaryInto(ruleData, currentRun.Resources.Rules, RuleEqualityComparer.Instance); TODO
                     }
                     if (currentRun.Resources.MessageStrings != null)
                     {
@@ -309,10 +298,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 }
             }
 
-            run.Files = fileData;
+            //TODO need to rehydrate the files table
+            //run.Files = new List<FileData>(indexRemappingVisitor._remappedFileIndices.Keys);
             run.Graphs = graphs;
-            run.LogicalLocations = new List<LogicalLocation>(remappedLogicalLocations.Keys);
-            run.Resources = new Resources() { MessageStrings = messageData, Rules = ruleData };
+            run.LogicalLocations = new List<LogicalLocation>(indexRemappingVisitor.RemappedLogicalLocationIndices.Keys);
+            //run.Resources = new Resources() { MessageStrings = messageData, Rules = ruleData }; TODO
             run.Invocations = invocations;
 
             if (properties != null && properties.Count > 0)

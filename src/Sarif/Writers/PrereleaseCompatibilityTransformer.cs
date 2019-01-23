@@ -83,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 transformedSarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifLog.ToString());
 
-                var indexUpdatingVisitor = new UpdateIndicesVisitor(
+                var indexUpdatingVisitor = new UpdateIndicesFromLegacyDataVisitor(
                     fullyQualifiedLogicalNameToIndexMap, 
                     fileLocationKeyToIndexMap,
                     ruleKeyToIndexMap);

@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
-    public class UpdateIndicesVisitorTests
+    public class UpdateIndicesFromLegacyDataVisitorTests
     {
         private readonly string _remappedUriBaseId = Guid.NewGuid().ToString();
         private readonly string _remappedFullyQualifiedName = Guid.NewGuid().ToString();
@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private readonly string _remappedFullyQualifiedLogicalName = Guid.NewGuid().ToString();
         private readonly Result _result;
 
-        public UpdateIndicesVisitorTests()
+        public UpdateIndicesFromLegacyDataVisitorTests()
         {
             _result = new Result
             {
@@ -37,11 +37,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
 
         [Fact]
-        public void UpdateIndicesVisitor_FunctionsWithNullMaps()
+        public void UpdateIndicesFromLegacyDataVisitor_FunctionsWithNullMaps()
         {
             var result = _result.DeepClone();
 
-            var visitor = new UpdateIndicesVisitor(null, null, null);
+            var visitor = new UpdateIndicesFromLegacyDataVisitor(null, null, null);
             visitor.VisitResult(result);
 
             result.Locations[0].LogicalLocationIndex.Should().Be(Int32.MaxValue);
@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
-        public void UpdateIndicesVisitor_RemapsFullyQualifiedogicalLNames()
+        public void UpdateIndicesFromLegacyDataVisitor_RemapsFullyQualifiedogicalLNames()
         {
             var result = _result.DeepClone();
             int remappedIndex = 42;
@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 [_remappedFullyQualifiedLogicalName] = remappedIndex
             };
 
-            var visitor = new UpdateIndicesVisitor(fullyQualifiedLogicalNameToIndexMap, fileLocationKeyToIndexMap: null, ruleKeyToIndexMap: null);
+            var visitor = new UpdateIndicesFromLegacyDataVisitor(fullyQualifiedLogicalNameToIndexMap, fileLocationKeyToIndexMap: null, ruleKeyToIndexMap: null);
             visitor.VisitResult(result);
 
             result.Locations[0].LogicalLocationIndex.Should().Be(remappedIndex);
@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
-        public void UpdateIndicesVisitor_RemapsFileLocations()
+        public void UpdateIndicesFromLegacyDataVisitor_RemapsFileLocations()
         {
             var result = _result.DeepClone();
             int remappedIndex = 42 * 42;
@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 ["#" + fileLocation.UriBaseId + "#" + fileLocation.Uri.OriginalString] = remappedIndex
             };
 
-            var visitor = new UpdateIndicesVisitor(fullyQualifiedLogicalNameToIndexMap: null, fileLocationKeyToIndexMap: fileLocationKeyToIndexMap, ruleKeyToIndexMap: null);
+            var visitor = new UpdateIndicesFromLegacyDataVisitor(fullyQualifiedLogicalNameToIndexMap: null, fileLocationKeyToIndexMap: fileLocationKeyToIndexMap, ruleKeyToIndexMap: null);
             visitor.VisitResult(result);
 
             result.Locations[0].LogicalLocationIndex.Should().Be(Int32.MaxValue);
@@ -87,7 +87,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
-        public void UpdateIndicesVisitor_RemapsRuleIds()
+        public void UpdateIndicesFromLegacyDataVisitor_RemapsRuleIds()
         {
             int remappedIndex = 0;
             string actualRuleId = "ActualId";
@@ -116,7 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
             };
 
-            var visitor = new UpdateIndicesVisitor(fullyQualifiedLogicalNameToIndexMap: null, fileLocationKeyToIndexMap: null, ruleKeyToIndexMap: ruleKeyToIndexMap);
+            var visitor = new UpdateIndicesFromLegacyDataVisitor(fullyQualifiedLogicalNameToIndexMap: null, fileLocationKeyToIndexMap: null, ruleKeyToIndexMap: ruleKeyToIndexMap);
             visitor.VisitRun(run);
 
             result.RuleId.Should().Be(actualRuleId);
@@ -124,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
-        public void UpdateIndicesVisitor_DoesNotMutateUnrecognizedLogicalLocation()
+        public void UpdateIndicesFromLegacyDataVisitor_DoesNotMutateUnrecognizedLogicalLocation()
         {
             var result = ConstructNewResult();
             Result originalResult = result.DeepClone();
@@ -136,14 +136,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 [_remappedFullyQualifiedLogicalName] = remappedIndex
             };
 
-            var visitor = new UpdateIndicesVisitor(fullyQualifiedLogicalNameToIndexMap, null, null);
+            var visitor = new UpdateIndicesFromLegacyDataVisitor(fullyQualifiedLogicalNameToIndexMap, null, null);
             visitor.VisitResult(result);
 
             result.ValueEquals(originalResult).Should().BeTrue();
         }
 
         [Fact]
-        public void UpdateIndicesVisitor_DoesNotMutateUnrecognizedFileLocation()
+        public void UpdateIndicesFromLegacyDataVisitor_DoesNotMutateUnrecognizedFileLocation()
         {
             var result = ConstructNewResult();
             Result originalResult = result.DeepClone();
@@ -155,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 ["#" + _remappedUriBaseId + "#" + _remappedUri] = remappedIndex
             };
 
-            var visitor = new UpdateIndicesVisitor(fullyQualifiedLogicalNameToIndexMap: null, fileLocationKeyToIndexMap: fileLocationKeyToIndexMap, null);
+            var visitor = new UpdateIndicesFromLegacyDataVisitor(fullyQualifiedLogicalNameToIndexMap: null, fileLocationKeyToIndexMap: fileLocationKeyToIndexMap, null);
             visitor.VisitResult(result);
 
             result.ValueEquals(originalResult).Should().BeTrue();

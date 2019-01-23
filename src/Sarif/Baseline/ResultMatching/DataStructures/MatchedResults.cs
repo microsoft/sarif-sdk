@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
         public IResultMatcher MatchingAlgorithm { get; set; }
 
-        public IList<LogicalLocation> LogicalLocations { get; set; }
+        public Run Run{ get; set; }
 
         /// <summary>
         /// Creates a new SARIF Result object with contents from the
@@ -85,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, PreviousResult.OriginalRun.Id.InstanceGuid);
             }
 
-            LogicalLocations = PreviousResult.OriginalRun.LogicalLocations;
+            Run = PreviousResult.OriginalRun;
 
             return result;
         }
@@ -115,7 +115,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_FoundDateName, CurrentResult.OriginalRun.Invocations[0].StartTimeUtc);
             }
 
-            LogicalLocations = CurrentResult.OriginalRun.LogicalLocations;
+            Run = CurrentResult.OriginalRun;
 
             return result;
         }
@@ -140,7 +140,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, CurrentResult.OriginalRun.Id.InstanceGuid);
             }
 
-            LogicalLocations = CurrentResult.OriginalRun.LogicalLocations;
+            Run = CurrentResult.OriginalRun;
 
             return result;
         }
