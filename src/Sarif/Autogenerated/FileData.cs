@@ -87,6 +87,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Encoding { get; set; }
 
         /// <summary>
+        /// Specifies the source language for any file object that refers to a text file that contains source code.
+        /// </summary>
+        [DataMember(Name = "sourceLanguage", IsRequired = false, EmitDefaultValue = false)]
+        public string SourceLanguage { get; set; }
+
+        /// <summary>
         /// A dictionary, each of whose keys is the name of a hash function and each of whose values is the hashed value of the file produced by the specified hash function.
         /// </summary>
         [DataMember(Name = "hashes", IsRequired = false, EmitDefaultValue = false)]
@@ -140,6 +146,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="encoding">
         /// An initialization value for the <see cref="P:Encoding" /> property.
         /// </param>
+        /// <param name="sourceLanguage">
+        /// An initialization value for the <see cref="P:SourceLanguage" /> property.
+        /// </param>
         /// <param name="hashes">
         /// An initialization value for the <see cref="P:Hashes" /> property.
         /// </param>
@@ -149,9 +158,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public FileData(FileLocation fileLocation, int parentIndex, int offset, int length, FileRoles roles, string mimeType, FileContent contents, string encoding, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
+        public FileData(FileLocation fileLocation, int parentIndex, int offset, int length, FileRoles roles, string mimeType, FileContent contents, string encoding, string sourceLanguage, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(fileLocation, parentIndex, offset, length, roles, mimeType, contents, encoding, hashes, lastModifiedTimeUtc, properties);
+            Init(fileLocation, parentIndex, offset, length, roles, mimeType, contents, encoding, sourceLanguage, hashes, lastModifiedTimeUtc, properties);
         }
 
         /// <summary>
@@ -170,7 +179,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.FileLocation, other.ParentIndex, other.Offset, other.Length, other.Roles, other.MimeType, other.Contents, other.Encoding, other.Hashes, other.LastModifiedTimeUtc, other.Properties);
+            Init(other.FileLocation, other.ParentIndex, other.Offset, other.Length, other.Roles, other.MimeType, other.Contents, other.Encoding, other.SourceLanguage, other.Hashes, other.LastModifiedTimeUtc, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -191,7 +200,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new FileData(this);
         }
 
-        private void Init(FileLocation fileLocation, int parentIndex, int offset, int length, FileRoles roles, string mimeType, FileContent contents, string encoding, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(FileLocation fileLocation, int parentIndex, int offset, int length, FileRoles roles, string mimeType, FileContent contents, string encoding, string sourceLanguage, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (fileLocation != null)
             {
@@ -209,6 +218,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             Encoding = encoding;
+            SourceLanguage = sourceLanguage;
             if (hashes != null)
             {
                 Hashes = new Dictionary<string, string>(hashes);
