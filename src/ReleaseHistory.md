@@ -218,3 +218,7 @@
 * BREAKING: run.automationLogicalId subsumed by run.aggregateIds, an array of 'runAutomationDetails' objects.
 * BREAKING: Remove threadFlowLocation.step
 * Add result.occurrenceCount (denotes # of occurrences of an identical results within an analysisRun)
+
+## **v2.0.0-csd.2.beta.2018.10.10-1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2018.10.10-1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2018.10.10-1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2018.10.10-1)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2018.10.10-1))
+* Persist region information associated with analysis target
+

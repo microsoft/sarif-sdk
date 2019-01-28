@@ -36,7 +36,23 @@
           "kind": "namespace"
         }
       },
-      "results": [
+      "results": [{
+        "ruleId": "C2005",
+        "message": "Some testing occurred.",
+        "locations": [
+          {
+            "analysisTarget": {
+              "uri": "file:///home/buildAgent/src/myFile.cpp",
+              "region": {
+                "startLine": 2,
+                "startColumn": 3,
+                "endLine": 4,
+                "endColumn": 5
+              }
+            }
+          }
+        ]
+      },     
         {
           "ruleId": "C2001",
           "formattedRuleMessage": {
