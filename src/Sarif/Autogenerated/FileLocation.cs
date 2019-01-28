@@ -4,6 +4,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
@@ -47,6 +48,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string UriBaseId { get; set; }
 
         /// <summary>
+        /// The index within the run files array of the file object associated with the file location.
+        /// </summary>
+        [DataMember(Name = "fileIndex", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(-1)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public int FileIndex { get; set; }
+
+        /// <summary>
         /// Key/value pairs that provide additional information about the file location.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
@@ -57,6 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public FileLocation()
         {
+            FileIndex = -1;
         }
 
         /// <summary>
@@ -68,12 +78,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="uriBaseId">
         /// An initialization value for the <see cref="P:UriBaseId" /> property.
         /// </param>
+        /// <param name="fileIndex">
+        /// An initialization value for the <see cref="P:FileIndex" /> property.
+        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public FileLocation(Uri uri, string uriBaseId, IDictionary<string, SerializedPropertyInfo> properties)
+        public FileLocation(Uri uri, string uriBaseId, int fileIndex, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(uri, uriBaseId, properties);
+            Init(uri, uriBaseId, fileIndex, properties);
         }
 
         /// <summary>
@@ -92,7 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Uri, other.UriBaseId, other.Properties);
+            Init(other.Uri, other.UriBaseId, other.FileIndex, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -113,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new FileLocation(this);
         }
 
-        private void Init(Uri uri, string uriBaseId, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Uri uri, string uriBaseId, int fileIndex, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (uri != null)
             {
@@ -121,6 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             UriBaseId = uriBaseId;
+            FileIndex = fileIndex;
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);

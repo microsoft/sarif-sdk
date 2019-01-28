@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 uut.WriteResult(DefaultResult);
             });
 
-            actual.Should().BeCrossPlatformEquivalent(expected);
+            actual.Should().BeCrossPlatformEquivalent<SarifLog>(expected);
         }
 
         [Fact]
@@ -183,7 +183,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 uut.WriteInvocations(new[] { s_invocation });
             });
 
-            actual.Should().BeCrossPlatformEquivalent(expected);
+            actual.Should().BeCrossPlatformEquivalent<SarifLog>(expected);
         }
 
         [Fact]
@@ -231,7 +231,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 uut.WriteInvocations(new[] { s_invocation });
             });
 
-            actual.Should().BeCrossPlatformEquivalent(expected);
+            actual.Should().BeCrossPlatformEquivalent<SarifLog>(expected);
         }
 
         [Fact]
@@ -422,7 +422,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 uut.WriteConfigurationNotifications(s_notifications);
             });
 
-            actual.Should().BeCrossPlatformEquivalent(expected);
+            actual.Should().BeCrossPlatformEquivalent<SarifLog>(expected);
         }
 
         [Fact]
@@ -451,7 +451,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 uut.WriteToolNotifications(s_notifications);
             });
 
-            actual.Should().BeCrossPlatformEquivalent(expected);
+            actual.Should().BeCrossPlatformEquivalent<SarifLog>(expected);
         }
 
         [Fact]

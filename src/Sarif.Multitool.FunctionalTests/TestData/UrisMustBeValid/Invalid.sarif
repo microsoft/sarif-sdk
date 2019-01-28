@@ -25,23 +25,24 @@
           ]
         }
       ],
-      "files": {
-        "fi%le:///c:/src/file.c": {
+      "files": [
+        {
+          "fileLocation": { "uri": "fi%le:///c:/src/file.c" },
           "mimeType": "text/x-c"
         }
-      },
+      ],
       "versionControlProvenance": [
         {
           "repositoryUri": "ht%tps://example.com/my-project"
         }
       ],
       "resources": {
-        "rules": {
-          "TST0001": {
+        "rules": [
+          {
             "id": "TST0001",
             "helpUri": "ht%tp://www.example.com/rules/tst0001.html"
           }
-        }
+        ]
       },
       "properties": {
         "expectedResults": {
@@ -51,9 +52,9 @@
             "runs[0].originalUriBaseIds.SRCROOT.uri",
             "runs[0].results[0].analysisTarget.uri",
             "runs[0].results[0].workItemUris[0]",
-            "runs[0].files['fi%le:///c:/src/file.c']",
+            "runs[0].files[0].fileLocation.uri",
             "runs[0].versionControlProvenance[0].repositoryUri",
-            "runs[0].resources.rules.TST0001.helpUri"
+            "runs[0].resources.rules[0].helpUri"
           ]
         }
       }

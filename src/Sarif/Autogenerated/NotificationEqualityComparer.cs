@@ -38,6 +38,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.RuleIndex != right.RuleIndex)
+            {
+                return false;
+            }
+
             if (!PhysicalLocation.ValueComparer.Equals(left.PhysicalLocation, right.PhysicalLocation))
             {
                 return false;
@@ -113,6 +118,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.RuleId.GetHashCode();
                 }
 
+                result = (result * 31) + obj.RuleIndex.GetHashCode();
                 if (obj.PhysicalLocation != null)
                 {
                     result = (result * 31) + obj.PhysicalLocation.ValueGetHashCode();

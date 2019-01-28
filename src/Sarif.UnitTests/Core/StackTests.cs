@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // The .NET StackTrace.ToString() override must preserve a trailing NewLine
             // for compatibility reasons. We do not retain this behavior in ToString()
             // but provide a facility for adding the trailing NewLine
-            stack.ToString(StackFormat.TrailingNewLine).Should().BeCrossPlatformEquivalent(dotNetStack.ToString());
+            stack.ToString(StackFormat.TrailingNewLine).Should().BeCrossPlatformEquivalentStrings(dotNetStack.ToString());
         }
 
         [Fact]
@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 IList<Stack> stacks = Stack.CreateStacks(exception).ToList();
 
                 stacks.Count.Should().Be(1);
-                stacks[0].ToString().Should().BeCrossPlatformEquivalent(exception.StackTrace);
+                stacks[0].ToString().Should().BeCrossPlatformEquivalentStrings(exception.StackTrace);
 
                 caughtException = true;
             }
@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 stacks.Count.Should().Be(2);
                 containerException.StackTrace.Should().Be(null);
                 Assert.Equal("[No frames]", stacks[0].ToString());
-                stacks[1].ToString().Should().BeCrossPlatformEquivalent(exception.StackTrace);
+                stacks[1].ToString().Should().BeCrossPlatformEquivalentStrings(exception.StackTrace);
 
                 caughtException = true;
             }
@@ -93,7 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Assert.Equal("[No frames]", stacks[0].ToString());
                 Assert.Equal("[No frames]", stacks[1].ToString());
                 Assert.Equal("[No frames]", stacks[2].ToString());
-                stacks[3].ToString().Should().BeCrossPlatformEquivalent(exception.StackTrace);
+                stacks[3].ToString().Should().BeCrossPlatformEquivalentStrings(exception.StackTrace);
 
                 Assert.Equal(aggregated.FormatMessage(), stacks[0].Message.Text);
                 Assert.Equal(innerException1.FormatMessage(), stacks[1].Message.Text);

@@ -11,8 +11,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Rewriting visitor for the Sarif object model.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
-    public abstract partial class SarifRewritingVisitor
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
+    public abstract class SarifRewritingVisitor
     {
         /// <summary>
         /// Starts a rewriting visit of a node in the Sarif object model.
@@ -133,8 +133,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private T VisitNullChecked<T>(T node) where T : class, ISarifNode
         {
-            string emptyKey = null;
-            return VisitNullChecked<T>(node, ref emptyKey);
+            if (node == null)
+            {
+                return null;
+            }
+
+            return (T)Visit(node);
         }
 
         public virtual Attachment VisitAttachment(Attachment node)
@@ -560,6 +564,22 @@ namespace Microsoft.CodeAnalysis.Sarif
             return node;
         }
 
+        public virtual Resources VisitResources(Resources node)
+        {
+            if (node != null)
+            {
+                if (node.Rules != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Rules.Count; ++index_0)
+                    {
+                        node.Rules[index_0] = VisitNullChecked(node.Rules[index_0]);
+                    }
+                }
+            }
+
+            return node;
+        }
+
         public virtual Result VisitResult(Result node)
         {
             if (node != null)
@@ -701,7 +721,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (node.OriginalUriBaseIds != null)
+                // OriginalUriBaseIds are directories, not files. We'll disable this visit until the
+                // schema can catch up with this reality.
+                // https://github.com/oasis-tcs/sarif-spec/issues/306
+                /*if (node.OriginalUriBaseIds != null)
                 {
                     var keys = node.OriginalUriBaseIds.Keys.ToArray();
                     foreach (var key in keys)
@@ -712,25 +735,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                             node.OriginalUriBaseIds[key] = VisitNullChecked(value);
                         }
                     }
-                }
+                }*/
 
                 if (node.Files != null)
                 {
-                    var keys = node.Files.Keys.ToArray();
-                    foreach (var key in keys)
+                    for (int index_0 = 0; index_0 < node.Files.Count; ++index_0)
                     {
-                        var value = node.Files[key];
-                        if (value != null)
-                        {
-                                string newKey = key;
-                                node.Files.Remove(key);
-                                value = VisitNullChecked(value, ref newKey);
-
-                                if (newKey != null)
-                                {
-                                    node.Files[newKey] = value;
-                                }
-                        }
+                        node.Files[index_0] = VisitNullChecked(node.Files[index_0]);
                     }
                 }
 

@@ -24,11 +24,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             WriteTool(run.Tool);
         }
 
-        /// <summary>Writes a tool information entry to the log.</summary>
-        /// <exception cref="InvalidOperationException">Thrown if the tool info block has already been
-        /// written.</exception>
-        /// <param name="tool">The tool information to write.</param>
-        /// <seealso cref="M:Microsoft.CodeAnalysis.Sarif.IsarifWriter.WriteTool(Tool)"/>
         public void WriteTool(Tool tool)
         {
             if (_tool != null)
@@ -44,29 +39,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
         }
 
-        /// <summary>
-        /// Write information about scanned files to the log. This information may appear
-        /// after the results, as the full list of scanned files might not be known until
-        /// all results have been generated.
-        /// </summary>
-        /// <param name="fileDictionary">
-        /// A dictionary whose keys are the strings representing the locations of scanned files
-        /// and whose values provide information about those files.
-        /// </param>
-        public void WriteFiles(IDictionary<string, FileData> fileDictionary)
+        public void WriteFiles(IList<FileData> fileDictionary)
         {
             throw new NotImplementedException();
         }
-
-        /// <summary>
-        /// Write information about the logical locations where results were produced to
-        /// the log. This information may appear after the results, as the full list of
-        /// logical locations will not be known until all results have been generated.
-        /// </summary>
-        /// <param name="logicalLocationDictionary">
-        /// A dictionary whose keys are strings specifying a logical location and
-        /// whose values provide information about each component of the logical location.
-        /// </param>
         public void WriteLogicalLocations(IList<LogicalLocation> logicalLocations)
         {
             throw new NotImplementedException();
@@ -76,21 +52,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void CloseResults() { }
 
-        /// <summary>
-        /// Writes a result to the log.
-        /// </summary>
-        /// <remarks>
-        /// This function makes a copy of the data stored in <paramref name="result"/>; if a
-        /// client wishes to reuse the result instance to avoid allocations they can do so. (This function
-        /// may invoke an internal copy of the result or serialize it in place to disk, etc.)
-        /// </remarks>
-        /// <exception cref="InvalidOperationException">
-        /// Thrown if the tool info is not yet written.
-        /// </exception>
-        /// <param name="result">
-        /// The result to write.
-        /// </param>
-        /// <seealso cref="M:Microsoft.CodeAnalysis.Sarif.IsarifWriter.WriteIssue(Result)"/>
         public void WriteResult(Result result)
         {
             if (result == null)
@@ -104,27 +65,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        /// <summary>
-        /// Writes a set of results to the log.
-        /// </summary>
-        /// <remarks>
-        /// This function makes a copy of the data stored in <paramref name="results"/>; if a
-        /// client wishes to reuse the result instance to avoid allocations they can do so. (This function
-        /// may invoke an internal copy of the result or serialize it in place to disk, etc.)
-        /// </remarks>
-        /// <exception cref="IOException">
-        /// A file IO error occured. Clients implementing
-        /// <see cref="ToolFileConverterBase"/> should allow these exceptions to propagate.
-        /// </exception>
-        /// <exception cref="InvalidOperationException">
-        /// Thrown if the tool info is not yet written.
-        /// </exception>
-        /// <exception cref="ArgumentNullException">
-        /// Thrown if <paramref name="result"/> is null.
-        /// </exception>
-        ///  <param name="results">
-        ///  The results to write.
-        ///  </param>
         public void WriteResults(IEnumerable<Result> results)
         {
             foreach (Result result in results)
@@ -133,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        public void WriteRules(IDictionary<string, IRule> rules)
+        public void WriteRules(IList<Rule> rules)
         {
             throw new NotImplementedException();
         }

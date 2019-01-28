@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
 using System.Text;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 
 using Newtonsoft.Json;
 
@@ -120,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             log.Runs.Add(run);
             run.Resources = new Resources
             {
-                Rules = new Dictionary<string, Rule>()
+                Rules = new List<Rule>()
             };
 
             SortedDictionary<int, Rule> sortedRules = new SortedDictionary<int, Rule>();
@@ -148,10 +147,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 sortedRules[numericId] = newRule;
             }
 
-            foreach (Rule rule in sortedRules.Values)
-            {
-                run.Resources.Rules[rule.Id] = rule;
-            }
+            run.Resources.Rules = new List<Rule>(sortedRules.Values);
 
             var settings = new JsonSerializerSettings()
             {

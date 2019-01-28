@@ -15,15 +15,6 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
-    <Compile Remove="Baseline\ResultMatching\SarifElementRemappers\**" />
-    <Compile Remove="TestData\Transformers\**" />
-    <EmbeddedResource Remove="Baseline\ResultMatching\SarifElementRemappers\**" />
-    <EmbeddedResource Remove="TestData\Transformers\**" />
-    <None Remove="Baseline\ResultMatching\SarifElementRemappers\**" />
-    <None Remove="TestData\Transformers\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.4.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
     <PackageReference Include="Moq" Version="4.8.3" />
@@ -34,113 +25,77 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="TestData\SarifCurrentToVersionOneVisitor\v1\Minimum.sarif" />
-    <None Remove="TestData\SarifCurrentToVersionOneVisitor\v1\MinimumWithTwoRuns.sarif" />
-    <None Remove="TestData\SarifCurrentToVersionOneVisitor\v1\NotificationExceptionWithStack.sarif" />
-    <None Remove="TestData\SarifCurrentToVersionOneVisitor\v1\OneRunWithBasicInvocation.sarif" />
-    <None Remove="TestData\SarifCurrentToVersionOneVisitor\v1\OneRunWithFiles.sarif" />
-    <None Remove="TestData\SarifCurrentToVersionOneVisitor\v1\OneRunWithInvocationAndNotifications.sarif" />
-    <None Remove="TestData\SarifCurrentToVersionOneVisitor\v1\OneRunWithLogicalLocations.sarif" />
-    <None Remove="TestData\SarifCurrentToVersionOneVisitor\v1\OneRunWithRules.sarif" />
-    <None Remove="TestData\SarifCurrentToVersionOneVisitor\v1\Regions.sarif" />
-    <None Remove="TestData\SarifCurrentToVersionOneVisitor\v1\RestoreFromPropertyBag.sarif" />
-    <None Remove="TestData\SarifCurrentToVersionOneVisitor\v1\ResultLocations.sarif" />
-    <None Remove="TestData\SarifCurrentToVersionOneVisitor\v1\TwoResultsWithFixes.sarif" />
-    <None Remove="TestData\SarifCurrentToVersionOneVisitor\v2\Minimum.sarif" />
-    <None Remove="TestData\SarifCurrentToVersionOneVisitor\v2\MinimumWithTwoRuns.sarif" />
-    <None Remove="TestData\SarifCurrentToVersionOneVisitor\v2\NotificationExceptionWithStack.sarif" />
-    <None Remove="TestData\SarifCurrentToVersionOneVisitor\v2\OneRunWithBasicInvocation.sarif" />
-    <None Remove="TestData\SarifCurrentToVersionOneVisitor\v2\OneRunWithFiles.sarif" />
-    <None Remove="TestData\SarifCurrentToVersionOneVisitor\v2\OneRunWithInvocationAndNotifications.sarif" />
-    <None Remove="TestData\SarifCurrentToVersionOneVisitor\v2\OneRunWithLogicalLocations.sarif" />
-    <None Remove="TestData\SarifCurrentToVersionOneVisitor\v2\OneRunWithRules.sarif" />
-    <None Remove="TestData\SarifCurrentToVersionOneVisitor\v2\Regions.sarif" />
-    <None Remove="TestData\SarifCurrentToVersionOneVisitor\v2\RestoreFromPropertyBag.sarif" />
-    <None Remove="TestData\SarifCurrentToVersionOneVisitor\v2\ResultLocations.sarif" />
-    <None Remove="TestData\SarifCurrentToVersionOneVisitor\v2\TwoResultsWithFixes.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\v1\BasicResult.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\v1\CodeFlows.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\v1\Minimum.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\v1\MinimumWithPropertiesAndTags.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\v1\MinimumWithTwoRuns.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\v1\NotificationExceptionWithStack.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\v1\OneRunWithBasicInvocation.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\v1\OneRunWithFiles.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\v1\OneRunWithInvocationAndNotifications.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\v1\OneRunWithLogicalLocations.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\v1\OneRunWithNotificationsButNoInvocations.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\v1\OneRunWithRules.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\v1\RestoreFromPropertyBag.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\v1\TwoResultsWithFixes.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\v2\BasicResult.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\v2\CodeFlows.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\v2\Minimum.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\v2\MinimumWithPropertiesAndTags.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\v2\MinimumWithTwoRuns.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\v2\NotificationExceptionWithStack.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\v2\OneRunWithBasicInvocation.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\v2\OneRunWithFiles.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\v2\OneRunWithInvocationAndNotifications.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\v2\OneRunWithLogicalLocations.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\v2\OneRunWithNotificationsButNoInvocations.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\v2\OneRunWithRules.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\v2\RestoreFromPropertyBag.sarif" />
-    <None Remove="TestData\SarifVersionOneToCurrentVisitor\v2\TwoResultsWithFixes.sarif" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\v1\Minimum.sarif" />
-    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\v1\MinimumWithTwoRuns.sarif" />
-    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\v1\NotificationExceptionWithStack.sarif" />
-    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\v1\OneRunWithBasicInvocation.sarif" />
-    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\v1\OneRunWithFiles.sarif" />
-    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\v1\OneRunWithInvocationAndNotifications.sarif" />
-    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\v1\OneRunWithLogicalLocations.sarif" />
-    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\v1\OneRunWithRules.sarif" />
-    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\v1\Regions.sarif" />
-    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\v1\RestoreFromPropertyBag.sarif" />
-    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\v1\ResultLocations.sarif" />
-    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\v1\TwoResultsWithFixes.sarif" />
-    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\v2\Minimum.sarif" />
-    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\v2\MinimumWithTwoRuns.sarif" />
-    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\v2\NotificationExceptionWithStack.sarif" />
-    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\v2\OneRunWithBasicInvocation.sarif" />
-    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\v2\OneRunWithFiles.sarif" />
-    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\v2\OneRunWithInvocationAndNotifications.sarif" />
-    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\v2\OneRunWithLogicalLocations.sarif" />
-    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\v2\OneRunWithRules.sarif" />
-    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\v2\Regions.sarif" />
-    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\v2\RestoreFromPropertyBag.sarif" />
-    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\v2\ResultLocations.sarif" />
-    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\v2\TwoResultsWithFixes.sarif" />
-    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\v1\BasicResult.sarif" />
-    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\v1\CodeFlows.sarif" />
-    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\v1\Minimum.sarif" />
-    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\v1\MinimumWithPropertiesAndTags.sarif" />
-    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\v1\MinimumWithTwoRuns.sarif" />
-    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\v1\NotificationExceptionWithStack.sarif" />
-    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\v1\OneRunWithBasicInvocation.sarif" />
-    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\v1\OneRunWithFiles.sarif" />
-    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\v1\OneRunWithInvocationAndNotifications.sarif" />
-    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\v1\OneRunWithLogicalLocations.sarif" />
-    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\v1\OneRunWithNotificationsButNoInvocations.sarif" />
-    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\v1\OneRunWithRules.sarif" />
-    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\v1\RestoreFromPropertyBag.sarif" />
-    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\v1\TwoResultsWithFixes.sarif" />
-    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\v2\BasicResult.sarif" />
-    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\v2\CodeFlows.sarif" />
-    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\v2\Minimum.sarif" />
-    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\v2\MinimumWithPropertiesAndTags.sarif" />
-    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\v2\MinimumWithTwoRuns.sarif" />
-    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\v2\NotificationExceptionWithStack.sarif" />
-    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\v2\OneRunWithBasicInvocation.sarif" />
-    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\v2\OneRunWithFiles.sarif" />
-    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\v2\OneRunWithInvocationAndNotifications.sarif" />
-    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\v2\OneRunWithLogicalLocations.sarif" />
-    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\v2\OneRunWithNotificationsButNoInvocations.sarif" />
-    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\v2\OneRunWithRules.sarif" />
-    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\v2\RestoreFromPropertyBag.sarif" />
-    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\v2\TwoResultsWithFixes.sarif" />
+    <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_ComprehensiveRegionProperties.sarif" />
+    <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_ContextRegionSnippets.sarif" />
+    <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_FlattenedMessages.sarif" />
+    <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_Hashes+TextFiles+ComprehensiveRegionProperties+RegionSnippets+ContextRegionSnippets+FlattenedMessages.sarif" />
+    <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_Hashes+TextFiles.sarif" />
+    <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_Hashes.sarif" />
+    <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_RegionSnippets.sarif" />
+    <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_TextFiles.sarif" />
+    <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\Inputs\CoreTests.sarif" />
+    <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ComprehensiveFileProperties.sarif" />
+    <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\RuleIdCollisions.sarif" />
+    <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\NestedFiles.sarif" />
+    <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\ComprehensiveFileProperties.sarif" />
+    <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\RuleIdCollisions.sarif" />
+    <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\NestedFiles.sarif" />
+    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\Minimum.sarif" />
+    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\MinimumWithTwoRuns.sarif" />
+    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\NotificationExceptionWithStack.sarif" />
+    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\OneRunWithBasicInvocation.sarif" />
+    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\OneRunWithFiles.sarif" />
+    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\OneRunWithInvocationAndNotifications.sarif" />
+    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\OneRunWithLogicalLocations.sarif" />
+    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\OneRunWithRules.sarif" />
+    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\Regions.sarif" />
+    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\RestoreFromPropertyBag.sarif" />
+    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\ResultLocations.sarif" />
+    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\TwoResultsWithFixes.sarif" />
+    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\Inputs\Minimum.sarif" />
+    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\Inputs\MinimumWithTwoRuns.sarif" />
+    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\Inputs\NotificationExceptionWithStack.sarif" />
+    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\Inputs\OneRunWithBasicInvocation.sarif" />
+    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\Inputs\OneRunWithFiles.sarif" />
+    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\Inputs\OneRunWithInvocationAndNotifications.sarif" />
+    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\Inputs\OneRunWithLogicalLocations.sarif" />
+    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\Inputs\OneRunWithRules.sarif" />
+    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\Inputs\Regions.sarif" />
+    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\Inputs\RestoreFromPropertyBag.sarif" />
+    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\Inputs\ResultLocations.sarif" />
+    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\Inputs\TwoResultsWithFixes.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\BasicResult.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\CodeFlows.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\Minimum.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\MinimumWithPropertiesAndTags.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\MinimumWithTwoRuns.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\NestedFiles.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\NotificationExceptionWithStack.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\OneRunWithBasicInvocation.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\OneRunWithFiles.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\OneRunWithInvocationAndNotifications.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\OneRunWithLogicalLocations.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\OneRunWithNotificationsButNoInvocations.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\OneRunWithRules.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\RestoreFromPropertyBag.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\TwoResultsWithFixes.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\UriBaseId.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\BasicResult.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\CodeFlows.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\Minimum.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\MinimumWithPropertiesAndTags.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\MinimumWithTwoRuns.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\NestedFiles.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\NotificationExceptionWithStack.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\OneRunWithBasicInvocation.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\OneRunWithFiles.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\OneRunWithInvocationAndNotifications.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\OneRunWithLogicalLocations.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\OneRunWithNotificationsButNoInvocations.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\OneRunWithRules.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\RestoreFromPropertyBag.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\TwoResultsWithFixes.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\UriBaseId.sarif" />
   </ItemGroup>
 
   <ItemGroup>
@@ -196,4 +151,6 @@
     <None Include="$(SolutionDir)\Sarif.FunctionalTests\v2\SpecExamples\Comprehensive.sarif" CopyToOutputDirectory="PreserveNewest" LinkBase="v2\SpecExamples" />
     <None Include="$(SolutionDir)\Sarif.FunctionalTests\v2\ObsoleteFormats\ComprehensivePrereleaseTwoZeroZero.sarif" CopyToOutputDirectory="PreserveNewest" LinkBase="v2\ObsoleteFormats" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 </Project>

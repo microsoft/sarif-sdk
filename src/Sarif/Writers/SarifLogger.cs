@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private JsonTextWriter _jsonTextWriter;
         private OptionallyEmittedData _dataToInsert;
         private ResultLogJsonWriter _issueLogJsonWriter;
-        private Dictionary<string, IRule> _rules;
+        private IDictionary<Rule, int> _ruleToIndexMap;
 
         protected const LoggingOptions DefaultLoggingOptions = LoggingOptions.PrettyPrint;
 
@@ -40,17 +40,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (analysisTargets != null)
             {
-                run.Files = new Dictionary<string, FileData>();
+                run.Files = new List<FileData>();
 
                 foreach (string target in analysisTargets)
                 {
-                    string fileDataKey = UriHelper.MakeValidUri(target);
+                    Uri uri = new Uri(UriHelper.MakeValidUri(target), UriKind.RelativeOrAbsolute);
 
                     var fileData = FileData.Create(
                         new Uri(target, UriKind.RelativeOrAbsolute),
                         dataToInsert);
 
-                    run.Files[fileDataKey] = fileData;
+                    var fileLocation = new FileLocation
+                    {
+                        Uri = uri
+                    };
+
+                    fileData.FileLocation = fileLocation;
+
+                    // This call will insert the file object into run.Files if not already present
+                    fileData.FileLocation.FileIndex = run.GetFileIndex(fileData.FileLocation, addToFilesTableIfNotPresent: true, dataToInsert);
                 }
             }
 
@@ -184,12 +192,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _issueLogJsonWriter = new ResultLogJsonWriter(_jsonTextWriter);
         }
 
-        public Dictionary<string, IRule> Rules
+        public IDictionary<Rule, int> RuleToIndexMap
         {
             get
             {
-                _rules = _rules ?? new Dictionary<string, IRule>();
-                return _rules;
+                _ruleToIndexMap = _ruleToIndexMap ?? new Dictionary<Rule, int>(Rule.ValueComparer);
+                return _ruleToIndexMap;
             }
         }
 
@@ -223,9 +231,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 // Note: we write out the backing rules
                 // to prevent the property accessor from populating
                 // this data with an empty collection.
-                if (_rules != null)
+                if (_ruleToIndexMap != null)
                 {
-                    _issueLogJsonWriter.WriteRules(_rules);
+                    _issueLogJsonWriter.WriteRules(new List<Rule>(_ruleToIndexMap.Keys));
                 }
 
                 if (_run?.Files != null)
@@ -271,11 +279,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        public void Log(IRule rule, Result result)
+        public void Log(IRule iRule, Result result)
         {
-            if (rule == null)
+            if (iRule == null)
             {
-                throw new ArgumentNullException(nameof(rule));
+                throw new ArgumentNullException(nameof(iRule));
             }
 
             if (result == null)
@@ -283,12 +291,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentNullException(nameof(result));
             }
 
-            if (rule.Id != result.RuleId)
+            if (iRule.Id != result.RuleId)
             {
                 //The rule id '{0}' specified by the result does not match the actual id of the rule '{1}'
                 string message = string.Format(CultureInfo.InvariantCulture, SdkResources.ResultRuleIdDoesNotMatchRule,
                     result.RuleId.ToString(),
-                    rule.Id.ToString());
+                    iRule.Id.ToString());
 
                 throw new ArgumentException(message);
             }
@@ -298,17 +306,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 return;
             }
 
-            Rules[result.RuleId] = rule;
+            result.RuleIndex = LogRule(iRule);
 
             CaptureFilesInResult(result);
             _issueLogJsonWriter.WriteResult(result);
+        }
+
+        private int LogRule(IRule iRule)
+        {
+            // TODO: we need to finish eliminating the IRule interface from the OM
+            // https://github.com/Microsoft/sarif-sdk/issues/1189
+            Rule rule = (Rule)iRule;
+
+            if (!RuleToIndexMap.TryGetValue(rule, out int ruleIndex))
+            {
+                ruleIndex = _ruleToIndexMap.Count;
+                _ruleToIndexMap[rule] = ruleIndex;
+                _run.Resources = _run.Resources ?? new Resources();
+                _run.Resources.Rules = _run.Resources.Rules ?? new OrderSensitiveValueComparisonList<Rule>(Rule.ValueComparer);
+                _run.Resources.Rules.Add(rule);
+            }
+
+            return ruleIndex;
         }
 
         private void CaptureFilesInResult(Result result)
         {
             if (result.AnalysisTarget != null)
             {
-                CaptureFile(result.AnalysisTarget.Uri);
+                CaptureFile(result.AnalysisTarget);
             }
 
             if (result.Locations != null)
@@ -317,7 +343,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     if (location.PhysicalLocation != null)
                     {
-                        CaptureFile(location.PhysicalLocation.FileLocation?.Uri);
+                        CaptureFile(location.PhysicalLocation.FileLocation);
                     }
                 }
             }
@@ -328,7 +354,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     if (relatedLocation.PhysicalLocation != null)
                     {
-                        CaptureFile(relatedLocation.PhysicalLocation.FileLocation?.Uri);
+                        CaptureFile(relatedLocation.PhysicalLocation.FileLocation);
                     }
                 }
             }
@@ -339,7 +365,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     foreach (StackFrame frame in stack.Frames)
                     {
-                        CaptureFile(frame.Location?.PhysicalLocation?.FileLocation?.Uri);
+                        CaptureFile(frame.Location?.PhysicalLocation?.FileLocation);
                     }
                 }
             }
@@ -363,7 +389,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     {
                         foreach (FileChange fileChange in fix.FileChanges)
                         {
-                            CaptureFile(fileChange.FileLocation.Uri);
+                            CaptureFile(fileChange.FileLocation);
                         }
                     }
                 }
@@ -378,33 +404,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 if (tfl.Location?.PhysicalLocation != null)
                 {
-                    CaptureFile(tfl.Location.PhysicalLocation.FileLocation?.Uri);
+                    CaptureFile(tfl.Location.PhysicalLocation.FileLocation);
                 }
             }
         }
 
-        private void CaptureFile(Uri uri)
-        { 
-            if (uri == null) { return; }
-
-            _run.Files = _run.Files ?? new Dictionary<string, FileData>();
-
-            string fileDataKey = UriHelper.MakeValidUri(uri.OriginalString);
-            if (_run.Files.ContainsKey(fileDataKey))
+        private void CaptureFile(FileLocation fileLocation)
+        {             
+            if (fileLocation == null || fileLocation.Uri == null)
             {
-                // Already populated
                 return;
             }
 
             Encoding encoding = null;
-
             try
             {
                 encoding = Encoding.GetEncoding(_run.DefaultFileEncoding);
             }
             catch (ArgumentException) { } // Unrecognized or null encoding name
 
-            _run.Files[fileDataKey] = FileData.Create(uri, _dataToInsert, null, encoding);
+            _run.GetFileIndex(
+                fileLocation, 
+                addToFilesTableIfNotPresent: true,
+                _dataToInsert,
+                encoding);
         }
 
         public void AnalyzingTarget(IAnalysisContext context)
@@ -449,33 +472,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentNullException(nameof(context));
             }
 
+            int ruleIndex = -1;
             if (context.Rule != null)
             {
-                Rules[context.Rule.Id] = context.Rule;
+                ruleIndex = LogRule(context.Rule);
             }
 
             ruleMessageId = RuleUtilities.NormalizeRuleMessageId(ruleMessageId, context.Rule.Id);
-            LogJsonIssue(messageKind, context.TargetUri.LocalPath, region, context.Rule.Id, ruleMessageId, arguments);
+            LogJsonIssue(messageKind, context.TargetUri.LocalPath, region, context.Rule.Id, ruleIndex, ruleMessageId, arguments);
         }
 
-        private void LogJsonIssue(ResultLevel level, string targetPath, Region region, string ruleId, string ruleMessageId, params string[] arguments)
+        private void LogJsonIssue(ResultLevel level, string targetPath, Region region, string ruleId, int ruleIndex, string ruleMessageId, params string[] arguments)
         {
             if (!ShouldLog(level))
             {
                 return;
             }
 
-            Result result = new Result();
-
-            result.RuleId = ruleId;
-
-            result.Message = new Message()
+            Result result = new Result
             {
-                MessageId = ruleMessageId,
-                Arguments = arguments
+                RuleId = ruleId,
+                RuleIndex = ruleIndex,
+                Message = new Message
+                {
+                    MessageId = ruleMessageId,
+                    Arguments = arguments
+                },
+                Level = level
             };
-
-            result.Level = level;
 
             if (targetPath != null)
             {

@@ -72,9 +72,8 @@ namespace SarifDeferredSample
                 if (run.Files != null)
                 {
                     // Fastest: Enumerate
-                    foreach (var item in run.Files)
+                    foreach (FileData file in run.Files)
                     {
-                        FileData file = item.Value;
                         uriLengthTotal += file?.FileLocation?.Uri?.OriginalString?.Length ?? 0;
                         fileCount++;
                     }

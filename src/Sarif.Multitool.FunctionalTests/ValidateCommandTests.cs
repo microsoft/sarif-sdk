@@ -4,7 +4,6 @@
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using System;
 using System.IO;
-using System.Xml;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool

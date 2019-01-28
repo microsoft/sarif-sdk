@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             bool modifiedLog = false;
             updatedLog = null;
 
-            if (prereleaseSarifLog == null) { return null; }
+            if (string.IsNullOrEmpty(prereleaseSarifLog)) { return null; }
 
             JObject sarifLog = JObject.Parse(prereleaseSarifLog);
 
@@ -42,6 +42,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string version = forceUpdate ? "2.0.0" : (string)sarifLog["version"];
 
             Dictionary<string, int> fullyQualifiedLogicalNameToIndexMap = null;
+            Dictionary<string, int> fileLocationKeyToIndexMap = null;
+            Dictionary<string, int> ruleKeyToIndexMap = null;
 
             switch (version)
             {
@@ -54,14 +56,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 case "2.0.0-csd.2.beta.2018-10-10":
                 {
                     // 2.0.0-csd.2.beta.2018-10-10 == changes through SARIF TC #25
-                    modifiedLog |= ApplyChangesFromTC25ThroughTC28(sarifLog, out fullyQualifiedLogicalNameToIndexMap);
+                    modifiedLog |= ApplyChangesFromTC25ThroughTC28(
+                        sarifLog, 
+                        out fullyQualifiedLogicalNameToIndexMap,
+                        out fileLocationKeyToIndexMap,
+                        out ruleKeyToIndexMap);
                     break;
                 }
 
                 default:
                 {
                     modifiedLog |= ApplyCoreTransformations(sarifLog);
-                    modifiedLog |= ApplyChangesFromTC25ThroughTC28(sarifLog, out fullyQualifiedLogicalNameToIndexMap);
+                    modifiedLog |= ApplyChangesFromTC25ThroughTC28(
+                        sarifLog, 
+                        out fullyQualifiedLogicalNameToIndexMap,
+                        out fileLocationKeyToIndexMap,
+                        out ruleKeyToIndexMap);
                     break;
                 }
             }
@@ -69,11 +79,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             SarifLog transformedSarifLog = null;
             var settings = new JsonSerializerSettings { Formatting = formatting, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate };
 
-            if (fullyQualifiedLogicalNameToIndexMap != null)
+            if (fullyQualifiedLogicalNameToIndexMap != null  || fileLocationKeyToIndexMap != null || ruleKeyToIndexMap != null)
             {
-                Debug.Assert(modifiedLog == true);
                 transformedSarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifLog.ToString());
-                var indexUpdatingVisitor = new UpdateIndicesVisitor(fullyQualifiedLogicalNameToIndexMap);
+
+                var indexUpdatingVisitor = new UpdateIndicesFromLegacyDataVisitor(
+                    fullyQualifiedLogicalNameToIndexMap, 
+                    fileLocationKeyToIndexMap,
+                    ruleKeyToIndexMap);
+
                 indexUpdatingVisitor.Visit(transformedSarifLog);
                 updatedLog = JsonConvert.SerializeObject(transformedSarifLog, settings);
             }
@@ -86,15 +100,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 // above this call). We are required to regenerate it, however, in order to properly 
                 // elide default values, etc. I could not find a way for the JToken driven
                 // ToString()/text-generating mechanism to honor default value ignore/populate settings.
-                updatedLog = JsonConvert.SerializeObject(transformedSarifLog);
+                if (forceUpdate || modifiedLog)
+                {
+                    updatedLog = JsonConvert.SerializeObject(transformedSarifLog, formatting);
+                }
             }
 
             return transformedSarifLog;
         }
 
-        private static bool ApplyChangesFromTC25ThroughTC28(JObject sarifLog, out Dictionary<string, int> fullyQualifiedLogicalNameToIndexMap)
+        private static bool ApplyChangesFromTC25ThroughTC28(
+            JObject sarifLog, 
+            out Dictionary<string, int> fullyQualifiedLogicalNameToIndexMap,
+            out Dictionary<string, int> fileKeyToIndexMap,
+            out Dictionary<string, int> ruleKeyToIndexMap)
         {
             fullyQualifiedLogicalNameToIndexMap = null;
+            fileKeyToIndexMap = null;
+            ruleKeyToIndexMap = null;
 
             // Note: we could have injected the TC26 - TC28 changes into the other helpers in this
             // code. This would prevent multiple passes over things like the run.results array.
@@ -128,24 +151,57 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     // dictionary into the arrays form. We will retain the index for each
                     // transformed logical location. Later, we will associate these indices
                     // with results, if applicable.
-                    var logicalLocations = run["logicalLocations"] as JObject;
                     Dictionary<LogicalLocation, int> logicalLocationToIndexMap = null;
 
-                    if (logicalLocations != null)
+                    if (run["logicalLocations"] is JObject logicalLocations)
                     {
                         logicalLocationToIndexMap = new Dictionary<LogicalLocation, int>(LogicalLocation.ValueComparer);
-                        var jObjectToIndexMap = new Dictionary<JObject, int>();
 
                         run["logicalLocations"] =
-                            ConstructLogicalLocationsArray(
+                            ConvertLogicalLocationsDictionaryToArray(
                                 logicalLocations,
-                                jObjectToIndexMap,
                                 logicalLocationToIndexMap,
                                 out fullyQualifiedLogicalNameToIndexMap);
+
+                        modifiedLog |= fullyQualifiedLogicalNameToIndexMap.Count > 0;
                     }
 
-                    var results = (JArray)run["results"];
-                    if (results != null)
+                    // Files are now persisted to an array. We will persist a mapping from
+                    // previous file key to file index. We will associate the index with
+                    // each result when we iterate over run.results later.
+
+                    if (run["files"] is JObject files)
+                    {
+                        fileKeyToIndexMap = new Dictionary<string, int>();
+
+                        run["files"] =
+                            ConvertFilesDictionaryToArray(
+                                files,
+                                fileKeyToIndexMap);
+
+                        modifiedLog |= fileKeyToIndexMap.Count > 0;
+                    }
+
+                    if (run["resources"] is JObject resources)
+                    {
+                        ruleKeyToIndexMap = new Dictionary<string, int>();
+
+                        if (resources["rules"] is JObject rules)
+                        {
+                            resources["rules"] =
+                                ConvertRulesDictionaryToArray(
+                                    rules,
+                                    ruleKeyToIndexMap);
+                        }
+
+                        modifiedLog |= ruleKeyToIndexMap.Count > 0;
+
+                        // Remove 'open' from rule configuration default level enumeration
+                        // https://github.com/oasis-tcs/sarif-spec/issues/288
+                        modifiedLog |= RemapRuleDefaultLevelFromOpenToNote(resources);
+                    }
+
+                    if (run["results"] is JArray results)
                     {
                         JArray rewrittenResults = null;
 
@@ -160,18 +216,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                                 message = new JObject(new JProperty("text", "[No message provided]."));
                                 result["message"] = message;
                                 modifiedLog = true;
-                            }
-
-                            // If this value is non-null, we have converted to a logical locations array
-                            // We must therefore update every SARIF location to persist its 
-                            // logicalLocationIndex, if relevant.
-                            if (logicalLocations != null)
-                            {
-                                var logicalLocationIndexRemapper = new LogicalLocationIndexRemapper(null, logicalLocationToIndexMap);
-                                var sarifResult = JsonConvert.DeserializeObject<Result>(result.ToString());
-                                logicalLocationIndexRemapper.Visit(sarifResult);
-                                rewrittenResults = rewrittenResults ?? new JArray();
-                                rewrittenResults.Add(JToken.Parse(JsonConvert.SerializeObject(sarifResult)));
                             }
                         }
 
@@ -191,39 +235,179 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                     JObject tool = (JObject)run["tool"];
                     modifiedLog |= RenameProperty(tool, previousName: "fileVersion", newName: "dottedQuadFileVersion");
-                    if (tool != null && tool["language"] == null) { tool["language"] = "en-US"; }
+                    PopulatePropertyIfAbsent(tool, "language", "en-US", ref modifiedLog);
 
                     JObject conversion = (JObject)run["conversion"];
                     if (conversion != null)
                     {
                         tool = (JObject)conversion["tool"];
                         modifiedLog |= RenameProperty(tool, previousName: "fileVersion", newName: "dottedQuadFileVersion");
-                        if (tool != null && tool["language"] == null) { tool["language"] = "en-US"; }
+                        PopulatePropertyIfAbsent(tool, "language", "en-US", ref modifiedLog);
                     }
-
-                    // Remove 'open' from rule configuration default level enumeration
-                    // https://github.com/oasis-tcs/sarif-spec/issues/288
-                    JObject resources = (JObject)run["resources"];
-                    modifiedLog |= RemapRuleDefaultLevelFromOpenToNote(resources);
 
                     // Specify columnKind as ColumndKind.Utf16CodeUnits in cases where the enum is missing from
                     // the SARIF file. Moving forward, the absence of this enum will be interpreted as
                     // the new default, which is ColumnKind.UnicodeCodePoints.
                     // https://github.com/oasis-tcs/sarif-spec/issues/188
-                    JValue columnKind = (JValue)run["columnKind"];
-                    if (columnKind == null)
-                    {
-                        run["columnKind"] = "utf16CodeUnits";
-                    }
+                    PopulatePropertyIfAbsent(run, "columnKind", "utf16CodeUnits", ref modifiedLog);
                 }
             }
 
             return modifiedLog;
         }
 
-        private static JArray ConstructLogicalLocationsArray(
+        private static JToken ConvertRulesDictionaryToArray(JObject rules, Dictionary<string, int> ruleKeyToIndexMap)
+        {
+            if (rules == null) { return null; }
+
+            Dictionary<JObject, int> jObjectToIndexMap = new Dictionary<JObject, int>();
+
+            foreach (JProperty ruleEntry in rules.Properties())
+            {
+                AddEntryToRuleToIndexMap(
+                    rules,
+                    ruleEntry.Name,
+                    (JObject)ruleEntry.Value,
+                    jObjectToIndexMap,
+                    ruleKeyToIndexMap);
+            }
+
+            var rulesArray = new JObject[jObjectToIndexMap.Count];
+
+            foreach (KeyValuePair<JObject, int> keyValuePair in jObjectToIndexMap)
+            {
+                int index = keyValuePair.Value;
+                JObject updatedFileData = keyValuePair.Key;
+                rulesArray[index] = updatedFileData;
+            }
+
+            return new JArray(rulesArray);
+        }
+
+
+        private static void AddEntryToRuleToIndexMap(JObject rulesDictionary, string key, JObject rule, Dictionary<JObject, int> jObjectToIndexMap, Dictionary<string, int> ruleKeyToIndexMap)
+        {
+            ruleKeyToIndexMap = ruleKeyToIndexMap ?? throw new ArgumentNullException(nameof(ruleKeyToIndexMap));
+            jObjectToIndexMap = jObjectToIndexMap ?? throw new ArgumentNullException(nameof(jObjectToIndexMap));
+
+            if (rule["id"] == null)
+            {
+                // This condition indicates there was no collision between the rules dictionary key
+                // and the corresponding rule id. So we will explicitly populate the rule id so
+                // this data isn't lost, compromising log readability.
+                rule["id"] = key;
+            }
+
+            if (!ruleKeyToIndexMap.TryGetValue(key, out int ruleIndex))
+            {
+                ruleIndex = ruleKeyToIndexMap.Count;
+                jObjectToIndexMap[rule] = ruleIndex;
+                ruleKeyToIndexMap[key] = ruleIndex;
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
+        }
+
+        private static void PopulatePropertyIfAbsent(JObject jObject, string propertyName, string value, ref bool modifiedLog)
+        {
+            if (jObject != null && jObject[propertyName] == null)
+            {
+                jObject[propertyName] = value;
+                modifiedLog = true;
+            }
+        }
+
+        private static JToken ConvertFilesDictionaryToArray(JObject files, Dictionary<string, int> keyToIndexMap)
+        { 
+            if (files == null) { return null; }
+
+            Dictionary<JObject, int> jObjectToIndexMap = new Dictionary<JObject, int>();
+
+            foreach (JProperty fileEntry in files.Properties())
+            {
+                AddEntryToFileLocationToIndexMap(
+                    files,
+                    fileEntry.Name,
+                    (JObject)fileEntry.Value,
+                    jObjectToIndexMap,
+                    keyToIndexMap);
+            }
+
+            var filesArray = new JObject[jObjectToIndexMap.Count];
+
+            foreach (KeyValuePair<JObject, int> keyValuePair in jObjectToIndexMap)
+            {
+                int index = keyValuePair.Value;
+                JObject updatedFileData = keyValuePair.Key;
+                filesArray[index] = updatedFileData;
+            }
+
+            return new JArray(filesArray);
+        }
+
+        private static void AddEntryToFileLocationToIndexMap(JObject filesDictionary, string key, JObject file, Dictionary<JObject, int> jObjectToIndexMap, Dictionary<string, int> keyToIndexMap)
+        {
+            keyToIndexMap = keyToIndexMap ?? throw new ArgumentNullException(nameof(keyToIndexMap));
+            jObjectToIndexMap = jObjectToIndexMap ?? throw new ArgumentNullException(nameof(jObjectToIndexMap));
+
+            // We've seen this key before. This happens when we order files processing in order to ensure
+            // that a parent key has been transformed before its children (to produce a parent index value).
+            if (keyToIndexMap.ContainsKey(key)) { return; }
+
+            // Parent key is no longer relevant and will be removed.
+            string parentKey = (string)file["parentKey"];
+
+            if (parentKey == null)
+            {
+                // No parent key? We are a root location. 
+                file["parentIndex"] = -1;
+            }
+            else
+            {
+                // Have we processed our parent yet? If so, retrieve the parentIndex and we're done.
+                if (!keyToIndexMap.TryGetValue(parentKey, out int parentIndex))
+                {
+                    // The parent hasn't been processed yet. We must force its creation
+                    // determine its index in our array. This code path results in 
+                    // an array order that does not precisely match the enumeration
+                    // order of the original files dictionary.
+                    AddEntryToFileLocationToIndexMap(
+                        filesDictionary,
+                        parentKey,
+                        (JObject)filesDictionary[parentKey],
+                        jObjectToIndexMap,
+                        keyToIndexMap);
+
+                    parentIndex = keyToIndexMap[parentKey];
+                }
+                file.Remove("parentKey");
+                file["parentIndex"] = parentIndex;
+            }
+
+            var fileLocationKey = FileLocation.CreateFromFilesDictionaryKey(key, parentKey);
+
+            JObject fileLocationObject = new JObject();
+            file["fileLocation"] = fileLocationObject;
+            fileLocationObject["uri"] = fileLocationKey.Uri;
+            fileLocationObject["uriBaseId"] = fileLocationKey.UriBaseId;
+
+            if (!keyToIndexMap.TryGetValue(key, out int fileIndex))
+            {
+                fileIndex = keyToIndexMap.Count;
+                jObjectToIndexMap[file] = fileIndex;
+                keyToIndexMap[key] = fileIndex;
+                fileLocationObject["fileIndex"] = fileIndex;
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
+        }
+
+        private static JArray ConvertLogicalLocationsDictionaryToArray(
             JObject logicalLocations,
-            Dictionary<JObject, int> jObjectToIndexMap,
             Dictionary<LogicalLocation, int> logicalLocationToIndexMap,
             out Dictionary<string, int> fullyQualifiedLogicalNameToIndexMap)
         {
@@ -231,6 +415,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (logicalLocations == null) { return null; }
 
+            Dictionary<JObject, int> jObjectToIndexMap = new Dictionary<JObject, int>();
             logicalLocationToIndexMap = new Dictionary<LogicalLocation, int>(LogicalLocation.ValueComparer);
 
             fullyQualifiedLogicalNameToIndexMap = new Dictionary<string, int>();
@@ -250,16 +435,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     fullyQualifiedLogicalNameToIndexMap);
             }
 
-            var updatedArrayElements = new JObject[jObjectToIndexMap.Count];
+            var logicalLocationsArray = new JObject[jObjectToIndexMap.Count];
 
             foreach (KeyValuePair<JObject, int> keyValuePair in jObjectToIndexMap)
             {
                 int index = keyValuePair.Value;
                 JObject updatedLogicalLocation = keyValuePair.Key;
-                updatedArrayElements[index] = updatedLogicalLocation;
+                logicalLocationsArray[index] = updatedLogicalLocation;
             }
 
-            return new JArray(updatedArrayElements);
+            return new JArray(logicalLocationsArray);
         }
 
         private static void AddEntryToFullyQualifiedNameToIndexMap(
@@ -270,15 +455,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             Dictionary<JObject, int> jObjectToIndexMap,
             Dictionary<string, int> keyToIndexMap)
         {
-            if (keyToIndexMap == null)
-            {
-                throw new ArgumentNullException(nameof(keyToIndexMap));
-            }
-
-            if (logicalLocation == null)
-            {
-                throw new ArgumentNullException(nameof(logicalLocation));
-            }
+            keyToIndexMap = keyToIndexMap ?? throw new ArgumentNullException(nameof(keyToIndexMap));
+            logicalLocation = logicalLocation ?? throw new ArgumentNullException(nameof(logicalLocation));
 
             string fullyQualifiedName = keyName;
 
@@ -347,12 +525,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (resources == null) { return modifiedResources; }
 
-            JObject rules = (JObject)resources["rules"];
+            var rules = (JArray)resources["rules"];
             if (rules == null ) { return modifiedResources; }
 
-            foreach (JProperty rule in rules.Values<JProperty>())
+            foreach (JObject rule in rules)
             {
-                JObject configuration = (JObject)rule.Value["configuration"];
+                var configuration = (JObject)rule["configuration"];
                 if (configuration == null) { continue; }
 
                 if ("open".Equals((string)configuration["defaultLevel"]))
@@ -362,6 +540,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     // reasonable level to associate with this class of report, if it is emitted. In 
                     // practice, we don't expect that a current producer exists who is in this condition.
                     configuration["defaultLevel"] = "note";
+                    modifiedResources = true;
                 }
             }
 
@@ -470,10 +649,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 run.Remove("automationLogicalId");
 
-                var aggregateId = new JObject();
-
-                // For the aggregating automation id, we can only provide the logical component
-                aggregateId["instanceId"] = automationLogicalId + "/";
+                var aggregateId = new JObject
+                {
+                    // For the aggregating automation id, we can only provide the logical component
+                    ["instanceId"] = automationLogicalId + "/"
+                };
 
                 run["aggregateIds"] = new JArray(aggregateId);
                 modifiedRun = true;
@@ -692,8 +872,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             bool modifiedRun = false;
 
-            var files = (JObject)run["files"];
-            if (files == null) { return modifiedRun; }
+            if (!(run["files"] is JObject files)) { return modifiedRun; }
 
             foreach (JProperty file in files.Properties())
             {
@@ -709,7 +888,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static bool RenameProperty(JObject jObject, string previousName, string newName)
         {
-            if (jObject == null) { return false; }
+            bool renamedProperty = false;
+
+            if (jObject == null) { return renamedProperty; }
 
             JToken propertyValue = jObject[previousName];
             
@@ -717,9 +898,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 jObject.Remove(previousName);
                 jObject[newName] = propertyValue;
+                renamedProperty = true;
             }
 
-            return propertyValue != null;
+            return renamedProperty;
         }
 
         private static bool UpdateFileHashesProperty(JObject file)

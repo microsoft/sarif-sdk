@@ -10,7 +10,6 @@ using System.Linq;
 using System.Reflection;
 using System.Xml;
 using System.Xml.Schema;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -53,46 +52,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             reader.ResultRead += (FxCopLogReader.Context current) => { results.Add(CreateResult(current)); };
             reader.Read(context, input);
 
-            Tool tool = new Tool
-            {
-                Name = "FxCop"
-            };
-
-            var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, dataToInsert);
-            Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
-
             var run = new Run()
             {
-                Tool = tool
+                Tool = new Tool {  Name = "FxCop"}
             };
-
-            output.Initialize(run);
-
-            if (fileDictionary != null && fileDictionary.Any())
-            {
-                output.WriteFiles(fileDictionary);
-            }
-
-            if (LogicalLocations != null && LogicalLocations.Any())
-            {
-                output.WriteLogicalLocations(LogicalLocations);
-            }
-
-            output.OpenResults();
-            output.WriteResults(results);
-            output.CloseResults();
 
             if (rules.Count > 0)
             {
-                IDictionary<string, IRule> rulesDictionary = new Dictionary<string, IRule>();
-
-                foreach (Rule rule in rules)
+                run.Resources = new Resources
                 {
-                    rulesDictionary[rule.Id] = rule;
-                }
-
-                output.WriteRules(rulesDictionary);
+                    Rules = rules
+                };
             }
+
+            PersistResults(output, results, run);
         }
 
         internal Rule CreateRule(FxCopLogReader.Context context)

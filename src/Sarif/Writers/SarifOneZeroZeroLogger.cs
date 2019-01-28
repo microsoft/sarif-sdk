@@ -2,10 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using Microsoft.CodeAnalysis.Sarif.Readers;
-using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -18,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     /// </summary>
     public class SarifOneZeroZeroLogger : SarifLogger
     {
-        private string _outputFilePath;
+        private readonly string _outputFilePath;
 
         public SarifOneZeroZeroLogger(
             string outputFilePath,
@@ -59,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 Formatting = PrettyPrint ? Formatting.Indented : Formatting.None
             };
 
-            File.WriteAllText(_outputFilePath, JsonConvert.SerializeObject(transformer.SarifLogVersionOne, v1Settings));
+            //File.WriteAllText(_outputFilePath, JsonConvert.SerializeObject(transformer.SarifLogVersionOne, v1Settings));
         }
     }
 }

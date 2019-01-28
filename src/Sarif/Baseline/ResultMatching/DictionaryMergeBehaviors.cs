@@ -5,12 +5,12 @@ using System;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 {
+    [Flags]
     public enum DictionaryMergeBehavior
     {
-        None = 0,                      // By default, we will always exclusively  preserve the earliest
-                                       // properties that have been generated. We will not attempt any merging.
-        InitializeFromOldest = None,
-        InitializeFromMostRecent = 0x1,// On setting this bit, we will discard earlier properties
+        None = 0,                      
+        InitializeFromOldest = 0x1,    // On setting this bit, we retain oldest property bags for matched items
+        InitializeFromMostRecent = 0x2,// On setting this bit, we will discard earlier properties
                                        // in favor of those that are most recently generated.
     }
 }
