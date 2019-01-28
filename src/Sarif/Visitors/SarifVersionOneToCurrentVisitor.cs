@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
@@ -22,6 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private RunVersionOne _currentV1Run;
         private int _threadFlowLocationNestingLevel;
         private IDictionary<string, int> _v1FileKeytoV2IndexMap;
+        private IDictionary<string, int> _v1RuleKeyToV2IndexMap;
 
         private IDictionary<string, string> _v1KeyToFullyQualifiedNameMap;
         private IDictionary<LogicalLocation, int> _v2LogicalLocationToIndexMap;
@@ -732,51 +732,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     result.AnalysisTarget = CreateFileLocation(v1Result.Locations[0].AnalysisTarget);
                 }
 
-                if (v1Result.RuleKey == null)
-                {
-                    result.RuleId = v1Result.RuleId;
-                }
-                else
-                {
-                    if (v1Result.RuleId == null)
-                    {
-                        result.RuleId = v1Result.RuleKey;
-                    }
-                    else
-                    {
-                        if (v1Result.RuleId == v1Result.RuleKey)
-                        {
-                            result.RuleId = v1Result.RuleId;
-                        }
-                        else
-                        {
-                            result.RuleId = v1Result.RuleKey;
+                result.RuleId = v1Result.RuleId;
 
-                            if (_currentRun.Resources == null)
-                            {
-                                _currentRun.Resources = new Resources();
-                            }
+                string ruleKey = v1Result.RuleKey ?? v1Result.RuleId;
+                result.RuleIndex = GetRuleIndexForRuleKey(ruleKey, _v1RuleKeyToV2IndexMap);
 
-#if TRANSFORM_CODE_AUTHORED
-                            if (_currentRun.Resources.Rules == null)
-                            {
-                                _currentRun.Resources.Rules = new List<string, Rule>();
-                            }
-
-                            IDictionary<string, Rule> rules = _currentRun.Resources.Rules;
-
-                            if (!rules.ContainsKey(v1Result.RuleKey))
-                            {
-                                Rule rule = new Rule() { Id = v1Result.RuleId };
-                                rules.Add(v1Result.RuleKey, rule);
-                            }
-
-                            Debug.Assert(rules[v1Result.RuleKey].Id == v1Result.RuleId);
-#endif
-                        }
-                    }
-                }
-                
                 if (v1Result.FormattedRuleMessage != null)
                 {
                     if (result.Message == null)
@@ -875,6 +835,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     _currentV1Run = v1Run;
 
                     _v1FileKeytoV2IndexMap = CreateFileKeyToIndexMapping(v1Run.Files);
+                    _v1RuleKeyToV2IndexMap = CreateRuleKeyToIndexMapping(v1Run.Rules);
 
                     RunAutomationDetails id = null;
                     RunAutomationDetails[] aggregateIds = null;
@@ -905,20 +866,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     _currentRun = run;
 
-#if TRANSFORM_CODE_AUTHORED
                     if (v1Run.Rules != null)
                     {
                         run.Resources = new Resources
                         {
-                            Rules = new Dictionary<string, Rule>()
+                            Rules = new List<Rule>()
                         };
 
                         foreach (var pair in v1Run.Rules)
                         {
-                            run.Resources.Rules.Add(pair.Key, CreateRule(pair.Value));
+                            run.Resources.Rules.Add(CreateRule(pair.Value));
                         }
                     }
-#endif
 
                     if (v1Run.Files != null)
                     {
@@ -1017,6 +976,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return v1FileKeyToV2IndexMap;
+        }
+
+        private static IDictionary<string, int> CreateRuleKeyToIndexMapping(IDictionary<string, RuleVersionOne> v1Rules)
+        {
+            var v1RuleKeyToV2IndexMap = new Dictionary<string, int>();
+
+            if (v1Rules != null)
+            {
+                int index = 0;
+                foreach (KeyValuePair<string, RuleVersionOne> entry in v1Rules)
+                {
+                    v1RuleKeyToV2IndexMap[entry.Key] = index++;
+                }
+            }
+
+            return v1RuleKeyToV2IndexMap;
+        }
+
+        private int GetRuleIndexForRuleKey(string ruleKey, IDictionary<string, int> v1RuleKeyToV2IndexMap)
+        {
+            if (ruleKey == null || !v1RuleKeyToV2IndexMap.TryGetValue(ruleKey, out int index))
+            {
+                index = -1;
+            }
+
+            return index;
         }
 
         private void PopulateLogicalLocation(

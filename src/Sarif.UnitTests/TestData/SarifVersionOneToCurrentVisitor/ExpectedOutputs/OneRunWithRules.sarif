@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-10-10",
-  "version": "2.0.0-csd.2.beta.2018-10-10",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-11-28",
+  "version": "2.0.0-csd.2.beta.2018-11-28",
   "runs": [
     {
       "tool": {
@@ -10,6 +10,7 @@
       "results": [
         {
           "ruleId": "C2001",
+          "ruleIndex": 0,
           "message": {
             "arguments": [ "someVariable" ],
             "messageId": "default"
@@ -17,23 +18,24 @@
         },
         {
           "ruleId": "C2001",
+          "ruleIndex": 0,
           "message": {
             "arguments": [ "anotherVariable" ],
             "messageId": "default"
           }
         },
         {
-          "ruleId": "C2002-1",
+          "ruleId": "C2002",
           "message": { "text": "Some testing occurred." }
         },
         {
-          "ruleId": "C2003",
+          "ruleIndex": 2,
           "message": { "text": "Some testing occurred." }
         }
       ],
       "resources": {
-        "rules": {
-          "C2001": {
+        "rules": [
+          {
             "id": "C2001",
             "shortDescription": {
               "text": "A variable was used without being initialized."
@@ -45,18 +47,19 @@
               "some_key": "FoxForceFive"
             }
           },
-          "C2002": {
+          {
             "id": "C2002",
             "fullDescription": {
               "text": "Catfish season continuous hen lamb include dose copy grant."
             },
             "configuration": {
               "enabled": true,
-              "defaultLevel": "error"
+              "defaultLevel": "error",
+              "defaultRank": 0.0
             },
             "helpUri": "http://www.domain.com/rules/c2002.html"
           },
-          "C2003": {
+          {
             "id": "C2003",
             "name": {
               "text": "Rule C2003"
@@ -68,14 +71,13 @@
               "text": "Rent internal rebellion competence biography photograph."
             },
             "configuration": {
-              "defaultLevel": "note"
+              "defaultLevel": "note",
+              "defaultRank": 0.0
             }
-          },
-          "C2002-1": {
-            "id": "C2002"
           }
-        }
-      }
+        ]
+      },
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }
