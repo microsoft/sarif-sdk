@@ -1,9 +1,14 @@
 /**
  * @fileoverview SARIF v2.0 formatter
- * @author Chris Meyer
+ * @author Microsoft
  */
 
 "use strict";
+
+const fs = require("fs");
+const utf8 = require("utf8");
+const jschardet = require("jschardet");
+
 
 //------------------------------------------------------------------------------
 // Helper Functions
@@ -43,10 +48,13 @@ module.exports = function(results, rules) {
     const sarifFiles = {};
     const sarifRules = {};
     const sarifResults = [];
+    const embedFileContents = process.env.SARIF_ESLINT_EMBED === "true";
 
     results.forEach(result => {
 
         if (typeof sarifFiles[result.filePath] === "undefined") {
+
+            let contentsUtf8;
 
             // Create a new entry in the files dictionary.
             sarifFiles[result.filePath] = {
@@ -54,6 +62,30 @@ module.exports = function(results, rules) {
                     uri: result.filePath
                 }
             };
+
+            if (embedFileContents) {
+                try {
+
+                    // Try to get the file contents and encoding.
+                    const contents = fs.readFileSync(result.filePath);
+                    const encoding = jschardet.detect(contents);
+
+                    // Encoding will be null if it could not be determined.
+                    if (encoding) {
+
+                        // Convert the content bytes to a UTF-8 string.
+                        contentsUtf8 = utf8.encode(contents.toString(encoding.encoding));
+
+                        sarifFiles[result.filePath].contents = {
+                            text: contentsUtf8
+                        };
+                        sarifFiles[result.filePath].encoding = encoding.encoding;
+                    }
+                }
+                catch (err) {
+                    console.log(err);
+                }
+            }
         }
 
         const messages = result.messages;
@@ -92,7 +124,7 @@ module.exports = function(results, rules) {
                                 text: rule.meta.docs.description
                             },
                             helpUri: rule.meta.docs.url,
-                            properties: {
+                            tags: {
                                 category: rule.meta.docs.category
                             }
                         };
@@ -100,7 +132,7 @@ module.exports = function(results, rules) {
                 }
             }
 
-            if (message.line > 0 || message.column > 0) {
+            if (message.line > 0 && message.column > 0) {
                 sarifResult.locations[0].physicalLocation.region = {
                     startLine: message.line,
                     startColumn: message.column
@@ -141,5 +173,8 @@ module.exports = function(results, rules) {
         };
     }
 
-    return JSON.stringify(sarifLog, null, 2);
+    return JSON.stringify(sarifLog,
+        null, // replacer function
+        2     // # of spaces for indents
+    );
 };

@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "node test/sarif.js"
+    "test": "mocha"
   },
   "repository": {
     "type": "github",
@@ -22,10 +22,16 @@
     "sarif eslint",
     "eslint sarif"
   ],
-  "author": "Chris Meyer",
+  "author": "Microsoft",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Microsoft/sarif-sdk/issues"
   },
-  "homepage": "https://github.com/Microsoft/sarif-sdk#readme"
+  "homepage": "https://github.com/Microsoft/sarif-sdk#readme",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "jschardet": "latest",
+    "mocha": "^5.2.0",
+    "utf8": "^3.0.0"
+  }
 }

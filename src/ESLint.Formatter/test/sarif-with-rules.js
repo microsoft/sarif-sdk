@@ -1,6 +1,6 @@
 /**
  * @fileoverview Tests for SARIF format.
- * @author Chris Meyer
+ * @author Microsoft
  */
 
 "use strict";
@@ -11,7 +11,7 @@
 //------------------------------------------------------------------------------
 
 const assert = require("chai").assert,
-    formatter = require("../../../lib/formatters/sarif");
+    formatter = require("../sarif-with-rules");
 
 
 //------------------------------------------------------------------------------
@@ -58,7 +58,7 @@ rules.set("no-extra-semi", {
 
 describe("formatter:sarif", () => {
     describe("when passed no messages", () => {
-        const sourceFilePath = "foo.js";
+        const sourceFilePath = "service.js";
         const code = [{
             filePath: sourceFilePath,
             messages: []
@@ -76,11 +76,11 @@ describe("formatter:sarif", () => {
 
 describe("formatter:sarif", () => {
     describe("when passed one message", () => {
-        const sourceFilePath = "foo.js";
+        const sourceFilePath = "service.js";
         const code = [{
             filePath: sourceFilePath,
             messages: [{
-                message: "Unexpected foo.",
+                message: "Unexpected value.",
                 severity: 2
             }]
         }];
@@ -104,11 +104,11 @@ describe("formatter:sarif", () => {
     describe("when passed one message with a rule id", () => {
         const ruleid = "no-unused-vars";
         const code = [{
-            filePath: "foo.js",
+            filePath: "service.js",
             messages: [{
-                message: "Unexpected foo.",
+                message: "Unexpected value.",
                 ruleId: ruleid,
-                source: "getFoo()"
+                source: "getValue()"
             }]
         }];
 
@@ -120,7 +120,7 @@ describe("formatter:sarif", () => {
             assert.strictEqual(result.runs[0].resources.rules[ruleid].id, ruleid);
             assert.strictEqual(result.runs[0].resources.rules[ruleid].shortDescription.text, rule.meta.docs.description);
             assert.strictEqual(result.runs[0].resources.rules[ruleid].helpUri, rule.meta.docs.url);
-            assert.strictEqual(result.runs[0].resources.rules[ruleid].properties.category, rule.meta.docs.category);
+            assert.strictEqual(result.runs[0].resources.rules[ruleid].tags.category, rule.meta.docs.category);
         });
     });
 });
@@ -128,29 +128,27 @@ describe("formatter:sarif", () => {
 describe("formatter:sarif", () => {
     describe("when passed one message with line but no column nor source string", () => {
         const code = [{
-            filePath: "foo.js",
+            filePath: "service.js",
             messages: [{
-                message: "Unexpected foo.",
+                message: "Unexpected value.",
                 line: 10
             }]
         }];
 
-        it("should return a log with one result whose location contains a region with only a line #", () => {
+        it("should return a log with one result whose location does not contain a region", () => {
             const result = JSON.parse(formatter(code));
 
-            assert.strictEqual(result.runs[0].results[0].locations[0].physicalLocation.region.startLine, code[0].messages[0].line);
-            assert.isUndefined(result.runs[0].results[0].locations[0].physicalLocation.region.startColumn);
-            assert.isUndefined(result.runs[0].results[0].locations[0].physicalLocation.region.snippet);
+            assert.isUndefined(result.runs[0].results[0].locations[0].physicalLocation.region);
         });
     });
 });
 
 describe("formatter:sarif", () => {
-    describe("when passed one message with line and column nor source string", () => {
+    describe("when passed one message with line and column but no source string", () => {
         const code = [{
-            filePath: "foo.js",
+            filePath: "service.js",
             messages: [{
-                message: "Unexpected foo.",
+                message: "Unexpected value.",
                 line: 10,
                 column: 5
             }]
@@ -169,12 +167,12 @@ describe("formatter:sarif", () => {
 describe("formatter:sarif", () => {
     describe("when passed one message with line, column, and source string", () => {
         const code = [{
-            filePath: "foo.js",
+            filePath: "service.js",
             messages: [{
-                message: "Unexpected foo.",
+                message: "Unexpected value.",
                 line: 10,
                 column: 5,
-                source: "getFoo()"
+                source: "getValue()"
             }]
         }];
 
@@ -191,12 +189,12 @@ describe("formatter:sarif", () => {
 describe("formatter:sarif", () => {
     describe("when passed one message with a source string but without line and column #s", () => {
         const code = [{
-            filePath: "foo.js",
+            filePath: "service.js",
             messages: [{
-                message: "Unexpected foo.",
+                message: "Unexpected value.",
                 severity: 2,
-                ruleId: "foo",
-                source: "getFoo()"
+                ruleId: "the-rule",
+                source: "getValue()"
             }]
         }];
 
@@ -212,8 +210,8 @@ describe("formatter:sarif", () => {
 
 describe("formatter:sarif", () => {
     describe("when passed two results with two messages each", () => {
-        const sourceFilePath1 = "foo.js";
-        const sourceFilePath2 = "bar.js";
+        const sourceFilePath1 = "service.js";
+        const sourceFilePath2 = "utils.js";
         const ruleid1 = "no-unused-vars";
         const ruleid2 = "no-extra-semi";
         const ruleid3 = "custom-rule";
@@ -230,13 +228,13 @@ describe("formatter:sarif", () => {
         const code = [{
             filePath: sourceFilePath1,
             messages: [{
-                message: "Unexpected foo.",
+                message: "Unexpected value.",
                 severity: 2,
-                ruleId: "foo"
+                ruleId: "the-rule"
             },
             {
                 ruleId: ruleid1,
-                message: "Foo warning.",
+                message: "Some warning.",
                 severity: 1,
                 line: 10,
                 column: 5,
@@ -246,7 +244,7 @@ describe("formatter:sarif", () => {
         {
             filePath: sourceFilePath2,
             messages: [{
-                message: "Unexpected bar.",
+                message: "Unexpected something.",
                 severity: 2,
                 ruleId: ruleid2,
                 line: 18
@@ -275,19 +273,19 @@ describe("formatter:sarif", () => {
             assert.strictEqual(result.runs[0].resources.rules[ruleid1].id, ruleid1);
             assert.strictEqual(result.runs[0].resources.rules[ruleid1].shortDescription.text, rule1.meta.docs.description);
             assert.strictEqual(result.runs[0].resources.rules[ruleid1].helpUri, rule1.meta.docs.url);
-            assert.strictEqual(result.runs[0].resources.rules[ruleid1].properties.category, rule1.meta.docs.category);
+            assert.strictEqual(result.runs[0].resources.rules[ruleid1].tags.category, rule1.meta.docs.category);
 
             assert.strictEqual(result.runs[0].resources.rules[ruleid2].id, ruleid2);
             assert.strictEqual(result.runs[0].resources.rules[ruleid2].shortDescription.text, rule2.meta.docs.description);
             assert.strictEqual(result.runs[0].resources.rules[ruleid2].helpUri, rule2.meta.docs.url);
-            assert.strictEqual(result.runs[0].resources.rules[ruleid2].properties.category, rule2.meta.docs.category);
+            assert.strictEqual(result.runs[0].resources.rules[ruleid2].tags.category, rule2.meta.docs.category);
 
             assert.strictEqual(result.runs[0].resources.rules[ruleid3].id, ruleid3);
             assert.strictEqual(result.runs[0].resources.rules[ruleid3].shortDescription.text, rule3.meta.docs.description);
             assert.strictEqual(result.runs[0].resources.rules[ruleid3].helpUri, rule3.meta.docs.url);
-            assert.strictEqual(result.runs[0].resources.rules[ruleid3].properties.category, rule3.meta.docs.category);
+            assert.strictEqual(result.runs[0].resources.rules[ruleid3].tags.category, rule3.meta.docs.category);
 
-            assert.strictEqual(result.runs[0].results[0].ruleId, "foo");
+            assert.strictEqual(result.runs[0].results[0].ruleId, "the-rule");
             assert.strictEqual(result.runs[0].results[1].ruleId, ruleid1);
             assert.strictEqual(result.runs[0].results[2].ruleId, ruleid2);
             assert.strictEqual(result.runs[0].results[3].ruleId, ruleid3);
@@ -297,9 +295,9 @@ describe("formatter:sarif", () => {
             assert.strictEqual(result.runs[0].results[2].level, "error");
             assert.strictEqual(result.runs[0].results[3].level, "warning");
 
-            assert.strictEqual(result.runs[0].results[0].message.text, "Unexpected foo.");
-            assert.strictEqual(result.runs[0].results[1].message.text, "Foo warning.");
-            assert.strictEqual(result.runs[0].results[2].message.text, "Unexpected bar.");
+            assert.strictEqual(result.runs[0].results[0].message.text, "Unexpected value.");
+            assert.strictEqual(result.runs[0].results[1].message.text, "Some warning.");
+            assert.strictEqual(result.runs[0].results[2].message.text, "Unexpected something.");
             assert.strictEqual(result.runs[0].results[3].message.text, "Custom error.");
 
             assert.strictEqual(result.runs[0].results[0].locations[0].physicalLocation.fileLocation.uri, sourceFilePath1);
@@ -312,9 +310,8 @@ describe("formatter:sarif", () => {
             assert.strictEqual(result.runs[0].results[1].locations[0].physicalLocation.region.startLine, 10);
             assert.strictEqual(result.runs[0].results[1].locations[0].physicalLocation.region.startColumn, 5);
             assert.strictEqual(result.runs[0].results[1].locations[0].physicalLocation.region.snippet.text, "doSomething(thingId)");
-
-            assert.strictEqual(result.runs[0].results[2].locations[0].physicalLocation.region.startLine, 18);
-            assert.isUndefined(result.runs[0].results[2].locations[0].physicalLocation.region.snippet);
+            
+            assert.isUndefined(result.runs[0].results[2].locations[0].physicalLocation.region);
         });
     });
 });

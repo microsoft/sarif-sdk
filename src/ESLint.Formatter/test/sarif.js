@@ -1,6 +1,6 @@
 /**
  * @fileoverview Tests for SARIF format.
- * @author Chris Meyer
+ * @author Microsoft
  */
 
 "use strict";
@@ -10,7 +10,8 @@
 // Requirements
 //------------------------------------------------------------------------------
 
-const formatter = require("../sarif");
+const assert = require("chai").assert,
+    formatter = require("../sarif");
 
 
 //------------------------------------------------------------------------------
@@ -19,7 +20,7 @@ const formatter = require("../sarif");
 
 describe("formatter:sarif", () => {
     describe("when passed no messages", () => {
-        const sourceFilePath = "foo.js";
+        const sourceFilePath = "service.js";
         const code = [{
             filePath: sourceFilePath,
             messages: []
@@ -37,11 +38,11 @@ describe("formatter:sarif", () => {
 
 describe("formatter:sarif", () => {
     describe("when passed one message", () => {
-        const sourceFilePath = "foo.js";
+        const sourceFilePath = "service.js";
         const code = [{
             filePath: sourceFilePath,
             messages: [{
-                message: "Unexpected foo.",
+                message: "Unexpected value.",
                 severity: 2
             }]
         }];
@@ -64,19 +65,17 @@ describe("formatter:sarif", () => {
 describe("formatter:sarif", () => {
     describe("when passed one message with line but no column nor source string", () => {
         const code = [{
-            filePath: "foo.js",
+            filePath: "service.js",
             messages: [{
-                message: "Unexpected foo.",
+                message: "Unexpected value.",
                 line: 10
             }]
         }];
 
-        it("should return a log with one result whose location contains a region with only a line #", () => {
+        it("should return a log with one result whose location does not contain a region", () => {
             const result = JSON.parse(formatter(code));
-
-            assert.strictEqual(result.runs[0].results[0].locations[0].physicalLocation.region.startLine, code[0].messages[0].line);
-            assert.isUndefined(result.runs[0].results[0].locations[0].physicalLocation.region.startColumn);
-            assert.isUndefined(result.runs[0].results[0].locations[0].physicalLocation.region.snippet);
+            
+            assert.isUndefined(result.runs[0].results[0].locations[0].physicalLocation.region);
         });
     });
 });
@@ -84,9 +83,9 @@ describe("formatter:sarif", () => {
 describe("formatter:sarif", () => {
     describe("when passed one message with line and column nor source string", () => {
         const code = [{
-            filePath: "foo.js",
+            filePath: "service.js",
             messages: [{
-                message: "Unexpected foo.",
+                message: "Unexpected value.",
                 line: 10,
                 column: 5
             }]
@@ -105,12 +104,12 @@ describe("formatter:sarif", () => {
 describe("formatter:sarif", () => {
     describe("when passed one message with line, column, and source string", () => {
         const code = [{
-            filePath: "foo.js",
+            filePath: "service.js",
             messages: [{
-                message: "Unexpected foo.",
+                message: "Unexpected value.",
                 line: 10,
                 column: 5,
-                source: "getFoo()"
+                source: "getValue()"
             }]
         }];
 
@@ -127,12 +126,12 @@ describe("formatter:sarif", () => {
 describe("formatter:sarif", () => {
     describe("when passed one message with a source string but without line and column #s", () => {
         const code = [{
-            filePath: "foo.js",
+            filePath: "service.js",
             messages: [{
-                message: "Unexpected foo.",
+                message: "Unexpected value.",
                 severity: 2,
-                ruleId: "foo",
-                source: "getFoo()"
+                ruleId: "the-rule",
+                source: "getValue()"
             }]
         }];
 
@@ -148,20 +147,20 @@ describe("formatter:sarif", () => {
 
 describe("formatter:sarif", () => {
     describe("when passed two results with two and one messages, respectively", () => {
-        const sourceFilePath1 = "foo.js";
-        const sourceFilePath2 = "bar.js";
+        const sourceFilePath1 = "service.js";
+        const sourceFilePath2 = "utils.js";
         const ruleid1 = "no-unused-vars";
         const ruleid2 = "no-extra-semi";
         const code = [{
             filePath: sourceFilePath1,
             messages: [{
-                message: "Unexpected foo.",
+                message: "Unexpected value.",
                 severity: 2,
-                ruleId: "foo"
+                ruleId: "the-rule"
             },
             {
                 ruleId: ruleid1,
-                message: "Foo warning.",
+                message: "Some warning.",
                 severity: 1,
                 line: 10,
                 column: 5,
@@ -171,7 +170,7 @@ describe("formatter:sarif", () => {
         {
             filePath: sourceFilePath2,
             messages: [{
-                message: "Unexpected bar.",
+                message: "Unexpected something.",
                 severity: 2,
                 ruleId: ruleid2,
                 line: 18
@@ -192,9 +191,9 @@ describe("formatter:sarif", () => {
             assert.strictEqual(result.runs[0].results[1].level, "warning");
             assert.strictEqual(result.runs[0].results[2].level, "error");
 
-            assert.strictEqual(result.runs[0].results[0].message.text, "Unexpected foo.");
-            assert.strictEqual(result.runs[0].results[1].message.text, "Foo warning.");
-            assert.strictEqual(result.runs[0].results[2].message.text, "Unexpected bar.");
+            assert.strictEqual(result.runs[0].results[0].message.text, "Unexpected value.");
+            assert.strictEqual(result.runs[0].results[1].message.text, "Some warning.");
+            assert.strictEqual(result.runs[0].results[2].message.text, "Unexpected something.");
 
             assert.strictEqual(result.runs[0].results[0].locations[0].physicalLocation.fileLocation.uri, sourceFilePath1);
             assert.strictEqual(result.runs[0].results[1].locations[0].physicalLocation.fileLocation.uri, sourceFilePath1);
@@ -205,9 +204,8 @@ describe("formatter:sarif", () => {
             assert.strictEqual(result.runs[0].results[1].locations[0].physicalLocation.region.startLine, 10);
             assert.strictEqual(result.runs[0].results[1].locations[0].physicalLocation.region.startColumn, 5);
             assert.strictEqual(result.runs[0].results[1].locations[0].physicalLocation.region.snippet.text, "doSomething(thingId)");
-
-            assert.strictEqual(result.runs[0].results[2].locations[0].physicalLocation.region.startLine, 18);
-            assert.isUndefined(result.runs[0].results[2].locations[0].physicalLocation.region.snippet);
+            
+            assert.isUndefined(result.runs[0].results[2].locations[0].physicalLocation.region);
         });
     });
 });
