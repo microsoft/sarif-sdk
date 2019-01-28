@@ -6,14 +6,18 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
-    public class UpdateIndicesVisitor : SarifRewritingVisitor
+    /// <summary>
+    /// Utility class that helps provide current SARIF v2 rule, file and logical location
+    /// index data, when transform SARIF v1 or SARIF v2 prerelease data. 
+    /// </summary>
+    public class UpdateIndicesFromLegacyDataVisitor : SarifRewritingVisitor
     {
         private readonly IDictionary<string, int> _fullyQualifiedLogicalNameToIndexMap;
         private readonly IDictionary<string, int> _fileLocationKeyToIndexMap;
         private readonly IDictionary<string, int> _ruleKeyToIndexMap;
         private Resources _resources;
 
-        public UpdateIndicesVisitor(
+        public UpdateIndicesFromLegacyDataVisitor(
             IDictionary<string, int> fullyQualifiedLogicalNameToIndexMap, 
             IDictionary<string, int> fileLocationKeyToIndexMap,
             IDictionary<string, int> ruleKeyToIndexMap)
