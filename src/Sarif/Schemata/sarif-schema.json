@@ -1717,7 +1717,7 @@
           "description": "An array of logical locations such as namespaces, types or functions.",
           "type": "array",
           "minItems": 0,
-          "uniqueItems": false,
+          "uniqueItems": true,
           "default": [],
           "items": {
             "$ref": "#/definitions/logicalLocation"

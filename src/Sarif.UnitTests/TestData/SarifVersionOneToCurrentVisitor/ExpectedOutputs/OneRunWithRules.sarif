@@ -55,7 +55,6 @@
             "configuration": {
               "enabled": true,
               "defaultLevel": "error",
-              "defaultRank": -1.0
             },
             "helpUri": "http://www.domain.com/rules/c2002.html"
           },
@@ -72,7 +71,6 @@
             },
             "configuration": {
               "defaultLevel": "note",
-              "defaultRank": -1.0
             }
           }
         ]
