@@ -3,67 +3,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
-    public class ValueComparisonList<T> : List<T>, IEqualityComparer<List<T>>
-    {
-        private IEqualityComparer<T> _equalityComparer;
-
-        public ValueComparisonList(IEqualityComparer<T> equalityComparer)
-        {
-            _equalityComparer = equalityComparer;            
-        }
-
-        public bool Equals(List<T> left, List<T> right)
-        {
-            if (ReferenceEquals(left, right))
-            {
-                return true;
-            }
-
-            if (ReferenceEquals(left, null) || ReferenceEquals(right, null))
-            {
-                return false;
-            }
-
-            if (left.Count != right.Count)
-            {
-                return false;
-            }
-
-            for (int i = 0; i < left.Count; i++)
-            {
-                if (!_equalityComparer.Equals(left[i], right[i]))
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        public int GetHashCode(List<T> obj)
-        {
-            if (ReferenceEquals(obj, null))
-            {
-                return 0;
-            }
-
-            int result = 17;
-            unchecked
-            {
-                result = (result * 31) + obj.Count.GetHashCode();
-
-                for (int i = 0; i < obj.Count; i++)
-                {
-                    result = (result * 31) + _equalityComparer.GetHashCode(obj[i]);
-                }
-            }
-            return result;
-        }
-    }
-
     /// <summary>
     /// This class is used to update indices for data that is merged for various
     /// reasons, including result matching operations.
@@ -72,23 +15,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     {
         public RemapIndicesVisitor(IList<FileData> currentFiles)
         {
-            CurrentFiles = currentFiles;
-            BuildRemappedFiles(CurrentFiles);
+            BuildRemappedFiles(currentFiles);
             RemappedLogicalLocationIndices = new Dictionary<LogicalLocation, int>(LogicalLocation.ValueComparer);
         }
 
         private void BuildRemappedFiles(IList<FileData> currentFiles)
         {
-            RemappedFiles = new Dictionary<ValueComparisonList<FileData>, int>();
+            RemappedFiles = new Dictionary<OrderSensitiveValueComparisonList<FileData>, int>();
 
-            foreach (FileData fileData in currentFiles)
+            if (currentFiles != null)
             {
-                ValueComparisonList<FileData> fileChain = ConstructFilesChain(fileData);
-
-                if (!RemappedFiles.TryGetValue(fileChain, out int remappedIndex))
+                foreach (FileData fileData in currentFiles)
                 {
-                    remappedIndex = RemappedFiles.Count;
-                    RemappedFiles[fileChain] = remappedIndex;
+                    CacheFileData(fileData);
                 }
             }
         }
@@ -101,10 +40,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public IDictionary<LogicalLocation, int> RemappedLogicalLocationIndices { get; private set; }
 
-        public IDictionary<ValueComparisonList<FileData>, int> RemappedFiles { get; private set; }
+        public IDictionary<OrderSensitiveValueComparisonList<FileData>, int> RemappedFiles { get; private set; }
 
         public override Result VisitResult(Result node)
         {
+            // We suspend the visit if there's insufficient data to perform any work
             if (HistoricalFiles == null && HistoricalLogicalLocations == null)
             {
                 return node;
@@ -139,40 +79,76 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             if (node.FileIndex != -1 && HistoricalFiles != null)
             {
-                FileData fileData = HistoricalFiles[node.FileIndex];
-
-                ValueComparisonList<FileData> fileChain = ConstructFilesChain(fileData);
-
-                if (!RemappedFiles.TryGetValue(fileChain, out int remappedIndex))
-                {
-                    remappedIndex = RemappedFiles.Count;
-                    RemappedFiles[fileChain] = remappedIndex;
-                }
-                node.FileIndex = remappedIndex;
+                node.FileIndex = CacheFileData(HistoricalFiles[node.FileIndex]);
             }
             return node;
         }
-
-        private ValueComparisonList<FileData> ConstructFilesChain(FileData fileData)
+        
+        private int CacheFileData(FileData fileData)
         {
-            var fileChain = new ValueComparisonList<FileData>(FileData.ValueComparer);
-            fileChain.Add(fileData);
+            this.CurrentFiles = this.CurrentFiles ?? new List<FileData>();
 
-            while (fileData.ParentIndex != -1)
+            int parentIndex = fileData.ParentIndex;
+
+            // Ensure all parent nodes are already remapped
+            if (parentIndex != -1)
             {
-                fileData = HistoricalFiles[fileData.ParentIndex];
+                // Important: the input results we are rewriting need to refer
+                // to the historical files index in order to understand parenting
+                fileData.ParentIndex = CacheFileData(HistoricalFiles[parentIndex]);
+            }
 
-                // Scrub the indices. These are only relevant to the global array,
-                // they are not relevant to the identity of a common chain of
-                // file data instances.
-                fileData.ParentIndex = -1;
+            OrderSensitiveValueComparisonList<FileData> fileChain;
+
+            // Equally important, the file chain is a specially constructed key that
+            // operates against the newly constructed files array in CurrentFiles
+            fileChain = ConstructFilesChain(CurrentFiles, fileData);
+
+            if (!RemappedFiles.TryGetValue(fileChain, out int remappedIndex))
+            {
+                remappedIndex = RemappedFiles.Count;
+
+                this.CurrentFiles.Add(fileData);
+                RemappedFiles[fileChain] = remappedIndex;
+
+                Debug.Assert(RemappedFiles.Count == this.CurrentFiles.Count);
+
                 if (fileData.FileLocation != null)
                 {
-                    fileData.FileLocation.FileIndex = -1;
+                    fileData.FileLocation.FileIndex = remappedIndex;
+                }
+            }
+            return remappedIndex;
+        }
+
+        private static OrderSensitiveValueComparisonList<FileData> ConstructFilesChain(IList<FileData> existingFiles, FileData currentFile)
+        {
+            var fileChain = new OrderSensitiveValueComparisonList<FileData>(FileData.ValueComparer);
+
+            int parentIndex;
+
+            do
+            {
+                currentFile = currentFile.DeepClone();
+                parentIndex = currentFile.ParentIndex;
+
+                // Index information is entirely irrelevant for the identity of nested files,
+                // as each element of the chain could be stored at arbitrary locations in
+                // the run.files table. And so we elide this information.
+                currentFile.ParentIndex = -1;
+                if (currentFile.FileLocation != null)
+                {
+                    currentFile.FileLocation.FileIndex = -1;
                 }
 
-                fileChain.Add(fileData);
-            }
+                fileChain.Add(currentFile);
+
+                if (parentIndex != -1)
+                {
+                    currentFile = existingFiles[parentIndex];
+                }
+
+            } while (parentIndex != -1);
 
             return fileChain;
         }

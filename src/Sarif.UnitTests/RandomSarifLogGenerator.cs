@@ -92,6 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public static IList<Result> GenerateFakeResults(Random random, List<string> ruleIds, List<Uri> filePaths, int resultCount)
         {
             List<Result> results = new List<Result>();
+            int fileIndex = random.Next(filePaths.Count);
             for (int i = 0; i < resultCount; i++)
             { 
                 results.Add(new Result()
@@ -105,7 +106,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                             {
                                 FileLocation = new FileLocation
                                 {
-                                    Uri = filePaths[random.Next(filePaths.Count)]
+                                    Uri = filePaths[fileIndex],
+                                    FileIndex = fileIndex
                                 },
                             }
                         }

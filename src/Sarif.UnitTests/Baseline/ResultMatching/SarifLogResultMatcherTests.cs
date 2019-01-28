@@ -370,7 +370,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             SetPropertyOnAllFileAndResultObjects(baselineLog, "Key", baselinePropertyValue);
             SetPropertyOnAllFileAndResultObjects(currentLog, "Key", currentPropertyValue);
 
-
             SarifLog matchedLog = s_preserveOldestPropertyBagMatcher.Match(baselineLog.DeepClone(), currentLog.DeepClone());
             matchedLog.Runs[0].Results.Where((r) => { return r.GetProperty("Key") == baselinePropertyValue; }).Count().Should().Be(matchedLog.Runs[0].Results.Count);
             matchedLog.Runs[0].Files.Where((r) => { return r.GetProperty("Key") == baselinePropertyValue; }).Count().Should().Be(matchedLog.Runs[0].Files.Count);

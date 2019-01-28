@@ -323,7 +323,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 ruleIndex = _ruleToIndexMap.Count;
                 _ruleToIndexMap[rule] = ruleIndex;
                 _run.Resources = _run.Resources ?? new Resources();
-                _run.Resources.Rules = _run.Resources.Rules ?? new List<Rule>();
+                _run.Resources.Rules = _run.Resources.Rules ?? new OrderSensitiveValueComparisonList<Rule>(Rule.ValueComparer);
                 _run.Resources.Rules.Add(rule);
             }
 

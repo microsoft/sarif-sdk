@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             }
             else
             {
-                throw new InvalidOperationException("Cannot generate a Result for a new baseline where both results are null.");
+                throw new InvalidOperationException("Cannot generate a result for a new baseline where both results are null.");
             }
 
             ResultMatchingProperties = MergeDictionaryPreferFirst(ResultMatchingProperties, OriginalResultMatchingProperties);
