@@ -137,6 +137,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string DefaultFileEncoding { get; set; }
 
         /// <summary>
+        /// Specifies the default source language for any file object that refers to a text file that contains source code.
+        /// </summary>
+        [DataMember(Name = "defaultSourceLanguage", IsRequired = false, EmitDefaultValue = false)]
+        public string DefaultSourceLanguage { get; set; }
+
+        /// <summary>
         /// An ordered list of character sequences that were treated as line breaks when computing region information for the run.
         /// </summary>
         [DataMember(Name = "newlineSequences", IsRequired = false, EmitDefaultValue = false)]
@@ -222,6 +228,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="defaultFileEncoding">
         /// An initialization value for the <see cref="P:DefaultFileEncoding" /> property.
         /// </param>
+        /// <param name="defaultSourceLanguage">
+        /// An initialization value for the <see cref="P:DefaultSourceLanguage" /> property.
+        /// </param>
         /// <param name="newlineSequences">
         /// An initialization value for the <see cref="P:NewlineSequences" /> property.
         /// </param>
@@ -234,9 +243,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, FileLocation> originalUriBaseIds, IEnumerable<FileData> files, IEnumerable<LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, Resources resources, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string richMessageMimeType, string redactionToken, string defaultFileEncoding, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFiles externalPropertyFiles, IDictionary<string, SerializedPropertyInfo> properties)
+        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, FileLocation> originalUriBaseIds, IEnumerable<FileData> files, IEnumerable<LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, Resources resources, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string richMessageMimeType, string redactionToken, string defaultFileEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFiles externalPropertyFiles, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(tool, invocations, conversion, versionControlProvenance, originalUriBaseIds, files, logicalLocations, graphs, results, resources, id, aggregateIds, baselineInstanceGuid, richMessageMimeType, redactionToken, defaultFileEncoding, newlineSequences, columnKind, externalPropertyFiles, properties);
+            Init(tool, invocations, conversion, versionControlProvenance, originalUriBaseIds, files, logicalLocations, graphs, results, resources, id, aggregateIds, baselineInstanceGuid, richMessageMimeType, redactionToken, defaultFileEncoding, defaultSourceLanguage, newlineSequences, columnKind, externalPropertyFiles, properties);
         }
 
         /// <summary>
@@ -255,7 +264,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocations, other.Conversion, other.VersionControlProvenance, other.OriginalUriBaseIds, other.Files, other.LogicalLocations, other.Graphs, other.Results, other.Resources, other.Id, other.AggregateIds, other.BaselineInstanceGuid, other.RichMessageMimeType, other.RedactionToken, other.DefaultFileEncoding, other.NewlineSequences, other.ColumnKind, other.ExternalPropertyFiles, other.Properties);
+            Init(other.Tool, other.Invocations, other.Conversion, other.VersionControlProvenance, other.OriginalUriBaseIds, other.Files, other.LogicalLocations, other.Graphs, other.Results, other.Resources, other.Id, other.AggregateIds, other.BaselineInstanceGuid, other.RichMessageMimeType, other.RedactionToken, other.DefaultFileEncoding, other.DefaultSourceLanguage, other.NewlineSequences, other.ColumnKind, other.ExternalPropertyFiles, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -276,7 +285,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, FileLocation> originalUriBaseIds, IEnumerable<FileData> files, IEnumerable<LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, Resources resources, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string richMessageMimeType, string redactionToken, string defaultFileEncoding, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFiles externalPropertyFiles, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, FileLocation> originalUriBaseIds, IEnumerable<FileData> files, IEnumerable<LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, Resources resources, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string richMessageMimeType, string redactionToken, string defaultFileEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFiles externalPropertyFiles, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (tool != null)
             {
@@ -428,6 +437,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             RichMessageMimeType = richMessageMimeType;
             RedactionToken = redactionToken;
             DefaultFileEncoding = defaultFileEncoding;
+            DefaultSourceLanguage = defaultSourceLanguage;
             if (newlineSequences != null)
             {
                 var destination_6 = new List<string>();
