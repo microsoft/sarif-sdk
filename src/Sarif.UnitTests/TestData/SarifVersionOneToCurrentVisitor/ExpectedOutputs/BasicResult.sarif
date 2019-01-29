@@ -48,6 +48,27 @@
       ],
       "results": [
         {
+          "ruleId": "C2005",
+          "message": {
+            "text": "Some testing occurred."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///home/buildAgent/src/myFile.cpp"
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 3,
+                  "endLine": 4,
+                  "endColumn": 5
+                }
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "C2001",
           "message": {
             "messageId": "default",
@@ -174,7 +195,7 @@
               }
             }
           ],
-          "suppressionStates": ["suppressedExternally"],
+          "suppressionStates": [ "suppressedExternally" ],
           "baselineState": "existing"
         }
       ],
