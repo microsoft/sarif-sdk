@@ -227,6 +227,8 @@
 * API NON-BREAKING: Add 'rule.deprecatedIds' to schema. https://github.com/oasis-tcs/sarif-spec/issues/293
 * API NON-BREAKING: Add 'versionControlDetails.mappedTo'. https://github.com/oasis-tcs/sarif-spec/issues/248
 * API NON-BREAKING: Add result.rank'. Add 'ruleConfiguration.defaultRank'.
+* API NON-BREAKING: Add 'file.sourceLocation' and 'region.sourceLanguage' to guide in snippet colorization. 'run.defaultSourceLanguage' provides a default value. https://github.com/oasis-tcs/sarif-spec/issues/286
+* API NON-BREAKING: default values for 'result.rank' and 'ruleConfiguration.defaultRank' is now -1.0 (from 0.0). https://github.com/oasis-tcs/sarif-spec/issues/303
 * API BREAKING: Remove 'run.architecture' https://github.com/oasis-tcs/sarif-spec/issues/262
 * API BREAKING: 'result.message' is now a required property https://github.com/oasis-tcs/sarif-spec/issues/283
 * API BREAKING: Rename 'tool.fileVersion' to 'tool.dottedQuadFileVersion' https://github.com/oasis-tcs/sarif-spec/issues/274
@@ -235,3 +237,6 @@
 * API BREAKING: Make 'run.logicalLocations' an array, not a dictionary. Add result.logicalLocationIndex to point to associated logical location.
 * API BREAKING: 'run.externalFiles' renamed to 'run.externalPropertyFiles', which is not a bundle of external property file objects. NOTE: no transformation will be provided for legacy versions of the external property files API.
 * API BREAKING: rework 'result.provenance' object, including moving result.conversionProvenance to 'result.provenance.conversionSources'. NOTE: no transformation currently exists for this update.
+* API BREAKING: Make 'run.files' an array, not a dictionary. Add fileLocation.fileIndex to point to a file object associated with the location within 'run.files'.
+* API BREAKING: 'run.logicalLocations' now requires unique array elements. https://github.com/oasis-tcs/sarif-spec/issues/304
+
