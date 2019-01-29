@@ -128,7 +128,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 uut.WriteResults(new[] { new Result
                     {
                         Message = new Message { Text = "Some testing occurred."},
-                        BaselineState = BaselineState.Existing
+                        BaselineState = BaselineState.Unchanged
                     }
                 });
             });
@@ -136,7 +136,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
             Assert.Equal(SuppressionStates.None, sarifLog.Runs[0].Results[0].SuppressionStates);
-            Assert.Equal(BaselineState.Existing, sarifLog.Runs[0].Results[0].BaselineState);
+            Assert.Equal(BaselineState.Unchanged, sarifLog.Runs[0].Results[0].BaselineState);
         }
     }
 }

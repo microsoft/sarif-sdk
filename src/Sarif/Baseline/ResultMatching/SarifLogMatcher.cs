@@ -252,7 +252,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 Result result = resultPair.CalculateBasedlinedResult(PropertyBagMergeBehavior);
 
                 IList<FileData> files = 
-                    (PropertyBagMergeBehavior.HasFlag(DictionaryMergeBehavior.InitializeFromOldest) && result.BaselineState == BaselineState.Existing)
+                    (PropertyBagMergeBehavior.HasFlag(DictionaryMergeBehavior.InitializeFromOldest) &&
+                    (result.BaselineState == BaselineState.Unchanged || result.BaselineState == BaselineState.Updated)) 
                     ? resultPair.PreviousResult.OriginalRun.Files
                     : resultPair.Run.Files;
 
