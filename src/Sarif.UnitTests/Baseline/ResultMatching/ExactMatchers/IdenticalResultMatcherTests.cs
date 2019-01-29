@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
 
             Result changedResultA = resultA.Result.DeepClone();
             changedResultA.CorrelationGuid = Guid.NewGuid().ToString();
-            changedResultA.BaselineState = BaselineState.Existing;
+            changedResultA.BaselineState = BaselineState.Unchanged;
 
             ExtractedResult resultB = new ExtractedResult()
             {
@@ -146,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
 
             Result changedResultA = resultAA.Result.DeepClone();
             changedResultA.CorrelationGuid = Guid.NewGuid().ToString();
-            changedResultA.BaselineState = BaselineState.Existing;
+            changedResultA.BaselineState = BaselineState.Unchanged;
 
             ExtractedResult resultBA = new ExtractedResult()
             {
@@ -185,7 +185,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
 
             Result changedResultA = resultAA.Result.DeepClone();
             changedResultA.CorrelationGuid = Guid.NewGuid().ToString();
-            changedResultA.BaselineState = BaselineState.Existing;
+            changedResultA.BaselineState = BaselineState.Unchanged;
             changedResultA.SetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, new Dictionary<string, string> { { "property", "value" } });
 
             ExtractedResult resultBA = new ExtractedResult()

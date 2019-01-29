@@ -62,13 +62,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
 
                 int existingCount = currentLog.Runs[0].Results.Count - 1;
-                calculatedNextBaseline.Runs[0].Results.Where(r => r.BaselineState == BaselineState.Existing).Count().Should().Be(existingCount);
+                calculatedNextBaseline.Runs[0].Results.Where(r => r.BaselineState == BaselineState.Unchanged).Count().Should().Be(existingCount);
 
                 if (existingCount > 0)
                 {
                     // In the event that we generated a SARIF run of only a single result, we will not have an 'existing' match
                     // since we adjusted the sole result value by adding a property to it.
-                    calculatedNextBaseline.Runs[0].Results.Where(r => r.BaselineState == BaselineState.Existing).First().TryGetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, out Dictionary<string, string> CurrentResultProperties).Should().BeTrue();
+                    calculatedNextBaseline.Runs[0].Results.Where(r => r.BaselineState == BaselineState.Unchanged).First().TryGetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, out Dictionary<string, string> CurrentResultProperties).Should().BeTrue();
                     CurrentResultProperties.Should().ContainKey("Run");
                     CurrentResultProperties["Run"].Should().BeEquivalentTo(currentLog.Runs[0].Id.InstanceGuid);
                 }

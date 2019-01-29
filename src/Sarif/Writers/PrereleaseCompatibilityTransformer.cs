@@ -47,16 +47,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             switch (version)
             {
-                case "2.0.0-csd.2.beta.2018-11-28":
+                case "2.0.0-csd.2.beta.2019-01-24":
                 {
-                    // SARIF TC28. Nothing to do.
+                    // SARIF TC31. Nothing to do.
                     break;
+                }
+
+                case "2.0.0-csd.2.beta.2019-01-09":
+                {
+                        modifiedLog |= ApplyChangesFromTC31(sarifLog);
+                        break;
                 }
 
                 case "2.0.0-csd.2.beta.2018-10-10":
                 {
                     // 2.0.0-csd.2.beta.2018-10-10 == changes through SARIF TC #25
-                    modifiedLog |= ApplyChangesFromTC25ThroughTC28(
+                    modifiedLog |= ApplyChangesFromTC25ThroughTC30(
                         sarifLog, 
                         out fullyQualifiedLogicalNameToIndexMap,
                         out fileLocationKeyToIndexMap,
@@ -67,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 default:
                 {
                     modifiedLog |= ApplyCoreTransformations(sarifLog);
-                    modifiedLog |= ApplyChangesFromTC25ThroughTC28(
+                    modifiedLog |= ApplyChangesFromTC25ThroughTC30(
                         sarifLog, 
                         out fullyQualifiedLogicalNameToIndexMap,
                         out fileLocationKeyToIndexMap,
@@ -109,7 +115,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return transformedSarifLog;
         }
 
-        private static bool ApplyChangesFromTC25ThroughTC28(
+        private static bool ApplyChangesFromTC31(JObject sarifLog)
+        {
+            bool modifiedLog = UpdateSarifLogVersion(sarifLog);
+
+            var runs = (JArray)sarifLog["runs"];
+
+            if (runs != null)
+            {
+                foreach (JObject run in runs)
+                {
+                    if (run["results"] is JArray results)
+                    {
+                        foreach (JObject result in results)
+                        {
+                            string baselineState = (string)result["baselineState"];
+
+                            if ("existing".Equals(baselineState))
+                            {
+                                result["baselineState"] = "unchanged";
+                                modifiedLog = true;
+                            }
+                        }
+                    }
+                }
+            }
+            return modifiedLog;
+        }
+
+        private static bool ApplyChangesFromTC25ThroughTC30(
             JObject sarifLog, 
             out Dictionary<string, int> fullyQualifiedLogicalNameToIndexMap,
             out Dictionary<string, int> fileKeyToIndexMap,
