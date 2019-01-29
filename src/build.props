@@ -77,12 +77,13 @@
   </PropertyGroup>
 
   <PropertyGroup Label="Package">
-    <Authors Condition=" '$(Authors)' == '' ">$(Company)</Authors>
-    <Owners Condition=" '$(Authors)' == '' ">$(Company),tse-securitytools</Owners>
+    <Authors>$(Company)</Authors>
+    <Title>$(AssemblyTitle)</Title>
     <PackageRequireLicenseAcceptance Condition=" '$(PackageRequireLicenseAcceptance)' == '' ">false</PackageRequireLicenseAcceptance>
-    <PackageLicenseUrl Condition=" '$(PackageLicenseUrl)' == '' ">https://github.com/Microsoft/sarif-sdk/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl Condition=" '$(PackageProjectUrl)' == '' ">https://github.com/Microsoft/sarif-sdk</PackageProjectUrl>
     <PackageIconUrl Condition=" '$(PackageIconUrl)' == '' ">https://go.microsoft.com/fwlink/?linkid=2008860</PackageIconUrl>
+    <NoWarn>NU5105</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
