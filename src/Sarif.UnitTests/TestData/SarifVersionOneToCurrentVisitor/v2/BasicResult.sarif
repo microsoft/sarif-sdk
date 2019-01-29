@@ -14,12 +14,9 @@
           "contents": {
             "text": "The quick brown fox jumps over the lazy dog"
           },
-          "hashes": [
-            {
-              "value": "d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592",
-              "algorithm": "sha-256"
-            }
-          ]
+          "hashes": {
+            "sha-256": "d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"
+          }
         }
       },
       "logicalLocations": {
@@ -39,6 +36,30 @@
         }
       },
       "results": [
+        {
+          "ruleId": "C2005",
+          "message": {
+            "text": "Some testing occurred."
+          },
+          "analysisTarget": {
+            "uri": "file:///home/buildAgent/src/myFile.cpp"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///home/buildAgent/src/myFile.cpp"
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 3,
+                  "endLine": 4,
+                  "endColumn": 5
+                }
+              }
+            }
+          ]
+        },
         {
           "ruleId": "C2001",
           "level": "error",
@@ -104,7 +125,7 @@
               }
             }
           ],
-          "suppressionStates": ["suppressedExternally"],
+          "suppressionStates": [ "suppressedExternally" ],
           "baselineState": "existing"
         }
       ],

@@ -331,7 +331,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 location = new Location
                 {
                     FullyQualifiedLogicalName = v1Location.LogicalLocationKey ?? v1Location.FullyQualifiedLogicalName,
-                    PhysicalLocation = CreatePhysicalLocation(v1Location.ResultFile),
+                    PhysicalLocation = CreatePhysicalLocation(v1Location.ResultFile ?? v1Location.AnalysisTarget),
                     Properties = v1Location.Properties
                 };
 

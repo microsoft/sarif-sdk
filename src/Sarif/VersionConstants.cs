@@ -5,7 +5,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class VersionConstants
     {
-        public const string Prerelease = "csd.2.beta.2018-10-10";
+        public const string Prerelease = "csd.2.beta.2018-10-10.1";
         public const string AssemblyVersion = "2.0.0";
         public const string FileVersion = AssemblyVersion + ".0";
     }
