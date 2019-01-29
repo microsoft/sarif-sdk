@@ -238,5 +238,6 @@
 * API BREAKING: 'run.externalFiles' renamed to 'run.externalPropertyFiles', which is not a bundle of external property file objects. NOTE: no transformation will be provided for legacy versions of the external property files API.
 * API BREAKING: rework 'result.provenance' object, including moving result.conversionProvenance to 'result.provenance.conversionSources'. NOTE: no transformation currently exists for this update.
 * API BREAKING: Make 'run.files' an array, not a dictionary. Add fileLocation.fileIndex to point to a file object associated with the location within 'run.files'.
+* API BREAKING: Make 'resources.rules' an array, not a dictionary. Add result.ruleIndex to point to a rule object associated with the result within 'resources.rules'.
 * API BREAKING: 'run.logicalLocations' now requires unique array elements. https://github.com/oasis-tcs/sarif-spec/issues/304
 
