@@ -444,7 +444,8 @@
         "description": "The state of a result relative to a baseline of a previous run.",
         "zeroValueName": "None",
         "memberNames": [
-          "Existing",
+          "Unchanged",
+          "Updated",
           "New",
           "Absent"
         ]
