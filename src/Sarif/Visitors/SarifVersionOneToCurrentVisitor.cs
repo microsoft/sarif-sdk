@@ -748,7 +748,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     SuppressionStates = Utilities.CreateSuppressionStates(v1Result.SuppressionStates)
                 };
 
-                // The v2 spec says that analysisTarget is required only if it differs from the result file.
+                // The v2 spec says that analysisTarget is required only if it differs from the result location.
                 // On the other hand, the v1 spec says that if the result is found in the file that the tool
                 // was instructed to scan, then analysisTarget should be present and resultFile should be
                 // absent -- so we should _not_ populate the v2 analysisTarget in this case.
