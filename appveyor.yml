@@ -7,7 +7,7 @@ branches:
   only:
     - master
     - develop
-    - files-array
+    - tc-31
     - sarif-v1
 
 platform: Any CPU

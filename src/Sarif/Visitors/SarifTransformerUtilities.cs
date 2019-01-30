@@ -187,7 +187,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 case BaselineStateVersionOne.Absent:
                     return BaselineState.Absent;
                 case BaselineStateVersionOne.Existing:
-                    return BaselineState.Existing;
+                    return BaselineState.Unchanged;
                 case BaselineStateVersionOne.New:
                     return BaselineState.New;
                 default:
@@ -200,7 +200,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 case BaselineState.Absent:
                     return BaselineStateVersionOne.Absent;
-                case BaselineState.Existing:
+                case BaselineState.Unchanged:
+                case BaselineState.Updated:
                     return BaselineStateVersionOne.Existing;
                 case BaselineState.New:
                     return BaselineStateVersionOne.New;

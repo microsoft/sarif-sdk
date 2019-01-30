@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
             Run result = strictBaseliner.CreateBaselinedRun(baseline, next);
 
-            result.Results.Should().OnlyContain(r => r.BaselineState == BaselineState.Existing);
+            result.Results.Should().OnlyContain(r => r.BaselineState == BaselineState.Unchanged);
             result.Results.Should().HaveCount(baseline.Results.Count());
         }
 
