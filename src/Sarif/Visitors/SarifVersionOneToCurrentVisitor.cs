@@ -753,7 +753,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 // was instructed to scan, then analysisTarget should be present and resultFile should be
                 // absent -- so we should _not_ populate the v2 analysisTarget in this case.
                 LocationVersionOne v1Location = v1Result.Locations?[0];
-                if (v1Location?.ResultFile != null && v1Location?.AnalysisTarget?.Uri != v1Location?.ResultFile?.Uri)
+                if (v1Location?.ResultFile != null && v1Location.AnalysisTarget?.Uri != v1Location.ResultFile.Uri)
                 {
                     result.AnalysisTarget = CreateFileLocation(v1Result.Locations[0].AnalysisTarget);
                 }
