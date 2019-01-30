@@ -67,7 +67,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         out fullyQualifiedLogicalNameToIndexMap,
                         out fileLocationKeyToIndexMap,
                         out ruleKeyToIndexMap);
-                    break;
+                    modifiedLog |= ApplyChangesFromTC31(sarifLog);
+                        break;
                 }
 
                 default:
@@ -78,7 +79,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         out fullyQualifiedLogicalNameToIndexMap,
                         out fileLocationKeyToIndexMap,
                         out ruleKeyToIndexMap);
-                    break;
+                    modifiedLog |= ApplyChangesFromTC31(sarifLog);
+                        break;
                 }
             }
 
@@ -117,11 +119,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static bool ApplyChangesFromTC31(JObject sarifLog)
         {
-            bool modifiedLog = UpdateSarifLogVersion(sarifLog);
+            bool modifiedLog = UpdateSarifLogVersion(sarifLog);            ;
 
-            var runs = (JArray)sarifLog["runs"];
-
-            if (runs != null)
+            if (sarifLog["runs"] is JArray runs)
             {
                 foreach (JObject run in runs)
                 {
@@ -162,10 +162,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // For completness, this update added run.newlineSequences to the schema
             // This is a non-breaking (additive) change, so there is no work to do.
             //https://github.com/oasis-tcs/sarif-spec/issues/169
-
-            var runs = (JArray)sarifLog["runs"];
-
-            if (runs != null)
+            
+            if (sarifLog["runs"] is JArray runs)
             {
                 foreach (JObject run in runs)
                 {
@@ -585,9 +583,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             bool modifiedLog = UpdateSarifLogVersion(sarifLog); 
 
-            var runs = (JArray)sarifLog["runs"];
-
-            if (runs != null)
+            if (sarifLog["runs"] is JArray runs)
             {
                 foreach (JObject run in runs)
                 {
