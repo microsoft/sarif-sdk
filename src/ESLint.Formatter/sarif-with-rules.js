@@ -5,10 +5,10 @@
 
 "use strict";
 
+const lodash = require("lodash");
 const fs = require("fs");
 const utf8 = require("utf8");
 const jschardet = require("jschardet");
-
 
 //------------------------------------------------------------------------------
 // Helper Functions
@@ -27,12 +27,13 @@ function getResultLevel(message) {
     return "warning";
 }
 
-
 //------------------------------------------------------------------------------
 // Public Interface
 //------------------------------------------------------------------------------
 
-module.exports = function(results, rules) {
+module.exports = function (results, data) {
+    const rulesMetdata = lodash.get(data, "rulesMetdata", null);
+
     const sarifLog = {
         version: "2.0.0",
         $schema: "http://json.schemastore.org/sarif-2.0.0",
@@ -111,21 +112,21 @@ module.exports = function(results, rules) {
             if (message.ruleId) {
                 sarifResult.ruleId = message.ruleId;
 
-                if (typeof sarifRules[message.ruleId] === "undefined") {
-                    const rule = rules.get(message.ruleId);
+                if (rulesMetdata && typeof sarifRules[message.ruleId] === "undefined") {
+                    const meta = rulesMetdata[message.ruleId];
 
                     // An unknown ruleId will return null. This check prevents unit test failure.
-                    if (rule) {
+                    if (meta) {
 
                         // Create a new entry in the rules dictionary.
                         sarifRules[message.ruleId] = {
                             id: message.ruleId,
                             shortDescription: {
-                                text: rule.meta.docs.description
+                                text: meta.docs.description
                             },
-                            helpUri: rule.meta.docs.url,
+                            helpUri: meta.docs.url,
                             tags: {
-                                category: rule.meta.docs.category
+                                category: meta.docs.category
                             }
                         };
                     }

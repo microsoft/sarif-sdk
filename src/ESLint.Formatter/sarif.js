@@ -9,7 +9,6 @@ const fs = require("fs");
 const utf8 = require("utf8");
 const jschardet = require("jschardet");
 
-
 //------------------------------------------------------------------------------
 // Helper Functions
 //------------------------------------------------------------------------------
@@ -26,7 +25,6 @@ function getResultLevel(message) {
     }
     return "warning";
 }
-
 
 //------------------------------------------------------------------------------
 // Public Interface
