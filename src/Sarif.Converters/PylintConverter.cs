@@ -42,7 +42,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 RuleId = $"{defect.MessageId}({defect.Symbol})",
                 Message = new Message { Text = defect.Message },
-                Kind = ResultKind.Fail
             };
 
             switch (defect.Type)

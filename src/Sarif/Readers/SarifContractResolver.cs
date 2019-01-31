@@ -35,11 +35,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             else if (objectType == typeof(FailureLevel))
                 contract.Converter = EnumConverter.Instance;
-
+     
             else if (objectType == typeof(ResultKind))
-                contract.Converter = EnumConverter.Instance;
-
-            else if (objectType == typeof(FailureLevel))
                 contract.Converter = EnumConverter.Instance;
 
             else if (objectType == typeof(BaselineState))

@@ -53,6 +53,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A value that categorizes results by evaluation state.
         /// </summary>
         [DataMember(Name = "kind", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(ResultKind.Fail)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
         public ResultKind Kind
         {
@@ -239,6 +241,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Result()
         {
             RuleIndex = -1;
+            Kind = ResultKind.Fail;
             Level = FailureLevel.Warning;
             Rank = -1.0;
         }
