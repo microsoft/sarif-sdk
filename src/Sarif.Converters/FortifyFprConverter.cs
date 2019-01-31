@@ -868,7 +868,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     _invocation.ToolNotifications.Add(new Notification
                     {
                         Id = errorCode,
-                        Level = NotificationLevel.Error,
+                        Level = FailureLevel.Error,
                         Message = new Message { Text = message }
                     });
                 }

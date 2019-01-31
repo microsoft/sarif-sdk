@@ -56,7 +56,8 @@ namespace Sarif.Converters.UnitTests
             {
                 RuleId = "C0412(testSymbol)",
                 Message = new Message { Text = "testMessage" },
-                Level = ResultLevel.Warning,
+                Level = FailureLevel.Warning,
+                Kind = ResultKind.Fail,
                 Locations = new List<Location>
                 {
                     new Location

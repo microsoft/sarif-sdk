@@ -97,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         }
 
         [Fact]
-        public void BaselineState_Existing()
+        public void BaselineState_UnchangedAndUpdated()
         {
             string expected =
 @"{
@@ -114,7 +114,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
           ""message"": {
             ""text"": ""Some testing occurred.""
          },
-          ""baselineState"": ""existing""
+          ""baselineState"": ""unchanged""
+        },
+        {
+          ""message"": {
+            ""text"": ""Some testing occurred.""
+         },
+          ""baselineState"": ""updated""
         }
       ]
     }
@@ -137,6 +143,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
             Assert.Equal(SuppressionStates.None, sarifLog.Runs[0].Results[0].SuppressionStates);
             Assert.Equal(BaselineState.Unchanged, sarifLog.Runs[0].Results[0].BaselineState);
+            Assert.Equal(BaselineState.Updated, sarifLog.Runs[0].Results[0].BaselineState);
         }
     }
 }

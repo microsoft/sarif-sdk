@@ -329,22 +329,13 @@
       }
     }
   ],
-  "Notification.TimeUtc": [
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter)" ]
-      }
-    }
-  ],
   "Notification.Level": [
     {
       "kind": "EnumHint",
       "arguments": {
-        "typeName": "NotificationLevel",
-        "description": "Values specifying the level of a notification.",
+        "typeName": "FailureLevel",
+        "description": "Values specifying the level of a notification or result.",
+        "zeroValueName": "None",
         "memberNames": [
           "Warning",
           "Note",
@@ -358,6 +349,16 @@
         "namespaceName": "Newtonsoft.Json",
         "typeName": "JsonConverter",
         "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter)" ]
+      }
+    }
+  ],
+  "Notification.TimeUtc": [
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "JsonConverter",
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter)" ]
       }
     }
   ],
@@ -426,16 +427,6 @@
       }
     }
   ],
-  "resultProvenance": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
   "Result.BaselineState": [
     {
       "kind": "EnumHint",
@@ -480,20 +471,42 @@
       }
     }
   ],
+  "Result.Kind": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "ResultKind",
+        "description": "Values specifying the evaluation state of a result.",
+        "zeroValueName": "None",
+        "memberNames": [
+          "NotApplicable",
+          "Pass",
+          "Fail",
+          "Review",
+          "Open"
+        ]
+      }
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "JsonConverter",
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter)" ]
+      }
+    }
+  ],
   "Result.Level": [
     {
       "kind": "EnumHint",
       "arguments": {
-        "typeName": "ResultLevel",
-        "description": "Values specifying the level of a result.",
-        "zeroValueName": "Default",
+        "typeName": "FailureLevel",
+        "description": "Values specifying the level of a notification or result.",
+        "zeroValueName": "None",
         "memberNames": [
-          "NotApplicable",
-          "Pass",
-          "Note",
           "Warning",
-          "Error",
-          "Open"
+          "Note",
+          "Error"
         ]
       }
     },
@@ -541,6 +554,16 @@
         "namespaceName": "Newtonsoft.Json",
         "typeName": "JsonProperty",
         "arguments": [ "ItemConverterType = typeof(UriConverter)" ]
+      }
+    }
+  ],
+  "resultProvenance": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
       }
     }
   ],
@@ -594,8 +617,8 @@
     {
       "kind": "EnumHint",
       "arguments": {
-        "typeName": "RuleConfigurationDefaultLevel",
-        "description": "A value that specifies the default severity level of the result",
+        "typeName": "FailureLevel",
+        "description": "A value that specifies the default failure level of the result",
         "zeroValueName": "None",
         "memberNames": [
           "Note",

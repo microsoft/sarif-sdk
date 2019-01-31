@@ -254,7 +254,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 Id = "NOT0001",
                 RuleId = "TST0001",
-                Level = NotificationLevel.Error,
+                Level = FailureLevel.Error,
                 Message = new Message { Text = "This is a test" },
                 PhysicalLocation = new PhysicalLocation
                 {

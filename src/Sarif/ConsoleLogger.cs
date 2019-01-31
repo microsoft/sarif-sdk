@@ -94,40 +94,47 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             WriteToConsole(
                 result.Level,
+                result.Kind,
                 physicalLocation?.FileLocation?.Uri,
                 physicalLocation?.Region,
                 result.RuleId,
                 message);
         }
 
-        private void WriteToConsole(ResultLevel level, Uri uri, Region region, string ruleId, string message)
+        private void WriteToConsole(FailureLevel level, ResultKind kind, Uri uri, Region region, string ruleId, string message)
         {
+            // If we are not in an actual failure case, the message level
+            // is not relevant so we'll explicitly set it to None.
+            if (kind != ResultKind.Fail)
+            {
+                level = FailureLevel.None;
+            }
+
             switch (level)
             {
                 // These result types are optionally emitted.
-                case ResultLevel.Pass:
-                case ResultLevel.Note:
-                case ResultLevel.NotApplicable:
+                case FailureLevel.None:
+                case FailureLevel.Note:
+                {
+                    if (Verbose)
                     {
-                        if (Verbose)
-                        {
-                            Console.WriteLine(GetMessageText(uri, region, ruleId, message, level));
-                        }
-                        break;
+                        Console.WriteLine(GetMessageText(uri, region, ruleId, message, level, kind));
                     }
+                    break;
+                }
 
                 // These result types are always emitted.
-                case ResultLevel.Error:
-                case ResultLevel.Warning:
-                    {
-                        Console.WriteLine(GetMessageText(uri, region, ruleId, message, level));
-                        break;
-                    }
+                case FailureLevel.Error:
+                case FailureLevel.Warning:
+                {
+                    Console.WriteLine(GetMessageText(uri, region, ruleId, message, level, kind));
+                    break;
+                }
 
                 default:
-                    {
-                        throw new InvalidOperationException();
-                    }
+                {
+                    throw new InvalidOperationException();
+                }
             }
         }
 
@@ -136,9 +143,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             Region region,
             string ruleId,
             string message,
-            ResultLevel resultLevel)
+            FailureLevel resultLevel,
+            ResultKind kind)
         {
             string path = null;
+
+            if (kind != ResultKind.Fail)
+            {
+                resultLevel = FailureLevel.None;
+            }
 
             if (uri != null)
             {
@@ -157,22 +170,22 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             switch (resultLevel)
             {
-                case ResultLevel.Error:
+                case FailureLevel.Note:
+                    issueType = "info";
+                    break;
+
+                case FailureLevel.Error:
                     issueType = "error";
                     break;
 
-                case ResultLevel.Warning:
+                case FailureLevel.Warning:
                     issueType = "warning";
                     break;
 
-                case ResultLevel.Pass:
-                    issueType = "pass";
+                case FailureLevel.None:
+                    issueType = kind.ToString().ToLowerInvariant();
                     break;
 
-                case ResultLevel.NotApplicable:
-                case ResultLevel.Note:
-                    issueType = "info";
-                    break;
 
                 default:
                     throw new InvalidOperationException("Unknown message kind:" + resultLevel.ToString());
@@ -235,7 +248,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             switch (notification.Level)
             {
                 // This notification type is optionally emitted.
-                case NotificationLevel.Note:
+                case FailureLevel.Note:
                     if (Verbose)
                     {
                         Console.WriteLine(FormatNotificationMessage(notification));
@@ -243,8 +256,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     break;
 
                 // These notification types are always emitted.
-                case NotificationLevel.Error:
-                case NotificationLevel.Warning:
+                case FailureLevel.Error:
+                case FailureLevel.Warning:
                     Console.WriteLine(FormatNotificationMessage(notification));
                     break;
 
@@ -259,17 +272,17 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             switch (notification.Level)
             {
-                case NotificationLevel.Error:
+                case FailureLevel.Error:
                 {
                     issueType = "error";
                     break;
                 }
-                case NotificationLevel.Warning:
+                case FailureLevel.Warning:
                 {
                     issueType = "warning";
                     break;
                 }
-                case NotificationLevel.Note:
+                case FailureLevel.Note:
                 {
                     issueType = "note";
                     break;

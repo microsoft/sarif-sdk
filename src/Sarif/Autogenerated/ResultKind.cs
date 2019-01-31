@@ -6,17 +6,16 @@ using System.CodeDom.Compiler;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Values specifying the level of a result.
+    /// Values specifying the evaluation state of a result.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
-    public enum ResultLevel
+    public enum ResultKind
     {
-        Default,
+        None,
         NotApplicable,
         Pass,
-        Note,
-        Warning,
-        Error,
+        Fail,
+        Review,
         Open
     }
 }

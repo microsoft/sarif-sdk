@@ -41,22 +41,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Result result = new Result
             {
                 RuleId = $"{defect.MessageId}({defect.Symbol})",
-                Message = new Message { Text = defect.Message }
+                Message = new Message { Text = defect.Message },
+                Kind = ResultKind.Fail
             };
 
             switch (defect.Type)
             {
                 case "error":
                 case "fatal":
-                    result.Level = ResultLevel.Error;
+                    result.Level = FailureLevel.Error;
                     break;
                 case "warning":
                 case "convention":
-                    result.Level = ResultLevel.Warning;
+                    result.Level = FailureLevel.Warning;
                     break;
                 case "refactor":
                 default:
-                    result.Level = ResultLevel.Note;
+                    result.Level = FailureLevel.Note;
                     break;
             };
 

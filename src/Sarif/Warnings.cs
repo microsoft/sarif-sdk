@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     },
                     Id = Wrn997_InvalidTarget,
                     Message = new Message { Text = message },
-                    Level = NotificationLevel.Note,
+                    Level = FailureLevel.Note,
                 });
 
             context.RuntimeErrors |= RuntimeConditions.TargetNotValidToAnalyze;
@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     },
                     Id = Wrn998_UnsupportedPlatform,
                     Message = new Message { Text = message },
-                    Level = NotificationLevel.Warning,
+                    Level = FailureLevel.Warning,
                 });
 
             context.RuntimeErrors |= RuntimeConditions.RuleCannotRunOnPlatform;
@@ -95,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     Id = Wrn999_RuleExplicitlyDisabled,
                     Message = new Message { Text = message },
-                    Level = NotificationLevel.Warning,
+                    Level = FailureLevel.Warning,
                 });
 
             context.RuntimeErrors |= RuntimeConditions.RuleWasExplicitlyDisabled;

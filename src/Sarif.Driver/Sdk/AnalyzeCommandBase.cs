@@ -671,7 +671,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         protected static void LogToolNotification(
             IAnalysisLogger logger,
             string message,
-            NotificationLevel level = NotificationLevel.Note,
+            FailureLevel level = FailureLevel.Note,
             Exception ex = null)
         {
             ExceptionData exceptionData = null;
@@ -685,7 +685,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 };
             }
 
-            TextWriter writer = level == NotificationLevel.Error ? Console.Error : Console.Out;
+            TextWriter writer = level == FailureLevel.Error ? Console.Error : Console.Out;
             writer.WriteLine(message);
 
             logger.LogToolNotification(new Notification

@@ -760,7 +760,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     BaselineState = Utilities.CreateBaselineStateVersionOne(v2Result.BaselineState),
                     Fixes = v2Result.Fixes?.Select(CreateFixVersionOne).ToList(),
                     Id = v2Result.InstanceGuid,
-                    Level = Utilities.CreateResultLevelVersionOne(v2Result.Level),
+                    Level = Utilities.CreateResultLevelVersionOne(v2Result.Level, v2Result.Kind),
                     Locations = v2Result.Locations?.Select(CreateLocationVersionOne).ToList(),
                     Message = v2Result.Message?.Text,
                     Properties = v2Result.Properties,

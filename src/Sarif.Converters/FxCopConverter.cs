@@ -180,7 +180,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
         }
 
-        private static ResultLevel ConvertFxCopLevelToResultLevel(string fxcopLevel, out bool mapsDirectlyToSarifName)
+        private static FailureLevel ConvertFxCopLevelToResultLevel(string fxcopLevel, out bool mapsDirectlyToSarifName)
         {
             mapsDirectlyToSarifName = true;
 
@@ -191,30 +191,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 case "Error":
                 {
-                    return ResultLevel.Error;
+                    return FailureLevel.Error;
                 }
 
                 case "CriticalError":
                 {
                     mapsDirectlyToSarifName = false;
-                    return ResultLevel.Error;
+                    return FailureLevel.Error;
                 }
 
                 case "Warning":
                 {
-                    return ResultLevel.Warning;
+                    return FailureLevel.Warning;
                 }
 
                 case "CriticalWarning":
                 {
                     mapsDirectlyToSarifName = false;
-                    return ResultLevel.Warning;
+                    return FailureLevel.Warning;
                 }
 
                 case "Information":
                 {
                     mapsDirectlyToSarifName = false;
-                    return ResultLevel.Note;
+                    return FailureLevel.Note;
                 }
 
                 default:
@@ -227,7 +227,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             // FxCop provides no MessageLevel. For these issues, we shouldn't
             // emit any value at all
             mapsDirectlyToSarifName = false;
-            return ResultLevel.Default;
+            return FailureLevel.None;
         }
 
         private static string GetFilePath(FxCopLogReader.Context context)

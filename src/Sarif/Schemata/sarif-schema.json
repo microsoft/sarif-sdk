@@ -1302,9 +1302,15 @@
           "minimum": -1
         },
 
+        "kind": {
+          "description": "A value that categorizes results by evaluation state.",
+          "enum": [ "notApplicable", "pass", "fail", "review", "open" ]
+        },
+
         "level": {
           "description": "A value specifying the severity level of the result.",
-          "enum": [ "notApplicable", "pass", "note", "warning", "error", "open" ]
+          "default": "warning",
+          "enum": [ "note", "warning", "error"]
         },
 
         "message": {

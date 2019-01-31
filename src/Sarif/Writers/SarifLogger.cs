@@ -460,12 +460,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     },
                     Id = Notes.Msg001AnalyzingTarget,
                     Message = new Message { Text = message },
-                    Level = NotificationLevel.Note,
+                    Level = FailureLevel.None,
                     TimeUtc = DateTime.UtcNow,
                 });
         }
 
-        public void Log(ResultLevel messageKind, IAnalysisContext context, Region region, string ruleMessageId, params string[] arguments)
+        public void Log(FailureLevel level, IAnalysisContext context, Region region, string ruleMessageId, params string[] arguments)
         {
             if (context == null)
             {
@@ -479,10 +479,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             ruleMessageId = RuleUtilities.NormalizeRuleMessageId(ruleMessageId, context.Rule.Id);
-            LogJsonIssue(messageKind, context.TargetUri.LocalPath, region, context.Rule.Id, ruleIndex, ruleMessageId, arguments);
+            LogJsonIssue(level, context.TargetUri.LocalPath, region, context.Rule.Id, ruleIndex, ruleMessageId, arguments);
         }
 
-        private void LogJsonIssue(ResultLevel level, string targetPath, Region region, string ruleId, int ruleIndex, string ruleMessageId, params string[] arguments)
+        private void LogJsonIssue(FailureLevel level, string targetPath, Region region, string ruleId, int ruleIndex, string ruleMessageId, params string[] arguments)
         {
             if (!ShouldLog(level))
             {
@@ -520,14 +520,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _issueLogJsonWriter.WriteResult(result);
         }
 
-        public bool ShouldLog(ResultLevel level)
+        public bool ShouldLog(FailureLevel level)
         {
             switch (level)
             {
-                case ResultLevel.Note:
-                case ResultLevel.Pass:
-                case ResultLevel.Open:
-                case ResultLevel.NotApplicable:
+                case FailureLevel.None:
+                case FailureLevel.Note:
                 {
                     if (!Verbose)
                     {
@@ -536,9 +534,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     break;
                 }
 
-                case ResultLevel.Error:
-                case ResultLevel.Default:
-                case ResultLevel.Warning:
+                case FailureLevel.Error:
+                case FailureLevel.Warning:
                 {
                     break;
                 }

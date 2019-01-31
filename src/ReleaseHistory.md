@@ -219,7 +219,7 @@
 * API BREAKING: Remove 'threadFlowLocation.step'
 * API BREAKING: 'invocation.workingDirectory' is now a FileLocation object (and not a URI expressed as a string)
 
-## **v2.0.0-csd.2.beta.2018.11.28** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2018.11.28) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2018.11.28) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2018.11.28)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2018.11.28))
+## **v2.0.0-csd.2.beta.2019.01.09** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.01.09) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.01.09) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.01.09)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.01.09))
 * BUGFIX: Result matching improvements in properties persistence.
 * FEATURE: Fortify FPR converter improvements.
 * API Non-BREAKING: Remove uniqueness requirement from 'result.locations'.
@@ -235,3 +235,7 @@
 * API BREAKING: Make 'run.logicalLocations' an array, not a dictionary. Add result.logicalLocationIndex to point to associated logical location.
 * API BREAKING: 'run.externalFiles' renamed to 'run.externalPropertyFiles', which is not a bundle of external property file objects. NOTE: no transformation will be provided for legacy versions of the external property files API.
 * API BREAKING: rework 'result.provenance' object, including moving result.conversionProvenance to 'result.provenance.conversionSources'. NOTE: no transformation currently exists for this update.
+
+## **v2.0.0-csd.2.beta.2019.01.24** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.01.24) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.01.24) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.01.24)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.01.24))
+* API BREAKING: rename baselineState 'existing' value to 'unchanged'. Add new baselineState value 'updated'.
+* API BREAKING: unify result and notification failure levels ('note', 'warning', 'error'). Break out result evaluation state into 'result.kind' property with values 'pass', 'fail', 'open', 'review', 'notApplicable'.

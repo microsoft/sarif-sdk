@@ -70,10 +70,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A value specifying the severity level of the notification.
         /// </summary>
         [DataMember(Name = "level", IsRequired = false, EmitDefaultValue = false)]
-        [DefaultValue(NotificationLevel.Warning)]
+        [DefaultValue(FailureLevel.Warning)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
-        public NotificationLevel Level { get; set; }
+        public FailureLevel Level { get; set; }
 
         /// <summary>
         /// The thread identifier of the code that generated the notification.
@@ -106,7 +106,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Notification()
         {
             RuleIndex = -1;
-            Level = NotificationLevel.Warning;
+            Level = FailureLevel.Warning;
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Notification(string id, string ruleId, int ruleIndex, PhysicalLocation physicalLocation, Message message, NotificationLevel level, int threadId, DateTime timeUtc, ExceptionData exception, IDictionary<string, SerializedPropertyInfo> properties)
+        public Notification(string id, string ruleId, int ruleIndex, PhysicalLocation physicalLocation, Message message, FailureLevel level, int threadId, DateTime timeUtc, ExceptionData exception, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(id, ruleId, ruleIndex, physicalLocation, message, level, threadId, timeUtc, exception, properties);
         }
@@ -184,7 +184,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Notification(this);
         }
 
-        private void Init(string id, string ruleId, int ruleIndex, PhysicalLocation physicalLocation, Message message, NotificationLevel level, int threadId, DateTime timeUtc, ExceptionData exception, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string id, string ruleId, int ruleIndex, PhysicalLocation physicalLocation, Message message, FailureLevel level, int threadId, DateTime timeUtc, ExceptionData exception, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             RuleId = ruleId;
