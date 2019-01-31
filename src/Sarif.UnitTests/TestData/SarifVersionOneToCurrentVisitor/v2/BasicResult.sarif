@@ -41,9 +41,6 @@
           "message": {
             "text": "Some testing occurred."
           },
-          "analysisTarget": {
-            "uri": "file:///home/buildAgent/src/myFile.cpp"
-          },
           "locations": [
             {
               "physicalLocation": {
