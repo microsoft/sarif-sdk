@@ -131,10 +131,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 var run = new Run() { Tool = DefaultTool };
                 uut.Initialize(run);
 
-                uut.WriteResults(new[] { new Result
+                uut.WriteResults(new[] {
+                    new Result
                     {
                         Message = new Message { Text = "Some testing occurred."},
                         BaselineState = BaselineState.Unchanged
+                    },
+                    new Result {
+                        Message = new Message { Text = "Some testing occurred."},
+                        BaselineState = BaselineState.Updated
                     }
                 });
             });
@@ -143,7 +148,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
             Assert.Equal(SuppressionStates.None, sarifLog.Runs[0].Results[0].SuppressionStates);
             Assert.Equal(BaselineState.Unchanged, sarifLog.Runs[0].Results[0].BaselineState);
-            Assert.Equal(BaselineState.Updated, sarifLog.Runs[0].Results[0].BaselineState);
+            Assert.Equal(BaselineState.Updated, sarifLog.Runs[0].Results[1].BaselineState);
         }
     }
 }

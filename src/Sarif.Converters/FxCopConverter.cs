@@ -146,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             bool mapsDirectlyToSarifName;
 
-            result.Level = ConvertFxCopLevelToResultLevel(context.Level, out mapsDirectlyToSarifName);
+            result.Level = ConvertFxCopLevelToResultLevel(context.Level ?? "Warning", out mapsDirectlyToSarifName);
 
             if (!mapsDirectlyToSarifName)
             {

@@ -116,7 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 case ResultLevelVersionOne.NotApplicable:
                     return FailureLevel.None;
                 default:
-                    return FailureLevel.None;
+                    return FailureLevel.Warning;
             }
         }
         public static ResultKind CreateResultKind(ResultLevelVersionOne v1ResultLevel)
@@ -134,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 case ResultLevelVersionOne.NotApplicable:
                     return ResultKind.NotApplicable;
                 default:
-                    return ResultKind.None;
+                    return ResultKind.Fail;
             }
         }
 

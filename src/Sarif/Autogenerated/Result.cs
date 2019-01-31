@@ -48,12 +48,28 @@ namespace Microsoft.CodeAnalysis.Sarif
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public int RuleIndex { get; set; }
 
+        private ResultKind _kind;
         /// <summary>
         /// A value that categorizes results by evaluation state.
         /// </summary>
         [DataMember(Name = "kind", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(ResultKind.Fail)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
-        public ResultKind Kind { get; set; }
+        public ResultKind Kind
+        {
+            get { return _kind; }
+            set
+            {
+                _kind = value;
+                if (_kind != ResultKind.None && _kind != ResultKind.Fail)
+                {
+                    _level = FailureLevel.None;
+                }
+            }
+        }
+
+        private FailureLevel _level;
 
         /// <summary>
         /// A value specifying the severity level of the result.
@@ -62,10 +78,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DefaultValue(FailureLevel.Warning)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
-        public FailureLevel Level { get; set; }
+        public FailureLevel Level
+        {
+            get { return _level; }
+            set
+            {
+                _level = value;
+                if (_level!= FailureLevel.None)
+                {
+                    _kind = ResultKind.Fail;
+                }
+            }
+        }
 
         /// <summary>
-        /// A message that describes the result. The first sentence of the message only will be displayed when visible space is limited.
+        /// A message tha_lket describes the result. The first sentence of the message only will be displayed when visible space is limited.
         /// </summary>
         [DataMember(Name = "message", IsRequired = true)]
         public Message Message { get; set; }
@@ -214,6 +241,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Result()
         {
             RuleIndex = -1;
+            Kind = ResultKind.Fail;
             Level = FailureLevel.Warning;
             Rank = -1.0;
         }
