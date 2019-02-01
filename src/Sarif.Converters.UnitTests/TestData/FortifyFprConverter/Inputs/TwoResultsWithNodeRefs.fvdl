@@ -157,7 +157,7 @@
     </Knowledge>
   </Node>
   <Node id="5">
-    <SourceLocation path="Helpers/Logger.cs" line="101" lineEnd="101" colStart="0" colEnd="0" contextId="4" snippet="32045B93EFEFCAFB9BAEFEA309C19332#Helpers/Logger.cs:101:101"/>
+    <SourceLocation path="Helpers/Logger.cs" line="101" lineEnd="101" colStart="0" colEnd="0" contextId="4"/>
     <Action type="InCall">WriteLog(1)</Action>
     <Knowledge>
       <Fact primary="false" type="Call">Direct : Helpers.Logger.WriteLog</Fact>
@@ -334,19 +334,6 @@ SqlDataReader objReader = query.ExecuteReader();</Text>
                             Logger.Error(ex.ToString());
                         }
                     }
-
-]]></Text>
-  </Snippet>
-  <Snippet id="32045B93EFEFCAFB9BAEFEA309C19332#Helpers/Logger.cs:101:101">
-    <File>Helpers/Logger.cs</File>
-    <StartLine>98</StartLine>
-    <EndLine>104</EndLine>
-    <Text><![CDATA[        {
-            if (ConfigHelper.LogType.Contains("ERROR"))
-            {
-                WriteLog("ERROR", message, args);
-            }
-        }
 
 ]]></Text>
   </Snippet>

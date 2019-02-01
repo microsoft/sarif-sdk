@@ -10,7 +10,7 @@
     <Product Condition=" '$(Product)' == '' ">Microsoft SARIF SDK</Product>
     <Copyright Condition=" '$(Copyright)' == '' ">© Microsoft Corporation. All rights reserved.</Copyright>
     <VersionPrefix Condition=" '$(VersionPrefix)' == ''">2.0.0</VersionPrefix>
-    <VersionSuffix Condition=" '$(VersionSuffix)' == ''">csd.2.beta.2018-11-28</VersionSuffix>
+    <VersionSuffix Condition=" '$(VersionSuffix)' == ''">csd.2.beta.2019-01-09</VersionSuffix>
 
     <!--
     Whenever you increment VersionPrefix or VersionSuffix, copy the old value(s)
