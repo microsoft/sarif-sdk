@@ -409,9 +409,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         ""name"": ""DefaultTool""
       },
       ""columnKind"": ""utf16CodeUnits"",
-      ""configurationNotifications"": [
+      ""invocations"": [
+        {                
+          ""configurationNotifications"": [
 " + SerializedNotification + @"
-      ]
+          ]
+       }
+     ]
     }
   ]
 }";
@@ -419,7 +423,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 var run = new Run() { Tool = DefaultTool };
                 uut.Initialize(run);
-                uut.WriteConfigurationNotifications(s_notifications);
+
+                var invocation = new Invocation
+                {
+                    ConfigurationNotifications = s_notifications
+                };
+                uut.WriteInvocations(new[] { invocation });
             });
 
             actual.Should().BeCrossPlatformEquivalent<SarifLog>(expected);
@@ -438,17 +447,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         ""name"": ""DefaultTool""
       },
       ""columnKind"": ""utf16CodeUnits"",
-      ""toolNotifications"": [
+      ""invocations"": [
+        {                
+          ""toolNotifications"": [
 " + SerializedNotification + @"
-      ]
+          ]
+       }
+     ]
     }
   ]
 }";
+
             string actual = GetJson(uut =>
             {
                 var run = new Run() { Tool = DefaultTool };
                 uut.Initialize(run);
-                uut.WriteToolNotifications(s_notifications);
+
+                var invocation = new Invocation
+                {
+                    ToolNotifications = s_notifications
+                };
+                uut.WriteInvocations(new[] { invocation });
             });
 
             actual.Should().BeCrossPlatformEquivalent<SarifLog>(expected);

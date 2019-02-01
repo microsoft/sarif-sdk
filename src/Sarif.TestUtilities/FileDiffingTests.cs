@@ -201,12 +201,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (actualSarif.Equals(expectedSarif)) { return true; }
 
-            expectedSarif = expectedSarif ?? "{}";
-
             JsonSerializerSettings settings = new JsonSerializerSettings()
             {
                 ContractResolver = contractResolver,
+                Formatting = Formatting.Indented
             };
+
+            // Round-trip expected content to make it realie various default values
+            expectedSarif = expectedSarif ?? "{}";
 
             // Make sure we can successfully roundtrip what was just generated
             T actualSarifObject = JsonConvert.DeserializeObject<T>(actualSarif, settings);

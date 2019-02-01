@@ -1031,7 +1031,7 @@
         "level": {
           "description": "A value specifying the severity level of the notification.",
           "default": "warning",
-          "enum": [ "note", "warning", "error" ]
+          "enum": [ "none", "note", "warning", "error" ]
         },
 
         "threadId": {
@@ -1305,13 +1305,13 @@
         "kind": {
           "description": "A value that categorizes results by evaluation state.",
           "default": "fail",
-          "enum": [ "notApplicable", "pass", "fail", "review", "open" ]
+          "enum": [ "none", "notApplicable", "pass", "fail", "review", "open" ]
         },
 
         "level": {
           "description": "A value specifying the severity level of the result.",
           "default": "warning",
-          "enum": [ "note", "warning", "error"]
+          "enum": [ "none", "note", "warning", "error"]
         },
 
         "message": {

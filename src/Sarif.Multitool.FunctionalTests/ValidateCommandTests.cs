@@ -10,13 +10,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class ValidateCommandTests : SarifMultitoolTestBase
     {
-        [Fact(DisplayName = nameof(ValidateCommand_ReportsJsonSyntaxError))]
+        [Fact(DisplayName = nameof(ValidateCommand_ReportsJsonSyntaxError), Skip = "JSchema requires an update.")]
         public void ValidateCommand_ReportsJsonSyntaxError()
         {
             Verify("SyntaxError.sarif", disablePreleaseCompatibilityTransform: true);
         }
 
-        [Fact(DisplayName = nameof(ValidateCommand_ReportsDeserializationError))]
+        [Fact(DisplayName = nameof(ValidateCommand_ReportsDeserializationError), Skip = "Jschema requires an update.")]
         public void ValidateCommand_ReportsDeserializationError()
         {
             Verify("DeserializationError.sarif", disablePreleaseCompatibilityTransform: true);
