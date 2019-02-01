@@ -11,7 +11,7 @@
       },
       "originalUriBaseIds": {
         "SRCROOT": {
-          "uri": "file:///C:/projects/myproject/src/"
+          "uri": "file://root/projects/myproject/src/"
         }
       },
       "columnKind": "utf16CodeUnits",
@@ -22,7 +22,7 @@
           "machine": "SCANMACHINE",
           "account": "johndoe",
           "properties": {
-            "Platform": "Windows 10"
+            "Platform": "Linux"
           }
         }
       ],

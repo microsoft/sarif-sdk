@@ -9,7 +9,7 @@
   <LOC type="Line Count">530</LOC>
   <LOC type="Function Declarations">314</LOC>
   <LOC type="Function Definitions">202</LOC>
-  <SourceBasePath>C:/projects/myproject/src/</SourceBasePath>
+  <SourceBasePath>/root/projects/myproject/src/</SourceBasePath>
   <SourceFiles>
     <File size="8297" timestamp="1538391807572" loc="82" type="csharp" encoding="windows-1252">
       <Name>Helpers/InvoiceHelper.cs</Name>
@@ -114,7 +114,7 @@ SqlDataReader objReader = query.ExecuteReader();</Text>
   <MachineInfo>
     <Hostname>SCANMACHINE</Hostname>
     <Username>johndoe</Username>
-    <Platform>Windows 10</Platform>
+    <Platform>Linux</Platform>
   </MachineInfo>
 </EngineData>
 </FVDL>
