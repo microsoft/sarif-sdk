@@ -111,19 +111,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         void WriteResults(IEnumerable<Result> results);
 
         /// <summary>
-        /// Write a set of notifications relevant to the operation of the tool to the log.
+        /// Write a set of invocations to the log.
         /// </summary>
-        /// <param name="notifications">
-        /// The notifications to write.
+        /// <param name="invocations">
+        /// The invocations to write.
         /// </param>
-        void WriteToolNotifications(IEnumerable<Notification> notifications);
-
-        /// <summary>
-        /// Write a set of notifications relevant to the configuration of the tool to the log.
-        /// </summary>
-        /// <param name="notifications">
-        /// The notifications to write.
-        /// </param>
-        void WriteConfigurationNotifications(IEnumerable<Notification> notifications);
+        void WriteInvocations(IEnumerable<Invocation> invocations);
     }
 }

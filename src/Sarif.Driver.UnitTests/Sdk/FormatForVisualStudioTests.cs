@@ -62,12 +62,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             EndLine = 3
         };
 
-        public static IEnumerable<object[]> ResultFormatForVisualStudioTestCases => new[]
+        public static IEnumerable<object[]> FailureLevelFormatForVisualStudioTestCases => new[]
         {
-            // Test each ResultKind value.
+            // Test each FailureLevel value.
             new object[]
             {
-                ResultLevel.Error,
+                FailureLevel.Error,
+                ResultKind.Fail,
                 MultiLineTestRegion,
                 $"{TestAnalysisTarget}(2,4,3,5): error {TestRuleId}: First: 42, Second: 54",
                 TestAnalysisTarget
@@ -75,7 +76,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             new object[]
             {
-                ResultLevel.Error,
+                FailureLevel.Error,
+                ResultKind.Fail,
                 MultiLineTestRegion,
                 $"{TestAnalysisTarget}(2,4,3,5): error {TestRuleId}: First: 42, Second: 54",
                 TestAnalysisTarget
@@ -83,7 +85,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             new object[]
             {
-                ResultLevel.Error,
+                FailureLevel.Error,
+                ResultKind.Fail,
                 MultiLineTestRegion,
                 $"{TestAnalysisTarget}(2,4,3,5): error {TestRuleId}: First: 42, Second: 54",
                 TestAnalysisTarget
@@ -91,7 +94,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             new object[]
             {
-                ResultLevel.Warning,
+                FailureLevel.Warning,
+                ResultKind.Fail,
                 MultiLineTestRegion,
                 $"{TestAnalysisTarget}(2,4,3,5): warning {TestRuleId}: First: 42, Second: 54",
                 TestAnalysisTarget
@@ -99,7 +103,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             new object[]
             {
-                ResultLevel.NotApplicable,
+                FailureLevel.None,
+                ResultKind.NotApplicable,
                 MultiLineTestRegion,
                 $"{TestAnalysisTarget}(2,4,3,5): info {TestRuleId}: First: 42, Second: 54",
                 TestAnalysisTarget
@@ -107,7 +112,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             new object[]
             {
-                ResultLevel.Note,
+                FailureLevel.Note,
+                ResultKind.Fail,
                 MultiLineTestRegion,
                 $"{TestAnalysisTarget}(2,4,3,5): info {TestRuleId}: First: 42, Second: 54",
                 TestAnalysisTarget
@@ -115,7 +121,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             new object[]
             {
-                ResultLevel.Pass,
+                FailureLevel.None,
+                ResultKind.Pass,
                 MultiLineTestRegion,
                 $"{TestAnalysisTarget}(2,4,3,5): info {TestRuleId}: First: 42, Second: 54",
                 TestAnalysisTarget
@@ -123,7 +130,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             new object[]
             {
-                ResultLevel.Default,
+                FailureLevel.None,
+                ResultKind.Open,
+                MultiLineTestRegion,
+                $"{TestAnalysisTarget}(2,4,3,5): info {TestRuleId}: First: 42, Second: 54",
+                TestAnalysisTarget
+            },
+
+            new object[]
+            {
+                FailureLevel.None,
+                ResultKind.Review,
+                MultiLineTestRegion,
+                $"{TestAnalysisTarget}(2,4,3,5): info {TestRuleId}: First: 42, Second: 54",
+                TestAnalysisTarget
+            },
+
+            new object[]
+            {
+                FailureLevel.None,
+                ResultKind.None,
                 MultiLineTestRegion,
                 $"{TestAnalysisTarget}(2,4,3,5): info {TestRuleId}: First: 42, Second: 54",
                 TestAnalysisTarget
@@ -132,7 +158,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // Test formatting of a single-line multi-column region (previous tests used a multi-line region).
             new object[]
             {
-                ResultLevel.Error,
+                FailureLevel.Error,
+                ResultKind.Fail,
                 SingleLineMultiColumnTestRegion,
                 $"{TestAnalysisTarget}(2,4-5): error {TestRuleId}: First: 42, Second: 54",
                 TestAnalysisTarget
@@ -141,7 +168,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // Test formatting of a single-line single-column region.
             new object[]
             {
-                ResultLevel.Error,
+                FailureLevel.Error,
+                ResultKind.Fail,
                 SingleLineSingleColumnTestRegion,
                 $"{TestAnalysisTarget}(2,4): error {TestRuleId}: First: 42, Second: 54",
                 TestAnalysisTarget
@@ -150,7 +178,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // Test formatting of a single-line region with no column specified.
             new object[]
             {
-                ResultLevel.Error,
+                FailureLevel.Error,
+                ResultKind.Fail,
                 SingleLineNoColumnTestRegion,
                 $"{TestAnalysisTarget}(2): error {TestRuleId}: First: 42, Second: 54",
                 TestAnalysisTarget
@@ -159,7 +188,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // Test formatting of a multi-line region with no columns specified.
             new object[]
             {
-                ResultLevel.Error,
+                FailureLevel.Error,
+                ResultKind.Fail,
                 MultiLineNoColumnTestRegion,
                 $"{TestAnalysisTarget}(2-3): error {TestRuleId}: First: 42, Second: 54",
                 TestAnalysisTarget
@@ -168,7 +198,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // Test formatting of a relative path.
             new object[]
             {
-                ResultLevel.Error,
+                FailureLevel.Error,
+                ResultKind.Fail,
                 MultiLineNoColumnTestRegion,
                 $"file(2-3): error {TestRuleId}: First: 42, Second: 54",
                 "file"
@@ -177,7 +208,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // Test formatting of an absolute non-file URI
             new object[]
             {
-                ResultLevel.Error,
+                FailureLevel.Error,
+                ResultKind.Fail,
                 MultiLineNoColumnTestRegion,
                 $"http://www.example.com/test.html(2-3): error {TestRuleId}: First: 42, Second: 54",
                 "http://www.example.com/test.html"
@@ -185,22 +217,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         };
 
         [Theory]
-        [MemberData(nameof(ResultFormatForVisualStudioTestCases))]
-        public void Result_FormatForVisualStudioTests(ResultLevel level, Region region, string expected, string path)
+        [MemberData(nameof(FailureLevelFormatForVisualStudioTestCases))]
+        public void Result_FormatFailureLevelsForVisualStudioTests(FailureLevel level, ResultKind kind, Region region, string expected, string path)
         {
-            Result result = MakeResultFromTestCase(level, region, path);
+            Result result = MakeResultFromTestCase(level, kind, region, path);
 
             string actual = result.FormatForVisualStudio(TestRule);
 
             actual.Should().Be(expected);
         }
 
-        private Result MakeResultFromTestCase(ResultLevel level, Region region, string path)
+private Result MakeResultFromTestCase(FailureLevel level, ResultKind kind, Region region, string path)
         {
             return new Result
             {
                 RuleId = TestRuleId,
                 Level = level,
+                Kind = kind,
                 Locations = new List<Location>
                 {
                     new Location

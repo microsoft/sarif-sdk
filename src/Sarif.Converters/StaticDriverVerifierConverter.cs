@@ -232,7 +232,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 string levelText = tokens[LEVEL];
 
-                result.Level = ConvertToResultLevel(levelText);
+                result.Level = ConvertToFailureLevel(levelText);
 
                 // Everything on the line following defect level comprises the message
                 result.Message = new Message { Text = logFileLine.Substring(levelText.Length).Trim() };
@@ -242,7 +242,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 // the message text to detect this condition
                 if (result.Message.Text.Contains("is satisfied"))
                 {
-                    result.Level = ResultLevel.Pass;
+                    result.Level = FailureLevel.None;
+                    result.Kind = ResultKind.Pass;
                 }
 
                 // Finally, populate this result location with the
@@ -286,15 +287,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return false;
         }
 
-        private static ResultLevel ConvertToResultLevel(string sdvLevel)
+        private static FailureLevel ConvertToFailureLevel(string sdvLevel)
         {
             switch (sdvLevel)
             {
-                case "Error": return ResultLevel.Error;
+                case "Error": return FailureLevel.Error;
             }
 
-            Debug.Assert(false);
-            return ResultLevel.Default;
+            throw new InvalidOperationException($"Unknown SDV level encountered: {sdvLevel}");
         }
     }
 }

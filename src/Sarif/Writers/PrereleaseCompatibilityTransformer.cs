@@ -68,7 +68,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         out fileLocationKeyToIndexMap,
                         out ruleKeyToIndexMap);
                     modifiedLog |= ApplyChangesFromTC31(sarifLog);
-                        break;
+                    break;
+
                 }
 
                 default:
@@ -80,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         out fileLocationKeyToIndexMap,
                         out ruleKeyToIndexMap);
                     modifiedLog |= ApplyChangesFromTC31(sarifLog);
-                        break;
+                    break;
                 }
             }
 
@@ -136,11 +137,43 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                                 result["baselineState"] = "unchanged";
                                 modifiedLog = true;
                             }
+
+                            modifiedLog |= SetResultKindAndFailureLevel(result);
                         }
                     }
                 }
             }
             return modifiedLog;
+        }
+
+        private static bool SetResultKindAndFailureLevel(JObject result)
+        {            
+            string level = (string)result["level"];
+            if (level == null) { return false; }
+
+            switch (level)
+            {
+                case "error":
+                case "warning":
+                case "note":
+                {
+                    // 'level' is set appropriately, so we'll mark this result
+                    // kind to indicate it has been evaluated as a failure
+                    result["kind"] = "fail";
+                    break;
+                }
+                case "open":
+                case "notApplicable":
+                case "pass":
+                {
+                    // Legacy level indicates we do not have a failure. Move this
+                    // designation to result.kind.
+                    result["kind"] = level;
+                    result["level"] = "none";
+                    break;
+                }
+            }
+            return true;
         }
 
         private static bool ApplyChangesFromTC25ThroughTC30(

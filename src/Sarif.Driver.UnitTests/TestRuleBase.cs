@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        public virtual ResultLevel DefaultLevel { get { return ResultLevel.Warning; } }
+        public virtual FailureLevel DefaultLevel { get { return FailureLevel.Warning; } }
 
         public override Message Name { get { return new Message { Text = this.GetType().Name }; } }
 

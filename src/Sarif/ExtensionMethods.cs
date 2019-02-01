@@ -184,14 +184,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             return string.Join(Environment.NewLine, messageLines);
         }
 
-        public static string FormatForVisualStudio(this ResultLevel level)
+        public static string FormatForVisualStudio(this FailureLevel level)
         {
             switch (level)
             {
-                case ResultLevel.Error:
+                case FailureLevel.Error:
                     return "error";
 
-                case ResultLevel.Warning:
+                case FailureLevel.Warning:
                     return "warning";
 
                 default:

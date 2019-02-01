@@ -96,7 +96,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         new Result()
                         {
                             RuleId = Id,
-                            Level = ResultLevel.Warning,
+                            Level = FailureLevel.Warning,
+                            Kind = ResultKind.Fail,
                             Message = new Message { Text = "Default message from exception raising rule." }
                         });
 

@@ -520,7 +520,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     Exception = CreateExceptionData(v1Notification.Exception),
                     Id = v1Notification.Id,
-                    Level = Utilities.CreateNotificationLevel(v1Notification.Level),
+                    Level = Utilities.CreateFailureLevel(v1Notification.Level),
                     Message = CreateMessage(v1Notification.Message),
                     PhysicalLocation = CreatePhysicalLocation(v1Notification.PhysicalLocation),
                     Properties = v1Notification.Properties,
@@ -715,7 +715,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     CodeFlows = v1Result.CodeFlows?.Select(CreateCodeFlow).ToList(),
                     Fixes = v1Result.Fixes?.Select(CreateFix).ToList(),
                     InstanceGuid = v1Result.Id,
-                    Level = Utilities.CreateResultLevel(v1Result.Level),
+                    Level = Utilities.CreateFailureLevel(v1Result.Level),
+                    Kind = Utilities.CreateResultKind(v1Result.Level),
                     Locations = v1Result.Locations?.Select(CreateLocation).ToList(),
                     Message = CreateMessage(v1Result.Message),
                     Properties = v1Result.Properties,
@@ -804,10 +805,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     ShortDescription = CreateMessage(v1Rule.ShortDescription)
                 };
 
-                RuleConfigurationDefaultLevel level = Utilities.CreateRuleConfigurationDefaultLevel(v1Rule.DefaultLevel);
+                FailureLevel level = Utilities.CreateRuleConfigurationDefaultLevel(v1Rule.DefaultLevel);
 
                 if (v1Rule.Configuration == RuleConfigurationVersionOne.Enabled ||
-                    level != RuleConfigurationDefaultLevel.Warning)
+                    level != FailureLevel.Warning)
                 {
                     rule.Configuration = new RuleConfiguration
                     {

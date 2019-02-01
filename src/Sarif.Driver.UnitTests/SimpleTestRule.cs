@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     new Result()
                     {
                         RuleId = this.Id,
-                        Level = ResultLevel.Error,
+                        Level = FailureLevel.Error,
                         Message = new Message { Text = "Simple test rule message." }
                     });
             }

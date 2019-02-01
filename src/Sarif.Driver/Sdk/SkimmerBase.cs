@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         virtual protected IEnumerable<string> RichMessageResourceNames => new List<string>();
 
 
-        virtual public ResultLevel DefaultLevel { get { return ResultLevel.Warning; } }
+        virtual public FailureLevel DefaultLevel { get { return FailureLevel.Warning; } }
 
         override public IDictionary<string, string> MessageStrings
         {
