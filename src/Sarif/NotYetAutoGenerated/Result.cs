@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             set
             {
                 _kind = value;
-                if (_kind != ResultKind.None && _kind != ResultKind.Fail)
+                if (_kind != ResultKind.Fail)
                 {
                     _level = FailureLevel.None;
                 }
@@ -92,7 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// A message tha_lket describes the result. The first sentence of the message only will be displayed when visible space is limited.
+        /// A message that describes the result. The first sentence of the message only will be displayed when visible space is limited.
         /// </summary>
         [DataMember(Name = "message", IsRequired = true)]
         public Message Message { get; set; }

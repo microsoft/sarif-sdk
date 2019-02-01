@@ -119,6 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     return FailureLevel.Warning;
             }
         }
+
         public static ResultKind CreateResultKind(ResultLevelVersionOne v1ResultLevel)
         {
             switch (v1ResultLevel)

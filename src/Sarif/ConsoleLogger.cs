@@ -93,22 +93,17 @@ namespace Microsoft.CodeAnalysis.Sarif
             PhysicalLocation physicalLocation = result.Locations?.First().PhysicalLocation;
 
             WriteToConsole(
-                result.Level,
                 result.Kind,
+                result.Level,
                 physicalLocation?.FileLocation?.Uri,
                 physicalLocation?.Region,
                 result.RuleId,
                 message);
         }
 
-        private void WriteToConsole(FailureLevel level, ResultKind kind, Uri uri, Region region, string ruleId, string message)
+        private void WriteToConsole(ResultKind kind, FailureLevel level, Uri uri, Region region, string ruleId, string message)
         {
-            // If we are not in an actual failure case, the message level
-            // is not relevant so we'll explicitly set it to None.
-            if (kind != ResultKind.Fail)
-            {
-                level = FailureLevel.None;
-            }
+            ValidateKindAndLevel(kind, level);
 
             switch (level)
             {
@@ -118,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     if (Verbose)
                     {
-                        Console.WriteLine(GetMessageText(uri, region, ruleId, message, level, kind));
+                        Console.WriteLine(GetMessageText(uri, region, ruleId, message, kind, level));
                     }
                     break;
                 }
@@ -127,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 case FailureLevel.Error:
                 case FailureLevel.Warning:
                 {
-                    Console.WriteLine(GetMessageText(uri, region, ruleId, message, level, kind));
+                    Console.WriteLine(GetMessageText(uri, region, ruleId, message, kind, level));
                     break;
                 }
 
@@ -138,20 +133,31 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
+        private static void ValidateKindAndLevel(ResultKind kind, FailureLevel level)
+        {
+            if (level != FailureLevel.None && kind != ResultKind.Fail)
+            {
+                throw new ArgumentException("Level indicated a failure but kind was not set to 'Fail'.");
+            }
+
+            if (level == FailureLevel.None && kind == ResultKind.Fail)
+            {
+                throw new ArgumentException("Level did not indicate a failure but kind was set to 'Fail'.");
+            }
+            return;
+        }
+
         private static string GetMessageText(
             Uri uri,
             Region region,
             string ruleId,
             string message,
-            FailureLevel resultLevel,
-            ResultKind kind)
+            ResultKind kind,
+            FailureLevel level)
         {
             string path = null;
 
-            if (kind != ResultKind.Fail)
-            {
-                resultLevel = FailureLevel.None;
-            }
+            ValidateKindAndLevel(kind, level);
 
             if (uri != null)
             {
@@ -168,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             string issueType = null;
 
-            switch (resultLevel)
+            switch (level)
             {
                 case FailureLevel.Note:
                     issueType = "info";
@@ -188,7 +194,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
 
                 default:
-                    throw new InvalidOperationException("Unknown message kind:" + resultLevel.ToString());
+                    throw new InvalidOperationException("Unknown message kind:" + level.ToString());
             }
 
             string detailedDiagnosis = NormalizeMessage(message, enquote: false);

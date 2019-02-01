@@ -207,7 +207,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Formatting = Formatting.Indented
             };
 
-            // Round-trip expected content to make it realie various default values
             expectedSarif = expectedSarif ?? "{}";
 
             // Make sure we can successfully roundtrip what was just generated

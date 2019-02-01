@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         void WriteResults(IEnumerable<Result> results);
 
         /// <summary>
-        /// Write a set of invocations relevant to the operation of the tool to the log.
+        /// Write a set of invocations to the log.
         /// </summary>
         /// <param name="invocations">
         /// The invocations to write.
