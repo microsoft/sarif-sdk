@@ -303,11 +303,6 @@
           "$ref": "#/definitions/externalPropertyFile"
         },
 
-        "resources": {
-          "description": "An external property file containing a run.resources object to be merged with the root log file.",
-          "$ref": "#/definitions/externalPropertyFile"
-        },
-
         "properties": {
           "description": "An external property file containing a run.properties object to be merged with the root log file.",
           "$ref": "#/definitions/externalPropertyFile"
@@ -1262,19 +1257,6 @@
       "required": [ "deletedRegion" ]
     },
 
-    "resources": {
-      "description": "Container for items that require localization.",
-      "type": "object",
-      "properties": {
-
-
-        "properties": {
-          "description": "Key/value pairs that provide additional information about the resources.",
-          "$ref": "#/definitions/propertyBag"
-        }
-      }
-    },
-
     "result": {
       "description": "A result produced by an analysis tool.",
       "additionalProperties": false,
@@ -1739,11 +1721,6 @@
           "items": {
             "$ref": "#/definitions/result"
           }
-        },
-
-        "resources": {
-          "description": "Items that can be localized, such as message strings and rule metadata.",
-          "$ref": "#/definitions/resources"
         },
 
         "id": {
