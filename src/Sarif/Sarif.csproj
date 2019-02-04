@@ -79,5 +79,5 @@
 
   <Import Project="ToDotNet\ToDotNet.targets" />
 
-  <ProjectExtensions><VisualStudio><UserProperties CodeGenHints_1json__JSONSchema="http://json.schemastore.org/asmdef" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties CodeGenHints_1json__JSONSchema=" " /></VisualStudio></ProjectExtensions>
 </Project>
