@@ -26,6 +26,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Jschema\JschemaRuleResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>JschemaRuleResources.resx</DependentUpon>
+    </Compile>
     <Compile Update="MultitoolResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -39,6 +44,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Jschema\JschemaRuleResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>JschemaRuleResources.Designer.cs</LastGenOutput>
+      <CustomToolNamespace></CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Update="MultitoolResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>MultitoolResources.Designer.cs</LastGenOutput>

@@ -165,7 +165,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 _dataToInsert.HasFlag(OptionallyEmittedData.FlattenedMessages))
             {
                 string formatString = null;
-                Rule rule = _ruleIndex != -1 ? _run.Resources.Rules[_ruleIndex] : null;
+                MessageDescriptor rule = _ruleIndex != -1 ? _run.Tool.RulesMetadata[_ruleIndex] : null;
             
                 if (rule != null &&
                     rule.MessageStrings != null &&
@@ -177,7 +177,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
 
                 if (node.Text == null &&
-                    _run.Resources?.MessageStrings?.TryGetValue(node.MessageId, out formatString) == true)
+                    _run.Tool?.GlobalMessageStrings?.TryGetValue(node.MessageId, out formatString) == true)
                 {
                     node.Text = node.Arguments?.Count > 0
                         ? string.Format(CultureInfo.CurrentCulture, formatString, node.Arguments.ToArray())

@@ -48,9 +48,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             else if (objectType == typeof(FileRoles))
                 contract.Converter = FlagsEnumConverter.Instance;
 
-            else if (objectType == typeof(Dictionary<string, IRule>))
-                contract.Converter = RuleDictionaryConverter.Instance;
-
             else if (objectType == typeof(IDictionary<string, SerializedPropertyInfo>))
                 contract.Converter = PropertyBagConverter.Instance;
 

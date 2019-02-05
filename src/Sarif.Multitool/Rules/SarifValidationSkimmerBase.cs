@@ -13,7 +13,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public abstract class SarifValidationSkimmerBase : SkimmerBase<SarifValidationContext>
+    public abstract class SarifValidationSkimmerBase : Skimmer<SarifValidationContext>
     {
         private const string SarifSpecUri =
             "http://docs.oasis-open.org/sarif/sarif/v2.0/csprd01/sarif-v2.0-csprd01.html";
@@ -134,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
         }
 
-        protected virtual void Analyze(IRule rule, string rulePointer)
+        protected virtual void Analyze(MessageDescriptor rule, string rulePointer)
         {
         }
         protected virtual void Analyze(Run run, string runPointer)
@@ -650,16 +650,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
-        private void Visit(Resources resources, string resourcesPointer)
-        {
-            string rulesPointer = resourcesPointer.AtProperty(SarifPropertyName.Rules);
-
-            for (int i = 0; i < resources.Rules.Count; ++i)
-            {
-                Visit(resources.Rules[i], rulesPointer.AtIndex(i));
-            }
-        }
-
         private void Visit(ResultProvenance resultProvenance, string resultProvenancePointer)
         {
             Analyze(resultProvenance, resultProvenancePointer);
@@ -671,7 +661,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
-        private void Visit(IRule rule, string rulePointer)
+        private void Visit(MessageDescriptor rule, string rulePointer)
         {
             Analyze(rule, rulePointer);
 
@@ -733,11 +723,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 {
                     Visit(run.Graphs[key], key, graphsPointer.AtProperty(key));
                 }
-            }
-
-            if (run.Resources != null)
-            {
-                Visit(run.Resources, runPointer.AtProperty(SarifPropertyName.Resources));
             }
 
             if (run.Invocations != null)
@@ -829,6 +814,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         private void Visit(Tool tool, string toolPointer)
         {
             Analyze(tool, toolPointer);
+
+            if (tool.NotificationsMetadata != null)
+            {
+                string notificationsPointer = toolPointer.AtProperty(SarifPropertyName.NotificationsMetadata);
+                for (int i = 0; i < tool.RulesMetadata.Count; ++i)
+                {
+                    Visit(tool.RulesMetadata[i], notificationsPointer.AtIndex(i));
+                }
+            }
+
+            if (tool.RulesMetadata != null)
+            {
+                string rulesPointer = toolPointer.AtProperty(SarifPropertyName.Rules);
+                for (int i = 0; i < tool.RulesMetadata.Count; ++i)
+                {
+                    Visit(tool.RulesMetadata[i], rulesPointer.AtIndex(i));
+                }
+            }
         }
 
         private void Visit(VersionControlDetails versionControlDetails, string versionControlDetailsPointer)

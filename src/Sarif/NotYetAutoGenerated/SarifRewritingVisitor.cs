@@ -84,6 +84,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitLogicalLocation((LogicalLocation)node);
                 case SarifNodeKind.Message:
                     return VisitMessage((Message)node);
+                case SarifNodeKind.MessageDescriptor:
+                    return VisitMessageDescriptor((MessageDescriptor)node);
                 case SarifNodeKind.Node:
                     return VisitNode((Node)node);
                 case SarifNodeKind.Notification:
@@ -98,14 +100,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitRegion((Region)node);
                 case SarifNodeKind.Replacement:
                     return VisitReplacement((Replacement)node);
-                case SarifNodeKind.Resources:
-                    return VisitResources((Resources)node);
                 case SarifNodeKind.Result:
                     return VisitResult((Result)node);
                 case SarifNodeKind.ResultProvenance:
                     return VisitResultProvenance((ResultProvenance)node);
-                case SarifNodeKind.Rule:
-                    return VisitRule((Rule)node);
                 case SarifNodeKind.RuleConfiguration:
                     return VisitRuleConfiguration((RuleConfiguration)node);
                 case SarifNodeKind.Run:
@@ -256,7 +254,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 node.Conversion = VisitNullChecked(node.Conversion);
                 node.Graphs = VisitNullChecked(node.Graphs);
-                node.Resources = VisitNullChecked(node.Resources);
                 if (node.Files != null)
                 {
                     for (int index_0 = 0; index_0 < node.Files.Count; ++index_0)
@@ -418,6 +415,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
+                if (node.RuleConfiguration != null)
+                {
+                    for (int index_0 = 0; index_0 < node.RuleConfiguration.Count; ++index_0)
+                    {
+                        node.RuleConfiguration[index_0] = VisitNullChecked(node.RuleConfiguration[index_0]);
+                    }
+                }
+
                 if (node.ToolNotifications != null)
                 {
                     for (int index_0 = 0; index_0 < node.ToolNotifications.Count; ++index_0)
@@ -476,6 +481,20 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+            }
+
+            return node;
+        }
+
+        public virtual MessageDescriptor VisitMessageDescriptor(MessageDescriptor node)
+        {
+            if (node != null)
+            {
+                node.Name = VisitNullChecked(node.Name);
+                node.ShortDescription = VisitNullChecked(node.ShortDescription);
+                node.FullDescription = VisitNullChecked(node.FullDescription);
+                node.DefaultConfiguration = VisitNullChecked(node.DefaultConfiguration);
+                node.Help = VisitNullChecked(node.Help);
             }
 
             return node;
@@ -559,22 +578,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 node.DeletedRegion = VisitNullChecked(node.DeletedRegion);
                 node.InsertedContent = VisitNullChecked(node.InsertedContent);
-            }
-
-            return node;
-        }
-
-        public virtual Resources VisitResources(Resources node)
-        {
-            if (node != null)
-            {
-                if (node.Rules != null)
-                {
-                    for (int index_0 = 0; index_0 < node.Rules.Count; ++index_0)
-                    {
-                        node.Rules[index_0] = VisitNullChecked(node.Rules[index_0]);
-                    }
-                }
             }
 
             return node;
@@ -676,20 +679,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             return node;
         }
 
-        public virtual Rule VisitRule(Rule node)
-        {
-            if (node != null)
-            {
-                node.Name = VisitNullChecked(node.Name);
-                node.ShortDescription = VisitNullChecked(node.ShortDescription);
-                node.FullDescription = VisitNullChecked(node.FullDescription);
-                node.Configuration = VisitNullChecked(node.Configuration);
-                node.Help = VisitNullChecked(node.Help);
-            }
-
-            return node;
-        }
-
         public virtual RuleConfiguration VisitRuleConfiguration(RuleConfiguration node)
         {
             if (node != null)
@@ -720,11 +709,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                         node.VersionControlProvenance[index_0] = VisitNullChecked(node.VersionControlProvenance[index_0]);
                     }
                 }
-
-                // OriginalUriBaseIds are directories, not files. We'll disable this visit until the
-                // schema can catch up with this reality.
-                // https://github.com/oasis-tcs/sarif-spec/issues/306
-                /*if (node.OriginalUriBaseIds != null)
+                /*
+                if (node.OriginalUriBaseIds != null)
                 {
                     var keys = node.OriginalUriBaseIds.Keys.ToArray();
                     foreach (var key in keys)
@@ -735,8 +721,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                             node.OriginalUriBaseIds[key] = VisitNullChecked(value);
                         }
                     }
-                }*/
-
+                }
+                */
                 if (node.Files != null)
                 {
                     for (int index_0 = 0; index_0 < node.Files.Count; ++index_0)
@@ -774,7 +760,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                node.Resources = VisitNullChecked(node.Resources);
                 node.Id = VisitNullChecked(node.Id);
                 if (node.AggregateIds != null)
                 {
@@ -875,6 +860,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                if (node.NotificationsMetadata != null)
+                {
+                    for (int index_0 = 0; index_0 < node.NotificationsMetadata.Count; ++index_0)
+                    {
+                        node.NotificationsMetadata[index_0] = VisitNullChecked(node.NotificationsMetadata[index_0]);
+                    }
+                }
+
+                if (node.RulesMetadata != null)
+                {
+                    for (int index_0 = 0; index_0 < node.RulesMetadata.Count; ++index_0)
+                    {
+                        node.RulesMetadata[index_0] = VisitNullChecked(node.RulesMetadata[index_0]);
+                    }
+                }
             }
 
             return node;

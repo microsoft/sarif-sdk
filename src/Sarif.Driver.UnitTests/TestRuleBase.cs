@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    internal abstract class TestRuleBase : Rule, ISkimmer<TestAnalysisContext>
+    internal abstract class TestRuleBase : Skimmer<TestAnalysisContext>
     {
         protected RuleConfiguration _ruleConfiguration = null;
 
-        public virtual SupportedPlatform SupportedPlatforms
+        public override SupportedPlatform SupportedPlatforms
         {
             get
             {
@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        public virtual FailureLevel DefaultLevel { get { return FailureLevel.Warning; } }
+        public override FailureLevel DefaultLevel { get { return FailureLevel.Warning; } }
 
         public override Message Name { get { return new Message { Text = this.GetType().Name }; } }
 
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
-        public override RuleConfiguration Configuration
+        public override RuleConfiguration DefaultConfiguration
         {
             get
             {
@@ -54,17 +54,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public override Message Help { get { return new Message() { Text = "[Empty]" }; } }
 
-        public abstract void Analyze(TestAnalysisContext context);
-
-        public virtual AnalysisApplicability CanAnalyze(TestAnalysisContext context, out string reasonIfNotApplicable)
+        public override AnalysisApplicability CanAnalyze(TestAnalysisContext context, out string reasonIfNotApplicable)
         {
             reasonIfNotApplicable = null;
             return AnalysisApplicability.ApplicableToSpecifiedTarget;
         }
 
-        public virtual void Initialize(TestAnalysisContext context)
+        public override void Initialize(TestAnalysisContext context)
         {
-
         }
     }
 }

@@ -15,7 +15,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private readonly IDictionary<string, int> _fullyQualifiedLogicalNameToIndexMap;
         private readonly IDictionary<string, int> _fileLocationKeyToIndexMap;
         private readonly IDictionary<string, int> _ruleKeyToIndexMap;
-        private Resources _resources;
+
+        private Tool _tool;
 
         public UpdateIndicesFromLegacyDataVisitor(
             IDictionary<string, int> fullyQualifiedLogicalNameToIndexMap, 
@@ -37,17 +38,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     // We need to update the rule id, as it previously referred to a synthesized 
                     // key that resolved some collision in the resources.rules collection.
-                    node.RuleId = _resources.Rules[ruleIndex].Id;
+                    node.RuleId = _tool.RulesMetadata[ruleIndex].Id;
                 }
             }
 
             return base.VisitResult(node);
         }
 
-        public override Run VisitRun(Run node)
+        public override Tool VisitTool(Tool node)
         {
-            _resources = node.Resources;
-            return base.VisitRun(node);
+            _tool = node;
+            return base.VisitTool(node);
         }
 
         public override Location VisitLocation(Location node)

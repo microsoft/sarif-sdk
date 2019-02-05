@@ -118,10 +118,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 output.WriteLogicalLocations(run.LogicalLocations);
             }
 
-            if (run.Resources?.Rules != null)
-            {
-                output.WriteRules(run.Resources?.Rules);
-            }
+            output.WriteTool(run.Tool);
 
             return run;
         }

@@ -33,12 +33,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.DefaultLevel != right.DefaultLevel)
+            if (left.Level != right.Level)
             {
                 return false;
             }
 
-            if (left.DefaultRank != right.DefaultRank)
+            if (left.Rank != right.Rank)
             {
                 return false;
             }
@@ -101,8 +101,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             unchecked
             {
                 result = (result * 31) + obj.Enabled.GetHashCode();
-                result = (result * 31) + obj.DefaultLevel.GetHashCode();
-                result = (result * 31) + obj.DefaultRank.GetHashCode();
+                result = (result * 31) + obj.Level.GetHashCode();
+                result = (result * 31) + obj.Rank.GetHashCode();
                 if (obj.Parameters != null)
                 {
                     // Use xor for dictionaries to be order-independent.

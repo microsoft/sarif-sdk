@@ -34,7 +34,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _tool = tool ?? throw new ArgumentNullException(nameof(tool));
         }
 
-
         public void WriteInvocations(IEnumerable<Invocation> invocations)
         {
         }
@@ -73,17 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        public void WriteRules(IList<Rule> rules)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void WriteToolNotifications(IEnumerable<Notification> notifications)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void WriteConfigurationNotifications(IEnumerable<Notification> notifications)
+        public void WriteRules(IList<MessageDescriptor> rules)
         {
             throw new NotImplementedException();
         }

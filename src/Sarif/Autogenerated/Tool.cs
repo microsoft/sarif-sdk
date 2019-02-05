@@ -86,6 +86,26 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Language { get; set; }
 
         /// <summary>
+        /// A dictionary, each of whose keys is a resource identifier and each of whose values is a localized string.
+        /// </summary>
+        [DataMember(Name = "globalMessageStrings", IsRequired = false, EmitDefaultValue = false)]
+        public IDictionary<string, string> GlobalMessageStrings { get; set; }
+
+        /// <summary>
+        /// An array of message descriptor objects relevant to the notifications related to the configuration and runtime execution of the tool.
+        /// </summary>
+        [DataMember(Name = "notificationsMetadata", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public IList<MessageDescriptor> NotificationsMetadata { get; set; }
+
+        /// <summary>
+        /// An array of message descriptor objects relevant to the analysis provided by the tool.
+        /// </summary>
+        [DataMember(Name = "rulesMetadata", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public IList<MessageDescriptor> RulesMetadata { get; set; }
+
+        /// <summary>
         /// Key/value pairs that provide additional information about the tool.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
@@ -126,12 +146,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="language">
         /// An initialization value for the <see cref="P:Language" /> property.
         /// </param>
+        /// <param name="globalMessageStrings">
+        /// An initialization value for the <see cref="P:GlobalMessageStrings" /> property.
+        /// </param>
+        /// <param name="notificationsMetadata">
+        /// An initialization value for the <see cref="P:NotificationsMetadata" /> property.
+        /// </param>
+        /// <param name="rulesMetadata">
+        /// An initialization value for the <see cref="P:RulesMetadata" /> property.
+        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Tool(string name, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, string sarifLoggerVersion, string language, IDictionary<string, SerializedPropertyInfo> properties)
+        public Tool(string name, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, string sarifLoggerVersion, string language, IDictionary<string, string> globalMessageStrings, IEnumerable<MessageDescriptor> notificationsMetadata, IEnumerable<MessageDescriptor> rulesMetadata, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(name, fullName, version, semanticVersion, dottedQuadFileVersion, downloadUri, sarifLoggerVersion, language, properties);
+            Init(name, fullName, version, semanticVersion, dottedQuadFileVersion, downloadUri, sarifLoggerVersion, language, globalMessageStrings, notificationsMetadata, rulesMetadata, properties);
         }
 
         /// <summary>
@@ -150,7 +179,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Name, other.FullName, other.Version, other.SemanticVersion, other.DottedQuadFileVersion, other.DownloadUri, other.SarifLoggerVersion, other.Language, other.Properties);
+            Init(other.Name, other.FullName, other.Version, other.SemanticVersion, other.DottedQuadFileVersion, other.DownloadUri, other.SarifLoggerVersion, other.Language, other.GlobalMessageStrings, other.NotificationsMetadata, other.RulesMetadata, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -171,7 +200,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Tool(this);
         }
 
-        private void Init(string name, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, string sarifLoggerVersion, string language, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string name, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, string sarifLoggerVersion, string language, IDictionary<string, string> globalMessageStrings, IEnumerable<MessageDescriptor> notificationsMetadata, IEnumerable<MessageDescriptor> rulesMetadata, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Name = name;
             FullName = fullName;
@@ -185,6 +214,47 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             SarifLoggerVersion = sarifLoggerVersion;
             Language = language;
+            if (globalMessageStrings != null)
+            {
+                GlobalMessageStrings = new Dictionary<string, string>(globalMessageStrings);
+            }
+
+            if (notificationsMetadata != null)
+            {
+                var destination_0 = new List<MessageDescriptor>();
+                foreach (var value_0 in notificationsMetadata)
+                {
+                    if (value_0 == null)
+                    {
+                        destination_0.Add(null);
+                    }
+                    else
+                    {
+                        destination_0.Add(new MessageDescriptor(value_0));
+                    }
+                }
+
+                NotificationsMetadata = destination_0;
+            }
+
+            if (rulesMetadata != null)
+            {
+                var destination_1 = new List<MessageDescriptor>();
+                foreach (var value_1 in rulesMetadata)
+                {
+                    if (value_1 == null)
+                    {
+                        destination_1.Add(null);
+                    }
+                    else
+                    {
+                        destination_1.Add(new MessageDescriptor(value_1));
+                    }
+                }
+
+                RulesMetadata = destination_1;
+            }
+
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);

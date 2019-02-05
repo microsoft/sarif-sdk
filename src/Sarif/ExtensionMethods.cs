@@ -53,11 +53,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             return instanceId.Substring(0, instanceId.LastIndexOf('/'));
         }
 
-        public static string Format(this IRule rule, string messageId, IEnumerable<string> arguments)
-        {
-            return string.Format(CultureInfo.CurrentCulture, rule.MessageStrings[messageId], arguments.ToArray());
-        }
-
         public static Message ToMessage(this string text)
         {
             return new Message { Text = text };
@@ -152,7 +147,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                  ")";
         }
 
-        public static string FormatForVisualStudio(this Result result, IRule rule)
+        public static string FormatForVisualStudio(this Result result, MessageDescriptor rule)
         {
             if (result == null)
             {
@@ -199,12 +194,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        public static string GetMessageText(this Result result, IRule rule)
+        public static string GetMessageText(this Result result, MessageDescriptor rule)
         {
             return GetMessageText(result, rule, concise: false);
         }
 
-        public static string GetMessageText(this Result result, IRule rule, bool concise = false)
+        public static string GetMessageText(this Result result, MessageDescriptor rule, bool concise = false)
         {
             if (result == null)
             {

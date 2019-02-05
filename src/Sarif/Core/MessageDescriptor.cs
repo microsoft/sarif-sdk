@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    public partial class Rule
+    public partial class MessageDescriptor
     {
         public string Format(string messageId, IEnumerable<string> arguments)
         {

@@ -18,14 +18,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             None = 0x00,
             RunInitialized = 0x001,
-            RulesWritten = 0x002,
+            ToolWritten = 0x002,
             FilesWritten = 0x004,
             InvocationsWritten = 0x008,
             ResultsInitialized = 0x010,
             ResultsClosed = 0x020,
             LogicalLocationsWritten = 0x040,
-            ToolNotificationsWritten = 0x080,
-            ConfigurationNotificationsWritten = 0x100,
             Disposed = 0x40000000
         }
 
@@ -56,11 +54,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             if (run == null)
             {
                 throw new ArgumentNullException(nameof(run));
-            }
-
-            if (run.Tool == null)
-            {
-                throw new ArgumentNullException(nameof(run.Tool));
             }
 
             this.EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.RunInitialized);
@@ -94,12 +87,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 _jsonWriter.WritePropertyName("aggregateIds");
                 _serializer.Serialize(_jsonWriter, run.AggregateIds);
-            }
-
-            if (run.Tool != null)
-            {
-                _jsonWriter.WritePropertyName("tool");
-                _serializer.Serialize(_jsonWriter, run.Tool);
             }
 
             if (run.Conversion != null)
@@ -216,25 +203,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _writeConditions |= Conditions.InvocationsWritten;
         }
 
-
-        public void WriteRules(IList<Rule> rules)
+        public void WriteTool(Tool tool)
         {
-            if (rules == null)
+            if (tool == null)
             {
-                throw new ArgumentNullException(nameof(rules));
+                throw new ArgumentNullException(nameof(tool));
             }
 
             EnsureInitialized();
             EnsureResultsArrayIsNotOpen();
-            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.RulesWritten);
+            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.ToolWritten);
 
-            _jsonWriter.WritePropertyName("resources");
-            _jsonWriter.WriteStartObject(); // Begin: resources
-            _jsonWriter.WritePropertyName("rules");
-            _serializer.Serialize(_jsonWriter, rules);
+            _jsonWriter.WritePropertyName("tool");
+            _serializer.Serialize(_jsonWriter, tool);
 
-            _jsonWriter.WriteEndObject();  // End: resources
-            _writeConditions |= Conditions.RulesWritten;
+            _jsonWriter.WriteEndObject();  // End: tool
+            _writeConditions |= Conditions.ToolWritten;
         }
 
         public void OpenResults()
@@ -247,7 +231,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _jsonWriter.WriteStartArray(); // Begin: results
             _writeConditions = Conditions.ResultsInitialized;
         }
-
 
         /// <summary>
         /// Writes a result to the log. 
@@ -333,40 +316,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _jsonWriter.WriteEndArray();
             _writeConditions |= Conditions.ResultsClosed;
-        }
-
-        public void WriteToolNotifications(IEnumerable<Notification> notifications)
-        {
-            if (notifications == null)
-            {
-                throw new ArgumentNullException(nameof(notifications));
-            }
-
-            EnsureInitialized();
-            EnsureResultsArrayIsNotOpen();
-            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.ToolNotificationsWritten);
-
-            _jsonWriter.WritePropertyName("toolNotifications");
-            _serializer.Serialize(_jsonWriter, notifications, notifications.GetType());
-
-            _writeConditions |= Conditions.ToolNotificationsWritten;
-        }
-
-        public void WriteConfigurationNotifications(IEnumerable<Notification> notifications)
-        {
-            if (notifications == null)
-            {
-                throw new ArgumentNullException(nameof(notifications));
-            }
-
-            EnsureInitialized();
-            EnsureResultsArrayIsNotOpen();
-            EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.ConfigurationNotificationsWritten);
-
-            _jsonWriter.WritePropertyName("configurationNotifications");
-            _serializer.Serialize(_jsonWriter, notifications, notifications.GetType());
-
-            _writeConditions |= Conditions.ConfigurationNotificationsWritten;
         }
 
         internal void WriteRunProperties(IDictionary<string, SerializedPropertyInfo> properties)

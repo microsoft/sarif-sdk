@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public abstract class ValidationSkimmerTestsBase<TSkimmer> : SarifMultitoolTestBase
-        where TSkimmer : SkimmerBase<SarifValidationContext>, new()
+        where TSkimmer : Skimmer<SarifValidationContext>, new()
     {
         private readonly string _testDirectory;
         private const string ExpectedResultsPropertyName = "expectedResults";

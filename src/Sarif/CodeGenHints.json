@@ -309,6 +309,26 @@
       }
     }
   ],
+  "messageDescriptor": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "MessageDescriptor.MessageStrings": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
+  "MessageDescriptor.RichMessageStrings": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
   "node": [
     {
       "kind": "BaseTypeHint",
@@ -410,11 +430,6 @@
           "PropertyBagHolder"
         ]
       }
-    }
-  ],
-  "Resources.MessageStrings": [
-    {
-      "kind": "DictionaryHint"
     }
   ],
   "result": [
@@ -567,42 +582,6 @@
       }
     }
   ],
-  "rule": [
-    {
-      "kind": "InterfaceHint",
-      "arguments": {
-        "description": "Interface exposed by objects that provide information about analysis rules."
-      }
-    },
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "Rule.HelpUri": [
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(UriConverter)" ]
-      }
-    }
-  ],
-  "Rule.MessageStrings": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "Rule.RichMessageStrings": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
   "ruleConfiguration": [
     {
       "kind": "BaseTypeHint",
@@ -613,12 +592,12 @@
       }
     }
   ],
-  "RuleConfiguration.DefaultLevel": [
+  "RuleConfiguration.Level": [
     {
       "kind": "EnumHint",
       "arguments": {
         "typeName": "FailureLevel",
-        "description": "A value that specifies the default failure level of the result",
+        "description": "A value that specifies the failure level of the result",
         "memberNames": [
           "None",
           "Note",
@@ -678,11 +657,6 @@
         "typeName": "JsonConverter",
         "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter)" ]
       }
-    }
-  ],
-  "Run.Files": [
-    {
-      "kind": "DictionaryHint"
     }
   ],
   "Run.Graphs": [
@@ -846,6 +820,11 @@
         "typeName": "JsonConverter",
         "arguments": [ "typeof(UriConverter)" ]
       }
+    }
+  ],
+  "Tool.GlobalMessageStrings": [
+    {
+      "kind": "DictionaryHint"
     }
   ],
   "versionControlDetails": [

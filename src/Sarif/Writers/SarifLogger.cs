@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private JsonTextWriter _jsonTextWriter;
         private OptionallyEmittedData _dataToInsert;
         private ResultLogJsonWriter _issueLogJsonWriter;
-        private IDictionary<Rule, int> _ruleToIndexMap;
+        private IDictionary<MessageDescriptor, int> _ruleToIndexMap;
 
         protected const LoggingOptions DefaultLoggingOptions = LoggingOptions.PrettyPrint;
 
@@ -165,7 +165,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _run.Tool = tool;
             _dataToInsert = dataToInsert;
             _issueLogJsonWriter.Initialize(_run);
-
         }
 
         private static void SetSarifLoggerVersion(Tool tool)
@@ -192,11 +191,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _issueLogJsonWriter = new ResultLogJsonWriter(_jsonTextWriter);
         }
 
-        public IDictionary<Rule, int> RuleToIndexMap
+        public IDictionary<MessageDescriptor, int> RuleToIndexMap
         {
             get
             {
-                _ruleToIndexMap = _ruleToIndexMap ?? new Dictionary<Rule, int>(Rule.ValueComparer);
+                _ruleToIndexMap = _ruleToIndexMap ?? new Dictionary<MessageDescriptor, int>(MessageDescriptor.ValueComparer);
                 return _ruleToIndexMap;
             }
         }
@@ -228,12 +227,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     _run.Invocations[0].EndTimeUtc = DateTime.UtcNow;
                 }
 
-                // Note: we write out the backing rules
-                // to prevent the property accessor from populating
-                // this data with an empty collection.
-                if (_ruleToIndexMap != null)
+                if (_run?.Tool != null)
                 {
-                    _issueLogJsonWriter.WriteRules(new List<Rule>(_ruleToIndexMap.Keys));
+                    _issueLogJsonWriter.WriteTool(_run.Tool);
                 }
 
                 if (_run?.Files != null)
@@ -279,11 +275,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        public void Log(IRule iRule, Result result)
+        public void Log(MessageDescriptor rule, Result result)
         {
-            if (iRule == null)
+            if (rule == null)
             {
-                throw new ArgumentNullException(nameof(iRule));
+                throw new ArgumentNullException(nameof(rule));
             }
 
             if (result == null)
@@ -291,12 +287,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentNullException(nameof(result));
             }
 
-            if (iRule.Id != result.RuleId)
+            if (rule.Id != result.RuleId)
             {
                 //The rule id '{0}' specified by the result does not match the actual id of the rule '{1}'
                 string message = string.Format(CultureInfo.InvariantCulture, SdkResources.ResultRuleIdDoesNotMatchRule,
                     result.RuleId.ToString(),
-                    iRule.Id.ToString());
+                    rule.Id.ToString());
 
                 throw new ArgumentException(message);
             }
@@ -306,25 +302,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 return;
             }
 
-            result.RuleIndex = LogRule(iRule);
+            result.RuleIndex = LogRule(rule);
 
             CaptureFilesInResult(result);
             _issueLogJsonWriter.WriteResult(result);
         }
 
-        private int LogRule(IRule iRule)
+        private int LogRule(MessageDescriptor rule)
         {
-            // TODO: we need to finish eliminating the IRule interface from the OM
-            // https://github.com/Microsoft/sarif-sdk/issues/1189
-            Rule rule = (Rule)iRule;
 
             if (!RuleToIndexMap.TryGetValue(rule, out int ruleIndex))
             {
                 ruleIndex = _ruleToIndexMap.Count;
                 _ruleToIndexMap[rule] = ruleIndex;
-                _run.Resources = _run.Resources ?? new Resources();
-                _run.Resources.Rules = _run.Resources.Rules ?? new OrderSensitiveValueComparisonList<Rule>(Rule.ValueComparer);
-                _run.Resources.Rules.Add(rule);
+                _run.Tool.RulesMetadata = _run.Tool.RulesMetadata ?? new OrderSensitiveValueComparisonList<MessageDescriptor>(MessageDescriptor.ValueComparer);
+                _run.Tool.RulesMetadata.Add(rule);
             }
 
             return ruleIndex;

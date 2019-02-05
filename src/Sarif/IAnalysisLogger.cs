@@ -8,7 +8,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         void AnalysisStarted();
         void AnalysisStopped(RuntimeConditions runtimeConditions);
 
-        // TODO argument here should be IAnalysisTarget, when authored
         void AnalyzingTarget(IAnalysisContext context);
 
         /// <summary>
@@ -16,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         /// <param name="rule"></param>
         /// <param name="result"></param>
-        void Log(IRule rule, Result result);
+        void Log(MessageDescriptor rule, Result result);
 
         /// <summary>
         /// Log a notification that describes a runtime condition detected by the tool.
