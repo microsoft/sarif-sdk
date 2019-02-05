@@ -8,9 +8,14 @@
         "semanticVersion": "2.1.0"
       },
       "resources": {
+        "messageStrings": {"noContent": "This file has no content to review."},
         "rules": {
           "SHARED-ID.2": {
             "id": "SHARED-ID",
+            "configuration": {
+              "defaultLevel": "error",
+              "enabled": false
+            },
             "messageStrings": { "a": "Review all image content for geopolitically sensitive graphics." }
           },
           "SHARED-ID.1": {
@@ -24,6 +29,12 @@
           "ruleId": "SHARED-ID.1",
           "message": { "messageId": "a" },
           "locations": [ { "physicalLocation": { "fileLocation": { "uri": "file.txt" } } } ]
+        },
+        {
+          "ruleId": "SHARED-ID.1",
+          "level": "notApplicable",
+          "message": { "messageId": "noContent" },
+          "locations": [ { "physicalLocation": { "fileLocation": { "uri": "empty_file.txt" } } } ]
         },
         {
           "ruleId": "SHARED-ID.2",
