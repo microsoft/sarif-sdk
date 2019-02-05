@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta.2018-11-28 JSON Schema",
-  "description": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2018-11-28 JSON Schema: a standard format for the output of static analysis tools.",
+  "title": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta.2019-01-09 JSON Schema",
+  "description": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2019-01-09 JSON Schema: a standard format for the output of static analysis tools.",
   "additionalProperties": false,
   "type": "object",
   "properties": {
@@ -14,7 +14,7 @@
 
     "version": {
       "description": "The SARIF format version of this log file.",
-      "enum": [ "2.0.0-csd.2.beta.2018-11-28" ]
+      "enum": [ "2.0.0-csd.2.beta.2019-01-09" ]
     },
 
     "runs": {
@@ -1428,8 +1428,7 @@
           "description": "The state of a result relative to a baseline of a previous run.",
           "enum": [
             "new",
-            "unchanged",
-            "updated",
+            "existing",
             "absent"
           ]
         },
