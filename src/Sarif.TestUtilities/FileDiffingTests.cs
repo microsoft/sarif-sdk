@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         protected virtual void RunTest(string inputResourceName, string expectedOutputResourceName = null)
         {
             expectedOutputResourceName = expectedOutputResourceName ?? inputResourceName;
-            // When retrieving constructed test content, we pass the resourceName is the test
+            // When retrieving constructed test content, we pass the resourceName as the test
             // specified it. When constructing actual and expected file names from this data, 
             // however, we will ensure that the name has the ".sarif" extension. We do this
             // for test classes such as the Fortify converter that operate again non-SARIF inputs.
