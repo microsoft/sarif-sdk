@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "rules": {
+        "C2001": {
+          "id": "C2001",
+          "shortDescription": "A variable was used without being initialized.",
+          "messageFormats": {
+            "default": "Variable \"{0}\" was used without being initialized."
+          },
+          "properties": {
+            "some_key": "FoxForceFive"
+          }
+        },
+        "C2002": {
+          "id": "C2002",
+          "fullDescription": "Catfish season continuous hen lamb include dose copy grant.",
+          "configuration": "enabled",
+          "defaultLevel": "error",
+          "helpUri": "http://www.domain.com/rules/c2002.html"
+        },
+        "C2003": {
+          "id": "C2003",
+          "name": "Rule C2003",
+          "shortDescription": "Rules were meant to be broken.",
+          "fullDescription": "Rent internal rebellion competence biography photograph.",
+          "configuration": "disabled",
+          "defaultLevel": "pass"
+        }
+      },
+      "tool": {
+        "name": "CodeScanner",
+        "semanticVersion": "2.1.0"
+      },
+      "results": [
+        {
+          "ruleId": "C2001",
+          "formattedRuleMessage": {
+            "arguments": [ "someVariable" ],
+            "formatId": "default"
+          }          
+        },
+        {
+          "ruleId": "C2001",
+          "ruleKey": "C2001",
+          "formattedRuleMessage": {
+            "arguments": [ "anotherVariable" ],
+            "formatId": "default"
+          }
+        },
+        {
+          "ruleId": "C2002",
+          "ruleKey": "C2002-1",
+          "message": "Some testing occurred."
+        },
+        {
+          "ruleKey": "C2003",
+          "message": "Some testing occurred."
+        }
+      ]
+    }
+  ]
+}

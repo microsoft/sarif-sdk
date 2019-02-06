@@ -1,13 +1,11 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
 using System.Collections.Generic;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    internal abstract class TestRuleBase : PropertyBagHolder, IRule, ISkimmer<TestAnalysisContext>
+    internal abstract class TestRuleBase : Rule, ISkimmer<TestAnalysisContext>
     {
         protected RuleConfiguration _ruleConfiguration = null;
 
@@ -19,17 +17,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        public Uri HelpUri { get; set; }
-
-        public abstract string Id { get; }
-
         public virtual ResultLevel DefaultLevel { get { return ResultLevel.Warning; } }
 
-        public virtual Message Name { get { return new Message { Text = this.GetType().Name }; } }
+        public override Message Name { get { return new Message { Text = this.GetType().Name }; } }
 
-        public virtual Message FullDescription { get { return new Message { Text = this.GetType().Name + " full description." }; } }
+        public override Message FullDescription { get { return new Message { Text = this.GetType().Name + " full description." }; } }
 
-        public virtual Message ShortDescription { get { return new Message { Text = this.GetType().Name + " short description." }; } }
+        public override Message ShortDescription { get { return new Message { Text = this.GetType().Name + " short description." }; } }
 
         public IDictionary<string, string> MessageFormats
         {
@@ -41,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
-        public RuleConfiguration Configuration
+        public override RuleConfiguration Configuration
         {
             get
             {
@@ -54,11 +48,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        public IDictionary<string, string> MessageStrings { get { return new Dictionary<string, string>(); } }
+        public override IDictionary<string, string> MessageStrings { get { return new Dictionary<string, string>(); } }
 
-        public IDictionary<string, string> RichMessageStrings { get { return new Dictionary<string, string>(); } }
+        public override IDictionary<string, string> RichMessageStrings { get { return new Dictionary<string, string>(); } }
 
-        public Message Help { get { return new Message() { Text = "[Empty]" }; } }
+        public override Message Help { get { return new Message() { Text = "[Empty]" }; } }
 
         public abstract void Analyze(TestAnalysisContext context);
 

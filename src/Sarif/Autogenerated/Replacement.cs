@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// The replacement of a single region of a file.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class Replacement : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Replacement> ValueComparer => ReplacementEqualityComparer.Instance;
@@ -61,13 +61,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Initializes a new instance of the <see cref="Replacement" /> class from the supplied values.
         /// </summary>
         /// <param name="deletedRegion">
-        /// An initialization value for the <see cref="P: DeletedRegion" /> property.
+        /// An initialization value for the <see cref="P:DeletedRegion" /> property.
         /// </param>
         /// <param name="insertedContent">
-        /// An initialization value for the <see cref="P: InsertedContent" /> property.
+        /// An initialization value for the <see cref="P:InsertedContent" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
         public Replacement(Region deletedRegion, FileContent insertedContent, IDictionary<string, SerializedPropertyInfo> properties)
         {

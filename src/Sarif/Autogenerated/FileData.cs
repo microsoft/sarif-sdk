@@ -4,6 +4,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
@@ -14,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A single file. In some cases, this file might be nested within another file.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class FileData : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<FileData> ValueComparer => FileDataEqualityComparer.Instance;
@@ -40,10 +41,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public FileLocation FileLocation { get; set; }
 
         /// <summary>
-        /// Identifies the key of the immediate parent of the file, if this file is nested.
+        /// Identifies the index of the immediate parent of the file, if this file is nested.
         /// </summary>
-        [DataMember(Name = "parentKey", IsRequired = false, EmitDefaultValue = false)]
-        public string ParentKey { get; set; }
+        [DataMember(Name = "parentIndex", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(-1)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public int ParentIndex { get; set; }
 
         /// <summary>
         /// The offset in bytes of the file within its containing file.
@@ -61,6 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The role or roles played by the file in the analysis.
         /// </summary>
         [DataMember(Name = "roles", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(FlagsEnumConverter))]
         public FileRoles Roles { get; set; }
 
@@ -83,6 +87,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Encoding { get; set; }
 
         /// <summary>
+        /// Specifies the source language for any file object that refers to a text file that contains source code.
+        /// </summary>
+        [DataMember(Name = "sourceLanguage", IsRequired = false, EmitDefaultValue = false)]
+        public string SourceLanguage { get; set; }
+
+        /// <summary>
         /// A dictionary, each of whose keys is the name of a hash function and each of whose values is the hashed value of the file produced by the specified hash function.
         /// </summary>
         [DataMember(Name = "hashes", IsRequired = false, EmitDefaultValue = false)]
@@ -92,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The Coordinated Universal Time (UTC) date and time at which the file was most recently modified. See "Date/time properties" in the SARIF spec for the required format.
         /// </summary>
         [DataMember(Name = "lastModifiedTimeUtc", IsRequired = false, EmitDefaultValue = false)]
-        [JsonConverter(typeof(DateTimeConverter))]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter))]
         public DateTime LastModifiedTimeUtc { get; set; }
 
         /// <summary>
@@ -106,47 +116,51 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public FileData()
         {
+            ParentIndex = -1;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FileData" /> class from the supplied values.
         /// </summary>
         /// <param name="fileLocation">
-        /// An initialization value for the <see cref="P: FileLocation" /> property.
+        /// An initialization value for the <see cref="P:FileLocation" /> property.
         /// </param>
-        /// <param name="parentKey">
-        /// An initialization value for the <see cref="P: ParentKey" /> property.
+        /// <param name="parentIndex">
+        /// An initialization value for the <see cref="P:ParentIndex" /> property.
         /// </param>
         /// <param name="offset">
-        /// An initialization value for the <see cref="P: Offset" /> property.
+        /// An initialization value for the <see cref="P:Offset" /> property.
         /// </param>
         /// <param name="length">
-        /// An initialization value for the <see cref="P: Length" /> property.
+        /// An initialization value for the <see cref="P:Length" /> property.
         /// </param>
         /// <param name="roles">
-        /// An initialization value for the <see cref="P: Roles" /> property.
+        /// An initialization value for the <see cref="P:Roles" /> property.
         /// </param>
         /// <param name="mimeType">
-        /// An initialization value for the <see cref="P: MimeType" /> property.
+        /// An initialization value for the <see cref="P:MimeType" /> property.
         /// </param>
         /// <param name="contents">
-        /// An initialization value for the <see cref="P: Contents" /> property.
+        /// An initialization value for the <see cref="P:Contents" /> property.
         /// </param>
         /// <param name="encoding">
-        /// An initialization value for the <see cref="P: Encoding" /> property.
+        /// An initialization value for the <see cref="P:Encoding" /> property.
+        /// </param>
+        /// <param name="sourceLanguage">
+        /// An initialization value for the <see cref="P:SourceLanguage" /> property.
         /// </param>
         /// <param name="hashes">
-        /// An initialization value for the <see cref="P: Hashes" /> property.
+        /// An initialization value for the <see cref="P:Hashes" /> property.
         /// </param>
         /// <param name="lastModifiedTimeUtc">
-        /// An initialization value for the <see cref="P: LastModifiedTimeUtc" /> property.
+        /// An initialization value for the <see cref="P:LastModifiedTimeUtc" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public FileData(FileLocation fileLocation, string parentKey, int offset, int length, FileRoles roles, string mimeType, FileContent contents, string encoding, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
+        public FileData(FileLocation fileLocation, int parentIndex, int offset, int length, FileRoles roles, string mimeType, FileContent contents, string encoding, string sourceLanguage, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(fileLocation, parentKey, offset, length, roles, mimeType, contents, encoding, hashes, lastModifiedTimeUtc, properties);
+            Init(fileLocation, parentIndex, offset, length, roles, mimeType, contents, encoding, sourceLanguage, hashes, lastModifiedTimeUtc, properties);
         }
 
         /// <summary>
@@ -165,7 +179,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.FileLocation, other.ParentKey, other.Offset, other.Length, other.Roles, other.MimeType, other.Contents, other.Encoding, other.Hashes, other.LastModifiedTimeUtc, other.Properties);
+            Init(other.FileLocation, other.ParentIndex, other.Offset, other.Length, other.Roles, other.MimeType, other.Contents, other.Encoding, other.SourceLanguage, other.Hashes, other.LastModifiedTimeUtc, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -186,14 +200,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new FileData(this);
         }
 
-        private void Init(FileLocation fileLocation, string parentKey, int offset, int length, FileRoles roles, string mimeType, FileContent contents, string encoding, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(FileLocation fileLocation, int parentIndex, int offset, int length, FileRoles roles, string mimeType, FileContent contents, string encoding, string sourceLanguage, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (fileLocation != null)
             {
                 FileLocation = new FileLocation(fileLocation);
             }
 
-            ParentKey = parentKey;
+            ParentIndex = parentIndex;
             Offset = offset;
             Length = length;
             Roles = roles;
@@ -204,6 +218,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             Encoding = encoding;
+            SourceLanguage = sourceLanguage;
             if (hashes != null)
             {
                 Hashes = new Dictionary<string, string>(hashes);

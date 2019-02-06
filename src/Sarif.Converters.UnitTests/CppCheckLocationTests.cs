@@ -10,6 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     public class CppCheckLocationTests
     {
+        private const string ExampleFileName = "example.cpp";
+
         [Fact]
         public void CppCheckLocation_CanBeConstructedFromFileAndLine()
         {
@@ -64,14 +66,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void CppCheckLocation_CanBeConvertedToSarifIssue()
         {
-            PhysicalLocation result = new CppCheckLocation("foo.cpp", 42).ToSarifPhysicalLocation();
+            PhysicalLocation result = new CppCheckLocation(ExampleFileName, 42).ToSarifPhysicalLocation();
             Assert.True(
                 result.ValueEquals(
                     new PhysicalLocation
                     {
                         FileLocation = new FileLocation
                         {
-                            Uri = new Uri("foo.cpp", UriKind.RelativeOrAbsolute)
+                            Uri = new Uri(ExampleFileName, UriKind.RelativeOrAbsolute)
                         },
                         Region = new Region { StartLine = 42 }
                     }));
@@ -114,7 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void CppCheckLocation_SkipsSubNodesOfLocation()
         {
-            using (XmlReader xml = Utilities.CreateXmlReaderFromString("<root><location file=\"foo.cpp\" line=\"1234\"> <child /> <nodes /> </location><followingNode /></root>"))
+            using (XmlReader xml = Utilities.CreateXmlReaderFromString("<root><location file=\"" + ExampleFileName + "\" line=\"1234\"> <child /> <nodes /> </location><followingNode /></root>"))
             {
                 xml.ReadStartElement("root");
                 AssertParsesAsTestLocation(xml);
@@ -122,11 +124,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        private const string testLocationXml = "<location file=\"foo.cpp\" line=\"1234\" />";
+        private const string testLocationXml = "<location file=\"" + ExampleFileName + "\" line=\"1234\" />";
 
         private static CppCheckLocation AssertLocationIsTestLocation(CppCheckLocation result)
         {
-            Assert.Equal("foo.cpp", result.File);
+            Assert.Equal(ExampleFileName, result.File);
             Assert.Equal(1234, result.Line);
             return result;
         }
@@ -157,7 +159,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         [Fact]
         public void CppCheckLocation_Invalid_ThrowsXmlExceptionForMissingLine()
         {
-            using (XmlReader xml = Utilities.CreateXmlReaderFromString("<location file=\"foo.cpp\" />"))
+            using (XmlReader xml = Utilities.CreateXmlReaderFromString("<location file=\"" + ExampleFileName + "\" />"))
             {
                 Assert.Throws<XmlException>(() => Parse(xml));
             }

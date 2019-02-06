@@ -11,7 +11,6 @@ using Microsoft.CodeAnalysis.Sarif.Writers;
 using Microsoft.Json.Schema;
 using Microsoft.Json.Schema.Validation;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -40,8 +39,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             Func<SarifLog, SarifLog> callback =
                 (sarifLog) =>
                 {
-                    sarifLog.Runs[0].Tool.FileVersion = "1.0.1.2";
-                    sarifLog.Runs[0].Conversion.Tool.FileVersion = "2.7.1500.12";
+                    sarifLog.Runs[0].Tool.DottedQuadFileVersion = "1.0.1.2";
+                    sarifLog.Runs[0].Conversion.Tool.DottedQuadFileVersion = "2.7.1500.12";
                     return sarifLog;
                 };
 
@@ -118,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 string instanceText = File.ReadAllText(inputFile);
 
-                instanceText = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(instanceText, forceUpdate: true);
+                PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(instanceText, forceUpdate: true, formatting: Formatting.None, out instanceText);
 
                 Result[] errors = validator.Validate(instanceText, inputFile);
 

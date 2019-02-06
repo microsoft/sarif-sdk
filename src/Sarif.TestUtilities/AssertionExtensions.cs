@@ -11,13 +11,20 @@ namespace Microsoft.CodeAnalysis.Sarif.TestUtilities
 {
     public static class AssertionExtensions
     {
-        public static AndConstraint<StringAssertions> BeCrossPlatformEquivalent(
+        /// <summary>
+        /// Asserts that two strings are identical except for their end of line conventions.
+        /// </summary>
+        /// <remarks>
+        /// This is useful for comparing logs that might have been generated on platforms with different
+        /// end of line conventions.
+        /// </remarks>
+        public static AndConstraint<StringAssertions> BeCrossPlatformEquivalentStrings(
             this StringAssertions assertion,
             string expected, string because = "", params object[] becauseArgs)
         {
             Execute.Assertion
                 .ForCondition(
-                    string.Equals(RemoveLineEndings(expected), RemoveLineEndings(assertion.Subject), StringComparison.OrdinalIgnoreCase)
+                    string.Equals(RemoveLineEndings(expected), RemoveLineEndings(assertion.Subject), StringComparison.Ordinal)
                 )
                 .BecauseOf(because, becauseArgs)
                 .FailWith(TestUtilityResources.BeCrossPlatformEquivalentError);
@@ -28,6 +35,20 @@ namespace Microsoft.CodeAnalysis.Sarif.TestUtilities
         private static string RemoveLineEndings(string input)
         {
             return Regex.Replace(input, @"\s+", "");
+        }
+
+        public static AndConstraint<StringAssertions> BeCrossPlatformEquivalent<T>(
+            this StringAssertions assertion,
+            string expected, string because = "", params object[] becauseArgs)
+        {
+            Execute.Assertion
+                .ForCondition(
+                    FileDiffingTests.AreEquivalent<T>(actualSarif: assertion.Subject, expected)
+                )
+                .BecauseOf(because, becauseArgs)
+                .FailWith(TestUtilityResources.BeCrossPlatformEquivalentError);
+
+            return new AndConstraint<StringAssertions>(assertion);
         }
     }
 }

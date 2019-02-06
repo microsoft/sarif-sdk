@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Notification for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     internal sealed class NotificationEqualityComparer : IEqualityComparer<Notification>
     {
         internal static readonly NotificationEqualityComparer Instance = new NotificationEqualityComparer();
@@ -34,6 +34,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             if (left.RuleId != right.RuleId)
+            {
+                return false;
+            }
+
+            if (left.RuleIndex != right.RuleIndex)
             {
                 return false;
             }
@@ -113,6 +118,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.RuleId.GetHashCode();
                 }
 
+                result = (result * 31) + obj.RuleIndex.GetHashCode();
                 if (obj.PhysicalLocation != null)
                 {
                     result = (result * 31) + obj.PhysicalLocation.ValueGetHashCode();

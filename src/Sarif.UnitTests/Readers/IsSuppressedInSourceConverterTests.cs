@@ -20,12 +20,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
   ""runs"": [
     {
       ""tool"": {
-        ""name"": null
+        ""name"": ""DefaultTool""
       },
+      ""columnKind"": ""utf16CodeUnits"",
       ""results"": [
-        {
+          {
+            ""message"": {
+              ""text"": ""Some testing occurred.""
+          },
           ""suppressionStates"": [""suppressedInSource""]
-        }
+       }
       ]
     }
   ]
@@ -38,11 +42,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
                 uut.WriteResults(new[] { new Result
                     {
+                        Message = new Message { Text = "Some testing occurred."},
                         SuppressionStates = SuppressionStates.SuppressedInSource
                     }
                 });
             });
-            actual.Should().BeCrossPlatformEquivalent(expected);
+            actual.Should().BeCrossPlatformEquivalent<SarifLog>(expected);
 
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
             Assert.Equal(SuppressionStates.SuppressedInSource, sarifLog.Runs[0].Results[0].SuppressionStates);
@@ -58,10 +63,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
   ""runs"": [
     {
       ""tool"": {
-        ""name"": null
+        ""name"": ""DefaultTool""
       },
+      ""columnKind"": ""utf16CodeUnits"",
       ""results"": [
-        {}
+        {
+          ""message"": {
+            ""text"": ""Some testing occurred.""
+        }
+       }
       ]
     }
   ]
@@ -73,12 +83,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
                 uut.WriteResults(new[] { new Result
                     {
+                        Message = new Message { Text = "Some testing occurred."},
                         BaselineState = BaselineState.None
                     }
                 });
             });
 
-            actual.Should().BeCrossPlatformEquivalent(expected);
+            actual.Should().BeCrossPlatformEquivalent<SarifLog>(expected);
 
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
             Assert.Equal(SuppressionStates.None, sarifLog.Runs[0].Results[0].SuppressionStates);
@@ -95,10 +106,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
   ""runs"": [
     {
       ""tool"": {
-        ""name"": null
+        ""name"": ""DefaultTool""
       },
+      ""columnKind"": ""utf16CodeUnits"",
       ""results"": [
         {
+          ""message"": {
+            ""text"": ""Some testing occurred.""
+          },
           ""baselineState"": ""existing""
         }
       ]
@@ -110,13 +125,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 var run = new Run() { Tool = DefaultTool };
                 uut.Initialize(run);
 
-                uut.WriteResults(new[] { new Result
+                uut.WriteResults(new[] {
+                    new Result
                     {
+                        Message = new Message { Text = "Some testing occurred."},
                         BaselineState = BaselineState.Existing
                     }
                 });
             });
-            actual.Should().BeCrossPlatformEquivalent(expected);
+            actual.Should().BeCrossPlatformEquivalent<SarifLog>(expected);
 
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
             Assert.Equal(SuppressionStates.None, sarifLog.Runs[0].Results[0].SuppressionStates);

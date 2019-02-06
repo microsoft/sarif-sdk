@@ -1,83 +1,48 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
+using Microsoft.CodeAnalysis.Sarif.Visitors;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     /// <summary>
     /// Base class for tool file converters. Encapsulates the common logic
-    /// for populating the logicalLocations dictionary.
+    /// for populating the logicalLocations array.
     /// </summary>
     public abstract class ToolFileConverterBase
     {
         protected ToolFileConverterBase()
         {
-            LogicalLocationsDictionary = new Dictionary<string, LogicalLocation>();
+            _logicalLocationToIndexMap = new Dictionary<LogicalLocation, int>(LogicalLocation.ValueComparer);
+            LogicalLocations = new List<LogicalLocation>();
         }
 
         public abstract void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert);
 
-        // internal as well as protected it can be exercised by unit tests.
-        protected internal IDictionary<string, LogicalLocation> LogicalLocationsDictionary { get; private set;  }
+        // internal as well as protected so it can be exercised by unit tests.
+        private readonly IDictionary<LogicalLocation, int> _logicalLocationToIndexMap;
 
-        protected internal string AddLogicalLocation(LogicalLocation logicalLocation)
+        protected internal IList<LogicalLocation> LogicalLocations { get; }
+
+        protected internal int AddLogicalLocation(LogicalLocation logicalLocation)
         {
-            return AddLogicalLocation(logicalLocation, delimiter: ".");
-        }
-
-        // internal as well as protected it can be exercised by unit tests.
-        protected internal string AddLogicalLocation(LogicalLocation logicalLocation, string delimiter)
-        {
-            if (logicalLocation == null)
+            if (LogicalLocations.Count == 0)
             {
-                throw new ArgumentNullException(nameof(logicalLocation));
+                // Someone has reset the converter in order to reuse it. 
+                // So we'll clear our index map as well
+                _logicalLocationToIndexMap.Clear();
             }
 
-            int disambiguator = 0;
-
-            string fullyQualifiedLogicalName = logicalLocation.ParentKey == null ?
-                logicalLocation.Name : 
-                logicalLocation.ParentKey + delimiter + logicalLocation.Name;
-            string generatedKey = fullyQualifiedLogicalName;
-
-            logicalLocation.Name = GetLogicalLocationName(logicalLocation.ParentKey, fullyQualifiedLogicalName, delimiter);
-            logicalLocation.FullyQualifiedName = fullyQualifiedLogicalName;
-
-            while (LogicalLocationsDictionary.ContainsKey(generatedKey))
+            if (!_logicalLocationToIndexMap.TryGetValue(logicalLocation, out int index))
             {
-                LogicalLocation logLoc = LogicalLocationsDictionary[generatedKey].DeepClone();
-                logLoc.Name = GetLogicalLocationName(logLoc.ParentKey, fullyQualifiedLogicalName, delimiter);
-                logLoc.FullyQualifiedName = fullyQualifiedLogicalName;
-
-                if (logicalLocation.ValueEquals(logLoc))
-                {
-                    break;
-                }
-
-                generatedKey = fullyQualifiedLogicalName + "-" + disambiguator.ToString(CultureInfo.InvariantCulture);
-                ++disambiguator;
+                index = _logicalLocationToIndexMap.Count;
+                _logicalLocationToIndexMap[logicalLocation] = index;
+                LogicalLocations.Add(logicalLocation);
             }
-
-            if (disambiguator == 0)
-            {
-                logicalLocation.FullyQualifiedName = null;
-            }
-
-            if (logicalLocation.Name == generatedKey)
-            {
-                logicalLocation.Name = null;
-            }
-
-            if (!LogicalLocationsDictionary.ContainsKey(generatedKey))
-            {
-                LogicalLocationsDictionary.Add(generatedKey, logicalLocation);
-            }
-
-            return generatedKey;
+            return index;
         }
 
         internal static string GetLogicalLocationName(string parentKey, string fullyQualifiedLogicalName, string delimiter)
@@ -108,6 +73,57 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             return logicalName;
+        }
+
+        protected static Run PersistResults(IResultLogWriter output, IList<Result> results, string toolName)
+        {
+            var run = new Run()
+            {
+                Tool = new Tool { Name = toolName },
+                ColumnKind = ColumnKind.Utf16CodeUnits
+            };
+
+            return PersistResults(output, results, run);
+        }
+
+        protected static Run PersistResults(IResultLogWriter output, IList<Result> results, Run run)
+        {
+            output.Initialize(run);
+
+            if (run.Invocations?.Count > 0)
+            {
+                // TODO: add WriteInvocations to IResultLogWriter
+                // https://github.com/Microsoft/sarif-sdk/issues/1190
+                (output as ResultLogJsonWriter).WriteInvocations(run.Invocations);
+            }
+
+            run.Results = results;
+            var visitor = new AddFileReferencesVisitor();
+            visitor.VisitRun(run);
+
+            if (run.Results != null)
+            {
+                output.OpenResults();
+                output.WriteResults(run.Results);
+                output.CloseResults();
+            }
+
+            if (run.Files?.Count > 0)
+            {
+                output.WriteFiles(run.Files);
+            }
+
+            if (run.LogicalLocations?.Count > 0)
+            {
+                output.WriteLogicalLocations(run.LogicalLocations);
+            }
+
+            if (run.Resources?.Rules != null)
+            {
+                output.WriteRules(run.Resources?.Rules);
+            }
+
+            return run;
         }
     }
 }

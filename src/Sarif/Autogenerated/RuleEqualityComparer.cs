@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Rule for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     internal sealed class RuleEqualityComparer : IEqualityComparer<Rule>
     {
         internal static readonly RuleEqualityComparer Instance = new RuleEqualityComparer();
@@ -31,6 +31,27 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (left.Id != right.Id)
             {
                 return false;
+            }
+
+            if (!object.ReferenceEquals(left.DeprecatedIds, right.DeprecatedIds))
+            {
+                if (left.DeprecatedIds == null || right.DeprecatedIds == null)
+                {
+                    return false;
+                }
+
+                if (left.DeprecatedIds.Count != right.DeprecatedIds.Count)
+                {
+                    return false;
+                }
+
+                for (int index_0 = 0; index_0 < left.DeprecatedIds.Count; ++index_0)
+                {
+                    if (left.DeprecatedIds[index_0] != right.DeprecatedIds[index_0])
+                    {
+                        return false;
+                    }
+                }
             }
 
             if (!Message.ValueComparer.Equals(left.Name, right.Name))
@@ -147,6 +168,18 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Id.GetHashCode();
                 }
 
+                if (obj.DeprecatedIds != null)
+                {
+                    foreach (var value_6 in obj.DeprecatedIds)
+                    {
+                        result = result * 31;
+                        if (value_6 != null)
+                        {
+                            result = (result * 31) + value_6.GetHashCode();
+                        }
+                    }
+                }
+
                 if (obj.Name != null)
                 {
                     result = (result * 31) + obj.Name.ValueGetHashCode();
@@ -166,12 +199,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_0 = 0;
-                    foreach (var value_6 in obj.MessageStrings)
+                    foreach (var value_7 in obj.MessageStrings)
                     {
-                        xor_0 ^= value_6.Key.GetHashCode();
-                        if (value_6.Value != null)
+                        xor_0 ^= value_7.Key.GetHashCode();
+                        if (value_7.Value != null)
                         {
-                            xor_0 ^= value_6.Value.GetHashCode();
+                            xor_0 ^= value_7.Value.GetHashCode();
                         }
                     }
 
@@ -182,12 +215,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_1 = 0;
-                    foreach (var value_7 in obj.RichMessageStrings)
+                    foreach (var value_8 in obj.RichMessageStrings)
                     {
-                        xor_1 ^= value_7.Key.GetHashCode();
-                        if (value_7.Value != null)
+                        xor_1 ^= value_8.Key.GetHashCode();
+                        if (value_8.Value != null)
                         {
-                            xor_1 ^= value_7.Value.GetHashCode();
+                            xor_1 ^= value_8.Value.GetHashCode();
                         }
                     }
 
@@ -213,12 +246,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_2 = 0;
-                    foreach (var value_8 in obj.Properties)
+                    foreach (var value_9 in obj.Properties)
                     {
-                        xor_2 ^= value_8.Key.GetHashCode();
-                        if (value_8.Value != null)
+                        xor_2 ^= value_9.Key.GetHashCode();
+                        if (value_9.Value != null)
                         {
-                            xor_2 ^= value_8.Value.GetHashCode();
+                            xor_2 ^= value_9.Value.GetHashCode();
                         }
                     }
 

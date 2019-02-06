@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A call stack that is relevant to a result.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class Stack : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Stack> ValueComparer => StackEqualityComparer.Instance;
@@ -61,13 +61,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Initializes a new instance of the <see cref="Stack" /> class from the supplied values.
         /// </summary>
         /// <param name="message">
-        /// An initialization value for the <see cref="P: Message" /> property.
+        /// An initialization value for the <see cref="P:Message" /> property.
         /// </param>
         /// <param name="frames">
-        /// An initialization value for the <see cref="P: Frames" /> property.
+        /// An initialization value for the <see cref="P:Frames" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
         public Stack(Message message, IEnumerable<StackFrame> frames, IDictionary<string, SerializedPropertyInfo> properties)
         {

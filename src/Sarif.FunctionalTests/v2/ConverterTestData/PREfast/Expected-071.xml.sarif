@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-09-26",
-  "version": "2.0.0-csd.2.beta.2018-09-26",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-11-28",
+  "version": "2.0.0-csd.2.beta.2018-11-28",
   "runs": [
     {
       "tool": {
@@ -12,34 +12,40 @@
           "mimeType": "text/x-cpp"
         }
       },
-      "logicalLocations": {
-        "f": {
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "f",
           "decoratedName": "?f@@YAXPADIPBD@Z"
         },
-        "f1": {
+        {
+          "fullyQualifiedName": "f1",
           "decoratedName": "?f1@@YAXPADIPBD@Z"
         },
-        "f2": {
+        {
+          "fullyQualifiedName": "f2",
           "decoratedName": "?f2@@YAXPADIPBD@Z"
         },
-        "foo": {
+        {
+          "fullyQualifiedName": "foo",
           "decoratedName": "?foo@@YAXPAGI@Z"
         },
-        "GetComputerName": {
+        {
+          "fullyQualifiedName": "GetComputerName",
           "decoratedName": "?GetComputerName@@YAXPADPAI@Z"
         },
-        "TestFields": {
+        {
+          "fullyQualifiedName": "TestFields",
           "decoratedName": "?TestFields@@YAXPADHH@Z"
         },
-        "f-0": {
-          "name": "f",
+        {
           "fullyQualifiedName": "f",
           "decoratedName": "?f@@YAXPADPAI@Z"
         },
-        "Division": {
+        {
+          "fullyQualifiedName": "Division",
           "decoratedName": "?Division@@YAXXZ"
         }
-      },
+      ],
       "results": [
         {
           "ruleId": "26007",
@@ -58,6 +64,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "f",
+              "logicalLocationIndex": 0,
               "properties": {
                 "funcline": "7"
               }
@@ -69,7 +76,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -83,7 +89,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -97,7 +102,6 @@
                       }
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -111,7 +115,6 @@
                       }
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -125,7 +128,6 @@
                       }
                     },
                     {
-                      "step": 5,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -139,7 +141,6 @@
                       }
                     },
                     {
-                      "step": 6,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -153,7 +154,6 @@
                       }
                     },
                     {
-                      "step": 7,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -189,6 +189,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "f1",
+              "logicalLocationIndex": 1,
               "properties": {
                 "funcline": "21"
               }
@@ -200,7 +201,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -214,7 +214,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -228,7 +227,6 @@
                       }
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -242,7 +240,6 @@
                       }
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -256,7 +253,6 @@
                       }
                     },
                     {
-                      "step": 5,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -270,7 +266,6 @@
                       }
                     },
                     {
-                      "step": 6,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -284,7 +279,6 @@
                       }
                     },
                     {
-                      "step": 7,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -320,6 +314,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "f1",
+              "logicalLocationIndex": 1,
               "properties": {
                 "funcline": "21"
               }
@@ -331,7 +326,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -345,7 +339,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -359,7 +352,6 @@
                       }
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -373,7 +365,6 @@
                       }
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -387,7 +378,6 @@
                       }
                     },
                     {
-                      "step": 5,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -401,7 +391,6 @@
                       }
                     },
                     {
-                      "step": 6,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -415,7 +404,6 @@
                       }
                     },
                     {
-                      "step": 7,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -429,7 +417,6 @@
                       }
                     },
                     {
-                      "step": 8,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -443,7 +430,6 @@
                       }
                     },
                     {
-                      "step": 9,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -457,7 +443,6 @@
                       }
                     },
                     {
-                      "step": 10,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -471,7 +456,6 @@
                       }
                     },
                     {
-                      "step": 11,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -507,6 +491,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "f2",
+              "logicalLocationIndex": 2,
               "properties": {
                 "funcline": "34"
               }
@@ -518,7 +503,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -532,7 +516,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -546,7 +529,6 @@
                       }
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -560,7 +542,6 @@
                       }
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -574,7 +555,6 @@
                       }
                     },
                     {
-                      "step": 5,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -588,7 +568,6 @@
                       }
                     },
                     {
-                      "step": 6,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -624,6 +603,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "foo",
+              "logicalLocationIndex": 3,
               "properties": {
                 "funcline": "48"
               }
@@ -635,7 +615,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -649,7 +628,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -663,7 +641,6 @@
                       }
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -677,7 +654,6 @@
                       }
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -713,6 +689,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "GetComputerName",
+              "logicalLocationIndex": 4,
               "properties": {
                 "funcline": "70"
               }
@@ -724,7 +701,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -760,6 +736,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestFields",
+              "logicalLocationIndex": 5,
               "properties": {
                 "funcline": "103"
               }
@@ -771,7 +748,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -785,7 +761,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -799,7 +774,6 @@
                       }
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -813,7 +787,6 @@
                       }
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -827,7 +800,6 @@
                       }
                     },
                     {
-                      "step": 5,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -841,7 +813,6 @@
                       }
                     },
                     {
-                      "step": 6,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -877,6 +848,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestFields",
+              "logicalLocationIndex": 5,
               "properties": {
                 "funcline": "103"
               }
@@ -888,7 +860,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -902,7 +873,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -916,7 +886,6 @@
                       }
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -930,7 +899,6 @@
                       }
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -944,7 +912,6 @@
                       }
                     },
                     {
-                      "step": 5,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -958,7 +925,6 @@
                       }
                     },
                     {
-                      "step": 6,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -994,6 +960,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "f",
+              "logicalLocationIndex": 6,
               "properties": {
                 "funcline": "116"
               }
@@ -1005,7 +972,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1019,7 +985,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1055,6 +1020,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "Division",
+              "logicalLocationIndex": 7,
               "properties": {
                 "funcline": "128"
               }
@@ -1066,7 +1032,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1080,7 +1045,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1094,7 +1058,6 @@
                       }
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1108,7 +1071,6 @@
                       }
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1122,7 +1084,6 @@
                       }
                     },
                     {
-                      "step": 5,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1136,7 +1097,6 @@
                       }
                     },
                     {
-                      "step": 6,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -1155,7 +1115,8 @@
             }
           ]
         }
-      ]
+      ],
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

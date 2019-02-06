@@ -11,13 +11,18 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Interface exposed by objects that provide information about analysis rules.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial interface IRule
     {
         /// <summary>
         /// A stable, opaque identifier for the rule.
         /// </summary>
         string Id { get; }
+
+        /// <summary>
+        /// An array of stable, opaque identifiers by which this rule was known in some previous version of the analysis tool.
+        /// </summary>
+        IList<string> DeprecatedIds { get; }
 
         /// <summary>
         /// A rule identifier that is understandable to an end user.

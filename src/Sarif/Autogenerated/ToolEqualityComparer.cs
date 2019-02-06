@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Tool for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     internal sealed class ToolEqualityComparer : IEqualityComparer<Tool>
     {
         internal static readonly ToolEqualityComparer Instance = new ToolEqualityComparer();
@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.FileVersion != right.FileVersion)
+            if (left.DottedQuadFileVersion != right.DottedQuadFileVersion)
             {
                 return false;
             }
@@ -123,9 +123,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.SemanticVersion.GetHashCode();
                 }
 
-                if (obj.FileVersion != null)
+                if (obj.DottedQuadFileVersion != null)
                 {
-                    result = (result * 31) + obj.FileVersion.GetHashCode();
+                    result = (result * 31) + obj.DottedQuadFileVersion.GetHashCode();
                 }
 
                 if (obj.DownloadUri != null)

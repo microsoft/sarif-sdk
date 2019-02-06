@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <PropertyGroup Label="AssemblyAttributes">
-    <AssemblyTitle>SARIF Library</AssemblyTitle>
+    <AssemblyTitle>SARIF SDK Library</AssemblyTitle>
     <Description>Object model and utilities for reading and writing files in the SARIF format</Description>
   </PropertyGroup>
 
@@ -78,4 +78,6 @@
   </ItemGroup>
 
   <Import Project="ToDotNet\ToDotNet.targets" />
+
+  <ProjectExtensions><VisualStudio><UserProperties CodeGenHints_1json__JSONSchema="http://json.schemastore.org/asmdef" /></VisualStudio></ProjectExtensions>
 </Project>

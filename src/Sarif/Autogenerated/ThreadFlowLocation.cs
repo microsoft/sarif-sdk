@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A location visited by an analysis tool while simulating or monitoring the execution of a program.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class ThreadFlowLocation : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ThreadFlowLocation> ValueComparer => ThreadFlowLocationEqualityComparer.Instance;
@@ -105,34 +105,34 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Initializes a new instance of the <see cref="ThreadFlowLocation" /> class from the supplied values.
         /// </summary>
         /// <param name="location">
-        /// An initialization value for the <see cref="P: Location" /> property.
+        /// An initialization value for the <see cref="P:Location" /> property.
         /// </param>
         /// <param name="stack">
-        /// An initialization value for the <see cref="P: Stack" /> property.
+        /// An initialization value for the <see cref="P:Stack" /> property.
         /// </param>
         /// <param name="kind">
-        /// An initialization value for the <see cref="P: Kind" /> property.
+        /// An initialization value for the <see cref="P:Kind" /> property.
         /// </param>
         /// <param name="module">
-        /// An initialization value for the <see cref="P: Module" /> property.
+        /// An initialization value for the <see cref="P:Module" /> property.
         /// </param>
         /// <param name="state">
-        /// An initialization value for the <see cref="P: State" /> property.
+        /// An initialization value for the <see cref="P:State" /> property.
         /// </param>
         /// <param name="nestingLevel">
-        /// An initialization value for the <see cref="P: NestingLevel" /> property.
+        /// An initialization value for the <see cref="P:NestingLevel" /> property.
         /// </param>
         /// <param name="executionOrder">
-        /// An initialization value for the <see cref="P: ExecutionOrder" /> property.
+        /// An initialization value for the <see cref="P:ExecutionOrder" /> property.
         /// </param>
         /// <param name="executionTimeUtc">
-        /// An initialization value for the <see cref="P: ExecutionTimeUtc" /> property.
+        /// An initialization value for the <see cref="P:ExecutionTimeUtc" /> property.
         /// </param>
         /// <param name="importance">
-        /// An initialization value for the <see cref="P: Importance" /> property.
+        /// An initialization value for the <see cref="P:Importance" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
         public ThreadFlowLocation(Location location, Stack stack, string kind, string module, IDictionary<string, string> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
         {

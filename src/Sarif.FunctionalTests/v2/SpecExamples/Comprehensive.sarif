@@ -8,16 +8,28 @@
       "baselineInstanceGuid": "0A106451-C9B1-4309-A7EE-06988B95F723",
       "automationLogicalId": "Build-14.0.1.2-Release-20160716-13:22:18",
       "architecture": "x86",
+      "columnKind": "utf16CodeUnits",
       "tool": {
         "name": "CodeScanner",
         "fullName": "CodeScanner 1.1 for Unix (en-US)",
         "version": "2.1",
         "semanticVersion": "2.1.0",
-        "fileVersion": "2.1.0.0",
+        "dottedQuadFileVersion": "2.1.0.0",
         "language": "en-US",
         "sarifLoggerVersion": "1.25.0",
         "properties": {
           "copyright": "Copyright (c) 2016 by Example Corporation. All rights reserved."
+        }
+      },
+      "conversion": {
+        "tool": {
+          "name": "CodeScanner Legacy File Format Converter",
+          "fullName": "CodeScanner Converter Tool",
+          "version": "4.3",
+          "semanticVersion": "4.3.0",
+          "dottedQuadFileVersion": "4.3.0.0",
+          "language": "en-US",
+          "sarifLoggerVersion": "1.25.0"
         }
       },
       "versionControlProvenance": [
@@ -26,7 +38,11 @@
           "branch": "master",
           "tag": "beta1",
           "revisionId": "abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd",
-          "timestamp": "2016-07-16T00:00:00Z"
+          "timestamp": "2016-07-16T00:00:00Z",
+          "mappedTo": {
+            "uri": "/example",
+            "uriBaseId": "SRCROOT"
+          }
         }
       ],
       "originalUriBaseIds": { "TOOLS_ROOT": "file:///bin/tools/" },
@@ -419,6 +435,10 @@
         "rules": {
           "C2001": {
             "id": "C2001",
+            "deprecatedIds": [
+              "C0001",
+              "C1001"
+            ],
             "shortDescription": {
               "text": "A variable was used without being initialized."
             },

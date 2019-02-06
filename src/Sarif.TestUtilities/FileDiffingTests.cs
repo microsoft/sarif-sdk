@@ -5,11 +5,15 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
+using System.Text;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Microsoft.CodeAnalysis.Sarif.VersionOne;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
+using Xunit;
 using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -23,28 +27,25 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         // Retrieving the source path of the tests is only used in developer ad hoc
         // rebaselining scenarios. i.e., this path won't be consumed by AppVeyor.
-        public static string GetProductTestDataDirectory(string subdirectory = "")
+        public static string GetProductTestDataDirectory(string testBinaryName, string subdirectory = "")
         {
-            return Path.GetFullPath(Path.Combine(@"..\..\..\..\..\src\Sarif.UnitTests\TestData", subdirectory));
+            return Path.GetFullPath(Path.Combine($@"..\..\..\..\..\src\{testBinaryName}\TestData", subdirectory));
         }
 
-
         private readonly ITestOutputHelper _outputHelper;
+        private readonly bool _testProducesSarifCurrentVersion;
 
-        public FileDiffingTests(ITestOutputHelper outputHelper)
+        public FileDiffingTests(ITestOutputHelper outputHelper, bool testProducesSarifCurrentVersion = true)
         {
             _outputHelper = outputHelper;
-
-            if (Directory.Exists(OutputFolderPath))
-            {
-                Directory.Delete(OutputFolderPath, recursive: true);
-            }
+            _testProducesSarifCurrentVersion = testProducesSarifCurrentVersion;
 
             Directory.CreateDirectory(OutputFolderPath);
         }
 
+        protected virtual Assembly ThisAssembly => this.GetType().Assembly;
 
-        protected virtual Assembly ThisAssembly => this.GetType().Assembly; 
+        protected virtual string TestBinaryName => Path.GetFileNameWithoutExtension(ThisAssembly.Location);
 
         protected virtual string TypeUnderTest => this.GetType().Name.Substring(0, this.GetType().Name.Length - "Tests".Length);
 
@@ -53,6 +54,80 @@ namespace Microsoft.CodeAnalysis.Sarif
         protected virtual string ProductTestDataDirectory => GetProductTestDataDirectory(TypeUnderTest);
 
         protected virtual string TestLogResourceNameRoot => "Microsoft.CodeAnalysis.Sarif.UnitTests.TestData." + TypeUnderTest;
+
+        protected virtual string ConstructTestOutputFromInputResource(string inputResourceName) { return string.Empty; }
+
+        protected virtual bool RebaselineExpectedResults => false;
+
+        protected virtual void RunTest(string inputResourceName, string expectedOutputResourceName = null)
+        {
+            expectedOutputResourceName = expectedOutputResourceName ?? inputResourceName;
+            // When retrieving constructed test content, we pass the resourceName as the test
+            // specified it. When constructing actual and expected file names from this data, 
+            // however, we will ensure that the name has the ".sarif" extension. We do this
+            // for test classes such as the Fortify converter that operate again non-SARIF inputs.
+            string actualSarifText = ConstructTestOutputFromInputResource("Inputs." + inputResourceName);
+
+            expectedOutputResourceName = Path.GetFileNameWithoutExtension(expectedOutputResourceName) + ".sarif";
+
+            var sb = new StringBuilder();
+
+            string expectedSarifText = GetResourceText("ExpectedOutputs." + expectedOutputResourceName);
+
+            bool passed;
+            if (_testProducesSarifCurrentVersion)
+            {
+                PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarifText, forceUpdate: false, Formatting.Indented, out expectedSarifText);
+                passed = AreEquivalent<SarifLog>(actualSarifText, expectedSarifText);
+            }
+            else
+            {
+                passed = AreEquivalent<SarifLogVersionOne>(actualSarifText, expectedSarifText, SarifContractResolverVersionOne.Instance);
+            }
+
+            if (!passed || RebaselineExpectedResults)
+            {
+                string errorMessage = string.Format(@"there should be no unexpected diffs detected comparing actual results to '{0}'.", inputResourceName);
+                sb.AppendLine(errorMessage);
+
+                if (!Utilities.RunningInAppVeyor)
+                {
+                    string expectedFilePath = GetOutputFilePath("ExpectedOutputs", expectedOutputResourceName);
+                    string actualFilePath = GetOutputFilePath("ActualOutputs", expectedOutputResourceName);
+
+                    string expectedRootDirectory = Path.GetDirectoryName(expectedFilePath);
+                    string actualRootDirectory = Path.GetDirectoryName(actualFilePath);
+
+                    Directory.CreateDirectory(expectedRootDirectory);
+                    Directory.CreateDirectory(actualRootDirectory);
+
+                    File.WriteAllText(expectedFilePath, expectedSarifText);
+                    File.WriteAllText(actualFilePath, actualSarifText);
+
+                    sb.AppendLine("To compare all difference for this test suite:");
+                    sb.AppendLine(GenerateDiffCommand(TypeUnderTest, Path.GetDirectoryName(expectedFilePath), Path.GetDirectoryName(actualFilePath)) + Environment.NewLine);
+
+                    if (RebaselineExpectedResults)
+                    {
+                        string testDirectory = Path.Combine(GetProductTestDataDirectory(TestBinaryName, TypeUnderTest), "ExpectedOutputs");
+                        Directory.CreateDirectory(testDirectory);
+
+                        // We retrieve all test strings from embedded resources. To rebaseline, we need to
+                        // compute the enlistment location from which these resources are compiled.
+
+                        expectedFilePath = Path.Combine(testDirectory, expectedOutputResourceName);
+                        File.WriteAllText(expectedFilePath, actualSarifText);
+                    }
+                }
+
+                if (!RebaselineExpectedResults)
+                {
+                    ValidateResults(sb.ToString());
+                }
+            }
+
+            RebaselineExpectedResults.Should().BeFalse();
+        }
 
         protected string GetOutputFilePath(string directory, string resourceName)
         {
@@ -66,12 +141,29 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             using (Stream stream = ThisAssembly.GetManifestResourceStream($"{TestLogResourceNameRoot}.{resourceName}"))
             {
+                if (stream == null) { return string.Empty; }
+
                 using (StreamReader reader = new StreamReader(stream))
                 {
                     text = reader.ReadToEnd();
                 }
             }
             return text;
+        }
+
+        protected byte[] GetResourceBytes(string resourceName)
+        {
+            byte[] bytes = null;
+
+            using (Stream stream = ThisAssembly.GetManifestResourceStream($"{TestLogResourceNameRoot}.{resourceName}"))
+            {
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    stream.CopyTo(memoryStream);
+                    bytes = memoryStream.ToArray();
+                }
+            }
+            return bytes;
         }
 
         protected void ValidateResults(string output)
@@ -81,78 +173,49 @@ namespace Microsoft.CodeAnalysis.Sarif
                 _outputHelper.WriteLine(output);
             }
 
-            // We can't use the 'because' argument here because someone along
-            // the line is stripping \n from output strings. This compromises
-            // our file paths. e.g., 'c:\build\netcore2.0\etc' is rendered
-            // as 'c:\build\etcore2.0'. 
-            output.Length.Should().Be(0);
+            output.Length.Should().Be(0, because: output);
         }
 
-
-        protected static string GenerateDiffCommand(string expected, string actual)
+        protected static string GenerateDiffCommand(string suiteName, string expected, string actual)
         {
-            // This helper works to generate both a file or directory compare
-            expected = Path.GetFullPath(expected).Replace(@"\", @"\\");
-            actual = Path.GetFullPath(actual).Replace(@"\", @"\\");
+            actual = Path.GetFullPath(actual);
+            expected = Path.GetFullPath(expected);
 
-            string beyondCompare = TryFindBeyondCompare();
-            if (beyondCompare != null)
+            string diffText =  String.Format(CultureInfo.InvariantCulture, "%DIFF% \"{0}\" \"{1}\"", expected, actual);
+
+            string qualifier = String.Empty;
+
+            if (File.Exists(expected))
             {
-                return String.Format(CultureInfo.InvariantCulture, "\"{0}\" \"{1}\" \"{2}\" /title1=Expected /title2=Actual", beyondCompare, expected, actual);
+                qualifier = Path.GetFileNameWithoutExtension(expected);
             }
 
-            return String.Format(CultureInfo.InvariantCulture, "windiff \"{0}\" \"{1}\"", expected, actual);
+            string fullPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            fullPath = Path.Combine(fullPath, "Diff" + suiteName + qualifier + ".cmd");
+
+            File.WriteAllText(fullPath, diffText);
+            return fullPath;
         }
 
-        protected static bool AreEquivalentSarifLogs<T>(string actualSarif, string expectedSarif, IContractResolver contractResolver = null)
+        public static bool AreEquivalent<T>(string actualSarif, string expectedSarif, IContractResolver contractResolver = null)
         {
+            if (actualSarif.Equals(expectedSarif)) { return true; }
+
             expectedSarif = expectedSarif ?? "{}";
 
             JsonSerializerSettings settings = new JsonSerializerSettings()
             {
-                ContractResolver = contractResolver
+                ContractResolver = contractResolver,
             };
 
-            // Make sure we can successfully deserialize what was just generated
-            T actualLog = JsonConvert.DeserializeObject<T>(actualSarif, settings);
-
-            actualSarif = JsonConvert.SerializeObject(actualLog, settings);
+            // Make sure we can successfully roundtrip what was just generated
+            T actualSarifObject = JsonConvert.DeserializeObject<T>(actualSarif, settings);
+            actualSarif = JsonConvert.SerializeObject(actualSarifObject, settings);
 
             JToken generatedToken = JToken.Parse(actualSarif);
             JToken expectedToken = JToken.Parse(expectedSarif);
 
             return JToken.DeepEquals(generatedToken, expectedToken);
-        }
-
-        protected static string TryFindBeyondCompare()
-        {
-            string programFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
-            for (int idx = 4; idx >= 3; --idx)
-            {
-                string beyondComparePath = String.Format(CultureInfo.InvariantCulture, "{0}\\Beyond Compare {1}\\BComp.exe", programFiles, idx);
-                if (File.Exists(beyondComparePath))
-                {
-                    return beyondComparePath;
-                }
-            }
-
-            programFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
-            for (int idx = 4; idx >= 3; --idx)
-            {
-                string beyondComparePath = String.Format(CultureInfo.InvariantCulture, "{0}\\Beyond Compare {1}\\BComp.exe", programFiles, idx);
-                if (File.Exists(beyondComparePath))
-                {
-                    return beyondComparePath;
-                }
-            }
-
-            string beyondCompare2Path = programFiles + "\\Beyond Compare 2\\BC2.exe";
-            if (File.Exists(beyondCompare2Path))
-            {
-                return beyondCompare2Path;
-            }
-
-            return null;
         }
     }
 }

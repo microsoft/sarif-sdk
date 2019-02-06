@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Region for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     internal sealed class RegionEqualityComparer : IEqualityComparer<Region>
     {
         internal static readonly RegionEqualityComparer Instance = new RegionEqualityComparer();
@@ -78,6 +78,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.SourceLanguage != right.SourceLanguage)
+            {
+                return false;
+            }
+
             if (!object.ReferenceEquals(left.Properties, right.Properties))
             {
                 if (left.Properties == null || right.Properties == null || left.Properties.Count != right.Properties.Count)
@@ -129,6 +134,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.Message != null)
                 {
                     result = (result * 31) + obj.Message.ValueGetHashCode();
+                }
+
+                if (obj.SourceLanguage != null)
+                {
+                    result = (result * 31) + obj.SourceLanguage.GetHashCode();
                 }
 
                 if (obj.Properties != null)

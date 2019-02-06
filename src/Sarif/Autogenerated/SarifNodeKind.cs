@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// A set of values for all the types that implement <see cref="ISarifNode" />.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public enum SarifNodeKind
     {
         /// <summary>
@@ -44,9 +44,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         ExceptionData,
         /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ExternalFiles" />.
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ExternalPropertyFile" />.
         /// </summary>
-        ExternalFiles,
+        ExternalPropertyFile,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ExternalPropertyFiles" />.
+        /// </summary>
+        ExternalPropertyFiles,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="FileData" />.
         /// </summary>
@@ -127,6 +131,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Result" />.
         /// </summary>
         Result,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ResultProvenance" />.
+        /// </summary>
+        ResultProvenance,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Rule" />.
         /// </summary>

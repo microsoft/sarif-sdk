@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-09-26",
-  "version": "2.0.0-csd.2.beta.2018-09-26",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-11-28",
+  "version": "2.0.0-csd.2.beta.2018-11-28",
   "runs": [
     {
       "tool": {
@@ -12,34 +12,40 @@
           "mimeType": "text/x-cpp"
         }
       },
-      "logicalLocations": {
-        "f": {
+      "logicalLocations": [
+        {
+          "fullyQualifiedName": "f",
           "decoratedName": "?f@@YAXXZ"
         },
-        "f1": {
+        {
+          "fullyQualifiedName": "f1",
           "decoratedName": "?f1@@YAXXZ"
         },
-        "g": {
+        {
+          "fullyQualifiedName": "g",
           "decoratedName": "?g@@YAXPAUUS@@@Z"
         },
-        "g-0": {
-          "name": "g",
+        {
           "fullyQualifiedName": "g",
           "decoratedName": "?g@@YAXXZ"
         },
-        "bar": {
+        {
+          "fullyQualifiedName": "bar",
           "decoratedName": "?bar@@YAXPAUUS@@@Z"
         },
-        "bad": {
+        {
+          "fullyQualifiedName": "bad",
           "decoratedName": "?bad@@YAXXZ"
         },
-        "InferredIn": {
+        {
+          "fullyQualifiedName": "InferredIn",
           "decoratedName": "?InferredIn@@YAXPBUUS@@@Z"
         },
-        "TestInferredIn": {
+        {
+          "fullyQualifiedName": "TestInferredIn",
           "decoratedName": "?TestInferredIn@@YAXPAUUS@@@Z"
         }
-      },
+      ],
       "results": [
         {
           "ruleId": "26000",
@@ -58,6 +64,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "f",
+              "logicalLocationIndex": 0,
               "properties": {
                 "funcline": "20"
               }
@@ -69,7 +76,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -83,7 +89,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -97,7 +102,6 @@
                       }
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -111,7 +115,6 @@
                       }
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -125,7 +128,6 @@
                       }
                     },
                     {
-                      "step": 5,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -139,7 +141,6 @@
                       }
                     },
                     {
-                      "step": 6,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -153,7 +154,6 @@
                       }
                     },
                     {
-                      "step": 7,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -167,7 +167,6 @@
                       }
                     },
                     {
-                      "step": 8,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -181,7 +180,6 @@
                       }
                     },
                     {
-                      "step": 9,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -195,7 +193,6 @@
                       }
                     },
                     {
-                      "step": 10,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -231,6 +228,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "f1",
+              "logicalLocationIndex": 1,
               "properties": {
                 "funcline": "30"
               }
@@ -242,7 +240,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -256,7 +253,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -270,7 +266,6 @@
                       }
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -284,7 +279,6 @@
                       }
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -298,7 +292,6 @@
                       }
                     },
                     {
-                      "step": 5,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -312,7 +305,6 @@
                       }
                     },
                     {
-                      "step": 6,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -326,7 +318,6 @@
                       }
                     },
                     {
-                      "step": 7,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -340,7 +331,6 @@
                       }
                     },
                     {
-                      "step": 8,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -354,7 +344,6 @@
                       }
                     },
                     {
-                      "step": 9,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -368,7 +357,6 @@
                       }
                     },
                     {
-                      "step": 10,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -404,6 +392,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "g",
+              "logicalLocationIndex": 2,
               "properties": {
                 "funcline": "40"
               }
@@ -415,7 +404,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -429,7 +417,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -465,6 +452,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "g",
+              "logicalLocationIndex": 3,
               "properties": {
                 "funcline": "56"
               }
@@ -476,7 +464,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -490,7 +477,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -504,7 +490,6 @@
                       }
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -518,7 +503,6 @@
                       }
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -554,6 +538,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "bar",
+              "logicalLocationIndex": 4,
               "properties": {
                 "funcline": "69"
               }
@@ -565,7 +550,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -579,7 +563,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -615,6 +598,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "bad",
+              "logicalLocationIndex": 5,
               "properties": {
                 "funcline": "92"
               }
@@ -626,7 +610,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -640,7 +623,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -654,7 +636,6 @@
                       }
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -668,7 +649,6 @@
                       }
                     },
                     {
-                      "step": 4,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -682,7 +662,6 @@
                       }
                     },
                     {
-                      "step": 5,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -696,7 +675,6 @@
                       }
                     },
                     {
-                      "step": 6,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -732,6 +710,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "InferredIn",
+              "logicalLocationIndex": 6,
               "properties": {
                 "funcline": "101"
               }
@@ -743,7 +722,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -757,7 +735,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -793,6 +770,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestInferredIn",
+              "logicalLocationIndex": 7,
               "properties": {
                 "funcline": "106"
               }
@@ -804,7 +782,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -818,7 +795,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -832,7 +808,6 @@
                       }
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -868,6 +843,7 @@
                 }
               },
               "fullyQualifiedLogicalName": "TestInferredIn",
+              "logicalLocationIndex": 7,
               "properties": {
                 "funcline": "106"
               }
@@ -879,7 +855,6 @@
                 {
                   "locations": [
                     {
-                      "step": 1,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -893,7 +868,6 @@
                       }
                     },
                     {
-                      "step": 2,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -907,7 +881,6 @@
                       }
                     },
                     {
-                      "step": 3,
                       "location": {
                         "physicalLocation": {
                           "fileLocation": {
@@ -926,7 +899,8 @@
             }
           ]
         }
-      ]
+      ],
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

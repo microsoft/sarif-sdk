@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Xunit;

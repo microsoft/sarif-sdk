@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             visitor.Visit(run);
 
             run.Files.Count.Should().Be(1);
-            run.Files[Uri.EscapeUriString(filePath)].Should().NotBeNull();
+            run.Files[0].Should().NotBeNull();
         }
     }
 }
