@@ -14,6 +14,12 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
+    <None Remove="TestData\FortifyFprConverter\ExpectedOutputs\OneResultBasic.sarif" />
+    <None Remove="TestData\FortifyFprConverter\ExpectedOutputs\OneResultWithTwoTraces.sarif" />
+    <None Remove="TestData\FortifyFprConverter\ExpectedOutputs\TwoResultsWithNodeRefs.sarif" />
+    <None Remove="TestData\FortifyFprConverter\Inputs\OneResultBasic.fpr" />
+    <None Remove="TestData\FortifyFprConverter\Inputs\OneResultWithTwoTraces.fpr" />
+    <None Remove="TestData\FortifyFprConverter\Inputs\TwoResultsWithNodeRefs.fpr" />
     <None Remove="TestData\FortifyFprConverter\OneResultBasic.fpr" />
     <None Remove="TestData\FortifyFprConverter\OneResultBasic.sarif" />
     <None Remove="TestData\FortifyFprConverter\OneResultWithTwoTraces.fpr" />
@@ -33,12 +39,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="TestData\FortifyFprConverter\OneResultBasic.fpr" />
-    <EmbeddedResource Include="TestData\FortifyFprConverter\OneResultBasic.sarif" />
-    <EmbeddedResource Include="TestData\FortifyFprConverter\OneResultWithTwoTraces.fpr" />
-    <EmbeddedResource Include="TestData\FortifyFprConverter\OneResultWithTwoTraces.sarif" />
-    <EmbeddedResource Include="TestData\FortifyFprConverter\TwoResultsWithNodeRefs.fpr" />
-    <EmbeddedResource Include="TestData\FortifyFprConverter\TwoResultsWithNodeRefs.sarif" />
+    <EmbeddedResource Include="TestData\FortifyFprConverter\ExpectedOutputs\OneResultBasic.sarif" />
+    <EmbeddedResource Include="TestData\FortifyFprConverter\ExpectedOutputs\OneResultWithTwoTraces.sarif" />
+    <EmbeddedResource Include="TestData\FortifyFprConverter\ExpectedOutputs\TwoResultsWithNodeRefs.sarif" />
+    <EmbeddedResource Include="TestData\FortifyFprConverter\Inputs\OneResultBasic.fpr" />
+    <EmbeddedResource Include="TestData\FortifyFprConverter\Inputs\OneResultWithTwoTraces.fpr" />
+    <EmbeddedResource Include="TestData\FortifyFprConverter\Inputs\TwoResultsWithNodeRefs.fpr" />
   </ItemGroup>
 
   <ItemGroup>

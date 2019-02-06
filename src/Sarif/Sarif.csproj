@@ -78,4 +78,6 @@
   </ItemGroup>
 
   <Import Project="ToDotNet\ToDotNet.targets" />
+
+  <ProjectExtensions><VisualStudio><UserProperties CodeGenHints_1json__JSONSchema="http://json.schemastore.org/asmdef" /></VisualStudio></ProjectExtensions>
 </Project>

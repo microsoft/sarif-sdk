@@ -198,10 +198,10 @@
 * API BREAKING CHANGE: Eliminate result.ruleMessageId (in favor of result.message.messageId)
 
 ## **v2.0.0-csd.1.0.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.1.0.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.1.0.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.1.0.2)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.1.0.2))
-* Bugfix to result matching algorithm where empty or null previous log sets caused a NullReferenceException.
-* Bugfix to result matching algorithm where we were incorrectly detecting duplicate data across files, and changed a "NotImplementedException" to the correct "InvalidOperationException".
+* BUGFIX: In result matching algorithm, an empty or null previous log no longer causes a NullReferenceException.
+* BUGFIX: In result matching algorithm, duplicate data is no longer incorrectly detected across files. Also: changed a "NotImplementedException" to the correct "InvalidOperationException".
 
-## **v2.0.0-csd.2.beta.2018.10.10** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2018.10.10) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2018.10.10) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2018.10.10)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2018.10.10))
+## **v2.0.0-csd.2.beta.2018-10-10** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2018-10-10) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2018-10-10) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2018-10-10)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2018-10-10))
 * FEATURE:Add --sarif-version command to driver (to transform SARIF output to v1 format)
 * BUGFIX: Drop erroneous persistence of redaction tokens as files objects.
 * API NON-BREAKING: Add 'result.occurrenceCount' (denotes # of occurrences of an identical results within an analysisRun)
@@ -219,7 +219,14 @@
 * API BREAKING: Remove 'threadFlowLocation.step'
 * API BREAKING: 'invocation.workingDirectory' is now a FileLocation object (and not a URI expressed as a string)
 
-## **v2.0.0-csd.2.beta.2018.11.28** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2018.11.28) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2018.11.28) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2018.11.28)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2018.11.28))
+## **v2.0.0-csd.2.beta.2018-10-10.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2018-10-10.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2018-10-10.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2018-10-10.1) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2018-10-10.1)
+* BUGFIX: Persist region information associated with analysis target
+
+## **v2.0.0-csd.2.beta.2018-10-10.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2018-10-10.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2018-10-10.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2018-10-10.2) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2018-10-10.2)
+* BUGFIX: Don't emit v2 analysisTarget if there is no v1 resultFile.
+* BUILD: Bring NuGet publishing scripts into conformance with new Microsoft requirements.
+
+## **v2.0.0-csd.2.beta.2019-01-09** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019-01-09) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019-01-09) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019-01-09) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019-01-09)
 * BUGFIX: Result matching improvements in properties persistence.
 * FEATURE: Fortify FPR converter improvements.
 * API Non-BREAKING: Remove uniqueness requirement from 'result.locations'.
@@ -227,6 +234,8 @@
 * API NON-BREAKING: Add 'rule.deprecatedIds' to schema. https://github.com/oasis-tcs/sarif-spec/issues/293
 * API NON-BREAKING: Add 'versionControlDetails.mappedTo'. https://github.com/oasis-tcs/sarif-spec/issues/248
 * API NON-BREAKING: Add result.rank'. Add 'ruleConfiguration.defaultRank'.
+* API NON-BREAKING: Add 'file.sourceLocation' and 'region.sourceLanguage' to guide in snippet colorization. 'run.defaultSourceLanguage' provides a default value. https://github.com/oasis-tcs/sarif-spec/issues/286
+* API NON-BREAKING: default values for 'result.rank' and 'ruleConfiguration.defaultRank' is now -1.0 (from 0.0). https://github.com/oasis-tcs/sarif-spec/issues/303
 * API BREAKING: Remove 'run.architecture' https://github.com/oasis-tcs/sarif-spec/issues/262
 * API BREAKING: 'result.message' is now a required property https://github.com/oasis-tcs/sarif-spec/issues/283
 * API BREAKING: Rename 'tool.fileVersion' to 'tool.dottedQuadFileVersion' https://github.com/oasis-tcs/sarif-spec/issues/274
@@ -235,3 +244,6 @@
 * API BREAKING: Make 'run.logicalLocations' an array, not a dictionary. Add result.logicalLocationIndex to point to associated logical location.
 * API BREAKING: 'run.externalFiles' renamed to 'run.externalPropertyFiles', which is not a bundle of external property file objects. NOTE: no transformation will be provided for legacy versions of the external property files API.
 * API BREAKING: rework 'result.provenance' object, including moving result.conversionProvenance to 'result.provenance.conversionSources'. NOTE: no transformation currently exists for this update.
+* API BREAKING: Make 'run.files' an array, not a dictionary. Add fileLocation.fileIndex to point to a file object associated with the location within 'run.files'.
+* API BREAKING: Make 'resources.rules' an array, not a dictionary. Add result.ruleIndex to point to a rule object associated with the result within 'resources.rules'.
+* API BREAKING: 'run.logicalLocations' now requires unique array elements. https://github.com/oasis-tcs/sarif-spec/issues/304

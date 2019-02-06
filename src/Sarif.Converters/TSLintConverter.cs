@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Converters.TSLintObjectModel;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -22,40 +21,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public override void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert)
         {
             input = input ?? throw new ArgumentNullException(nameof(input));
-
             output = output ?? throw new ArgumentNullException(nameof(output));
 
             TSLintLog tsLintLog = logReader.ReadLog(input);
 
-            Tool tool = new Tool
-            {
-                Name = "TSLint"
-            };
-
-            var run = new Run()
-            {
-                Tool = tool
-            };
-
-            output.Initialize(run);
-
             var results = new List<Result>();
-            foreach(TSLintLogEntry entry in tsLintLog)
+            foreach (TSLintLogEntry entry in tsLintLog)
             {
                 results.Add(CreateResult(entry));
             }
 
-            var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, dataToInsert);
-            Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
-            
-            if (fileDictionary?.Any() == true)
-            {
-                output.WriteFiles(fileDictionary);
-            }
-
-            output.OpenResults();
-            output.WriteResults(results);
-            output.CloseResults();
+            PersistResults(output, results, "TSLint");
         }
 
         internal Result CreateResult(TSLintLogEntry entry)
@@ -99,7 +75,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             Uri analysisTargetUri = new Uri(entry.Name, UriKind.Relative);
 
-            var physicalLocation = new PhysicalLocation(id: 0, fileLocation: new FileLocation(uri: analysisTargetUri, uriBaseId: null, properties: null), region: region, contextRegion: null, properties: null);
+            var physicalLocation = new PhysicalLocation
+            {
+                FileLocation = new FileLocation
+                {
+                    Uri = analysisTargetUri
+                },
+                Region = region
+            };
+
             Location location = new Location()
             {
                 PhysicalLocation = physicalLocation
@@ -135,7 +119,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     replacements.Add(replacement);
                 }
 
-                FileChange sarifFileChange = new FileChange(fileLocation: new FileLocation(uri: analysisTargetUri, uriBaseId: null, properties: null), replacements: replacements, properties: null);
+                var sarifFileChange = new FileChange
+                {
+                    FileLocation = new FileLocation
+                    {
+                        Uri = analysisTargetUri
+                    },
+                    Replacements = replacements
+                };
 
                 Fix sarifFix = new Fix(description: null, fileChanges: new List<FileChange>() { sarifFileChange }, properties: null);
                 result.Fixes = new List<Fix> { sarifFix };

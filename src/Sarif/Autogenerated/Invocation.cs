@@ -62,14 +62,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The Coordinated Universal Time (UTC) date and time at which the run started. See "Date/time properties" in the SARIF spec for the required format.
         /// </summary>
         [DataMember(Name = "startTimeUtc", IsRequired = false, EmitDefaultValue = false)]
-        [JsonConverter(typeof(DateTimeConverter))]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter))]
         public DateTime StartTimeUtc { get; set; }
 
         /// <summary>
         /// The Coordinated Universal Time (UTC) date and time at which the run ended. See "Date/time properties" in the SARIF spec for the required format.
         /// </summary>
         [DataMember(Name = "endTimeUtc", IsRequired = false, EmitDefaultValue = false)]
-        [JsonConverter(typeof(DateTimeConverter))]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter))]
         public DateTime EndTimeUtc { get; set; }
 
         /// <summary>

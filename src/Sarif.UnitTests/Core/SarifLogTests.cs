@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
 using System.Collections.Generic;
 using FluentAssertions;
 using Newtonsoft.Json;
@@ -17,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             var run = new Run
             {
                 Graphs = new Dictionary<string, Graph>(),
-                Files = new Dictionary<string, FileData>(),
+                Files = new List<FileData>(),
                 Invocations = new Invocation[] { },
                 LogicalLocations = new List<LogicalLocation>()
             };

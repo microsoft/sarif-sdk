@@ -1,0 +1,145 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-01-09",
+  "version": "2.0.0-csd.2.beta.2019-01-09",
+  "runs": [
+    {
+      "id": {
+        "instanceId": "The_Build_ID/"
+      },
+      "tool": {
+        "name": "HP Fortify Static Code Analyzer"
+      },
+      "originalUriBaseIds": {
+        "SRCROOT": {
+          "uri": "file://root/projects/myproject/src/"
+        }
+      },
+      "columnKind": "utf16CodeUnits",
+      "invocations": [
+        {
+          "commandLine": "[REMOVED]insourceanalyzer.exe -scan -b The_Build_ID -machine-output -f C:\\projects\\myproject\\scans\\2018-01-01_12:00:00\\Scan.fpr -format fpr",
+          "startTimeUtc": "2018-01-01T12:00:00.000Z",
+          "machine": "SCANMACHINE",
+          "account": "johndoe",
+          "properties": {
+            "Platform": "Linux"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "31D4607A-A3FF-447C-908A-CA2BBE4CE4B7",
+          "ruleIndex": 0,
+          "message": {
+            "text": "Sample abstract text. SQL injection vulnerability."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "Helpers/InvoiceHelper.cs",
+                  "uriBaseId": "SRCROOT",
+                  "fileIndex": 0
+                },
+                "region": {
+                  "startLine": 57,
+                  "endLine": 57,
+                  "snippet": {
+                    "text": "            \"SELECT * FROM invoices WHERE id = @id\", conn);"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 54,
+                  "endLine": 60,
+                  "snippet": {
+                    "text": "string str = null;\nint16 id = System.Convert.ToInt16(invoiceID.Text);\nSqlCommand query = new SqlCommand(\n            \"SELECT * FROM invoices WHERE id = @id\", conn);\nquery.Parameters.AddWithValue(\"@id\", id);\n\nSqlDataReader objReader = query.ExecuteReader();"
+                  }
+                }
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "Helpers/InvoiceHelper.cs",
+                            "uriBaseId": "SRCROOT",
+                            "fileIndex": 0
+                          },
+                          "region": {
+                            "startLine": 57,
+                            "endLine": 57,
+                            "snippet": {
+                              "text": "            \"SELECT * FROM invoices WHERE id = @id\", conn);"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 54,
+                            "endLine": 60,
+                            "snippet": {
+                              "text": "string str = null;\nint16 id = System.Convert.ToInt16(invoiceID.Text);\nSqlCommand query = new SqlCommand(\n            \"SELECT * FROM invoices WHERE id = @id\", conn);\nquery.Parameters.AddWithValue(\"@id\", id);\n\nSqlDataReader objReader = query.ExecuteReader();"
+                            }
+                          }
+                        },
+                        "message": {
+                          "text": "SqlCommand.ctor()"
+                        }
+                      },
+                      "kind": "InCall"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "id": 1,
+                "fileLocation": {
+                  "uri": "Helpers/InvoiceHelper.cs",
+                  "uriBaseId": "SRCROOT",
+                  "fileIndex": 0
+                },
+                "region": {
+                  "startLine": 57,
+                  "endLine": 57
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "files": [
+        {
+          "fileLocation": {
+            "uri": "Helpers/InvoiceHelper.cs",
+            "uriBaseId": "SRCROOT",
+            "fileIndex": 0
+          },
+          "length": 8297,
+          "mimeType": "text/x-csharp",
+          "encoding": "windows-1252"
+        }
+      ],
+      "resources": {
+        "rules": [
+          {
+            "id": "31D4607A-A3FF-447C-908A-CA2BBE4CE4B7",
+            "shortDescription": {
+              "text": "Sample abstract text. SQL injection vulnerability."
+            },
+            "fullDescription": {
+              "text": "The quick brown fox jumps over the lazy dog.\nThis section explains the rule in detail."
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

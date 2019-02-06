@@ -4,7 +4,6 @@
 using System;
 using System.IO;
 using System.Text;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 

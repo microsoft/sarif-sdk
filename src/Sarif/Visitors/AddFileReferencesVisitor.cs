@@ -1,63 +1,51 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.using System;
-using System;
 using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Visitors
 {
     public class AddFileReferencesVisitor : SarifRewritingVisitor
     {
-        IDictionary<string, FileData> _files;
+        private Run _currentRun;
+        private IDictionary<FileLocation, int> _fileToIndexMap;
 
-        public override Run VisitRun(Run node)
+        public override Run VisitRun(Run run)
         {
-            _files = node.Files;
+            _fileToIndexMap = new Dictionary<FileLocation, int>();
 
-            Run result = base.VisitRun(node);
-            result.Files = _files;
+            run.Files = run.Files ?? new List<FileData>();
 
-            return result;
+            // First, we'll initialize our file object to index map
+            // with any files that already exist in the table
+            for (int i = 0; i < run.Files.Count; i++)
+            {
+                FileData fileData = run.Files[i];
+
+                var fileLocation = new FileLocation
+                {
+                    Uri = fileData.FileLocation.Uri,
+                    UriBaseId = fileData.FileLocation.UriBaseId
+                };
+
+                _fileToIndexMap[fileLocation] = i;
+
+                // For good measure, we'll explicitly populate the file index property
+                run.Files[i].FileLocation.FileIndex = i;
+            }
+
+            _currentRun = run;
+
+            // Next, visit all run file locations. This will add any
+            // previously unknown file objects to the files table.
+            base.VisitRun(run);
+            return _currentRun;
         }
 
-
-        public override PhysicalLocation VisitPhysicalLocation(PhysicalLocation node)
+        public override FileLocation VisitFileLocation(FileLocation node)
         {
-            // Strictly speaking, some elements that may contribute to a files table 
-            // key are case sensitive, e.g., everything but the schema and protocol of a
-            // web URI. We don't have a proper comparer implementation that can handle 
-            // all cases. For now, we cover the Windows happy path, which assumes that
-            // most URIs in log files are file paths (which are case-insensitive)
-            //
-            // Tracking item for an improved comparer:
-            // https://github.com/Microsoft/sarif-sdk/issues/973
-            _files = _files ?? new Dictionary<string, FileData>(StringComparer.OrdinalIgnoreCase);
+            node.FileIndex = _currentRun.GetFileIndex(node, addToFilesTableIfNotPresent: true);            
 
-            FileLocation fileLocation = node.FileLocation;
-
-            string uriText = Uri.EscapeUriString(fileLocation.Uri.ToString());
-
-            if (!string.IsNullOrEmpty(fileLocation.UriBaseId))
-            {
-                // See EXAMPLE 3 of 3.11.13.2 'Property Names' of
-                // SARIF v2 'files' property specification 
-                uriText = "#" + fileLocation.UriBaseId + "#" + uriText;
-            }
-
-            // If the file already exists, we will not insert one as we want to 
-            // preserve mime-type, hash details, and other information that 
-            // may already be present
-            if (!_files.ContainsKey(uriText))
-            {
-                string mimeType = Writers.MimeType.DetermineFromFileExtension(uriText);
-
-                _files[uriText] = new FileData()
-                {
-                    MimeType = mimeType,
-                    FileLocation = fileLocation
-                };
-            }
-
-            return base.VisitPhysicalLocation(node);
+            return base.VisitFileLocation(node);            
         }
     }
 }

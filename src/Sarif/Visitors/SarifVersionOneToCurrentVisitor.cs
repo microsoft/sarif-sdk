@@ -3,10 +3,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
-using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Utilities = Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities;
@@ -22,6 +20,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private Run _currentRun;
         private RunVersionOne _currentV1Run;
         private int _threadFlowLocationNestingLevel;
+        private IDictionary<string, int> _v1FileKeytoV2IndexMap;
+        private IDictionary<string, int> _v1RuleKeyToV2IndexMap;
+
         private IDictionary<string, string> _v1KeyToFullyQualifiedNameMap;
         private IDictionary<LogicalLocation, int> _v2LogicalLocationToIndexMap;
         private IDictionary<string, LogicalLocation> _v1KeyToV2LogicalLocationMap;
@@ -69,10 +70,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     foreach (AnnotatedCodeLocationVersionOne v1CodeLocation in v1CodeFlow.Locations)
                     {
-                        ThreadFlow threadFlow;
                         int threadId = v1CodeLocation.ThreadId;
 
-                        if (!threadFlowDictionary.TryGetValue(threadId, out threadFlow))
+                        if (!threadFlowDictionary.TryGetValue(threadId, out ThreadFlow threadFlow))
                         {
                             threadFlow = new ThreadFlow
                             {
@@ -157,30 +157,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return fileChange;
         }
 
-        internal FileData CreateFileData(FileDataVersionOne v1FileData)
+        internal FileData CreateFileData(FileDataVersionOne v1FileData, string key)
         {
+            if (key == null) { throw new ArgumentNullException(nameof(key)); }
+
             FileData fileData = null;
 
             if (v1FileData != null)
             {
+                string parentKey = v1FileData.ParentKey;
+                int parentIndex = parentKey == null
+                    ? -1
+                    : _v1FileKeytoV2IndexMap[parentKey];
+
                 fileData = new FileData
                 {
                     Hashes = v1FileData.Hashes?.Select(CreateHash).ToDictionary(p => p.Key, p => p.Value),
                     Length = v1FileData.Length,
                     MimeType = v1FileData.MimeType,
                     Offset = v1FileData.Offset,
-                    ParentKey = v1FileData.ParentKey,
+                    ParentIndex = parentIndex,
                     Properties = v1FileData.Properties
                 };
 
-                if (v1FileData.Uri != null)
-                {
-                    fileData.FileLocation = new FileLocation
-                    {
-                        Uri = v1FileData.Uri,
-                        UriBaseId = v1FileData.UriBaseId
-                    };
-                }
+                fileData.FileLocation = FileLocation.CreateFromFilesDictionaryKey(key, parentKey);
+                fileData.FileLocation.UriBaseId = v1FileData.UriBaseId;
+                fileData.FileLocation.FileIndex = _v1FileKeytoV2IndexMap[key];
 
                 if (v1FileData.Contents != null)
                 {
@@ -206,11 +208,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (uri != null)
             {
-                fileLocation = new FileLocation
+                if (_v1FileKeytoV2IndexMap.TryGetValue(uri.OriginalString, out int fileIndex))
                 {
-                    Uri = uri,
-                    UriBaseId = uriBaseId
-                };
+                    fileLocation = _currentRun.Files[fileIndex].FileLocation;
+                }
+                else
+                {
+                    fileLocation = new FileLocation
+                    {
+                        Uri = uri,
+                        UriBaseId = uriBaseId
+                    };
+                }
             }
 
             return fileLocation;
@@ -246,8 +255,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             if (v1Hash == null) { return new KeyValuePair<string, string>(); }
 
-            string algorithm;
-            if (!Utilities.AlgorithmKindNameMap.TryGetValue(v1Hash.Algorithm, out algorithm))
+            if (!Utilities.AlgorithmKindNameMap.TryGetValue(v1Hash.Algorithm, out string algorithm))
             {
                 algorithm = v1Hash.Algorithm.ToString().ToLowerInvariant();
             }
@@ -327,7 +335,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 location = new Location
                 {
                     FullyQualifiedLogicalName = v1Location.FullyQualifiedLogicalName,
-                    PhysicalLocation = CreatePhysicalLocation(v1Location.ResultFile),
+                    PhysicalLocation = CreatePhysicalLocation(v1Location.ResultFile ?? v1Location.AnalysisTarget),
                     Properties = v1Location.Properties
                 };
 
@@ -424,13 +432,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             logicalLocationKey = logicalLocationKey ?? fullyQualifiedLogicalName;
 
             // Retrieve logical location so that we can acquire the index
-            LogicalLocation logicalLocation;
-            _v1KeyToV2LogicalLocationMap.TryGetValue(logicalLocationKey, out logicalLocation);            
+            _v1KeyToV2LogicalLocationMap.TryGetValue(logicalLocationKey, out LogicalLocation logicalLocation);            
 
             location.FullyQualifiedLogicalName = fullyQualifiedLogicalName ?? logicalLocation?.FullyQualifiedName;
 
-            int logicalLocationIndex;
-            if (logicalLocation == null || !_v2LogicalLocationToIndexMap.TryGetValue(logicalLocation, out logicalLocationIndex))
+            if (logicalLocation == null || !_v2LogicalLocationToIndexMap.TryGetValue(logicalLocation, out int logicalLocationIndex))
             {
                 logicalLocationIndex = -1;
             }
@@ -563,33 +569,54 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 foreach (string key in responseFileToContentsDictionary.Keys)
                 {
-                    var fileLocation = new FileLocation
+                    // If the response file is mentioned in Run.Files, use the FileLocation
+                    // object from there (which, conveniently, already has the FileIndex property
+                    // set); otherwise create a new FileLocation.
+                    FileLocation fileLocation = null;
+                    FileData responseFile = null;
+                    bool existsInRunFiles = _v1FileKeytoV2IndexMap.TryGetValue(key, out int responseFileIndex);
+                    if (existsInRunFiles)
                     {
-                        Uri = new Uri(key, UriKind.RelativeOrAbsolute)
-                    };
-                    fileLocations.Add(fileLocation);
-
-                    if (_currentRun != null && !string.IsNullOrWhiteSpace(responseFileToContentsDictionary[key]))
+                        responseFile = _currentRun.Files[responseFileIndex];
+                        fileLocation = responseFile.FileLocation;
+                    }
+                    else
                     {
-                        // We have contents, so mention this file in _currentRun.files
-                        if (_currentRun.Files == null)
+                        fileLocation = new FileLocation
                         {
-                            _currentRun.Files = new Dictionary<string, FileData>();
+                            Uri = new Uri(key, UriKind.RelativeOrAbsolute)
+                        };
+                    }
+
+                    // If this response file has contents, add it to Run.Files, if it
+                    // isn't already there.
+                    string responseFileText = responseFileToContentsDictionary[key];
+                    if (!string.IsNullOrWhiteSpace(responseFileText))
+                    {
+                        if (!existsInRunFiles)
+                        {
+                            _currentRun.Files = _currentRun.Files ?? new List<FileData>();
+                            fileLocation.FileIndex = _currentRun.Files.Count;
+
+                            responseFile = new FileData
+                            {
+                                FileLocation = fileLocation
+                            };
+
+                            _currentRun.Files.Add(responseFile);
                         }
 
-                        if (!_currentRun.Files.ContainsKey(key))
-                        {
-                            _currentRun.Files.Add(key, new FileData());
-                        }
-
-                        FileData responseFile = _currentRun.Files[key];
-
+                        // At this point, responseFile is guaranteed to be initialized and to exist
+                        // in Run.Files, either because it previously existed in Run.Files and we
+                        // obtained it above, or because it didn't exist and we just created it and
+                        // added it to Run.Files. Either way, we can now add the content.
                         responseFile.Contents = new FileContent
                         {
-                            Text = responseFileToContentsDictionary[key]
+                            Text = responseFileText
                         };
-                        responseFile.FileLocation = fileLocation;
                     }
+
+                    fileLocations.Add(fileLocation);
                 }
             }
 
@@ -697,55 +724,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     SuppressionStates = Utilities.CreateSuppressionStates(v1Result.SuppressionStates)
                 };
 
-                // The spec says that analysisTarget is required only if it differs from the result file.
-                if (v1Result.Locations?[0]?.AnalysisTarget?.Uri != v1Result.Locations?[0]?.ResultFile?.Uri)
+                // The v2 spec says that analysisTarget is required only if it differs from the result location.
+                // On the other hand, the v1 spec says that if the result is found in the file that the tool
+                // was instructed to scan, then analysisTarget should be present and resultFile should be
+                // absent -- so we should _not_ populate the v2 analysisTarget in this case.
+                LocationVersionOne v1Location = v1Result.Locations?[0];
+                if (v1Location?.ResultFile != null && v1Location.AnalysisTarget?.Uri != v1Location.ResultFile.Uri)
                 {
                     result.AnalysisTarget = CreateFileLocation(v1Result.Locations[0].AnalysisTarget);
                 }
 
-                if (v1Result.RuleKey == null)
-                {
-                    result.RuleId = v1Result.RuleId;
-                }
-                else
-                {
-                    if (v1Result.RuleId == null)
-                    {
-                        result.RuleId = v1Result.RuleKey;
-                    }
-                    else
-                    {
-                        if (v1Result.RuleId == v1Result.RuleKey)
-                        {
-                            result.RuleId = v1Result.RuleId;
-                        }
-                        else
-                        {
-                            result.RuleId = v1Result.RuleKey;
+                result.RuleId = v1Result.RuleId;
 
-                            if (_currentRun.Resources == null)
-                            {
-                                _currentRun.Resources = new Resources();
-                            }
+                string ruleKey = v1Result.RuleKey ?? v1Result.RuleId;
+                result.RuleIndex = GetRuleIndexForRuleKey(ruleKey, _v1RuleKeyToV2IndexMap);
 
-                            if (_currentRun.Resources.Rules == null)
-                            {
-                                _currentRun.Resources.Rules = new Dictionary<string, Rule>();
-                            }
-
-                            IDictionary<string, Rule> rules = _currentRun.Resources.Rules;
-
-                            if (!rules.ContainsKey(v1Result.RuleKey))
-                            {
-                                Rule rule = new Rule() { Id = v1Result.RuleId };
-                                rules.Add(v1Result.RuleKey, rule);
-                            }
-
-                            Debug.Assert(rules[v1Result.RuleKey].Id == v1Result.RuleId);
-                        }
-                    }
-                }
-                
                 if (v1Result.FormattedRuleMessage != null)
                 {
                     if (result.Message == null)
@@ -843,6 +836,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     _currentV1Run = v1Run;
 
+                    _v1FileKeytoV2IndexMap = CreateFileKeyToIndexMapping(v1Run.Files);
+                    _v1RuleKeyToV2IndexMap = CreateRuleKeyToIndexMapping(v1Run.Rules);
+
                     RunAutomationDetails id = null;
                     RunAutomationDetails[] aggregateIds = null;
 
@@ -876,22 +872,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         run.Resources = new Resources
                         {
-                            Rules = new Dictionary<string, Rule>()
+                            Rules = new List<Rule>()
                         };
 
                         foreach (var pair in v1Run.Rules)
                         {
-                            run.Resources.Rules.Add(pair.Key, CreateRule(pair.Value));
+                            run.Resources.Rules.Add(CreateRule(pair.Value));
                         }
                     }
 
                     if (v1Run.Files != null)
                     {
-                        run.Files = new Dictionary<string, FileData>();
+                        run.Files = new List<FileData>();
 
-                        foreach (var pair in v1Run.Files)
+                        foreach (KeyValuePair<string, FileDataVersionOne> pair in v1Run.Files)
                         {
-                            run.Files.Add(pair.Key, CreateFileData(pair.Value));
+                            FileDataVersionOne fileDataVersionOne = pair.Value;
+                            if (fileDataVersionOne.Uri == null)
+                            {
+                                fileDataVersionOne.Uri = new Uri(pair.Key, UriKind.RelativeOrAbsolute);
+                            }
+
+                            run.Files.Add(CreateFileData(fileDataVersionOne, pair.Key));
                         }
                     }
 
@@ -962,6 +964,48 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return run;
         }
 
+        private static IDictionary<string, int> CreateFileKeyToIndexMapping(IDictionary<string, FileDataVersionOne> v1Files)
+        {
+            var v1FileKeyToV2IndexMap = new Dictionary<string, int>();
+
+            if (v1Files != null)
+            {
+                int index = 0;
+                foreach (KeyValuePair<string, FileDataVersionOne> entry in v1Files)
+                {
+                    v1FileKeyToV2IndexMap[entry.Key] = index++;
+                }
+            }
+
+            return v1FileKeyToV2IndexMap;
+        }
+
+        private static IDictionary<string, int> CreateRuleKeyToIndexMapping(IDictionary<string, RuleVersionOne> v1Rules)
+        {
+            var v1RuleKeyToV2IndexMap = new Dictionary<string, int>();
+
+            if (v1Rules != null)
+            {
+                int index = 0;
+                foreach (KeyValuePair<string, RuleVersionOne> entry in v1Rules)
+                {
+                    v1RuleKeyToV2IndexMap[entry.Key] = index++;
+                }
+            }
+
+            return v1RuleKeyToV2IndexMap;
+        }
+
+        private int GetRuleIndexForRuleKey(string ruleKey, IDictionary<string, int> v1RuleKeyToV2IndexMap)
+        {
+            if (ruleKey == null || !v1RuleKeyToV2IndexMap.TryGetValue(ruleKey, out int index))
+            {
+                index = -1;
+            }
+
+            return index;
+        }
+
         private void PopulateLogicalLocation(
             Run v2Run, 
             IDictionary<string, LogicalLocationVersionOne> v1LogicalLocations,
@@ -987,9 +1031,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     populatedKeys);
             }
 
-            string fullyQualifiedName;
-
-            if (!keyToFullyQualifiedNameMap.TryGetValue(logicalLocationKey, out fullyQualifiedName))
+            if (!keyToFullyQualifiedNameMap.TryGetValue(logicalLocationKey, out string fullyQualifiedName))
             {
                 // If we don't find a remapping, the dictionary key itself comprises
                 // the fully qualified name.

@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         internal IFileSystem s_fileSystem = new FileSystem();
 
         private Run _run;
-        private string _ruleId;
+        private int _ruleIndex;
         private FileRegionsCache _fileRegionsCache;
         private readonly OptionallyEmittedData _dataToInsert;
         private readonly IDictionary<string, FileLocation> _originalUriBaseIds;
@@ -22,6 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             _dataToInsert = dataToInsert;
             _originalUriBaseIds = originalUriBaseIds;
+            _ruleIndex = -1;
         }
 
         public override Run VisitRun(Run node)
@@ -151,9 +152,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override Result VisitResult(Result node)
         {
-            _ruleId = node.RuleId;
+            _ruleIndex = node.RuleIndex;
             node = base.VisitResult(node);
-            _ruleId = null;
+            _ruleIndex = -1;
 
             return node;
         }
@@ -163,16 +164,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             if ((node.Text == null || _dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData)) &&
                 _dataToInsert.HasFlag(OptionallyEmittedData.FlattenedMessages))
             {
-                Rule rule = null;
                 string formatString = null;
-                if (_ruleId != null &&
-                    _run.Resources?.Rules.TryGetValue(_ruleId, out rule) == true)
+                Rule rule = _ruleIndex != -1 ? _run.Resources.Rules[_ruleIndex] : null;
+            
+                if (rule != null &&
+                    rule.MessageStrings != null &&
+                    rule.MessageStrings.TryGetValue(node.MessageId, out formatString))
                 {
                     node.Text = node.Arguments?.Count > 0 
                         ? rule.Format(node.MessageId, node.Arguments) 
-                        : rule.MessageStrings[node.MessageId];
+                        : formatString;
                 }
-                else if (_run.Resources?.MessageStrings?.TryGetValue(node.MessageId, out formatString) == true)
+
+                if (node.Text == null &&
+                    _run.Resources?.MessageStrings?.TryGetValue(node.MessageId, out formatString) == true)
                 {
                     node.Text = node.Arguments?.Count > 0
                         ? string.Format(CultureInfo.CurrentCulture, formatString, node.Arguments.ToArray())

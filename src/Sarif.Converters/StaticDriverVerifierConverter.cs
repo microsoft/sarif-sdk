@@ -45,26 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Result result = ProcessSdvDefectStream(input);
             var results = new Result[] { result };
 
-            var tool = new Tool
-            {
-                Name = "StaticDriverVerifier",
-            };
-
-            var fileInfoFactory = new FileInfoFactory(null, dataToInsert);
-            Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
-
-            var run = new Run()
-            {
-                Tool = tool
-            };
-
-            output.Initialize(run);
-
-            if (fileDictionary != null && fileDictionary.Count > 0) { output.WriteFiles(fileDictionary); }
-
-            output.OpenResults();
-            output.WriteResults(results);
-            output.CloseResults();
+            PersistResults(output, results, ToolFormat.StaticDriverVerifier);
         }
 
         private Result ProcessSdvDefectStream(Stream input)

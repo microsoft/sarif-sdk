@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A Coordinated Universal Time (UTC) date and time that can be used to synchronize an enlistment to the state of the repository at that time.
         /// </summary>
         [DataMember(Name = "asOfTimeUtc", IsRequired = false, EmitDefaultValue = false)]
-        [JsonConverter(typeof(DateTimeConverter))]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter))]
         public DateTime AsOfTimeUtc { get; set; }
 
         /// <summary>

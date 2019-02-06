@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-10-10",
+  "version": "2.0.0-csd.2.beta.2018-10-10",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner",
+        "semanticVersion": "2.1.0"
+      },
+      "originalUriBaseIds": {"SUB": {"uri": "submodule/", "uriBaseId": "ROOT"}, "ROOT": {"uri": "file:///c:/"}},
+      "files": {
+        "file://c:/archive_one.zip#/file.txt": { "mimeType": "text/plain", "parentKey": "file://c:/archive_one.zip", "fileLocation": { "uri" : "/file.txt" } },
+        "file://c:/archive_one.zip": { "mimeType": "application/zip" },
+        "#SUB#file.txt": { "mimeType": "text/plain" },
+        "file.txt": { "mimeType": "text/plain" },
+        "file://c:/archive_one.zip#/archive_two.zip/file.txt": { "mimeType": "text/plain", "parentKey": "file://c:/archive_one.zip#/archive_two.zip", "fileLocation": { "uri" : "/file.txt" } },
+        "file://c:/archive_one.zip#/archive_two.zip": { "mimeType": "application/zip", "parentKey": "file://c:/archive_one.zip", "fileLocation": { "uri" : "/archive_two.zip" } },
+		},
+      "results": [
+        { "ruleId": "C1", "message": {"messageId": "a"}, "locations": [{"physicalLocation": {"fileLocation": {"uri": "file.txt"}}, "properties": {"key": "file.txt"}}]},
+        { "ruleId": "C1", "message": {"messageId": "a"}, "locations": [{"physicalLocation": {"fileLocation": {"uri": "file.txt", "uriBaseId": "SUB", "properties": {"key": "#SUB#file.txt"}}}}]},
+        { "ruleId": "C1", "message": {"messageId": "a"}, "locations": [{"physicalLocation": {"fileLocation": {"uri": "file://c:/archive_one.zip#/file.txt", "properties": {"key": "file://c:/archive_one.zip#/file.txt"}}}}]},
+        { "ruleId": "C1", "message": {"messageId": "a"}, "locations": [{"physicalLocation": {"fileLocation": {"uri": "file://c:/archive_one.zip#/archive_two.zip/file.txt", "properties": {"key": "file://c:/archive_one.zip#/archive_two.zip/file.txt"}}}}]}		
+		],
+      "resources": { "rules": { "C1": { "messageStrings": { "a": "Review all plaintext content for geopolitically sensitive terms." } } } }
+    }
+  ]
+}

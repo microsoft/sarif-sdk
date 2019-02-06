@@ -3,7 +3,6 @@
 
 using System.IO;
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.TestUtilities;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
