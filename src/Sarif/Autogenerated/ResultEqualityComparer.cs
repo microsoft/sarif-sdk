@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Result for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     internal sealed class ResultEqualityComparer : IEqualityComparer<Result>
     {
         internal static readonly ResultEqualityComparer Instance = new ResultEqualityComparer();
@@ -29,6 +29,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             if (left.RuleId != right.RuleId)
+            {
+                return false;
+            }
+
+            if (left.RuleIndex != right.RuleIndex)
             {
                 return false;
             }
@@ -74,15 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            // We only insist that a correlation guid matches a non-null value. The reason is that
-            // a newly generated result will never have a correlation guid to start, only the baseline
-            // result has this value. Our value comparison should therefore not refer to the correlation
-            // guid unless both results have populated the value. In the case when a newly occuring result
-            // matches a result with an existing correlation guid, the correlation guid subsequently 
-            // needs to flow to the newly matched result.
-            if (left.CorrelationGuid != null &&
-                right.CorrelationGuid != null &&
-                left.CorrelationGuid != right.CorrelationGuid)
+            if (left.CorrelationGuid != right.CorrelationGuid)
             {
                 return false;
             }
@@ -252,6 +249,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.Rank != right.Rank)
+            {
+                return false;
+            }
+
             if (!object.ReferenceEquals(left.Attachments, right.Attachments))
             {
                 if (left.Attachments == null || right.Attachments == null)
@@ -299,25 +301,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!object.ReferenceEquals(left.ConversionProvenance, right.ConversionProvenance))
+            if (!ResultProvenance.ValueComparer.Equals(left.Provenance, right.Provenance))
             {
-                if (left.ConversionProvenance == null || right.ConversionProvenance == null)
-                {
-                    return false;
-                }
-
-                if (left.ConversionProvenance.Count != right.ConversionProvenance.Count)
-                {
-                    return false;
-                }
-
-                for (int index_7 = 0; index_7 < left.ConversionProvenance.Count; ++index_7)
-                {
-                    if (!PhysicalLocation.ValueComparer.Equals(left.ConversionProvenance[index_7], right.ConversionProvenance[index_7]))
-                    {
-                        return false;
-                    }
-                }
+                return false;
             }
 
             if (!object.ReferenceEquals(left.Fixes, right.Fixes))
@@ -332,9 +318,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                for (int index_8 = 0; index_8 < left.Fixes.Count; ++index_8)
+                for (int index_7 = 0; index_7 < left.Fixes.Count; ++index_7)
                 {
-                    if (!Fix.ValueComparer.Equals(left.Fixes[index_8], right.Fixes[index_8]))
+                    if (!Fix.ValueComparer.Equals(left.Fixes[index_7], right.Fixes[index_7]))
                     {
                         return false;
                     }
@@ -363,13 +349,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            // If we find a null correlation guid on either side, we will overwrite that null
-            // value with the value of the object being compared to. As a result, both results
-            // will exit this comparison in an equivalent state, with both CorrelationGuid 
-            // properties sharing the same value or both being null.
-            if (left.CorrelationGuid == null) { left.CorrelationGuid = right.CorrelationGuid; }
-            if (right.CorrelationGuid == null) { right.CorrelationGuid = left.CorrelationGuid; }
-
             return true;
         }
 
@@ -388,6 +367,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.RuleId.GetHashCode();
                 }
 
+                result = (result * 31) + obj.RuleIndex.GetHashCode();
                 result = (result * 31) + obj.Level.GetHashCode();
                 if (obj.Message != null)
                 {
@@ -520,6 +500,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 result = (result * 31) + obj.SuppressionStates.GetHashCode();
                 result = (result * 31) + obj.BaselineState.GetHashCode();
+                result = (result * 31) + obj.Rank.GetHashCode();
                 if (obj.Attachments != null)
                 {
                     foreach (var value_16 in obj.Attachments)
@@ -549,9 +530,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.ConversionProvenance != null)
+                if (obj.Provenance != null)
                 {
-                    foreach (var value_18 in obj.ConversionProvenance)
+                    result = (result * 31) + obj.Provenance.ValueGetHashCode();
+                }
+
+                if (obj.Fixes != null)
+                {
+                    foreach (var value_18 in obj.Fixes)
                     {
                         result = result * 31;
                         if (value_18 != null)
@@ -561,28 +547,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.Fixes != null)
-                {
-                    foreach (var value_19 in obj.Fixes)
-                    {
-                        result = result * 31;
-                        if (value_19 != null)
-                        {
-                            result = (result * 31) + value_19.ValueGetHashCode();
-                        }
-                    }
-                }
-
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_3 = 0;
-                    foreach (var value_20 in obj.Properties)
+                    foreach (var value_19 in obj.Properties)
                     {
-                        xor_3 ^= value_20.Key.GetHashCode();
-                        if (value_20.Value != null)
+                        xor_3 ^= value_19.Key.GetHashCode();
+                        if (value_19.Value != null)
                         {
-                            xor_3 ^= value_20.Value.GetHashCode();
+                            xor_3 ^= value_19.Value.GetHashCode();
                         }
                     }
 

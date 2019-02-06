@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Base class for objects that can hold properties of arbitrary types.
     /// </summary>
-    public abstract class PropertyBagHolder : IPropertyBagHolder
+    public class PropertyBagHolder : IPropertyBagHolder
     {
         private const string NullValue = "null";
 

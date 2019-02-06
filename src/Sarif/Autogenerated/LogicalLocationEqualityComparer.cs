@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type LogicalLocation for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     internal sealed class LogicalLocationEqualityComparer : IEqualityComparer<LogicalLocation>
     {
         internal static readonly LogicalLocationEqualityComparer Instance = new LogicalLocationEqualityComparer();
@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.ParentKey != right.ParentKey)
+            if (left.ParentIndex != right.ParentIndex)
             {
                 return false;
             }
@@ -103,11 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.DecoratedName.GetHashCode();
                 }
 
-                if (obj.ParentKey != null)
-                {
-                    result = (result * 31) + obj.ParentKey.GetHashCode();
-                }
-
+                result = (result * 31) + obj.ParentIndex.GetHashCode();
                 if (obj.Kind != null)
                 {
                     result = (result * 31) + obj.Kind.GetHashCode();

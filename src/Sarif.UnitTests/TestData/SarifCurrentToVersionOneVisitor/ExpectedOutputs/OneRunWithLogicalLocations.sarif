@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner",
+        "semanticVersion": "2.1.0",
+        "language": "en-US"
+      },
+      "logicalLocations": {
+        "collections::list::add": {
+          "name": "add",
+          "parentKey": "collections::list",
+          "kind": "function"
+        },
+        "collections::list": {
+          "name": "list",
+          "parentKey": "collections",
+          "kind": "type"
+        },
+        "collections": {
+          "kind": "namespace"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "TEST1001",
+          "message": "A result fired against 'collections::list'.",
+          "locations": [
+            {
+              "fullyQualifiedLogicalName": "collections::list"
+            }
+          ]
+        },
+        {
+          "ruleId": "TEST1001",
+          "message": "A result fired against 'collections'.",
+          "locations": [
+            {
+              "fullyQualifiedLogicalName": "collections"
+            }
+          ]
+        },
+        {
+          "ruleId": "TEST1001",
+          "message": "A result fired against 'collections::list::add'.",
+          "locations": [
+            {
+              "fullyQualifiedLogicalName": "collections::list::add"
+            }
+          ]
+        },
+        {
+          "ruleId": "TEST1002",
+          "message": "A second result fired against 'collections::list'.",
+          "locations": [
+            {
+              "fullyQualifiedLogicalName": "collections::list"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

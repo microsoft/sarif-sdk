@@ -1,0 +1,403 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-01-09",
+  "version": "2.0.0-csd.2.beta.2019-01-09",
+  "runs": [
+    {
+      "id": {
+        "instanceId": "The_Build_ID/"
+      },
+      "tool": {
+        "name": "HP Fortify Static Code Analyzer"
+      },
+      "originalUriBaseIds": {
+        "SRCROOT": {
+          "uri": "file:///C:/projects/myproject/src/"
+        }
+      },
+      "columnKind": "utf16CodeUnits",
+      "invocations": [
+        {
+          "commandLine": "[REMOVED]insourceanalyzer.exe -scan -b The_Build_ID -machine-output -f C:\\projects\\myproject\\scans\\2018-01-01_12:00:00\\Scan.fpr -format fpr",
+          "startTimeUtc": "2018-01-01T12:00:00.000Z",
+          "machine": "SCANMACHINE",
+          "account": "johndoe",
+          "properties": {
+            "Platform": "Windows 10"
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "97A5F38F-524B-4A83-94FA-9387B5265825",
+          "ruleIndex": 0,
+          "message": {
+            "text": "The function getVSTSDetailsForICTO() in [DBHelper.cs](1) sometimes fails to release a system resource allocated by ExecuteReader() on line 146.\r\nThe program can potentially fail to release a system resource."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "Helpers/DBHelper.cs",
+                  "uriBaseId": "SRCROOT",
+                  "fileIndex": 0
+                },
+                "region": {
+                  "startLine": 146,
+                  "endLine": 146,
+                  "snippet": {
+                    "text": "                    SqlDataReader myReader = myCommand.ExecuteReader();"
+                  }
+                },
+                "contextRegion": {
+                  "startLine": 143,
+                  "endLine": 149,
+                  "snippet": {
+                    "text": "                    SqlCommand myCommand = new SqlCommand(string.Format(Query.q_GetVSTSDetailsForICTO, \"@icto\"), conn);\n                    myCommand.Parameters.Add(\"@icto\", SqlDbType.VarChar).Value = icto;\n                    myCommand.CommandTimeout = 0;\n                    SqlDataReader myReader = myCommand.ExecuteReader();\n\n                    while (myReader.Read())\n                    {\n"
+                  }
+                }
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "Helpers/DBHelper.cs",
+                            "uriBaseId": "SRCROOT",
+                            "fileIndex": 0
+                          },
+                          "region": {
+                            "startLine": 146,
+                            "endLine": 146,
+                            "snippet": {
+                              "text": "                    SqlDataReader myReader = myCommand.ExecuteReader();"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 143,
+                            "endLine": 149,
+                            "snippet": {
+                              "text": "                    SqlCommand myCommand = new SqlCommand(string.Format(Query.q_GetVSTSDetailsForICTO, \"@icto\"), conn);\n                    myCommand.Parameters.Add(\"@icto\", SqlDbType.VarChar).Value = icto;\n                    myCommand.CommandTimeout = 0;\n                    SqlDataReader myReader = myCommand.ExecuteReader();\n\n                    while (myReader.Read())\n                    {\n"
+                            }
+                          }
+                        },
+                        "message": {
+                          "text": "myReader = ExecuteReader()"
+                        },
+                        "annotations": [
+                          {
+                            "startLine": 146,
+                            "endLine": 146,
+                            "message": {
+                              "text": "myReader refers to a database resource"
+                            }
+                          }
+                        ]
+                      },
+                      "kind": "Assign"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "Helpers/DBHelper.cs",
+                            "uriBaseId": "SRCROOT",
+                            "fileIndex": 0
+                          },
+                          "region": {
+                            "startLine": 148,
+                            "endLine": 148,
+                            "snippet": {
+                              "text": "                    while (myReader.Read())"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 145,
+                            "endLine": 151,
+                            "snippet": {
+                              "text": "                    myCommand.CommandTimeout = 0;\n                    SqlDataReader myReader = myCommand.ExecuteReader();\n\n                    while (myReader.Read())\n                    {\n                        return new AppICTOItem()\n                        {\n"
+                            }
+                          }
+                        },
+                        "message": {
+                          "text": "Branch not taken"
+                        }
+                      },
+                      "kind": "BranchNotTaken"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "Helpers/DBHelper.cs",
+                            "uriBaseId": "SRCROOT",
+                            "fileIndex": 0
+                          },
+                          "region": {
+                            "startLine": 139,
+                            "endLine": 139,
+                            "snippet": {
+                              "text": "                using (SqlConnection conn = new SqlConnection(ConnectionString))"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 136,
+                            "endLine": 142,
+                            "snippet": {
+                              "text": "        {\n            try\n            {\n                using (SqlConnection conn = new SqlConnection(ConnectionString))\n                {\n                    conn.Open();                  \n                    \n"
+                            }
+                          }
+                        },
+                        "message": {
+                          "text": "myReader no longer refers to a database resource"
+                        }
+                      },
+                      "kind": "EndScope"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "Helpers/DBHelper.cs",
+                            "uriBaseId": "SRCROOT",
+                            "fileIndex": 0
+                          },
+                          "region": {
+                            "startLine": 139,
+                            "endLine": 139,
+                            "snippet": {
+                              "text": "                using (SqlConnection conn = new SqlConnection(ConnectionString))"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 136,
+                            "endLine": 142,
+                            "snippet": {
+                              "text": "        {\n            try\n            {\n                using (SqlConnection conn = new SqlConnection(ConnectionString))\n                {\n                    conn.Open();                  \n                    \n"
+                            }
+                          }
+                        },
+                        "message": {
+                          "text": "myReader end scope : Database resource leaked"
+                        }
+                      },
+                      "kind": "EndScope"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "Helpers/DBHelper.cs",
+                            "uriBaseId": "SRCROOT",
+                            "fileIndex": 0
+                          },
+                          "region": {
+                            "startLine": 146,
+                            "endLine": 146,
+                            "snippet": {
+                              "text": "                    SqlDataReader myReader = myCommand.ExecuteReader();"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 143,
+                            "endLine": 149,
+                            "snippet": {
+                              "text": "                    SqlCommand myCommand = new SqlCommand(string.Format(Query.q_GetVSTSDetailsForICTO, \"@icto\"), conn);\n                    myCommand.Parameters.Add(\"@icto\", SqlDbType.VarChar).Value = icto;\n                    myCommand.CommandTimeout = 0;\n                    SqlDataReader myReader = myCommand.ExecuteReader();\n\n                    while (myReader.Read())\n                    {\n"
+                            }
+                          }
+                        },
+                        "message": {
+                          "text": "myReader = ExecuteReader()"
+                        },
+                        "annotations": [
+                          {
+                            "startLine": 146,
+                            "endLine": 146,
+                            "message": {
+                              "text": "myReader refers to a database resource"
+                            }
+                          }
+                        ]
+                      },
+                      "kind": "Assign"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "Helpers/DBHelper.cs",
+                            "uriBaseId": "SRCROOT",
+                            "fileIndex": 0
+                          },
+                          "region": {
+                            "startLine": 148,
+                            "endLine": 148,
+                            "snippet": {
+                              "text": "                    while (myReader.Read())"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 145,
+                            "endLine": 151,
+                            "snippet": {
+                              "text": "                    myCommand.CommandTimeout = 0;\n                    SqlDataReader myReader = myCommand.ExecuteReader();\n\n                    while (myReader.Read())\n                    {\n                        return new AppICTOItem()\n                        {\n"
+                            }
+                          }
+                        },
+                        "message": {
+                          "text": "Branch taken"
+                        }
+                      },
+                      "kind": "BranchTaken"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "Helpers/DBHelper.cs",
+                            "uriBaseId": "SRCROOT",
+                            "fileIndex": 0
+                          },
+                          "region": {
+                            "startLine": 150,
+                            "endLine": 150,
+                            "snippet": {
+                              "text": "                        return new AppICTOItem()"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 147,
+                            "endLine": 153,
+                            "snippet": {
+                              "text": "\n                    while (myReader.Read())\n                    {\n                        return new AppICTOItem()\n                        {\n                            VSTSUrl = myReader[\"VSTS_URL\"].ToString(),\n                            AssignedUser = myReader[\"BugsLoggedToUser\"].ToString()\n"
+                            }
+                          }
+                        },
+                        "message": {
+                          "text": "return"
+                        }
+                      },
+                      "kind": "Return"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "Helpers/DBHelper.cs",
+                            "uriBaseId": "SRCROOT",
+                            "fileIndex": 0
+                          },
+                          "region": {
+                            "startLine": 150,
+                            "endLine": 150,
+                            "snippet": {
+                              "text": "                        return new AppICTOItem()"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 147,
+                            "endLine": 153,
+                            "snippet": {
+                              "text": "\n                    while (myReader.Read())\n                    {\n                        return new AppICTOItem()\n                        {\n                            VSTSUrl = myReader[\"VSTS_URL\"].ToString(),\n                            AssignedUser = myReader[\"BugsLoggedToUser\"].ToString()\n"
+                            }
+                          }
+                        },
+                        "message": {
+                          "text": "myReader no longer refers to a database resource"
+                        }
+                      },
+                      "kind": "EndScope"
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "Helpers/DBHelper.cs",
+                            "uriBaseId": "SRCROOT",
+                            "fileIndex": 0
+                          },
+                          "region": {
+                            "startLine": 150,
+                            "endLine": 150,
+                            "snippet": {
+                              "text": "                        return new AppICTOItem()"
+                            }
+                          },
+                          "contextRegion": {
+                            "startLine": 147,
+                            "endLine": 153,
+                            "snippet": {
+                              "text": "\n                    while (myReader.Read())\n                    {\n                        return new AppICTOItem()\n                        {\n                            VSTSUrl = myReader[\"VSTS_URL\"].ToString(),\n                            AssignedUser = myReader[\"BugsLoggedToUser\"].ToString()\n"
+                            }
+                          }
+                        },
+                        "message": {
+                          "text": "myReader end scope : Database resource leaked"
+                        }
+                      },
+                      "kind": "EndScope"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "id": 1,
+                "fileLocation": {
+                  "uri": "Helpers/DBHelper.cs",
+                  "uriBaseId": "SRCROOT",
+                  "fileIndex": 0
+                },
+                "region": {
+                  "startLine": 146,
+                  "endLine": 146
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "files": [
+        {
+          "fileLocation": {
+            "uri": "Helpers/DBHelper.cs",
+            "uriBaseId": "SRCROOT",
+            "fileIndex": 0
+          },
+          "length": 8297,
+          "mimeType": "text/x-csharp",
+          "encoding": "windows-1252"
+        }
+      ],
+      "resources": {
+        "rules": [
+          {
+            "id": "97A5F38F-524B-4A83-94FA-9387B5265825",
+            "shortDescription": {
+              "text": "The function <Replace key=\"EnclosingFunction.name\"/> in <Replace key=\"PrimaryLocation.file\"/> sometimes fails to release a system resource allocated by <Replace key=\"FirstTransitionFunction\"/> on line <Replace key=\"FirstTraceLocation.line\"/>.\r\nThe program can potentially fail to release a system resource."
+            },
+            "fullDescription": {
+              "text": "The program can potentially fail to release a system resource.\r\n\r\nResource leaks have at least two common causes:\r\n\r\n- Error conditions and other exceptional circumstances.\r\n\r\n- Confusion over which part of the program is responsible for releasing the resource.\r\n\r\nIn this case, there are program paths on which the resource allocated in <Replace key=\"FirstTraceLocation.file\"/> at line <Replace key=\"FirstTraceLocation.line\"/> is not released.\r\n\r\nMost unreleased resource issues result in general software reliability problems, but if an attacker can intentionally trigger a resource leak, the attacker may be able to launch a denial of service attack by depleting the resource pool.\r\n\r\n**Example:** Under normal conditions the following code executes a database query, processes the results returned by the database, and closes the allocated `SqlConnection` object. But if an exception occurs while executing the SQL or processing the results, the `SqlConnection` object will not be closed. If this happens often enough, the database will run out of available cursors and not be able to execute any more SQL queries.\r\n\r\n`\n        ...\n        SqlConnection conn = new SqlConnection(connString);\n        SqlCommand cmd = new SqlCommand(queryString);\n        cmd.Connection = conn;\n        conn.Open();\n        SqlDataReader rdr = cmd.ExecuteReader();\n        HarvestResults(rdr);\n        conn.Connection.Close();\n        ...\n`"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

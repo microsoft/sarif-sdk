@@ -103,7 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var context = TestHelper.CreateProjectContext();
 
             context.RefineStackTrace(@"trace\n trace");
-            context.StackTrace.Should().BeCrossPlatformEquivalent(@"trace\n trace");
+            context.StackTrace.Should().BeCrossPlatformEquivalentStrings(@"trace\n trace");
         }
 
         [Fact]
@@ -328,6 +328,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
     public class FxCopConverterTests
     {
+        private static void ValidateLogicalLocations(IList<LogicalLocation> expectedLogicalLocations, IList<LogicalLocation> actualLogicalLocations)
+        {
+            // If we end up with more shared helper code, we could extend these tests types from a common base.
+            AndroidStudioConverterTests.ValidateLogicalLocations(expectedLogicalLocations, actualLogicalLocations);
+        }
+
         [Fact]
         public void FxCopConverter_Convert_NullInput()
         {
@@ -388,6 +394,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             Region = new Region { StartLine = 13 }
                         },
                         FullyQualifiedLogicalName = expectedLogicalLocation,
+                        LogicalLocationIndex = 3
                     }
                 }
             };
@@ -397,36 +404,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             expectedResult.SetProperty("Category", "FakeCategory");
             expectedResult.SetProperty("FixCategory", "Breaking");
 
-            var expectedLogicalLocations = new Dictionary<string, LogicalLocation>
+            var expectedLogicalLocations = new List<LogicalLocation>
             {
-                {
-                    "mybinary.dll", new LogicalLocation { ParentKey = null, Kind = LogicalLocationKind.Module }
-                },
-                {
-                    "mybinary.dll!mynamespace",
-                    new LogicalLocation { ParentKey = "mybinary.dll", Name = "mynamespace", Kind = LogicalLocationKind.Namespace }
-                },
-                {
-                    "mybinary.dll!mynamespace.mytype",
-                    new LogicalLocation { ParentKey = "mybinary.dll!mynamespace", Name = "mytype", Kind = LogicalLocationKind.Type }
-                },
-                {
-                    "mybinary.dll!mynamespace.mytype.mymember(string)",
-                    new LogicalLocation { ParentKey = "mybinary.dll!mynamespace.mytype", Name = "mymember(string)", Kind = LogicalLocationKind.Member }
-                }            };
-
+                new LogicalLocation { ParentIndex = -1, Name = "mybinary.dll", Kind = LogicalLocationKind.Module },
+                new LogicalLocation { ParentIndex = 0, Name = "mynamespace", FullyQualifiedName = "mybinary.dll!mynamespace", Kind = LogicalLocationKind.Namespace },
+                new LogicalLocation { ParentIndex = 1, Name = "mytype", FullyQualifiedName = "mybinary.dll!mynamespace.mytype", Kind = LogicalLocationKind.Type },
+                new LogicalLocation { ParentIndex = 2, Name = "mymember(string)", FullyQualifiedName = "mybinary.dll!mynamespace.mytype.mymember(string)", Kind = LogicalLocationKind.Member }
+            };
             var converter = new FxCopConverter();
             Result result = converter.CreateResult(context);
 
-            foreach (string key in expectedLogicalLocations.Keys)
-            {
-                expectedLogicalLocations[key].ValueEquals(converter.LogicalLocationsDictionary[key]).Should().BeTrue();
-            }
-            converter.LogicalLocationsDictionary.Count.Should().Be(expectedLogicalLocations.Count);
+            ValidateLogicalLocations(expectedLogicalLocations, converter.LogicalLocations);
         }
 
         [Fact]
-        public void FxCopConverter_CreateIssue_FakeContext_NoModule_Member()
+        public void FxCopConverter_CreateResult_FakeContext_NoModule_Member()
         {
             var context = TestHelper.CreateProjectContext();
 
@@ -437,30 +429,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             context.RefineMessage("CA0000", "VeryUsefulCheck", null, null, null, null);
             context.RefineIssue("hello!", null, null, null, null, null, null);
 
-            var expectedLogicalLocations = new Dictionary<string, LogicalLocation>
+            var expectedLogicalLocations = new List<LogicalLocation>
             {
-                {
-                    "mynamespace",
-                    new LogicalLocation { ParentKey = null, Kind = LogicalLocationKind.Namespace }
-                },
-                {
-                    "mynamespace.mytype",
-                    new LogicalLocation { ParentKey = "mynamespace", Name = "mytype", Kind = LogicalLocationKind.Type }
-                },
-                {
-                    "mynamespace.mytype.mymember(string)",
-                    new LogicalLocation { ParentKey = "mynamespace.mytype", Name = "mymember(string)", Kind = LogicalLocationKind.Member }
-                }
+
+                    new LogicalLocation { ParentIndex = -1, Name = "mynamespace", Kind = LogicalLocationKind.Namespace },
+                    new LogicalLocation { ParentIndex =  0, Name = "mytype",    FullyQualifiedName = "mynamespace.mytype", Kind = LogicalLocationKind.Type },
+                    new LogicalLocation { ParentIndex =  1, Name = "mymember(string)", FullyQualifiedName = "mynamespace.mytype.mymember(string)", Kind = LogicalLocationKind.Member }
             };
 
             var converter = new FxCopConverter();
             Result result = converter.CreateResult(context);
 
-            foreach (string key in expectedLogicalLocations.Keys)
-            {
-                expectedLogicalLocations[key].ValueEquals(converter.LogicalLocationsDictionary[key]).Should().BeTrue();
-            }
-            converter.LogicalLocationsDictionary.Count.Should().Be(expectedLogicalLocations.Count);
+            ValidateLogicalLocations(expectedLogicalLocations, converter.LogicalLocations);
         }
 
         [Fact]
@@ -474,26 +454,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             context.RefineMessage("CA0000", "VeryUsefulCheck", null, null, null, null);
             context.RefineIssue("hello!", "test", null, null, @"source", "myfile.cs", 13);
 
-            var expectedLogicalLocations = new Dictionary<string, LogicalLocation>
-            {
-                {
-                    "mybinary.dll",
-                    new LogicalLocation { ParentKey = null, Kind = LogicalLocationKind.Module }
-                },
-                {
-                    "mybinary.dll!myresource.resx",
-                    new LogicalLocation { ParentKey = "mybinary.dll", Name = "myresource.resx", Kind = LogicalLocationKind.Resource }
-                },
+            var expectedLogicalLocations = new List<LogicalLocation>
+            {                
+                new LogicalLocation { Kind = LogicalLocationKind.Module, Name = "mybinary.dll" },                
+                new LogicalLocation { ParentIndex = 0, Name = "myresource.resx", FullyQualifiedName = "mybinary.dll!myresource.resx", Kind = LogicalLocationKind.Resource }                
             };
 
             var converter = new FxCopConverter();
             Result result = converter.CreateResult(context);
 
-            foreach (string key in expectedLogicalLocations.Keys)
-            {
-                expectedLogicalLocations[key].ValueEquals(converter.LogicalLocationsDictionary[key]).Should().BeTrue();
-            }
-            converter.LogicalLocationsDictionary.Count.Should().Be(expectedLogicalLocations.Count);
+            ValidateLogicalLocations(expectedLogicalLocations, converter.LogicalLocations);
         }
 
         [Fact]

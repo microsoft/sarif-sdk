@@ -4,8 +4,10 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -13,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A logical location of a construct that produced a result.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class LogicalLocation : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<LogicalLocation> ValueComparer => LogicalLocationEqualityComparer.Instance;
@@ -51,13 +53,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string DecoratedName { get; set; }
 
         /// <summary>
-        /// Identifies the key of the immediate parent of the construct in which the result was detected. For example, this property might point to a logical location that represents the namespace that holds a type.
+        /// Identifies the index of the immediate parent of the construct in which the result was detected. For example, this property might point to a logical location that represents the namespace that holds a type.
         /// </summary>
-        [DataMember(Name = "parentKey", IsRequired = false, EmitDefaultValue = false)]
-        public string ParentKey { get; set; }
+        [DataMember(Name = "parentIndex", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(-1)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public int ParentIndex { get; set; }
 
         /// <summary>
-        /// The type of construct this logicalLocationComponent refers to. Should be one of 'function', 'member', 'module', 'namespace', 'package', 'parameter', 'resource', 'returnType', 'type', or 'variable', if any of those accurately describe the construct.
+        /// The type of construct this logical location component refers to. Should be one of 'function', 'member', 'module', 'namespace', 'parameter', 'resource', 'returnType', 'type', or 'variable', if any of those accurately describe the construct.
         /// </summary>
         [DataMember(Name = "kind", IsRequired = false, EmitDefaultValue = false)]
         public string Kind { get; set; }
@@ -73,32 +77,33 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public LogicalLocation()
         {
+            ParentIndex = -1;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LogicalLocation" /> class from the supplied values.
         /// </summary>
         /// <param name="name">
-        /// An initialization value for the <see cref="P: Name" /> property.
+        /// An initialization value for the <see cref="P:Name" /> property.
         /// </param>
         /// <param name="fullyQualifiedName">
-        /// An initialization value for the <see cref="P: FullyQualifiedName" /> property.
+        /// An initialization value for the <see cref="P:FullyQualifiedName" /> property.
         /// </param>
         /// <param name="decoratedName">
-        /// An initialization value for the <see cref="P: DecoratedName" /> property.
+        /// An initialization value for the <see cref="P:DecoratedName" /> property.
         /// </param>
-        /// <param name="parentKey">
-        /// An initialization value for the <see cref="P: ParentKey" /> property.
+        /// <param name="parentIndex">
+        /// An initialization value for the <see cref="P:ParentIndex" /> property.
         /// </param>
         /// <param name="kind">
-        /// An initialization value for the <see cref="P: Kind" /> property.
+        /// An initialization value for the <see cref="P:Kind" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public LogicalLocation(string name, string fullyQualifiedName, string decoratedName, string parentKey, string kind, IDictionary<string, SerializedPropertyInfo> properties)
+        public LogicalLocation(string name, string fullyQualifiedName, string decoratedName, int parentIndex, string kind, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(name, fullyQualifiedName, decoratedName, parentKey, kind, properties);
+            Init(name, fullyQualifiedName, decoratedName, parentIndex, kind, properties);
         }
 
         /// <summary>
@@ -117,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Name, other.FullyQualifiedName, other.DecoratedName, other.ParentKey, other.Kind, other.Properties);
+            Init(other.Name, other.FullyQualifiedName, other.DecoratedName, other.ParentIndex, other.Kind, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -138,12 +143,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new LogicalLocation(this);
         }
 
-        private void Init(string name, string fullyQualifiedName, string decoratedName, string parentKey, string kind, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string name, string fullyQualifiedName, string decoratedName, int parentIndex, string kind, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Name = name;
             FullyQualifiedName = fullyQualifiedName;
             DecoratedName = decoratedName;
-            ParentKey = parentKey;
+            ParentIndex = parentIndex;
             Kind = kind;
             if (properties != null)
             {

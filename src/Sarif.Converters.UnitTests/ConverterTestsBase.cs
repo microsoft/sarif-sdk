@@ -4,16 +4,17 @@
 using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif.Converters;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.TestUtilities;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public class ConverterTestsBase<T> where T : ToolFileConverterBase, new()
     {
-        public SarifLog RunTestCase(string inputData, string expectedResult, bool prettyPrint = true)
+        public SarifLog RunTestCase(string inputData, string expectedResult, bool prettyPrint = true, bool forceV2Transform = false)
         {
+            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedResult, forceUpdate: forceV2Transform, formatting: Formatting.Indented, out expectedResult);
             var converter = new T();
 
             // First retrieve converter JSON. This code will raise appropriate exceptions 
@@ -38,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // are fragile. It would be better for our testing to have a dedicated set of data-driven
             // tests that flag changes and for the unit-tests to work exclusively against the 
             // object model.
-            actualJson.Should().BeCrossPlatformEquivalent(expectedResult);
+            actualJson.Should().BeCrossPlatformEquivalent<SarifLog>(expectedResult);
 
             return log;
         }

@@ -3,7 +3,6 @@
 
 using System.IO;
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.TestUtilities;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
@@ -24,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests
             const string ComprehensiveTestSamplePath = @"v2\SpecExamples\Comprehensive.sarif";
             string comprehensiveTestSampleContents = File.ReadAllText(ComprehensiveTestSamplePath);
 
-            comprehensiveTestSampleContents = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(comprehensiveTestSampleContents);
+            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(comprehensiveTestSampleContents, forceUpdate: false, formatting: Formatting.None, out comprehensiveTestSampleContents);
 
             SarifLog expectedLog = JsonConvert.DeserializeObject<SarifLog>(comprehensiveTestSampleContents);
             SarifLog actualLog = JsonConvert.DeserializeObject<SarifLog>(comprehensiveTestSampleContents);

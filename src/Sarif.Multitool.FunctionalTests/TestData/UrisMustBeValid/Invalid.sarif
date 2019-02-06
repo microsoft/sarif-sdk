@@ -1,0 +1,63 @@
+{
+  "$schema": "ht%tp://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner",
+        "downloadUri": "ht%tp://www.example.com/tools/codescanner/download.html"
+      },
+      "originalUriBaseIds": {
+        "SRCROOT": {
+          "uri": "fi%le:///c:/Code/sarif-sdk/src"
+        }
+      },
+      "results": [
+        {
+          "message": { "text": "Some testing occurred." },
+          "ruleId": "TST0001",
+          "level": "error",
+          "analysisTarget": {
+            "uri": "fi&le:///c:/src/file.c"
+          },
+          "workItemUris": [
+            "ht&tp://example.com/my-project/issues/42"
+          ]
+        }
+      ],
+      "files": [
+        {
+          "fileLocation": { "uri": "fi%le:///c:/src/file.c" },
+          "mimeType": "text/x-c"
+        }
+      ],
+      "versionControlProvenance": [
+        {
+          "repositoryUri": "ht%tps://example.com/my-project"
+        }
+      ],
+      "resources": {
+        "rules": [
+          {
+            "id": "TST0001",
+            "helpUri": "ht%tp://www.example.com/rules/tst0001.html"
+          }
+        ]
+      },
+      "properties": {
+        "expectedResults": {
+          "resultLocationPointers": [
+            "$schema",
+            "runs[0].tool.downloadUri",
+            "runs[0].originalUriBaseIds.SRCROOT.uri",
+            "runs[0].results[0].analysisTarget.uri",
+            "runs[0].results[0].workItemUris[0]",
+            "runs[0].files[0].fileLocation.uri",
+            "runs[0].versionControlProvenance[0].repositoryUri",
+            "runs[0].resources.rules[0].helpUri"
+          ]
+        }
+      }
+    }
+  ]
+}

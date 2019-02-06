@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type VersionControlDetails for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     internal sealed class VersionControlDetailsEqualityComparer : IEqualityComparer<VersionControlDetails>
     {
         internal static readonly VersionControlDetailsEqualityComparer Instance = new VersionControlDetailsEqualityComparer();
@@ -49,6 +49,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             if (left.AsOfTimeUtc != right.AsOfTimeUtc)
+            {
+                return false;
+            }
+
+            if (!FileLocation.ValueComparer.Equals(left.MappedTo, right.MappedTo))
             {
                 return false;
             }
@@ -109,6 +114,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 result = (result * 31) + obj.AsOfTimeUtc.GetHashCode();
+                if (obj.MappedTo != null)
+                {
+                    result = (result * 31) + obj.MappedTo.ValueGetHashCode();
+                }
+
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.

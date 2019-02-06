@@ -21,7 +21,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             {
                 throw new ArgumentNullException(nameof(reader));
             }
-
             string value = (string)reader.Value;
             return Enum.Parse(objectType, ConvertToPascalCase(value));
         }

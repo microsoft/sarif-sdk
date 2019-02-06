@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 { typeof(bool),    (isRequired) => { return isRequired; } },
                 { typeof(int),     (isRequired) => { return isRequired ? int.MaxValue : 0; } },
                 { typeof(double),  (isRequired) => { return isRequired ? double.MaxValue : 0; } },
-                { typeof(string),  (isRequired) => { return isRequired ? "Required string value." : null; } },
+                { typeof(string),  (isRequired) => { return isRequired ? "string/required" : null; } },
                 { typeof(DateTime),(isRequired) => { return isRequired ? DateTime.UtcNow : new DateTime(); } },
                 { typeof(Uri),     (isRequired) => { return isRequired ? new Uri("https://required.uri.contoso.com") : null; } }
             };
@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 { typeof(bool),    (isRequired) => { return true; } },
                 { typeof(int),     (isRequired) => { return isRequired ? int.MaxValue : 1; } },
                 { typeof(double),  (isRequired) => { return isRequired ? double.MaxValue : 1; } },
-                { typeof(string),  (isRequired) => { return isRequired ? "[Required string value]" : "[Optional string value]"; } },
+                { typeof(string),  (isRequired) => { return isRequired ? "string/required" : "string/optional"; } },
                 { typeof(DateTime),(isRequired) => { return isRequired ? new DateTime(2018, 10, 31).ToUniversalTime() : new DateTime(1776, 7, 4).ToUniversalTime(); } },
                 { typeof(Uri),     (isRequired) => { return isRequired ? new Uri("https://required.uri.value.contoso.com") : new Uri("https://optional.uri.value.contoso.com"); } }
             };
@@ -109,9 +109,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             return node;
         }
 
-        private void PopulateInstanceWithDefaultMemberValues(ISarifNode node)        {
-           
+        private void PopulateInstanceWithDefaultMemberValues(ISarifNode node)
+        {           
             Type nodeType = node.GetType();
+          
             var binding = BindingFlags.Public | BindingFlags.Instance;
             foreach (PropertyInfo property in nodeType.GetProperties(binding))
             {
@@ -124,13 +125,29 @@ namespace Microsoft.CodeAnalysis.Sarif
                 // property names extend from the PropertyBagHolder base type
                 // that all properties-bearing types extend (nearly every SARIF
                 // class at this point).
-                if (property.Name == "PropertyNames" || 
+                if (property.Name == "PropertyNames" ||
                     property.Name == "Tags")
                 {
                     continue;
                 }
 
-                PopulatePropertyWithDefaultValue(node, property);
+                object defaultValue = null;
+
+                MemberInfo member = nodeType.GetMember(property.Name)[0];
+                foreach (CustomAttributeData attributeData in member?.GetCustomAttributesData())
+                {
+                    if (attributeData.AttributeType.FullName != "System.ComponentModel.DefaultValueAttribute") { continue; }
+                    defaultValue = attributeData.ConstructorArguments[0].Value;
+                }
+
+                // If the member is decorated with a default value, we'll inject it. Otherwise,
+                // we'll compute a default value based on the node type
+                if (defaultValue != null)
+                {
+                    property.SetValue(node, defaultValue);
+                    continue;
+                }
+                PopulatePropertyWithGeneratedDefaultValue(node, property);
             }
 
             // If we have a property bag holder (as most SARIF things are), we will 
@@ -148,7 +165,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        private void PopulatePropertyWithDefaultValue(ISarifNode node, PropertyInfo property)
+        private void PopulatePropertyWithGeneratedDefaultValue(ISarifNode node, PropertyInfo property)
         {
             // If we can't set this property, it is not of interest
             if (property.GetAccessors().Length != 2) { return; }

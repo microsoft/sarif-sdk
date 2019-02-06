@@ -6,8 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 
-using Microsoft.CodeAnalysis.Sarif.Writers;
-
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     public class CppCheckConverter : ToolFileConverterBase
@@ -114,27 +112,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             reader.ReadEndElement(); // </results>
 
-            var tool = new Tool
-            {
-                Name = "CppCheck",
-                Version = version,
-            };
-
-            var fileInfoFactory = new FileInfoFactory(uri => MimeType.Cpp, dataToInsert);
-            Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
-
             var run = new Run()
             {
-                Tool = tool
+                Tool = new Tool {  Name = "CppCheck", Version = version }
             };
 
-            output.Initialize(run);
-
-            if (fileDictionary != null && fileDictionary.Count > 0) { output.WriteFiles(fileDictionary); }
-
-            output.OpenResults();
-            output.WriteResults(results);
-            output.CloseResults();
+            PersistResults(output, results, run);
         }
     }
 }

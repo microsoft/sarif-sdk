@@ -1,0 +1,110 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner"
+      },
+      "results": [
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "message": {
+            "text": "Result message."
+          },
+          "locations": [
+            {
+              "message": {
+                "text": "endLine less than startLine in result location"
+              },
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///c:/src/file.c"
+                },
+                "region": {
+                  "startLine": 2,
+                  "endLine": 1
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "message": {
+                "text": "endLine less than startLine in related location"
+              },
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///c:/src/file.c"
+                },
+                "region": {
+                  "startLine": 2,
+                  "endLine": 1
+                }
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "message": {
+                          "text": "endLine less than startLine in threadFlow location"
+                        },
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///c:/src/file.c"
+                          },
+                          "region": {
+                            "startLine": 2,
+                            "endLine": 1
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "stacks": [
+            {
+              "frames": [
+                {
+                  "location": {
+                    "message": {
+                      "text": "endLine less than startLine in stackFrame"
+                    },
+                    "physicalLocation": {
+                      "fileLocation": {
+                        "uri": "file:///c:/src/file.c"
+                      },
+                      "region": {
+                        "startLine": 2,
+                        "endLine": 1
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "properties": {
+        "expectedResults": {
+          "resultLocationPointers": [
+            "runs[0].results[0].locations[0].physicalLocation.region.endLine",
+            "runs[0].results[0].relatedLocations[0].physicalLocation.region.endLine",
+            "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0].location.physicalLocation.region.endLine",
+            "runs[0].results[0].stacks[0].frames[0].location.physicalLocation.region.endLine"
+          ]
+        }
+      }
+    }
+  ]
+}

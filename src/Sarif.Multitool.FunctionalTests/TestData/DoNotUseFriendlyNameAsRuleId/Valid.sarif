@@ -22,6 +22,11 @@
             }
           }
         }
+      },
+      "properties": {
+        "expectedResults": {
+          "resultLocationPointers": []
+        }
       }
     }
   ]

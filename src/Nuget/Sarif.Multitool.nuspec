@@ -18,8 +18,19 @@
   <files>
     <file src="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\net461\**"
           target="tools\net461"
+          exclude="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\net461\Sarif*"
           />
     <file src="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp2.0\**"
+          target="tools\netcoreapp2.0"
+          exclude="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp2.0\Sarif*.dll"
+          />
+    <file src="bld\bin\Signing\net461\**"
+          target="tools\net461"
+          />
+    <file src="bld\bin\Signing\netcoreapp2.0\**"
+          target="tools\netcoreapp2.0"
+          />
+    <file src="bld\bin\Signing\netstandard2.0\**"
           target="tools\netcoreapp2.0"
           />
 

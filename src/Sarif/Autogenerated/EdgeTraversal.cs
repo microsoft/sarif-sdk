@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Represents the traversal of a single edge during a graph traversal.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class EdgeTraversal : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<EdgeTraversal> ValueComparer => EdgeTraversalEqualityComparer.Instance;
@@ -73,19 +73,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Initializes a new instance of the <see cref="EdgeTraversal" /> class from the supplied values.
         /// </summary>
         /// <param name="edgeId">
-        /// An initialization value for the <see cref="P: EdgeId" /> property.
+        /// An initialization value for the <see cref="P:EdgeId" /> property.
         /// </param>
         /// <param name="message">
-        /// An initialization value for the <see cref="P: Message" /> property.
+        /// An initialization value for the <see cref="P:Message" /> property.
         /// </param>
         /// <param name="finalState">
-        /// An initialization value for the <see cref="P: FinalState" /> property.
+        /// An initialization value for the <see cref="P:FinalState" /> property.
         /// </param>
         /// <param name="stepOverEdgeCount">
-        /// An initialization value for the <see cref="P: StepOverEdgeCount" /> property.
+        /// An initialization value for the <see cref="P:StepOverEdgeCount" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
         public EdgeTraversal(string edgeId, Message message, IDictionary<string, string> finalState, int stepOverEdgeCount, IDictionary<string, SerializedPropertyInfo> properties)
         {

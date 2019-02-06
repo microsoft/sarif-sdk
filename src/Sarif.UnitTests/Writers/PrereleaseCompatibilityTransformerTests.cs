@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Writers
 
             string sarifText = File.ReadAllText(comprehensiveSarifPath);
 
-            sarifText = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(sarifText);
+            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(sarifText, forceUpdate: false, formatting: Formatting.None, out sarifText);
 
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifText);
             JsonConvert.SerializeObject(sarifLog);            

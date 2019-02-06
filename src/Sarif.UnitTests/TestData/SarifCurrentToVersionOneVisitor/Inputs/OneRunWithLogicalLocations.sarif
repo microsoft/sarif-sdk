@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-10-10",
+  "version": "2.0.0-csd.2.beta.2018-10-10",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner",
+        "semanticVersion": "2.1.0"
+      },
+      "logicalLocations": {
+        "collections::list::add": {
+          "name": "add",
+          "kind": "function",
+          "parentKey": "collections::list"
+        },
+        "collections::list": {
+          "name": "list",
+          "kind": "type",
+          "parentKey": "collections"
+        },
+        "collections": {
+          "kind": "namespace"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "TEST1001",
+          "message": {
+            "text": "A result fired against 'collections::list'."
+          },
+          "locations": [
+            {
+              "fullyQualifiedLogicalName": "collections::list"
+            }
+          ]
+        },
+        {
+          "ruleId": "TEST1001",
+          "message": {
+            "text": "A result fired against 'collections'."
+          },
+          "locations": [
+            {
+              "fullyQualifiedLogicalName": "collections"
+            }
+          ]
+        },
+        {
+          "ruleId": "TEST1001",
+          "message": {
+            "text": "A result fired against 'collections::list::add'."
+          },
+          "locations": [
+            {
+              "fullyQualifiedLogicalName": "collections::list::add"
+            }
+          ]
+        },
+        {
+          "ruleId": "TEST1002",
+          "message": {
+            "text": "A second result fired against 'collections::list'."
+          },
+          "locations": [
+            {
+              "fullyQualifiedLogicalName": "collections::list"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

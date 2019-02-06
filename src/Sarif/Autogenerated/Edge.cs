@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Represents a directed edge in a graph.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class Edge : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Edge> ValueComparer => EdgeEqualityComparer.Instance;
@@ -73,19 +73,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Initializes a new instance of the <see cref="Edge" /> class from the supplied values.
         /// </summary>
         /// <param name="id">
-        /// An initialization value for the <see cref="P: Id" /> property.
+        /// An initialization value for the <see cref="P:Id" /> property.
         /// </param>
         /// <param name="label">
-        /// An initialization value for the <see cref="P: Label" /> property.
+        /// An initialization value for the <see cref="P:Label" /> property.
         /// </param>
         /// <param name="sourceNodeId">
-        /// An initialization value for the <see cref="P: SourceNodeId" /> property.
+        /// An initialization value for the <see cref="P:SourceNodeId" /> property.
         /// </param>
         /// <param name="targetNodeId">
-        /// An initialization value for the <see cref="P: TargetNodeId" /> property.
+        /// An initialization value for the <see cref="P:TargetNodeId" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
         public Edge(string id, Message label, string sourceNodeId, string targetNodeId, IDictionary<string, SerializedPropertyInfo> properties)
         {

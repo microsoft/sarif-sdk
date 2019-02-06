@@ -4,7 +4,7 @@
   "runs": [
     {
       "tool": {
-        "name": "Clang"
+        "name": "Clang Analyzer"
       },
       "files": {
         "jcmarker.c": {

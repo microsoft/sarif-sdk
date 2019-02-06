@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
@@ -18,9 +17,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private static readonly string FromPropertyBagPrefix =
             Utilities.PropertyBagTransformerItemPrefixes[FromSarifVersion];
 
-        private Run _currentRun = null;
-        private RunVersionOne _currentV1Run = null;
+        private Run _currentRun;
+        private RunVersionOne _currentV1Run;
         private int _threadFlowLocationNestingLevel;
+        private IDictionary<string, int> _v1FileKeytoV2IndexMap;
+        private IDictionary<string, int> _v1RuleKeyToV2IndexMap;
+
+        private IDictionary<string, string> _v1KeyToFullyQualifiedNameMap;
+        private IDictionary<LogicalLocation, int> _v2LogicalLocationToIndexMap;
+        private IDictionary<string, LogicalLocation> _v1KeyToV2LogicalLocationMap;
+        private IDictionary<string, string> _v1LogicalLocationKeyToDecoratedNameMap;
 
         public SarifLog SarifLog { get; private set; }
 
@@ -28,6 +34,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override SarifLogVersionOne VisitSarifLogVersionOne(SarifLogVersionOne v1SarifLog)
         {
+            _v2LogicalLocationToIndexMap = new Dictionary<LogicalLocation, int>(LogicalLocation.ValueComparer);
+            _v1KeyToV2LogicalLocationMap = new Dictionary<string, LogicalLocation>();
+
             SarifLog = new SarifLog(SarifVersion.Current.ConvertToSchemaUri(),
                                     SarifVersion.Current,
                                     new List<Run>(),
@@ -61,10 +70,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     foreach (AnnotatedCodeLocationVersionOne v1CodeLocation in v1CodeFlow.Locations)
                     {
-                        ThreadFlow threadFlow;
                         int threadId = v1CodeLocation.ThreadId;
 
-                        if (!threadFlowDictionary.TryGetValue(threadId, out threadFlow))
+                        if (!threadFlowDictionary.TryGetValue(threadId, out ThreadFlow threadFlow))
                         {
                             threadFlow = new ThreadFlow
                             {
@@ -149,30 +157,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return fileChange;
         }
 
-        internal FileData CreateFileData(FileDataVersionOne v1FileData)
+        internal FileData CreateFileData(FileDataVersionOne v1FileData, string key)
         {
+            if (key == null) { throw new ArgumentNullException(nameof(key)); }
+
             FileData fileData = null;
 
             if (v1FileData != null)
             {
+                string parentKey = v1FileData.ParentKey;
+                int parentIndex = parentKey == null
+                    ? -1
+                    : _v1FileKeytoV2IndexMap[parentKey];
+
                 fileData = new FileData
                 {
-                    Hashes = BuildHashesDictionary(v1FileData.Hashes),
+                    Hashes = v1FileData.Hashes?.Select(CreateHash).ToDictionary(p => p.Key, p => p.Value),
                     Length = v1FileData.Length,
                     MimeType = v1FileData.MimeType,
                     Offset = v1FileData.Offset,
-                    ParentKey = v1FileData.ParentKey,
+                    ParentIndex = parentIndex,
                     Properties = v1FileData.Properties
                 };
 
-                if (v1FileData.Uri != null)
-                {
-                    fileData.FileLocation = new FileLocation
-                    {
-                        Uri = v1FileData.Uri,
-                        UriBaseId = v1FileData.UriBaseId
-                    };
-                }
+                fileData.FileLocation = FileLocation.CreateFromFilesDictionaryKey(key, parentKey);
+                fileData.FileLocation.UriBaseId = v1FileData.UriBaseId;
+                fileData.FileLocation.FileIndex = _v1FileKeytoV2IndexMap[key];
 
                 if (v1FileData.Contents != null)
                 {
@@ -192,31 +202,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return fileData;
         }
 
-        private IDictionary<string, string> BuildHashesDictionary(IList<HashVersionOne> hashes)
-        {
-            if (hashes == null) { return null; }
-
-            var v2Hashes = new Dictionary<string, string>();
-
-            foreach (HashVersionOne v1Hash in hashes)
-            {
-                v2Hashes[Utilities.AlgorithmKindNameMap[v1Hash.Algorithm]] = v1Hash.Value;
-            }
-
-            return v2Hashes;
-        }
-
         internal FileLocation CreateFileLocation(Uri uri, string uriBaseId)
         {
             FileLocation fileLocation = null;
 
             if (uri != null)
             {
-                fileLocation = new FileLocation
+                if (_v1FileKeytoV2IndexMap.TryGetValue(uri.OriginalString, out int fileIndex))
                 {
-                    Uri = uri,
-                    UriBaseId = uriBaseId
-                };
+                    fileLocation = _currentRun.Files[fileIndex].FileLocation;
+                }
+                else
+                {
+                    fileLocation = new FileLocation
+                    {
+                        Uri = uri,
+                        UriBaseId = uriBaseId
+                    };
+                }
             }
 
             return fileLocation;
@@ -252,8 +255,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             if (v1Hash == null) { return new KeyValuePair<string, string>(); }
 
-            string algorithm;
-            if (!Utilities.AlgorithmKindNameMap.TryGetValue(v1Hash.Algorithm, out algorithm))
+            if (!Utilities.AlgorithmKindNameMap.TryGetValue(v1Hash.Algorithm, out string algorithm))
             {
                 algorithm = v1Hash.Algorithm.ToString().ToLowerInvariant();
             }
@@ -326,26 +328,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             Location location = null;
 
+            string key = v1Location.LogicalLocationKey ?? v1Location.FullyQualifiedLogicalName;
+
             if (v1Location != null)
             {
                 location = new Location
                 {
-                    FullyQualifiedLogicalName = v1Location.LogicalLocationKey ?? v1Location.FullyQualifiedLogicalName,
+                    FullyQualifiedLogicalName = v1Location.FullyQualifiedLogicalName,
                     PhysicalLocation = CreatePhysicalLocation(v1Location.ResultFile ?? v1Location.AnalysisTarget),
                     Properties = v1Location.Properties
                 };
 
                 if (!string.IsNullOrWhiteSpace(location.FullyQualifiedLogicalName))
                 {
-                    if (_currentRun.LogicalLocations?.ContainsKey(location.FullyQualifiedLogicalName) == true)
+                    if (_v1KeyToV2LogicalLocationMap.TryGetValue(key, out LogicalLocation logicalLocation))
                     {
-                        _currentRun.LogicalLocations[location.FullyQualifiedLogicalName].DecoratedName = v1Location.DecoratedName;
-                    }
-                    else
-                    {
-                        LogicalLocation logicalLocation = CreateLogicalLocation(location.FullyQualifiedLogicalName,
-                                                                                decoratedName: v1Location.DecoratedName);
-                        location.FullyQualifiedLogicalName = AddLogicalLocation(logicalLocation);
+                        _v2LogicalLocationToIndexMap.TryGetValue(logicalLocation, out int index);
+
+                        if (!string.IsNullOrEmpty(logicalLocation.DecoratedName))
+                        {
+                            logicalLocation.DecoratedName = v1Location.DecoratedName;
+                            _v2LogicalLocationToIndexMap[logicalLocation] = index;
+                        }
+
+                        location.LogicalLocationIndex = index;
                     }
                 }
             }
@@ -358,7 +364,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Location location = null;
 
             if (v1AnnotatedCodeLocation != null)
-            {
+            {                
                 location = new Location
                 {
                     Annotations = v1AnnotatedCodeLocation.Annotations?.SelectMany(a => a.Locations,
@@ -367,11 +373,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                                                                                                          a.Message))
                                                                       .Where(r => r != null)
                                                                       .ToList(),
-                    FullyQualifiedLogicalName = v1AnnotatedCodeLocation.LogicalLocationKey ?? v1AnnotatedCodeLocation.FullyQualifiedLogicalName,
+                    FullyQualifiedLogicalName = v1AnnotatedCodeLocation.FullyQualifiedLogicalName,
                     Message = CreateMessage(v1AnnotatedCodeLocation.Message),
                     PhysicalLocation = CreatePhysicalLocation(v1AnnotatedCodeLocation.PhysicalLocation),
                     Properties = v1AnnotatedCodeLocation.Properties
                 };
+
+                string logicalLocationKey = v1AnnotatedCodeLocation.LogicalLocationKey ?? v1AnnotatedCodeLocation.FullyQualifiedLogicalName;
+
+                if (!string.IsNullOrWhiteSpace(logicalLocationKey))
+                {
+                    if (_v1KeyToV2LogicalLocationMap.TryGetValue(logicalLocationKey, out LogicalLocation logicalLocation))
+                    {
+                        _v2LogicalLocationToIndexMap.TryGetValue(logicalLocation, out int index);
+                        location.LogicalLocationIndex = index;
+                    }
+                }
 
                 if (!string.IsNullOrWhiteSpace(v1AnnotatedCodeLocation.Snippet))
                 {
@@ -412,20 +429,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 Message = CreateMessage(message)
             };
 
-            LogicalLocation logicalLocation;
+            logicalLocationKey = logicalLocationKey ?? fullyQualifiedLogicalName;
 
-            if (!string.IsNullOrWhiteSpace(logicalLocationKey) &&
-                _currentRun.LogicalLocations.TryGetValue(logicalLocationKey, out logicalLocation))
+            // Retrieve logical location so that we can acquire the index
+            _v1KeyToV2LogicalLocationMap.TryGetValue(logicalLocationKey, out LogicalLocation logicalLocation);            
+
+            location.FullyQualifiedLogicalName = fullyQualifiedLogicalName ?? logicalLocation?.FullyQualifiedName;
+
+            if (logicalLocation == null || !_v2LogicalLocationToIndexMap.TryGetValue(logicalLocation, out int logicalLocationIndex))
             {
-                logicalLocation.FullyQualifiedName = fullyQualifiedLogicalName;
-                logicalLocation.Name = GetLogicalLocationName(fullyQualifiedLogicalName);
-                location.FullyQualifiedLogicalName = logicalLocationKey;
+                logicalLocationIndex = -1;
             }
-            else if (!string.IsNullOrWhiteSpace(fullyQualifiedLogicalName))
-            {
-                logicalLocation = CreateLogicalLocation(fullyQualifiedLogicalName);
-                location.FullyQualifiedLogicalName = AddLogicalLocation(logicalLocation);
-            }
+
+            location.LogicalLocationIndex = logicalLocationIndex;
 
             if (uri != null)
             {
@@ -439,9 +455,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return location;
         }
 
-        internal LogicalLocation CreateLogicalLocation(LogicalLocationVersionOne v1LogicalLocation)
+        internal LogicalLocation CreateLogicalLocation(LogicalLocationVersionOne v1LogicalLocation, string fullyQualifiedName, string logicalLocationKey)
         {
             LogicalLocation logicalLocation = null;
+
+            int parentIndex = -1;
+
+            if (!string.IsNullOrEmpty(v1LogicalLocation.ParentKey) &&
+                _v1KeyToV2LogicalLocationMap.TryGetValue(v1LogicalLocation.ParentKey, out LogicalLocation parentLogicalLocation))
+            {
+                _v2LogicalLocationToIndexMap.TryGetValue(parentLogicalLocation, out parentIndex);
+            }
+
+            _v1LogicalLocationKeyToDecoratedNameMap.TryGetValue(logicalLocationKey, out string decoratedName);
 
             if (v1LogicalLocation != null)
             {
@@ -449,61 +475,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     Kind = v1LogicalLocation.Kind,
                     Name = v1LogicalLocation.Name,
-                    ParentKey = v1LogicalLocation.ParentKey
+                    FullyQualifiedName = fullyQualifiedName != v1LogicalLocation.Name ? fullyQualifiedName : null,
+                    DecoratedName = decoratedName,
+                    ParentIndex = parentIndex
                 };
             }
 
             return logicalLocation;
-        }
-
-        internal LogicalLocation CreateLogicalLocation(string fullyQualifiedLogicalName, string parentKey = null, string decoratedName = null, string kind = null)
-        {
-            return new LogicalLocation
-            {
-                DecoratedName = decoratedName,
-                FullyQualifiedName = fullyQualifiedLogicalName,
-                Name = GetLogicalLocationName(fullyQualifiedLogicalName),
-                ParentKey = parentKey,
-                Kind = kind
-            };
-        }
-
-        internal string AddLogicalLocation(LogicalLocation logicalLocation)
-        {
-            if (_currentRun.LogicalLocations == null)
-            {
-                _currentRun.LogicalLocations = new Dictionary<string, LogicalLocation>();
-            }
-
-            string fullyQualifiedName = logicalLocation.FullyQualifiedName;
-            string logicalLocationKey = logicalLocation.FullyQualifiedName;
-            int disambiguator = 0;
-
-            while (_currentRun.LogicalLocations.ContainsKey(logicalLocationKey))
-            {
-                LogicalLocation logLoc = _currentRun.LogicalLocations[logicalLocationKey].DeepClone();
-                logLoc.FullyQualifiedName = logLoc.FullyQualifiedName ?? fullyQualifiedName;
-                logLoc.Name = logLoc.Name ?? GetLogicalLocationName(logLoc.FullyQualifiedName);
-
-                // Compare only FQN and Name, since Kind, ParentKey, and DecoratedName on
-                // our new LogicalLocation don't have values for those properties
-                if (logicalLocation.FullyQualifiedName == logLoc.FullyQualifiedName &&
-                    logicalLocation.Name == logLoc.Name)
-                {
-                    break;
-                }
-
-                logicalLocationKey = Utilities.CreateDisambiguatedName(fullyQualifiedName, disambiguator);
-                disambiguator++;
-            }
-
-            if (!_currentRun.LogicalLocations.ContainsKey(logicalLocationKey))
-            {
-                _currentRun.LogicalLocations.Add(logicalLocationKey, logicalLocation);
-                RemoveRedundantProperties(logicalLocationKey);
-            }
-
-            return logicalLocationKey;
         }
 
         internal string GetLogicalLocationName(string fullyQualifiedLogicalName)
@@ -515,29 +493,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             return fullyQualifiedLogicalName.Split(Utilities.DefaultFullyQualifiedNameDelimiters,
                                                    StringSplitOptions.RemoveEmptyEntries).Last();
-        }
-
-        internal void RemoveRedundantLogicalLocationProperties()
-        {
-            foreach (string key in _currentRun.LogicalLocations.Keys)
-            {
-                RemoveRedundantProperties(key);
-            }
-        }
-
-        internal void RemoveRedundantProperties(string key)
-        {
-            LogicalLocation logicalLocation = _currentRun.LogicalLocations[key];
-
-            if (logicalLocation.FullyQualifiedName == key)
-            {
-                logicalLocation.FullyQualifiedName = null;
-            }
-
-            if (logicalLocation.Name == key)
-            {
-                logicalLocation.Name = null;
-            }
         }
 
         internal Message CreateMessage(string text)
@@ -614,33 +569,54 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 foreach (string key in responseFileToContentsDictionary.Keys)
                 {
-                    var fileLocation = new FileLocation
+                    // If the response file is mentioned in Run.Files, use the FileLocation
+                    // object from there (which, conveniently, already has the FileIndex property
+                    // set); otherwise create a new FileLocation.
+                    FileLocation fileLocation = null;
+                    FileData responseFile = null;
+                    bool existsInRunFiles = _v1FileKeytoV2IndexMap.TryGetValue(key, out int responseFileIndex);
+                    if (existsInRunFiles)
                     {
-                        Uri = new Uri(key, UriKind.RelativeOrAbsolute)
-                    };
-                    fileLocations.Add(fileLocation);
-
-                    if (_currentRun != null && !string.IsNullOrWhiteSpace(responseFileToContentsDictionary[key]))
+                        responseFile = _currentRun.Files[responseFileIndex];
+                        fileLocation = responseFile.FileLocation;
+                    }
+                    else
                     {
-                        // We have contents, so mention this file in _currentRun.files
-                        if (_currentRun.Files == null)
+                        fileLocation = new FileLocation
                         {
-                            _currentRun.Files = new Dictionary<string, FileData>();
+                            Uri = new Uri(key, UriKind.RelativeOrAbsolute)
+                        };
+                    }
+
+                    // If this response file has contents, add it to Run.Files, if it
+                    // isn't already there.
+                    string responseFileText = responseFileToContentsDictionary[key];
+                    if (!string.IsNullOrWhiteSpace(responseFileText))
+                    {
+                        if (!existsInRunFiles)
+                        {
+                            _currentRun.Files = _currentRun.Files ?? new List<FileData>();
+                            fileLocation.FileIndex = _currentRun.Files.Count;
+
+                            responseFile = new FileData
+                            {
+                                FileLocation = fileLocation
+                            };
+
+                            _currentRun.Files.Add(responseFile);
                         }
 
-                        if (!_currentRun.Files.ContainsKey(key))
-                        {
-                            _currentRun.Files.Add(key, new FileData());
-                        }
-
-                        FileData responseFile = _currentRun.Files[key];
-
+                        // At this point, responseFile is guaranteed to be initialized and to exist
+                        // in Run.Files, either because it previously existed in Run.Files and we
+                        // obtained it above, or because it didn't exist and we just created it and
+                        // added it to Run.Files. Either way, we can now add the content.
                         responseFile.Contents = new FileContent
                         {
-                            Text = responseFileToContentsDictionary[key]
+                            Text = responseFileText
                         };
-                        responseFile.FileLocation = fileLocation;
                     }
+
+                    fileLocations.Add(fileLocation);
                 }
             }
 
@@ -758,49 +734,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     result.AnalysisTarget = CreateFileLocation(v1Result.Locations[0].AnalysisTarget);
                 }
 
-                if (v1Result.RuleKey == null)
-                {
-                    result.RuleId = v1Result.RuleId;
-                }
-                else
-                {
-                    if (v1Result.RuleId == null)
-                    {
-                        result.RuleId = v1Result.RuleKey;
-                    }
-                    else
-                    {
-                        if (v1Result.RuleId == v1Result.RuleKey)
-                        {
-                            result.RuleId = v1Result.RuleId;
-                        }
-                        else
-                        {
-                            result.RuleId = v1Result.RuleKey;
+                result.RuleId = v1Result.RuleId;
 
-                            if (_currentRun.Resources == null)
-                            {
-                                _currentRun.Resources = new Resources();
-                            }
+                string ruleKey = v1Result.RuleKey ?? v1Result.RuleId;
+                result.RuleIndex = GetRuleIndexForRuleKey(ruleKey, _v1RuleKeyToV2IndexMap);
 
-                            if (_currentRun.Resources.Rules == null)
-                            {
-                                _currentRun.Resources.Rules = new Dictionary<string, Rule>();
-                            }
-
-                            IDictionary<string, Rule> rules = _currentRun.Resources.Rules;
-
-                            if (!rules.ContainsKey(v1Result.RuleKey))
-                            {
-                                Rule rule = new Rule() { Id = v1Result.RuleId };
-                                rules.Add(v1Result.RuleKey, rule);
-                            }
-
-                            Debug.Assert(rules[v1Result.RuleKey].Id == v1Result.RuleId);
-                        }
-                    }
-                }
-                
                 if (v1Result.FormattedRuleMessage != null)
                 {
                     if (result.Message == null)
@@ -898,6 +836,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     _currentV1Run = v1Run;
 
+                    _v1FileKeytoV2IndexMap = CreateFileKeyToIndexMapping(v1Run.Files);
+                    _v1RuleKeyToV2IndexMap = CreateRuleKeyToIndexMapping(v1Run.Rules);
+
                     RunAutomationDetails id = null;
                     RunAutomationDetails[] aggregateIds = null;
 
@@ -917,12 +858,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     run = new Run()
                     {
-                        Architecture = v1Run.Architecture,
                         Id = id,
                         AggregateIds = aggregateIds,
                         BaselineInstanceGuid = v1Run.BaselineId,
                         Properties = v1Run.Properties,
-                        Tool = CreateTool(v1Run.Tool)
+                        Tool = CreateTool(v1Run.Tool),
+                        ColumnKind = ColumnKind.Utf16CodeUnits
                     };
 
                     _currentRun = run;
@@ -931,35 +872,58 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         run.Resources = new Resources
                         {
-                            Rules = new Dictionary<string, Rule>()
+                            Rules = new List<Rule>()
                         };
 
                         foreach (var pair in v1Run.Rules)
                         {
-                            run.Resources.Rules.Add(pair.Key, CreateRule(pair.Value));
+                            run.Resources.Rules.Add(CreateRule(pair.Value));
                         }
                     }
 
                     if (v1Run.Files != null)
                     {
-                        run.Files = new Dictionary<string, FileData>();
+                        run.Files = new List<FileData>();
 
-                        foreach (var pair in v1Run.Files)
+                        foreach (KeyValuePair<string, FileDataVersionOne> pair in v1Run.Files)
                         {
-                            run.Files.Add(pair.Key, CreateFileData(pair.Value));
+                            FileDataVersionOne fileDataVersionOne = pair.Value;
+                            if (fileDataVersionOne.Uri == null)
+                            {
+                                fileDataVersionOne.Uri = new Uri(pair.Key, UriKind.RelativeOrAbsolute);
+                            }
+
+                            run.Files.Add(CreateFileData(fileDataVersionOne, pair.Key));
                         }
                     }
 
                     if (v1Run.LogicalLocations != null)
                     {
-                        run.LogicalLocations = new Dictionary<string, LogicalLocation>();
+                        // Pass 1 over results. In this phase, we're simply collecting fully qualified names that
+                        // may be duplicated in the logical locations dictionary. We're doing this so that we 
+                        // can properly construct the v2 logical instances in the converted array (i.e., we can't
+                        // populate the v2 logicalLocation.FullyQualifiedName property in cases where the 
+                        // v1 key is a synthesized value and not actually the fully qualified name)
+                        var visitor = new VersionOneLogicalLocationKeyToLogicalLocationDataVisitor();
+                        visitor.VisitRunVersionOne(v1Run);
 
-                        foreach (var pair in v1Run.LogicalLocations)
+                        _v1KeyToFullyQualifiedNameMap = visitor.LogicalLocationKeyToFullyQualifiedNameMap;
+                        _v1LogicalLocationKeyToDecoratedNameMap = visitor.LogicalLocationKeyToDecoratedNameMap;
+
+                        run.LogicalLocations = new List<LogicalLocation>();
+                        HashSet<string> populatedKeys = new HashSet<string>();
+
+                        foreach (KeyValuePair<string, LogicalLocationVersionOne> pair in v1Run.LogicalLocations)
                         {
-                            run.LogicalLocations.Add(pair.Key, CreateLogicalLocation(pair.Value));
+                            PopulateLogicalLocation(
+                                run, 
+                                v1Run.LogicalLocations,
+                                _v1LogicalLocationKeyToDecoratedNameMap,
+                                _v1KeyToFullyQualifiedNameMap,
+                                pair.Key, 
+                                pair.Value,
+                                populatedKeys);
                         }
-
-                        RemoveRedundantLogicalLocationProperties();
                     }
 
                     // Even if there is no v1 invocation, there may be notifications
@@ -982,7 +946,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                         foreach (ResultVersionOne v1Result in v1Run.Results)
                         {
-                            run.Results.Add(CreateResult(v1Result));
+                            Result result = CreateResult(v1Result);
+                            run.Results.Add(result);
                         }
                     }
 
@@ -994,7 +959,99 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
             }
 
+            _currentRun = null;
+
             return run;
+        }
+
+        private static IDictionary<string, int> CreateFileKeyToIndexMapping(IDictionary<string, FileDataVersionOne> v1Files)
+        {
+            var v1FileKeyToV2IndexMap = new Dictionary<string, int>();
+
+            if (v1Files != null)
+            {
+                int index = 0;
+                foreach (KeyValuePair<string, FileDataVersionOne> entry in v1Files)
+                {
+                    v1FileKeyToV2IndexMap[entry.Key] = index++;
+                }
+            }
+
+            return v1FileKeyToV2IndexMap;
+        }
+
+        private static IDictionary<string, int> CreateRuleKeyToIndexMapping(IDictionary<string, RuleVersionOne> v1Rules)
+        {
+            var v1RuleKeyToV2IndexMap = new Dictionary<string, int>();
+
+            if (v1Rules != null)
+            {
+                int index = 0;
+                foreach (KeyValuePair<string, RuleVersionOne> entry in v1Rules)
+                {
+                    v1RuleKeyToV2IndexMap[entry.Key] = index++;
+                }
+            }
+
+            return v1RuleKeyToV2IndexMap;
+        }
+
+        private int GetRuleIndexForRuleKey(string ruleKey, IDictionary<string, int> v1RuleKeyToV2IndexMap)
+        {
+            if (ruleKey == null || !v1RuleKeyToV2IndexMap.TryGetValue(ruleKey, out int index))
+            {
+                index = -1;
+            }
+
+            return index;
+        }
+
+        private void PopulateLogicalLocation(
+            Run v2Run, 
+            IDictionary<string, LogicalLocationVersionOne> v1LogicalLocations,
+            IDictionary<string, string> fullyQualifiedNameToDecoratedNameMap,
+            IDictionary<string, string> keyToFullyQualifiedNameMap,
+            string logicalLocationKey, 
+            LogicalLocationVersionOne v1LogicalLocation, 
+            HashSet<string> populatedKeys)
+        {
+            // We saw and populated this one previously, because it was a parent to 
+            // a logical location that we encountered earlier
+            if (populatedKeys.Contains(logicalLocationKey)) { return; }
+
+            if (v1LogicalLocation.ParentKey != null && !populatedKeys.Contains(v1LogicalLocation.ParentKey))
+            {
+                // Ensure that any parent has been populated 
+                PopulateLogicalLocation(
+                    v2Run, v1LogicalLocations,
+                    fullyQualifiedNameToDecoratedNameMap,
+                    keyToFullyQualifiedNameMap,
+                    v1LogicalLocation.ParentKey,
+                    v1LogicalLocations[v1LogicalLocation.ParentKey],
+                    populatedKeys);
+            }
+
+            if (!keyToFullyQualifiedNameMap.TryGetValue(logicalLocationKey, out string fullyQualifiedName))
+            {
+                // If we don't find a remapping, the dictionary key itself comprises
+                // the fully qualified name.
+                fullyQualifiedName = logicalLocationKey;
+            }
+
+            // Create the logical location from the v1 version
+            LogicalLocation logicalLocation = CreateLogicalLocation(v1LogicalLocation, fullyQualifiedName, logicalLocationKey);
+
+            // Remember the index that is associated with the new logical location
+            _v2LogicalLocationToIndexMap[logicalLocation] = v2Run.LogicalLocations.Count;
+
+            // Store the old v1 look-up key for the new logical location
+            // We will use this to generate the index when we walk results
+            // v1 key -> logical location -> logical location index
+            _v1KeyToV2LogicalLocationMap[logicalLocationKey] = logicalLocation;
+
+            v2Run.LogicalLocations.Add(logicalLocation);
+
+            populatedKeys.Add(logicalLocationKey);
         }
 
         internal Stack CreateStack(StackVersionOne v1Stack)
@@ -1050,9 +1107,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 tool = new Tool()
                 {
-                    FileVersion = v1Tool.FileVersion,
+                    DottedQuadFileVersion = v1Tool.FileVersion,
                     FullName = v1Tool.FullName,
-                    Language = v1Tool.Language,
+                    Language = v1Tool.Language ?? "en-US",
                     Name = v1Tool.Name,
                     Properties = v1Tool.Properties,
                     SarifLoggerVersion = v1Tool.SarifLoggerVersion,

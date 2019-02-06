@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "toolNotifications": [
+        {
+          "id": "CTN0001",
+          "level": "error",
+          "message": "Unhandled exception.",
+          "exception": {
+            "kind": "ExecutionEngine.RuleFailureException",
+            "message": "Unhandled exception during rule evaluation.",
+            "stack": {
+              "message": "This is the stack messasge.",
+              "frames": [
+                {
+                  "message": "Exception thrown",
+                  "module": "RuleLibrary",
+                  "threadId": 52,
+                  "fullyQualifiedLogicalName": "Ambiguous.Item",
+                  "uri": "file:///C:/src/main.cs",
+                  "address": 10092852,
+                  "line": 15,
+                  "column": 9
+                },
+                {
+                  "module": "RuleLibrary",
+                  "threadId": 52,
+                  "fullyQualifiedLogicalName": "Rules.SecureHashAlgorithmRule.Register",
+                  "uri": "file:///C:/src/main.cs",
+                  "address": 1002485
+                },
+                {
+                  "module": "ExecutionEngine",
+                  "threadId": 52,
+                  "fullyQualifiedLogicalName": "ExecutionEngine.Engine.EvaluateRule",
+                  "uri": "file:///C:/src/utils.cs",
+                  "address": 10073356,
+                  "offset": 10475
+                },
+                {
+                  "module": "Target",
+                  "threadId": 52,
+                  "fullyQualifiedLogicalName": "Ambiguous.Item",
+                  "logicalLocationKey": "SYNTHESIZED_KEY",
+                  "uri": "file:///C:/src/testtarget.cs",
+                  "address": 10073356,
+                  "offset": 10475
+                }
+              ]
+            },
+            "innerExceptions": [
+              {
+                "kind": "System.ArgumentException",
+                "message": "length is < 0"
+              }
+            ]
+          }
+        }
+      ],
+      "logicalLocations": {
+        "Ambiguous.Item": {
+          "name": "Item",
+          "kind": "some kind"
+        },
+        "Rules.SecureHashAlgorithmRule.Register": {
+          "name": "Register"
+        },
+        "SYNTHESIZED_KEY": {
+          "name": "Item",
+          "kind": "another kind"
+        }
+      },
+      "tool": {
+        "name": "CodeScanner",
+        "semanticVersion": "2.1.0"
+      },
+      "results": []
+    }
+  ]
+}

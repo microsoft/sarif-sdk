@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// The runtime environment of the analysis tool run.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class Invocation : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Invocation> ValueComparer => InvocationEqualityComparer.Instance;
@@ -55,20 +55,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A set of files relevant to the invocation of the tool.
         /// </summary>
         [DataMember(Name = "attachments", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<Attachment> Attachments { get; set; }
 
         /// <summary>
         /// The Coordinated Universal Time (UTC) date and time at which the run started. See "Date/time properties" in the SARIF spec for the required format.
         /// </summary>
         [DataMember(Name = "startTimeUtc", IsRequired = false, EmitDefaultValue = false)]
-        [JsonConverter(typeof(DateTimeConverter))]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter))]
         public DateTime StartTimeUtc { get; set; }
 
         /// <summary>
         /// The Coordinated Universal Time (UTC) date and time at which the run ended. See "Date/time properties" in the SARIF spec for the required format.
         /// </summary>
         [DataMember(Name = "endTimeUtc", IsRequired = false, EmitDefaultValue = false)]
-        [JsonConverter(typeof(DateTimeConverter))]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter))]
         public DateTime EndTimeUtc { get; set; }
 
         /// <summary>
@@ -81,12 +82,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A list of runtime conditions detected by the tool during the analysis.
         /// </summary>
         [DataMember(Name = "toolNotifications", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<Notification> ToolNotifications { get; set; }
 
         /// <summary>
         /// A list of conditions detected by the tool that are relevant to the tool's configuration.
         /// </summary>
         [DataMember(Name = "configurationNotifications", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<Notification> ConfigurationNotifications { get; set; }
 
         /// <summary>
@@ -196,79 +199,79 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Initializes a new instance of the <see cref="Invocation" /> class from the supplied values.
         /// </summary>
         /// <param name="commandLine">
-        /// An initialization value for the <see cref="P: CommandLine" /> property.
+        /// An initialization value for the <see cref="P:CommandLine" /> property.
         /// </param>
         /// <param name="arguments">
-        /// An initialization value for the <see cref="P: Arguments" /> property.
+        /// An initialization value for the <see cref="P:Arguments" /> property.
         /// </param>
         /// <param name="responseFiles">
-        /// An initialization value for the <see cref="P: ResponseFiles" /> property.
+        /// An initialization value for the <see cref="P:ResponseFiles" /> property.
         /// </param>
         /// <param name="attachments">
-        /// An initialization value for the <see cref="P: Attachments" /> property.
+        /// An initialization value for the <see cref="P:Attachments" /> property.
         /// </param>
         /// <param name="startTimeUtc">
-        /// An initialization value for the <see cref="P: StartTimeUtc" /> property.
+        /// An initialization value for the <see cref="P:StartTimeUtc" /> property.
         /// </param>
         /// <param name="endTimeUtc">
-        /// An initialization value for the <see cref="P: EndTimeUtc" /> property.
+        /// An initialization value for the <see cref="P:EndTimeUtc" /> property.
         /// </param>
         /// <param name="exitCode">
-        /// An initialization value for the <see cref="P: ExitCode" /> property.
+        /// An initialization value for the <see cref="P:ExitCode" /> property.
         /// </param>
         /// <param name="toolNotifications">
-        /// An initialization value for the <see cref="P: ToolNotifications" /> property.
+        /// An initialization value for the <see cref="P:ToolNotifications" /> property.
         /// </param>
         /// <param name="configurationNotifications">
-        /// An initialization value for the <see cref="P: ConfigurationNotifications" /> property.
+        /// An initialization value for the <see cref="P:ConfigurationNotifications" /> property.
         /// </param>
         /// <param name="exitCodeDescription">
-        /// An initialization value for the <see cref="P: ExitCodeDescription" /> property.
+        /// An initialization value for the <see cref="P:ExitCodeDescription" /> property.
         /// </param>
         /// <param name="exitSignalName">
-        /// An initialization value for the <see cref="P: ExitSignalName" /> property.
+        /// An initialization value for the <see cref="P:ExitSignalName" /> property.
         /// </param>
         /// <param name="exitSignalNumber">
-        /// An initialization value for the <see cref="P: ExitSignalNumber" /> property.
+        /// An initialization value for the <see cref="P:ExitSignalNumber" /> property.
         /// </param>
         /// <param name="processStartFailureMessage">
-        /// An initialization value for the <see cref="P: ProcessStartFailureMessage" /> property.
+        /// An initialization value for the <see cref="P:ProcessStartFailureMessage" /> property.
         /// </param>
         /// <param name="toolExecutionSuccessful">
-        /// An initialization value for the <see cref="P: ToolExecutionSuccessful" /> property.
+        /// An initialization value for the <see cref="P:ToolExecutionSuccessful" /> property.
         /// </param>
         /// <param name="machine">
-        /// An initialization value for the <see cref="P: Machine" /> property.
+        /// An initialization value for the <see cref="P:Machine" /> property.
         /// </param>
         /// <param name="account">
-        /// An initialization value for the <see cref="P: Account" /> property.
+        /// An initialization value for the <see cref="P:Account" /> property.
         /// </param>
         /// <param name="processId">
-        /// An initialization value for the <see cref="P: ProcessId" /> property.
+        /// An initialization value for the <see cref="P:ProcessId" /> property.
         /// </param>
         /// <param name="executableLocation">
-        /// An initialization value for the <see cref="P: ExecutableLocation" /> property.
+        /// An initialization value for the <see cref="P:ExecutableLocation" /> property.
         /// </param>
         /// <param name="workingDirectory">
-        /// An initialization value for the <see cref="P: WorkingDirectory" /> property.
+        /// An initialization value for the <see cref="P:WorkingDirectory" /> property.
         /// </param>
         /// <param name="environmentVariables">
-        /// An initialization value for the <see cref="P: EnvironmentVariables" /> property.
+        /// An initialization value for the <see cref="P:EnvironmentVariables" /> property.
         /// </param>
         /// <param name="stdin">
-        /// An initialization value for the <see cref="P: Stdin" /> property.
+        /// An initialization value for the <see cref="P:Stdin" /> property.
         /// </param>
         /// <param name="stdout">
-        /// An initialization value for the <see cref="P: Stdout" /> property.
+        /// An initialization value for the <see cref="P:Stdout" /> property.
         /// </param>
         /// <param name="stderr">
-        /// An initialization value for the <see cref="P: Stderr" /> property.
+        /// An initialization value for the <see cref="P:Stderr" /> property.
         /// </param>
         /// <param name="stdoutStderr">
-        /// An initialization value for the <see cref="P: StdoutStderr" /> property.
+        /// An initialization value for the <see cref="P:StdoutStderr" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
         public Invocation(string commandLine, IEnumerable<string> arguments, IEnumerable<FileLocation> responseFiles, IEnumerable<Attachment> attachments, DateTime startTimeUtc, DateTime endTimeUtc, int exitCode, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, string exitCodeDescription, string exitSignalName, int exitSignalNumber, string processStartFailureMessage, bool toolExecutionSuccessful, string machine, string account, int processId, FileLocation executableLocation, FileLocation workingDirectory, IDictionary<string, string> environmentVariables, FileLocation stdin, FileLocation stdout, FileLocation stderr, FileLocation stdoutStderr, IDictionary<string, SerializedPropertyInfo> properties)
         {

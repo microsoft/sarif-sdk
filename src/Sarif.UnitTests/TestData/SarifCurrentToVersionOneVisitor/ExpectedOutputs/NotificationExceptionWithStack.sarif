@@ -1,0 +1,88 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner",
+        "semanticVersion": "2.1.0",
+        "language": "en-US"
+      },
+      "invocation": {},
+      "logicalLocations": {
+        "Rules.SecureHashAlgorithmRule.Evaluate": {
+          "name": "Evaluate",
+          "kind": "some kind"
+        },
+        "ExecutionEngine.Engine.EvaluateRule": {
+          "name": "EvaluateRule",
+          "kind": "another kind"
+        },
+        "ExecutionEngine.Engine.Sample": {
+          "name": "Sample",
+          "kind": "yet another kind"
+        },
+        "Rules.SecureHashAlgorithmRule.Register": {
+          "name": "Register",
+          "kind": "another kind"
+        }
+      },
+      "results": [],
+      "toolNotifications": [
+        {
+          "id": "CTN0001",
+          "message": "Unhandled exception.",
+          "level": "error",
+          "exception": {
+            "kind": "ExecutionEngine.RuleFailureException",
+            "message": "Unhandled exception during rule evaluation.",
+            "stack": {
+              "message": "This is the stack messasge.",
+              "frames": [
+                {
+                  "message": "Exception thrown",
+                  "uri": "file:///C:/src/main.cs",
+                  "line": 15,
+                  "column": 9,
+                  "module": "RuleLibrary",
+                  "threadId": 52,
+                  "fullyQualifiedLogicalName": "Rules.SecureHashAlgorithmRule.Evaluate",
+                  "address": 10092852
+                },
+                {
+                  "uri": "file:///C:/src/main.cs",
+                  "module": "RuleLibrary",
+                  "threadId": 52,
+                  "fullyQualifiedLogicalName": "Rules.SecureHashAlgorithmRule.Register",
+                  "address": 1002485
+                },
+                {
+                  "uri": "file:///C:/src/utils.cs",
+                  "module": "ExecutionEngine",
+                  "threadId": 52,
+                  "fullyQualifiedLogicalName": "ExecutionEngine.Engine.EvaluateRule",
+                  "address": 10073356,
+                  "offset": 10475
+                },
+                {
+                  "uri": "file:///C:/src/sample.cs",
+                  "module": "ExecutionEngine",
+                  "threadId": 52,
+                  "fullyQualifiedLogicalName": "ExecutionEngine.Engine.Sample",
+                  "address": 10073356,
+                  "offset": 10475
+                }
+              ]
+            },
+            "innerExceptions": [
+              {
+                "kind": "System.ArgumentException",
+                "message": "length is < 0"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
