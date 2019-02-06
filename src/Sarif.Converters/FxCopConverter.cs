@@ -106,7 +106,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
             else if ("ExcludedInProject".Equals(status))
             {
-                result.BaselineState = BaselineState.Unchanged;
+                result.BaselineState = BaselineState.Existing;
             }
 
             result.RuleId = context.CheckId;

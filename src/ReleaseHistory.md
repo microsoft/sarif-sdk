@@ -219,7 +219,7 @@
 * API BREAKING: Remove 'threadFlowLocation.step'
 * API BREAKING: 'invocation.workingDirectory' is now a FileLocation object (and not a URI expressed as a string)
 
-## **v2.0.0-csd.2.beta.2018.11.28** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2018.11.28) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2018.11.28) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2018.11.28)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2018.11.28))
+## **v2.0.0-csd.2.beta.2019.01.09** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.01.09) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.01.09) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.01.09)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.01.09))
 * BUGFIX: Result matching improvements in properties persistence.
 * FEATURE: Fortify FPR converter improvements.
 * API Non-BREAKING: Remove uniqueness requirement from 'result.locations'.

@@ -47,28 +47,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             switch (version)
             {
-                case "2.0.0-csd.2.beta.2019-01-24":
+                case "2.0.0-csd.2.beta.2019-01-09":
                 {
-                    // SARIF TC31. Nothing to do.
+                    // SARIF TC30. Nothing to do.
                     break;
                 }
 
-                case "2.0.0-csd.2.beta.2019-01-09":
-                {
-                        modifiedLog |= ApplyChangesFromTC31(sarifLog);
-                        break;
-                }
-
                 case "2.0.0-csd.2.beta.2018-10-10":
+                case "2.0.0-csd.2.beta.2018-10-10.1":
+                case "2.0.0-csd.2.beta.2018-10-10.2":
                 {
-                    // 2.0.0-csd.2.beta.2018-10-10 == changes through SARIF TC #25
-                    modifiedLog |= ApplyChangesFromTC25ThroughTC30(
+                        // 2.0.0-csd.2.beta.2018-10-10 == changes through SARIF TC #25
+                        modifiedLog |= ApplyChangesFromTC25ThroughTC30(
                         sarifLog, 
                         out fullyQualifiedLogicalNameToIndexMap,
                         out fileLocationKeyToIndexMap,
                         out ruleKeyToIndexMap);
-                    modifiedLog |= ApplyChangesFromTC31(sarifLog);
-                        break;
+                    break;
                 }
 
                 default:
@@ -79,8 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         out fullyQualifiedLogicalNameToIndexMap,
                         out fileLocationKeyToIndexMap,
                         out ruleKeyToIndexMap);
-                    modifiedLog |= ApplyChangesFromTC31(sarifLog);
-                        break;
+                    break;
                 }
             }
 
@@ -115,32 +109,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             return transformedSarifLog;
-        }
-
-        private static bool ApplyChangesFromTC31(JObject sarifLog)
-        {
-            bool modifiedLog = UpdateSarifLogVersion(sarifLog);            ;
-
-            if (sarifLog["runs"] is JArray runs)
-            {
-                foreach (JObject run in runs)
-                {
-                    if (run["results"] is JArray results)
-                    {
-                        foreach (JObject result in results)
-                        {
-                            string baselineState = (string)result["baselineState"];
-
-                            if ("existing".Equals(baselineState))
-                            {
-                                result["baselineState"] = "unchanged";
-                                modifiedLog = true;
-                            }
-                        }
-                    }
-                }
-            }
-            return modifiedLog;
         }
 
         private static bool ApplyChangesFromTC25ThroughTC30(

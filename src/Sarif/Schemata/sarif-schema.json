@@ -1428,8 +1428,7 @@
           "description": "The state of a result relative to a baseline of a previous run.",
           "enum": [
             "new",
-            "unchanged",
-            "updated",
+            "existing",
             "absent"
           ]
         },

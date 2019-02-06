@@ -12,8 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     public enum BaselineState
     {
         None,
-        Unchanged,
-        Updated,
+        Existing,
         New,
         Absent
     }

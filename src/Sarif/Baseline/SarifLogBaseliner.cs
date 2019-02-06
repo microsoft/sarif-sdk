@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
                 Result newResult = result.DeepClone();
 
                 newResult.BaselineState = 
-                    baseLine.Results.Contains(result, ResultComparator) ? BaselineState.Unchanged : BaselineState.New;
+                    baseLine.Results.Contains(result, ResultComparator) ? BaselineState.Existing : BaselineState.New;
 
                 differencedRun.Results.Add(newResult);
             }
