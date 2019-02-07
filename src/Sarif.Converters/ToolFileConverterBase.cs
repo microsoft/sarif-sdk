@@ -108,18 +108,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 output.CloseResults();
             }
 
-            if (run.Files?.Count > 0)
-            {
-                output.WriteFiles(run.Files);
-            }
-
-            if (run.LogicalLocations?.Count > 0)
-            {
-                output.WriteLogicalLocations(run.LogicalLocations);
-            }
-
-            output.WriteTool(run.Tool);
-
             return run;
         }
     }

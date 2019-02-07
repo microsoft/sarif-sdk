@@ -348,19 +348,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 WriteTool(_run.Tool);
             }
 
-            if ((_writeConditions & Conditions.ToolWritten) != Conditions.InvocationsWritten &&
+            if ((_writeConditions & Conditions.InvocationsWritten) != Conditions.InvocationsWritten &&
                 _run.Invocations != null)
             {
                 WriteInvocations(_run.Invocations);
             }
 
-            if ((_writeConditions & Conditions.ToolWritten) != Conditions.FilesWritten &&
+            if ((_writeConditions & Conditions.FilesWritten) != Conditions.FilesWritten &&
                 _run.Files != null)
             {
                 WriteFiles(_run.Files);
             }
 
-            if ((_writeConditions & Conditions.ToolWritten) != Conditions.LogicalLocationsWritten &&
+            if ((_writeConditions & Conditions.LogicalLocationsWritten) != Conditions.LogicalLocationsWritten &&
                 _run.LogicalLocations != null)
             {
                 WriteLogicalLocations(_run.LogicalLocations);
