@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 }";
             string actual = GetJson(uut =>
             {
-                var run = new Run() { Tool = DefaultTool };
+                var run = new Run() { };
 
                 uut.Initialize(run);
 
@@ -46,6 +46,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                         SuppressionStates = SuppressionStates.SuppressedInSource
                     }
                 });
+
+                uut.CloseResults();
+                uut.WriteTool(DefaultTool);
             });
             actual.Should().BeCrossPlatformEquivalent<SarifLog>(expected);
 
@@ -78,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 }";
             string actual = GetJson(uut =>
             {
-                var run = new Run() { Tool = DefaultTool };
+                var run = new Run() {  };
                 uut.Initialize(run);
 
                 uut.WriteResults(new[] { new Result
@@ -87,6 +90,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                         BaselineState = BaselineState.None
                     }
                 });
+
+                uut.CloseResults();
+                uut.WriteTool(DefaultTool);
             });
 
             actual.Should().BeCrossPlatformEquivalent<SarifLog>(expected);
@@ -128,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 }";
             string actual = GetJson(uut =>
             {
-                var run = new Run() { Tool = DefaultTool };
+                var run = new Run() { };
                 uut.Initialize(run);
 
                 uut.WriteResults(new[] {
@@ -142,6 +148,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                         BaselineState = BaselineState.Updated
                     }
                 });
+
+                uut.CloseResults();
+                uut.WriteTool(DefaultTool);
             });
             actual.Should().BeCrossPlatformEquivalent<SarifLog>(expected);
 

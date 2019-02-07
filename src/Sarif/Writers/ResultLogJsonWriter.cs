@@ -27,6 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             Disposed = 0x40000000
         }
 
+        private Run _run;
         private Conditions _writeConditions;
         private readonly JsonWriter _jsonWriter;
         private readonly JsonSerializer _serializer;
@@ -132,6 +133,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _jsonWriter.WriteValue(run.ColumnKind == ColumnKind.UnicodeCodePoints ? "unicodeCodePoints" : "utf16CodeUnits");
 
             _writeConditions |= Conditions.RunInitialized;
+
+            _run = run;
         }
 
         /// <summary>
@@ -217,7 +220,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _jsonWriter.WritePropertyName("tool");
             _serializer.Serialize(_jsonWriter, tool);
 
-            _jsonWriter.WriteEndObject();  // End: tool
             _writeConditions |= Conditions.ToolWritten;
         }
 
@@ -339,6 +341,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 (_writeConditions & Conditions.ResultsClosed) != Conditions.ResultsClosed)
             {
                 CloseResults();
+            }
+
+            if ((_writeConditions & Conditions.ToolWritten) != Conditions.ToolWritten)
+            {
+                WriteTool(_run.Tool);
+            }
+
+            if ((_writeConditions & Conditions.ToolWritten) != Conditions.InvocationsWritten &&
+                _run.Invocations != null)
+            {
+                WriteInvocations(_run.Invocations);
+            }
+
+            if ((_writeConditions & Conditions.ToolWritten) != Conditions.FilesWritten &&
+                _run.Files != null)
+            {
+                WriteFiles(_run.Files);
+            }
+
+            if ((_writeConditions & Conditions.ToolWritten) != Conditions.LogicalLocationsWritten &&
+                _run.LogicalLocations != null)
+            {
+                WriteLogicalLocations(_run.LogicalLocations);
             }
 
             // Log complete. Write the end object.

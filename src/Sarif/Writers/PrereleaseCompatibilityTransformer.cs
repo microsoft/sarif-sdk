@@ -126,18 +126,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 foreach (JObject run in runs)
                 {
+                    // https://github.com/oasis-tcs/sarif-spec/issues/311
+                    modifiedLog |= MoveRulesMetadataAndConfiguration(run);
+
                     if (run["results"] is JArray results)
                     {
                         foreach (JObject result in results)
                         {
-                            string baselineState = (string)result["baselineState"];
+                            // https://github.com/oasis-tcs/sarif-spec/issues/312
+                            modifiedLog |= UpdateBaselineExistingStateToUnchanged(result);
 
-                            if ("existing".Equals(baselineState))
-                            {
-                                result["baselineState"] = "unchanged";
-                                modifiedLog = true;
-                            }
-
+                            // https://github.com/oasis-tcs/sarif-spec/issues/317
                             modifiedLog |= SetResultKindAndFailureLevel(result);
                         }
                     }
@@ -146,13 +145,79 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return modifiedLog;
         }
 
+        private static bool MoveRulesMetadataAndConfiguration(JObject run)
+        {
+            if (!(run["resources"] is JObject resources))
+            {
+                return false;
+            }
+
+            JObject tool = (JObject)run["tool"];
+
+            // https://github.com/oasis-tcs/sarif-spec/issues/311
+
+            // 1. 'run.resources.messageStrings' moves to 'run.tool.globalMessageStrings'
+            if (resources["messageStrings"] is JObject messageStrings)
+            {
+                tool["globalMessageStrings"] = messageStrings;
+                resources["messageStrings"] = null;
+            }
+
+            // 2. 'run.resources.rules' moves to 'run.tool.rulesMetadata'
+            if (resources["rules"] is JArray rules)
+            {
+                tool["rulesMetadata"] = rules;
+                resources["rules"] = null;
+
+                foreach(JObject rule in rules)
+                {
+                    RenameProperty(rule, previousName: "configuration", newName: "defaultConfiguration");
+                }
+            }
+
+            // 3. We do not need any accommodation for the addition of 
+            // 'tool.notificationsMetadata', as this did not exist previously
+
+            // 4. Zap 'rules.resources' entirely
+            run["resources"] = null;
+
+            return true;
+        }
+
+        private static bool UpdateBaselineExistingStateToUnchanged(JObject result)
+        {
+            bool modifiedLog = false;
+
+            // Rename 'existing' baseline state to 'unchanged'
+            // (as part of adding the 'updated' state, which 
+            // will not exist in any legacy SARIF logs.
+            // https://github.com/oasis-tcs/sarif-spec/issues/312
+            //
+            string baselineState = (string)result["baselineState"];
+
+            if ("existing".Equals(baselineState))
+            {
+                result["baselineState"] = "unchanged";
+                modifiedLog = true;
+            }
+            return modifiedLog;
+        }
+
         private static bool SetResultKindAndFailureLevel(JObject result)
-        {            
+        {
             string level = (string)result["level"];
             if (level == null) { return false; }
 
+            // Every result now has a failure level of 'none', 'note',
+            // 'warning' or 'error'. 'pass', 'notApplicable' and 'open'
+            // are the new 'result.kind' property that can categorize
+            // non-failures. 
+            // https://github.com/oasis-tcs/sarif-spec/issues/317
+
             switch (level)
             {
+                // We don't need to handle 'none' as it previously wasn't
+                // an enum value that was permitted by the schema.
                 case "error":
                 case "warning":
                 case "note":

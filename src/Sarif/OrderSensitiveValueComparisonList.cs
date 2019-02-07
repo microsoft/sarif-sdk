@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public override bool Equals(object obj)
         {
-            return Equals(this, (List<T>)obj);
+            return Equals(this, obj as List<T>);
         }
 
         public override int GetHashCode()

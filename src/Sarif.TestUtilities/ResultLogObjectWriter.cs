@@ -21,7 +21,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public void Initialize(Run run)
         {
-            WriteTool(run.Tool);
         }
 
         public void WriteTool(Tool tool)

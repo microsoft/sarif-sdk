@@ -239,3 +239,4 @@
 ## **v2.0.0-csd.2.beta.2019.01.24** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.01.24) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.01.24) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.01.24)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.01.24))
 * API BREAKING: rename baselineState 'existing' value to 'unchanged'. Add new baselineState value 'updated'.
 * API BREAKING: unify result and notification failure levels ('note', 'warning', 'error'). Break out result evaluation state into 'result.kind' property with values 'pass', 'fail', 'open', 'review', 'notApplicable'.
+* API BREAKING: remove IRule entirely, in favor of utilizing MessageDescriptor base class.

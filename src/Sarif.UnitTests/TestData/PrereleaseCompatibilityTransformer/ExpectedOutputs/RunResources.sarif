@@ -5,7 +5,24 @@
     {
       "tool": {
         "name": "CodeScanner",
-        "semanticVersion": "2.1.0"
+        "semanticVersion": "2.1.0",
+        "globalMessageStrings": {
+          "noContent": "This file has no content to review."
+        },
+        "rulesMetadata": [
+          {
+            "id": "SHARED-ID",
+            "messageStrings": {
+              "a": "Review all image content for geopolitically sensitive graphics."
+            }
+          },
+          {
+            "id": "SHARED-ID",
+            "messageStrings": {
+              "a": "Review all plaintext content for geopolitically sensitive terms."
+            }
+          }
+        ]
       },
       "results": [
         {
@@ -19,6 +36,24 @@
               "physicalLocation": {
                 "fileLocation": {
                   "uri": "file.txt"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SHARED-ID",
+          "ruleIndex": 1,
+          "kind": "notApplicable",
+          "level": "none",
+          "message": {
+            "messageId": "noContent"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "empty_file.txt"
                 }
               }
             }
@@ -41,22 +76,6 @@
           ]
         }
       ],
-      "resources": {
-        "rules": [
-          {
-            "id": "SHARED-ID",
-            "messageStrings": {
-              "a": "Review all image content for geopolitically sensitive graphics."
-            }
-          },
-          {
-            "id": "SHARED-ID",
-            "messageStrings": {
-              "a": "Review all plaintext content for geopolitically sensitive terms."
-            }
-          }
-        ]
-      },
       "columnKind": "utf16CodeUnits"
     }
   ]
