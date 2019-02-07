@@ -7,7 +7,6 @@ using System.IO;
 using System.Text;
 
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
@@ -156,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             string actualSarif = File.ReadAllText(generatedFileName);
 
-            if (!AreEquivalentSarifLogs<SarifLog>(actualSarif, expectedSarif))
+            if (!AreEquivalent<SarifLog>(actualSarif, expectedSarif))
             {
                 File.WriteAllText(expectedFileName, expectedSarif);
                 File.WriteAllText(generatedFileName, actualSarif);

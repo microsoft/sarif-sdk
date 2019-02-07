@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using FluentAssertions;
@@ -282,11 +283,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             string fileDataKey = new Uri(file).AbsoluteUri;
 
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
-            sarifLog.Runs[0].Files[fileDataKey].MimeType.Should().Be(MimeType.Cpp);
-            sarifLog.Runs[0].Files[fileDataKey].Hashes.Keys.Count.Should().Be(3);
-            sarifLog.Runs[0].Files[fileDataKey].Hashes["md5"].Should().Be("4B9DC12934390387862CC4AB5E4A2159");
-            sarifLog.Runs[0].Files[fileDataKey].Hashes["sha-1"].Should().Be("9B59B1C1E3F5F7013B10F6C6B7436293685BAACE");
-            sarifLog.Runs[0].Files[fileDataKey].Hashes["sha-256"].Should().Be("0953D7B3ADA7FED683680D2107EE517A9DBEC2D0AF7594A91F058D104B7A2AEB");
+            sarifLog.Runs[0].Files[0].MimeType.Should().Be(MimeType.Cpp);
+            sarifLog.Runs[0].Files[0].Hashes.Keys.Count.Should().Be(3);
+            sarifLog.Runs[0].Files[0].Hashes["md5"].Should().Be("4B9DC12934390387862CC4AB5E4A2159");
+            sarifLog.Runs[0].Files[0].Hashes["sha-1"].Should().Be("9B59B1C1E3F5F7013B10F6C6B7436293685BAACE");
+            sarifLog.Runs[0].Files[0].Hashes["sha-256"].Should().Be("0953D7B3ADA7FED683680D2107EE517A9DBEC2D0AF7594A91F058D104B7A2AEB");
         }
 
         [Fact]
@@ -320,7 +321,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             byte[] fileBytes = Encoding.Default.GetBytes(fileText);
 
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
-            FileData fileData = sarifLog.Runs[0].Files[fileDataKey];
+            FileData fileData = sarifLog.Runs[0].Files[0];
             fileData.MimeType.Should().Be(MimeType.CSharp);
             fileData.Contents.Binary.Should().Be(Convert.ToBase64String(fileBytes));
             fileData.Contents.Text.Should().BeNull();
@@ -462,7 +463,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 string fileName = @"file" + i + ".cpp";
                 string fileDataKey = "file:///" + fileName;
-                sarifLog.Runs[0].Files.Should().ContainKey(fileDataKey, "file data for " + fileName + " should exist in files collection");
+                sarifLog.Runs[0].Files.Where(f => f.FileLocation.Uri.AbsoluteUri.ToString().Contains(fileDataKey)).Any().Should().BeTrue();
             }
 
             sarifLog.Runs[0].Files.Count.Should().Be(fileCount);

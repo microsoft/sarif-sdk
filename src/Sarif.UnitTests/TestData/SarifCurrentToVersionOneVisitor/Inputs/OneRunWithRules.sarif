@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-10-10",
+  "version": "2.0.0-csd.2.beta.2018-10-10",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner",
+        "semanticVersion": "2.1.0"
+      },
+      "results": [
+        {
+          "ruleId": "C2001",
+          "ruleIndex":  0,
+          "message": { "text": "Some testing occurred." }
+        },
+        {
+          "ruleId": "C2002",
+          "ruleIndex": 1,
+          "message": { "text": "Some testing occurred." }
+        },
+        {
+          "ruleId": "C2003",
+          "ruleIndex": 2,
+          "message": { "text": "Some testing occurred." }
+        },
+        {
+          "ruleId": "C2003",
+          "ruleIndex": 3,
+          "message": { "text": "Some testing occurred." }
+        }
+      ],
+      "resources": {
+        "rules": [
+          {
+            "id": "C2001",
+            "shortDescription": {
+              "text": "A variable was used without being initialized."
+            },
+            "messageStrings": {
+              "default": "Variable \"{0}\" was used without being initialized."
+            },
+            "properties": {
+              "some_key": "FoxForceFive"
+            }
+          },
+          {
+            "id": "C2002",
+            "fullDescription": {
+              "text": "Catfish season continuous hen lamb include dose copy grant."
+            },
+            "configuration": {
+              "enabled": true,
+              "defaultLevel": "error"
+            },
+            "helpUri": "http://www.domain.com/rules/c2002.html"
+          },
+          {
+            "id": "C2003",
+            "name": {
+              "text": "Rule C2003 for C#"
+            },
+            "shortDescription": {
+              "text": "C# rules were meant to be broken."
+            },
+            "fullDescription": {
+              "text": "Rent internal rebellion competence biography photograph."
+            }
+          },
+          {
+            "id": "C2003",
+            "name": {
+              "text": "Rule C2003 for VB"
+            },
+            "shortDescription": {
+              "text": "VB rules were meant to be broken."
+            },
+            "fullDescription": {
+              "text": "Rent internal rebellion competence biography photograph."
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -41,6 +41,7 @@ if ($AppVeyor) {
 
 $TestRunnerRootPath = "$NuGetPackageRoot\xunit.runner.console\2.3.1\tools\"
 
+$failedTestProjects = @()
 foreach ($project in $Projects.Tests) {
     foreach ($framework in $Frameworks.Application) {
         Write-Information "Running tests in ${project}: $framework..."
@@ -52,9 +53,12 @@ foreach ($project in $Projects.Tests) {
             & ${TestRunnerRootPath}net452\xunit.console.exe $dll $ReporterOption
         }
         if ($LASTEXITCODE -ne 0) {
-            Pop-Location
-            Exit-WithFailureMessage $ScriptName "${project}: tests failed."
+            $failedTestProjects += "${project}: $framework"
         }
         Pop-Location
     }
+}
+
+if ($failedTestProjects) {
+    Exit-WithFailureMessage $ScriptName "Tests failed in these projects `n    $($failedTestProjects -join "`n    ")"
 }

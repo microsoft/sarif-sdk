@@ -103,7 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var context = TestHelper.CreateProjectContext();
 
             context.RefineStackTrace(@"trace\n trace");
-            context.StackTrace.Should().BeCrossPlatformEquivalent(@"trace\n trace");
+            context.StackTrace.Should().BeCrossPlatformEquivalentStrings(@"trace\n trace");
         }
 
         [Fact]

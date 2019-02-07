@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta.2018-10-10 JSON Schema",
-  "description": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2018-11-28 JSON Schema: a standard format for the output of static analysis tools.",
+  "title": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta.2019-01-09 JSON Schema",
+  "description": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2019-01-09 JSON Schema: a standard format for the output of static analysis tools.",
   "additionalProperties": false,
   "type": "object",
   "properties": {
@@ -14,7 +14,7 @@
 
     "version": {
       "description": "The SARIF format version of this log file.",
-      "enum": [ "2.0.0-csd.2.beta.2018-11-28" ]
+      "enum": [ "2.0.0-csd.2.beta.2019-01-09" ]
     },
 
     "runs": {
@@ -347,7 +347,7 @@
           "description": "An array of external property files containing run.results arrays to be merged with the root log file.",
           "type": "array",
           "minItems": 1,
-          "uniqueItems": true,
+          "uniqueItems": false,
           "items": {
             "$ref": "#/definitions/externalPropertyFile"
           }
@@ -366,9 +366,11 @@
           "$ref": "#/definitions/fileLocation"
         },
 
-        "parentKey": {
-          "description": "Identifies the key of the immediate parent of the file, if this file is nested.",
-          "type": "string"
+        "parentIndex": {
+          "description": "Identifies the index of the immediate parent of the file, if this file is nested.",
+          "type": "integer",
+          "minimum": -1,
+          "default": -1
         },
 
         "offset": {
@@ -418,6 +420,11 @@
 
         "encoding": {
           "description": "Specifies the encoding for a file object that refers to a text file.",
+          "type": "string"
+        },
+
+        "sourceLanguage": {
+          "description": "Specifies the source language for any file object that refers to a text file that contains source code.",
           "type": "string"
         },
 
@@ -511,6 +518,13 @@
         "uriBaseId": {
           "description": "A string which indirectly specifies the absolute URI with respect to which a relative URI in the \"uri\" property is interpreted.",
           "type": "string"
+        },
+
+        "fileIndex": {
+          "description": "The index within the run files array of the file object associated with the file location.",
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
         },
 
         "properties": {
@@ -825,7 +839,7 @@
         },
 
         "logicalLocationIndex": {
-          "description": "The index within the logicalLocations array that specifies the logical location associated with the result.",
+          "description": "The index within the logical locations array of the logical location associated with the result.",
           "type": "integer",
           "default": -1,
           "minimum": -1
@@ -883,7 +897,7 @@
         },
 
         "kind": {
-          "description": "The type of construct this logicalLocationComponent refers to. Should be one of 'function', 'member', 'module', 'namespace', 'parameter', 'resource', 'returnType', 'type', or 'variable', if any of those accurately describe the construct.",
+          "description": "The type of construct this logical location component refers to. Should be one of 'function', 'member', 'module', 'namespace', 'parameter', 'resource', 'returnType', 'type', or 'variable', if any of those accurately describe the construct.",
           "type": "string"
         },
 
@@ -993,8 +1007,15 @@
         },
 
         "ruleId": {
-          "description": "The stable, unique identifier of the rule (if any) to which this notification is relevant. This member can be used to retrieve rule metadata from the rules dictionary, if it exists.",
+          "description": "The stable, unique identifier of the rule, if any, to which this notification is relevant.",
           "type": "string"
+        },
+
+        "ruleIndex": {
+          "description": "The index within the run resources array of the rule object, if any, associated with this notification.",
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
         },
 
         "physicalLocation": {
@@ -1194,6 +1215,11 @@
           "$ref": "#/definitions/message"
         },
 
+        "sourceLanguage": {
+          "description": "Specifies the source language, if any, of the portion of the file specified by the region object.",
+          "type": "string"
+        },
+
         "properties": {
           "description": "Key/value pairs that provide additional information about the region.",
           "$ref": "#/definitions/propertyBag"
@@ -1239,10 +1265,14 @@
           }
         },
 
+
         "rules": {
-          "description": "A dictionary, each of whose keys is a string and each of whose values is a 'rule' object, that describe all rules associated with an analysis tool or a specific run of an analysis tool.",
-          "type": "object",
-          "additionalProperties": {
+          "description": "An array of rule objects relevant to the run.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
             "$ref": "#/definitions/rule"
           }
         },
@@ -1261,8 +1291,15 @@
       "properties": {
 
         "ruleId": {
-          "description": "The stable, unique identifier of the rule (if any) to which this notification is relevant. This member can be used to retrieve rule metadata from the rules dictionary, if it exists.",
+          "description": "The stable, unique identifier of the rule, if any, to which this notification is relevant. This member can be used to retrieve rule metadata from the rules dictionary, if it exists.",
           "type": "string"
+        },
+
+        "ruleIndex": {
+          "description": "The index within the run resources array of the rule object associated with this result.",
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
         },
 
         "level": {
@@ -1399,9 +1436,9 @@
         "rank": {
           "description": "A number representing the priority or importance of the result.",
           "type": "number",
-          "minimum": 0.0,
+          "minimum": -1.0,
           "maximum": 100.0,
-          "default": 0.0
+          "default": -1.0
         },
 
         "attachments": {
@@ -1453,7 +1490,7 @@
           "$ref": "#/definitions/propertyBag"
         }
       },
-      "required": ["message"]
+      "required": [ "message" ]
     },
 
     "resultProvenance": {
@@ -1603,9 +1640,9 @@
         "defaultRank": {
           "description": "Specifies the default priority or importance for results generated by this rule.",
           "type": "number",
-          "minimum": 0.0,
+          "minimum": -1.0,
           "maximum": 100.0,
-          "default": 0.0
+          "default": -1.0
         },
 
         "parameters": {
@@ -1667,9 +1704,11 @@
         },
 
         "files": {
-          "description": "A dictionary, each of whose keys is a URI and each of whose values is a file object.",
-          "type": "object",
-          "additionalProperties": {
+          "description": "An array of file objects relevant to the run.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "items": {
             "$ref": "#/definitions/file"
           }
         },
@@ -1678,7 +1717,7 @@
           "description": "An array of logical locations such as namespaces, types or functions.",
           "type": "array",
           "minItems": 0,
-          "uniqueItems": false,
+          "uniqueItems": true,
           "default": [],
           "items": {
             "$ref": "#/definitions/logicalLocation"
@@ -1742,6 +1781,11 @@
 
         "defaultFileEncoding": {
           "description": "Specifies the default encoding for any file object that refers to a text file.",
+          "type": "string"
+        },
+
+        "defaultSourceLanguage": {
+          "description": "Specifies the default source language for any file object that refers to a text file that contains source code.",
           "type": "string"
         },
 

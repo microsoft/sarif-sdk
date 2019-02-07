@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner",
+        "semanticVersion": "2.1.0"
+      },
+      "files": {
+        "file.txt": {
+          "mimeType": "text/plain"
+        },
+        "#SRCROOT#file.txt": {
+          "mimeType": "text/plain",
+          "uriBaseId": "SRCROOT"
+        },
+        "#TESTROOT#file.txt": {
+          "mimeType": "text/plain",
+          "uriBaseId": "TESTROOT"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "C1",
+          "message": "a",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file.txt"
+              },
+              "properties": {
+                "key": "file.txt"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "C1",
+          "message": "a",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "#SRCROOT#file.txt",
+                "uriBaseId": "SRCROOT"
+              },
+              "properties": {
+                "key": "#SRCROOT#file.txt"
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "C1",
+          "message": "a",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "#TESTROOT#file.txt",
+                "uriBaseId": "TESTROOT"
+              },
+              "properties": {
+                "key": "#TESTROOT#file.txt"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

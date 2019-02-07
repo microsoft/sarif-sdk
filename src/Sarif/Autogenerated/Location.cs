@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string FullyQualifiedLogicalName { get; set; }
 
         /// <summary>
-        /// The index within the logicalLocations array that specifies the logical location associated with the result.
+        /// The index within the logical locations array of the logical location associated with the result.
         /// </summary>
         [DataMember(Name = "logicalLocationIndex", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]

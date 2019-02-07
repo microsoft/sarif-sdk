@@ -67,10 +67,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IDictionary<string, FileLocation> OriginalUriBaseIds { get; set; }
 
         /// <summary>
-        /// A dictionary, each of whose keys is a URI and each of whose values is a file object.
+        /// An array of file objects relevant to the run.
         /// </summary>
         [DataMember(Name = "files", IsRequired = false, EmitDefaultValue = false)]
-        public IDictionary<string, FileData> Files { get; set; }
+        public IList<FileData> Files { get; set; }
 
         /// <summary>
         /// An array of logical locations such as namespaces, types or functions.
@@ -137,6 +137,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string DefaultFileEncoding { get; set; }
 
         /// <summary>
+        /// Specifies the default source language for any file object that refers to a text file that contains source code.
+        /// </summary>
+        [DataMember(Name = "defaultSourceLanguage", IsRequired = false, EmitDefaultValue = false)]
+        public string DefaultSourceLanguage { get; set; }
+
+        /// <summary>
         /// An ordered list of character sequences that were treated as line breaks when computing region information for the run.
         /// </summary>
         [DataMember(Name = "newlineSequences", IsRequired = false, EmitDefaultValue = false)]
@@ -146,7 +152,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Specifies the unit in which the tool measures columns.
         /// </summary>
-        [DataMember(Name = "columnKind", IsRequired = false)]
+        [DataMember(Name = "columnKind", IsRequired = false, EmitDefaultValue = false)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
         public ColumnKind ColumnKind { get; set; }
 
@@ -222,6 +228,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="defaultFileEncoding">
         /// An initialization value for the <see cref="P:DefaultFileEncoding" /> property.
         /// </param>
+        /// <param name="defaultSourceLanguage">
+        /// An initialization value for the <see cref="P:DefaultSourceLanguage" /> property.
+        /// </param>
         /// <param name="newlineSequences">
         /// An initialization value for the <see cref="P:NewlineSequences" /> property.
         /// </param>
@@ -234,9 +243,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, FileLocation> originalUriBaseIds, IDictionary<string, FileData> files, IEnumerable<LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, Resources resources, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string richMessageMimeType, string redactionToken, string defaultFileEncoding, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFiles externalPropertyFiles, IDictionary<string, SerializedPropertyInfo> properties)
+        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, FileLocation> originalUriBaseIds, IEnumerable<FileData> files, IEnumerable<LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, Resources resources, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string richMessageMimeType, string redactionToken, string defaultFileEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFiles externalPropertyFiles, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(tool, invocations, conversion, versionControlProvenance, originalUriBaseIds, files, logicalLocations, graphs, results, resources, id, aggregateIds, baselineInstanceGuid, richMessageMimeType, redactionToken, defaultFileEncoding, newlineSequences, columnKind, externalPropertyFiles, properties);
+            Init(tool, invocations, conversion, versionControlProvenance, originalUriBaseIds, files, logicalLocations, graphs, results, resources, id, aggregateIds, baselineInstanceGuid, richMessageMimeType, redactionToken, defaultFileEncoding, defaultSourceLanguage, newlineSequences, columnKind, externalPropertyFiles, properties);
         }
 
         /// <summary>
@@ -255,7 +264,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocations, other.Conversion, other.VersionControlProvenance, other.OriginalUriBaseIds, other.Files, other.LogicalLocations, other.Graphs, other.Results, other.Resources, other.Id, other.AggregateIds, other.BaselineInstanceGuid, other.RichMessageMimeType, other.RedactionToken, other.DefaultFileEncoding, other.NewlineSequences, other.ColumnKind, other.ExternalPropertyFiles, other.Properties);
+            Init(other.Tool, other.Invocations, other.Conversion, other.VersionControlProvenance, other.OriginalUriBaseIds, other.Files, other.LogicalLocations, other.Graphs, other.Results, other.Resources, other.Id, other.AggregateIds, other.BaselineInstanceGuid, other.RichMessageMimeType, other.RedactionToken, other.DefaultFileEncoding, other.DefaultSourceLanguage, other.NewlineSequences, other.ColumnKind, other.ExternalPropertyFiles, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -276,7 +285,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, FileLocation> originalUriBaseIds, IDictionary<string, FileData> files, IEnumerable<LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, Resources resources, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string richMessageMimeType, string redactionToken, string defaultFileEncoding, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFiles externalPropertyFiles, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, FileLocation> originalUriBaseIds, IEnumerable<FileData> files, IEnumerable<LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, Resources resources, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string richMessageMimeType, string redactionToken, string defaultFileEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFiles externalPropertyFiles, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (tool != null)
             {
@@ -335,29 +344,38 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (files != null)
             {
-                Files = new Dictionary<string, FileData>();
+                var destination_2 = new List<FileData>();
                 foreach (var value_3 in files)
                 {
-                    Files.Add(value_3.Key, new FileData(value_3.Value));
-                }
-            }
-
-            if (logicalLocations != null)
-            {
-                var destination_2 = new List<LogicalLocation>();
-                foreach (var value_4 in logicalLocations)
-                {
-                    if (value_4 == null)
+                    if (value_3 == null)
                     {
                         destination_2.Add(null);
                     }
                     else
                     {
-                        destination_2.Add(new LogicalLocation(value_4));
+                        destination_2.Add(new FileData(value_3));
                     }
                 }
 
-                LogicalLocations = destination_2;
+                Files = destination_2;
+            }
+
+            if (logicalLocations != null)
+            {
+                var destination_3 = new List<LogicalLocation>();
+                foreach (var value_4 in logicalLocations)
+                {
+                    if (value_4 == null)
+                    {
+                        destination_3.Add(null);
+                    }
+                    else
+                    {
+                        destination_3.Add(new LogicalLocation(value_4));
+                    }
+                }
+
+                LogicalLocations = destination_3;
             }
 
             if (graphs != null)
@@ -371,20 +389,20 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (results != null)
             {
-                var destination_3 = new List<Result>();
+                var destination_4 = new List<Result>();
                 foreach (var value_6 in results)
                 {
                     if (value_6 == null)
                     {
-                        destination_3.Add(null);
+                        destination_4.Add(null);
                     }
                     else
                     {
-                        destination_3.Add(new Result(value_6));
+                        destination_4.Add(new Result(value_6));
                     }
                 }
 
-                Results = destination_3;
+                Results = destination_4;
             }
 
             if (resources != null)
@@ -399,35 +417,36 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (aggregateIds != null)
             {
-                var destination_4 = new List<RunAutomationDetails>();
+                var destination_5 = new List<RunAutomationDetails>();
                 foreach (var value_7 in aggregateIds)
                 {
                     if (value_7 == null)
                     {
-                        destination_4.Add(null);
+                        destination_5.Add(null);
                     }
                     else
                     {
-                        destination_4.Add(new RunAutomationDetails(value_7));
+                        destination_5.Add(new RunAutomationDetails(value_7));
                     }
                 }
 
-                AggregateIds = destination_4;
+                AggregateIds = destination_5;
             }
 
             BaselineInstanceGuid = baselineInstanceGuid;
             RichMessageMimeType = richMessageMimeType;
             RedactionToken = redactionToken;
             DefaultFileEncoding = defaultFileEncoding;
+            DefaultSourceLanguage = defaultSourceLanguage;
             if (newlineSequences != null)
             {
-                var destination_5 = new List<string>();
+                var destination_6 = new List<string>();
                 foreach (var value_8 in newlineSequences)
                 {
-                    destination_5.Add(value_8);
+                    destination_6.Add(value_8);
                 }
 
-                NewlineSequences = destination_5;
+                NewlineSequences = destination_6;
             }
 
             ColumnKind = columnKind;
