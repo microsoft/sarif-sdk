@@ -61,6 +61,5 @@ namespace Microsoft.CodeAnalysis.Sarif
             return this.NotificationsMetadata != null &&
                     this.NotificationsMetadata.Where((n) => { return n != null; }).Any();
         }
-
     }
 }

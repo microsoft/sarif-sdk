@@ -45,10 +45,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return base.VisitResult(node);
         }
 
-        public override Tool VisitTool(Tool node)
+        public override Run VisitRun(Run node)
         {
-            _tool = node;
-            return base.VisitTool(node);
+            _tool = node.Tool;
+            return base.VisitRun(node);
         }
 
         public override Location VisitLocation(Location node)

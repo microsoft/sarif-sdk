@@ -166,13 +166,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // 2. 'run.resources.rules' moves to 'run.tool.rulesMetadata'
             if (resources["rules"] is JArray rules)
             {
-                tool["rulesMetadata"] = rules;
-                resources["rules"] = null;
-
                 foreach(JObject rule in rules)
                 {
                     RenameProperty(rule, previousName: "configuration", newName: "defaultConfiguration");
+
+                    if (rule["defaultConfiguration"] is JObject ruleConfiguration)
+                    {
+                        RenameProperty(ruleConfiguration, previousName: "defaultLevel", newName: "level");
+                        RenameProperty(ruleConfiguration, previousName: "defaultRank", newName: "rank");
+                    }
                 }
+                tool["rulesMetadata"] = rules;
             }
 
             // 3. We do not need any accommodation for the addition of 

@@ -12,6 +12,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             // We need to disable compatibility transformations for any files that require
             // a malformed schema or malformed JSON, as this code fixes those things up
+            //
+            // As a result, when this test fails, you must open the test file below
+            // and manually bring it into conformance with the current v2 spec.
             Verify("Invalid.sarif", disablePrereleaseCompatibilityTransform: true);
         }
 

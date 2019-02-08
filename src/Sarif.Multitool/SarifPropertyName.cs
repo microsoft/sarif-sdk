@@ -52,12 +52,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string RelatedLocations = "relatedLocations";
         public const string RepositoryUri = "repositoryUri";
         public const string Resources = "resources";
-        public const string RulesMetadata = "rulesMetadata";
         public const string ResponseFiles = "responseFiles";
         public const string Results = "results";
         public const string RichMessageStrings = "richMessageStrings";
         public const string RichText = "richText";
-        public const string Rules = "rules";
+        public const string RulesMetadata = "rulesMetadata";
         public const string Runs = "runs";
         public const string Schema = "$schema";
         public const string ShortDescription = "shortDescription";

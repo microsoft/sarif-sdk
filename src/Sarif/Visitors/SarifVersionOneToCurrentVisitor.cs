@@ -807,15 +807,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 FailureLevel level = Utilities.CreateRuleConfigurationDefaultLevel(v1Rule.DefaultLevel);
 
-                if (v1Rule.Configuration == RuleConfigurationVersionOne.Enabled ||
-                    level != FailureLevel.Warning)
+                rule.DefaultConfiguration = new RuleConfiguration
                 {
-                    rule.DefaultConfiguration = new RuleConfiguration
-                    {
-                        Level = level,
-                        Enabled = v1Rule.Configuration == RuleConfigurationVersionOne.Enabled
-                    };
-                }
+                    Level = level,
+                    Enabled = v1Rule.Configuration != RuleConfigurationVersionOne.Disabled
+                };
             }
 
             return rule;

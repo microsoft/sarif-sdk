@@ -183,15 +183,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public virtual bool ShouldSerializeProperties()
         {
-            return PropertyBagHasAtLeastOneNonNullValue();
+            return PropertyBagHasAtLeastOneNonNullValue(this.Properties);
         }   
 
-        public bool PropertyBagHasAtLeastOneNonNullValue()
-        {
-            bool hasAtLeastOneNonNullTag = this.Tags.Any(t => !string.IsNullOrEmpty(t));
-            bool hasAtLeastOneNonNullPropertyValue = this.Properties != null && this.Properties.Any(kv => kv.Key != "Tags" && kv.Value != null);
-
-            return hasAtLeastOneNonNullTag | hasAtLeastOneNonNullPropertyValue;
+        public static bool PropertyBagHasAtLeastOneNonNullValue(IDictionary<string, SerializedPropertyInfo> properties)
+        {            
+            return  properties != null && properties.Any();
         }
     }
 }
