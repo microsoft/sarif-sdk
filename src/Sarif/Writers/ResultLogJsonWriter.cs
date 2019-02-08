@@ -138,6 +138,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 _serializer.Serialize(_jsonWriter, run.RedactionToken);
             }
 
+            if (run.Resources != null)
+            {
+                _jsonWriter.WritePropertyName("resources");
+                _serializer.Serialize(_jsonWriter, run.Resources);
+            }
+
             // For this Windows-relevant SDK, if the column kind isn't explicitly set,
             // we will set it to Utf16CodeUnits. Our jschema-generated OM is tweaked to 
             // always persist this property.

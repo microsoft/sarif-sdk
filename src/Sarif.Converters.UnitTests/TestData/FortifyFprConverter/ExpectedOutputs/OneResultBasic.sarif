@@ -14,6 +14,19 @@
           "uri": "file://root/projects/myproject/src/"
         }
       },
+      "resources": {
+        "rules": [
+          {
+            "id": "31D4607A-A3FF-447C-908A-CA2BBE4CE4B7",
+            "shortDescription": {
+              "text": "Sample abstract text. SQL injection vulnerability."
+            },
+            "fullDescription": {
+              "text": "The quick brown fox jumps over the lazy dog.\nThis section explains the rule in detail."
+            }
+          }
+        ]
+      },
       "columnKind": "utf16CodeUnits",
       "invocations": [
         {

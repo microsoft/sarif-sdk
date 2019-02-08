@@ -16,10 +16,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     /// <summary>
     /// Converts FxCop report files to sarif format
     /// </summary>
-    ///<remarks>
-    /// FxCop project files are not supported due to 
-    /// loss of source location information
-    ///</remarks>
     internal sealed class FxCopConverter : ToolFileConverterBase
     {
         private const string ProjectDirectoryVariable = "$(ProjectDir)";

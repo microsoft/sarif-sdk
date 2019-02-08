@@ -14,6 +14,19 @@
           "uri": "file:///C:/projects/myproject/src/"
         }
       },
+      "resources": {
+        "rules": [
+          {
+            "id": "97A5F38F-524B-4A83-94FA-9387B5265825",
+            "shortDescription": {
+              "text": "The function <Replace key=\"EnclosingFunction.name\"/> in <Replace key=\"PrimaryLocation.file\"/> sometimes fails to release a system resource allocated by <Replace key=\"FirstTransitionFunction\"/> on line <Replace key=\"FirstTraceLocation.line\"/>.\r\nThe program can potentially fail to release a system resource."
+            },
+            "fullDescription": {
+              "text": "The program can potentially fail to release a system resource.\r\n\r\nResource leaks have at least two common causes:\r\n\r\n- Error conditions and other exceptional circumstances.\r\n\r\n- Confusion over which part of the program is responsible for releasing the resource.\r\n\r\nIn this case, there are program paths on which the resource allocated in <Replace key=\"FirstTraceLocation.file\"/> at line <Replace key=\"FirstTraceLocation.line\"/> is not released.\r\n\r\nMost unreleased resource issues result in general software reliability problems, but if an attacker can intentionally trigger a resource leak, the attacker may be able to launch a denial of service attack by depleting the resource pool.\r\n\r\n**Example:** Under normal conditions the following code executes a database query, processes the results returned by the database, and closes the allocated `SqlConnection` object. But if an exception occurs while executing the SQL or processing the results, the `SqlConnection` object will not be closed. If this happens often enough, the database will run out of available cursors and not be able to execute any more SQL queries.\r\n\r\n`\n        ...\n        SqlConnection conn = new SqlConnection(connString);\n        SqlCommand cmd = new SqlCommand(queryString);\n        cmd.Connection = conn;\n        conn.Open();\n        SqlDataReader rdr = cmd.ExecuteReader();\n        HarvestResults(rdr);\n        conn.Connection.Close();\n        ...\n`"
+            }
+          }
+        ]
+      },
       "columnKind": "utf16CodeUnits",
       "invocations": [
         {
