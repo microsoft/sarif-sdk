@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 }";
             string actual = GetJson(uut =>
             {
-                var run = new Run() { };
+                var run = new Run() { Tool = DefaultTool };
 
                 uut.Initialize(run);
 
@@ -48,7 +48,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 });
 
                 uut.CloseResults();
-                uut.WriteTool(DefaultTool);
             });
             actual.Should().BeCrossPlatformEquivalent<SarifLog>(expected);
 

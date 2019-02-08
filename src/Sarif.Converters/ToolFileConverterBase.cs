@@ -90,13 +90,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             output.Initialize(run);
 
-            if (run.Invocations?.Count > 0)
-            {
-                // TODO: add WriteInvocations to IResultLogWriter
-                // https://github.com/Microsoft/sarif-sdk/issues/1190
-                (output as ResultLogJsonWriter).WriteInvocations(run.Invocations);
-            }
-
             run.Results = results;
             var visitor = new AddFileReferencesVisitor();
             visitor.VisitRun(run);

@@ -231,7 +231,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _jsonWriter.WritePropertyName("results");
             _jsonWriter.WriteStartArray(); // Begin: results
-            _writeConditions = Conditions.ResultsInitialized;
+            _writeConditions |= Conditions.ResultsInitialized;
         }
 
         /// <summary>

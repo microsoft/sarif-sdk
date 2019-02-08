@@ -5,6 +5,7 @@ using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -49,5 +50,17 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             return tool;
         }
+
+        public bool ShouldSerializeRulesMetadata()
+        {
+            return this.RulesMetadata != null &&
+                    this.RulesMetadata.Where((n) => { return n != null; }).Any();
+        }
+        public bool ShouldSerializeNotificationsMetadata()
+        {
+            return this.NotificationsMetadata != null &&
+                    this.NotificationsMetadata.Where((n) => { return n != null; }).Any();
+        }
+
     }
 }
