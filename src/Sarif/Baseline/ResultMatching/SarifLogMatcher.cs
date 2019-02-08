@@ -238,7 +238,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 properties = currentRuns.Last().Properties;
             }
 
-            Dictionary<MessageDescriptor, int> rulesMetadata = new Dictionary<MessageDescriptor, int>(MessageDescriptor.ValueComparer);
+            var rulesMetadata = new Dictionary<MessageDescriptor, int>(MessageDescriptor.ValueComparer);
 
             var indexRemappingVisitor = new RemapIndicesVisitor(currentFiles: null);
 

@@ -274,8 +274,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     // sufficient existing utilization of this property to warrant preserving it.
 
                     // Remove run.architecture: https://github.com/oasis-tcs/sarif-spec/issues/262
-                    JToken architecture = run[nameof(architecture)];
-                    if (architecture != null)
+                    if (run["architecture"] is JToken architecture)
                     {
                         run.Remove(nameof(architecture));
                         modifiedLog = true;
@@ -371,8 +370,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= RenameProperty(tool, previousName: "fileVersion", newName: "dottedQuadFileVersion");
                     PopulatePropertyIfAbsent(tool, "language", "en-US", ref modifiedLog);
 
-                    JObject conversion = (JObject)run["conversion"];
-                    if (conversion != null)
+                    if (run["conversion"] is JObject conversion)
                     {
                         tool = (JObject)conversion["tool"];
                         modifiedLog |= RenameProperty(tool, previousName: "fileVersion", newName: "dottedQuadFileVersion");
@@ -775,9 +773,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             // This property is an element of what v2 now refers to as aggregateIds
-            JToken automationLogicalId = run["automationLogicalId"];
-
-            if (automationLogicalId != null)
+            if (run["automationLogicalId"] is JToken automationLogicalId)
             {
                 run.Remove("automationLogicalId");
 
@@ -798,8 +794,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             bool modifiedRun = false;
 
-            JArray versionControlDetailsArray = (JArray)run["versionControlProvenance"];
-            if (versionControlDetailsArray != null)
+            if (run["versionControlProvenance"] is JArray versionControlDetailsArray)
             {
                 foreach (JObject versionControlDetails in versionControlDetailsArray)
                 {
@@ -851,8 +846,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedRun = true;
                 }
 
-                var codeFlows = (JArray)result["codeFlows"];
-                if (codeFlows != null)
+                if (result["codeFlows"] is JArray codeFlows)
                 {
                     modifiedRun |= UpdateCodeFlows(codeFlows);
                 }
@@ -895,10 +889,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private static bool UpdateRunInvocations(JObject run)
         {
             bool modifiedRun = false;
-
-            JArray invocations = (JArray)run["invocations"];
-
-            if (invocations != null)
+            
+            if (run["invocations"] is JArray invocations)
             {
                 foreach (JObject invocation in invocations)
                 {
@@ -1023,10 +1015,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             bool renamedProperty = false;
 
             if (jObject == null) { return renamedProperty; }
-
-            JToken propertyValue = jObject[previousName];
             
-            if (propertyValue != null)
+            if (jObject[previousName] is JToken propertyValue)
             {
                 jObject.Remove(previousName);
                 jObject[newName] = propertyValue;
@@ -1080,11 +1070,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             foreach (JObject invocation in invocations)
             {
-                var notifications = (JArray)invocation["configurationNotifications"];
-                if (notifications != null) { modifiedRun |= UpdateNotifications(notifications); }
+                if (invocation["configurationNotifications"] is JArray configurationNotifications)
+                {
+                    modifiedRun |= UpdateNotifications(configurationNotifications);
+                }
 
-                notifications = (JArray)invocation["toolNotifications"];
-                if (notifications != null) { modifiedRun |= UpdateNotifications(notifications); }
+                if (invocation["toolNotifications"] is JArray toolNotifications)
+                {
+                    modifiedRun |= UpdateNotifications(toolNotifications);
+                }
             }
 
             return modifiedRun;
@@ -1110,15 +1104,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // https://github.com/oasis-tcs/sarif-spec/issues/242
             modifiedNotification |= RenameProperty(notification, previousName: "time", newName: "timeUtc");
 
-            var exception = (JObject)notification["exception"];
-
-            if (exception != null)
+            if (notification["exception"] is JObject exception)
             {
                 modifiedNotification |= ConvertExceptionMessageFromStringToMessageObject(exception);
 
-                var innerExceptions = (JArray)exception["innerExceptions"];
-
-                if (innerExceptions != null)
+                if (exception["innerExceptions"] is JArray innerExceptions)
                 {
                     foreach (JObject innerException in innerExceptions)
                     {
