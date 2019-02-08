@@ -1548,7 +1548,7 @@
         },
 
         "name": {
-          "description": "A messgae  identifier that is understandable to an end user.",
+          "description": "A message identifier that is understandable to an end user.",
           "$ref": "#/definitions/message"
         },
 

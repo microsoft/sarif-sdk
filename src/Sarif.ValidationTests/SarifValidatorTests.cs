@@ -13,9 +13,6 @@ using Microsoft.Json.Schema.Validation;
 using Newtonsoft.Json;
 using Xunit;
 
-using JschemaPrivate = Microsoft.Json.Schema.Validation.Private;
-
-
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public class SarifValidatorTests
@@ -182,7 +179,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             foreach (var error in errors)
             {
-                sb.AppendLine(error.FormatForVisualStudio(JschemaPrivate.RuleFactory.GetRuleFromRuleId(error.RuleId)));
+#if JSCHEMA_UPGRADED
+                sb.AppendLine(error.FormatForVisualStudio(RuleFactory.GetRuleFromRuleId(error.RuleId)));
+#endif
             }
 
             return sb.ToString();

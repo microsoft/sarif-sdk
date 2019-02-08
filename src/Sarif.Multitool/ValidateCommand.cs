@@ -10,8 +10,6 @@ using Microsoft.Json.Schema;
 using Microsoft.Json.Schema.Validation;
 using Newtonsoft.Json;
 
-using JschemaPrivate = Microsoft.Json.Schema.Validation.Private;
-
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     internal class ValidateCommand : AnalyzeCommandBase<SarifValidationContext, ValidateOptions>
@@ -183,8 +181,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Result result,
             IAnalysisLogger logger)
         {
-            MessageDescriptor rule = JschemaPrivate.RuleFactory.GetRuleFromRuleId(result.RuleId);
+#if JSCHEMA_UPGRADED
+            MessageDescriptor rule = RuleFactory.GetRuleFromRuleId(result.RuleId);
             logger.Log(rule, result);
+#endif
         }
     }
 }

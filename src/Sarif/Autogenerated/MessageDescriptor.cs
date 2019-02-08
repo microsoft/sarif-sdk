@@ -6,6 +6,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -45,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public virtual IList<string> DeprecatedIds { get; set; }
 
         /// <summary>
-        /// A messgae  identifier that is understandable to an end user.
+        /// A messsage  identifier that is understandable to an end user.
         /// </summary>
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public virtual Message Name { get; set; }
@@ -84,6 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A URI where the primary documentation for the rule can be found.
         /// </summary>
         [DataMember(Name = "helpUri", IsRequired = false, EmitDefaultValue = false)]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
         public virtual Uri HelpUri { get; set; }
 
         /// <summary>
@@ -217,7 +219,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 MessageStrings = new Dictionary<string, string>(messageStrings);
             }
 
-            RichMessageStrings = richMessageStrings;
+            if (richMessageStrings != null)
+            {
+                RichMessageStrings = new Dictionary<string, string>(richMessageStrings);
+            }
+
             if (defaultConfiguration != null)
             {
                 DefaultConfiguration = new RuleConfiguration(defaultConfiguration);
