@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A set of threadFlows which together describe a pattern of code execution relevant to detecting a result.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class CodeFlow : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<CodeFlow> ValueComparer => CodeFlowEqualityComparer.Instance;
@@ -61,13 +61,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Initializes a new instance of the <see cref="CodeFlow" /> class from the supplied values.
         /// </summary>
         /// <param name="message">
-        /// An initialization value for the <see cref="P: Message" /> property.
+        /// An initialization value for the <see cref="P:Message" /> property.
         /// </param>
         /// <param name="threadFlows">
-        /// An initialization value for the <see cref="P: ThreadFlows" /> property.
+        /// An initialization value for the <see cref="P:ThreadFlows" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
         public CodeFlow(Message message, IEnumerable<ThreadFlow> threadFlows, IDictionary<string, SerializedPropertyInfo> properties)
         {

@@ -8,6 +8,7 @@ using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Processors;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using System.Diagnostics;
+using Microsoft.CodeAnalysis.Sarif.Visitors;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 {
@@ -57,9 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             Dictionary<string, List<Run>> runsByToolPrevious = GetRunsByTool(previousLogs);
             Dictionary<string, List<Run>> runsByToolCurrent = GetRunsByTool(currentLogs);
             
-            List<string> tools = runsByToolPrevious.Keys.ToList();
-            tools.AddRange(runsByToolCurrent.Keys);
-            tools = tools.Distinct().ToList();
+            List<string> tools = runsByToolPrevious.Keys.Union(runsByToolCurrent.Keys).ToList();
 
             List<SarifLog> resultToolLogs = new List<SarifLog>();
 
@@ -212,7 +211,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             Run run = new Run()
             {
                 Tool = tool,
-                Id = currentRuns.First().Id
+                Id = currentRuns.First().Id,
+                Resources = currentRuns.First().Resources ?? new Resources()
             };
 
             IDictionary<string, SerializedPropertyInfo> properties = null;
@@ -224,8 +224,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 run.BaselineInstanceGuid = previousRuns.First().Id?.InstanceGuid;
             }
 
-
-            if (PropertyBagMergeBehavior.HasFlag(DictionaryMergeBehavior.InitializeFromOldest))
+            bool initializeFromOldest = PropertyBagMergeBehavior.HasFlag(DictionaryMergeBehavior.InitializeFromOldest);
+            if (initializeFromOldest)
             {
                 // Find the 'oldest' log file and initialize properties from that log property bag
                 properties = previousRuns.FirstOrDefault() != null
@@ -239,59 +239,62 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 properties = currentRuns.Last().Properties;
             }
 
+            Dictionary<Rule, int> rulesMetadata = new Dictionary<Rule, int>(Rule.ValueComparer);
+            run.Resources.Rules = run.Resources.Rules ?? new List<Rule>();
+
+            var indexRemappingVisitor = new RemapIndicesVisitor(currentFiles: null);
+
             properties = properties ?? new Dictionary<string, SerializedPropertyInfo>();
 
             List<Result> newRunResults = new List<Result>();
             foreach (MatchedResults resultPair in results)
             {
-                newRunResults.Add(resultPair.CalculateNewBaselineResult(PropertyBagMergeBehavior));
-            }
-            run.Results = newRunResults;
-            
-            // Merge run File data, resources, etc...
-            var fileData = new Dictionary<string, FileData>();
-            var ruleData = new Dictionary<string, Rule>();
-            var messageData = new Dictionary<string, string>();
-            var graphs = new Dictionary<string, Graph>();
-            var logicalLocations = new Dictionary<string, LogicalLocation>();
-            var invocations = new List<Invocation>();
+                Result result = resultPair.CalculateBasedlinedResult(PropertyBagMergeBehavior);
 
-            // Generally, we need to maintain all data from previous runs that may be associated with
-            // results. Later, we can consider eliding information that relates to absent
-            // messages (along with the baseline messages themselves that no longer recur).
-            foreach (Run previousRun in previousRuns)
-            {
-                MergeDictionaryInto(fileData, previousRun.Files, FileDataEqualityComparer.Instance);
+                IList<FileData> files = 
+                    (PropertyBagMergeBehavior.HasFlag(DictionaryMergeBehavior.InitializeFromOldest) && result.BaselineState == BaselineState.Existing)
+                    ? resultPair.PreviousResult.OriginalRun.Files
+                    : resultPair.Run.Files;
+
+                indexRemappingVisitor.HistoricalFiles = files;
+                indexRemappingVisitor.HistoricalLogicalLocations = resultPair.Run.LogicalLocations;
+                indexRemappingVisitor.VisitResult(result);
+
+                if (result.RuleIndex != -1)
+                {
+                    Rule rule = resultPair.Run.Resources.Rules[0];
+                    if (!rulesMetadata.TryGetValue(rule, out int ruleIndex))
+                    {
+                        rulesMetadata[rule] = run.Resources.Rules.Count;
+                        run.Resources.Rules.Add(rule);
+                    }
+                    result.RuleIndex = ruleIndex;
+                }
+
+                newRunResults.Add(result);
             }
+
+            run.Results = newRunResults;
+            run.Files = indexRemappingVisitor.CurrentFiles;
+            
+            var graphs = new Dictionary<string, Graph>();
+            var ruleData = new Dictionary<string, Rule>();
+            var invocations = new List<Invocation>();
+            var messageData = new Dictionary<string, string>();
 
             foreach (Run currentRun in currentRuns)
             {
-                if (currentRun.Files != null)
-                {
-                    MergeDictionaryInto(fileData, currentRun.Files, FileDataEqualityComparer.Instance);
-                }
-
                 if (currentRun.Resources != null)
                 {
-                    if (currentRun.Resources.Rules != null)
-                    {
-                        MergeDictionaryInto(ruleData, currentRun.Resources.Rules, RuleEqualityComparer.Instance);
-                    }
                     if (currentRun.Resources.MessageStrings != null)
                     {
-                        // Autogenerated code does not currently mark this properly as a string, string dictionary.
-                        IDictionary<string, string> converted = currentRun.Resources.MessageStrings as Dictionary<string, string>;
+                        IDictionary<string, string> converted = currentRun.Resources.MessageStrings;
                         if (converted == null)
                         {
                             throw new ArgumentException("Message Strings did not deserialize properly into a dictionary mapping strings to strings.");
                         }
                         MergeDictionaryInto(messageData, converted, StringComparer.InvariantCulture);
                     }
-                }
-
-                if (currentRun.LogicalLocations != null)
-                {
-                    MergeDictionaryInto(logicalLocations, currentRun.LogicalLocations, LogicalLocationEqualityComparer.Instance);
                 }
 
                 if (currentRun.Graphs != null)
@@ -310,10 +313,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 }
             }
 
-            run.Files = fileData;
             run.Graphs = graphs;
-            run.LogicalLocations = logicalLocations;
-            run.Resources = new Resources() { MessageStrings = messageData, Rules = ruleData };
+            run.LogicalLocations = new List<LogicalLocation>(indexRemappingVisitor.RemappedLogicalLocationIndices.Keys);
+            //run.Resources = new Resources() { MessageStrings = messageData, Rules = ruleData }; TODO
             run.Invocations = invocations;
 
             if (properties != null && properties.Count > 0)

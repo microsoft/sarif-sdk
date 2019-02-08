@@ -18,59 +18,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
     public class UrisMustBeValidTests : ValidationSkimmerTestsBase<UrisMustBeValid>
     {
-        [Fact(DisplayName = nameof(UrisMustBeValid_InvalidFileLocationUri))]
-        public void UrisMustBeValid_InvalidFileLocationUri()
-        {
-            Verify("InvalidFileLocationUri.sarif");
-        }
+        [Fact(DisplayName = nameof(UrisMustBeValid_ReportsInvalidSarif))]
+        public void UrisMustBeValid_ReportsInvalidSarif() =>
+            // We need to disable compatibility transformations for any files that require
+            // a malformed schema or malformed JSON, as this code fixes those things up
+            Verify("Invalid.sarif", disablePrereleaseCompatibilityTransform: true);
 
-        [Fact(DisplayName = nameof(UrisMustBeValid_InvalidResultWorkItemUri))]
-        public void UrisMustBeValid_InvalidResultWorkItemUri()
-        {
-            Verify("InvalidResultWorkItemUri.sarif");
-        }
+        [Fact(DisplayName = nameof(UrisMustBeValid_AcceptsValidSarif))]
 
-        [Fact(DisplayName = nameof(UrisMustBeValid_InvalidRuleHelpUri))]
-        public void UrisMustBeValid_InvalidRuleHelpUri()
-        {
-            Verify("InvalidRuleHelpUri.sarif");
-        }
-
-        [Fact(DisplayName = nameof(UrisMustBeValid_InvalidSarifLogSchemaUri))]
-        public void UrisMustBeValid_InvalidSarifLogSchemaUri()
-        {
-            Verify("InvalidSarifLogSchemaUri.sarif", disablePrereleaseCompatibilityTransform: true);
-        }
-
-        [Fact(DisplayName = nameof(UrisMustBeValid_InvalidToolDownloadUri))]
-        public void UrisMustBeValid_InvalidToolDownloadUri()
-        {
-            Verify("InvalidToolDownloadUri.sarif");
-        }
-
-        [Fact(DisplayName = nameof(UrisMustBeValid_InvalidUriInFilePropertyName))]
-        public void UrisMustBeValid_InvalidUriInFilePropertyName()
-        {
-            Verify("InvalidUriInFilePropertyName.sarif");
-        }
-
-        [Fact(DisplayName = nameof(UrisMustBeValid_InvalidUriInOriginalUriBaseIds))]
-        public void UrisMustBeValid_InvalidUriInOriginalUriBaseIds()
-        {
-            Verify("InvalidUriInOriginalUriBaseIds.sarif");
-        }
-
-        [Fact(DisplayName = nameof(UrisMustBeValid_InvalidVersionControlDetailsUri))]
-        public void UrisMustBeValid_InvalidVersionControlDetailsUri()
-        {
-            Verify("InvalidVersionControlDetailsUri.sarif");
-        }
-
-        [Fact(DisplayName = nameof(UrisMustBeValid_ValidUris))]
-
-        public void UrisMustBeValid_ValidUris()
-        {
-            Verify("ValidUris.sarif");
-        }
+        public void UrisMustBeValid_AcceptsValidSarif() => Verify("Valid.sarif");
     }
 }

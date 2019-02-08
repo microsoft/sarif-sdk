@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp2.0</TargetFrameworks>
@@ -14,8 +14,8 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
-    <Compile Remove="v2\ConverterTestData\FortifyFpr\src\ContentFileHandlingController.cs" />
     <Compile Remove="v2\ConverterTestData\FortifyFpr\src\ContentFileViewModel.cs" />
+    <Compile Remove="v2\ConverterTestData\FortifyFpr\src\Controllers\ContentFileHandlingController.cs" />
     <Compile Remove="v2\ConverterTestData\FortifyFpr\src\DocumentValidator.cs" />
   </ItemGroup>
 
@@ -1069,8 +1069,8 @@
     <None Include="v1\DirectProducerTestData\Roslyn\RoslynLog.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="v2\ConverterTestData\FortifyFpr\src\ContentFileHandlingController.cs" />
     <None Include="v2\ConverterTestData\FortifyFpr\src\ContentFileViewModel.cs" />
+    <None Include="v2\ConverterTestData\FortifyFpr\src\Controllers\ContentFileHandlingController.cs" />
     <None Include="v2\ConverterTestData\FortifyFpr\src\DocumentValidator.cs" />
   </ItemGroup>
   <ItemGroup>

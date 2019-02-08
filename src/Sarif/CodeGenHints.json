@@ -93,7 +93,7 @@
       }
     }
   ],
-  "externalFiles": [
+  "externalPropertyFile": [
     {
       "kind": "BaseTypeHint",
       "arguments": {
@@ -132,7 +132,7 @@
       "arguments": {
         "namespaceName": "Newtonsoft.Json",
         "typeName": "JsonConverter",
-        "arguments": [ "typeof(DateTimeConverter)" ]
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter)" ]
       }
     }
   ],
@@ -260,7 +260,7 @@
       "arguments": {
         "namespaceName": "Newtonsoft.Json",
         "typeName": "JsonConverter",
-        "arguments": [ "typeof(DateTimeConverter)" ]
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter)" ]
       }
     }
   ],
@@ -275,7 +275,7 @@
       "arguments": {
         "namespaceName": "Newtonsoft.Json",
         "typeName": "JsonConverter",
-        "arguments": [ "typeof(DateTimeConverter)" ]
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter)" ]
       }
     }
   ],
@@ -335,7 +335,7 @@
       "arguments": {
         "namespaceName": "Newtonsoft.Json",
         "typeName": "JsonConverter",
-        "arguments": [ "typeof(DateTimeConverter)" ]
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter)" ]
       }
     }
   ],
@@ -357,7 +357,7 @@
       "arguments": {
         "namespaceName": "Newtonsoft.Json",
         "typeName": "JsonConverter",
-        "arguments": [ "typeof(EnumConverter)" ]
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter)" ]
       }
     }
   ],
@@ -416,27 +416,17 @@
       "kind": "DictionaryHint"
     }
   ],
-  "Resources.Rules": [
+  "result": [
     {
-      "kind": "DictionaryHint",
+      "kind": "BaseTypeHint",
       "arguments": {
-        "valueTypeName": "Rule",
-        "comparisonKind": "EqualityComparerEquals",
-        "hashKind": "ObjectModelType",
-        "initializationKind": "Clone"
-      }
-    },
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.RuleDictionaryConverter)" ]
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
       }
     }
-
   ],
-  "result": [
+  "resultProvenance": [
     {
       "kind": "BaseTypeHint",
       "arguments": {
@@ -465,7 +455,7 @@
       "arguments": {
         "namespaceName": "Newtonsoft.Json",
         "typeName": "JsonConverter",
-        "arguments": [ "typeof(EnumConverter)" ]
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter)" ]
       }
     }
   ],
@@ -511,7 +501,7 @@
       "arguments": {
         "namespaceName": "Newtonsoft.Json",
         "typeName": "JsonConverter",
-        "arguments": [ "typeof(EnumConverter)" ]
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter)" ]
       }
     }
   ],
@@ -609,8 +599,7 @@
         "memberNames": [
           "Note",
           "Warning",
-          "Error",
-          "Open"
+          "Error"
         ]
       }
     },
@@ -619,7 +608,7 @@
       "arguments": {
         "namespaceName": "Newtonsoft.Json",
         "typeName": "JsonConverter",
-        "arguments": [ "typeof(EnumConverter)" ]
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter)" ]
       }
     }
   ],
@@ -657,6 +646,14 @@
           "unicodeCodePoints"
         ]
       }
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "JsonConverter",
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter)" ]
+      }
     }
   ],
   "Run.Files": [
@@ -665,11 +662,6 @@
     }
   ],
   "Run.Graphs": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "Run.LogicalLocations": [
     {
       "kind": "DictionaryHint"
     }
@@ -739,7 +731,6 @@
         "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.SarifVersionConverter)" ]
       }
     }
-
   ],
   "stack": [
     {
@@ -809,7 +800,7 @@
       "arguments": {
         "namespaceName": "Newtonsoft.Json",
         "typeName": "JsonConverter",
-        "arguments": [ "typeof(DateTimeConverter)" ]
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter)" ]
       }
     }
   ],
@@ -859,7 +850,7 @@
       "arguments": {
         "namespaceName": "Newtonsoft.Json",
         "typeName": "JsonConverter",
-        "arguments": [ "typeof(DateTimeConverter)" ]
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter)" ]
       }
     }
   ]

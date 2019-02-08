@@ -7,7 +7,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Xml;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -85,14 +84,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             }
 
-            var tool = new Tool
-            {
-                Name = "Fortify"
-            };
-
-            var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, dataToInsert);
-            Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
-
             var run = new Run()
             {
                 Id = new RunAutomationDetails
@@ -102,16 +93,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         Text = runDescription
                     }
                 },
-                Tool = tool
+                Tool = new Tool {  Name = "Fortify" }
             };
 
-            output.Initialize(run);
-
-            if (fileDictionary != null && fileDictionary.Count > 0) { output.WriteFiles(fileDictionary); }
-
-            output.OpenResults();
-            output.WriteResults(results);
-            output.CloseResults();
+            PersistResults(output, results, run);
         }
 
         /// <summary>Converts a Fortify result to a static analysis results interchange format result.</summary>

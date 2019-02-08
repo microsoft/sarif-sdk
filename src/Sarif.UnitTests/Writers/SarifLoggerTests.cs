@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using FluentAssertions;
@@ -23,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public SarifLoggerTests(ITestOutputHelper output)
         {
             this.output = output;
-        }
+        }      
 
         [Fact]
         public void SarifLogger_RedactedCommandLine()
@@ -164,20 +165,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
-                    analysisTargets: new string[] { @"foo.cpp" },
+                    analysisTargets: new string[] { @"example.cpp" },
                     loggingOptions: LoggingOptions.None,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null))
                 {
-                    string ruleId = "RuleId";
-                    var rule = new Rule() { Id = ruleId };
-
-                    var result = new Result()
-                    {
-                        RuleId = ruleId
-                    };
-
-                    sarifLogger.Log(rule, result);
+                    LogSimpleResult(sarifLogger);
                 }
             }
 
@@ -230,7 +223,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 };
 
                 run.BaselineInstanceGuid = baselineInstanceGuid;
-                run.Architecture = architecture;
                 run.Conversion = conversion;
                 run.VersionControlProvenance = new[] { versionControlDetails };
                 run.OriginalUriBaseIds = originalUriBaseIds;
@@ -255,9 +247,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             run.Id.InstanceGuid.Should().Be(runInstanceGuid);
             run.BaselineInstanceGuid.Should().Be(baselineInstanceGuid);
             run.Id.InstanceId.Should().Be(runInstanceId);
-            run.Architecture.Should().Be(architecture);
             run.Conversion.Tool.Should().BeEquivalentTo(DefaultTool);
-            //run.VersionControlProvenance[0].Timestamp.Should().BeEquivalentTo(utcNow);
             run.VersionControlProvenance[0].RepositoryUri.Should().BeEquivalentTo(versionControlUri);
             run.OriginalUriBaseIds[originalUriBaseIdKey].Uri.Should().Be(originalUriBaseIdValue);
             run.DefaultFileEncoding.Should().Be(defaultFileEncoding);
@@ -284,15 +274,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null))
                 {
-                    string ruleId = "RuleId";
-                    var rule = new Rule() { Id = ruleId };
-
-                    var result = new Result()
-                    {
-                        RuleId = ruleId
-                    };
-
-                    sarifLogger.Log(rule, result);
+                    LogSimpleResult(sarifLogger);
                 }
             }
 
@@ -301,11 +283,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             string fileDataKey = new Uri(file).AbsoluteUri;
 
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
-            sarifLog.Runs[0].Files[fileDataKey].MimeType.Should().Be(MimeType.Cpp);
-            sarifLog.Runs[0].Files[fileDataKey].Hashes.Keys.Count.Should().Be(3);
-            sarifLog.Runs[0].Files[fileDataKey].Hashes["md5"].Should().Be("4B9DC12934390387862CC4AB5E4A2159");
-            sarifLog.Runs[0].Files[fileDataKey].Hashes["sha-1"].Should().Be("9B59B1C1E3F5F7013B10F6C6B7436293685BAACE");
-            sarifLog.Runs[0].Files[fileDataKey].Hashes["sha-256"].Should().Be("0953D7B3ADA7FED683680D2107EE517A9DBEC2D0AF7594A91F058D104B7A2AEB");
+            sarifLog.Runs[0].Files[0].MimeType.Should().Be(MimeType.Cpp);
+            sarifLog.Runs[0].Files[0].Hashes.Keys.Count.Should().Be(3);
+            sarifLog.Runs[0].Files[0].Hashes["md5"].Should().Be("4B9DC12934390387862CC4AB5E4A2159");
+            sarifLog.Runs[0].Files[0].Hashes["sha-1"].Should().Be("9B59B1C1E3F5F7013B10F6C6B7436293685BAACE");
+            sarifLog.Runs[0].Files[0].Hashes["sha-256"].Should().Be("0953D7B3ADA7FED683680D2107EE517A9DBEC2D0AF7594A91F058D104B7A2AEB");
         }
 
         [Fact]
@@ -329,15 +311,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     invocationPropertiesToLog: null,
                     defaultFileEncoding: "ImaginaryEncoding"))
                 {
-                    string ruleId = "RuleId";
-                    var rule = new Rule() { Id = ruleId };
-
-                    var result = new Result()
-                    {
-                        RuleId = ruleId
-                    };
-
-                    sarifLogger.Log(rule, result);
+                    LogSimpleResult(sarifLogger);
                 }
             }
 
@@ -347,7 +321,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             byte[] fileBytes = Encoding.Default.GetBytes(fileText);
 
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
-            FileData fileData = sarifLog.Runs[0].Files[fileDataKey];
+            FileData fileData = sarifLog.Runs[0].Files[0];
             fileData.MimeType.Should().Be(MimeType.CSharp);
             fileData.Contents.Binary.Should().Be(Convert.ToBase64String(fileBytes));
             fileData.Contents.Text.Should().BeNull();
@@ -373,6 +347,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     var result = new Result()
                     {
                         RuleId = ruleId,
+                        Message = new Message { Text = "Some testing occurred." },
                         AnalysisTarget = new FileLocation { Uri = new Uri(@"file:///file0.cpp") },
                         Locations = new[]
                         {
@@ -398,9 +373,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                                     FileLocation = new FileLocation
                                     {
                                         Uri = new Uri(@"file:///file2.cpp")
+                                    },
+                                    Replacements = new[]
+                                    {
+                                        new Replacement {
+                                            DeletedRegion = new Region { StartLine = 1}
+                                        }
                                     }
                                    }
-                                }
+                                },
                             }
                         },
                         RelatedLocations = new[]
@@ -482,7 +463,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 string fileName = @"file" + i + ".cpp";
                 string fileDataKey = "file:///" + fileName;
-                sarifLog.Runs[0].Files.Should().ContainKey(fileDataKey, "file data for " + fileName + " should exist in files collection");
+                sarifLog.Runs[0].Files.Where(f => f.FileLocation.Uri.AbsoluteUri.ToString().Contains(fileDataKey)).Any().Should().BeTrue();
             }
 
             sarifLog.Runs[0].Files.Count.Should().Be(fileCount);
@@ -504,13 +485,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {                    
                     var toolNotification = new Notification
                     {
-                        PhysicalLocation = new PhysicalLocation { FileLocation = new FileLocation { Uri = new Uri(@"file:///file0.cpp") } }
+                        PhysicalLocation = new PhysicalLocation { FileLocation = new FileLocation { Uri = new Uri(@"file:///file.cpp") } },
+                        Message = new Message { Text = "A notification was raised." }
                     };
                     sarifLogger.LogToolNotification(toolNotification);
 
                     var configurationNotification = new Notification
                     {
-                        PhysicalLocation = new PhysicalLocation { FileLocation = new FileLocation { Uri = new Uri(@"file:///file0.cpp") } }
+                        PhysicalLocation = new PhysicalLocation { FileLocation = new FileLocation { Uri = new Uri(@"file:///file.cpp") } },
+                        Message = new Message { Text = "A notification was raised." }
                     };
                     sarifLogger.LogConfigurationNotification(configurationNotification);
 
@@ -519,7 +502,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                     var result = new Result()
                     {
-                        RuleId = ruleId
+                        RuleId = ruleId,
+                        Message = new Message { Text = "Some testing occurred." }
                     };
 
                     sarifLogger.Log(rule, result);
@@ -546,16 +530,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null))
                 {
-
-                    string ruleId = "RuleId";
-                    var rule = new Rule() { Id = ruleId };
-
-                    var result = new Result()
-                    {
-                        RuleId = ruleId
-                    };
-
-                    sarifLogger.Log(rule, result);
+                    LogSimpleResult(sarifLogger);
                 }
             }
 
@@ -587,16 +562,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: new[] { "WorkingDirectory", "ProcessId" }))
                 {
-
-                    string ruleId = "RuleId";
-                    var rule = new Rule() { Id = ruleId };
-
-                    var result = new Result()
-                    {
-                        RuleId = ruleId
-                    };
-
-                    sarifLogger.Log(rule, result);
+                    LogSimpleResult(sarifLogger);
                 }
             }
 
@@ -632,16 +598,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: new[] { "WORKINGDIRECTORY", "prOCessID" }))
                 {
-
-                    string ruleId = "RuleId";
-                    var rule = new Rule() { Id = ruleId };
-
-                    var result = new Result()
-                    {
-                        RuleId = ruleId
-                    };
-
-                    sarifLogger.Log(rule, result);
+                    LogSimpleResult(sarifLogger);
                 }
             }
 
@@ -653,6 +610,21 @@ namespace Microsoft.CodeAnalysis.Sarif
             // Specified properties should be logged.
             invocation.WorkingDirectory.Should().NotBeNull();
             invocation.ProcessId.Should().NotBe(0);
+        }
+
+        private void LogSimpleResult(SarifLogger sarifLogger)
+        {
+            Rule rule = new Rule { Id = "RuleId" };
+            sarifLogger.Log(rule, CreateSimpleResult(rule));
+        }
+
+        private Result CreateSimpleResult(Rule rule)
+        {           
+            return new Result
+            {
+                RuleId = rule.Id,
+                Message = new Message { Text = "Some testing occurred." }
+            };
         }
 
         [Fact]

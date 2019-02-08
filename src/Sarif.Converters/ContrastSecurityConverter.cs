@@ -11,7 +11,6 @@ using System.Reflection;
 using System.Text;
 using System.Xml;
 using System.Xml.Schema;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -28,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private const string ContrastSecurityRulesData = "Microsoft.CodeAnalysis.Sarif.Converters.RulesData.ContrastSecurity.sarif";
 
         private IDictionary<string, Rule> _rules;
-        private IDictionary<string, FileData> _files;
+        private HashSet<FileData> _files;
 
         /// <summary>
         /// Convert Contrast Security log to SARIF format stream
@@ -48,9 +47,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw (new ArgumentNullException(nameof(output)));
             }
 
-            LogicalLocationsDictionary.Clear();
+            LogicalLocations.Clear();
 
-            _files = new Dictionary<string, FileData>();
+            _files = new HashSet<FileData>(FileData.ValueComparer);
 
             var context = new ContrastLogReader.Context();
 
@@ -61,12 +60,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             using (var stream = assembly.GetManifestResourceStream(ContrastSecurityConverter.ContrastSecurityRulesData))
             using (var streamReader = new StreamReader(stream))
             {
-                sarifLog = JsonConvert.DeserializeObject<SarifLog>(streamReader.ReadToEnd());
+                string prereleaseRuleDataLogText = streamReader.ReadToEnd();
+                PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(prereleaseRuleDataLogText, forceUpdate: true, Newtonsoft.Json.Formatting.Indented, out string currentRuleDataLogText);
+                sarifLog = JsonConvert.DeserializeObject<SarifLog>(currentRuleDataLogText);
             }
 
             // 2. Retain a pointer to the rules dictionary, which we will use to set rule severity
             Run run = sarifLog.Runs[0];
-            _rules = run.Resources.Rules;
+            _rules = run.Resources.Rules.ToDictionary(rule => rule.Id);
 
             run.OriginalUriBaseIds = new Dictionary<string, FileLocation>
             {
@@ -79,27 +80,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             reader.FindingRead += (ContrastLogReader.Context current) => { results.Add(CreateResult(current)); };
             reader.Read(context, input);
 
-            // 4. Construct the files dictionary, based on all results returned
+            // 4. Construct the files array, based on all results returned
             var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, dataToInsert);
-            Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
+            HashSet<FileData> files = fileInfoFactory.Create(results);
 
             // 5. Finally, complete the SARIF log file with various tables and then the results
             output.Initialize(run);
 
-            foreach (string key in _files.Keys)
+            foreach (FileData fileData in _files)
             {
-                fileDictionary[key] = _files[key];
+                files.Add(fileData);
             }
 
-            if (fileDictionary != null && fileDictionary.Any())
+            if (files?.Any() == true)
             {
-                output.WriteFiles(fileDictionary);
+                output.WriteFiles(files.ToList());
             }
 
-            if (LogicalLocationsDictionary != null && LogicalLocationsDictionary.Any())
+            if (LogicalLocations?.Any() == true)
             {
-                output.WriteLogicalLocations(LogicalLocationsDictionary);
+                output.WriteLogicalLocations(LogicalLocations);
             }
+
+            //if (_rules?.Any() == true)
+            //{
+            //    output.WriteRules(_rules.Values.ToList());
+            //}
 
             output.OpenResults();
             output.WriteResults(results);
@@ -564,14 +570,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 string encoded = System.Convert.ToBase64String(htmlBytes);
 
 
-                _files[fileDataKey] = new FileData
-                {
-                    Contents = new FileContent
+                _files.Add(
+                    new FileData
                     {
-                        Text = html,
-                        Binary = encoded
-                    }
-                };
+                        Contents = new FileContent
+                        {
+                            Text = html,
+                            Binary = encoded
+                        }
+                    });
 
                 locations.Add(new Location()
                 {

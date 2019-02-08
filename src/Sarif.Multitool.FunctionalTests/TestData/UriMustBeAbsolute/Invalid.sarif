@@ -9,6 +9,7 @@
       },
       "results": [
         {
+          "message":  { "text":  "Some testing occurred."},
           "ruleId": "TST0001",
           "level": "error",
           "workItemUris": [
@@ -20,18 +21,30 @@
         "SRCROOT": { "uri": "Code/sarif-sdk/src" }
       },
       "resources": {
-        "rules": {
-          "TST0001": {
+        "rules": [
+          {
             "id": "TST0001",
             "helpUri": "www.example.com/rules/tst0001.html"
           }
-        }
+        ]
       },
       "versionControlProvenance": [
         {
           "repositoryUri": "example.com/my-project"
         }
-      ]
+      ],
+      "properties": {
+        "expectedResults": {
+          "resultLocationPointers": [
+            "$schema",
+            "runs[0].tool.downloadUri",
+            "runs[0].results[0].workItemUris[0]",
+            "runs[0].originalUriBaseIds.SRCROOT",
+            "runs[0].resources.rules[0].helpUri",
+            "runs[0].versionControlProvenance[0].repositoryUri"
+          ]
+        }
+      }
     }
   ]
 }

@@ -1,0 +1,129 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-11-28",
+  "version": "2.0.0-csd.2.beta.2018-11-28",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner",
+        "semanticVersion": "2.1.0"
+      },
+      "invocations": [
+        {
+          "toolNotifications": [
+            {
+              "id": "CTN0001",
+              "message": {
+                "text": "Unhandled exception."
+              },
+              "level": "error",
+              "exception": {
+                "kind": "ExecutionEngine.RuleFailureException",
+                "message": {
+                  "text": "Unhandled exception during rule evaluation."
+                },
+                "stack": {
+                  "message": {
+                    "text": "This is the stack messasge."
+                  },
+                  "frames": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///C:/src/main.cs"
+                          },
+                          "region": {
+                            "startLine": 15,
+                            "startColumn": 9,
+                            "endColumn": 9
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "Ambiguous.Item",
+                        "logicalLocationIndex": 0,
+                        "message": {
+                          "text": "Exception thrown"
+                        }
+                      },
+                      "module": "RuleLibrary",
+                      "threadId": 52,
+                      "address": 10092852
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///C:/src/main.cs"
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "Rules.SecureHashAlgorithmRule.Register",
+                        "logicalLocationIndex": 1
+                      },
+                      "module": "RuleLibrary",
+                      "threadId": 52,
+                      "address": 1002485
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///C:/src/utils.cs"
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "ExecutionEngine.Engine.EvaluateRule"
+                      },
+                      "module": "ExecutionEngine",
+                      "threadId": 52,
+                      "address": 10073356,
+                      "offset": 10475
+                    },
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///C:/src/testtarget.cs"
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "Ambiguous.Item",
+                        "logicalLocationIndex": 2
+                      },
+                      "module": "Target",
+                      "threadId": 52,
+                      "address": 10073356,
+                      "offset": 10475
+                    }
+                  ]
+                },
+                "innerExceptions": [
+                  {
+                    "kind": "System.ArgumentException",
+                    "message": {
+                      "text": "length is < 0"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "logicalLocations": [
+        {
+          "name": "Item",
+          "fullyQualifiedName": "Ambiguous.Item",
+          "kind": "some kind"
+        },
+        {
+          "name": "Register",
+          "fullyQualifiedName": "Rules.SecureHashAlgorithmRule.Register"
+        },
+        {
+          "name": "Item",
+          "fullyQualifiedName": "Ambiguous.Item",
+          "kind": "another kind"
+        }
+      ],
+      "results": [],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

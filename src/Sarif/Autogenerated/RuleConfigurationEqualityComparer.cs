@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type RuleConfiguration for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     internal sealed class RuleConfigurationEqualityComparer : IEqualityComparer<RuleConfiguration>
     {
         internal static readonly RuleConfigurationEqualityComparer Instance = new RuleConfigurationEqualityComparer();
@@ -34,6 +34,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             if (left.DefaultLevel != right.DefaultLevel)
+            {
+                return false;
+            }
+
+            if (left.DefaultRank != right.DefaultRank)
             {
                 return false;
             }
@@ -97,6 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 result = (result * 31) + obj.Enabled.GetHashCode();
                 result = (result * 31) + obj.DefaultLevel.GetHashCode();
+                result = (result * 31) + obj.DefaultRank.GetHashCode();
                 if (obj.Parameters != null)
                 {
                     // Use xor for dictionaries to be order-independent.

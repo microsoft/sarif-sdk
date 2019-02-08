@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "files": {
+        "file:///home/list.txt": {
+          "mimeType": "text/plain",
+          "length": 43,
+          "contents": "VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw==",
+          "hashes": [
+            {
+              "algorithm": "sha256",
+              "value": "d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"
+            },
+            {
+              "algorithm": "md5",
+              "value": "d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"
+            }
+          ]
+        },
+        "file:///home/buildAgent/bin/app.zip": {
+          "mimeType": "application/zip",
+          "properties": {
+            "my_key": "some value"
+          }
+        },
+        "file:///home/buildAgent/bin/app.zip#/docs/intro.docx": {
+          "uri": "file:///docs/intro.docx",
+          "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "parentKey": "file:///home/buildAgent/bin/app.zip",
+          "offset": 17522,
+          "length": 4050
+        }
+      },
+      "tool": {
+        "name": "CodeScanner",
+        "semanticVersion": "2.1.0"
+      },
+      "results": []
+    }
+  ]
+}

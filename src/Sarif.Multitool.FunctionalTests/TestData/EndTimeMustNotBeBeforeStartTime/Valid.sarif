@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner"
+      },
+      "results": [],
+      "invocations": [
+        {
+          "commandLine": "CodeScanner.exe *.dll end time equals start time",
+          "startTime": "2016-08-25T21:26:42.049Z",
+          "endTime": "2016-08-25T21:26:42.049Z"
+        },
+        {
+          "commandLine": "CodeScanner.exe *.dll end time after start time",
+          "startTime": "2016-08-25T21:26:42.049Z",
+          "endTime": "2016-08-25T21:26:42.051Z"
+        }
+      ],
+      "properties": {
+        "expectedResults": {
+          "resultLocationPointers": []
+        }
+      }
+    }
+  ]
+}

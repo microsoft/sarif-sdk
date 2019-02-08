@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.TestUtilities;
 using Newtonsoft.Json;
 using Xunit;
@@ -23,6 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests
       ""tool"": {
         ""name"": ""CodeScanner""
       },
+      ""columnKind"": ""utf16CodeUnits"",
       ""properties"": {
         ""int"": 42,
         ""string"": ""'\""\\'""

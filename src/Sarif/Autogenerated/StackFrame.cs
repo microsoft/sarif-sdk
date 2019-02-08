@@ -6,6 +6,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -13,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A function call within a stack trace.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class StackFrame : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<StackFrame> ValueComparer => StackFrameEqualityComparer.Instance;
@@ -66,6 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The parameters of the call that is executing.
         /// </summary>
         [DataMember(Name = "parameters", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<string> Parameters { get; set; }
 
         /// <summary>
@@ -85,25 +87,25 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Initializes a new instance of the <see cref="StackFrame" /> class from the supplied values.
         /// </summary>
         /// <param name="location">
-        /// An initialization value for the <see cref="P: Location" /> property.
+        /// An initialization value for the <see cref="P:Location" /> property.
         /// </param>
         /// <param name="module">
-        /// An initialization value for the <see cref="P: Module" /> property.
+        /// An initialization value for the <see cref="P:Module" /> property.
         /// </param>
         /// <param name="threadId">
-        /// An initialization value for the <see cref="P: ThreadId" /> property.
+        /// An initialization value for the <see cref="P:ThreadId" /> property.
         /// </param>
         /// <param name="address">
-        /// An initialization value for the <see cref="P: Address" /> property.
+        /// An initialization value for the <see cref="P:Address" /> property.
         /// </param>
         /// <param name="offset">
-        /// An initialization value for the <see cref="P: Offset" /> property.
+        /// An initialization value for the <see cref="P:Offset" /> property.
         /// </param>
         /// <param name="parameters">
-        /// An initialization value for the <see cref="P: Parameters" /> property.
+        /// An initialization value for the <see cref="P:Parameters" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
         public StackFrame(Location location, string module, int threadId, int address, int offset, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
         {

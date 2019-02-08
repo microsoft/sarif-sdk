@@ -6,6 +6,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -13,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Encapsulates a message intended to be read by the end user.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class Message : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Message> ValueComparer => MessageEqualityComparer.Instance;
@@ -60,6 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An array of strings to substitute into the message string.
         /// </summary>
         [DataMember(Name = "arguments", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<string> Arguments { get; set; }
 
         /// <summary>
@@ -79,22 +81,22 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Initializes a new instance of the <see cref="Message" /> class from the supplied values.
         /// </summary>
         /// <param name="text">
-        /// An initialization value for the <see cref="P: Text" /> property.
+        /// An initialization value for the <see cref="P:Text" /> property.
         /// </param>
         /// <param name="messageId">
-        /// An initialization value for the <see cref="P: MessageId" /> property.
+        /// An initialization value for the <see cref="P:MessageId" /> property.
         /// </param>
         /// <param name="richText">
-        /// An initialization value for the <see cref="P: RichText" /> property.
+        /// An initialization value for the <see cref="P:RichText" /> property.
         /// </param>
         /// <param name="richMessageId">
-        /// An initialization value for the <see cref="P: RichMessageId" /> property.
+        /// An initialization value for the <see cref="P:RichMessageId" /> property.
         /// </param>
         /// <param name="arguments">
-        /// An initialization value for the <see cref="P: Arguments" /> property.
+        /// An initialization value for the <see cref="P:Arguments" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
         public Message(string text, string messageId, string richText, string richMessageId, IEnumerable<string> arguments, IDictionary<string, SerializedPropertyInfo> properties)
         {

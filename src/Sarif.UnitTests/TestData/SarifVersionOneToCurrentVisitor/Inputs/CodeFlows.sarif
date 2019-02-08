@@ -1,0 +1,144 @@
+﻿{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Transformer.UnitTest"
+      },
+      "results": [
+        {
+          "message": "Some testing occurred.",
+          "codeFlows": [
+            {
+              "message": "Path from declaration to usage",
+              "locations": [
+                {
+                  "step": 1,
+                  "kind": "call",
+                  "importance": "essential",
+                  "message": "Variable \"str\" declared.",
+                  "snippet": "string str = GetFoo();",
+                  "physicalLocation": {
+                    "uri": "file:///home/buildAgent/src/collections/list.h",
+                    "region": {
+                      "startLine": 15
+                    }
+                  },
+                  "module": "platform",
+                  "threadId": 52,
+                  "taintKind": "sink",
+                  "target": "foo::bar",
+                  "targetKey": "collections::list::add",
+                  "values": [
+                    "id",
+                    "name",
+                    "param3"
+                  ]
+                },
+                {
+                  "annotations": [
+                    {
+                      "message": "This is a test annotation",
+                      "locations": [
+                        {
+                          "uri": "file:///home/buildAgent/src/collections/list.h",
+                          "region": {
+                            "startLine": 40
+                          }
+                        },
+                        {
+                          "uri": "file:///home/buildAgent/src/collections/list.h",
+                          "region": {
+                            "startLine": 240
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "message": "This is a second test annotation",
+                      "locations": [
+                        {
+                          "uri": "file:///home/buildAgent/src/collections/foo.cpp",
+                          "region": {
+                            "startLine": 128
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "step": 2,
+                  "message": "Method \"GetFoo\" returns null.",
+                  "kind": "callReturn",
+                  "importance": "important",
+                  "snippet": "return null;",
+                  "physicalLocation": {
+                    "uri": "file:///home/buildAgent/src/collections/list.h",
+                    "region": {
+                      "startLine": 15
+                    }
+                  },
+                  "module": "platform",
+                  "threadId": 67
+                },
+                {
+                  "step": 3,
+                  "kind": "call",
+                  "importance": "unimportant",
+                  "snippet": "Bar();",
+                  "state": {
+                    "Foo": "bar"
+                  },
+                  "physicalLocation": {
+                    "uri": "file:///home/buildAgent/src/collections/list.h",
+                    "region": {
+                      "startLine": 26
+                    }
+                  },
+                  "module": "platform",
+                  "threadId": 52
+                },
+                {
+                  "step": 4,
+                  "kind": "callReturn",
+                  "importance": "unimportant",
+                  "snippet": "return;",
+                  "state": {
+                    "Foo": "bar"
+                  },
+                  "target": "collections::list::add_core",
+                  "physicalLocation": {
+                    "uri": "file:///home/buildAgent/src/collections/list.h",
+                    "region": {
+                      "startLine": 25
+                    }
+                  },
+                  "module": "platform",
+                  "threadId": 23
+                },
+                {
+                  "step": 5,
+                  "kind": "continuation",
+                  "importance": "essential",
+                  "snippet": "int length = str.Length;",
+                  "state": {
+                    "Foo": "bar"
+                  },
+                  "target": "collections::list::add_core",
+                  "physicalLocation": {
+                    "uri": "file:///home/buildAgent/src/collections/list.h",
+                    "region": {
+                      "startLine": 25
+                    }
+                  },
+                  "module": "platform",
+                  "threadId": 52
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

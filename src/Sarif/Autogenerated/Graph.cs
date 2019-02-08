@@ -6,6 +6,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -13,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A network of nodes and directed edges that describes some aspect of the structure of the code (for example, a call graph).
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class Graph : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Graph> ValueComparer => GraphEqualityComparer.Instance;
@@ -47,13 +48,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// An array of node objects representing the nodes of the graph.
         /// </summary>
-        [DataMember(Name = "nodes", IsRequired = true)]
+        [DataMember(Name = "nodes", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<Node> Nodes { get; set; }
 
         /// <summary>
         /// An array of edge objects representing the edges of the graph.
         /// </summary>
-        [DataMember(Name = "edges", IsRequired = true)]
+        [DataMember(Name = "edges", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<Edge> Edges { get; set; }
 
         /// <summary>
@@ -73,19 +76,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Initializes a new instance of the <see cref="Graph" /> class from the supplied values.
         /// </summary>
         /// <param name="id">
-        /// An initialization value for the <see cref="P: Id" /> property.
+        /// An initialization value for the <see cref="P:Id" /> property.
         /// </param>
         /// <param name="description">
-        /// An initialization value for the <see cref="P: Description" /> property.
+        /// An initialization value for the <see cref="P:Description" /> property.
         /// </param>
         /// <param name="nodes">
-        /// An initialization value for the <see cref="P: Nodes" /> property.
+        /// An initialization value for the <see cref="P:Nodes" /> property.
         /// </param>
         /// <param name="edges">
-        /// An initialization value for the <see cref="P: Edges" /> property.
+        /// An initialization value for the <see cref="P:Edges" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
         public Graph(string id, Message description, IEnumerable<Node> nodes, IEnumerable<Edge> edges, IDictionary<string, SerializedPropertyInfo> properties)
         {

@@ -3,11 +3,8 @@
 
 using System;
 using System.Collections.Generic;
-
-using Microsoft.CodeAnalysis.Sarif.Readers;
-
-using Newtonsoft.Json;
 using System.Globalization;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
@@ -42,7 +39,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public ResultLogJsonWriter(JsonWriter jsonWriter)
         {
             _jsonWriter = jsonWriter;
-            _serializer = new JsonSerializer();
+            _serializer = new JsonSerializer()
+            {
+                DefaultValueHandling = DefaultValueHandling.Ignore
+            };
         }
 
         /// <summary>
@@ -96,12 +96,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 _serializer.Serialize(_jsonWriter, run.AggregateIds);
             }
 
-            if (!string.IsNullOrEmpty(run.Architecture))
-            {
-                _jsonWriter.WritePropertyName("architecture");
-                _serializer.Serialize(_jsonWriter, run.Architecture);
-            }
-
             if (run.Tool != null)
             {
                 _jsonWriter.WritePropertyName("tool");
@@ -132,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 _serializer.Serialize(_jsonWriter, run.DefaultFileEncoding);
             }
 
-            if (run.RichMessageMimeType != null)
+            if (run.RichMessageMimeType != null && run.RichMessageMimeType != "text/markdown;variant=GFM")
             {
                 _jsonWriter.WritePropertyName("richMessageMimeType");
                 _serializer.Serialize(_jsonWriter, run.RichMessageMimeType);
@@ -150,23 +144,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 _serializer.Serialize(_jsonWriter, run.Resources);
             }
 
+            // For this Windows-relevant SDK, if the column kind isn't explicitly set,
+            // we will set it to Utf16CodeUnits. Our jschema-generated OM is tweaked to 
+            // always persist this property.
+            _jsonWriter.WritePropertyName("columnKind");
+            _jsonWriter.WriteValue(run.ColumnKind == ColumnKind.UnicodeCodePoints ? "unicodeCodePoints" : "utf16CodeUnits");
+
             _writeConditions |= Conditions.RunInitialized;
         }
 
         /// <summary>
-        /// Write information about scanned files to the log. This information may appear
+        /// A list containing information about the relevant files. This information may appear
         /// after the results, as the full list of scanned files might not be known until
         /// all results have been generated.
         /// </summary>
-        /// <param name="fileDictionary">
+        /// <param name="files">
         /// A dictionary whose keys are the URIs of scanned files and whose values provide
         /// information about those files.
         /// </param>
-        public void WriteFiles(IDictionary<string, FileData> fileDictionary)
+        public void WriteFiles(IList<FileData> files)
         {
-            if (fileDictionary == null)
+            if (files == null)
             {
-                throw new ArgumentNullException(nameof(fileDictionary));
+                throw new ArgumentNullException(nameof(files));
             }
 
             EnsureInitialized();
@@ -174,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.FilesWritten);
 
             _jsonWriter.WritePropertyName("files");
-            _serializer.Serialize(_jsonWriter, fileDictionary, typeof(Dictionary<Uri, FileData>));
+            _serializer.Serialize(_jsonWriter, files);
 
             _writeConditions |= Conditions.FilesWritten;
         }
@@ -188,11 +188,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// A dictionary whose keys are strings specifying a logical location and
         /// whose values provide information about each component of the logical location.
         /// </param>
-        public void WriteLogicalLocations(IDictionary<string, LogicalLocation> logicalLocationsDictionary)
+        public void WriteLogicalLocations(IList<LogicalLocation> logicalLocations)
         {
-            if (logicalLocationsDictionary == null)
+            if (logicalLocations == null)
             {
-                throw new ArgumentNullException(nameof(logicalLocationsDictionary));
+                throw new ArgumentNullException(nameof(logicalLocations));
             }
 
             EnsureInitialized();
@@ -200,7 +200,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.LogicalLocationsWritten);
 
             _jsonWriter.WritePropertyName("logicalLocations");
-            _serializer.Serialize(_jsonWriter, logicalLocationsDictionary, typeof(Dictionary<string, LogicalLocation>));
+            _serializer.Serialize(_jsonWriter, logicalLocations);
 
             _writeConditions |= Conditions.LogicalLocationsWritten;
         }
@@ -223,7 +223,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
 
-        public void WriteRules(IDictionary<string, IRule> rules)
+        public void WriteRules(IList<Rule> rules)
         {
             if (rules == null)
             {
@@ -288,7 +288,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 OpenResults();
             }
 
-            _serializer.Serialize(_jsonWriter, result, typeof(Result));
+            _serializer.Serialize(_jsonWriter, result);
         }
 
         /// <summary>

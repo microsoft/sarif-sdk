@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A region within a file where a result was detected.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class Region : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Region> ValueComparer => RegionEqualityComparer.Instance;
@@ -93,6 +93,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Message Message { get; set; }
 
         /// <summary>
+        /// Specifies the source language, if any, of the portion of the file specified by the region object.
+        /// </summary>
+        [DataMember(Name = "sourceLanguage", IsRequired = false, EmitDefaultValue = false)]
+        public string SourceLanguage { get; set; }
+
+        /// <summary>
         /// Key/value pairs that provide additional information about the region.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
@@ -109,41 +115,44 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Initializes a new instance of the <see cref="Region" /> class from the supplied values.
         /// </summary>
         /// <param name="startLine">
-        /// An initialization value for the <see cref="P: StartLine" /> property.
+        /// An initialization value for the <see cref="P:StartLine" /> property.
         /// </param>
         /// <param name="startColumn">
-        /// An initialization value for the <see cref="P: StartColumn" /> property.
+        /// An initialization value for the <see cref="P:StartColumn" /> property.
         /// </param>
         /// <param name="endLine">
-        /// An initialization value for the <see cref="P: EndLine" /> property.
+        /// An initialization value for the <see cref="P:EndLine" /> property.
         /// </param>
         /// <param name="endColumn">
-        /// An initialization value for the <see cref="P: EndColumn" /> property.
+        /// An initialization value for the <see cref="P:EndColumn" /> property.
         /// </param>
         /// <param name="charOffset">
-        /// An initialization value for the <see cref="P: CharOffset" /> property.
+        /// An initialization value for the <see cref="P:CharOffset" /> property.
         /// </param>
         /// <param name="charLength">
-        /// An initialization value for the <see cref="P: CharLength" /> property.
+        /// An initialization value for the <see cref="P:CharLength" /> property.
         /// </param>
         /// <param name="byteOffset">
-        /// An initialization value for the <see cref="P: ByteOffset" /> property.
+        /// An initialization value for the <see cref="P:ByteOffset" /> property.
         /// </param>
         /// <param name="byteLength">
-        /// An initialization value for the <see cref="P: ByteLength" /> property.
+        /// An initialization value for the <see cref="P:ByteLength" /> property.
         /// </param>
         /// <param name="snippet">
-        /// An initialization value for the <see cref="P: Snippet" /> property.
+        /// An initialization value for the <see cref="P:Snippet" /> property.
         /// </param>
         /// <param name="message">
-        /// An initialization value for the <see cref="P: Message" /> property.
+        /// An initialization value for the <see cref="P:Message" /> property.
+        /// </param>
+        /// <param name="sourceLanguage">
+        /// An initialization value for the <see cref="P:SourceLanguage" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Region(int startLine, int startColumn, int endLine, int endColumn, int charOffset, int charLength, int byteOffset, int byteLength, FileContent snippet, Message message, IDictionary<string, SerializedPropertyInfo> properties)
+        public Region(int startLine, int startColumn, int endLine, int endColumn, int charOffset, int charLength, int byteOffset, int byteLength, FileContent snippet, Message message, string sourceLanguage, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(startLine, startColumn, endLine, endColumn, charOffset, charLength, byteOffset, byteLength, snippet, message, properties);
+            Init(startLine, startColumn, endLine, endColumn, charOffset, charLength, byteOffset, byteLength, snippet, message, sourceLanguage, properties);
         }
 
         /// <summary>
@@ -162,7 +171,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.StartLine, other.StartColumn, other.EndLine, other.EndColumn, other.CharOffset, other.CharLength, other.ByteOffset, other.ByteLength, other.Snippet, other.Message, other.Properties);
+            Init(other.StartLine, other.StartColumn, other.EndLine, other.EndColumn, other.CharOffset, other.CharLength, other.ByteOffset, other.ByteLength, other.Snippet, other.Message, other.SourceLanguage, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -183,7 +192,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Region(this);
         }
 
-        private void Init(int startLine, int startColumn, int endLine, int endColumn, int charOffset, int charLength, int byteOffset, int byteLength, FileContent snippet, Message message, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int startLine, int startColumn, int endLine, int endColumn, int charOffset, int charLength, int byteOffset, int byteLength, FileContent snippet, Message message, string sourceLanguage, IDictionary<string, SerializedPropertyInfo> properties)
         {
             StartLine = startLine;
             StartColumn = startColumn;
@@ -203,6 +212,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Message = new Message(message);
             }
 
+            SourceLanguage = sourceLanguage;
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);

@@ -11,16 +11,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     {
         private readonly OptionallyEmittedData _dataToInsert;
         private readonly Func<string, string> _mimeTypeClassifier;
-        private readonly Dictionary<string, FileData> _fileInfoDictionary;
+        private readonly HashSet<FileData> _files;
 
         internal FileInfoFactory(Func<string, string> mimeTypeClassifier, OptionallyEmittedData dataToInsert)
         {
             _mimeTypeClassifier = mimeTypeClassifier ?? MimeType.DetermineFromFileExtension;
-            _fileInfoDictionary = new Dictionary<string, FileData>();
+            _files = new HashSet<FileData>(FileData.ValueComparer);
             _dataToInsert = dataToInsert;
         }
 
-        internal Dictionary<string, FileData> Create(IEnumerable<Result> results)
+        internal HashSet<FileData> Create(IEnumerable<Result> results)
         {
             foreach (Result result in results)
             {
@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             }
 
-            return _fileInfoDictionary;
+            return _files;
         }
 
         private void AddFile(PhysicalLocation physicalLocation)
@@ -92,15 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             Uri uri = physicalLocation.FileLocation.Uri;
-            string key = UriHelper.MakeValidUri(uri.OriginalString);
-
-            string uriBaseId = physicalLocation.FileLocation.UriBaseId;
-            if (!string.IsNullOrEmpty(uriBaseId))
-            {
-                key = "#" + uriBaseId + "#" + key;
-            }
-
-            string filePath = key;
+            string filePath = UriHelper.MakeValidUri(uri.OriginalString);
 
             if (uri.IsAbsoluteUri && uri.IsFile)
             {
@@ -112,13 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 _dataToInsert,
                 _mimeTypeClassifier(filePath));
 
-
-            if (!_fileInfoDictionary.ContainsKey(key))
-            {
-                _fileInfoDictionary.Add(
-                    key,
-                    fileData);
-            }
+            _files.Add(fileData);
         }
     }
 }

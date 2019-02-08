@@ -22,6 +22,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private Run _currentV2Run = null;
         private RunVersionOne _currentRun = null;
 
+        // To understand the purpose of these fields, see the comment on CreateFileKeyIndexMappings.
+        private IDictionary<string, int> _v1FileKeyToV2IndexMap;
+        private IDictionary<int, string> _v2FileIndexToV1KeyMap;
+
+        // To understand the purpose of this field, see the comment on CreateRuleIndexToKeyMapping.
+        private IDictionary<int, string> _v2RuleIndexToV1KeyMap;
+
         public bool EmbedVersionTwoContentInPropertyBag { get; set; }
 
         public SarifLogVersionOne SarifLogVersionOne { get; private set; }
@@ -34,13 +41,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             foreach (Run v2Run in v2SarifLog.Runs)
             {
-                SarifLogVersionOne.Runs.Add(CreateRun(v2Run));
+                SarifLogVersionOne.Runs.Add(CreateRunVersionOne(v2Run));
             }
 
             return null;
         }
 
-        internal AnnotatedCodeLocationVersionOne CreateAnnotatedCodeLocation(Location v2Location)
+        internal AnnotatedCodeLocationVersionOne CreateAnnotatedCodeLocationVersionOne(Location v2Location)
         {
             AnnotatedCodeLocationVersionOne annotatedCodeLocation = null;
 
@@ -48,11 +55,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 annotatedCodeLocation = new AnnotatedCodeLocationVersionOne
                 {
-                    Annotations = v2Location.Annotations?.Select(CreateAnnotation).ToList(),
+                    Annotations = v2Location.Annotations?.Select(CreateAnnotationVersionOne).ToList(),
                     FullyQualifiedLogicalName = v2Location.FullyQualifiedLogicalName,
-                    LogicalLocationKey = v2Location.FullyQualifiedLogicalName,
                     Message = v2Location.Message?.Text,
-                    PhysicalLocation = CreatePhysicalLocation(v2Location.PhysicalLocation),
+                    PhysicalLocation = CreatePhysicalLocationVersionOne(v2Location.PhysicalLocation),
                     Snippet = v2Location.PhysicalLocation?.Region?.Snippet?.Text
                 };
             }
@@ -60,13 +66,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return annotatedCodeLocation;
         }
 
-        internal AnnotatedCodeLocationVersionOne CreateAnnotatedCodeLocation(ThreadFlowLocation v2ThreadFlowLocation)
+        internal AnnotatedCodeLocationVersionOne CreateAnnotatedCodeLocationVersionOne(ThreadFlowLocation v2ThreadFlowLocation)
         {
             AnnotatedCodeLocationVersionOne annotatedCodeLocation = null;
 
             if (v2ThreadFlowLocation != null)
             {
-                annotatedCodeLocation = CreateAnnotatedCodeLocation(v2ThreadFlowLocation.Location);
+                annotatedCodeLocation = CreateAnnotatedCodeLocationVersionOne(v2ThreadFlowLocation.Location);
                 annotatedCodeLocation = annotatedCodeLocation ?? new AnnotatedCodeLocationVersionOne();
 
                 annotatedCodeLocation.Importance = Utilities.CreateAnnotatedCodeLocationImportance(v2ThreadFlowLocation.Importance);
@@ -79,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return annotatedCodeLocation;
         }
 
-        internal AnnotationVersionOne CreateAnnotation(Region v2Region)
+        internal AnnotationVersionOne CreateAnnotationVersionOne(Region v2Region)
         {
             AnnotationVersionOne annotation = null;
 
@@ -89,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     Locations = new List<PhysicalLocationVersionOne>
                     {
-                        CreatePhysicalLocation(v2Region)
+                        CreatePhysicalLocationVersionOne(v2Region)
                     },
                     Message = v2Region.Message?.Text
                 };
@@ -98,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return annotation;
         }
 
-        internal ExceptionDataVersionOne CreateExceptionData(ExceptionData v2ExceptionData)
+        internal ExceptionDataVersionOne CreateExceptionDataVersionOne(ExceptionData v2ExceptionData)
         {
             ExceptionDataVersionOne exceptionData = null;
 
@@ -106,17 +112,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 exceptionData = new ExceptionDataVersionOne
                 {
-                    InnerExceptions = v2ExceptionData.InnerExceptions?.Select(CreateExceptionData).ToList(),
+                    InnerExceptions = v2ExceptionData.InnerExceptions?.Select(CreateExceptionDataVersionOne).ToList(),
                     Kind = v2ExceptionData.Kind,
                     Message = v2ExceptionData.Message?.Text,
-                    Stack = CreateStack(v2ExceptionData.Stack)
+                    Stack = CreateStackVersionOne(v2ExceptionData.Stack)
                 };
             }
 
             return exceptionData;
         }
 
-        internal FileChangeVersionOne CreateFileChange(FileChange v2FileChange)
+        internal FileChangeVersionOne CreateFileChangeVersionOne(FileChange v2FileChange)
         {
             FileChangeVersionOne fileChange = null;
 
@@ -129,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     fileChange = new FileChangeVersionOne
                     {
-                        Replacements = v2FileChange.Replacements?.Select(r => CreateReplacement(r, encoding)).ToList(),
+                        Replacements = v2FileChange.Replacements?.Select(r => CreateReplacementVersionOne(r, encoding)).ToList(),
                         Uri = v2FileChange.FileLocation?.Uri,
                         UriBaseId = v2FileChange.FileLocation?.UriBaseId
                     };
@@ -148,14 +154,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private string GetFileEncodingName(Uri uri)
         {
             string encodingName = null;
-            IDictionary<string, FileData> filesDictionary = _currentV2Run.Files;
+            IList<FileData> files = _currentV2Run.Files;
 
-            FileData fileData;
             if (uri != null &&
-                filesDictionary != null &&
-                filesDictionary.TryGetValue(uri.OriginalString, out fileData))
+                files != null
+                && _v1FileKeyToV2IndexMap != null
+                && _v1FileKeyToV2IndexMap.TryGetValue(uri.OriginalString, out int index))
             {
-                encodingName = fileData.Encoding;
+                encodingName = files[index].Encoding;
             }
 
             return encodingName;
@@ -174,19 +180,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return encoding;
         }
 
-        internal FileDataVersionOne CreateFileData(FileData v2FileData)
+        private FileDataVersionOne CreateFileDataVersionOne(FileData v2FileData)
         {
             FileDataVersionOne fileData = null;
 
             if (v2FileData != null)
             {
+                int parentIndex = v2FileData.ParentIndex;
+                string parentKey = parentIndex == -1
+                    ? null
+                    : _v2FileIndexToV1KeyMap?[parentIndex];
+
                 fileData = new FileDataVersionOne
                 {
                     Hashes = CreateHashVersionOneListFromV2Hashes(v2FileData.Hashes),
                     Length = v2FileData.Length,
                     MimeType = v2FileData.MimeType,
                     Offset = v2FileData.Offset,
-                    ParentKey = v2FileData.ParentKey,
+                    ParentKey = parentKey,
                     Properties = v2FileData.Properties,
                     Uri = v2FileData.FileLocation?.Uri,
                     UriBaseId = v2FileData.FileLocation?.UriBaseId
@@ -203,7 +214,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return fileData;
         }
 
-        internal FixVersionOne CreateFix(Fix v2Fix)
+        internal FixVersionOne CreateFixVersionOne(Fix v2Fix)
         {
             FixVersionOne fix = null;
 
@@ -214,7 +225,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     fix = new FixVersionOne()
                     {
                         Description = v2Fix.Description?.Text,
-                        FileChanges = v2Fix.FileChanges?.Select(CreateFileChange).ToList()
+                        FileChanges = v2Fix.FileChanges?.Select(CreateFileChangeVersionOne).ToList()
                     };
                 }
                 catch (UnknownEncodingException)
@@ -245,7 +256,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return v1Hashes;
         }
 
-        internal InvocationVersionOne CreateInvocation(Invocation v2Invocation)
+        internal InvocationVersionOne CreateInvocationVersionOne(Invocation v2Invocation)
         {
             InvocationVersionOne invocation = null;
 
@@ -273,7 +284,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         _currentRun.ConfigurationNotifications = new List<NotificationVersionOne>();
                     }
 
-                    IEnumerable<NotificationVersionOne> notifications = v2Invocation.ConfigurationNotifications.Select(CreateNotification);
+                    IEnumerable<NotificationVersionOne> notifications = v2Invocation.ConfigurationNotifications.Select(CreateNotificationVersionOne);
                     _currentRun.ConfigurationNotifications = _currentRun.ConfigurationNotifications.Union(notifications).ToList();
                 }
 
@@ -284,7 +295,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         _currentRun.ToolNotifications = new List<NotificationVersionOne>();
                     }
 
-                    List<NotificationVersionOne> notifications = v2Invocation.ToolNotifications.Select(CreateNotification).ToList();
+                    List<NotificationVersionOne> notifications = v2Invocation.ToolNotifications.Select(CreateNotificationVersionOne).ToList();
                     _currentRun.ToolNotifications = _currentRun.ToolNotifications.Union(notifications).ToList();
                 }
             }
@@ -292,7 +303,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return invocation;
         }
 
-        internal LocationVersionOne CreateLocation(Location v2Location)
+        internal LocationVersionOne CreateLocationVersionOne(Location v2Location)
         {
             LocationVersionOne location = null;
 
@@ -302,22 +313,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     FullyQualifiedLogicalName = v2Location.FullyQualifiedLogicalName,
                     Properties = v2Location.Properties,
-                    ResultFile = CreatePhysicalLocation(v2Location.PhysicalLocation)
+                    ResultFile = CreatePhysicalLocationVersionOne(v2Location.PhysicalLocation)
                 };
 
-                if (!string.IsNullOrWhiteSpace(v2Location.FullyQualifiedLogicalName) &&
-                    _currentV2Run.LogicalLocations?.ContainsKey(v2Location.FullyQualifiedLogicalName) == true)
+                if (!string.IsNullOrWhiteSpace(v2Location.FullyQualifiedLogicalName))
                 {
-                    location.DecoratedName = _currentV2Run.LogicalLocations[v2Location.FullyQualifiedLogicalName].DecoratedName;
+                    if (v2Location.LogicalLocationIndex != -1)
+                    {
+                        location.DecoratedName = _currentV2Run.LogicalLocations[v2Location.LogicalLocationIndex].DecoratedName;
+                    }
                 }
             }
 
             return location;
         }
 
-        internal LogicalLocationVersionOne CreateLogicalLocation(LogicalLocation v2LogicalLocation)
-        {
+        internal LogicalLocationVersionOne CreateLogicalLocationVersionOne(LogicalLocation v2LogicalLocation)
+        {            
             LogicalLocationVersionOne logicalLocation = null;
+            string parentKey = null;
+
+            if (_currentV2Run.LogicalLocations != null && v2LogicalLocation.ParentIndex > -1)
+            {
+                parentKey = _currentV2Run.LogicalLocations[v2LogicalLocation.ParentIndex].FullyQualifiedName;
+            }
 
             if (v2LogicalLocation != null)
             {
@@ -325,14 +344,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     Kind = v2LogicalLocation.Kind,
                     Name = v2LogicalLocation.Name,
-                    ParentKey = v2LogicalLocation.ParentKey
+                    ParentKey = parentKey
                 };
             }
 
             return logicalLocation;
         }
 
-        internal NotificationVersionOne CreateNotification(Notification v2Notification)
+        internal NotificationVersionOne CreateNotificationVersionOne(Notification v2Notification)
         {
             NotificationVersionOne notification = null;
 
@@ -340,11 +359,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 notification = new NotificationVersionOne
                 {
-                    Exception = CreateExceptionData(v2Notification.Exception),
+                    Exception = CreateExceptionDataVersionOne(v2Notification.Exception),
                     Id = v2Notification.Id,
                     Level = Utilities.CreateNotificationLevelVersionOne(v2Notification.Level),
                     Message = v2Notification.Message?.Text,
-                    PhysicalLocation = CreatePhysicalLocation(v2Notification.PhysicalLocation),
+                    PhysicalLocation = CreatePhysicalLocationVersionOne(v2Notification.PhysicalLocation),
                     Properties = v2Notification.Properties,
                     RuleId = v2Notification.RuleId,
                     ThreadId = v2Notification.ThreadId,
@@ -355,7 +374,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return notification;
         }
 
-        internal PhysicalLocationVersionOne CreatePhysicalLocation(PhysicalLocation v2PhysicalLocation)
+        internal PhysicalLocationVersionOne CreatePhysicalLocationVersionOne(PhysicalLocation v2PhysicalLocation)
         {
             PhysicalLocationVersionOne physicalLocation = null;
 
@@ -363,7 +382,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 physicalLocation = new PhysicalLocationVersionOne
                 {
-                    Region = CreateRegion(v2PhysicalLocation.Region, v2PhysicalLocation.FileLocation?.Uri),
+                    Region = CreateRegionVersionOne(v2PhysicalLocation.Region, v2PhysicalLocation.FileLocation?.Uri),
                     Uri = v2PhysicalLocation.FileLocation?.Uri,
                     UriBaseId = v2PhysicalLocation.FileLocation?.UriBaseId
                 };
@@ -372,7 +391,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return physicalLocation;
         }
 
-        internal PhysicalLocationVersionOne CreatePhysicalLocation(FileLocation v2FileLocation)
+        internal PhysicalLocationVersionOne CreatePhysicalLocationVersionOne(FileLocation v2FileLocation)
         {
             PhysicalLocationVersionOne physicalLocation = null;
 
@@ -388,7 +407,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return physicalLocation;
         }
 
-        internal PhysicalLocationVersionOne CreatePhysicalLocation(Region v2Region)
+        internal PhysicalLocationVersionOne CreatePhysicalLocationVersionOne(Region v2Region)
         {
             PhysicalLocationVersionOne physicalLocation = null;
 
@@ -396,14 +415,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 physicalLocation = new PhysicalLocationVersionOne
                 {
-                    Region = CreateRegion(v2Region, uri: null)
+                    Region = CreateRegionVersionOne(v2Region, uri: null)
                 };
             }
 
             return physicalLocation;
         }
 
-        internal RegionVersionOne CreateRegion(Region v2Region, Uri uri)
+        internal RegionVersionOne CreateRegionVersionOne(Region v2Region, Uri uri)
         {
             RegionVersionOne region = null;
 
@@ -487,9 +506,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private int ConvertCharOffsetToByteOffset(int charOffset, Uri uri)
         {
             int byteOffset = 0;
-            Encoding encoding;
 
-            using (StreamReader reader = GetFileStreamReader(uri, out encoding))
+            using (StreamReader reader = GetFileStreamReader(uri, out Encoding encoding))
             {
                 if (reader != null)
                 {
@@ -509,9 +527,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private int GetRegionByteLength(Region v2Region, Uri uri)
         {
             int byteLength = 0;
-            Encoding encoding;
 
-            using (StreamReader reader = GetFileStreamReader(uri, out encoding))
+            using (StreamReader reader = GetFileStreamReader(uri, out Encoding encoding))
             {
                 if (reader != null)
                 {
@@ -563,9 +580,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private int GetRegionEndColumn(Region v2Region, Uri uri)
         {
             int endColumn = 0;
-            Encoding encoding;
 
-            using (StreamReader reader = GetFileStreamReader(uri, out encoding))
+            using (StreamReader reader = GetFileStreamReader(uri, out Encoding encoding))
             {
                 if (reader != null)
                 {
@@ -591,12 +607,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Stream stream = null;
             encoding = null;
             string failureReason = null;
+            IList<FileData> files = _currentV2Run.Files;
 
-            if (uri != null && _currentV2Run.Files != null)
+            if (uri != null && files != null && _v1FileKeyToV2IndexMap != null)
             {
-                FileData fileData;
-                if (_currentV2Run.Files.TryGetValue(uri.OriginalString, out fileData))
+                if (_v1FileKeyToV2IndexMap.TryGetValue(uri.OriginalString, out int index))
                 {
+                    FileData fileData = files[index];
+
                     // We need the encoding because the content might have been transcoded to UTF-8
                     string encodingName = fileData.Encoding ?? _currentV2Run.DefaultFileEncoding;
                     encoding = GetFileEncoding(encodingName);
@@ -673,7 +691,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return reader;
         }
 
-        internal ReplacementVersionOne CreateReplacement(Replacement v2Replacement, Encoding encoding)
+        internal ReplacementVersionOne CreateReplacementVersionOne(Replacement v2Replacement, Encoding encoding)
         {
             ReplacementVersionOne replacement = null;
 
@@ -720,22 +738,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 foreach (FileLocation fileLocation in v2ResponseFilesList)
                 {
                     string key = fileLocation.Uri.OriginalString;
-                    string fileContent = null;
-                    FileData responseFile;
-
-                    if (_currentV2Run.Files != null && _currentV2Run.Files.TryGetValue(key, out responseFile))
+                    if (_v1FileKeyToV2IndexMap != null && _v1FileKeyToV2IndexMap.TryGetValue(key, out int responseFileIndex))
                     {
-                        fileContent = responseFile.Contents?.Text;
+                        FileData responseFile = _currentV2Run.Files[responseFileIndex];
+                        responseFiles.Add(key, responseFile.Contents?.Text);
                     }
-
-                    responseFiles.Add(key, fileContent);
                 }
             }
 
             return responseFiles;
         }
 
-        internal ResultVersionOne CreateResult(Result v2Result)
+        internal ResultVersionOne CreateResultVersionOne(Result v2Result)
         {
             ResultVersionOne result = null;
 
@@ -744,15 +758,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 result = new ResultVersionOne
                 {
                     BaselineState = Utilities.CreateBaselineStateVersionOne(v2Result.BaselineState),
-                    Fixes = v2Result.Fixes?.Select(CreateFix).ToList(),
+                    Fixes = v2Result.Fixes?.Select(CreateFixVersionOne).ToList(),
                     Id = v2Result.InstanceGuid,
                     Level = Utilities.CreateResultLevelVersionOne(v2Result.Level),
-                    Locations = v2Result.Locations?.Select(CreateLocation).ToList(),
+                    Locations = v2Result.Locations?.Select(CreateLocationVersionOne).ToList(),
                     Message = v2Result.Message?.Text,
                     Properties = v2Result.Properties,
-                    RelatedLocations = v2Result.RelatedLocations?.Select(CreateAnnotatedCodeLocation).ToList(),
+                    RelatedLocations = v2Result.RelatedLocations?.Select(CreateAnnotatedCodeLocationVersionOne).ToList(),
                     Snippet = v2Result.Locations?[0]?.PhysicalLocation?.Region?.Snippet?.Text,
-                    Stacks = v2Result.Stacks?.Select(CreateStack).ToList(),
+                    Stacks = v2Result.Stacks?.Select(CreateStackVersionOne).ToList(),
                     SuppressionStates = Utilities.CreateSuppressionStatesVersionOne(v2Result.SuppressionStates)
                 };
 
@@ -771,29 +785,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     foreach (LocationVersionOne location in result.Locations)
                     {
-                        location.AnalysisTarget = CreatePhysicalLocation(v2Result.AnalysisTarget);
+                        location.AnalysisTarget = CreatePhysicalLocationVersionOne(v2Result.AnalysisTarget);
                     }
                 }
 
-                if (_currentV2Run.Resources?.Rules != null)
-                {
-                    IDictionary<string, Rule> rules = _currentV2Run.Resources.Rules;
+                result.RuleId = v2Result.RuleId;
+                string ruleKey = GetV1RuleKeyFromV2Index(v2Result.RuleIndex, _v2RuleIndexToV1KeyMap);
 
-                    if (v2Result.RuleId != null &&
-                        rules.TryGetValue(v2Result.RuleId, out Rule v2Rule) &&
-                        v2Rule.Id != v2Result.RuleId)
-                    {
-                        result.RuleId = v2Rule.Id;
-                        result.RuleKey = v2Result.RuleId;
-                    }
-                    else
-                    {
-                        result.RuleId = v2Result.RuleId;
-                    }
-                }
-                else
+                // If the rules dictionary key is the same as the rule id, don't set result.RuleKey;
+                // leave it null. This way, we don't unnecessarily persist ruleKey in the v1 SARIF file.
+                // That is, we persist
+                //
+                //   "ruleId": "TST0001"
+                //
+                // instead of
+                //
+                //   "ruleId": "TST0001",
+                //   "ruleKey": "TST0001"
+                //
+                if (ruleKey != result.RuleId)
                 {
-                    result.RuleId = v2Result.RuleId;
+                    result.RuleKey = ruleKey;
                 }
 
                 if (!string.IsNullOrWhiteSpace(v2Result.Message?.MessageId))
@@ -809,12 +821,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return result;
         }
 
-        internal RuleVersionOne CreateRule(IRule v2IRule)
+        internal static RuleVersionOne CreateRuleVersionOne(IRule v2IRule)
         {
             RuleVersionOne rule = null;
 
-            Rule v2Rule = v2IRule as Rule;
-            var properties = v2Rule != null ? v2Rule.Properties : null;
+            var properties = v2IRule is Rule v2Rule ? v2Rule.Properties : null;
 
             if (v2IRule != null)
             {
@@ -841,7 +852,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return rule;
         }
 
-        internal RunVersionOne CreateRun(Run v2Run)
+        internal RunVersionOne CreateRunVersionOne(Run v2Run)
         {
             RunVersionOne run = null;
 
@@ -860,25 +871,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     run = new RunVersionOne();
                     _currentRun = run;
 
-                    run.Architecture = v2Run.Architecture;
-                    run.BaselineId = v2Run.BaselineInstanceGuid;
-                    run.Files = v2Run.Files?.ToDictionary(v => v.Key, v => CreateFileData(v.Value));
+                    CreateFileKeyIndexMappings(v2Run.Files, out _v1FileKeyToV2IndexMap, out _v2FileIndexToV1KeyMap);
+                    _v2RuleIndexToV1KeyMap = CreateV2RuleIndexToV1KeyMapping(v2Run.Resources?.Rules);
 
+                    run.BaselineId = v2Run.BaselineInstanceGuid;
+                    run.Files = CreateFileDataVersionOneDictionary();
                     run.Id = v2Run.Id?.InstanceGuid;
                     run.AutomationId = v2Run.AggregateIds?.FirstOrDefault()?.InstanceId;
 
                     run.StableId = v2Run.Id?.InstanceIdLogicalComponent();
 
-                    run.Invocation = CreateInvocation(v2Run.Invocations?[0]);
-                    run.LogicalLocations = v2Run.LogicalLocations?.ToDictionary(v => v.Key, v => CreateLogicalLocation(v.Value));
+                    run.Invocation = CreateInvocationVersionOne(v2Run.Invocations?[0]);
+                    run.LogicalLocations = CreateLogicalLocationVersionOneDictionary(v2Run.LogicalLocations);
                     run.Properties = v2Run.Properties;
                     run.Results = new List<ResultVersionOne>();
-                    run.Rules = v2Run.Resources?.Rules?.ToDictionary(v => v.Key, v => CreateRule(v.Value));
-                    run.Tool = CreateTool(v2Run.Tool);
+
+                    run.Rules = ConvertRulesArrayToDictionary(_currentV2Run.Resources?.Rules, _v2RuleIndexToV1KeyMap);
+                    run.Tool = CreateToolVersionOne(v2Run.Tool);
 
                     foreach (Result v2Result in v2Run.Results)
                     {
-                        run.Results.Add(CreateResult(v2Result));
+                        run.Results.Add(CreateResultVersionOne(v2Result));
                     }
 
                     // Stash the entire v2 run in this v1 run's property bag
@@ -892,7 +905,199 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return run;
         }
 
-        internal StackVersionOne CreateStack(Stack v2Stack)
+        // In SARIF v1, run.files was a dictionary, whereas in v2 it is an array.
+        // During the v2-to-v1 conversion, it is sometimes necessary to look up
+        // information from a v2 FileData object. Rather than having to search the
+        // v2 run.files array to find the required FileData object, we construct a
+        // dictionary from the array so we can access the required FileData object
+        // directly. It turns out that we need mappings in both directions: from
+        // array index to dictionary key, and vice versa.
+        private static void CreateFileKeyIndexMappings(
+            IList<FileData> v2Files,
+            out IDictionary<string, int> fileKeyToIndexDictionary,
+            out IDictionary<int, string> fileIndexToKeyDictionary)
+        {
+            fileKeyToIndexDictionary = null;
+            fileIndexToKeyDictionary = null;
+
+            if (v2Files != null)
+            {
+                fileKeyToIndexDictionary = new Dictionary<string, int>();
+                fileIndexToKeyDictionary = new Dictionary<int, string>();
+
+                for (int index = 0; index < v2Files.Count; ++index)
+                {
+                    FileData v2File = v2Files[index];
+                    string key = CreateFileDictionaryKey(v2File, v2Files);
+
+                    fileKeyToIndexDictionary[key] = index;
+                    fileIndexToKeyDictionary[index] = key;
+                }
+            }
+        }
+
+        // Given a v2 FileData object, synthesize a key that will be used to locate that object
+        // in the v2 file data dictionary. We will use the same key to locate the corresponding
+        // v1 FileData object when we create the v1 run.files dictionary.
+        //
+        // This method is necessary because, although ideally we would use the FileData
+        // object's URI as the dictionary key, it is possible for two FileData objects to
+        // have the same URI. For example:
+        //
+        //    1. Nested files with the same name might exist in two different containers.
+        //    2. There might be two files with the same URI but difference uriBaseIds.
+        //
+        // To deal with Case #1, we synthesize a key as follows:
+        //
+        //    <root file URI>#<nested file path>/<level 2 nested file path>/...
+        //
+        // To deal with Case #2, we would follow the chain or uriBaseIds, prepending
+        // the value of each one to the URI.
+        //
+        // WE DO NOT YET HANDLE CASE #2.
+        private static string CreateFileDictionaryKey(FileData v2File, IList<FileData> v2Files)
+        {
+            var sb = new StringBuilder(v2File.FileLocation.Uri.OriginalString);
+            while (v2File.ParentIndex != -1)
+            {
+                FileData parentFile = v2Files[v2File.ParentIndex];
+
+                // The convention for building the key is as follows:
+                // The root file URI is separated from the chain of nested files by '#';
+                // The nested file URIs are separated from each other by '/'.
+                if (parentFile.ParentIndex == -1)
+                {
+                    sb.Insert(0, '#');
+                }
+                else
+                {
+                    string path = parentFile.FileLocation.Uri.OriginalString;
+                    if (path.Length == 0 || path[0] != '/')
+                    {
+                        sb.Insert(0, '/');
+                    }
+                }
+
+                sb.Insert(0, parentFile.FileLocation.Uri.OriginalString);
+
+                v2File = parentFile;
+            }
+
+            return sb.ToString();
+        }
+
+        private IDictionary<string, FileDataVersionOne> CreateFileDataVersionOneDictionary()
+        {
+            Dictionary<string, FileDataVersionOne> filesVersionOne = null;
+
+            if (_v1FileKeyToV2IndexMap != null)
+            {
+                filesVersionOne = new Dictionary<string, FileDataVersionOne>();
+                foreach (KeyValuePair<string, int> entry in _v1FileKeyToV2IndexMap)
+                {
+                    string key = entry.Key;
+                    int index = entry.Value;
+                    FileData v2File = _currentV2Run.Files[index];
+                    FileDataVersionOne fileDataVersionOne = CreateFileDataVersionOne(v2File);
+
+                    // There's no need to repeat the URI in the v1 FileData object
+                    // if it matches the dictionary key.
+                    if (fileDataVersionOne.Uri.OriginalString.Equals(key))
+                    {
+                        fileDataVersionOne.Uri = null;
+                    }
+
+                    filesVersionOne[key] = fileDataVersionOne;
+                }
+            }
+
+            return filesVersionOne;
+        }
+
+        private IDictionary<string, LogicalLocationVersionOne> CreateLogicalLocationVersionOneDictionary(IList<LogicalLocation> logicalLocations)
+        {
+            Dictionary<string, LogicalLocationVersionOne> logicalLocationsVersionOne = null;
+
+            if (logicalLocations != null)
+            {
+                logicalLocationsVersionOne = new Dictionary<string, LogicalLocationVersionOne>();
+                foreach (LogicalLocation logicalLocation in logicalLocations)
+                {
+                    logicalLocationsVersionOne[logicalLocation.FullyQualifiedName] = CreateLogicalLocationVersionOne(logicalLocation);
+                }
+            }
+
+            return logicalLocationsVersionOne;
+        }
+
+        // In SARIF v1, run.resources.rules was a dictionary, whereas in v2 it is an array.
+        // Normally, the lookup key into the v1 rules dictionary is the rule id. But some
+        // tools allow multiple rules to have the same id. In that case we must synthesize
+        // a unique key for each rule with that id. We choose "<ruleId>-<n>", where <n> is
+        // 1 for the second occurrence, 2 for the third, and so on.
+        private static IDictionary<int, string> CreateV2RuleIndexToV1KeyMapping(IList<Rule> rules)
+        {
+            var v2RuleIndexToV1KeyMap = new Dictionary<int, string>();
+
+            if (rules != null)
+            {
+                // Keep track of how many distinct rules have each id.
+                var ruleIdToCountMap = new Dictionary<string, int>();
+
+                for (int i = 0; i < rules.Count; ++i)
+                {
+                    string ruleId = rules[i].Id;
+                    if (ruleId != null)
+                    {
+                        ruleIdToCountMap[ruleId] = ruleIdToCountMap.ContainsKey(ruleId)
+                            ? ruleIdToCountMap[ruleId] + 1
+                            : 1;
+
+                        v2RuleIndexToV1KeyMap[i] = ruleIdToCountMap[ruleId] == 1
+                            ? ruleId
+                            : ruleId + '-' + (ruleIdToCountMap[ruleId] - 1).ToString();
+                    }
+                }
+            }
+
+            return v2RuleIndexToV1KeyMap;
+        }
+
+        private static string GetV1RuleKeyFromV2Index(
+            int ruleIndex,
+            IDictionary<int, string> v2RuleIndexToV1KeyMap)
+        {
+            v2RuleIndexToV1KeyMap.TryGetValue(ruleIndex, out string ruleKey);
+
+            // If TryGetValue returned false, ruleKey was set to default(string),
+            // otherwise known as null, which is what we want.
+            return ruleKey;
+        }
+
+        private static IDictionary<string, RuleVersionOne> ConvertRulesArrayToDictionary(
+            IList<Rule> v2Rules,
+            IDictionary<int, string> v2RuleIndexToV1KeyMap)
+        {
+            IDictionary<string, RuleVersionOne> v1Rules = null;
+
+            if (v2Rules != null)
+            {
+                v1Rules = new Dictionary<string, RuleVersionOne>();
+                for (int i = 0; i < v2Rules.Count; ++i)
+                {
+                    Rule v2Rule = v2Rules[i];
+
+                    RuleVersionOne v1Rule = CreateRuleVersionOne(v2Rule);
+                    string key = GetV1RuleKeyFromV2Index(i, v2RuleIndexToV1KeyMap);
+
+                    v1Rules[key] = v1Rule;
+                }
+            }
+
+            return v1Rules;
+        }
+
+        internal StackVersionOne CreateStackVersionOne(Stack v2Stack)
         {
             StackVersionOne stack = null;
 
@@ -902,14 +1107,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     Message = v2Stack.Message?.Text,
                     Properties = v2Stack.Properties,
-                    Frames = v2Stack.Frames?.Select(CreateStackFrame).ToList()
+                    Frames = v2Stack.Frames?.Select(CreateStackFrameVersionOne).ToList()
                 };
             }
 
             return stack;
         }
 
-        internal StackFrameVersionOne CreateStackFrame(StackFrame v2StackFrame)
+        internal StackFrameVersionOne CreateStackFrameVersionOne(StackFrame v2StackFrame)
         {
             StackFrameVersionOne stackFrame = null;
 
@@ -931,11 +1136,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     string fqln = location.FullyQualifiedLogicalName;
 
                     if (_currentV2Run.LogicalLocations != null &&
-                        _currentV2Run.LogicalLocations.ContainsKey(fqln) &&
-                        !string.IsNullOrWhiteSpace(_currentV2Run.LogicalLocations[fqln].FullyQualifiedName))
+                        !string.IsNullOrWhiteSpace(_currentV2Run.LogicalLocations[location.LogicalLocationIndex].FullyQualifiedName))
                     {
-                        stackFrame.FullyQualifiedLogicalName = _currentV2Run.LogicalLocations[fqln].FullyQualifiedName;
-                        stackFrame.LogicalLocationKey = fqln;
+                        stackFrame.FullyQualifiedLogicalName = _currentV2Run.LogicalLocations[location.LogicalLocationIndex].FullyQualifiedName;
+                        stackFrame.LogicalLocationKey = fqln != _currentV2Run.LogicalLocations[location.LogicalLocationIndex].FullyQualifiedName ? fqln : null;
                     }
                     else
                     {
@@ -958,7 +1162,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return stackFrame;
         }
 
-        internal ToolVersionOne CreateTool(Tool v2Tool)
+        internal ToolVersionOne CreateToolVersionOne(Tool v2Tool)
         {
             ToolVersionOne tool = null;
 
@@ -966,7 +1170,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 tool = new ToolVersionOne()
                 {
-                    FileVersion = v2Tool.FileVersion,
+                    FileVersion = v2Tool.DottedQuadFileVersion,
                     FullName = v2Tool.FullName,
                     Language = v2Tool.Language,
                     Name = v2Tool.Name,

@@ -104,10 +104,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
   ""runs"": [
     {
       ""tool"": {
-        ""name"": null
+        ""name"": ""DefaultTool""
       },
+      ""columnKind"": ""utf16CodeUnits"",
       ""results"": [
         {
+          ""message"": {
+            ""text"": ""Some testing occurred.""
+         },
           ""locations"": [
             {
               ""physicalLocation"": {
@@ -129,6 +133,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
 
                 var result = new Result
                 {
+                    Message = new Message {  Text = "Some testing occurred."},
                     Locations = new List<Location>
                     {
                         new Location
@@ -147,7 +152,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
                 uut.WriteResults(new[] { result });
             });
 
-            actualOutput.Should().BeCrossPlatformEquivalent(expectedOutput);
+            actualOutput.Should().BeCrossPlatformEquivalent<SarifLog>(expectedOutput);
         }
     }
 }

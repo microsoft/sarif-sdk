@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type FileLocation for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     internal sealed class FileLocationEqualityComparer : IEqualityComparer<FileLocation>
     {
         internal static readonly FileLocationEqualityComparer Instance = new FileLocationEqualityComparer();
@@ -34,6 +34,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             if (left.UriBaseId != right.UriBaseId)
+            {
+                return false;
+            }
+
+            if (left.FileIndex != right.FileIndex)
             {
                 return false;
             }
@@ -83,6 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.UriBaseId.GetHashCode();
                 }
 
+                result = (result * 31) + obj.FileIndex.GetHashCode();
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.

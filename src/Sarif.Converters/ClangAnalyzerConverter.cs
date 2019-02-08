@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -58,27 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                 }
 
-                var tool = new Tool
-                {
-                    Name = "Clang"
-                };
-
-                var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, dataToInsert);
-                Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
-
-
-                var run = new Run()
-                {
-                    Tool = tool
-                };
-
-                output.Initialize(run);
-
-                if (fileDictionary != null && fileDictionary.Count > 0) { output.WriteFiles(fileDictionary); }
-
-                output.OpenResults();
-                output.WriteResults(results);
-                output.CloseResults();
+                PersistResults(output, results, "Clang Analyzer");
             }
             finally
             {
@@ -155,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     int fileNumber = FindInt(location, "file");
                     if (_files != null && fileNumber < _files.Count)
                     {
-                        fileName = _files[fileNumber] as string;
+                        fileName = (string)_files[fileNumber];
                     }
                 }
 

@@ -10,7 +10,6 @@ using System.Linq;
 using System.Reflection;
 using System.Xml;
 using System.Xml.Schema;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -38,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw (new ArgumentNullException(nameof(output)));
             }
 
-            LogicalLocationsDictionary.Clear();
+            LogicalLocations.Clear();
 
             var context = new FxCopLogReader.Context();
 
@@ -49,46 +48,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             reader.ResultRead += (FxCopLogReader.Context current) => { results.Add(CreateResult(current)); };
             reader.Read(context, input);
 
-            Tool tool = new Tool
-            {
-                Name = "FxCop"
-            };
-
-            var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, dataToInsert);
-            Dictionary<string, FileData> fileDictionary = fileInfoFactory.Create(results);
-
             var run = new Run()
             {
-                Tool = tool
+                Tool = new Tool {  Name = "FxCop"}
             };
-
-            output.Initialize(run);
-
-            if (fileDictionary != null && fileDictionary.Any())
-            {
-                output.WriteFiles(fileDictionary);
-            }
-
-            if (LogicalLocationsDictionary != null && LogicalLocationsDictionary.Any())
-            {
-                output.WriteLogicalLocations(LogicalLocationsDictionary);
-            }
-
-            output.OpenResults();
-            output.WriteResults(results);
-            output.CloseResults();
 
             if (rules.Count > 0)
             {
-                IDictionary<string, IRule> rulesDictionary = new Dictionary<string, IRule>();
-
-                foreach (Rule rule in rules)
+                run.Resources = new Resources
                 {
-                    rulesDictionary[rule.Id] = rule;
-                }
-
-                output.WriteRules(rulesDictionary);
+                    Rules = rules
+                };
             }
+
+            PersistResults(output, results, run);
         }
 
         internal Rule CreateRule(FxCopLogReader.Context context)
@@ -162,7 +135,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 };
             }
 
-            location.FullyQualifiedLogicalName = CreateFullyQualifiedLogicalName(context);
+            location.FullyQualifiedLogicalName = CreateFullyQualifiedLogicalName(context, out int logicalLocationIndex);
+            location.LogicalLocationIndex = logicalLocationIndex;
 
             result.Locations = new List<Location> { location };
 
@@ -269,54 +243,57 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        private string CreateFullyQualifiedLogicalName(FxCopLogReader.Context context)
+        private string CreateFullyQualifiedLogicalName(FxCopLogReader.Context context, out int index)
         {
-            string parentLogicalLocationKey = null;
+            index = -1;
+            string fullyQualifiedName = null;
             string delimiter = string.Empty;
 
             if (!string.IsNullOrEmpty(context.Module))
             {
-                parentLogicalLocationKey = AddLogicalLocation(parentLogicalLocationKey, context.Module, LogicalLocationKind.Module, delimiter);
+                index = AddLogicalLocation(index, ref fullyQualifiedName, context.Module, LogicalLocationKind.Module, delimiter);
                 delimiter = "!";
             }
 
             if (!string.IsNullOrEmpty(context.Resource))
-            {
-                parentLogicalLocationKey = AddLogicalLocation(parentLogicalLocationKey, context.Resource, LogicalLocationKind.Resource, delimiter);
+            {                
+                index = AddLogicalLocation(index, ref fullyQualifiedName, context.Resource, LogicalLocationKind.Resource, delimiter);
                 delimiter = ".";
             }
 
             if (!string.IsNullOrEmpty(context.Namespace))
             {
-                parentLogicalLocationKey = AddLogicalLocation(parentLogicalLocationKey, context.Namespace, LogicalLocationKind.Namespace, delimiter);
+                index = AddLogicalLocation(index, ref fullyQualifiedName, context.Namespace, LogicalLocationKind.Namespace, delimiter);
                 delimiter = ".";
             }
 
             if (!string.IsNullOrEmpty(context.Type))
             {
-                parentLogicalLocationKey = AddLogicalLocation(parentLogicalLocationKey, context.Type, LogicalLocationKind.Type, delimiter);
+                index = AddLogicalLocation(index, ref fullyQualifiedName, context.Type, LogicalLocationKind.Type, delimiter);
                 delimiter = ".";
             }
 
             if (!string.IsNullOrEmpty(context.Member))
             {
                 string member = context.Member != null ? context.Member.Trim('#') : null;
-                parentLogicalLocationKey = AddLogicalLocation(parentLogicalLocationKey, member, LogicalLocationKind.Member, delimiter);
+                index = AddLogicalLocation(index, ref fullyQualifiedName, member, LogicalLocationKind.Member, delimiter);
             }
 
-            return parentLogicalLocationKey;
+            return fullyQualifiedName;
         }
 
-        private string AddLogicalLocation(string parentKey, string value, string kind, string delimiter = ".")
+        private int AddLogicalLocation(int parentIndex, ref string fullyQualifiedName, string value, string kind, string delimiter = ".")
         {
+            fullyQualifiedName = fullyQualifiedName + delimiter + value;
             var logicalLocation = new LogicalLocation
             {
-                ParentKey = parentKey,
+                FullyQualifiedName = fullyQualifiedName != value ? fullyQualifiedName : null,
                 Kind = kind,
-                Name = value
+                Name = value,
+                ParentIndex = parentIndex
             };
-
-            return AddLogicalLocation(logicalLocation, delimiter);
+            
+            return AddLogicalLocation(logicalLocation);
         }
 
         private static void AddProperty(Result result, string value, string key)

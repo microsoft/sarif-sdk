@@ -5,6 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -12,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Key/value pairs that provide additional information about the object.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class PropertyBag : ISarifNode
     {
         public static IEqualityComparer<PropertyBag> ValueComparer => PropertyBagEqualityComparer.Instance;
@@ -35,6 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A set of distinct strings that provide additional information.
         /// </summary>
         [DataMember(Name = "tags", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<string> Tags { get; set; }
 
         /// <summary>
@@ -48,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Initializes a new instance of the <see cref="PropertyBag" /> class from the supplied values.
         /// </summary>
         /// <param name="tags">
-        /// An initialization value for the <see cref="P: Tags" /> property.
+        /// An initialization value for the <see cref="P:Tags" /> property.
         /// </param>
         public PropertyBag(IEnumerable<string> tags)
         {

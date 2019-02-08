@@ -22,6 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif
       ""tool"": {
         ""name"": ""Semmle QL""
       },
+      ""columnKind"": ""utf16CodeUnits"",
       ""files"": {
         ""#$srcroot#RelativePath"": {
           ""mimeType"": ""application/octet-stream""
@@ -54,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     }
   ]
 }";
-            RunTestCase(semmleCsvInput, expected, prettyPrint: true);
+            RunTestCase(semmleCsvInput, expected, prettyPrint: true, forceV2Transform: true);
         }
 
         [Fact]
@@ -71,6 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif
       ""tool"": {
         ""name"": ""Semmle QL""
       },
+      ""columnKind"": ""utf16CodeUnits"",
       ""files"": {
         ""#$srcroot#ProjectOne/Microsoft.ResourceManagement.ObjectModel/ClientResource.cs"": {
           ""mimeType"": ""text/x-csharp""
@@ -151,7 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif
   ]
 }";
 
-            RunTestCase(semmleCsvInput, expected, prettyPrint: true);
+            RunTestCase(semmleCsvInput, expected, prettyPrint: true, forceV2Transform: true);
         }
 
         private class SemmleCsvRecord
