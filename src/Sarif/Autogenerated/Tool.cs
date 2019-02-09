@@ -99,7 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<MessageDescriptor> NotificationsMetadata { get; set; }
 
         /// <summary>
-        /// An array of message descriptor objects relevant to the analysis provided by the tool.
+        /// An array of message descriptor objects relevant to the analysis performed by the tool.
         /// </summary>
         [DataMember(Name = "rulesMetadata", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
