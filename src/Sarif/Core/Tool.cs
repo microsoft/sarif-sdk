@@ -52,14 +52,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         public bool ShouldSerializeRulesMetadata()
-        {
-            return this.RulesMetadata != null &&
-                    this.RulesMetadata.Where((n) => { return n != null; }).Any();
+        {            
+            return this.RulesMetadata.HasAtLeastOneNonNullValue();
         }
+
         public bool ShouldSerializeNotificationsMetadata()
         {
-            return this.NotificationsMetadata != null &&
-                    this.NotificationsMetadata.Where((n) => { return n != null; }).Any();
+            return this.NotificationsMetadata.HasAtLeastOneNonNullValue();
         }
     }
 }

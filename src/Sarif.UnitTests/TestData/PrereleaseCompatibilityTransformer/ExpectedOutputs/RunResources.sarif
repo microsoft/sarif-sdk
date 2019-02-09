@@ -16,7 +16,6 @@
               "a": "Review all image content for geopolitically sensitive graphics."
             },
             "defaultConfiguration": {
-              "enabled": false,
               "level": "error"
             }
           },
@@ -24,6 +23,16 @@
             "id": "SHARED-ID",
             "messageStrings": {
               "a": "Review all plaintext content for geopolitically sensitive terms."
+            }
+          },
+          {
+            "id": "SHARED-ID",
+            "messageStrings": {
+              "a": "Review strings extracted from binaries for geopolitically sensitive terms."
+            },
+            "defaultConfiguration": {
+              "enabled": false,
+              "level": "note"
             }
           }
         ]

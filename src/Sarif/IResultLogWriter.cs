@@ -44,10 +44,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Write information about the tool to the log. This information may appear
         /// after the results, as some tool data, such as the relevant set of rule
         /// observed during analysis, might not be known until all results have been
-        /// generated. A Sarif file may also contain only message metadata.
+        /// generated. A SARIF file may also contain only message metadata.
         /// </summary>
         /// <param name="tool">
-        /// The tool object relevant to the current run.
+        /// The tool that was executed in the current run.
         /// </param>
         void WriteTool(Tool tool);
 

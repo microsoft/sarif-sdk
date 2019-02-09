@@ -147,6 +147,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static bool MoveRulesMetadataAndConfiguration(JObject run)
         {
+            // https://github.com/oasis-tcs/sarif-spec/issues/311
+
             if (!(run["resources"] is JObject resources))
             {
                 return false;
@@ -154,13 +156,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             JObject tool = (JObject)run["tool"];
 
-            // https://github.com/oasis-tcs/sarif-spec/issues/311
-
             // 1. 'run.resources.messageStrings' moves to 'run.tool.globalMessageStrings'
             if (resources["messageStrings"] is JObject messageStrings)
             {
                 tool["globalMessageStrings"] = messageStrings;
-                resources["messageStrings"] = null;
             }
 
             // 2. 'run.resources.rules' moves to 'run.tool.rulesMetadata'
@@ -190,13 +189,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static bool UpdateBaselineExistingStateToUnchanged(JObject result)
         {
-            bool modifiedLog = false;
-
             // Rename 'existing' baseline state to 'unchanged'
             // (as part of adding the 'updated' state, which 
-            // will not exist in any legacy SARIF logs.
+            // will not exist in any legacy SARIF logs).
             // https://github.com/oasis-tcs/sarif-spec/issues/312
             //
+            bool modifiedLog = false;
+
             string baselineState = (string)result["baselineState"];
 
             if ("existing".Equals(baselineState))

@@ -1,11 +1,17 @@
 {
-  "$schema": "json.schemastore.org/sarif-2.0.0",
-  "version": "2.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-11-28",
+  "version": "2.0.0-csd.2.beta.2018-11-28",
   "runs": [
     {
       "tool": {
         "name": "CodeScanner",
         "downloadUri": "tools/codescanner/download.html",
+        "notificationsMetadata": [
+          {
+            "id": "MSG0001",
+            "helpUri": "www.example.com/notifications/tst0001.html"
+          }
+        ],
         "rulesMetadata": [
           {
             "id": "TST0001",
@@ -13,24 +19,29 @@
           }
         ]
       },
-      "results": [
-        {
-          "message": { "text": "Some testing occurred." },
-          "ruleId": "TST0001",
-          "level": "error",
-          "workItemUris": [
-            "example.com/my-project/issues/42"
-          ]
-        }
-      ],
-      "originalUriBaseIds": {
-        "SRCROOT": { "uri": "Code/sarif-sdk/src" }
-      },
       "versionControlProvenance": [
         {
           "repositoryUri": "example.com/my-project"
         }
       ],
+      "originalUriBaseIds": {
+        "SRCROOT": {
+          "uri": "Code/sarif-sdk/src"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "message": {
+            "text": "Some testing occurred."
+          },
+          "workItemUris": [
+            "example.com/my-project/issues/42"
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits",
       "properties": {
         "expectedResults": {
           "resultLocationPointers": [
@@ -38,6 +49,7 @@
             "runs[0].tool.downloadUri",
             "runs[0].results[0].workItemUris[0]",
             "runs[0].originalUriBaseIds.SRCROOT",
+            "runs[0].tool.notificationsMetadata[0].helpUri",
             "runs[0].tool.rulesMetadata[0].helpUri",
             "runs[0].versionControlProvenance[0].repositoryUri"
           ]

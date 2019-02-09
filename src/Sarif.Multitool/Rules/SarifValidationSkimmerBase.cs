@@ -823,7 +823,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             if (tool.NotificationsMetadata != null)
             {
                 string notificationsPointer = toolPointer.AtProperty(SarifPropertyName.NotificationsMetadata);
-                for (int i = 0; i < tool.RulesMetadata.Count; ++i)
+                for (int i = 0; i < tool.NotificationsMetadata.Count; ++i)
                 {
                     Visit(tool.NotificationsMetadata[i], notificationsPointer.AtIndex(i));
                 }

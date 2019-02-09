@@ -4,12 +4,11 @@
 using System;
 using System.IO;
 using Microsoft.CodeAnalysis.Sarif.TestUtilities;
-using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Microsoft.CodeAnalysis.Sarif.Visitors
+namespace Microsoft.CodeAnalysis.Sarif.Writers
 {
     public class PrereleaseCompatibilityTransformerTests : FileDiffingTests, IClassFixture<PrereleaseCompatibilityTransformerTests.PrereleaseCompatibilityTransformerTestsFixture>
     {

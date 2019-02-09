@@ -51,7 +51,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Regions = "regions";
         public const string RelatedLocations = "relatedLocations";
         public const string RepositoryUri = "repositoryUri";
-        public const string Resources = "resources";
         public const string ResponseFiles = "responseFiles";
         public const string Results = "results";
         public const string RichMessageStrings = "richMessageStrings";

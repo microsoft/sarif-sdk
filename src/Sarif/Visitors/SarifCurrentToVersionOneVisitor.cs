@@ -821,31 +821,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return result;
         }
 
-        internal static RuleVersionOne CreateRuleVersionOne(MessageDescriptor v2IRule)
+        internal static RuleVersionOne CreateRuleVersionOne(MessageDescriptor v2MessageDescriptor)
         {
             RuleVersionOne rule = null;
 
-            var properties = v2IRule.Properties;
-
-            if (v2IRule != null)
+            if (v2MessageDescriptor != null)
             {
                 rule = new RuleVersionOne
                 {
-                    FullDescription = v2IRule.FullDescription?.Text,
-                    HelpUri = v2IRule.HelpUri,
-                    Id = v2IRule.Id,
-                    MessageFormats = v2IRule.MessageStrings,
-                    Name = v2IRule.Name?.Text,
-                    Properties = properties,
-                    ShortDescription = v2IRule.ShortDescription?.Text
+                    FullDescription = v2MessageDescriptor.FullDescription?.Text,
+                    HelpUri = v2MessageDescriptor.HelpUri,
+                    Id = v2MessageDescriptor.Id,
+                    MessageFormats = v2MessageDescriptor.MessageStrings,
+                    Name = v2MessageDescriptor.Name?.Text,
+                    Properties = v2MessageDescriptor.Properties,
+                    ShortDescription = v2MessageDescriptor.ShortDescription?.Text
                 };
 
-                if (v2IRule.DefaultConfiguration != null)
+                if (v2MessageDescriptor.DefaultConfiguration != null)
                 {
-                    rule.Configuration = v2IRule.DefaultConfiguration.Enabled ?
+                    rule.Configuration = v2MessageDescriptor.DefaultConfiguration.Enabled ?
                             RuleConfigurationVersionOne.Enabled :
                             RuleConfigurationVersionOne.Disabled;
-                    rule.DefaultLevel = Utilities.CreateResultLevelVersionOne(v2IRule.DefaultConfiguration.Level);
+                    rule.DefaultLevel = Utilities.CreateResultLevelVersionOne(v2MessageDescriptor.DefaultConfiguration.Level);
                 }
             }
 

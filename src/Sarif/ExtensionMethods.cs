@@ -14,9 +14,15 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class ExtensionMethods
     {
-        public static bool HasAtLeastOneNonNullValue(this IList<string> list)
+        public static bool HasAtLeastOneNonNullValue<T>(this IEnumerable<T> collection)
         {
-            return list != null && list.Any((s) => s != null);
+            return collection != null && collection.Any((m) => m != null);
+        }
+
+        public static bool HasAtLeastOneNonDefaultValue<T>(this IEnumerable<T> collection, IEqualityComparer<T> comparer) where T : new()
+        {
+            var defaultInstance = new T();
+            return collection != null && collection.Any((m) => m != null && !comparer.Equals(defaultInstance, m));
         }
 
         public static string InstanceIdInstanceComponent(this RunAutomationDetails runAutomationDetails)

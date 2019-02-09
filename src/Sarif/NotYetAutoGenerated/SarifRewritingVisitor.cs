@@ -709,6 +709,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                         node.VersionControlProvenance[index_0] = VisitNullChecked(node.VersionControlProvenance[index_0]);
                     }
                 }
+
+                // OriginalUriBaseIds are directories, not files. We'll disable this visit until the
+                // schema can catch up with this reality.
+                // https://github.com/oasis-tcs/sarif-spec/issues/306
                 /*
                 if (node.OriginalUriBaseIds != null)
                 {

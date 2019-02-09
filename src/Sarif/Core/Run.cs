@@ -145,14 +145,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public bool ShouldSerializeFiles() { return this.Files?.Count > 0; }
+        public bool ShouldSerializeFiles() { return this.Files.HasAtLeastOneNonNullValue(); }
 
-        public bool ShouldSerializeGraphs() { return this.Graphs != null && this.Graphs.Values.Any(); }
+        public bool ShouldSerializeGraphs() { return this.Graphs.HasAtLeastOneNonNullValue(); }
 
-        public bool ShouldSerializeInvocations() { return this.Invocations != null && this.Invocations.Any((e) => e != null && !e.ValueEquals(EmptyInvocation)); }
+        public bool ShouldSerializeInvocations() { return this.Invocations.HasAtLeastOneNonDefaultValue(Invocation.ValueComparer); }
 
-        public bool ShouldSerializeLogicalLocations() { return this.LogicalLocations?.Count > 0; }
+        public bool ShouldSerializeLogicalLocations() { return this.LogicalLocations.HasAtLeastOneNonNullValue(); }
 
-        public bool ShouldSerializeNewlineSequences() { return this.NewlineSequences != null && this.NewlineSequences.Any((s) => s != null); }
+        public bool ShouldSerializeNewlineSequences() { return this.NewlineSequences.HasAtLeastOneNonNullValue(); }
     }
 }

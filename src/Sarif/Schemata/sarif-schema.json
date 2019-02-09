@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta.2018-11-28 JSON Schema",
-  "description": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2018-11-28 JSON Schema: a standard format for the output of static analysis tools.",
+  "title": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta.2019-01-24 JSON Schema",
+  "description": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2019-01-24 JSON Schema: a standard format for the output of static analysis tools.",
   "additionalProperties": false,
   "type": "object",
   "properties": {
@@ -346,6 +346,11 @@
           "items": {
             "$ref": "#/definitions/externalPropertyFile"
           }
+        },
+
+        "tool": {
+          "description": "An external property file containing a run.tool object to be merged with the root log file.",
+          "$ref": "#/definitions/externalPropertyFile"
         }
       }
     },
@@ -2073,7 +2078,7 @@
         },
 
         "rulesMetadata": {
-          "description": "An array of message descriptor objects relevant to the analysis provided by the tool.",
+          "description": "An array of message descriptor objects relevant to the analysis performed by the tool.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
