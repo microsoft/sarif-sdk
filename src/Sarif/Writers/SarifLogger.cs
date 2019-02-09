@@ -409,11 +409,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             Encoding encoding = null;
-            try
+
+            if (_run.DefaultFileEncoding != null)
             {
-                encoding = Encoding.GetEncoding(_run.DefaultFileEncoding);
+                try
+                {
+                    encoding = Encoding.GetEncoding(_run.DefaultFileEncoding);
+                }
+                catch (ArgumentException) { } // Unrecognized encoding name
             }
-            catch (ArgumentException) { } // Unrecognized or null encoding name
 
             _run.GetFileIndex(
                 fileLocation, 
