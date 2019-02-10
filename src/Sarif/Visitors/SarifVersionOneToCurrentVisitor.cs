@@ -725,10 +725,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     SuppressionStates = Utilities.CreateSuppressionStates(v1Result.SuppressionStates)
                 };
 
-                // The spec says that analysisTarget is required only if it differs from the result file.
-                Uri analysisTargetUri = v1Result.Locations?[0]?.AnalysisTarget?.Uri;
-                Uri resultFileUri = v1Result.Locations?[0]?.ResultFile?.Uri;
-                if (analysisTargetUri != null && resultFileUri != null && analysisTargetUri != resultFileUri)
+                // The v2 spec says that analysisTarget is required only if it differs from the result location.
+                // On the other hand, the v1 spec says that if the result is found in the file that the tool
+                // was instructed to scan, then analysisTarget should be present and resultFile should be
+                // absent -- so we should _not_ populate the v2 analysisTarget in this case.
+                LocationVersionOne v1Location = v1Result.Locations?[0];
+                if (v1Location?.ResultFile != null && v1Location.AnalysisTarget?.Uri != v1Location.ResultFile.Uri)
                 {
                     result.AnalysisTarget = CreateFileLocation(v1Result.Locations[0].AnalysisTarget);
                 }

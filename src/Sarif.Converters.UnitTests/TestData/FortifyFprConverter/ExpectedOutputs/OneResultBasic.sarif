@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-11-28",
-  "version": "2.0.0-csd.2.beta.2018-11-28",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-01-09",
+  "version": "2.0.0-csd.2.beta.2019-01-09",
   "runs": [
     {
       "id": {
@@ -11,7 +11,7 @@
       },
       "originalUriBaseIds": {
         "SRCROOT": {
-          "uri": "file:///C:/projects/myproject/src/"
+          "uri": "file://root/projects/myproject/src/"
         }
       },
       "columnKind": "utf16CodeUnits",
@@ -22,7 +22,7 @@
           "machine": "SCANMACHINE",
           "account": "johndoe",
           "properties": {
-            "Platform": "Windows 10"
+            "Platform": "Linux"
           }
         }
       ],

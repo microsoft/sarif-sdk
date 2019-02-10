@@ -1476,7 +1476,7 @@
           "$ref": "#/definitions/propertyBag"
         }
       },
-      "required": ["message"]
+      "required": [ "message" ]
     },
 
     "resultProvenance": {

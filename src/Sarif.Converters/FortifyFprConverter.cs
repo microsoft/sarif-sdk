@@ -122,11 +122,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (!string.IsNullOrWhiteSpace(_originalUriBasePath))
             {
-                var uri = new Uri(_originalUriBasePath);
-                run.OriginalUriBaseIds = new Dictionary<string, FileLocation>
+                if (_originalUriBasePath.StartsWith("/") &&
+                    _invocation.GetProperty("Platform") == "Linux")
                 {
-                    { FileLocationUriBaseId, new FileLocation { Uri = uri } }
-                };
+                    _originalUriBasePath = "file:/" + _originalUriBasePath;
+                }
+
+                if (Uri.TryCreate(_originalUriBasePath, UriKind.Absolute, out Uri uri))
+                {
+                    run.OriginalUriBaseIds = new Dictionary<string, FileLocation>
+                    {
+                        { FileLocationUriBaseId, new FileLocation { Uri = uri } }
+                    };
+                }
             }
 
             PersistResults(output, _results, run);
@@ -332,7 +340,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             var result = new Result
             {
-                Locations = new List<Location>(),
                 RelatedLocations = new List<Location>(),
                 CodeFlows = new List<CodeFlow>()
             };
@@ -399,10 +406,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             {
                                 // We haven't found the default node yet, so check this one.
                                 string isDefaultValue = _reader.GetAttribute(_strings.IsDefaultAttribute);
-                                bool val;
 
                                 if (!string.IsNullOrWhiteSpace(isDefaultValue)
-                                    && bool.TryParse(isDefaultValue, out val)
+                                    && bool.TryParse(isDefaultValue, out bool val)
                                     && val == true)
                                 {
                                     // This is the default, set the flag so we know to add a result location
@@ -468,6 +474,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                                 if (isDefault == true)
                                 {
+                                    result.Locations = new List<Location>();
                                     result.Locations.Add(location.DeepClone());
                                     result.RelatedLocations.Add(location.DeepClone());
 
@@ -507,31 +514,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             _reader.Read();
                         }
                     }
-
-                    //if (codeFlow.ThreadFlows[0].Locations.Any())
-                    //{
-                    //    Location location = new Location
-                    //    {
-                    //        PhysicalLocation = codeFlow.ThreadFlows[0].Locations.Last().Location?.PhysicalLocation
-                    //    };
-
-                    //    // Make sure we don't already have this location in the lists
-                    //    if (!result.Locations.Contains(location, Location.ValueComparer))
-                    //    {
-                    //        result.Locations.Add(new Location
-                    //        {
-                    //            // TODO: Confirm that the traces are ordered chronologically
-                    //            // (so that we really do want to use the last one as the
-                    //            // overall result location).
-                    //            PhysicalLocation = location.PhysicalLocation.DeepClone()
-                    //        });
-                    //        result.RelatedLocations.Add(new Location
-                    //        {
-                    //            // Links embedded in the result message refer to related physicalLocation.id
-                    //            PhysicalLocation = location.PhysicalLocation.DeepClone()
-                    //        });
-                    //    }
-                    //}
                 }
                 else
                 {
@@ -927,9 +909,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 MessageDescriptor rule = _rules[ruleIndex];
                 Message message = rule.ShortDescription ?? rule.FullDescription;
-                Dictionary<string, string> replacements = null;
 
-                if (_resultToReplacementDefinitionDictionary.TryGetValue(result, out replacements))
+                if (_resultToReplacementDefinitionDictionary.TryGetValue(result, out Dictionary<string, string> replacements))
                 {
                     string messageText = message?.Text;
                     foreach (string key in replacements.Keys)
@@ -960,12 +941,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             foreach (Result result in _results)
             {
-                string snippetId;
-                Region[] regions;
-
                 if (result.Locations?[0]?.PhysicalLocation?.Region != null &&
-                    _resultToSnippetIdDictionary.TryGetValue(result, out snippetId) &&
-                    _snippetIdToRegionsDictionary.TryGetValue(snippetId, out regions) &&
+                    _resultToSnippetIdDictionary.TryGetValue(result, out string snippetId) &&
+                    _snippetIdToRegionsDictionary.TryGetValue(snippetId, out Region[] regions) &&
                     !string.IsNullOrWhiteSpace(regions[0]?.Snippet.Text))
                 {
                     // Regions[0] => physicalLocation.region
@@ -992,11 +970,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         {
                             foreach (ThreadFlowLocation tfl in codeFlow.ThreadFlows[0].Locations)
                             {
-                                string snippetId;
-                                Region[] regions = null;
-
-                                if (_tflToSnippetIdDictionary.TryGetValue(tfl, out snippetId) &&
-                                    _snippetIdToRegionsDictionary.TryGetValue(snippetId, out regions))
+                                if (_tflToSnippetIdDictionary.TryGetValue(tfl, out string snippetId) &&
+                                    _snippetIdToRegionsDictionary.TryGetValue(snippetId, out Region[] regions))
                                 {
                                     // Regions[0] => physicalLocation.region
                                     // Regions[1] => physicalLocation.contextRegion
@@ -1026,22 +1001,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         {
                             foreach (ThreadFlowLocation tfl in codeFlow.ThreadFlows[0].Locations)
                             {
-                                string nodeId;
-                                string snippetId;
-                                string actionType;
-                                Region[] regions = null;
-                                Location location = null;
-
-                                if (_tflToNodeIdDictionary.TryGetValue(tfl, out nodeId) &&
-                                    _nodeIdToLocationDictionary.TryGetValue(nodeId, out location) &&
-                                    _nodeIdToActionTypeDictionary.TryGetValue(nodeId, out actionType) &&
-                                    _locationToSnippetIdDictionary.TryGetValue(location, out snippetId) &&
-                                    _snippetIdToRegionsDictionary.TryGetValue(snippetId, out regions))
+                                if (_tflToNodeIdDictionary.TryGetValue(tfl, out string nodeId) &&
+                                    _nodeIdToLocationDictionary.TryGetValue(nodeId, out Location location) &&
+                                    _nodeIdToActionTypeDictionary.TryGetValue(nodeId, out string actionType) &&
+                                    _locationToSnippetIdDictionary.TryGetValue(location, out string snippetId))
                                 {
-                                    // Regions[0] => physicalLocation.region
-                                    // Regions[1] => physicalLocation.contextRegion
-                                    location.PhysicalLocation.Region = regions[0];
-                                    location.PhysicalLocation.ContextRegion = regions[1];
+                                    if (!string.IsNullOrEmpty(snippetId) && _snippetIdToRegionsDictionary.TryGetValue(snippetId, out Region[] regions))
+                                    {
+                                        // Regions[0] => physicalLocation.region
+                                        // Regions[1] => physicalLocation.contextRegion
+                                        location.PhysicalLocation.Region = regions[0];
+                                        location.PhysicalLocation.ContextRegion = regions[1];
+                                    }
+
                                     tfl.Location = location;
                                     tfl.Kind = actionType;
                                 }

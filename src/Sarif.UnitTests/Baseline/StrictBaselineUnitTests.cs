@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             Run baseline = RandomSarifLogGenerator.GenerateRandomRunWithoutDuplicateIssues(random, Result.ValueComparer, random.Next(100)+5);
             Run next = baseline.DeepClone();
 
-            Run result = strictBaseliner.CreateBaselinedRun(baseline, next);
+            Run run = strictBaseliner.CreateBaselinedRun(baseline, next);
 
             result.Results.Should().OnlyContain(r => r.BaselineState == BaselineState.Unchanged);
             result.Results.Should().HaveCount(baseline.Results.Count());

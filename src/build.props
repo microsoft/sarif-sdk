@@ -23,7 +23,7 @@
     hides the previous package versions on nuget.org.
     -->
     <PreviousVersionPrefix>2.0.0</PreviousVersionPrefix>
-    <PreviousVersionSuffix>csd.2.beta.2018-11-28</PreviousVersionSuffix>
+    <PreviousVersionSuffix>csd.2.beta.2019-01-09</PreviousVersionSuffix>
   </PropertyGroup>
 
   <PropertyGroup Label="Build">

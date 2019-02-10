@@ -60,6 +60,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 }
 
                 case "2.0.0-csd.2.beta.2018-10-10":
+                case "2.0.0-csd.2.beta.2018-10-10.1":
+                case "2.0.0-csd.2.beta.2018-10-10.2":
                 {
                     // 2.0.0-csd.2.beta.2018-10-10 == changes through SARIF TC #25
                     modifiedLog |= ApplyChangesFromTC25ThroughTC30(
