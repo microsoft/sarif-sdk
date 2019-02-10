@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var context = new FxCopLogReader.Context();
 
             var results = new List<Result>();
-            var rules = new List<Rule>();
+            var rules = new List<MessageDescriptor>();
             var reader = new FxCopLogReader();
             reader.RuleRead += (FxCopLogReader.Context current) => { rules.Add(CreateRule(current)); };
             reader.ResultRead += (FxCopLogReader.Context current) => { results.Add(CreateResult(current)); };
@@ -54,23 +54,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var run = new Run()
             {
-                Tool = new Tool {  Name = "FxCop"}
-            };
-
-            if (rules.Count > 0)
-            {
-                run.Resources = new Resources
+                Tool = new Tool
                 {
-                    Rules = rules
-                };
-            }
+                    Name = "FxCop",
+                    RulesMetadata = rules
+                },
+            };
 
             PersistResults(output, results, run);
         }
 
-        internal Rule CreateRule(FxCopLogReader.Context context)
+        internal MessageDescriptor CreateRule(FxCopLogReader.Context context)
         {
-            var rule = new Rule
+            var rule = new MessageDescriptor
             {
                 Id = context.CheckId,
                 Name = context.RuleTypeName.ToMessage(),

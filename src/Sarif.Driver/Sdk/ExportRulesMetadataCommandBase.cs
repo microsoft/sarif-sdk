@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             try
             {
-                ImmutableArray<IRule> skimmers = DriverUtilities.GetExports<IRule>(DefaultPlugInAssemblies);
+                ImmutableArray<MessageDescriptor> skimmers = DriverUtilities.GetExports<MessageDescriptor>(DefaultPlugInAssemblies);
 
                 string format = "";
                 string outputFilePath = exportOptions.OutputFilePath;
@@ -60,14 +60,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             return result;
         }
 
-        private void OutputSonarQubeRulesMetada(string outputFilePath, ImmutableArray<IRule> skimmers)
+        private void OutputSonarQubeRulesMetada(string outputFilePath, ImmutableArray<MessageDescriptor> skimmers)
         {
             const string TAB = "   ";
             var sb = new StringBuilder();
 
-            SortedDictionary<int, IRule> sortedRuleContexts = new SortedDictionary<int, IRule>();
+            SortedDictionary<int, MessageDescriptor> sortedRuleContexts = new SortedDictionary<int, MessageDescriptor>();
 
-            foreach (IRule rule in skimmers)
+            foreach (MessageDescriptor rule in skimmers)
             {
                 int numericId = GetIdIntegerSuffix(rule.Id);
                 sortedRuleContexts[numericId] = rule;
@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             sb.AppendLine("<?xml version='1.0' encoding='UTF-8'?>" + Environment.NewLine +
                          "<rules>");
 
-            foreach (IRule ruleContext in sortedRuleContexts.Values)
+            foreach (MessageDescriptor ruleContext in sortedRuleContexts.Values)
             {
                 sb.AppendLine(TAB + "<rule>");
                 sb.AppendLine(TAB + TAB + "<key>" + ruleContext.Id + "</key>");
@@ -98,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             File.WriteAllText(outputFilePath, sb.ToString());
         }    
 
-        private void OutputSarifRulesMetada(string outputFilePath, ImmutableArray<IRule> skimmers)
+        private void OutputSarifRulesMetada(string outputFilePath, ImmutableArray<MessageDescriptor> skimmers)
         {
             var log = new SarifLog();
 
@@ -117,37 +117,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             run.Results = new List<Result>();
 
             log.Runs.Add(run);
-            run.Resources = new Resources
-            {
-                Rules = new List<Rule>()
-            };
 
-            SortedDictionary<int, Rule> sortedRules = new SortedDictionary<int, Rule>();
+            SortedDictionary<int, MessageDescriptor> sortedRules = new SortedDictionary<int, MessageDescriptor>();
 
-            foreach (IRule rule in skimmers)
-            {
-                var newRule = new Rule();
+            foreach (MessageDescriptor rule in skimmers)
+            {                
+                int numericId = GetIdIntegerSuffix(rule.Id);
 
-                newRule.Id = rule.Id;
-                newRule.Name = rule.Name;
-                newRule.HelpUri = rule.HelpUri;
-                newRule.FullDescription = rule.FullDescription;
-                newRule.MessageStrings = rule.MessageStrings;
-                newRule.RichMessageStrings = rule.RichMessageStrings;
-
-                newRule.ShortDescription = rule.ShortDescription;
-
-                foreach (string propertyName in rule.PropertyNames)
-                {
-                    newRule.SetProperty(propertyName, rule.GetProperty(propertyName));
-                }
-
-                int numericId = GetIdIntegerSuffix(newRule.Id);
-
-                sortedRules[numericId] = newRule;
+                sortedRules[numericId] = rule;
             }
 
-            run.Resources.Rules = new List<Rule>(sortedRules.Values);
+            run.Tool.RulesMetadata = new List<MessageDescriptor>(sortedRules.Values);
 
             var settings = new JsonSerializerSettings()
             {

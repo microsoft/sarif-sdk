@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             InitializeOutputFile(analyzeOptions, this.rootContext, targets);
 
             // 6. Instantiate skimmers.
-            HashSet<ISkimmer<TContext>> skimmers = CreateSkimmers(this.rootContext);
+            HashSet<Skimmer<TContext>> skimmers = CreateSkimmers(this.rootContext);
 
             // 7. Initialize configuration. This step must be done after initializing
             //    the skimmers, as rules define their specific context objects and
@@ -430,17 +430,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        private HashSet<ISkimmer<TContext>> CreateSkimmers(TContext context)
+        private HashSet<Skimmer<TContext>> CreateSkimmers(TContext context)
         {
-            IEnumerable<ISkimmer<TContext>> skimmers;
-            HashSet<ISkimmer<TContext>> result = new HashSet<ISkimmer<TContext>>();
+            IEnumerable<Skimmer<TContext>> skimmers;
+            HashSet<Skimmer<TContext>> result = new HashSet<Skimmer<TContext>>();
 
             try
             {
-                skimmers = DriverUtilities.GetExports<ISkimmer<TContext>>(DefaultPlugInAssemblies);
+                skimmers = DriverUtilities.GetExports<Skimmer<TContext>>(DefaultPlugInAssemblies);
 
                 SupportedPlatform currentOS = GetCurrentRunningOS();
-                foreach (ISkimmer<TContext> skimmer in skimmers)
+                foreach (Skimmer<TContext> skimmer in skimmers)
                 {
                     if(skimmer.SupportedPlatforms.HasFlag(currentOS))
                     {
@@ -493,13 +493,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected virtual void AnalyzeTargets(
             TOptions options,
-            IEnumerable<ISkimmer<TContext>> skimmers,
+            IEnumerable<Skimmer<TContext>> skimmers,
             TContext rootContext,
             IEnumerable<string> targets)
         {
             HashSet<string> disabledSkimmers = new HashSet<string>();
 
-            foreach (ISkimmer<TContext> skimmer in skimmers)
+            foreach (Skimmer<TContext> skimmer in skimmers)
             {
                 PerLanguageOption<RuleEnabledState> ruleEnabledProperty;
                 ruleEnabledProperty = DefaultDriverOptions.CreateRuleSpecificOption(skimmer, DefaultDriverOptions.RuleEnabled);
@@ -531,7 +531,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         protected virtual TContext DetermineApplicabilityAndAnalyze(
             TOptions options,
-            IEnumerable<ISkimmer<TContext>> skimmers,
+            IEnumerable<Skimmer<TContext>> skimmers,
             TContext rootContext,
             string target,
             HashSet<string> disabledSkimmers)
@@ -555,16 +555,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // Analyzing '{0}'...
             context.Logger.AnalyzingTarget(context);
 
-            IEnumerable<ISkimmer<TContext>> applicableSkimmers = DetermineApplicabilityForTarget(skimmers, context, disabledSkimmers);
+            IEnumerable<Skimmer<TContext>> applicableSkimmers = DetermineApplicabilityForTarget(skimmers, context, disabledSkimmers);
 
             AnalyzeTarget(applicableSkimmers, context, disabledSkimmers);
 
             return context;
         }
 
-        protected virtual void AnalyzeTarget(IEnumerable<ISkimmer<TContext>> skimmers, TContext context, HashSet<string> disabledSkimmers)
+        protected virtual void AnalyzeTarget(IEnumerable<Skimmer<TContext>> skimmers, TContext context, HashSet<string> disabledSkimmers)
         {
-            foreach (ISkimmer<TContext> skimmer in skimmers)
+            foreach (Skimmer<TContext> skimmer in skimmers)
             {
                 if (disabledSkimmers.Contains(skimmer.Id)) { continue; }
 
@@ -581,14 +581,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        protected virtual IEnumerable<ISkimmer<TContext>> DetermineApplicabilityForTarget(
-            IEnumerable<ISkimmer<TContext>> skimmers,
+        protected virtual IEnumerable<Skimmer<TContext>> DetermineApplicabilityForTarget(
+            IEnumerable<Skimmer<TContext>> skimmers,
             TContext context,
             HashSet<string> disabledSkimmers)
         {
-            var candidateSkimmers = new List<ISkimmer<TContext>>();
+            var candidateSkimmers = new List<Skimmer<TContext>>();
 
-            foreach (ISkimmer<TContext> skimmer in skimmers)
+            foreach (Skimmer<TContext> skimmer in skimmers)
             {
                 if (disabledSkimmers.Contains(skimmer.Id)) { continue; }
 
@@ -639,13 +639,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             };
         }
 
-        protected virtual HashSet<ISkimmer<TContext>> InitializeSkimmers(HashSet<ISkimmer<TContext>> skimmers, TContext context)
+        protected virtual HashSet<Skimmer<TContext>> InitializeSkimmers(HashSet<Skimmer<TContext>> skimmers, TContext context)
         {
-            HashSet<ISkimmer<TContext>> disabledSkimmers = new HashSet<ISkimmer<TContext>>();
+            HashSet<Skimmer<TContext>> disabledSkimmers = new HashSet<Skimmer<TContext>>();
 
             // ONE-TIME initialization of skimmers. Do not call 
             // Initialize more than once per skimmer instantiation
-            foreach (ISkimmer<TContext> skimmer in skimmers)
+            foreach (Skimmer<TContext> skimmer in skimmers)
             {
                 try
                 {
@@ -660,7 +660,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 }
             }
 
-            foreach (ISkimmer<TContext> disabledSkimmer in disabledSkimmers)
+            foreach (Skimmer<TContext> disabledSkimmer in disabledSkimmers)
             {
                 skimmers.Remove(disabledSkimmer);
             }

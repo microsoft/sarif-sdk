@@ -10,13 +10,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class ValidateCommandTests : SarifMultitoolTestBase
     {
-        [Fact(DisplayName = nameof(ValidateCommand_ReportsJsonSyntaxError), Skip = "JSchema requires an update.")]
+        [Fact(Skip = "JSchema attempts to instantiate types from the compiled Sarif assembly that no longer exist")]
         public void ValidateCommand_ReportsJsonSyntaxError()
         {
             Verify("SyntaxError.sarif", disablePreleaseCompatibilityTransform: true);
         }
 
-        [Fact(DisplayName = nameof(ValidateCommand_ReportsDeserializationError), Skip = "Jschema requires an update.")]
+        [Fact(Skip = "JSchema attempts to instantiate types from the compiled Sarif assembly that no longer exist")]
         public void ValidateCommand_ReportsDeserializationError()
         {
             Verify("DeserializationError.sarif", disablePreleaseCompatibilityTransform: true);

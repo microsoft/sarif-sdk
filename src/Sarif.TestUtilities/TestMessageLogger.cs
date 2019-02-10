@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Messages.Add(message);
         }
 
-        public void Log(IRule rule, Result result)
+        public void Log(MessageDescriptor rule, Result result)
         {
             NoteTestResult(result.Kind, result.Locations.First().PhysicalLocation.FileLocation.Uri.LocalPath);
         }

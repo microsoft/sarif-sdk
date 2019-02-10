@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public PropertiesDictionary Policy { get; set; }
 
-        public IRule Rule { get; set; }
+        public MessageDescriptor Rule { get; set; }
 
         public RuntimeConditions RuntimeErrors { get; set; }
 

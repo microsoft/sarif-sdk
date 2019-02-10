@@ -183,7 +183,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             return results;
         }
         
-        private Rule GetRuleFromResources(Result result, IDictionary<string, Rule> rules)
+        private MessageDescriptor GetRuleFromResources(Result result, IDictionary<string, MessageDescriptor> rules)
         {
             if (!string.IsNullOrEmpty(result.RuleId))
             {
@@ -212,7 +212,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             {
                 Tool = tool,
                 Id = currentRuns.First().Id,
-                Resources = currentRuns.First().Resources ?? new Resources()
             };
 
             IDictionary<string, SerializedPropertyInfo> properties = null;
@@ -239,8 +238,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 properties = currentRuns.Last().Properties;
             }
 
-            Dictionary<Rule, int> rulesMetadata = new Dictionary<Rule, int>(Rule.ValueComparer);
-            run.Resources.Rules = run.Resources.Rules ?? new List<Rule>();
+            var rulesMetadata = new Dictionary<MessageDescriptor, int>(MessageDescriptor.ValueComparer);
 
             var indexRemappingVisitor = new RemapIndicesVisitor(currentFiles: null);
 
@@ -263,11 +261,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
                 if (result.RuleIndex != -1)
                 {
-                    Rule rule = resultPair.Run.Resources.Rules[0];
+                    MessageDescriptor rule = resultPair.Run.Tool.RulesMetadata[0];
                     if (!rulesMetadata.TryGetValue(rule, out int ruleIndex))
                     {
-                        rulesMetadata[rule] = run.Resources.Rules.Count;
-                        run.Resources.Rules.Add(rule);
+                        rulesMetadata[rule] = run.Tool.RulesMetadata.Count;
+                        run.Tool.RulesMetadata.Add(rule);
                     }
                     result.RuleIndex = ruleIndex;
                 }
@@ -279,23 +277,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             run.Files = indexRemappingVisitor.CurrentFiles;
             
             var graphs = new Dictionary<string, Graph>();
-            var ruleData = new Dictionary<string, Rule>();
+            var ruleData = new Dictionary<string, MessageDescriptor>();
             var invocations = new List<Invocation>();
             var messageData = new Dictionary<string, string>();
 
             foreach (Run currentRun in currentRuns)
             {
-                if (currentRun.Resources != null)
+                if (currentRun.Tool.GlobalMessageStrings != null)
                 {
-                    if (currentRun.Resources.MessageStrings != null)
+                    IDictionary<string, string> converted = currentRun.Tool.GlobalMessageStrings;
+                    if (converted == null)
                     {
-                        IDictionary<string, string> converted = currentRun.Resources.MessageStrings;
-                        if (converted == null)
-                        {
-                            throw new ArgumentException("Message Strings did not deserialize properly into a dictionary mapping strings to strings.");
-                        }
-                        MergeDictionaryInto(messageData, converted, StringComparer.InvariantCulture);
+                        throw new ArgumentException("Message Strings did not deserialize properly into a dictionary mapping strings to strings.");
                     }
+                    MergeDictionaryInto(messageData, converted, StringComparer.InvariantCulture);
                 }
 
                 if (currentRun.Graphs != null)

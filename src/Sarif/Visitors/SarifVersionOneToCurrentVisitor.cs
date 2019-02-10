@@ -788,13 +788,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return result;
         }
 
-        internal Rule CreateRule(RuleVersionOne v1Rule)
+        internal MessageDescriptor CreateRule(RuleVersionOne v1Rule)
         {
-            Rule rule = null;
+            MessageDescriptor rule = null;
 
             if (v1Rule != null)
             {
-                rule = new Rule
+                rule = new MessageDescriptor
                 {
                     FullDescription = CreateMessage(v1Rule.FullDescription),
                     HelpUri = v1Rule.HelpUri,
@@ -807,15 +807,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 FailureLevel level = Utilities.CreateRuleConfigurationDefaultLevel(v1Rule.DefaultLevel);
 
-                if (v1Rule.Configuration == RuleConfigurationVersionOne.Enabled ||
-                    level != FailureLevel.Warning)
+                rule.DefaultConfiguration = new RuleConfiguration
                 {
-                    rule.Configuration = new RuleConfiguration
-                    {
-                        DefaultLevel = level,
-                        Enabled = v1Rule.Configuration == RuleConfigurationVersionOne.Enabled
-                    };
-                }
+                    Level = level,
+                    Enabled = v1Rule.Configuration != RuleConfigurationVersionOne.Disabled
+                };
             }
 
             return rule;
@@ -869,14 +865,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     if (v1Run.Rules != null)
                     {
-                        run.Resources = new Resources
-                        {
-                            Rules = new List<Rule>()
-                        };
+                        run.Tool.RulesMetadata = new List<MessageDescriptor>();
 
                         foreach (var pair in v1Run.Rules)
                         {
-                            run.Resources.Rules.Add(CreateRule(pair.Value));
+                            run.Tool.RulesMetadata.Add(CreateRule(pair.Value));
                         }
                     }
 

@@ -41,15 +41,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         void WriteLogicalLocations(IList<LogicalLocation> logicalLocations);
 
         /// <summary>
-        /// Write information about rules to the log. This information may appear
-        /// after the results, as the relevant set of rules might not be known until
-        /// all results have been generated. A Sarif file may also contain only rules
-        /// metadata.
+        /// Write information about the tool to the log. This information may appear
+        /// after the results, as some tool data, such as the relevant set of rule
+        /// observed during analysis, might not be known until all results have been
+        /// generated. A SARIF file may also contain only message metadata.
         /// </summary>
-        /// <param name="rules">
-        /// An array whose elements comprise rules relevant to the analysis.
+        /// <param name="tool">
+        /// The tool that was executed in the current run.
         /// </param>
-        void WriteRules(IList<Rule> rules);
+        void WriteTool(Tool tool);
 
         /// <summary>
         /// Initialize the results array associated with the current output log. SARIF producers that

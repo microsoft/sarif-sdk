@@ -34,10 +34,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
-        protected override void Analyze(IRule rule, string rulePointer)
+        protected override void Analyze(MessageDescriptor messageDescriptor, string messageDescriptorPointer)
         {
-            AnalyzeMessageStrings(rule.MessageStrings, rulePointer, SarifPropertyName.MessageStrings);
-            AnalyzeMessageStrings(rule.RichMessageStrings, rulePointer, SarifPropertyName.RichMessageStrings);
+            AnalyzeMessageStrings(messageDescriptor.MessageStrings, messageDescriptorPointer, SarifPropertyName.MessageStrings);
+            AnalyzeMessageStrings(messageDescriptor.RichMessageStrings, messageDescriptorPointer, SarifPropertyName.RichMessageStrings);
         }
 
         private void AnalyzeMessageStrings(

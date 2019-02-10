@@ -103,11 +103,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             var run = new Run
             {
-                Resources = new Resources
+                Tool = new Tool
                 {
-                    Rules = new List<Rule>
+                    RulesMetadata = new List<MessageDescriptor>
                     {
-                        new Rule { Id = actualRuleId }
+                        new MessageDescriptor { Id = actualRuleId }
                     }
                 },
                 Results = new List<Result>

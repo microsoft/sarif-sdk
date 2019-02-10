@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         protected override void AnalyzeTarget(
-            IEnumerable<ISkimmer<SarifValidationContext>> skimmers,
+            IEnumerable<Skimmer<SarifValidationContext>> skimmers,
             SarifValidationContext context,
             HashSet<string> disabledSkimmers)
         {
@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
                     context.InputLogContents,
-                    forceUpdate: false, 
+                    forceUpdate: false,
                     formatting: Formatting.None,
                     out sarifText);
 
@@ -154,7 +154,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             SchemaValidationException ex,
             string schemaFile,
             IAnalysisLogger logger)
-        {            
+        {
             foreach (SchemaValidationException schemaValidationException in ex.WrappedExceptions)
             {
                 Result result = ResultFactory.CreateResult(
@@ -181,8 +181,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Result result,
             IAnalysisLogger logger)
         {
-            Rule rule = RuleFactory.GetRuleFromRuleId(result.RuleId);
+#if JSCHEMA_UPGRADED
+            MessageDescriptor rule = RuleFactory.GetRuleFromRuleId(result.RuleId);
             logger.Log(rule, result);
+#endif
         }
     }
 }

@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta.2018-11-28 JSON Schema",
-  "description": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2018-11-28 JSON Schema: a standard format for the output of static analysis tools.",
+  "title": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta.2019-01-24 JSON Schema",
+  "description": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2019-01-24 JSON Schema: a standard format for the output of static analysis tools.",
   "additionalProperties": false,
   "type": "object",
   "properties": {
@@ -14,7 +14,7 @@
 
     "version": {
       "description": "The SARIF format version of this log file.",
-      "enum": [ "2.0.0-csd.2.beta.2018-11-28" ]
+      "enum": [ "2.0.0-csd.2.beta.2019-01-24" ]
     },
 
     "runs": {
@@ -303,11 +303,6 @@
           "$ref": "#/definitions/externalPropertyFile"
         },
 
-        "resources": {
-          "description": "An external property file containing a run.resources object to be merged with the root log file.",
-          "$ref": "#/definitions/externalPropertyFile"
-        },
-
         "properties": {
           "description": "An external property file containing a run.properties object to be merged with the root log file.",
           "$ref": "#/definitions/externalPropertyFile"
@@ -351,6 +346,11 @@
           "items": {
             "$ref": "#/definitions/externalPropertyFile"
           }
+        },
+
+        "tool": {
+          "description": "An external property file containing a run.tool object to be merged with the root log file.",
+          "$ref": "#/definitions/externalPropertyFile"
         }
       }
     },
@@ -713,6 +713,16 @@
         "exitCode": {
           "description": "The process exit code.",
           "type": "integer"
+        },
+
+        "ruleConfiguration": {
+          "description": "An array of rule configuration objects that describe runtime analysis behavior.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/ruleConfiguration"
+          }
         },
 
         "toolNotifications": {
@@ -1252,38 +1262,6 @@
       "required": [ "deletedRegion" ]
     },
 
-    "resources": {
-      "description": "Container for items that require localization.",
-      "type": "object",
-      "properties": {
-
-        "messageStrings": {
-          "description": "A dictionary, each of whose keys is a resource identifier and each of whose values is a localized string.",
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
-
-
-        "rules": {
-          "description": "An array of rule objects relevant to the run.",
-          "type": "array",
-          "minItems": 0,
-          "uniqueItems": true,
-          "default": [],
-          "items": {
-            "$ref": "#/definitions/rule"
-          }
-        },
-
-        "properties": {
-          "description": "Key/value pairs that provide additional information about the resources.",
-          "$ref": "#/definitions/propertyBag"
-        }
-      }
-    },
-
     "result": {
       "description": "A result produced by an analysis tool.",
       "additionalProperties": false,
@@ -1553,19 +1531,19 @@
       }
     },
 
-    "rule": {
-      "description": "Describes an analysis rule.",
+    "messageDescriptor": {
+      "description": "Describes a specific message raised by the tool, as part of the analysis it provides, its configuration or runtime execution.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
 
         "id": {
-          "description": "A stable, opaque identifier for the rule.",
+          "description": "A stable, opaque identifier for the message.",
           "type": "string"
         },
 
         "deprecatedIds": {
-          "description": "An array of stable, opaque identifiers by which this rule was known in some previous version of the analysis tool.",
+          "description": "An array of stable, opaque identifiers by which this message was known in some previous version of the analysis tool.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
@@ -1575,7 +1553,7 @@
         },
 
         "name": {
-          "description": "A rule identifier that is understandable to an end user.",
+          "description": "A message identifier that is understandable to an end user.",
           "$ref": "#/definitions/message"
         },
 
@@ -1605,8 +1583,8 @@
           }
         },
 
-        "configuration": {
-          "description": "Information about the rule that can be configured at runtime.",
+        "defaultConfiguration": {
+          "description": "Default rule information.",
           "$ref": "#/definitions/ruleConfiguration"
         },
 
@@ -1635,18 +1613,19 @@
       "properties": {
 
         "enabled": {
+          "default": true,
           "description": "Specifies whether the rule will be evaluated during the scan.",
           "type": "boolean"
         },
 
-        "defaultLevel": {
-          "description": "Specifies the default severity level for results generated by this rule.",
+        "level": {
+          "description": "Specifies the failure level for results generated by this rule.",
           "default": "warning",
           "enum": [ "none", "note", "warning", "error" ]
         },
 
-        "defaultRank": {
-          "description": "Specifies the default priority or importance for results generated by this rule.",
+        "rank": {
+          "description": "Specifies the relative priority of results generated by this rule.",
           "type": "number",
           "minimum": -1.0,
           "maximum": 100.0,
@@ -1748,11 +1727,6 @@
           "items": {
             "$ref": "#/definitions/result"
           }
-        },
-
-        "resources": {
-          "description": "Items that can be localized, such as message strings and rule metadata.",
-          "$ref": "#/definitions/resources"
         },
 
         "id": {
@@ -2082,6 +2056,36 @@
           "description": "The tool language (expressed as an ISO 649 two-letter lowercase culture code) and region (expressed as an ISO 3166 two-letter uppercase subculture code associated with a country or region).",
           "type": "string",
           "default": "en-US"
+        },
+
+        "globalMessageStrings": {
+          "description": "A dictionary, each of whose keys is a resource identifier and each of whose values is a localized string.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+
+        "notificationsMetadata": {
+          "description": "An array of message descriptor objects relevant to the notifications related to the configuration and runtime execution of the tool.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/messageDescriptor"
+          }
+        },
+
+        "rulesMetadata": {
+          "description": "An array of message descriptor objects relevant to the analysis performed by the tool.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/messageDescriptor"
+          }
         },
 
         "properties": {

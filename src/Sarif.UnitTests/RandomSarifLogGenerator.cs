@@ -47,18 +47,21 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static Run GenerateRandomRun(Random random, int? resultCount = null)
         {
-            Run run = new Run() { Resources = new Resources() };
             List<string> ruleIds = new List<string>() { "TEST001", "TEST002", "TEST003", "TEST004", "TEST005" };
             List<Uri> filePaths = GenerateFakeFiles(GeneratorBaseUri, random.Next(20) + 1).Select(a => new Uri(a)).ToList();
-
-            run.Tool = new Tool() { Name = "Test", Version = "1.0", };
-            run.Resources.Rules = GenerateRules(ruleIds);
-            run.Files = GenerateFiles(filePaths);
-
             int results = resultCount == null ? random.Next(100) : (int)resultCount;
-            run.Results = GenerateFakeResults(random, ruleIds, filePaths, results);
 
-            return run;
+            return new Run()
+            {
+                Tool = new Tool
+                {
+                    Name = "Test",
+                    Version = "1.0",
+                    RulesMetadata = new List<MessageDescriptor>(GenerateRules(ruleIds))
+                },
+                Files = GenerateFiles(filePaths),
+                Results = GenerateFakeResults(random, ruleIds, filePaths, results)
+            };
         }
 
         public static Run GenerateRandomRunWithoutDuplicateIssues(Random random, IEqualityComparer<Result> comparer, int? resultCount = null)
@@ -134,14 +137,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             return files;
         }
 
-        public static IList<Rule> GenerateRules(List<string> ruleIds)
+        public static IList<MessageDescriptor> GenerateRules(List<string> ruleIds)
         {
-            var rules = new List<Rule>();
+            var rules = new List<MessageDescriptor>();
 
             foreach (var ruleId in ruleIds)
             {
                 rules.Add( 
-                    new Rule()
+                    new MessageDescriptor()
                     {
                         Id = ruleId,
                         FullDescription = new Message

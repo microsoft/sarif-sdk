@@ -333,7 +333,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     invocationPropertiesToLog: null))
                 {
                     string ruleId = "RuleId";
-                    var rule = new Rule() { Id = ruleId };
+                    var rule = new MessageDescriptor() { Id = ruleId };
 
                     var result = new Result()
                     {
@@ -488,7 +488,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     sarifLogger.LogConfigurationNotification(configurationNotification);
 
                     string ruleId = "RuleId";
-                    var rule = new Rule() { Id = ruleId };
+                    var rule = new MessageDescriptor() { Id = ruleId };
 
                     var result = new Result()
                     {
@@ -604,11 +604,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private void LogSimpleResult(SarifLogger sarifLogger)
         {
-            Rule rule = new Rule { Id = "RuleId" };
+            MessageDescriptor rule = new MessageDescriptor { Id = "RuleId" };
             sarifLogger.Log(rule, CreateSimpleResult(rule));
         }
 
-        private Result CreateSimpleResult(Rule rule)
+        private Result CreateSimpleResult(MessageDescriptor rule)
         {           
             return new Result
             {
@@ -625,7 +625,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             using (var writer = new StringWriter(sb))
             using (var sarifLogger = new SarifLogger(writer, LoggingOptions.Verbose))
             {
-                var rule = new Rule()
+                var rule = new MessageDescriptor()
                 {
                     Id = "ActualId"
                 };

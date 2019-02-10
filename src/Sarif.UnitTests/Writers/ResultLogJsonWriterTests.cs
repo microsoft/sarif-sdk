@@ -474,30 +474,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         [Fact]
-        public void ResultLogJsonWriter_CannotWriteToolNotificationsTwice()
+        public void ResultLogJsonWriter_CannotWriteToolTwice()
         {
             using (var str = new StringWriter())
             using (var json = new JsonTextWriter(str))
             using (var uut = new ResultLogJsonWriter(json))
             {
-                var run = new Run() { Tool = DefaultTool };
+                var run = new Run() { };
                 uut.Initialize(run);
-                uut.WriteToolNotifications(s_notifications);
-                Assert.Throws<InvalidOperationException>(() => uut.WriteToolNotifications(s_notifications));
-            }
-        }
-
-        [Fact]
-        public void ResultLogJsonWriter_CannotWriteConfigurationNotificationsTwice()
-        {
-            using (var str = new StringWriter())
-            using (var json = new JsonTextWriter(str))
-            using (var uut = new ResultLogJsonWriter(json))
-            {
-                var run = new Run() { Tool = DefaultTool };
-                uut.Initialize(run);
-                uut.WriteConfigurationNotifications(s_notifications);
-                Assert.Throws<InvalidOperationException>(() => uut.WriteConfigurationNotifications(s_notifications));
+                uut.WriteTool(DefaultTool);
+                Assert.Throws<InvalidOperationException>(() => uut.WriteTool(DefaultTool));
             }
         }
     }

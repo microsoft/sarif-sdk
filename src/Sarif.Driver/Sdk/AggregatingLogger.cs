@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        public void Log(IRule rule, Result result)
+        public void Log(MessageDescriptor rule, Result result)
         {
             foreach (IAnalysisLogger logger in Loggers)
             {

@@ -78,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 }";
             string actual = GetJson(uut =>
             {
-                var run = new Run() { Tool = DefaultTool };
+                var run = new Run();
                 uut.Initialize(run);
 
                 uut.WriteResults(new[] { new Result
@@ -87,6 +87,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                         BaselineState = BaselineState.None
                     }
                 });
+
+                // The CloseResults call is not literally required, we provide it
+                // for reasons of coverage, to ensure that both the explicit and
+                // implicit closing mechanism works.
+                uut.CloseResults();
+
+                // Because we did not initialize the run with a Tool object, we
+                // need to explicitly emit it via the API.
+                uut.WriteTool(DefaultTool);
             });
 
             actual.Should().BeCrossPlatformEquivalent<SarifLog>(expected);

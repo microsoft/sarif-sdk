@@ -14,9 +14,15 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class ExtensionMethods
     {
-        public static bool HasAtLeastOneNonNullValue(this IList<string> list)
+        public static bool HasAtLeastOneNonNullValue<T>(this IEnumerable<T> collection)
         {
-            return list != null && list.Any((s) => s != null);
+            return collection != null && collection.Any((m) => m != null);
+        }
+
+        public static bool HasAtLeastOneNonDefaultValue<T>(this IEnumerable<T> collection, IEqualityComparer<T> comparer) where T : new()
+        {
+            var defaultInstance = new T();
+            return collection != null && collection.Any((m) => m != null && !comparer.Equals(defaultInstance, m));
         }
 
         public static string InstanceIdInstanceComponent(this RunAutomationDetails runAutomationDetails)
@@ -51,11 +57,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             return instanceId.Substring(0, instanceId.LastIndexOf('/'));
-        }
-
-        public static string Format(this IRule rule, string messageId, IEnumerable<string> arguments)
-        {
-            return string.Format(CultureInfo.CurrentCulture, rule.MessageStrings[messageId], arguments.ToArray());
         }
 
         public static Message ToMessage(this string text)
@@ -152,7 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                  ")";
         }
 
-        public static string FormatForVisualStudio(this Result result, IRule rule)
+        public static string FormatForVisualStudio(this Result result, MessageDescriptor rule)
         {
             if (result == null)
             {
@@ -199,12 +200,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        public static string GetMessageText(this Result result, IRule rule)
+        public static string GetMessageText(this Result result, MessageDescriptor rule)
         {
             return GetMessageText(result, rule, concise: false);
         }
 
-        public static string GetMessageText(this Result result, IRule rule, bool concise = false)
+        public static string GetMessageText(this Result result, MessageDescriptor rule, bool concise = false)
         {
             if (result == null)
             {

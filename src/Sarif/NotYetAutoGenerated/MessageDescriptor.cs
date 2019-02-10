@@ -11,15 +11,15 @@ using Newtonsoft.Json;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Describes an analysis rule.
+    /// Describes a specific message raised by the tool, as part of the analysis it provides, its configuration or runtime execution.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
-    public partial class Rule : PropertyBagHolder, IRule, ISarifNode
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
+    public partial class MessageDescriptor : PropertyBagHolder, ISarifNode
     {
-        public static IEqualityComparer<Rule> ValueComparer => RuleEqualityComparer.Instance;
+        public static IEqualityComparer<MessageDescriptor> ValueComparer => MessageDescriptorEqualityComparer.Instance;
 
-        public bool ValueEquals(Rule other) => ValueComparer.Equals(this, other);
+        public bool ValueEquals(MessageDescriptor other) => ValueComparer.Equals(this, other);
         public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
 
         /// <summary>
@@ -29,24 +29,24 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                return SarifNodeKind.Rule;
+                return SarifNodeKind.MessageDescriptor;
             }
         }
 
         /// <summary>
-        /// A stable, opaque identifier for the rule.
+        /// A stable, opaque identifier for the message.
         /// </summary>
         [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
         public virtual string Id { get; set; }
 
         /// <summary>
-        /// An array of stable, opaque identifiers by which this rule was known in some previous version of the analysis tool.
+        /// An array of stable, opaque identifiers by which this message was known in some previous version of the analysis tool.
         /// </summary>
         [DataMember(Name = "deprecatedIds", IsRequired = false, EmitDefaultValue = false)]
         public virtual IList<string> DeprecatedIds { get; set; }
 
         /// <summary>
-        /// A rule identifier that is understandable to an end user.
+        /// A messsage  identifier that is understandable to an end user.
         /// </summary>
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
         public virtual Message Name { get; set; }
@@ -76,16 +76,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         public virtual IDictionary<string, string> RichMessageStrings { get; set; }
 
         /// <summary>
-        /// Information about the rule that can be configured at runtime.
+        /// Default rule information.
         /// </summary>
-        [DataMember(Name = "configuration", IsRequired = false, EmitDefaultValue = false)]
-        public virtual RuleConfiguration Configuration { get; set; }
+        [DataMember(Name = "defaultConfiguration", IsRequired = false, EmitDefaultValue = false)]
+        public virtual RuleConfiguration DefaultConfiguration { get; set; }
 
         /// <summary>
         /// A URI where the primary documentation for the rule can be found.
         /// </summary>
         [DataMember(Name = "helpUri", IsRequired = false, EmitDefaultValue = false)]
-        [JsonConverter(typeof(UriConverter))]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
         public virtual Uri HelpUri { get; set; }
 
         /// <summary>
@@ -101,55 +101,55 @@ namespace Microsoft.CodeAnalysis.Sarif
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Rule" /> class.
+        /// Initializes a new instance of the <see cref="MessageDescriptor" /> class.
         /// </summary>
-        public Rule()
+        public MessageDescriptor()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Rule" /> class from the supplied values.
+        /// Initializes a new instance of the <see cref="MessageDescriptor" /> class from the supplied values.
         /// </summary>
         /// <param name="id">
-        /// An initialization value for the <see cref="P: Id" /> property.
+        /// An initialization value for the <see cref="P:Id" /> property.
         /// </param>
         /// <param name="deprecatedIds">
-        /// An initialization value for the <see cref="P: DeprecatedIds" /> property.
+        /// An initialization value for the <see cref="P:DeprecatedIds" /> property.
         /// </param>
         /// <param name="name">
-        /// An initialization value for the <see cref="P: Name" /> property.
+        /// An initialization value for the <see cref="P:Name" /> property.
         /// </param>
         /// <param name="shortDescription">
-        /// An initialization value for the <see cref="P: ShortDescription" /> property.
+        /// An initialization value for the <see cref="P:ShortDescription" /> property.
         /// </param>
         /// <param name="fullDescription">
-        /// An initialization value for the <see cref="P: FullDescription" /> property.
+        /// An initialization value for the <see cref="P:FullDescription" /> property.
         /// </param>
         /// <param name="messageStrings">
-        /// An initialization value for the <see cref="P: MessageStrings" /> property.
+        /// An initialization value for the <see cref="P:MessageStrings" /> property.
         /// </param>
         /// <param name="richMessageStrings">
-        /// An initialization value for the <see cref="P: RichMessageStrings" /> property.
+        /// An initialization value for the <see cref="P:RichMessageStrings" /> property.
         /// </param>
-        /// <param name="configuration">
-        /// An initialization value for the <see cref="P: Configuration" /> property.
+        /// <param name="defaultConfiguration">
+        /// An initialization value for the <see cref="P:DefaultConfiguration" /> property.
         /// </param>
         /// <param name="helpUri">
-        /// An initialization value for the <see cref="P: HelpUri" /> property.
+        /// An initialization value for the <see cref="P:HelpUri" /> property.
         /// </param>
         /// <param name="help">
-        /// An initialization value for the <see cref="P: Help" /> property.
+        /// An initialization value for the <see cref="P:Help" /> property.
         /// </param>
         /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Rule(string id, IEnumerable<string> deprecatedIds, Message name, Message shortDescription, Message fullDescription, IDictionary<string, string> messageStrings, IDictionary<string, string> richMessageStrings, RuleConfiguration configuration, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
+        public MessageDescriptor(string id, IEnumerable<string> deprecatedIds, Message name, Message shortDescription, Message fullDescription, IDictionary<string, string> messageStrings, IDictionary<string, string> richMessageStrings, RuleConfiguration defaultConfiguration, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, deprecatedIds, name, shortDescription, fullDescription, messageStrings, richMessageStrings, configuration, helpUri, help, properties);
+            Init(id, deprecatedIds, name, shortDescription, fullDescription, messageStrings, richMessageStrings, defaultConfiguration, helpUri, help, properties);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Rule" /> class from the specified instance.
+        /// Initializes a new instance of the <see cref="MessageDescriptor" /> class from the specified instance.
         /// </summary>
         /// <param name="other">
         /// The instance from which the new instance is to be initialized.
@@ -157,14 +157,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <exception cref="ArgumentNullException">
         /// Thrown if <paramref name="other" /> is null.
         /// </exception>
-        public Rule(Rule other)
+        public MessageDescriptor(MessageDescriptor other)
         {
             if (other == null)
             {
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.DeprecatedIds, other.Name, other.ShortDescription, other.FullDescription, other.MessageStrings, other.RichMessageStrings, other.Configuration, other.HelpUri, other.Help, other.Properties);
+            Init(other.Id, other.DeprecatedIds, other.Name, other.ShortDescription, other.FullDescription, other.MessageStrings, other.RichMessageStrings, other.DefaultConfiguration, other.HelpUri, other.Help, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -175,17 +175,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public Rule DeepClone()
+        public MessageDescriptor DeepClone()
         {
-            return (Rule)DeepCloneCore();
+            return (MessageDescriptor)DeepCloneCore();
         }
 
         private ISarifNode DeepCloneCore()
         {
-            return new Rule(this);
+            return new MessageDescriptor(this);
         }
 
-        private void Init(string id, IEnumerable<string> deprecatedIds, Message name, Message shortDescription, Message fullDescription, IDictionary<string, string> messageStrings, IDictionary<string, string> richMessageStrings, RuleConfiguration configuration, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string id, IEnumerable<string> deprecatedIds, Message name, Message shortDescription, Message fullDescription, IDictionary<string, string> messageStrings, IDictionary<string, string> richMessageStrings, RuleConfiguration defaultConfiguration, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             if (deprecatedIds != null)
@@ -224,9 +224,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 RichMessageStrings = new Dictionary<string, string>(richMessageStrings);
             }
 
-            if (configuration != null)
+            if (defaultConfiguration != null)
             {
-                Configuration = new RuleConfiguration(configuration);
+                DefaultConfiguration = new RuleConfiguration(defaultConfiguration);
             }
 
             if (helpUri != null)
