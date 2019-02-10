@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        public void Log(IRule rule, Result result)
+        public void Log(MessageDescriptor rule, Result result)
         {
             if (result == null)
             {
@@ -93,6 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             PhysicalLocation physicalLocation = result.Locations?.First().PhysicalLocation;
 
             WriteToConsole(
+                result.Kind,
                 result.Level,
                 physicalLocation?.FileLocation?.Uri,
                 physicalLocation?.Region,
@@ -100,35 +101,50 @@ namespace Microsoft.CodeAnalysis.Sarif
                 message);
         }
 
-        private void WriteToConsole(ResultLevel level, Uri uri, Region region, string ruleId, string message)
+        private void WriteToConsole(ResultKind kind, FailureLevel level, Uri uri, Region region, string ruleId, string message)
         {
+            ValidateKindAndLevel(kind, level);
+
             switch (level)
             {
                 // These result types are optionally emitted.
-                case ResultLevel.Pass:
-                case ResultLevel.Note:
-                case ResultLevel.NotApplicable:
+                case FailureLevel.None:
+                case FailureLevel.Note:
+                {
+                    if (Verbose)
                     {
-                        if (Verbose)
-                        {
-                            Console.WriteLine(GetMessageText(uri, region, ruleId, message, level));
-                        }
-                        break;
+                        Console.WriteLine(GetMessageText(uri, region, ruleId, message, kind, level));
                     }
+                    break;
+                }
 
                 // These result types are always emitted.
-                case ResultLevel.Error:
-                case ResultLevel.Warning:
-                    {
-                        Console.WriteLine(GetMessageText(uri, region, ruleId, message, level));
-                        break;
-                    }
+                case FailureLevel.Error:
+                case FailureLevel.Warning:
+                {
+                    Console.WriteLine(GetMessageText(uri, region, ruleId, message, kind, level));
+                    break;
+                }
 
                 default:
-                    {
-                        throw new InvalidOperationException();
-                    }
+                {
+                    throw new InvalidOperationException();
+                }
             }
+        }
+
+        private static void ValidateKindAndLevel(ResultKind kind, FailureLevel level)
+        {
+            if (level != FailureLevel.None && kind != ResultKind.Fail)
+            {
+                throw new ArgumentException("Level indicated a failure but kind was not set to 'Fail'.");
+            }
+
+            if (level == FailureLevel.None && kind == ResultKind.Fail)
+            {
+                throw new ArgumentException("Level did not indicate a failure but kind was set to 'Fail'.");
+            }
+            return;
         }
 
         private static string GetMessageText(
@@ -136,9 +152,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             Region region,
             string ruleId,
             string message,
-            ResultLevel resultLevel)
+            ResultKind kind,
+            FailureLevel level)
         {
             string path = null;
+
+            ValidateKindAndLevel(kind, level);
 
             if (uri != null)
             {
@@ -155,27 +174,27 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             string issueType = null;
 
-            switch (resultLevel)
+            switch (level)
             {
-                case ResultLevel.Error:
-                    issueType = "error";
-                    break;
-
-                case ResultLevel.Warning:
-                    issueType = "warning";
-                    break;
-
-                case ResultLevel.Pass:
-                    issueType = "pass";
-                    break;
-
-                case ResultLevel.NotApplicable:
-                case ResultLevel.Note:
+                case FailureLevel.Note:
                     issueType = "info";
                     break;
 
+                case FailureLevel.Error:
+                    issueType = "error";
+                    break;
+
+                case FailureLevel.Warning:
+                    issueType = "warning";
+                    break;
+
+                case FailureLevel.None:
+                    issueType = kind.ToString().ToLowerInvariant();
+                    break;
+
+
                 default:
-                    throw new InvalidOperationException("Unknown message kind:" + resultLevel.ToString());
+                    throw new InvalidOperationException("Unknown message kind:" + level.ToString());
             }
 
             string detailedDiagnosis = NormalizeMessage(message, enquote: false);
@@ -235,7 +254,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             switch (notification.Level)
             {
                 // This notification type is optionally emitted.
-                case NotificationLevel.Note:
+                case FailureLevel.Note:
                     if (Verbose)
                     {
                         Console.WriteLine(FormatNotificationMessage(notification));
@@ -243,8 +262,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     break;
 
                 // These notification types are always emitted.
-                case NotificationLevel.Error:
-                case NotificationLevel.Warning:
+                case FailureLevel.Error:
+                case FailureLevel.Warning:
                     Console.WriteLine(FormatNotificationMessage(notification));
                     break;
 
@@ -259,17 +278,17 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             switch (notification.Level)
             {
-                case NotificationLevel.Error:
+                case FailureLevel.Error:
                 {
                     issueType = "error";
                     break;
                 }
-                case NotificationLevel.Warning:
+                case FailureLevel.Warning:
                 {
                     issueType = "warning";
                     break;
                 }
-                case NotificationLevel.Note:
+                case FailureLevel.Note:
                 {
                     issueType = "note";
                     break;

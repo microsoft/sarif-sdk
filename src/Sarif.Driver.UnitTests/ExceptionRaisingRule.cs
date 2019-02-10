@@ -6,7 +6,7 @@ using System.Composition;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    [Export(typeof(IRule)), Export(typeof(ISkimmer<TestAnalysisContext>))]
+    [Export(typeof(MessageDescriptor)), Export(typeof(Skimmer<TestAnalysisContext>))]
     internal class ExceptionRaisingRule : TestRuleBase
     {
         internal static ExceptionCondition s_exceptionCondition;
@@ -96,7 +96,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                         new Result()
                         {
                             RuleId = Id,
-                            Level = ResultLevel.Warning,
+                            Level = FailureLevel.Warning,
+                            Kind = ResultKind.Fail,
                             Message = new Message { Text = "Default message from exception raising rule." }
                         });
 

@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             _targetsCount++;
         }
 
-        public void Log(IRule rule, Result result)
+        public void Log(MessageDescriptor rule, Result result)
         {
             Log(result.Level, result.RuleId);
         }
@@ -55,20 +55,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
         }
 
-        public void Log(ResultLevel level, string ruleId)
+        public void Log(FailureLevel level, string ruleId)
         {
             switch (level)
             {
-                case ResultLevel.Pass:
+                case FailureLevel.None:
                     break;
 
-                case ResultLevel.Error:
+                case FailureLevel.Error:
                     break;
 
-                case ResultLevel.Warning:
+                case FailureLevel.Warning:
                     break;
 
-                case ResultLevel.NotApplicable:
+                case FailureLevel.Note:
                     break;
 
                 default:

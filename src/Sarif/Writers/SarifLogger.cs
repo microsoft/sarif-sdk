@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private JsonTextWriter _jsonTextWriter;
         private OptionallyEmittedData _dataToInsert;
         private ResultLogJsonWriter _issueLogJsonWriter;
-        private IDictionary<Rule, int> _ruleToIndexMap;
+        private IDictionary<MessageDescriptor, int> _ruleToIndexMap;
 
         protected const LoggingOptions DefaultLoggingOptions = LoggingOptions.PrettyPrint;
 
@@ -165,7 +165,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _run.Tool = tool;
             _dataToInsert = dataToInsert;
             _issueLogJsonWriter.Initialize(_run);
-
         }
 
         private static void SetSarifLoggerVersion(Tool tool)
@@ -192,11 +191,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _issueLogJsonWriter = new ResultLogJsonWriter(_jsonTextWriter);
         }
 
-        public IDictionary<Rule, int> RuleToIndexMap
+        public IDictionary<MessageDescriptor, int> RuleToIndexMap
         {
             get
             {
-                _ruleToIndexMap = _ruleToIndexMap ?? new Dictionary<Rule, int>(Rule.ValueComparer);
+                _ruleToIndexMap = _ruleToIndexMap ?? new Dictionary<MessageDescriptor, int>(MessageDescriptor.ValueComparer);
                 return _ruleToIndexMap;
             }
         }
@@ -228,12 +227,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     _run.Invocations[0].EndTimeUtc = DateTime.UtcNow;
                 }
 
-                // Note: we write out the backing rules
-                // to prevent the property accessor from populating
-                // this data with an empty collection.
-                if (_ruleToIndexMap != null)
+                if (_run?.Tool != null)
                 {
-                    _issueLogJsonWriter.WriteRules(new List<Rule>(_ruleToIndexMap.Keys));
+                    _issueLogJsonWriter.WriteTool(_run.Tool);
                 }
 
                 if (_run?.Files != null)
@@ -279,11 +275,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        public void Log(IRule iRule, Result result)
+        public void Log(MessageDescriptor rule, Result result)
         {
-            if (iRule == null)
+            if (rule == null)
             {
-                throw new ArgumentNullException(nameof(iRule));
+                throw new ArgumentNullException(nameof(rule));
             }
 
             if (result == null)
@@ -291,12 +287,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentNullException(nameof(result));
             }
 
-            if (iRule.Id != result.RuleId)
+            if (rule.Id != result.RuleId)
             {
                 //The rule id '{0}' specified by the result does not match the actual id of the rule '{1}'
                 string message = string.Format(CultureInfo.InvariantCulture, SdkResources.ResultRuleIdDoesNotMatchRule,
                     result.RuleId.ToString(),
-                    iRule.Id.ToString());
+                    rule.Id.ToString());
 
                 throw new ArgumentException(message);
             }
@@ -306,25 +302,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 return;
             }
 
-            result.RuleIndex = LogRule(iRule);
+            result.RuleIndex = LogRule(rule);
 
             CaptureFilesInResult(result);
             _issueLogJsonWriter.WriteResult(result);
         }
 
-        private int LogRule(IRule iRule)
+        private int LogRule(MessageDescriptor rule)
         {
-            // TODO: we need to finish eliminating the IRule interface from the OM
-            // https://github.com/Microsoft/sarif-sdk/issues/1189
-            Rule rule = (Rule)iRule;
 
             if (!RuleToIndexMap.TryGetValue(rule, out int ruleIndex))
             {
                 ruleIndex = _ruleToIndexMap.Count;
                 _ruleToIndexMap[rule] = ruleIndex;
-                _run.Resources = _run.Resources ?? new Resources();
-                _run.Resources.Rules = _run.Resources.Rules ?? new OrderSensitiveValueComparisonList<Rule>(Rule.ValueComparer);
-                _run.Resources.Rules.Add(rule);
+                _run.Tool.RulesMetadata = _run.Tool.RulesMetadata ?? new OrderSensitiveValueComparisonList<MessageDescriptor>(MessageDescriptor.ValueComparer);
+                _run.Tool.RulesMetadata.Add(rule);
             }
 
             return ruleIndex;
@@ -417,11 +409,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             Encoding encoding = null;
-            try
+
+            if (_run.DefaultFileEncoding != null)
             {
-                encoding = Encoding.GetEncoding(_run.DefaultFileEncoding);
+                try
+                {
+                    encoding = Encoding.GetEncoding(_run.DefaultFileEncoding);
+                }
+                catch (ArgumentException) { } // Unrecognized encoding name
             }
-            catch (ArgumentException) { } // Unrecognized or null encoding name
 
             _run.GetFileIndex(
                 fileLocation, 
@@ -460,12 +456,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     },
                     Id = Notes.Msg001AnalyzingTarget,
                     Message = new Message { Text = message },
-                    Level = NotificationLevel.Note,
+                    Level = FailureLevel.None,
                     TimeUtc = DateTime.UtcNow,
                 });
         }
 
-        public void Log(ResultLevel messageKind, IAnalysisContext context, Region region, string ruleMessageId, params string[] arguments)
+        public void Log(FailureLevel level, IAnalysisContext context, Region region, string ruleMessageId, params string[] arguments)
         {
             if (context == null)
             {
@@ -479,10 +475,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             ruleMessageId = RuleUtilities.NormalizeRuleMessageId(ruleMessageId, context.Rule.Id);
-            LogJsonIssue(messageKind, context.TargetUri.LocalPath, region, context.Rule.Id, ruleIndex, ruleMessageId, arguments);
+            LogJsonIssue(level, context.TargetUri.LocalPath, region, context.Rule.Id, ruleIndex, ruleMessageId, arguments);
         }
 
-        private void LogJsonIssue(ResultLevel level, string targetPath, Region region, string ruleId, int ruleIndex, string ruleMessageId, params string[] arguments)
+        private void LogJsonIssue(FailureLevel level, string targetPath, Region region, string ruleId, int ruleIndex, string ruleMessageId, params string[] arguments)
         {
             if (!ShouldLog(level))
             {
@@ -520,14 +516,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _issueLogJsonWriter.WriteResult(result);
         }
 
-        public bool ShouldLog(ResultLevel level)
+        public bool ShouldLog(FailureLevel level)
         {
             switch (level)
             {
-                case ResultLevel.Note:
-                case ResultLevel.Pass:
-                case ResultLevel.Open:
-                case ResultLevel.NotApplicable:
+                case FailureLevel.None:
+                case FailureLevel.Note:
                 {
                     if (!Verbose)
                     {
@@ -536,9 +530,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     break;
                 }
 
-                case ResultLevel.Error:
-                case ResultLevel.Default:
-                case ResultLevel.Warning:
+                case FailureLevel.Error:
+                case FailureLevel.Warning:
                 {
                     break;
                 }

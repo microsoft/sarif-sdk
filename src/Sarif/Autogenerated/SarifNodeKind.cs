@@ -124,10 +124,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         Replacement,
         /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Resources" />.
-        /// </summary>
-        Resources,
-        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Result" />.
         /// </summary>
         Result,
@@ -136,9 +132,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         ResultProvenance,
         /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Rule" />.
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="MessageDescriptor" />.
         /// </summary>
-        Rule,
+        MessageDescriptor,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="RuleConfiguration" />.
         /// </summary>

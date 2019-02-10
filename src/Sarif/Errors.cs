@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 CreateNotification(
                     context.TargetUri,
                     ERR997_ExceptionLoadingAnalysisTarget,
-                    NotificationLevel.Error,
+                    FailureLevel.Error,
                     context.TargetLoadException,
                     false,
                     context.TargetUri.GetFileName()));
@@ -70,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     context.TargetUri,
                     ERR997_ExceptionLoadingPdb,
                     context.Rule.Id,
-                    NotificationLevel.Error,
+                    FailureLevel.Error,
                     exception,
                     false,
                     context.TargetUri.GetFileName(),
@@ -97,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 CreateNotification(
                     context.TargetUri,
                     ERR997_ExceptionInstantiatingSkimmers,
-                    NotificationLevel.Error,
+                    FailureLevel.Error,
                     exception,
                     false,
                     plugins));
@@ -117,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 CreateNotification(
                     context.TargetUri,
                     ERR997_NoRulesLoaded,
-                    NotificationLevel.Error,
+                    FailureLevel.Error,
                     null,
                     false));
 
@@ -138,7 +138,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 CreateNotification(
                     context.TargetUri,
                     ERR997_AllRulesExplicitlyDisabled,
-                    NotificationLevel.Error,
+                    FailureLevel.Error,
                     null,
                     false));
 
@@ -157,7 +157,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 CreateNotification(
                     context.TargetUri,
                     ERR997_NoValidAnalysisTargets,
-                    NotificationLevel.Error,
+                    FailureLevel.Error,
                     null,
                     false));
 
@@ -176,7 +176,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 CreateNotification(
                     context.TargetUri,
                     ERR997_ExceptionCreatingLogFile,
-                    NotificationLevel.Error,
+                    FailureLevel.Error,
                     exception,
                     false,
                     fileName));
@@ -196,7 +196,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 CreateNotification(
                     context.TargetUri,
                     ERR997_MissingFile,
-                    NotificationLevel.Error,
+                    FailureLevel.Error,
                     null,
                     false,
                     fileName));
@@ -216,7 +216,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 CreateNotification(
                     context.TargetUri,
                     ERR997_ExceptionAccessingFile,
-                    NotificationLevel.Error,
+                    FailureLevel.Error,
                     exception,
                     false,
                     fileName));
@@ -236,7 +236,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 CreateNotification(
                     context.TargetUri,
                     ERR997_InvalidInvocationPropertyName,
-                    NotificationLevel.Error,
+                    FailureLevel.Error,
                     null,
                     false,
                     propertyName));
@@ -280,7 +280,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     },
                     Id = ERR997_MissingRuleConfiguration,
                     RuleId = context.Rule.Id,
-                    Level = NotificationLevel.Error,
+                    Level = FailureLevel.Error,
                     Message = new Message { Text = message }
                 });
 
@@ -299,7 +299,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 CreateNotification(
                     context.TargetUri,
                     ERR997_ExceptionLoadingPlugIn,
-                    NotificationLevel.Error,
+                    FailureLevel.Error,
                     exception,
                     false,  
                     pluginFilePath));
@@ -319,7 +319,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 CreateNotification(
                     context.TargetUri,
                     ERR1000_ParseError,
-                    NotificationLevel.Error,
+                    FailureLevel.Error,
                     null,
                     false,
                     context.TargetUri.LocalPath,
@@ -350,7 +350,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     context.TargetUri,
                     ERR998_ExceptionInCanAnalyze,
                     context.Rule.Id,
-                    NotificationLevel.Error,
+                    FailureLevel.Error,
                     exception,
                     true,
                     context.TargetUri.GetFileName(),
@@ -376,7 +376,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 context.TargetUri,
                 ERR998_ExceptionInInitialize,
                 context.Rule.Id,
-                NotificationLevel.Error,
+                FailureLevel.Error,
                 exception,
                 true,
                 context.Rule.Name.Text));
@@ -403,7 +403,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     context.TargetUri,
                     ERR998_ExceptionInAnalyze,
                     context.Rule.Id,
-                    NotificationLevel.Error,
+                    FailureLevel.Error,
                     exception,
                     true,
                     context.TargetUri.GetFileName(),
@@ -426,7 +426,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 CreateNotification(
                     context.TargetUri,
                     ERR999UnhandledEngineException,
-                    NotificationLevel.Error,
+                    FailureLevel.Error,
                     exception,
                     true));
 
@@ -436,7 +436,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private static Notification CreateNotification(
             Uri uri,
             string notificationId,
-            NotificationLevel level,
+            FailureLevel level,
             Exception exception,
             bool persistExceptionStack,
             params string[] args)
@@ -448,7 +448,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Uri uri,
             string notificationId,
             string ruleId,
-            NotificationLevel level,
+            FailureLevel level,
             Exception exception,
             bool persistExceptionStack,
             params string[] args)

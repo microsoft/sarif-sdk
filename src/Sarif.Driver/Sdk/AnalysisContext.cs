@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public IAnalysisLogger Logger { get; set; }
 
-        public IRule Rule { get; set; }
+        public MessageDescriptor Rule { get; set; }
 
         public PropertiesDictionary Policy { get; set; }
 

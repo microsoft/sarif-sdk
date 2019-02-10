@@ -7,9 +7,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public interface IAnalysisContext : IDisposable
     {
-        // TODO place these target-relevant properties
-        // in an ITargetDescriptor object
-
         Uri TargetUri { get; set; }
 
         string MimeType { get; set; }
@@ -18,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         bool IsValidAnalysisTarget { get;  }
 
-        IRule Rule { get; set; }
+        MessageDescriptor Rule { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         PropertiesDictionary Policy { get; set; }

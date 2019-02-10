@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             Result result = new Result()
             {
                 RuleId = "TEST001",
-                Level = ResultLevel.Error,
+                Level = FailureLevel.Error,
             };
 
             if (target != null)

@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-10-10",
+  "version": "2.0.0-csd.2.beta.2018-10-10",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner",
+        "semanticVersion": "2.1.0"
+      },
+      "resources": {
+        "messageStrings": {"noContent": "This file has no content to review."},
+        "rules": {
+          "SHARED-ID.2": {
+            "id": "SHARED-ID",
+            "configuration": {
+              "defaultLevel": "error"
+            },
+            "messageStrings": { "a": "Review all image content for geopolitically sensitive graphics." }
+          },
+          "SHARED-ID.1": {
+            "id": "SHARED-ID",
+            "messageStrings": { "a": "Review all plaintext content for geopolitically sensitive terms." }
+          },
+          "SHARED-ID.3": {
+            "id": "SHARED-ID",
+            "messageStrings": { "a": "Review strings extracted from binaries for geopolitically sensitive terms." },
+            "configuration": {
+              "defaultLevel": "note",
+              "enabled": false
+            }
+          }
+        }
+      },
+      "results": [
+        {
+          "ruleId": "SHARED-ID.1",
+          "message": { "messageId": "a" },
+          "locations": [ { "physicalLocation": { "fileLocation": { "uri": "file.txt" } } } ]
+        },
+        {
+          "ruleId": "SHARED-ID.1",
+          "level": "notApplicable",
+          "message": { "messageId": "noContent" },
+          "locations": [ { "physicalLocation": { "fileLocation": { "uri": "empty_file.txt" } } } ]
+        },
+        {
+          "ruleId": "SHARED-ID.2",
+          "message": { "messageId": "a" },
+          "locations": [ { "physicalLocation": { "fileLocation": { "uri": "file.png" } } } ]
+        }
+      ]
+    }
+  ]
+}

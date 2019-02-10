@@ -254,7 +254,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 Id = "NOT0001",
                 RuleId = "TST0001",
-                Level = NotificationLevel.Error,
+                Level = FailureLevel.Error,
                 Message = new Message { Text = "This is a test" },
                 PhysicalLocation = new PhysicalLocation
                 {
@@ -409,9 +409,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         ""name"": ""DefaultTool""
       },
       ""columnKind"": ""utf16CodeUnits"",
-      ""configurationNotifications"": [
+      ""invocations"": [
+        {                
+          ""configurationNotifications"": [
 " + SerializedNotification + @"
-      ]
+          ]
+       }
+     ]
     }
   ]
 }";
@@ -419,7 +423,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 var run = new Run() { Tool = DefaultTool };
                 uut.Initialize(run);
-                uut.WriteConfigurationNotifications(s_notifications);
+
+                var invocation = new Invocation
+                {
+                    ConfigurationNotifications = s_notifications
+                };
+                uut.WriteInvocations(new[] { invocation });
             });
 
             actual.Should().BeCrossPlatformEquivalent<SarifLog>(expected);
@@ -438,47 +447,43 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         ""name"": ""DefaultTool""
       },
       ""columnKind"": ""utf16CodeUnits"",
-      ""toolNotifications"": [
+      ""invocations"": [
+        {                
+          ""toolNotifications"": [
 " + SerializedNotification + @"
-      ]
+          ]
+       }
+     ]
     }
   ]
 }";
+
             string actual = GetJson(uut =>
             {
                 var run = new Run() { Tool = DefaultTool };
                 uut.Initialize(run);
-                uut.WriteToolNotifications(s_notifications);
+
+                var invocation = new Invocation
+                {
+                    ToolNotifications = s_notifications
+                };
+                uut.WriteInvocations(new[] { invocation });
             });
 
             actual.Should().BeCrossPlatformEquivalent<SarifLog>(expected);
         }
 
         [Fact]
-        public void ResultLogJsonWriter_CannotWriteToolNotificationsTwice()
+        public void ResultLogJsonWriter_CannotWriteToolTwice()
         {
             using (var str = new StringWriter())
             using (var json = new JsonTextWriter(str))
             using (var uut = new ResultLogJsonWriter(json))
             {
-                var run = new Run() { Tool = DefaultTool };
+                var run = new Run() { };
                 uut.Initialize(run);
-                uut.WriteToolNotifications(s_notifications);
-                Assert.Throws<InvalidOperationException>(() => uut.WriteToolNotifications(s_notifications));
-            }
-        }
-
-        [Fact]
-        public void ResultLogJsonWriter_CannotWriteConfigurationNotificationsTwice()
-        {
-            using (var str = new StringWriter())
-            using (var json = new JsonTextWriter(str))
-            using (var uut = new ResultLogJsonWriter(json))
-            {
-                var run = new Run() { Tool = DefaultTool };
-                uut.Initialize(run);
-                uut.WriteConfigurationNotifications(s_notifications);
-                Assert.Throws<InvalidOperationException>(() => uut.WriteConfigurationNotifications(s_notifications));
+                uut.WriteTool(DefaultTool);
+                Assert.Throws<InvalidOperationException>(() => uut.WriteTool(DefaultTool));
             }
         }
     }

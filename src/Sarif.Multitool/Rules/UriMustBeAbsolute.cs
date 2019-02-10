@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override Message FullDescription => _fullDescription;
 
-        public override ResultLevel DefaultLevel => ResultLevel.Error;
+        public override FailureLevel DefaultLevel => FailureLevel.Error;
 
         /// <summary>
         /// SARIF1015
@@ -48,9 +48,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
-        protected override void Analyze(IRule rule, string rulePointer)
+        protected override void Analyze(MessageDescriptor messageDescriptor, string messageDescriptorPointer)
         {
-            AnalyzeUri(rule.HelpUri, rulePointer.AtProperty(SarifPropertyName.HelpUri));
+            AnalyzeUri(messageDescriptor.HelpUri, messageDescriptorPointer.AtProperty(SarifPropertyName.HelpUri));
         }
 
         protected override void Analyze(Run run, string runPointer)

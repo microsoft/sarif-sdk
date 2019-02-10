@@ -520,7 +520,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     Exception = CreateExceptionData(v1Notification.Exception),
                     Id = v1Notification.Id,
-                    Level = Utilities.CreateNotificationLevel(v1Notification.Level),
+                    Level = Utilities.CreateFailureLevel(v1Notification.Level),
                     Message = CreateMessage(v1Notification.Message),
                     PhysicalLocation = CreatePhysicalLocation(v1Notification.PhysicalLocation),
                     Properties = v1Notification.Properties,
@@ -715,7 +715,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     CodeFlows = v1Result.CodeFlows?.Select(CreateCodeFlow).ToList(),
                     Fixes = v1Result.Fixes?.Select(CreateFix).ToList(),
                     InstanceGuid = v1Result.Id,
-                    Level = Utilities.CreateResultLevel(v1Result.Level),
+                    Level = Utilities.CreateFailureLevel(v1Result.Level),
+                    Kind = Utilities.CreateResultKind(v1Result.Level),
                     Locations = v1Result.Locations?.Select(CreateLocation).ToList(),
                     Message = CreateMessage(v1Result.Message),
                     Properties = v1Result.Properties,
@@ -789,13 +790,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return result;
         }
 
-        internal Rule CreateRule(RuleVersionOne v1Rule)
+        internal MessageDescriptor CreateRule(RuleVersionOne v1Rule)
         {
-            Rule rule = null;
+            MessageDescriptor rule = null;
 
             if (v1Rule != null)
             {
-                rule = new Rule
+                rule = new MessageDescriptor
                 {
                     FullDescription = CreateMessage(v1Rule.FullDescription),
                     HelpUri = v1Rule.HelpUri,
@@ -806,17 +807,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     ShortDescription = CreateMessage(v1Rule.ShortDescription)
                 };
 
-                RuleConfigurationDefaultLevel level = Utilities.CreateRuleConfigurationDefaultLevel(v1Rule.DefaultLevel);
+                FailureLevel level = Utilities.CreateRuleConfigurationDefaultLevel(v1Rule.DefaultLevel);
 
-                if (v1Rule.Configuration == RuleConfigurationVersionOne.Enabled ||
-                    level != RuleConfigurationDefaultLevel.Warning)
+                rule.DefaultConfiguration = new RuleConfiguration
                 {
-                    rule.Configuration = new RuleConfiguration
-                    {
-                        DefaultLevel = level,
-                        Enabled = v1Rule.Configuration == RuleConfigurationVersionOne.Enabled
-                    };
-                }
+                    Level = level,
+                    Enabled = v1Rule.Configuration != RuleConfigurationVersionOne.Disabled
+                };
             }
 
             return rule;
@@ -870,14 +867,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     if (v1Run.Rules != null)
                     {
-                        run.Resources = new Resources
-                        {
-                            Rules = new List<Rule>()
-                        };
+                        run.Tool.RulesMetadata = new List<MessageDescriptor>();
 
                         foreach (var pair in v1Run.Rules)
                         {
-                            run.Resources.Rules.Add(CreateRule(pair.Value));
+                            run.Tool.RulesMetadata.Add(CreateRule(pair.Value));
                         }
                     }
 

@@ -114,8 +114,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 RelatedLocations = relatedLocations
             };
 
-            ResultLevel level = ResultLevelFromSemmleSeverity(GetString(fields, FieldIndex.Severity));
-            if (level != ResultLevel.Warning)
+            FailureLevel level = FailureLevelFromSemmleSeverity(GetString(fields, FieldIndex.Severity));
+            if (level != FailureLevel.Warning)
             {
                 result.Level = level;
             }
@@ -282,7 +282,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 value = 0;
                 AddToolNotification(
                     "InvalidInteger",
-                    NotificationLevel.Error,
+                    FailureLevel.Error,
                     ConverterResources.SemmleInvalidInteger,
                     field,
                     fieldIndex);
@@ -291,32 +291,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return value;
         }
 
-        private ResultLevel ResultLevelFromSemmleSeverity(string semmleSeverity)
+        private FailureLevel FailureLevelFromSemmleSeverity(string semmleSeverity)
         {
             switch (semmleSeverity)
             {
                 case SemmleError:
-                    return ResultLevel.Error;
+                    return FailureLevel.Error;
 
                 case SemmleWarning:
-                    return ResultLevel.Warning;
+                    return FailureLevel.Warning;
 
                 case SemmleRecommendation:
-                    return ResultLevel.Note;
+                    return FailureLevel.Note;
 
                 default:
                     AddToolNotification(
                         "UnknownSeverity",
-                        NotificationLevel.Error,
+                        FailureLevel.Error,
                         ConverterResources.SemmleUnknownSeverity,
                         semmleSeverity);
-                    return ResultLevel.Warning;
+                    return FailureLevel.Warning;
             }
         }
 
         private void AddToolNotification(
             string id,
-            NotificationLevel level,
+            FailureLevel level,
             string messageFormat,
             params object[] args)
         {

@@ -49,28 +49,28 @@ namespace Microsoft.CodeAnalysis.Sarif
             Messages.Add(message);
         }
 
-        public void Log(IRule rule, Result result)
+        public void Log(MessageDescriptor rule, Result result)
         {
-            NoteTestResult(result.Level, result.Locations.First().PhysicalLocation.FileLocation.Uri.LocalPath);
+            NoteTestResult(result.Kind, result.Locations.First().PhysicalLocation.FileLocation.Uri.LocalPath);
         }
 
-        public void NoteTestResult(ResultLevel level, string targetPath)
+        public void NoteTestResult(ResultKind kind, string targetPath)
         {
-            switch (level)
+            switch (kind)
             {
-                case ResultLevel.Pass:
+                case ResultKind.Pass:
                     {
                         PassTargets.Add(targetPath);
                         break;
                     }
 
-                case ResultLevel.Error:
+                case ResultKind.Fail:
                     {
                         FailTargets.Add(targetPath);
                         break;
                     }
 
-                case ResultLevel.NotApplicable:
+                case ResultKind.NotApplicable:
                     {
                         NotApplicableTargets.Add(targetPath);
                         break;
