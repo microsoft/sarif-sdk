@@ -83,7 +83,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 RuleId = "ruleName.test.value",
                 Message = new Message { Text = "failure.test.value" },
-                Level = ResultLevel.Warning
+                Level = FailureLevel.Warning,
+                Kind = ResultKind.Fail
             };
 
             Region region = new Region()
@@ -183,7 +184,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             converter.Convert(stream, mockWriter.Object, OptionallyEmittedData.None);
 
             mockWriter.Verify(writer => writer.Initialize(It.IsAny<Run>()), Times.Once);
-            mockWriter.Verify(writer => writer.WriteFiles(It.IsAny<IList<FileData>>()), Times.Once);
+            mockWriter.Verify(writer => writer.WriteFiles(It.IsAny<IList<FileData>>()), Times.Never);
             mockWriter.Verify(writer => writer.OpenResults(), Times.Once);
             mockWriter.Verify(writer => writer.CloseResults(), Times.Once);
             mockWriter.Verify(writer => writer.WriteResults(It.IsAny<List<Result>>()), Times.Once);

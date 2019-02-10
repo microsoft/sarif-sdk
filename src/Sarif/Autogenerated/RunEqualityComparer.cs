@@ -187,11 +187,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!Resources.ValueComparer.Equals(left.Resources, right.Resources))
-            {
-                return false;
-            }
-
             if (!RunAutomationDetails.ValueComparer.Equals(left.Id, right.Id))
             {
                 return false;
@@ -409,11 +404,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                             result = (result * 31) + value_12.ValueGetHashCode();
                         }
                     }
-                }
-
-                if (obj.Resources != null)
-                {
-                    result = (result * 31) + obj.Resources.ValueGetHashCode();
                 }
 
                 if (obj.Id != null)

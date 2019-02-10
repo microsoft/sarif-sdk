@@ -549,7 +549,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // By default, the exception raising rule produces a single error.
             // The simple test rule doesn't raise anything without add'l configuration
             resultCount.Should().Be(1);
-            run.Results[0].Level.Should().Equals(ResultLevel.NotApplicable);
+            run.Results[0].Kind.Should().Equals(ResultKind.NotApplicable);
 
             toolNotificationCount.Should().Be(1);
             configurationNotificationCount.Should().Be(0);
@@ -621,7 +621,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // By default, the exception raising rule produces a single error.
             // The simple test rule doesn't raise anything without add'l configuration
             resultCount.Should().Be(1);
-            run.Results[0].Level.Should().Be(ResultLevel.Warning);
+            run.Results[0].Level.Should().Be(FailureLevel.Warning);
 
             toolNotificationCount.Should().Be(1);
             configurationNotificationCount.Should().Be(0);
@@ -657,9 +657,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 // By default, the exception raising rule produces a single error.
                 // The simple test rule doesn't raise anything without add'l configuration
                 resultCount.Should().Be(2);
-                run.Results.Where((result) => result.Level == ResultLevel.Error).Count().Should().Be(1);
-                run.Results.Where((result) => result.Level == ResultLevel.Warning).Count().Should().Be(1);
-                run.Results.Where((result) => result.Level == ResultLevel.NotApplicable).Count().Should().Be(0);
+                run.Results.Where((result) => result.Level == FailureLevel.Error).Count().Should().Be(1);
+                run.Results.Where((result) => result.Level == FailureLevel.Warning).Count().Should().Be(1);
+                run.Results.Where((result) => result.Kind == ResultKind.NotApplicable).Count().Should().Be(0);
 
                 toolNotificationCount.Should().Be(1);
                 configurationNotificationCount.Should().Be(0);
@@ -709,8 +709,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 run.Invocations.Should().NotBeNull();
                 run.Invocations.Count.Should().Be(1);
 
-                run.Invocations[0].ConfigurationNotifications.Where((notification) => notification.Level == NotificationLevel.Error).Count().Should().Be(1);
-                run.Invocations[0].ConfigurationNotifications.Where((notification) => notification.Level == NotificationLevel.Warning).Count().Should().Be(3);
+                run.Invocations[0].ConfigurationNotifications.Where((notification) => notification.Level == FailureLevel.Error).Count().Should().Be(1);
+                run.Invocations[0].ConfigurationNotifications.Where((notification) => notification.Level == FailureLevel.Warning).Count().Should().Be(3);
 
                 run.Invocations[0].ConfigurationNotifications.Where((notification) => notification.Id == Warnings.Wrn999_RuleExplicitlyDisabled).Count().Should().Be(3);
 

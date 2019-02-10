@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    [Export(typeof(IRule)), Export(typeof(IOptionsProvider)), Export(typeof(ISkimmer<TestAnalysisContext>))]
+    [Export(typeof(MessageDescriptor)), Export(typeof(IOptionsProvider)), Export(typeof(Skimmer<TestAnalysisContext>))]
     internal class SimpleTestRule : TestRuleBase, IOptionsProvider
     {
         public override string Id => "TEST002";
@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     new Result()
                     {
                         RuleId = this.Id,
-                        Level = ResultLevel.Error,
+                        Level = FailureLevel.Error,
                         Message = new Message { Text = "Simple test rule message." }
                     });
             }

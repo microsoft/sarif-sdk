@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override Message FullDescription => _fullDescription;
 
-        public override ResultLevel DefaultLevel => ResultLevel.Error;
+        public override FailureLevel DefaultLevel => FailureLevel.Error;
 
         /// <summary>
         /// SARIF1012

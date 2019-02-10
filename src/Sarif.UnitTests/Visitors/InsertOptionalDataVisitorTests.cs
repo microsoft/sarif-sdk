@@ -141,16 +141,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         ConfigurationNotifications = new List<Notification>{ }
                     }
                 },
-                Resources = new Resources
+                Tool = new Tool
                 {
-                    MessageStrings = new Dictionary<string, string>
+                    GlobalMessageStrings = new Dictionary<string, string>
                     {
                         [UniqueGlobalMessageId] = UniqueGlobalMessageValue,
                         [SharedMessageId] = SharedKeyGlobalMessageValue
                     },
-                    Rules = new List<Rule>
+                    RulesMetadata = new List<MessageDescriptor>
                     {
-                        new Rule
+                        new MessageDescriptor
                         {
                             Id = RuleId,
                             MessageStrings = new Dictionary<string, string>

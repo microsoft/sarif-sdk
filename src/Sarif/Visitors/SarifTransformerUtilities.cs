@@ -60,95 +60,131 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return $"{baseName}-{index.ToString(CultureInfo.InvariantCulture)}";
         }
 
-        public static NotificationLevel CreateNotificationLevel(NotificationLevelVersionOne v1NotificationLevel)
+        public static FailureLevel CreateFailureLevel(NotificationLevelVersionOne v1NotificationLevel)
         {
             switch (v1NotificationLevel)
             {
                 case NotificationLevelVersionOne.Error:
-                    return NotificationLevel.Error;
+                    return FailureLevel.Error;
                 case NotificationLevelVersionOne.Note:
-                    return NotificationLevel.Note;
+                    return FailureLevel.Note;
                 default:
-                    return NotificationLevel.Warning;
+                    return FailureLevel.Warning;
             }
         }
 
-        public static NotificationLevelVersionOne CreateNotificationLevelVersionOne(NotificationLevel v2NotificationLevel)
+        public static NotificationLevelVersionOne CreateNotificationLevelVersionOne(FailureLevel v2FailureLevel)
         {
-            switch (v2NotificationLevel)
+            switch (v2FailureLevel)
             {
-                case NotificationLevel.Error:
+                case FailureLevel.Error:
                     return NotificationLevelVersionOne.Error;
-                case NotificationLevel.Note:
+                case FailureLevel.Note:
                     return NotificationLevelVersionOne.Note;
                 default:
                     return NotificationLevelVersionOne.Warning;
             }
         }
 
-        public static RuleConfigurationDefaultLevel CreateRuleConfigurationDefaultLevel(ResultLevelVersionOne v1ResultLevel)
+        public static FailureLevel CreateRuleConfigurationDefaultLevel(ResultLevelVersionOne v1ResultLevel)
         {
             switch (v1ResultLevel)
             {
                 case ResultLevelVersionOne.Error:
-                    return RuleConfigurationDefaultLevel.Error;
+                    return FailureLevel.Error;
                 case ResultLevelVersionOne.Pass:
-                    return RuleConfigurationDefaultLevel.Note;
+                    return FailureLevel.Note;
                 case ResultLevelVersionOne.Warning:
-                    return RuleConfigurationDefaultLevel.Warning;
+                    return FailureLevel.Warning;
                 default:
-                    return RuleConfigurationDefaultLevel.Warning;
+                    return FailureLevel.Warning;
             }
         }
 
-        public static ResultLevel CreateResultLevel(ResultLevelVersionOne v1ResultLevel)
+        public static FailureLevel CreateFailureLevel(ResultLevelVersionOne v1ResultLevel)
         {
             switch (v1ResultLevel)
             {
                 case ResultLevelVersionOne.Error:
-                    return ResultLevel.Error;
+                    return FailureLevel.Error;
                 case ResultLevelVersionOne.Note:
-                    return ResultLevel.Note;
+                    return FailureLevel.Note;
                 case ResultLevelVersionOne.Pass:
-                    return ResultLevel.Pass;
+                    return FailureLevel.None;
                 case ResultLevelVersionOne.Warning:
-                    return ResultLevel.Warning;
+                    return FailureLevel.Warning;
                 case ResultLevelVersionOne.NotApplicable:
-                    return ResultLevel.NotApplicable;
+                    return FailureLevel.None;
                 default:
-                    return ResultLevel.Default;
+                    return FailureLevel.Warning;
             }
         }
 
-        public static ResultLevelVersionOne CreateResultLevelVersionOne(RuleConfigurationDefaultLevel v2DefaultLevel)
+        public static ResultKind CreateResultKind(ResultLevelVersionOne v1ResultLevel)
+        {
+            switch (v1ResultLevel)
+            {
+                case ResultLevelVersionOne.Error:
+                    return ResultKind.Fail;
+                case ResultLevelVersionOne.Note:
+                    return ResultKind.Fail;
+                case ResultLevelVersionOne.Pass:
+                    return ResultKind.Pass;
+                case ResultLevelVersionOne.Warning:
+                    return ResultKind.Fail;
+                case ResultLevelVersionOne.NotApplicable:
+                    return ResultKind.NotApplicable;
+                default:
+                    return ResultKind.Fail;
+            }
+        }
+
+        public static ResultLevelVersionOne CreateResultLevelVersionOne(FailureLevel v2DefaultLevel)
         {
             switch (v2DefaultLevel)
             {
-                case RuleConfigurationDefaultLevel.Error:
+                case FailureLevel.Error:
                     return ResultLevelVersionOne.Error;
-                case RuleConfigurationDefaultLevel.Note:
+                case FailureLevel.Note:
                     return ResultLevelVersionOne.Pass;
-                case RuleConfigurationDefaultLevel.Warning:
+                case FailureLevel.Warning:
                     return ResultLevelVersionOne.Warning;
                 default:
                     return ResultLevelVersionOne.Warning;
             }
         }
 
-        public static ResultLevelVersionOne CreateResultLevelVersionOne(ResultLevel v2ResultLevel)
+        public static ResultLevelVersionOne CreateResultLevelVersionOne(FailureLevel v2FailureLevel, ResultKind v2ResultKind)
         {
-            switch (v2ResultLevel)
+            if (v2ResultKind != ResultKind.Fail)
             {
-                case ResultLevel.Error:
+                v2FailureLevel = FailureLevel.None;
+            }
+
+            switch (v2FailureLevel)
+            {
+                case FailureLevel.Error:
                     return ResultLevelVersionOne.Error;
-                case ResultLevel.Note:
+                case FailureLevel.Note:
                     return ResultLevelVersionOne.Note;
-                case ResultLevel.Pass:
-                    return ResultLevelVersionOne.Pass;
-                case ResultLevel.Warning:
+                case FailureLevel.Warning:
                     return ResultLevelVersionOne.Warning;
-                case ResultLevel.NotApplicable:
+                case FailureLevel.None:
+                    return CreateResultLevelVersionOneFromResultKind(v2ResultKind);
+                default:
+                    return ResultLevelVersionOne.Default;
+            }
+        }
+
+        private static ResultLevelVersionOne CreateResultLevelVersionOneFromResultKind(ResultKind v2ResultKind)
+        {
+            switch (v2ResultKind)
+            {
+                case ResultKind.Pass:
+                    return ResultLevelVersionOne.Pass;
+                case ResultKind.NotApplicable:
                     return ResultLevelVersionOne.NotApplicable;
+                // no mapped values for review, open
                 default:
                     return ResultLevelVersionOne.Default;
             }
@@ -187,7 +223,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 case BaselineStateVersionOne.Absent:
                     return BaselineState.Absent;
                 case BaselineStateVersionOne.Existing:
-                    return BaselineState.Existing;
+                    return BaselineState.Unchanged;
                 case BaselineStateVersionOne.New:
                     return BaselineState.New;
                 default:
@@ -200,7 +236,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 case BaselineState.Absent:
                     return BaselineStateVersionOne.Absent;
-                case BaselineState.Existing:
+                case BaselineState.Unchanged:
+                case BaselineState.Updated:
                     return BaselineStateVersionOne.Existing;
                 case BaselineState.New:
                     return BaselineStateVersionOne.New;

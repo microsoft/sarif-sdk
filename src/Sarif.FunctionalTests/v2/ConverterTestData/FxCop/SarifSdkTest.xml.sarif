@@ -5184,8 +5184,8 @@
           "parentKey": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Notification",
           "kind": "member"
         },
-        "sarif.dll!Microsoft.CodeAnalysis.Sarif.Notification..ctor(System.String,System.String,Microsoft.CodeAnalysis.Sarif.PhysicalLocation,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.NotificationLevel,System.Int32,System.DateTime,Microsoft.CodeAnalysis.Sarif.ExceptionData,System.Collections.Generic.IDictionary`2<System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo>)": {
-          "name": ".ctor(System.String,System.String,Microsoft.CodeAnalysis.Sarif.PhysicalLocation,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.NotificationLevel,System.Int32,System.DateTime,Microsoft.CodeAnalysis.Sarif.ExceptionData,System.Collections.Generic.IDictionary`2<System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo>)",
+        "sarif.dll!Microsoft.CodeAnalysis.Sarif.Notification..ctor(System.String,System.String,Microsoft.CodeAnalysis.Sarif.PhysicalLocation,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.FailureLevel,System.Int32,System.DateTime,Microsoft.CodeAnalysis.Sarif.ExceptionData,System.Collections.Generic.IDictionary`2<System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo>)": {
+          "name": ".ctor(System.String,System.String,Microsoft.CodeAnalysis.Sarif.PhysicalLocation,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.FailureLevel,System.Int32,System.DateTime,Microsoft.CodeAnalysis.Sarif.ExceptionData,System.Collections.Generic.IDictionary`2<System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo>)",
           "parentKey": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Notification",
           "kind": "member"
         },
@@ -7024,8 +7024,8 @@
           "parentKey": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities",
           "kind": "member"
         },
-        "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities.CreateNotificationLevelVersionOne(Microsoft.CodeAnalysis.Sarif.NotificationLevel)": {
-          "name": "CreateNotificationLevelVersionOne(Microsoft.CodeAnalysis.Sarif.NotificationLevel)",
+        "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities.CreateNotificationLevelVersionOne(Microsoft.CodeAnalysis.Sarif.FailureLevel)": {
+          "name": "CreateNotificationLevelVersionOne(Microsoft.CodeAnalysis.Sarif.FailureLevel)",
           "parentKey": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities",
           "kind": "member"
         },
@@ -7332,8 +7332,8 @@
           "parentKey": "sarif.driver.dll!Microsoft.CodeAnalysis.Sarif.Driver.AnalyzeCommandBase`2",
           "kind": "member"
         },
-        "sarif.driver.dll!Microsoft.CodeAnalysis.Sarif.Driver.AnalyzeCommandBase`2.LogToolNotification(Microsoft.CodeAnalysis.Sarif.IAnalysisLogger,System.String,Microsoft.CodeAnalysis.Sarif.NotificationLevel,System.Exception)": {
-          "name": "LogToolNotification(Microsoft.CodeAnalysis.Sarif.IAnalysisLogger,System.String,Microsoft.CodeAnalysis.Sarif.NotificationLevel,System.Exception)",
+        "sarif.driver.dll!Microsoft.CodeAnalysis.Sarif.Driver.AnalyzeCommandBase`2.LogToolNotification(Microsoft.CodeAnalysis.Sarif.IAnalysisLogger,System.String,Microsoft.CodeAnalysis.Sarif.FailureLevel,System.Exception)": {
+          "name": "LogToolNotification(Microsoft.CodeAnalysis.Sarif.IAnalysisLogger,System.String,Microsoft.CodeAnalysis.Sarif.FailureLevel,System.Exception)",
           "parentKey": "sarif.driver.dll!Microsoft.CodeAnalysis.Sarif.Driver.AnalyzeCommandBase`2",
           "kind": "member"
         },
@@ -19781,7 +19781,7 @@
           "ruleId": "CA2214",
           "level": "warning",
           "message": {
-            "text": "'Notification.Notification(Notification)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: \r\n\r\nNotification..ctor(Notification)\r\nNotification.Init(String, String, PhysicalLocation, Message, NotificationLevel, Int32, DateTime, ExceptionData, IDictionary<String,SerializedPropertyInfo>):Void\r\nPropertyBagHolder.set_Properties(IDictionary<String,SerializedPropertyInfo>):Void"
+            "text": "'Notification.Notification(Notification)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: \r\n\r\nNotification..ctor(Notification)\r\nNotification.Init(String, String, PhysicalLocation, Message, FailureLevel, Int32, DateTime, ExceptionData, IDictionary<String,SerializedPropertyInfo>):Void\r\nPropertyBagHolder.set_Properties(IDictionary<String,SerializedPropertyInfo>):Void"
           },
           "analysisTarget": {
             "uri": "../../../../../../sarif-sdk-test/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Sarif.dll",
@@ -19824,7 +19824,7 @@
           "ruleId": "CA2214",
           "level": "warning",
           "message": {
-            "text": "'Notification.Notification(string, string, PhysicalLocation, Message, NotificationLevel, int, DateTime, ExceptionData, IDictionary<string, SerializedPropertyInfo>)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: \r\n\r\nNotification..ctor(String, String, PhysicalLocation, Message, NotificationLevel, Int32, DateTime, ExceptionData, IDictionary<String,SerializedPropertyInfo>)\r\nNotification.Init(String, String, PhysicalLocation, Message, NotificationLevel, Int32, DateTime, ExceptionData, IDictionary<String,SerializedPropertyInfo>):Void\r\nPropertyBagHolder.set_Properties(IDictionary<String,SerializedPropertyInfo>):Void"
+            "text": "'Notification.Notification(string, string, PhysicalLocation, Message, FailureLevel, int, DateTime, ExceptionData, IDictionary<string, SerializedPropertyInfo>)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: \r\n\r\nNotification..ctor(String, String, PhysicalLocation, Message, FailureLevel, Int32, DateTime, ExceptionData, IDictionary<String,SerializedPropertyInfo>)\r\nNotification.Init(String, String, PhysicalLocation, Message, FailureLevel, Int32, DateTime, ExceptionData, IDictionary<String,SerializedPropertyInfo>):Void\r\nPropertyBagHolder.set_Properties(IDictionary<String,SerializedPropertyInfo>):Void"
           },
           "analysisTarget": {
             "uri": "../../../../../../sarif-sdk-test/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Sarif.dll",
@@ -19839,7 +19839,7 @@
                 "region": {
                   "startLine": 126,
                   "snippet": {
-                    "text": "        public Notification(string id, string ruleId, PhysicalLocation physicalLocation, Message message, NotificationLevel level, int threadId, DateTime time, ExceptionData exception, IDictionary<string, SerializedPropertyInfo> properties)"
+                    "text": "        public Notification(string id, string ruleId, PhysicalLocation physicalLocation, Message message, FailureLevel level, int threadId, DateTime time, ExceptionData exception, IDictionary<string, SerializedPropertyInfo> properties)"
                   }
                 },
                 "contextRegion": {
@@ -19850,11 +19850,11 @@
                   "charOffset": 5374,
                   "charLength": 273,
                   "snippet": {
-                    "text": "        /// </param>\r\n        public Notification(string id, string ruleId, PhysicalLocation physicalLocation, Message message, NotificationLevel level, int threadId, DateTime time, ExceptionData exception, IDictionary<string, SerializedPropertyInfo> properties)\r\n        {"
+                    "text": "        /// </param>\r\n        public Notification(string id, string ruleId, PhysicalLocation physicalLocation, Message message, FailureLevel level, int threadId, DateTime time, ExceptionData exception, IDictionary<string, SerializedPropertyInfo> properties)\r\n        {"
                   }
                 }
               },
-              "fullyQualifiedLogicalName": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Notification..ctor(System.String,System.String,Microsoft.CodeAnalysis.Sarif.PhysicalLocation,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.NotificationLevel,System.Int32,System.DateTime,Microsoft.CodeAnalysis.Sarif.ExceptionData,System.Collections.Generic.IDictionary`2<System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo>)"
+              "fullyQualifiedLogicalName": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Notification..ctor(System.String,System.String,Microsoft.CodeAnalysis.Sarif.PhysicalLocation,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.FailureLevel,System.Int32,System.DateTime,Microsoft.CodeAnalysis.Sarif.ExceptionData,System.Collections.Generic.IDictionary`2<System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo>)"
             }
           ],
           "properties": {
@@ -33367,7 +33367,7 @@
                   "charOffset": 2951,
                   "charLength": 165,
                   "snippet": {
-                    "text": "        public static NotificationLevel CreateNotificationLevel(NotificationLevelVersionOne v1NotificationLevel)\r\n        {\r\n            switch (v1NotificationLevel)"
+                    "text": "        public static FailureLevel CreateNotificationLevel(NotificationLevelVersionOne v1NotificationLevel)\r\n        {\r\n            switch (v1NotificationLevel)"
                   }
                 }
               },
@@ -33387,7 +33387,7 @@
           "ruleId": "CA1704",
           "level": "warning",
           "message": {
-            "text": "In method 'SarifTransformerUtilities.CreateNotificationLevelVersionOne(NotificationLevel)', correct the spelling of 'v' in parameter name 'v2NotificationLevel' or remove it entirely if it represents any sort of Hungarian notation.",
+            "text": "In method 'SarifTransformerUtilities.CreateNotificationLevelVersionOne(FailureLevel)', correct the spelling of 'v' in parameter name 'v2NotificationLevel' or remove it entirely if it represents any sort of Hungarian notation.",
             "messageId": "MemberParameter"
           },
           "analysisTarget": {
@@ -33414,11 +33414,11 @@
                   "charOffset": 3460,
                   "charLength": 175,
                   "snippet": {
-                    "text": "        public static NotificationLevelVersionOne CreateNotificationLevelVersionOne(NotificationLevel v2NotificationLevel)\r\n        {\r\n            switch (v2NotificationLevel)"
+                    "text": "        public static NotificationLevelVersionOne CreateNotificationLevelVersionOne(FailureLevel v2NotificationLevel)\r\n        {\r\n            switch (v2NotificationLevel)"
                   }
                 }
               },
-              "fullyQualifiedLogicalName": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities.CreateNotificationLevelVersionOne(Microsoft.CodeAnalysis.Sarif.NotificationLevel)"
+              "fullyQualifiedLogicalName": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities.CreateNotificationLevelVersionOne(Microsoft.CodeAnalysis.Sarif.FailureLevel)"
             }
           ],
           "partialFingerprints": {
@@ -36679,7 +36679,7 @@
           "ruleId": "CA1026",
           "level": "error",
           "message": {
-            "text": "Replace method 'AnalyzeCommandBase<TContext, TOptions>.LogToolNotification(IAnalysisLogger, string, NotificationLevel, Exception)' with an overload that supplies all default arguments."
+            "text": "Replace method 'AnalyzeCommandBase<TContext, TOptions>.LogToolNotification(IAnalysisLogger, string, FailureLevel, Exception)' with an overload that supplies all default arguments."
           },
           "analysisTarget": {
             "uri": "../../../../../../sarif-sdk-test/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Sarif.Driver.dll",
@@ -36709,7 +36709,7 @@
                   }
                 }
               },
-              "fullyQualifiedLogicalName": "sarif.driver.dll!Microsoft.CodeAnalysis.Sarif.Driver.AnalyzeCommandBase`2.LogToolNotification(Microsoft.CodeAnalysis.Sarif.IAnalysisLogger,System.String,Microsoft.CodeAnalysis.Sarif.NotificationLevel,System.Exception)"
+              "fullyQualifiedLogicalName": "sarif.driver.dll!Microsoft.CodeAnalysis.Sarif.Driver.AnalyzeCommandBase`2.LogToolNotification(Microsoft.CodeAnalysis.Sarif.IAnalysisLogger,System.String,Microsoft.CodeAnalysis.Sarif.FailureLevel,System.Exception)"
             }
           ],
           "properties": {
@@ -36721,7 +36721,7 @@
           "ruleId": "CA1062",
           "level": "warning",
           "message": {
-            "text": "In externally visible method 'AnalyzeCommandBase<TContext, TOptions>.LogToolNotification(IAnalysisLogger, string, NotificationLevel, Exception)', validate parameter 'logger' before using it."
+            "text": "In externally visible method 'AnalyzeCommandBase<TContext, TOptions>.LogToolNotification(IAnalysisLogger, string, FailureLevel, Exception)', validate parameter 'logger' before using it."
           },
           "analysisTarget": {
             "uri": "../../../../../../sarif-sdk-test/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Sarif.Driver.dll",
@@ -36751,7 +36751,7 @@
                   }
                 }
               },
-              "fullyQualifiedLogicalName": "sarif.driver.dll!Microsoft.CodeAnalysis.Sarif.Driver.AnalyzeCommandBase`2.LogToolNotification(Microsoft.CodeAnalysis.Sarif.IAnalysisLogger,System.String,Microsoft.CodeAnalysis.Sarif.NotificationLevel,System.Exception)"
+              "fullyQualifiedLogicalName": "sarif.driver.dll!Microsoft.CodeAnalysis.Sarif.Driver.AnalyzeCommandBase`2.LogToolNotification(Microsoft.CodeAnalysis.Sarif.IAnalysisLogger,System.String,Microsoft.CodeAnalysis.Sarif.FailureLevel,System.Exception)"
             }
           ],
           "partialFingerprints": {

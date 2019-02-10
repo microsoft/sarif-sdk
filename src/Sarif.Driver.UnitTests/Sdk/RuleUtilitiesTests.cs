@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Driver
             var context = new TestAnalysisContext
             {
                 TargetUri = new System.Uri("file:///c:/src/file.c"),
-                Rule = new Rule
+                Rule = new MessageDescriptor
                 {
                     Id = RuleId,
                     MessageStrings = new Dictionary<string, string>
@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Driver
 
             // Act.
             Result result = RuleUtilities.BuildResult(
-                ResultLevel.Error,
+                FailureLevel.Error,
                 context,
                 region,
                 RuleMessageId,
@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Driver
             (context.RuntimeErrors & RuntimeConditions.OneOrMoreErrorsFired).Should().Be(RuntimeConditions.OneOrMoreErrorsFired);
 
             result = RuleUtilities.BuildResult(
-                ResultLevel.Warning,
+                FailureLevel.Warning,
                 context,
                 region,
                 RuleMessageId,

@@ -47,23 +47,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             switch (version)
             {
+                case "2.0.0-csd.2.beta.2019-01-24":
+                {
+                    // SARIF TC31. Nothing to do.
+                    break;
+                }
+
                 case "2.0.0-csd.2.beta.2019-01-09":
                 {
-                    // SARIF TC30. Nothing to do.
-                    break;
+                        modifiedLog |= ApplyChangesFromTC31(sarifLog);
+                        break;
                 }
 
                 case "2.0.0-csd.2.beta.2018-10-10":
                 case "2.0.0-csd.2.beta.2018-10-10.1":
                 case "2.0.0-csd.2.beta.2018-10-10.2":
                 {
-                        // 2.0.0-csd.2.beta.2018-10-10 == changes through SARIF TC #25
-                        modifiedLog |= ApplyChangesFromTC25ThroughTC30(
+                    // 2.0.0-csd.2.beta.2018-10-10 == changes through SARIF TC #25
+                    modifiedLog |= ApplyChangesFromTC25ThroughTC30(
                         sarifLog, 
                         out fullyQualifiedLogicalNameToIndexMap,
                         out fileLocationKeyToIndexMap,
                         out ruleKeyToIndexMap);
+                    modifiedLog |= ApplyChangesFromTC31(sarifLog);
                     break;
+
                 }
 
                 default:
@@ -74,6 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         out fullyQualifiedLogicalNameToIndexMap,
                         out fileLocationKeyToIndexMap,
                         out ruleKeyToIndexMap);
+                    modifiedLog |= ApplyChangesFromTC31(sarifLog);
                     break;
                 }
             }
@@ -111,6 +120,132 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return transformedSarifLog;
         }
 
+        private static bool ApplyChangesFromTC31(JObject sarifLog)
+        {
+            bool modifiedLog = UpdateSarifLogVersion(sarifLog);            ;
+
+            if (sarifLog["runs"] is JArray runs)
+            {
+                foreach (JObject run in runs)
+                {
+                    // https://github.com/oasis-tcs/sarif-spec/issues/311
+                    modifiedLog |= MoveRulesMetadataAndConfiguration(run);
+
+                    if (run["results"] is JArray results)
+                    {
+                        foreach (JObject result in results)
+                        {
+                            // https://github.com/oasis-tcs/sarif-spec/issues/312
+                            modifiedLog |= UpdateBaselineExistingStateToUnchanged(result);
+
+                            // https://github.com/oasis-tcs/sarif-spec/issues/317
+                            modifiedLog |= SetResultKindAndFailureLevel(result);
+                        }
+                    }
+                }
+            }
+            return modifiedLog;
+        }
+
+        private static bool MoveRulesMetadataAndConfiguration(JObject run)
+        {
+            // https://github.com/oasis-tcs/sarif-spec/issues/311
+
+            if (!(run["resources"] is JObject resources))
+            {
+                return false;
+            }
+
+            JObject tool = (JObject)run["tool"];
+
+            // 1. 'run.resources.messageStrings' moves to 'run.tool.globalMessageStrings'
+            if (resources["messageStrings"] is JObject messageStrings)
+            {
+                tool["globalMessageStrings"] = messageStrings;
+            }
+
+            // 2. 'run.resources.rules' moves to 'run.tool.rulesMetadata'
+            if (resources["rules"] is JArray rules)
+            {
+                foreach(JObject rule in rules)
+                {
+                    RenameProperty(rule, previousName: "configuration", newName: "defaultConfiguration");
+
+                    if (rule["defaultConfiguration"] is JObject ruleConfiguration)
+                    {
+                        RenameProperty(ruleConfiguration, previousName: "defaultLevel", newName: "level");
+                        RenameProperty(ruleConfiguration, previousName: "defaultRank", newName: "rank");
+                    }
+                }
+                tool["rulesMetadata"] = rules;
+            }
+
+            // 3. We do not need any accommodation for the addition of 
+            // 'tool.notificationsMetadata', as this did not exist previously
+
+            // 4. Zap 'rules.resources' entirely
+            run["resources"] = null;
+
+            return true;
+        }
+
+        private static bool UpdateBaselineExistingStateToUnchanged(JObject result)
+        {
+            // Rename 'existing' baseline state to 'unchanged'
+            // (as part of adding the 'updated' state, which 
+            // will not exist in any legacy SARIF logs).
+            // https://github.com/oasis-tcs/sarif-spec/issues/312
+            //
+            bool modifiedLog = false;
+
+            string baselineState = (string)result["baselineState"];
+
+            if ("existing".Equals(baselineState))
+            {
+                result["baselineState"] = "unchanged";
+                modifiedLog = true;
+            }
+            return modifiedLog;
+        }
+
+        private static bool SetResultKindAndFailureLevel(JObject result)
+        {
+            string level = (string)result["level"];
+            if (level == null) { return false; }
+
+            // Every result now has a failure level of 'none', 'note',
+            // 'warning' or 'error'. 'pass', 'notApplicable' and 'open'
+            // are the new 'result.kind' property that can categorize
+            // non-failures. 
+            // https://github.com/oasis-tcs/sarif-spec/issues/317
+
+            switch (level)
+            {
+                // We don't need to handle 'none' as it previously wasn't
+                // an enum value that was permitted by the schema.
+                case "error":
+                case "warning":
+                case "note":
+                {
+                    // 'level' is set appropriately, so we'll mark this result
+                    // kind to indicate it has been evaluated as a failure
+                    result["kind"] = "fail";
+                    break;
+                }
+                case "open":
+                case "notApplicable":
+                case "pass":
+                {
+                    // Legacy level indicates we do not have a failure. Move this
+                    // designation to result.kind.
+                    result["kind"] = level;
+                    result["level"] = "none";
+                    break;
+                }
+            }
+            return true;
+        }
+
         private static bool ApplyChangesFromTC25ThroughTC30(
             JObject sarifLog, 
             out Dictionary<string, int> fullyQualifiedLogicalNameToIndexMap,
@@ -140,8 +275,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     // sufficient existing utilization of this property to warrant preserving it.
 
                     // Remove run.architecture: https://github.com/oasis-tcs/sarif-spec/issues/262
-                    JToken architecture = run[nameof(architecture)];
-                    if (architecture != null)
+                    if (run["architecture"] is JToken architecture)
                     {
                         run.Remove(nameof(architecture));
                         modifiedLog = true;
@@ -237,8 +371,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= RenameProperty(tool, previousName: "fileVersion", newName: "dottedQuadFileVersion");
                     PopulatePropertyIfAbsent(tool, "language", "en-US", ref modifiedLog);
 
-                    JObject conversion = (JObject)run["conversion"];
-                    if (conversion != null)
+                    if (run["conversion"] is JObject conversion)
                     {
                         tool = (JObject)conversion["tool"];
                         modifiedLog |= RenameProperty(tool, previousName: "fileVersion", newName: "dottedQuadFileVersion");
@@ -641,9 +774,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             // This property is an element of what v2 now refers to as aggregateIds
-            JToken automationLogicalId = run["automationLogicalId"];
-
-            if (automationLogicalId != null)
+            if (run["automationLogicalId"] is JToken automationLogicalId)
             {
                 run.Remove("automationLogicalId");
 
@@ -664,8 +795,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             bool modifiedRun = false;
 
-            JArray versionControlDetailsArray = (JArray)run["versionControlProvenance"];
-            if (versionControlDetailsArray != null)
+            if (run["versionControlProvenance"] is JArray versionControlDetailsArray)
             {
                 foreach (JObject versionControlDetails in versionControlDetailsArray)
                 {
@@ -717,8 +847,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedRun = true;
                 }
 
-                var codeFlows = (JArray)result["codeFlows"];
-                if (codeFlows != null)
+                if (result["codeFlows"] is JArray codeFlows)
                 {
                     modifiedRun |= UpdateCodeFlows(codeFlows);
                 }
@@ -761,10 +890,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private static bool UpdateRunInvocations(JObject run)
         {
             bool modifiedRun = false;
-
-            JArray invocations = (JArray)run["invocations"];
-
-            if (invocations != null)
+            
+            if (run["invocations"] is JArray invocations)
             {
                 foreach (JObject invocation in invocations)
                 {
@@ -889,10 +1016,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             bool renamedProperty = false;
 
             if (jObject == null) { return renamedProperty; }
-
-            JToken propertyValue = jObject[previousName];
             
-            if (propertyValue != null)
+            if (jObject[previousName] is JToken propertyValue)
             {
                 jObject.Remove(previousName);
                 jObject[newName] = propertyValue;
@@ -946,11 +1071,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             foreach (JObject invocation in invocations)
             {
-                var notifications = (JArray)invocation["configurationNotifications"];
-                if (notifications != null) { modifiedRun |= UpdateNotifications(notifications); }
+                if (invocation["configurationNotifications"] is JArray configurationNotifications)
+                {
+                    modifiedRun |= UpdateNotifications(configurationNotifications);
+                }
 
-                notifications = (JArray)invocation["toolNotifications"];
-                if (notifications != null) { modifiedRun |= UpdateNotifications(notifications); }
+                if (invocation["toolNotifications"] is JArray toolNotifications)
+                {
+                    modifiedRun |= UpdateNotifications(toolNotifications);
+                }
             }
 
             return modifiedRun;
@@ -976,15 +1105,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // https://github.com/oasis-tcs/sarif-spec/issues/242
             modifiedNotification |= RenameProperty(notification, previousName: "time", newName: "timeUtc");
 
-            var exception = (JObject)notification["exception"];
-
-            if (exception != null)
+            if (notification["exception"] is JObject exception)
             {
                 modifiedNotification |= ConvertExceptionMessageFromStringToMessageObject(exception);
 
-                var innerExceptions = (JArray)exception["innerExceptions"];
-
-                if (innerExceptions != null)
+                if (exception["innerExceptions"] is JArray innerExceptions)
                 {
                     foreach (JObject innerException in innerExceptions)
                     {

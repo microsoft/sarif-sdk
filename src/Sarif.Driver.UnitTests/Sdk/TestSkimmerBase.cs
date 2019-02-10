@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.UnitTests.Sdk
     // when we want to write a set of tests that implement only a limited number
     // of members from SkimmerBase, we don't have to reimplement all the other
     // members that we don't care about.
-    public abstract class TestSkimmerBase : SkimmerBase<TestAnalysisContext>
+    public abstract class TestSkimmerBase : Skimmer<TestAnalysisContext>
     {
         public override Uri HelpUri => throw new NotImplementedException();
 

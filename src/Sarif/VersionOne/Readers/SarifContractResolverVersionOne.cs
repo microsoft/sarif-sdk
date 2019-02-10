@@ -53,9 +53,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             else if (objectType == typeof(SuppressionStatesVersionOne))
                 contract.Converter = FlagsEnumConverter.Instance;
 
-            else if (objectType == typeof(Dictionary<string, IRuleVersionOne>))
-                contract.Converter = RuleDictionaryConverter.Instance;
-
             else if (objectType == typeof(IDictionary<string, SerializedPropertyInfo>))
                 contract.Converter = PropertyBagConverter.Instance;
 

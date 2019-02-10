@@ -56,7 +56,7 @@ namespace Sarif.Converters.UnitTests
             {
                 RuleId = "C0412(testSymbol)",
                 Message = new Message { Text = "testMessage" },
-                Level = ResultLevel.Warning,
+                Level = FailureLevel.Warning,
                 Locations = new List<Location>
                 {
                     new Location
@@ -106,7 +106,7 @@ namespace Sarif.Converters.UnitTests
             converter.Convert(stream, mockWriter.Object, OptionallyEmittedData.None);
 
             mockWriter.Verify(writer => writer.Initialize(It.IsAny<Run>()), Times.Once);
-            mockWriter.Verify(writer => writer.WriteFiles(It.IsAny<IList<FileData>>()), Times.Once);
+            mockWriter.Verify(writer => writer.WriteFiles(It.IsAny<IList<FileData>>()), Times.Never);
             mockWriter.Verify(writer => writer.OpenResults(), Times.Once);
             mockWriter.Verify(writer => writer.CloseResults(), Times.Once);
             mockWriter.Verify(writer => writer.WriteResults(It.IsAny<List<Result>>()), Times.Once);

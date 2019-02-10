@@ -9,7 +9,30 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class RuleUtilities
     {
-        public static Result BuildResult(ResultLevel level, IAnalysisContext context, Region region, string ruleMessageId, params string[] arguments)
+        public static Result BuildResult(ResultKind kind, IAnalysisContext context, Region region, string ruleMessageId, params string[] arguments)
+        {
+            // If kind indicates a failure, but we have no explicit failure
+            // level, we'll fall back to the default of Warning
+            FailureLevel level = (kind != ResultKind.Fail)
+                ? FailureLevel.None
+                : FailureLevel.Warning;
+
+            return BuildResult(level, kind, context, region, ruleMessageId, arguments);
+        }
+
+        public static Result BuildResult(FailureLevel level, IAnalysisContext context, Region region, string ruleMessageId, params string[] arguments)
+        {
+            // If we have a failure level, the kind is Fail, otherwise None.
+            // A message of kind == none and failure level of none is a trace
+            // message, pure and simple.
+            ResultKind kind = (level != FailureLevel.None)
+                ? ResultKind.Fail 
+                : ResultKind.None;
+
+            return BuildResult(level, kind, context, region, ruleMessageId, arguments);
+        }
+
+        public static Result BuildResult(FailureLevel level, ResultKind kind, IAnalysisContext context, Region region, string ruleMessageId, params string[] arguments)
         {
             if (context == null)
             {
@@ -33,7 +56,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     Arguments = arguments
                 },
 
-                Level = level
+                Level = level,
+                Kind = kind
             };
 
             string targetPath = context.TargetUri?.LocalPath;
@@ -53,12 +77,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 };
             }
 
-            if (level == ResultLevel.Warning)
+            if (level == FailureLevel.Warning)
             {
                 context.RuntimeErrors |= RuntimeConditions.OneOrMoreWarningsFired;
             }
 
-            if (level == ResultLevel.Error)
+            if (level == FailureLevel.Error)
             {
                 context.RuntimeErrors |= RuntimeConditions.OneOrMoreErrorsFired;
             }
@@ -67,8 +91,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         public static Dictionary<string, string> BuildDictionary(
-            ResourceManager resourceManager, 
-            IEnumerable<string> resourceNames, 
+            ResourceManager resourceManager,
+            IEnumerable<string> resourceNames,
             string ruleId,
             string prefix = null)
         {
