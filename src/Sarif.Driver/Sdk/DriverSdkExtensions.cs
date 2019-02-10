@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
@@ -16,7 +18,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
             {
                 string[] tokens = uriBaseId.Split('=');
                 string key = tokens[0];
-                Uri value = new Uri(tokens[1], UriKind.Absolute);
+
+                string uriToken = tokens[1];
+
+                Uri value = new Uri(uriToken, UriKind.RelativeOrAbsolute);
+
+                if (!value.IsAbsoluteUri)
+                {
+                    // Command-line tools may be required to provide relative paths for 
+                    // various operations. We will help resolve these to absolute paths
+                    // where we can.
+
+                    try
+                    {
+                        uriToken = Path.GetFullPath(uriToken);
+                        if (!Uri.TryCreate(uriToken, UriKind.Absolute, out value))
+                        {
+                            throw new InvalidOperationException("Could not construct absolute URI from specified value: " + tokens[1]);
+                        }
+                    }
+                    catch (IOException) { }
+                    catch (SecurityException) { }
+                }
+
                 uriBaseIdsDictionary[key] = new FileLocation { Uri = value };
             }
 
