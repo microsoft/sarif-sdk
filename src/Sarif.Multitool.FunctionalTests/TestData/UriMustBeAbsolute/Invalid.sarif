@@ -9,7 +9,11 @@
         "notificationsMetadata": [
           {
             "id": "MSG0001",
-            "helpUri": "www.example.com/notifications/tst0001.html"
+            "helpUri": "www.example.com/notifications/msg0001.html"
+          },
+          {
+            "id": "MSG0002",
+            "helpUri": "www.example.com/notifications/msg0002.html"
           }
         ],
         "rulesMetadata": [
@@ -50,6 +54,7 @@
             "runs[0].results[0].workItemUris[0]",
             "runs[0].originalUriBaseIds.SRCROOT",
             "runs[0].tool.notificationsMetadata[0].helpUri",
+            "runs[0].tool.notificationsMetadata[1].helpUri",
             "runs[0].tool.rulesMetadata[0].helpUri",
             "runs[0].versionControlProvenance[0].repositoryUri"
           ]
