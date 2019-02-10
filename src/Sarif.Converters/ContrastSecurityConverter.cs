@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     {
         private const string ContrastSecurityRulesData = "Microsoft.CodeAnalysis.Sarif.Converters.RulesData.ContrastSecurity.sarif";
 
-        private IDictionary<string, Rule> _rules;
+        private IDictionary<string, MessageDescriptor> _rules;
         private HashSet<FileData> _files;
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // 2. Retain a pointer to the rules dictionary, which we will use to set rule severity
             Run run = sarifLog.Runs[0];
-            _rules = run.Resources.Rules.ToDictionary(rule => rule.Id);
+            _rules = run.Tool.RulesMetadata.ToDictionary(rule => rule.Id);
 
             run.OriginalUriBaseIds = new Dictionary<string, FileLocation>
             {
@@ -219,23 +219,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             Result result = new Result()
             {
-                Level = ConvertToResultLevel(_rules[ruleId].Configuration.DefaultLevel),
+                Level = _rules[ruleId].DefaultConfiguration.Level,
                 RuleId = ruleId,
                 Message = new Message { Text = "TODO: missing message construction for '" + ruleId + "' rule." }
             };
 
             return result;
-        }
-
-        private ResultLevel ConvertToResultLevel(RuleConfigurationDefaultLevel defaultLevel)
-        {
-            switch (defaultLevel)
-            {
-                case RuleConfigurationDefaultLevel.Error: { return ResultLevel.Error; }
-                case RuleConfigurationDefaultLevel.Note: { return ResultLevel.Note; }
-                case RuleConfigurationDefaultLevel.Warning: { return ResultLevel.Warning; }
-                default: { return ResultLevel.Note; }
-            }
         }
 
         private Result ConstructAntiCachingControlsMissingResult(IDictionary<string, string> properties)
@@ -267,7 +256,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
-                Level = ConvertToResultLevel(_rules[ContrastSecurityRuleIds.AntiCachingControlsMissing].Configuration.DefaultLevel),
+                Level = _rules[ContrastSecurityRuleIds.AntiCachingControlsMissing].DefaultConfiguration.Level,
                 RuleId = ContrastSecurityRuleIds.AntiCachingControlsMissing,
                 Locations = locations,
                 Message = new Message
@@ -309,7 +298,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             });
 
             result.Locations = locations;
-            result.Level = ConvertToResultLevel(_rules[ContrastSecurityRuleIds.AuthorizationRulesMissingDenyRule].Configuration.DefaultLevel);
+            result.Level = _rules[ContrastSecurityRuleIds.AuthorizationRulesMissingDenyRule].DefaultConfiguration.Level;
 
             if (locationPath == null)
             {
@@ -362,7 +351,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
-                Level = ConvertToResultLevel(_rules[ContrastSecurityRuleIds.PagesWithoutAntiClickjackingControls].Configuration.DefaultLevel),
+                Level = _rules[ContrastSecurityRuleIds.PagesWithoutAntiClickjackingControls].DefaultConfiguration.Level,
                 RuleId = ContrastSecurityRuleIds.PagesWithoutAntiClickjackingControls,
                 Locations = locations,
                 Message = new Message
@@ -399,7 +388,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             result = new Result
             {
-                Level = ConvertToResultLevel(_rules[ContrastSecurityRuleIds.CrossSiteScripting].Configuration.DefaultLevel),
+                Level = _rules[ContrastSecurityRuleIds.CrossSiteScripting].DefaultConfiguration.Level,
                 RuleId = ContrastSecurityRuleIds.CrossSiteScripting,
                 Locations = new List<Location>()
                 {
@@ -457,7 +446,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
-                Level = ConvertToResultLevel(_rules[ContrastSecurityRuleIds.DetailedErrorMessagesDisplayed].Configuration.DefaultLevel),
+                Level = _rules[ContrastSecurityRuleIds.DetailedErrorMessagesDisplayed].DefaultConfiguration.Level,
                 RuleId = ContrastSecurityRuleIds.DetailedErrorMessagesDisplayed,
                 Locations = new List<Location>()
                 {
@@ -491,7 +480,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
-                Level = ConvertToResultLevel(_rules[ContrastSecurityRuleIds.EventValidationDisabled].Configuration.DefaultLevel),
+                Level = _rules[ContrastSecurityRuleIds.EventValidationDisabled].DefaultConfiguration.Level,
                 RuleId = ContrastSecurityRuleIds.EventValidationDisabled,
                 Locations = new List<Location>()
                 {
@@ -525,7 +514,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
-                Level = ConvertToResultLevel(_rules[ContrastSecurityRuleIds.FormsAuthenticationSSL].Configuration.DefaultLevel),
+                Level = _rules[ContrastSecurityRuleIds.FormsAuthenticationSSL].DefaultConfiguration.Level,
                 RuleId = ContrastSecurityRuleIds.FormsAuthenticationSSL,
                 Locations = new List<Location>()
                 {
@@ -599,7 +588,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
-                Level = ConvertToResultLevel(_rules[ContrastSecurityRuleIds.FormsWithoutAutocompletePrevention].Configuration.DefaultLevel),
+                Level = _rules[ContrastSecurityRuleIds.FormsWithoutAutocompletePrevention].DefaultConfiguration.Level,
                 RuleId = ContrastSecurityRuleIds.FormsWithoutAutocompletePrevention,
                 Locations = locations,
                 Message = new Message
@@ -658,7 +647,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
-                Level = ConvertToResultLevel(_rules[ContrastSecurityRuleIds.OverlyLongSessionTimeout].Configuration.DefaultLevel),
+                Level = _rules[ContrastSecurityRuleIds.OverlyLongSessionTimeout].DefaultConfiguration.Level,
                 RuleId = ContrastSecurityRuleIds.OverlyLongSessionTimeout,
                 Locations = new List<Location>()
                 {
@@ -735,7 +724,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
-                Level = ConvertToResultLevel(_rules[ContrastSecurityRuleIds.SqlInjection].Configuration.DefaultLevel),
+                Level = _rules[ContrastSecurityRuleIds.SqlInjection].DefaultConfiguration.Level,
                 RuleId = ContrastSecurityRuleIds.SqlInjection,
                 Locations = new List<Location>()
                 {
@@ -807,7 +796,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
-                Level = ConvertToResultLevel(_rules[ContrastSecurityRuleIds.VersionHeaderEnabled].Configuration.DefaultLevel),
+                Level = _rules[ContrastSecurityRuleIds.VersionHeaderEnabled].DefaultConfiguration.Level,
                 RuleId = ContrastSecurityRuleIds.VersionHeaderEnabled,
                 Locations = new List<Location>()
                 {
@@ -841,7 +830,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
-                Level = ConvertToResultLevel(_rules[ContrastSecurityRuleIds.WebApplicationDeployedinDebugMode].Configuration.DefaultLevel),
+                Level = _rules[ContrastSecurityRuleIds.WebApplicationDeployedinDebugMode].DefaultConfiguration.Level,
                 RuleId = ContrastSecurityRuleIds.WebApplicationDeployedinDebugMode,
                 Locations = new List<Location>()
                 {
