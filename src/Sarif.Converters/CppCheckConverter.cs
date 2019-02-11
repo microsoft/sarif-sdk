@@ -20,6 +20,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _strings = new CppCheckStrings(_nameTable);
         }
 
+        public override string ToolName => ToolFormat.CppCheck;
+
         /// <summary>
         /// Interface implementation that takes a CppChecker log stream and converts its data to a SARIF json stream.
         /// Read in CppChecker data from an input stream and write Result objects.
@@ -114,7 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var run = new Run()
             {
-                Tool = new Tool { Driver = new ToolComponent { Name = "CppCheck", Version = version } },
+                Tool = new Tool { Driver = new ToolComponent { Name = ToolName, Version = version } },
             };
 
             PersistResults(output, results, run);

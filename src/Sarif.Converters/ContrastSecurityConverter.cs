@@ -29,6 +29,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private IDictionary<string, MessageDescriptor> _rules;
         private HashSet<FileData> _files;
 
+        public override string ToolName => "Contrast Security";
+
         /// <summary>
         /// Convert Contrast Security log to SARIF format stream
         /// </summary>

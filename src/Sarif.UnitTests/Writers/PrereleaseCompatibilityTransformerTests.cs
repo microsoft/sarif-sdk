@@ -72,6 +72,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             RunTest("ComprehensiveToolProperties.sarif");
         }
-
     }
 }

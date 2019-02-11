@@ -18,6 +18,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             { "RULECATEGORY", "ruleCategory" }
         };
 
+        public override string ToolName => ToolFormat.PREfast;
+
         public override void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert)
         {
             input = input ?? throw new ArgumentNullException(nameof(input));
@@ -49,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         Driver = new ToolComponent
                         {
-                            Name = "PREfast", FullName = "PREfast Code Analysis"
+                            Name = ToolName, FullName = "PREfast Code Analysis"
                         }
                     },
                     ColumnKind = ColumnKind.Utf16CodeUnits,

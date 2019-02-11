@@ -36,6 +36,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private CsvParser _parser;
         private List<Notification> _toolNotifications;
 
+        public override string ToolName { get { return "Semmle QL"; } }
+
         /// <summary>
         /// Converts a Semmle log file in CSV format to a SARIF log file.
         /// </summary>
@@ -65,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var results = GetResultsFromStream(input);
 
-            PersistResults(output, results, "Semmle QL");
+            PersistResults(output, results);
         }
 
         private Result[] GetResultsFromStream(Stream input)

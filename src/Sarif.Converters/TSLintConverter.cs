@@ -17,7 +17,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             logReader = new TSLintLogReader();
         }
-        
+
+        public override string ToolName => ToolFormat.TSLint;
+
         public override void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert)
         {
             input = input ?? throw new ArgumentNullException(nameof(input));
@@ -31,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 results.Add(CreateResult(entry));
             }
 
-            PersistResults(output, results, "TSLint");
+            PersistResults(output, results);
         }
 
         internal Result CreateResult(TSLintLogEntry entry)

@@ -23,6 +23,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     internal sealed class FxCopConverter : ToolFileConverterBase
     {
         private const string ProjectDirectoryVariable = "$(ProjectDir)";
+
+        public override string ToolName => ToolFormat.FxCop;
+
         /// <summary>
         /// Convert FxCop log to SARIF format stream
         /// </summary>
@@ -58,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     Driver = new ToolComponent
                     {
-                        Name = "FxCop",
+                        Name = ToolName,
                         RulesMetadata = rules
                     }
                 },

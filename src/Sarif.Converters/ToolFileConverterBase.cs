@@ -20,6 +20,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             LogicalLocations = new List<LogicalLocation>();
         }
 
+        public abstract string ToolName { get; }
+
         public abstract void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert);
 
         // internal as well as protected so it can be exercised by unit tests.
@@ -75,11 +77,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return logicalName;
         }
 
-        protected static Run PersistResults(IResultLogWriter output, IList<Result> results, string toolName)
+        protected Run PersistResults(IResultLogWriter output, IList<Result> results)
         {
             var run = new Run()
             {
-                Tool = new Tool { Driver = new ToolComponent { Name = toolName } },
+                Tool = new Tool { Driver = new ToolComponent { Name = ToolName } },
                 ColumnKind = ColumnKind.Utf16CodeUnits
             };
 
