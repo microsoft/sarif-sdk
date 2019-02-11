@@ -393,6 +393,7 @@
           "items": {
             "enum": [
               "analysisTarget",
+              "toolComponent",
               "attachment",
               "responseFile",
               "resultFile",
@@ -519,7 +520,7 @@
         "uriBaseId": {
           "description": "A string which indirectly specifies the absolute URI with respect to which a relative URI in the \"uri\" property is interpreted.",
           "type": "string"
-        },
+        },`
 
         "fileIndex": {
           "description": "The index within the run files array of the file object associated with the file location.",
@@ -2036,7 +2037,7 @@
         },
 
         "extensions": {
-          "description": "Tool extensions that contributed to or reconfigured the analysis tool run.",
+          "description": "Tool extensions that contributed to or reconfigured the analysis tool that was run.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
@@ -2045,7 +2046,6 @@
             "$ref": "#/definitions/toolComponent"
           }
         },
-
 
         "properties": {
           "description": "Key/value pairs that provide additional information about the tool.",
@@ -2063,7 +2063,7 @@
       "properties": {
 
         "name": {
-          "description": "The name of the tool driver or extension.",
+          "description": "The name of the component.",
           "type": "string"
         },
 
@@ -2122,6 +2122,13 @@
           "items": {
             "$ref": "#/definitions/messageDescriptor"
           }
+        },
+
+        "fileIndex": {
+          "description": "The index within the run files array of the file object associated with the component.",
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
         },
 
         "properties": {
