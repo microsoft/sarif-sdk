@@ -401,7 +401,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [InlineData("Abbreviations such as approx. don't fool us.", "Abbreviations such as approx. don't fool us.")]
         // Expected bad output cases
         [InlineData("no space after period.cannot return good sentence.", "no space after period.cannot return good sentence.")]
-        public void GetFirstSentenceTests(string input, string expected)
+        public void Extensions_ExtractsFirstSentenceProperly(string input, string expected)
         {
             string actual = ExtensionMethods.GetFirstSentence(input);
             actual.Should().Be(expected);
