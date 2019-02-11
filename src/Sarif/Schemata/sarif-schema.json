@@ -1289,7 +1289,7 @@
         "level": {
           "description": "A value specifying the severity level of the result.",
           "default": "warning",
-          "enum": [ "none", "note", "warning", "error"]
+          "enum": [ "none", "note", "warning", "error" ]
         },
 
         "message": {
@@ -1505,6 +1505,12 @@
         "lastDetectionRunInstanceGuid": {
           "description": "A GUID-valued string equal to the id.instanceGuid property of the run in which the result was most recently detected.",
           "type": "string"
+        },
+
+        "extensionIndex": {
+          "description": "The index within the run.tool.extensions array of the tool component object which describes the plug-in or tool extension that produced the result.",
+          "type": "integer",
+          "minimum": -1
         },
 
         "invocationIndex": {
@@ -2015,47 +2021,74 @@
       "type": "object",
       "properties": {
 
+        "language": {
+          "description": "The tool language (expressed as an ISO 649 two-letter lowercase culture code) and region (expressed as an ISO 3166 two-letter uppercase subculture code associated with a country or region).",
+          "type": "string",
+          "default": "en-US"
+        },
+
+        "driver": {
+          "description": "The analysis tool that was run.",
+          "$ref": "#/definitions/toolComponent"
+        },
+
+        "extensions": {
+          "description": "Tool extensions that contributed to or reconfigured the analysis tool run.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/toolComponent"
+          }
+        },
+
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the tool.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      },
+
+      "required": [ "driver" ]
+    },
+
+    "toolComponent": {
+      "description": "A component, such as a plug-in or the default driver, of the analysis tool that was run.",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+
         "name": {
-          "description": "The name of the tool.",
+          "description": "The name of the tool driver or extension.",
           "type": "string"
         },
 
         "fullName": {
-          "description": "The name of the tool along with its version and any other useful identifying information, such as its locale.",
+          "description": "The name of the component along with its version and any other useful identifying information, such as its locale.",
           "type": "string"
         },
 
         "version": {
-          "description": "The tool version, in whatever format the tool natively provides.",
+          "description": "The component version, in whatever format the component natively provides.",
           "type": "string"
         },
 
         "semanticVersion": {
-          "description": "The tool version in the format specified by Semantic Versioning 2.0.",
+          "description": "The component version in the format specified by Semantic Versioning 2.0.",
           "type": "string"
         },
 
         "dottedQuadFileVersion": {
-          "description": "The binary version of the tool's primary executable file expressed as four non-negative integers separated by a period (for operating systems that express file versions in this way).",
+          "description": "The binary version of the component's primary executable file expressed as four non-negative integers separated by a period (for operating systems that express file versions in this way).",
           "type": "string",
           "pattern": "[0-9]+(\\.[0-9]+){3}"
         },
 
         "downloadUri": {
-          "description": "The absolute URI from which the tool can be downloaded.",
+          "description": "The absolute URI from which the component can be downloaded.",
           "type": "string",
           "format": "uri"
-        },
-
-        "sarifLoggerVersion": {
-          "description": "A version that uniquely identifies the SARIF logging component that generated this file, if it is versioned separately from the tool.",
-          "type": "string"
-        },
-
-        "language": {
-          "description": "The tool language (expressed as an ISO 649 two-letter lowercase culture code) and region (expressed as an ISO 3166 two-letter uppercase subculture code associated with a country or region).",
-          "type": "string",
-          "default": "en-US"
         },
 
         "globalMessageStrings": {
@@ -2067,7 +2100,7 @@
         },
 
         "notificationsMetadata": {
-          "description": "An array of message descriptor objects relevant to the notifications related to the configuration and runtime execution of the tool.",
+          "description": "An array of message descriptor objects relevant to the notifications related to the configuration and runtime execution of the component.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
@@ -2078,7 +2111,7 @@
         },
 
         "rulesMetadata": {
-          "description": "An array of message descriptor objects relevant to the analysis performed by the tool.",
+          "description": "An array of message descriptor objects relevant to the analysis performed by the component.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
@@ -2089,7 +2122,7 @@
         },
 
         "properties": {
-          "description": "Key/value pairs that provide additional information about the tool.",
+          "description": "Key/value pairs that provide additional information about the component.",
           "$ref": "#/definitions/propertyBag"
         }
       },
