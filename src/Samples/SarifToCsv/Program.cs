@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 
 using AzureDevOpsCrawlers.Common.IO;
@@ -28,7 +29,7 @@ namespace SarifToCsv
 
             if (args.Length < 2)
             {
-                Console.WriteLine("Usage: SarifToCsv [sarifFilePath] [csvFilePath]");
+                Console.WriteLine("Usage: SarifToCsv [sarifFileOrFolderPath] [csvFilePath]");
                 Console.WriteLine("  Column Names are configured in SarifToCsv.exe.config, in the 'ColumnNames' property.");
                 Console.WriteLine($"  Available Column Names: {String.Join(", ", writers.Keys)}");
 
@@ -45,35 +46,24 @@ namespace SarifToCsv
                 Console.WriteLine($"Converting \"{sarifFilePath}\" to \"{csvFilePath}\"...");
                 Stopwatch w = Stopwatch.StartNew();
 
-                SarifLog log = null;
-
-                // Read the SarifLog with the deferred reader
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.ContractResolver = new SarifDeferredContractResolver();
-                using (JsonPositionedTextReader jtr = new JsonPositionedTextReader(sarifFilePath))
-                {
-                    log = serializer.Deserialize<SarifLog>(jtr);
-                }
 
-                // Convert the each result location into a row in a CSV
                 using (CsvWriter writer = new CsvWriter(csvFilePath))
                 {
                     writer.SetColumns(columnNames);
 
-                    foreach (var run in log.Runs)
+                    // Read the Sarif file (or all Sarif files in the folder) and write to the CSV
+                    if (Directory.Exists(sarifFilePath))
                     {
-                        foreach (var result in run.Results)
+                        foreach (string filePath in Directory.GetFiles(sarifFilePath, "*.sarif", SearchOption.AllDirectories))
                         {
-                            foreach (PhysicalLocation location in result.PhysicalLocations())
-                            {
-                                foreach(Action<CsvWriter, Result, PhysicalLocation> columnWriter in selectedWriters)
-                                {
-                                    columnWriter(writer, result, location);
-                                }
-
-                                writer.NextRow();
-                            }
+                            ConvertSarifLog(serializer, filePath, writer, selectedWriters);
                         }
+                    }
+                    else
+                    {
+                        ConvertSarifLog(serializer, sarifFilePath, writer, selectedWriters);
                     }
 
                     Console.WriteLine($"Done. Wrote {writer.RowCountWritten:n0} rows to \"{csvFilePath}\" in {w.Elapsed.TotalSeconds:n0}s.");
@@ -82,6 +72,40 @@ namespace SarifToCsv
             catch (Exception ex)
             {
                 Console.WriteLine($"Error: {ex}");
+            }
+        }
+
+        public static void ConvertSarifLog(JsonSerializer serializer, string sarifFilePath, CsvWriter writer, IEnumerable<Action<CsvWriter, Result, PhysicalLocation>> selectedWriters)
+        {
+            SarifLog log = null;
+
+            // Read the SarifLog with the deferred reader
+            using (JsonPositionedTextReader jtr = new JsonPositionedTextReader(sarifFilePath))
+            {
+                log = serializer.Deserialize<SarifLog>(jtr);
+            }
+
+            // Write a row in the output file for each result location
+            if (log.Runs != null)
+            {
+                foreach (var run in log.Runs)
+                {
+                    if (run.Results != null)
+                    {
+                        foreach (var result in run.Results)
+                        {
+                            foreach (PhysicalLocation location in result.PhysicalLocations())
+                            {
+                                foreach (Action<CsvWriter, Result, PhysicalLocation> columnWriter in selectedWriters)
+                                {
+                                    columnWriter(writer, result, location);
+                                }
+
+                                writer.NextRow();
+                            }
+                        }
+                    }
+                }
             }
         }
 

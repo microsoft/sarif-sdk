@@ -1,8 +1,9 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-using Microsoft.CodeAnalysis.Sarif;
 using System.Collections.Generic;
+
+using Microsoft.CodeAnalysis.Sarif;
 
 namespace SarifToCsv
 {
