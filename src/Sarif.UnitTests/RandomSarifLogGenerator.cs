@@ -55,9 +55,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 Tool = new Tool
                 {
-                    Name = "Test",
-                    Version = "1.0",
-                    RulesMetadata = new List<MessageDescriptor>(GenerateRules(ruleIds))
+                    Driver = new ToolComponent
+                    {
+                        Name = "Test",
+                        Version = "1.0",
+                        RulesMetadata = new List<MessageDescriptor>(GenerateRules(ruleIds))
+                    }
                 },
                 Files = GenerateFiles(filePaths),
                 Results = GenerateFakeResults(random, ruleIds, filePaths, results)

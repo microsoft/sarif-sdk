@@ -520,7 +520,7 @@
         "uriBaseId": {
           "description": "A string which indirectly specifies the absolute URI with respect to which a relative URI in the \"uri\" property is interpreted.",
           "type": "string"
-        },`
+        },
 
         "fileIndex": {
           "description": "The index within the run files array of the file object associated with the file location.",

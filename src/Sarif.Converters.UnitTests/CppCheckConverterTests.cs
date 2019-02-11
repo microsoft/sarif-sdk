@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 "<results> <cppcheck version=\"12.34\" /> <errors /> </results>");
 
             // We will transform the version above to a Semantic Versioning 2.0 form
-            Assert.Equal("12.34.0", results.Run.Tool.Version);
+            Assert.Equal("12.34.0", results.Run.Tool.Driver.Version);
         }
 
         [Fact]

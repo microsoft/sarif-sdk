@@ -160,17 +160,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
 
             tool = tool ?? Tool.CreateFromAssemblyData();
-            SetSarifLoggerVersion(tool);
-
+            
             _run.Tool = tool;
             _dataToInsert = dataToInsert;
             _issueLogJsonWriter.Initialize(_run);
-        }
-
-        private static void SetSarifLoggerVersion(Tool tool)
-        {
-            string sarifLoggerLocation = typeof(SarifLogger).Assembly.Location;
-            tool.SarifLoggerVersion = FileVersionInfo.GetVersionInfo(sarifLoggerLocation).FileVersion;
         }
 
         private SarifLogger(TextWriter textWriter, LoggingOptions loggingOptions)
@@ -315,8 +308,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 ruleIndex = _ruleToIndexMap.Count;
                 _ruleToIndexMap[rule] = ruleIndex;
-                _run.Tool.RulesMetadata = _run.Tool.RulesMetadata ?? new OrderSensitiveValueComparisonList<MessageDescriptor>(MessageDescriptor.ValueComparer);
-                _run.Tool.RulesMetadata.Add(rule);
+                _run.Tool.Driver.RulesMetadata = _run.Tool.Driver.RulesMetadata ?? new OrderSensitiveValueComparisonList<MessageDescriptor>(MessageDescriptor.ValueComparer);
+                _run.Tool.Driver.RulesMetadata.Add(rule);
             }
 
             return ruleIndex;

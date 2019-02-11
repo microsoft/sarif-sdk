@@ -113,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var run = new Run();
             run.Tool = new Tool();
 
-            run.Tool.InitializeFromAssembly(this.GetType().Assembly, Prerelease);
+            run.Tool = Tool.CreateFromAssemblyData(this.GetType().Assembly, Prerelease);
             run.Results = new List<Result>();
 
             log.Runs.Add(run);
@@ -127,7 +127,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 sortedRules[numericId] = rule;
             }
 
-            run.Tool.RulesMetadata = new List<MessageDescriptor>(sortedRules.Values);
+            run.Tool.Driver.RulesMetadata = new List<MessageDescriptor>(sortedRules.Values);
 
             var settings = new JsonSerializerSettings()
             {

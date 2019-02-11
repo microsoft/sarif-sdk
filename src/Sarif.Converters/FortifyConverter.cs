@@ -93,7 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         Text = runDescription
                     }
                 },
-                Tool = new Tool {  Name = "Fortify" }
+                Tool = new Tool { Driver = new ToolComponent { Name = "Fortify" } }
             };
 
             PersistResults(output, results, run);

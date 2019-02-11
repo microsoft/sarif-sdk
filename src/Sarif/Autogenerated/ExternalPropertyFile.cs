@@ -4,8 +4,10 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -45,6 +47,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A non-negative integer specifying the number of items contained in the external property file.
         /// </summary>
         [DataMember(Name = "itemCount", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(0)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public int ItemCount { get; set; }
 
         /// <summary>
@@ -58,6 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public ExternalPropertyFile()
         {
+            ItemCount = 0;
         }
 
         /// <summary>

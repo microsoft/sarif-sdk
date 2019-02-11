@@ -146,7 +146,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-
         [Fact]
         public void SarifLogger_WritesSarifLoggerVersion()
         {
@@ -170,11 +169,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             string sarifLoggerLocation = typeof(SarifLogger).Assembly.Location;
             string expectedVersion = FileVersionInfo.GetVersionInfo(sarifLoggerLocation).FileVersion;
-
-            sarifLog.Runs[0].Tool.SarifLoggerVersion.Should().Be(expectedVersion);
         }
-
-
 
         [Fact]
         public void SarifLogger_WritesRunProperties()

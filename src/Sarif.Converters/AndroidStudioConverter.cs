@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             
             var run = new Run()
             {
-                Tool = new Tool { Name = ToolFormat.AndroidStudio },
+                Tool = new Tool { Driver = new ToolComponent { Name = ToolFormat.AndroidStudio } },
                 ColumnKind = ColumnKind.Utf16CodeUnits,
                 LogicalLocations = this.LogicalLocations,
             };

@@ -122,6 +122,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitThreadFlowLocation((ThreadFlowLocation)node);
                 case SarifNodeKind.Tool:
                     return VisitTool((Tool)node);
+                case SarifNodeKind.ToolComponent:
+                    return VisitToolComponent((ToolComponent)node);
                 case SarifNodeKind.VersionControlDetails:
                     return VisitVersionControlDetails((VersionControlDetails)node);
                 default:
@@ -254,6 +256,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 node.Conversion = VisitNullChecked(node.Conversion);
                 node.Graphs = VisitNullChecked(node.Graphs);
+                node.ExternalizedProperties = VisitNullChecked(node.ExternalizedProperties);
                 if (node.Files != null)
                 {
                     for (int index_0 = 0; index_0 < node.Files.Count; ++index_0)
@@ -285,6 +288,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                         node.Results[index_0] = VisitNullChecked(node.Results[index_0]);
                     }
                 }
+
+                node.Tool = VisitNullChecked(node.Tool);
             }
 
             return node;
@@ -710,10 +715,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                // OriginalUriBaseIds are directories, not files. We'll disable this visit until the
-                // schema can catch up with this reality.
-                // https://github.com/oasis-tcs/sarif-spec/issues/306
-                /*
                 if (node.OriginalUriBaseIds != null)
                 {
                     var keys = node.OriginalUriBaseIds.Keys.ToArray();
@@ -726,7 +727,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         }
                     }
                 }
-                */
+
                 if (node.Files != null)
                 {
                     for (int index_0 = 0; index_0 < node.Files.Count; ++index_0)
@@ -861,6 +862,23 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         public virtual Tool VisitTool(Tool node)
+        {
+            if (node != null)
+            {
+                node.Driver = VisitNullChecked(node.Driver);
+                if (node.Extensions != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Extensions.Count; ++index_0)
+                    {
+                        node.Extensions[index_0] = VisitNullChecked(node.Extensions[index_0]);
+                    }
+                }
+            }
+
+            return node;
+        }
+
+        public virtual ToolComponent VisitToolComponent(ToolComponent node)
         {
             if (node != null)
             {

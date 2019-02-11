@@ -98,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 }
                 foreach (Run run in sarifLog.Runs)
                 {
-                    string toolName = run.Tool.Name;
+                    string toolName = run.Tool.Driver.Name;
                     if (runsByTool.ContainsKey(toolName))
                     {
                         runsByTool[toolName].Add(run);
@@ -261,11 +261,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
                 if (result.RuleIndex != -1)
                 {
-                    MessageDescriptor rule = resultPair.Run.Tool.RulesMetadata[0];
+                    MessageDescriptor rule = resultPair.Run.Tool.Driver.RulesMetadata[0];
                     if (!rulesMetadata.TryGetValue(rule, out int ruleIndex))
                     {
-                        rulesMetadata[rule] = run.Tool.RulesMetadata.Count;
-                        run.Tool.RulesMetadata.Add(rule);
+                        rulesMetadata[rule] = run.Tool.Driver.RulesMetadata.Count;
+                        run.Tool.Driver.RulesMetadata.Add(rule);
                     }
                     result.RuleIndex = ruleIndex;
                 }
@@ -283,9 +283,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
             foreach (Run currentRun in currentRuns)
             {
-                if (currentRun.Tool.GlobalMessageStrings != null)
+                if (currentRun.Tool.Driver.GlobalMessageStrings != null)
                 {
-                    IDictionary<string, string> converted = currentRun.Tool.GlobalMessageStrings;
+                    IDictionary<string, string> converted = currentRun.Tool.Driver.GlobalMessageStrings;
                     if (converted == null)
                     {
                         throw new ArgumentException("Message Strings did not deserialize properly into a dictionary mapping strings to strings.");

@@ -56,8 +56,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 Tool = new Tool
                 {
-                    Name = "FxCop",
-                    RulesMetadata = rules
+                    Driver = new ToolComponent
+                    {
+                        Name = "FxCop",
+                        RulesMetadata = rules
+                    }
                 },
             };
 

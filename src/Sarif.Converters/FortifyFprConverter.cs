@@ -114,8 +114,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Files = new List<FileData>(_files),
                 Tool = new Tool
                 {
-                    Name = FortifyToolName,
-                    RulesMetadata = _rules
+                    Driver = new ToolComponent
+                    {
+                        Name = FortifyToolName,
+                        RulesMetadata = _rules
+                    }
                 },
                 Invocations = new[] { _invocation },
             };

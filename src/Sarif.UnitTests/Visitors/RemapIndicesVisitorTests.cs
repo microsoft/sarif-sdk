@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             var run = new Run()
             {
-                Tool = new Tool { Name = "Test Tool" },
+                Tool = new Tool { Driver = new ToolComponent { Name = "Test Tool" } },
                 Files = new List<FileData>
                 {
                     new FileData{ FileLocation = new FileLocation{ FileIndex = 0 }, Contents = new FileContent { Text = "1" } },
@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             // This run has a single result pointing to a single file location
             var currentRun = new Run()
             {
-                Tool = new Tool { Name = "Test Tool" },
+                Tool = new Tool { Driver = new ToolComponent { Name = "Test Tool" } },
                 Files = new List<FileData>
                 {
                     new FileData{ FileLocation = new FileLocation{ FileIndex = 0 }, Contents = new FileContent { Text = "New" } },

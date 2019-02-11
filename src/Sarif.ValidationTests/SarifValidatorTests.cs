@@ -39,8 +39,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             Func<SarifLog, SarifLog> callback =
                 (sarifLog) =>
                 {
-                    sarifLog.Runs[0].Tool.DottedQuadFileVersion = "1.0.1.2";
-                    sarifLog.Runs[0].Conversion.Tool.DottedQuadFileVersion = "2.7.1500.12";
+                    sarifLog.Runs[0].Tool.Driver.DottedQuadFileVersion = "1.0.1.2";
+                    sarifLog.Runs[0].Conversion.Tool.Driver.DottedQuadFileVersion = "2.7.1500.12";
                     return sarifLog;
                 };
 

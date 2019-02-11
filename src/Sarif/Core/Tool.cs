@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -15,50 +16,46 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     public partial class Tool 
     {
-        public static Tool CreateFromAssemblyData(string prereleaseInfo = null)
+        public static Tool CreateFromAssemblyData(Assembly assembly = null, string prereleaseInfo = null)
         {
-            Assembly assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
+            assembly = assembly ?? Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
             string name = Path.GetFileNameWithoutExtension(assembly.Location);
-
-            Tool tool = new Tool();
-
-            // 'name'
-            tool.Name = name;
-
-            // 'version' : primary tool version.
             Version version = assembly.GetName().Version;
-            tool.Version = version.ToString();
 
-            // Synthesized semver 2.0 version required by spec
-            tool.SemanticVersion = version.Major.ToString() + "." + version.Minor.ToString() + "." + version.Build.ToString();
+            string dottedQuadFileVersion = null;
 
-            // Binary file version
             FileVersionInfo fileVersion = FileVersionInfo.GetVersionInfo(assembly.Location);
-
-            if (fileVersion.FileVersion != tool.Version)
+            if (fileVersion.FileVersion != version.ToString())
             {
-                tool.DottedQuadFileVersion = fileVersion.FileVersion;
+                dottedQuadFileVersion = fileVersion.FileVersion;
             }
 
-            tool.FullName = name + " " + tool.Version + (prereleaseInfo ?? "");
-
-            tool.Language = CultureInfo.CurrentCulture.Name;
-
-            if (!string.IsNullOrEmpty(fileVersion.Comments)) { tool.SetProperty("Comments", fileVersion.Comments); }
-            if (!string.IsNullOrEmpty(fileVersion.CompanyName)) { tool.SetProperty("CompanyName", fileVersion.CompanyName); }
-            if (!string.IsNullOrEmpty(fileVersion.ProductName)) { tool.SetProperty("ProductName", fileVersion.ProductName); }
+            Tool tool = new Tool
+            {
+                Language = CultureInfo.CurrentCulture.Name,
+                Driver = new ToolComponent
+                {
+                    Name = name,
+                    FullName = name + " " + version.ToString() + (prereleaseInfo ?? ""),
+                    Version = version.ToString(),
+                    DottedQuadFileVersion = dottedQuadFileVersion,
+                    SemanticVersion = version.Major.ToString() + "." + version.Minor.ToString() + "." + version.Build.ToString(),
+                    Properties = CreatePropertiesFromFileVersionInfo(fileVersion)
+                }
+            };
 
             return tool;
         }
 
-        public bool ShouldSerializeRulesMetadata()
-        {            
-            return this.RulesMetadata.HasAtLeastOneNonNullValue();
-        }
-
-        public bool ShouldSerializeNotificationsMetadata()
+        private static IDictionary<string, SerializedPropertyInfo> CreatePropertiesFromFileVersionInfo(FileVersionInfo fileVersion)
         {
-            return this.NotificationsMetadata.HasAtLeastOneNonNullValue();
+            var toolComponent = new ToolComponent();
+
+            if (!string.IsNullOrEmpty(fileVersion.Comments)) { toolComponent.SetProperty("Comments", fileVersion.Comments); }
+            if (!string.IsNullOrEmpty(fileVersion.CompanyName)) { toolComponent.SetProperty("CompanyName", fileVersion.CompanyName); }
+            if (!string.IsNullOrEmpty(fileVersion.ProductName)) { toolComponent.SetProperty("ProductName", fileVersion.ProductName); }
+
+            return toolComponent.Properties;
         }
     }
 }
