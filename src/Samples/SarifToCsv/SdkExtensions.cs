@@ -1,4 +1,7 @@
-﻿using Microsoft.CodeAnalysis.Sarif;
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+
+using Microsoft.CodeAnalysis.Sarif;
 using System.Collections.Generic;
 
 namespace SarifToCsv
@@ -7,11 +10,14 @@ namespace SarifToCsv
     {
         public static IEnumerable<PhysicalLocation> PhysicalLocations(this Result result)
         {
-            foreach (Location location in result.Locations)
+            if (result.Locations != null)
             {
-                if (location.PhysicalLocation != null)
+                foreach (Location location in result.Locations)
                 {
-                    yield return location.PhysicalLocation;
+                    if (location.PhysicalLocation != null)
+                    {
+                        yield return location.PhysicalLocation;
+                    }
                 }
             }
         }
