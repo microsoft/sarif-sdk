@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 (MergeOptions mergeOptions) => new MergeCommand().Run(mergeOptions),
                 (RebaseUriOptions rebaseOptions) => new RebaseUriCommand().Run(rebaseOptions),
                 (AbsoluteUriOptions absoluteUriOptions) => new AbsoluteUriCommand().Run(absoluteUriOptions),
-                //(ResultMatchingOptions baselineOptions) => new ResultMatchingCommand().Run(baselineOptions),
+                (ResultMatchingOptions baselineOptions) => new ResultMatchingCommand().Run(baselineOptions),
                 errs => 1);
         }
     }
