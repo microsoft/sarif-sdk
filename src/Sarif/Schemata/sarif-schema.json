@@ -303,7 +303,7 @@
           "$ref": "#/definitions/externalPropertyFile"
         },
 
-        "properties": {
+        "externalizedProperties": {
           "description": "An external property file containing a run.properties object to be merged with the root log file.",
           "$ref": "#/definitions/externalPropertyFile"
         },

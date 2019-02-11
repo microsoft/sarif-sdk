@@ -832,7 +832,17 @@
       }
     }
   ],
-  "Tool.GlobalMessageStrings": [
+  "toolComponent": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "ToolComponent.GlobalMessageStrings": [
     {
       "kind": "DictionaryHint"
     }
