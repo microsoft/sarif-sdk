@@ -44,6 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                             Uri.TryCreate(uriToken, UriKind.Absolute, out value);
                         }
                         catch (ArgumentException) { } // illegal file path characters throw this
+                        catch (PathTooLongException) { }
                     }
                 }
                 catch (UriFormatException) { }
