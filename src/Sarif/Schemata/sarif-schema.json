@@ -1282,6 +1282,13 @@
           "minimum": -1
         },
 
+        "extensionIndex": {
+          "description": "The index within the run.tool.extensions array of the tool component object which describes the plug-in or tool extension that produced the result.",
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
+        },
+
         "kind": {
           "description": "A value that categorizes results by evaluation state.",
           "default": "fail",
@@ -1507,13 +1514,6 @@
         "lastDetectionRunInstanceGuid": {
           "description": "A GUID-valued string equal to the id.instanceGuid property of the run in which the result was most recently detected.",
           "type": "string"
-        },
-
-        "extensionIndex": {
-          "description": "The index within the run.tool.extensions array of the tool component object which describes the plug-in or tool extension that produced the result.",
-          "type": "integer",
-          "default": -1,
-          "minimum": -1
         },
 
         "invocationIndex": {
