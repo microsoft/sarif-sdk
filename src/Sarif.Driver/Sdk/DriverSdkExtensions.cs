@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,24 +24,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 
                 string uriToken = tokens[1];
 
-                Uri value = new Uri(uriToken, UriKind.RelativeOrAbsolute);
+                Uri value = null;
 
-                if (!value.IsAbsoluteUri)
+                try
                 {
-                    // Command-line tools may be required to provide relative paths for 
-                    // various operations. We will help resolve these to absolute paths
-                    // where we can.
+                    value = new Uri(uriToken, UriKind.RelativeOrAbsolute);
 
-                    try
+                    if (!value.IsAbsoluteUri)
                     {
-                        uriToken = Path.GetFullPath(uriToken);
-                        if (!Uri.TryCreate(uriToken, UriKind.Absolute, out value))
+                        value = null;
+
+                        // Command-line tools may be required to provide relative paths for 
+                        // various operations. We will help resolve these to absolute paths
+                        // where we can.
+
+                        try
                         {
-                            throw new InvalidOperationException("Could not construct absolute URI from specified value: " + tokens[1]);
+                            uriToken = Path.GetFullPath(uriToken);
+                            Uri.TryCreate(uriToken, UriKind.Absolute, out value);
                         }
+                        catch (ArgumentException) { } // illegal file path characters throw this
                     }
-                    catch (IOException) { }
-                    catch (SecurityException) { }
+                }
+                catch (UriFormatException) { }
+
+                if (value == null)
+                {
+                    throw new InvalidOperationException("Could not construct absolute URI from specified value: " + tokens[1]);
                 }
 
                 uriBaseIdsDictionary[key] = new FileLocation { Uri = value };
