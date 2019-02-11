@@ -655,6 +655,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                             {
                                 failureReason = $"File '{uri.LocalPath}' could not be accessed: {ex.ToString()}";
                             }
+                            catch (UnauthorizedAccessException ex)
+                            {
+                                failureReason = $"File '{uri.LocalPath}' could not be accessed: {ex.ToString()}";
+                            }
                         }
                     }
                     else

@@ -95,13 +95,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             {
                 // Lock violation; doesn't matter because this delete is best-effort.
             }
-            catch (UnauthorizedAccessException)
-            {
-                // Access denied; doesn't matter because this delete is best-effort.
-            }
             catch (SecurityException)
             {
                 // Other access issue; doesn't matter because this delete is best-effort.
+            }
+            catch (UnauthorizedAccessException)
+            {
+                // Access denied; doesn't matter because this delete is best-effort.
             }
         }
     }
