@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.TestUtilities;
+using Newtonsoft.Json;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
@@ -97,36 +98,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
 
         private void TestConverter(string inputUri, string expectedUri)
         {
-            string expectedOutput =
-@"{
-  ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + SarifUtilities.SemanticVersion + @""",
-  ""runs"": [
-    {
-      ""tool"": {
-        ""name"": ""DefaultTool""
-      },
-      ""columnKind"": ""utf16CodeUnits"",
-      ""results"": [
-        {
-          ""message"": {
-            ""text"": ""Some testing occurred.""
-         },
-          ""locations"": [
-            {
-              ""physicalLocation"": {
-                ""fileLocation"": {
-                  ""uri"": """ + expectedUri + @"""
-                }
-              }
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}";
-            string actualOutput = GetJson(uut =>
+            string expected = CreateCurrentV2SarifLogText(
+                resultCount: 1,
+                (log) => {
+                    log.Runs[0].Results[0].Locations = new List<Location>
+                    {
+                        new Location
+                        {
+                            PhysicalLocation = new PhysicalLocation
+                            {
+                                FileLocation = new FileLocation
+                                {
+                                    Uri = new Uri(expectedUri, UriKind.RelativeOrAbsolute)
+                                }
+                            }
+                        }
+                    };
+                });
+            
+            string actual = GetJson(uut =>
             {
                 var run = new Run() { Tool = DefaultTool };
                 uut.Initialize(run);
@@ -152,7 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
                 uut.WriteResults(new[] { result });
             });
 
-            actualOutput.Should().BeCrossPlatformEquivalent<SarifLog>(expectedOutput);
+            actual.Should().BeCrossPlatformEquivalent<SarifLog>(expected);
         }
     }
 }

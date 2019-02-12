@@ -157,8 +157,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             EnsureResultsArrayIsNotOpen();
             EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.FilesWritten);
 
-            _jsonWriter.WritePropertyName("files");
-            _serializer.Serialize(_jsonWriter, files);
+            if (files.HasAtLeastOneNonNullValue())
+            {
+                _jsonWriter.WritePropertyName("files");
+                _serializer.Serialize(_jsonWriter, files);
+            }
 
             _writeConditions |= Conditions.FilesWritten;
         }
@@ -183,8 +186,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             EnsureResultsArrayIsNotOpen();
             EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.LogicalLocationsWritten);
 
-            _jsonWriter.WritePropertyName("logicalLocations");
-            _serializer.Serialize(_jsonWriter, logicalLocations);
+            if (logicalLocations.HasAtLeastOneNonNullValue())
+            {
+                _jsonWriter.WritePropertyName("logicalLocations");
+                _serializer.Serialize(_jsonWriter, logicalLocations);
+            }
 
             _writeConditions |= Conditions.LogicalLocationsWritten;
         }
@@ -200,8 +206,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             EnsureResultsArrayIsNotOpen();
             EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.InvocationsWritten);
 
-            _jsonWriter.WritePropertyName("invocations");
-            _serializer.Serialize(_jsonWriter, invocations, typeof(List<Invocation>));
+            if (invocations.HasAtLeastOneNonNullValue())
+            {
+                _jsonWriter.WritePropertyName("invocations");
+                _serializer.Serialize(_jsonWriter, invocations);
+            }
 
             _writeConditions |= Conditions.InvocationsWritten;
         }

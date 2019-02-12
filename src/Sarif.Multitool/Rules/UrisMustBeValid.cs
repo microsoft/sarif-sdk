@@ -71,9 +71,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
-        protected override void Analyze(Tool tool, string toolPointer)
+        protected override void Analyze(ToolComponent toolComponent, string toolComponentPointer)
         {
-            AnalyzeUri(tool.DownloadUri, toolPointer.AtProperty(SarifPropertyName.DownloadUri));
+            AnalyzeUri(toolComponent.DownloadUri, toolComponentPointer.AtProperty(SarifPropertyName.DownloadUri));
         }
 
         protected override void Analyze(VersionControlDetails versionControlDetails, string versionControlDetailsPointer)

@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests
             const string ComprehensiveTestSamplePath = @"v2\SpecExamples\Comprehensive.sarif";
             string comprehensiveTestSampleContents = File.ReadAllText(ComprehensiveTestSamplePath);
 
-            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(comprehensiveTestSampleContents, forceUpdate: false, formatting: Formatting.None, out comprehensiveTestSampleContents);
+            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(comprehensiveTestSampleContents, formatting: Formatting.None, out comprehensiveTestSampleContents);
 
             SarifLog expectedLog = JsonConvert.DeserializeObject<SarifLog>(comprehensiveTestSampleContents);
             SarifLog actualLog = JsonConvert.DeserializeObject<SarifLog>(comprehensiveTestSampleContents);

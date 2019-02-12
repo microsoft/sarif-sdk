@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using System.Xml;
 using Microsoft.CodeAnalysis.Sarif.Writers;
+using Newtonsoft.Json;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
@@ -39,29 +40,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 "<results> <cppcheck version=\"12.34\" /> <errors /> </results>");
 
             // We will transform the version above to a Semantic Versioning 2.0 form
-            Assert.Equal("12.34.0", results.Run.Tool.Version);
+            Assert.Equal("12.34.0", results.Run.Tool.Driver.Version);
         }
 
         [Fact]
         public void CppCheckConverter_HandlesEmptyErrorsElement()
         {
             const string source = "<results> <cppcheck version=\"12.34\" /> <errors>   </errors> </results>";
-            string expected =
-@"{
-  ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + SarifUtilities.SemanticVersion + @""",
-  ""runs"": [
-    {
-      ""tool"": {
-        ""name"": ""CppCheck"",
-        ""version"": ""12.34.0""
-      },
-      ""columnKind"": ""utf16CodeUnits"",
-      ""results"": []
-    }
-  ]
-}";
-            RunTestCase(source, expected);
+
+            SarifLog emptyLog = EmptyLog.DeepClone();
+            emptyLog.Runs[0].Tool.Driver.Version = "12.34.0";
+            RunTestCase(source, JsonConvert.SerializeObject(emptyLog));
         }
 
         [Fact]

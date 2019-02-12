@@ -9,28 +9,18 @@ using FluentAssertions;
 using Moq;
 using Newtonsoft.Json;
 using Xunit;
+using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
+using System;
 
 namespace Sarif.Multitool.UnitTests
 {
     public class TransformCommandTests
     {
-        public const string MinimalPrereleaseV2 =
+        public const string MinimalPrereleaseV2Text =
     @"{
   ""$schema"": ""http://json.schemastore.org/sarif-2.0.0"",
-  ""version"": ""2.0.0-csd.2.beta.2018-09-26"",
-  ""runs"": [
-    {
-      ""tool"": {
-        ""name"": ""TestTool""
-      },
-      ""results"": []
-    }
-  ]
-}";
-        public static readonly string MinimalCurrentV2 =
-@"{
-  ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + SarifUtilities.SemanticVersion + @""",
+  ""version"": ""2.0.0-csd.2.beta.2018-10-10"",
   ""runs"": [
     {
       ""tool"": {
@@ -41,10 +31,30 @@ namespace Sarif.Multitool.UnitTests
   ]
 }";
 
+        public static readonly SarifLog MinimalCurrentV2 = new SarifLog
+        {
+            Runs = new List<Run>
+            {
+                new Run
+                {
+                    Tool = new Tool
+                    {
+                        Driver = new ToolComponent
+                        {
+                            Name = "TestTool"
+                        }
+                    },
+                    Results = new List<Result>()
+                }
+            }
+        };
+
+        public static readonly string MinimalCurrentV2Text = JsonConvert.SerializeObject(MinimalCurrentV2);
+
         // A minimal valid log file. We add a single result to ensure
         // there's enough v1 contents so that we trigger any bad code
         // paths that assume the file contents is v2.
-        public const string MinimalV1 =
+        public const string MinimalV1Text =
 @"{
   ""version"": ""1.0.0"",
   ""$schema"": ""http://json.schemastore.org/sarif-1.0.0"",
@@ -62,7 +72,7 @@ namespace Sarif.Multitool.UnitTests
         public void TransformCommand_TransformsMinimalCurrentV2FileToCurrentV2()
         {
             // A minimal valid pre-release v2 log file.
-            string logFileContents = MinimalCurrentV2;
+            string logFileContents = MinimalCurrentV2Text;
 
             RunTransformationToV2Test(logFileContents);
         }
@@ -71,13 +81,12 @@ namespace Sarif.Multitool.UnitTests
         public void TransformCommand_TransformsMinimalPrereleaseV2FileToCurrentV2()
         {
             // A minimal valid pre-release v2 log file.
-            string logFileContents = MinimalPrereleaseV2;
+            string logFileContents = MinimalPrereleaseV2Text;
 
             // First, ensure that our test sample\ schema uri and SARIF version differs 
             // from current. Otherwise we won't realize any value from this test
-            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logFileContents);
-            sarifLog.SchemaUri.Should().NotBe(SarifUtilities.SarifSchemaUri);
-            sarifLog.Version.Should().NotBe(SarifUtilities.SemanticVersion);
+
+            PrereleaseSarifLogVersionDiffersFromCurrent(MinimalPrereleaseV2Text);
 
             RunTransformationToV2Test(logFileContents);
         }
@@ -85,14 +94,14 @@ namespace Sarif.Multitool.UnitTests
         [Fact]
         public void TransformCommand_TransformsMinimalV1FileToCurrentV2()
         {
-            RunTransformationToV2Test(MinimalV1);
+            RunTransformationToV2Test(MinimalV1Text);
         }
 
         [Fact]
         public void TransformCommand_TransformsMinimalCurrentV2FileToV1()
         {
             // A minimal valid pre-release v2 log file.
-            string logFileContents = MinimalCurrentV2;
+            string logFileContents = MinimalCurrentV2Text;
 
             RunTransformationToV1Test(logFileContents);
         }
@@ -101,13 +110,9 @@ namespace Sarif.Multitool.UnitTests
         public void TransformCommand_TransformsMinimalPrereleaseV2FileToV1()
         {
             // A minimal valid pre-release v2 log file.
-            string logFileContents = MinimalPrereleaseV2;
+            string logFileContents = MinimalPrereleaseV2Text;
 
-            // First, ensure that our test sample\ schema uri and SARIF version differs 
-            // from current. Otherwise we won't realize any value from this test
-            var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logFileContents);
-            sarifLog.SchemaUri.Should().NotBe(SarifUtilities.SarifSchemaUri);
-            sarifLog.Version.Should().NotBe(SarifUtilities.SemanticVersion);
+            PrereleaseSarifLogVersionDiffersFromCurrent(MinimalPrereleaseV2Text);
 
             RunTransformationToV1Test(logFileContents);
         }
@@ -115,7 +120,7 @@ namespace Sarif.Multitool.UnitTests
         [Fact]
         public void TransformCommand_TransformsMinimalV1FileToV1()
         {
-            RunTransformationToV1Test(MinimalV1);
+            RunTransformationToV1Test(MinimalV1Text);
         }
 
         private static void RunTransformationToV2Test(string logFileContents)
@@ -128,6 +133,13 @@ namespace Sarif.Multitool.UnitTests
             sarifLog.Version.Should().Be(SarifVersion.Current);
         }
 
+        private void PrereleaseSarifLogVersionDiffersFromCurrent(string prereleaseV2Text)
+        {
+            JObject sarifLog = JObject.Parse(prereleaseV2Text);
+
+            ((string)sarifLog["$schema"]).Should().NotBe(SarifUtilities.SarifSchemaUri);
+            ((string)sarifLog["version"]).Should().NotBe(SarifUtilities.SemanticVersion);
+        }
 
         private void RunTransformationToV1Test(string logFileContents)
         {

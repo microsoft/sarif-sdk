@@ -22,6 +22,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _strings = new FortifyStrings(_nameTable);
         }
 
+        public override string ToolName => ToolFormat.Fortify;
+
         /// <summary>
         /// Interface implementation for converting a stream of Fortify report in XML format to a
         /// SARIF json format stream.
@@ -93,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         Text = runDescription
                     }
                 },
-                Tool = new Tool {  Name = "Fortify" }
+                Tool = new Tool { Driver = new ToolComponent { Name = ToolName } }
             };
 
             PersistResults(output, results, run);

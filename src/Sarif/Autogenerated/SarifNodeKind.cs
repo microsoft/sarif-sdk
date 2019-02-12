@@ -168,6 +168,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         Tool,
         /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ToolComponent" />.
+        /// </summary>
+        ToolComponent,
+        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="VersionControlDetails" />.
         /// </summary>
         VersionControlDetails

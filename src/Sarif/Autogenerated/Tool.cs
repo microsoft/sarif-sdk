@@ -35,49 +35,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// The name of the tool.
-        /// </summary>
-        [DataMember(Name = "name", IsRequired = true)]
-        public string Name { get; set; }
-
-        /// <summary>
-        /// The name of the tool along with its version and any other useful identifying information, such as its locale.
-        /// </summary>
-        [DataMember(Name = "fullName", IsRequired = false, EmitDefaultValue = false)]
-        public string FullName { get; set; }
-
-        /// <summary>
-        /// The tool version, in whatever format the tool natively provides.
-        /// </summary>
-        [DataMember(Name = "version", IsRequired = false, EmitDefaultValue = false)]
-        public string Version { get; set; }
-
-        /// <summary>
-        /// The tool version in the format specified by Semantic Versioning 2.0.
-        /// </summary>
-        [DataMember(Name = "semanticVersion", IsRequired = false, EmitDefaultValue = false)]
-        public string SemanticVersion { get; set; }
-
-        /// <summary>
-        /// The binary version of the tool's primary executable file expressed as four non-negative integers separated by a period (for operating systems that express file versions in this way).
-        /// </summary>
-        [DataMember(Name = "dottedQuadFileVersion", IsRequired = false, EmitDefaultValue = false)]
-        public string DottedQuadFileVersion { get; set; }
-
-        /// <summary>
-        /// The absolute URI from which the tool can be downloaded.
-        /// </summary>
-        [DataMember(Name = "downloadUri", IsRequired = false, EmitDefaultValue = false)]
-        [JsonConverter(typeof(UriConverter))]
-        public Uri DownloadUri { get; set; }
-
-        /// <summary>
-        /// A version that uniquely identifies the SARIF logging component that generated this file, if it is versioned separately from the tool.
-        /// </summary>
-        [DataMember(Name = "sarifLoggerVersion", IsRequired = false, EmitDefaultValue = false)]
-        public string SarifLoggerVersion { get; set; }
-
-        /// <summary>
         /// The tool language (expressed as an ISO 649 two-letter lowercase culture code) and region (expressed as an ISO 3166 two-letter uppercase subculture code associated with a country or region).
         /// </summary>
         [DataMember(Name = "language", IsRequired = false, EmitDefaultValue = false)]
@@ -86,24 +43,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Language { get; set; }
 
         /// <summary>
-        /// A dictionary, each of whose keys is a resource identifier and each of whose values is a localized string.
+        /// The analysis tool that was run.
         /// </summary>
-        [DataMember(Name = "globalMessageStrings", IsRequired = false, EmitDefaultValue = false)]
-        public IDictionary<string, string> GlobalMessageStrings { get; set; }
+        [DataMember(Name = "driver", IsRequired = true)]
+        public ToolComponent Driver { get; set; }
 
         /// <summary>
-        /// An array of message descriptor objects relevant to the notifications related to the configuration and runtime execution of the tool.
+        /// Tool extensions that contributed to or reconfigured the analysis tool that was run.
         /// </summary>
-        [DataMember(Name = "notificationsMetadata", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "extensions", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<MessageDescriptor> NotificationsMetadata { get; set; }
-
-        /// <summary>
-        /// An array of message descriptor objects relevant to the analysis performed by the tool.
-        /// </summary>
-        [DataMember(Name = "rulesMetadata", IsRequired = false, EmitDefaultValue = false)]
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<MessageDescriptor> RulesMetadata { get; set; }
+        public IList<ToolComponent> Extensions { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the tool.
@@ -122,45 +72,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Initializes a new instance of the <see cref="Tool" /> class from the supplied values.
         /// </summary>
-        /// <param name="name">
-        /// An initialization value for the <see cref="P:Name" /> property.
-        /// </param>
-        /// <param name="fullName">
-        /// An initialization value for the <see cref="P:FullName" /> property.
-        /// </param>
-        /// <param name="version">
-        /// An initialization value for the <see cref="P:Version" /> property.
-        /// </param>
-        /// <param name="semanticVersion">
-        /// An initialization value for the <see cref="P:SemanticVersion" /> property.
-        /// </param>
-        /// <param name="dottedQuadFileVersion">
-        /// An initialization value for the <see cref="P:DottedQuadFileVersion" /> property.
-        /// </param>
-        /// <param name="downloadUri">
-        /// An initialization value for the <see cref="P:DownloadUri" /> property.
-        /// </param>
-        /// <param name="sarifLoggerVersion">
-        /// An initialization value for the <see cref="P:SarifLoggerVersion" /> property.
-        /// </param>
         /// <param name="language">
         /// An initialization value for the <see cref="P:Language" /> property.
         /// </param>
-        /// <param name="globalMessageStrings">
-        /// An initialization value for the <see cref="P:GlobalMessageStrings" /> property.
+        /// <param name="driver">
+        /// An initialization value for the <see cref="P:Driver" /> property.
         /// </param>
-        /// <param name="notificationsMetadata">
-        /// An initialization value for the <see cref="P:NotificationsMetadata" /> property.
-        /// </param>
-        /// <param name="rulesMetadata">
-        /// An initialization value for the <see cref="P:RulesMetadata" /> property.
+        /// <param name="extensions">
+        /// An initialization value for the <see cref="P:Extensions" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Tool(string name, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, string sarifLoggerVersion, string language, IDictionary<string, string> globalMessageStrings, IEnumerable<MessageDescriptor> notificationsMetadata, IEnumerable<MessageDescriptor> rulesMetadata, IDictionary<string, SerializedPropertyInfo> properties)
+        public Tool(string language, ToolComponent driver, IEnumerable<ToolComponent> extensions, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(name, fullName, version, semanticVersion, dottedQuadFileVersion, downloadUri, sarifLoggerVersion, language, globalMessageStrings, notificationsMetadata, rulesMetadata, properties);
+            Init(language, driver, extensions, properties);
         }
 
         /// <summary>
@@ -179,7 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Name, other.FullName, other.Version, other.SemanticVersion, other.DottedQuadFileVersion, other.DownloadUri, other.SarifLoggerVersion, other.Language, other.GlobalMessageStrings, other.NotificationsMetadata, other.RulesMetadata, other.Properties);
+            Init(other.Language, other.Driver, other.Extensions, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -200,29 +126,18 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Tool(this);
         }
 
-        private void Init(string name, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, string sarifLoggerVersion, string language, IDictionary<string, string> globalMessageStrings, IEnumerable<MessageDescriptor> notificationsMetadata, IEnumerable<MessageDescriptor> rulesMetadata, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string language, ToolComponent driver, IEnumerable<ToolComponent> extensions, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Name = name;
-            FullName = fullName;
-            Version = version;
-            SemanticVersion = semanticVersion;
-            DottedQuadFileVersion = dottedQuadFileVersion;
-            if (downloadUri != null)
-            {
-                DownloadUri = new Uri(downloadUri.OriginalString, downloadUri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
-            }
-
-            SarifLoggerVersion = sarifLoggerVersion;
             Language = language;
-            if (globalMessageStrings != null)
+            if (driver != null)
             {
-                GlobalMessageStrings = new Dictionary<string, string>(globalMessageStrings);
+                Driver = new ToolComponent(driver);
             }
 
-            if (notificationsMetadata != null)
+            if (extensions != null)
             {
-                var destination_0 = new List<MessageDescriptor>();
-                foreach (var value_0 in notificationsMetadata)
+                var destination_0 = new List<ToolComponent>();
+                foreach (var value_0 in extensions)
                 {
                     if (value_0 == null)
                     {
@@ -230,29 +145,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_0.Add(new MessageDescriptor(value_0));
+                        destination_0.Add(new ToolComponent(value_0));
                     }
                 }
 
-                NotificationsMetadata = destination_0;
-            }
-
-            if (rulesMetadata != null)
-            {
-                var destination_1 = new List<MessageDescriptor>();
-                foreach (var value_1 in rulesMetadata)
-                {
-                    if (value_1 == null)
-                    {
-                        destination_1.Add(null);
-                    }
-                    else
-                    {
-                        destination_1.Add(new MessageDescriptor(value_1));
-                    }
-                }
-
-                RulesMetadata = destination_1;
+                Extensions = destination_0;
             }
 
             if (properties != null)

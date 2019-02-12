@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string expected =
 @"{
   ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + SarifUtilities.SemanticVersion + @""",
+  ""version"": ""2.0.0"",
   ""runs"": [
     {
       ""tool"": {
@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     }
   ]
 }";
-            RunTestCase(semmleCsvInput, expected, prettyPrint: true, forceV2Transform: true);
+            RunTestCase(semmleCsvInput, expected, prettyPrint: true);
         }
 
         [Fact]
@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string expected =
 @"{
   ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + SarifUtilities.SemanticVersion + @""",
+  ""version"": ""2.0.0"",
   ""runs"": [
     {
       ""tool"": {
@@ -153,7 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif
   ]
 }";
 
-            RunTestCase(semmleCsvInput, expected, prettyPrint: true, forceV2Transform: true);
+            RunTestCase(semmleCsvInput, expected, prettyPrint: true);
         }
 
         private class SemmleCsvRecord

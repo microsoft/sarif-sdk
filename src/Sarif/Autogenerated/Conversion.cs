@@ -34,10 +34,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// A tool object that describes the converter.
+        /// A tool component object that describes the converter.
         /// </summary>
-        [DataMember(Name = "tool", IsRequired = true)]
-        public Tool Tool { get; set; }
+        [DataMember(Name = "driver", IsRequired = false, EmitDefaultValue = false)]
+        public ToolComponent Driver { get; set; }
 
         /// <summary>
         /// An invocation object that describes the invocation of the converter.
@@ -68,8 +68,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Initializes a new instance of the <see cref="Conversion" /> class from the supplied values.
         /// </summary>
-        /// <param name="tool">
-        /// An initialization value for the <see cref="P:Tool" /> property.
+        /// <param name="driver">
+        /// An initialization value for the <see cref="P:Driver" /> property.
         /// </param>
         /// <param name="invocation">
         /// An initialization value for the <see cref="P:Invocation" /> property.
@@ -80,9 +80,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Conversion(Tool tool, Invocation invocation, IEnumerable<FileLocation> analysisToolLogFiles, IDictionary<string, SerializedPropertyInfo> properties)
+        public Conversion(ToolComponent driver, Invocation invocation, IEnumerable<FileLocation> analysisToolLogFiles, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(tool, invocation, analysisToolLogFiles, properties);
+            Init(driver, invocation, analysisToolLogFiles, properties);
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocation, other.AnalysisToolLogFiles, other.Properties);
+            Init(other.Driver, other.Invocation, other.AnalysisToolLogFiles, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -122,11 +122,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Conversion(this);
         }
 
-        private void Init(Tool tool, Invocation invocation, IEnumerable<FileLocation> analysisToolLogFiles, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(ToolComponent driver, Invocation invocation, IEnumerable<FileLocation> analysisToolLogFiles, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            if (tool != null)
+            if (driver != null)
             {
-                Tool = new Tool(tool);
+                Driver = new ToolComponent(driver);
             }
 
             if (invocation != null)

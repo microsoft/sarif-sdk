@@ -39,8 +39,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             Func<SarifLog, SarifLog> callback =
                 (sarifLog) =>
                 {
-                    sarifLog.Runs[0].Tool.DottedQuadFileVersion = "1.0.1.2";
-                    sarifLog.Runs[0].Conversion.Tool.DottedQuadFileVersion = "2.7.1500.12";
+                    sarifLog.Runs[0].Tool.Driver.DottedQuadFileVersion = "1.0.1.2";
+                    sarifLog.Runs[0].Conversion.Driver.DottedQuadFileVersion = "2.7.1500.12";
                     return sarifLog;
                 };
 
@@ -117,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 string instanceText = File.ReadAllText(inputFile);
 
-                PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(instanceText, forceUpdate: true, formatting: Formatting.None, out instanceText);
+                PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(instanceText,formatting: Formatting.None, out instanceText);
 
                 Result[] errors = validator.Validate(instanceText, inputFile);
 

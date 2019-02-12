@@ -15,7 +15,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     internal class FortifyFprConverter : ToolFileConverterBase
     {
-        private const string FortifyToolName = "HP Fortify Static Code Analyzer";
         private const string FortifyExecutable = "[REMOVED]insourceanalyzer.exe";
         private const string FileLocationUriBaseId = "SRCROOT";
         private const string ReplacementTokenFormat = "<Replace key=\"{0}\"/>";
@@ -62,6 +61,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _nodeIdToActionTypeDictionary = new Dictionary<string, string>();
             _snippetIdToRegionsDictionary = new Dictionary<string, Region[]>();
         }
+
+        public override string ToolName => "HP Fortify Static Code Analyzer";
 
         /// <summary>
         /// Interface implementation for converting a stream in Fortify FPR format to a stream in
@@ -114,8 +115,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Files = new List<FileData>(_files),
                 Tool = new Tool
                 {
-                    Name = FortifyToolName,
-                    RulesMetadata = _rules
+                    Driver = new ToolComponent
+                    {
+                        Name = ToolName,
+                        RulesMetadata = _rules
+                    }
                 },
                 Invocations = new[] { _invocation },
             };

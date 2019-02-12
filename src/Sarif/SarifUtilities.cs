@@ -110,31 +110,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             return dictionary;
         }
 
-        public static void InitializeFromAssembly(this Tool tool, Assembly assembly)
-        {
-            InitializeFromAssembly(tool, assembly, prereleaseInfo: null);
-        }
-
-        public static void InitializeFromAssembly(this Tool tool, Assembly assembly, string prereleaseInfo)
-        {
-            if (assembly == null)
-            {
-                throw new ArgumentNullException(nameof(assembly));
-            }
-
-            if (tool == null)
-            {
-                throw new ArgumentNullException(nameof(tool));
-            }
-
-            string name = Path.GetFileNameWithoutExtension(assembly.Location);
-            Version version = assembly.GetName().Version;
-
-            tool.Name = name;
-            tool.Version = version.Major.ToString(CultureInfo.InvariantCulture) + "." + version.Minor.ToString(CultureInfo.InvariantCulture) + "." + version.Build.ToString(CultureInfo.InvariantCulture);
-            tool.FullName = name + " " + tool.Version + (prereleaseInfo ?? "");
-        }
-
         public static string FormatMessage(this Exception exception)
         {
             if (exception == null)

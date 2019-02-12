@@ -165,6 +165,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
         }
 
+        protected virtual void Analyze(ToolComponent toolComponent, string toolComponentPointer)
+        {
+        }
+
         protected virtual void Analyze(VersionControlDetails versionControlDetails, string versionControlDetailsPointer)
         {
         }
@@ -820,21 +824,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             Analyze(tool, toolPointer);
 
-            if (tool.NotificationsMetadata != null)
+            if (tool.Driver != null)
             {
-                string notificationsPointer = toolPointer.AtProperty(SarifPropertyName.NotificationsMetadata);
-                for (int i = 0; i < tool.NotificationsMetadata.Count; ++i)
+                Visit(tool.Driver, toolPointer.AtProperty(SarifPropertyName.Driver));
+            }
+
+            if (tool.Extensions != null)
+            {
+                string extensionsPointer = toolPointer.AtProperty(SarifPropertyName.Extensions);
+                for (int i = 0; i < tool.Extensions.Count; ++i)
                 {
-                    Visit(tool.NotificationsMetadata[i], notificationsPointer.AtIndex(i));
+                    Visit(tool.Extensions[i], extensionsPointer.AtIndex(i));
+                }
+            }
+        }
+
+        private void Visit(ToolComponent toolComponent, string toolComponentPointer)
+        {
+            Analyze(toolComponent, toolComponentPointer);
+
+            if (toolComponent.NotificationsMetadata != null)
+            {
+                string notificationsPointer = toolComponentPointer.AtProperty(SarifPropertyName.NotificationsMetadata);
+                for (int i = 0; i < toolComponent.NotificationsMetadata.Count; ++i)
+                {
+                    Visit(toolComponent.NotificationsMetadata[i], notificationsPointer.AtIndex(i));
                 }
             }
 
-            if (tool.RulesMetadata != null)
+            if (toolComponent.RulesMetadata != null)
             {
-                string rulesPointer = toolPointer.AtProperty(SarifPropertyName.RulesMetadata);
-                for (int i = 0; i < tool.RulesMetadata.Count; ++i)
+                string rulesPointer = toolComponentPointer.AtProperty(SarifPropertyName.RulesMetadata);
+                for (int i = 0; i < toolComponent.RulesMetadata.Count; ++i)
                 {
-                    Visit(tool.RulesMetadata[i], rulesPointer.AtIndex(i));
+                    Visit(toolComponent.RulesMetadata[i], rulesPointer.AtIndex(i));
                 }
             }
         }

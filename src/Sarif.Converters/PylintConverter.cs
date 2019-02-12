@@ -17,6 +17,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             logReader = new PylintLogReader();
         }
 
+        public override string ToolName => ToolFormat.Pylint;
+
         public override void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert)
         {
             input = input ?? throw new ArgumentNullException(nameof(input));
@@ -31,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 results.Add(CreateResult(entry));
             }
 
-            PersistResults(output, results, "Pylint");
+            PersistResults(output, results);
         }
 
         internal Result CreateResult(PylintLogEntry defect)

@@ -867,11 +867,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     if (v1Run.Rules != null)
                     {
-                        run.Tool.RulesMetadata = new List<MessageDescriptor>();
+                        run.Tool.Driver.RulesMetadata = new List<MessageDescriptor>();
 
                         foreach (var pair in v1Run.Rules)
                         {
-                            run.Tool.RulesMetadata.Add(CreateRule(pair.Value));
+                            run.Tool.Driver.RulesMetadata.Add(CreateRule(pair.Value));
                         }
                     }
 
@@ -1101,14 +1101,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 tool = new Tool()
                 {
-                    DottedQuadFileVersion = v1Tool.FileVersion,
-                    FullName = v1Tool.FullName,
                     Language = v1Tool.Language ?? "en-US",
-                    Name = v1Tool.Name,
-                    Properties = v1Tool.Properties,
-                    SarifLoggerVersion = v1Tool.SarifLoggerVersion,
-                    SemanticVersion = v1Tool.SemanticVersion,
-                    Version = v1Tool.Version
+                    Driver = new ToolComponent
+                    {
+                        DottedQuadFileVersion = v1Tool.FileVersion,
+                        FullName = v1Tool.FullName,
+                        Name = v1Tool.Name,
+                        Properties = v1Tool.Properties,
+                        SemanticVersion = v1Tool.SemanticVersion,
+                        Version = v1Tool.Version
+                    }
                 };
             }
 

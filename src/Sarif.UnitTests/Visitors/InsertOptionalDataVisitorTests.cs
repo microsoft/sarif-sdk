@@ -30,10 +30,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
                 GetResourceText(inputResourceName),
-                forceUpdate: false,
-                formatting: Formatting.Indented, out string transformedLog);
+                formatting: Formatting.Indented, 
+                out string transformedLog);
 
-            SarifLog actualLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(transformedLog, forceUpdate: false, formatting: Formatting.None, out transformedLog);
+            SarifLog actualLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(transformedLog, formatting: Formatting.None, out transformedLog);
 
             Uri originalUri = actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"].Uri;
             string uriString = originalUri.ToString();
@@ -143,20 +143,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 },
                 Tool = new Tool
                 {
-                    GlobalMessageStrings = new Dictionary<string, string>
+                    Driver = new ToolComponent
                     {
-                        [UniqueGlobalMessageId] = UniqueGlobalMessageValue,
-                        [SharedMessageId] = SharedKeyGlobalMessageValue
-                    },
-                    RulesMetadata = new List<MessageDescriptor>
-                    {
-                        new MessageDescriptor
+                        GlobalMessageStrings = new Dictionary<string, string>
                         {
-                            Id = RuleId,
-                            MessageStrings = new Dictionary<string, string>
+                            [UniqueGlobalMessageId] = UniqueGlobalMessageValue,
+                            [SharedMessageId] = SharedKeyGlobalMessageValue
+                        },
+                        RulesMetadata = new List<MessageDescriptor>
+                        {
+                            new MessageDescriptor
                             {
-                                [UniqueRuleMessageId] = UniqueRuleMessageValue,
-                                [SharedMessageId] = SharedKeyRuleMessageValue
+                                Id = RuleId,
+                                MessageStrings = new Dictionary<string, string>
+                                {
+                                    [UniqueRuleMessageId] = UniqueRuleMessageValue,
+                                    [SharedMessageId] = SharedKeyRuleMessageValue
+                                }
                             }
                         }
                     }

@@ -151,7 +151,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             string expectedSarif = File.ReadAllText(expectedFileName);
-            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarif, forceUpdate: true, formatting: Formatting.Indented, out expectedSarif);
+            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarif, formatting: Formatting.Indented, out expectedSarif);
 
             string actualSarif = File.ReadAllText(generatedFileName);
 
