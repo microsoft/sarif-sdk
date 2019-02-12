@@ -71,6 +71,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sarif.Multitool.UnitTests",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ESLint.Formatter", "ESLint.Formatter", "{7D46D6BE-C3CD-424C-9A20-245DE63A9C10}"
 	ProjectSection(SolutionItems) = preProject
+		ESLint.Formatter\package-lock.json = ESLint.Formatter\package-lock.json
 		ESLint.Formatter\package.json = ESLint.Formatter\package.json
 		ESLint.Formatter\readme.MD = ESLint.Formatter\readme.MD
 		ESLint.Formatter\RunTests.cmd = ESLint.Formatter\RunTests.cmd
