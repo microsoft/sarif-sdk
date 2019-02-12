@@ -1,0 +1,37 @@
+{
+  "name": "eslint.formatter.sarif",
+  "version": "2.0.0",
+  "description": "ESLint formatter for the SARIF v2.0 static analysis file format",
+  "main": "sarif.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "github",
+    "url": "git+https://github.com/Microsoft/sarif-sdk.git"
+  },
+  "keywords": [
+    "eslint",
+    "formatter",
+    "eslint formatter",
+    "sarif",
+    "sarif formatter",
+    "sarif eslint",
+    "eslint sarif"
+  ],
+  "author": "Microsoft",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Microsoft/sarif-sdk/issues"
+  },
+  "homepage": "https://github.com/Microsoft/sarif-sdk#readme",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "jschardet": "latest",
+    "mocha": "^5.2.0",
+    "utf8": "^3.0.0"
+  }
+}
