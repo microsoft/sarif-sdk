@@ -33,13 +33,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             else if (objectType == typeof(ThreadFlowLocationImportance))
                 contract.Converter = EnumConverter.Instance;
 
-            else if (objectType == typeof(ResultLevel))
+            else if (objectType == typeof(FailureLevel))
                 contract.Converter = EnumConverter.Instance;
-
-            else if (objectType == typeof(RuleConfigurationDefaultLevel))
-                contract.Converter = EnumConverter.Instance;
-
-            else if (objectType == typeof(NotificationLevel))
+     
+            else if (objectType == typeof(ResultKind))
                 contract.Converter = EnumConverter.Instance;
 
             else if (objectType == typeof(BaselineState))
@@ -50,9 +47,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             else if (objectType == typeof(FileRoles))
                 contract.Converter = FlagsEnumConverter.Instance;
-
-            else if (objectType == typeof(Dictionary<string, IRule>))
-                contract.Converter = RuleDictionaryConverter.Instance;
 
             else if (objectType == typeof(IDictionary<string, SerializedPropertyInfo>))
                 contract.Converter = PropertyBagConverter.Instance;

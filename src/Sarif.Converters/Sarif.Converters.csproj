@@ -13,6 +13,11 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
+    <None Remove="RulesData\ContrastSecurity.sarif" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="RulesData\ContrastSecurity.sarif" />
     <EmbeddedResource Include="Schemata\FxCopReport.xsd" />
   </ItemGroup>
 

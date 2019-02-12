@@ -41,21 +41,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Result result = new Result()
             {
                 RuleId = entry.RuleName,
-                Message = new Message { Text = entry.Failure }
+                Message = new Message { Text = entry.Failure },
+                Kind = ResultKind.Fail
             };
 
             switch (entry.RuleSeverity)
             {
                 case "ERROR":
-                    result.Level = ResultLevel.Error;
+                    result.Level = FailureLevel.Error;
                     break;
                 case "WARN":
                 case "WARNING":
-                    result.Level = ResultLevel.Warning;
+                    result.Level = FailureLevel.Warning;
                     break;
                 case "DEFAULT":
                 default:
-                    result.Level = ResultLevel.Note;
+                    result.Level = FailureLevel.Note;
                     break;
             }
 

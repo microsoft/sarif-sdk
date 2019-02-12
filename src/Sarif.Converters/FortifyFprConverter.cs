@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private string _originalUriBasePath;
         private List<Result> _results = new List<Result>();
         private HashSet<FileData> _files;
-        private List<Rule> _rules;
+        private List<MessageDescriptor> _rules;
         private Dictionary<string, int> _ruleIdToIndexMap;
         private Dictionary<ThreadFlowLocation, string> _tflToNodeIdDictionary;
         private Dictionary<ThreadFlowLocation, string> _tflToSnippetIdDictionary;
@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             _results = new List<Result>();
             _files = new HashSet<FileData>(FileData.ValueComparer);
-            _rules = new List<Rule>();
+            _rules = new List<MessageDescriptor>();
             _ruleIdToIndexMap = new Dictionary<string, int>();
             _tflToNodeIdDictionary = new Dictionary<ThreadFlowLocation, string>();
             _tflToSnippetIdDictionary = new Dictionary<ThreadFlowLocation, string>();
@@ -83,11 +83,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentNullException(nameof(output));
             }
 
-            var tool = new Tool
-            {
-                Name = FortifyToolName
-            };
-
             _invocation = new Invocation();
             _invocation.ToolNotifications = new List<Notification>();
             _results.Clear();
@@ -117,9 +112,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     InstanceId = _automationId + "/"
                 },
                 Files = new List<FileData>(_files),
-                Tool = tool,
+                Tool = new Tool
+                {
+                    Name = FortifyToolName,
+                    RulesMetadata = _rules
+                },
                 Invocations = new[] { _invocation },
-                Resources = new Resources {  Rules = _rules }
             };
 
             if (!string.IsNullOrWhiteSpace(_originalUriBasePath))
@@ -619,7 +617,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private void ParseRuleFromDescription()
         {
-            var rule = new Rule
+            var rule = new MessageDescriptor
             {
                 Id = _reader.GetAttribute(_strings.ClassIdAttribute)
             };
@@ -850,7 +848,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     _invocation.ToolNotifications.Add(new Notification
                     {
                         Id = errorCode,
-                        Level = NotificationLevel.Error,
+                        Level = FailureLevel.Error,
                         Message = new Message { Text = message }
                     });
                 }
@@ -909,7 +907,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 int ruleIndex = _ruleIdToIndexMap[result.RuleId];
                 result.RuleIndex = ruleIndex;
 
-                Rule rule = _rules[ruleIndex];
+                MessageDescriptor rule = _rules[ruleIndex];
                 Message message = rule.ShortDescription ?? rule.FullDescription;
 
                 if (_resultToReplacementDefinitionDictionary.TryGetValue(result, out Dictionary<string, string> replacements))

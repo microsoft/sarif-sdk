@@ -79,6 +79,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int ExitCode { get; set; }
 
         /// <summary>
+        /// An array of rule configuration objects that describe runtime analysis behavior.
+        /// </summary>
+        [DataMember(Name = "ruleConfiguration", IsRequired = false, EmitDefaultValue = false)]
+        public IList<RuleConfiguration> RuleConfiguration { get; set; }
+
+        /// <summary>
         /// A list of runtime conditions detected by the tool during the analysis.
         /// </summary>
         [DataMember(Name = "toolNotifications", IsRequired = false, EmitDefaultValue = false)]
@@ -219,6 +225,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="exitCode">
         /// An initialization value for the <see cref="P:ExitCode" /> property.
         /// </param>
+        /// <param name="ruleConfiguration">
+        /// An initialization value for the <see cref="P:RuleConfiguration" /> property.
+        /// </param>
         /// <param name="toolNotifications">
         /// An initialization value for the <see cref="P:ToolNotifications" /> property.
         /// </param>
@@ -273,9 +282,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Invocation(string commandLine, IEnumerable<string> arguments, IEnumerable<FileLocation> responseFiles, IEnumerable<Attachment> attachments, DateTime startTimeUtc, DateTime endTimeUtc, int exitCode, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, string exitCodeDescription, string exitSignalName, int exitSignalNumber, string processStartFailureMessage, bool toolExecutionSuccessful, string machine, string account, int processId, FileLocation executableLocation, FileLocation workingDirectory, IDictionary<string, string> environmentVariables, FileLocation stdin, FileLocation stdout, FileLocation stderr, FileLocation stdoutStderr, IDictionary<string, SerializedPropertyInfo> properties)
+        public Invocation(string commandLine, IEnumerable<string> arguments, IEnumerable<FileLocation> responseFiles, IEnumerable<Attachment> attachments, DateTime startTimeUtc, DateTime endTimeUtc, int exitCode, IEnumerable<RuleConfiguration> ruleConfiguration, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, string exitCodeDescription, string exitSignalName, int exitSignalNumber, string processStartFailureMessage, bool toolExecutionSuccessful, string machine, string account, int processId, FileLocation executableLocation, FileLocation workingDirectory, IDictionary<string, string> environmentVariables, FileLocation stdin, FileLocation stdout, FileLocation stderr, FileLocation stdoutStderr, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(commandLine, arguments, responseFiles, attachments, startTimeUtc, endTimeUtc, exitCode, toolNotifications, configurationNotifications, exitCodeDescription, exitSignalName, exitSignalNumber, processStartFailureMessage, toolExecutionSuccessful, machine, account, processId, executableLocation, workingDirectory, environmentVariables, stdin, stdout, stderr, stdoutStderr, properties);
+            Init(commandLine, arguments, responseFiles, attachments, startTimeUtc, endTimeUtc, exitCode, ruleConfiguration, toolNotifications, configurationNotifications, exitCodeDescription, exitSignalName, exitSignalNumber, processStartFailureMessage, toolExecutionSuccessful, machine, account, processId, executableLocation, workingDirectory, environmentVariables, stdin, stdout, stderr, stdoutStderr, properties);
         }
 
         /// <summary>
@@ -294,7 +303,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.CommandLine, other.Arguments, other.ResponseFiles, other.Attachments, other.StartTimeUtc, other.EndTimeUtc, other.ExitCode, other.ToolNotifications, other.ConfigurationNotifications, other.ExitCodeDescription, other.ExitSignalName, other.ExitSignalNumber, other.ProcessStartFailureMessage, other.ToolExecutionSuccessful, other.Machine, other.Account, other.ProcessId, other.ExecutableLocation, other.WorkingDirectory, other.EnvironmentVariables, other.Stdin, other.Stdout, other.Stderr, other.StdoutStderr, other.Properties);
+            Init(other.CommandLine, other.Arguments, other.ResponseFiles, other.Attachments, other.StartTimeUtc, other.EndTimeUtc, other.ExitCode, other.RuleConfiguration, other.ToolNotifications, other.ConfigurationNotifications, other.ExitCodeDescription, other.ExitSignalName, other.ExitSignalNumber, other.ProcessStartFailureMessage, other.ToolExecutionSuccessful, other.Machine, other.Account, other.ProcessId, other.ExecutableLocation, other.WorkingDirectory, other.EnvironmentVariables, other.Stdin, other.Stdout, other.Stderr, other.StdoutStderr, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -315,7 +324,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Invocation(this);
         }
 
-        private void Init(string commandLine, IEnumerable<string> arguments, IEnumerable<FileLocation> responseFiles, IEnumerable<Attachment> attachments, DateTime startTimeUtc, DateTime endTimeUtc, int exitCode, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, string exitCodeDescription, string exitSignalName, int exitSignalNumber, string processStartFailureMessage, bool toolExecutionSuccessful, string machine, string account, int processId, FileLocation executableLocation, FileLocation workingDirectory, IDictionary<string, string> environmentVariables, FileLocation stdin, FileLocation stdout, FileLocation stderr, FileLocation stdoutStderr, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string commandLine, IEnumerable<string> arguments, IEnumerable<FileLocation> responseFiles, IEnumerable<Attachment> attachments, DateTime startTimeUtc, DateTime endTimeUtc, int exitCode, IEnumerable<RuleConfiguration> ruleConfiguration, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, string exitCodeDescription, string exitSignalName, int exitSignalNumber, string processStartFailureMessage, bool toolExecutionSuccessful, string machine, string account, int processId, FileLocation executableLocation, FileLocation workingDirectory, IDictionary<string, string> environmentVariables, FileLocation stdin, FileLocation stdout, FileLocation stderr, FileLocation stdoutStderr, IDictionary<string, SerializedPropertyInfo> properties)
         {
             CommandLine = commandLine;
             if (arguments != null)
@@ -368,10 +377,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             StartTimeUtc = startTimeUtc;
             EndTimeUtc = endTimeUtc;
             ExitCode = exitCode;
-            if (toolNotifications != null)
+            if (ruleConfiguration != null)
             {
-                var destination_3 = new List<Notification>();
-                foreach (var value_3 in toolNotifications)
+                var destination_3 = new List<RuleConfiguration>();
+                foreach (var value_3 in ruleConfiguration)
                 {
                     if (value_3 == null)
                     {
@@ -379,17 +388,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_3.Add(new Notification(value_3));
+                        destination_3.Add(new RuleConfiguration(value_3));
                     }
                 }
 
-                ToolNotifications = destination_3;
+                RuleConfiguration = destination_3;
             }
 
-            if (configurationNotifications != null)
+            if (toolNotifications != null)
             {
                 var destination_4 = new List<Notification>();
-                foreach (var value_4 in configurationNotifications)
+                foreach (var value_4 in toolNotifications)
                 {
                     if (value_4 == null)
                     {
@@ -401,7 +410,25 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                ConfigurationNotifications = destination_4;
+                ToolNotifications = destination_4;
+            }
+
+            if (configurationNotifications != null)
+            {
+                var destination_5 = new List<Notification>();
+                foreach (var value_5 in configurationNotifications)
+                {
+                    if (value_5 == null)
+                    {
+                        destination_5.Add(null);
+                    }
+                    else
+                    {
+                        destination_5.Add(new Notification(value_5));
+                    }
+                }
+
+                ConfigurationNotifications = destination_5;
             }
 
             ExitCodeDescription = exitCodeDescription;

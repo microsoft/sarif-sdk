@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    public partial class Rule
+    public partial class MessageDescriptor
     {
         public string Format(string messageId, IEnumerable<string> arguments)
         {
@@ -17,6 +17,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         public bool ShouldSerializeDeprecatedIds()
         {
             return this.DeprecatedIds?.Count(e => e != null) > 0;
+        }
+
+        public bool ShouldSerializeDefaultConfiguration()
+        {
+            return this.DefaultConfiguration != null &&
+                (this.DefaultConfiguration.Enabled != true ||
+                 this.DefaultConfiguration.Level != FailureLevel.Warning ||
+                 this.DefaultConfiguration.Rank != -1 ||
+                 PropertyBagHasAtLeastOneNonNullValue(this.DefaultConfiguration.Parameters) ||
+                 PropertyBagHasAtLeastOneNonNullValue(this.DefaultConfiguration.Properties));
         }
     }
 }

@@ -8,5 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     public partial class Result
     {
         public bool ShouldSerializeWorkItemUris() { return this.WorkItemUris != null && this.WorkItemUris.Any((s) => s != null); }
+
+        public bool ShouldSerializeLevel() { return this.Level != FailureLevel.Warning; }
     }
 }

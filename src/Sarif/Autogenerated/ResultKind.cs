@@ -6,13 +6,16 @@ using System.CodeDom.Compiler;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Values specifying the level of a notification.
+    /// Values specifying the evaluation state of a result.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
-    public enum NotificationLevel
+    public enum ResultKind
     {
-        Warning,
-        Note,
-        Error
+        None,
+        NotApplicable,
+        Pass,
+        Fail,
+        Review,
+        Open
     }
 }

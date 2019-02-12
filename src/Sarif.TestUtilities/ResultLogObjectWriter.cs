@@ -10,30 +10,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
     /// <seealso cref="T:Microsoft.CodeAnalysis.Sarif.IResultLogWriter"/>
     public sealed class ResultLogObjectWriter : IResultLogWriter
     {
-        private Tool _tool;
-
-        /// <summary>Gets the Tool block.</summary>
-        /// <value>The <see cref="Tool"/> block if it has been written; otherwise, null.</value>
-        public Tool Tool { get { return _tool; } }
-
         /// <summary>Gets the Run object.</summary>
         public Run Run { get; set;  }
 
         public void Initialize(Run run)
         {
-            WriteTool(run.Tool);
+            Run = run;
         }
 
         public void WriteTool(Tool tool)
         {
-            if (_tool != null)
+            if (Run.Tool != null)
             {
                 throw new InvalidOperationException(SdkResources.ToolAlreadyWritten);
             }
 
-            _tool = tool ?? throw new ArgumentNullException(nameof(tool));
+            Run.Tool = tool ?? throw new ArgumentNullException(nameof(tool));
         }
-
 
         public void WriteInvocations(IEnumerable<Invocation> invocations)
         {
@@ -58,11 +51,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 throw new ArgumentNullException(nameof(result));
             }
-
-            if (_tool == null)
-            {
-                throw new InvalidOperationException(SdkResources.CannotWriteResultToolMissing);
-            }
         }
 
         public void WriteResults(IEnumerable<Result> results)
@@ -73,17 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        public void WriteRules(IList<Rule> rules)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void WriteToolNotifications(IEnumerable<Notification> notifications)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void WriteConfigurationNotifications(IEnumerable<Notification> notifications)
+        public void WriteRules(IList<MessageDescriptor> rules)
         {
             throw new NotImplementedException();
         }

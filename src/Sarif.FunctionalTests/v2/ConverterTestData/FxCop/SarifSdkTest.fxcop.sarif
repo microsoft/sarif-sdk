@@ -1639,8 +1639,8 @@
           "parentKey": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Notification",
           "kind": "member"
         },
-        "sarif.dll!Microsoft.CodeAnalysis.Sarif.Notification..ctor(System.String,System.String,Microsoft.CodeAnalysis.Sarif.PhysicalLocation,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.NotificationLevel,System.Int32,System.DateTime,Microsoft.CodeAnalysis.Sarif.ExceptionData,System.Collections.Generic.IDictionary`2<System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo>)": {
-          "name": ".ctor(System.String,System.String,Microsoft.CodeAnalysis.Sarif.PhysicalLocation,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.NotificationLevel,System.Int32,System.DateTime,Microsoft.CodeAnalysis.Sarif.ExceptionData,System.Collections.Generic.IDictionary`2<System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo>)",
+        "sarif.dll!Microsoft.CodeAnalysis.Sarif.Notification..ctor(System.String,System.String,Microsoft.CodeAnalysis.Sarif.PhysicalLocation,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.FailureLevel,System.Int32,System.DateTime,Microsoft.CodeAnalysis.Sarif.ExceptionData,System.Collections.Generic.IDictionary`2<System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo>)": {
+          "name": ".ctor(System.String,System.String,Microsoft.CodeAnalysis.Sarif.PhysicalLocation,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.FailureLevel,System.Int32,System.DateTime,Microsoft.CodeAnalysis.Sarif.ExceptionData,System.Collections.Generic.IDictionary`2<System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo>)",
           "parentKey": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Notification",
           "kind": "member"
         },
@@ -3444,8 +3444,8 @@
           "parentKey": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities",
           "kind": "member"
         },
-        "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities.CreateNotificationLevelVersionOne(Microsoft.CodeAnalysis.Sarif.NotificationLevel)": {
-          "name": "CreateNotificationLevelVersionOne(Microsoft.CodeAnalysis.Sarif.NotificationLevel)",
+        "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities.CreateNotificationLevelVersionOne(Microsoft.CodeAnalysis.Sarif.FailureLevel)": {
+          "name": "CreateNotificationLevelVersionOne(Microsoft.CodeAnalysis.Sarif.FailureLevel)",
           "parentKey": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities",
           "kind": "member"
         },
@@ -3752,8 +3752,8 @@
           "parentKey": "sarif.driver.dll!Microsoft.CodeAnalysis.Sarif.Driver.AnalyzeCommandBase`2",
           "kind": "member"
         },
-        "sarif.driver.dll!Microsoft.CodeAnalysis.Sarif.Driver.AnalyzeCommandBase`2.LogToolNotification(Microsoft.CodeAnalysis.Sarif.IAnalysisLogger,System.String,Microsoft.CodeAnalysis.Sarif.NotificationLevel,System.Exception)": {
-          "name": "LogToolNotification(Microsoft.CodeAnalysis.Sarif.IAnalysisLogger,System.String,Microsoft.CodeAnalysis.Sarif.NotificationLevel,System.Exception)",
+        "sarif.driver.dll!Microsoft.CodeAnalysis.Sarif.Driver.AnalyzeCommandBase`2.LogToolNotification(Microsoft.CodeAnalysis.Sarif.IAnalysisLogger,System.String,Microsoft.CodeAnalysis.Sarif.FailureLevel,System.Exception)": {
+          "name": "LogToolNotification(Microsoft.CodeAnalysis.Sarif.IAnalysisLogger,System.String,Microsoft.CodeAnalysis.Sarif.FailureLevel,System.Exception)",
           "parentKey": "sarif.driver.dll!Microsoft.CodeAnalysis.Sarif.Driver.AnalyzeCommandBase`2",
           "kind": "member"
         },
@@ -13297,7 +13297,7 @@
             "messageId": "Default",
             "arguments": [
               "'Notification.Notification(Notification)'",
-              "\r\n\r\nNotification..ctor(Notification)\r\nNotification.Init(String, String, PhysicalLocation, Message, NotificationLevel, Int32, DateTime, ExceptionData, IDictionary<String,SerializedPropertyInfo>):Void\r\nPropertyBagHolder.set_Properties(IDictionary<String,SerializedPropertyInfo>):Void"
+              "\r\n\r\nNotification..ctor(Notification)\r\nNotification.Init(String, String, PhysicalLocation, Message, FailureLevel, Int32, DateTime, ExceptionData, IDictionary<String,SerializedPropertyInfo>):Void\r\nPropertyBagHolder.set_Properties(IDictionary<String,SerializedPropertyInfo>):Void"
             ]
           },
           "locations": [
@@ -13323,8 +13323,8 @@
           "message": {
             "messageId": "Default",
             "arguments": [
-              "'Notification.Notification(string, string, PhysicalLocation, Message, NotificationLevel, int, DateTime, ExceptionData, IDictionary<string, SerializedPropertyInfo>)'",
-              "\r\n\r\nNotification..ctor(String, String, PhysicalLocation, Message, NotificationLevel, Int32, DateTime, ExceptionData, IDictionary<String,SerializedPropertyInfo>)\r\nNotification.Init(String, String, PhysicalLocation, Message, NotificationLevel, Int32, DateTime, ExceptionData, IDictionary<String,SerializedPropertyInfo>):Void\r\nPropertyBagHolder.set_Properties(IDictionary<String,SerializedPropertyInfo>):Void"
+              "'Notification.Notification(string, string, PhysicalLocation, Message, FailureLevel, int, DateTime, ExceptionData, IDictionary<string, SerializedPropertyInfo>)'",
+              "\r\n\r\nNotification..ctor(String, String, PhysicalLocation, Message, FailureLevel, Int32, DateTime, ExceptionData, IDictionary<String,SerializedPropertyInfo>)\r\nNotification.Init(String, String, PhysicalLocation, Message, FailureLevel, Int32, DateTime, ExceptionData, IDictionary<String,SerializedPropertyInfo>):Void\r\nPropertyBagHolder.set_Properties(IDictionary<String,SerializedPropertyInfo>):Void"
             ]
           },
           "locations": [
@@ -13335,7 +13335,7 @@
                   "uriBaseId": "$(ProjectDir)"
                 }
               },
-              "fullyQualifiedLogicalName": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Notification..ctor(System.String,System.String,Microsoft.CodeAnalysis.Sarif.PhysicalLocation,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.NotificationLevel,System.Int32,System.DateTime,Microsoft.CodeAnalysis.Sarif.ExceptionData,System.Collections.Generic.IDictionary`2<System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo>)"
+              "fullyQualifiedLogicalName": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Notification..ctor(System.String,System.String,Microsoft.CodeAnalysis.Sarif.PhysicalLocation,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.FailureLevel,System.Int32,System.DateTime,Microsoft.CodeAnalysis.Sarif.ExceptionData,System.Collections.Generic.IDictionary`2<System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo>)"
             }
           ],
           "partialFingerprints": {
@@ -22661,7 +22661,7 @@
           "message": {
             "messageId": "MemberParameter",
             "arguments": [
-              "'SarifTransformerUtilities.CreateNotificationLevelVersionOne(NotificationLevel)'",
+              "'SarifTransformerUtilities.CreateNotificationLevelVersionOne(FailureLevel)'",
               "v",
               "'v2NotificationLevel'"
             ]
@@ -22674,7 +22674,7 @@
                   "uriBaseId": "$(ProjectDir)"
                 }
               },
-              "fullyQualifiedLogicalName": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities.CreateNotificationLevelVersionOne(Microsoft.CodeAnalysis.Sarif.NotificationLevel)"
+              "fullyQualifiedLogicalName": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities.CreateNotificationLevelVersionOne(Microsoft.CodeAnalysis.Sarif.FailureLevel)"
             }
           ],
           "partialFingerprints": {
@@ -24939,7 +24939,7 @@
           "message": {
             "messageId": "Default",
             "arguments": [
-              "'AnalyzeCommandBase<TContext, TOptions>.LogToolNotification(IAnalysisLogger, string, NotificationLevel, Exception)'"
+              "'AnalyzeCommandBase<TContext, TOptions>.LogToolNotification(IAnalysisLogger, string, FailureLevel, Exception)'"
             ]
           },
           "locations": [
@@ -24950,7 +24950,7 @@
                   "uriBaseId": "$(ProjectDir)"
                 }
               },
-              "fullyQualifiedLogicalName": "sarif.driver.dll!Microsoft.CodeAnalysis.Sarif.Driver.AnalyzeCommandBase`2.LogToolNotification(Microsoft.CodeAnalysis.Sarif.IAnalysisLogger,System.String,Microsoft.CodeAnalysis.Sarif.NotificationLevel,System.Exception)"
+              "fullyQualifiedLogicalName": "sarif.driver.dll!Microsoft.CodeAnalysis.Sarif.Driver.AnalyzeCommandBase`2.LogToolNotification(Microsoft.CodeAnalysis.Sarif.IAnalysisLogger,System.String,Microsoft.CodeAnalysis.Sarif.FailureLevel,System.Exception)"
             }
           ],
           "partialFingerprints": {
@@ -24965,7 +24965,7 @@
           "message": {
             "messageId": "Default",
             "arguments": [
-              "'AnalyzeCommandBase<TContext, TOptions>.LogToolNotification(IAnalysisLogger, string, NotificationLevel, Exception)'",
+              "'AnalyzeCommandBase<TContext, TOptions>.LogToolNotification(IAnalysisLogger, string, FailureLevel, Exception)'",
               "logger"
             ]
           },
@@ -24977,7 +24977,7 @@
                   "uriBaseId": "$(ProjectDir)"
                 }
               },
-              "fullyQualifiedLogicalName": "sarif.driver.dll!Microsoft.CodeAnalysis.Sarif.Driver.AnalyzeCommandBase`2.LogToolNotification(Microsoft.CodeAnalysis.Sarif.IAnalysisLogger,System.String,Microsoft.CodeAnalysis.Sarif.NotificationLevel,System.Exception)"
+              "fullyQualifiedLogicalName": "sarif.driver.dll!Microsoft.CodeAnalysis.Sarif.Driver.AnalyzeCommandBase`2.LogToolNotification(Microsoft.CodeAnalysis.Sarif.IAnalysisLogger,System.String,Microsoft.CodeAnalysis.Sarif.FailureLevel,System.Exception)"
             }
           ],
           "partialFingerprints": {

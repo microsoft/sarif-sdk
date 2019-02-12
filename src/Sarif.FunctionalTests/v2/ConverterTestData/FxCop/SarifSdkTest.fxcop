@@ -3497,17 +3497,17 @@
              <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Created="2018-08-23 13:05:11Z">
               <Issue>
                <Item>'Notification.Notification(Notification)'</Item>
-               <Item>&#xD;&#xA;&#xD;&#xA;Notification..ctor(Notification)&#xD;&#xA;Notification.Init(String, String, PhysicalLocation, Message, NotificationLevel, Int32, DateTime, ExceptionData, IDictionary&lt;String,SerializedPropertyInfo&gt;):Void&#xD;&#xA;PropertyBagHolder.set_Properties(IDictionary&lt;String,SerializedPropertyInfo&gt;):Void</Item>
+               <Item>&#xD;&#xA;&#xD;&#xA;Notification..ctor(Notification)&#xD;&#xA;Notification.Init(String, String, PhysicalLocation, Message, FailureLevel, Int32, DateTime, ExceptionData, IDictionary&lt;String,SerializedPropertyInfo&gt;):Void&#xD;&#xA;PropertyBagHolder.set_Properties(IDictionary&lt;String,SerializedPropertyInfo&gt;):Void</Item>
               </Issue>
              </Message>
             </Messages>
            </Member>
-           <Member Name="#.ctor(System.String,System.String,Microsoft.CodeAnalysis.Sarif.PhysicalLocation,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.NotificationLevel,System.Int32,System.DateTime,Microsoft.CodeAnalysis.Sarif.ExceptionData,System.Collections.Generic.IDictionary`2&lt;System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo&gt;)">
+           <Member Name="#.ctor(System.String,System.String,Microsoft.CodeAnalysis.Sarif.PhysicalLocation,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.FailureLevel,System.Int32,System.DateTime,Microsoft.CodeAnalysis.Sarif.ExceptionData,System.Collections.Generic.IDictionary`2&lt;System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo&gt;)">
             <Messages>
              <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Created="2018-08-23 13:05:11Z">
               <Issue>
-               <Item>'Notification.Notification(string, string, PhysicalLocation, Message, NotificationLevel, int, DateTime, ExceptionData, IDictionary&lt;string, SerializedPropertyInfo&gt;)'</Item>
-               <Item>&#xD;&#xA;&#xD;&#xA;Notification..ctor(String, String, PhysicalLocation, Message, NotificationLevel, Int32, DateTime, ExceptionData, IDictionary&lt;String,SerializedPropertyInfo&gt;)&#xD;&#xA;Notification.Init(String, String, PhysicalLocation, Message, NotificationLevel, Int32, DateTime, ExceptionData, IDictionary&lt;String,SerializedPropertyInfo&gt;):Void&#xD;&#xA;PropertyBagHolder.set_Properties(IDictionary&lt;String,SerializedPropertyInfo&gt;):Void</Item>
+               <Item>'Notification.Notification(string, string, PhysicalLocation, Message, FailureLevel, int, DateTime, ExceptionData, IDictionary&lt;string, SerializedPropertyInfo&gt;)'</Item>
+               <Item>&#xD;&#xA;&#xD;&#xA;Notification..ctor(String, String, PhysicalLocation, Message, FailureLevel, Int32, DateTime, ExceptionData, IDictionary&lt;String,SerializedPropertyInfo&gt;)&#xD;&#xA;Notification.Init(String, String, PhysicalLocation, Message, FailureLevel, Int32, DateTime, ExceptionData, IDictionary&lt;String,SerializedPropertyInfo&gt;):Void&#xD;&#xA;PropertyBagHolder.set_Properties(IDictionary&lt;String,SerializedPropertyInfo&gt;):Void</Item>
               </Issue>
              </Message>
             </Messages>
@@ -7103,11 +7103,11 @@
              </Message>
             </Messages>
            </Member>
-           <Member Name="#CreateNotificationLevelVersionOne(Microsoft.CodeAnalysis.Sarif.NotificationLevel)">
+           <Member Name="#CreateNotificationLevelVersionOne(Microsoft.CodeAnalysis.Sarif.FailureLevel)">
             <Messages>
              <Message Id="v" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2018-08-23 13:05:11Z">
               <Issue Name="MemberParameter">
-               <Item>'SarifTransformerUtilities.CreateNotificationLevelVersionOne(NotificationLevel)'</Item>
+               <Item>'SarifTransformerUtilities.CreateNotificationLevelVersionOne(FailureLevel)'</Item>
                <Item>v</Item>
                <Item>'v2NotificationLevel'</Item>
               </Issue>
@@ -7860,16 +7860,16 @@
              </Message>
             </Messages>
            </Member>
-           <Member Name="#LogToolNotification(Microsoft.CodeAnalysis.Sarif.IAnalysisLogger,System.String,Microsoft.CodeAnalysis.Sarif.NotificationLevel,System.Exception)">
+           <Member Name="#LogToolNotification(Microsoft.CodeAnalysis.Sarif.IAnalysisLogger,System.String,Microsoft.CodeAnalysis.Sarif.FailureLevel,System.Exception)">
             <Messages>
              <Message TypeName="DefaultParametersShouldNotBeUsed" Category="Microsoft.Design" CheckId="CA1026" Created="2018-08-23 13:05:11Z">
               <Issue>
-               <Item>'AnalyzeCommandBase&lt;TContext, TOptions&gt;.LogToolNotification(IAnalysisLogger, string, NotificationLevel, Exception)'</Item>
+               <Item>'AnalyzeCommandBase&lt;TContext, TOptions&gt;.LogToolNotification(IAnalysisLogger, string, FailureLevel, Exception)'</Item>
               </Issue>
              </Message>
              <Message Id="0" TypeName="Validate arguments of public methods" Category="Microsoft.Design" CheckId="CA1062" Created="2018-08-23 13:07:11Z">
               <Issue>
-               <Item>'AnalyzeCommandBase&lt;TContext, TOptions&gt;.LogToolNotification(IAnalysisLogger, string, NotificationLevel, Exception)'</Item>
+               <Item>'AnalyzeCommandBase&lt;TContext, TOptions&gt;.LogToolNotification(IAnalysisLogger, string, FailureLevel, Exception)'</Item>
                <Item>logger</Item>
               </Issue>
              </Message>

@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 @"Enabled state of rule. Valid values: Default, Disabled, Warning, Error. A rule in the 'Default' " + 
                 @"state will raise all issues as errors or warnings according to how the issue is logged.");
 
-        public static PerLanguageOption<T> CreateRuleSpecificOption<T>(IRule rule, PerLanguageOption<T> option)
+        public static PerLanguageOption<T> CreateRuleSpecificOption<T>(MessageDescriptor rule, PerLanguageOption<T> option)
         {
             // This helper returns a copy of a rule option that is qualified by a new feature name constructed
             // from an arbitrary rule instance. This allows users to create a generic property descriptor

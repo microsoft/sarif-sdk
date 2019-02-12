@@ -7,23 +7,23 @@ using System.Resources;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    public abstract class SkimmerBase<TContext>  : Rule, ISkimmer<TContext>
+    public abstract class Skimmer<TContext>  : MessageDescriptor
     {
-        public SkimmerBase()
+        public Skimmer()
         {
             this.Options = new Dictionary<string, string>();
         }
         private IDictionary<string, string> messageStrings;
         private IDictionary<string, string> richMessageStrings;
 
-        abstract protected ResourceManager ResourceManager { get; }
+        virtual protected ResourceManager ResourceManager => throw new NotImplementedException();
 
-        abstract protected IEnumerable<string> MessageResourceNames { get; }
+        virtual protected IEnumerable<string> MessageResourceNames => throw new NotImplementedException();
 
         virtual protected IEnumerable<string> RichMessageResourceNames => new List<string>();
 
 
-        virtual public ResultLevel DefaultLevel { get { return ResultLevel.Warning; } }
+        virtual public FailureLevel DefaultLevel { get { return FailureLevel.Warning; } }
 
         override public IDictionary<string, string> MessageStrings
         {
@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             int length = Math.Min(fullDescription.Length, 80);
             bool truncated = length < fullDescription.Length;
             return fullDescription.Substring(0, length) + (truncated ? "..." : "");
-        }
+        }       
 
         public override Message Name {  get { return new Message { Text = this.GetType().Name }; } }
 

@@ -1,0 +1,7 @@
+# Import interesting C# correctness queries
+@import ${odasa_queries}/suites/csharp/correctness
+@import ${odasa_queries}/suites/csharp/security
+@import ${odasa_queries}/suites/csharp/maintainability
+@import ${odasa_queries}/suites/csharp/frameworks
+@import ${odasa_queries}/suites/csharp/linq
+

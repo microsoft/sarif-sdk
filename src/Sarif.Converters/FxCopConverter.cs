@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var context = new FxCopLogReader.Context();
 
             var results = new List<Result>();
-            var rules = new List<Rule>();
+            var rules = new List<MessageDescriptor>();
             var reader = new FxCopLogReader();
             reader.RuleRead += (FxCopLogReader.Context current) => { rules.Add(CreateRule(current)); };
             reader.ResultRead += (FxCopLogReader.Context current) => { results.Add(CreateResult(current)); };
@@ -54,23 +54,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var run = new Run()
             {
-                Tool = new Tool {  Name = "FxCop"}
-            };
-
-            if (rules.Count > 0)
-            {
-                run.Resources = new Resources
+                Tool = new Tool
                 {
-                    Rules = rules
-                };
-            }
+                    Name = "FxCop",
+                    RulesMetadata = rules
+                },
+            };
 
             PersistResults(output, results, run);
         }
 
-        internal Rule CreateRule(FxCopLogReader.Context context)
+        internal MessageDescriptor CreateRule(FxCopLogReader.Context context)
         {
-            var rule = new Rule
+            var rule = new MessageDescriptor
             {
                 Id = context.CheckId,
                 Name = context.RuleTypeName.ToMessage(),
@@ -106,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
             else if ("ExcludedInProject".Equals(status))
             {
-                result.BaselineState = BaselineState.Existing;
+                result.BaselineState = BaselineState.Unchanged;
             }
 
             result.RuleId = context.CheckId;
@@ -146,7 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             bool mapsDirectlyToSarifName;
 
-            result.Level = ConvertFxCopLevelToResultLevel(context.Level, out mapsDirectlyToSarifName);
+            result.Level = ConvertFxCopLevelToResultLevel(context.Level ?? "Warning", out mapsDirectlyToSarifName);
 
             if (!mapsDirectlyToSarifName)
             {
@@ -180,7 +176,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
         }
 
-        private static ResultLevel ConvertFxCopLevelToResultLevel(string fxcopLevel, out bool mapsDirectlyToSarifName)
+        private static FailureLevel ConvertFxCopLevelToResultLevel(string fxcopLevel, out bool mapsDirectlyToSarifName)
         {
             mapsDirectlyToSarifName = true;
 
@@ -191,30 +187,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 case "Error":
                 {
-                    return ResultLevel.Error;
+                    return FailureLevel.Error;
                 }
 
                 case "CriticalError":
                 {
                     mapsDirectlyToSarifName = false;
-                    return ResultLevel.Error;
+                    return FailureLevel.Error;
                 }
 
                 case "Warning":
                 {
-                    return ResultLevel.Warning;
+                    return FailureLevel.Warning;
                 }
 
                 case "CriticalWarning":
                 {
                     mapsDirectlyToSarifName = false;
-                    return ResultLevel.Warning;
+                    return FailureLevel.Warning;
                 }
 
                 case "Information":
                 {
                     mapsDirectlyToSarifName = false;
-                    return ResultLevel.Note;
+                    return FailureLevel.Note;
                 }
 
                 default:
@@ -227,7 +223,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             // FxCop provides no MessageLevel. For these issues, we shouldn't
             // emit any value at all
             mapsDirectlyToSarifName = false;
-            return ResultLevel.Default;
+            return FailureLevel.None;
         }
 
         private static string GetFilePath(FxCopLogReader.Context context)

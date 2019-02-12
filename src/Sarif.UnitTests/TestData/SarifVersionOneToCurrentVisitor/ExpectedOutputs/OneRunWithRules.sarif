@@ -54,7 +54,7 @@
             },
             "configuration": {
               "enabled": true,
-              "defaultLevel": "error",
+              "defaultLevel": "error"
             },
             "helpUri": "http://www.domain.com/rules/c2002.html"
           },
@@ -70,7 +70,8 @@
               "text": "Rent internal rebellion competence biography photograph."
             },
             "configuration": {
-              "defaultLevel": "note",
+              "enabled" :  false,
+              "defaultLevel": "note"
             }
           }
         ]

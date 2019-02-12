@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // '{0}' was not evaluated for check '{1}' because the analysis
             // is not relevant for the following reason: {2}.
             context.Logger.Log(context.Rule,
-                RuleUtilities.BuildResult(ResultLevel.NotApplicable, context, null,
+                RuleUtilities.BuildResult(ResultKind.NotApplicable, context, null,
                     nameof(SdkResources.NotApplicable_InvalidMetadata),
                     context.TargetUri.GetFileName(),
                     context.Rule.Name.Text,

@@ -9,14 +9,14 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Defines methods to support the comparison of objects of type Rule for equality.
+    /// Defines methods to support the comparison of objects of type MessageDescriptor for equality.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
-    internal sealed class RuleEqualityComparer : IEqualityComparer<Rule>
+    internal sealed class MessageDescriptorEqualityComparer : IEqualityComparer<MessageDescriptor>
     {
-        internal static readonly RuleEqualityComparer Instance = new RuleEqualityComparer();
+        internal static readonly MessageDescriptorEqualityComparer Instance = new MessageDescriptorEqualityComparer();
 
-        public bool Equals(Rule left, Rule right)
+        public bool Equals(MessageDescriptor left, MessageDescriptor right)
         {
             if (ReferenceEquals(left, right))
             {
@@ -113,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!RuleConfiguration.ValueComparer.Equals(left.Configuration, right.Configuration))
+            if (!RuleConfiguration.ValueComparer.Equals(left.DefaultConfiguration, right.DefaultConfiguration))
             {
                 return false;
             }
@@ -153,7 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public int GetHashCode(Rule obj)
+        public int GetHashCode(MessageDescriptor obj)
         {
             if (ReferenceEquals(obj, null))
             {
@@ -227,9 +227,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + xor_1;
                 }
 
-                if (obj.Configuration != null)
+                if (obj.DefaultConfiguration != null)
                 {
-                    result = (result * 31) + obj.Configuration.ValueGetHashCode();
+                    result = (result * 31) + obj.DefaultConfiguration.ValueGetHashCode();
                 }
 
                 if (obj.HelpUri != null)

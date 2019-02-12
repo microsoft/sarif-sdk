@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     s_semanticVersion = VersionConstants.AssemblyVersion;
                     if (!string.IsNullOrWhiteSpace(VersionConstants.Prerelease))
                     {
-                        s_semanticVersion += "-" + VersionConstants.Prerelease;
+                        s_semanticVersion += "-" + VersionConstants.Prerelease.Substring(0, VersionConstants.Prerelease.Length);
                     }
                 }
 

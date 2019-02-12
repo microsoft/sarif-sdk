@@ -108,50 +108,41 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-
-
         [Theory]
         // These values are emitted both verbose and non-verbose
-        [InlineData(ResultLevel.Error, true, true)]
-        [InlineData(ResultLevel.Error, false, true)]
-        [InlineData(ResultLevel.Warning, true, true)]
-        [InlineData(ResultLevel.Warning, false, true)]
-        [InlineData(ResultLevel.Default, true, true)]
-        [InlineData(ResultLevel.Default, false, true)]
+        [InlineData(FailureLevel.Error, true, true)]
+        [InlineData(FailureLevel.Error, false, true)]
+        [InlineData(FailureLevel.Warning, true, true)]
+        [InlineData(FailureLevel.Warning, false, true)]
 
-        // These result levels only emitted in verbose logging mode
-        [InlineData(ResultLevel.NotApplicable, true, true)]
-        [InlineData(ResultLevel.NotApplicable, false, false)]
-        [InlineData(ResultLevel.Note, true, true)]
-        [InlineData(ResultLevel.Note, false, false)]
-        [InlineData(ResultLevel.Open, true, true)]
-        [InlineData(ResultLevel.Open, false, false)]
-        [InlineData(ResultLevel.Pass, true, true)]
-        [InlineData(ResultLevel.Pass, false, false)]
-
-        public void SarifLogger_ShouldLog(ResultLevel resultLevel, bool verboseLogging, bool expectedReturn)
+        // These values are emitted only in verbose mode
+        [InlineData(FailureLevel.Note, true, true)]
+        [InlineData(FailureLevel.Note, false, false)]
+        [InlineData(FailureLevel.None, true, true)]
+        [InlineData(FailureLevel.None, false, false)]
+        public void SarifLogger_ShouldLogByFailureLevel(FailureLevel level, bool verboseLogging, bool expectedReturn)
         {
             LoggingOptions loggingOptions = verboseLogging ? LoggingOptions.Verbose : LoggingOptions.None;
 
             var sb = new StringBuilder();
             var logger = new SarifLogger(new StringWriter(sb), loggingOptions);
-            bool result = logger.ShouldLog(resultLevel);
+            bool result = logger.ShouldLog(level);
             result.Should().Be(expectedReturn);
         }
 
         [Fact]
-        public void SarifLogger_ShouldLogRecognizesAllResultLevels()
+        public void SarifLogger_ShouldLogRecognizesAllFailureLevels()
         {
             LoggingOptions loggingOptions = LoggingOptions.Verbose;
             var sb = new StringBuilder();
             var logger = new SarifLogger(new StringWriter(sb), loggingOptions);
 
-            foreach (object resultLevelObject in Enum.GetValues(typeof(ResultLevel)))
+            foreach (object resultLevelObject in Enum.GetValues(typeof(FailureLevel)))
             {
                 // The point of this test is that every defined enum value
                 // should pass a call to ShouldLog and will not raise an 
                 // exception because the enum value isn't recognized
-                logger.ShouldLog((ResultLevel)resultLevelObject);
+                logger.ShouldLog((FailureLevel)resultLevelObject);
             }
         }
 
@@ -342,7 +333,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     invocationPropertiesToLog: null))
                 {
                     string ruleId = "RuleId";
-                    var rule = new Rule() { Id = ruleId };
+                    var rule = new MessageDescriptor() { Id = ruleId };
 
                     var result = new Result()
                     {
@@ -450,7 +441,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     };
 
                     sarifLogger.Log(rule, result);
-
                 }
             }
 
@@ -498,7 +488,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     sarifLogger.LogConfigurationNotification(configurationNotification);
 
                     string ruleId = "RuleId";
-                    var rule = new Rule() { Id = ruleId };
+                    var rule = new MessageDescriptor() { Id = ruleId };
 
                     var result = new Result()
                     {
@@ -614,11 +604,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private void LogSimpleResult(SarifLogger sarifLogger)
         {
-            Rule rule = new Rule { Id = "RuleId" };
+            MessageDescriptor rule = new MessageDescriptor { Id = "RuleId" };
             sarifLogger.Log(rule, CreateSimpleResult(rule));
         }
 
-        private Result CreateSimpleResult(Rule rule)
+        private Result CreateSimpleResult(MessageDescriptor rule)
         {           
             return new Result
             {
@@ -635,7 +625,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             using (var writer = new StringWriter(sb))
             using (var sarifLogger = new SarifLogger(writer, LoggingOptions.Verbose))
             {
-                var rule = new Rule()
+                var rule = new MessageDescriptor()
                 {
                     Id = "ActualId"
                 };

@@ -33,11 +33,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
                 }
 
-                IEnumerable<IRule> rules;
-                rules = DriverUtilities.GetExports<IRule>(DefaultPlugInAssemblies);
+                IEnumerable<MessageDescriptor> rules;
+                rules = DriverUtilities.GetExports<MessageDescriptor>(DefaultPlugInAssemblies);
 
                 // This code injects properties that are provided for every rule instance.
-                foreach (IRule rule in rules)
+                foreach (MessageDescriptor rule in rules)
                 {
                     object objectResult;
                     PropertiesDictionary properties;
