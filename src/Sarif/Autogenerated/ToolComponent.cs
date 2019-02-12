@@ -79,16 +79,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// An array of message descriptor objects relevant to the notifications related to the configuration and runtime execution of the component.
         /// </summary>
-        [DataMember(Name = "notificationsMetadata", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "notificationDescriptors", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<MessageDescriptor> NotificationsMetadata { get; set; }
+        public IList<OutputDescriptor> NotificationDescriptors { get; set; }
 
         /// <summary>
         /// An array of message descriptor objects relevant to the analysis performed by the component.
         /// </summary>
-        [DataMember(Name = "rulesMetadata", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "ruleDescriptors", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<MessageDescriptor> RulesMetadata { get; set; }
+        public IList<OutputDescriptor> RuleDescriptors { get; set; }
 
         /// <summary>
         /// The index within the run files array of the file object associated with the component.
@@ -136,11 +136,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="globalMessageStrings">
         /// An initialization value for the <see cref="P:GlobalMessageStrings" /> property.
         /// </param>
-        /// <param name="notificationsMetadata">
-        /// An initialization value for the <see cref="P:NotificationsMetadata" /> property.
+        /// <param name="notificationDescriptors">
+        /// An initialization value for the <see cref="P:NotificationDescriptors" /> property.
         /// </param>
-        /// <param name="rulesMetadata">
-        /// An initialization value for the <see cref="P:RulesMetadata" /> property.
+        /// <param name="ruleDescriptors">
+        /// An initialization value for the <see cref="P:RuleDescriptors" /> property.
         /// </param>
         /// <param name="fileIndex">
         /// An initialization value for the <see cref="P:FileIndex" /> property.
@@ -148,9 +148,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ToolComponent(string name, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, string> globalMessageStrings, IEnumerable<MessageDescriptor> notificationsMetadata, IEnumerable<MessageDescriptor> rulesMetadata, int fileIndex, IDictionary<string, SerializedPropertyInfo> properties)
+        public ToolComponent(string name, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, string> globalMessageStrings, IEnumerable<OutputDescriptor> notificationDescriptors, IEnumerable<OutputDescriptor> ruleDescriptors, int fileIndex, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(name, fullName, version, semanticVersion, dottedQuadFileVersion, downloadUri, globalMessageStrings, notificationsMetadata, rulesMetadata, fileIndex, properties);
+            Init(name, fullName, version, semanticVersion, dottedQuadFileVersion, downloadUri, globalMessageStrings, notificationDescriptors, ruleDescriptors, fileIndex, properties);
         }
 
         /// <summary>
@@ -169,7 +169,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Name, other.FullName, other.Version, other.SemanticVersion, other.DottedQuadFileVersion, other.DownloadUri, other.GlobalMessageStrings, other.NotificationsMetadata, other.RulesMetadata, other.FileIndex, other.Properties);
+            Init(other.Name, other.FullName, other.Version, other.SemanticVersion, other.DottedQuadFileVersion, other.DownloadUri, other.GlobalMessageStrings, other.NotificationDescriptors, other.RuleDescriptors, other.FileIndex, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -190,7 +190,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ToolComponent(this);
         }
 
-        private void Init(string name, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, string> globalMessageStrings, IEnumerable<MessageDescriptor> notificationsMetadata, IEnumerable<MessageDescriptor> rulesMetadata, int fileIndex, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string name, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, string> globalMessageStrings, IEnumerable<OutputDescriptor> notificationDescriptors, IEnumerable<OutputDescriptor> ruleDescriptors, int fileIndex, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Name = name;
             FullName = fullName;
@@ -207,10 +207,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 GlobalMessageStrings = new Dictionary<string, string>(globalMessageStrings);
             }
 
-            if (notificationsMetadata != null)
+            if (notificationDescriptors != null)
             {
-                var destination_0 = new List<MessageDescriptor>();
-                foreach (var value_0 in notificationsMetadata)
+                var destination_0 = new List<OutputDescriptor>();
+                foreach (var value_0 in notificationDescriptors)
                 {
                     if (value_0 == null)
                     {
@@ -218,17 +218,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_0.Add(new MessageDescriptor(value_0));
+                        destination_0.Add(new OutputDescriptor(value_0));
                     }
                 }
 
-                NotificationsMetadata = destination_0;
+                NotificationDescriptors = destination_0;
             }
 
-            if (rulesMetadata != null)
+            if (ruleDescriptors != null)
             {
-                var destination_1 = new List<MessageDescriptor>();
-                foreach (var value_1 in rulesMetadata)
+                var destination_1 = new List<OutputDescriptor>();
+                foreach (var value_1 in ruleDescriptors)
                 {
                     if (value_1 == null)
                     {
@@ -236,11 +236,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_1.Add(new MessageDescriptor(value_1));
+                        destination_1.Add(new OutputDescriptor(value_1));
                     }
                 }
 
-                RulesMetadata = destination_1;
+                RuleDescriptors = destination_1;
             }
 
             FileIndex = fileIndex;

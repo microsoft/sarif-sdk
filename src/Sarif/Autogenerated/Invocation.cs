@@ -79,10 +79,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int ExitCode { get; set; }
 
         /// <summary>
-        /// An array of rule configuration objects that describe runtime analysis behavior.
+        /// An array of notification configuration override objects that describe runtime reporting behavior.
         /// </summary>
-        [DataMember(Name = "ruleConfiguration", IsRequired = false, EmitDefaultValue = false)]
-        public IList<RuleConfiguration> RuleConfiguration { get; set; }
+        [DataMember(Name = "outputConfigurationOverrides", IsRequired = false, EmitDefaultValue = false)]
+        public IList<OutputConfigurationOverride> OutputConfigurationOverrides { get; set; }
 
         /// <summary>
         /// A list of runtime conditions detected by the tool during the analysis.
@@ -225,8 +225,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="exitCode">
         /// An initialization value for the <see cref="P:ExitCode" /> property.
         /// </param>
-        /// <param name="ruleConfiguration">
-        /// An initialization value for the <see cref="P:RuleConfiguration" /> property.
+        /// <param name="outputConfigurationOverrides">
+        /// An initialization value for the <see cref="P:OutputConfigurationOverrides" /> property.
         /// </param>
         /// <param name="toolNotifications">
         /// An initialization value for the <see cref="P:ToolNotifications" /> property.
@@ -282,9 +282,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Invocation(string commandLine, IEnumerable<string> arguments, IEnumerable<FileLocation> responseFiles, IEnumerable<Attachment> attachments, DateTime startTimeUtc, DateTime endTimeUtc, int exitCode, IEnumerable<RuleConfiguration> ruleConfiguration, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, string exitCodeDescription, string exitSignalName, int exitSignalNumber, string processStartFailureMessage, bool toolExecutionSuccessful, string machine, string account, int processId, FileLocation executableLocation, FileLocation workingDirectory, IDictionary<string, string> environmentVariables, FileLocation stdin, FileLocation stdout, FileLocation stderr, FileLocation stdoutStderr, IDictionary<string, SerializedPropertyInfo> properties)
+        public Invocation(string commandLine, IEnumerable<string> arguments, IEnumerable<FileLocation> responseFiles, IEnumerable<Attachment> attachments, DateTime startTimeUtc, DateTime endTimeUtc, int exitCode, IEnumerable<OutputConfigurationOverride> outputConfigurationOverrides, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, string exitCodeDescription, string exitSignalName, int exitSignalNumber, string processStartFailureMessage, bool toolExecutionSuccessful, string machine, string account, int processId, FileLocation executableLocation, FileLocation workingDirectory, IDictionary<string, string> environmentVariables, FileLocation stdin, FileLocation stdout, FileLocation stderr, FileLocation stdoutStderr, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(commandLine, arguments, responseFiles, attachments, startTimeUtc, endTimeUtc, exitCode, ruleConfiguration, toolNotifications, configurationNotifications, exitCodeDescription, exitSignalName, exitSignalNumber, processStartFailureMessage, toolExecutionSuccessful, machine, account, processId, executableLocation, workingDirectory, environmentVariables, stdin, stdout, stderr, stdoutStderr, properties);
+            Init(commandLine, arguments, responseFiles, attachments, startTimeUtc, endTimeUtc, exitCode, outputConfigurationOverrides, toolNotifications, configurationNotifications, exitCodeDescription, exitSignalName, exitSignalNumber, processStartFailureMessage, toolExecutionSuccessful, machine, account, processId, executableLocation, workingDirectory, environmentVariables, stdin, stdout, stderr, stdoutStderr, properties);
         }
 
         /// <summary>
@@ -303,7 +303,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.CommandLine, other.Arguments, other.ResponseFiles, other.Attachments, other.StartTimeUtc, other.EndTimeUtc, other.ExitCode, other.RuleConfiguration, other.ToolNotifications, other.ConfigurationNotifications, other.ExitCodeDescription, other.ExitSignalName, other.ExitSignalNumber, other.ProcessStartFailureMessage, other.ToolExecutionSuccessful, other.Machine, other.Account, other.ProcessId, other.ExecutableLocation, other.WorkingDirectory, other.EnvironmentVariables, other.Stdin, other.Stdout, other.Stderr, other.StdoutStderr, other.Properties);
+            Init(other.CommandLine, other.Arguments, other.ResponseFiles, other.Attachments, other.StartTimeUtc, other.EndTimeUtc, other.ExitCode, other.OutputConfigurationOverrides, other.ToolNotifications, other.ConfigurationNotifications, other.ExitCodeDescription, other.ExitSignalName, other.ExitSignalNumber, other.ProcessStartFailureMessage, other.ToolExecutionSuccessful, other.Machine, other.Account, other.ProcessId, other.ExecutableLocation, other.WorkingDirectory, other.EnvironmentVariables, other.Stdin, other.Stdout, other.Stderr, other.StdoutStderr, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -324,7 +324,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Invocation(this);
         }
 
-        private void Init(string commandLine, IEnumerable<string> arguments, IEnumerable<FileLocation> responseFiles, IEnumerable<Attachment> attachments, DateTime startTimeUtc, DateTime endTimeUtc, int exitCode, IEnumerable<RuleConfiguration> ruleConfiguration, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, string exitCodeDescription, string exitSignalName, int exitSignalNumber, string processStartFailureMessage, bool toolExecutionSuccessful, string machine, string account, int processId, FileLocation executableLocation, FileLocation workingDirectory, IDictionary<string, string> environmentVariables, FileLocation stdin, FileLocation stdout, FileLocation stderr, FileLocation stdoutStderr, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string commandLine, IEnumerable<string> arguments, IEnumerable<FileLocation> responseFiles, IEnumerable<Attachment> attachments, DateTime startTimeUtc, DateTime endTimeUtc, int exitCode, IEnumerable<OutputConfigurationOverride> outputConfigurationOverrides, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, string exitCodeDescription, string exitSignalName, int exitSignalNumber, string processStartFailureMessage, bool toolExecutionSuccessful, string machine, string account, int processId, FileLocation executableLocation, FileLocation workingDirectory, IDictionary<string, string> environmentVariables, FileLocation stdin, FileLocation stdout, FileLocation stderr, FileLocation stdoutStderr, IDictionary<string, SerializedPropertyInfo> properties)
         {
             CommandLine = commandLine;
             if (arguments != null)
@@ -377,10 +377,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             StartTimeUtc = startTimeUtc;
             EndTimeUtc = endTimeUtc;
             ExitCode = exitCode;
-            if (ruleConfiguration != null)
+            if (outputConfigurationOverrides != null)
             {
-                var destination_3 = new List<RuleConfiguration>();
-                foreach (var value_3 in ruleConfiguration)
+                var destination_3 = new List<OutputConfigurationOverride>();
+                foreach (var value_3 in outputConfigurationOverrides)
                 {
                     if (value_3 == null)
                     {
@@ -388,11 +388,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_3.Add(new RuleConfiguration(value_3));
+                        destination_3.Add(new OutputConfigurationOverride(value_3));
                     }
                 }
 
-                RuleConfiguration = destination_3;
+                OutputConfigurationOverrides = destination_3;
             }
 
             if (toolNotifications != null)

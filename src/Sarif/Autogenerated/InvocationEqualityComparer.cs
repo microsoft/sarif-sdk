@@ -111,21 +111,21 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!object.ReferenceEquals(left.RuleConfiguration, right.RuleConfiguration))
+            if (!object.ReferenceEquals(left.OutputConfigurationOverrides, right.OutputConfigurationOverrides))
             {
-                if (left.RuleConfiguration == null || right.RuleConfiguration == null)
+                if (left.OutputConfigurationOverrides == null || right.OutputConfigurationOverrides == null)
                 {
                     return false;
                 }
 
-                if (left.RuleConfiguration.Count != right.RuleConfiguration.Count)
+                if (left.OutputConfigurationOverrides.Count != right.OutputConfigurationOverrides.Count)
                 {
                     return false;
                 }
 
-                for (int index_3 = 0; index_3 < left.RuleConfiguration.Count; ++index_3)
+                for (int index_3 = 0; index_3 < left.OutputConfigurationOverrides.Count; ++index_3)
                 {
-                    if (!RuleConfiguration.ValueComparer.Equals(left.RuleConfiguration[index_3], right.RuleConfiguration[index_3]))
+                    if (!OutputConfigurationOverride.ValueComparer.Equals(left.OutputConfigurationOverrides[index_3], right.OutputConfigurationOverrides[index_3]))
                     {
                         return false;
                     }
@@ -345,9 +345,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 result = (result * 31) + obj.StartTimeUtc.GetHashCode();
                 result = (result * 31) + obj.EndTimeUtc.GetHashCode();
                 result = (result * 31) + obj.ExitCode.GetHashCode();
-                if (obj.RuleConfiguration != null)
+                if (obj.OutputConfigurationOverrides != null)
                 {
-                    foreach (var value_7 in obj.RuleConfiguration)
+                    foreach (var value_7 in obj.OutputConfigurationOverrides)
                     {
                         result = result * 31;
                         if (value_7 != null)

@@ -132,13 +132,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         ResultProvenance,
         /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="MessageDescriptor" />.
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="OutputDescriptor" />.
         /// </summary>
-        MessageDescriptor,
+        OutputDescriptor,
         /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="RuleConfiguration" />.
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="OutputConfiguration" />.
         /// </summary>
-        RuleConfiguration,
+        OutputConfiguration,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="OutputConfigurationOverride" />.
+        /// </summary>
+        OutputConfigurationOverride,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Run" />.
         /// </summary>
