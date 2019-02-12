@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Collections.Generic;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.TestUtilities;
 using Newtonsoft.Json;
@@ -14,34 +15,49 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests
         [Trait(TestTraits.Bug, "1045")]
         public void PropertyBagConverter_RoundTripsStringPropertyWithEscapedCharacters()
         {
-            string originalLog =
-@"{
-  ""version"": """ + SarifUtilities.SemanticVersion + @""",
-  ""runs"": [
-    {
-      ""tool"": {
-        ""name"": ""CodeScanner""
-      },
-      ""columnKind"": ""utf16CodeUnits"",
-      ""properties"": {
-        ""int"": 42,
-        ""string"": ""'\""\\'""
-      }
-    }
-  ]
-}";
-            var settings = new JsonSerializerSettings { Formatting = Formatting.Indented };
-            SarifLog deserializedLog = JsonConvert.DeserializeObject<SarifLog>(originalLog);
-            Run run = deserializedLog.Runs[0];
+            string intPropertyName = nameof(intPropertyName);
+            int intPropertyValue = 42;
 
-            int integerProperty = run.GetProperty<int>("int");
-            integerProperty.Should().Be(42);
-            string stringProperty = run.GetProperty<string>("string");
-            stringProperty.Should().Be("'\"\\'");
+            string stringPropertyName = nameof(stringPropertyName);
+            string stringPropetyValue = "'\"\\'";
+
+            var run = new Run();
+            run.SetProperty(intPropertyName, 42);
+            run.SetProperty(stringPropertyName, stringPropetyValue);
+
+            var originalLog = new SarifLog
+            {
+                Runs = new List<Run>
+                {
+                    new Run
+                    {
+                        Tool = new Tool
+                        {
+                            Driver = new ToolComponent
+                            {
+                                Name = "CodeScanner"
+                            }
+                        },
+                        Properties = run.Properties
+                    }
+                }
+            };
+
+            string originalLogText = JsonConvert.SerializeObject(originalLog, Formatting.Indented);
+
+            var settings = new JsonSerializerSettings { Formatting = Formatting.Indented };
+            SarifLog deserializedLog = JsonConvert.DeserializeObject<SarifLog>(originalLogText);
+            run = deserializedLog.Runs[0];
+
+            int integerProperty = run.GetProperty<int>(intPropertyName);
+            integerProperty.Should().Be(intPropertyValue);
+
+            string stringProperty = run.GetProperty<string>(stringPropertyName);
+            stringProperty.Should().Be(stringPropetyValue);
 
             string reserializedLog = JsonConvert.SerializeObject(deserializedLog, settings);
 
-            reserializedLog.Should().Be(originalLog);
+            reserializedLog.Should().Be(originalLogText);
         }
     }
 }

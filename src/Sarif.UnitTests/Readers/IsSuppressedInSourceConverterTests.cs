@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Collections.Generic;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.TestUtilities;
 using Newtonsoft.Json;
@@ -12,28 +13,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     {
         [Fact]
         public void SuppressionStatus_SuppressedInSource()
-        {
-            string expected =
-@"{
-  ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + SarifUtilities.SemanticVersion + @""",
-  ""runs"": [
-    {
-      ""tool"": {
-        ""name"": ""DefaultTool""
-      },
-      ""columnKind"": ""utf16CodeUnits"",
-      ""results"": [
-          {
-            ""message"": {
-              ""text"": ""Some testing occurred.""
-          },
-          ""suppressionStates"": [""suppressedInSource""]
-       }
-      ]
-    }
-  ]
-}";
+        {            
+            string expected = CreateCurrentV2SarifLogText(
+                resultCount: 1,
+                (log) => {
+                    log.Runs[0].Results[0].SuppressionStates = SuppressionStates.SuppressedInSource;
+                });
+
             string actual = GetJson(uut =>
             {
                 var run = new Run() { Tool = DefaultTool };
@@ -56,26 +42,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         [Fact]
         public void BaselineState_None()
         {
-            string expected =
-@"{
-  ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + SarifUtilities.SemanticVersion + @""",
-  ""runs"": [
-    {
-      ""tool"": {
-        ""name"": ""DefaultTool""
-      },
-      ""columnKind"": ""utf16CodeUnits"",
-      ""results"": [
-        {
-          ""message"": {
-            ""text"": ""Some testing occurred.""
-        }
-       }
-      ]
-    }
-  ]
-}";
+            string expected = CreateCurrentV2SarifLogText(resultCount: 1);
+
             string actual = GetJson(uut =>
             {
                 var run = new Run();
@@ -108,33 +76,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         [Fact]
         public void BaselineState_UnchangedAndUpdated()
         {
-            string expected =
-@"{
-  ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + SarifUtilities.SemanticVersion + @""",
-  ""runs"": [
-    {
-      ""tool"": {
-        ""name"": ""DefaultTool""
-      },
-      ""columnKind"": ""utf16CodeUnits"",
-      ""results"": [
-        {
-          ""message"": {
-            ""text"": ""Some testing occurred.""
-         },
-          ""baselineState"": ""unchanged""
-        },
-        {
-          ""message"": {
-            ""text"": ""Some testing occurred.""
-         },
-          ""baselineState"": ""updated""
-        }
-      ]
-    }
-  ]
-}";
+            string expected = CreateCurrentV2SarifLogText(
+                resultCount: 1,
+                (log) => {
+                    log.Runs[0].Results[0].BaselineState = BaselineState.Unchanged;
+                    log.Runs[0].Results[1].BaselineState = BaselineState.Updated;
+                });
+
             string actual = GetJson(uut =>
             {
                 var run = new Run() { Tool = DefaultTool };

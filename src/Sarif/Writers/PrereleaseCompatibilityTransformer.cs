@@ -157,11 +157,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // 1. Retrieve run.tool object, which will serve as the basis of the 
             //    new run.tool.driver object and zap sarifLoggerVersion from it;
             JObject driver = (JObject)run["tool"];
-            driver["sarifLoggerVersion"] = null;
+            driver.Remove("sarifLoggerVersion");
 
             // 2. Create a new tool object, preserving only the language property
-            JObject tool = new JObject(new JProperty("language", driver["language"]));
-            driver["language"] = null;
+            JObject tool = new JObject(new JProperty("language", driver["language"] ?? "en-US"));
+            driver.Remove("language");
 
             // 3. Persist extracted data as tool.driver and place back on run
             tool["driver"] = driver;

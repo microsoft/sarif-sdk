@@ -5,18 +5,16 @@
     {
       "tool": {
         "name": "CodeScanner",
-        "semanticVersion": "2.1.0",
-        "downloadUri": "https://example.com/sensitive_terms.html",
-        "sarifLoggerVersion": "1.5.0",
-        "fileVersion": "1.2.3.4",
-        "fullName": "CodeScanner for EN-US",
-        "language": "en-us",
-        "version": "2.1.0 optimized release for x86",
-        "properties": {"tags": ["singleTag"], "propertyKey": "propertyValue"}
+        "semanticVersion": "2.1.0"
       },
+      "files": {
+        "#SUB#file.txt": { "mimeType": "text/plain", "length": 3945, "roles": ["addedFile"] },
+        "file.txt": { "mimeType": "text/plain", "encoding": "utf8" }
+		  },
       "results": [
-        { "ruleId": "C1", "message": {"messageId": "a"}, "locations": [{"physicalLocation": {"fileLocation": {"uri": "file.txt"}}}]}
-  		],
+        { "ruleId": "C1", "message": {"messageId": "a"}, "locations": [{"physicalLocation": {"fileLocation": {"uri": "file.txt"}}, "properties": {"key": "file.txt"}}]},
+        { "ruleId": "C1", "message": {"messageId": "a"}, "locations": [{"physicalLocation": {"fileLocation": {"uri": "file.txt", "uriBaseId": "SUB", "properties": {"key": "#SUB#file.txt"}}}}]}
+		],
       "resources": { "rules": { "C1": { "messageStrings": { "a": "Review all plaintext content for geopolitically sensitive terms." } } } }
     }
   ]

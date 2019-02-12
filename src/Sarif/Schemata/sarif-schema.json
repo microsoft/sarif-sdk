@@ -120,9 +120,9 @@
       "type": "object",
       "properties": {
 
-        "tool": {
-          "description": "A tool object that describes the converter.",
-          "$ref": "#/definitions/tool"
+        "driver": {
+          "description": "A tool component object that describes the converter.",
+          "$ref": "#/definitions/toolComponent"
         },
 
         "invocation": {

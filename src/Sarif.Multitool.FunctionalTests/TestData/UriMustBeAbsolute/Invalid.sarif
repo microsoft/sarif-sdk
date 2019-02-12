@@ -4,24 +4,26 @@
   "runs": [
     {
       "tool": {
-        "name": "CodeScanner",
-        "downloadUri": "tools/codescanner/download.html",
-        "notificationsMetadata": [
-          {
-            "id": "MSG0001",
-            "helpUri": "www.example.com/notifications/msg0001.html"
-          },
-          {
-            "id": "MSG0002",
-            "helpUri": "www.example.com/notifications/msg0002.html"
-          }
-        ],
-        "rulesMetadata": [
-          {
-            "id": "TST0001",
-            "helpUri": "www.example.com/rules/tst0001.html"
-          }
-        ]
+        "driver": {
+          "name": "CodeScanner",
+          "downloadUri": "tools/codescanner/download.html",
+          "notificationsMetadata": [
+            {
+              "id": "MSG0001",
+              "helpUri": "www.example.com/notifications/msg0001.html"
+            },
+            {
+              "id": "MSG0002",
+              "helpUri": "www.example.com/notifications/msg0002.html"
+            }
+          ],
+          "rulesMetadata": [
+            {
+              "id": "TST0001",
+              "helpUri": "www.example.com/rules/tst0001.html"
+            }
+          ]
+        }
       },
       "versionControlProvenance": [
         {
@@ -50,12 +52,12 @@
         "expectedResults": {
           "resultLocationPointers": [
             "$schema",
-            "runs[0].tool.downloadUri",
+            "runs[0].tool.driver.downloadUri",
             "runs[0].results[0].workItemUris[0]",
             "runs[0].originalUriBaseIds.SRCROOT",
-            "runs[0].tool.notificationsMetadata[0].helpUri",
-            "runs[0].tool.notificationsMetadata[1].helpUri",
-            "runs[0].tool.rulesMetadata[0].helpUri",
+            "runs[0].tool.driver.notificationsMetadata[0].helpUri",
+            "runs[0].tool.driver.notificationsMetadata[1].helpUri",
+            "runs[0].tool.driver.rulesMetadata[0].helpUri",
             "runs[0].versionControlProvenance[0].repositoryUri"
           ]
         }
