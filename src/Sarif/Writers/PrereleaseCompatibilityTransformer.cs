@@ -36,8 +36,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             JObject sarifLog = JObject.Parse(prereleaseSarifLog);
 
-            // Some tests update the semantic version to current for non-updated content. For this situation, we 
-            // allow the test code to force a transform, despite the fact that the provided version doesn't call for it.
             string version = (string)sarifLog["version"];
 
             Dictionary<string, int> fullyQualifiedLogicalNameToIndexMap = null;
