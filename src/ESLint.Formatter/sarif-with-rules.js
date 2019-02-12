@@ -39,6 +39,7 @@ module.exports = function (results, data) {
         $schema: "http://json.schemastore.org/sarif-2.0.0",
         runs: [
             {
+                files: [],
                 tool: {
                     name: "ESLint"
                 }
@@ -155,14 +156,9 @@ module.exports = function (results, data) {
 
     });
 
-    //------------------------------------------------------------------------------
-    // We use separate arrays and dictionaries to avoid creating empty properties in the SARIF log.
-    // Here we set those properties accordingly.
-    //------------------------------------------------------------------------------
-
-    if (Object.keys(sarifFiles).length > 0) {
-        sarifLog.runs[0].files = sarifFiles;
-    }
+    Object.keys(sarifFiles).forEach(function (path) {
+        sarifLog.runs[0].files.push(sarifFiles[path]);
+    });
 
     if (sarifResults.length > 0) {
         sarifLog.runs[0].results = sarifResults;
