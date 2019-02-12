@@ -182,7 +182,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             string inputText = File.ReadAllText(comprehensiveSarifPath);
 
-            SarifLog sarifLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(inputText, forceUpdate: false, formatting: Formatting.None, out inputText);
+            SarifLog sarifLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(inputText, formatting: Formatting.None, out inputText);
 
             sarifLog.Runs.Count().Should().Be(1);
 

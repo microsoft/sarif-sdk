@@ -19,11 +19,11 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests
             int intPropertyValue = 42;
 
             string stringPropertyName = nameof(stringPropertyName);
-            string stringPropetyValue = "'\"\\'";
+            string stringPropertyValue = "'\"\\'";
 
             var run = new Run();
             run.SetProperty(intPropertyName, 42);
-            run.SetProperty(stringPropertyName, stringPropetyValue);
+            run.SetProperty(stringPropertyName, stringPropertyValue);
 
             var originalLog = new SarifLog
             {
@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests
             integerProperty.Should().Be(intPropertyValue);
 
             string stringProperty = run.GetProperty<string>(stringPropertyName);
-            stringProperty.Should().Be(stringPropetyValue);
+            stringProperty.Should().Be(stringPropertyValue);
 
             string reserializedLog = JsonConvert.SerializeObject(deserializedLog, settings);
 

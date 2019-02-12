@@ -1,11 +1,12 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-11-28",
-  "version": "2.0.0-csd.2.beta.2018-11-28",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-01-09",
+  "version": "2.0.0-csd.2.beta.2019-01-09",
   "runs": [
     {
       "tool": {
         "name": "CodeScanner",
         "semanticVersion": "2.1.0",
+        "dottedQuadFileVersion": "1.2.3.4",
         "downloadUri": "https://example.com/sensitive_terms.html",
         "sarifLoggerVersion": "1.5.0",
         "fileVersion": "1.2.3.4",

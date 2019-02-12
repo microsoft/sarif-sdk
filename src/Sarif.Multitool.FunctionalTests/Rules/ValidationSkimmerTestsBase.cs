@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (!disablePrereleaseCompatibilityTransform)
             {
-                PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(inputLogContents, forceUpdate: false, formatting: Formatting.Indented, out inputLogContents);
+                PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(inputLogContents, formatting: Formatting.Indented, out inputLogContents);
             }
 
             SarifLog inputLog = JsonConvert.DeserializeObject<SarifLog>(inputLogContents);

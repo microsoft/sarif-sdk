@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 string actualLogContents = File.ReadAllText(actualFilePath);
                 string expectedLogContents = File.ReadAllText(expectedFilePath);
-                PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedLogContents, forceUpdate: false, formatting: Newtonsoft.Json.Formatting.None, out expectedLogContents);
+                PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedLogContents, formatting: Newtonsoft.Json.Formatting.None, out expectedLogContents);
 
                 // We can't just compare the text of the log files because properties
                 // like start time, and absolute paths, will differ from run to run.

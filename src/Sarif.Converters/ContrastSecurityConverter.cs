@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             using (var streamReader = new StreamReader(stream))
             {
                 string prereleaseRuleDataLogText = streamReader.ReadToEnd();
-                PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(prereleaseRuleDataLogText, forceUpdate: true, Newtonsoft.Json.Formatting.Indented, out string currentRuleDataLogText);
+                PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(prereleaseRuleDataLogText, Newtonsoft.Json.Formatting.Indented, out string currentRuleDataLogText);
                 sarifLog = JsonConvert.DeserializeObject<SarifLog>(currentRuleDataLogText);
             }
 

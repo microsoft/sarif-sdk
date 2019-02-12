@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         public void BaselineState_UnchangedAndUpdated()
         {
             string expected = CreateCurrentV2SarifLogText(
-                resultCount: 1,
+                resultCount: 2,
                 (log) => {
                     log.Runs[0].Results[0].BaselineState = BaselineState.Unchanged;
                     log.Runs[0].Results[1].BaselineState = BaselineState.Updated;

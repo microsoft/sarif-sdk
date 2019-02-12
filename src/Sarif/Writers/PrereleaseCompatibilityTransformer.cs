@@ -26,7 +26,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public static SarifLog UpdateToCurrentVersion(
             string prereleaseSarifLog, 
-            bool forceUpdate, 
             Formatting formatting, 
             out string updatedLog)
         {
@@ -39,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             // Some tests update the semantic version to current for non-updated content. For this situation, we 
             // allow the test code to force a transform, despite the fact that the provided version doesn't call for it.
-            string version = forceUpdate ? "2.0.0" : (string)sarifLog["version"];
+            string version = (string)sarifLog["version"];
 
             Dictionary<string, int> fullyQualifiedLogicalNameToIndexMap = null;
             Dictionary<string, int> fileLocationKeyToIndexMap = null;
@@ -111,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 // above this call). We are required to regenerate it, however, in order to properly 
                 // elide default values, etc. I could not find a way for the JToken driven
                 // ToString()/text-generating mechanism to honor default value ignore/populate settings.
-                if (forceUpdate || modifiedLog)
+                if (modifiedLog)
                 {
                     updatedLog = JsonConvert.SerializeObject(transformedSarifLog, formatting);
                 }

@@ -30,10 +30,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
                 GetResourceText(inputResourceName),
-                forceUpdate: false,
-                formatting: Formatting.Indented, out string transformedLog);
+                formatting: Formatting.Indented, 
+                out string transformedLog);
 
-            SarifLog actualLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(transformedLog, forceUpdate: false, formatting: Formatting.None, out transformedLog);
+            SarifLog actualLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(transformedLog, formatting: Formatting.None, out transformedLog);
 
             Uri originalUri = actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"].Uri;
             string uriString = originalUri.ToString();
