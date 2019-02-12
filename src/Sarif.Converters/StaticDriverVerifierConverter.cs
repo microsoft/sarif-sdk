@@ -22,6 +22,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _callers = new Stack<string>();
         }
 
+        public override string ToolName => ToolFormat.StaticDriverVerifier;
+
         /// <summary>
         /// Interface implementation that takes a Static Driver Verifier log stream and converts
         ///  its data to a SARIF json stream. Read in Static Driver Verifier data from an input
@@ -45,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Result result = ProcessSdvDefectStream(input);
             var results = new Result[] { result };
 
-            PersistResults(output, results, ToolFormat.StaticDriverVerifier);
+            PersistResults(output, results);
         }
 
         private Result ProcessSdvDefectStream(Stream input)

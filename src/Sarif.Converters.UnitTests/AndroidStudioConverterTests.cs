@@ -11,11 +11,12 @@ using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.TestUtilities;
 
 using Microsoft.CodeAnalysis.Sarif.Writers;
+using Newtonsoft.Json;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    public class AndroidStudioConverterTests
+    public class AndroidStudioConverterTests : ConverterTestsBase<AndroidStudioConverter>
     {
         private AndroidStudioConverter _converter = null;
 
@@ -42,26 +43,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Assert.Throws<ArgumentNullException>(() => _converter.Convert(new MemoryStream(), null, OptionallyEmittedData.None));
         }
 
-        private readonly string emptyResult =
-@"{
-  ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + SarifUtilities.SemanticVersion + @""",
-  ""runs"": [
-    {
-      ""tool"": {
-        ""name"": ""AndroidStudio""
-      },
-      ""columnKind"": ""utf16CodeUnits"",
-      ""results"": []
-    }
-  ]
-}";
         [Fact]
         public void AndroidStudioConverter_Convert_NoResults()
         {
             string androidStudioLog = @"<?xml version=""1.0"" encoding=""UTF-8""?><problems></problems>";
             string actualJson = Utilities.GetConverterJson(_converter, androidStudioLog);
-            actualJson.Should().BeCrossPlatformEquivalent<SarifLog>(emptyResult);
+            actualJson.Should().BeCrossPlatformEquivalent<SarifLog>(EmptyResultLogText);
         }
 
         [Fact]
@@ -69,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             string androidStudioLog = @"<?xml version=""1.0"" encoding=""UTF-8""?><problems><problem></problem></problems>";
             string actualJson = Utilities.GetConverterJson(_converter, androidStudioLog);
-            actualJson.Should().BeCrossPlatformEquivalent<SarifLog>(emptyResult);
+            actualJson.Should().BeCrossPlatformEquivalent<SarifLog>(EmptyResultLogText);
         }
 
         [Fact]
@@ -77,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             string androidStudioLog = @"<?xml version=""1.0"" encoding=""UTF-8""?><problems><problem /></problems>";
             string actualJson = Utilities.GetConverterJson(_converter, androidStudioLog);
-            actualJson.Should().BeCrossPlatformEquivalent<SarifLog>(emptyResult);
+            actualJson.Should().BeCrossPlatformEquivalent<SarifLog>(EmptyResultLogText);
         }
 
         [Fact]

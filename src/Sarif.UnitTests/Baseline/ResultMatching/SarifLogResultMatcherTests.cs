@@ -204,7 +204,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             baselineLog.Runs[0].Id = new RunAutomationDetails { InstanceGuid = Guid.NewGuid().ToString() };
 
             currentLog.Runs[0].Id = new RunAutomationDetails { InstanceGuid = Guid.NewGuid().ToString() };
-            currentLog.Runs[0].Tool = new Tool() { Name = "Test" };
+            currentLog.Runs[0].Tool = new Tool() { Driver = new ToolComponent { Name = "Test" } };
 
             foreach (Result result in baselineLog.Runs[0].Results)
             {
@@ -308,7 +308,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 {
                     new Run()
                     {
-                        Tool = new Tool { Name = "TestTool" },
+                        Tool = new Tool { Driver = new ToolComponent{Name = "TestTool" } },
                         Files = new List<FileData>
                         {
                             new FileData() { Contents = new FileContent() { Text = "TestFileContents" } }

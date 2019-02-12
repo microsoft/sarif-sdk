@@ -69,7 +69,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         // We have a pre-release v2 file that we should upgrade to current. 
                         PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
                             _fileSystem.ReadAllText(inputFilePath),
-                            forceUpdate: false, 
                             formatting: formatting,
                             out string sarifText);
 
@@ -95,7 +94,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                             // will be transformed to v1 later, where we should apply the indentation settings.
                             actualLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
                                 sarifText,
-                                forceUpdate: false,
                                 formatting: Formatting.None,
                                 out sarifText);
                         }

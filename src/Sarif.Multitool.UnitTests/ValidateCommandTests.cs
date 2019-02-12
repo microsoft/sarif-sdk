@@ -17,7 +17,7 @@ namespace Sarif.Multitool.UnitTests
         public void ValidateCommand_AcceptsTargetFileWithSpaceInName()
         {
             // A minimal valid log file.
-            string logFileContents = TransformCommandTests.MinimalCurrentV2;
+            string logFileContents = TransformCommandTests.MinimalCurrentV2Text;
 
             // A simple schema against which the log file successfully validates.
             // This way, we don't have to read the SARIF schema from disk to run this test.

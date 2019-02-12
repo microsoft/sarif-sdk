@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type ExternalPropertyFiles for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     internal sealed class ExternalPropertyFilesEqualityComparer : IEqualityComparer<ExternalPropertyFiles>
     {
         internal static readonly ExternalPropertyFilesEqualityComparer Instance = new ExternalPropertyFilesEqualityComparer();
@@ -37,12 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!ExternalPropertyFile.ValueComparer.Equals(left.Resources, right.Resources))
-            {
-                return false;
-            }
-
-            if (!ExternalPropertyFile.ValueComparer.Equals(left.Properties, right.Properties))
+            if (!ExternalPropertyFile.ValueComparer.Equals(left.ExternalizedProperties, right.ExternalizedProperties))
             {
                 return false;
             }
@@ -131,6 +126,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
+            if (!ExternalPropertyFile.ValueComparer.Equals(left.Tool, right.Tool))
+            {
+                return false;
+            }
+
             return true;
         }
 
@@ -154,14 +154,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Graphs.ValueGetHashCode();
                 }
 
-                if (obj.Resources != null)
+                if (obj.ExternalizedProperties != null)
                 {
-                    result = (result * 31) + obj.Resources.ValueGetHashCode();
-                }
-
-                if (obj.Properties != null)
-                {
-                    result = (result * 31) + obj.Properties.ValueGetHashCode();
+                    result = (result * 31) + obj.ExternalizedProperties.ValueGetHashCode();
                 }
 
                 if (obj.Files != null)
@@ -210,6 +205,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                             result = (result * 31) + value_3.ValueGetHashCode();
                         }
                     }
+                }
+
+                if (obj.Tool != null)
+                {
+                    result = (result * 31) + obj.Tool.ValueGetHashCode();
                 }
             }
 

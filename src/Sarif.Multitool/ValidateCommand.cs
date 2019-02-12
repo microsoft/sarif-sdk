@@ -69,7 +69,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
                     context.InputLogContents,
-                    forceUpdate: false,
                     formatting: Formatting.None,
                     out sarifText);
 
@@ -110,7 +109,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 if (!s_DisablePrereleaseCompatibilityTransform)
                 {
-                    PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(instanceText, forceUpdate: true, formatting: Formatting.Indented, out instanceText);
+                    PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(instanceText, formatting: Formatting.Indented, out instanceText);
                 }
 
                 PerformSchemaValidation(instanceText, instanceFilePath, schemaFilePath, logger);

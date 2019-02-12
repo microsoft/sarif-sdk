@@ -38,6 +38,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.ExtensionIndex != right.ExtensionIndex)
+            {
+                return false;
+            }
+
             if (left.Kind != right.Kind)
             {
                 return false;
@@ -373,6 +378,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 result = (result * 31) + obj.RuleIndex.GetHashCode();
+                result = (result * 31) + obj.ExtensionIndex.GetHashCode();
                 result = (result * 31) + obj.Kind.GetHashCode();
                 result = (result * 31) + obj.Level.GetHashCode();
                 if (obj.Message != null)

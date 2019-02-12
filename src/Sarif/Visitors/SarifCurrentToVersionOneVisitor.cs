@@ -874,7 +874,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     _currentRun = run;
 
                     CreateFileKeyIndexMappings(v2Run.Files, out _v1FileKeyToV2IndexMap, out _v2FileIndexToV1KeyMap);
-                    _v2RuleIndexToV1KeyMap = CreateV2RuleIndexToV1KeyMapping(v2Run.Tool.RulesMetadata);
+                    _v2RuleIndexToV1KeyMap = CreateV2RuleIndexToV1KeyMapping(v2Run.Tool.Driver.RulesMetadata);
 
                     run.BaselineId = v2Run.BaselineInstanceGuid;
                     run.Files = CreateFileDataVersionOneDictionary();
@@ -888,7 +888,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     run.Properties = v2Run.Properties;
                     run.Results = new List<ResultVersionOne>();
 
-                    run.Rules = ConvertRulesArrayToDictionary(_currentV2Run.Tool.RulesMetadata, _v2RuleIndexToV1KeyMap);
+                    run.Rules = ConvertRulesArrayToDictionary(_currentV2Run.Tool.Driver.RulesMetadata, _v2RuleIndexToV1KeyMap);
                     run.Tool = CreateToolVersionOne(v2Run.Tool);
 
                     foreach (Result v2Result in v2Run.Results)
@@ -1172,14 +1172,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 tool = new ToolVersionOne()
                 {
-                    FileVersion = v2Tool.DottedQuadFileVersion,
-                    FullName = v2Tool.FullName,
+                    FileVersion = v2Tool.Driver.DottedQuadFileVersion,
+                    FullName = v2Tool.Driver.FullName,
                     Language = v2Tool.Language,
-                    Name = v2Tool.Name,
+                    Name = v2Tool.Driver.Name,
                     Properties = v2Tool.Properties,
-                    SarifLoggerVersion = v2Tool.SarifLoggerVersion,
-                    SemanticVersion = v2Tool.SemanticVersion,
-                    Version = v2Tool.Version
+                    SemanticVersion = v2Tool.Driver.SemanticVersion,
+                    Version = v2Tool.Driver.Version
                 };
             }
 

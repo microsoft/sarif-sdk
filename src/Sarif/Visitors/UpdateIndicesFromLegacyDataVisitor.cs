@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     // We need to update the rule id, as it previously referred to a synthesized 
                     // key that resolved some collision in the resources.rules collection.
-                    node.RuleId = _tool.RulesMetadata[ruleIndex].Id;
+                    node.RuleId = _tool.Driver.RulesMetadata[ruleIndex].Id;
                 }
             }
 

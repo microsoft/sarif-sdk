@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     /// <summary>
     /// A Problem element from an Android Studio file.
     /// </summary>
-    internal class AndroidStudioProblem
+    public class AndroidStudioProblem
     {
         /// <summary>The file in which the problem occurs.</summary>
         public readonly string File;
@@ -80,7 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         /// <summary>A builder type to make it easier to construct <see cref="AndroidStudioProblem"/> objects.</summary>
-        internal struct Builder
+        public struct Builder
         {
             /// <summary>The file in which the problem occurs.</summary>
             public string File;

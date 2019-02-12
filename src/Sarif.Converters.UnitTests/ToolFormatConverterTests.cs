@@ -410,6 +410,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         [ExcludeFromCodeCoverage]
         public class TestToolConverter : ToolFileConverterBase
         {
+            public override string ToolName => nameof(TestToolConverter);
+
             public override void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert)
             {
             }
@@ -417,6 +419,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         [ExcludeFromCodeCoverage]
         public class AmbiguousToolConverter : ToolFileConverterBase
         {
+            public override string ToolName => nameof(AmbiguousToolConverter);
+
             public override void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert)
             {
             }
@@ -425,6 +429,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         [ExcludeFromCodeCoverage]
         internal class NonPublicToolConverter : ToolFileConverterBase
         {
+            public override string ToolName => nameof(NonPublicToolConverter);
+
             public override void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert)
             {
             }
@@ -453,6 +459,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 this.name = name;
             }
 
+            public override string ToolName => nameof(NoDefaultConstructorToolConverter);
+
             public override void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert)
             {
             }
@@ -464,6 +472,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         [ExcludeFromCodeCoverage]
         public class AmbiguousToolConverter : ToolFileConverterBase
         {
+            public override string ToolName => nameof(AmbiguousToolConverter);
+
             public override void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert)
             {
             }

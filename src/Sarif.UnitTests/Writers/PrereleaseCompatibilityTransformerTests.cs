@@ -24,8 +24,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
                 inputResourceText,
-                forceUpdate: false,
-                formatting: Formatting.Indented, out string transformedLog);
+                formatting: Formatting.Indented, 
+                out string transformedLog);
 
             return transformedLog;
         }
@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             string sarifText = File.ReadAllText(comprehensiveSarifPath);
 
-            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(sarifText, forceUpdate: false, formatting: Formatting.None, out sarifText);
+            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(sarifText, formatting: Formatting.None, out sarifText);
 
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(sarifText);
             JsonConvert.SerializeObject(sarifLog);
@@ -65,6 +65,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public void PrereleaseCompatibilityTransformer_RunResources()
         {
             RunTest("RunResources.sarif");
+        }
+
+        [Fact]
+        public void PrereleaseCompatibilityTransformer_ComprehensiveToolProperties()
+        {
+            RunTest("ComprehensiveToolProperties.sarif");
         }
     }
 }

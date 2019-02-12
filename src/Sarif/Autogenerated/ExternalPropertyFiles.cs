@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// References to external property files that should be inlined with the content of a root log file.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.58.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public partial class ExternalPropertyFiles : ISarifNode
     {
         public static IEqualityComparer<ExternalPropertyFiles> ValueComparer => ExternalPropertyFilesEqualityComparer.Instance;
@@ -44,16 +44,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public ExternalPropertyFile Graphs { get; set; }
 
         /// <summary>
-        /// An external property file containing a run.resources object to be merged with the root log file.
-        /// </summary>
-        [DataMember(Name = "resources", IsRequired = false, EmitDefaultValue = false)]
-        public ExternalPropertyFile Resources { get; set; }
-
-        /// <summary>
         /// An external property file containing a run.properties object to be merged with the root log file.
         /// </summary>
-        [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
-        public ExternalPropertyFile Properties { get; set; }
+        [DataMember(Name = "externalizedProperties", IsRequired = false, EmitDefaultValue = false)]
+        public ExternalPropertyFile ExternalizedProperties { get; set; }
 
         /// <summary>
         /// An array of external property files containing run.files arrays to be merged with the root log file.
@@ -80,6 +74,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<ExternalPropertyFile> Results { get; set; }
 
         /// <summary>
+        /// An external property file containing a run.tool object to be merged with the root log file.
+        /// </summary>
+        [DataMember(Name = "tool", IsRequired = false, EmitDefaultValue = false)]
+        public ExternalPropertyFile Tool { get; set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ExternalPropertyFiles" /> class.
         /// </summary>
         public ExternalPropertyFiles()
@@ -90,32 +90,32 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Initializes a new instance of the <see cref="ExternalPropertyFiles" /> class from the supplied values.
         /// </summary>
         /// <param name="conversion">
-        /// An initialization value for the <see cref="P: Conversion" /> property.
+        /// An initialization value for the <see cref="P:Conversion" /> property.
         /// </param>
         /// <param name="graphs">
-        /// An initialization value for the <see cref="P: Graphs" /> property.
+        /// An initialization value for the <see cref="P:Graphs" /> property.
         /// </param>
-        /// <param name="resources">
-        /// An initialization value for the <see cref="P: Resources" /> property.
-        /// </param>
-        /// <param name="properties">
-        /// An initialization value for the <see cref="P: Properties" /> property.
+        /// <param name="externalizedProperties">
+        /// An initialization value for the <see cref="P:ExternalizedProperties" /> property.
         /// </param>
         /// <param name="files">
-        /// An initialization value for the <see cref="P: Files" /> property.
+        /// An initialization value for the <see cref="P:Files" /> property.
         /// </param>
         /// <param name="invocations">
-        /// An initialization value for the <see cref="P: Invocations" /> property.
+        /// An initialization value for the <see cref="P:Invocations" /> property.
         /// </param>
         /// <param name="logicalLocations">
-        /// An initialization value for the <see cref="P: LogicalLocations" /> property.
+        /// An initialization value for the <see cref="P:LogicalLocations" /> property.
         /// </param>
         /// <param name="results">
-        /// An initialization value for the <see cref="P: Results" /> property.
+        /// An initialization value for the <see cref="P:Results" /> property.
         /// </param>
-        public ExternalPropertyFiles(ExternalPropertyFile conversion, ExternalPropertyFile graphs, ExternalPropertyFile resources, ExternalPropertyFile properties, IEnumerable<ExternalPropertyFile> files, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ExternalPropertyFile> results)
+        /// <param name="tool">
+        /// An initialization value for the <see cref="P:Tool" /> property.
+        /// </param>
+        public ExternalPropertyFiles(ExternalPropertyFile conversion, ExternalPropertyFile graphs, ExternalPropertyFile externalizedProperties, IEnumerable<ExternalPropertyFile> files, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ExternalPropertyFile> results, ExternalPropertyFile tool)
         {
-            Init(conversion, graphs, resources, properties, files, invocations, logicalLocations, results);
+            Init(conversion, graphs, externalizedProperties, files, invocations, logicalLocations, results, tool);
         }
 
         /// <summary>
@@ -134,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Conversion, other.Graphs, other.Resources, other.Properties, other.Files, other.Invocations, other.LogicalLocations, other.Results);
+            Init(other.Conversion, other.Graphs, other.ExternalizedProperties, other.Files, other.Invocations, other.LogicalLocations, other.Results, other.Tool);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -155,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExternalPropertyFiles(this);
         }
 
-        private void Init(ExternalPropertyFile conversion, ExternalPropertyFile graphs, ExternalPropertyFile resources, ExternalPropertyFile properties, IEnumerable<ExternalPropertyFile> files, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ExternalPropertyFile> results)
+        private void Init(ExternalPropertyFile conversion, ExternalPropertyFile graphs, ExternalPropertyFile externalizedProperties, IEnumerable<ExternalPropertyFile> files, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ExternalPropertyFile> results, ExternalPropertyFile tool)
         {
             if (conversion != null)
             {
@@ -167,14 +167,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Graphs = new ExternalPropertyFile(graphs);
             }
 
-            if (resources != null)
+            if (externalizedProperties != null)
             {
-                Resources = new ExternalPropertyFile(resources);
-            }
-
-            if (properties != null)
-            {
-                Properties = new ExternalPropertyFile(properties);
+                ExternalizedProperties = new ExternalPropertyFile(externalizedProperties);
             }
 
             if (files != null)
@@ -247,6 +242,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 Results = destination_3;
+            }
+
+            if (tool != null)
+            {
+                Tool = new ExternalPropertyFile(tool);
             }
         }
     }

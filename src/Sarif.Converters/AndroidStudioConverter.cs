@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     /// <summary>
     /// Converts an xml log file of the Android Studio format into the SARIF format
     /// </summary>
-    internal class AndroidStudioConverter : ToolFileConverterBase
+    public class AndroidStudioConverter : ToolFileConverterBase
     {
         private readonly NameTable _nameTable;
         private readonly AndroidStudioStrings _strings;
@@ -27,6 +27,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _nameTable = new NameTable();
             _strings = new AndroidStudioStrings(_nameTable);
         }
+
+        public override string ToolName => "AndroidStudio";
 
         /// <summary>
         /// Converts an Android Studio formatted log as input into a SARIF SarifLog using the output.
@@ -66,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             
             var run = new Run()
             {
-                Tool = new Tool { Name = ToolFormat.AndroidStudio },
+                Tool = new Tool { Driver = new ToolComponent { Name = ToolName } },
                 ColumnKind = ColumnKind.Utf16CodeUnits,
                 LogicalLocations = this.LogicalLocations,
             };

@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     /// <summary>
     /// Strings used for parsing Android Studio logs.
     /// </summary>
-    internal class AndroidStudioStrings
+    public class AndroidStudioStrings
     {
         /// <summary>The constant "problems".</summary>
         public readonly string Problems;

@@ -4,6 +4,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
@@ -61,6 +62,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The index within the run.invocations array of the invocation object which describes the tool invocation that detected the result.
         /// </summary>
         [DataMember(Name = "invocationIndex", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(-1)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public int InvocationIndex { get; set; }
 
         /// <summary>
@@ -81,6 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public ResultProvenance()
         {
+            InvocationIndex = -1;
         }
 
         /// <summary>

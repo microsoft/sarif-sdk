@@ -29,6 +29,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private IDictionary<string, MessageDescriptor> _rules;
         private HashSet<FileData> _files;
 
+        public override string ToolName => "Contrast Security";
+
         /// <summary>
         /// Convert Contrast Security log to SARIF format stream
         /// </summary>
@@ -61,13 +63,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             using (var streamReader = new StreamReader(stream))
             {
                 string prereleaseRuleDataLogText = streamReader.ReadToEnd();
-                PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(prereleaseRuleDataLogText, forceUpdate: true, Newtonsoft.Json.Formatting.Indented, out string currentRuleDataLogText);
+                PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(prereleaseRuleDataLogText, Newtonsoft.Json.Formatting.Indented, out string currentRuleDataLogText);
                 sarifLog = JsonConvert.DeserializeObject<SarifLog>(currentRuleDataLogText);
             }
 
             // 2. Retain a pointer to the rules dictionary, which we will use to set rule severity
             Run run = sarifLog.Runs[0];
-            _rules = run.Tool.RulesMetadata.ToDictionary(rule => rule.Id);
+            _rules = run.Tool.Driver.RulesMetadata.ToDictionary(rule => rule.Id);
 
             run.OriginalUriBaseIds = new Dictionary<string, FileLocation>
             {

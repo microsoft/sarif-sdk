@@ -26,7 +26,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public static SarifLog UpdateToCurrentVersion(
             string prereleaseSarifLog, 
-            bool forceUpdate, 
             Formatting formatting, 
             out string updatedLog)
         {
@@ -39,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             // Some tests update the semantic version to current for non-updated content. For this situation, we 
             // allow the test code to force a transform, despite the fact that the provided version doesn't call for it.
-            string version = forceUpdate ? "2.0.0" : (string)sarifLog["version"];
+            string version = (string)sarifLog["version"];
 
             Dictionary<string, int> fullyQualifiedLogicalNameToIndexMap = null;
             Dictionary<string, int> fileLocationKeyToIndexMap = null;
@@ -55,8 +54,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                 case "2.0.0-csd.2.beta.2019-01-09":
                 {
-                        modifiedLog |= ApplyChangesFromTC31(sarifLog);
-                        break;
+                    modifiedLog |= ApplyChangesFromTC31(sarifLog);
+                    break;
                 }
 
                 case "2.0.0-csd.2.beta.2018-10-10":
@@ -111,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 // above this call). We are required to regenerate it, however, in order to properly 
                 // elide default values, etc. I could not find a way for the JToken driven
                 // ToString()/text-generating mechanism to honor default value ignore/populate settings.
-                if (forceUpdate || modifiedLog)
+                if (modifiedLog)
                 {
                     updatedLog = JsonConvert.SerializeObject(transformedSarifLog, formatting);
                 }
@@ -122,38 +121,66 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static bool ApplyChangesFromTC31(JObject sarifLog)
         {
-            bool modifiedLog = UpdateSarifLogVersion(sarifLog);            ;
+            UpdateSarifLogVersion(sarifLog);            ;
 
             if (sarifLog["runs"] is JArray runs)
             {
                 foreach (JObject run in runs)
                 {
                     // https://github.com/oasis-tcs/sarif-spec/issues/311
-                    modifiedLog |= MoveRulesMetadataAndConfiguration(run);
+                    MoveRulesMetadataAndConfiguration(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/179
+                    MoveToolPropertiesIntoDriverToolComponent(run);
 
                     if (run["results"] is JArray results)
                     {
                         foreach (JObject result in results)
                         {
                             // https://github.com/oasis-tcs/sarif-spec/issues/312
-                            modifiedLog |= UpdateBaselineExistingStateToUnchanged(result);
+                            UpdateBaselineExistingStateToUnchanged(result);
 
                             // https://github.com/oasis-tcs/sarif-spec/issues/317
-                            modifiedLog |= SetResultKindAndFailureLevel(result);
+                            SetResultKindAndFailureLevel(result);
                         }
                     }
                 }
             }
-            return modifiedLog;
+            return true;
         }
 
-        private static bool MoveRulesMetadataAndConfiguration(JObject run)
+        private static void MoveToolPropertiesIntoDriverToolComponent(JObject run)
+        {
+            // https://github.com/oasis-tcs/sarif-spec/issues/179
+
+            // 1. Retrieve run.tool object, which will serve as the basis of the 
+            //    new run.tool.driver object and zap sarifLoggerVersion from it;
+            JObject driver = (JObject)run["tool"];
+            driver.Remove("sarifLoggerVersion");
+
+            // 2. Create a new tool object, preserving only the language property
+            JObject tool = new JObject(new JProperty("language", driver["language"] ?? "en-US"));
+            driver.Remove("language");
+
+            // 3. Persist extracted data as tool.driver and place back on run
+            tool["driver"] = driver;
+            run["tool"] = tool;
+
+            // Other changes in this schema update do not require any transformation, as
+            // the remainder is additive. This includes:
+            //  toolComponent.fileIndex -> associate a component with a run.files entry
+            //  run.tool.extensions -> array of extension tool components
+            //  result.extensionIndex -> associate a result with an extension
+            //  toolComponent -> new file role.
+        }
+
+        private static void MoveRulesMetadataAndConfiguration(JObject run)
         {
             // https://github.com/oasis-tcs/sarif-spec/issues/311
 
             if (!(run["resources"] is JObject resources))
             {
-                return false;
+                return;
             }
 
             JObject tool = (JObject)run["tool"];
@@ -185,33 +212,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             // 4. Zap 'rules.resources' entirely
             run["resources"] = null;
-
-            return true;
         }
 
-        private static bool UpdateBaselineExistingStateToUnchanged(JObject result)
+        private static void UpdateBaselineExistingStateToUnchanged(JObject result)
         {
             // Rename 'existing' baseline state to 'unchanged'
             // (as part of adding the 'updated' state, which 
             // will not exist in any legacy SARIF logs).
             // https://github.com/oasis-tcs/sarif-spec/issues/312
             //
-            bool modifiedLog = false;
 
             string baselineState = (string)result["baselineState"];
 
             if ("existing".Equals(baselineState))
             {
                 result["baselineState"] = "unchanged";
-                modifiedLog = true;
             }
-            return modifiedLog;
         }
 
-        private static bool SetResultKindAndFailureLevel(JObject result)
+        private static void SetResultKindAndFailureLevel(JObject result)
         {
             string level = (string)result["level"];
-            if (level == null) { return false; }
+            if (level == null) { return; }
 
             // Every result now has a failure level of 'none', 'note',
             // 'warning' or 'error'. 'pass', 'notApplicable' and 'open'
@@ -243,7 +265,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     break;
                 }
             }
-            return true;
         }
 
         private static bool ApplyChangesFromTC25ThroughTC30(

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Collections.Generic;
 using FluentAssertions;
 
 using Microsoft.CodeAnalysis.Sarif.Converters;
@@ -12,9 +13,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public class ConverterTestsBase<T> where T : ToolFileConverterBase, new()
     {
-        public SarifLog RunTestCase(string inputData, string expectedResult, bool prettyPrint = true, bool forceV2Transform = false)
+        public SarifLog RunTestCase(string inputData, string expectedResult, bool prettyPrint = true)
         {
-            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedResult, forceUpdate: forceV2Transform, formatting: Formatting.Indented, out expectedResult);
+            PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedResult, formatting: Formatting.Indented, out expectedResult);
             var converter = new T();
 
             // First retrieve converter JSON. This code will raise appropriate exceptions 
@@ -28,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // provided an ability to apply additional attributes to emitted code, 
             // we wouldn't be required to do this. Filed an issue on this.
             // https://github.com/Microsoft/jschema/issues/6
-            
+
             var log = JsonConvert.DeserializeObject<SarifLog>(actualJson);
 
             // Pretty-printed JSON literals can consume significant space in test code,
@@ -43,5 +44,36 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             return log;
         }
+
+        private static SarifLog BuildToolSpecificEmptyLog()
+        {
+            return new SarifLog
+            {
+                Runs = new List<Run>
+                {
+                    {
+                        new Run
+                        {
+                            Tool = new Tool
+                            {
+                                Driver = new ToolComponent
+                                {
+                                    Name = new T().ToolName
+                                }
+                            },
+                            Results = new List<Result>()
+                        }
+                    }
+                }
+            };
+        }
+
+        private static string BuildToolSpecificEmptyLogText()
+        {
+            return JsonConvert.SerializeObject(BuildToolSpecificEmptyLog());
+        }
+
+        public readonly SarifLog EmptyLog = BuildToolSpecificEmptyLog();
+        public readonly string EmptyResultLogText = JsonConvert.SerializeObject(BuildToolSpecificEmptyLog());
     }
 }

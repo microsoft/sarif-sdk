@@ -14,6 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string ConversionSources = "conversionSources";
         public const string Description = "description";
         public const string DownloadUri = "downloadUri";
+        public const string Driver = "driver";
         public const string Edges = "edges";
         public const string EdgeTraversals = "edgeTraversals";
         public const string EndColumn = "endColumn";
@@ -21,6 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string EndTimeUtc = "endTimeUtc";
         public const string Essential = "essential";
         public const string ExecutableLocation = "executableLocation";
+        public const string Extensions = "extensions";
         public const string FileChanges = "fileChanges";
         public const string FileLocation = "fileLocation";
         public const string Files = "files";
@@ -69,6 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string ThreadFlows = "threadFlows";
         public const string ToolNotifications = "toolNotifications";
         public const string Tool = "tool";
+        public const string ToolComponent = "toolComponent";
         public const string Uri = "uri";
         public const string VersionControlProvenance = "versionControlProvenance";
         public const string WorkItemUris = "workItemUris";

@@ -12,6 +12,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     {
         private IList<object> _files = null;
 
+        public override string ToolName => "Clang Analyzer";
+
         /// <summary>Convert a Clang plist report into the SARIF format.</summary>
         /// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
         /// <param name="input">CLang log file stream.</param>
@@ -57,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                 }
 
-                PersistResults(output, results, "Clang Analyzer");
+                PersistResults(output, results);
             }
             finally
             {

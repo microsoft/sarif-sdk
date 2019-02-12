@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     new Run
                     {
-                        Tool = new Tool { Name = "Test tool"},
+                        Tool = new Tool { Driver = new ToolComponent { Name = "Test tool"} },
                         ColumnKind = persistedValue
                     }
                 }

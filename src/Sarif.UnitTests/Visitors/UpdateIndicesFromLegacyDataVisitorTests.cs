@@ -105,9 +105,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 Tool = new Tool
                 {
-                    RulesMetadata = new List<MessageDescriptor>
+                    Driver = new ToolComponent
                     {
-                        new MessageDescriptor { Id = actualRuleId }
+                        RulesMetadata = new List<MessageDescriptor>
+                        {
+                            new MessageDescriptor { Id = actualRuleId }
+                        }
                     }
                 },
                 Results = new List<Result>

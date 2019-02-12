@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private bool _visitingExceptionData;
 
 
-        public override object VisitActual(ISarifNode node)
+        public override object Visit(ISarifNode node)
         {
             // We override a very low level visit, one that occurs for every SARIF object instance.
             // We do this for two reasons: 1) it would be unnecessarily burdensome to override
@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // chained visitors and/or utilize more core visitor functionality. 
             PopulateInstanceWithDefaultMemberValues(node);
 
-            return base.VisitActual(node);
+            return base.Visit(node);
         }
 
         // Retain nesting level for visiting exceptions to prevent

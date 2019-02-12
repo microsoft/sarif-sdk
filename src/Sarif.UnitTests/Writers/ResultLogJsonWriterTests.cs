@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using FluentAssertions;
@@ -16,26 +17,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         [Fact]
         public void ResultLogJsonWriter_AcceptsResultAndTool()
         {
-            string expected =
-@"{
-  ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + SarifUtilities.SemanticVersion + @""",
-  ""runs"": [
-    {
-      ""tool"": {
-        ""name"": ""DefaultTool""
-      },
-      ""columnKind"": ""utf16CodeUnits"",
-      ""results"": [
-        {
-          ""message"": {
-            ""text"": ""Some testing occurred.""
-          }
-        }
-      ]
-    }
-  ]
-}";
+            string expected = CreateCurrentV2SarifLogText(resultCount: 1);
+
             string actual = GetJson(uut =>
             {
                 var run = new Run() { Tool = DefaultTool };
@@ -154,25 +137,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         [Fact]
         public void ResultLogJsonWriter_WritesInvocation()
         {
-            string expected =
-@"{
-  ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + SarifUtilities.SemanticVersion + @""",
-  ""runs"": [
-    {
-      ""tool"": {
-        ""name"": ""DefaultTool""
-      },
-      ""columnKind"": ""utf16CodeUnits"",
-      ""invocations"": [
-        {
-          ""commandLine"": ""/a /b c.dll"",
-          ""machine"": ""MY_MACHINE""
-        }
-      ]
-    }
-  ]
-}";
+            string expected = CreateCurrentV2SarifLogText(
+                resultCount: 0,
+                (log) => {
+                    log.Runs[0].Invocations = new List<Invocation> { s_invocation };
+                });
+
             string actual = GetJson(uut =>
             {
                 var run = new Run()
@@ -193,29 +163,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             string automationLogicalId = Guid.NewGuid().ToString();
             string instanceId = automationLogicalId + "/" + instanceGuid;
 
-            string expected =
-@"{
-  ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + SarifUtilities.SemanticVersion + @""",
-  ""runs"": [
-    {
-      ""id"": {
-        ""instanceId"": """ + instanceId + @""",
-        ""instanceGuid"": """ + instanceGuid + @"""
-      },
-      ""tool"": {
-        ""name"": ""DefaultTool""
-      },
-      ""columnKind"": ""utf16CodeUnits"",
-      ""invocations"": [
-        {
-          ""commandLine"": ""/a /b c.dll"",
-          ""machine"": ""MY_MACHINE""
-        }
-      ]
-    }
-  ]
-}";
+            string expected = CreateCurrentV2SarifLogText(
+                resultCount: 0,
+                (log) => {
+                    log.Runs[0].Invocations = new List<Invocation> { s_invocation };
+                    log.Runs[0].Id = new RunAutomationDetails
+                    {
+                        InstanceGuid = instanceGuid,
+                        InstanceId = instanceId
+                    };
+                });
+
             string actual = GetJson(uut =>
             {
                 var run = new Run()
@@ -330,95 +288,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         };
 
-        private const string SerializedNotification =
-@"        {
-          ""id"": ""NOT0001"",
-          ""ruleId"": ""TST0001"",
-          ""physicalLocation"": {
-            ""fileLocation"": {
-              ""uri"": ""file:///C:/src/a.cs""
-            },
-            ""region"": {
-              ""startLine"": 3,
-              ""startColumn"": 12
-            }
-          },
-          ""message"": {
-            ""text"": ""This is a test""
-          },
-          ""level"": ""error"",
-          ""timeUtc"": ""2016-04-29T00:00:00.000Z"",
-          ""exception"": {
-            ""kind"": ""System.AggregateException"",
-            ""message"": {
-              ""text"": ""Bad thing""
-            },
-            ""innerExceptions"": [
-              {
-                ""kind"": ""System.ArgumentNullException"",
-                ""message"": {
-                  ""text"": ""x cannot be null""
-                },
-                ""stack"": {
-                  ""frames"": [
-                    {
-                      ""location"": {
-                        ""physicalLocation"": {
-                          ""fileLocation"": {
-                            ""uri"": ""file:///C:/src/a.cs""
-                          },
-                          ""region"": {
-                            ""startLine"": 10
-                          }
-                        },
-                        ""fullyQualifiedLogicalName"": ""N1.N2.C.M1""
-                      },
-                      ""module"": ""a.dll""
-                    },
-                    {
-                      ""location"": {
-                        ""physicalLocation"": {
-                          ""fileLocation"": {
-                            ""uri"": ""file:///C:/src/a.cs""
-                          },
-                          ""region"": {
-                            ""startLine"": 6
-                          }
-                        },
-                        ""fullyQualifiedLogicalName"": ""N1.N2.C.M2""
-                      },
-                      ""module"": ""a.dll""
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        }";
 
         [Fact]
         public void ResultLogJsonWriter_WritesConfigurationNotifications()
         {
-            string expected =
-@"{
-  ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + SarifUtilities.SemanticVersion + @""",
-  ""runs"": [
-    {
-      ""tool"": {
-        ""name"": ""DefaultTool""
-      },
-      ""columnKind"": ""utf16CodeUnits"",
-      ""invocations"": [
-        {                
-          ""configurationNotifications"": [
-" + SerializedNotification + @"
-          ]
-       }
-     ]
-    }
-  ]
-}";
+            string expected = CreateCurrentV2SarifLogText(
+                resultCount: 0,
+                (log) => {
+                    log.Runs[0].Invocations = new List<Invocation>
+                    {
+                        new Invocation
+                        {
+                            ConfigurationNotifications = new List<Notification>(s_notifications)
+                        }
+                    };                    
+                });
+
             string actual = GetJson(uut =>
             {
                 var run = new Run() { Tool = DefaultTool };
@@ -437,26 +322,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         [Fact]
         public void ResultLogJsonWriter_WritesToolNotifications()
         {
-            string expected =
-@"{
-  ""$schema"": """ + SarifUtilities.SarifSchemaUri + @""",
-  ""version"": """ + SarifUtilities.SemanticVersion + @""",
-  ""runs"": [
-    {
-      ""tool"": {
-        ""name"": ""DefaultTool""
-      },
-      ""columnKind"": ""utf16CodeUnits"",
-      ""invocations"": [
-        {                
-          ""toolNotifications"": [
-" + SerializedNotification + @"
-          ]
-       }
-     ]
-    }
-  ]
-}";
+            string expected = CreateCurrentV2SarifLogText(
+                resultCount: 0,
+                (log) => {
+                    log.Runs[0].Invocations = new List<Invocation>
+                    {
+                        new Invocation
+                        {
+                            ToolNotifications = new List<Notification>(s_notifications)
+                        }
+                    };
+                });
 
             string actual = GetJson(uut =>
             {

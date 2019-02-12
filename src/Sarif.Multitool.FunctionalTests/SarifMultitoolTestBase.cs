@@ -61,8 +61,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             SelectiveCompare(actualToolNotifications, expectedToolNotifications);
 
-            IList<MessageDescriptor> actualRules = actualLog.Runs[0].Tool.RulesMetadata;
-            IList<MessageDescriptor> expectedRules = expectedLog.Runs[0].Tool.RulesMetadata;
+            IList<MessageDescriptor> actualRules = actualLog.Runs[0].Tool.Driver.RulesMetadata;
+            IList<MessageDescriptor> expectedRules = expectedLog.Runs[0].Tool.Driver.RulesMetadata;
 
             SelectiveCompare(actualRules, expectedRules);
         }
