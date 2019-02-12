@@ -75,9 +75,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ESLint.Formatter", "ESLint.
 		ESLint.Formatter\readme.MD = ESLint.Formatter\readme.MD
 		ESLint.Formatter\RunTests.cmd = ESLint.Formatter\RunTests.cmd
 		ESLint.Formatter\sarif-with-rules.js = ESLint.Formatter\sarif-with-rules.js
-		ESLint.Formatter\test\sarif-with-rules.js = ESLint.Formatter\test\sarif-with-rules.js
 		ESLint.Formatter\sarif.js = ESLint.Formatter\sarif.js
-		ESLint.Formatter\test\sarif.js = ESLint.Formatter\test\sarif.js
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{A2D43A0B-F2ED-42A5-A980-D6F4476FE455}"
