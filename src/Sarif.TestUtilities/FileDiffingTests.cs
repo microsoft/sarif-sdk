@@ -74,18 +74,22 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             string expectedSarifText = GetResourceText("ExpectedOutputs." + expectedOutputResourceName);
 
-            bool passed;
-            if (_testProducesSarifCurrentVersion)
+            bool passed = false;
+
+            if (!RebaselineExpectedResults)
             {
-                PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarifText, Formatting.Indented, out expectedSarifText);
-                passed = AreEquivalent<SarifLog>(actualSarifText, expectedSarifText);
-            }
-            else
-            {
-                passed = AreEquivalent<SarifLogVersionOne>(actualSarifText, expectedSarifText, SarifContractResolverVersionOne.Instance);
+                if (_testProducesSarifCurrentVersion)
+                {
+                    PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(expectedSarifText, Formatting.Indented, out expectedSarifText);
+                    passed = AreEquivalent<SarifLog>(actualSarifText, expectedSarifText);
+                }
+                else
+                {
+                    passed = AreEquivalent<SarifLogVersionOne>(actualSarifText, expectedSarifText, SarifContractResolverVersionOne.Instance);
+                }
             }
 
-            if (!passed || RebaselineExpectedResults)
+            if (!passed)
             {
                 string errorMessage = string.Format(@"there should be no unexpected diffs detected comparing actual results to '{0}'.", inputResourceName);
                 sb.AppendLine(errorMessage);

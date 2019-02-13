@@ -6,21 +6,29 @@
       "tool": {
         "driver": {
           "name": "CodeScanner",
-          "fullName": "CodeScanner for EN-US",
-          "version": "2.1.0 optimized release for x86",
           "semanticVersion": "2.1.0",
-          "dottedQuadFileVersion": "1.2.3.4",
-          "downloadUri": "https://example.com/sensitive_terms.html",
           "globalMessageStrings": {
             "noContent": {
               "text": "This file has no content to review."
             }
-          }
+          },
+          "ruleDescriptors": [
+            {
+              "id": "TEST1001",
+              "messageStrings": {
+                "a": {
+                  "text": "Review all image content for geopolitically sensitive graphics.",
+                  "markdown": "Review *all* image content for geopolitically sensitive graphics."
+                }
+              }
+            }
+          ]
         }
       },
       "results": [
         {
           "ruleId": "TEST1001",
+          "ruleIndex": 0,
           "message": {
             "messageId": "a"
           },
@@ -35,7 +43,8 @@
           ],
           "rank": -1.0
         }
-      ]
+      ],
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

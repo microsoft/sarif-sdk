@@ -72,5 +72,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             RunTest("ComprehensiveToolProperties.sarif");
         }
+
+        [Fact]
+        public void PrereleaseCompatibilityTransformer_MultiformatMessageStrings()
+        {
+            RunTest("MultiformatMessageStrings.sarif");
+        }
     }
 }

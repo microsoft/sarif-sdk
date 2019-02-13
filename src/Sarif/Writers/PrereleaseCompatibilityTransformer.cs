@@ -160,14 +160,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             JObject tool = new JObject(new JProperty("language", driver["language"] ?? "en-US"));
             driver.Remove("language");
 
-            // 3. Persist extracted data as tool.driver and place back on run
-            tool["driver"] = driver;
-
             // https://github.com/oasis-tcs/sarif-spec/issues/319
-            // 4. toolComponent.messageStrings now merges all plain text
+            // 3. toolComponent.messageStrings now merges all plain text
             //    and markdown strings. So we need to merge and eliminate
             //    the 'richMessageStrings property.
             MergeRichMessagesInDescriptorsArrays(driver);
+
+            // 4. Persist extracted data as tool.driver and place back on run
+            tool["driver"] = driver;
 
             run["tool"] = tool;
 
@@ -181,19 +181,49 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static void MergeRichMessagesInDescriptorsArrays(JObject toolComponent)
         {
-            MergeRichMessageStringsIntoMessageStrings((JObject)toolComponent["rulesMetadata"]);
-            MergeRichMessageStringsIntoMessageStrings((JObject)toolComponent["notificationsMetadata"]);
+            MergeRichMessageStringsIntoMessageStrings((JArray)toolComponent["ruleDescriptors"]);
+
+            // NOTE: we don't need to process notificationDescriptors, because this
+            //       concept did not ship in the 2019-01-09 schema.
         }
 
-        private static void MergeRichMessageStringsIntoMessageStrings(JObject descriptorsObject)
+        private static void MergeRichMessageStringsIntoMessageStrings(JArray descriptors)
         {
-            if (!(descriptorsObject?["richMessageStrings"] is JObject richMessageStrings)) { return; }
+            if (descriptors == null) { return; }
 
-            foreach (JProperty richMessageString in richMessageStrings.Properties())
+            foreach (JObject descriptor in descriptors.Children())
             {
+                var messageStrings = (JObject)descriptor?["messageStrings"];
+                var richMessageStrings = (JObject)descriptor?["richMessageStrings"];
 
+                if (messageStrings == null && richMessageStrings == null)
+                {
+                    continue;
+                }                
+
+                foreach (JProperty property in messageStrings.Properties())
+                {
+                    // Create base multiformatMessageString object with plaintext value
+                    JObject multiformatMessageString = CreateMultiformatMessageStringFromPlaintext((string)property.Value);
+
+                    // If we find a matching markdown property in richMessageStrings, move it over.
+                    multiformatMessageString["markdown"] = (string)richMessageStrings?[property.Name];
+
+                    // Replace the message strings property with the multi-format version
+                    messageStrings[property.Name] = multiformatMessageString;
+
+                    // NOTE: we don't process any richMessageString items that don't have a 
+                    //       corresponding plaintext equivalent. This is not legal SARIF.
+                }
+
+                descriptor.Remove("richMessageStrings");
             }
-            descriptorsObject.Remove("richMessageStrings");
+        }
+
+        private static JObject CreateMultiformatMessageStringFromPlaintext(string plaintext)
+        {
+            JProperty textProperty = new JProperty("text", plaintext);
+            return new JObject(textProperty);
         }
 
         private static void MoveRuleDescriptors(JObject run)
@@ -236,7 +266,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // 'tool.notificationDescriptors', as this did not exist previously
 
             // 4. Zap 'rules.resources' entirely
-            run["resources"] = null;
+            run.Remove("resources");
         }
 
         private static void ConvertToMultiformatMessageStrings(JObject messageStrings)
@@ -244,10 +274,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // https://github.com/oasis-tcs/sarif-spec/issues/319
             foreach (JProperty property in messageStrings.Properties())
             {
-                string plaintext = (string)messageStrings[property.Name];
-
-                JProperty textProperty = new JProperty("text", property.Value);
-                JObject multiformatMessageString = new JObject(textProperty);
+                JObject multiformatMessageString = CreateMultiformatMessageStringFromPlaintext((string)property.Value);
 
                 messageStrings[property.Name] = multiformatMessageString;
             }
