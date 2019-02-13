@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public PropertiesDictionary Policy { get; set; }
 
-        public MessageDescriptor Rule { get; set; }
+        public ReportingDescriptor Rule { get; set; }
 
         public Exception TargetLoadException { get; set; }
 

@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     {
                         Name = "Test",
                         Version = "1.0",
-                        RulesMetadata = new List<MessageDescriptor>(GenerateRules(ruleIds))
+                        RuleDescriptors = new List<ReportingDescriptor>(GenerateRules(ruleIds))
                     }
                 },
                 Files = GenerateFiles(filePaths),
@@ -140,14 +140,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             return files;
         }
 
-        public static IList<MessageDescriptor> GenerateRules(List<string> ruleIds)
+        public static IList<ReportingDescriptor> GenerateRules(List<string> ruleIds)
         {
-            var rules = new List<MessageDescriptor>();
+            var rules = new List<ReportingDescriptor>();
 
             foreach (var ruleId in ruleIds)
             {
                 rules.Add( 
-                    new MessageDescriptor()
+                    new ReportingDescriptor()
                     {
                         Id = ruleId,
                         FullDescription = new Message

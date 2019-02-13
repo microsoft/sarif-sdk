@@ -717,13 +717,13 @@
           "type": "integer"
         },
 
-        "ruleConfiguration": {
-          "description": "An array of rule configuration objects that describe runtime analysis behavior.",
+        "reportingConfigurationOverrides": {
+          "description": "An array of reportingConfigurationOverride objects that describe runtime reporting behavior.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
           "items": {
-            "$ref": "#/definitions/ruleConfiguration"
+            "$ref": "#/definitions/reportingConfigurationOverride"
           }
         },
 
@@ -1264,6 +1264,158 @@
       "required": [ "deletedRegion" ]
     },
 
+    "reportingDescriptor": {
+      "description": "Metadata that describes a specific report produced by the tool, as part of the analysis it provides or its runtime reporting.",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+
+        "id": {
+          "description": "A stable, opaque identifier for the report.",
+          "type": "string"
+        },
+
+        "deprecatedIds": {
+          "description": "An array of stable, opaque identifiers by which this report was known in some previous version of the analysis tool.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+
+        "name": {
+          "description": "A report identifier that is understandable to an end user.",
+          "$ref": "#/definitions/message"
+        },
+
+        "shortDescription": {
+          "description": "A concise description of the report. Should be a single sentence that is understandable when visible space is limited to a single line of text.",
+          "$ref": "#/definitions/message"
+        },
+
+        "fullDescription": {
+          "description": "A description of the report. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.",
+          "$ref": "#/definitions/message"
+        },
+
+        "messageStrings": {
+          "description": "A set of name/value pairs with arbitrary names. The value within each name/value pair consists of plain text interspersed with placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+
+        "richMessageStrings": {
+          "description": "A set of name/value pairs with arbitrary names. The value within each name/value pair consists of rich text interspersed with placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+
+        "defaultConfiguration": {
+          "description": "Default reporting configuration information.",
+          "$ref": "#/definitions/reportingConfiguration"
+        },
+
+        "helpUri": {
+          "description": "A URI where the primary documentation for the report can be found.",
+          "type": "string",
+          "format": "uri"
+        },
+
+        "help": {
+          "description": "Provides the primary documentation for the report, useful when there is no online documentation.",
+          "$ref": "#/definitions/message"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the report.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      }
+    },
+
+    "reportingConfiguration": {
+      "description": "Information about a tool report that can be configured at runtime.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+
+        "enabled": {
+          "default": true,
+          "description": "Specifies whether the report may be produced during the scan.",
+          "type": "boolean"
+        },
+
+        "level": {
+          "description": "Specifies the failure level for the report.",
+          "default": "warning",
+          "enum": [ "none", "note", "warning", "error" ]
+        },
+
+        "rank": {
+          "description": "Specifies the relative priority of the report. Used for analysis output only.",
+          "type": "number",
+          "default": -1.0,
+          "minimum": -1.0,
+          "maximum": 100.0
+        },
+
+        "parameters": {
+          "description": "Contains configuration information specific to a report.",
+          "$ref": "#/definitions/propertyBag"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the reporting configuration.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      }
+    },
+
+    "reportingConfigurationOverride": {
+      "description": "Information about how a specific tool report was reconfigured at runtime.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+
+        "configuration": {
+          "description": "Specifies how the report was configured during the scan.",
+          "$ref": "#/definitions/reportingConfiguration"
+        },
+
+        "notificationIndex": {
+          "description": "The index within the toolComponent.notificationDescriptors array of the reportingDescriptor associated with this override.",
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
+        },
+
+        "ruleIndex": {
+          "description": "The index within the toolComponent.ruleDescriptors array of the reportingDescriptor associated with this override.",
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
+        },
+
+        "extensionIndex": {
+          "description": "The index within the run.tool.extensions array of the toolComponent object which describes the plug-in or tool extension that produced the report.",
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the reporting configuration.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      }
+    },
+
     "result": {
       "description": "A result produced by an analysis tool.",
       "additionalProperties": false,
@@ -1541,121 +1693,8 @@
       }
     },
 
-    "messageDescriptor": {
-      "description": "Describes a specific message raised by the tool, as part of the analysis it provides, its configuration or runtime execution.",
-      "additionalProperties": false,
-      "type": "object",
-      "properties": {
-
-        "id": {
-          "description": "A stable, opaque identifier for the message.",
-          "type": "string"
-        },
-
-        "deprecatedIds": {
-          "description": "An array of stable, opaque identifiers by which this message was known in some previous version of the analysis tool.",
-          "type": "array",
-          "minItems": 0,
-          "uniqueItems": true,
-          "items": {
-            "type": "string"
-          }
-        },
-
-        "name": {
-          "description": "A message identifier that is understandable to an end user.",
-          "$ref": "#/definitions/message"
-        },
-
-        "shortDescription": {
-          "description": "A concise description of the rule. Should be a single sentence that is understandable when visible space is limited to a single line of text.",
-          "$ref": "#/definitions/message"
-        },
-
-        "fullDescription": {
-          "description": "A description of the rule. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.",
-          "$ref": "#/definitions/message"
-        },
-
-        "messageStrings": {
-          "description": "A set of name/value pairs with arbitrary names. The value within each name/value pair consists of plain text interspersed with placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.",
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
-
-        "richMessageStrings": {
-          "description": "A set of name/value pairs with arbitrary names. The value within each name/value pair consists of rich text interspersed with placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.",
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
-
-        "defaultConfiguration": {
-          "description": "Default rule information.",
-          "$ref": "#/definitions/ruleConfiguration"
-        },
-
-        "helpUri": {
-          "description": "A URI where the primary documentation for the rule can be found.",
-          "type": "string",
-          "format": "uri"
-        },
-
-        "help": {
-          "description": "Provides the primary documentation for the rule, useful when there is no online documentation.",
-          "$ref": "#/definitions/message"
-        },
-
-        "properties": {
-          "description": "Key/value pairs that provide additional information about the rule.",
-          "$ref": "#/definitions/propertyBag"
-        }
-      }
-    },
-
-    "ruleConfiguration": {
-      "description": "Information about a rule that can be configured at runtime.",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-
-        "enabled": {
-          "default": true,
-          "description": "Specifies whether the rule will be evaluated during the scan.",
-          "type": "boolean"
-        },
-
-        "level": {
-          "description": "Specifies the failure level for results generated by this rule.",
-          "default": "warning",
-          "enum": [ "none", "note", "warning", "error" ]
-        },
-
-        "rank": {
-          "description": "Specifies the relative priority of results generated by this rule.",
-          "type": "number",
-          "default": -1.0,
-          "minimum": -1.0,
-          "maximum": 100.0
-        },
-
-        "parameters": {
-          "description": "Contains configuration information specific to this rule.",
-          "$ref": "#/definitions/propertyBag"
-        },
-
-        "properties": {
-          "description": "Key/value pairs that provide additional information about the rule configuration.",
-          "$ref": "#/definitions/propertyBag"
-        }
-      }
-    },
-
     "run": {
-      "description": "Describes a single run of an analysis tool, and contains the output of that run.",
+      "description": "Describes a single run of an analysis tool, and contains the reported output of that run.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -1677,7 +1716,7 @@
         },
 
         "conversion": {
-          "description": "A conversion object that describes how a converter transformed an analysis tool's native output format into the SARIF format.",
+          "description": "A conversion object that describes how a converter transformed an analysis tool's native reporting format into the SARIF format.",
           "$ref": "#/definitions/conversion"
         },
 
@@ -2102,25 +2141,25 @@
           }
         },
 
-        "notificationsMetadata": {
-          "description": "An array of message descriptor objects relevant to the notifications related to the configuration and runtime execution of the component.",
+        "notificationDescriptors": {
+          "description": "An array of reportDescriptor objects relevant to the notifications related to the configuration and runtime execution of the component.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
           "default": [],
           "items": {
-            "$ref": "#/definitions/messageDescriptor"
+            "$ref": "#/definitions/reportingDescriptor"
           }
         },
 
-        "rulesMetadata": {
-          "description": "An array of message descriptor objects relevant to the analysis performed by the component.",
+        "ruleDescriptors": {
+          "description": "An array of reportDescriptor objects relevant to the analysis performed by the component.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
           "default": [],
           "items": {
-            "$ref": "#/definitions/messageDescriptor"
+            "$ref": "#/definitions/reportingDescriptor"
           }
         },
 

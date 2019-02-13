@@ -153,7 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                  ")";
         }
 
-        public static string FormatForVisualStudio(this Result result, MessageDescriptor rule)
+        public static string FormatForVisualStudio(this Result result, ReportingDescriptor rule)
         {
             if (result == null)
             {
@@ -200,12 +200,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        public static string GetMessageText(this Result result, MessageDescriptor rule)
+        public static string GetMessageText(this Result result, ReportingDescriptor rule)
         {
             return GetMessageText(result, rule, concise: false);
         }
 
-        public static string GetMessageText(this Result result, MessageDescriptor rule, bool concise = false)
+        public static string GetMessageText(this Result result, ReportingDescriptor rule, bool concise = false)
         {
             if (result == null)
             {

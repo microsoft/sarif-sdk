@@ -181,7 +181,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             IAnalysisLogger logger)
         {
 #if JSCHEMA_UPGRADED
-            MessageDescriptor rule = RuleFactory.GetRuleFromRuleId(result.RuleId);
+            ReportingDescriptor rule = RuleFactory.GetRuleFromRuleId(result.RuleId);
             logger.Log(rule, result);
 #endif
         }

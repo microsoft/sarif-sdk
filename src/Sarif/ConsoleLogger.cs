@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
-        public void Log(MessageDescriptor rule, Result result)
+        public void Log(ReportingDescriptor rule, Result result)
         {
             if (result == null)
             {

@@ -3867,17 +3867,17 @@
              <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Created="2018-08-23 13:05:11Z">
               <Issue>
                <Item>'Rule.Rule(Rule)'</Item>
-               <Item>&#xD;&#xA;&#xD;&#xA;Rule..ctor(Rule)&#xD;&#xA;Rule.Init(String, Message, Message, Message, IDictionary&lt;String,String&gt;, IDictionary&lt;String,String&gt;, RuleConfiguration, Uri, Message, IDictionary&lt;String,SerializedPropertyInfo&gt;):Void&#xD;&#xA;PropertyBagHolder.set_Properties(IDictionary&lt;String,SerializedPropertyInfo&gt;):Void</Item>
+               <Item>&#xD;&#xA;&#xD;&#xA;Rule..ctor(Rule)&#xD;&#xA;Rule.Init(String, Message, Message, Message, IDictionary&lt;String,String&gt;, IDictionary&lt;String,String&gt;, ReportingConfiguration, Uri, Message, IDictionary&lt;String,SerializedPropertyInfo&gt;):Void&#xD;&#xA;PropertyBagHolder.set_Properties(IDictionary&lt;String,SerializedPropertyInfo&gt;):Void</Item>
               </Issue>
              </Message>
             </Messages>
            </Member>
-           <Member Name="#.ctor(System.String,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.Message,System.Collections.Generic.IDictionary`2&lt;System.String,System.String&gt;,System.Collections.Generic.IDictionary`2&lt;System.String,System.String&gt;,Microsoft.CodeAnalysis.Sarif.RuleConfiguration,System.Uri,Microsoft.CodeAnalysis.Sarif.Message,System.Collections.Generic.IDictionary`2&lt;System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo&gt;)">
+           <Member Name="#.ctor(System.String,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.Message,System.Collections.Generic.IDictionary`2&lt;System.String,System.String&gt;,System.Collections.Generic.IDictionary`2&lt;System.String,System.String&gt;,Microsoft.CodeAnalysis.Sarif.ReportingConfiguration,System.Uri,Microsoft.CodeAnalysis.Sarif.Message,System.Collections.Generic.IDictionary`2&lt;System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo&gt;)">
             <Messages>
              <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Created="2018-08-23 13:05:11Z">
               <Issue>
-               <Item>'Rule.Rule(string, Message, Message, Message, IDictionary&lt;string, string&gt;, IDictionary&lt;string, string&gt;, RuleConfiguration, Uri, Message, IDictionary&lt;string, SerializedPropertyInfo&gt;)'</Item>
-               <Item>&#xD;&#xA;&#xD;&#xA;Rule..ctor(String, Message, Message, Message, IDictionary&lt;String,String&gt;, IDictionary&lt;String,String&gt;, RuleConfiguration, Uri, Message, IDictionary&lt;String,SerializedPropertyInfo&gt;)&#xD;&#xA;Rule.Init(String, Message, Message, Message, IDictionary&lt;String,String&gt;, IDictionary&lt;String,String&gt;, RuleConfiguration, Uri, Message, IDictionary&lt;String,SerializedPropertyInfo&gt;):Void&#xD;&#xA;PropertyBagHolder.set_Properties(IDictionary&lt;String,SerializedPropertyInfo&gt;):Void</Item>
+               <Item>'Rule.Rule(string, Message, Message, Message, IDictionary&lt;string, string&gt;, IDictionary&lt;string, string&gt;, ReportingConfiguration, Uri, Message, IDictionary&lt;string, SerializedPropertyInfo&gt;)'</Item>
+               <Item>&#xD;&#xA;&#xD;&#xA;Rule..ctor(String, Message, Message, Message, IDictionary&lt;String,String&gt;, IDictionary&lt;String,String&gt;, ReportingConfiguration, Uri, Message, IDictionary&lt;String,SerializedPropertyInfo&gt;)&#xD;&#xA;Rule.Init(String, Message, Message, Message, IDictionary&lt;String,String&gt;, IDictionary&lt;String,String&gt;, ReportingConfiguration, Uri, Message, IDictionary&lt;String,SerializedPropertyInfo&gt;):Void&#xD;&#xA;PropertyBagHolder.set_Properties(IDictionary&lt;String,SerializedPropertyInfo&gt;):Void</Item>
               </Issue>
              </Message>
             </Messages>
@@ -3902,13 +3902,13 @@
            </Member>
           </Members>
          </Type>
-         <Type Name="RuleConfiguration">
+         <Type Name="ReportingConfiguration">
           <Members>
            <Member Name="#Parameters">
             <Messages>
              <Message TypeName="CollectionPropertiesShouldBeReadOnly" Category="Microsoft.Usage" CheckId="CA2227" Created="2018-08-23 13:05:11Z">
               <Issue>
-               <Item>'RuleConfiguration.Parameters'</Item>
+               <Item>'ReportingConfiguration.Parameters'</Item>
               </Issue>
              </Message>
             </Messages>
@@ -6297,17 +6297,17 @@
              <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Created="2018-08-23 13:05:11Z">
               <Issue>
                <Item>'RuleVersionOne.RuleVersionOne(RuleVersionOne)'</Item>
-               <Item>&#xD;&#xA;&#xD;&#xA;RuleVersionOne..ctor(RuleVersionOne)&#xD;&#xA;RuleVersionOne.Init(String, String, String, String, IDictionary&lt;String,String&gt;, RuleConfigurationVersionOne, ResultLevelVersionOne, Uri, IDictionary&lt;String,SerializedPropertyInfo&gt;):Void&#xD;&#xA;PropertyBagHolderVersionOne.set_Properties(IDictionary&lt;String,SerializedPropertyInfo&gt;):Void</Item>
+               <Item>&#xD;&#xA;&#xD;&#xA;RuleVersionOne..ctor(RuleVersionOne)&#xD;&#xA;RuleVersionOne.Init(String, String, String, String, IDictionary&lt;String,String&gt;, reportingConfigurationVersionOne, ResultLevelVersionOne, Uri, IDictionary&lt;String,SerializedPropertyInfo&gt;):Void&#xD;&#xA;PropertyBagHolderVersionOne.set_Properties(IDictionary&lt;String,SerializedPropertyInfo&gt;):Void</Item>
               </Issue>
              </Message>
             </Messages>
            </Member>
-           <Member Name="#.ctor(System.String,System.String,System.String,System.String,System.Collections.Generic.IDictionary`2&lt;System.String,System.String&gt;,Microsoft.CodeAnalysis.Sarif.VersionOne.RuleConfigurationVersionOne,Microsoft.CodeAnalysis.Sarif.VersionOne.ResultLevelVersionOne,System.Uri,System.Collections.Generic.IDictionary`2&lt;System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo&gt;)">
+           <Member Name="#.ctor(System.String,System.String,System.String,System.String,System.Collections.Generic.IDictionary`2&lt;System.String,System.String&gt;,Microsoft.CodeAnalysis.Sarif.VersionOne.reportingConfigurationVersionOne,Microsoft.CodeAnalysis.Sarif.VersionOne.ResultLevelVersionOne,System.Uri,System.Collections.Generic.IDictionary`2&lt;System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo&gt;)">
             <Messages>
              <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Created="2018-08-23 13:05:11Z">
               <Issue>
-               <Item>'RuleVersionOne.RuleVersionOne(string, string, string, string, IDictionary&lt;string, string&gt;, RuleConfigurationVersionOne, ResultLevelVersionOne, Uri, IDictionary&lt;string, SerializedPropertyInfo&gt;)'</Item>
-               <Item>&#xD;&#xA;&#xD;&#xA;RuleVersionOne..ctor(String, String, String, String, IDictionary&lt;String,String&gt;, RuleConfigurationVersionOne, ResultLevelVersionOne, Uri, IDictionary&lt;String,SerializedPropertyInfo&gt;)&#xD;&#xA;RuleVersionOne.Init(String, String, String, String, IDictionary&lt;String,String&gt;, RuleConfigurationVersionOne, ResultLevelVersionOne, Uri, IDictionary&lt;String,SerializedPropertyInfo&gt;):Void&#xD;&#xA;PropertyBagHolderVersionOne.set_Properties(IDictionary&lt;String,SerializedPropertyInfo&gt;):Void</Item>
+               <Item>'RuleVersionOne.RuleVersionOne(string, string, string, string, IDictionary&lt;string, string&gt;, reportingConfigurationVersionOne, ResultLevelVersionOne, Uri, IDictionary&lt;string, SerializedPropertyInfo&gt;)'</Item>
+               <Item>&#xD;&#xA;&#xD;&#xA;RuleVersionOne..ctor(String, String, String, String, IDictionary&lt;String,String&gt;, reportingConfigurationVersionOne, ResultLevelVersionOne, Uri, IDictionary&lt;String,SerializedPropertyInfo&gt;)&#xD;&#xA;RuleVersionOne.Init(String, String, String, String, IDictionary&lt;String,String&gt;, reportingConfigurationVersionOne, ResultLevelVersionOne, Uri, IDictionary&lt;String,SerializedPropertyInfo&gt;):Void&#xD;&#xA;PropertyBagHolderVersionOne.set_Properties(IDictionary&lt;String,SerializedPropertyInfo&gt;):Void</Item>
               </Issue>
              </Message>
             </Messages>
@@ -7136,22 +7136,22 @@
              </Message>
             </Messages>
            </Member>
-           <Member Name="#CreateResultLevelVersionOne(Microsoft.CodeAnalysis.Sarif.RuleConfigurationDefaultLevel)">
+           <Member Name="#CreateResultLevelVersionOne(Microsoft.CodeAnalysis.Sarif.reportingConfigurationDefaultLevel)">
             <Messages>
              <Message Id="v" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2018-08-23 13:05:11Z">
               <Issue Name="MemberParameter">
-               <Item>'SarifTransformerUtilities.CreateResultLevelVersionOne(RuleConfigurationDefaultLevel)'</Item>
+               <Item>'SarifTransformerUtilities.CreateResultLevelVersionOne(reportingConfigurationDefaultLevel)'</Item>
                <Item>v</Item>
                <Item>'v2DefaultLevel'</Item>
               </Issue>
              </Message>
             </Messages>
            </Member>
-           <Member Name="#CreateRuleConfigurationDefaultLevel(Microsoft.CodeAnalysis.Sarif.VersionOne.ResultLevelVersionOne)">
+           <Member Name="#CreatereportingConfigurationDefaultLevel(Microsoft.CodeAnalysis.Sarif.VersionOne.ResultLevelVersionOne)">
             <Messages>
              <Message Id="v" TypeName="IdentifiersShouldBeSpelledCorrectly" Category="Microsoft.Naming" CheckId="CA1704" Created="2018-08-23 13:05:11Z">
               <Issue Name="MemberParameter">
-               <Item>'SarifTransformerUtilities.CreateRuleConfigurationDefaultLevel(ResultLevelVersionOne)'</Item>
+               <Item>'SarifTransformerUtilities.CreatereportingConfigurationDefaultLevel(ResultLevelVersionOne)'</Item>
                <Item>v</Item>
                <Item>'v1ResultLevel'</Item>
               </Issue>

@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Message = "message";
         public const string MessageStrings = "messageStrings";
         public const string Nodes = "nodes";
-        public const string NotificationsMetadata = "notificationsMetadata";
+        public const string NotificationDescriptors = "notificationDescriptors";
         public const string OriginalUriBaseIds = "originalUriBaseIds";
         public const string PhysicalLocation = "physicalLocation";
         public const string Provenance = "provenance";
@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Results = "results";
         public const string RichMessageStrings = "richMessageStrings";
         public const string RichText = "richText";
-        public const string RulesMetadata = "rulesMetadata";
+        public const string RuleDescriptors = "ruleDescriptors";
         public const string Runs = "runs";
         public const string Schema = "$schema";
         public const string ShortDescription = "shortDescription";

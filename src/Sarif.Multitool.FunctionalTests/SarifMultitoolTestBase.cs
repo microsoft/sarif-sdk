@@ -61,8 +61,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             SelectiveCompare(actualToolNotifications, expectedToolNotifications);
 
-            IList<MessageDescriptor> actualRules = actualLog.Runs[0].Tool.Driver.RulesMetadata;
-            IList<MessageDescriptor> expectedRules = expectedLog.Runs[0].Tool.Driver.RulesMetadata;
+            IList<ReportingDescriptor> actualRules = actualLog.Runs[0].Tool.Driver.RuleDescriptors;
+            IList<ReportingDescriptor> expectedRules = expectedLog.Runs[0].Tool.Driver.RuleDescriptors;
 
             SelectiveCompare(actualRules, expectedRules);
         }
@@ -114,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
         }
 
-        private static void SelectiveCompare(IList<MessageDescriptor> actualRules, IList<MessageDescriptor> expectedRules)
+        private static void SelectiveCompare(IList<ReportingDescriptor> actualRules, IList<ReportingDescriptor> expectedRules)
         {
             bool actualHasRules = actualRules != null && actualRules.Count > 0;
             bool expectedHasRules = expectedRules != null && expectedRules.Count > 0;
@@ -126,8 +126,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 for (int i = 0; i < actualRules.Count; ++i)
                 {
-                    MessageDescriptor actualRule = actualRules[i];
-                    MessageDescriptor expectedRule = expectedRules[i];
+                    ReportingDescriptor actualRule = actualRules[i];
+                    ReportingDescriptor expectedRule = expectedRules[i];
 
                     actualRule.Id.Should().Be(expectedRule.Id);
                 }

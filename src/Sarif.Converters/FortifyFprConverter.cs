@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private string _originalUriBasePath;
         private List<Result> _results = new List<Result>();
         private HashSet<FileData> _files;
-        private List<MessageDescriptor> _rules;
+        private List<ReportingDescriptor> _rules;
         private Dictionary<string, int> _ruleIdToIndexMap;
         private Dictionary<ThreadFlowLocation, string> _tflToNodeIdDictionary;
         private Dictionary<ThreadFlowLocation, string> _tflToSnippetIdDictionary;
@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             _results = new List<Result>();
             _files = new HashSet<FileData>(FileData.ValueComparer);
-            _rules = new List<MessageDescriptor>();
+            _rules = new List<ReportingDescriptor>();
             _ruleIdToIndexMap = new Dictionary<string, int>();
             _tflToNodeIdDictionary = new Dictionary<ThreadFlowLocation, string>();
             _tflToSnippetIdDictionary = new Dictionary<ThreadFlowLocation, string>();
@@ -118,7 +118,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     Driver = new ToolComponent
                     {
                         Name = ToolName,
-                        RulesMetadata = _rules
+                        RuleDescriptors = _rules
                     }
                 },
                 Invocations = new[] { _invocation },
@@ -621,7 +621,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private void ParseRuleFromDescription()
         {
-            var rule = new MessageDescriptor
+            var rule = new ReportingDescriptor
             {
                 Id = _reader.GetAttribute(_strings.ClassIdAttribute)
             };
@@ -911,7 +911,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 int ruleIndex = _ruleIdToIndexMap[result.RuleId];
                 result.RuleIndex = ruleIndex;
 
-                MessageDescriptor rule = _rules[ruleIndex];
+                ReportingDescriptor rule = _rules[ruleIndex];
                 Message message = rule.ShortDescription ?? rule.FullDescription;
 
                 if (_resultToReplacementDefinitionDictionary.TryGetValue(result, out Dictionary<string, string> replacements))
