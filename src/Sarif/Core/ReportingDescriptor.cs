@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public bool ShouldSerializeDefaultConfiguration()
         {
-            return !this.DefaultConfiguration.ValueEquals(ReportingConfiguration.Empty);
+            return this.DefaultConfiguration != null && !this.DefaultConfiguration.ValueEquals(ReportingConfiguration.Empty);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     public partial class ToolComponent
     {        
-        public bool ShouldSerializeRulesMetadata()
+        public bool ShouldSerializeRuleDescriptors()
         {
             return this.RuleDescriptors.HasAtLeastOneNonNullValue();
         }

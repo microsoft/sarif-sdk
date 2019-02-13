@@ -7,7 +7,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
     internal abstract class TestRuleBase : Skimmer<TestAnalysisContext>
     {
-        protected ReportingConfiguration _ruleConfiguration = null;
+        protected ReportingConfiguration _reportingConfiguration = null;
 
         public override SupportedPlatform SupportedPlatforms
         {
@@ -39,12 +39,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             get
             {
-                if (_ruleConfiguration == null)
+                if (_reportingConfiguration == null)
                 {
-                    _ruleConfiguration = new ReportingConfiguration();
+                    _reportingConfiguration = new ReportingConfiguration();
                 }
 
-                return _ruleConfiguration;
+                return _reportingConfiguration;
             }
         }
 

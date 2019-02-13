@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
         }
 
-        public static FailureLevel CreateRuleConfigurationDefaultLevel(ResultLevelVersionOne v1ResultLevel)
+        public static FailureLevel CreatereportingConfigurationDefaultLevel(ResultLevelVersionOne v1ResultLevel)
         {
             switch (v1ResultLevel)
             {

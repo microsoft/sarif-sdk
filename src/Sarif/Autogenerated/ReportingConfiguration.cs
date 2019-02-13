@@ -48,6 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "level", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(FailureLevel.Warning)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
         public FailureLevel Level { get; set; }
 
         /// <summary>
@@ -62,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Contains configuration information specific to a notification.
         /// </summary>
         [DataMember(Name = "parameters", IsRequired = false, EmitDefaultValue = false)]
-        public PropertyBag Parameters { get; set; }
+        public IDictionary<string, SerializedPropertyInfo> Parameters { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the notification configuration.
@@ -98,7 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ReportingConfiguration(bool enabled, FailureLevel level, double rank, PropertyBag parameters, IDictionary<string, SerializedPropertyInfo> properties)
+        public ReportingConfiguration(bool enabled, FailureLevel level, double rank, IDictionary<string, SerializedPropertyInfo> parameters, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(enabled, level, rank, parameters, properties);
         }
@@ -140,14 +141,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ReportingConfiguration(this);
         }
 
-        private void Init(bool enabled, FailureLevel level, double rank, PropertyBag parameters, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(bool enabled, FailureLevel level, double rank, IDictionary<string, SerializedPropertyInfo> parameters, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Enabled = enabled;
             Level = level;
             Rank = rank;
             if (parameters != null)
             {
-                Parameters = new PropertyBag(parameters);
+                Parameters = new Dictionary<string, SerializedPropertyInfo>(parameters);
             }
 
             if (properties != null)

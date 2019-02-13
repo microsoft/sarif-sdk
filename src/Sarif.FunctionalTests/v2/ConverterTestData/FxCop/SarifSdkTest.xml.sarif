@@ -6634,8 +6634,8 @@
           "parentKey": "sarif.dll!Microsoft.CodeAnalysis.Sarif.VersionOne.RuleVersionOne",
           "kind": "member"
         },
-        "sarif.dll!Microsoft.CodeAnalysis.Sarif.VersionOne.RuleVersionOne..ctor(System.String,System.String,System.String,System.String,System.Collections.Generic.IDictionary`2<System.String,System.String>,Microsoft.CodeAnalysis.Sarif.VersionOne.RuleConfigurationVersionOne,Microsoft.CodeAnalysis.Sarif.VersionOne.ResultLevelVersionOne,System.Uri,System.Collections.Generic.IDictionary`2<System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo>)": {
-          "name": ".ctor(System.String,System.String,System.String,System.String,System.Collections.Generic.IDictionary`2<System.String,System.String>,Microsoft.CodeAnalysis.Sarif.VersionOne.RuleConfigurationVersionOne,Microsoft.CodeAnalysis.Sarif.VersionOne.ResultLevelVersionOne,System.Uri,System.Collections.Generic.IDictionary`2<System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo>)",
+        "sarif.dll!Microsoft.CodeAnalysis.Sarif.VersionOne.RuleVersionOne..ctor(System.String,System.String,System.String,System.String,System.Collections.Generic.IDictionary`2<System.String,System.String>,Microsoft.CodeAnalysis.Sarif.VersionOne.reportingConfigurationVersionOne,Microsoft.CodeAnalysis.Sarif.VersionOne.ResultLevelVersionOne,System.Uri,System.Collections.Generic.IDictionary`2<System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo>)": {
+          "name": ".ctor(System.String,System.String,System.String,System.String,System.Collections.Generic.IDictionary`2<System.String,System.String>,Microsoft.CodeAnalysis.Sarif.VersionOne.reportingConfigurationVersionOne,Microsoft.CodeAnalysis.Sarif.VersionOne.ResultLevelVersionOne,System.Uri,System.Collections.Generic.IDictionary`2<System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo>)",
           "parentKey": "sarif.dll!Microsoft.CodeAnalysis.Sarif.VersionOne.RuleVersionOne",
           "kind": "member"
         },
@@ -7039,13 +7039,13 @@
           "parentKey": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities",
           "kind": "member"
         },
-        "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities.CreateResultLevelVersionOne(Microsoft.CodeAnalysis.Sarif.RuleConfigurationDefaultLevel)": {
-          "name": "CreateResultLevelVersionOne(Microsoft.CodeAnalysis.Sarif.RuleConfigurationDefaultLevel)",
+        "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities.CreateResultLevelVersionOne(Microsoft.CodeAnalysis.Sarif.reportingConfigurationDefaultLevel)": {
+          "name": "CreateResultLevelVersionOne(Microsoft.CodeAnalysis.Sarif.reportingConfigurationDefaultLevel)",
           "parentKey": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities",
           "kind": "member"
         },
-        "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities.CreateRuleConfigurationDefaultLevel(Microsoft.CodeAnalysis.Sarif.VersionOne.ResultLevelVersionOne)": {
-          "name": "CreateRuleConfigurationDefaultLevel(Microsoft.CodeAnalysis.Sarif.VersionOne.ResultLevelVersionOne)",
+        "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities.CreatereportingConfigurationDefaultLevel(Microsoft.CodeAnalysis.Sarif.VersionOne.ResultLevelVersionOne)": {
+          "name": "CreatereportingConfigurationDefaultLevel(Microsoft.CodeAnalysis.Sarif.VersionOne.ResultLevelVersionOne)",
           "parentKey": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities",
           "kind": "member"
         },
@@ -30196,7 +30196,7 @@
           "ruleId": "CA2214",
           "level": "warning",
           "message": {
-            "text": "'RuleVersionOne.RuleVersionOne(RuleVersionOne)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: \r\n\r\nRuleVersionOne..ctor(RuleVersionOne)\r\nRuleVersionOne.Init(String, String, String, String, IDictionary<String,String>, RuleConfigurationVersionOne, ResultLevelVersionOne, Uri, IDictionary<String,SerializedPropertyInfo>):Void\r\nPropertyBagHolderVersionOne.set_Properties(IDictionary<String,SerializedPropertyInfo>):Void"
+            "text": "'RuleVersionOne.RuleVersionOne(RuleVersionOne)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: \r\n\r\nRuleVersionOne..ctor(RuleVersionOne)\r\nRuleVersionOne.Init(String, String, String, String, IDictionary<String,String>, reportingConfigurationVersionOne, ResultLevelVersionOne, Uri, IDictionary<String,SerializedPropertyInfo>):Void\r\nPropertyBagHolderVersionOne.set_Properties(IDictionary<String,SerializedPropertyInfo>):Void"
           },
           "analysisTarget": {
             "uri": "../../../../../../sarif-sdk-test/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Sarif.dll",
@@ -30239,7 +30239,7 @@
           "ruleId": "CA2214",
           "level": "warning",
           "message": {
-            "text": "'RuleVersionOne.RuleVersionOne(string, string, string, string, IDictionary<string, string>, RuleConfigurationVersionOne, ResultLevelVersionOne, Uri, IDictionary<string, SerializedPropertyInfo>)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: \r\n\r\nRuleVersionOne..ctor(String, String, String, String, IDictionary<String,String>, RuleConfigurationVersionOne, ResultLevelVersionOne, Uri, IDictionary<String,SerializedPropertyInfo>)\r\nRuleVersionOne.Init(String, String, String, String, IDictionary<String,String>, RuleConfigurationVersionOne, ResultLevelVersionOne, Uri, IDictionary<String,SerializedPropertyInfo>):Void\r\nPropertyBagHolderVersionOne.set_Properties(IDictionary<String,SerializedPropertyInfo>):Void"
+            "text": "'RuleVersionOne.RuleVersionOne(string, string, string, string, IDictionary<string, string>, reportingConfigurationVersionOne, ResultLevelVersionOne, Uri, IDictionary<string, SerializedPropertyInfo>)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: \r\n\r\nRuleVersionOne..ctor(String, String, String, String, IDictionary<String,String>, reportingConfigurationVersionOne, ResultLevelVersionOne, Uri, IDictionary<String,SerializedPropertyInfo>)\r\nRuleVersionOne.Init(String, String, String, String, IDictionary<String,String>, reportingConfigurationVersionOne, ResultLevelVersionOne, Uri, IDictionary<String,SerializedPropertyInfo>):Void\r\nPropertyBagHolderVersionOne.set_Properties(IDictionary<String,SerializedPropertyInfo>):Void"
           },
           "analysisTarget": {
             "uri": "../../../../../../sarif-sdk-test/bld/bin/AnyCPU_Debug/Sarif.Multitool/net461/Sarif.dll",
@@ -30254,7 +30254,7 @@
                 "region": {
                   "startLine": 126,
                   "snippet": {
-                    "text": "        public RuleVersionOne(string id, string name, string shortDescription, string fullDescription, IDictionary<string, string> messageFormats, RuleConfigurationVersionOne configuration, ResultLevelVersionOne defaultLevel, Uri helpUri, IDictionary<string, SerializedPropertyInfo> properties)"
+                    "text": "        public RuleVersionOne(string id, string name, string shortDescription, string fullDescription, IDictionary<string, string> messageFormats, reportingConfigurationVersionOne configuration, ResultLevelVersionOne defaultLevel, Uri helpUri, IDictionary<string, SerializedPropertyInfo> properties)"
                   }
                 },
                 "contextRegion": {
@@ -30265,11 +30265,11 @@
                   "charOffset": 5687,
                   "charLength": 327,
                   "snippet": {
-                    "text": "        /// </param>\r\n        public RuleVersionOne(string id, string name, string shortDescription, string fullDescription, IDictionary<string, string> messageFormats, RuleConfigurationVersionOne configuration, ResultLevelVersionOne defaultLevel, Uri helpUri, IDictionary<string, SerializedPropertyInfo> properties)\r\n        {"
+                    "text": "        /// </param>\r\n        public RuleVersionOne(string id, string name, string shortDescription, string fullDescription, IDictionary<string, string> messageFormats, reportingConfigurationVersionOne configuration, ResultLevelVersionOne defaultLevel, Uri helpUri, IDictionary<string, SerializedPropertyInfo> properties)\r\n        {"
                   }
                 }
               },
-              "fullyQualifiedLogicalName": "sarif.dll!Microsoft.CodeAnalysis.Sarif.VersionOne.RuleVersionOne..ctor(System.String,System.String,System.String,System.String,System.Collections.Generic.IDictionary`2<System.String,System.String>,Microsoft.CodeAnalysis.Sarif.VersionOne.RuleConfigurationVersionOne,Microsoft.CodeAnalysis.Sarif.VersionOne.ResultLevelVersionOne,System.Uri,System.Collections.Generic.IDictionary`2<System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo>)"
+              "fullyQualifiedLogicalName": "sarif.dll!Microsoft.CodeAnalysis.Sarif.VersionOne.RuleVersionOne..ctor(System.String,System.String,System.String,System.String,System.Collections.Generic.IDictionary`2<System.String,System.String>,Microsoft.CodeAnalysis.Sarif.VersionOne.reportingConfigurationVersionOne,Microsoft.CodeAnalysis.Sarif.VersionOne.ResultLevelVersionOne,System.Uri,System.Collections.Generic.IDictionary`2<System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo>)"
             }
           ],
           "properties": {
@@ -33528,7 +33528,7 @@
           "ruleId": "CA1704",
           "level": "warning",
           "message": {
-            "text": "In method 'SarifTransformerUtilities.CreateResultLevelVersionOne(RuleConfigurationDefaultLevel)', correct the spelling of 'v' in parameter name 'v2DefaultLevel' or remove it entirely if it represents any sort of Hungarian notation.",
+            "text": "In method 'SarifTransformerUtilities.CreateResultLevelVersionOne(reportingConfigurationDefaultLevel)', correct the spelling of 'v' in parameter name 'v2DefaultLevel' or remove it entirely if it represents any sort of Hungarian notation.",
             "messageId": "MemberParameter"
           },
           "analysisTarget": {
@@ -33555,11 +33555,11 @@
                   "charOffset": 5409,
                   "charLength": 165,
                   "snippet": {
-                    "text": "        public static ResultLevelVersionOne CreateResultLevelVersionOne(RuleConfigurationDefaultLevel v2DefaultLevel)\r\n        {\r\n            switch (v2DefaultLevel)"
+                    "text": "        public static ResultLevelVersionOne CreateResultLevelVersionOne(reportingConfigurationDefaultLevel v2DefaultLevel)\r\n        {\r\n            switch (v2DefaultLevel)"
                   }
                 }
               },
-              "fullyQualifiedLogicalName": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities.CreateResultLevelVersionOne(Microsoft.CodeAnalysis.Sarif.RuleConfigurationDefaultLevel)"
+              "fullyQualifiedLogicalName": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities.CreateResultLevelVersionOne(Microsoft.CodeAnalysis.Sarif.reportingConfigurationDefaultLevel)"
             }
           ],
           "partialFingerprints": {
@@ -33575,7 +33575,7 @@
           "ruleId": "CA1704",
           "level": "warning",
           "message": {
-            "text": "In method 'SarifTransformerUtilities.CreateRuleConfigurationDefaultLevel(ResultLevelVersionOne)', correct the spelling of 'v' in parameter name 'v1ResultLevel' or remove it entirely if it represents any sort of Hungarian notation.",
+            "text": "In method 'SarifTransformerUtilities.CreatereportingConfigurationDefaultLevel(ResultLevelVersionOne)', correct the spelling of 'v' in parameter name 'v1ResultLevel' or remove it entirely if it represents any sort of Hungarian notation.",
             "messageId": "MemberParameter"
           },
           "analysisTarget": {
@@ -33602,11 +33602,11 @@
                   "charOffset": 3989,
                   "charLength": 171,
                   "snippet": {
-                    "text": "        public static RuleConfigurationDefaultLevel CreateRuleConfigurationDefaultLevel(ResultLevelVersionOne v1ResultLevel)\r\n        {\r\n            switch (v1ResultLevel)"
+                    "text": "        public static reportingConfigurationDefaultLevel CreatereportingConfigurationDefaultLevel(ResultLevelVersionOne v1ResultLevel)\r\n        {\r\n            switch (v1ResultLevel)"
                   }
                 }
               },
-              "fullyQualifiedLogicalName": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities.CreateRuleConfigurationDefaultLevel(Microsoft.CodeAnalysis.Sarif.VersionOne.ResultLevelVersionOne)"
+              "fullyQualifiedLogicalName": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities.CreatereportingConfigurationDefaultLevel(Microsoft.CodeAnalysis.Sarif.VersionOne.ResultLevelVersionOne)"
             }
           ],
           "partialFingerprints": {

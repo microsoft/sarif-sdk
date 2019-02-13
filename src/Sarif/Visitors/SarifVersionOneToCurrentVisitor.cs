@@ -807,12 +807,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     ShortDescription = CreateMessage(v1Rule.ShortDescription)
                 };
 
-                FailureLevel level = Utilities.CreateRuleConfigurationDefaultLevel(v1Rule.DefaultLevel);
+                FailureLevel level = Utilities.CreatereportingConfigurationDefaultLevel(v1Rule.DefaultLevel);
 
                 rule.DefaultConfiguration = new ReportingConfiguration
                 {
                     Level = level,
-                    Enabled = v1Rule.Configuration != RuleConfigurationVersionOne.Disabled
+                    Enabled = v1Rule.Configuration != reportingConfigurationVersionOne.Disabled
                 };
             }
 

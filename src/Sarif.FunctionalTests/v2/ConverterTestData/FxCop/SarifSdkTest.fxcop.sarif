@@ -3054,8 +3054,8 @@
           "parentKey": "sarif.dll!Microsoft.CodeAnalysis.Sarif.VersionOne.RuleVersionOne",
           "kind": "member"
         },
-        "sarif.dll!Microsoft.CodeAnalysis.Sarif.VersionOne.RuleVersionOne..ctor(System.String,System.String,System.String,System.String,System.Collections.Generic.IDictionary`2<System.String,System.String>,Microsoft.CodeAnalysis.Sarif.VersionOne.RuleConfigurationVersionOne,Microsoft.CodeAnalysis.Sarif.VersionOne.ResultLevelVersionOne,System.Uri,System.Collections.Generic.IDictionary`2<System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo>)": {
-          "name": ".ctor(System.String,System.String,System.String,System.String,System.Collections.Generic.IDictionary`2<System.String,System.String>,Microsoft.CodeAnalysis.Sarif.VersionOne.RuleConfigurationVersionOne,Microsoft.CodeAnalysis.Sarif.VersionOne.ResultLevelVersionOne,System.Uri,System.Collections.Generic.IDictionary`2<System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo>)",
+        "sarif.dll!Microsoft.CodeAnalysis.Sarif.VersionOne.RuleVersionOne..ctor(System.String,System.String,System.String,System.String,System.Collections.Generic.IDictionary`2<System.String,System.String>,Microsoft.CodeAnalysis.Sarif.VersionOne.reportingConfigurationVersionOne,Microsoft.CodeAnalysis.Sarif.VersionOne.ResultLevelVersionOne,System.Uri,System.Collections.Generic.IDictionary`2<System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo>)": {
+          "name": ".ctor(System.String,System.String,System.String,System.String,System.Collections.Generic.IDictionary`2<System.String,System.String>,Microsoft.CodeAnalysis.Sarif.VersionOne.reportingConfigurationVersionOne,Microsoft.CodeAnalysis.Sarif.VersionOne.ResultLevelVersionOne,System.Uri,System.Collections.Generic.IDictionary`2<System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo>)",
           "parentKey": "sarif.dll!Microsoft.CodeAnalysis.Sarif.VersionOne.RuleVersionOne",
           "kind": "member"
         },
@@ -3459,13 +3459,13 @@
           "parentKey": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities",
           "kind": "member"
         },
-        "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities.CreateResultLevelVersionOne(Microsoft.CodeAnalysis.Sarif.RuleConfigurationDefaultLevel)": {
-          "name": "CreateResultLevelVersionOne(Microsoft.CodeAnalysis.Sarif.RuleConfigurationDefaultLevel)",
+        "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities.CreateResultLevelVersionOne(Microsoft.CodeAnalysis.Sarif.reportingConfigurationDefaultLevel)": {
+          "name": "CreateResultLevelVersionOne(Microsoft.CodeAnalysis.Sarif.reportingConfigurationDefaultLevel)",
           "parentKey": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities",
           "kind": "member"
         },
-        "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities.CreateRuleConfigurationDefaultLevel(Microsoft.CodeAnalysis.Sarif.VersionOne.ResultLevelVersionOne)": {
-          "name": "CreateRuleConfigurationDefaultLevel(Microsoft.CodeAnalysis.Sarif.VersionOne.ResultLevelVersionOne)",
+        "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities.CreatereportingConfigurationDefaultLevel(Microsoft.CodeAnalysis.Sarif.VersionOne.ResultLevelVersionOne)": {
+          "name": "CreatereportingConfigurationDefaultLevel(Microsoft.CodeAnalysis.Sarif.VersionOne.ResultLevelVersionOne)",
           "parentKey": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities",
           "kind": "member"
         },
@@ -20525,7 +20525,7 @@
             "messageId": "Default",
             "arguments": [
               "'RuleVersionOne.RuleVersionOne(RuleVersionOne)'",
-              "\r\n\r\nRuleVersionOne..ctor(RuleVersionOne)\r\nRuleVersionOne.Init(String, String, String, String, IDictionary<String,String>, RuleConfigurationVersionOne, ResultLevelVersionOne, Uri, IDictionary<String,SerializedPropertyInfo>):Void\r\nPropertyBagHolderVersionOne.set_Properties(IDictionary<String,SerializedPropertyInfo>):Void"
+              "\r\n\r\nRuleVersionOne..ctor(RuleVersionOne)\r\nRuleVersionOne.Init(String, String, String, String, IDictionary<String,String>, reportingConfigurationVersionOne, ResultLevelVersionOne, Uri, IDictionary<String,SerializedPropertyInfo>):Void\r\nPropertyBagHolderVersionOne.set_Properties(IDictionary<String,SerializedPropertyInfo>):Void"
             ]
           },
           "locations": [
@@ -20551,8 +20551,8 @@
           "message": {
             "messageId": "Default",
             "arguments": [
-              "'RuleVersionOne.RuleVersionOne(string, string, string, string, IDictionary<string, string>, RuleConfigurationVersionOne, ResultLevelVersionOne, Uri, IDictionary<string, SerializedPropertyInfo>)'",
-              "\r\n\r\nRuleVersionOne..ctor(String, String, String, String, IDictionary<String,String>, RuleConfigurationVersionOne, ResultLevelVersionOne, Uri, IDictionary<String,SerializedPropertyInfo>)\r\nRuleVersionOne.Init(String, String, String, String, IDictionary<String,String>, RuleConfigurationVersionOne, ResultLevelVersionOne, Uri, IDictionary<String,SerializedPropertyInfo>):Void\r\nPropertyBagHolderVersionOne.set_Properties(IDictionary<String,SerializedPropertyInfo>):Void"
+              "'RuleVersionOne.RuleVersionOne(string, string, string, string, IDictionary<string, string>, reportingConfigurationVersionOne, ResultLevelVersionOne, Uri, IDictionary<string, SerializedPropertyInfo>)'",
+              "\r\n\r\nRuleVersionOne..ctor(String, String, String, String, IDictionary<String,String>, reportingConfigurationVersionOne, ResultLevelVersionOne, Uri, IDictionary<String,SerializedPropertyInfo>)\r\nRuleVersionOne.Init(String, String, String, String, IDictionary<String,String>, reportingConfigurationVersionOne, ResultLevelVersionOne, Uri, IDictionary<String,SerializedPropertyInfo>):Void\r\nPropertyBagHolderVersionOne.set_Properties(IDictionary<String,SerializedPropertyInfo>):Void"
             ]
           },
           "locations": [
@@ -20563,7 +20563,7 @@
                   "uriBaseId": "$(ProjectDir)"
                 }
               },
-              "fullyQualifiedLogicalName": "sarif.dll!Microsoft.CodeAnalysis.Sarif.VersionOne.RuleVersionOne..ctor(System.String,System.String,System.String,System.String,System.Collections.Generic.IDictionary`2<System.String,System.String>,Microsoft.CodeAnalysis.Sarif.VersionOne.RuleConfigurationVersionOne,Microsoft.CodeAnalysis.Sarif.VersionOne.ResultLevelVersionOne,System.Uri,System.Collections.Generic.IDictionary`2<System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo>)"
+              "fullyQualifiedLogicalName": "sarif.dll!Microsoft.CodeAnalysis.Sarif.VersionOne.RuleVersionOne..ctor(System.String,System.String,System.String,System.String,System.Collections.Generic.IDictionary`2<System.String,System.String>,Microsoft.CodeAnalysis.Sarif.VersionOne.reportingConfigurationVersionOne,Microsoft.CodeAnalysis.Sarif.VersionOne.ResultLevelVersionOne,System.Uri,System.Collections.Generic.IDictionary`2<System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo>)"
             }
           ],
           "partialFingerprints": {
@@ -22745,7 +22745,7 @@
           "message": {
             "messageId": "MemberParameter",
             "arguments": [
-              "'SarifTransformerUtilities.CreateResultLevelVersionOne(RuleConfigurationDefaultLevel)'",
+              "'SarifTransformerUtilities.CreateResultLevelVersionOne(reportingConfigurationDefaultLevel)'",
               "v",
               "'v2DefaultLevel'"
             ]
@@ -22758,7 +22758,7 @@
                   "uriBaseId": "$(ProjectDir)"
                 }
               },
-              "fullyQualifiedLogicalName": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities.CreateResultLevelVersionOne(Microsoft.CodeAnalysis.Sarif.RuleConfigurationDefaultLevel)"
+              "fullyQualifiedLogicalName": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities.CreateResultLevelVersionOne(Microsoft.CodeAnalysis.Sarif.reportingConfigurationDefaultLevel)"
             }
           ],
           "partialFingerprints": {
@@ -22773,7 +22773,7 @@
           "message": {
             "messageId": "MemberParameter",
             "arguments": [
-              "'SarifTransformerUtilities.CreateRuleConfigurationDefaultLevel(ResultLevelVersionOne)'",
+              "'SarifTransformerUtilities.CreatereportingConfigurationDefaultLevel(ResultLevelVersionOne)'",
               "v",
               "'v1ResultLevel'"
             ]
@@ -22786,7 +22786,7 @@
                   "uriBaseId": "$(ProjectDir)"
                 }
               },
-              "fullyQualifiedLogicalName": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities.CreateRuleConfigurationDefaultLevel(Microsoft.CodeAnalysis.Sarif.VersionOne.ResultLevelVersionOne)"
+              "fullyQualifiedLogicalName": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Visitors.SarifTransformerUtilities.CreatereportingConfigurationDefaultLevel(Microsoft.CodeAnalysis.Sarif.VersionOne.ResultLevelVersionOne)"
             }
           ],
           "partialFingerprints": {

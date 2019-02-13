@@ -126,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 foreach (JObject run in runs)
                 {
                     // https://github.com/oasis-tcs/sarif-spec/issues/311
-                    MoveRulesMetadataAndConfiguration(run);
+                    MoveRuleDescriptors(run);
 
                     // https://github.com/oasis-tcs/sarif-spec/issues/179
                     MoveToolPropertiesIntoDriverToolComponent(run);
@@ -172,7 +172,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             //  toolComponent -> new file role.
         }
 
-        private static void MoveRulesMetadataAndConfiguration(JObject run)
+        private static void MoveRuleDescriptors(JObject run)
         {
             // https://github.com/oasis-tcs/sarif-spec/issues/311
 
@@ -196,10 +196,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     RenameProperty(rule, previousName: "configuration", newName: "defaultConfiguration");
 
-                    if (rule["defaultConfiguration"] is JObject ruleConfiguration)
+                    if (rule["defaultConfiguration"] is JObject reportingConfiguration)
                     {
-                        RenameProperty(ruleConfiguration, previousName: "defaultLevel", newName: "level");
-                        RenameProperty(ruleConfiguration, previousName: "defaultRank", newName: "rank");
+                        RenameProperty(reportingConfiguration, previousName: "defaultLevel", newName: "level");
+                        RenameProperty(reportingConfiguration, previousName: "defaultRank", newName: "rank");
                     }
                 }
                 tool["ruleDescriptors"] = rules;

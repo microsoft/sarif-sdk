@@ -319,7 +319,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             run.Results.Add(
                 new Result
                 {
-                    RuleId = "RuleWithNoRulesMetadata",
+                    RuleId = "RuleWithNoRuleDescriptor",
                     Message = new Message
                     {
                         Text = "Some testing occurred."

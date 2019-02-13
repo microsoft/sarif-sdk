@@ -43,9 +43,26 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!PropertyBag.ValueComparer.Equals(left.Parameters, right.Parameters))
+            if (!object.ReferenceEquals(left.Parameters, right.Parameters))
             {
-                return false;
+                if (left.Parameters == null || right.Parameters == null || left.Parameters.Count != right.Parameters.Count)
+                {
+                    return false;
+                }
+
+                foreach (var value_0 in left.Parameters)
+                {
+                    SerializedPropertyInfo value_1;
+                    if (!right.Parameters.TryGetValue(value_0.Key, out value_1))
+                    {
+                        return false;
+                    }
+
+                    if (!object.Equals(value_0.Value, value_1))
+                    {
+                        return false;
+                    }
+                }
             }
 
             if (!object.ReferenceEquals(left.Properties, right.Properties))
@@ -55,15 +72,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                foreach (var value_0 in left.Properties)
+                foreach (var value_2 in left.Properties)
                 {
-                    SerializedPropertyInfo value_1;
-                    if (!right.Properties.TryGetValue(value_0.Key, out value_1))
+                    SerializedPropertyInfo value_3;
+                    if (!right.Properties.TryGetValue(value_2.Key, out value_3))
                     {
                         return false;
                     }
 
-                    if (!object.Equals(value_0.Value, value_1))
+                    if (!object.Equals(value_2.Value, value_3))
                     {
                         return false;
                     }
@@ -84,29 +101,38 @@ namespace Microsoft.CodeAnalysis.Sarif
             unchecked
             {
                 result = (result * 31) + obj.Enabled.GetHashCode();
-
                 result = (result * 31) + obj.Level.GetHashCode();
-
                 result = (result * 31) + obj.Rank.GetHashCode();
                 if (obj.Parameters != null)
                 {
-                    result = (result * 31) + obj.Parameters.ValueGetHashCode();
+                    // Use xor for dictionaries to be order-independent.
+                    int xor_0 = 0;
+                    foreach (var value_4 in obj.Parameters)
+                    {
+                        xor_0 ^= value_4.Key.GetHashCode();
+                        if (value_4.Value != null)
+                        {
+                            xor_0 ^= value_4.Value.GetHashCode();
+                        }
+                    }
+
+                    result = (result * 31) + xor_0;
                 }
 
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
-                    int xor_0 = 0;
-                    foreach (var value_2 in obj.Properties)
+                    int xor_1 = 0;
+                    foreach (var value_5 in obj.Properties)
                     {
-                        xor_0 ^= value_2.Key.GetHashCode();
-                        if (value_2.Value != null)
+                        xor_1 ^= value_5.Key.GetHashCode();
+                        if (value_5.Value != null)
                         {
-                            xor_0 ^= value_2.Value.GetHashCode();
+                            xor_1 ^= value_5.Value.GetHashCode();
                         }
                     }
 
-                    result = (result * 31) + xor_0;
+                    result = (result * 31) + xor_1;
                 }
             }
 
