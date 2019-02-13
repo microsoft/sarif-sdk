@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
         /// A value specifying whether a rule is enabled.
         /// </summary>
         [DataMember(Name = "configuration", IsRequired = false, EmitDefaultValue = false)]
-        public reportingConfigurationVersionOne Configuration { get; set; }
+        public RuleConfigurationVersionOne Configuration { get; set; }
 
         /// <summary>
         /// A value specifying the default severity level of the result.
@@ -123,7 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
         /// <param name="properties">
         /// An initialization value for the <see cref="P: Properties" /> property.
         /// </param>
-        public RuleVersionOne(string id, string name, string shortDescription, string fullDescription, IDictionary<string, string> messageFormats, reportingConfigurationVersionOne configuration, ResultLevelVersionOne defaultLevel, Uri helpUri, IDictionary<string, SerializedPropertyInfo> properties)
+        public RuleVersionOne(string id, string name, string shortDescription, string fullDescription, IDictionary<string, string> messageFormats, RuleConfigurationVersionOne configuration, ResultLevelVersionOne defaultLevel, Uri helpUri, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(id, name, shortDescription, fullDescription, messageFormats, configuration, defaultLevel, helpUri, properties);
         }
@@ -165,7 +165,7 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
             return new RuleVersionOne(this);
         }
 
-        private void Init(string id, string name, string shortDescription, string fullDescription, IDictionary<string, string> messageFormats, reportingConfigurationVersionOne configuration, ResultLevelVersionOne defaultLevel, Uri helpUri, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string id, string name, string shortDescription, string fullDescription, IDictionary<string, string> messageFormats, RuleConfigurationVersionOne configuration, ResultLevelVersionOne defaultLevel, Uri helpUri, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             Name = name;

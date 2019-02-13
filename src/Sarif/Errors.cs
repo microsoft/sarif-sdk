@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private const string ERR997_ExceptionLoadingPlugIn = "ERR997.ExceptionLoadingPlugIn";
         private const string ERR997_NoValidAnalysisTargets = "ERR997.NoValidAnalysisTargets";
         private const string ERR997_ExceptionAccessingFile = "ERR997.ExceptionAccessingFile";
-        private const string ERR997_MissingreportingConfiguration = "ERR997.MissingreportingConfiguration";
+        private const string ERR997_MissingReportingConfiguration = "ERR997.MissingReportingConfiguration";
         private const string ERR997_ExceptionCreatingLogFile = "ERR997.ExceptionCreatingLogFile";
         private const string ERR997_AllRulesExplicitlyDisabled = "ERR997.AllRulesExplicitlyDisabled";
         private const string ERR997_InvalidInvocationPropertyName = "ERR997.InvalidInvocationPropertyName";
@@ -262,7 +262,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // to invoke built-in settings. Invoke the {3} 'exportConfig' command
             // to produce an initial configuration file that can be edited, if
             // necessary, and passed back into the tool.
-            string message = string.Format(CultureInfo.InvariantCulture, SdkResources.ERR997_MissingreportingConfiguration,
+            string message = string.Format(CultureInfo.InvariantCulture, SdkResources.ERR997_MissingReportingConfiguration,
                 context.Rule.Name.Text,
                 context.TargetUri.GetFileName(),
                 reasonForNotAnalyzing,
@@ -278,7 +278,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                             Uri = context.TargetUri
                         },
                     },
-                    Id = ERR997_MissingreportingConfiguration,
+                    Id = ERR997_MissingReportingConfiguration,
                     RuleId = context.Rule.Id,
                     Level = FailureLevel.Error,
                     Message = new Message { Text = message }

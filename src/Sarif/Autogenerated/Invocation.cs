@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int ExitCode { get; set; }
 
         /// <summary>
-        /// An array of notification configuration override objects that describe runtime reporting behavior.
+        /// An array of reportingConfigurationOverride objects that describe runtime reporting behavior.
         /// </summary>
         [DataMember(Name = "reportingConfigurationOverrides", IsRequired = false, EmitDefaultValue = false)]
         public IList<ReportingConfigurationOverride> ReportingConfigurationOverrides { get; set; }

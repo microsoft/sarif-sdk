@@ -77,14 +77,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IDictionary<string, string> GlobalMessageStrings { get; set; }
 
         /// <summary>
-        /// An array of message descriptor objects relevant to the notifications related to the configuration and runtime execution of the component.
+        /// An array of reportDescriptor objects relevant to the notifications related to the configuration and runtime execution of the component.
         /// </summary>
         [DataMember(Name = "notificationDescriptors", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<ReportingDescriptor> NotificationDescriptors { get; set; }
 
         /// <summary>
-        /// An array of message descriptor objects relevant to the analysis performed by the component.
+        /// An array of reportDescriptor objects relevant to the analysis performed by the component.
         /// </summary>
         [DataMember(Name = "ruleDescriptors", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]

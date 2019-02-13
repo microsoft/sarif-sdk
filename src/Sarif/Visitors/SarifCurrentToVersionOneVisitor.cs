@@ -845,8 +845,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 if (v2MessageDescriptor.DefaultConfiguration != null)
                 {
                     rule.Configuration = v2MessageDescriptor.DefaultConfiguration.Enabled ?
-                            reportingConfigurationVersionOne.Enabled :
-                            reportingConfigurationVersionOne.Disabled;
+                            RuleConfigurationVersionOne.Enabled :
+                            RuleConfigurationVersionOne.Disabled;
                     rule.DefaultLevel = Utilities.CreateResultLevelVersionOne(v2MessageDescriptor.DefaultConfiguration.Level);
                 }
             }

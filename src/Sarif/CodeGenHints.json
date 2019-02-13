@@ -334,7 +334,7 @@
       "kind": "EnumHint",
       "arguments": {
         "typeName": "FailureLevel",
-        "description": "Values specifying the level of a notification or result.",
+        "description": "Values specifying the failure level of a notification or result.",
         "memberNames": [
           "None",
           "Note",
@@ -417,7 +417,7 @@
       "kind": "EnumHint",
       "arguments": {
         "typeName": "FailureLevel",
-        "description": "A value that specifies the failure level of the result",
+        "description": "Values specifying the failure level of a notification or result.",
         "memberNames": [
           "None",
           "Note",
@@ -581,7 +581,7 @@
       "kind": "EnumHint",
       "arguments": {
         "typeName": "FailureLevel",
-        "description": "Values specifying the level of a notification or result.",
+        "description": "Values specifying the failure level of a notification or result.",
         "memberNames": [
           "None",
           "Note",

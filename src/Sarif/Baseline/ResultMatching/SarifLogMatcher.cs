@@ -238,7 +238,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 properties = currentRuns.Last().Properties;
             }
 
-            var ruleDescriptors = new Dictionary<ReportingDescriptor, int>(ReportingDescriptor.ValueComparer);
+            var reportingDescriptors = new Dictionary<ReportingDescriptor, int>(ReportingDescriptor.ValueComparer);
 
             var indexRemappingVisitor = new RemapIndicesVisitor(currentFiles: null);
 
@@ -262,9 +262,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 if (result.RuleIndex != -1)
                 {
                     ReportingDescriptor rule = resultPair.Run.Tool.Driver.RuleDescriptors[0];
-                    if (!ruleDescriptors.TryGetValue(rule, out int ruleIndex))
+                    if (!reportingDescriptors.TryGetValue(rule, out int ruleIndex))
                     {
-                        ruleDescriptors[rule] = run.Tool.Driver.RuleDescriptors.Count;
+                        reportingDescriptors[rule] = run.Tool.Driver.RuleDescriptors.Count;
                         run.Tool.Driver.RuleDescriptors.Add(rule);
                     }
                     result.RuleIndex = ruleIndex;

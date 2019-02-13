@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
     /// A value that specifies whether a rule is enabled.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.52.0.0")]
-    public enum reportingConfigurationVersionOne
+    public enum RuleConfigurationVersionOne
     {
         Unknown,
         Enabled,

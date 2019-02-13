@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Information about how a specific tool reportiung output was reconfigured at runtime.
+    /// Information about how a specific tool report was reconfigured at runtime.
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
@@ -35,13 +35,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// Specifies whether the notification may produce an output during the scan.
+        /// Specifies how the report was configured during the scan.
         /// </summary>
         [DataMember(Name = "configuration", IsRequired = false, EmitDefaultValue = false)]
         public ReportingConfiguration Configuration { get; set; }
 
         /// <summary>
-        /// The index within the tool component notifications descriptors array of the reporting descriptor associated with this override.
+        /// The index within the toolComponent.notificationDescriptors array of the reportingDescriptor associated with this override.
         /// </summary>
         [DataMember(Name = "notificationIndex", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int NotificationIndex { get; set; }
 
         /// <summary>
-        /// The index within the tool component rule descriptors array of the reporting descriptor associated with this override.
+        /// The index within the toolComponent.ruleDescriptors array of the reportingDescriptor associated with this override.
         /// </summary>
         [DataMember(Name = "ruleIndex", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int RuleIndex { get; set; }
 
         /// <summary>
-        /// The index within the run.tool.extensions array of the tool component object which describes the plug-in or tool extension that produced the result.
+        /// The index within the run.tool.extensions array of the toolComponent object which describes the plug-in or tool extension that produced the report.
         /// </summary>
         [DataMember(Name = "extensionIndex", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int ExtensionIndex { get; set; }
 
         /// <summary>
-        /// Key/value pairs that provide additional information about the notification configuration.
+        /// Key/value pairs that provide additional information about the reporting configuration.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }

@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.VersionOne
         /// <summary>
         /// A value specifying whether a rule is enabled.
         /// </summary>
-        reportingConfigurationVersionOne Configuration { get; }
+        RuleConfigurationVersionOne Configuration { get; }
 
         /// <summary>
         /// A value specifying the default severity level of the result.

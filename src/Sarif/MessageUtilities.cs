@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // that can be edited if required and passed back into the tool.
             return String.Format(
                 CultureInfo.InvariantCulture,
-                SdkResources.ERR997_MissingreportingConfiguration,
+                SdkResources.ERR997_MissingReportingConfiguration,
                 ruleName,
                 reason);
         }
