@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
         {
-            AnalyzeMessageStrings(messageDescriptor.MessageStrings, reportingDescriptorPointer, SarifPropertyName.MessageStrings);
+            AnalyzeMessageStrings(reportingDescriptor.MessageStrings, reportingDescriptorPointer, SarifPropertyName.MessageStrings);
         }
 
         private void AnalyzeMessageStrings(

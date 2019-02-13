@@ -196,7 +196,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             descriptorsObject.Remove("richMessageStrings");
         }
 
-        private static void MoveRulesMetadataAndConfiguration(JObject run)
+        private static void MoveRuleDescriptors(JObject run)
         {
             // https://github.com/oasis-tcs/sarif-spec/issues/311
 

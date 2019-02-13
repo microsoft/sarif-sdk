@@ -372,6 +372,16 @@
       }
     }
   ],
+  "physicalLocation": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
   "rectangle": [
     {
       "kind": "BaseTypeHint",

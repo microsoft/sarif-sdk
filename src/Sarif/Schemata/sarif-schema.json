@@ -1323,15 +1323,7 @@
           "description": "A set of name/value pairs with arbitrary names. The value within each name/value pair consists of plain text interspersed with placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.",
           "type": "object",
           "additionalProperties": {
-            "type": "string"
-          }
-        },
-
-        "richMessageStrings": {
-          "description": "A set of name/value pairs with arbitrary names. The value within each name/value pair consists of rich text interspersed with placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.",
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
+            "$ref": "#/definitions/multiformatMessageString"
           }
         },
 
