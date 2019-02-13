@@ -105,7 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected virtual void Analyze(Message message, string messagePointer)
         {
         }
-        protected virtual void Analyze(ReportingDescriptor reportingDescriptor, string messageDescriptorPointer)
+        protected virtual void Analyze(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
         {
         }
 
@@ -484,9 +484,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             Analyze(message, messagePointer);
         }
 
-        private void VisitMessageDescriptor(ReportingDescriptor reportingDescriptor, string messageDescriptorPointer)
+        private void VisitReportingDescriptor(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
         {
-            Analyze(reportingDescriptor, messageDescriptorPointer);
+            Analyze(reportingDescriptor, reportingDescriptorPointer);
         }
 
         private void Visit(Node node, string nodePointer)
@@ -670,18 +670,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
-        private void Visit(ReportingDescriptor messageDecriptor, string messageDescriptorPointer)
+        private void Visit(ReportingDescriptor reportingDecriptor, string reportingDescriptorPointer)
         {
-            Analyze(messageDecriptor, messageDescriptorPointer);
+            Analyze(reportingDecriptor, reportingDescriptorPointer);
 
-            if (messageDecriptor.ShortDescription != null)
+            if (reportingDecriptor.ShortDescription != null)
             {
-                Visit(messageDecriptor.ShortDescription, messageDescriptorPointer.AtProperty(SarifPropertyName.ShortDescription));
+                Visit(reportingDecriptor.ShortDescription, reportingDescriptorPointer.AtProperty(SarifPropertyName.ShortDescription));
             }
 
-            if (messageDecriptor.FullDescription != null)
+            if (reportingDecriptor.FullDescription != null)
             {
-                Visit(messageDecriptor.FullDescription, messageDescriptorPointer.AtProperty(SarifPropertyName.FullDescription));
+                Visit(reportingDecriptor.FullDescription, reportingDescriptorPointer.AtProperty(SarifPropertyName.FullDescription));
             }
         }
 
