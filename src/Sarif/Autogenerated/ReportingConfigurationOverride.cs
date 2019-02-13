@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
-    public partial class ReportingConfigurationOverride : ISarifNode
+    public partial class ReportingConfigurationOverride : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ReportingConfigurationOverride> ValueComparer => ReportingConfigurationOverrideEqualityComparer.Instance;
 

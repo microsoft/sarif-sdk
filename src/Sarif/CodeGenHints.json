@@ -412,6 +412,16 @@
       }
     }
   ],
+  "reportingConfigurationOverride": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
   "reportingDescriptor": [
     {
       "kind": "BaseTypeHint",
