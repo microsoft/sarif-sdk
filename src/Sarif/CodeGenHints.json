@@ -339,6 +339,16 @@
       "kind": "DictionaryHint"
     }
   ],
+  "multiformatMessageString": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
   "node": [
     {
       "kind": "BaseTypeHint",

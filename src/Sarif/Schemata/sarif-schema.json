@@ -937,13 +937,13 @@
           "type": "string"
         },
 
-        "richText": {
-          "description": "A rich text message string.",
+        "markdown": {
+          "description": "A markdown message string.",
           "type": "string"
         },
 
-        "richMessageId": {
-          "description": "The resource id for a rich text message string.",
+        "markdownMessageId": {
+          "description": "The resource id for a message message string.",
           "type": "string"
         },
 
@@ -956,6 +956,30 @@
           "items": {
             "type": "string"
           }
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the message.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      }
+    },
+
+    "multiformatMessageString": {
+      "description": "A message string or message format string rendered in multiple formats.",
+      "type": "object",
+      "additionalProperties": false,
+
+      "properties": {
+
+        "text": {
+          "description": "A plain text message string or format string.",
+          "type": "string"
+        },
+
+        "markdown": {
+          "description": "A markdown message string or format string..",
+          "type": "string"
         },
 
         "properties": {
@@ -1581,15 +1605,7 @@
           "description": "A set of name/value pairs with arbitrary names. The value within each name/value pair consists of plain text interspersed with placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.",
           "type": "object",
           "additionalProperties": {
-            "type": "string"
-          }
-        },
-
-        "richMessageStrings": {
-          "description": "A set of name/value pairs with arbitrary names. The value within each name/value pair consists of rich text interspersed with placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.",
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
+            "$ref": "#/definitions/multiformatMessageString"
           }
         },
 
