@@ -81,14 +81,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "notificationDescriptors", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<OutputDescriptor> NotificationDescriptors { get; set; }
+        public IList<ReportingDescriptor> NotificationDescriptors { get; set; }
 
         /// <summary>
         /// An array of message descriptor objects relevant to the analysis performed by the component.
         /// </summary>
         [DataMember(Name = "ruleDescriptors", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<OutputDescriptor> RuleDescriptors { get; set; }
+        public IList<ReportingDescriptor> RuleDescriptors { get; set; }
 
         /// <summary>
         /// The index within the run files array of the file object associated with the component.
@@ -148,7 +148,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ToolComponent(string name, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, string> globalMessageStrings, IEnumerable<OutputDescriptor> notificationDescriptors, IEnumerable<OutputDescriptor> ruleDescriptors, int fileIndex, IDictionary<string, SerializedPropertyInfo> properties)
+        public ToolComponent(string name, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, string> globalMessageStrings, IEnumerable<ReportingDescriptor> notificationDescriptors, IEnumerable<ReportingDescriptor> ruleDescriptors, int fileIndex, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(name, fullName, version, semanticVersion, dottedQuadFileVersion, downloadUri, globalMessageStrings, notificationDescriptors, ruleDescriptors, fileIndex, properties);
         }
@@ -190,7 +190,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ToolComponent(this);
         }
 
-        private void Init(string name, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, string> globalMessageStrings, IEnumerable<OutputDescriptor> notificationDescriptors, IEnumerable<OutputDescriptor> ruleDescriptors, int fileIndex, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string name, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, string> globalMessageStrings, IEnumerable<ReportingDescriptor> notificationDescriptors, IEnumerable<ReportingDescriptor> ruleDescriptors, int fileIndex, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Name = name;
             FullName = fullName;
@@ -209,7 +209,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (notificationDescriptors != null)
             {
-                var destination_0 = new List<OutputDescriptor>();
+                var destination_0 = new List<ReportingDescriptor>();
                 foreach (var value_0 in notificationDescriptors)
                 {
                     if (value_0 == null)
@@ -218,7 +218,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_0.Add(new OutputDescriptor(value_0));
+                        destination_0.Add(new ReportingDescriptor(value_0));
                     }
                 }
 
@@ -227,7 +227,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (ruleDescriptors != null)
             {
-                var destination_1 = new List<OutputDescriptor>();
+                var destination_1 = new List<ReportingDescriptor>();
                 foreach (var value_1 in ruleDescriptors)
                 {
                     if (value_1 == null)
@@ -236,7 +236,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_1.Add(new OutputDescriptor(value_1));
+                        destination_1.Add(new ReportingDescriptor(value_1));
                     }
                 }
 

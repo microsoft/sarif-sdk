@@ -9,14 +9,14 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Defines methods to support the comparison of objects of type OutputConfigurationOverride for equality.
+    /// Defines methods to support the comparison of objects of type ReportingConfiguration for equality.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
-    internal sealed class OutputConfigurationOverrideEqualityComparer : IEqualityComparer<OutputConfigurationOverride>
+    internal sealed class ReportingConfigurationEqualityComparer : IEqualityComparer<ReportingConfiguration>
     {
-        internal static readonly OutputConfigurationOverrideEqualityComparer Instance = new OutputConfigurationOverrideEqualityComparer();
+        internal static readonly ReportingConfigurationEqualityComparer Instance = new ReportingConfigurationEqualityComparer();
 
-        public bool Equals(OutputConfigurationOverride left, OutputConfigurationOverride right)
+        public bool Equals(ReportingConfiguration left, ReportingConfiguration right)
         {
             if (ReferenceEquals(left, right))
             {
@@ -28,22 +28,22 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!OutputConfiguration.ValueComparer.Equals(left.Configuration, right.Configuration))
+            if (left.Enabled != right.Enabled)
             {
                 return false;
             }
 
-            if (left.NotificationIndex != right.NotificationIndex)
+            if (left.Level != right.Level)
             {
                 return false;
             }
 
-            if (left.RuleIndex != right.RuleIndex)
+            if (left.Rank != right.Rank)
             {
                 return false;
             }
 
-            if (left.ExtensionIndex != right.ExtensionIndex)
+            if (!PropertyBag.ValueComparer.Equals(left.Parameters, right.Parameters))
             {
                 return false;
             }
@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public int GetHashCode(OutputConfigurationOverride obj)
+        public int GetHashCode(ReportingConfiguration obj)
         {
             if (ReferenceEquals(obj, null))
             {
@@ -83,14 +83,18 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (obj.Configuration != null)
+                result = (result * 31) + obj.Enabled.GetHashCode();
+                if (obj.Level != null)
                 {
-                    result = (result * 31) + obj.Configuration.ValueGetHashCode();
+                    result = (result * 31) + obj.Level.GetHashCode();
                 }
 
-                result = (result * 31) + obj.NotificationIndex.GetHashCode();
-                result = (result * 31) + obj.RuleIndex.GetHashCode();
-                result = (result * 31) + obj.ExtensionIndex.GetHashCode();
+                result = (result * 31) + obj.Rank.GetHashCode();
+                if (obj.Parameters != null)
+                {
+                    result = (result * 31) + obj.Parameters.ValueGetHashCode();
+                }
+
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.

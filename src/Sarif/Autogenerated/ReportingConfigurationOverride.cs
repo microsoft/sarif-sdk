@@ -12,15 +12,15 @@ using Newtonsoft.Json;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Information about how a specific tool output was reconfigured at runtime.
+    /// Information about how a specific tool reportiung output was reconfigured at runtime.
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
-    public partial class OutputConfigurationOverride : ISarifNode
+    public partial class ReportingConfigurationOverride : ISarifNode
     {
-        public static IEqualityComparer<OutputConfigurationOverride> ValueComparer => OutputConfigurationOverrideEqualityComparer.Instance;
+        public static IEqualityComparer<ReportingConfigurationOverride> ValueComparer => ReportingConfigurationOverrideEqualityComparer.Instance;
 
-        public bool ValueEquals(OutputConfigurationOverride other) => ValueComparer.Equals(this, other);
+        public bool ValueEquals(ReportingConfigurationOverride other) => ValueComparer.Equals(this, other);
         public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                return SarifNodeKind.OutputConfigurationOverride;
+                return SarifNodeKind.ReportingConfigurationOverride;
             }
         }
 
@@ -38,10 +38,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Specifies whether the notification may produce an output during the scan.
         /// </summary>
         [DataMember(Name = "configuration", IsRequired = false, EmitDefaultValue = false)]
-        public OutputConfiguration Configuration { get; set; }
+        public ReportingConfiguration Configuration { get; set; }
 
         /// <summary>
-        /// The index within the tool component notifications descriptors array of the output descriptor associated with this override.
+        /// The index within the tool component notifications descriptors array of the reporting descriptor associated with this override.
         /// </summary>
         [DataMember(Name = "notificationIndex", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int NotificationIndex { get; set; }
 
         /// <summary>
-        /// The index within the tool component rule descriptors array of the output descriptor associated with this override.
+        /// The index within the tool component rule descriptors array of the reporting descriptor associated with this override.
         /// </summary>
         [DataMember(Name = "ruleIndex", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
@@ -71,9 +71,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OutputConfigurationOverride" /> class.
+        /// Initializes a new instance of the <see cref="ReportingConfigurationOverride" /> class.
         /// </summary>
-        public OutputConfigurationOverride()
+        public ReportingConfigurationOverride()
         {
             NotificationIndex = -1;
             RuleIndex = -1;
@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OutputConfigurationOverride" /> class from the supplied values.
+        /// Initializes a new instance of the <see cref="ReportingConfigurationOverride" /> class from the supplied values.
         /// </summary>
         /// <param name="configuration">
         /// An initialization value for the <see cref="P:Configuration" /> property.
@@ -98,13 +98,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public OutputConfigurationOverride(OutputConfiguration configuration, int notificationIndex, int ruleIndex, int extensionIndex, IDictionary<string, SerializedPropertyInfo> properties)
+        public ReportingConfigurationOverride(ReportingConfiguration configuration, int notificationIndex, int ruleIndex, int extensionIndex, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(configuration, notificationIndex, ruleIndex, extensionIndex, properties);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OutputConfigurationOverride" /> class from the specified instance.
+        /// Initializes a new instance of the <see cref="ReportingConfigurationOverride" /> class from the specified instance.
         /// </summary>
         /// <param name="other">
         /// The instance from which the new instance is to be initialized.
@@ -112,7 +112,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <exception cref="ArgumentNullException">
         /// Thrown if <paramref name="other" /> is null.
         /// </exception>
-        public OutputConfigurationOverride(OutputConfigurationOverride other)
+        public ReportingConfigurationOverride(ReportingConfigurationOverride other)
         {
             if (other == null)
             {
@@ -130,21 +130,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public OutputConfigurationOverride DeepClone()
+        public ReportingConfigurationOverride DeepClone()
         {
-            return (OutputConfigurationOverride)DeepCloneCore();
+            return (ReportingConfigurationOverride)DeepCloneCore();
         }
 
         private ISarifNode DeepCloneCore()
         {
-            return new OutputConfigurationOverride(this);
+            return new ReportingConfigurationOverride(this);
         }
 
-        private void Init(OutputConfiguration configuration, int notificationIndex, int ruleIndex, int extensionIndex, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(ReportingConfiguration configuration, int notificationIndex, int ruleIndex, int extensionIndex, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (configuration != null)
             {
-                Configuration = new OutputConfiguration(configuration);
+                Configuration = new ReportingConfiguration(configuration);
             }
 
             NotificationIndex = notificationIndex;

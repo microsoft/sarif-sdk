@@ -124,6 +124,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         Replacement,
         /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ReportingDescriptor" />.
+        /// </summary>
+        ReportingDescriptor,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ReportingConfiguration" />.
+        /// </summary>
+        ReportingConfiguration,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ReportingConfigurationOverride" />.
+        /// </summary>
+        ReportingConfigurationOverride,
+        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Result" />.
         /// </summary>
         Result,
@@ -131,18 +143,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ResultProvenance" />.
         /// </summary>
         ResultProvenance,
-        /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="OutputDescriptor" />.
-        /// </summary>
-        OutputDescriptor,
-        /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="OutputConfiguration" />.
-        /// </summary>
-        OutputConfiguration,
-        /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="OutputConfigurationOverride" />.
-        /// </summary>
-        OutputConfigurationOverride,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Run" />.
         /// </summary>

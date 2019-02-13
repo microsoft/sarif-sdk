@@ -111,21 +111,21 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!object.ReferenceEquals(left.OutputConfigurationOverrides, right.OutputConfigurationOverrides))
+            if (!object.ReferenceEquals(left.ReportingConfigurationOverrides, right.ReportingConfigurationOverrides))
             {
-                if (left.OutputConfigurationOverrides == null || right.OutputConfigurationOverrides == null)
+                if (left.ReportingConfigurationOverrides == null || right.ReportingConfigurationOverrides == null)
                 {
                     return false;
                 }
 
-                if (left.OutputConfigurationOverrides.Count != right.OutputConfigurationOverrides.Count)
+                if (left.ReportingConfigurationOverrides.Count != right.ReportingConfigurationOverrides.Count)
                 {
                     return false;
                 }
 
-                for (int index_3 = 0; index_3 < left.OutputConfigurationOverrides.Count; ++index_3)
+                for (int index_3 = 0; index_3 < left.ReportingConfigurationOverrides.Count; ++index_3)
                 {
-                    if (!OutputConfigurationOverride.ValueComparer.Equals(left.OutputConfigurationOverrides[index_3], right.OutputConfigurationOverrides[index_3]))
+                    if (!ReportingConfigurationOverride.ValueComparer.Equals(left.ReportingConfigurationOverrides[index_3], right.ReportingConfigurationOverrides[index_3]))
                     {
                         return false;
                     }
@@ -345,9 +345,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 result = (result * 31) + obj.StartTimeUtc.GetHashCode();
                 result = (result * 31) + obj.EndTimeUtc.GetHashCode();
                 result = (result * 31) + obj.ExitCode.GetHashCode();
-                if (obj.OutputConfigurationOverrides != null)
+                if (obj.ReportingConfigurationOverrides != null)
                 {
-                    foreach (var value_7 in obj.OutputConfigurationOverrides)
+                    foreach (var value_7 in obj.ReportingConfigurationOverrides)
                     {
                         result = result * 31;
                         if (value_7 != null)

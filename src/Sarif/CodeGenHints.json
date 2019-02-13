@@ -309,36 +309,6 @@
       }
     }
   ],
-  "messageDescriptor": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "MessageDescriptor.HelpUri": [
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter)" ]
-      }
-    }
-  ],
-  "MessageDescriptor.MessageStrings": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "MessageDescriptor.RichMessageStrings": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
   "node": [
     {
       "kind": "BaseTypeHint",
@@ -430,6 +400,36 @@
           "PropertyBagHolder"
         ]
       }
+    }
+  ],
+  "reportingDescriptor": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "ReportingDescriptor.HelpUri": [
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "JsonConverter",
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter)" ]
+      }
+    }
+  ],
+  "ReportingDescriptor.MessageStrings": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
+  "MessageDescriptor.RichMessageStrings": [
+    {
+      "kind": "DictionaryHint"
     }
   ],
   "resources": [

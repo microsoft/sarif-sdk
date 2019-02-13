@@ -9,14 +9,14 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Defines methods to support the comparison of objects of type OutputDescriptor for equality.
+    /// Defines methods to support the comparison of objects of type ReportingDescriptor for equality.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
-    internal sealed class OutputDescriptorEqualityComparer : IEqualityComparer<OutputDescriptor>
+    internal sealed class ReportingDescriptorEqualityComparer : IEqualityComparer<ReportingDescriptor>
     {
-        internal static readonly OutputDescriptorEqualityComparer Instance = new OutputDescriptorEqualityComparer();
+        internal static readonly ReportingDescriptorEqualityComparer Instance = new ReportingDescriptorEqualityComparer();
 
-        public bool Equals(OutputDescriptor left, OutputDescriptor right)
+        public bool Equals(ReportingDescriptor left, ReportingDescriptor right)
         {
             if (ReferenceEquals(left, right))
             {
@@ -69,9 +69,26 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!object.Equals(left.MessageStrings, right.MessageStrings))
+            if (!object.ReferenceEquals(left.MessageStrings, right.MessageStrings))
             {
-                return false;
+                if (left.MessageStrings == null || right.MessageStrings == null || left.MessageStrings.Count != right.MessageStrings.Count)
+                {
+                    return false;
+                }
+
+                foreach (var value_0 in left.MessageStrings)
+                {
+                    string value_1;
+                    if (!right.MessageStrings.TryGetValue(value_0.Key, out value_1))
+                    {
+                        return false;
+                    }
+
+                    if (value_0.Value != value_1)
+                    {
+                        return false;
+                    }
+                }
             }
 
             if (!object.Equals(left.RichMessageStrings, right.RichMessageStrings))
@@ -79,7 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!OutputConfiguration.ValueComparer.Equals(left.DefaultConfiguration, right.DefaultConfiguration))
+            if (!ReportingConfiguration.ValueComparer.Equals(left.DefaultConfiguration, right.DefaultConfiguration))
             {
                 return false;
             }
@@ -101,15 +118,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                foreach (var value_0 in left.Properties)
+                foreach (var value_2 in left.Properties)
                 {
-                    SerializedPropertyInfo value_1;
-                    if (!right.Properties.TryGetValue(value_0.Key, out value_1))
+                    SerializedPropertyInfo value_3;
+                    if (!right.Properties.TryGetValue(value_2.Key, out value_3))
                     {
                         return false;
                     }
 
-                    if (!object.Equals(value_0.Value, value_1))
+                    if (!object.Equals(value_2.Value, value_3))
                     {
                         return false;
                     }
@@ -119,7 +136,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public int GetHashCode(OutputDescriptor obj)
+        public int GetHashCode(ReportingDescriptor obj)
         {
             if (ReferenceEquals(obj, null))
             {
@@ -136,12 +153,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (obj.DeprecatedIds != null)
                 {
-                    foreach (var value_2 in obj.DeprecatedIds)
+                    foreach (var value_4 in obj.DeprecatedIds)
                     {
                         result = result * 31;
-                        if (value_2 != null)
+                        if (value_4 != null)
                         {
-                            result = (result * 31) + value_2.GetHashCode();
+                            result = (result * 31) + value_4.GetHashCode();
                         }
                     }
                 }
@@ -163,7 +180,18 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (obj.MessageStrings != null)
                 {
-                    result = (result * 31) + obj.MessageStrings.GetHashCode();
+                    // Use xor for dictionaries to be order-independent.
+                    int xor_0 = 0;
+                    foreach (var value_5 in obj.MessageStrings)
+                    {
+                        xor_0 ^= value_5.Key.GetHashCode();
+                        if (value_5.Value != null)
+                        {
+                            xor_0 ^= value_5.Value.GetHashCode();
+                        }
+                    }
+
+                    result = (result * 31) + xor_0;
                 }
 
                 if (obj.RichMessageStrings != null)
@@ -189,17 +217,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
-                    int xor_0 = 0;
-                    foreach (var value_3 in obj.Properties)
+                    int xor_1 = 0;
+                    foreach (var value_6 in obj.Properties)
                     {
-                        xor_0 ^= value_3.Key.GetHashCode();
-                        if (value_3.Value != null)
+                        xor_1 ^= value_6.Key.GetHashCode();
+                        if (value_6.Value != null)
                         {
-                            xor_0 ^= value_3.Value.GetHashCode();
+                            xor_1 ^= value_6.Value.GetHashCode();
                         }
                     }
 
-                    result = (result * 31) + xor_0;
+                    result = (result * 31) + xor_1;
                 }
             }
 

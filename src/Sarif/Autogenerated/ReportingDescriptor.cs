@@ -6,19 +6,20 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Metadata that describes a specific output raised by the tool, as part of the analysis it provides or its runtime reporting.
+    /// Metadata that describes a specific reported output raised by the tool, as part of the analysis it provides or its runtime reporting.
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
-    public partial class OutputDescriptor : ISarifNode
+    public partial class ReportingDescriptor : PropertyBagHolder, ISarifNode
     {
-        public static IEqualityComparer<OutputDescriptor> ValueComparer => OutputDescriptorEqualityComparer.Instance;
+        public static IEqualityComparer<ReportingDescriptor> ValueComparer => ReportingDescriptorEqualityComparer.Instance;
 
-        public bool ValueEquals(OutputDescriptor other) => ValueComparer.Equals(this, other);
+        public bool ValueEquals(ReportingDescriptor other) => ValueComparer.Equals(this, other);
         public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
 
         /// <summary>
@@ -28,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                return SarifNodeKind.OutputDescriptor;
+                return SarifNodeKind.ReportingDescriptor;
             }
         }
 
@@ -66,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A set of name/value pairs with arbitrary names. The value within each name/value pair consists of plain text interspersed with placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.
         /// </summary>
         [DataMember(Name = "messageStrings", IsRequired = false, EmitDefaultValue = false)]
-        public object MessageStrings { get; set; }
+        public IDictionary<string, string> MessageStrings { get; set; }
 
         /// <summary>
         /// A set of name/value pairs with arbitrary names. The value within each name/value pair consists of rich text interspersed with placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.
@@ -75,15 +76,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         public object RichMessageStrings { get; set; }
 
         /// <summary>
-        /// Default output configuration information.
+        /// Default reporting configuration information.
         /// </summary>
         [DataMember(Name = "defaultConfiguration", IsRequired = false, EmitDefaultValue = false)]
-        public OutputConfiguration DefaultConfiguration { get; set; }
+        public ReportingConfiguration DefaultConfiguration { get; set; }
 
         /// <summary>
         /// A URI where the primary documentation for the rule can be found.
         /// </summary>
         [DataMember(Name = "helpUri", IsRequired = false, EmitDefaultValue = false)]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
         public Uri HelpUri { get; set; }
 
         /// <summary>
@@ -99,14 +101,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OutputDescriptor" /> class.
+        /// Initializes a new instance of the <see cref="ReportingDescriptor" /> class.
         /// </summary>
-        public OutputDescriptor()
+        public ReportingDescriptor()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OutputDescriptor" /> class from the supplied values.
+        /// Initializes a new instance of the <see cref="ReportingDescriptor" /> class from the supplied values.
         /// </summary>
         /// <param name="id">
         /// An initialization value for the <see cref="P:Id" /> property.
@@ -141,13 +143,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public OutputDescriptor(string id, IEnumerable<string> deprecatedIds, Message name, Message shortDescription, Message fullDescription, object messageStrings, object richMessageStrings, OutputConfiguration defaultConfiguration, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
+        public ReportingDescriptor(string id, IEnumerable<string> deprecatedIds, Message name, Message shortDescription, Message fullDescription, IDictionary<string, string> messageStrings, object richMessageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(id, deprecatedIds, name, shortDescription, fullDescription, messageStrings, richMessageStrings, defaultConfiguration, helpUri, help, properties);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OutputDescriptor" /> class from the specified instance.
+        /// Initializes a new instance of the <see cref="ReportingDescriptor" /> class from the specified instance.
         /// </summary>
         /// <param name="other">
         /// The instance from which the new instance is to be initialized.
@@ -155,7 +157,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <exception cref="ArgumentNullException">
         /// Thrown if <paramref name="other" /> is null.
         /// </exception>
-        public OutputDescriptor(OutputDescriptor other)
+        public ReportingDescriptor(ReportingDescriptor other)
         {
             if (other == null)
             {
@@ -173,17 +175,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public OutputDescriptor DeepClone()
+        public ReportingDescriptor DeepClone()
         {
-            return (OutputDescriptor)DeepCloneCore();
+            return (ReportingDescriptor)DeepCloneCore();
         }
 
         private ISarifNode DeepCloneCore()
         {
-            return new OutputDescriptor(this);
+            return new ReportingDescriptor(this);
         }
 
-        private void Init(string id, IEnumerable<string> deprecatedIds, Message name, Message shortDescription, Message fullDescription, object messageStrings, object richMessageStrings, OutputConfiguration defaultConfiguration, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string id, IEnumerable<string> deprecatedIds, Message name, Message shortDescription, Message fullDescription, IDictionary<string, string> messageStrings, object richMessageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             if (deprecatedIds != null)
@@ -212,11 +214,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                 FullDescription = new Message(fullDescription);
             }
 
-            MessageStrings = messageStrings;
+            if (messageStrings != null)
+            {
+                MessageStrings = new Dictionary<string, string>(messageStrings);
+            }
+
             RichMessageStrings = richMessageStrings;
             if (defaultConfiguration != null)
             {
-                DefaultConfiguration = new OutputConfiguration(defaultConfiguration);
+                DefaultConfiguration = new ReportingConfiguration(defaultConfiguration);
             }
 
             if (helpUri != null)

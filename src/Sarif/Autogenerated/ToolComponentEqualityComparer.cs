@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_0 = 0; index_0 < left.NotificationDescriptors.Count; ++index_0)
                 {
-                    if (!OutputDescriptor.ValueComparer.Equals(left.NotificationDescriptors[index_0], right.NotificationDescriptors[index_0]))
+                    if (!ReportingDescriptor.ValueComparer.Equals(left.NotificationDescriptors[index_0], right.NotificationDescriptors[index_0]))
                     {
                         return false;
                     }
@@ -115,7 +115,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_1 = 0; index_1 < left.RuleDescriptors.Count; ++index_1)
                 {
-                    if (!OutputDescriptor.ValueComparer.Equals(left.RuleDescriptors[index_1], right.RuleDescriptors[index_1]))
+                    if (!ReportingDescriptor.ValueComparer.Equals(left.RuleDescriptors[index_1], right.RuleDescriptors[index_1]))
                     {
                         return false;
                     }
