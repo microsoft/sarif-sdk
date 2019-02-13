@@ -932,18 +932,13 @@
           "type": "string"
         },
 
-        "messageId": {
-          "description": "The resource id for a plain text message string.",
-          "type": "string"
-        },
-
         "markdown": {
           "description": "A markdown message string.",
           "type": "string"
         },
 
-        "markdownMessageId": {
-          "description": "The resource id for a message message string.",
+        "messageId": {
+          "description": "The resource id for a plain text or markdown message string.",
           "type": "string"
         },
 
