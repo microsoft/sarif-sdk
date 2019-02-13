@@ -36,8 +36,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             JObject sarifLog = JObject.Parse(prereleaseSarifLog);
 
-            // Some tests update the semantic version to current for non-updated content. For this situation, we 
-            // allow the test code to force a transform, despite the fact that the provided version doesn't call for it.
             string version = (string)sarifLog["version"];
 
             Dictionary<string, int> fullyQualifiedLogicalNameToIndexMap = null;
@@ -128,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 foreach (JObject run in runs)
                 {
                     // https://github.com/oasis-tcs/sarif-spec/issues/311
-                    MoveRulesMetadataAndConfiguration(run);
+                    MoveRuleDescriptors(run);
 
                     // https://github.com/oasis-tcs/sarif-spec/issues/179
                     MoveToolPropertiesIntoDriverToolComponent(run);
@@ -218,24 +216,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 tool["globalMessageStrings"] = messageStrings;
             }
 
-            // 2. 'run.resources.rules' moves to 'run.tool.rulesMetadata'
+            // 2. 'run.resources.rules' moves to 'run.tool.ruleDescriptors'
             if (resources["rules"] is JArray rules)
             {
                 foreach(JObject rule in rules)
                 {
                     RenameProperty(rule, previousName: "configuration", newName: "defaultConfiguration");
 
-                    if (rule["defaultConfiguration"] is JObject ruleConfiguration)
+                    if (rule["defaultConfiguration"] is JObject reportingConfiguration)
                     {
-                        RenameProperty(ruleConfiguration, previousName: "defaultLevel", newName: "level");
-                        RenameProperty(ruleConfiguration, previousName: "defaultRank", newName: "rank");
+                        RenameProperty(reportingConfiguration, previousName: "defaultLevel", newName: "level");
+                        RenameProperty(reportingConfiguration, previousName: "defaultRank", newName: "rank");
                     }
                 }
-                tool["rulesMetadata"] = rules;
+                tool["ruleDescriptors"] = rules;
             }
 
             // 3. We do not need any accommodation for the addition of 
-            // 'tool.notificationsMetadata', as this did not exist previously
+            // 'tool.notificationDescriptors', as this did not exist previously
 
             // 4. Zap 'rules.resources' entirely
             run["resources"] = null;

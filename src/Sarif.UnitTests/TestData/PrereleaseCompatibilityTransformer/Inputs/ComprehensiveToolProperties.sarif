@@ -20,7 +20,7 @@
         "globalMessageStrings": {
           "noContent": "This file has no content to review."
         },
-        "rulesMetadata": [
+        "ruleDescriptors": [
           {
             "id": "GEOPOL1001",
             "messageStrings": {
@@ -31,7 +31,7 @@
             }
           }
         ],
-        "notificationsMetadata": [
+        "notificationDescriptors": [
           {
             "id": "MSG1001",
             "messageStrings": {

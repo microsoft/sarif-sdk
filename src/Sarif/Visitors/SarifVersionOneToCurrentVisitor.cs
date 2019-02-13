@@ -790,13 +790,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return result;
         }
 
-        internal MessageDescriptor CreateRule(RuleVersionOne v1Rule)
+        internal ReportingDescriptor CreateRule(RuleVersionOne v1Rule)
         {
-            MessageDescriptor rule = null;
+            ReportingDescriptor rule = null;
 
             if (v1Rule != null)
             {
-                rule = new MessageDescriptor
+                rule = new ReportingDescriptor
                 {
                     FullDescription = CreateMessage(v1Rule.FullDescription),
                     HelpUri = v1Rule.HelpUri,
@@ -807,9 +807,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     ShortDescription = CreateMessage(v1Rule.ShortDescription)
                 };
 
-                FailureLevel level = Utilities.CreateRuleConfigurationDefaultLevel(v1Rule.DefaultLevel);
+                FailureLevel level = Utilities.CreateReportingConfigurationDefaultLevel(v1Rule.DefaultLevel);
 
-                rule.DefaultConfiguration = new RuleConfiguration
+                rule.DefaultConfiguration = new ReportingConfiguration
                 {
                     Level = level,
                     Enabled = v1Rule.Configuration != RuleConfigurationVersionOne.Disabled
@@ -867,11 +867,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     if (v1Run.Rules != null)
                     {
-                        run.Tool.Driver.RulesMetadata = new List<MessageDescriptor>();
+                        run.Tool.Driver.RuleDescriptors = new List<ReportingDescriptor>();
 
                         foreach (var pair in v1Run.Rules)
                         {
-                            run.Tool.Driver.RulesMetadata.Add(CreateRule(pair.Value));
+                            run.Tool.Driver.RuleDescriptors.Add(CreateRule(pair.Value));
                         }
                     }
 

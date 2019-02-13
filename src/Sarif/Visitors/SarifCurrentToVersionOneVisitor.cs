@@ -825,29 +825,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return result;
         }
 
-        internal static RuleVersionOne CreateRuleVersionOne(MessageDescriptor v2MessageDescriptor)
+        internal static RuleVersionOne CreateRuleVersionOne(ReportingDescriptor v2ReportingDescriptor)
         {
             RuleVersionOne rule = null;
 
-            if (v2MessageDescriptor != null)
+            if (v2ReportingDescriptor != null)
             {
                 rule = new RuleVersionOne
                 {
-                    FullDescription = v2MessageDescriptor.FullDescription?.Text,
-                    HelpUri = v2MessageDescriptor.HelpUri,
-                    Id = v2MessageDescriptor.Id,
-                    MessageFormats = ConvertToV1MessageStringsDictionary(v2MessageDescriptor.MessageStrings),
-                    Name = v2MessageDescriptor.Name?.Text,
-                    Properties = v2MessageDescriptor.Properties,
-                    ShortDescription = v2MessageDescriptor.ShortDescription?.Text
+                    FullDescription = v2ReportingDescriptor.FullDescription?.Text,
+                    HelpUri = v2ReportingDescriptor.HelpUri,
+                    Id = v2ReportingDescriptor.Id,
+                    MessageFormats = ConvertToV1MessageStringsDictionary(v2ReportingDescriptor.MessageStrings),
+                    Name = v2ReportingDescriptor.Name?.Text,
+                    Properties = v2ReportingDescriptor.Properties,
+                    ShortDescription = v2ReportingDescriptor.ShortDescription?.Text
                 };
 
-                if (v2MessageDescriptor.DefaultConfiguration != null)
+                if (v2ReportingDescriptor.DefaultConfiguration != null)
                 {
-                    rule.Configuration = v2MessageDescriptor.DefaultConfiguration.Enabled ?
+                    rule.Configuration = v2ReportingDescriptor.DefaultConfiguration.Enabled ?
                             RuleConfigurationVersionOne.Enabled :
                             RuleConfigurationVersionOne.Disabled;
-                    rule.DefaultLevel = Utilities.CreateResultLevelVersionOne(v2MessageDescriptor.DefaultConfiguration.Level);
+                    rule.DefaultLevel = Utilities.CreateResultLevelVersionOne(v2ReportingDescriptor.DefaultConfiguration.Level);
                 }
             }
 
@@ -886,7 +886,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     _currentRun = run;
 
                     CreateFileKeyIndexMappings(v2Run.Files, out _v1FileKeyToV2IndexMap, out _v2FileIndexToV1KeyMap);
-                    _v2RuleIndexToV1KeyMap = CreateV2RuleIndexToV1KeyMapping(v2Run.Tool.Driver.RulesMetadata);
+                    _v2RuleIndexToV1KeyMap = CreateV2RuleIndexToV1KeyMapping(v2Run.Tool.Driver.RuleDescriptors);
 
                     run.BaselineId = v2Run.BaselineInstanceGuid;
                     run.Files = CreateFileDataVersionOneDictionary();
@@ -900,7 +900,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     run.Properties = v2Run.Properties;
                     run.Results = new List<ResultVersionOne>();
 
-                    run.Rules = ConvertRulesArrayToDictionary(_currentV2Run.Tool.Driver.RulesMetadata, _v2RuleIndexToV1KeyMap);
+                    run.Rules = ConvertRulesArrayToDictionary(_currentV2Run.Tool.Driver.RuleDescriptors, _v2RuleIndexToV1KeyMap);
                     run.Tool = CreateToolVersionOne(v2Run.Tool);
 
                     foreach (Result v2Result in v2Run.Results)
@@ -1049,7 +1049,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         // tools allow multiple rules to have the same id. In that case we must synthesize
         // a unique key for each rule with that id. We choose "<ruleId>-<n>", where <n> is
         // 1 for the second occurrence, 2 for the third, and so on.
-        private static IDictionary<int, string> CreateV2RuleIndexToV1KeyMapping(IList<MessageDescriptor> rules)
+        private static IDictionary<int, string> CreateV2RuleIndexToV1KeyMapping(IList<ReportingDescriptor> rules)
         {
             var v2RuleIndexToV1KeyMap = new Dictionary<int, string>();
 
@@ -1089,7 +1089,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         private static IDictionary<string, RuleVersionOne> ConvertRulesArrayToDictionary(
-            IList<MessageDescriptor> v2Rules,
+            IList<ReportingDescriptor> v2Rules,
             IDictionary<int, string> v2RuleIndexToV1KeyMap)
         {
             IDictionary<string, RuleVersionOne> v1Rules = null;
@@ -1099,7 +1099,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 v1Rules = new Dictionary<string, RuleVersionOne>();
                 for (int i = 0; i < v2Rules.Count; ++i)
                 {
-                    MessageDescriptor v2Rule = v2Rules[i];
+                    ReportingDescriptor v2Rule = v2Rules[i];
 
                     RuleVersionOne v1Rule = CreateRuleVersionOne(v2Rule);
                     string key = GetV1RuleKeyFromV2Index(i, v2RuleIndexToV1KeyMap);

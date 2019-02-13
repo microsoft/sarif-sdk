@@ -180,9 +180,9 @@ namespace Microsoft.CodeAnalysis.Sarif {
         /// <summary>
         ///   Looks up a localized string similar to Check &apos;{0}&apos; was disabled while analyzing &apos;{1}&apos; because the analysis was not configured with required policy ({2}). To resolve this, configure and provide a policy file on the {3} command-line using the --policy argument (recommended), or pass &apos;--config default&apos; to invoke built-in settings. Invoke the {3} &apos;exportConfig&apos; command to produce an initial configuration file that can be edited, if necessary, and passed back into the tool..
         /// </summary>
-        internal static string ERR997_MissingRuleConfiguration {
+        internal static string ERR997_MissingReportingConfiguration {
             get {
-                return ResourceManager.GetString("ERR997_MissingRuleConfiguration", resourceCulture);
+                return ResourceManager.GetString("ERR997_MissingReportingConfiguration", resourceCulture);
             }
         }
         

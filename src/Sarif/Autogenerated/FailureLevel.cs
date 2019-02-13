@@ -6,7 +6,7 @@ using System.CodeDom.Compiler;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// A value that specifies the failure level of the result
+    /// Values specifying the failure level of a notification or result.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public enum FailureLevel

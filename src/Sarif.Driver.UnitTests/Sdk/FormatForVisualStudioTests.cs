@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private const string TestMessageStringId = "testMessageStringId";
         private const string TestAnalysisTarget = @"C:\dir\file";
 
-        private static readonly MessageDescriptor TestRule = new MessageDescriptor
+        private static readonly ReportingDescriptor TestRule = new ReportingDescriptor
         {
             Id = TestRuleId,
             Name = new Message { Text = "ThisIsATest" },

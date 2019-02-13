@@ -48,9 +48,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
-        protected override void Analyze(MessageDescriptor messageDescriptor, string messageDescriptorPointer)
+        protected override void Analyze(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
         {
-            AnalyzeUri(messageDescriptor.HelpUri, messageDescriptorPointer.AtProperty(SarifPropertyName.HelpUri));
+            AnalyzeUri(reportingDescriptor.HelpUri, reportingDescriptorPointer.AtProperty(SarifPropertyName.HelpUri));
         }
 
         protected override void Analyze(Run run, string runPointer)

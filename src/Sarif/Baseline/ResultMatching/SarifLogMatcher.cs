@@ -183,7 +183,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             return results;
         }
         
-        private MessageDescriptor GetRuleFromResources(Result result, IDictionary<string, MessageDescriptor> rules)
+        private ReportingDescriptor GetRuleFromResources(Result result, IDictionary<string, ReportingDescriptor> rules)
         {
             if (!string.IsNullOrEmpty(result.RuleId))
             {
@@ -238,7 +238,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 properties = currentRuns.Last().Properties;
             }
 
-            var rulesMetadata = new Dictionary<MessageDescriptor, int>(MessageDescriptor.ValueComparer);
+            var reportingDescriptors = new Dictionary<ReportingDescriptor, int>(ReportingDescriptor.ValueComparer);
 
             var indexRemappingVisitor = new RemapIndicesVisitor(currentFiles: null);
 
@@ -261,11 +261,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
                 if (result.RuleIndex != -1)
                 {
-                    MessageDescriptor rule = resultPair.Run.Tool.Driver.RulesMetadata[0];
-                    if (!rulesMetadata.TryGetValue(rule, out int ruleIndex))
+                    ReportingDescriptor rule = resultPair.Run.Tool.Driver.RuleDescriptors[0];
+                    if (!reportingDescriptors.TryGetValue(rule, out int ruleIndex))
                     {
-                        rulesMetadata[rule] = run.Tool.Driver.RulesMetadata.Count;
-                        run.Tool.Driver.RulesMetadata.Add(rule);
+                        reportingDescriptors[rule] = run.Tool.Driver.RuleDescriptors.Count;
+                        run.Tool.Driver.RuleDescriptors.Add(rule);
                     }
                     result.RuleIndex = ruleIndex;
                 }
@@ -277,7 +277,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             run.Files = indexRemappingVisitor.CurrentFiles;
             
             var graphs = new Dictionary<string, Graph>();
-            var ruleData = new Dictionary<string, MessageDescriptor>();
+            var ruleData = new Dictionary<string, ReportingDescriptor>();
             var invocations = new List<Invocation>();
 
             // TODO tool message strings are not currently handled

@@ -27,17 +27,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF1001_Default)
         };
 
-        protected override void Analyze(MessageDescriptor messageDescriptor, string messageDescriptorPointer)
+        protected override void Analyze(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
         {
-            if (messageDescriptor.Id != null &&
-                messageDescriptor.Name != null &&
-                messageDescriptor.Name.Text != null &&
-                messageDescriptor.Id.Equals(messageDescriptor.Name.Text, StringComparison.OrdinalIgnoreCase))
+            if (reportingDescriptor.Id != null &&
+                reportingDescriptor.Name != null &&
+                reportingDescriptor.Name.Text != null &&
+                reportingDescriptor.Id.Equals(reportingDescriptor.Name.Text, StringComparison.OrdinalIgnoreCase))
             {
                 LogResult(
-                    messageDescriptorPointer,
+                    reportingDescriptorPointer,
                     nameof(RuleResources.SARIF1001_Default),
-                    messageDescriptor.Id);
+                    reportingDescriptor.Id);
             }
         }
     }

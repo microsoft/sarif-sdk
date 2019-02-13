@@ -328,9 +328,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     invocationPropertiesToLog: null))
                 {
                     string ruleId = "RuleId";
-                    var rule = new MessageDescriptor() { Id = ruleId };
+                    var rule = new ReportingDescriptor { Id = ruleId };
 
-                    var result = new Result()
+                    var result = new Result
                     {
                         RuleId = ruleId,
                         Message = new Message { Text = "Some testing occurred." },
@@ -483,9 +483,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     sarifLogger.LogConfigurationNotification(configurationNotification);
 
                     string ruleId = "RuleId";
-                    var rule = new MessageDescriptor() { Id = ruleId };
+                    var rule = new ReportingDescriptor { Id = ruleId };
 
-                    var result = new Result()
+                    var result = new Result
                     {
                         RuleId = ruleId,
                         Message = new Message { Text = "Some testing occurred." }
@@ -599,11 +599,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private void LogSimpleResult(SarifLogger sarifLogger)
         {
-            MessageDescriptor rule = new MessageDescriptor { Id = "RuleId" };
+            ReportingDescriptor rule = new ReportingDescriptor { Id = "RuleId" };
             sarifLogger.Log(rule, CreateSimpleResult(rule));
         }
 
-        private Result CreateSimpleResult(MessageDescriptor rule)
+        private Result CreateSimpleResult(ReportingDescriptor rule)
         {           
             return new Result
             {
@@ -620,12 +620,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             using (var writer = new StringWriter(sb))
             using (var sarifLogger = new SarifLogger(writer, LoggingOptions.Verbose))
             {
-                var rule = new MessageDescriptor()
+                var rule = new ReportingDescriptor
                 {
                     Id = "ActualId"
                 };
 
-                var result = new Result()
+                var result = new Result
                 {
                     RuleId = "IncorrectRuleId",
                     Message = new Message { Text = "test message" }

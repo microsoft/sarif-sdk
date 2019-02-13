@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         bool IsValidAnalysisTarget { get;  }
 
-        MessageDescriptor Rule { get; set; }
+        ReportingDescriptor Rule { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         PropertiesDictionary Policy { get; set; }

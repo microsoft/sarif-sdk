@@ -9,7 +9,7 @@
         "globalMessageStrings": {
           "noContent": "This file has no content to review."
         },
-        "rulesMetadata": [
+        "ruleDescriptors": [
           {
             "id": "SHARED-ID",
             "messageStrings": {

@@ -7,13 +7,13 @@
         "driver": {
           "name": "CodeScanner",
           "downloadUri": "ht%tp://www.example.com/tools/codescanner/download.html",
-          "rulesMetadata": [
+          "ruleDescriptors": [
             {
               "id": "TST0001",
               "helpUri": "ht%tp://www.example.com/rules/tst0001.html"
             }
           ],
-          "notificationsMetadata": [
+          "notificationDescriptors": [
             {
               "id": "MSG0001",
               "helpUri": "ht%tp://www.example.com/rules/msg0001.html"
@@ -59,9 +59,9 @@
           "resultLocationPointers": [
             "$schema",
             "runs[0].tool.driver.downloadUri",
-            "runs[0].tool.driver.rulesMetadata[0].helpUri",
-            "runs[0].tool.driver.notificationsMetadata[0].helpUri",
-            "runs[0].tool.driver.notificationsMetadata[1].helpUri",
+            "runs[0].tool.driver.ruleDescriptors[0].helpUri",
+            "runs[0].tool.driver.notificationDescriptors[0].helpUri",
+            "runs[0].tool.driver.notificationDescriptors[1].helpUri",
             "runs[0].originalUriBaseIds.SRCROOT.uri",
             "runs[0].results[0].analysisTarget.uri",
             "runs[0].results[0].workItemUris[0]",

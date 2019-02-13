@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         /// <param name="rule"></param>
         /// <param name="result"></param>
-        void Log(MessageDescriptor rule, Result result);
+        void Log(ReportingDescriptor rule, Result result);
 
         /// <summary>
         /// Log a notification that describes a runtime condition detected by the tool.

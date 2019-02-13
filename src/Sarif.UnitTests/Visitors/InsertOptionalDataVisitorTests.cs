@@ -150,9 +150,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                             [UniqueGlobalMessageId] = new MultiformatMessageString { Text = UniqueGlobalMessageValue },
                             [SharedMessageId] = new MultiformatMessageString { Text = SharedKeyGlobalMessageValue }
                         },
-                        RulesMetadata = new List<MessageDescriptor>
+                        RuleDescriptors = new List<ReportingDescriptor>
                         {
-                            new MessageDescriptor
+                            new ReportingDescriptor
                             {
                                 Id = RuleId,
                                 MessageStrings = new Dictionary<string, MultiformatMessageString>
@@ -319,7 +319,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             run.Results.Add(
                 new Result
                 {
-                    RuleId = "RuleWithNoRulesMetadata",
+                    RuleId = "RuleWithNoRuleDescriptor",
                     Message = new Message
                     {
                         Text = "Some testing occurred."

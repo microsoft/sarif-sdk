@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        public void WriteRules(IList<MessageDescriptor> rules)
+        public void WriteRules(IList<ReportingDescriptor> rules)
         {
             throw new NotImplementedException();
         }

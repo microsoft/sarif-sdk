@@ -105,7 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected virtual void Analyze(Message message, string messagePointer)
         {
         }
-        protected virtual void Analyze(MessageDescriptor messageDescriptor, string messageDescriptorPointer)
+        protected virtual void Analyze(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
         {
         }
 
@@ -484,9 +484,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             Analyze(message, messagePointer);
         }
 
-        private void VisitMessageDescriptor(MessageDescriptor messageDescriptor, string messageDescriptorPointer)
+        private void VisitReportingDescriptor(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
         {
-            Analyze(messageDescriptor, messageDescriptorPointer);
+            Analyze(reportingDescriptor, reportingDescriptorPointer);
         }
 
         private void Visit(Node node, string nodePointer)
@@ -670,18 +670,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
-        private void Visit(MessageDescriptor messageDecriptor, string messageDescriptorPointer)
+        private void Visit(ReportingDescriptor reportingDecriptor, string reportingDescriptorPointer)
         {
-            Analyze(messageDecriptor, messageDescriptorPointer);
+            Analyze(reportingDecriptor, reportingDescriptorPointer);
 
-            if (messageDecriptor.ShortDescription != null)
+            if (reportingDecriptor.ShortDescription != null)
             {
-                Visit(messageDecriptor.ShortDescription, messageDescriptorPointer.AtProperty(SarifPropertyName.ShortDescription));
+                Visit(reportingDecriptor.ShortDescription, reportingDescriptorPointer.AtProperty(SarifPropertyName.ShortDescription));
             }
 
-            if (messageDecriptor.FullDescription != null)
+            if (reportingDecriptor.FullDescription != null)
             {
-                Visit(messageDecriptor.FullDescription, messageDescriptorPointer.AtProperty(SarifPropertyName.FullDescription));
+                Visit(reportingDecriptor.FullDescription, reportingDescriptorPointer.AtProperty(SarifPropertyName.FullDescription));
             }
         }
 
@@ -843,21 +843,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             Analyze(toolComponent, toolComponentPointer);
 
-            if (toolComponent.NotificationsMetadata != null)
+            if (toolComponent.NotificationDescriptors != null)
             {
-                string notificationsPointer = toolComponentPointer.AtProperty(SarifPropertyName.NotificationsMetadata);
-                for (int i = 0; i < toolComponent.NotificationsMetadata.Count; ++i)
+                string notificationsPointer = toolComponentPointer.AtProperty(SarifPropertyName.NotificationDescriptors);
+                for (int i = 0; i < toolComponent.NotificationDescriptors.Count; ++i)
                 {
-                    Visit(toolComponent.NotificationsMetadata[i], notificationsPointer.AtIndex(i));
+                    Visit(toolComponent.NotificationDescriptors[i], notificationsPointer.AtIndex(i));
                 }
             }
 
-            if (toolComponent.RulesMetadata != null)
+            if (toolComponent.RuleDescriptors != null)
             {
-                string rulesPointer = toolComponentPointer.AtProperty(SarifPropertyName.RulesMetadata);
-                for (int i = 0; i < toolComponent.RulesMetadata.Count; ++i)
+                string rulesPointer = toolComponentPointer.AtProperty(SarifPropertyName.RuleDescriptors);
+                for (int i = 0; i < toolComponent.RuleDescriptors.Count; ++i)
                 {
-                    Visit(toolComponent.RulesMetadata[i], rulesPointer.AtIndex(i));
+                    Visit(toolComponent.RuleDescriptors[i], rulesPointer.AtIndex(i));
                 }
             }
         }
