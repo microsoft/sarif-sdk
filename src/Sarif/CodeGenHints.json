@@ -334,11 +334,6 @@
       "kind": "DictionaryHint"
     }
   ],
-  "MessageDescriptor.RichMessageStrings": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
   "multiformatMessageString": [
     {
       "kind": "BaseTypeHint",

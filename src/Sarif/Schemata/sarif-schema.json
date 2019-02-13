@@ -1776,8 +1776,8 @@
           "type": "string"
         },
 
-        "richMessageMimeType": {
-          "description": "The MIME type of all rich text message properties in the run. Default: \"text/markdown;variant=GFM\"",
+        "markdownMessageMimeType": {
+          "description": "The MIME type of all markdown text message properties in the run. Default: \"text/markdown;variant=GFM\"",
           "type": "string",
           "default": "text/markdown;variant=GFM"
         },
