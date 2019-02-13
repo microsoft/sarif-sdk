@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF1001_Default)
         };
 
-        protected override void Analyze(ReportingDescriptor reportingDescriptor, string messageDescriptorPointer)
+        protected override void Analyze(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
         {
             if (reportingDescriptor.Id != null &&
                 reportingDescriptor.Name != null &&
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 reportingDescriptor.Id.Equals(reportingDescriptor.Name.Text, StringComparison.OrdinalIgnoreCase))
             {
                 LogResult(
-                    messageDescriptorPointer,
+                    reportingDescriptorPointer,
                     nameof(RuleResources.SARIF1001_Default),
                     reportingDescriptor.Id);
             }
