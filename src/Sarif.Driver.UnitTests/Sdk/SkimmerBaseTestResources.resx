@@ -120,13 +120,13 @@
   <data name="TST0001_Error" xml:space="preserve">
     <value>This test plainly failed.</value>
   </data>
+  <data name="TST0001_Markdown_Error" xml:space="preserve">
+    <value>This test  _failed_ resulting in a quality **markdown**.</value>
+  </data>
+  <data name="TST0001_Markdown_Pass" xml:space="preserve">
+    <value>This test  _passed_ resulting in a quality **markdown**.</value>
+  </data>
   <data name="TST0001_Pass" xml:space="preserve">
     <value>This test plainly passed.</value>
-  </data>
-  <data name="TST0001_Rich_Error" xml:space="preserve">
-    <value>This test **richly** _failed_.</value>
-  </data>
-  <data name="TST0001_Rich_Pass" xml:space="preserve">
-    <value>This test **richly** _passed_.</value>
   </data>
 </root>

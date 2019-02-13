@@ -71,10 +71,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Uri DownloadUri { get; set; }
 
         /// <summary>
-        /// A dictionary, each of whose keys is a resource identifier and each of whose values is a localized string.
+        /// A dictionary, each of whose keys is a resource identifier and each of whose values is a string rendered as plain text and (optionally) markdown.
         /// </summary>
         [DataMember(Name = "globalMessageStrings", IsRequired = false, EmitDefaultValue = false)]
-        public IDictionary<string, string> GlobalMessageStrings { get; set; }
+        public IDictionary<string, MultiformatMessageString> GlobalMessageStrings { get; set; }
 
         /// <summary>
         /// An array of message descriptor objects relevant to the notifications related to the configuration and runtime execution of the component.
@@ -148,7 +148,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ToolComponent(string name, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, string> globalMessageStrings, IEnumerable<MessageDescriptor> notificationsMetadata, IEnumerable<MessageDescriptor> rulesMetadata, int fileIndex, IDictionary<string, SerializedPropertyInfo> properties)
+        public ToolComponent(string name, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<MessageDescriptor> notificationsMetadata, IEnumerable<MessageDescriptor> rulesMetadata, int fileIndex, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(name, fullName, version, semanticVersion, dottedQuadFileVersion, downloadUri, globalMessageStrings, notificationsMetadata, rulesMetadata, fileIndex, properties);
         }
@@ -190,7 +190,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ToolComponent(this);
         }
 
-        private void Init(string name, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, string> globalMessageStrings, IEnumerable<MessageDescriptor> notificationsMetadata, IEnumerable<MessageDescriptor> rulesMetadata, int fileIndex, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string name, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<MessageDescriptor> notificationsMetadata, IEnumerable<MessageDescriptor> rulesMetadata, int fileIndex, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Name = name;
             FullName = fullName;
@@ -204,21 +204,25 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (globalMessageStrings != null)
             {
-                GlobalMessageStrings = new Dictionary<string, string>(globalMessageStrings);
+                GlobalMessageStrings = new Dictionary<string, MultiformatMessageString>();
+                foreach (var value_0 in globalMessageStrings)
+                {
+                    GlobalMessageStrings.Add(value_0.Key, new MultiformatMessageString(value_0.Value));
+                }
             }
 
             if (notificationsMetadata != null)
             {
                 var destination_0 = new List<MessageDescriptor>();
-                foreach (var value_0 in notificationsMetadata)
+                foreach (var value_1 in notificationsMetadata)
                 {
-                    if (value_0 == null)
+                    if (value_1 == null)
                     {
                         destination_0.Add(null);
                     }
                     else
                     {
-                        destination_0.Add(new MessageDescriptor(value_0));
+                        destination_0.Add(new MessageDescriptor(value_1));
                     }
                 }
 
@@ -228,15 +232,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (rulesMetadata != null)
             {
                 var destination_1 = new List<MessageDescriptor>();
-                foreach (var value_1 in rulesMetadata)
+                foreach (var value_2 in rulesMetadata)
                 {
-                    if (value_1 == null)
+                    if (value_2 == null)
                     {
                         destination_1.Add(null);
                     }
                     else
                     {
-                        destination_1.Add(new MessageDescriptor(value_1));
+                        destination_1.Add(new MessageDescriptor(value_2));
                     }
                 }
 

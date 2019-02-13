@@ -23,9 +23,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             Name = new Message { Text = "ThisIsATest" },
             ShortDescription = new Message { Text = "short description" },
             FullDescription = new Message { Text = "full description" },
-            MessageStrings = new Dictionary<string, string>
+            MessageStrings = new Dictionary<string, MultiformatMessageString>
             {
-                [TestMessageStringId] = "First: {0}, Second: {1}"
+                [TestMessageStringId] = new MultiformatMessageString { Text = "First: {0}, Second: {1}" }
             }
         };
 

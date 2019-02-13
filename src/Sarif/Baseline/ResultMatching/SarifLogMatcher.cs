@@ -279,20 +279,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             var graphs = new Dictionary<string, Graph>();
             var ruleData = new Dictionary<string, MessageDescriptor>();
             var invocations = new List<Invocation>();
-            var messageData = new Dictionary<string, string>();
+
+            // TODO tool message strings are not currently handled
 
             foreach (Run currentRun in currentRuns)
             {
-                if (currentRun.Tool.Driver.GlobalMessageStrings != null)
-                {
-                    IDictionary<string, string> converted = currentRun.Tool.Driver.GlobalMessageStrings;
-                    if (converted == null)
-                    {
-                        throw new ArgumentException("Message Strings did not deserialize properly into a dictionary mapping strings to strings.");
-                    }
-                    MergeDictionaryInto(messageData, converted, StringComparer.InvariantCulture);
-                }
-
                 if (currentRun.Graphs != null)
                 {
                     MergeDictionaryInto(graphs, currentRun.Graphs, GraphEqualityComparer.Instance);

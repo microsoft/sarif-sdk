@@ -48,9 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        public override IDictionary<string, string> MessageStrings { get { return new Dictionary<string, string>(); } }
-
-        public override IDictionary<string, string> RichMessageStrings { get { return new Dictionary<string, string>(); } }
+        public override IDictionary<string, MultiformatMessageString> MessageStrings { get { return new Dictionary<string, MultiformatMessageString>(); } }
 
         public override Message Help { get { return new Message() { Text = "[Empty]" }; } }
 

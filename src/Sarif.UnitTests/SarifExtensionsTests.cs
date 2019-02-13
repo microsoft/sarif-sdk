@@ -78,9 +78,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             var rule = new MessageDescriptor()
             {
-                MessageStrings = new Dictionary<string, string>()
+                MessageStrings = new Dictionary<string, MultiformatMessageString>()
                 {
-                    { "ruleStr1", "The quick brown {0} jumps over the lazy {1}. That {1} sure is lazy!" }
+                    ["ruleStr1"] = new MultiformatMessageString { Text = "The quick brown {0} jumps over the lazy {1}. That {1} sure is lazy!" }
                 }
             };
 
@@ -103,9 +103,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             var rule = new MessageDescriptor()
             {
-                MessageStrings = new Dictionary<string, string>()
+                MessageStrings = new Dictionary<string, MultiformatMessageString>()
                 {
-                    { "ruleStr1", "The quick brown {0} jumps over the lazy {1}. That {1} sure is lazy!" }
+                    ["ruleStr1"] = new MultiformatMessageString { Text = "The quick brown {0} jumps over the lazy {1}. That {1} sure is lazy!" }
                 }
             };
 

@@ -836,7 +836,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     FullDescription = v2MessageDescriptor.FullDescription?.Text,
                     HelpUri = v2MessageDescriptor.HelpUri,
                     Id = v2MessageDescriptor.Id,
-                    MessageFormats = v2MessageDescriptor.MessageStrings,
+                    MessageFormats = ConvertToV1MessageStringsDictionary(v2MessageDescriptor.MessageStrings),
                     Name = v2MessageDescriptor.Name?.Text,
                     Properties = v2MessageDescriptor.Properties,
                     ShortDescription = v2MessageDescriptor.ShortDescription?.Text
@@ -852,6 +852,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return rule;
+        }
+
+        private static IDictionary<string, string> ConvertToV1MessageStringsDictionary(IDictionary<string, MultiformatMessageString> v2MessageStringsDictionary)
+        {
+            var converted = new Dictionary<string, string>();
+
+            foreach(KeyValuePair<string, MultiformatMessageString> keyValuePair in v2MessageStringsDictionary)
+            {
+                converted[keyValuePair.Key] = keyValuePair.Value.Text;
+            }
+
+            return converted;
         }
 
         internal RunVersionOne CreateRunVersionOne(Run v2Run)

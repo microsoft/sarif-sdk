@@ -164,6 +164,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             // 3. Persist extracted data as tool.driver and place back on run
             tool["driver"] = driver;
+
+            // https://github.com/oasis-tcs/sarif-spec/issues/319
+            // 4. toolComponent.messageStrings now merges all plain text
+            //    and markdown strings. So we need to merge and eliminate
+            //    the 'richMessageStrings property.
+            MergeRichMessagesInDescriptorsArrays(driver);
+
             run["tool"] = tool;
 
             // Other changes in this schema update do not require any transformation, as
@@ -172,6 +179,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             //  run.tool.extensions -> array of extension tool components
             //  result.extensionIndex -> associate a result with an extension
             //  toolComponent -> new file role.
+        }
+
+        private static void MergeRichMessagesInDescriptorsArrays(JObject toolComponent)
+        {
+            MergeRichMessageStringsIntoMessageStrings((JObject)toolComponent["rulesMetadata"]);
+            MergeRichMessageStringsIntoMessageStrings((JObject)toolComponent["notificationsMetadata"]);
+        }
+
+        private static void MergeRichMessageStringsIntoMessageStrings(JObject descriptorsObject)
+        {
+            if (!(descriptorsObject?["richMessageStrings"] is JObject richMessageStrings)) { return; }
+
+            foreach (JProperty richMessageString in richMessageStrings.Properties())
+            {
+
+            }
+            descriptorsObject.Remove("richMessageStrings");
         }
 
         private static void MoveRulesMetadataAndConfiguration(JObject run)
@@ -188,6 +212,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // 1. 'run.resources.messageStrings' moves to 'run.tool.globalMessageStrings'
             if (resources["messageStrings"] is JObject messageStrings)
             {
+                // https://github.com/oasis-tcs/sarif-spec/issues/319
+                ConvertToMultiformatMessageStrings(messageStrings);
+
                 tool["globalMessageStrings"] = messageStrings;
             }
 
@@ -212,6 +239,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             // 4. Zap 'rules.resources' entirely
             run["resources"] = null;
+        }
+
+        private static void ConvertToMultiformatMessageStrings(JObject messageStrings)
+        {
+            // https://github.com/oasis-tcs/sarif-spec/issues/319
+            foreach (JProperty property in messageStrings.Properties())
+            {
+                string plaintext = (string)messageStrings[property.Name];
+
+                JProperty textProperty = new JProperty("text", property.Value);
+                JObject multiformatMessageString = new JObject(textProperty);
+
+                messageStrings[property.Name] = multiformatMessageString;
+            }
         }
 
         private static void UpdateBaselineExistingStateToUnchanged(JObject result)

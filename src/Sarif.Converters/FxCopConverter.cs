@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 Id = context.CheckId,
                 Name = context.RuleTypeName.ToMessage(),
-                MessageStrings = context.Resolutions
+                MessageStrings = context.Resolutions.ConvertToMultiformatMessageStringsDictionary()
             };
 
             rule.SetProperty("Category", context.RuleCategory);

@@ -25,6 +25,9 @@
             "id": "GEOPOL1001",
             "messageStrings": {
               "a": "Review all image content for geopolitically sensitive graphics."
+            },
+            "richMessageStrings": {
+              "a": "Review *all* image content for geopolitically sensitive graphics."
             }
           }
         ],
@@ -32,7 +35,10 @@
           {
             "id": "MSG1001",
             "messageStrings": {
-              "a": "Analyze {0}..."
+              "a": "Analyzing {0}..."
+            },
+            "richMessageStrings": {
+              "a": "Analyzing _{0}_..."
             }
           }
         ]

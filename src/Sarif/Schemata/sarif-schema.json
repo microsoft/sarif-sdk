@@ -2106,10 +2106,10 @@
         },
 
         "globalMessageStrings": {
-          "description": "A dictionary, each of whose keys is a resource identifier and each of whose values is a localized string.",
+          "description": "A dictionary, each of whose keys is a resource identifier and each of whose values is a string rendered as plain text and (optionally) markdown.",
           "type": "object",
           "additionalProperties": {
-            "type": "string"
+            "$ref": "#/definitions/multiformatMessageString"
           }
         },
 

@@ -37,11 +37,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override void Analyze(MessageDescriptor messageDescriptor, string messageDescriptorPointer)
         {
             AnalyzeMessageStrings(messageDescriptor.MessageStrings, messageDescriptorPointer, SarifPropertyName.MessageStrings);
-            AnalyzeMessageStrings(messageDescriptor.RichMessageStrings, messageDescriptorPointer, SarifPropertyName.RichMessageStrings);
         }
 
         private void AnalyzeMessageStrings(
-            IDictionary<string, string> messageStrings,
+            IDictionary<string, MultiformatMessageString> messageStrings,
             string rulePointer,
             string propertyName)
         {
@@ -49,18 +48,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 foreach (string key in messageStrings.Keys)
                 {
-                    string messageString = messageStrings[key];
-                    if (!String.IsNullOrEmpty(messageString) && DoesNotEndWithPeriod(messageString))
-                    {
-                        string messagePointer = rulePointer
-                            .AtProperty(propertyName)
-                            .AtProperty(key);
+                    MultiformatMessageString messageString = messageStrings[key];
 
-                        LogResult(
-                            messagePointer,
-                            nameof(RuleResources.SARIF1008_Default),
-                            messageString);
-                    }
+                    AnalyzeMessageString(messageString.Text, rulePointer, key, SarifPropertyName.Text);
+                    AnalyzeMessageString(messageString.Markdown, rulePointer, key, SarifPropertyName.Markdown);
                 }
             }
         }
@@ -68,17 +59,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override void Analyze(Message message, string messagePointer)
         {
             AnalyzeMessageString(message.Text, messagePointer, SarifPropertyName.Text);
-            AnalyzeMessageString(message.RichText, messagePointer, SarifPropertyName.RichText);
+            AnalyzeMessageString(message.Markdown, messagePointer, SarifPropertyName.Markdown);
         }
 
         private void AnalyzeMessageString(
             string messageString,
             string messagePointer,
-            string propertyName)
+            string propertyName,
+            string additionalPropertyName = "")
         {
             if (!String.IsNullOrEmpty(messageString) && DoesNotEndWithPeriod(messageString))
             {
-                string textPointer = messagePointer.AtProperty(propertyName);
+                string textPointer = messagePointer.AtProperty(propertyName).AtProperty(additionalPropertyName);
 
                 LogResult(
                     textPointer,

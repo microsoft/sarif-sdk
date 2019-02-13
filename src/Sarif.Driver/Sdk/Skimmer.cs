@@ -19,12 +19,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         virtual protected IEnumerable<string> MessageResourceNames => throw new NotImplementedException();
 
-        virtual protected IEnumerable<string> RichMessageResourceNames => new List<string>();
-
-
         virtual public FailureLevel DefaultLevel { get { return FailureLevel.Warning; } }
 
-        override public IDictionary<string, MultiformatMessageString> MultiformatMessageStrings
+        override public IDictionary<string, MultiformatMessageString> MessageStrings
         {
             get
             {
@@ -36,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             }
         }
 
-        private Dictionary<string, string> InitializeMultiformatMessageStrings()
+        private Dictionary<string, MultiformatMessageString> InitializeMultiformatMessageStrings()
         {
             return RuleUtilities.BuildDictionary(ResourceManager, MessageResourceNames, ruleId: Id);
         }

@@ -14,6 +14,19 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class ExtensionMethods
     {
+        public static IDictionary<string, MultiformatMessageString> ConvertToMultiformatMessageStringsDictionary(this IDictionary<string, string> v1MessageStringsDictionary)
+        {
+            var converted = new Dictionary<string, MultiformatMessageString>();
+
+            foreach (KeyValuePair<string, string> keyValuePair in v1MessageStringsDictionary)
+            {
+                converted[keyValuePair.Key] = new MultiformatMessageString { Text = keyValuePair.Value };
+            }
+
+            return converted;
+        }
+
+
         public static bool HasAtLeastOneNonNullValue<T>(this IEnumerable<T> collection)
         {
             return collection != null && collection.Any((m) => m != null);
@@ -220,7 +233,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (rule != null)
                 {
                     string messageId = result.Message?.MessageId;
-                    string formatString = null;
+                    MultiformatMessageString formatString = null;
 
                     if (!string.IsNullOrWhiteSpace(messageId)
                         && rule.MessageStrings?.TryGetValue(messageId, out formatString) == true)
@@ -237,7 +250,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                             arguments = new string[0];
                         }
 
-                        text = GetFormattedMessage(formatString, arguments);
+                        text = GetFormattedMessage(formatString.Text, arguments);
                     }
                 }
             }

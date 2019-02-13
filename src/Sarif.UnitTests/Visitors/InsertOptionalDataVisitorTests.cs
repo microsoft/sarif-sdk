@@ -145,20 +145,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     Driver = new ToolComponent
                     {
-                        GlobalMessageStrings = new Dictionary<string, string>
+                        GlobalMessageStrings = new Dictionary<string, MultiformatMessageString>
                         {
-                            [UniqueGlobalMessageId] = UniqueGlobalMessageValue,
-                            [SharedMessageId] = SharedKeyGlobalMessageValue
+                            [UniqueGlobalMessageId] = new MultiformatMessageString { Text = UniqueGlobalMessageValue },
+                            [SharedMessageId] = new MultiformatMessageString { Text = SharedKeyGlobalMessageValue }
                         },
                         RulesMetadata = new List<MessageDescriptor>
                         {
                             new MessageDescriptor
                             {
                                 Id = RuleId,
-                                MessageStrings = new Dictionary<string, string>
+                                MessageStrings = new Dictionary<string, MultiformatMessageString>
                                 {
-                                    [UniqueRuleMessageId] = UniqueRuleMessageValue,
-                                    [SharedMessageId] = SharedKeyRuleMessageValue
+                                    [UniqueRuleMessageId] = new MultiformatMessageString { Text = UniqueRuleMessageValue },
+                                    [SharedMessageId] = new MultiformatMessageString { Text = SharedKeyRuleMessageValue }
                                 }
                             }
                         }

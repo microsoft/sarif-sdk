@@ -95,7 +95,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             IEnumerable<string> resourceNames,
             string ruleId)
         {
-            //validation
             if (resourceNames == null)
             {
                 throw new ArgumentNullException(nameof(resourceNames));
