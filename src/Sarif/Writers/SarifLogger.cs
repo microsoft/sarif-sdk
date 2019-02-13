@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private JsonTextWriter _jsonTextWriter;
         private OptionallyEmittedData _dataToInsert;
         private ResultLogJsonWriter _issueLogJsonWriter;
-        private IDictionary<MessageDescriptor, int> _ruleToIndexMap;
+        private IDictionary<ReportingDescriptor, int> _ruleToIndexMap;
 
         protected const LoggingOptions DefaultLoggingOptions = LoggingOptions.PrettyPrint;
 
@@ -184,11 +184,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _issueLogJsonWriter = new ResultLogJsonWriter(_jsonTextWriter);
         }
 
-        public IDictionary<MessageDescriptor, int> RuleToIndexMap
+        public IDictionary<ReportingDescriptor, int> RuleToIndexMap
         {
             get
             {
-                _ruleToIndexMap = _ruleToIndexMap ?? new Dictionary<MessageDescriptor, int>(MessageDescriptor.ValueComparer);
+                _ruleToIndexMap = _ruleToIndexMap ?? new Dictionary<ReportingDescriptor, int>(ReportingDescriptor.ValueComparer);
                 return _ruleToIndexMap;
             }
         }
@@ -268,7 +268,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        public void Log(MessageDescriptor rule, Result result)
+        public void Log(ReportingDescriptor rule, Result result)
         {
             if (rule == null)
             {
@@ -301,15 +301,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _issueLogJsonWriter.WriteResult(result);
         }
 
-        private int LogRule(MessageDescriptor rule)
+        private int LogRule(ReportingDescriptor rule)
         {
 
             if (!RuleToIndexMap.TryGetValue(rule, out int ruleIndex))
             {
                 ruleIndex = _ruleToIndexMap.Count;
                 _ruleToIndexMap[rule] = ruleIndex;
-                _run.Tool.Driver.RulesMetadata = _run.Tool.Driver.RulesMetadata ?? new OrderSensitiveValueComparisonList<MessageDescriptor>(MessageDescriptor.ValueComparer);
-                _run.Tool.Driver.RulesMetadata.Add(rule);
+                _run.Tool.Driver.RuleDescriptors = _run.Tool.Driver.RuleDescriptors ?? new OrderSensitiveValueComparisonList<ReportingDescriptor>(ReportingDescriptor.ValueComparer);
+                _run.Tool.Driver.RuleDescriptors.Add(rule);
             }
 
             return ruleIndex;

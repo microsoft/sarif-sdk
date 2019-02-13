@@ -6,7 +6,7 @@ using System.Composition;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    [Export(typeof(MessageDescriptor)), Export(typeof(Skimmer<TestAnalysisContext>))]
+    [Export(typeof(ReportingDescriptor)), Export(typeof(Skimmer<TestAnalysisContext>))]
     internal class ExceptionRaisingRule : TestRuleBase
     {
         internal static ExceptionCondition s_exceptionCondition;

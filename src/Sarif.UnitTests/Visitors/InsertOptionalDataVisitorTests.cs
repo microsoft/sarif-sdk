@@ -150,9 +150,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                             [UniqueGlobalMessageId] = UniqueGlobalMessageValue,
                             [SharedMessageId] = SharedKeyGlobalMessageValue
                         },
-                        RulesMetadata = new List<MessageDescriptor>
+                        RuleDescriptors = new List<ReportingDescriptor>
                         {
-                            new MessageDescriptor
+                            new ReportingDescriptor
                             {
                                 Id = RuleId,
                                 MessageStrings = new Dictionary<string, string>

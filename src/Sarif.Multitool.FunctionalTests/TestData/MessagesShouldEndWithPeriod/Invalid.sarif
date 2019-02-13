@@ -253,12 +253,12 @@
             "runs[0].invocations[0].configurationNotifications[0].message.richText",
             "runs[0].invocations[0].toolNotifications[0].message.text",
             "runs[0].invocations[0].toolNotifications[0].message.richText",
-            "runs[0].tool.driver.rulesMetadata[0].shortDescription.text",
-            "runs[0].tool.driver.rulesMetadata[0].shortDescription.richText",
-            "runs[0].tool.driver.rulesMetadata[0].fullDescription.text",
-            "runs[0].tool.driver.rulesMetadata[0].fullDescription.richText",
-            "runs[0].tool.driver.rulesMetadata[0].messageStrings.Default",
-            "runs[0].tool.driver.rulesMetadata[0].richMessageStrings.Default"
+            "runs[0].tool.driver.ruleDescriptors[0].shortDescription.text",
+            "runs[0].tool.driver.ruleDescriptors[0].shortDescription.richText",
+            "runs[0].tool.driver.ruleDescriptors[0].fullDescription.text",
+            "runs[0].tool.driver.ruleDescriptors[0].fullDescription.richText",
+            "runs[0].tool.driver.ruleDescriptors[0].messageStrings.Default",
+            "runs[0].tool.driver.ruleDescriptors[0].richMessageStrings.Default"
           ]
         }
       }

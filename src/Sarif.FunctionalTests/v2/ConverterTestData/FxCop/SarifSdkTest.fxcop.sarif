@@ -1804,8 +1804,8 @@
           "parentKey": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Rule",
           "kind": "member"
         },
-        "sarif.dll!Microsoft.CodeAnalysis.Sarif.Rule..ctor(System.String,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.Message,System.Collections.Generic.IDictionary`2<System.String,System.String>,System.Collections.Generic.IDictionary`2<System.String,System.String>,Microsoft.CodeAnalysis.Sarif.RuleConfiguration,System.Uri,Microsoft.CodeAnalysis.Sarif.Message,System.Collections.Generic.IDictionary`2<System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo>)": {
-          "name": ".ctor(System.String,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.Message,System.Collections.Generic.IDictionary`2<System.String,System.String>,System.Collections.Generic.IDictionary`2<System.String,System.String>,Microsoft.CodeAnalysis.Sarif.RuleConfiguration,System.Uri,Microsoft.CodeAnalysis.Sarif.Message,System.Collections.Generic.IDictionary`2<System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo>)",
+        "sarif.dll!Microsoft.CodeAnalysis.Sarif.Rule..ctor(System.String,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.Message,System.Collections.Generic.IDictionary`2<System.String,System.String>,System.Collections.Generic.IDictionary`2<System.String,System.String>,Microsoft.CodeAnalysis.Sarif.ReportingConfiguration,System.Uri,Microsoft.CodeAnalysis.Sarif.Message,System.Collections.Generic.IDictionary`2<System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo>)": {
+          "name": ".ctor(System.String,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.Message,System.Collections.Generic.IDictionary`2<System.String,System.String>,System.Collections.Generic.IDictionary`2<System.String,System.String>,Microsoft.CodeAnalysis.Sarif.ReportingConfiguration,System.Uri,Microsoft.CodeAnalysis.Sarif.Message,System.Collections.Generic.IDictionary`2<System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo>)",
           "parentKey": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Rule",
           "kind": "member"
         },
@@ -1819,14 +1819,14 @@
           "parentKey": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Rule",
           "kind": "member"
         },
-        "sarif.dll!Microsoft.CodeAnalysis.Sarif.RuleConfiguration": {
-          "name": "RuleConfiguration",
+        "sarif.dll!Microsoft.CodeAnalysis.Sarif.ReportingConfiguration": {
+          "name": "ReportingConfiguration",
           "parentKey": "sarif.dll!Microsoft.CodeAnalysis.Sarif",
           "kind": "type"
         },
-        "sarif.dll!Microsoft.CodeAnalysis.Sarif.RuleConfiguration.Parameters": {
+        "sarif.dll!Microsoft.CodeAnalysis.Sarif.ReportingConfiguration.Parameters": {
           "name": "Parameters",
-          "parentKey": "sarif.dll!Microsoft.CodeAnalysis.Sarif.RuleConfiguration",
+          "parentKey": "sarif.dll!Microsoft.CodeAnalysis.Sarif.ReportingConfiguration",
           "kind": "member"
         },
         "sarif.dll!Microsoft.CodeAnalysis.Sarif.RuleEqualityComparer": {
@@ -14241,7 +14241,7 @@
             "messageId": "Default",
             "arguments": [
               "'Rule.Rule(Rule)'",
-              "\r\n\r\nRule..ctor(Rule)\r\nRule.Init(String, Message, Message, Message, IDictionary<String,String>, IDictionary<String,String>, RuleConfiguration, Uri, Message, IDictionary<String,SerializedPropertyInfo>):Void\r\nPropertyBagHolder.set_Properties(IDictionary<String,SerializedPropertyInfo>):Void"
+              "\r\n\r\nRule..ctor(Rule)\r\nRule.Init(String, Message, Message, Message, IDictionary<String,String>, IDictionary<String,String>, ReportingConfiguration, Uri, Message, IDictionary<String,SerializedPropertyInfo>):Void\r\nPropertyBagHolder.set_Properties(IDictionary<String,SerializedPropertyInfo>):Void"
             ]
           },
           "locations": [
@@ -14267,8 +14267,8 @@
           "message": {
             "messageId": "Default",
             "arguments": [
-              "'Rule.Rule(string, Message, Message, Message, IDictionary<string, string>, IDictionary<string, string>, RuleConfiguration, Uri, Message, IDictionary<string, SerializedPropertyInfo>)'",
-              "\r\n\r\nRule..ctor(String, Message, Message, Message, IDictionary<String,String>, IDictionary<String,String>, RuleConfiguration, Uri, Message, IDictionary<String,SerializedPropertyInfo>)\r\nRule.Init(String, Message, Message, Message, IDictionary<String,String>, IDictionary<String,String>, RuleConfiguration, Uri, Message, IDictionary<String,SerializedPropertyInfo>):Void\r\nPropertyBagHolder.set_Properties(IDictionary<String,SerializedPropertyInfo>):Void"
+              "'Rule.Rule(string, Message, Message, Message, IDictionary<string, string>, IDictionary<string, string>, ReportingConfiguration, Uri, Message, IDictionary<string, SerializedPropertyInfo>)'",
+              "\r\n\r\nRule..ctor(String, Message, Message, Message, IDictionary<String,String>, IDictionary<String,String>, ReportingConfiguration, Uri, Message, IDictionary<String,SerializedPropertyInfo>)\r\nRule.Init(String, Message, Message, Message, IDictionary<String,String>, IDictionary<String,String>, ReportingConfiguration, Uri, Message, IDictionary<String,SerializedPropertyInfo>):Void\r\nPropertyBagHolder.set_Properties(IDictionary<String,SerializedPropertyInfo>):Void"
             ]
           },
           "locations": [
@@ -14279,7 +14279,7 @@
                   "uriBaseId": "$(ProjectDir)"
                 }
               },
-              "fullyQualifiedLogicalName": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Rule..ctor(System.String,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.Message,System.Collections.Generic.IDictionary`2<System.String,System.String>,System.Collections.Generic.IDictionary`2<System.String,System.String>,Microsoft.CodeAnalysis.Sarif.RuleConfiguration,System.Uri,Microsoft.CodeAnalysis.Sarif.Message,System.Collections.Generic.IDictionary`2<System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo>)"
+              "fullyQualifiedLogicalName": "sarif.dll!Microsoft.CodeAnalysis.Sarif.Rule..ctor(System.String,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.Message,System.Collections.Generic.IDictionary`2<System.String,System.String>,System.Collections.Generic.IDictionary`2<System.String,System.String>,Microsoft.CodeAnalysis.Sarif.ReportingConfiguration,System.Uri,Microsoft.CodeAnalysis.Sarif.Message,System.Collections.Generic.IDictionary`2<System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo>)"
             }
           ],
           "partialFingerprints": {
@@ -14346,7 +14346,7 @@
           "message": {
             "messageId": "Default",
             "arguments": [
-              "'RuleConfiguration.Parameters'"
+              "'ReportingConfiguration.Parameters'"
             ]
           },
           "locations": [
@@ -14357,7 +14357,7 @@
                   "uriBaseId": "$(ProjectDir)"
                 }
               },
-              "fullyQualifiedLogicalName": "sarif.dll!Microsoft.CodeAnalysis.Sarif.RuleConfiguration.Parameters"
+              "fullyQualifiedLogicalName": "sarif.dll!Microsoft.CodeAnalysis.Sarif.ReportingConfiguration.Parameters"
             }
           ],
           "partialFingerprints": {

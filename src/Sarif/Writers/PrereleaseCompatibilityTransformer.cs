@@ -189,7 +189,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 tool["globalMessageStrings"] = messageStrings;
             }
 
-            // 2. 'run.resources.rules' moves to 'run.tool.rulesMetadata'
+            // 2. 'run.resources.rules' moves to 'run.tool.ruleDescriptors'
             if (resources["rules"] is JArray rules)
             {
                 foreach(JObject rule in rules)
@@ -202,11 +202,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         RenameProperty(ruleConfiguration, previousName: "defaultRank", newName: "rank");
                     }
                 }
-                tool["rulesMetadata"] = rules;
+                tool["ruleDescriptors"] = rules;
             }
 
             // 3. We do not need any accommodation for the addition of 
-            // 'tool.notificationsMetadata', as this did not exist previously
+            // 'tool.notificationDescriptors', as this did not exist previously
 
             // 4. Zap 'rules.resources' entirely
             run["resources"] = null;

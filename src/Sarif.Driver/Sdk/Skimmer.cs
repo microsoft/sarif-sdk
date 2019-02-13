@@ -7,7 +7,7 @@ using System.Resources;
 
 namespace Microsoft.CodeAnalysis.Sarif.Driver
 {
-    public abstract class Skimmer<TContext>  : MessageDescriptor
+    public abstract class Skimmer<TContext>  : ReportingDescriptor
     {
         public Skimmer()
         {

@@ -3867,17 +3867,17 @@
              <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Created="2018-08-23 13:05:11Z">
               <Issue>
                <Item>'Rule.Rule(Rule)'</Item>
-               <Item>&#xD;&#xA;&#xD;&#xA;Rule..ctor(Rule)&#xD;&#xA;Rule.Init(String, Message, Message, Message, IDictionary&lt;String,String&gt;, IDictionary&lt;String,String&gt;, RuleConfiguration, Uri, Message, IDictionary&lt;String,SerializedPropertyInfo&gt;):Void&#xD;&#xA;PropertyBagHolder.set_Properties(IDictionary&lt;String,SerializedPropertyInfo&gt;):Void</Item>
+               <Item>&#xD;&#xA;&#xD;&#xA;Rule..ctor(Rule)&#xD;&#xA;Rule.Init(String, Message, Message, Message, IDictionary&lt;String,String&gt;, IDictionary&lt;String,String&gt;, ReportingConfiguration, Uri, Message, IDictionary&lt;String,SerializedPropertyInfo&gt;):Void&#xD;&#xA;PropertyBagHolder.set_Properties(IDictionary&lt;String,SerializedPropertyInfo&gt;):Void</Item>
               </Issue>
              </Message>
             </Messages>
            </Member>
-           <Member Name="#.ctor(System.String,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.Message,System.Collections.Generic.IDictionary`2&lt;System.String,System.String&gt;,System.Collections.Generic.IDictionary`2&lt;System.String,System.String&gt;,Microsoft.CodeAnalysis.Sarif.RuleConfiguration,System.Uri,Microsoft.CodeAnalysis.Sarif.Message,System.Collections.Generic.IDictionary`2&lt;System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo&gt;)">
+           <Member Name="#.ctor(System.String,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.Message,Microsoft.CodeAnalysis.Sarif.Message,System.Collections.Generic.IDictionary`2&lt;System.String,System.String&gt;,System.Collections.Generic.IDictionary`2&lt;System.String,System.String&gt;,Microsoft.CodeAnalysis.Sarif.ReportingConfiguration,System.Uri,Microsoft.CodeAnalysis.Sarif.Message,System.Collections.Generic.IDictionary`2&lt;System.String,Microsoft.CodeAnalysis.Sarif.Readers.SerializedPropertyInfo&gt;)">
             <Messages>
              <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Created="2018-08-23 13:05:11Z">
               <Issue>
-               <Item>'Rule.Rule(string, Message, Message, Message, IDictionary&lt;string, string&gt;, IDictionary&lt;string, string&gt;, RuleConfiguration, Uri, Message, IDictionary&lt;string, SerializedPropertyInfo&gt;)'</Item>
-               <Item>&#xD;&#xA;&#xD;&#xA;Rule..ctor(String, Message, Message, Message, IDictionary&lt;String,String&gt;, IDictionary&lt;String,String&gt;, RuleConfiguration, Uri, Message, IDictionary&lt;String,SerializedPropertyInfo&gt;)&#xD;&#xA;Rule.Init(String, Message, Message, Message, IDictionary&lt;String,String&gt;, IDictionary&lt;String,String&gt;, RuleConfiguration, Uri, Message, IDictionary&lt;String,SerializedPropertyInfo&gt;):Void&#xD;&#xA;PropertyBagHolder.set_Properties(IDictionary&lt;String,SerializedPropertyInfo&gt;):Void</Item>
+               <Item>'Rule.Rule(string, Message, Message, Message, IDictionary&lt;string, string&gt;, IDictionary&lt;string, string&gt;, ReportingConfiguration, Uri, Message, IDictionary&lt;string, SerializedPropertyInfo&gt;)'</Item>
+               <Item>&#xD;&#xA;&#xD;&#xA;Rule..ctor(String, Message, Message, Message, IDictionary&lt;String,String&gt;, IDictionary&lt;String,String&gt;, ReportingConfiguration, Uri, Message, IDictionary&lt;String,SerializedPropertyInfo&gt;)&#xD;&#xA;Rule.Init(String, Message, Message, Message, IDictionary&lt;String,String&gt;, IDictionary&lt;String,String&gt;, ReportingConfiguration, Uri, Message, IDictionary&lt;String,SerializedPropertyInfo&gt;):Void&#xD;&#xA;PropertyBagHolder.set_Properties(IDictionary&lt;String,SerializedPropertyInfo&gt;):Void</Item>
               </Issue>
              </Message>
             </Messages>
@@ -3902,13 +3902,13 @@
            </Member>
           </Members>
          </Type>
-         <Type Name="RuleConfiguration">
+         <Type Name="ReportingConfiguration">
           <Members>
            <Member Name="#Parameters">
             <Messages>
              <Message TypeName="CollectionPropertiesShouldBeReadOnly" Category="Microsoft.Usage" CheckId="CA2227" Created="2018-08-23 13:05:11Z">
               <Issue>
-               <Item>'RuleConfiguration.Parameters'</Item>
+               <Item>'ReportingConfiguration.Parameters'</Item>
               </Issue>
              </Message>
             </Messages>

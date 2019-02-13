@@ -12,12 +12,12 @@ namespace Microsoft.CodeAnalysis.Sarif
     {        
         public bool ShouldSerializeRulesMetadata()
         {
-            return this.RulesMetadata.HasAtLeastOneNonNullValue();
+            return this.RuleDescriptors.HasAtLeastOneNonNullValue();
         }
 
         public bool ShouldSerializeNotificationsMetadata()
         {
-            return this.NotificationsMetadata.HasAtLeastOneNonNullValue();
+            return this.NotificationDescriptors.HasAtLeastOneNonNullValue();
         }
     }
 }

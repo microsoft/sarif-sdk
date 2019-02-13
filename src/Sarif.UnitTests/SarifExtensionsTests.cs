@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 },
             };
 
-            var rule = new MessageDescriptor()
+            var rule = new ReportingDescriptor()
             {
                 MessageStrings = new Dictionary<string, string>()
                 {
@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             };
 
-            var rule = new MessageDescriptor()
+            var rule = new ReportingDescriptor()
             {
                 MessageStrings = new Dictionary<string, string>()
                 {

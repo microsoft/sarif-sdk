@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Driver
             var context = new TestAnalysisContext
             {
                 TargetUri = new System.Uri("file:///c:/src/file.c"),
-                Rule = new MessageDescriptor
+                Rule = new ReportingDescriptor
                 {
                     Id = RuleId,
                     MessageStrings = new Dictionary<string, string>

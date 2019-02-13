@@ -84,10 +84,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             unchecked
             {
                 result = (result * 31) + obj.Enabled.GetHashCode();
-                if (obj.Level != null)
-                {
-                    result = (result * 31) + obj.Level.GetHashCode();
-                }
+
+                result = (result * 31) + obj.Level.GetHashCode();
 
                 result = (result * 31) + obj.Rank.GetHashCode();
                 if (obj.Parameters != null)
