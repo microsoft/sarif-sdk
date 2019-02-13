@@ -16,6 +16,10 @@
     <tags>SARIF command line static analysis</tags>
   </metadata>
   <files>
+    <file src="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\net461\Sarif.Multitool.exe.config"
+          target="tools\net461"
+          />
+
     <file src="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\net461\**"
           target="tools\net461"
           exclude="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\net461\Sarif*"

@@ -69,6 +69,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{90E0CA8D-0D6
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sarif.Multitool.UnitTests", "Sarif.Multitool.UnitTests\Sarif.Multitool.UnitTests.csproj", "{706D3D4B-B669-496A-B4C2-7B9E91C4E684}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ESLint.Formatter", "ESLint.Formatter", "{7D46D6BE-C3CD-424C-9A20-245DE63A9C10}"
+	ProjectSection(SolutionItems) = preProject
+		ESLint.Formatter\package-lock.json = ESLint.Formatter\package-lock.json
+		ESLint.Formatter\package.json = ESLint.Formatter\package.json
+		ESLint.Formatter\readme.MD = ESLint.Formatter\readme.MD
+		ESLint.Formatter\RunTests.cmd = ESLint.Formatter\RunTests.cmd
+		ESLint.Formatter\sarif-with-rules.js = ESLint.Formatter\sarif-with-rules.js
+		ESLint.Formatter\sarif.js = ESLint.Formatter\sarif.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{A2D43A0B-F2ED-42A5-A980-D6F4476FE455}"
+	ProjectSection(SolutionItems) = preProject
+		ESLint.Formatter\test\sarif-with-rules.js = ESLint.Formatter\test\sarif-with-rules.js
+		ESLint.Formatter\test\sarif.js = ESLint.Formatter\test\sarif.js
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -230,6 +246,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{9CEE4119-25C6-4331-8DB6-C53462DDEA47} = {BBDE0751-B8A3-4EA6-A3DF-3CE7BA41EA0F}
 		{90E0CA8D-0D63-4576-8E77-D9FD4D0D28BA} = {BBDE0751-B8A3-4EA6-A3DF-3CE7BA41EA0F}
+		{A2D43A0B-F2ED-42A5-A980-D6F4476FE455} = {7D46D6BE-C3CD-424C-9A20-245DE63A9C10}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9EFA21E3-70A0-467C-9D1F-D5AD0DC1C1E6}
