@@ -40,22 +40,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Text { get; set; }
 
         /// <summary>
-        /// The resource id for a plain text message string.
+        /// A markdown message string.
+        /// </summary>
+        [DataMember(Name = "markdown", IsRequired = false, EmitDefaultValue = false)]
+        public string Markdown { get; set; }
+
+        /// <summary>
+        /// The resource id for a plain text or markdown message string.
         /// </summary>
         [DataMember(Name = "messageId", IsRequired = false, EmitDefaultValue = false)]
         public string MessageId { get; set; }
-
-        /// <summary>
-        /// A rich text message string.
-        /// </summary>
-        [DataMember(Name = "richText", IsRequired = false, EmitDefaultValue = false)]
-        public string RichText { get; set; }
-
-        /// <summary>
-        /// The resource id for a rich text message string.
-        /// </summary>
-        [DataMember(Name = "richMessageId", IsRequired = false, EmitDefaultValue = false)]
-        public string RichMessageId { get; set; }
 
         /// <summary>
         /// An array of strings to substitute into the message string.
@@ -83,14 +77,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="text">
         /// An initialization value for the <see cref="P:Text" /> property.
         /// </param>
+        /// <param name="markdown">
+        /// An initialization value for the <see cref="P:Markdown" /> property.
+        /// </param>
         /// <param name="messageId">
         /// An initialization value for the <see cref="P:MessageId" /> property.
-        /// </param>
-        /// <param name="richText">
-        /// An initialization value for the <see cref="P:RichText" /> property.
-        /// </param>
-        /// <param name="richMessageId">
-        /// An initialization value for the <see cref="P:RichMessageId" /> property.
         /// </param>
         /// <param name="arguments">
         /// An initialization value for the <see cref="P:Arguments" /> property.
@@ -98,9 +89,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Message(string text, string messageId, string richText, string richMessageId, IEnumerable<string> arguments, IDictionary<string, SerializedPropertyInfo> properties)
+        public Message(string text, string markdown, string messageId, IEnumerable<string> arguments, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(text, messageId, richText, richMessageId, arguments, properties);
+            Init(text, markdown, messageId, arguments, properties);
         }
 
         /// <summary>
@@ -119,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Text, other.MessageId, other.RichText, other.RichMessageId, other.Arguments, other.Properties);
+            Init(other.Text, other.Markdown, other.MessageId, other.Arguments, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -140,12 +131,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Message(this);
         }
 
-        private void Init(string text, string messageId, string richText, string richMessageId, IEnumerable<string> arguments, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string text, string markdown, string messageId, IEnumerable<string> arguments, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Text = text;
+            Markdown = markdown;
             MessageId = messageId;
-            RichText = richText;
-            RichMessageId = richMessageId;
             if (arguments != null)
             {
                 var destination_0 = new List<string>();

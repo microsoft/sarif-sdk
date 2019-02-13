@@ -96,6 +96,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         Message,
         /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="MultiformatMessageString" />.
+        /// </summary>
+        MultiformatMessageString,
+        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Node" />.
         /// </summary>
         Node,

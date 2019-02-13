@@ -37,62 +37,56 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A stable, opaque identifier for the message.
         /// </summary>
         [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
-        public virtual string Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// An array of stable, opaque identifiers by which this message was known in some previous version of the analysis tool.
         /// </summary>
         [DataMember(Name = "deprecatedIds", IsRequired = false, EmitDefaultValue = false)]
-        public virtual IList<string> DeprecatedIds { get; set; }
+        public IList<string> DeprecatedIds { get; set; }
 
         /// <summary>
-        /// A messsage  identifier that is understandable to an end user.
+        /// A message identifier that is understandable to an end user.
         /// </summary>
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
-        public virtual Message Name { get; set; }
+        public Message Name { get; set; }
 
         /// <summary>
         /// A concise description of the rule. Should be a single sentence that is understandable when visible space is limited to a single line of text.
         /// </summary>
         [DataMember(Name = "shortDescription", IsRequired = false, EmitDefaultValue = false)]
-        public virtual Message ShortDescription { get; set; }
+        public Message ShortDescription { get; set; }
 
         /// <summary>
         /// A description of the rule. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.
         /// </summary>
         [DataMember(Name = "fullDescription", IsRequired = false, EmitDefaultValue = false)]
-        public virtual Message FullDescription { get; set; }
+        public Message FullDescription { get; set; }
 
         /// <summary>
         /// A set of name/value pairs with arbitrary names. The value within each name/value pair consists of plain text interspersed with placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.
         /// </summary>
         [DataMember(Name = "messageStrings", IsRequired = false, EmitDefaultValue = false)]
-        public virtual IDictionary<string, string> MessageStrings { get; set; }
-
-        /// <summary>
-        /// A set of name/value pairs with arbitrary names. The value within each name/value pair consists of rich text interspersed with placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.
-        /// </summary>
-        [DataMember(Name = "richMessageStrings", IsRequired = false, EmitDefaultValue = false)]
-        public virtual IDictionary<string, string> RichMessageStrings { get; set; }
+        public IDictionary<string, MultiformatMessageString> MessageStrings { get; set; }
 
         /// <summary>
         /// Default rule information.
         /// </summary>
         [DataMember(Name = "defaultConfiguration", IsRequired = false, EmitDefaultValue = false)]
-        public virtual RuleConfiguration DefaultConfiguration { get; set; }
+        public RuleConfiguration DefaultConfiguration { get; set; }
 
         /// <summary>
         /// A URI where the primary documentation for the rule can be found.
         /// </summary>
         [DataMember(Name = "helpUri", IsRequired = false, EmitDefaultValue = false)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
-        public virtual Uri HelpUri { get; set; }
+        public Uri HelpUri { get; set; }
 
         /// <summary>
         /// Provides the primary documentation for the rule, useful when there is no online documentation.
         /// </summary>
         [DataMember(Name = "help", IsRequired = false, EmitDefaultValue = false)]
-        public virtual Message Help { get; set; }
+        public Message Help { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the rule.
@@ -128,9 +122,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="messageStrings">
         /// An initialization value for the <see cref="P:MessageStrings" /> property.
         /// </param>
-        /// <param name="richMessageStrings">
-        /// An initialization value for the <see cref="P:RichMessageStrings" /> property.
-        /// </param>
         /// <param name="defaultConfiguration">
         /// An initialization value for the <see cref="P:DefaultConfiguration" /> property.
         /// </param>
@@ -143,9 +134,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public MessageDescriptor(string id, IEnumerable<string> deprecatedIds, Message name, Message shortDescription, Message fullDescription, IDictionary<string, string> messageStrings, IDictionary<string, string> richMessageStrings, RuleConfiguration defaultConfiguration, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
+        public MessageDescriptor(string id, IEnumerable<string> deprecatedIds, Message name, Message shortDescription, Message fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, RuleConfiguration defaultConfiguration, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, deprecatedIds, name, shortDescription, fullDescription, messageStrings, richMessageStrings, defaultConfiguration, helpUri, help, properties);
+            Init(id, deprecatedIds, name, shortDescription, fullDescription, messageStrings, defaultConfiguration, helpUri, help, properties);
         }
 
         /// <summary>
@@ -164,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.DeprecatedIds, other.Name, other.ShortDescription, other.FullDescription, other.MessageStrings, other.RichMessageStrings, other.DefaultConfiguration, other.HelpUri, other.Help, other.Properties);
+            Init(other.Id, other.DeprecatedIds, other.Name, other.ShortDescription, other.FullDescription, other.MessageStrings, other.DefaultConfiguration, other.HelpUri, other.Help, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -185,7 +176,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new MessageDescriptor(this);
         }
 
-        private void Init(string id, IEnumerable<string> deprecatedIds, Message name, Message shortDescription, Message fullDescription, IDictionary<string, string> messageStrings, IDictionary<string, string> richMessageStrings, RuleConfiguration defaultConfiguration, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string id, IEnumerable<string> deprecatedIds, Message name, Message shortDescription, Message fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, RuleConfiguration defaultConfiguration, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             if (deprecatedIds != null)
@@ -216,12 +207,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (messageStrings != null)
             {
-                MessageStrings = new Dictionary<string, string>(messageStrings);
-            }
-
-            if (richMessageStrings != null)
-            {
-                RichMessageStrings = new Dictionary<string, string>(richMessageStrings);
+                MessageStrings = new Dictionary<string, MultiformatMessageString>();
+                foreach (var value_1 in messageStrings)
+                {
+                    MessageStrings.Add(value_1.Key, new MultiformatMessageString(value_1.Value));
+                }
             }
 
             if (defaultConfiguration != null)

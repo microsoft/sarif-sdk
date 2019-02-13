@@ -21633,7 +21633,7 @@
                 "region": {
                   "startLine": 234,
                   "snippet": {
-                    "text": "        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, Uri> originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, Resources resources, string instanceGuid, string logicalId, Message description, string automationLogicalId, string baselineInstanceGuid, string architecture, string richMessageMimeType, string redactionToken, string defaultFileEncoding, ColumnKind columnKind, IDictionary<string, SerializedPropertyInfo> properties)"
+                    "text": "        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, Uri> originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, Resources resources, string instanceGuid, string logicalId, Message description, string automationLogicalId, string baselineInstanceGuid, string architecture, string markdownMessageMimeType, string redactionToken, string defaultFileEncoding, ColumnKind columnKind, IDictionary<string, SerializedPropertyInfo> properties)"
                   }
                 },
                 "contextRegion": {
@@ -21644,7 +21644,7 @@
                   "charOffset": 11224,
                   "charLength": 693,
                   "snippet": {
-                    "text": "        /// </param>\r\n        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, Uri> originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, Resources resources, string instanceGuid, string logicalId, Message description, string automationLogicalId, string baselineInstanceGuid, string architecture, string richMessageMimeType, string redactionToken, string defaultFileEncoding, ColumnKind columnKind, IDictionary<string, SerializedPropertyInfo> properties)\r\n        {"
+                    "text": "        /// </param>\r\n        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, Uri> originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, Resources resources, string instanceGuid, string logicalId, Message description, string automationLogicalId, string baselineInstanceGuid, string architecture, string markdownMessageMimeType, string redactionToken, string defaultFileEncoding, ColumnKind columnKind, IDictionary<string, SerializedPropertyInfo> properties)\r\n        {"
                   }
                 }
               },
@@ -21771,7 +21771,7 @@
                   "charOffset": 13715,
                   "charLength": 709,
                   "snippet": {
-                    "text": "        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, Uri> originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, Resources resources, string instanceGuid, string logicalId, Message description, string automationLogicalId, string baselineInstanceGuid, string architecture, string richMessageMimeType, string redactionToken, string defaultFileEncoding, ColumnKind columnKind, IDictionary<string, SerializedPropertyInfo> properties)\r\n        {\r\n            if (tool != null)"
+                    "text": "        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, Uri> originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, Resources resources, string instanceGuid, string logicalId, Message description, string automationLogicalId, string baselineInstanceGuid, string architecture, string markdownMessageMimeType, string redactionToken, string defaultFileEncoding, ColumnKind columnKind, IDictionary<string, SerializedPropertyInfo> properties)\r\n        {\r\n            if (tool != null)"
                   }
                 }
               },
@@ -21813,7 +21813,7 @@
                   "charOffset": 13715,
                   "charLength": 709,
                   "snippet": {
-                    "text": "        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, Uri> originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, Resources resources, string instanceGuid, string logicalId, Message description, string automationLogicalId, string baselineInstanceGuid, string architecture, string richMessageMimeType, string redactionToken, string defaultFileEncoding, ColumnKind columnKind, IDictionary<string, SerializedPropertyInfo> properties)\r\n        {\r\n            if (tool != null)"
+                    "text": "        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, Uri> originalUriBaseIds, IDictionary<string, FileData> files, IDictionary<string, LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, Resources resources, string instanceGuid, string logicalId, Message description, string automationLogicalId, string baselineInstanceGuid, string architecture, string markdownMessageMimeType, string redactionToken, string defaultFileEncoding, ColumnKind columnKind, IDictionary<string, SerializedPropertyInfo> properties)\r\n        {\r\n            if (tool != null)"
                   }
                 }
               },

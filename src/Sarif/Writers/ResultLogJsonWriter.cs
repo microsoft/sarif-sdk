@@ -114,10 +114,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 _serializer.Serialize(_jsonWriter, run.DefaultFileEncoding);
             }
 
-            if (run.RichMessageMimeType != null && run.RichMessageMimeType != "text/markdown;variant=GFM")
+            if (run.MarkdownMessageMimeType != null && run.MarkdownMessageMimeType != "text/markdown;variant=GFM")
             {
-                _jsonWriter.WritePropertyName("richMessageMimeType");
-                _serializer.Serialize(_jsonWriter, run.RichMessageMimeType);
+                _jsonWriter.WritePropertyName("markdownMessageMimeType");
+                _serializer.Serialize(_jsonWriter, run.MarkdownMessageMimeType);
             }
 
             if (run.RedactionToken != null)

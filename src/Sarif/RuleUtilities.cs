@@ -90,11 +90,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             return result;
         }
 
-        public static Dictionary<string, string> BuildDictionary(
+        public static Dictionary<string, MultiformatMessageString> BuildDictionary(
             ResourceManager resourceManager,
             IEnumerable<string> resourceNames,
-            string ruleId,
-            string prefix = null)
+            string ruleId)
         {
             //validation
             if (resourceNames == null)
@@ -108,16 +107,19 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             // Note this dictionary provides for case-insensitive keys
-            var dictionary = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            var dictionary = new Dictionary<string, MultiformatMessageString>(StringComparer.OrdinalIgnoreCase);
 
             foreach (string resourceName in resourceNames)
             {
                 string resourceValue = resourceManager.GetString(resourceName);
 
-                string normalizedResourceName = NormalizeRuleMessageId(resourceName, ruleId, prefix);
+                string normalizedResourceName = NormalizeRuleMessageId(resourceName, ruleId);
 
                 // We need to use the non-normalized key to retrieve the resource value
-                dictionary[normalizedResourceName] = resourceValue;
+                dictionary[normalizedResourceName] = new MultiformatMessageString
+                {
+                    Text = resourceValue
+                };
             }
 
             // We need to return null here, otherwise this empty dictionary will serialize to SARIF logs unnecessarily

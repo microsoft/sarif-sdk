@@ -218,7 +218,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.RichMessageMimeType != right.RichMessageMimeType)
+            if (left.MarkdownMessageMimeType != right.MarkdownMessageMimeType)
             {
                 return false;
             }
@@ -428,9 +428,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.BaselineInstanceGuid.GetHashCode();
                 }
 
-                if (obj.RichMessageMimeType != null)
+                if (obj.MarkdownMessageMimeType != null)
                 {
-                    result = (result * 31) + obj.RichMessageMimeType.GetHashCode();
+                    result = (result * 31) + obj.MarkdownMessageMimeType.GetHashCode();
                 }
 
                 if (obj.RedactionToken != null)
