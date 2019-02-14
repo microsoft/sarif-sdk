@@ -213,6 +213,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // 4. Persist extracted data as tool.driver and place back on run
             tool["driver"] = driver;
 
+            // 5. run.richTextMimeType renamed to run.markdownMimeType
+            RenameProperty(run, "richTextMimeType", "markdownMimeType");
+
             run["tool"] = tool;
 
             // Other changes in this schema update do not require any transformation, as

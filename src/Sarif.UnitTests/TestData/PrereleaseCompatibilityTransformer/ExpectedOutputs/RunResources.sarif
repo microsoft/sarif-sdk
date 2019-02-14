@@ -3,6 +3,7 @@
   "version": "2.0.0-csd.2.beta.2019-01-24",
   "runs": [
     {
+      "markdownMimeType": "text/markdown;variant=NEWVARIANT",
       "tool": {
         "driver": {
           "name": "CodeScanner",

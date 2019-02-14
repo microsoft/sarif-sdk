@@ -3,12 +3,13 @@
   "version": "2.0.0-csd.2.beta.2018-10-10",
   "runs": [
     {
+      "richTextMimeType": "text/markdown;variant=NEWVARIANT",
       "tool": {
         "name": "CodeScanner",
         "semanticVersion": "2.1.0"
       },
       "resources": {
-        "messageStrings": {"noContent": "This file has no content to review."},
+        "messageStrings": { "noContent": "This file has no content to review." },
         "rules": {
           "SHARED-ID.2": {
             "id": "SHARED-ID",
