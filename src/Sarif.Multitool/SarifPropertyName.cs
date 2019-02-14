@@ -41,6 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Locations = "locations";
         public const string LogicalLocations = "logicalLocations";
         public const string MappedTo = "mappedTo";
+        public const string Markdown = "markdown";
         public const string Message = "message";
         public const string MessageStrings = "messageStrings";
         public const string Nodes = "nodes";
@@ -55,8 +56,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string RepositoryUri = "repositoryUri";
         public const string ResponseFiles = "responseFiles";
         public const string Results = "results";
-        public const string RichMessageStrings = "richMessageStrings";
-        public const string RichText = "richText";
         public const string RuleDescriptors = "ruleDescriptors";
         public const string Runs = "runs";
         public const string Schema = "$schema";

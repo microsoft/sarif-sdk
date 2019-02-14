@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         public string Format(string messageId, IEnumerable<string> arguments)
         {
-            return string.Format(CultureInfo.CurrentCulture, this.MessageStrings[messageId], arguments.ToArray());
+            return string.Format(CultureInfo.CurrentCulture, this.MessageStrings[messageId].Text, arguments.ToArray());
         }
 
         public bool ShouldSerializeDeprecatedIds()

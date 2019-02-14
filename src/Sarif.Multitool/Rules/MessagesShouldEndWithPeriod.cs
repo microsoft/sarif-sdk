@@ -37,30 +37,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override void Analyze(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
         {
             AnalyzeMessageStrings(reportingDescriptor.MessageStrings, reportingDescriptorPointer, SarifPropertyName.MessageStrings);
-            AnalyzeMessageStrings(reportingDescriptor.RichMessageStrings, reportingDescriptorPointer, SarifPropertyName.RichMessageStrings);
         }
 
         private void AnalyzeMessageStrings(
-            IDictionary<string, string> messageStrings,
-            string rulePointer,
+            IDictionary<string, MultiformatMessageString> messageStrings,
+            string reportingDescriptorPointer,
             string propertyName)
         {
             if (messageStrings != null)
             {
+                string messageStringsPointer = reportingDescriptorPointer.AtProperty(SarifPropertyName.MessageStrings);
+
                 foreach (string key in messageStrings.Keys)
                 {
-                    string messageString = messageStrings[key];
-                    if (!String.IsNullOrEmpty(messageString) && DoesNotEndWithPeriod(messageString))
-                    {
-                        string messagePointer = rulePointer
-                            .AtProperty(propertyName)
-                            .AtProperty(key);
+                    MultiformatMessageString messageString = messageStrings[key];
 
-                        LogResult(
-                            messagePointer,
-                            nameof(RuleResources.SARIF1008_Default),
-                            messageString);
-                    }
+                    string messageStringPointer = messageStringsPointer.AtProperty(key);
+
+                    AnalyzeMessageString(messageString.Text, messageStringPointer, SarifPropertyName.Text);
+                    AnalyzeMessageString(messageString.Markdown, messageStringPointer, SarifPropertyName.Markdown);
                 }
             }
         }
@@ -68,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected override void Analyze(Message message, string messagePointer)
         {
             AnalyzeMessageString(message.Text, messagePointer, SarifPropertyName.Text);
-            AnalyzeMessageString(message.RichText, messagePointer, SarifPropertyName.RichText);
+            AnalyzeMessageString(message.Markdown, messagePointer, SarifPropertyName.Markdown);
         }
 
         private void AnalyzeMessageString(

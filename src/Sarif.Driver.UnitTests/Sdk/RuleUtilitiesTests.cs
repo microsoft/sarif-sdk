@@ -25,9 +25,9 @@ namespace Microsoft.CodeAnalysis.Driver
                 Rule = new ReportingDescriptor
                 {
                     Id = RuleId,
-                    MessageStrings = new Dictionary<string, string>
+                    MessageStrings = new Dictionary<string, MultiformatMessageString>
                     {
-                        [RuleMessageId] = "Expected {0} but got {1}."
+                        [RuleMessageId] = new MultiformatMessageString { Text = "Expected {0} but got {1}." }
                     }
                 }
             };

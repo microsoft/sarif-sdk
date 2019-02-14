@@ -19,28 +19,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.UnitTests.Sdk
             nameof(SkimmerBaseTestResources.TST0001_Pass),
             nameof(SkimmerBaseTestResources.TST0001_Error)
         };
-
-        protected override IEnumerable<string> RichMessageResourceNames => new List<string>
-        {
-            nameof(SkimmerBaseTestResources.TST0001_Rich_Pass),
-            nameof(SkimmerBaseTestResources.TST0001_Rich_Error)
-        };
     }
 
     public class SkimmerBaseTests
     {
         [Fact]
-        public void SkimmerBase_GetsPlainAndRichMessageStringsFromResources()
+        public void SkimmerBase_GetsPlainTextMessageStringsFromResources()
         {
             var skimmer = new TestSkimmer();
 
             skimmer.MessageStrings.Count.Should().Be(2);
-            skimmer.MessageStrings["Pass"].Should().Be(SkimmerBaseTestResources.TST0001_Pass);
-            skimmer.MessageStrings["Error"].Should().Be(SkimmerBaseTestResources.TST0001_Error);
-
-            skimmer.RichMessageStrings.Count.Should().Be(2);
-            skimmer.RichMessageStrings["Pass"].Should().Be(SkimmerBaseTestResources.TST0001_Rich_Pass);
-            skimmer.RichMessageStrings["Error"].Should().Be(SkimmerBaseTestResources.TST0001_Rich_Error);
+            skimmer.MessageStrings["Pass"].Text.Should().Be(SkimmerBaseTestResources.TST0001_Pass);
+            skimmer.MessageStrings["Error"].Text.Should().Be(SkimmerBaseTestResources.TST0001_Error);
         }
     }
 }

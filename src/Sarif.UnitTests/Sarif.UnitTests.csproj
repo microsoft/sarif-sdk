@@ -16,8 +16,10 @@
 
   <ItemGroup>
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ComprehensiveToolProperties.sarif" />
+    <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\MultiformatMessageStrings.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\RunResources.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\ComprehensiveToolProperties.sarif" />
+    <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\MultiformatMessageStrings.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\RunResources.sarif" />
   </ItemGroup>
 
@@ -42,11 +44,13 @@
     <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_TextFiles.sarif" />
     <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\Inputs\CoreTests.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ComprehensiveFileProperties.sarif" />
+    <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\MultiformatMessageStrings.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ComprehensiveToolProperties.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\RunResources.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\RuleIdCollisions.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\NestedFiles.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\ComprehensiveFileProperties.sarif" />
+    <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\MultiformatMessageStrings.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\ComprehensiveToolProperties.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\RunResources.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\RuleIdCollisions.sarif" />

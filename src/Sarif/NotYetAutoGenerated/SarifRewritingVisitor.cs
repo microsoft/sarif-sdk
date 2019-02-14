@@ -84,6 +84,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitLogicalLocation((LogicalLocation)node);
                 case SarifNodeKind.Message:
                     return VisitMessage((Message)node);
+                case SarifNodeKind.MultiformatMessageString:
+                    return VisitMultiformatMessageString((MultiformatMessageString)node);
                 case SarifNodeKind.Node:
                     return VisitNode((Node)node);
                 case SarifNodeKind.Notification:
@@ -493,6 +495,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             return node;
         }
 
+        public virtual MultiformatMessageString VisitMultiformatMessageString(MultiformatMessageString node)
+        {
+            if (node != null)
+            {
+            }
+
+            return node;
+        }
+
         public virtual Node VisitNode(Node node)
         {
             if (node != null)
@@ -602,6 +613,19 @@ namespace Microsoft.CodeAnalysis.Sarif
                 node.Name = VisitNullChecked(node.Name);
                 node.ShortDescription = VisitNullChecked(node.ShortDescription);
                 node.FullDescription = VisitNullChecked(node.FullDescription);
+                if (node.MessageStrings != null)
+                {
+                    var keys = node.MessageStrings.Keys.ToArray();
+                    foreach (var key in keys)
+                    {
+                        var value = node.MessageStrings[key];
+                        if (value != null)
+                        {
+                            node.MessageStrings[key] = VisitNullChecked(value);
+                        }
+                    }
+                }
+
                 node.DefaultConfiguration = VisitNullChecked(node.DefaultConfiguration);
                 node.Help = VisitNullChecked(node.Help);
             }
@@ -743,6 +767,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
                 */
+
                 if (node.Files != null)
                 {
                     for (int index_0 = 0; index_0 < node.Files.Count; ++index_0)
@@ -897,6 +922,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                if (node.GlobalMessageStrings != null)
+                {
+                    var keys = node.GlobalMessageStrings.Keys.ToArray();
+                    foreach (var key in keys)
+                    {
+                        var value = node.GlobalMessageStrings[key];
+                        if (value != null)
+                        {
+                            node.GlobalMessageStrings[key] = VisitNullChecked(value);
+                        }
+                    }
+                }
+
                 if (node.NotificationDescriptors != null)
                 {
                     for (int index_0 = 0; index_0 < node.NotificationDescriptors.Count; ++index_0)
@@ -928,4 +966,3 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
     }
 }
- 

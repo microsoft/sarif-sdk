@@ -70,29 +70,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.UnitTests.Sdk {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This test  _failed_ resulting in a quality **markdown**..
+        /// </summary>
+        internal static string TST0001_Markdown_Error {
+            get {
+                return ResourceManager.GetString("TST0001_Markdown_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This test  _passed_ resulting in a quality **markdown**..
+        /// </summary>
+        internal static string TST0001_Markdown_Pass {
+            get {
+                return ResourceManager.GetString("TST0001_Markdown_Pass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This test plainly passed..
         /// </summary>
         internal static string TST0001_Pass {
             get {
                 return ResourceManager.GetString("TST0001_Pass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This test **richly** _failed_..
-        /// </summary>
-        internal static string TST0001_Rich_Error {
-            get {
-                return ResourceManager.GetString("TST0001_Rich_Error", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This test **richly** _passed_..
-        /// </summary>
-        internal static string TST0001_Rich_Pass {
-            get {
-                return ResourceManager.GetString("TST0001_Rich_Pass", resourceCulture);
             }
         }
     }

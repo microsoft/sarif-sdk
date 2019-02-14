@@ -362,6 +362,16 @@
       }
     }
   ],
+  "multiformatMessageString": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
   "physicalLocation": [
     {
       "kind": "BaseTypeHint",

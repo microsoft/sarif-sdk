@@ -801,7 +801,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     FullDescription = CreateMessage(v1Rule.FullDescription),
                     HelpUri = v1Rule.HelpUri,
                     Id = v1Rule.Id,
-                    MessageStrings = v1Rule.MessageFormats,
+                    MessageStrings = v1Rule.MessageFormats.ConvertToMultiformatMessageStringsDictionary(),
                     Name = CreateMessage(v1Rule.Name),
                     Properties = v1Rule.Properties,
                     ShortDescription = CreateMessage(v1Rule.ShortDescription)

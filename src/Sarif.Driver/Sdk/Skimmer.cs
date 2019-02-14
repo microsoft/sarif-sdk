@@ -13,50 +13,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             this.Options = new Dictionary<string, string>();
         }
-        private IDictionary<string, string> messageStrings;
-        private IDictionary<string, string> richMessageStrings;
+        private IDictionary<string, MultiformatMessageString> multiformatMessageStrings;
 
         virtual protected ResourceManager ResourceManager => throw new NotImplementedException();
 
         virtual protected IEnumerable<string> MessageResourceNames => throw new NotImplementedException();
 
-        virtual protected IEnumerable<string> RichMessageResourceNames => new List<string>();
-
-
         virtual public FailureLevel DefaultLevel { get { return FailureLevel.Warning; } }
 
-        override public IDictionary<string, string> MessageStrings
+        override public IDictionary<string, MultiformatMessageString> MessageStrings
         {
             get
             {
-                if (this.messageStrings == null)
+                if (this.multiformatMessageStrings == null)
                 {
-                    this.messageStrings = InitializeMessageStrings();
+                    this.multiformatMessageStrings = InitializeMultiformatMessageStrings();
                 }
-                return this.messageStrings;
+                return this.multiformatMessageStrings;
             }
         }
 
-        override public IDictionary<string, string> RichMessageStrings
-        {
-            get
-            {
-                if (this.richMessageStrings == null)
-                {
-                    this.richMessageStrings = InitializeRichMessageStrings();
-                }
-                return this.richMessageStrings;
-            }
-        }
-
-        private Dictionary<string, string> InitializeMessageStrings()
+        private Dictionary<string, MultiformatMessageString> InitializeMultiformatMessageStrings()
         {
             return RuleUtilities.BuildDictionary(ResourceManager, MessageResourceNames, ruleId: Id);
-        }
-
-        private Dictionary<string, string> InitializeRichMessageStrings()
-        {
-            return RuleUtilities.BuildDictionary(ResourceManager, RichMessageResourceNames,ruleId: Id, prefix: "Rich");
         }
 
         public override string Id => throw new InvalidOperationException($"The {nameof(Id)} property must be overridden in the SkimmerBase-derived class.");
