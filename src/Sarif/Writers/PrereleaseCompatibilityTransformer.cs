@@ -214,7 +214,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             tool["driver"] = driver;
 
             // 5. run.richTextMimeType renamed to run.markdownMimeType
-            RenameProperty(run, "richTextMimeType", "markdownMimeType");
+            RenameProperty(run, "richTextMimeType", "markdownMessageMimeType");
 
             run["tool"] = tool;
 
