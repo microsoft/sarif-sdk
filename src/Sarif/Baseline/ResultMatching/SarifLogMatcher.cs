@@ -281,6 +281,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             var invocations = new List<Invocation>();
 
             // TODO tool message strings are not currently handled
+            // https://github.com/Microsoft/sarif-sdk/issues/1286
 
             foreach (Run currentRun in currentRuns)
             {
