@@ -142,9 +142,53 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                             SetResultKindAndFailureLevel(result);
                         }
                     }
+
+                    RecursivePropertyRename(run, "richText", "markdown");                    
                 }
             }
             return true;
+        }
+
+        private static void RecursivePropertyRename(JObject parentObect, JProperty property, string originalName, string newName)
+        {
+            if (property.Name.Equals(originalName))
+            {
+                parentObect[newName] = property.Value;
+                parentObect.Remove(originalName);
+                return;
+            }
+
+            if (property.Value is JArray jArray)
+            {
+                RecursivePropertyRename(jArray, originalName, newName);
+            }
+            else if (property.Value is JObject jObject)
+            {
+                RecursivePropertyRename(jObject, originalName, newName);
+            }
+        }
+
+        private static void RecursivePropertyRename(JArray jArray, string originalName, string newName)
+        {
+            foreach (JToken jToken in jArray)
+            {
+                if (jToken is JObject jObject)
+                {
+                    RecursivePropertyRename(jObject, originalName, newName);
+                }
+                // Note that we don't have to handle arrays of values or other arrays.
+                // These aren't expressed in standard SARIF, if we hit this code path
+                // that means we're processing some property bag content.
+            }
+        }
+
+        private static void RecursivePropertyRename(JObject jObject, string originalName, string newName)
+        {
+            List<JProperty> properties = new List<JProperty>(jObject.Properties());
+            foreach (JProperty property in properties)
+            {
+                RecursivePropertyRename(jObject, property, originalName, newName);
+            }
         }
 
         private static void MoveToolPropertiesIntoDriverToolComponent(JObject run)

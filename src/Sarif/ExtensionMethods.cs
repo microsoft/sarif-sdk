@@ -16,6 +16,11 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         public static IDictionary<string, MultiformatMessageString> ConvertToMultiformatMessageStringsDictionary(this IDictionary<string, string> v1MessageStringsDictionary)
         {
+            if (v1MessageStringsDictionary == null)
+            {
+                return null;
+            }
+
             var converted = new Dictionary<string, MultiformatMessageString>();
 
             foreach (KeyValuePair<string, string> keyValuePair in v1MessageStringsDictionary)
@@ -25,7 +30,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             return converted;
         }
-
 
         public static bool HasAtLeastOneNonNullValue<T>(this IEnumerable<T> collection)
         {

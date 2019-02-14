@@ -42,8 +42,7 @@
                 }
               }
             }
-          ],
-          "rank": -1.0
+          ]
         },
         {
           "ruleId": "SHARED-ID",
@@ -59,8 +58,7 @@
                 }
               }
             }
-          ],
-          "rank": -1.0
+          ]
         }
       ],
       "columnKind": "utf16CodeUnits"

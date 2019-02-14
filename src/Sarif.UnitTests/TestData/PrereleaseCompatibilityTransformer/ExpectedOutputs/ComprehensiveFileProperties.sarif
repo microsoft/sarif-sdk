@@ -58,8 +58,7 @@
                 "key": "file.txt"
               }
             }
-          ],
-          "rank": -1.0
+          ]
         },
         {
           "ruleId": "C1",
@@ -80,8 +79,7 @@
                 }
               }
             }
-          ],
-          "rank": -1.0
+          ]
         }
       ],
       "columnKind": "utf16CodeUnits"

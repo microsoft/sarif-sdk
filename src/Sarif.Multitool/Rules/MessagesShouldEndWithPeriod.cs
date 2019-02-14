@@ -41,17 +41,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private void AnalyzeMessageStrings(
             IDictionary<string, MultiformatMessageString> messageStrings,
-            string rulePointer,
+            string reportingDescriptorPointer,
             string propertyName)
         {
             if (messageStrings != null)
             {
+                string messageStringsPointer = reportingDescriptorPointer.AtProperty(SarifPropertyName.MessageStrings);
+
                 foreach (string key in messageStrings.Keys)
                 {
                     MultiformatMessageString messageString = messageStrings[key];
 
-                    AnalyzeMessageString(messageString.Text, rulePointer, key, SarifPropertyName.Text);
-                    AnalyzeMessageString(messageString.Markdown, rulePointer, key, SarifPropertyName.Markdown);
+                    string messageStringPointer = messageStringsPointer.AtProperty(key);
+
+                    AnalyzeMessageString(messageString.Text, messageStringPointer, SarifPropertyName.Text);
+                    AnalyzeMessageString(messageString.Markdown, messageStringPointer, SarifPropertyName.Markdown);
                 }
             }
         }
@@ -65,12 +69,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         private void AnalyzeMessageString(
             string messageString,
             string messagePointer,
-            string propertyName,
-            string additionalPropertyName = "")
+            string propertyName)
         {
             if (!String.IsNullOrEmpty(messageString) && DoesNotEndWithPeriod(messageString))
             {
-                string textPointer = messagePointer.AtProperty(propertyName).AtProperty(additionalPropertyName);
+                string textPointer = messagePointer.AtProperty(propertyName);
 
                 LogResult(
                     textPointer,

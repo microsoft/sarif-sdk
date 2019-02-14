@@ -856,6 +856,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         private static IDictionary<string, string> ConvertToV1MessageStringsDictionary(IDictionary<string, MultiformatMessageString> v2MessageStringsDictionary)
         {
+            if (v2MessageStringsDictionary == null) { return null; }
+
             var converted = new Dictionary<string, string>();
 
             foreach(KeyValuePair<string, MultiformatMessageString> keyValuePair in v2MessageStringsDictionary)

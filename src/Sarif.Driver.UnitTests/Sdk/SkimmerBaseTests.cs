@@ -24,16 +24,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.UnitTests.Sdk
     public class SkimmerBaseTests
     {
         [Fact]
-        public void SkimmerBase_GetsPlainAndRichMessageStringsFromResources()
+        public void SkimmerBase_GetsPlainAMessageStringsFromResources()
         {
             var skimmer = new TestSkimmer();
 
             skimmer.MessageStrings.Count.Should().Be(2);
             skimmer.MessageStrings["Pass"].Text.Should().Be(SkimmerBaseTestResources.TST0001_Pass);
             skimmer.MessageStrings["Error"].Text.Should().Be(SkimmerBaseTestResources.TST0001_Error);
-
-            skimmer.MessageStrings["Pass"].Markdown.Should().Be(SkimmerBaseTestResources.TST0001_Markdown_Pass);
-            skimmer.MessageStrings["Error"].Markdown.Should().Be(SkimmerBaseTestResources.TST0001_Markdown_Error);
         }
     }
 }
