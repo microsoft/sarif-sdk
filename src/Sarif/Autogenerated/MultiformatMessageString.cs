@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Text { get; set; }
 
         /// <summary>
-        /// A markdown message string or format string..
+        /// A Markdown message string or format string.
         /// </summary>
         [DataMember(Name = "markdown", IsRequired = false, EmitDefaultValue = false)]
         public string Markdown { get; set; }

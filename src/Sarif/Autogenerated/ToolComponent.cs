@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Uri DownloadUri { get; set; }
 
         /// <summary>
-        /// A dictionary, each of whose keys is a resource identifier and each of whose values is a string rendered as plain text and (optionally) markdown.
+        /// A dictionary, each of whose keys is a resource identifier and each of whose values is a multiformatMessageString object, which holds message strings in plain text and (optionally) Markdown format. The strings can include placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.
         /// </summary>
         [DataMember(Name = "globalMessageStrings", IsRequired = false, EmitDefaultValue = false)]
         public IDictionary<string, MultiformatMessageString> GlobalMessageStrings { get; set; }

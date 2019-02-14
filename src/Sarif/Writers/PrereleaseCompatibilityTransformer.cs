@@ -149,12 +149,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return true;
         }
 
-        private static void RecursivePropertyRename(JObject parentObect, JProperty property, string originalName, string newName)
+        private static void RecursivePropertyRename(JObject parentObject, JProperty property, string originalName, string newName)
         {
             if (property.Name.Equals(originalName))
             {
-                parentObect[newName] = property.Value;
-                parentObect.Remove(originalName);
+                parentObject[newName] = property.Value;
+                parentObject.Remove(originalName);
                 return;
             }
 
@@ -184,7 +184,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static void RecursivePropertyRename(JObject jObject, string originalName, string newName)
         {
-            List<JProperty> properties = new List<JProperty>(jObject.Properties());
+            var properties = new List<JProperty>(jObject.Properties());
             foreach (JProperty property in properties)
             {
                 RecursivePropertyRename(jObject, property, originalName, newName);
@@ -195,8 +195,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             // https://github.com/oasis-tcs/sarif-spec/issues/179
 
-            // 1. Retrieve run.tool object, which will serve as the basis of the 
-            //    new run.tool.driver object and zap sarifLoggerVersion from it;
+            // 1. Retrieve run.tool object, which will serve as the basis of the
+            //    new run.tool.driver object and zap sarifLoggerVersion from it.
             JObject driver = (JObject)run["tool"];
             driver.Remove("sarifLoggerVersion");
 
@@ -210,10 +210,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             //    the 'richMessageStrings property.
             MergeRichMessagesInDescriptorsArrays(driver);
 
-            // 4. Persist extracted data as tool.driver and place back on run
+            // 4. Persist extracted data as tool.driver and place back on run.
             tool["driver"] = driver;
 
-            // 5. run.richTextMimeType renamed to run.markdownMimeType
+            // 5. run.richTextMimeType renamed to run.markdownMessageMimeType.
             RenameProperty(run, "richTextMimeType", "markdownMessageMimeType");
 
             run["tool"] = tool;

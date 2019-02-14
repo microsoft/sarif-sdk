@@ -16,19 +16,9 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         public static IDictionary<string, MultiformatMessageString> ConvertToMultiformatMessageStringsDictionary(this IDictionary<string, string> v1MessageStringsDictionary)
         {
-            if (v1MessageStringsDictionary == null)
-            {
-                return null;
-            }
-
-            var converted = new Dictionary<string, MultiformatMessageString>();
-
-            foreach (KeyValuePair<string, string> keyValuePair in v1MessageStringsDictionary)
-            {
-                converted[keyValuePair.Key] = new MultiformatMessageString { Text = keyValuePair.Value };
-            }
-
-            return converted;
+            return v1MessageStringsDictionary?.ToDictionary(
+                 keyValuePair => keyValuePair.Key,
+                 keyValuePair => new MultiformatMessageString { Text = keyValuePair.Value });
         }
 
         public static bool HasAtLeastOneNonNullValue<T>(this IEnumerable<T> collection)

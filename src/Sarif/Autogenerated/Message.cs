@@ -40,13 +40,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Text { get; set; }
 
         /// <summary>
-        /// A markdown message string.
+        /// A Markdown message string.
         /// </summary>
         [DataMember(Name = "markdown", IsRequired = false, EmitDefaultValue = false)]
         public string Markdown { get; set; }
 
         /// <summary>
-        /// The resource id for a plain text or markdown message string.
+        /// The resource id for a plain text or Markdown message string.
         /// </summary>
         [DataMember(Name = "messageId", IsRequired = false, EmitDefaultValue = false)]
         public string MessageId { get; set; }

@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.UnitTests.Sdk
     public class SkimmerBaseTests
     {
         [Fact]
-        public void SkimmerBase_GetsPlainAMessageStringsFromResources()
+        public void SkimmerBase_GetsPlainTextMessageStringsFromResources()
         {
             var skimmer = new TestSkimmer();
 
