@@ -8,7 +8,7 @@
       },
       "conversion": {
         "tool": {
-          "name": "ConversionTool"
+          "driver": { "name": "ConversionTool" }
         },
         "analysisToolLogFiles": [
           {
