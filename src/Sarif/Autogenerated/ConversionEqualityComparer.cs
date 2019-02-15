@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!ToolComponent.ValueComparer.Equals(left.Driver, right.Driver))
+            if (!Tool.ValueComparer.Equals(left.Tool, right.Tool))
             {
                 return false;
             }
@@ -94,9 +94,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (obj.Driver != null)
+                if (obj.Tool != null)
                 {
-                    result = (result * 31) + obj.Driver.ValueGetHashCode();
+                    result = (result * 31) + obj.Tool.ValueGetHashCode();
                 }
 
                 if (obj.Invocation != null)

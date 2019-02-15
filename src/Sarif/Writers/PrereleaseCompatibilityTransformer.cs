@@ -218,6 +218,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             run["tool"] = tool;
 
+            // 6. Update some properties on run.conversion, if present. Note that the
+            // notion of reportingDescriptors associated with the conversion did not
+            // exist previously, so no transformation is required here.
+            if (run["conversion"] is JObject conversion)
+            {
+                driver = (JObject)conversion["tool"];
+                
+                tool = new JObject(new JProperty("language", driver["language"] ?? "en-US"));
+
+                driver.Remove("language");
+                driver.Remove("sarifLoggerVersion");
+
+                tool["driver"] = driver;
+                conversion["tool"] = tool;
+                run["conversion"] = conversion;
+            }
+
             // Other changes in this schema update do not require any transformation, as
             // the remainder is additive. This includes:
             //  toolComponent.fileIndex -> associate a component with a run.files entry

@@ -192,7 +192,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
-                node.Driver = VisitNullChecked(node.Driver);
+                node.Tool = VisitNullChecked(node.Tool);
                 node.Invocation = VisitNullChecked(node.Invocation);
                 if (node.AnalysisToolLogFiles != null)
                 {

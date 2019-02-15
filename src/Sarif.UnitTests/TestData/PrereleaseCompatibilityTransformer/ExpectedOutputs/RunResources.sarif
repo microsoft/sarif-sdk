@@ -49,6 +49,13 @@
           ]
         }
       },
+      "conversion": {
+        "tool": {
+          "driver": {
+            "name": "CodeScanner converter 1.5"
+          }
+        }
+      },
       "results": [
         {
           "ruleId": "SHARED-ID",
