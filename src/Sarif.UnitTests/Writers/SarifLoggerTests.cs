@@ -182,7 +182,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string automationLogicalId = nameof(automationLogicalId) + ":" + Guid.NewGuid().ToString();
             string runInstanceId = automationLogicalId + "/" + runInstanceGuid;
             string architecture = nameof(architecture) + ":" + "x86";
-            var conversion = new Conversion() { Driver = DefaultTool.Driver };
+            var conversion = new Conversion() { Tool = DefaultTool };
             var utcNow = DateTime.UtcNow;
             var versionControlUri = new Uri("https://www.github.com/contoso/contoso");
             var versionControlDetails = new VersionControlDetails() { RepositoryUri = versionControlUri, AsOfTimeUtc = DateTime.UtcNow };
@@ -233,7 +233,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             run.Id.InstanceGuid.Should().Be(runInstanceGuid);
             run.BaselineInstanceGuid.Should().Be(baselineInstanceGuid);
             run.Id.InstanceId.Should().Be(runInstanceId);
-            run.Conversion.Driver.Should().BeEquivalentTo(DefaultTool.Driver);
+            run.Conversion.Tool.Should().BeEquivalentTo(DefaultTool);
             run.VersionControlProvenance[0].RepositoryUri.Should().BeEquivalentTo(versionControlUri);
             run.OriginalUriBaseIds[originalUriBaseIdKey].Uri.Should().Be(originalUriBaseIdValue);
             run.DefaultFileEncoding.Should().Be(defaultFileEncoding);
