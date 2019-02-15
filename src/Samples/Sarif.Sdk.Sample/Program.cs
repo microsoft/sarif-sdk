@@ -62,9 +62,15 @@ namespace Sarif.Sdk.Sample
                     Id ="CA1819",
                     Name = new Message { Text = "Properties should not return arrays" },
                     FullDescription = new Message { Text = "Arrays returned by properties are not write-protected, even if the property is read-only. To keep the array tamper-proof, the property must return a copy of the array. Typically, users will not understand the adverse performance implications of calling such a property." },
-                    MessageStrings = new Dictionary<string, string>
+                    MessageStrings = new Dictionary<string, MultiformatMessageString>
                     {
-                        { "Default", "The property {0} returns an array." }
+                        {
+                            "Default",
+                            new MultiformatMessageString
+                            {
+                                Text = "The property {0} returns an array."
+                            }
+                        }
                     }
                 },
                 new ReportingDescriptor
@@ -72,9 +78,15 @@ namespace Sarif.Sdk.Sample
                     Id ="CA1820",
                     Name = new Message { Text = "Test for empty strings using string length" },
                     FullDescription = new Message { Text = "Comparing strings by using the String.Length property or the String.IsNullOrEmpty method is significantly faster than using Equals." },
-                    MessageStrings = new Dictionary<string, string>
+                    MessageStrings = new Dictionary<string, MultiformatMessageString>
                     {
-                        { "Default", "The test for an empty string is performed by a string comparison rather than by testing String.Length." }
+                        {
+                            "Default",
+                            new MultiformatMessageString
+                            {
+                                Text = "The test for an empty string is performed by a string comparison rather than by testing String.Length."
+                            }
+                        }
                     }
                 },
                 new ReportingDescriptor
@@ -82,9 +94,15 @@ namespace Sarif.Sdk.Sample
                     Id ="CA2105",
                     Name = new Message { Text = "Array fields should not be read only" },
                     FullDescription = new Message { Text = "When you apply the read-only (ReadOnly in Visual Basic) modifier to a field that contains an array, the field cannot be changed to reference a different array. However, the elements of the array stored in a read-only field can be changed." },
-                    MessageStrings = new Dictionary<string, string>
+                    MessageStrings = new Dictionary<string, MultiformatMessageString>
                     {
-                        { "Default", "The array-valued field {0} is marked readonly." }
+                        {
+                            "Default",
+                            new MultiformatMessageString
+                            {
+                                Text = "The array-valued field {0} is marked readonly."
+                            }
+                        }
                     }
                 },
                 new ReportingDescriptor
@@ -92,9 +110,15 @@ namespace Sarif.Sdk.Sample
                     Id ="CA2215",
                     Name = new Message { Text = "Dispose methods should call base class dispose" },
                     FullDescription = new Message { Text = "If a type inherits from a disposable type, it must call the Dispose method of the base type from its own Dispose method." },
-                    MessageStrings = new Dictionary<string, string>
+                    MessageStrings = new Dictionary<string, MultiformatMessageString>
                     {
-                        { "Default", "The Dispose method does not call the base class Dispose method." }
+                        {
+                            "Default",
+                            new MultiformatMessageString
+                            {
+                                Text = "The Dispose method does not call the base class Dispose method."
+                            }
+                        }
                     }
                 }
             };
