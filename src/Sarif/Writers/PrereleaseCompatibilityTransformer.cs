@@ -231,7 +231,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 driver.Remove("sarifLoggerVersion");
 
                 tool["driver"] = driver;
-                conversion.Remove("tool");
                 conversion["tool"] = tool;
                 run["conversion"] = conversion;
             }
