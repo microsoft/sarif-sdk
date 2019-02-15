@@ -249,6 +249,7 @@
 * API BREAKING: 'run.logicalLocations' now requires unique array elements. https://github.com/oasis-tcs/sarif-spec/issues/304
 
 ## **v2.0.0-csd.2.beta.2019.01.24** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.01.24) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.01.24) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.01.24)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.01.24))
+* BUGFIX: SDK compatibility update for sample apps.
 * BUGFIX: Add Sarif.Multitool.exe.config file to multitool package to resolve "Could not load file or assembly 'Newtonsoft.Json, Version=9.0.0.0'" exception on using validate command.
 * API BREAKING: rename baselineState 'existing' value to 'unchanged'. Add new baselineState value 'updated'. https://github.com/oasis-tcs/sarif-spec/issues/312
 * API BREAKING: unify result and notification failure levels ('note', 'warning', 'error'). Break out result evaluation state into 'result.kind' property with values 'pass', 'fail', 'open', 'review', 'notApplicable'. https://github.com/oasis-tcs/sarif-spec/issues/317
