@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-10-10",
+  "version": "2.0.0-csd.2.beta.2018-10-10",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner",
+        "semanticVersion": "2.1.0"
+      },
+      "resources": {
+        "messageStrings": { "noContent": "This file has no content to review." },
+        "rules": {
+          "TEST1001": {
+            "messageStrings": { "a": "Review all image content for geopolitically sensitive graphics." },
+            "richMessageStrings": { "a": "Review *all* image content for geopolitically sensitive graphics." }
+          }
+        }
+      },
+      "results": [
+        {
+          "ruleId": "TEST1001",
+          "message": { "messageId": "a" },
+          "locations": [ { "physicalLocation": { "fileLocation": { "uri": "file.txt" } } } ]
+        }
+      ]
+    }
+  ]
+}

@@ -4,7 +4,6 @@
   "runs": [
     {
       "tool": {
-        "language": "en-us",
         "driver": {
           "name": "CodeScanner",
           "fullName": "CodeScanner for EN-US",
@@ -13,36 +12,26 @@
           "dottedQuadFileVersion": "1.2.3.4",
           "downloadUri": "https://example.com/sensitive_terms.html",
           "globalMessageStrings": {
-            "noContent": "This file has no content to review."
-          },
-          "notificationDescriptors": [
-            {
-              "id": "MSG1001",
-              "messageStrings": {
-                "a": "Analyze {0}..."
-              }
+            "noContent": {
+              "text": "This file has no content to review."
             }
-          ],
+          },
           "ruleDescriptors": [
             {
-              "id": "GEOPOL1001",
+              "id": "TEST1001",
               "messageStrings": {
-                "a": "Review all image content for geopolitically sensitive graphics."
+                "a": {
+                  "text": "Review all image content for geopolitically sensitive graphics."
+                }
               }
             }
-          ],
-          "properties": {
-            "tags": [
-              "singleTag"
-            ],
-            "propertyKey": "propertyValue"
-          }
+          ]
         }
       },
       "results": [
         {
-          "ruleId": "GEOPOL1001",
-          "ruleIndex": 1,
+          "ruleId": "TEST1001",
+          "ruleIndex": 0,
           "message": {
             "messageId": "a"
           },

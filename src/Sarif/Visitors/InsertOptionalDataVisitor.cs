@@ -164,7 +164,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             if ((node.Text == null || _dataToInsert.HasFlag(OptionallyEmittedData.OverwriteExistingData)) &&
                 _dataToInsert.HasFlag(OptionallyEmittedData.FlattenedMessages))
             {
-                string formatString = null;
+                MultiformatMessageString formatString = null;
                 ReportingDescriptor rule = _ruleIndex != -1 ? _run.Tool.Driver.RuleDescriptors[_ruleIndex] : null;
             
                 if (rule != null &&
@@ -173,15 +173,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     node.Text = node.Arguments?.Count > 0 
                         ? rule.Format(node.MessageId, node.Arguments) 
-                        : formatString;
+                        : formatString.Text;
                 }
 
                 if (node.Text == null &&
                     _run.Tool.Driver.GlobalMessageStrings?.TryGetValue(node.MessageId, out formatString) == true)
                 {
                     node.Text = node.Arguments?.Count > 0
-                        ? string.Format(CultureInfo.CurrentCulture, formatString, node.Arguments.ToArray())
-                        : formatString;
+                        ? string.Format(CultureInfo.CurrentCulture, formatString.Text, node.Arguments.ToArray())
+                        : formatString.Text;
                 }
             }
             return base.VisitMessage(node);

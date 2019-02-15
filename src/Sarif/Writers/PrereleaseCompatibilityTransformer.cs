@@ -142,17 +142,61 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                             SetResultKindAndFailureLevel(result);
                         }
                     }
+
+                    RecursivePropertyRename(run, "richText", "markdown");                    
                 }
             }
             return true;
+        }
+
+        private static void RecursivePropertyRename(JObject parentObject, JProperty property, string originalName, string newName)
+        {
+            if (property.Name.Equals(originalName))
+            {
+                parentObject[newName] = property.Value;
+                parentObject.Remove(originalName);
+                return;
+            }
+
+            if (property.Value is JArray jArray)
+            {
+                RecursivePropertyRename(jArray, originalName, newName);
+            }
+            else if (property.Value is JObject jObject)
+            {
+                RecursivePropertyRename(jObject, originalName, newName);
+            }
+        }
+
+        private static void RecursivePropertyRename(JArray jArray, string originalName, string newName)
+        {
+            foreach (JToken jToken in jArray)
+            {
+                if (jToken is JObject jObject)
+                {
+                    RecursivePropertyRename(jObject, originalName, newName);
+                }
+                // Note that we don't have to handle arrays of values or other arrays.
+                // These aren't expressed in standard SARIF, if we hit this code path
+                // that means we're processing some property bag content.
+            }
+        }
+
+        private static void RecursivePropertyRename(JObject jObject, string originalName, string newName)
+        {
+            var properties = new List<JProperty>(jObject.Properties());
+            foreach (JProperty property in properties)
+            {
+                RecursivePropertyRename(jObject, property, originalName, newName);
+            }
         }
 
         private static void MoveToolPropertiesIntoDriverToolComponent(JObject run)
         {
             // https://github.com/oasis-tcs/sarif-spec/issues/179
 
-            // 1. Retrieve run.tool object, which will serve as the basis of the 
-            //    new run.tool.driver object and zap sarifLoggerVersion from it;
+            // 1. Retrieve run.tool object, which will serve as the basis of the
+            //    new run.tool.driver object and zap sarifLoggerVersion from it.
             JObject driver = (JObject)run["tool"];
             driver.Remove("sarifLoggerVersion");
 
@@ -160,8 +204,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             JObject tool = new JObject(new JProperty("language", driver["language"] ?? "en-US"));
             driver.Remove("language");
 
-            // 3. Persist extracted data as tool.driver and place back on run
+            // https://github.com/oasis-tcs/sarif-spec/issues/319
+            // 3. toolComponent.messageStrings now merges all plain text
+            //    and markdown strings. So we need to merge and eliminate
+            //    the 'richMessageStrings property.
+            MergeRichMessagesInDescriptorsArrays(driver);
+
+            // 4. Persist extracted data as tool.driver and place back on run.
             tool["driver"] = driver;
+
+            // 5. run.richTextMimeType renamed to run.markdownMessageMimeType.
+            RenameProperty(run, "richTextMimeType", "markdownMessageMimeType");
+
             run["tool"] = tool;
 
             // Other changes in this schema update do not require any transformation, as
@@ -170,6 +224,53 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             //  run.tool.extensions -> array of extension tool components
             //  result.extensionIndex -> associate a result with an extension
             //  toolComponent -> new file role.
+        }
+
+        private static void MergeRichMessagesInDescriptorsArrays(JObject toolComponent)
+        {
+            MergeRichMessageStringsIntoMessageStrings((JArray)toolComponent["ruleDescriptors"]);
+
+            // NOTE: we don't need to process notificationDescriptors, because this
+            //       concept did not ship in the 2019-01-09 schema.
+        }
+
+        private static void MergeRichMessageStringsIntoMessageStrings(JArray descriptors)
+        {
+            if (descriptors == null) { return; }
+
+            foreach (JObject descriptor in descriptors.Children())
+            {
+                var messageStrings = (JObject)descriptor?["messageStrings"];
+                var richMessageStrings = (JObject)descriptor?["richMessageStrings"];
+
+                if (messageStrings == null && richMessageStrings == null)
+                {
+                    continue;
+                }                
+
+                foreach (JProperty property in messageStrings.Properties())
+                {
+                    // Create base multiformatMessageString object with plaintext value
+                    JObject multiformatMessageString = CreateMultiformatMessageStringFromPlaintext((string)property.Value);
+
+                    // If we find a matching markdown property in richMessageStrings, move it over.
+                    multiformatMessageString["markdown"] = (string)richMessageStrings?[property.Name];
+
+                    // Replace the message strings property with the multi-format version
+                    messageStrings[property.Name] = multiformatMessageString;
+
+                    // NOTE: we don't process any richMessageString items that don't have a 
+                    //       corresponding plaintext equivalent. This is not legal SARIF.
+                }
+
+                descriptor.Remove("richMessageStrings");
+            }
+        }
+
+        private static JObject CreateMultiformatMessageStringFromPlaintext(string plaintext)
+        {
+            JProperty textProperty = new JProperty("text", plaintext);
+            return new JObject(textProperty);
         }
 
         private static void MoveRuleDescriptors(JObject run)
@@ -186,6 +287,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // 1. 'run.resources.messageStrings' moves to 'run.tool.globalMessageStrings'
             if (resources["messageStrings"] is JObject messageStrings)
             {
+                // https://github.com/oasis-tcs/sarif-spec/issues/319
+                ConvertToMultiformatMessageStrings(messageStrings);
+
                 tool["globalMessageStrings"] = messageStrings;
             }
 
@@ -209,7 +313,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // 'tool.notificationDescriptors', as this did not exist previously
 
             // 4. Zap 'rules.resources' entirely
-            run["resources"] = null;
+            run.Remove("resources");
+        }
+
+        private static void ConvertToMultiformatMessageStrings(JObject messageStrings)
+        {
+            // https://github.com/oasis-tcs/sarif-spec/issues/319
+            foreach (JProperty property in messageStrings.Properties())
+            {
+                JObject multiformatMessageString = CreateMultiformatMessageStringFromPlaintext((string)property.Value);
+
+                messageStrings[property.Name] = multiformatMessageString;
+            }
         }
 
         private static void UpdateBaselineExistingStateToUnchanged(JObject result)

@@ -1,41 +1,53 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-11-28",
-  "version": "2.0.0-csd.2.beta.2018-11-28",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-01-24",
+  "version": "2.0.0-csd.2.beta.2019-01-24",
   "runs": [
     {
       "tool": {
-        "name": "CodeScanner",
-        "semanticVersion": "2.1.0",
-        "globalMessageStrings": {
-          "noContent": "This file has no content to review."
-        },
-        "ruleDescriptors": [
-          {
-            "id": "SHARED-ID",
-            "messageStrings": {
-              "a": "Review all image content for geopolitically sensitive graphics."
-            },
-            "defaultConfiguration": {
-              "level": "error"
+        "driver": {
+          "name": "CodeScanner",
+          "semanticVersion": "2.1.0",
+          "globalMessageStrings": {
+            "noContent": {
+              "text": "This file has no content to review."
             }
           },
-          {
-            "id": "SHARED-ID",
-            "messageStrings": {
-              "a": "Review all plaintext content for geopolitically sensitive terms."
-            }
-          },
-          {
-            "id": "SHARED-ID",
-            "messageStrings": {
-              "a": "Review strings extracted from binaries for geopolitically sensitive terms."
+          "ruleDescriptors": [
+            {
+              "id": "SHARED-ID",
+              "messageStrings": {
+                "a": {
+                  "text": "Review all image content for geopolitically sensitive graphics."
+                }
+              },
+              "defaultConfiguration": {
+                "level": "error",
+                "rank": -1.0
+              }
             },
-            "defaultConfiguration": {
-              "enabled": false,
-              "level": "note"
+            {
+              "id": "SHARED-ID",
+              "messageStrings": {
+                "a": {
+                  "text": "Review all plaintext content for geopolitically sensitive terms."
+                }
+              }
+            },
+            {
+              "id": "SHARED-ID",
+              "messageStrings": {
+                "a": {
+                  "text": "Review strings extracted from binaries for geopolitically sensitive terms."
+                }
+              },
+              "defaultConfiguration": {
+                "enabled": false,
+                "level": "note",
+                "rank": -1.0
+              }
             }
-          }
-        ]
+          ]
+        }
       },
       "results": [
         {
@@ -89,6 +101,7 @@
           ]
         }
       ],
+      "markdownMessageMimeType": "text/markdown;variant=NEWVARIANT",
       "columnKind": "utf16CodeUnits"
     }
   ]
