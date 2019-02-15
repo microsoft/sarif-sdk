@@ -33,13 +33,8 @@ namespace Sarif.Sdk.Sample
         /// <returns>Exit code</returns>
         static int LoadSarifLogFile(LoadOptions options)
         {
-            JsonSerializerSettings settings = new JsonSerializerSettings()
-            {
-                ContractResolver = SarifContractResolver.Instance,
-            };
-
             string logText = File.ReadAllText(options.InputFilePath);
-            SarifLog log = JsonConvert.DeserializeObject<SarifLog>(logText, settings);
+            SarifLog log = JsonConvert.DeserializeObject<SarifLog>(logText);
 
             Console.WriteLine($"The log file \"{options.InputFilePath}\" contains {log.Runs[0]?.Results.Count} results.");
 
@@ -60,9 +55,9 @@ namespace Sarif.Sdk.Sample
 
             // Create a list of rules that will be enforced during your analysis
             #region Rules list
-            var rules = new List<Rule>()
+            var rules = new List<ReportingDescriptor>()
             {
-                new Rule
+                new ReportingDescriptor
                 {
                     Id ="CA1819",
                     Name = new Message { Text = "Properties should not return arrays" },
@@ -72,7 +67,7 @@ namespace Sarif.Sdk.Sample
                         { "Default", "The property {0} returns an array." }
                     }
                 },
-                new Rule
+                new ReportingDescriptor
                 {
                     Id ="CA1820",
                     Name = new Message { Text = "Test for empty strings using string length" },
@@ -82,7 +77,7 @@ namespace Sarif.Sdk.Sample
                         { "Default", "The test for an empty string is performed by a string comparison rather than by testing String.Length." }
                     }
                 },
-                new Rule
+                new ReportingDescriptor
                 {
                     Id ="CA2105",
                     Name = new Message { Text = "Array fields should not be read only" },
@@ -92,7 +87,7 @@ namespace Sarif.Sdk.Sample
                         { "Default", "The array-valued field {0} is marked readonly." }
                     }
                 },
-                new Rule
+                new ReportingDescriptor
                 {
                     Id ="CA2215",
                     Name = new Message { Text = "Dispose methods should call base class dispose" },
@@ -242,8 +237,6 @@ namespace Sarif.Sdk.Sample
                     tool: null,
                     run: null,
                     analysisTargets: null,
-                    targetsAreTextFiles: true,
-                    prereleaseInfo: null,
                     invocationTokensToRedact: null,
                     invocationPropertiesToLog: null,
                     defaultFileEncoding: null))
@@ -251,7 +244,7 @@ namespace Sarif.Sdk.Sample
                     // Create one result for each rule
                     for (int i = 0; i < rules.Count; i++)
                     {
-                        Rule rule = rules[i];
+                        ReportingDescriptor rule = rules[i];
                         Region region = regions[i];
 
                         var result = new Result()
@@ -379,7 +372,6 @@ namespace Sarif.Sdk.Sample
                                                         Region = region
                                                     }
                                                 },
-                                                Step = 1,
                                                 Importance = ThreadFlowLocationImportance.Essential
                                             },
                                             new ThreadFlowLocation
@@ -397,7 +389,6 @@ namespace Sarif.Sdk.Sample
                                                     }
                                                 },
                                                 NestingLevel = 1,
-                                                Step = 2,
                                                 Importance = ThreadFlowLocationImportance.Important
                                             }
                                         }
