@@ -8,6 +8,7 @@
         "name": "CodeScanner",
         "semanticVersion": "2.1.0"
       },
+      "conversion": {"tool": {"name": "CodeScanner converter 1.5"}},
       "resources": {
         "messageStrings": { "noContent": "This file has no content to review." },
         "rules": {
