@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 SarifLog actualLog = FileHelpers.ReadSarifFile<SarifLog>(_fileSystem, rewriteOptions.InputFilePath);
 
                 OptionallyEmittedData dataToInsert = rewriteOptions.DataToInsert.ToFlags();
-                IDictionary<string, FileLocation> originalUriBaseIds = rewriteOptions.ConstructUriBaseIdsDictionary();
+                IDictionary<string, ArtifactLocation> originalUriBaseIds = rewriteOptions.ConstructUriBaseIdsDictionary();
 
                 SarifLog reformattedLog = new InsertOptionalDataVisitor(dataToInsert, originalUriBaseIds).VisitSarifLog(actualLog);
                 

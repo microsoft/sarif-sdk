@@ -16,9 +16,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private int _ruleIndex;
         private FileRegionsCache _fileRegionsCache;
         private readonly OptionallyEmittedData _dataToInsert;
-        private readonly IDictionary<string, FileLocation> _originalUriBaseIds;
+        private readonly IDictionary<string, ArtifactLocation> _originalUriBaseIds;
         
-        public InsertOptionalDataVisitor(OptionallyEmittedData dataToInsert, IDictionary<string, FileLocation> originalUriBaseIds = null)
+        public InsertOptionalDataVisitor(OptionallyEmittedData dataToInsert, IDictionary<string, ArtifactLocation> originalUriBaseIds = null)
         {
             _dataToInsert = dataToInsert;
             _originalUriBaseIds = originalUriBaseIds;
@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (_originalUriBaseIds != null)
             {
-                _run.OriginalUriBaseIds = _run.OriginalUriBaseIds ?? new Dictionary<string, FileLocation>();
+                _run.OriginalUriBaseIds = _run.OriginalUriBaseIds ?? new Dictionary<string, ArtifactLocation>();
 
                 foreach (string key in _originalUriBaseIds.Keys)
                 {
@@ -76,16 +76,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 // If we can resolve a file location to a newly constructed
                 // absolute URI, we will prefer that
-                if (!node.FileLocation.TryReconstructAbsoluteUri(_run.OriginalUriBaseIds, out Uri resolvedUri))
+                if (!node.ArtifactLocation.TryReconstructAbsoluteUri(_run.OriginalUriBaseIds, out Uri resolvedUri))
                 {
-                    resolvedUri = node.FileLocation.Uri;
+                    resolvedUri = node.ArtifactLocation.Uri;
                 }
 
                 if (!resolvedUri.IsAbsoluteUri) goto Exit;
 
                 expandedRegion = _fileRegionsCache.PopulateTextRegionProperties(node.Region, resolvedUri, populateSnippet: insertRegionSnippets);
 
-                FileContent originalSnippet = node.Region.Snippet;
+                ArtifactContent originalSnippet = node.Region.Snippet;
 
                 if (populateRegionProperties)
                 {
@@ -111,9 +111,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return base.VisitPhysicalLocation(node);
         }
 
-        public override FileData VisitFileData(FileData node)
+        public override Artifact VisitArtifact(Artifact node)
         {
-            FileLocation fileLocation = node.FileLocation;
+            ArtifactLocation fileLocation = node.Location;
             if (fileLocation != null && _run.OriginalUriBaseIds != null)
             {
                 bool workToDo = false;
@@ -141,13 +141,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         }
 
                         int length = node.Length;
-                        node = FileData.Create(uri, _dataToInsert, node.MimeType, encoding: encoding);
+                        node = Artifact.Create(uri, _dataToInsert, node.MimeType, encoding: encoding);
                         node.Length = length;
                     }
                 }
             }
 
-            return base.VisitFileData(node);
+            return base.VisitArtifact(node);
         }
 
         public override Result VisitResult(Result node)

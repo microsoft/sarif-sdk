@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Assert.Equal("verbose", result.Message.Text);
             result.PropertyNames.Count.Should().Be(1);
             result.GetProperty("Severity").Should().Be("style");
-            Assert.Equal("file.cpp", result.Locations.First().PhysicalLocation.FileLocation.Uri.ToString());
+            Assert.Equal("file.cpp", result.Locations.First().PhysicalLocation.ArtifactLocation.Uri.ToString());
         }
 
         [Fact]
@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             result.Locations.SequenceEqual(new[] { new Location {
                     PhysicalLocation = new PhysicalLocation
                     {
-                        FileLocation = new FileLocation
+                        ArtifactLocation = new ArtifactLocation
                         {
                             Uri = new Uri(ExampleFileName, UriKind.RelativeOrAbsolute)
                         },
@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             result.Locations.SequenceEqual(new[] { new Location {
                         PhysicalLocation = new PhysicalLocation
                         {
-                            FileLocation = new FileLocation
+                            ArtifactLocation = new ArtifactLocation
                             {
                                 Uri = new Uri(ExampleFileName2, UriKind.RelativeOrAbsolute)
                             },
@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         {
                             PhysicalLocation = new PhysicalLocation
                             {
-                                FileLocation = new FileLocation
+                                ArtifactLocation = new ArtifactLocation
                                 {
                                     Uri = new Uri(ExampleFileName, UriKind.RelativeOrAbsolute)
                                 },
@@ -108,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         {
                             PhysicalLocation = new PhysicalLocation
                             {
-                                FileLocation = new FileLocation
+                                ArtifactLocation = new ArtifactLocation
                                 {
                                     Uri = new Uri(ExampleFileName2, UriKind.RelativeOrAbsolute)
                                 },

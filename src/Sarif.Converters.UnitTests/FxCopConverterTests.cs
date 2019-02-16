@@ -377,7 +377,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Message = new Message { Arguments = new List<string>(new string[] { "hello!" }) },
                 SuppressionStates = SuppressionStates.SuppressedInSource,
                 PartialFingerprints = new Dictionary<string, string>(),
-                AnalysisTarget = new FileLocation
+                AnalysisTarget = new ArtifactLocation
                 {
                     Uri = new Uri("mybinary.dll", UriKind.RelativeOrAbsolute),
                 },
@@ -387,7 +387,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         PhysicalLocation = new PhysicalLocation
                         {
-                            FileLocation = new FileLocation
+                            ArtifactLocation = new ArtifactLocation
                             {
                                 Uri = new Uri("source\\myfile.cs", UriKind.RelativeOrAbsolute)
                             },

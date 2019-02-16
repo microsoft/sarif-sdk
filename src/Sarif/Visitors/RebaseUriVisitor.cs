@@ -31,9 +31,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             _rebaseRelativeUris = rebaseRelativeUris;
         }
 
-        public override FileLocation VisitFileLocation(FileLocation node)
+        public override ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
         {
-            FileLocation newNode = base.VisitFileLocation(node);
+            ArtifactLocation newNode = base.VisitArtifactLocation(node);
 
             if (newNode.Uri.IsAbsoluteUri && _baseUri.IsBaseOf(newNode.Uri))
             {
@@ -52,10 +52,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             Run newRun = base.VisitRun(node);
 
-            newRun.OriginalUriBaseIds = newRun.OriginalUriBaseIds ?? new Dictionary<string, FileLocation>();
+            newRun.OriginalUriBaseIds = newRun.OriginalUriBaseIds ?? new Dictionary<string, ArtifactLocation>();
 
             // Add dictionary entry if it doesn't exist, or replace it if it does.
-            newRun.OriginalUriBaseIds[_uriBaseId] = new FileLocation { Uri =_baseUri };
+            newRun.OriginalUriBaseIds[_uriBaseId] = new ArtifactLocation { Uri =_baseUri };
 
             return newRun;
         }

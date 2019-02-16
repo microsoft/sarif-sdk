@@ -99,7 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
             PhysicalLocation physLoc = new PhysicalLocation()
             {
-                FileLocation = new FileLocation
+                ArtifactLocation = new ArtifactLocation
                 {
                     Uri = new Uri("name.test.value", UriKind.Relative)
                 },
@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     CharLength = 5,
                     CharOffset = 10
                 },
-                InsertedContent = new FileContent
+                InsertedContent = new ArtifactContent
                 {
                     Text = "fix.innerText.test.value"
                 }
@@ -132,11 +132,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 new Fix()
                 {
-                    FileChanges = new List<FileChange>()
+                    Changes = new List<ArtifactChange>()
                     {
-                        new FileChange()
+                        new ArtifactChange()
                         {
-                            FileLocation = new FileLocation
+                            ArtifactLocation = new ArtifactLocation
                             {
                                 Uri = new Uri("name.test.value", UriKind.Relative)
                             },
@@ -174,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var mockWriter = new Mock<IResultLogWriter>();
             mockWriter.Setup(writer => writer.Initialize(It.IsAny<Run>()));
-            mockWriter.Setup(writer => writer.WriteFiles(It.IsAny<IList<FileData>>()));
+            mockWriter.Setup(writer => writer.WriteFiles(It.IsAny<IList<Artifact>>()));
             mockWriter.Setup(writer => writer.OpenResults());
             mockWriter.Setup(writer => writer.CloseResults());
             mockWriter.Setup(writer => writer.WriteResults(It.IsAny<List<Result>>()));
@@ -184,7 +184,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             converter.Convert(stream, mockWriter.Object, OptionallyEmittedData.None);
 
             mockWriter.Verify(writer => writer.Initialize(It.IsAny<Run>()), Times.Once);
-            mockWriter.Verify(writer => writer.WriteFiles(It.IsAny<IList<FileData>>()), Times.Never);
+            mockWriter.Verify(writer => writer.WriteFiles(It.IsAny<IList<Artifact>>()), Times.Never);
             mockWriter.Verify(writer => writer.OpenResults(), Times.Once);
             mockWriter.Verify(writer => writer.CloseResults(), Times.Once);
             mockWriter.Verify(writer => writer.WriteResults(It.IsAny<List<Result>>()), Times.Once);

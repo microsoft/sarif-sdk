@@ -52,21 +52,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         ExternalPropertyFiles,
         /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="FileData" />.
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Artifact" />.
         /// </summary>
-        FileData,
+        Artifact,
         /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="FileChange" />.
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ArtifactChange" />.
         /// </summary>
-        FileChange,
+        ArtifactChange,
         /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="FileContent" />.
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ArtifactContent" />.
         /// </summary>
-        FileContent,
+        ArtifactContent,
         /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="FileLocation" />.
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ArtifactLocation" />.
         /// </summary>
-        FileLocation,
+        ArtifactLocation,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Fix" />.
         /// </summary>

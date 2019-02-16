@@ -11,16 +11,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     {
         private readonly OptionallyEmittedData _dataToInsert;
         private readonly Func<string, string> _mimeTypeClassifier;
-        private readonly HashSet<FileData> _files;
+        private readonly HashSet<Artifact> _files;
 
         internal FileInfoFactory(Func<string, string> mimeTypeClassifier, OptionallyEmittedData dataToInsert)
         {
             _mimeTypeClassifier = mimeTypeClassifier ?? MimeType.DetermineFromFileExtension;
-            _files = new HashSet<FileData>(FileData.ValueComparer);
+            _files = new HashSet<Artifact>(Artifact.ValueComparer);
             _dataToInsert = dataToInsert;
         }
 
-        internal HashSet<FileData> Create(IEnumerable<Result> results)
+        internal HashSet<Artifact> Create(IEnumerable<Result> results)
         {
             foreach (Result result in results)
             {
@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     AddFile(new PhysicalLocation
                     {
-                        FileLocation = result.AnalysisTarget.DeepClone()
+                        ArtifactLocation = result.AnalysisTarget.DeepClone()
                     });
                 }
 
@@ -86,12 +86,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private void AddFile(PhysicalLocation physicalLocation)
         {
-            if (physicalLocation?.FileLocation == null)
+            if (physicalLocation?.ArtifactLocation == null)
             {
                 return;
             }
 
-            Uri uri = physicalLocation.FileLocation.Uri;
+            Uri uri = physicalLocation.ArtifactLocation.Uri;
             string filePath = UriHelper.MakeValidUri(uri.OriginalString);
 
             if (uri.IsAbsoluteUri && uri.IsFile)
@@ -99,7 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 filePath = uri.LocalPath;
             }
 
-            FileData fileData = FileData.Create(
+            Artifact fileData = Artifact.Create(
                 uri,
                 _dataToInsert,
                 _mimeTypeClassifier(filePath));

@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The content to insert at the location specified by the 'deletedRegion' property.
         /// </summary>
         [DataMember(Name = "insertedContent", IsRequired = false, EmitDefaultValue = false)]
-        public FileContent InsertedContent { get; set; }
+        public ArtifactContent InsertedContent { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the replacement.
@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Replacement(Region deletedRegion, FileContent insertedContent, IDictionary<string, SerializedPropertyInfo> properties)
+        public Replacement(Region deletedRegion, ArtifactContent insertedContent, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(deletedRegion, insertedContent, properties);
         }
@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Replacement(this);
         }
 
-        private void Init(Region deletedRegion, FileContent insertedContent, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Region deletedRegion, ArtifactContent insertedContent, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (deletedRegion != null)
             {
@@ -120,7 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (insertedContent != null)
             {
-                InsertedContent = new FileContent(insertedContent);
+                InsertedContent = new ArtifactContent(insertedContent);
             }
 
             if (properties != null)

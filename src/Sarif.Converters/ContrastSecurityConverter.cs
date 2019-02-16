@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private const string ContrastSecurityRulesData = "Microsoft.CodeAnalysis.Sarif.Converters.RulesData.ContrastSecurity.sarif";
 
         private IDictionary<string, ReportingDescriptor> _rules;
-        private HashSet<FileData> _files;
+        private HashSet<Artifact> _files;
 
         public override string ToolName => "Contrast Security";
 
@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             LogicalLocations.Clear();
 
-            _files = new HashSet<FileData>(FileData.ValueComparer);
+            _files = new HashSet<Artifact>(Artifact.ValueComparer);
 
             var context = new ContrastLogReader.Context();
 
@@ -71,9 +71,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Run run = sarifLog.Runs[0];
             _rules = run.Tool.Driver.RuleDescriptors.ToDictionary(rule => rule.Id);
 
-            run.OriginalUriBaseIds = new Dictionary<string, FileLocation>
+            run.OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>
             {
-                {  "SITE_ROOT", new FileLocation { Uri = new Uri(@"E:\src\WebGoat.NET") } } 
+                {  "SITE_ROOT", new ArtifactLocation { Uri = new Uri(@"E:\src\WebGoat.NET") } } 
             };
 
             // 3. Now, parse all the contrast XML to create the complete results set
@@ -84,12 +84,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // 4. Construct the files array, based on all results returned
             var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, dataToInsert);
-            HashSet<FileData> files = fileInfoFactory.Create(results);
+            HashSet<Artifact> files = fileInfoFactory.Create(results);
 
             // 5. Finally, complete the SARIF log file with various tables and then the results
             output.Initialize(run);
 
-            foreach (FileData fileData in _files)
+            foreach (Artifact fileData in _files)
             {
                 files.Add(fileData);
             }
@@ -349,7 +349,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             string pageCount = locations.Count.ToString();
-            string examplePage = locations[0].PhysicalLocation.FileLocation.Uri.ToString();
+            string examplePage = locations[0].PhysicalLocation.ArtifactLocation.Uri.ToString();
 
             var result = new Result
             {
@@ -562,9 +562,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
 
                 _files.Add(
-                    new FileData
+                    new Artifact
                     {
-                        Contents = new FileContent
+                        Contents = new ArtifactContent
                         {
                             Text = html,
                             Binary = encoded
@@ -575,7 +575,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     PhysicalLocation = new PhysicalLocation
                     {
-                        FileLocation = new FileLocation
+                        ArtifactLocation = new ArtifactLocation
                         {
                             //UriBaseId = "RuntimeGenerated",
                             Uri = new Uri(key, UriKind.RelativeOrAbsolute)
@@ -586,7 +586,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             string pageCount = locations.Count.ToString();
-            string examplePage = locations[0].PhysicalLocation.FileLocation.Uri.OriginalString;
+            string examplePage = locations[0].PhysicalLocation.ArtifactLocation.Uri.OriginalString;
 
             var result = new Result
             {
@@ -885,7 +885,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 StartLine = startLine.Value,
                 EndLine = endLine,
-                Snippet = new FileContent { Text = sb.ToString() }
+                Snippet = new ArtifactContent { Text = sb.ToString() }
             };
         }
 
@@ -912,7 +912,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             return new PhysicalLocation
             {
-                FileLocation = new FileLocation
+                ArtifactLocation = new ArtifactLocation
                 {
                     Uri = new Uri(uri, UriKind.Absolute)
                 },

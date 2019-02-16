@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var physicalLocation = new PhysicalLocation
             {
-                FileLocation = new FileLocation
+                ArtifactLocation = new ArtifactLocation
                 {
                     Uri = resultsFileUri
                 },
@@ -166,7 +166,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 var uri = new Uri($"{sfa.FilePath}{sfa.FileName}", UriKind.Relative);
                 var fileLocation = new PhysicalLocation
                 {
-                    FileLocation = new FileLocation
+                    ArtifactLocation = new ArtifactLocation
                     {
                         Uri = uri
                     },

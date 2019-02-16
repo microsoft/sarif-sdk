@@ -12,15 +12,15 @@ using Newtonsoft.Json;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// A single file. In some cases, this file might be nested within another file.
+    /// A single artifact. In some cases, this artifact might be nested within another artifact.
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
-    public partial class FileData : PropertyBagHolder, ISarifNode
+    public partial class Artifact : PropertyBagHolder, ISarifNode
     {
-        public static IEqualityComparer<FileData> ValueComparer => FileDataEqualityComparer.Instance;
+        public static IEqualityComparer<Artifact> ValueComparer => ArtifactEqualityComparer.Instance;
 
-        public bool ValueEquals(FileData other) => ValueComparer.Equals(this, other);
+        public bool ValueEquals(Artifact other) => ValueComparer.Equals(this, other);
         public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
 
         /// <summary>
@@ -30,18 +30,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                return SarifNodeKind.FileData;
+                return SarifNodeKind.Artifact;
             }
         }
 
         /// <summary>
-        /// The location of the file.
+        /// The location of the artifact.
         /// </summary>
-        [DataMember(Name = "fileLocation", IsRequired = false, EmitDefaultValue = false)]
-        public FileLocation FileLocation { get; set; }
+        [DataMember(Name = "location", IsRequired = false, EmitDefaultValue = false)]
+        public ArtifactLocation Location { get; set; }
 
         /// <summary>
-        /// Identifies the index of the immediate parent of the file, if this file is nested.
+        /// Identifies the index of the immediate parent of the artifact, if this artifact is nested.
         /// </summary>
         [DataMember(Name = "parentIndex", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
@@ -49,45 +49,45 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int ParentIndex { get; set; }
 
         /// <summary>
-        /// The offset in bytes of the file within its containing file.
+        /// The offset in bytes of the artifact within its containing artifact.
         /// </summary>
         [DataMember(Name = "offset", IsRequired = false, EmitDefaultValue = false)]
         public int Offset { get; set; }
 
         /// <summary>
-        /// The length of the file in bytes.
+        /// The length of the artifact in bytes.
         /// </summary>
         [DataMember(Name = "length", IsRequired = false, EmitDefaultValue = false)]
         public int Length { get; set; }
 
         /// <summary>
-        /// The role or roles played by the file in the analysis.
+        /// The role or roles played by the artifact in the analysis.
         /// </summary>
         [DataMember(Name = "roles", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(FlagsEnumConverter))]
-        public FileRoles Roles { get; set; }
+        public ArtifactRoles Roles { get; set; }
 
         /// <summary>
-        /// The MIME type (RFC 2045) of the file.
+        /// The MIME type (RFC 2045) of the artifact.
         /// </summary>
         [DataMember(Name = "mimeType", IsRequired = false, EmitDefaultValue = false)]
         public string MimeType { get; set; }
 
         /// <summary>
-        /// The contents of the file.
+        /// The contents of the artifact.
         /// </summary>
         [DataMember(Name = "contents", IsRequired = false, EmitDefaultValue = false)]
-        public FileContent Contents { get; set; }
+        public ArtifactContent Contents { get; set; }
 
         /// <summary>
-        /// Specifies the encoding for a file object that refers to a text file.
+        /// Specifies the encoding for a artifact object that refers to a text file.
         /// </summary>
         [DataMember(Name = "encoding", IsRequired = false, EmitDefaultValue = false)]
         public string Encoding { get; set; }
 
         /// <summary>
-        /// Specifies the source language for any file object that refers to a text file that contains source code.
+        /// Specifies the source language for any artifact object that refers to a text file that contains source code.
         /// </summary>
         [DataMember(Name = "sourceLanguage", IsRequired = false, EmitDefaultValue = false)]
         public string SourceLanguage { get; set; }
@@ -106,24 +106,24 @@ namespace Microsoft.CodeAnalysis.Sarif
         public DateTime LastModifiedTimeUtc { get; set; }
 
         /// <summary>
-        /// Key/value pairs that provide additional information about the file.
+        /// Key/value pairs that provide additional information about the artifact.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FileData" /> class.
+        /// Initializes a new instance of the <see cref="Artifact" /> class.
         /// </summary>
-        public FileData()
+        public Artifact()
         {
             ParentIndex = -1;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FileData" /> class from the supplied values.
+        /// Initializes a new instance of the <see cref="Artifact" /> class from the supplied values.
         /// </summary>
-        /// <param name="fileLocation">
-        /// An initialization value for the <see cref="P:FileLocation" /> property.
+        /// <param name="location">
+        /// An initialization value for the <see cref="P:Location" /> property.
         /// </param>
         /// <param name="parentIndex">
         /// An initialization value for the <see cref="P:ParentIndex" /> property.
@@ -158,13 +158,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public FileData(FileLocation fileLocation, int parentIndex, int offset, int length, FileRoles roles, string mimeType, FileContent contents, string encoding, string sourceLanguage, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
+        public Artifact(ArtifactLocation location, int parentIndex, int offset, int length, ArtifactRoles roles, string mimeType, ArtifactContent contents, string encoding, string sourceLanguage, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(fileLocation, parentIndex, offset, length, roles, mimeType, contents, encoding, sourceLanguage, hashes, lastModifiedTimeUtc, properties);
+            Init(location, parentIndex, offset, length, roles, mimeType, contents, encoding, sourceLanguage, hashes, lastModifiedTimeUtc, properties);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FileData" /> class from the specified instance.
+        /// Initializes a new instance of the <see cref="Artifact" /> class from the specified instance.
         /// </summary>
         /// <param name="other">
         /// The instance from which the new instance is to be initialized.
@@ -172,14 +172,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <exception cref="ArgumentNullException">
         /// Thrown if <paramref name="other" /> is null.
         /// </exception>
-        public FileData(FileData other)
+        public Artifact(Artifact other)
         {
             if (other == null)
             {
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.FileLocation, other.ParentIndex, other.Offset, other.Length, other.Roles, other.MimeType, other.Contents, other.Encoding, other.SourceLanguage, other.Hashes, other.LastModifiedTimeUtc, other.Properties);
+            Init(other.Location, other.ParentIndex, other.Offset, other.Length, other.Roles, other.MimeType, other.Contents, other.Encoding, other.SourceLanguage, other.Hashes, other.LastModifiedTimeUtc, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -190,21 +190,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public FileData DeepClone()
+        public Artifact DeepClone()
         {
-            return (FileData)DeepCloneCore();
+            return (Artifact)DeepCloneCore();
         }
 
         private ISarifNode DeepCloneCore()
         {
-            return new FileData(this);
+            return new Artifact(this);
         }
 
-        private void Init(FileLocation fileLocation, int parentIndex, int offset, int length, FileRoles roles, string mimeType, FileContent contents, string encoding, string sourceLanguage, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(ArtifactLocation location, int parentIndex, int offset, int length, ArtifactRoles roles, string mimeType, ArtifactContent contents, string encoding, string sourceLanguage, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            if (fileLocation != null)
+            if (location != null)
             {
-                FileLocation = new FileLocation(fileLocation);
+                Location = new ArtifactLocation(location);
             }
 
             ParentIndex = parentIndex;
@@ -214,7 +214,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             MimeType = mimeType;
             if (contents != null)
             {
-                Contents = new FileContent(contents);
+                Contents = new ArtifactContent(contents);
             }
 
             Encoding = encoding;

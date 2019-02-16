@@ -53,8 +53,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             Run run = BuildDefaultRunObject();
 
-            FileLocation fileLocation = BuildDefaultFileLocation();
-            fileLocation.FileIndex.Should().Be(-1);
+            ArtifactLocation fileLocation = BuildDefaultFileLocation();
+            fileLocation.Index.Should().Be(-1);
 
             // Retrieve existing file location. Our input file location should have its
             // fileIndex property set as well.
@@ -63,46 +63,46 @@ namespace Microsoft.CodeAnalysis.Sarif
             // Repeat look-up with bad file index value. This should succeed and reset
             // the fileIndex to the appropriate value.
             fileLocation = BuildDefaultFileLocation();
-            fileLocation.FileIndex = Int32.MaxValue;
+            fileLocation.Index = Int32.MaxValue;
             RetrieveFileIndexAndValidate(run, fileLocation, expectedFileIndex: 1);
 
             // Now set a unique property bag on the file location. The property bag
             // should not interfere with retrieving the file data object. The property bag should
             // not be modified as a result of retrieving the file data index.
             fileLocation = BuildDefaultFileLocation();
-            fileLocation.FileIndex = Int32.MaxValue;
+            fileLocation.Index = Int32.MaxValue;
             RetrieveFileIndexAndValidate(run, fileLocation, expectedFileIndex: 1);
         }
 
-        private void RetrieveFileIndexAndValidate(Run run, FileLocation fileLocation, int expectedFileIndex)
+        private void RetrieveFileIndexAndValidate(Run run, ArtifactLocation fileLocation, int expectedFileIndex)
         {
             int fileIndex = run.GetFileIndex(fileLocation, addToFilesTableIfNotPresent: false);
-            fileLocation.FileIndex.Should().Be(fileIndex);
+            fileLocation.Index.Should().Be(fileIndex);
             fileIndex.Should().Be(expectedFileIndex);
         }
 
-        private FileLocation BuildDefaultFileLocation()
+        private ArtifactLocation BuildDefaultFileLocation()
         {
-            return new FileLocation { Uri = s_Uri, UriBaseId = s_UriBaseId};
+            return new ArtifactLocation { Uri = s_Uri, UriBaseId = s_UriBaseId};
         }
 
         private Run BuildDefaultRunObject()
         {
             var run = new Run()
             {
-                Files = new[]
+                Artifacts = new[]
                 {
-                    new FileData
+                    new Artifact
                     {
                         // This unused fileLocation exists simply to move testing
                         // to the second array element. Tests that depend on a fileIndex
                         // of '0' are suspect because 0 is a value that might be set as
                         // a default in some code paths, due to a bug
-                        FileLocation = new FileLocation{ Uri = new Uri("unused", UriKind.RelativeOrAbsolute)}
+                        Location = new ArtifactLocation{ Uri = new Uri("unused", UriKind.RelativeOrAbsolute)}
                     },
-                    new FileData
+                    new Artifact
                     {
-                        FileLocation = BuildDefaultFileLocation(),
+                        Location = BuildDefaultFileLocation(),
                         Properties = new Dictionary<string, SerializedPropertyInfo>
                         {
                             [Guid.NewGuid().ToString()] = null
@@ -110,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
             };
-            run.Files[0].FileLocation.FileIndex = 0;
+            run.Artifacts[0].Location.Index = 0;
 
             return run;
         }

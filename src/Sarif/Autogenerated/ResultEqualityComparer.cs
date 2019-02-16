@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!FileLocation.ValueComparer.Equals(left.AnalysisTarget, right.AnalysisTarget))
+            if (!ArtifactLocation.ValueComparer.Equals(left.AnalysisTarget, right.AnalysisTarget))
             {
                 return false;
             }

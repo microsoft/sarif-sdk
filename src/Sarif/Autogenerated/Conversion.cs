@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "analysisToolLogFiles", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<FileLocation> AnalysisToolLogFiles { get; set; }
+        public IList<ArtifactLocation> AnalysisToolLogFiles { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the conversion.
@@ -80,7 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Conversion(Tool tool, Invocation invocation, IEnumerable<FileLocation> analysisToolLogFiles, IDictionary<string, SerializedPropertyInfo> properties)
+        public Conversion(Tool tool, Invocation invocation, IEnumerable<ArtifactLocation> analysisToolLogFiles, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(tool, invocation, analysisToolLogFiles, properties);
         }
@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Conversion(this);
         }
 
-        private void Init(Tool tool, Invocation invocation, IEnumerable<FileLocation> analysisToolLogFiles, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Tool tool, Invocation invocation, IEnumerable<ArtifactLocation> analysisToolLogFiles, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (tool != null)
             {
@@ -136,7 +136,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (analysisToolLogFiles != null)
             {
-                var destination_0 = new List<FileLocation>();
+                var destination_0 = new List<ArtifactLocation>();
                 foreach (var value_0 in analysisToolLogFiles)
                 {
                     if (value_0 == null)
@@ -145,7 +145,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_0.Add(new FileLocation(value_0));
+                        destination_0.Add(new ArtifactLocation(value_0));
                     }
                 }
 

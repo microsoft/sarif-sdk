@@ -14,11 +14,11 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
-    public partial class FileChange : PropertyBagHolder, ISarifNode
+    public partial class ArtifactChange : PropertyBagHolder, ISarifNode
     {
-        public static IEqualityComparer<FileChange> ValueComparer => FileChangeEqualityComparer.Instance;
+        public static IEqualityComparer<ArtifactChange> ValueComparer => ArtifactChangeEqualityComparer.Instance;
 
-        public bool ValueEquals(FileChange other) => ValueComparer.Equals(this, other);
+        public bool ValueEquals(ArtifactChange other) => ValueComparer.Equals(this, other);
         public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
 
         /// <summary>
@@ -28,18 +28,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                return SarifNodeKind.FileChange;
+                return SarifNodeKind.ArtifactChange;
             }
         }
 
         /// <summary>
         /// The location of the file to change.
         /// </summary>
-        [DataMember(Name = "fileLocation", IsRequired = true)]
-        public FileLocation FileLocation { get; set; }
+        [DataMember(Name = "artifactLocation", IsRequired = true)]
+        public ArtifactLocation ArtifactLocation { get; set; }
 
         /// <summary>
-        /// An array of replacement objects, each of which represents the replacement of a single region in a single file specified by 'fileLocation'.
+        /// An array of replacement objects, each of which represents the replacement of a single region in a single file specified by 'artifactLocation'.
         /// </summary>
         [DataMember(Name = "replacements", IsRequired = true)]
         public IList<Replacement> Replacements { get; set; }
@@ -51,17 +51,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FileChange" /> class.
+        /// Initializes a new instance of the <see cref="ArtifactChange" /> class.
         /// </summary>
-        public FileChange()
+        public ArtifactChange()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FileChange" /> class from the supplied values.
+        /// Initializes a new instance of the <see cref="ArtifactChange" /> class from the supplied values.
         /// </summary>
-        /// <param name="fileLocation">
-        /// An initialization value for the <see cref="P:FileLocation" /> property.
+        /// <param name="artifactLocation">
+        /// An initialization value for the <see cref="P:ArtifactLocation" /> property.
         /// </param>
         /// <param name="replacements">
         /// An initialization value for the <see cref="P:Replacements" /> property.
@@ -69,13 +69,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public FileChange(FileLocation fileLocation, IEnumerable<Replacement> replacements, IDictionary<string, SerializedPropertyInfo> properties)
+        public ArtifactChange(ArtifactLocation artifactLocation, IEnumerable<Replacement> replacements, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(fileLocation, replacements, properties);
+            Init(artifactLocation, replacements, properties);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FileChange" /> class from the specified instance.
+        /// Initializes a new instance of the <see cref="ArtifactChange" /> class from the specified instance.
         /// </summary>
         /// <param name="other">
         /// The instance from which the new instance is to be initialized.
@@ -83,14 +83,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <exception cref="ArgumentNullException">
         /// Thrown if <paramref name="other" /> is null.
         /// </exception>
-        public FileChange(FileChange other)
+        public ArtifactChange(ArtifactChange other)
         {
             if (other == null)
             {
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.FileLocation, other.Replacements, other.Properties);
+            Init(other.ArtifactLocation, other.Replacements, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -101,21 +101,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public FileChange DeepClone()
+        public ArtifactChange DeepClone()
         {
-            return (FileChange)DeepCloneCore();
+            return (ArtifactChange)DeepCloneCore();
         }
 
         private ISarifNode DeepCloneCore()
         {
-            return new FileChange(this);
+            return new ArtifactChange(this);
         }
 
-        private void Init(FileLocation fileLocation, IEnumerable<Replacement> replacements, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(ArtifactLocation artifactLocation, IEnumerable<Replacement> replacements, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            if (fileLocation != null)
+            if (artifactLocation != null)
             {
-                FileLocation = new FileLocation(fileLocation);
+                ArtifactLocation = new ArtifactLocation(artifactLocation);
             }
 
             if (replacements != null)

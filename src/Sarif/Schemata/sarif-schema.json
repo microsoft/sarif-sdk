@@ -38,7 +38,7 @@
   "definitions": {
 
     "attachment": {
-      "description": "A file relevant to a tool invocation or to a result.",
+      "description": "An artifact relevant to a tool invocation or to a result.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -48,9 +48,9 @@
           "$ref": "#/definitions/message"
         },
 
-        "fileLocation": {
+        "artifactLocation": {
           "description": "The location of the attachment.",
-          "$ref": "#/definitions/fileLocation"
+          "$ref": "#/definitions/artifactLocation"
         },
 
         "regions": {
@@ -81,7 +81,7 @@
         }
       },
 
-      "required": [ "fileLocation" ]
+      "required": [ "artifactLocation" ]
     },
 
     "codeFlow": {
@@ -137,7 +137,7 @@
           "uniqueItems": true,
           "default": [],
           "items": {
-            "$ref": "#/definitions/fileLocation"
+            "$ref": "#/definitions/artifactLocation"
           }
         },
 
@@ -264,9 +264,9 @@
     "externalPropertyFile": {
       "type": "object",
       "properties": {
-        "fileLocation": {
+        "artifactLocation": {
           "description": "The location of the external property file.",
-          "$ref": "#/definitions/fileLocation"
+          "$ref": "#/definitions/artifactLocation"
         },
 
         "instanceGuid": {
@@ -309,8 +309,8 @@
           "$ref": "#/definitions/externalPropertyFile"
         },
 
-        "files": {
-          "description": "An array of external property files containing run.files arrays to be merged with the root log file.",
+        "artifacts": {
+          "description": "An array of external property files containing run.artifacts arrays to be merged with the root log file.",
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
@@ -356,36 +356,36 @@
       }
     },
 
-    "file": {
-      "description": "A single file. In some cases, this file might be nested within another file.",
+    "artifact": {
+      "description": "A single artifact. In some cases, this artifact might be nested within another artifact.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
 
-        "fileLocation": {
-          "description": "The location of the file.",
-          "$ref": "#/definitions/fileLocation"
+        "location": {
+          "description": "The location of the artifact.",
+          "$ref": "#/definitions/artifactLocation"
         },
 
         "parentIndex": {
-          "description": "Identifies the index of the immediate parent of the file, if this file is nested.",
+          "description": "Identifies the index of the immediate parent of the artifact, if this artifact is nested.",
           "type": "integer",
           "default": -1,
           "minimum": -1
         },
 
         "offset": {
-          "description": "The offset in bytes of the file within its containing file.",
+          "description": "The offset in bytes of the artifact within its containing artifact.",
           "type": "integer"
         },
 
         "length": {
-          "description": "The length of the file in bytes.",
+          "description": "The length of the artifact in bytes.",
           "type": "integer"
         },
 
         "roles": {
-          "description": "The role or roles played by the file in the analysis.",
+          "description": "The role or roles played by the artifact in the analysis.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
@@ -410,23 +410,23 @@
         },
 
         "mimeType": {
-          "description": "The MIME type (RFC 2045) of the file.",
+          "description": "The MIME type (RFC 2045) of the artifact.",
           "type": "string",
           "pattern": "[^/]+/.+"
         },
 
         "contents": {
-          "description": "The contents of the file.",
-          "$ref": "#/definitions/fileContent"
+          "description": "The contents of the artifact.",
+          "$ref": "#/definitions/artifactContent"
         },
 
         "encoding": {
-          "description": "Specifies the encoding for a file object that refers to a text file.",
+          "description": "Specifies the encoding for a artifact object that refers to a text file.",
           "type": "string"
         },
 
         "sourceLanguage": {
-          "description": "Specifies the source language for any file object that refers to a text file that contains source code.",
+          "description": "Specifies the source language for any artifact object that refers to a text file that contains source code.",
           "type": "string"
         },
 
@@ -445,25 +445,25 @@
         },
 
         "properties": {
-          "description": "Key/value pairs that provide additional information about the file.",
+          "description": "Key/value pairs that provide additional information about the artifact.",
           "$ref": "#/definitions/propertyBag"
         }
       }
     },
 
-    "fileChange": {
+    "artifactChange": {
       "description": "A change to a single file.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
 
-        "fileLocation": {
+        "artifactLocation": {
           "description": "The location of the file to change.",
-          "$ref": "#/definitions/fileLocation"
+          "$ref": "#/definitions/artifactLocation"
         },
 
         "replacements": {
-          "description": "An array of replacement objects, each of which represents the replacement of a single region in a single file specified by 'fileLocation'.",
+          "description": "An array of replacement objects, each of which represents the replacement of a single region in a single file specified by 'artifactLocation'.",
           "type": "array",
           "minItems": 1,
           "uniqueItems": false,
@@ -479,10 +479,10 @@
 
       },
 
-      "required": [ "fileLocation", "replacements" ]
+      "required": [ "artifactLocation", "replacements" ]
     },
 
-    "fileContent": {
+    "artifactContent": {
       "description": "Represents content from an external file.",
       "type": "object",
       "additionalProperties": false,
@@ -505,7 +505,7 @@
       }
     },
 
-    "fileLocation": {
+    "artifactLocation": {
       "description": "Specifies the location of a file.",
       "additionalProperties": false,
       "type": "object",
@@ -522,8 +522,8 @@
           "type": "string"
         },
 
-        "fileIndex": {
-          "description": "The index within the run files array of the file object associated with the file location.",
+        "index": {
+          "description": "The index within the run artifacts array of the file object associated with the file location.",
           "type": "integer",
           "default": -1,
           "minimum": -1
@@ -549,13 +549,13 @@
           "$ref": "#/definitions/message"
         },
 
-        "fileChanges": {
+        "changes": {
           "description": "One or more file changes that comprise a fix for a result.",
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
           "items": {
-            "$ref": "#/definitions/fileChange"
+            "$ref": "#/definitions/artifactChange"
           }
         },
 
@@ -564,7 +564,7 @@
           "$ref": "#/definitions/propertyBag"
         }
       },
-      "required": [ "fileChanges" ]
+      "required": [ "changes" ]
     },
 
     "graph": {
@@ -685,7 +685,7 @@
           "minItems": 0,
           "uniqueItems": true,
           "items": {
-            "$ref": "#/definitions/fileLocation"
+            "$ref": "#/definitions/artifactLocation"
           }
         },
 
@@ -791,12 +791,12 @@
 
         "executableLocation": {
           "description": "An absolute URI specifying the location of the analysis tool's executable.",
-          "$ref": "#/definitions/fileLocation"
+          "$ref": "#/definitions/artifactLocation"
         },
 
         "workingDirectory": {
           "description": "The working directory for the analysis tool run.",
-          "$ref": "#/definitions/fileLocation"
+          "$ref": "#/definitions/artifactLocation"
         },
 
         "environmentVariables": {
@@ -809,22 +809,22 @@
 
         "stdin": {
           "description": "A file containing the standard input stream to the process that was invoked.",
-          "$ref": "#/definitions/fileLocation"
+          "$ref": "#/definitions/artifactLocation"
         },
 
         "stdout": {
           "description": "A file containing the standard output stream from the process that was invoked.",
-          "$ref": "#/definitions/fileLocation"
+          "$ref": "#/definitions/artifactLocation"
         },
 
         "stderr": {
           "description": "A file containing the standard error stream from the process that was invoked.",
-          "$ref": "#/definitions/fileLocation"
+          "$ref": "#/definitions/artifactLocation"
         },
 
         "stdoutStderr": {
           "description": "A file containing the interleaved standard output and standard error stream from the process that was invoked.",
-          "$ref": "#/definitions/fileLocation"
+          "$ref": "#/definitions/artifactLocation"
         },
 
         "properties": {
@@ -1101,9 +1101,9 @@
           "type": "integer"
         },
 
-        "fileLocation": {
+        "artifactLocation": {
           "description": "The location of the file.",
-          "$ref": "#/definitions/fileLocation"
+          "$ref": "#/definitions/artifactLocation"
         },
 
         "region": {
@@ -1122,7 +1122,7 @@
         }
       },
 
-      "required": [ "fileLocation" ]
+      "required": [ "artifactLocation" ]
     },
 
     "propertyBag": {
@@ -1238,7 +1238,7 @@
 
         "snippet": {
           "description": "The portion of the file contents within the specified region.",
-          "$ref": "#/definitions/fileContent"
+          "$ref": "#/definitions/artifactContent"
         },
 
         "message": {
@@ -1271,7 +1271,7 @@
 
         "insertedContent": {
           "description": "The content to insert at the location specified by the 'deletedRegion' property.",
-          "$ref": "#/definitions/fileContent"
+          "$ref": "#/definitions/artifactContent"
         },
 
         "properties": {
@@ -1471,7 +1471,7 @@
 
         "analysisTarget": {
           "description": "Identifies the file that the analysis tool was instructed to scan. This need not be the same as the file where the result actually occurred.",
-          "$ref": "#/definitions/fileLocation"
+          "$ref": "#/definitions/artifactLocation"
         },
 
         "locations": {
@@ -1746,17 +1746,17 @@
           "description": "The file location specified by each uriBaseId symbol on the machine where the tool originally ran.",
           "type": "object",
           "additionalProperties": {
-            "$ref": "#/definitions/fileLocation"
+            "$ref": "#/definitions/artifactLocation"
           }
         },
 
-        "files": {
-          "description": "An array of file objects relevant to the run.",
+        "artifacts": {
+          "description": "An array of artifact objects relevant to the run.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
           "items": {
-            "$ref": "#/definitions/file"
+            "$ref": "#/definitions/artifact"
           }
         },
 
@@ -2174,7 +2174,7 @@
           }
         },
 
-        "fileIndex": {
+        "artifactIndex": {
           "description": "The index within the run files array of the file object associated with the component.",
           "type": "integer",
           "default": -1,
@@ -2225,7 +2225,7 @@
 
         "mappedTo": {
           "description": "The location in the local file system to which the root of the repository was mapped at the time of the analysis.",
-          "$ref": "#/definitions/fileLocation"
+          "$ref": "#/definitions/artifactLocation"
         },
 
         "properties": {

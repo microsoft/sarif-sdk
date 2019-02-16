@@ -103,15 +103,7 @@
       }
     }
   ],
-  "file": [
-    {
-      "kind": "ClassNameHint",
-      "arguments": {
-        "className": "FileData"
-      }
-    }
-  ],
-  "fileData": [
+  "artifact": [
     {
       "kind": "BaseTypeHint",
       "arguments": {
@@ -121,12 +113,12 @@
       }
     }
   ],
-  "FileData.Hashes": [
+  "Artifact.Hashes": [
     {
       "kind": "DictionaryHint"
     }
   ],
-  "FileData.LastModifiedTimeUtc": [
+  "Artifact.LastModifiedTimeUtc": [
     {
       "kind": "AttributeHint",
       "arguments": {
@@ -136,11 +128,11 @@
       }
     }
   ],
-  "FileData.Roles": [
+  "Artifact.Roles": [
     {
       "kind": "EnumHint",
       "arguments": {
-        "typeName": "FileRoles",
+        "typeName": "ArtifactRoles",
         "description": "Values specifying the roles played by the file in the analysis.",
         "flags": true,
         "zeroValueName": "None",
@@ -169,7 +161,7 @@
       }
     }
   ],
-  "fileChange": [
+  "artifactChange": [
     {
       "kind": "BaseTypeHint",
       "arguments": {
@@ -179,7 +171,7 @@
       }
     }
   ],
-  "fileContent": [
+  "artifactContent": [
     {
       "kind": "BaseTypeHint",
       "arguments": {
@@ -189,7 +181,7 @@
       }
     }
   ],
-  "fileLocation": [
+  "artifactLocation": [
     {
       "kind": "BaseTypeHint",
       "arguments": {
@@ -199,7 +191,7 @@
       }
     }
   ],
-  "FileLocation.Uri": [
+  "ArtifactLocation.Uri": [
     {
       "kind": "AttributeHint",
       "arguments": {

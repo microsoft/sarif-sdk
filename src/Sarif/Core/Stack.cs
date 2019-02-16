@@ -130,7 +130,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                         stackFrame.Location.PhysicalLocation = new PhysicalLocation
                         {
-                            FileLocation = new FileLocation
+                            ArtifactLocation = new ArtifactLocation
                             {
                                 Uri = new Uri(fileName)
                             },

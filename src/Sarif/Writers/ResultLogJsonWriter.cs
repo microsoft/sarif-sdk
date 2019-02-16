@@ -146,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// A dictionary whose keys are the URIs of scanned files and whose values provide
         /// information about those files.
         /// </param>
-        public void WriteFiles(IList<FileData> files)
+        public void WriteFiles(IList<Artifact> files)
         {
             if (files == null)
             {
@@ -364,9 +364,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             if ((_writeConditions & Conditions.FilesWritten) != Conditions.FilesWritten &&
-                _run.Files != null)
+                _run.Artifacts != null)
             {
-                WriteFiles(_run.Files);
+                WriteFiles(_run.Artifacts);
             }
 
             if ((_writeConditions & Conditions.LogicalLocationsWritten) != Conditions.LogicalLocationsWritten &&

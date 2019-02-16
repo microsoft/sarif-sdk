@@ -52,55 +52,55 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
                            StartLine = 0, StartColumn = 0, EndLine = 0, EndColumn = 0, CharOffset = 0, CharLength = 0 };
 
         private readonly static Region s_Insertion_Beginning_Of_Text_File = 
-            new Region() { Snippet = new FileContent() { Text = INSERTION_POINT },
+            new Region() { Snippet = new ArtifactContent() { Text = INSERTION_POINT },
                            StartLine = 1, StartColumn = 1, EndLine = 1, EndColumn = 1, CharOffset = 0, CharLength = 0 };
 
         private readonly static Region s_Insertion_End_Of_File =
-            new Region() { Snippet = new FileContent() { Text = INSERTION_POINT },
+            new Region() { Snippet = new ArtifactContent() { Text = INSERTION_POINT },
                            StartLine = 4, StartColumn = 4, EndLine = 4, EndColumn = 4, CharOffset = 20, CharLength = 0 };
 
         private readonly static Region s_Insertion_Between_New_Line_Chars = 
-            new Region() { Snippet = new FileContent() { Text = INSERTION_POINT },
+            new Region() { Snippet = new ArtifactContent() { Text = INSERTION_POINT },
                            StartLine = 2, StartColumn = 5, EndLine = 2, EndColumn = 5, CharOffset = 10, CharLength = 0 };
 
         private readonly static Region s_Interior_New_Line = 
-            new Region() { Snippet = new FileContent() { Text = NEW_LINE },
+            new Region() { Snippet = new ArtifactContent() { Text = NEW_LINE },
                            StartLine = 2, StartColumn = 5, EndLine = 3, EndColumn = 1, CharOffset = 10, CharLength = 1 };
 
         private readonly static Region s_Interior_Carriage_Return = 
-            new Region() { Snippet = new FileContent() { Text = CARRIAGE_RETURN },
+            new Region() { Snippet = new ArtifactContent() { Text = CARRIAGE_RETURN },
                            StartLine = 2, StartColumn = 4, EndLine = 2, EndColumn = 5, CharOffset = 9, CharLength = 1 };
 
         // Version 1 of this region defines it by using the insertion point of the following line as the terminus
         private readonly static Region s_Interior_Carriage_Return_New_Line_V1 = 
-            new Region() { Snippet = new FileContent() { Text = CARRIAGE_RETURN_NEW_LINE },
+            new Region() { Snippet = new ArtifactContent() { Text = CARRIAGE_RETURN_NEW_LINE },
                            StartLine = 3, StartColumn = 5, EndLine = 4, EndColumn = 1, CharOffset = 15, CharLength = 2 };
 
         // Version 2 of this region defines it by using an endColumn value that extends past the actual line ending
         private readonly static Region s_Interior_Carriage_Return_New_Line_V2 = 
-            new Region() { Snippet = new FileContent() { Text = CARRIAGE_RETURN_NEW_LINE },
+            new Region() { Snippet = new ArtifactContent() { Text = CARRIAGE_RETURN_NEW_LINE },
                            StartLine = 3, StartColumn = 5, EndLine = 3, EndColumn = 7, CharOffset = 15, CharLength = 2 };
 
         // Version 1 of this region defines it by using the insertion point of the following line as the terminus
         private readonly static Region s_Complete_File_V1 = 
-            new Region() { Snippet = new FileContent() { Text = COMPLETE_FILE },
+            new Region() { Snippet = new ArtifactContent() { Text = COMPLETE_FILE },
                            StartLine = 1, StartColumn = 1, EndLine = 5, EndColumn = 1, CharOffset = 0, CharLength = 20 };
 
         // Version 2 of this region defines it by using an endColumn value that extends past the actual line ending
         private readonly static Region s_Complete_File_V2 = 
-            new Region() { Snippet = new FileContent() { Text = COMPLETE_FILE },
+            new Region() { Snippet = new ArtifactContent() { Text = COMPLETE_FILE },
                            StartLine = 1, StartColumn = 1, EndLine = 4, EndColumn = 4, CharOffset = 0, CharLength = 20 };
 
         private readonly static Region s_Line_3 = 
-            new Region() { Snippet = new FileContent() { Text = LINE3 },
+            new Region() { Snippet = new ArtifactContent() { Text = LINE3 },
                            StartLine = 3, StartColumn = 1, EndLine = 3, EndColumn = 5, CharOffset = 11, CharLength = 4 };
 
         private readonly static Region s_Lines_2_And_3 = 
-            new Region() { Snippet = new FileContent() { Text = LINES_2_AND_3 },
+            new Region() { Snippet = new ArtifactContent() { Text = LINES_2_AND_3 },
                            StartLine = 2, StartColumn = 1, EndLine = 3, EndColumn = 5, CharOffset = 6, CharLength = 9 };
 
         private readonly static Region s_Interior_Characters = 
-            new Region() { Snippet = new FileContent() { Text = INTERIOR_CHARACTERS },
+            new Region() { Snippet = new ArtifactContent() { Text = INTERIOR_CHARACTERS },
                            StartLine = 3, StartColumn = 2, EndLine = 3, EndColumn = 4, CharOffset = 12, CharLength = 2 };
 
         private const string COMPLETE_FILE_NEW_LINES_ONLY = "123\n456\n789\n";
@@ -110,19 +110,19 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         private const string FRAGMENT_CARRIAGE_RETURNS_ONLY = "2\r345\r";
 
         private readonly static Region s_Complete_File_New_Lines_Only = 
-            new Region() { Snippet = new FileContent() { Text = COMPLETE_FILE_NEW_LINES_ONLY },
+            new Region() { Snippet = new ArtifactContent() { Text = COMPLETE_FILE_NEW_LINES_ONLY },
                            StartLine = 1, StartColumn = 1, EndLine = 4, EndColumn = 1, CharOffset = 0, CharLength = 12 };
 
         private readonly static Region s_Fragment_New_Lines_Only = 
-            new Region() { Snippet = new FileContent() { Text = FRAGMENT_NEW_LINES_ONLY },
+            new Region() { Snippet = new ArtifactContent() { Text = FRAGMENT_NEW_LINES_ONLY },
                            StartLine = 1, StartColumn = 4, EndLine = 4, EndColumn = 1, CharOffset = 3, CharLength = 9 };
 
         private readonly static Region s_Complete_File_Carriage_Returns_Only = 
-            new Region() { Snippet = new FileContent() { Text = COMPLETE_FILE_CARRIAGE_RETURNS_ONLY },
+            new Region() { Snippet = new ArtifactContent() { Text = COMPLETE_FILE_CARRIAGE_RETURNS_ONLY },
                            StartLine = 1, StartColumn = 1, EndLine = 6, EndColumn = 1, CharOffset = 0, CharLength = 10 };
 
         private readonly static Region s_Fragment_Carriage_Returns_Only = 
-            new Region() { Snippet = new FileContent() { Text = FRAGMENT_CARRIAGE_RETURNS_ONLY },
+            new Region() { Snippet = new ArtifactContent() { Text = FRAGMENT_CARRIAGE_RETURNS_ONLY },
                            StartLine = 4, StartColumn = 2, EndLine = 6, EndColumn = 1, CharOffset = 4, CharLength = 6 };
 
         private static ReadOnlyCollection<TestCaseData> s_specExampleTestCases =
@@ -268,7 +268,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             {
                 Region inputRegion = testCase.InputRegion;
                 Region expectedRegion = testCase.OutputRegion.DeepClone();
-                FileContent snippet = expectedRegion.Snippet;
+                ArtifactContent snippet = expectedRegion.Snippet;
 
                 expectedRegion.Snippet = null;
                 Region actualRegion = fileRegionsCache.PopulateTextRegionProperties(inputRegion, uri, populateSnippet: false);

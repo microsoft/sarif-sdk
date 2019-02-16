@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_0 = 0; index_0 < left.AnalysisToolLogFiles.Count; ++index_0)
                 {
-                    if (!FileLocation.ValueComparer.Equals(left.AnalysisToolLogFiles[index_0], right.AnalysisToolLogFiles[index_0]))
+                    if (!ArtifactLocation.ValueComparer.Equals(left.AnalysisToolLogFiles[index_0], right.AnalysisToolLogFiles[index_0]))
                     {
                         return false;
                     }

@@ -136,7 +136,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 location.PhysicalLocation = new PhysicalLocation
                 {
-                    FileLocation = BuildFileLocationFromFxCopReference(sourceFile),
+                    ArtifactLocation = BuildFileLocationFromFxCopReference(sourceFile),
                     Region = context.Line == null ? null : Extensions.CreateRegion(context.Line.Value)
                 };
             }
@@ -165,7 +165,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return result;
         }
 
-        private FileLocation BuildFileLocationFromFxCopReference(string fileReference)
+        private ArtifactLocation BuildFileLocationFromFxCopReference(string fileReference)
         {
             string uriBaseId = null;
 
@@ -175,7 +175,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 fileReference = fileReference.Substring(ProjectDirectoryVariable.Length + 1);
             }
 
-            return new FileLocation()
+            return new ArtifactLocation()
             {
                 UriBaseId = uriBaseId,
                 Uri = new Uri(fileReference, UriKind.RelativeOrAbsolute)

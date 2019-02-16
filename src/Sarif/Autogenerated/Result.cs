@@ -115,7 +115,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Identifies the file that the analysis tool was instructed to scan. This need not be the same as the file where the result actually occurred.
         /// </summary>
         [DataMember(Name = "analysisTarget", IsRequired = false, EmitDefaultValue = false)]
-        public FileLocation AnalysisTarget { get; set; }
+        public ArtifactLocation AnalysisTarget { get; set; }
 
         /// <summary>
         /// The set of locations where the result was detected. Specify only one location unless the problem indicated by the result can only be corrected by making a change at every specified location.
@@ -345,7 +345,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Result(string ruleId, int ruleIndex, int extensionIndex, ResultKind kind, FailureLevel level, Message message, FileLocation analysisTarget, IEnumerable<Location> locations, string instanceGuid, string correlationGuid, int occurrenceCount, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IDictionary<string, Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, double rank, IEnumerable<Attachment> attachments, Uri hostedViewerUri, IEnumerable<Uri> workItemUris, ResultProvenance provenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
+        public Result(string ruleId, int ruleIndex, int extensionIndex, ResultKind kind, FailureLevel level, Message message, ArtifactLocation analysisTarget, IEnumerable<Location> locations, string instanceGuid, string correlationGuid, int occurrenceCount, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IDictionary<string, Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, double rank, IEnumerable<Attachment> attachments, Uri hostedViewerUri, IEnumerable<Uri> workItemUris, ResultProvenance provenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(ruleId, ruleIndex, extensionIndex, kind, level, message, analysisTarget, locations, instanceGuid, correlationGuid, occurrenceCount, partialFingerprints, fingerprints, stacks, codeFlows, graphs, graphTraversals, relatedLocations, suppressionStates, baselineState, rank, attachments, hostedViewerUri, workItemUris, provenance, fixes, properties);
         }
@@ -387,7 +387,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Result(this);
         }
 
-        private void Init(string ruleId, int ruleIndex, int extensionIndex, ResultKind kind, FailureLevel level, Message message, FileLocation analysisTarget, IEnumerable<Location> locations, string instanceGuid, string correlationGuid, int occurrenceCount, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IDictionary<string, Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, double rank, IEnumerable<Attachment> attachments, Uri hostedViewerUri, IEnumerable<Uri> workItemUris, ResultProvenance provenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string ruleId, int ruleIndex, int extensionIndex, ResultKind kind, FailureLevel level, Message message, ArtifactLocation analysisTarget, IEnumerable<Location> locations, string instanceGuid, string correlationGuid, int occurrenceCount, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IDictionary<string, Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, double rank, IEnumerable<Attachment> attachments, Uri hostedViewerUri, IEnumerable<Uri> workItemUris, ResultProvenance provenance, IEnumerable<Fix> fixes, IDictionary<string, SerializedPropertyInfo> properties)
         {
             RuleId = ruleId;
             RuleIndex = ruleIndex;
@@ -401,7 +401,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (analysisTarget != null)
             {
-                AnalysisTarget = new FileLocation(analysisTarget);
+                AnalysisTarget = new ArtifactLocation(analysisTarget);
             }
 
             if (locations != null)

@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!FileLocation.ValueComparer.Equals(left.FileLocation, right.FileLocation))
+            if (!ArtifactLocation.ValueComparer.Equals(left.ArtifactLocation, right.ArtifactLocation))
             {
                 return false;
             }
@@ -120,9 +120,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Description.ValueGetHashCode();
                 }
 
-                if (obj.FileLocation != null)
+                if (obj.ArtifactLocation != null)
                 {
-                    result = (result * 31) + obj.FileLocation.ValueGetHashCode();
+                    result = (result * 31) + obj.ArtifactLocation.ValueGetHashCode();
                 }
 
                 if (obj.Regions != null)

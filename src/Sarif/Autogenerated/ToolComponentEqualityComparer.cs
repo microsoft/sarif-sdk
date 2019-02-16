@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (left.FileIndex != right.FileIndex)
+            if (left.ArtifactIndex != right.ArtifactIndex)
             {
                 return false;
             }
@@ -232,7 +232,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                result = (result * 31) + obj.FileIndex.GetHashCode();
+                result = (result * 31) + obj.ArtifactIndex.GetHashCode();
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.

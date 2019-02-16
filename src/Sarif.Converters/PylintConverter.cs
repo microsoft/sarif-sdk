@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var fileUri = new Uri($"{defect.FilePath}", UriKind.RelativeOrAbsolute);
             var physicalLocation = new PhysicalLocation
             {
-                FileLocation = new FileLocation
+                ArtifactLocation = new ArtifactLocation
                 {
                     Uri = fileUri
                 },

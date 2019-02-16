@@ -63,7 +63,7 @@ namespace Sarif.Converters.UnitTests
                     {
                         PhysicalLocation = new PhysicalLocation
                         {
-                            FileLocation = new FileLocation
+                            ArtifactLocation = new ArtifactLocation
                             {
                                 Uri = new Uri("test.py", UriKind.RelativeOrAbsolute)
                             },
@@ -96,7 +96,7 @@ namespace Sarif.Converters.UnitTests
 
             var mockWriter = new Mock<IResultLogWriter>();
             mockWriter.Setup(writer => writer.Initialize(It.IsAny<Run>()));
-            mockWriter.Setup(writer => writer.WriteFiles(It.IsAny<IList<FileData>>()));
+            mockWriter.Setup(writer => writer.WriteFiles(It.IsAny<IList<Artifact>>()));
             mockWriter.Setup(writer => writer.OpenResults());
             mockWriter.Setup(writer => writer.CloseResults());
             mockWriter.Setup(writer => writer.WriteResults(It.IsAny<List<Result>>()));
@@ -106,7 +106,7 @@ namespace Sarif.Converters.UnitTests
             converter.Convert(stream, mockWriter.Object, OptionallyEmittedData.None);
 
             mockWriter.Verify(writer => writer.Initialize(It.IsAny<Run>()), Times.Once);
-            mockWriter.Verify(writer => writer.WriteFiles(It.IsAny<IList<FileData>>()), Times.Never);
+            mockWriter.Verify(writer => writer.WriteFiles(It.IsAny<IList<Artifact>>()), Times.Never);
             mockWriter.Verify(writer => writer.OpenResults(), Times.Once);
             mockWriter.Verify(writer => writer.CloseResults(), Times.Once);
             mockWriter.Verify(writer => writer.WriteResults(It.IsAny<List<Result>>()), Times.Once);

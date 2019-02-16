@@ -93,10 +93,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// The index within the run files array of the file object associated with the component.
         /// </summary>
-        [DataMember(Name = "fileIndex", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "artifactIndex", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public int FileIndex { get; set; }
+        public int ArtifactIndex { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the component.
@@ -109,7 +109,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public ToolComponent()
         {
-            FileIndex = -1;
+            ArtifactIndex = -1;
         }
 
         /// <summary>
@@ -142,15 +142,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="ruleDescriptors">
         /// An initialization value for the <see cref="P:RuleDescriptors" /> property.
         /// </param>
-        /// <param name="fileIndex">
-        /// An initialization value for the <see cref="P:FileIndex" /> property.
+        /// <param name="artifactIndex">
+        /// An initialization value for the <see cref="P:ArtifactIndex" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ToolComponent(string name, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notificationDescriptors, IEnumerable<ReportingDescriptor> ruleDescriptors, int fileIndex, IDictionary<string, SerializedPropertyInfo> properties)
+        public ToolComponent(string name, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notificationDescriptors, IEnumerable<ReportingDescriptor> ruleDescriptors, int artifactIndex, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(name, fullName, version, semanticVersion, dottedQuadFileVersion, downloadUri, globalMessageStrings, notificationDescriptors, ruleDescriptors, fileIndex, properties);
+            Init(name, fullName, version, semanticVersion, dottedQuadFileVersion, downloadUri, globalMessageStrings, notificationDescriptors, ruleDescriptors, artifactIndex, properties);
         }
 
         /// <summary>
@@ -169,7 +169,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Name, other.FullName, other.Version, other.SemanticVersion, other.DottedQuadFileVersion, other.DownloadUri, other.GlobalMessageStrings, other.NotificationDescriptors, other.RuleDescriptors, other.FileIndex, other.Properties);
+            Init(other.Name, other.FullName, other.Version, other.SemanticVersion, other.DottedQuadFileVersion, other.DownloadUri, other.GlobalMessageStrings, other.NotificationDescriptors, other.RuleDescriptors, other.ArtifactIndex, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -190,7 +190,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ToolComponent(this);
         }
 
-        private void Init(string name, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notificationDescriptors, IEnumerable<ReportingDescriptor> ruleDescriptors, int fileIndex, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string name, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notificationDescriptors, IEnumerable<ReportingDescriptor> ruleDescriptors, int artifactIndex, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Name = name;
             FullName = fullName;
@@ -247,7 +247,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 RuleDescriptors = destination_1;
             }
 
-            FileIndex = fileIndex;
+            ArtifactIndex = artifactIndex;
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);

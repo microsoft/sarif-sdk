@@ -80,7 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var physicalLocation = new PhysicalLocation
             {
-                FileLocation = new FileLocation
+                ArtifactLocation = new ArtifactLocation
                 {
                     Uri = analysisTargetUri
                 },
@@ -113,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                     if (!string.IsNullOrEmpty(fix.InnerText))
                     {
-                        replacement.InsertedContent = new FileContent
+                        replacement.InsertedContent = new ArtifactContent
                         {
                             Text = fix.InnerText
                         };
@@ -122,16 +122,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     replacements.Add(replacement);
                 }
 
-                var sarifFileChange = new FileChange
+                var sarifFileChange = new ArtifactChange
                 {
-                    FileLocation = new FileLocation
+                    ArtifactLocation = new ArtifactLocation
                     {
                         Uri = analysisTargetUri
                     },
                     Replacements = replacements
                 };
 
-                Fix sarifFix = new Fix(description: null, fileChanges: new List<FileChange>() { sarifFileChange }, properties: null);
+                Fix sarifFix = new Fix(description: null, changes: new List<ArtifactChange>() { sarifFileChange }, properties: null);
                 result.Fixes = new List<Fix> { sarifFix };
             } 
 

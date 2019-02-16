@@ -79,15 +79,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
         }
 
-        protected virtual void Analyze(FileChange fileChange, string fileChangePointer)
+        protected virtual void Analyze(ArtifactChange fileChange, string fileChangePointer)
         {
         }
 
-        protected virtual void Analyze(FileLocation fileLocation, string fileLocationPointer)
+        protected virtual void Analyze(ArtifactLocation fileLocation, string fileLocationPointer)
         {
         }
 
-        protected virtual void Analyze(FileData fileData, string filePointer)
+        protected virtual void Analyze(Artifact fileData, string filePointer)
         {
         }
 
@@ -229,9 +229,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             Analyze(attachment, attachmentPointer);
 
-            if (attachment.FileLocation != null)
+            if (attachment.ArtifactLocation != null)
             {
-                Visit(attachment.FileLocation, attachmentPointer.AtProperty(SarifPropertyName.FileLocation));
+                Visit(attachment.ArtifactLocation, attachmentPointer.AtProperty(SarifPropertyName.FileLocation));
             }
 
             if (attachment.Description != null)
@@ -310,17 +310,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
-        private void Visit(FileData fileData, string filePointer)
+        private void Visit(Artifact fileData, string filePointer)
         {
             Analyze(fileData, filePointer);
 
-            if (fileData.FileLocation != null)
+            if (fileData.Location != null)
             {
-                Visit(fileData.FileLocation, filePointer.AtProperty(SarifPropertyName.FileLocation));
+                Visit(fileData.Location, filePointer.AtProperty(SarifPropertyName.FileLocation));
             }
         }
 
-        private void Visit(FileLocation fileLocation, string fileLocationPointer)
+        private void Visit(ArtifactLocation fileLocation, string fileLocationPointer)
         {
             Analyze(fileLocation, fileLocationPointer);
         }
@@ -332,24 +332,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 Visit(fix.Description, fixPointer.AtProperty(SarifPropertyName.Description));
             }
 
-            if (fix.FileChanges != null)
+            if (fix.Changes != null)
             {
                 string fileChangesPointer = fixPointer.AtProperty(SarifPropertyName.FileChanges);
 
-                for (int i = 0; i < fix.FileChanges.Count; ++i)
+                for (int i = 0; i < fix.Changes.Count; ++i)
                 {
-                    Visit(fix.FileChanges[i], fileChangesPointer.AtIndex(i));
+                    Visit(fix.Changes[i], fileChangesPointer.AtIndex(i));
                 }
             }
         }
 
-        private void Visit(FileChange fileChange, string fileChangePointer)
+        private void Visit(ArtifactChange fileChange, string fileChangePointer)
         {
             Analyze(fileChange, fileChangePointer);
 
-            if (fileChange.FileLocation != null)
+            if (fileChange.ArtifactLocation != null)
             {
-                Visit(fileChange.FileLocation, fileChangePointer.AtProperty(SarifPropertyName.FileLocation));
+                Visit(fileChange.ArtifactLocation, fileChangePointer.AtProperty(SarifPropertyName.FileLocation));
             }
         }
 
@@ -518,9 +518,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             Analyze(physicalLocation, physicalLocationPointer);
 
-            if (physicalLocation.FileLocation != null)
+            if (physicalLocation.ArtifactLocation != null)
             {
-                Visit(physicalLocation.FileLocation, physicalLocationPointer.AtProperty(SarifPropertyName.FileLocation));
+                Visit(physicalLocation.ArtifactLocation, physicalLocationPointer.AtProperty(SarifPropertyName.FileLocation));
             }
 
             if (physicalLocation.Region != null)
@@ -704,13 +704,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 }
             }
 
-            if (run.Files != null)
+            if (run.Artifacts != null)
             {
                 string filesPointer = runPointer.AtProperty(SarifPropertyName.Files);
 
-                for (int i = 0; i < run.Files.Count; ++i)
+                for (int i = 0; i < run.Artifacts.Count; ++i)
                 {
-                    Visit(run.Files[i], filesPointer.AtIndex(i));
+                    Visit(run.Artifacts[i], filesPointer.AtIndex(i));
                 }
             }
 

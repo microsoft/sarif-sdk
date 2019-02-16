@@ -43,13 +43,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             currentDirectory = currentDirectory.Substring(0, currentDirectory.IndexOf(@"\bld\"));
             uriString = uriString.Replace("REPLACED_AT_TEST_RUNTIME", currentDirectory);
 
-            actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"] = new FileLocation { Uri = new Uri(uriString, UriKind.Absolute) };
+            actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"] = new ArtifactLocation { Uri = new Uri(uriString, UriKind.Absolute) };
 
             var visitor = new InsertOptionalDataVisitor(_currentOptionallyEmittedData);
             visitor.Visit(actualLog.Runs[0]);
 
             // Restore the remanufactured URI so that file diffing matches
-            actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"] = new FileLocation { Uri = originalUri };
+            actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"] = new ArtifactLocation { Uri = originalUri };
 
             return JsonConvert.SerializeObject(actualLog, Formatting.Indented);
         }
@@ -357,7 +357,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             string uriBaseId = "TEST_DIR";
             string fileKey = "#" + uriBaseId + "#" + inputFileName;
 
-            IDictionary<string, FileLocation> originalUriBaseIds = new Dictionary<string, FileLocation> { { uriBaseId, new FileLocation { Uri = new Uri(testDirectory, UriKind.Absolute) } } };
+            IDictionary<string, ArtifactLocation> originalUriBaseIds = new Dictionary<string, ArtifactLocation> { { uriBaseId, new ArtifactLocation { Uri = new Uri(testDirectory, UriKind.Absolute) } } };
 
             Run run = new Run()
             {
@@ -373,7 +373,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                             {
                                 PhysicalLocation = new PhysicalLocation
                                 {
-                                     FileLocation = new FileLocation
+                                     ArtifactLocation = new ArtifactLocation
                                      {
                                         Uri = new Uri(inputFileName, UriKind.Relative),
                                         UriBaseId = uriBaseId
@@ -389,14 +389,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             visitor.VisitRun(run);
 
             run.OriginalUriBaseIds.Should().BeNull();
-            run.Files.Count.Should().Be(1);
-            run.Files[0].Contents.Should().BeNull();
+            run.Artifacts.Count.Should().Be(1);
+            run.Artifacts[0].Contents.Should().BeNull();
 
             visitor = new InsertOptionalDataVisitor(OptionallyEmittedData.TextFiles, originalUriBaseIds);
             visitor.VisitRun(run);
 
             run.OriginalUriBaseIds.Should().Equal(originalUriBaseIds);
-            run.Files[0].Contents.Text.Should().Be(File.ReadAllText(Path.Combine(testDirectory, inputFileName)));
+            run.Artifacts[0].Contents.Text.Should().Be(File.ReadAllText(Path.Combine(testDirectory, inputFileName)));
         }
 
         private static string FormatFailureReason(string failureOutput)

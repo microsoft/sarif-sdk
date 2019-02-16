@@ -188,7 +188,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             var versionControlDetails = new VersionControlDetails() { RepositoryUri = versionControlUri, AsOfTimeUtc = DateTime.UtcNow };
             string originalUriBaseIdKey = "testBase";
             Uri originalUriBaseIdValue = new Uri("https://sourceserver.contoso.com");
-            var originalUriBaseIds = new Dictionary<string, FileLocation>() { { originalUriBaseIdKey, new FileLocation { Uri = originalUriBaseIdValue } } };
+            var originalUriBaseIds = new Dictionary<string, ArtifactLocation>() { { originalUriBaseIdKey, new ArtifactLocation { Uri = originalUriBaseIdValue } } };
             string defaultFileEncoding = "UTF7";
             string markdownMessageMimeType = "sarif-markdown";
             string redactionToken = "[MY_REDACTION_TOKEN]";
@@ -269,11 +269,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             string fileDataKey = new Uri(file).AbsoluteUri;
 
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
-            sarifLog.Runs[0].Files[0].MimeType.Should().Be(MimeType.Cpp);
-            sarifLog.Runs[0].Files[0].Hashes.Keys.Count.Should().Be(3);
-            sarifLog.Runs[0].Files[0].Hashes["md5"].Should().Be("4B9DC12934390387862CC4AB5E4A2159");
-            sarifLog.Runs[0].Files[0].Hashes["sha-1"].Should().Be("9B59B1C1E3F5F7013B10F6C6B7436293685BAACE");
-            sarifLog.Runs[0].Files[0].Hashes["sha-256"].Should().Be("0953D7B3ADA7FED683680D2107EE517A9DBEC2D0AF7594A91F058D104B7A2AEB");
+            sarifLog.Runs[0].Artifacts[0].MimeType.Should().Be(MimeType.Cpp);
+            sarifLog.Runs[0].Artifacts[0].Hashes.Keys.Count.Should().Be(3);
+            sarifLog.Runs[0].Artifacts[0].Hashes["md5"].Should().Be("4B9DC12934390387862CC4AB5E4A2159");
+            sarifLog.Runs[0].Artifacts[0].Hashes["sha-1"].Should().Be("9B59B1C1E3F5F7013B10F6C6B7436293685BAACE");
+            sarifLog.Runs[0].Artifacts[0].Hashes["sha-256"].Should().Be("0953D7B3ADA7FED683680D2107EE517A9DBEC2D0AF7594A91F058D104B7A2AEB");
         }
 
         [Fact]
@@ -307,7 +307,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             byte[] fileBytes = Encoding.Default.GetBytes(fileText);
 
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
-            FileData fileData = sarifLog.Runs[0].Files[0];
+            Artifact fileData = sarifLog.Runs[0].Artifacts[0];
             fileData.MimeType.Should().Be(MimeType.CSharp);
             fileData.Contents.Binary.Should().Be(Convert.ToBase64String(fileBytes));
             fileData.Contents.Text.Should().BeNull();
@@ -334,14 +334,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                     {
                         RuleId = ruleId,
                         Message = new Message { Text = "Some testing occurred." },
-                        AnalysisTarget = new FileLocation { Uri = new Uri(@"file:///file0.cpp") },
+                        AnalysisTarget = new ArtifactLocation { Uri = new Uri(@"file:///file0.cpp") },
                         Locations = new[]
                         {
                             new Location
                             {
                                 PhysicalLocation = new PhysicalLocation
                                 {
-                                    FileLocation = new FileLocation
+                                    ArtifactLocation = new ArtifactLocation
                                     {
                                         Uri = new Uri(@"file:///file1.cpp")
                                     }
@@ -352,11 +352,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                         {
                             new Fix
                             {
-                                FileChanges = new[]
+                                Changes = new[]
                                 {
-                                   new FileChange
+                                   new ArtifactChange
                                    {
-                                    FileLocation = new FileLocation
+                                    ArtifactLocation = new ArtifactLocation
                                     {
                                         Uri = new Uri(@"file:///file2.cpp")
                                     },
@@ -376,7 +376,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                             {
                                 PhysicalLocation = new PhysicalLocation
                                 {
-                                    FileLocation = new FileLocation
+                                    ArtifactLocation = new ArtifactLocation
                                     {
                                         Uri = new Uri(@"file:///file3.cpp")
                                     }
@@ -395,7 +395,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                         {
                                             PhysicalLocation = new PhysicalLocation
                                             {
-                                                FileLocation = new FileLocation
+                                                ArtifactLocation = new ArtifactLocation
                                                 {
                                                     Uri = new Uri(@"file:///file4.cpp")
                                                 }
@@ -421,7 +421,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                                                 {
                                                     PhysicalLocation = new PhysicalLocation
                                                     {
-                                                        FileLocation = new FileLocation
+                                                        ArtifactLocation = new ArtifactLocation
                                                         {
                                                             Uri = new Uri(@"file:///file5.cpp")
                                                         }
@@ -448,10 +448,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 string fileName = @"file" + i + ".cpp";
                 string fileDataKey = "file:///" + fileName;
-                sarifLog.Runs[0].Files.Where(f => f.FileLocation.Uri.AbsoluteUri.ToString().Contains(fileDataKey)).Any().Should().BeTrue();
+                sarifLog.Runs[0].Artifacts.Where(f => f.Location.Uri.AbsoluteUri.ToString().Contains(fileDataKey)).Any().Should().BeTrue();
             }
 
-            sarifLog.Runs[0].Files.Count.Should().Be(fileCount);
+            sarifLog.Runs[0].Artifacts.Count.Should().Be(fileCount);
         }
 
         [Fact]
@@ -470,14 +470,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {                    
                     var toolNotification = new Notification
                     {
-                        PhysicalLocation = new PhysicalLocation { FileLocation = new FileLocation { Uri = new Uri(@"file:///file.cpp") } },
+                        PhysicalLocation = new PhysicalLocation { ArtifactLocation = new ArtifactLocation { Uri = new Uri(@"file:///file.cpp") } },
                         Message = new Message { Text = "A notification was raised." }
                     };
                     sarifLogger.LogToolNotification(toolNotification);
 
                     var configurationNotification = new Notification
                     {
-                        PhysicalLocation = new PhysicalLocation { FileLocation = new FileLocation { Uri = new Uri(@"file:///file.cpp") } },
+                        PhysicalLocation = new PhysicalLocation { ArtifactLocation = new ArtifactLocation { Uri = new Uri(@"file:///file.cpp") } },
                         Message = new Message { Text = "A notification was raised." }
                     };
                     sarifLogger.LogConfigurationNotification(configurationNotification);
@@ -498,7 +498,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             string logText = sb.ToString();
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(logText);
 
-            sarifLog.Runs[0].Files.Should().BeNull();
+            sarifLog.Runs[0].Artifacts.Should().BeNull();
         }
 
         [Fact]

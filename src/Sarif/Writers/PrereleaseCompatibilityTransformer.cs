@@ -670,7 +670,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 file["parentIndex"] = parentIndex;
             }
 
-            var fileLocationKey = FileLocation.CreateFromFilesDictionaryKey(key, parentKey);
+            var fileLocationKey = ArtifactLocation.CreateFromFilesDictionaryKey(key, parentKey);
 
             JObject fileLocationObject = new JObject();
             file["fileLocation"] = fileLocationObject;

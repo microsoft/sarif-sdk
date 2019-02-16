@@ -9,14 +9,14 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Defines methods to support the comparison of objects of type FileContent for equality.
+    /// Defines methods to support the comparison of objects of type ArtifactContent for equality.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
-    internal sealed class FileContentEqualityComparer : IEqualityComparer<FileContent>
+    internal sealed class ArtifactContentEqualityComparer : IEqualityComparer<ArtifactContent>
     {
-        internal static readonly FileContentEqualityComparer Instance = new FileContentEqualityComparer();
+        internal static readonly ArtifactContentEqualityComparer Instance = new ArtifactContentEqualityComparer();
 
-        public bool Equals(FileContent left, FileContent right)
+        public bool Equals(ArtifactContent left, ArtifactContent right)
         {
             if (ReferenceEquals(left, right))
             {
@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public int GetHashCode(FileContent obj)
+        public int GetHashCode(ArtifactContent obj)
         {
             if (ReferenceEquals(obj, null))
             {

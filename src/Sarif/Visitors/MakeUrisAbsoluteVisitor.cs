@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return base.VisitRun(node);
         }
 
-        public override FileLocation VisitFileLocation(FileLocation node)
+        public override ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
         {
             if ( _run.OriginalUriBaseIds!= null &&
                 !string.IsNullOrEmpty(node?.UriBaseId) &&

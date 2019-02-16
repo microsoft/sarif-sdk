@@ -37,12 +37,12 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         [Fact]
         public void OrderSensitiveValueComparisonListTests_DefaultObjectComparer()
         {
-            var equalityComparer = new DefaultObjectComparer<FileChange>();
+            var equalityComparer = new DefaultObjectComparer<ArtifactChange>();
 
             var listOne = CreateTestList(equalityComparer);
 
             // Populate the second list with references from the first.
-            var listTwo = new OrderSensitiveValueComparisonList<FileChange>(equalityComparer);
+            var listTwo = new OrderSensitiveValueComparisonList<ArtifactChange>(equalityComparer);
             for (int i = 0; i < listOne.Count; i++)
             {
                 listTwo.Add(listOne[i]);
@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             // order should be regarded as equivalent.
             listOne.Equals(listTwo).Should().Be(true);
 
-            FileChange toSwap = listTwo[0];
+            ArtifactChange toSwap = listTwo[0];
             listTwo[0] = listTwo[1];
             listTwo[1] = toSwap;
 
@@ -69,8 +69,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
         {
             // Two identical lists with elements that are 
             // distinct objects, by reference.
-            var listOne = CreateTestList(FileChange.ValueComparer);
-            var listTwo = CreateTestList(FileChange.ValueComparer);
+            var listOne = CreateTestList(ArtifactChange.ValueComparer);
+            var listTwo = CreateTestList(ArtifactChange.ValueComparer);
 
             // Every list s/be equal to itself
             listOne.Equals(listOne).Should().Be(true);
@@ -83,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
             listTwo[2].SetProperty(DIFFERENTIATING_PROPERTY_NAME, listOne[2].GetProperty<Guid>(DIFFERENTIATING_PROPERTY_NAME));
             listOne.Equals(listTwo).Should().Be(true);
 
-            FileChange toSwap = listTwo[0];
+            ArtifactChange toSwap = listTwo[0];
             listTwo[0] = listTwo[1];
             listTwo[1] = toSwap;
 
@@ -94,17 +94,17 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 
         private const string DIFFERENTIATING_PROPERTY_NAME = nameof(DIFFERENTIATING_PROPERTY_NAME);
 
-        private OrderSensitiveValueComparisonList<FileChange> CreateTestList(IEqualityComparer<FileChange> equalityComparer)
+        private OrderSensitiveValueComparisonList<ArtifactChange> CreateTestList(IEqualityComparer<ArtifactChange> equalityComparer)
         {
             // Test list. First two elements are identical. The third element is unique.
-            var fileChangeOne = new FileChange();
-            var fileChangeTwo = new FileChange();
+            var fileChangeOne = new ArtifactChange();
+            var fileChangeTwo = new ArtifactChange();
 
-            var fileChangeThree = new FileChange();
+            var fileChangeThree = new ArtifactChange();
             Guid differentiatingProperty = Guid.NewGuid();
             fileChangeThree.SetProperty(DIFFERENTIATING_PROPERTY_NAME, differentiatingProperty);
 
-            var list = new OrderSensitiveValueComparisonList<FileChange>(equalityComparer);
+            var list = new OrderSensitiveValueComparisonList<ArtifactChange>(equalityComparer);
             list.AddRange(new[] { fileChangeOne, fileChangeTwo, fileChangeThree });
 
             return list;

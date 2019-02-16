@@ -11,11 +11,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
 {
     public static class DriverSdkExtensions
     {
-        public static IDictionary<string, FileLocation> ConstructUriBaseIdsDictionary(this CommonOptionsBase options)
+        public static IDictionary<string, ArtifactLocation> ConstructUriBaseIdsDictionary(this CommonOptionsBase options)
         {
             if (options.UriBaseIds == null || options.UriBaseIds.Count() == 0) { return null; }
 
-            var uriBaseIdsDictionary = new Dictionary<string, FileLocation>();
+            var uriBaseIdsDictionary = new Dictionary<string, ArtifactLocation>();
 
             foreach (string uriBaseId in options.UriBaseIds)
             {
@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.Sdk
                     throw new InvalidOperationException("Could not construct absolute URI from specified value: " + tokens[1]);
                 }
 
-                uriBaseIdsDictionary[key] = new FileLocation { Uri = value };
+                uriBaseIdsDictionary[key] = new ArtifactLocation { Uri = value };
             }
 
             return uriBaseIdsDictionary;
