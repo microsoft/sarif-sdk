@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
         }
 
-        public void WriteFiles(IList<Artifact> fileDictionary)
+        public void WriteArtifacts(IList<Artifact> fileDictionary)
         {
             throw new NotImplementedException();
         }

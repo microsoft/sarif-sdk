@@ -182,7 +182,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 fileData.Location = ArtifactLocation.CreateFromFilesDictionaryKey(key, parentKey);
                 fileData.Location.UriBaseId = v1FileData.UriBaseId;
-                fileData.Location.Index = _v1FileKeytoV2IndexMap[key];
 
                 if (v1FileData.Contents != null)
                 {

@@ -231,7 +231,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (attachment.ArtifactLocation != null)
             {
-                Visit(attachment.ArtifactLocation, attachmentPointer.AtProperty(SarifPropertyName.FileLocation));
+                Visit(attachment.ArtifactLocation, attachmentPointer.AtProperty(SarifPropertyName.ArtifactLocation));
             }
 
             if (attachment.Description != null)
@@ -316,7 +316,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (fileData.Location != null)
             {
-                Visit(fileData.Location, filePointer.AtProperty(SarifPropertyName.FileLocation));
+                Visit(fileData.Location, filePointer.AtProperty(SarifPropertyName.Location));
             }
         }
 
@@ -334,7 +334,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (fix.Changes != null)
             {
-                string fileChangesPointer = fixPointer.AtProperty(SarifPropertyName.FileChanges);
+                string fileChangesPointer = fixPointer.AtProperty(SarifPropertyName.Changes);
 
                 for (int i = 0; i < fix.Changes.Count; ++i)
                 {
@@ -349,7 +349,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (fileChange.ArtifactLocation != null)
             {
-                Visit(fileChange.ArtifactLocation, fileChangePointer.AtProperty(SarifPropertyName.FileLocation));
+                Visit(fileChange.ArtifactLocation, fileChangePointer.AtProperty(SarifPropertyName.ArtifactLocation));
             }
         }
 
@@ -520,7 +520,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (physicalLocation.ArtifactLocation != null)
             {
-                Visit(physicalLocation.ArtifactLocation, physicalLocationPointer.AtProperty(SarifPropertyName.FileLocation));
+                Visit(physicalLocation.ArtifactLocation, physicalLocationPointer.AtProperty(SarifPropertyName.ArtifactLocation));
             }
 
             if (physicalLocation.Region != null)
@@ -706,7 +706,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (run.Artifacts != null)
             {
-                string filesPointer = runPointer.AtProperty(SarifPropertyName.Files);
+                string filesPointer = runPointer.AtProperty(SarifPropertyName.Artifacts);
 
                 for (int i = 0; i < run.Artifacts.Count; ++i)
                 {

@@ -142,25 +142,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         /// after the results, as the full list of scanned files might not be known until
         /// all results have been generated.
         /// </summary>
-        /// <param name="files">
+        /// <param name="artifacts">
         /// A dictionary whose keys are the URIs of scanned files and whose values provide
         /// information about those files.
         /// </param>
-        public void WriteFiles(IList<Artifact> files)
+        public void WriteArtifacts(IList<Artifact> artifacts)
         {
-            if (files == null)
+            if (artifacts == null)
             {
-                throw new ArgumentNullException(nameof(files));
+                throw new ArgumentNullException(nameof(artifacts));
             }
 
             EnsureInitialized();
             EnsureResultsArrayIsNotOpen();
             EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.FilesWritten);
 
-            if (files.HasAtLeastOneNonNullValue())
+            if (artifacts.HasAtLeastOneNonNullValue())
             {
-                _jsonWriter.WritePropertyName("files");
-                _serializer.Serialize(_jsonWriter, files);
+                _jsonWriter.WritePropertyName("artifacts");
+                _serializer.Serialize(_jsonWriter, artifacts);
             }
 
             _writeConditions |= Conditions.FilesWritten;
@@ -366,7 +366,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             if ((_writeConditions & Conditions.FilesWritten) != Conditions.FilesWritten &&
                 _run.Artifacts != null)
             {
-                WriteFiles(_run.Artifacts);
+                WriteArtifacts(_run.Artifacts);
             }
 
             if ((_writeConditions & Conditions.LogicalLocationsWritten) != Conditions.LogicalLocationsWritten &&

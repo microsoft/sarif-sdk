@@ -133,7 +133,7 @@ namespace SarifToCsv
 
             // PhysicalLocation Properties
             writers["Location.Tags"] = (writer, result, pLoc) => { writer.Write(String.Join("; ", ((IEnumerable<string>)pLoc.Tags) ?? Array.Empty<string>())); };
-            writers["Location.Uri"] = (writer, result, pLoc) => { writer.Write(pLoc.FileLocation?.Uri?.ToString() ?? ""); };
+            writers["Location.Uri"] = (writer, result, pLoc) => { writer.Write(pLoc.ArtifactLocation?.Uri?.ToString() ?? ""); };
 
             // Region Properties
             writers["Location.Region.ByteLength"] = (writer, result, pLoc) => { writer.Write(pLoc.Region?.ByteLength ?? -1); };

@@ -43,9 +43,9 @@
           ]
         }
       ],
-      "files": [
+      "artifacts": [
         {
-          "fileLocation": { "uri": "fi%le:///c:/src/file.c" },
+          "location": { "uri": "fi%le:///c:/src/file.c" },
           "mimeType": "text/x-c"
         }
       ],
@@ -65,7 +65,7 @@
             "runs[0].originalUriBaseIds.SRCROOT.uri",
             "runs[0].results[0].analysisTarget.uri",
             "runs[0].results[0].workItemUris[0]",
-            "runs[0].files[0].fileLocation.uri",
+            "runs[0].artifacts[0].location.uri",
             "runs[0].versionControlProvenance[0].repositoryUri"
           ]
         }

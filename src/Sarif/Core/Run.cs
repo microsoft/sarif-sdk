@@ -145,7 +145,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public bool ShouldSerializeFiles() { return this.Artifacts.HasAtLeastOneNonNullValue(); }
+        public bool ShouldSerializeArtifacts() { return this.Artifacts.HasAtLeastOneNonNullValue(); }
 
         public bool ShouldSerializeGraphs() { return this.Graphs.HasAtLeastOneNonNullValue(); }
 

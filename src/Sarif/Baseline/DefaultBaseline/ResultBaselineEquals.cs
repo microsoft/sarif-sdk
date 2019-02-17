@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
                 }
 
                 // Target file should match.
-                if (!FileLocationBaselineEquals.Instance.Equals(x.AnalysisTarget, y.AnalysisTarget))
+                if (!ArtifactLocationBaselineEquals.Instance.Equals(x.AnalysisTarget, y.AnalysisTarget))
                 {
                     return false;
                 }

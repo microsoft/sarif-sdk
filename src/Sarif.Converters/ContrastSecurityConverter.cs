@@ -96,7 +96,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (files?.Any() == true)
             {
-                output.WriteFiles(files.ToList());
+                output.WriteArtifacts(files.ToList());
             }
 
             if (LogicalLocations?.Any() == true)

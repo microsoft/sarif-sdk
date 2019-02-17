@@ -227,7 +227,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                 if (_run?.Artifacts != null)
                 {
-                    _issueLogJsonWriter.WriteFiles(_run.Artifacts);
+                    _issueLogJsonWriter.WriteArtifacts(_run.Artifacts);
                 }
 
                 if (_run?.Invocations != null)

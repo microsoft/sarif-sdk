@@ -1,33 +1,32 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-11-28",
-  "version": "2.0.0-csd.2.beta.2018-11-28",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-01-24",
+  "version": "2.0.0-csd.2.beta.2019-01-24",
   "runs": [
     {
       "tool": {
-        "name": "CodeScanner",
-        "semanticVersion": "2.1.0"
+        "driver": {
+          "name": "CodeScanner",
+          "semanticVersion": "2.1.0"
+        }
       },
-      "files": [
+      "artifacts": [
         {
-          "fileLocation": {
-            "uri": "file.txt",
-            "fileIndex": 0
+          "location": {
+            "uri": "file.txt"
           },
           "mimeType": "text/plain"
         },
         {
-          "fileLocation": {
+          "location": {
             "uri": "file.txt",
-            "uriBaseId": "SRCROOT",
-            "fileIndex": 1
+            "uriBaseId": "SRCROOT"
           },
           "mimeType": "text/plain"
         },
         {
-          "fileLocation": {
+          "location": {
             "uri": "file.txt",
-            "uriBaseId": "TESTROOT",
-            "fileIndex": 2
+            "uriBaseId": "TESTROOT"
           },
           "mimeType": "text/plain"
         }
@@ -41,9 +40,8 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "file.txt",
-                  "fileIndex": 0
+                "artifactLocation": {
+                  "uri": "file.txt"
                 }
               },
               "properties": {
@@ -60,10 +58,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "file.txt",
-                  "uriBaseId": "SRCROOT",
-                  "fileIndex": 1
+                  "uriBaseId": "SRCROOT"
                 }
               },
               "properties": {
@@ -80,10 +77,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "file.txt",
-                  "uriBaseId": "TESTROOT",
-                  "fileIndex": 2
+                  "uriBaseId": "TESTROOT"
                 }
               },
               "properties": {

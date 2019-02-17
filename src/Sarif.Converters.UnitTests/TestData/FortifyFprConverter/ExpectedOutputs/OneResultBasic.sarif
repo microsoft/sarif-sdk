@@ -1,13 +1,10 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-01-09",
-  "version": "2.0.0-csd.2.beta.2019-01-09",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-01-24",
+  "version": "2.0.0-csd.2.beta.2019-01-24",
   "runs": [
     {
       "id": {
         "instanceId": "The_Build_ID/"
-      },
-      "tool": {
-        "name": "HP Fortify Static Code Analyzer"
       },
       "originalUriBaseIds": {
         "SRCROOT": {
@@ -15,17 +12,6 @@
         }
       },
       "columnKind": "utf16CodeUnits",
-      "invocations": [
-        {
-          "commandLine": "[REMOVED]insourceanalyzer.exe -scan -b The_Build_ID -machine-output -f C:\\projects\\myproject\\scans\\2018-01-01_12:00:00\\Scan.fpr -format fpr",
-          "startTimeUtc": "2018-01-01T12:00:00.000Z",
-          "machine": "SCANMACHINE",
-          "account": "johndoe",
-          "properties": {
-            "Platform": "Linux"
-          }
-        }
-      ],
       "results": [
         {
           "ruleId": "31D4607A-A3FF-447C-908A-CA2BBE4CE4B7",
@@ -36,10 +22,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "Helpers/InvoiceHelper.cs",
                   "uriBaseId": "SRCROOT",
-                  "fileIndex": 0
+                  "index": 0
                 },
                 "region": {
                   "startLine": 57,
@@ -66,10 +52,10 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
+                          "artifactLocation": {
                             "uri": "Helpers/InvoiceHelper.cs",
                             "uriBaseId": "SRCROOT",
-                            "fileIndex": 0
+                            "index": 0
                           },
                           "region": {
                             "startLine": 57,
@@ -101,10 +87,10 @@
             {
               "physicalLocation": {
                 "id": 1,
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "Helpers/InvoiceHelper.cs",
                   "uriBaseId": "SRCROOT",
-                  "fileIndex": 0
+                  "index": 0
                 },
                 "region": {
                   "startLine": 57,
@@ -115,31 +101,45 @@
           ]
         }
       ],
-      "files": [
+      "tool": {
+        "driver": {
+          "name": "HP Fortify Static Code Analyzer",
+          "ruleDescriptors": [
+            {
+              "id": "31D4607A-A3FF-447C-908A-CA2BBE4CE4B7",
+              "shortDescription": {
+                "text": "Sample abstract text. SQL injection vulnerability."
+              },
+              "fullDescription": {
+                "text": "The quick brown fox jumps over the lazy dog.\nThis section explains the rule in detail."
+              }
+            }
+          ]
+        }
+      },
+      "invocations": [
         {
-          "fileLocation": {
+          "commandLine": "[REMOVED]insourceanalyzer.exe -scan -b The_Build_ID -machine-output -f C:\\projects\\myproject\\scans\\2018-01-01_12:00:00\\Scan.fpr -format fpr",
+          "startTimeUtc": "2018-01-01T12:00:00.000Z",
+          "machine": "SCANMACHINE",
+          "account": "johndoe",
+          "properties": {
+            "Platform": "Linux"
+          }
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
             "uri": "Helpers/InvoiceHelper.cs",
             "uriBaseId": "SRCROOT",
-            "fileIndex": 0
+            "index": 0
           },
           "length": 8297,
           "mimeType": "text/x-csharp",
           "encoding": "windows-1252"
         }
-      ],
-      "resources": {
-        "rules": [
-          {
-            "id": "31D4607A-A3FF-447C-908A-CA2BBE4CE4B7",
-            "shortDescription": {
-              "text": "Sample abstract text. SQL injection vulnerability."
-            },
-            "fullDescription": {
-              "text": "The quick brown fox jumps over the lazy dog.\nThis section explains the rule in detail."
-            }
-          }
-        ]
-      }
+      ]
     }
   ]
 }

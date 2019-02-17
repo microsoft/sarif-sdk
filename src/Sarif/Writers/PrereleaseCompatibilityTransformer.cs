@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Newtonsoft.Json;
@@ -143,52 +142,85 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         }
                     }
 
-                    RecursivePropertyRename(run, "richText", "markdown");                    
+                    if (run["files"] is JArray files)
+                    {
+                        foreach (JObject artifact in files)
+                        {
+                            if (artifact["fileLocation"] is JObject location)
+                            {
+                                artifact.Remove("fileLocation");
+                                artifact["location"] = location;
+                            }
+                        }
+
+                        run["artifacts"] = files;
+                        run.Remove("files");
+                    }
+
+                    var universallyRenamedMembers = new Dictionary<string, string>
+                    {
+                        ["richText"] = "markdown",
+                        ["fileChange"] = "artifactChange",
+                        ["fileLocation"] = "artifactLocation",
+                        ["fileIndex"] = "artifactIndex",
+                        ["fileChanges"] = "changes",
+                    };
+
+                    RecursivePropertyRename(run, universallyRenamedMembers);
                 }
             }
             return true;
         }
-
-        private static void RecursivePropertyRename(JObject parentObject, JProperty property, string originalName, string newName)
+        private static void RecursivePropertyRename(JObject parentObject, JProperty property, Dictionary<string, string> renamedMembers)
         {
-            if (property.Name.Equals(originalName))
+            JToken newValue = property.Value;
+
+            if (renamedMembers.TryGetValue(property.Name, out string newName))
             {
-                parentObject[newName] = property.Value;
-                parentObject.Remove(originalName);
-                return;
+                parentObject.Remove(property.Name);
+            }
+            else
+            {
+                newName = property.Name;
             }
 
             if (property.Value is JArray jArray)
             {
-                RecursivePropertyRename(jArray, originalName, newName);
+                newValue = RecursivePropertyRename(jArray, renamedMembers);
             }
             else if (property.Value is JObject jObject)
             {
-                RecursivePropertyRename(jObject, originalName, newName);
+                newValue = RecursivePropertyRename(jObject, renamedMembers);
             }
+            parentObject[newName] = newValue;
         }
 
-        private static void RecursivePropertyRename(JArray jArray, string originalName, string newName)
+        private static JToken RecursivePropertyRename(JArray jArray, Dictionary<string, string> renamedMembers)
         {
             foreach (JToken jToken in jArray)
             {
                 if (jToken is JObject jObject)
                 {
-                    RecursivePropertyRename(jObject, originalName, newName);
+                    RecursivePropertyRename(jObject, renamedMembers);
                 }
                 // Note that we don't have to handle arrays of values or other arrays.
                 // These aren't expressed in standard SARIF, if we hit this code path
                 // that means we're processing some property bag content.
             }
+            return jArray;
         }
 
-        private static void RecursivePropertyRename(JObject jObject, string originalName, string newName)
+        private static JObject RecursivePropertyRename(JObject jObject, Dictionary<string, string> renamedMembers)
         {
             var properties = new List<JProperty>(jObject.Properties());
             foreach (JProperty property in properties)
             {
-                RecursivePropertyRename(jObject, property, originalName, newName);
+                // We won't process property bags, so that we don't inadvertently
+                // rename custom data that isn't a part of formal SARIF
+                if (property.Name.Equals("properties")) { continue; }
+                RecursivePropertyRename(jObject, property, renamedMembers);
             }
+            return jObject;
         }
 
         private static void MoveToolPropertiesIntoDriverToolComponent(JObject run)

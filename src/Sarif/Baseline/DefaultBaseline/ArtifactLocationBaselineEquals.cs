@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
 {
-    internal class FileLocationBaselineEquals : IEqualityComparer<ArtifactLocation>
+    internal class ArtifactLocationBaselineEquals : IEqualityComparer<ArtifactLocation>
     {
-        public static readonly FileLocationBaselineEquals Instance = new FileLocationBaselineEquals();
+        public static readonly ArtifactLocationBaselineEquals Instance = new ArtifactLocationBaselineEquals();
         public bool Equals(ArtifactLocation x, ArtifactLocation y)
         {
             if (!object.ReferenceEquals(x, y))
