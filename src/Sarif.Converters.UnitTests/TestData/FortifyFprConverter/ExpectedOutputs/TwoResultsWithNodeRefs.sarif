@@ -1,13 +1,10 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-01-09",
-  "version": "2.0.0-csd.2.beta.2019-01-09",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-01-24",
+  "version": "2.0.0-csd.2.beta.2019-01-24",
   "runs": [
     {
       "id": {
         "instanceId": "The_Build_ID/"
-      },
-      "tool": {
-        "name": "HP Fortify Static Code Analyzer"
       },
       "originalUriBaseIds": {
         "SRCROOT": {
@@ -15,17 +12,6 @@
         }
       },
       "columnKind": "utf16CodeUnits",
-      "invocations": [
-        {
-          "commandLine": "[REMOVED]insourceanalyzer.exe -scan -b The_Build_ID -machine-output -f C:\\projects\\myproject\\scans\\2018-01-01_12:00:00\\Scan.fpr -format fpr",
-          "startTimeUtc": "2018-01-01T12:00:00.000Z",
-          "machine": "SCANMACHINE",
-          "account": "johndoe",
-          "properties": {
-            "Platform": "Windows 10"
-          }
-        }
-      ],
       "results": [
         {
           "ruleId": "31D4607A-A3FF-447C-908A-CA2BBE4CE4B7",
@@ -90,7 +76,9 @@
                           "text": "SqlCommand.ctor()"
                         }
                       },
-                      "kind": "InCall"
+                      "kinds": [
+                        "InCall"
+                      ]
                     }
                   ]
                 }
@@ -177,7 +165,9 @@
                           "text": "Read ex"
                         }
                       },
-                      "kind": "Read"
+                      "kinds": [
+                        "Read"
+                      ]
                     },
                     {
                       "location": {
@@ -206,7 +196,9 @@
                           "text": "ToString(this : return)"
                         }
                       },
-                      "kind": "InOutCall"
+                      "kinds": [
+                        "InOutCall"
+                      ]
                     },
                     {
                       "location": {
@@ -235,7 +227,9 @@
                           "text": "Error(0)"
                         }
                       },
-                      "kind": "InCall"
+                      "kinds": [
+                        "InCall"
+                      ]
                     },
                     {
                       "location": {
@@ -254,7 +248,9 @@
                           "text": "WriteLog(1)"
                         }
                       },
-                      "kind": "InCall"
+                      "kinds": [
+                        "InCall"
+                      ]
                     },
                     {
                       "location": {
@@ -283,7 +279,9 @@
                           "text": "Concat(1 : return)"
                         }
                       },
-                      "kind": "InOutCall"
+                      "kinds": [
+                        "InOutCall"
+                      ]
                     },
                     {
                       "location": {
@@ -312,7 +310,9 @@
                           "text": "WriteLine(0)"
                         }
                       },
-                      "kind": "InCall"
+                      "kinds": [
+                        "InCall"
+                      ]
                     }
                   ]
                 }
@@ -335,6 +335,42 @@
               }
             }
           ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "HP Fortify Static Code Analyzer",
+          "ruleDescriptors": [
+            {
+              "id": "31D4607A-A3FF-447C-908A-CA2BBE4CE4B7",
+              "shortDescription": {
+                "text": "Sample abstract text. SQL injection vulnerability."
+              },
+              "fullDescription": {
+                "text": "The quick brown fox jumps over the lazy dog.\nThis section explains the rule in detail."
+              }
+            },
+            {
+              "id": "F7A2423A-1927-40A3-920E-17ADB5430412",
+              "shortDescription": {
+                "text": "The function <Replace key=\"EnclosingFunction.name\"/> in <Replace key=\"PrimaryLocation.file\"/> reveals system data or debugging information by calling <Replace key=\"PrimaryCall.name\"/> on line <Replace key=\"PrimaryLocation.line\"/>. The information revealed by <Replace key=\"PrimaryCall.name\"/> could help an adversary form a plan of attack.\r\nRevealing system data or debugging information helps an adversary learn about the system and form a plan of attack."
+              },
+              "fullDescription": {
+                "text": "An information leak occurs when system data or debugging information leaves the program through an output stream or logging function.\r\n\r\nIn this case the data from <Replace key=\"SourceFunction\" link=\"SourceLocation\"/> in <Replace key=\"SourceLocation.file\"/> at line <Replace key=\"SourceLocation.line\"/> leaves the program through <Replace key=\"SinkFunction\" link=\"SinkLocation\"/> in <Replace key=\"SinkLocation.file\"/> at line <Replace key=\"SinkLocation.line\"/>.\r\n\r\n**Example:** The following code constructs a database connection string, uses it to create a new connection to the database, and prints it to the console.\r\n\r\n`\nstring cs=\"database=northwind;server=mySQLServer...\";\nSqlConnection conn=new SqlConnection(cs);\n...\nConsole.Writeline(cs);\n`\r\n\r\nDepending on the system configuration, this information can be dumped to a console, written to a log file, or exposed to a remote user. For example, with scripting mechanisms it is trivial to redirect output information from &quot;Standard error&quot; or &quot;Standard output&quot; into a file or another program. Alternatively the system that the program runs on could have a remote logging mechanism such as a &quot;syslog&quot; server that will send the logs to a remote device. During development you will have no way of knowing where this information may end up being displayed.\r\n\r\nIn some cases the error message tells the attacker precisely what sort of an attack the system is vulnerable to. For example, a database error message can reveal that the application is vulnerable to a SQL injection attack. Other error messages can reveal more oblique clues about the system. In the example above, the leaked information could imply information about the type of operating system, the applications installed on the system, and the amount of care that the administrators have put into configuring the program."
+              }
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "commandLine": "[REMOVED]insourceanalyzer.exe -scan -b The_Build_ID -machine-output -f C:\\projects\\myproject\\scans\\2018-01-01_12:00:00\\Scan.fpr -format fpr",
+          "startTimeUtc": "2018-01-01T12:00:00.000Z",
+          "machine": "SCANMACHINE",
+          "account": "johndoe",
+          "properties": {
+            "Platform": "Windows 10"
+          }
         }
       ],
       "files": [
@@ -368,29 +404,7 @@
           "mimeType": "text/x-csharp",
           "encoding": "windows-1252"
         }
-      ],
-      "resources": {
-        "rules": [
-          {
-            "id": "31D4607A-A3FF-447C-908A-CA2BBE4CE4B7",
-            "shortDescription": {
-              "text": "Sample abstract text. SQL injection vulnerability."
-            },
-            "fullDescription": {
-              "text": "The quick brown fox jumps over the lazy dog.\nThis section explains the rule in detail."
-            }
-          },
-          {
-            "id": "F7A2423A-1927-40A3-920E-17ADB5430412",
-            "shortDescription": {
-              "text": "The function <Replace key=\"EnclosingFunction.name\"/> in <Replace key=\"PrimaryLocation.file\"/> reveals system data or debugging information by calling <Replace key=\"PrimaryCall.name\"/> on line <Replace key=\"PrimaryLocation.line\"/>. The information revealed by <Replace key=\"PrimaryCall.name\"/> could help an adversary form a plan of attack.\r\nRevealing system data or debugging information helps an adversary learn about the system and form a plan of attack."
-            },
-            "fullDescription": {
-              "text": "An information leak occurs when system data or debugging information leaves the program through an output stream or logging function.\r\n\r\nIn this case the data from <Replace key=\"SourceFunction\" link=\"SourceLocation\"/> in <Replace key=\"SourceLocation.file\"/> at line <Replace key=\"SourceLocation.line\"/> leaves the program through <Replace key=\"SinkFunction\" link=\"SinkLocation\"/> in <Replace key=\"SinkLocation.file\"/> at line <Replace key=\"SinkLocation.line\"/>.\r\n\r\n**Example:** The following code constructs a database connection string, uses it to create a new connection to the database, and prints it to the console.\r\n\r\n`\nstring cs=\"database=northwind;server=mySQLServer...\";\nSqlConnection conn=new SqlConnection(cs);\n...\nConsole.Writeline(cs);\n`\r\n\r\nDepending on the system configuration, this information can be dumped to a console, written to a log file, or exposed to a remote user. For example, with scripting mechanisms it is trivial to redirect output information from &quot;Standard error&quot; or &quot;Standard output&quot; into a file or another program. Alternatively the system that the program runs on could have a remote logging mechanism such as a &quot;syslog&quot; server that will send the logs to a remote device. During development you will have no way of knowing where this information may end up being displayed.\r\n\r\nIn some cases the error message tells the attacker precisely what sort of an attack the system is vulnerable to. For example, a database error message can reveal that the application is vulnerable to a SQL injection attack. Other error messages can reveal more oblique clues about the system. In the example above, the leaked information could imply information about the type of operating system, the applications installed on the system, and the amount of care that the administrators have put into configuring the program."
-            }
-          }
-        ]
-      }
+      ]
     }
   ]
 }
