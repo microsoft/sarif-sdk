@@ -37,6 +37,188 @@
 
   "definitions": {
 
+    "artifact": {
+      "description": "A single artifact. In some cases, this artifact might be nested within another artifact.",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+
+        "location": {
+          "description": "The location of the artifact.",
+          "$ref": "#/definitions/artifactLocation"
+        },
+
+        "parentIndex": {
+          "description": "Identifies the index of the immediate parent of the artifact, if this artifact is nested.",
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
+        },
+
+        "offset": {
+          "description": "The offset in bytes of the artifact within its containing artifact.",
+          "type": "integer"
+        },
+
+        "length": {
+          "description": "The length of the artifact in bytes.",
+          "type": "integer"
+        },
+
+        "roles": {
+          "description": "The role or roles played by the artifact in the analysis.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "enum": [
+              "analysisTarget",
+              "toolComponent",
+              "attachment",
+              "responseFile",
+              "resultFile",
+              "standardStream",
+              "traceFile",
+              "unmodifiedFile",
+              "modifiedFile",
+              "addedFile",
+              "deletedFile",
+              "renamedFile",
+              "uncontrolledFile"
+            ]
+          }
+        },
+
+        "mimeType": {
+          "description": "The MIME type (RFC 2045) of the artifact.",
+          "type": "string",
+          "pattern": "[^/]+/.+"
+        },
+
+        "contents": {
+          "description": "The contents of the artifact.",
+          "$ref": "#/definitions/artifactContent"
+        },
+
+        "encoding": {
+          "description": "Specifies the encoding for a artifact object that refers to a text file.",
+          "type": "string"
+        },
+
+        "sourceLanguage": {
+          "description": "Specifies the source language for any artifact object that refers to a text file that contains source code.",
+          "type": "string"
+        },
+
+        "hashes": {
+          "description": "A dictionary, each of whose keys is the name of a hash function and each of whose values is the hashed value of the file produced by the specified hash function.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+
+        "lastModifiedTimeUtc": {
+          "description": "The Coordinated Universal Time (UTC) date and time at which the file was most recently modified. See \"Date/time properties\" in the SARIF spec for the required format.",
+          "type": "string",
+          "format": "date-time"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the artifact.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      }
+    },
+
+    "artifactChange": {
+      "description": "A change to a single file.",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+
+        "artifactLocation": {
+          "description": "The location of the file to change.",
+          "$ref": "#/definitions/artifactLocation"
+        },
+
+        "replacements": {
+          "description": "An array of replacement objects, each of which represents the replacement of a single region in a single file specified by 'artifactLocation'.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": false,
+          "items": {
+            "$ref": "#/definitions/replacement"
+          }
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the file change.",
+          "$ref": "#/definitions/propertyBag"
+        }
+
+      },
+
+      "required": [ "artifactLocation", "replacements" ]
+    },
+
+    "artifactContent": {
+      "description": "Represents content from an external file.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+
+        "text": {
+          "description": "UTF-8-encoded content from a text file.",
+          "type": "string"
+        },
+
+        "binary": {
+          "description": "MIME Base64-encoded content from a binary file, or from a text file in its original encoding.",
+          "type": "string"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the external file.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      }
+    },
+
+    "artifactLocation": {
+      "description": "Specifies the location of a file.",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+
+        "uri": {
+          "description": "A string containing a valid relative or absolute URI.",
+          "type": "string",
+          "format": "uri-reference"
+        },
+
+        "uriBaseId": {
+          "description": "A string which indirectly specifies the absolute URI with respect to which a relative URI in the \"uri\" property is interpreted.",
+          "type": "string"
+        },
+
+        "index": {
+          "description": "The index within the run artifacts array of the file object associated with the file location.",
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the file location.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      },
+
+      "required": [ "uri" ]
+    },
+
     "attachment": {
       "description": "An artifact relevant to a tool invocation or to a result.",
       "type": "object",
@@ -354,188 +536,6 @@
           "$ref": "#/definitions/externalPropertyFile"
         }
       }
-    },
-
-    "artifact": {
-      "description": "A single artifact. In some cases, this artifact might be nested within another artifact.",
-      "additionalProperties": false,
-      "type": "object",
-      "properties": {
-
-        "location": {
-          "description": "The location of the artifact.",
-          "$ref": "#/definitions/artifactLocation"
-        },
-
-        "parentIndex": {
-          "description": "Identifies the index of the immediate parent of the artifact, if this artifact is nested.",
-          "type": "integer",
-          "default": -1,
-          "minimum": -1
-        },
-
-        "offset": {
-          "description": "The offset in bytes of the artifact within its containing artifact.",
-          "type": "integer"
-        },
-
-        "length": {
-          "description": "The length of the artifact in bytes.",
-          "type": "integer"
-        },
-
-        "roles": {
-          "description": "The role or roles played by the artifact in the analysis.",
-          "type": "array",
-          "minItems": 0,
-          "uniqueItems": true,
-          "default": [],
-          "items": {
-            "enum": [
-              "analysisTarget",
-              "toolComponent",
-              "attachment",
-              "responseFile",
-              "resultFile",
-              "standardStream",
-              "traceFile",
-              "unmodifiedFile",
-              "modifiedFile",
-              "addedFile",
-              "deletedFile",
-              "renamedFile",
-              "uncontrolledFile"
-            ]
-          }
-        },
-
-        "mimeType": {
-          "description": "The MIME type (RFC 2045) of the artifact.",
-          "type": "string",
-          "pattern": "[^/]+/.+"
-        },
-
-        "contents": {
-          "description": "The contents of the artifact.",
-          "$ref": "#/definitions/artifactContent"
-        },
-
-        "encoding": {
-          "description": "Specifies the encoding for a artifact object that refers to a text file.",
-          "type": "string"
-        },
-
-        "sourceLanguage": {
-          "description": "Specifies the source language for any artifact object that refers to a text file that contains source code.",
-          "type": "string"
-        },
-
-        "hashes": {
-          "description": "A dictionary, each of whose keys is the name of a hash function and each of whose values is the hashed value of the file produced by the specified hash function.",
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
-
-        "lastModifiedTimeUtc": {
-          "description": "The Coordinated Universal Time (UTC) date and time at which the file was most recently modified. See \"Date/time properties\" in the SARIF spec for the required format.",
-          "type": "string",
-          "format": "date-time"
-        },
-
-        "properties": {
-          "description": "Key/value pairs that provide additional information about the artifact.",
-          "$ref": "#/definitions/propertyBag"
-        }
-      }
-    },
-
-    "artifactChange": {
-      "description": "A change to a single file.",
-      "additionalProperties": false,
-      "type": "object",
-      "properties": {
-
-        "artifactLocation": {
-          "description": "The location of the file to change.",
-          "$ref": "#/definitions/artifactLocation"
-        },
-
-        "replacements": {
-          "description": "An array of replacement objects, each of which represents the replacement of a single region in a single file specified by 'artifactLocation'.",
-          "type": "array",
-          "minItems": 1,
-          "uniqueItems": false,
-          "items": {
-            "$ref": "#/definitions/replacement"
-          }
-        },
-
-        "properties": {
-          "description": "Key/value pairs that provide additional information about the file change.",
-          "$ref": "#/definitions/propertyBag"
-        }
-
-      },
-
-      "required": [ "artifactLocation", "replacements" ]
-    },
-
-    "artifactContent": {
-      "description": "Represents content from an external file.",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-
-        "text": {
-          "description": "UTF-8-encoded content from a text file.",
-          "type": "string"
-        },
-
-        "binary": {
-          "description": "MIME Base64-encoded content from a binary file, or from a text file in its original encoding.",
-          "type": "string"
-        },
-
-        "properties": {
-          "description": "Key/value pairs that provide additional information about the external file.",
-          "$ref": "#/definitions/propertyBag"
-        }
-      }
-    },
-
-    "artifactLocation": {
-      "description": "Specifies the location of a file.",
-      "additionalProperties": false,
-      "type": "object",
-      "properties": {
-
-        "uri": {
-          "description": "A string containing a valid relative or absolute URI.",
-          "type": "string",
-          "format": "uri-reference"
-        },
-
-        "uriBaseId": {
-          "description": "A string which indirectly specifies the absolute URI with respect to which a relative URI in the \"uri\" property is interpreted.",
-          "type": "string"
-        },
-
-        "index": {
-          "description": "The index within the run artifacts array of the file object associated with the file location.",
-          "type": "integer",
-          "default": -1,
-          "minimum": -1
-        },
-
-        "properties": {
-          "description": "Key/value pairs that provide additional information about the file location.",
-          "$ref": "#/definitions/propertyBag"
-        }
-      },
-
-      "required": [ "uri" ]
     },
 
     "fix": {

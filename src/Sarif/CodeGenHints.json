@@ -20,89 +20,6 @@
       }
     }
   ],
-  "attachment": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "codeFlow": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "conversion": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "edge": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "edgeTraversal": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "EdgeTraversal.FinalState": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "exception": [
-    {
-      "kind": "ClassNameHint",
-      "arguments": {
-        "className": "ExceptionData"
-      }
-    }
-  ],
-  "exceptionData": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "externalPropertyFile": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
   "artifact": [
     {
       "kind": "BaseTypeHint",
@@ -198,6 +115,89 @@
         "namespaceName": "Newtonsoft.Json",
         "typeName": "JsonConverter",
         "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter)" ]
+      }
+    }
+  ],
+  "attachment": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "codeFlow": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "conversion": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "edge": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "edgeTraversal": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "EdgeTraversal.FinalState": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
+  "exception": [
+    {
+      "kind": "ClassNameHint",
+      "arguments": {
+        "className": "ExceptionData"
+      }
+    }
+  ],
+  "exceptionData": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "externalPropertyFile": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
       }
     }
   ],

@@ -20,6 +20,22 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         SarifLog,
         /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Artifact" />.
+        /// </summary>
+        Artifact,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ArtifactChange" />.
+        /// </summary>
+        ArtifactChange,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ArtifactContent" />.
+        /// </summary>
+        ArtifactContent,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ArtifactLocation" />.
+        /// </summary>
+        ArtifactLocation,
+        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Attachment" />.
         /// </summary>
         Attachment,
@@ -51,22 +67,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ExternalPropertyFiles" />.
         /// </summary>
         ExternalPropertyFiles,
-        /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Artifact" />.
-        /// </summary>
-        Artifact,
-        /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ArtifactChange" />.
-        /// </summary>
-        ArtifactChange,
-        /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ArtifactContent" />.
-        /// </summary>
-        ArtifactContent,
-        /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ArtifactLocation" />.
-        /// </summary>
-        ArtifactLocation,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Fix" />.
         /// </summary>
