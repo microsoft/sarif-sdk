@@ -12,10 +12,10 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    public class FileDataTests
+    public class ArtifactTests
     {
         [Fact]
-        public void FileData_Create_NullUri()
+        public void Artifact_Create_NullUri()
         {
             Action action = () => { Artifact.Create(null, OptionallyEmittedData.None); };
 
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
-        public void FileData_ComputeHashes()
+        public void Artifact_ComputeHashes()
         {
             string filePath = Path.GetTempFileName();
             string fileContents = Guid.NewGuid().ToString();
@@ -70,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         [InlineData(".docx", ~OptionallyEmittedData.BinaryFiles, false)]
         [InlineData(".dll", ~OptionallyEmittedData.TextFiles, true)]
         [InlineData(".cpp", ~OptionallyEmittedData.TextFiles, false)]
-        public void FileData_PersistBinaryAndTextFileContents(
+        public void Artifact_PersistBinaryAndTextFileContents(
             string fileExtension,
             OptionallyEmittedData dataToInsert,
             bool shouldBePersisted)
@@ -113,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
-        public void FileData_PersistTextFileContentsBigEndianUnicode()
+        public void Artifact_PersistTextFileContentsBigEndianUnicode()
         {
             Encoding encoding = Encoding.BigEndianUnicode;
             string filePath = Path.GetTempFileName() + ".cs";
@@ -140,7 +140,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
-        public void FileData_FileDoesNotExist()
+        public void Artifact_FileDoesNotExist()
         {
             // If a file does not exist, and we request file contents
             // persistence, the logger will not raise an exception
@@ -154,7 +154,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
-        public void FileData_FileIsLocked()
+        public void Artifact_FileIsLocked()
         {
             string filePath = Path.GetTempFileName();
             Uri uri = new Uri(filePath);
@@ -179,19 +179,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
-        public void FileData_TextFileIsNotAccessibleDueToSecurity()
+        public void Artifact_TextFileIsNotAccessibleDueToSecurity()
         {
             RunUnauthorizedAccessTextForFile(isTextFile: true);
         }
 
         [Fact]
-        public void FileData_BinaryFileIsNotAccessibleDueToSecurity()
+        public void Artifact_BinaryFileIsNotAccessibleDueToSecurity()
         {
             RunUnauthorizedAccessTextForFile(isTextFile: false);
         }
 
         [Fact]
-        public void FileData_SerializeSingleFileRole()
+        public void Artifact_SerializeSingleFileRole()
         {
             Artifact fileData = Artifact.Create(new Uri("file:///example.cs"), OptionallyEmittedData.None);
             fileData.Roles = ArtifactRoles.AnalysisTarget;
@@ -202,7 +202,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
-        public void FileData_SerializeMultipleFileRoles()
+        public void Artifact_SerializeMultipleFileRoles()
         {
             Artifact fileData = Artifact.Create(new Uri("file:///example.cs"), OptionallyEmittedData.None);
             fileData.Roles = ArtifactRoles.ResponseFile | ArtifactRoles.ResultFile;
@@ -213,14 +213,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
-        public void FileData_DeserializeSingleFileRole()
+        public void Artifact_DeserializeSingleFileRole()
         {
             Artifact actual = JsonConvert.DeserializeObject("{\"roles\":[\"analysisTarget\"],\"mimeType\":\"text/x-csharp\"}", typeof(Artifact)) as Artifact;
             actual.Roles.Should().Be(ArtifactRoles.AnalysisTarget);
         }
 
         [Fact]
-        public void FileData_DeserializeMultipleFileRoles()
+        public void Artifact_DeserializeMultipleFileRoles()
         {
             Artifact actual = JsonConvert.DeserializeObject("{\"roles\":[\"responseFile\",\"resultFile\"],\"mimeType\":\"text/x-csharp\"}", typeof(Artifact)) as Artifact;
             actual.Roles.Should().Be(ArtifactRoles.ResponseFile | ArtifactRoles.ResultFile);

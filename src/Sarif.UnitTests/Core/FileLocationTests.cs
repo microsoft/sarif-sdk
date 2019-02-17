@@ -8,10 +8,10 @@ using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
 {
-    public class FileLocationTests
+    public class ArtifactLocationTests
     {
         [Fact]
-        public void FileLocation_CreateFromFilesDictionaryKey()
+        public void ArtifactLocation_CreateFromFilesDictionaryKey()
         {
             var sb = new StringBuilder();
 
