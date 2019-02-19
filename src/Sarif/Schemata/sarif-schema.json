@@ -102,7 +102,7 @@
         },
 
         "encoding": {
-          "description": "Specifies the encoding for a artifact object that refers to a text file.",
+          "description": "Specifies the encoding for an artifact object that refers to a text file.",
           "type": "string"
         },
 
@@ -112,7 +112,7 @@
         },
 
         "hashes": {
-          "description": "A dictionary, each of whose keys is the name of a hash function and each of whose values is the hashed value of the file produced by the specified hash function.",
+          "description": "A dictionary, each of whose keys is the name of a hash function and each of whose values is the hashed value of the artifact produced by the specified hash function.",
           "type": "object",
           "additionalProperties": {
             "type": "string"
@@ -120,7 +120,7 @@
         },
 
         "lastModifiedTimeUtc": {
-          "description": "The Coordinated Universal Time (UTC) date and time at which the file was most recently modified. See \"Date/time properties\" in the SARIF spec for the required format.",
+          "description": "The Coordinated Universal Time (UTC) date and time at which the artifact was most recently modified. See \"Date/time properties\" in the SARIF spec for the required format.",
           "type": "string",
           "format": "date-time"
         },
@@ -133,18 +133,18 @@
     },
 
     "artifactChange": {
-      "description": "A change to a single file.",
+      "description": "A change to a single artifact.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
 
         "artifactLocation": {
-          "description": "The location of the file to change.",
+          "description": "The location of the artifact to change.",
           "$ref": "#/definitions/artifactLocation"
         },
 
         "replacements": {
-          "description": "An array of replacement objects, each of which represents the replacement of a single region in a single file specified by 'artifactLocation'.",
+          "description": "An array of replacement objects, each of which represents the replacement of a single region in a single artifact specified by 'artifactLocation'.",
           "type": "array",
           "minItems": 1,
           "uniqueItems": false,
@@ -154,7 +154,7 @@
         },
 
         "properties": {
-          "description": "Key/value pairs that provide additional information about the file change.",
+          "description": "Key/value pairs that provide additional information about the change.",
           "$ref": "#/definitions/propertyBag"
         }
 
@@ -164,30 +164,30 @@
     },
 
     "artifactContent": {
-      "description": "Represents content from an external file.",
+      "description": "Represents the contents of an artifact.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
 
         "text": {
-          "description": "UTF-8-encoded content from a text file.",
+          "description": "UTF-8-encoded content from a text artifact.",
           "type": "string"
         },
 
         "binary": {
-          "description": "MIME Base64-encoded content from a binary file, or from a text file in its original encoding.",
+          "description": "MIME Base64-encoded content from a binary artifact, or from a text artifact in its original encoding.",
           "type": "string"
         },
 
         "properties": {
-          "description": "Key/value pairs that provide additional information about the external file.",
+          "description": "Key/value pairs that provide additional information about the artifact content.",
           "$ref": "#/definitions/propertyBag"
         }
       }
     },
 
     "artifactLocation": {
-      "description": "Specifies the location of a file.",
+      "description": "Specifies the location of an artifact.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -204,14 +204,14 @@
         },
 
         "index": {
-          "description": "The index within the run artifacts array of the file object associated with the file location.",
+          "description": "The index within the run artifacts array of the artifact object associated with the artifact location.",
           "type": "integer",
           "default": -1,
           "minimum": -1
         },
 
         "properties": {
-          "description": "Key/value pairs that provide additional information about the file location.",
+          "description": "Key/value pairs that provide additional information about the artifact location.",
           "$ref": "#/definitions/propertyBag"
         }
       },
@@ -539,7 +539,7 @@
     },
 
     "fix": {
-      "description": "A proposed fix for the problem represented by a result object. A fix specifies a set of file to modify. For each file, it specifies a set of bytes to remove, and provides a set of new bytes to replace them.",
+      "description": "A proposed fix for the problem represented by a result object. A fix specifies a set of artifacts to modify. For each artifact, it specifies a set of bytes to remove, and provides a set of new bytes to replace them.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -550,7 +550,7 @@
         },
 
         "changes": {
-          "description": "One or more file changes that comprise a fix for a result.",
+          "description": "One or more artifact changes that comprise a fix for a result.",
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
@@ -690,7 +690,7 @@
         },
 
         "attachments": {
-          "description": "A set of files relevant to the invocation of the tool.",
+          "description": "A set of artifacts relevant to the invocation of the tool.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
@@ -841,7 +841,7 @@
       "properties": {
 
         "physicalLocation": {
-          "description": "Identifies the file and region.",
+          "description": "Identifies the artifact and region.",
           "$ref": "#/definitions/physicalLocation"
         },
 
@@ -1050,7 +1050,7 @@
         },
 
         "physicalLocation": {
-          "description": "The file and region relevant to this notification.",
+          "description": "The artifact and region relevant to this notification.",
           "$ref": "#/definitions/physicalLocation"
         },
 
@@ -1102,17 +1102,17 @@
         },
 
         "artifactLocation": {
-          "description": "The location of the file.",
+          "description": "The location of the artifact.",
           "$ref": "#/definitions/artifactLocation"
         },
 
         "region": {
-          "description": "Specifies a portion of the file.",
+          "description": "Specifies a portion of the artifact.",
           "$ref": "#/definitions/region"
         },
 
         "contextRegion": {
-          "description": "Specifies a portion of the file that encloses the region. Allows a viewer to display additional context around the region.",
+          "description": "Specifies a portion of the artifact that encloses the region. Allows a viewer to display additional context around the region.",
           "$ref": "#/definitions/region"
         },
 
@@ -1183,7 +1183,7 @@
     },
 
     "region": {
-      "description": "A region within a file where a result was detected.",
+      "description": "A region within an artifact where a result was detected.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
@@ -1213,7 +1213,7 @@
         },
 
         "charOffset": {
-          "description": "The zero-based offset from the beginning of the file of the first character in the region.",
+          "description": "The zero-based offset from the beginning of the artifact of the first character in the region.",
           "type": "integer",
           "minimum": 0
         },
@@ -1225,7 +1225,7 @@
         },
 
         "byteOffset": {
-          "description": "The zero-based offset from the beginning of the file of the first byte in the region.",
+          "description": "The zero-based offset from the beginning of the artifact of the first byte in the region.",
           "type": "integer",
           "minimum": 0
         },
@@ -1237,7 +1237,7 @@
         },
 
         "snippet": {
-          "description": "The portion of the file contents within the specified region.",
+          "description": "The portion of the artifact contents within the specified region.",
           "$ref": "#/definitions/artifactContent"
         },
 
@@ -1247,7 +1247,7 @@
         },
 
         "sourceLanguage": {
-          "description": "Specifies the source language, if any, of the portion of the file specified by the region object.",
+          "description": "Specifies the source language, if any, of the portion of the artifact specified by the region object.",
           "type": "string"
         },
 
@@ -1259,13 +1259,13 @@
     },
 
     "replacement": {
-      "description": "The replacement of a single region of a file.",
+      "description": "The replacement of a single region of an artifact.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
 
         "deletedRegion": {
-          "description": "The region of the file to delete.",
+          "description": "The region of the artifact to delete.",
           "$ref": "#/definitions/region"
         },
 
@@ -1470,7 +1470,7 @@
         },
 
         "analysisTarget": {
-          "description": "Identifies the file that the analysis tool was instructed to scan. This need not be the same as the file where the result actually occurred.",
+          "description": "Identifies the artifact that the analysis tool was instructed to scan. This need not be the same as the artifact where the result actually occurred.",
           "$ref": "#/definitions/artifactLocation"
         },
 
@@ -1600,7 +1600,7 @@
         },
 
         "attachments": {
-          "description": "A set of files relevant to the result.",
+          "description": "A set of artifacts relevant to the result.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
@@ -1732,7 +1732,7 @@
         },
 
         "versionControlProvenance": {
-          "description": "Specifies the revision in version control of the files that were scanned.",
+          "description": "Specifies the revision in version control of the artifacts that were scanned.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
@@ -1743,7 +1743,7 @@
         },
 
         "originalUriBaseIds": {
-          "description": "The file location specified by each uriBaseId symbol on the machine where the tool originally ran.",
+          "description": "The artifact location specified by each uriBaseId symbol on the machine where the tool originally ran.",
           "type": "object",
           "additionalProperties": {
             "$ref": "#/definitions/artifactLocation"
@@ -1822,12 +1822,12 @@
         },
 
         "defaultFileEncoding": {
-          "description": "Specifies the default encoding for any file object that refers to a text file.",
+          "description": "Specifies the default encoding for any artifact object that refers to a text file.",
           "type": "string"
         },
 
         "defaultSourceLanguage": {
-          "description": "Specifies the default source language for any file object that refers to a text file that contains source code.",
+          "description": "Specifies the default source language for any artifact object that refers to a text file that contains source code.",
           "type": "string"
         },
 
@@ -2175,7 +2175,7 @@
         },
 
         "artifactIndex": {
-          "description": "The index within the run files array of the file object associated with the component.",
+          "description": "The index within the run artifacts array of the artifact object associated with the component.",
           "type": "integer",
           "default": -1,
           "minimum": -1

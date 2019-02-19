@@ -10,7 +10,7 @@ using SarifWriters = Microsoft.CodeAnalysis.Sarif.Writers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Represents a single file. In some cases, this file might be nested within another file.
+    /// A single artifact. In some cases, this artifact might be nested within another artifact.
     /// </summary>
     public partial class Artifact : ISarifNode
     {
@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             mimeType = mimeType ?? SarifWriters.MimeType.DetermineFromFileExtension(uri);
             fileSystem = fileSystem ?? new FileSystem();
 
-            var fileData = new Artifact()
+            var artifact = new Artifact()
             {
                 Encoding = encoding?.WebName,
                 MimeType = mimeType
@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 if (!uri.IsAbsoluteUri || !uri.IsFile || !fileSystem.FileExists(uri.LocalPath))
                 {
-                    return fileData;
+                    return artifact;
                 }
 
                 string filePath = uri.LocalPath;
@@ -50,19 +50,19 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (dataToInsert.HasFlag(OptionallyEmittedData.BinaryFiles) &&
                     SarifWriters.MimeType.IsBinaryMimeType(mimeType))
                 {
-                    fileData.Contents = GetEncodedFileContents(fileSystem, filePath, mimeType, encoding);
+                    artifact.Contents = GetEncodedFileContents(fileSystem, filePath, mimeType, encoding);
                 }
 
                 if (dataToInsert.HasFlag(OptionallyEmittedData.TextFiles) &&
                     SarifWriters.MimeType.IsTextualMimeType(mimeType))
                 {
-                    fileData.Contents = GetEncodedFileContents(fileSystem, filePath, mimeType, encoding);
+                    artifact.Contents = GetEncodedFileContents(fileSystem, filePath, mimeType, encoding);
                 }
 
                 if (dataToInsert.HasFlag(OptionallyEmittedData.Hashes))
                 {
                     HashData hashes = HashUtilities.ComputeHashes(filePath);
-                    fileData.Hashes = new Dictionary<string, string>
+                    artifact.Hashes = new Dictionary<string, string>
                     {
                         { "md5", hashes.MD5 },
                         { "sha-1", hashes.Sha1 },
@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
             catch (Exception e) when (e is IOException || e is UnauthorizedAccessException) { }
 
-            return fileData;
+            return artifact;
         }
 
         private static ArtifactContent GetEncodedFileContents(IFileSystem fileSystem, string filePath, string mimeType, Encoding inputFileEncoding)

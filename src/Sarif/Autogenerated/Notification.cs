@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int RuleIndex { get; set; }
 
         /// <summary>
-        /// The file and region relevant to this notification.
+        /// The artifact and region relevant to this notification.
         /// </summary>
         [DataMember(Name = "physicalLocation", IsRequired = false, EmitDefaultValue = false)]
         public PhysicalLocation PhysicalLocation { get; set; }

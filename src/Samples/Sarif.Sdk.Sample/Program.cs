@@ -51,7 +51,7 @@ namespace Sarif.Sdk.Sample
             // We'll use this source file for several defect results -- the
             // SampleSourceFiles folder should be a child of the project folder,
             // two levels up from the folder that contains the EXE (e.g., bin\Debug).
-            var ArtifactLocation = new ArtifactLocation { Uri = new Uri($"file://{AppDomain.CurrentDomain.BaseDirectory}../../SampleSourceFiles/AnalysisSample.cs") };
+            var artifactLocation = new ArtifactLocation { Uri = new Uri($"file://{AppDomain.CurrentDomain.BaseDirectory}../../SampleSourceFiles/AnalysisSample.cs") };
 
             // Create a list of rules that will be enforced during your analysis
             #region Rules list
@@ -190,7 +190,7 @@ namespace Sarif.Sdk.Sample
                         {
                             new ArtifactChange
                             {
-                                ArtifactLocation = ArtifactLocation,
+                                ArtifactLocation = artifactLocation,
                                 Replacements = new[]
                                 {
                                     new Replacement
@@ -223,7 +223,7 @@ namespace Sarif.Sdk.Sample
                         {
                             new ArtifactChange
                             {
-                                ArtifactLocation = ArtifactLocation,
+                                ArtifactLocation = artifactLocation,
                                 Replacements = new[]
                                 {
                                     new Replacement
@@ -286,7 +286,7 @@ namespace Sarif.Sdk.Sample
                                 {
                                     PhysicalLocation = new PhysicalLocation
                                     {
-                                        ArtifactLocation = ArtifactLocation,
+                                        ArtifactLocation = artifactLocation,
                                         Region = region
                                     }
                                 },
@@ -327,7 +327,7 @@ namespace Sarif.Sdk.Sample
                                             {
                                                 PhysicalLocation = new PhysicalLocation
                                                 {
-                                                    ArtifactLocation = ArtifactLocation,
+                                                    ArtifactLocation = artifactLocation,
                                                     Region = new Region
                                                     {
                                                         StartLine = 212
@@ -342,7 +342,7 @@ namespace Sarif.Sdk.Sample
                                             {
                                                 PhysicalLocation = new PhysicalLocation
                                                 {
-                                                    ArtifactLocation = ArtifactLocation,
+                                                    ArtifactLocation = artifactLocation,
                                                     Region = new Region
                                                     {
                                                         StartLine = 452 // Fake example
@@ -357,7 +357,7 @@ namespace Sarif.Sdk.Sample
                                             {
                                                 PhysicalLocation = new PhysicalLocation
                                                 {
-                                                    ArtifactLocation = ArtifactLocation,
+                                                    ArtifactLocation = artifactLocation,
                                                     Region = new Region
                                                     {
                                                         StartLine = 145
@@ -392,7 +392,7 @@ namespace Sarif.Sdk.Sample
                                                 {
                                                     PhysicalLocation = new PhysicalLocation
                                                     {
-                                                        ArtifactLocation = ArtifactLocation,
+                                                        ArtifactLocation = artifactLocation,
                                                         Region = region
                                                     }
                                                 },
@@ -405,7 +405,7 @@ namespace Sarif.Sdk.Sample
                                                 {
                                                     PhysicalLocation = new PhysicalLocation
                                                     {
-                                                        ArtifactLocation = ArtifactLocation,
+                                                        ArtifactLocation = artifactLocation,
                                                         Region = new Region
                                                         {
                                                             StartLine = 12

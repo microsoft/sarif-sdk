@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// A change to a single file.
+    /// A change to a single artifact.
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
@@ -33,19 +33,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// The location of the file to change.
+        /// The location of the artifact to change.
         /// </summary>
         [DataMember(Name = "artifactLocation", IsRequired = true)]
         public ArtifactLocation ArtifactLocation { get; set; }
 
         /// <summary>
-        /// An array of replacement objects, each of which represents the replacement of a single region in a single file specified by 'artifactLocation'.
+        /// An array of replacement objects, each of which represents the replacement of a single region in a single artifact specified by 'artifactLocation'.
         /// </summary>
         [DataMember(Name = "replacements", IsRequired = true)]
         public IList<Replacement> Replacements { get; set; }
 
         /// <summary>
-        /// Key/value pairs that provide additional information about the file change.
+        /// Key/value pairs that provide additional information about the change.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
