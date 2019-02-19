@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<ArtifactLocation> ResponseFiles { get; set; }
 
         /// <summary>
-        /// A set of files relevant to the invocation of the tool.
+        /// A set of artifacts relevant to the invocation of the tool.
         /// </summary>
         [DataMember(Name = "attachments", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]

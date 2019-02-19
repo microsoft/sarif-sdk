@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<ReportingDescriptor> RuleDescriptors { get; set; }
 
         /// <summary>
-        /// The index within the run files array of the file object associated with the component.
+        /// The index within the run artifacts array of the artifact object associated with the component.
         /// </summary>
         [DataMember(Name = "artifactIndex", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]

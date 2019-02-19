@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// A proposed fix for the problem represented by a result object. A fix specifies a set of file to modify. For each file, it specifies a set of bytes to remove, and provides a set of new bytes to replace them.
+    /// A proposed fix for the problem represented by a result object. A fix specifies a set of artifacts to modify. For each artifact, it specifies a set of bytes to remove, and provides a set of new bytes to replace them.
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Message Description { get; set; }
 
         /// <summary>
-        /// One or more file changes that comprise a fix for a result.
+        /// One or more artifact changes that comprise a fix for a result.
         /// </summary>
         [DataMember(Name = "changes", IsRequired = true)]
         public IList<ArtifactChange> Changes { get; set; }
