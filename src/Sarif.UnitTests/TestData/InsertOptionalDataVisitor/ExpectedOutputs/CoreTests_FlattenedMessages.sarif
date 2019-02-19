@@ -1,15 +1,41 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0",
-  "version": "2.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-01-24",
+  "version": "2.0.0-csd.2.beta.2019-01-24",
   "runs": [
     {
       "tool": {
-        "name": "Sarif.UnitTests",
-        "fullName": "Sarif.UnitTests.1.3.3.0-beta",
-        "version": "1.3.3.0",
-        "semanticVersion": "1.3.3",
-        "sarifLoggerVersion": "1.5.22.0",
-        "language": "en-US"
+        "driver": {
+          "name": "Sarif.UnitTests",
+          "fullName": "Sarif.UnitTests.1.3.3.0-beta",
+          "version": "1.3.3.0",
+          "semanticVersion": "1.3.3",
+          "globalMessageStrings": {
+            "NotificationMessage": {
+              "text": "A notification was raised. Notification kind was: '{0}'."
+            },
+            "GlobalMessage": {
+              "text": "A space between two words was detected."
+            }
+          },
+          "ruleDescriptors": [
+            {
+              "id": "TEST2001",
+              "messageStrings": {
+                "MatchAtBeginningOfFile": {
+                  "text": "This result is at the beginning of the file and selects '{0}'."
+                }
+              }
+            },
+            {
+              "id": "TEST2002",
+              "messageStrings": {
+                "SingleLineInteriorMatch": {
+                  "text": "This result selects a single-line interior region of value '{0}'."
+                }
+              }
+            }
+          ]
+        }
       },
       "invocations": [
         {
@@ -38,11 +64,14 @@
         }
       ],
       "originalUriBaseIds": {
-        "TESTROOT": "file:///REPLACED_AT_TEST_RUNTIME/src/Sarif.UnitTests/TestData/"
+        "TESTROOT": {
+          "uri": "file:///REPLACED_AT_TEST_RUNTIME/src/Sarif.UnitTests/TestData/"
+        }
       },
       "results": [
         {
           "ruleId": "TEST2001",
+          "ruleIndex": 0,
           "message": {
             "text": "This result is at the beginning of the file and selects 'Region_At_Start_Of_File'.",
             "messageId": "MatchAtBeginningOfFile",
@@ -53,7 +82,7 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
                   "uriBaseId": "TESTROOT"
                 },
@@ -68,6 +97,7 @@
         },
         {
           "ruleId": "TEST2002",
+          "ruleIndex": 1,
           "message": {
             "text": "This result selects a single-line interior region of value 'Region_One'.",
             "messageId": "SingleLineInteriorMatch",
@@ -78,7 +108,7 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
                   "uriBaseId": "TESTROOT"
                 },
@@ -99,7 +129,7 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
                   "uriBaseId": "TESTROOT"
                 },
@@ -120,7 +150,7 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
                   "uriBaseId": "TESTROOT"
                 },
@@ -141,7 +171,7 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
                   "uriBaseId": "TESTROOT"
                 },
@@ -155,26 +185,7 @@
           ]
         }
       ],
-      "resources": {
-        "messageStrings": {
-          "NotificationMessage": "A notification was raised. Notification kind was: '{0}'.",
-          "GlobalMessage": "A space between two words was detected."
-        },
-        "rules": {
-          "TEST2001": {
-            "id": "TEST2001",
-            "messageStrings": {
-              "MatchAtBeginningOfFile": "This result is at the beginning of the file and selects '{0}'."
-            }
-          },
-          "TEST2002": {
-            "id": "TEST2002",
-            "messageStrings": {
-              "SingleLineInteriorMatch": "This result selects a single-line interior region of value '{0}'."
-            }
-          }
-        }
-      }
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

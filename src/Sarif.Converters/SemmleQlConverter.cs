@@ -104,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         PhysicalLocation = new PhysicalLocation
                         {
-                            FileLocation = new FileLocation
+                            ArtifactLocation = new ArtifactLocation
                             {
                                 Uri = new Uri(GetString(fields, FieldIndex.RelativePath), UriKind.Relative),
                                 UriBaseId = "$srcroot"
@@ -183,7 +183,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         physicalLocation = new PhysicalLocation
                         {
                             Id = ++count,
-                            FileLocation = new FileLocation
+                            ArtifactLocation = new ArtifactLocation
                             {
                                 Uri = new Uri($"{locationTokens[0]}:{locationTokens[1]}:{locationTokens[2]}", UriKind.Absolute)
                             },
@@ -200,7 +200,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         physicalLocation = new PhysicalLocation
                         {
                             Id = ++count,
-                            FileLocation = new FileLocation
+                            ArtifactLocation = new ArtifactLocation
                             {
                                 Uri = new Uri(locationTokens[1].Substring(1), UriKind.Relative),
                                 UriBaseId = "$srcroot"

@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Uri baseUri = new Uri(baseUriStr);
             PhysicalLocation location = new PhysicalLocation
             {
-                FileLocation = new FileLocation
+                ArtifactLocation = new ArtifactLocation
                 {
                     Uri = locationUri
                 }
@@ -41,9 +41,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (!string.IsNullOrEmpty(expectedDifference))
             {
-                newLocation.FileLocation.UriBaseId.Should().BeEquivalentTo(rootName, because: "we should set the root name for these.");
-                newLocation.FileLocation.Uri.Should().BeEquivalentTo(baseUri.MakeRelativeUri(locationUri), because: "the base URI should be relative if the expected difference is there.");
-                newLocation.FileLocation.Uri.ToString().Should().BeEquivalentTo(expectedDifference);
+                newLocation.ArtifactLocation.UriBaseId.Should().BeEquivalentTo(rootName, because: "we should set the root name for these.");
+                newLocation.ArtifactLocation.Uri.Should().BeEquivalentTo(baseUri.MakeRelativeUri(locationUri), because: "the base URI should be relative if the expected difference is there.");
+                newLocation.ArtifactLocation.Uri.ToString().Should().BeEquivalentTo(expectedDifference);
             }
             else
             {
@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             PhysicalLocation location = new PhysicalLocation
             {
-                FileLocation = new FileLocation
+                ArtifactLocation = new ArtifactLocation
                 {
                     Uri = new Uri(@"C:\bld\src\test.dll"),
                     UriBaseId = "BLDROOT"
@@ -78,10 +78,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             Run newRun = rebaseUriVisitor.VisitRun(oldRun);
 
-            IDictionary<string, FileLocation> baseUriDictionary = newRun.OriginalUriBaseIds;
+            IDictionary<string, ArtifactLocation> baseUriDictionary = newRun.OriginalUriBaseIds;
 
             baseUriDictionary.Should().ContainKey("SRCROOT");
-            baseUriDictionary["SRCROOT"].ValueEquals(new FileLocation { Uri = new Uri(@"C:\src\root") }).Should().BeTrue();
+            baseUriDictionary["SRCROOT"].ValueEquals(new ArtifactLocation { Uri = new Uri(@"C:\src\root") }).Should().BeTrue();
         }
 
         [Fact]
@@ -98,12 +98,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Run oldRun = RandomSarifLogGenerator.GenerateRandomRun(random);
             RebaseUriVisitor rebaseUriVisitor = new RebaseUriVisitor(srcRoot, srcRootUri);
 
-            var oldDictionary = new Dictionary<string, FileLocation>() { { bldRoot, new FileLocation { Uri = bldRootUri } } };
+            var oldDictionary = new Dictionary<string, ArtifactLocation>() { { bldRoot, new ArtifactLocation { Uri = bldRootUri } } };
             oldRun.OriginalUriBaseIds = oldDictionary;
 
             Run newRun = rebaseUriVisitor.VisitRun(oldRun);
 
-            IDictionary<string, FileLocation> baseUriDictionary = newRun.OriginalUriBaseIds;
+            IDictionary<string, ArtifactLocation> baseUriDictionary = newRun.OriginalUriBaseIds;
 
             baseUriDictionary.Should().ContainKey(srcRoot);
             baseUriDictionary[srcRoot].Uri.Should().BeEquivalentTo(srcRootUri);
@@ -124,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             newRun.OriginalUriBaseIds.Should().ContainKey("SRCROOT");
 
-            newRun.Files.Where(f => f.FileLocation.Uri.OriginalString.StartsWith(@"C:\src\")).Should().BeEmpty();
+            newRun.Artifacts.Where(f => f.Location.Uri.OriginalString.StartsWith(@"C:\src\")).Should().BeEmpty();
         }
 
         [Fact]
@@ -141,7 +141,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             newRun.OriginalUriBaseIds.Should().ContainKey("SRCROOT");
 
             // Random sarif log generator uses "C:\src\" as the root.
-            newRun.Files.Should().BeEquivalentTo(oldRun.Files);
+            newRun.Artifacts.Should().BeEquivalentTo(oldRun.Artifacts);
         }
 
         [Fact]
@@ -150,17 +150,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Uri rootfileUri = new Uri(@"file://C:/src/root/blah.zip");
             Uri childFileUri = new Uri(@"/stuff.doc", UriKind.RelativeOrAbsolute);
 
-            FileData rootFileData = new FileData() { FileLocation = new FileLocation { Uri = rootfileUri }, ParentIndex = -1 };
-            FileData childFileData = new FileData() { FileLocation = new FileLocation { Uri = childFileUri }, ParentIndex = 0 };
+            Artifact rootFileData = new Artifact() { Location = new ArtifactLocation { Uri = rootfileUri }, ParentIndex = -1 };
+            Artifact childFileData = new Artifact() { Location = new ArtifactLocation { Uri = childFileUri }, ParentIndex = 0 };
             Run run = new Run
             {
-                Files = new List<FileData>
+                Artifacts = new List<Artifact>
                 {
-                    new FileData { FileLocation = new FileLocation { Uri = rootfileUri, FileIndex = 0 }, ParentIndex = -1 },
-                    new FileData { FileLocation = new FileLocation { Uri = childFileUri, FileIndex = 1 }, ParentIndex = 0 },
-                    new FileData { FileLocation = new FileLocation { Uri = childFileUri, FileIndex = 2 }, ParentIndex = -1 }
+                    new Artifact { Location = new ArtifactLocation { Uri = rootfileUri, Index = 0 }, ParentIndex = -1 },
+                    new Artifact { Location = new ArtifactLocation { Uri = childFileUri, Index = 1 }, ParentIndex = 0 },
+                    new Artifact { Location = new ArtifactLocation { Uri = childFileUri, Index = 2 }, ParentIndex = -1 }
                 },
-                Results = new List<Result> { new Result { Locations = new List<Location> { new Location { PhysicalLocation = new PhysicalLocation() { FileLocation = new FileLocation() { Uri = childFileUri, FileIndex = 1 } } } } } }
+                Results = new List<Result> { new Result { Locations = new List<Location> { new Location { PhysicalLocation = new PhysicalLocation() { ArtifactLocation = new ArtifactLocation() { Uri = childFileUri, Index = 1 } } } } } }
             };
 
             string srcroot = "SRCROOT";
@@ -169,8 +169,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             run = rebaseUriVisitor.VisitRun(run);
 
-            run.Files[0].FileLocation.Uri.Should().Be("blah.zip");
-            run.Files[0].FileLocation.UriBaseId.Should().Be("SRCROOT");
+            run.Artifacts[0].Location.Uri.Should().Be("blah.zip");
+            run.Artifacts[0].Location.UriBaseId.Should().Be("SRCROOT");
             run.OriginalUriBaseIds.Should().ContainKey(srcroot);
             run.OriginalUriBaseIds[srcroot].Uri.Should().Be(@"C:\src\root\");
         }
@@ -234,7 +234,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         private class RebaseVerifyingVisitor : SarifRewritingVisitor
         {
-            public override FileLocation VisitFileLocation(FileLocation node)
+            public override ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
             {
                 FileLocationUris = FileLocationUris ?? new List<string>();
                 FileLocationUris.Add(node.Uri.OriginalString);
@@ -242,7 +242,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 FileLocationUriBaseIds = FileLocationUriBaseIds ?? new List<string>();
                 FileLocationUriBaseIds.Add(node.UriBaseId);
 
-                return base.VisitFileLocation(node);
+                return base.VisitArtifactLocation(node);
             }
 
             public List<string> FileLocationUris { get; set; }

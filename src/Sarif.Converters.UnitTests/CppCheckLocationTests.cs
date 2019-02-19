@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 result.ValueEquals(
                     new PhysicalLocation
                     {
-                        FileLocation = new FileLocation
+                        ArtifactLocation = new ArtifactLocation
                         {
                             Uri = new Uri(ExampleFileName, UriKind.RelativeOrAbsolute)
                         },

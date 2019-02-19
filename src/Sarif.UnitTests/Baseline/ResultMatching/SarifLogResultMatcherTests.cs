@@ -309,9 +309,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                     new Run()
                     {
                         Tool = new Tool { Driver = new ToolComponent{Name = "TestTool" } },
-                        Files = new List<FileData>
+                        Artifacts = new List<Artifact>
                         {
-                            new FileData() { Contents = new FileContent() { Text = "TestFileContents" } }
+                            new Artifact() { Contents = new ArtifactContent() { Text = "TestFileContents" } }
                         },
                         Results = new List<Result>
                         {
@@ -324,9 +324,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                                     {
                                         PhysicalLocation = new PhysicalLocation
                                         {
-                                            FileLocation = new FileLocation
+                                            ArtifactLocation = new ArtifactLocation
                                             {
-                                                FileIndex = 0
+                                                Index = 0
                                             }
                                         }
                                     }
@@ -341,20 +341,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             SarifLog result = s_preserveOldestPropertyBagMatcher.Match(new SarifLog[0], new SarifLog[] { current1, current2 }).First();
 
             // In first match operation, the file data objects are identical, they should be collapsed into a single array entry
-            result.Runs[0].Files.Should().HaveCount(1);
+            result.Runs[0].Artifacts.Should().HaveCount(1);
 
             current2 = current1.DeepClone();
 
             // Now we differentiate a files object
-            current2.Runs[0].Files[0].Contents.Text = Guid.NewGuid().ToString();
+            current2.Runs[0].Artifacts[0].Contents.Text = Guid.NewGuid().ToString();
             result = s_preserveOldestPropertyBagMatcher.Match(new SarifLog[0], new SarifLog[] { current1, current2 }).First();
 
             // Both file data objects should be present
-            result.Runs[0].Files.Should().HaveCount(2);
+            result.Runs[0].Artifacts.Should().HaveCount(2);
 
             // Merged results should each refer to differentiated file data object
-            result.Runs[0].Results[0].Locations[0].PhysicalLocation.FileLocation.FileIndex.Should().Be(0);
-            result.Runs[0].Results[1].Locations[0].PhysicalLocation.FileLocation.FileIndex.Should().Be(1);
+            result.Runs[0].Results[0].Locations[0].PhysicalLocation.ArtifactLocation.Index.Should().Be(0);
+            result.Runs[0].Results[1].Locations[0].PhysicalLocation.ArtifactLocation.Index.Should().Be(1);
         }
         
         [Fact]
@@ -372,12 +372,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
             SarifLog matchedLog = s_preserveOldestPropertyBagMatcher.Match(baselineLog.DeepClone(), currentLog.DeepClone());
             matchedLog.Runs[0].Results.Where((r) => { return r.GetProperty("Key") == baselinePropertyValue; }).Count().Should().Be(matchedLog.Runs[0].Results.Count);
-            matchedLog.Runs[0].Files.Where((r) => { return r.GetProperty("Key") == baselinePropertyValue; }).Count().Should().Be(matchedLog.Runs[0].Files.Count);
+            matchedLog.Runs[0].Artifacts.Where((r) => { return r.GetProperty("Key") == baselinePropertyValue; }).Count().Should().Be(matchedLog.Runs[0].Artifacts.Count);
 
             // Retain property bag values from most current run
             matchedLog = s_preserveMostRecentPropertyBagMatcher.Match(baselineLog.DeepClone(), currentLog.DeepClone());
             matchedLog.Runs[0].Results.Where((r) => { return r.GetProperty("Key") == currentPropertyValue; }).Count().Should().Be(matchedLog.Runs[0].Results.Count);
-            matchedLog.Runs[0].Files.Where((r) => { return r.GetProperty("Key") == currentPropertyValue; }).Count().Should().Be(matchedLog.Runs[0].Files.Count);
+            matchedLog.Runs[0].Artifacts.Where((r) => { return r.GetProperty("Key") == currentPropertyValue; }).Count().Should().Be(matchedLog.Runs[0].Artifacts.Count);
         }
 
         private void SetPropertyOnAllFileAndResultObjects(SarifLog sarifLog, string propertyKey, string propertyValue)
@@ -389,9 +389,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                     result.SetProperty(propertyKey, propertyValue);
                 }
 
-                if (run.Files != null)
+                if (run.Artifacts != null)
                 {
-                    foreach (FileData file in run.Files)
+                    foreach (Artifact file in run.Artifacts)
                     {
                         file.SetProperty(propertyKey, propertyValue);
                     }

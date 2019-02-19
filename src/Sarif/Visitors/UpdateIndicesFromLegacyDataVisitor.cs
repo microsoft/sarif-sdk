@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return base.VisitLocation(node);
         }
 
-        public override FileLocation VisitFileLocation(FileLocation node)
+        public override ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
         {
 
             if (_fileLocationKeyToIndexMap != null)
@@ -79,14 +79,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 if (_fileLocationKeyToIndexMap.TryGetValue(key, out int index))
                 {
-                    var fileLocation = FileLocation.CreateFromFilesDictionaryKey(key);
+                    var fileLocation = ArtifactLocation.CreateFromFilesDictionaryKey(key);
                     node.Uri = new Uri(UriHelper.MakeValidUri(fileLocation.Uri.OriginalString), UriKind.RelativeOrAbsolute);
                     node.UriBaseId = fileLocation.UriBaseId;
-                    node.FileIndex = index;
+                    node.Index = index;
                 }
             }
 
-            return base.VisitFileLocation(node);
+            return base.VisitArtifactLocation(node);
         }
     }
 }

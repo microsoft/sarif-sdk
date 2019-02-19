@@ -37,7 +37,7 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "file.txt"
                 }
               }
@@ -53,7 +53,7 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "file.png"
                 }
               }

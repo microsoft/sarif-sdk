@@ -14,11 +14,11 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
-    public partial class FileContent : PropertyBagHolder, ISarifNode
+    public partial class ArtifactContent : PropertyBagHolder, ISarifNode
     {
-        public static IEqualityComparer<FileContent> ValueComparer => FileContentEqualityComparer.Instance;
+        public static IEqualityComparer<ArtifactContent> ValueComparer => ArtifactContentEqualityComparer.Instance;
 
-        public bool ValueEquals(FileContent other) => ValueComparer.Equals(this, other);
+        public bool ValueEquals(ArtifactContent other) => ValueComparer.Equals(this, other);
         public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                return SarifNodeKind.FileContent;
+                return SarifNodeKind.ArtifactContent;
             }
         }
 
@@ -51,14 +51,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FileContent" /> class.
+        /// Initializes a new instance of the <see cref="ArtifactContent" /> class.
         /// </summary>
-        public FileContent()
+        public ArtifactContent()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FileContent" /> class from the supplied values.
+        /// Initializes a new instance of the <see cref="ArtifactContent" /> class from the supplied values.
         /// </summary>
         /// <param name="text">
         /// An initialization value for the <see cref="P:Text" /> property.
@@ -69,13 +69,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public FileContent(string text, string binary, IDictionary<string, SerializedPropertyInfo> properties)
+        public ArtifactContent(string text, string binary, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(text, binary, properties);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FileContent" /> class from the specified instance.
+        /// Initializes a new instance of the <see cref="ArtifactContent" /> class from the specified instance.
         /// </summary>
         /// <param name="other">
         /// The instance from which the new instance is to be initialized.
@@ -83,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <exception cref="ArgumentNullException">
         /// Thrown if <paramref name="other" /> is null.
         /// </exception>
-        public FileContent(FileContent other)
+        public ArtifactContent(ArtifactContent other)
         {
             if (other == null)
             {
@@ -101,14 +101,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public FileContent DeepClone()
+        public ArtifactContent DeepClone()
         {
-            return (FileContent)DeepCloneCore();
+            return (ArtifactContent)DeepCloneCore();
         }
 
         private ISarifNode DeepCloneCore()
         {
-            return new FileContent(this);
+            return new ArtifactContent(this);
         }
 
         private void Init(string text, string binary, IDictionary<string, SerializedPropertyInfo> properties)

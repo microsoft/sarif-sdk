@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    public partial class FileLocation
+    public partial class ArtifactLocation
     {
         /// <summary>
         /// Attempt to reconstruct a URI, if appropriate, using Run instance 
@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="originalUriBaseIds">The original uri base id values associated with the tool run.</param>
         /// <param name="resolvedUri">The reconstructed absolute URI or null (if an absolute URI cannot be reconstructed).</param>
         /// <returns></returns>
-        public bool TryReconstructAbsoluteUri(IDictionary<string, FileLocation> originalUriBaseIds, out Uri resolvedUri)
+        public bool TryReconstructAbsoluteUri(IDictionary<string, ArtifactLocation> originalUriBaseIds, out Uri resolvedUri)
         {
             resolvedUri = this.Uri.IsAbsoluteUri ? this.Uri : null;
 
@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (!string.IsNullOrEmpty(this.UriBaseId) &&
                 !this.Uri.IsAbsoluteUri)
             {
-                if (originalUriBaseIds.TryGetValue(this.UriBaseId, out FileLocation fileLocation))
+                if (originalUriBaseIds.TryGetValue(this.UriBaseId, out ArtifactLocation fileLocation))
                 {
                     resolvedUri = new Uri(fileLocation.Uri, resolvedUri.ToString());
                 }
@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return resolvedUri != null;
         }
 
-        public static FileLocation CreateFromFilesDictionaryKey(string key, string parentKey = null)
+        public static ArtifactLocation CreateFromFilesDictionaryKey(string key, string parentKey = null)
         {
             string uriBaseId = null;
             string originalKey = key;
@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 uriBaseId = null;
             }
 
-            return new FileLocation()
+            return new ArtifactLocation()
             {
                 Uri = new Uri(UriHelper.MakeValidUri(key), UriKind.RelativeOrAbsolute),
                 UriBaseId = uriBaseId

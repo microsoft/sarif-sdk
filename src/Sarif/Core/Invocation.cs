@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (invocation.ShouldLog(nameof(WorkingDirectory)))
             {
-                invocation.WorkingDirectory = new FileLocation { Uri = new Uri(Environment.CurrentDirectory) };
+                invocation.WorkingDirectory = new ArtifactLocation { Uri = new Uri(Environment.CurrentDirectory) };
             }
 
             if (invocation.ShouldLog(nameof(CommandLine)))

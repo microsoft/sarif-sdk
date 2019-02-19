@@ -62,8 +62,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors.Log
                                     result.Locations == null ||
                                     result.Locations.All(
                                         location =>
-                                            !location.PhysicalLocation.FileLocation.Uri.IsAbsoluteUri
-                                            && !string.IsNullOrEmpty(location.PhysicalLocation.FileLocation.UriBaseId)))))
+                                            !location.PhysicalLocation.ArtifactLocation.Uri.IsAbsoluteUri
+                                            && !string.IsNullOrEmpty(location.PhysicalLocation.ArtifactLocation.UriBaseId)))))
                 .Should().BeTrue();
         }
 
@@ -91,8 +91,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors.Log
                                 result.Locations == null ||
                                 result.Locations.All(
                                     location =>
-                                        location.PhysicalLocation.FileLocation.Uri.IsAbsoluteUri
-                                        && string.IsNullOrEmpty(location.PhysicalLocation.FileLocation.UriBaseId))))
+                                        location.PhysicalLocation.ArtifactLocation.Uri.IsAbsoluteUri
+                                        && string.IsNullOrEmpty(location.PhysicalLocation.ArtifactLocation.UriBaseId))))
                    .Should().BeTrue();
             }         
         }
@@ -123,8 +123,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Processors.Log
                                     result.Locations == null ||
                                     result.Locations.All(
                                         location =>
-                                            !location.PhysicalLocation.FileLocation.Uri.IsAbsoluteUri
-                                            && !string.IsNullOrEmpty(location.PhysicalLocation.FileLocation.UriBaseId)))))
+                                            !location.PhysicalLocation.ArtifactLocation.Uri.IsAbsoluteUri
+                                            && !string.IsNullOrEmpty(location.PhysicalLocation.ArtifactLocation.UriBaseId)))))
                 .Should().BeTrue();
         }
     }

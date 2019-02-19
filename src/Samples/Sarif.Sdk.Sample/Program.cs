@@ -51,7 +51,7 @@ namespace Sarif.Sdk.Sample
             // We'll use this source file for several defect results -- the
             // SampleSourceFiles folder should be a child of the project folder,
             // two levels up from the folder that contains the EXE (e.g., bin\Debug).
-            var fileLocation = new FileLocation { Uri = new Uri($"file://{AppDomain.CurrentDomain.BaseDirectory}../../SampleSourceFiles/AnalysisSample.cs") };
+            var ArtifactLocation = new ArtifactLocation { Uri = new Uri($"file://{AppDomain.CurrentDomain.BaseDirectory}../../SampleSourceFiles/AnalysisSample.cs") };
 
             // Create a list of rules that will be enforced during your analysis
             #region Rules list
@@ -186,11 +186,11 @@ namespace Sarif.Sdk.Sample
                     new Fix // CA1820
                     {
                         Description = new Message { Text = "Replace empty string test with test for zero length." },
-                        FileChanges = new[]
+                        Changes = new[]
                         {
-                            new FileChange
+                            new ArtifactChange
                             {
-                                FileLocation = fileLocation,
+                                ArtifactLocation = ArtifactLocation,
                                 Replacements = new[]
                                 {
                                     new Replacement
@@ -201,7 +201,7 @@ namespace Sarif.Sdk.Sample
                                             StartColumn = 38,
                                             EndColumn = 44
                                         },
-                                        InsertedContent = new FileContent
+                                        InsertedContent = new ArtifactContent
                                         {
                                             Text = ".Length == 0"
                                         }
@@ -219,11 +219,11 @@ namespace Sarif.Sdk.Sample
                     new Fix // CA2215
                     {
                         Description = new Message { Text = "Call base.Dispose in the derived's class's Dispose method." },
-                        FileChanges = new[]
+                        Changes = new[]
                         {
-                            new FileChange
+                            new ArtifactChange
                             {
-                                FileLocation = fileLocation,
+                                ArtifactLocation = ArtifactLocation,
                                 Replacements = new[]
                                 {
                                     new Replacement
@@ -234,7 +234,7 @@ namespace Sarif.Sdk.Sample
                                             StartColumn = 1,
                                             EndColumn = 1
                                         },
-                                        InsertedContent = new FileContent
+                                        InsertedContent = new ArtifactContent
                                         {
                                             Text = @"            base.Dispose();\n"
                                         }
@@ -274,7 +274,7 @@ namespace Sarif.Sdk.Sample
                         var result = new Result()
                         {
                             RuleId = rule.Id,
-                            AnalysisTarget = new FileLocation { Uri = new Uri(@"file://d:/src/module/example.dll") }, // This is the file that was analyzed
+                            AnalysisTarget = new ArtifactLocation { Uri = new Uri(@"file://d:/src/module/example.dll") }, // This is the file that was analyzed
                             Message = new Message
                             {
                                 MessageId = "Default",
@@ -286,7 +286,7 @@ namespace Sarif.Sdk.Sample
                                 {
                                     PhysicalLocation = new PhysicalLocation
                                     {
-                                        FileLocation = fileLocation,
+                                        ArtifactLocation = ArtifactLocation,
                                         Region = region
                                     }
                                 },
@@ -298,7 +298,7 @@ namespace Sarif.Sdk.Sample
                                 {
                                     PhysicalLocation = new PhysicalLocation
                                     {
-                                        FileLocation = new FileLocation
+                                        ArtifactLocation = new ArtifactLocation
                                         {
                                             // Because this file doesn't exist, it will be included in the files list but will only have a path and MIME type
                                             // This is the behavior you'll see any time a file can't be located/accessed
@@ -327,7 +327,7 @@ namespace Sarif.Sdk.Sample
                                             {
                                                 PhysicalLocation = new PhysicalLocation
                                                 {
-                                                    FileLocation = fileLocation,
+                                                    ArtifactLocation = ArtifactLocation,
                                                     Region = new Region
                                                     {
                                                         StartLine = 212
@@ -342,7 +342,7 @@ namespace Sarif.Sdk.Sample
                                             {
                                                 PhysicalLocation = new PhysicalLocation
                                                 {
-                                                    FileLocation = fileLocation,
+                                                    ArtifactLocation = ArtifactLocation,
                                                     Region = new Region
                                                     {
                                                         StartLine = 452 // Fake example
@@ -357,7 +357,7 @@ namespace Sarif.Sdk.Sample
                                             {
                                                 PhysicalLocation = new PhysicalLocation
                                                 {
-                                                    FileLocation = fileLocation,
+                                                    ArtifactLocation = ArtifactLocation,
                                                     Region = new Region
                                                     {
                                                         StartLine = 145
@@ -392,7 +392,7 @@ namespace Sarif.Sdk.Sample
                                                 {
                                                     PhysicalLocation = new PhysicalLocation
                                                     {
-                                                        FileLocation = fileLocation,
+                                                        ArtifactLocation = ArtifactLocation,
                                                         Region = region
                                                     }
                                                 },
@@ -405,7 +405,7 @@ namespace Sarif.Sdk.Sample
                                                 {
                                                     PhysicalLocation = new PhysicalLocation
                                                     {
-                                                        FileLocation = fileLocation,
+                                                        ArtifactLocation = ArtifactLocation,
                                                         Region = new Region
                                                         {
                                                             StartLine = 12

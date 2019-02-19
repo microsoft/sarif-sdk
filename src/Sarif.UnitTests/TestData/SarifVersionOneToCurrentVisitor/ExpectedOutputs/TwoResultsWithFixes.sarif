@@ -1,10 +1,36 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0",
-  "version": "2.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-01-24",
+  "version": "2.0.0-csd.2.beta.2019-01-24",
   "runs": [
     {
       "tool": {
-        "name": "CodeScanner"
+        "driver": {
+          "name": "CodeScanner",
+          "ruleDescriptors": [
+            {
+              "id": "WEB1079",
+              "shortDescription": {
+                "text": "The attribute value is not quoted."
+              },
+              "messageStrings": {
+                "default": {
+                  "text": "The  value of the '{0}' attribute is not quoted. Wrap the attribute value in single or double quotes."
+                }
+              }
+            },
+            {
+              "id": "WEB1066",
+              "shortDescription": {
+                "text": "The tag name is not lowercase."
+              },
+              "messageStrings": {
+                "default": {
+                  "text": "Convert the name of the <{0}> tag to lowercase."
+                }
+              }
+            }
+          ]
+        }
       },
       "results": [
         {
@@ -18,7 +44,7 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "http://localhost:34420/HtmlFixes.html"
                 },
                 "region": {
@@ -39,9 +65,9 @@
               "description": {
                 "text": "Wrap attribute values in single quotes."
               },
-              "fileChanges": [
+              "changes": [
                 {
-                  "fileLocation": {
+                  "artifactLocation": {
                     "uri": "http://localhost:34420/HtmlFixes.html"
                   },
                   "replacements": [
@@ -69,9 +95,9 @@
               "description": {
                 "text": "Wrap attribute value in double quotes."
               },
-              "fileChanges": [
+              "changes": [
                 {
-                  "fileLocation": {
+                  "artifactLocation": {
                     "uri": "http://localhost:34420/HtmlFixes.html"
                   },
                   "replacements": [
@@ -108,7 +134,7 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "http://localhost:34420/HtmlFixes.html"
                 },
                 "region": {
@@ -129,9 +155,9 @@
               "description": {
                 "text": "Convert tag name to lowercase."
               },
-              "fileChanges": [
+              "changes": [
                 {
-                  "fileLocation": {
+                  "artifactLocation": {
                     "uri": "http://localhost:34420/HtmlFixes.html"
                   },
                   "replacements": [
@@ -151,28 +177,6 @@
           ]
         }
       ],
-      "resources": {
-        "rules": {
-          "WEB1079.AttributeValueIsNotQuoted": {
-            "id": "WEB1079",
-            "shortDescription": {
-              "text": "The attribute value is not quoted."
-            },
-            "messageStrings": {
-              "default": "The  value of the '{0}' attribute is not quoted. Wrap the attribute value in single or double quotes."
-            }
-          },
-          "WEB1066.TagNameIsNotLowercase": {
-            "id": "WEB1066",
-            "shortDescription": {
-              "text": "The tag name is not lowercase."
-            },
-            "messageStrings": {
-              "default": "Convert the name of the <{0}> tag to lowercase."
-            }
-          }
-        }
-      },
       "columnKind": "utf16CodeUnits"
     }
   ]

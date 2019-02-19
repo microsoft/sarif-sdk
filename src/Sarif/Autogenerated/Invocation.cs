@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The locations of any response files specified on the tool's command line.
         /// </summary>
         [DataMember(Name = "responseFiles", IsRequired = false, EmitDefaultValue = false)]
-        public IList<FileLocation> ResponseFiles { get; set; }
+        public IList<ArtifactLocation> ResponseFiles { get; set; }
 
         /// <summary>
         /// A set of files relevant to the invocation of the tool.
@@ -150,13 +150,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An absolute URI specifying the location of the analysis tool's executable.
         /// </summary>
         [DataMember(Name = "executableLocation", IsRequired = false, EmitDefaultValue = false)]
-        public FileLocation ExecutableLocation { get; set; }
+        public ArtifactLocation ExecutableLocation { get; set; }
 
         /// <summary>
         /// The working directory for the analysis tool run.
         /// </summary>
         [DataMember(Name = "workingDirectory", IsRequired = false, EmitDefaultValue = false)]
-        public FileLocation WorkingDirectory { get; set; }
+        public ArtifactLocation WorkingDirectory { get; set; }
 
         /// <summary>
         /// The environment variables associated with the analysis tool process, expressed as key/value pairs.
@@ -168,25 +168,25 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A file containing the standard input stream to the process that was invoked.
         /// </summary>
         [DataMember(Name = "stdin", IsRequired = false, EmitDefaultValue = false)]
-        public FileLocation Stdin { get; set; }
+        public ArtifactLocation Stdin { get; set; }
 
         /// <summary>
         /// A file containing the standard output stream from the process that was invoked.
         /// </summary>
         [DataMember(Name = "stdout", IsRequired = false, EmitDefaultValue = false)]
-        public FileLocation Stdout { get; set; }
+        public ArtifactLocation Stdout { get; set; }
 
         /// <summary>
         /// A file containing the standard error stream from the process that was invoked.
         /// </summary>
         [DataMember(Name = "stderr", IsRequired = false, EmitDefaultValue = false)]
-        public FileLocation Stderr { get; set; }
+        public ArtifactLocation Stderr { get; set; }
 
         /// <summary>
         /// A file containing the interleaved standard output and standard error stream from the process that was invoked.
         /// </summary>
         [DataMember(Name = "stdoutStderr", IsRequired = false, EmitDefaultValue = false)]
-        public FileLocation StdoutStderr { get; set; }
+        public ArtifactLocation StdoutStderr { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the invocation.
@@ -282,7 +282,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Invocation(string commandLine, IEnumerable<string> arguments, IEnumerable<FileLocation> responseFiles, IEnumerable<Attachment> attachments, DateTime startTimeUtc, DateTime endTimeUtc, int exitCode, IEnumerable<ReportingConfigurationOverride> reportingConfigurationOverrides, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, string exitCodeDescription, string exitSignalName, int exitSignalNumber, string processStartFailureMessage, bool toolExecutionSuccessful, string machine, string account, int processId, FileLocation executableLocation, FileLocation workingDirectory, IDictionary<string, string> environmentVariables, FileLocation stdin, FileLocation stdout, FileLocation stderr, FileLocation stdoutStderr, IDictionary<string, SerializedPropertyInfo> properties)
+        public Invocation(string commandLine, IEnumerable<string> arguments, IEnumerable<ArtifactLocation> responseFiles, IEnumerable<Attachment> attachments, DateTime startTimeUtc, DateTime endTimeUtc, int exitCode, IEnumerable<ReportingConfigurationOverride> reportingConfigurationOverrides, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, string exitCodeDescription, string exitSignalName, int exitSignalNumber, string processStartFailureMessage, bool toolExecutionSuccessful, string machine, string account, int processId, ArtifactLocation executableLocation, ArtifactLocation workingDirectory, IDictionary<string, string> environmentVariables, ArtifactLocation stdin, ArtifactLocation stdout, ArtifactLocation stderr, ArtifactLocation stdoutStderr, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(commandLine, arguments, responseFiles, attachments, startTimeUtc, endTimeUtc, exitCode, reportingConfigurationOverrides, toolNotifications, configurationNotifications, exitCodeDescription, exitSignalName, exitSignalNumber, processStartFailureMessage, toolExecutionSuccessful, machine, account, processId, executableLocation, workingDirectory, environmentVariables, stdin, stdout, stderr, stdoutStderr, properties);
         }
@@ -324,7 +324,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Invocation(this);
         }
 
-        private void Init(string commandLine, IEnumerable<string> arguments, IEnumerable<FileLocation> responseFiles, IEnumerable<Attachment> attachments, DateTime startTimeUtc, DateTime endTimeUtc, int exitCode, IEnumerable<ReportingConfigurationOverride> reportingConfigurationOverrides, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, string exitCodeDescription, string exitSignalName, int exitSignalNumber, string processStartFailureMessage, bool toolExecutionSuccessful, string machine, string account, int processId, FileLocation executableLocation, FileLocation workingDirectory, IDictionary<string, string> environmentVariables, FileLocation stdin, FileLocation stdout, FileLocation stderr, FileLocation stdoutStderr, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string commandLine, IEnumerable<string> arguments, IEnumerable<ArtifactLocation> responseFiles, IEnumerable<Attachment> attachments, DateTime startTimeUtc, DateTime endTimeUtc, int exitCode, IEnumerable<ReportingConfigurationOverride> reportingConfigurationOverrides, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, string exitCodeDescription, string exitSignalName, int exitSignalNumber, string processStartFailureMessage, bool toolExecutionSuccessful, string machine, string account, int processId, ArtifactLocation executableLocation, ArtifactLocation workingDirectory, IDictionary<string, string> environmentVariables, ArtifactLocation stdin, ArtifactLocation stdout, ArtifactLocation stderr, ArtifactLocation stdoutStderr, IDictionary<string, SerializedPropertyInfo> properties)
         {
             CommandLine = commandLine;
             if (arguments != null)
@@ -340,7 +340,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (responseFiles != null)
             {
-                var destination_1 = new List<FileLocation>();
+                var destination_1 = new List<ArtifactLocation>();
                 foreach (var value_1 in responseFiles)
                 {
                     if (value_1 == null)
@@ -349,7 +349,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_1.Add(new FileLocation(value_1));
+                        destination_1.Add(new ArtifactLocation(value_1));
                     }
                 }
 
@@ -441,12 +441,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             ProcessId = processId;
             if (executableLocation != null)
             {
-                ExecutableLocation = new FileLocation(executableLocation);
+                ExecutableLocation = new ArtifactLocation(executableLocation);
             }
 
             if (workingDirectory != null)
             {
-                WorkingDirectory = new FileLocation(workingDirectory);
+                WorkingDirectory = new ArtifactLocation(workingDirectory);
             }
 
             if (environmentVariables != null)
@@ -456,22 +456,22 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (stdin != null)
             {
-                Stdin = new FileLocation(stdin);
+                Stdin = new ArtifactLocation(stdin);
             }
 
             if (stdout != null)
             {
-                Stdout = new FileLocation(stdout);
+                Stdout = new ArtifactLocation(stdout);
             }
 
             if (stderr != null)
             {
-                Stderr = new FileLocation(stderr);
+                Stderr = new ArtifactLocation(stderr);
             }
 
             if (stdoutStderr != null)
             {
-                StdoutStderr = new FileLocation(stdoutStderr);
+                StdoutStderr = new ArtifactLocation(stdoutStderr);
             }
 
             if (properties != null)

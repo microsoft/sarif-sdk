@@ -23,7 +23,7 @@ namespace SarifToCsv
             }
         }
 
-        public static string FileUri(this FileLocation fileLocation, Run run)
+        public static string FileUri(this ArtifactLocation fileLocation, Run run)
         {
             if (fileLocation == null)
             {
@@ -35,7 +35,7 @@ namespace SarifToCsv
             }
             else if (fileLocation.FileIndex >= 0 && fileLocation.FileIndex < run.Files.Count)
             {
-                return run.Files[fileLocation.FileIndex].FileLocation?.Uri?.ToString();
+                return run.Files[fileLocation.FileIndex].ArtifactLocation?.Uri?.ToString();
             }
             else
             {

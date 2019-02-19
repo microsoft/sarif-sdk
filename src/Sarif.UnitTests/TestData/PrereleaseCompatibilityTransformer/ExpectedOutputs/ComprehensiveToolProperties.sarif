@@ -38,7 +38,7 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "file.txt"
                 }
               }

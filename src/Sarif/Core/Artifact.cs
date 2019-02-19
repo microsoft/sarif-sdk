@@ -12,9 +12,9 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Represents a single file. In some cases, this file might be nested within another file.
     /// </summary>
-    public partial class FileData : ISarifNode
+    public partial class Artifact : ISarifNode
     {
-        public static FileData Create(
+        public static Artifact Create(
             Uri uri, 
             OptionallyEmittedData dataToInsert = OptionallyEmittedData.None, 
             string mimeType = null, 
@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             mimeType = mimeType ?? SarifWriters.MimeType.DetermineFromFileExtension(uri);
             fileSystem = fileSystem ?? new FileSystem();
 
-            var fileData = new FileData()
+            var fileData = new Artifact()
             {
                 Encoding = encoding?.WebName,
                 MimeType = mimeType
@@ -75,9 +75,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             return fileData;
         }
 
-        private static FileContent GetEncodedFileContents(IFileSystem fileSystem, string filePath, string mimeType, Encoding inputFileEncoding)
+        private static ArtifactContent GetEncodedFileContents(IFileSystem fileSystem, string filePath, string mimeType, Encoding inputFileEncoding)
         {
-            var fileContent = new FileContent();
+            var fileContent = new ArtifactContent();
             byte[] fileContents = fileSystem.ReadAllBytes(filePath);
 
             if (SarifWriters.MimeType.IsBinaryMimeType(mimeType) || inputFileEncoding == null)

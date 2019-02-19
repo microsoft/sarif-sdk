@@ -7,30 +7,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     public class AddFileReferencesVisitor : SarifRewritingVisitor
     {
         private Run _currentRun;
-        private IDictionary<FileLocation, int> _fileToIndexMap;
+        private IDictionary<ArtifactLocation, int> _fileToIndexMap;
 
         public override Run VisitRun(Run run)
         {
-            _fileToIndexMap = new Dictionary<FileLocation, int>();
+            _fileToIndexMap = new Dictionary<ArtifactLocation, int>();
 
-            run.Files = run.Files ?? new List<FileData>();
+            run.Artifacts = run.Artifacts ?? new List<Artifact>();
 
             // First, we'll initialize our file object to index map
             // with any files that already exist in the table
-            for (int i = 0; i < run.Files.Count; i++)
+            for (int i = 0; i < run.Artifacts.Count; i++)
             {
-                FileData fileData = run.Files[i];
+                Artifact fileData = run.Artifacts[i];
 
-                var fileLocation = new FileLocation
+                var fileLocation = new ArtifactLocation
                 {
-                    Uri = fileData.FileLocation.Uri,
-                    UriBaseId = fileData.FileLocation.UriBaseId
+                    Uri = fileData.Location.Uri,
+                    UriBaseId = fileData.Location.UriBaseId
                 };
 
                 _fileToIndexMap[fileLocation] = i;
 
                 // For good measure, we'll explicitly populate the file index property
-                run.Files[i].FileLocation.FileIndex = i;
+                run.Artifacts[i].Location.Index = i;
             }
 
             _currentRun = run;
@@ -41,11 +41,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return _currentRun;
         }
 
-        public override FileLocation VisitFileLocation(FileLocation node)
+        public override ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
         {
-            node.FileIndex = _currentRun.GetFileIndex(node, addToFilesTableIfNotPresent: true);            
+            node.Index = _currentRun.GetFileIndex(node, addToFilesTableIfNotPresent: true);            
 
-            return base.VisitFileLocation(node);            
+            return base.VisitArtifactLocation(node);            
         }
     }
 }

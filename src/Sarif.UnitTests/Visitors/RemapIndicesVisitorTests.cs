@@ -14,11 +14,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             var run = new Run()
             {
                 Tool = new Tool { Driver = new ToolComponent { Name = "Test Tool" } },
-                Files = new List<FileData>
+                Artifacts = new List<Artifact>
                 {
-                    new FileData{ FileLocation = new FileLocation{ FileIndex = 0 }, Contents = new FileContent { Text = "1" } },
-                    new FileData{ FileLocation = new FileLocation{ FileIndex = 1 }, Contents = new FileContent { Text = "1.2" }, ParentIndex = 0 },
-                    new FileData{ FileLocation = new FileLocation{ FileIndex = 2 }, Contents = new FileContent { Text = "1.2.3." }, ParentIndex = 1 }
+                    new Artifact{ Location = new ArtifactLocation{ Index = 0 }, Contents = new ArtifactContent { Text = "1" } },
+                    new Artifact{ Location = new ArtifactLocation{ Index = 1 }, Contents = new ArtifactContent { Text = "1.2" }, ParentIndex = 0 },
+                    new Artifact{ Location = new ArtifactLocation{ Index = 2 }, Contents = new ArtifactContent { Text = "1.2.3." }, ParentIndex = 1 }
                 },
                 Results = new List<Result>
                 {
@@ -30,9 +30,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                             {
                                 PhysicalLocation = new PhysicalLocation
                                 {
-                                    FileLocation = new FileLocation
+                                    ArtifactLocation = new ArtifactLocation
                                     {
-                                        FileIndex = 2
+                                        Index = 2
                                     }
                                 }
                             }
@@ -54,9 +54,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             var currentRun = new Run()
             {
                 Tool = new Tool { Driver = new ToolComponent { Name = "Test Tool" } },
-                Files = new List<FileData>
+                Artifacts = new List<Artifact>
                 {
-                    new FileData{ FileLocation = new FileLocation{ FileIndex = 0 }, Contents = new FileContent { Text = "New" } },
+                    new Artifact{ Location = new ArtifactLocation{ Index = 0 }, Contents = new ArtifactContent { Text = "New" } },
                 },
                 Results = new List<Result>
                 {
@@ -68,9 +68,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                             {
                                 PhysicalLocation = new PhysicalLocation
                                 {
-                                    FileLocation = new FileLocation
+                                    ArtifactLocation = new ArtifactLocation
                                     {
-                                        FileIndex = 0
+                                        Index = 0
                                     }
                                 }
                             }
@@ -95,9 +95,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             //    CurrentFiles property is equivalent to mergedRun.Files. The visitor
             //    has also been initialized with a dictionary that uses the complete
             //    file hierarchy as a key into the files array
-            var visitor = new RemapIndicesVisitor(mergedRun.Files);
-            visitor.CurrentFiles.Should().BeEquivalentTo(mergedRun.Files);
-            visitor.RemappedFiles.Count.Should().Be(mergedRun.Files.Count);
+            var visitor = new RemapIndicesVisitor(mergedRun.Artifacts);
+            visitor.CurrentFiles.Should().BeEquivalentTo(mergedRun.Artifacts);
+            visitor.RemappedFiles.Count.Should().Be(mergedRun.Artifacts.Count);
 
 
             // 2. We set HistoricalFiles to point to the old files array from the
@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             // compare our ulitmate results to an unaltered original baseline
             var baselineRunCopy = baselineRun.DeepClone();
 
-            visitor.HistoricalFiles = baselineRunCopy.Files;
+            visitor.HistoricalFiles = baselineRunCopy.Artifacts;
             foreach (Result result in baselineRunCopy.Results)
             {
                 visitor.VisitResult(result);
@@ -120,36 +120,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             // 3. After completing the results array visit, we'll grab the 
             //    files array that represents all merged files from the runs.
-            mergedRun.Files = visitor.CurrentFiles;
+            mergedRun.Artifacts = visitor.CurrentFiles;
 
             // We expect the merged files to be a superset of file data objects from the two runs
-            mergedRun.Files.Count.Should().Be(baselineRun.Files.Count + currentRun.Files.Count);
+            mergedRun.Artifacts.Count.Should().Be(baselineRun.Artifacts.Count + currentRun.Artifacts.Count);
 
             // We expect that every merged file data has a corrected file index
-            for (int i = 0; i < mergedRun.Files.Count; i++)
+            for (int i = 0; i < mergedRun.Artifacts.Count; i++)
             {
-                mergedRun.Files[i].FileLocation.FileIndex.Should().Be(i);
+                mergedRun.Artifacts[i].Location.Index.Should().Be(i);
             }
 
             // We should see that the file index of the result we added should be pushed out by 1,
             // to account for the second run's file data objects being appended to the single
             // file data object in the first run.
-            mergedRun.Files[mergedRun.Results[0].Locations[0].PhysicalLocation.FileLocation.FileIndex].Contents.Text.Should()
-                .Be(currentRun.Files[currentRun.Results[0].Locations[0].PhysicalLocation.FileLocation.FileIndex].Contents.Text);
+            mergedRun.Artifacts[mergedRun.Results[0].Locations[0].PhysicalLocation.ArtifactLocation.Index].Contents.Text.Should()
+                .Be(currentRun.Artifacts[currentRun.Results[0].Locations[0].PhysicalLocation.ArtifactLocation.Index].Contents.Text);
 
             // Similarly, we expect that all file data objects from the first run have been offset by one
             for (int i = 0; i < 3; i++)
             {
-                baselineRun.Files[i].Contents.Text.Should().Be(mergedRun.Files[i + 1].Contents.Text);
+                baselineRun.Artifacts[i].Contents.Text.Should().Be(mergedRun.Artifacts[i + 1].Contents.Text);
             }
 
             // Finally, we should ensure that the parent index chain was updated properly on merging
-            FileData fileData = mergedRun.Files[mergedRun.Results[1].Locations[0].PhysicalLocation.FileLocation.FileIndex];
+            Artifact fileData = mergedRun.Artifacts[mergedRun.Results[1].Locations[0].PhysicalLocation.ArtifactLocation.Index];
 
             // Most nested
             fileData.ParentIndex.Should().Be(2);
-            mergedRun.Files[fileData.ParentIndex].ParentIndex.Should().Be(1);
-            mergedRun.Files[mergedRun.Files[fileData.ParentIndex].ParentIndex].ParentIndex.Should().Be(-1);
+            mergedRun.Artifacts[fileData.ParentIndex].ParentIndex.Should().Be(1);
+            mergedRun.Artifacts[mergedRun.Artifacts[fileData.ParentIndex].ParentIndex].ParentIndex.Should().Be(-1);
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         PhysicalLocation = new PhysicalLocation
                         {
-                            FileLocation = new FileLocation { Uri = _remappedUri, UriBaseId = _remappedUriBaseId, FileIndex = Int32.MaxValue}
+                            ArtifactLocation = new ArtifactLocation { Uri = _remappedUri, UriBaseId = _remappedUriBaseId, Index = Int32.MaxValue}
                         },
                         FullyQualifiedLogicalName = _remappedFullyQualifiedLogicalName,
                         LogicalLocationIndex = Int32.MaxValue
@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             visitor.VisitResult(result);
 
             result.Locations[0].LogicalLocationIndex.Should().Be(Int32.MaxValue);
-            result.Locations[0].PhysicalLocation.FileLocation.FileIndex.Should().Be(Int32.MaxValue);
+            result.Locations[0].PhysicalLocation.ArtifactLocation.Index.Should().Be(Int32.MaxValue);
         }
 
         [Fact]
@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             visitor.VisitResult(result);
 
             result.Locations[0].LogicalLocationIndex.Should().Be(remappedIndex);
-            result.Locations[0].PhysicalLocation.FileLocation.FileIndex.Should().Be(Int32.MaxValue);
+            result.Locations[0].PhysicalLocation.ArtifactLocation.Index.Should().Be(Int32.MaxValue);
         }
 
         [Fact]
@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             var result = _result.DeepClone();
             int remappedIndex = 42 * 42;
 
-            FileLocation fileLocation = result.Locations[0].PhysicalLocation.FileLocation;
+            ArtifactLocation fileLocation = result.Locations[0].PhysicalLocation.ArtifactLocation;
 
             var fileLocationKeyToIndexMap = new Dictionary<string, int>()
             {
@@ -83,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             visitor.VisitResult(result);
 
             result.Locations[0].LogicalLocationIndex.Should().Be(Int32.MaxValue);
-            result.Locations[0].PhysicalLocation.FileLocation.FileIndex.Should().Be(remappedIndex);
+            result.Locations[0].PhysicalLocation.ArtifactLocation.Index.Should().Be(remappedIndex);
         }
 
         [Fact]
@@ -176,7 +176,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         PhysicalLocation = new PhysicalLocation
                         {
-                            FileLocation = new FileLocation { Uri = new Uri(Guid.NewGuid().ToString(), UriKind.Relative), UriBaseId = Guid.NewGuid().ToString(), FileIndex = random.Next()}
+                            ArtifactLocation = new ArtifactLocation { Uri = new Uri(Guid.NewGuid().ToString(), UriKind.Relative), UriBaseId = Guid.NewGuid().ToString(), Index = random.Next()}
                         },
                         FullyQualifiedLogicalName = Guid.NewGuid().ToString(),
                         LogicalLocationIndex = random.Next()

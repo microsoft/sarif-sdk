@@ -28,49 +28,45 @@
           "uri": "file:///c:/"
         }
       },
-      "files": [
+      "artifacts": [
         {
-          "fileLocation": {
-            "uri": "file:///c:/archive_one.zip",
-            "fileIndex": 0
+          "location": {
+            "uri": "file:///c:/archive_one.zip"
           },
           "mimeType": "application/zip"
         },
         {
-          "fileLocation": {
-            "uri": "/file.txt",
-            "fileIndex": 1
+          "location": {
+            "uri": "/file.txt"
           },
           "parentIndex": 0,
           "mimeType": "text/plain"
         },
         {
-          "fileLocation": {
+          "location": {
             "uri": "file.txt",
             "uriBaseId": "SUB",
-            "fileIndex": 2
+            "index": 2
           },
           "mimeType": "text/plain"
         },
         {
-          "fileLocation": {
+          "location": {
             "uri": "file.txt",
-            "fileIndex": 3
+            "index": 3
           },
           "mimeType": "text/plain"
         },
         {
-          "fileLocation": {
-            "uri": "/archive_two.zip",
-            "fileIndex": 4
+          "location": {
+            "uri": "/archive_two.zip"
           },
           "parentIndex": 0,
           "mimeType": "application/zip"
         },
         {
-          "fileLocation": {
-            "uri": "/file.txt",
-            "fileIndex": 5
+          "location": {
+            "uri": "/file.txt"
           },
           "parentIndex": 4,
           "mimeType": "text/plain"
@@ -86,9 +82,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "file.txt",
-                  "fileIndex": 3
+                  "index": 3
                 }
               },
               "properties": {
@@ -106,10 +102,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "file.txt",
                   "uriBaseId": "SUB",
-                  "fileIndex": 2,
+                  "index": 2,
                   "properties": {
                     "key": "#SUB#file.txt"
                   }
@@ -127,9 +123,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "/file.txt",
-                  "fileIndex": 1,
+                  "index": 1,
                   "properties": {
                     "key": "file://c:/archive_one.zip#/file.txt"
                   }
@@ -147,9 +143,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "/archive_two.zip/file.txt",
-                  "fileIndex": 5,
+                  "index": 5,
                   "properties": {
                     "key": "file://c:/archive_one.zip#/archive_two.zip/file.txt"
                   }

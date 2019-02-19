@@ -41,8 +41,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// The location of the file.
         /// </summary>
-        [DataMember(Name = "fileLocation", IsRequired = true)]
-        public FileLocation FileLocation { get; set; }
+        [DataMember(Name = "artifactLocation", IsRequired = true)]
+        public ArtifactLocation ArtifactLocation { get; set; }
 
         /// <summary>
         /// Specifies a portion of the file.
@@ -75,8 +75,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="id">
         /// An initialization value for the <see cref="P:Id" /> property.
         /// </param>
-        /// <param name="fileLocation">
-        /// An initialization value for the <see cref="P:FileLocation" /> property.
+        /// <param name="artifactLocation">
+        /// An initialization value for the <see cref="P:ArtifactLocation" /> property.
         /// </param>
         /// <param name="region">
         /// An initialization value for the <see cref="P:Region" /> property.
@@ -87,9 +87,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public PhysicalLocation(int id, FileLocation fileLocation, Region region, Region contextRegion, IDictionary<string, SerializedPropertyInfo> properties)
+        public PhysicalLocation(int id, ArtifactLocation artifactLocation, Region region, Region contextRegion, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, fileLocation, region, contextRegion, properties);
+            Init(id, artifactLocation, region, contextRegion, properties);
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.FileLocation, other.Region, other.ContextRegion, other.Properties);
+            Init(other.Id, other.ArtifactLocation, other.Region, other.ContextRegion, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -129,12 +129,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new PhysicalLocation(this);
         }
 
-        private void Init(int id, FileLocation fileLocation, Region region, Region contextRegion, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int id, ArtifactLocation artifactLocation, Region region, Region contextRegion, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
-            if (fileLocation != null)
+            if (artifactLocation != null)
             {
-                FileLocation = new FileLocation(fileLocation);
+                ArtifactLocation = new ArtifactLocation(artifactLocation);
             }
 
             if (region != null)

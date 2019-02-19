@@ -68,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_1 = 0; index_1 < left.ResponseFiles.Count; ++index_1)
                 {
-                    if (!FileLocation.ValueComparer.Equals(left.ResponseFiles[index_1], right.ResponseFiles[index_1]))
+                    if (!ArtifactLocation.ValueComparer.Equals(left.ResponseFiles[index_1], right.ResponseFiles[index_1]))
                     {
                         return false;
                     }
@@ -214,12 +214,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!FileLocation.ValueComparer.Equals(left.ExecutableLocation, right.ExecutableLocation))
+            if (!ArtifactLocation.ValueComparer.Equals(left.ExecutableLocation, right.ExecutableLocation))
             {
                 return false;
             }
 
-            if (!FileLocation.ValueComparer.Equals(left.WorkingDirectory, right.WorkingDirectory))
+            if (!ArtifactLocation.ValueComparer.Equals(left.WorkingDirectory, right.WorkingDirectory))
             {
                 return false;
             }
@@ -246,22 +246,22 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!FileLocation.ValueComparer.Equals(left.Stdin, right.Stdin))
+            if (!ArtifactLocation.ValueComparer.Equals(left.Stdin, right.Stdin))
             {
                 return false;
             }
 
-            if (!FileLocation.ValueComparer.Equals(left.Stdout, right.Stdout))
+            if (!ArtifactLocation.ValueComparer.Equals(left.Stdout, right.Stdout))
             {
                 return false;
             }
 
-            if (!FileLocation.ValueComparer.Equals(left.Stderr, right.Stderr))
+            if (!ArtifactLocation.ValueComparer.Equals(left.Stderr, right.Stderr))
             {
                 return false;
             }
 
-            if (!FileLocation.ValueComparer.Equals(left.StdoutStderr, right.StdoutStderr))
+            if (!ArtifactLocation.ValueComparer.Equals(left.StdoutStderr, right.StdoutStderr))
             {
                 return false;
             }

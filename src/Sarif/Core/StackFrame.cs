@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     PhysicalLocation = new PhysicalLocation
                     {
-                        FileLocation = new FileLocation
+                        ArtifactLocation = new ArtifactLocation
                         {
                             Uri = new Uri(fileName)
                         },
@@ -77,9 +77,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             string result = AT + this.Location?.FullyQualifiedLogicalName;
 
-            if (this.Location?.PhysicalLocation?.FileLocation?.Uri != null)
+            if (this.Location?.PhysicalLocation?.ArtifactLocation?.Uri != null)
             {
-                string fileName = this.Location.PhysicalLocation.FileLocation.Uri.LocalPath;
+                string fileName = this.Location.PhysicalLocation.ArtifactLocation.Uri.LocalPath;
                 result += IN + fileName;
 
                 if (this.Location?.PhysicalLocation?.Region != null)

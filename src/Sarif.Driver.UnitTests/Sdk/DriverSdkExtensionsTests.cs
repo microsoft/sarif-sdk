@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 UriBaseIds = new string[] { uriBaseIdEntry }
             };
 
-            IDictionary<string, FileLocation> uriBaseIds = commonOptionsBase.ConstructUriBaseIdsDictionary();
+            IDictionary<string, ArtifactLocation> uriBaseIds = commonOptionsBase.ConstructUriBaseIdsDictionary();
 
             uriBaseIds.Count().Should().Be(1);
             uriBaseIds.Keys.First().Should().Be(name);
@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 UriBaseIds = new string[] { uriBaseIdEntry }
             };
 
-            IDictionary<string, FileLocation> uriBaseIds = commonOptionsBase.ConstructUriBaseIdsDictionary();
+            IDictionary<string, ArtifactLocation> uriBaseIds = commonOptionsBase.ConstructUriBaseIdsDictionary();
 
             uriBaseIds.Count().Should().Be(1);
             uriBaseIds.Keys.First().Should().Be(name);

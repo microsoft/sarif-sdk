@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
                     return false;
                 }
                 
-                if (!FileLocationBaselineEquals.Instance.Equals(x.FileLocation, y.FileLocation))
+                if (!ArtifactLocationBaselineEquals.Instance.Equals(x.ArtifactLocation, y.ArtifactLocation))
                 {
                     return false;
                 }
@@ -28,13 +28,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
 
         public int GetHashCode(PhysicalLocation obj)
         {
-            if (ReferenceEquals(obj, null) || obj.FileLocation?.Uri == null)
+            if (ReferenceEquals(obj, null) || obj.ArtifactLocation?.Uri == null)
             {
                 return 0;
             }
             else
             {
-                return obj.FileLocation.Uri.GetNullCheckedHashCode();
+                return obj.ArtifactLocation.Uri.GetNullCheckedHashCode();
             }
         }
     }

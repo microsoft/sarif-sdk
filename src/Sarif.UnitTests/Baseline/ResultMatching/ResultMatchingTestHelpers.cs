@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
             if (target != null)
             {
-                result.AnalysisTarget = new FileLocation()
+                result.AnalysisTarget = new ArtifactLocation()
                 {
                     Uri = new Uri(target)
                 };
@@ -32,12 +32,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                         {
                             PhysicalLocation = new PhysicalLocation()
                             {
-                                FileLocation = new FileLocation()
+                                ArtifactLocation = new ArtifactLocation()
                                 {
                                     Uri = new Uri(location)
                                 },
-                                Region = regionContent != null ? new Region() { StartLine = 5, Snippet = new FileContent() { Text = regionContent } } : null,
-                                ContextRegion = contextRegionContent != null ? new Region() { StartLine = 10, Snippet = new FileContent { Text = contextRegionContent } } : null,
+                                Region = regionContent != null ? new Region() { StartLine = 5, Snippet = new ArtifactContent() { Text = regionContent } } : null,
+                                ContextRegion = contextRegionContent != null ? new Region() { StartLine = 10, Snippet = new ArtifactContent { Text = contextRegionContent } } : null,
                             }
                         }
                    };

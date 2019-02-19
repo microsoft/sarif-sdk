@@ -1,10 +1,12 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-11-28",
-  "version": "2.0.0-csd.2.beta.2018-11-28",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-01-24",
+  "version": "2.0.0-csd.2.beta.2019-01-24",
   "runs": [
     {
       "tool": {
-        "name": "Transformer.UnitTest"
+        "driver": {
+          "name": "Transformer.UnitTest"
+        }
       },
       "results": [
         {
@@ -23,7 +25,7 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
+                          "artifactLocation": {
                             "uri": "file:///home/buildAgent/src/collections/list.h"
                           },
                           "region": {
@@ -44,7 +46,7 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
+                          "artifactLocation": {
                             "uri": "file:///home/buildAgent/src/collections/list.h"
                           },
                           "region": {
@@ -65,7 +67,7 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
+                          "artifactLocation": {
                             "uri": "file:///home/buildAgent/src/collections/list.h"
                           },
                           "region": {
@@ -91,7 +93,7 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
+                          "artifactLocation": {
                             "uri": "file:///home/buildAgent/src/collections/list.h"
                           },
                           "region": {
@@ -131,7 +133,7 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
+                          "artifactLocation": {
                             "uri": "file:///home/buildAgent/src/collections/list.h"
                           },
                           "region": {

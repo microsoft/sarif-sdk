@@ -122,13 +122,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return exceptionData;
         }
 
-        internal FileChangeVersionOne CreateFileChangeVersionOne(FileChange v2FileChange)
+        internal FileChangeVersionOne CreateFileChangeVersionOne(ArtifactChange v2FileChange)
         {
             FileChangeVersionOne fileChange = null;
 
             if (v2FileChange != null)
             {
-                string encodingName = GetFileEncodingName(v2FileChange.FileLocation?.Uri);
+                string encodingName = GetFileEncodingName(v2FileChange.ArtifactLocation?.Uri);
                 Encoding encoding = GetFileEncoding(encodingName);
 
                 try
@@ -136,8 +136,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     fileChange = new FileChangeVersionOne
                     {
                         Replacements = v2FileChange.Replacements?.Select(r => CreateReplacementVersionOne(r, encoding)).ToList(),
-                        Uri = v2FileChange.FileLocation?.Uri,
-                        UriBaseId = v2FileChange.FileLocation?.UriBaseId
+                        Uri = v2FileChange.ArtifactLocation?.Uri,
+                        UriBaseId = v2FileChange.ArtifactLocation?.UriBaseId
                     };
                 }
                 catch (UnknownEncodingException ex)
@@ -154,7 +154,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         private string GetFileEncodingName(Uri uri)
         {
             string encodingName = null;
-            IList<FileData> files = _currentV2Run.Files;
+            IList<Artifact> files = _currentV2Run.Artifacts;
 
             if (uri != null &&
                 files != null
@@ -180,7 +180,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return encoding;
         }
 
-        private FileDataVersionOne CreateFileDataVersionOne(FileData v2FileData)
+        private FileDataVersionOne CreateFileDataVersionOne(Artifact v2FileData)
         {
             FileDataVersionOne fileData = null;
 
@@ -199,8 +199,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Offset = v2FileData.Offset,
                     ParentKey = parentKey,
                     Properties = v2FileData.Properties,
-                    Uri = v2FileData.FileLocation?.Uri,
-                    UriBaseId = v2FileData.FileLocation?.UriBaseId
+                    Uri = v2FileData.Location?.Uri,
+                    UriBaseId = v2FileData.Location?.UriBaseId
                 };
 
                 if (v2FileData.Contents != null)
@@ -225,7 +225,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     fix = new FixVersionOne()
                     {
                         Description = v2Fix.Description?.Text,
-                        FileChanges = v2Fix.FileChanges?.Select(CreateFileChangeVersionOne).ToList()
+                        FileChanges = v2Fix.Changes?.Select(CreateFileChangeVersionOne).ToList()
                     };
                 }
                 catch (UnknownEncodingException)
@@ -382,16 +382,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 physicalLocation = new PhysicalLocationVersionOne
                 {
-                    Region = CreateRegionVersionOne(v2PhysicalLocation.Region, v2PhysicalLocation.FileLocation?.Uri),
-                    Uri = v2PhysicalLocation.FileLocation?.Uri,
-                    UriBaseId = v2PhysicalLocation.FileLocation?.UriBaseId
+                    Region = CreateRegionVersionOne(v2PhysicalLocation.Region, v2PhysicalLocation.ArtifactLocation?.Uri),
+                    Uri = v2PhysicalLocation.ArtifactLocation?.Uri,
+                    UriBaseId = v2PhysicalLocation.ArtifactLocation?.UriBaseId
                 };
             }
 
             return physicalLocation;
         }
 
-        internal PhysicalLocationVersionOne CreatePhysicalLocationVersionOne(FileLocation v2FileLocation)
+        internal PhysicalLocationVersionOne CreatePhysicalLocationVersionOne(ArtifactLocation v2FileLocation)
         {
             PhysicalLocationVersionOne physicalLocation = null;
 
@@ -607,13 +607,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             Stream stream = null;
             encoding = null;
             string failureReason = null;
-            IList<FileData> files = _currentV2Run.Files;
+            IList<Artifact> files = _currentV2Run.Artifacts;
 
             if (uri != null && files != null && _v1FileKeyToV2IndexMap != null)
             {
                 if (_v1FileKeyToV2IndexMap.TryGetValue(uri.OriginalString, out int index))
                 {
-                    FileData fileData = files[index];
+                    Artifact fileData = files[index];
 
                     // We need the encoding because the content might have been transcoded to UTF-8
                     string encodingName = fileData.Encoding ?? _currentV2Run.DefaultFileEncoding;
@@ -702,7 +702,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             if (v2Replacement != null)
             {
                 replacement = new ReplacementVersionOne();
-                FileContent insertedContent = v2Replacement.InsertedContent;
+                ArtifactContent insertedContent = v2Replacement.InsertedContent;
 
                 if (insertedContent != null)
                 {
@@ -731,7 +731,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return replacement;
         }
 
-        internal Dictionary<string, string> CreateResponseFilesDictionary(IList<FileLocation> v2ResponseFilesList)
+        internal Dictionary<string, string> CreateResponseFilesDictionary(IList<ArtifactLocation> v2ResponseFilesList)
         {
             Dictionary<string, string> responseFiles = null;
 
@@ -739,12 +739,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 responseFiles = new Dictionary<string, string>();
 
-                foreach (FileLocation fileLocation in v2ResponseFilesList)
+                foreach (ArtifactLocation fileLocation in v2ResponseFilesList)
                 {
                     string key = fileLocation.Uri.OriginalString;
                     if (_v1FileKeyToV2IndexMap != null && _v1FileKeyToV2IndexMap.TryGetValue(key, out int responseFileIndex))
                     {
-                        FileData responseFile = _currentV2Run.Files[responseFileIndex];
+                        Artifact responseFile = _currentV2Run.Artifacts[responseFileIndex];
                         responseFiles.Add(key, responseFile.Contents?.Text);
                     }
                 }
@@ -880,7 +880,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     run = new RunVersionOne();
                     _currentRun = run;
 
-                    CreateFileKeyIndexMappings(v2Run.Files, out _v1FileKeyToV2IndexMap, out _v2FileIndexToV1KeyMap);
+                    CreateFileKeyIndexMappings(v2Run.Artifacts, out _v1FileKeyToV2IndexMap, out _v2FileIndexToV1KeyMap);
                     _v2RuleIndexToV1KeyMap = CreateV2RuleIndexToV1KeyMapping(v2Run.Tool.Driver.RuleDescriptors);
 
                     run.BaselineId = v2Run.BaselineInstanceGuid;
@@ -922,7 +922,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         // directly. It turns out that we need mappings in both directions: from
         // array index to dictionary key, and vice versa.
         private static void CreateFileKeyIndexMappings(
-            IList<FileData> v2Files,
+            IList<Artifact> v2Files,
             out IDictionary<string, int> fileKeyToIndexDictionary,
             out IDictionary<int, string> fileIndexToKeyDictionary)
         {
@@ -936,7 +936,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 for (int index = 0; index < v2Files.Count; ++index)
                 {
-                    FileData v2File = v2Files[index];
+                    Artifact v2File = v2Files[index];
                     string key = CreateFileDictionaryKey(v2File, v2Files);
 
                     fileKeyToIndexDictionary[key] = index;
@@ -964,12 +964,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         // the value of each one to the URI.
         //
         // WE DO NOT YET HANDLE CASE #2.
-        private static string CreateFileDictionaryKey(FileData v2File, IList<FileData> v2Files)
+        private static string CreateFileDictionaryKey(Artifact v2File, IList<Artifact> v2Files)
         {
-            var sb = new StringBuilder(v2File.FileLocation.Uri.OriginalString);
+            var sb = new StringBuilder(v2File.Location.Uri.OriginalString);
             while (v2File.ParentIndex != -1)
             {
-                FileData parentFile = v2Files[v2File.ParentIndex];
+                Artifact parentFile = v2Files[v2File.ParentIndex];
 
                 // The convention for building the key is as follows:
                 // The root file URI is separated from the chain of nested files by '#';
@@ -980,14 +980,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
                 else
                 {
-                    string path = parentFile.FileLocation.Uri.OriginalString;
+                    string path = parentFile.Location.Uri.OriginalString;
                     if (path.Length == 0 || path[0] != '/')
                     {
                         sb.Insert(0, '/');
                     }
                 }
 
-                sb.Insert(0, parentFile.FileLocation.Uri.OriginalString);
+                sb.Insert(0, parentFile.Location.Uri.OriginalString);
 
                 v2File = parentFile;
             }
@@ -1006,7 +1006,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     string key = entry.Key;
                     int index = entry.Value;
-                    FileData v2File = _currentV2Run.Files[index];
+                    Artifact v2File = _currentV2Run.Artifacts[index];
                     FileDataVersionOne fileDataVersionOne = CreateFileDataVersionOne(v2File);
 
                     // There's no need to repeat the URI in the v1 FileData object
@@ -1162,8 +1162,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         stackFrame.Column = physicalLocation.Region?.StartColumn ?? 0;
                         stackFrame.Line = physicalLocation.Region?.StartLine ?? 0;
-                        stackFrame.Uri = physicalLocation.FileLocation?.Uri;
-                        stackFrame.UriBaseId = physicalLocation.FileLocation?.UriBaseId;
+                        stackFrame.Uri = physicalLocation.ArtifactLocation?.Uri;
+                        stackFrame.UriBaseId = physicalLocation.ArtifactLocation?.UriBaseId;
                     }
                 }
             }

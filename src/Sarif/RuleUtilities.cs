@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     new Sarif.Location {
                         PhysicalLocation = new PhysicalLocation
                         {
-                            FileLocation = new FileLocation
+                            ArtifactLocation = new ArtifactLocation
                             {
                                 Uri = new Uri(targetPath)
                             },

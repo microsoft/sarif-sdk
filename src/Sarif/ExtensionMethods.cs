@@ -176,7 +176,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             foreach (var location in result.Locations)
             {
-                Uri uri = location.PhysicalLocation.FileLocation.Uri;
+                Uri uri = location.PhysicalLocation.ArtifactLocation.Uri;
                 string path = uri.IsAbsoluteUri && uri.IsFile ? uri.LocalPath : uri.ToString();
                 messageLines.Add(
                     string.Format(

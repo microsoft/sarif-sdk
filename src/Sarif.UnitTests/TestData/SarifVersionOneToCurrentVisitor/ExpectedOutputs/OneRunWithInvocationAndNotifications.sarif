@@ -1,11 +1,13 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-10-10",
-  "version": "2.0.0-csd.2.beta.2018-10-10",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-01-24",
+  "version": "2.0.0-csd.2.beta.2019-01-24",
   "runs": [
     {
       "tool": {
-        "name": "CodeScanner",
-        "semanticVersion": "2.1.0"
+        "driver": {
+          "name": "CodeScanner",
+          "semanticVersion": "2.1.0"
+        }
       },
       "invocations": [
         {
@@ -22,7 +24,7 @@
               "id": "CTN9999",
               "ruleId": "C2152",
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "file:///home/buildAgent/src/crypto/hash.cpp"
                 }
               },
@@ -66,7 +68,8 @@
           ]
         }
       ],
-      "results": []
+      "results": [],
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

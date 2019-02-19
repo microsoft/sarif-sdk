@@ -249,11 +249,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             {
                 Result result = resultPair.CalculateBasedlinedResult(PropertyBagMergeBehavior);
 
-                IList<FileData> files = 
+                IList<Artifact> files = 
                     (PropertyBagMergeBehavior.HasFlag(DictionaryMergeBehavior.InitializeFromOldest) &&
                     (result.BaselineState == BaselineState.Unchanged || result.BaselineState == BaselineState.Updated)) 
-                    ? resultPair.PreviousResult.OriginalRun.Files
-                    : resultPair.Run.Files;
+                    ? resultPair.PreviousResult.OriginalRun.Artifacts
+                    : resultPair.Run.Artifacts;
 
                 indexRemappingVisitor.HistoricalFiles = files;
                 indexRemappingVisitor.HistoricalLogicalLocations = resultPair.Run.LogicalLocations;
@@ -274,7 +274,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             }
 
             run.Results = newRunResults;
-            run.Files = indexRemappingVisitor.CurrentFiles;
+            run.Artifacts = indexRemappingVisitor.CurrentFiles;
             
             var graphs = new Dictionary<string, Graph>();
             var ruleData = new Dictionary<string, ReportingDescriptor>();

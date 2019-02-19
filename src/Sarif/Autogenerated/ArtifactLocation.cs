@@ -16,11 +16,11 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
-    public partial class FileLocation : PropertyBagHolder, ISarifNode
+    public partial class ArtifactLocation : PropertyBagHolder, ISarifNode
     {
-        public static IEqualityComparer<FileLocation> ValueComparer => FileLocationEqualityComparer.Instance;
+        public static IEqualityComparer<ArtifactLocation> ValueComparer => ArtifactLocationEqualityComparer.Instance;
 
-        public bool ValueEquals(FileLocation other) => ValueComparer.Equals(this, other);
+        public bool ValueEquals(ArtifactLocation other) => ValueComparer.Equals(this, other);
         public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                return SarifNodeKind.FileLocation;
+                return SarifNodeKind.ArtifactLocation;
             }
         }
 
@@ -48,12 +48,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string UriBaseId { get; set; }
 
         /// <summary>
-        /// The index within the run files array of the file object associated with the file location.
+        /// The index within the run artifacts array of the file object associated with the file location.
         /// </summary>
-        [DataMember(Name = "fileIndex", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "index", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public int FileIndex { get; set; }
+        public int Index { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the file location.
@@ -62,15 +62,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FileLocation" /> class.
+        /// Initializes a new instance of the <see cref="ArtifactLocation" /> class.
         /// </summary>
-        public FileLocation()
+        public ArtifactLocation()
         {
-            FileIndex = -1;
+            Index = -1;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FileLocation" /> class from the supplied values.
+        /// Initializes a new instance of the <see cref="ArtifactLocation" /> class from the supplied values.
         /// </summary>
         /// <param name="uri">
         /// An initialization value for the <see cref="P:Uri" /> property.
@@ -78,19 +78,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="uriBaseId">
         /// An initialization value for the <see cref="P:UriBaseId" /> property.
         /// </param>
-        /// <param name="fileIndex">
-        /// An initialization value for the <see cref="P:FileIndex" /> property.
+        /// <param name="index">
+        /// An initialization value for the <see cref="P:Index" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public FileLocation(Uri uri, string uriBaseId, int fileIndex, IDictionary<string, SerializedPropertyInfo> properties)
+        public ArtifactLocation(Uri uri, string uriBaseId, int index, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(uri, uriBaseId, fileIndex, properties);
+            Init(uri, uriBaseId, index, properties);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FileLocation" /> class from the specified instance.
+        /// Initializes a new instance of the <see cref="ArtifactLocation" /> class from the specified instance.
         /// </summary>
         /// <param name="other">
         /// The instance from which the new instance is to be initialized.
@@ -98,14 +98,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <exception cref="ArgumentNullException">
         /// Thrown if <paramref name="other" /> is null.
         /// </exception>
-        public FileLocation(FileLocation other)
+        public ArtifactLocation(ArtifactLocation other)
         {
             if (other == null)
             {
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Uri, other.UriBaseId, other.FileIndex, other.Properties);
+            Init(other.Uri, other.UriBaseId, other.Index, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -116,17 +116,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public FileLocation DeepClone()
+        public ArtifactLocation DeepClone()
         {
-            return (FileLocation)DeepCloneCore();
+            return (ArtifactLocation)DeepCloneCore();
         }
 
         private ISarifNode DeepCloneCore()
         {
-            return new FileLocation(this);
+            return new ArtifactLocation(this);
         }
 
-        private void Init(Uri uri, string uriBaseId, int fileIndex, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Uri uri, string uriBaseId, int index, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (uri != null)
             {
@@ -134,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             UriBaseId = uriBaseId;
-            FileIndex = fileIndex;
+            Index = index;
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);

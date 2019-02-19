@@ -46,6 +46,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             switch (node.SarifNodeKind)
             {
+                case SarifNodeKind.Artifact:
+                    return VisitArtifact((Artifact)node);
+                case SarifNodeKind.ArtifactChange:
+                    return VisitArtifactChange((ArtifactChange)node);
+                case SarifNodeKind.ArtifactContent:
+                    return VisitArtifactContent((ArtifactContent)node);
+                case SarifNodeKind.ArtifactLocation:
+                    return VisitArtifactLocation((ArtifactLocation)node);
                 case SarifNodeKind.Attachment:
                     return VisitAttachment((Attachment)node);
                 case SarifNodeKind.CodeFlow:
@@ -62,14 +70,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitExternalPropertyFile((ExternalPropertyFile)node);
                 case SarifNodeKind.ExternalPropertyFiles:
                     return VisitExternalPropertyFiles((ExternalPropertyFiles)node);
-                case SarifNodeKind.FileChange:
-                    return VisitFileChange((FileChange)node);
-                case SarifNodeKind.FileContent:
-                    return VisitFileContent((FileContent)node);
-                case SarifNodeKind.FileData:
-                    return VisitFileData((FileData)node);
-                case SarifNodeKind.FileLocation:
-                    return VisitFileLocation((FileLocation)node);
                 case SarifNodeKind.Fix:
                     return VisitFix((Fix)node);
                 case SarifNodeKind.Graph:
@@ -145,12 +145,58 @@ namespace Microsoft.CodeAnalysis.Sarif
             return (T)Visit(node);
         }
 
+        public virtual Artifact VisitArtifact(Artifact node)
+        {
+            if (node != null)
+            {
+                node.Location = VisitNullChecked(node.Location);
+                node.Contents = VisitNullChecked(node.Contents);
+            }
+
+            return node;
+        }
+
+        public virtual ArtifactChange VisitArtifactChange(ArtifactChange node)
+        {
+            if (node != null)
+            {
+                node.ArtifactLocation = VisitNullChecked(node.ArtifactLocation);
+                if (node.Replacements != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Replacements.Count; ++index_0)
+                    {
+                        node.Replacements[index_0] = VisitNullChecked(node.Replacements[index_0]);
+                    }
+                }
+            }
+
+            return node;
+        }
+
+        public virtual ArtifactContent VisitArtifactContent(ArtifactContent node)
+        {
+            if (node != null)
+            {
+            }
+
+            return node;
+        }
+
+        public virtual ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
+        {
+            if (node != null)
+            {
+            }
+
+            return node;
+        }
+
         public virtual Attachment VisitAttachment(Attachment node)
         {
             if (node != null)
             {
                 node.Description = VisitNullChecked(node.Description);
-                node.FileLocation = VisitNullChecked(node.FileLocation);
+                node.ArtifactLocation = VisitNullChecked(node.ArtifactLocation);
                 if (node.Regions != null)
                 {
                     for (int index_0 = 0; index_0 < node.Regions.Count; ++index_0)
@@ -248,7 +294,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
-                node.FileLocation = VisitNullChecked(node.FileLocation);
+                node.ArtifactLocation = VisitNullChecked(node.ArtifactLocation);
             }
 
             return node;
@@ -261,11 +307,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 node.Conversion = VisitNullChecked(node.Conversion);
                 node.Graphs = VisitNullChecked(node.Graphs);
                 node.ExternalizedProperties = VisitNullChecked(node.ExternalizedProperties);
-                if (node.Files != null)
+                if (node.Artifacts != null)
                 {
-                    for (int index_0 = 0; index_0 < node.Files.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.Artifacts.Count; ++index_0)
                     {
-                        node.Files[index_0] = VisitNullChecked(node.Files[index_0]);
+                        node.Artifacts[index_0] = VisitNullChecked(node.Artifacts[index_0]);
                     }
                 }
 
@@ -299,62 +345,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             return node;
         }
 
-        public virtual FileChange VisitFileChange(FileChange node)
-        {
-            if (node != null)
-            {
-                node.FileLocation = VisitNullChecked(node.FileLocation);
-                if (node.Replacements != null)
-                {
-                    for (int index_0 = 0; index_0 < node.Replacements.Count; ++index_0)
-                    {
-                        node.Replacements[index_0] = VisitNullChecked(node.Replacements[index_0]);
-                    }
-                }
-            }
-
-            return node;
-        }
-
-        public virtual FileContent VisitFileContent(FileContent node)
-        {
-            if (node != null)
-            {
-            }
-
-            return node;
-        }
-
-        public virtual FileData VisitFileData(FileData node)
-        {
-            if (node != null)
-            {
-                node.FileLocation = VisitNullChecked(node.FileLocation);
-                node.Contents = VisitNullChecked(node.Contents);
-            }
-
-            return node;
-        }
-
-        public virtual FileLocation VisitFileLocation(FileLocation node)
-        {
-            if (node != null)
-            {
-            }
-
-            return node;
-        }
-
         public virtual Fix VisitFix(Fix node)
         {
             if (node != null)
             {
                 node.Description = VisitNullChecked(node.Description);
-                if (node.FileChanges != null)
+                if (node.Changes != null)
                 {
-                    for (int index_0 = 0; index_0 < node.FileChanges.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.Changes.Count; ++index_0)
                     {
-                        node.FileChanges[index_0] = VisitNullChecked(node.FileChanges[index_0]);
+                        node.Changes[index_0] = VisitNullChecked(node.Changes[index_0]);
                     }
                 }
             }
@@ -538,7 +538,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
-                node.FileLocation = VisitNullChecked(node.FileLocation);
+                node.ArtifactLocation = VisitNullChecked(node.ArtifactLocation);
                 node.Region = VisitNullChecked(node.Region);
                 node.ContextRegion = VisitNullChecked(node.ContextRegion);
             }
@@ -752,7 +752,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 // NOTYETAUTOGENERATED: we have code that isn't capable of processing directories.
-                // We need to fix this problem before we can enable all unit tests.
+                // We need to fix this problem before we can enable all unit tests.                              /*
                 /*
                 if (node.OriginalUriBaseIds != null)
                 {
@@ -768,11 +768,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
                 */
 
-                if (node.Files != null)
+                if (node.Artifacts != null)
                 {
-                    for (int index_0 = 0; index_0 < node.Files.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.Artifacts.Count; ++index_0)
                     {
-                        node.Files[index_0] = VisitNullChecked(node.Files[index_0]);
+                        node.Artifacts[index_0] = VisitNullChecked(node.Artifacts[index_0]);
                     }
                 }
 

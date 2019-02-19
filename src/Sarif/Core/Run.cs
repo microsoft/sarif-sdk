@@ -11,15 +11,15 @@ namespace Microsoft.CodeAnalysis.Sarif
     public partial class Run
     {
         private static Graph EmptyGraph = new Graph();
-        private static FileData EmptyFile = new FileData();
+        private static Artifact EmptyFile = new Artifact();
         private static Invocation EmptyInvocation = new Invocation();
         private static LogicalLocation EmptyLogicalLocation = new LogicalLocation();
 
-        private IDictionary<FileLocation, int> _fileToIndexMap;
+        private IDictionary<ArtifactLocation, int> _fileToIndexMap;
 
         public Uri ExpandUrisWithUriBaseId(string key, string currentValue = null)
         {
-            FileLocation fileLocation = this.OriginalUriBaseIds[key];
+            ArtifactLocation fileLocation = this.OriginalUriBaseIds[key];
 
             if (fileLocation.UriBaseId == null)
             {
@@ -29,14 +29,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         public int GetFileIndex(
-            FileLocation fileLocation,
+            ArtifactLocation fileLocation,
             bool addToFilesTableIfNotPresent = true,
             OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
             Encoding encoding = null)
         {
             if (fileLocation == null) { throw new ArgumentNullException(nameof(fileLocation)); }
 
-            if (this.Files?.Count == 0)
+            if (this.Artifacts?.Count == 0)
             {
                 if (!addToFilesTableIfNotPresent)
                 {
@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // throughout the emitted log.
             fileLocation.Uri = new Uri(UriHelper.MakeValidUri(fileLocation.Uri.OriginalString), UriKind.RelativeOrAbsolute);
 
-            var filesTableKey = new FileLocation
+            var filesTableKey = new ArtifactLocation
             {
                 Uri = fileLocation.Uri,
                 UriBaseId = fileLocation.UriBaseId
@@ -77,20 +77,20 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 if (addToFilesTableIfNotPresent)
                 {
-                    this.Files = this.Files ?? new List<FileData>();
-                    fileIndex = this.Files.Count;
+                    this.Artifacts = this.Artifacts ?? new List<Artifact>();
+                    fileIndex = this.Artifacts.Count;
 
                     string mimeType = Writers.MimeType.DetermineFromFileExtension(filesTableKey.Uri.ToString());
 
-                    var fileData = FileData.Create(
+                    var fileData = Artifact.Create(
                         filesTableKey.Uri,
                         dataToInsert,
                         mimeType: mimeType,
                         encoding);
 
-                    fileData.FileLocation = fileLocation;
+                    fileData.Location = fileLocation;
 
-                    this.Files.Add(fileData);
+                    this.Artifacts.Add(fileData);
 
                     _fileToIndexMap[filesTableKey] = fileIndex;
                 }
@@ -102,24 +102,24 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            fileLocation.FileIndex = fileIndex;
+            fileLocation.Index = fileIndex;
             return fileIndex;
         }
 
         private void InitializeFileToIndexMap()
         {
-            _fileToIndexMap = new Dictionary<FileLocation, int>(FileLocation.ValueComparer);
+            _fileToIndexMap = new Dictionary<ArtifactLocation, int>(ArtifactLocation.ValueComparer);
 
             // First, we'll initialize our file object to index map
             // with any files that already exist in the table
-            for (int i = 0; i < this.Files?.Count; i++)
+            for (int i = 0; i < this.Artifacts?.Count; i++)
             {
-                FileData fileData = this.Files[i];
+                Artifact fileData = this.Artifacts[i];
 
-                var fileLocation = new FileLocation
+                var fileLocation = new ArtifactLocation
                 {
-                    Uri = fileData.FileLocation?.Uri,
-                    UriBaseId = fileData.FileLocation?.UriBaseId,
+                    Uri = fileData.Location?.Uri,
+                    UriBaseId = fileData.Location?.UriBaseId,
                 };
 
                 _fileToIndexMap[fileLocation] = i;
@@ -145,7 +145,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public bool ShouldSerializeFiles() { return this.Files.HasAtLeastOneNonNullValue(); }
+        public bool ShouldSerializeArtifacts() { return this.Artifacts.HasAtLeastOneNonNullValue(); }
 
         public bool ShouldSerializeGraphs() { return this.Graphs.HasAtLeastOneNonNullValue(); }
 

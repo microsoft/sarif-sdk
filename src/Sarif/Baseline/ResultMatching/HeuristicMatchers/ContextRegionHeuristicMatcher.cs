@@ -18,10 +18,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
 
             public bool Equals(ExtractedResult x, ExtractedResult y)
             {
-                IEnumerable<FileContent> xContextRegions = x.Result.Locations.Select(loc => loc.PhysicalLocation.ContextRegion.Snippet);
+                IEnumerable<ArtifactContent> xContextRegions = x.Result.Locations.Select(loc => loc.PhysicalLocation.ContextRegion.Snippet);
 
-                HashSet<FileContent> yContextRegions = new HashSet<FileContent>(FileContentEqualityComparer.Instance);
-                foreach (FileContent content in y.Result.Locations.Select(loc => loc.PhysicalLocation.ContextRegion.Snippet))
+                HashSet<ArtifactContent> yContextRegions = new HashSet<ArtifactContent>(ArtifactContentEqualityComparer.Instance);
+                foreach (ArtifactContent content in y.Result.Locations.Select(loc => loc.PhysicalLocation.ContextRegion.Snippet))
                 {
                     yContextRegions.Add(content);
                 }
@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
                     return false;
                 }
 
-                foreach (FileContent content in xContextRegions)
+                foreach (ArtifactContent content in xContextRegions)
                 {
                     if (!yContextRegions.Contains(content))
                     {
@@ -45,10 +45,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
             public int GetHashCode(ExtractedResult obj)
             {
                 int hashCode = -187510987;
-                IEnumerable<FileContent> contextRegions = obj.Result.Locations.Select(loc => loc.PhysicalLocation.ContextRegion.Snippet);
-                foreach (FileContent content in contextRegions)
+                IEnumerable<ArtifactContent> contextRegions = obj.Result.Locations.Select(loc => loc.PhysicalLocation.ContextRegion.Snippet);
+                foreach (ArtifactContent content in contextRegions)
                 {
-                    hashCode ^= FileContentEqualityComparer.Instance.GetHashCode(content);
+                    hashCode ^= ArtifactContentEqualityComparer.Instance.GetHashCode(content);
                 }
 
                 return hashCode;

@@ -19,21 +19,21 @@
           ]
         }
       },
-      "files": [
+      "artifacts": [
         {
-          "fileLocation": {
+          "location": {
             "uri": "file.txt",
             "uriBaseId": "SUB",
-            "fileIndex": 0
+            "index": 0
           },
           "length": 3945,
           "roles": ["addedFile"],
           "mimeType": "text/plain"
         },
         {
-          "fileLocation": {
+          "location": {
             "uri": "file.txt",
-            "fileIndex": 1
+            "index": 1
           },
           "mimeType": "text/plain",
           "encoding": "utf8"
@@ -49,9 +49,9 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "file.txt",
-                  "fileIndex": 1
+                  "index": 1
                 }
               },
               "properties": {
@@ -69,10 +69,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "file.txt",
                   "uriBaseId": "SUB",
-                  "fileIndex": 0,
+                  "index": 0,
                   "properties": {
                     "key": "#SUB#file.txt"
                   }

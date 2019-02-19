@@ -107,7 +107,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
                         {
                             PhysicalLocation = new PhysicalLocation
                             {
-                                FileLocation = new FileLocation
+                                ArtifactLocation = new ArtifactLocation
                                 {
                                     Uri = new Uri(expectedUri, UriKind.RelativeOrAbsolute)
                                 }
@@ -130,7 +130,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers.UnitTests
                         {
                             PhysicalLocation = new PhysicalLocation
                             {
-                                FileLocation = new FileLocation
+                                ArtifactLocation = new ArtifactLocation
                                 {
                                     Uri = new Uri(inputUri, UriKind.RelativeOrAbsolute)
                                 }

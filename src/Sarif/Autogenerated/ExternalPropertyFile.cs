@@ -34,8 +34,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// The location of the external property file.
         /// </summary>
-        [DataMember(Name = "fileLocation", IsRequired = false, EmitDefaultValue = false)]
-        public FileLocation FileLocation { get; set; }
+        [DataMember(Name = "artifactLocation", IsRequired = false, EmitDefaultValue = false)]
+        public ArtifactLocation ArtifactLocation { get; set; }
 
         /// <summary>
         /// A stable, unique identifer for the external property file in the form of a GUID.
@@ -68,8 +68,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Initializes a new instance of the <see cref="ExternalPropertyFile" /> class from the supplied values.
         /// </summary>
-        /// <param name="fileLocation">
-        /// An initialization value for the <see cref="P:FileLocation" /> property.
+        /// <param name="artifactLocation">
+        /// An initialization value for the <see cref="P:ArtifactLocation" /> property.
         /// </param>
         /// <param name="instanceGuid">
         /// An initialization value for the <see cref="P:InstanceGuid" /> property.
@@ -80,9 +80,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ExternalPropertyFile(FileLocation fileLocation, string instanceGuid, int itemCount, IDictionary<string, SerializedPropertyInfo> properties)
+        public ExternalPropertyFile(ArtifactLocation artifactLocation, string instanceGuid, int itemCount, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(fileLocation, instanceGuid, itemCount, properties);
+            Init(artifactLocation, instanceGuid, itemCount, properties);
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.FileLocation, other.InstanceGuid, other.ItemCount, other.Properties);
+            Init(other.ArtifactLocation, other.InstanceGuid, other.ItemCount, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -122,11 +122,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExternalPropertyFile(this);
         }
 
-        private void Init(FileLocation fileLocation, string instanceGuid, int itemCount, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(ArtifactLocation artifactLocation, string instanceGuid, int itemCount, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            if (fileLocation != null)
+            if (artifactLocation != null)
             {
-                FileLocation = new FileLocation(fileLocation);
+                ArtifactLocation = new ArtifactLocation(artifactLocation);
             }
 
             InstanceGuid = instanceGuid;

@@ -9,14 +9,14 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Defines methods to support the comparison of objects of type FileChange for equality.
+    /// Defines methods to support the comparison of objects of type ArtifactChange for equality.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
-    internal sealed class FileChangeEqualityComparer : IEqualityComparer<FileChange>
+    internal sealed class ArtifactChangeEqualityComparer : IEqualityComparer<ArtifactChange>
     {
-        internal static readonly FileChangeEqualityComparer Instance = new FileChangeEqualityComparer();
+        internal static readonly ArtifactChangeEqualityComparer Instance = new ArtifactChangeEqualityComparer();
 
-        public bool Equals(FileChange left, FileChange right)
+        public bool Equals(ArtifactChange left, ArtifactChange right)
         {
             if (ReferenceEquals(left, right))
             {
@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!FileLocation.ValueComparer.Equals(left.FileLocation, right.FileLocation))
+            if (!ArtifactLocation.ValueComparer.Equals(left.ArtifactLocation, right.ArtifactLocation))
             {
                 return false;
             }
@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public int GetHashCode(FileChange obj)
+        public int GetHashCode(ArtifactChange obj)
         {
             if (ReferenceEquals(obj, null))
             {
@@ -89,9 +89,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (obj.FileLocation != null)
+                if (obj.ArtifactLocation != null)
                 {
-                    result = (result * 31) + obj.FileLocation.ValueGetHashCode();
+                    result = (result * 31) + obj.ArtifactLocation.ValueGetHashCode();
                 }
 
                 if (obj.Replacements != null)
