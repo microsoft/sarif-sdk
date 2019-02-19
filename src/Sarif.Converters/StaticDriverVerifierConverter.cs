@@ -143,7 +143,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     threadFlowLocation.Location.PhysicalLocation = new PhysicalLocation
                     {
-                        FileLocation = new FileLocation
+                        ArtifactLocation = new ArtifactLocation
                         {
                             Uri = uri
                         },

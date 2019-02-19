@@ -5,10 +5,10 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
 {
-    internal class FileLocationBaselineEquals : IEqualityComparer<FileLocation>
+    internal class ArtifactLocationBaselineEquals : IEqualityComparer<ArtifactLocation>
     {
-        public static readonly FileLocationBaselineEquals Instance = new FileLocationBaselineEquals();
-        public bool Equals(FileLocation x, FileLocation y)
+        public static readonly ArtifactLocationBaselineEquals Instance = new ArtifactLocationBaselineEquals();
+        public bool Equals(ArtifactLocation x, ArtifactLocation y)
         {
             if (!object.ReferenceEquals(x, y))
             {
@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.DefaultBaseline
             return true;
         }
 
-        public int GetHashCode(FileLocation obj)
+        public int GetHashCode(ArtifactLocation obj)
         {
             if (ReferenceEquals(obj, null))
             {

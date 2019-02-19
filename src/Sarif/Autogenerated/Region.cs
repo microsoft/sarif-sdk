@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The portion of the file contents within the specified region.
         /// </summary>
         [DataMember(Name = "snippet", IsRequired = false, EmitDefaultValue = false)]
-        public FileContent Snippet { get; set; }
+        public ArtifactContent Snippet { get; set; }
 
         /// <summary>
         /// A message relevant to the region.
@@ -150,7 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Region(int startLine, int startColumn, int endLine, int endColumn, int charOffset, int charLength, int byteOffset, int byteLength, FileContent snippet, Message message, string sourceLanguage, IDictionary<string, SerializedPropertyInfo> properties)
+        public Region(int startLine, int startColumn, int endLine, int endColumn, int charOffset, int charLength, int byteOffset, int byteLength, ArtifactContent snippet, Message message, string sourceLanguage, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(startLine, startColumn, endLine, endColumn, charOffset, charLength, byteOffset, byteLength, snippet, message, sourceLanguage, properties);
         }
@@ -192,7 +192,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Region(this);
         }
 
-        private void Init(int startLine, int startColumn, int endLine, int endColumn, int charOffset, int charLength, int byteOffset, int byteLength, FileContent snippet, Message message, string sourceLanguage, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int startLine, int startColumn, int endLine, int endColumn, int charOffset, int charLength, int byteOffset, int byteLength, ArtifactContent snippet, Message message, string sourceLanguage, IDictionary<string, SerializedPropertyInfo> properties)
         {
             StartLine = startLine;
             StartColumn = startColumn;
@@ -204,7 +204,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             ByteLength = byteLength;
             if (snippet != null)
             {
-                Snippet = new FileContent(snippet);
+                Snippet = new ArtifactContent(snippet);
             }
 
             if (message != null)

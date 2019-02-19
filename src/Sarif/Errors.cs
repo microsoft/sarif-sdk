@@ -273,7 +273,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     PhysicalLocation = new PhysicalLocation
                     {
-                        FileLocation = new FileLocation
+                        ArtifactLocation = new ArtifactLocation
                         {
                             Uri = context.TargetUri
                         },
@@ -471,7 +471,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             var physicalLocation = uri != null
                 ? new PhysicalLocation
                 {
-                    FileLocation = new FileLocation
+                    ArtifactLocation = new ArtifactLocation
                     {
                         Uri = uri
                     },

@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private string _automationId;
         private string _originalUriBasePath;
         private List<Result> _results = new List<Result>();
-        private HashSet<FileData> _files;
+        private HashSet<Artifact> _files;
         private List<ReportingDescriptor> _rules;
         private Dictionary<string, int> _ruleIdToIndexMap;
         private Dictionary<ThreadFlowLocation, string> _tflToNodeIdDictionary;
@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _strings = new FortifyFprStrings(_nameTable);
 
             _results = new List<Result>();
-            _files = new HashSet<FileData>(FileData.ValueComparer);
+            _files = new HashSet<Artifact>(Artifact.ValueComparer);
             _rules = new List<ReportingDescriptor>();
             _ruleIdToIndexMap = new Dictionary<string, int>();
             _tflToNodeIdDictionary = new Dictionary<ThreadFlowLocation, string>();
@@ -112,7 +112,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     InstanceGuid = _runId,
                     InstanceId = _automationId + "/"
                 },
-                Files = new List<FileData>(_files),
+                Artifacts = new List<Artifact>(_files),
                 Tool = new Tool
                 {
                     Driver = new ToolComponent
@@ -134,9 +134,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 if (Uri.TryCreate(_originalUriBasePath, UriKind.Absolute, out Uri uri))
                 {
-                    run.OriginalUriBaseIds = new Dictionary<string, FileLocation>
+                    run.OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>
                     {
-                        { FileLocationUriBaseId, new FileLocation { Uri = uri } }
+                        { FileLocationUriBaseId, new ArtifactLocation { Uri = uri } }
                     };
                 }
             }
@@ -308,12 +308,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             if (!string.IsNullOrEmpty(fileName))
             {
                 Uri uri = new Uri(fileName, UriKind.RelativeOrAbsolute);
-                var fileData = new FileData
+                var fileData = new Artifact
                 {
                     Encoding = encoding,
                     MimeType = MimeType.DetermineFromFileExtension(fileName),
                     Length = length,
-                    FileLocation = new FileLocation
+                    Location = new ArtifactLocation
                     { 
                         Uri = uri,
                         UriBaseId = uri.IsAbsoluteUri ? null : FileLocationUriBaseId
@@ -571,7 +571,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var uri = new Uri(path, UriKind.RelativeOrAbsolute);
             return new PhysicalLocation
             {
-                FileLocation = new FileLocation
+                ArtifactLocation = new ArtifactLocation
                 {
                     Uri = uri,
                     UriBaseId = uri.IsAbsoluteUri ? null : FileLocationUriBaseId
@@ -783,7 +783,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     StartLine = snippetStartLine,
                     EndLine = snippetEndLine,
-                    Snippet = new FileContent
+                    Snippet = new ArtifactContent
                     {
                         Text = text
                     }
@@ -809,7 +809,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     text = sb.ToString().TrimEnd(new[] { '\r', '\n' });
                 }
 
-                region.Snippet = new FileContent { Text = text };
+                region.Snippet = new ArtifactContent { Text = text };
             }
 
             // Regions[0] => physicalLocation.region

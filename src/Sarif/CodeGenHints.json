@@ -20,6 +20,104 @@
       }
     }
   ],
+  "artifact": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "Artifact.Hashes": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
+  "Artifact.LastModifiedTimeUtc": [
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "JsonConverter",
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter)" ]
+      }
+    }
+  ],
+  "Artifact.Roles": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "ArtifactRoles",
+        "description": "Values specifying the roles played by the file in the analysis.",
+        "flags": true,
+        "zeroValueName": "None",
+        "memberNames": [
+          "AnalysisTarget",
+          "Attachment",
+          "ResponseFile",
+          "ResultFile",
+          "StandardStream",
+          "TraceFile",
+          "UnmodifiedFile",
+          "ModifiedFile",
+          "AddedFile",
+          "DeletedFile",
+          "RenamedFile",
+          "GeneratedFile"
+        ]
+      }
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "JsonConverter",
+        "arguments": [ "typeof(FlagsEnumConverter)" ]
+      }
+    }
+  ],
+  "artifactChange": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "artifactContent": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "artifactLocation": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "ArtifactLocation.Uri": [
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "JsonConverter",
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter)" ]
+      }
+    }
+  ],
   "attachment": [
     {
       "kind": "BaseTypeHint",
@@ -100,112 +198,6 @@
         "baseTypeNames": [
           "PropertyBagHolder"
         ]
-      }
-    }
-  ],
-  "file": [
-    {
-      "kind": "ClassNameHint",
-      "arguments": {
-        "className": "FileData"
-      }
-    }
-  ],
-  "fileData": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "FileData.Hashes": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "FileData.LastModifiedTimeUtc": [
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter)" ]
-      }
-    }
-  ],
-  "FileData.Roles": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "FileRoles",
-        "description": "Values specifying the roles played by the file in the analysis.",
-        "flags": true,
-        "zeroValueName": "None",
-        "memberNames": [
-          "AnalysisTarget",
-          "Attachment",
-          "ResponseFile",
-          "ResultFile",
-          "StandardStream",
-          "TraceFile",
-          "UnmodifiedFile",
-          "ModifiedFile",
-          "AddedFile",
-          "DeletedFile",
-          "RenamedFile",
-          "GeneratedFile"
-        ]
-      }
-    },
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(FlagsEnumConverter)" ]
-      }
-    }
-  ],
-  "fileChange": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "fileContent": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "fileLocation": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "FileLocation.Uri": [
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter)" ]
       }
     }
   ],

@@ -22,10 +22,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "Helpers/DBHelper.cs",
                   "uriBaseId": "SRCROOT",
-                  "fileIndex": 0
+                  "index": 0
                 },
                 "region": {
                   "startLine": 146,
@@ -52,10 +52,10 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
+                          "artifactLocation": {
                             "uri": "Helpers/DBHelper.cs",
                             "uriBaseId": "SRCROOT",
-                            "fileIndex": 0
+                            "index": 0
                           },
                           "region": {
                             "startLine": 146,
@@ -92,10 +92,10 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
+                          "artifactLocation": {
                             "uri": "Helpers/DBHelper.cs",
                             "uriBaseId": "SRCROOT",
-                            "fileIndex": 0
+                            "index": 0
                           },
                           "region": {
                             "startLine": 148,
@@ -123,10 +123,10 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
+                          "artifactLocation": {
                             "uri": "Helpers/DBHelper.cs",
                             "uriBaseId": "SRCROOT",
-                            "fileIndex": 0
+                            "index": 0
                           },
                           "region": {
                             "startLine": 139,
@@ -154,10 +154,10 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
+                          "artifactLocation": {
                             "uri": "Helpers/DBHelper.cs",
                             "uriBaseId": "SRCROOT",
-                            "fileIndex": 0
+                            "index": 0
                           },
                           "region": {
                             "startLine": 139,
@@ -193,10 +193,10 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
+                          "artifactLocation": {
                             "uri": "Helpers/DBHelper.cs",
                             "uriBaseId": "SRCROOT",
-                            "fileIndex": 0
+                            "index": 0
                           },
                           "region": {
                             "startLine": 146,
@@ -233,10 +233,10 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
+                          "artifactLocation": {
                             "uri": "Helpers/DBHelper.cs",
                             "uriBaseId": "SRCROOT",
-                            "fileIndex": 0
+                            "index": 0
                           },
                           "region": {
                             "startLine": 148,
@@ -264,10 +264,10 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
+                          "artifactLocation": {
                             "uri": "Helpers/DBHelper.cs",
                             "uriBaseId": "SRCROOT",
-                            "fileIndex": 0
+                            "index": 0
                           },
                           "region": {
                             "startLine": 150,
@@ -295,10 +295,10 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
+                          "artifactLocation": {
                             "uri": "Helpers/DBHelper.cs",
                             "uriBaseId": "SRCROOT",
-                            "fileIndex": 0
+                            "index": 0
                           },
                           "region": {
                             "startLine": 150,
@@ -326,10 +326,10 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
+                          "artifactLocation": {
                             "uri": "Helpers/DBHelper.cs",
                             "uriBaseId": "SRCROOT",
-                            "fileIndex": 0
+                            "index": 0
                           },
                           "region": {
                             "startLine": 150,
@@ -363,10 +363,10 @@
             {
               "physicalLocation": {
                 "id": 1,
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "Helpers/DBHelper.cs",
                   "uriBaseId": "SRCROOT",
-                  "fileIndex": 0
+                  "index": 0
                 },
                 "region": {
                   "startLine": 146,
@@ -404,12 +404,12 @@
           }
         }
       ],
-      "files": [
+      "artifacts": [
         {
-          "fileLocation": {
+          "location": {
             "uri": "Helpers/DBHelper.cs",
             "uriBaseId": "SRCROOT",
-            "fileIndex": 0
+            "index": 0
           },
           "length": 8297,
           "mimeType": "text/x-csharp",

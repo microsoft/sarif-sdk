@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                             {
                                 PhysicalLocation = new PhysicalLocation()
                                 {
-                                    FileLocation = new FileLocation
+                                    ArtifactLocation = new ArtifactLocation
                                     {
                                         Uri = new Uri(filePath)
                                     }
@@ -40,13 +40,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 }
             };
 
-            run.Files.Should().BeNull();
+            run.Artifacts.Should().BeNull();
 
             var visitor = new AddFileReferencesVisitor();
             visitor.Visit(run);
 
-            run.Files.Count.Should().Be(1);
-            run.Files[0].Should().NotBeNull();
+            run.Artifacts.Count.Should().Be(1);
+            run.Artifacts[0].Should().NotBeNull();
         }
     }
 }

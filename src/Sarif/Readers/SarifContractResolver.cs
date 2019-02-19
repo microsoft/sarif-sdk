@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             else if (objectType == typeof(SuppressionStates))
                 contract.Converter = FlagsEnumConverter.Instance;
 
-            else if (objectType == typeof(FileRoles))
+            else if (objectType == typeof(ArtifactRoles))
                 contract.Converter = FlagsEnumConverter.Instance;
 
             else if (objectType == typeof(IDictionary<string, SerializedPropertyInfo>))

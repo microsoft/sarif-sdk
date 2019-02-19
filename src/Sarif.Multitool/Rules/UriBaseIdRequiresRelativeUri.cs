@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF1014_Default)
         };
 
-        protected override void Analyze(FileLocation fileLocation, string fileLocationPointer)
+        protected override void Analyze(ArtifactLocation fileLocation, string fileLocationPointer)
         {
             if (fileLocation.UriBaseId != null && fileLocation.Uri.IsAbsoluteUri)
             {

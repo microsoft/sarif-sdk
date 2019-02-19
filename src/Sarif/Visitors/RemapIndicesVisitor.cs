@@ -13,34 +13,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     /// </summary>
     public class RemapIndicesVisitor : SarifRewritingVisitor
     {
-        public RemapIndicesVisitor(IList<FileData> currentFiles)
+        public RemapIndicesVisitor(IList<Artifact> currentFiles)
         {
             BuildRemappedFiles(currentFiles);
             RemappedLogicalLocationIndices = new Dictionary<LogicalLocation, int>(LogicalLocation.ValueComparer);
         }
 
-        private void BuildRemappedFiles(IList<FileData> currentFiles)
+        private void BuildRemappedFiles(IList<Artifact> currentFiles)
         {
-            RemappedFiles = new Dictionary<OrderSensitiveValueComparisonList<FileData>, int>();
+            RemappedFiles = new Dictionary<OrderSensitiveValueComparisonList<Artifact>, int>();
 
             if (currentFiles != null)
             {
-                foreach (FileData fileData in currentFiles)
+                foreach (Artifact fileData in currentFiles)
                 {
                     CacheFileData(fileData);
                 }
             }
         }
 
-        public IList<FileData> CurrentFiles { get; set; }
+        public IList<Artifact> CurrentFiles { get; set; }
 
-        public IList<FileData> HistoricalFiles { get; set; }
+        public IList<Artifact> HistoricalFiles { get; set; }
 
         public IList<LogicalLocation> HistoricalLogicalLocations { get; set; }
 
         public IDictionary<LogicalLocation, int> RemappedLogicalLocationIndices { get; private set; }
 
-        public IDictionary<OrderSensitiveValueComparisonList<FileData>, int> RemappedFiles { get; private set; }
+        public IDictionary<OrderSensitiveValueComparisonList<Artifact>, int> RemappedFiles { get; private set; }
 
         public override Result VisitResult(Result node)
         {
@@ -70,23 +70,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return base.VisitLocation(node);
         }
 
-        public override FileData VisitFileData(FileData node)
+        public override Artifact VisitArtifact(Artifact node)
         {
-            return base.VisitFileData(node);
+            return base.VisitArtifact(node);
         }
 
-        public override FileLocation VisitFileLocation(FileLocation node)
+        public override ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
         {
-            if (node.FileIndex != -1 && HistoricalFiles != null)
+            if (node.Index != -1 && HistoricalFiles != null)
             {
-                node.FileIndex = CacheFileData(HistoricalFiles[node.FileIndex]);
+                node.Index = CacheFileData(HistoricalFiles[node.Index]);
             }
             return node;
         }
         
-        private int CacheFileData(FileData fileData)
+        private int CacheFileData(Artifact fileData)
         {
-            this.CurrentFiles = this.CurrentFiles ?? new List<FileData>();
+            this.CurrentFiles = this.CurrentFiles ?? new List<Artifact>();
 
             int parentIndex = fileData.ParentIndex;
 
@@ -98,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 fileData.ParentIndex = CacheFileData(HistoricalFiles[parentIndex]);
             }
 
-            OrderSensitiveValueComparisonList<FileData> fileChain;
+            OrderSensitiveValueComparisonList<Artifact> fileChain;
 
             // Equally important, the file chain is a specially constructed key that
             // operates against the newly constructed files array in CurrentFiles
@@ -113,17 +113,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 Debug.Assert(RemappedFiles.Count == this.CurrentFiles.Count);
 
-                if (fileData.FileLocation != null)
+                if (fileData.Location != null)
                 {
-                    fileData.FileLocation.FileIndex = remappedIndex;
+                    fileData.Location.Index = remappedIndex;
                 }
             }
             return remappedIndex;
         }
 
-        private static OrderSensitiveValueComparisonList<FileData> ConstructFilesChain(IList<FileData> existingFiles, FileData currentFile)
+        private static OrderSensitiveValueComparisonList<Artifact> ConstructFilesChain(IList<Artifact> existingFiles, Artifact currentFile)
         {
-            var fileChain = new OrderSensitiveValueComparisonList<FileData>(FileData.ValueComparer);
+            var fileChain = new OrderSensitiveValueComparisonList<Artifact>(Artifact.ValueComparer);
 
             int parentIndex;
 
@@ -136,9 +136,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 // as each element of the chain could be stored at arbitrary locations in
                 // the run.files table. And so we elide this information.
                 currentFile.ParentIndex = -1;
-                if (currentFile.FileLocation != null)
+                if (currentFile.Location != null)
                 {
-                    currentFile.FileLocation.FileIndex = -1;
+                    currentFile.Location.Index = -1;
                 }
 
                 fileChain.Add(currentFile);

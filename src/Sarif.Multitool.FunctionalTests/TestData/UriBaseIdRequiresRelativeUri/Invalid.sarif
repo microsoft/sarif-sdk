@@ -16,7 +16,7 @@
           ],
           "attachments": [
             {
-              "fileLocation": {
+              "artifactLocation": {
                 "uri": "file:///C:/src/file.c",
                 "uriBaseId": "%SRCROOT%"
               }
@@ -25,7 +25,7 @@
           "toolNotifications": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "file:///C:/src/file.c",
                   "uriBaseId": "%SRCROOT%"
                 }
@@ -38,7 +38,7 @@
           "configurationNotifications": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "file:///C:/src/file.c",
                   "uriBaseId": "%SRCROOT%"
                 }
@@ -91,12 +91,11 @@
           }
         }
       ],
-      "files": [
+      "artifacts": [
         {
-          "fileLocation": {
+          "location": {
             "uri": "file:///C:/src/file.c",
-            "uriBaseId": "%SRCROOT%",
-            "fileIndex": 0
+            "uriBaseId": "%SRCROOT%"
           }
         }
       ],
@@ -108,7 +107,7 @@
               "id": "n1",
               "location": {
                 "physicalLocation": {
-                  "fileLocation": {
+                  "artifactLocation": {
                     "uri": "file:///C:/src/file.c",
                     "uriBaseId": "%SRCROOT%"
                   }
@@ -139,7 +138,7 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "file:///C:/src/file.c",
                   "uriBaseId": "%SRCROOT%"
                 }
@@ -152,7 +151,7 @@
                 {
                   "location": {
                     "physicalLocation": {
-                      "fileLocation": {
+                      "artifactLocation": {
                         "uri": "file:///C:/src/file.c",
                         "uriBaseId": "%SRCROOT%"
                       }
@@ -170,7 +169,7 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
+                          "artifactLocation": {
                             "uri": "file:///C:/src/file.c",
                             "uriBaseId": "%SRCROOT%"
                           }
@@ -190,7 +189,7 @@
                   "id": "n1",
                   "location": {
                     "physicalLocation": {
-                      "fileLocation": {
+                      "artifactLocation": {
                         "uri": "file:///C:/src/file.c",
                         "uriBaseId": "%SRCROOT%"
                       }
@@ -210,7 +209,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "file:///C:/src/file.c",
                   "uriBaseId": "%SRCROOT%"
                 }
@@ -219,7 +218,7 @@
           ],
           "attachments": [
             {
-              "fileLocation": {
+              "artifactLocation": {
                 "uri": "file:///C:/src/file.c",
                 "uriBaseId": "%SRCROOT%"
               }
@@ -228,7 +227,7 @@
           "provenance": {
             "conversionSources": [
               {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "file:///C:/src/file.c",
                   "uriBaseId": "%SRCROOT%"
                 }
@@ -239,7 +238,7 @@
             {
               "fileChanges": [
                 {
-                  "fileLocation": {
+                  "artifactLocation": {
                     "uri": "file:///C:/src/file.c",
                     "uriBaseId": "%SRCROOT%"
                   },
@@ -261,26 +260,26 @@
         "expectedResults": {
           "resultLocationPointers": [
             "runs[0].conversion.analysisToolLogFiles[0].uri",
-            "runs[0].files[0].fileLocation.uri",
-            "runs[0].graphs.g1.nodes[0].location.physicalLocation.fileLocation.uri",
-            "runs[0].invocations[0].attachments[0].fileLocation.uri",
-            "runs[0].invocations[0].configurationNotifications[0].physicalLocation.fileLocation.uri",
+            "runs[0].artifacts[0].location.uri",
+            "runs[0].graphs.g1.nodes[0].location.physicalLocation.artifactLocation.uri",
+            "runs[0].invocations[0].attachments[0].artifactLocation.uri",
+            "runs[0].invocations[0].configurationNotifications[0].physicalLocation.artifactLocation.uri",
             "runs[0].invocations[0].executableLocation.uri",
             "runs[0].invocations[0].responseFiles[0].uri",
             "runs[0].invocations[0].stdin.uri",
             "runs[0].invocations[0].stdout.uri",
             "runs[0].invocations[0].stderr.uri",
             "runs[0].invocations[0].stdoutStderr.uri",
-            "runs[0].invocations[0].toolNotifications[0].physicalLocation.fileLocation.uri",
+            "runs[0].invocations[0].toolNotifications[0].physicalLocation.artifactLocation.uri",
             "runs[0].results[0].analysisTarget.uri",
-            "runs[0].results[0].attachments[0].fileLocation.uri",
-            "runs[0].results[0].provenance.conversionSources[0].fileLocation.uri",
-            "runs[0].results[0].graphs.g1.nodes[0].location.physicalLocation.fileLocation.uri",
-            "runs[0].results[0].locations[0].physicalLocation.fileLocation.uri",
-            "runs[0].results[0].relatedLocations[0].physicalLocation.fileLocation.uri",
-            "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0].location.physicalLocation.fileLocation.uri",
-            "runs[0].results[0].stacks[0].frames[0].location.physicalLocation.fileLocation.uri",
-            "runs[0].results[0].fixes[0].fileChanges[0].fileLocation.uri",
+            "runs[0].results[0].attachments[0].artifactLocation.uri",
+            "runs[0].results[0].provenance.conversionSources[0].artifactLocation.uri",
+            "runs[0].results[0].graphs.g1.nodes[0].location.physicalLocation.artifactLocation.uri",
+            "runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri",
+            "runs[0].results[0].relatedLocations[0].physicalLocation.artifactLocation.uri",
+            "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0].location.physicalLocation.artifactLocation.uri",
+            "runs[0].results[0].stacks[0].frames[0].location.physicalLocation.artifactLocation.uri",
+            "runs[0].results[0].fixes[0].changes[0].artifactLocation.uri",
             "runs[0].versionControlProvenance[0].mappedTo.uri"
           ]
         }

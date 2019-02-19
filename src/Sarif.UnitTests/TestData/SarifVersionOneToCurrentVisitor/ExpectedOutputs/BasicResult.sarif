@@ -1,14 +1,46 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-10-10",
-  "version": "2.0.0-csd.2.beta.2018-10-10",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-01-24",
+  "version": "2.0.0-csd.2.beta.2019-01-24",
   "runs": [
     {
       "tool": {
-        "name": "CodeScanner",
-        "semanticVersion": "2.1.0"
+        "driver": {
+          "name": "CodeScanner",
+          "semanticVersion": "2.1.0",
+          "ruleDescriptors": [
+            {
+              "id": "C2001",
+              "shortDescription": {
+                "text": "A variable was used without being initialized."
+              },
+              "fullDescription": {
+                "text": "A variable was used without being initialized. This can result in runtime errors such as null reference exceptions."
+              },
+              "messageStrings": {
+                "default": {
+                  "text": "Variable \"{0}\" was used without being initialized."
+                }
+              }
+            },
+            {
+              "id": "C2002",
+              "shortDescription": {
+                "text": "A potentially confusing naming collision exists."
+              },
+              "messageStrings": {
+                "default": {
+                  "text": "The fully qualified name \"{0}\" is shared between multiple constructs in this component, potentially compromising maintainability."
+                }
+              }
+            }
+          ]
+        }
       },
-      "files": {
-        "file:///home/list.txt": {
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///home/list.txt"
+          },
           "length": 43,
           "mimeType": "text/plain",
           "contents": {
@@ -18,7 +50,7 @@
             "sha-256": "d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"
           }
         }
-      },
+      ],
       "logicalLocations": [
         {
           "name": "collections",
@@ -55,7 +87,7 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "file:///home/buildAgent/src/myFile.cpp"
                 },
                 "region": {
@@ -70,6 +102,7 @@
         },
         {
           "ruleId": "C2001",
+          "ruleIndex": 0,
           "message": {
             "messageId": "default",
             "arguments": [
@@ -82,7 +115,7 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "file:///home/buildAgent/src/collections/list.h"
                 },
                 "region": {
@@ -98,7 +131,7 @@
             },
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "file:///home/buildAgent/src/collections/list_collision.cpp"
                 },
                 "region": {
@@ -113,6 +146,7 @@
         },
         {
           "ruleId": "C2001",
+          "ruleIndex": 0,
           "level": "error",
           "message": {
             "messageId": "default",
@@ -126,7 +160,7 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "file:///home/buildAgent/src/collections/list.h"
                 },
                 "region": {
@@ -147,7 +181,7 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "file:///home/list.txt"
                 },
                 "region": {
@@ -164,7 +198,7 @@
             },
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "file:///home/list.txt"
                 },
                 "region": {
@@ -180,7 +214,7 @@
             },
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "file:///home/buildAgent/src/collections/list_collision.cpp"
                 },
                 "region": {
@@ -195,35 +229,10 @@
               }
             }
           ],
-          "suppressionStates": [ "suppressedExternally" ],
-          "baselineState": "existing"
+          "suppressionStates": ["suppressedExternally"],
+          "baselineState": "unchanged"
         }
       ],
-      "resources": {
-        "rules": {
-          "C2001": {
-            "id": "C2001",
-            "shortDescription": {
-              "text": "A variable was used without being initialized."
-            },
-            "fullDescription": {
-              "text": "A variable was used without being initialized. This can result in runtime errors such as null reference exceptions."
-            },
-            "messageStrings": {
-              "default": "Variable \"{0}\" was used without being initialized."
-            }
-          },
-          "C2002": {
-            "id": "C2002",
-            "shortDescription": {
-              "text": "A potentially confusing naming collision exists."
-            },
-            "messageStrings": {
-              "default": "The fully qualified name \"{0}\" is shared between multiple constructs in this component, potentially compromising maintainability."
-            }
-          }
-        }
-      },
       "columnKind": "utf16CodeUnits"
     }
   ]

@@ -41,8 +41,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// One or more file changes that comprise a fix for a result.
         /// </summary>
-        [DataMember(Name = "fileChanges", IsRequired = true)]
-        public IList<FileChange> FileChanges { get; set; }
+        [DataMember(Name = "changes", IsRequired = true)]
+        public IList<ArtifactChange> Changes { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the fix.
@@ -63,15 +63,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="description">
         /// An initialization value for the <see cref="P:Description" /> property.
         /// </param>
-        /// <param name="fileChanges">
-        /// An initialization value for the <see cref="P:FileChanges" /> property.
+        /// <param name="changes">
+        /// An initialization value for the <see cref="P:Changes" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Fix(Message description, IEnumerable<FileChange> fileChanges, IDictionary<string, SerializedPropertyInfo> properties)
+        public Fix(Message description, IEnumerable<ArtifactChange> changes, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(description, fileChanges, properties);
+            Init(description, changes, properties);
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Description, other.FileChanges, other.Properties);
+            Init(other.Description, other.Changes, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -111,17 +111,17 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Fix(this);
         }
 
-        private void Init(Message description, IEnumerable<FileChange> fileChanges, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Message description, IEnumerable<ArtifactChange> changes, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (description != null)
             {
                 Description = new Message(description);
             }
 
-            if (fileChanges != null)
+            if (changes != null)
             {
-                var destination_0 = new List<FileChange>();
-                foreach (var value_0 in fileChanges)
+                var destination_0 = new List<ArtifactChange>();
+                foreach (var value_0 in changes)
                 {
                     if (value_0 == null)
                     {
@@ -129,11 +129,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_0.Add(new FileChange(value_0));
+                        destination_0.Add(new ArtifactChange(value_0));
                     }
                 }
 
-                FileChanges = destination_0;
+                Changes = destination_0;
             }
 
             if (properties != null)

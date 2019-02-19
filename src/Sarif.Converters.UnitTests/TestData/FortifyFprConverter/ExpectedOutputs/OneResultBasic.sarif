@@ -22,10 +22,10 @@
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "Helpers/InvoiceHelper.cs",
                   "uriBaseId": "SRCROOT",
-                  "fileIndex": 0
+                  "index": 0
                 },
                 "region": {
                   "startLine": 57,
@@ -52,10 +52,10 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "fileLocation": {
+                          "artifactLocation": {
                             "uri": "Helpers/InvoiceHelper.cs",
                             "uriBaseId": "SRCROOT",
-                            "fileIndex": 0
+                            "index": 0
                           },
                           "region": {
                             "startLine": 57,
@@ -89,10 +89,10 @@
             {
               "physicalLocation": {
                 "id": 1,
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "Helpers/InvoiceHelper.cs",
                   "uriBaseId": "SRCROOT",
-                  "fileIndex": 0
+                  "index": 0
                 },
                 "region": {
                   "startLine": 57,
@@ -130,12 +130,12 @@
           }
         }
       ],
-      "files": [
+      "artifacts": [
         {
-          "fileLocation": {
+          "location": {
             "uri": "Helpers/InvoiceHelper.cs",
             "uriBaseId": "SRCROOT",
-            "fileIndex": 0
+            "index": 0
           },
           "length": 8297,
           "mimeType": "text/x-csharp",

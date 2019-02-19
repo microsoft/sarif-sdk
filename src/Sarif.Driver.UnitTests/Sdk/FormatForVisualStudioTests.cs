@@ -240,7 +240,7 @@ private Result MakeResultFromTestCase(FailureLevel level, ResultKind kind, Regio
                     {
                         PhysicalLocation = new PhysicalLocation
                         {
-                            FileLocation = new FileLocation
+                            ArtifactLocation = new ArtifactLocation
                             {
                                 Uri = new Uri(path, UriKind.RelativeOrAbsolute)
                             },

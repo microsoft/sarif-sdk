@@ -132,12 +132,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 location.PhysicalLocation = new PhysicalLocation
                 {
-                    FileLocation = new FileLocation(),
+                    ArtifactLocation = new ArtifactLocation(),
                     Region = problem.Line <= 0 ? null : Extensions.CreateRegion(problem.Line)
                 };
 
                 bool foundUriBaseId = RemoveBadRoot(file, out uri);
-                location.PhysicalLocation.FileLocation.Uri = uri;
+                location.PhysicalLocation.ArtifactLocation.Uri = uri;
 
                 // TODO enable this change after current work
                 // https://github.com/Microsoft/sarif-sdk/issues/1168

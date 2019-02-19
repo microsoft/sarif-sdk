@@ -95,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             return new PhysicalLocation
             {
-                FileLocation = new FileLocation
+                ArtifactLocation = new ArtifactLocation
                 {
                     Uri = new Uri(this.File, UriKind.RelativeOrAbsolute)
                 },

@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         public static new readonly SarifDeferredContractResolver Instance = new SarifDeferredContractResolver();
 
         private static readonly DeferredListConverter<Result> ResultConverterInstance = new DeferredListConverter<Result>();
-        private static readonly DeferredDictionaryConverter<FileData> FilesConverterInstance = new DeferredDictionaryConverter<FileData>();
+        private static readonly DeferredDictionaryConverter<Artifact> FilesConverterInstance = new DeferredDictionaryConverter<Artifact>();
 
         protected override JsonContract CreateContract(Type type)
         {
@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 contract.Converter = ResultConverterInstance;
                 return contract;
             }
-            else if (type == typeof(IDictionary<string, FileData>))
+            else if (type == typeof(IDictionary<string, Artifact>))
             {
                 contract.Converter = FilesConverterInstance;
                 return contract;

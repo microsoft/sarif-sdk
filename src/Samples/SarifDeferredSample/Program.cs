@@ -69,12 +69,12 @@ namespace SarifDeferredSample
                 int fileCount = 0;
                 int uriLengthTotal = 0;
 
-                if (run.Files != null)
+                if (run.Artifacts != null)
                 {
                     // Fastest: Enumerate
-                    foreach (FileData file in run.Files)
+                    foreach (Artifact artifact in run.Artifacts)
                     {
-                        uriLengthTotal += file?.FileLocation?.Uri?.OriginalString?.Length ?? 0;
+                        uriLengthTotal += artifact?.Location?.Uri?.OriginalString?.Length ?? 0;
                         fileCount++;
                     }
 
@@ -82,7 +82,7 @@ namespace SarifDeferredSample
                     //foreach (var key in run.Files.Keys)
                     //{
                     //    FileData file = run.Files[key];
-                    //    uriLengthTotal += file?.FileLocation?.Uri?.OriginalString?.Length ?? 0;
+                    //    uriLengthTotal += file?.ArtifactLocation?.Uri?.OriginalString?.Length ?? 0;
                     //    fileCount++;
                     //}
                 } 

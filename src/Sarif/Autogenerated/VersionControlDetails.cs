@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The location in the local file system to which the root of the repository was mapped at the time of the analysis.
         /// </summary>
         [DataMember(Name = "mappedTo", IsRequired = false, EmitDefaultValue = false)]
-        public FileLocation MappedTo { get; set; }
+        public ArtifactLocation MappedTo { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the version control details.
@@ -108,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public VersionControlDetails(Uri repositoryUri, string revisionId, string branch, string revisionTag, DateTime asOfTimeUtc, FileLocation mappedTo, IDictionary<string, SerializedPropertyInfo> properties)
+        public VersionControlDetails(Uri repositoryUri, string revisionId, string branch, string revisionTag, DateTime asOfTimeUtc, ArtifactLocation mappedTo, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(repositoryUri, revisionId, branch, revisionTag, asOfTimeUtc, mappedTo, properties);
         }
@@ -150,7 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new VersionControlDetails(this);
         }
 
-        private void Init(Uri repositoryUri, string revisionId, string branch, string revisionTag, DateTime asOfTimeUtc, FileLocation mappedTo, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Uri repositoryUri, string revisionId, string branch, string revisionTag, DateTime asOfTimeUtc, ArtifactLocation mappedTo, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (repositoryUri != null)
             {
@@ -163,7 +163,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             AsOfTimeUtc = asOfTimeUtc;
             if (mappedTo != null)
             {
-                MappedTo = new FileLocation(mappedTo);
+                MappedTo = new ArtifactLocation(mappedTo);
             }
 
             if (properties != null)

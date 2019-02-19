@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (populateSnippet)
             {
-                region.Snippet = region.Snippet ?? new FileContent();
+                region.Snippet = region.Snippet ?? new ArtifactContent();
 
                 string snippetText = fileText.Substring(region.CharOffset, region.CharLength);
                 if (region.Snippet.Text == null)

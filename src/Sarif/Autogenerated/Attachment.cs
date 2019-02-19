@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// A file relevant to a tool invocation or to a result.
+    /// An artifact relevant to a tool invocation or to a result.
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
@@ -42,8 +42,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// The location of the attachment.
         /// </summary>
-        [DataMember(Name = "fileLocation", IsRequired = true)]
-        public FileLocation FileLocation { get; set; }
+        [DataMember(Name = "artifactLocation", IsRequired = true)]
+        public ArtifactLocation ArtifactLocation { get; set; }
 
         /// <summary>
         /// An array of regions of interest within the attachment.
@@ -78,8 +78,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="description">
         /// An initialization value for the <see cref="P:Description" /> property.
         /// </param>
-        /// <param name="fileLocation">
-        /// An initialization value for the <see cref="P:FileLocation" /> property.
+        /// <param name="artifactLocation">
+        /// An initialization value for the <see cref="P:ArtifactLocation" /> property.
         /// </param>
         /// <param name="regions">
         /// An initialization value for the <see cref="P:Regions" /> property.
@@ -90,9 +90,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Attachment(Message description, FileLocation fileLocation, IEnumerable<Region> regions, IEnumerable<Rectangle> rectangles, IDictionary<string, SerializedPropertyInfo> properties)
+        public Attachment(Message description, ArtifactLocation artifactLocation, IEnumerable<Region> regions, IEnumerable<Rectangle> rectangles, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(description, fileLocation, regions, rectangles, properties);
+            Init(description, artifactLocation, regions, rectangles, properties);
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Description, other.FileLocation, other.Regions, other.Rectangles, other.Properties);
+            Init(other.Description, other.ArtifactLocation, other.Regions, other.Rectangles, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -132,16 +132,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Attachment(this);
         }
 
-        private void Init(Message description, FileLocation fileLocation, IEnumerable<Region> regions, IEnumerable<Rectangle> rectangles, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Message description, ArtifactLocation artifactLocation, IEnumerable<Region> regions, IEnumerable<Rectangle> rectangles, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (description != null)
             {
                 Description = new Message(description);
             }
 
-            if (fileLocation != null)
+            if (artifactLocation != null)
             {
-                FileLocation = new FileLocation(fileLocation);
+                ArtifactLocation = new ArtifactLocation(artifactLocation);
             }
 
             if (regions != null)

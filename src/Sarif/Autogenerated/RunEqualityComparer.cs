@@ -89,34 +89,34 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 foreach (var value_0 in left.OriginalUriBaseIds)
                 {
-                    FileLocation value_1;
+                    ArtifactLocation value_1;
                     if (!right.OriginalUriBaseIds.TryGetValue(value_0.Key, out value_1))
                     {
                         return false;
                     }
 
-                    if (!FileLocation.ValueComparer.Equals(value_0.Value, value_1))
+                    if (!ArtifactLocation.ValueComparer.Equals(value_0.Value, value_1))
                     {
                         return false;
                     }
                 }
             }
 
-            if (!object.ReferenceEquals(left.Files, right.Files))
+            if (!object.ReferenceEquals(left.Artifacts, right.Artifacts))
             {
-                if (left.Files == null || right.Files == null)
+                if (left.Artifacts == null || right.Artifacts == null)
                 {
                     return false;
                 }
 
-                if (left.Files.Count != right.Files.Count)
+                if (left.Artifacts.Count != right.Artifacts.Count)
                 {
                     return false;
                 }
 
-                for (int index_2 = 0; index_2 < left.Files.Count; ++index_2)
+                for (int index_2 = 0; index_2 < left.Artifacts.Count; ++index_2)
                 {
-                    if (!FileData.ValueComparer.Equals(left.Files[index_2], right.Files[index_2]))
+                    if (!Artifact.ValueComparer.Equals(left.Artifacts[index_2], right.Artifacts[index_2]))
                     {
                         return false;
                     }
@@ -354,9 +354,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + xor_0;
                 }
 
-                if (obj.Files != null)
+                if (obj.Artifacts != null)
                 {
-                    foreach (var value_9 in obj.Files)
+                    foreach (var value_9 in obj.Artifacts)
                     {
                         result = result * 31;
                         if (value_9 != null)

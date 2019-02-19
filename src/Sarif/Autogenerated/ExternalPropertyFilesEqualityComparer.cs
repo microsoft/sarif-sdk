@@ -42,21 +42,21 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!object.ReferenceEquals(left.Files, right.Files))
+            if (!object.ReferenceEquals(left.Artifacts, right.Artifacts))
             {
-                if (left.Files == null || right.Files == null)
+                if (left.Artifacts == null || right.Artifacts == null)
                 {
                     return false;
                 }
 
-                if (left.Files.Count != right.Files.Count)
+                if (left.Artifacts.Count != right.Artifacts.Count)
                 {
                     return false;
                 }
 
-                for (int index_0 = 0; index_0 < left.Files.Count; ++index_0)
+                for (int index_0 = 0; index_0 < left.Artifacts.Count; ++index_0)
                 {
-                    if (!ExternalPropertyFile.ValueComparer.Equals(left.Files[index_0], right.Files[index_0]))
+                    if (!ExternalPropertyFile.ValueComparer.Equals(left.Artifacts[index_0], right.Artifacts[index_0]))
                     {
                         return false;
                     }
@@ -159,9 +159,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.ExternalizedProperties.ValueGetHashCode();
                 }
 
-                if (obj.Files != null)
+                if (obj.Artifacts != null)
                 {
-                    foreach (var value_0 in obj.Files)
+                    foreach (var value_0 in obj.Artifacts)
                     {
                         result = result * 31;
                         if (value_0 != null)

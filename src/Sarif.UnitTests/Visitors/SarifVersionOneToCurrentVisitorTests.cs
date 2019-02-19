@@ -13,6 +13,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
     {
         public SarifVersionOneToCurrentVisitorTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
 
+        protected override bool RebaselineExpectedResults => false;
+
         protected override string ConstructTestOutputFromInputResource(string inputResourceName)
         {
             string v1LogText = GetResourceText(inputResourceName);

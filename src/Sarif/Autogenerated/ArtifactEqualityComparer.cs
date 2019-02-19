@@ -9,14 +9,14 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Defines methods to support the comparison of objects of type FileData for equality.
+    /// Defines methods to support the comparison of objects of type Artifact for equality.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
-    internal sealed class FileDataEqualityComparer : IEqualityComparer<FileData>
+    internal sealed class ArtifactEqualityComparer : IEqualityComparer<Artifact>
     {
-        internal static readonly FileDataEqualityComparer Instance = new FileDataEqualityComparer();
+        internal static readonly ArtifactEqualityComparer Instance = new ArtifactEqualityComparer();
 
-        public bool Equals(FileData left, FileData right)
+        public bool Equals(Artifact left, Artifact right)
         {
             if (ReferenceEquals(left, right))
             {
@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!FileLocation.ValueComparer.Equals(left.FileLocation, right.FileLocation))
+            if (!ArtifactLocation.ValueComparer.Equals(left.Location, right.Location))
             {
                 return false;
             }
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!FileContent.ValueComparer.Equals(left.Contents, right.Contents))
+            if (!ArtifactContent.ValueComparer.Equals(left.Contents, right.Contents))
             {
                 return false;
             }
@@ -125,7 +125,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public int GetHashCode(FileData obj)
+        public int GetHashCode(Artifact obj)
         {
             if (ReferenceEquals(obj, null))
             {
@@ -135,9 +135,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (obj.FileLocation != null)
+                if (obj.Location != null)
                 {
-                    result = (result * 31) + obj.FileLocation.ValueGetHashCode();
+                    result = (result * 31) + obj.Location.ValueGetHashCode();
                 }
 
                 result = (result * 31) + obj.ParentIndex.GetHashCode();

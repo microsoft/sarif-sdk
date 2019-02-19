@@ -216,7 +216,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 Message = new Message { Text = "This is a test" },
                 PhysicalLocation = new PhysicalLocation
                 {
-                    FileLocation = new FileLocation
+                    ArtifactLocation = new ArtifactLocation
                     {
                         Uri = new Uri("file:///C:/src/a.cs")
                     },
@@ -249,7 +249,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                                             FullyQualifiedLogicalName = "N1.N2.C.M1",
                                             PhysicalLocation = new PhysicalLocation
                                             {
-                                                FileLocation = new FileLocation
+                                                ArtifactLocation = new ArtifactLocation
                                                 {
                                                     Uri = new Uri("file:///C:/src/a.cs")
                                                 },
@@ -269,7 +269,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                                             FullyQualifiedLogicalName = "N1.N2.C.M2",
                                             PhysicalLocation = new PhysicalLocation
                                             {
-                                                FileLocation = new FileLocation
+                                                ArtifactLocation = new ArtifactLocation
                                                 {
                                                     Uri = new Uri("file:///C:/src/a.cs")
                                                 },

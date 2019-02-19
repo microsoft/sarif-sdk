@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         RuleDescriptors = new List<ReportingDescriptor>(GenerateRules(ruleIds))
                     }
                 },
-                Files = GenerateFiles(filePaths),
+                Artifacts = GenerateFiles(filePaths),
                 Results = GenerateFakeResults(random, ruleIds, filePaths, results)
             };
         }
@@ -110,10 +110,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                         {
                             PhysicalLocation = new PhysicalLocation()
                             {
-                                FileLocation = new FileLocation
+                                ArtifactLocation = new ArtifactLocation
                                 {
                                     Uri = filePaths[fileIndex],
-                                    FileIndex = fileIndex
+                                    Index = fileIndex
                                 },
                             }
                         }
@@ -123,15 +123,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             return results;
         }
 
-        public static IList<FileData> GenerateFiles(List<Uri> filePaths)
+        public static IList<Artifact> GenerateFiles(List<Uri> filePaths)
         {
-            var files = new List<FileData>();
+            var files = new List<Artifact>();
             foreach (Uri path in filePaths)
             {
                 files.Add(
-                    new FileData()
+                    new Artifact()
                     {
-                        FileLocation = new FileLocation
+                        Location = new ArtifactLocation
                         {
                             Uri = path
                         }

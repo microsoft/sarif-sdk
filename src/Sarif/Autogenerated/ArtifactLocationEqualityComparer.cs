@@ -9,14 +9,14 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Defines methods to support the comparison of objects of type FileLocation for equality.
+    /// Defines methods to support the comparison of objects of type ArtifactLocation for equality.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
-    internal sealed class FileLocationEqualityComparer : IEqualityComparer<FileLocation>
+    internal sealed class ArtifactLocationEqualityComparer : IEqualityComparer<ArtifactLocation>
     {
-        internal static readonly FileLocationEqualityComparer Instance = new FileLocationEqualityComparer();
+        internal static readonly ArtifactLocationEqualityComparer Instance = new ArtifactLocationEqualityComparer();
 
-        public bool Equals(FileLocation left, FileLocation right)
+        public bool Equals(ArtifactLocation left, ArtifactLocation right)
         {
             if (ReferenceEquals(left, right))
             {
@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.FileIndex != right.FileIndex)
+            if (left.Index != right.Index)
             {
                 return false;
             }
@@ -68,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public int GetHashCode(FileLocation obj)
+        public int GetHashCode(ArtifactLocation obj)
         {
             if (ReferenceEquals(obj, null))
             {
@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.UriBaseId.GetHashCode();
                 }
 
-                result = (result * 31) + obj.FileIndex.GetHashCode();
+                result = (result * 31) + obj.Index.GetHashCode();
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.

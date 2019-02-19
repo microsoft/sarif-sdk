@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public void Log(ReportingDescriptor rule, Result result)
         {
-            NoteTestResult(result.Kind, result.Locations.First().PhysicalLocation.FileLocation.Uri.LocalPath);
+            NoteTestResult(result.Kind, result.Locations.First().PhysicalLocation.ArtifactLocation.Uri.LocalPath);
         }
 
         public void NoteTestResult(ResultKind kind, string targetPath)

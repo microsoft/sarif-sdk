@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!FileContent.ValueComparer.Equals(left.InsertedContent, right.InsertedContent))
+            if (!ArtifactContent.ValueComparer.Equals(left.InsertedContent, right.InsertedContent))
             {
                 return false;
             }

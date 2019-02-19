@@ -95,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             WriteToConsole(
                 result.Kind,
                 result.Level,
-                physicalLocation?.FileLocation?.Uri,
+                physicalLocation?.ArtifactLocation?.Uri,
                 physicalLocation?.Region,
                 result.RuleId,
                 message);
