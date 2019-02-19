@@ -491,7 +491,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                                 var tfl = new ThreadFlowLocation
                                 {
-                                    Kind = actionType,
+                                    Kinds = new List<string> { actionType },
                                     Location = location
                                 };
 
@@ -1019,7 +1019,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                                     }
 
                                     tfl.Location = location;
-                                    tfl.Kind = actionType;
+                                    tfl.Kinds = new List<string> { actionType };
                                 }
                             }
                         }

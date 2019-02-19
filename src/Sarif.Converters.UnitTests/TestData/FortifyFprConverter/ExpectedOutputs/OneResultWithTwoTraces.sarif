@@ -85,7 +85,9 @@
                           }
                         ]
                       },
-                      "kind": "Assign"
+                      "kinds": [
+                        "Assign"
+                      ]
                     },
                     {
                       "location": {
@@ -114,7 +116,9 @@
                           "text": "Branch not taken"
                         }
                       },
-                      "kind": "BranchNotTaken"
+                      "kinds": [
+                        "BranchNotTaken"
+                      ]
                     },
                     {
                       "location": {
@@ -143,7 +147,9 @@
                           "text": "myReader no longer refers to a database resource"
                         }
                       },
-                      "kind": "EndScope"
+                      "kinds": [
+                        "EndScope"
+                      ]
                     },
                     {
                       "location": {
@@ -172,7 +178,9 @@
                           "text": "myReader end scope : Database resource leaked"
                         }
                       },
-                      "kind": "EndScope"
+                      "kinds": [
+                        "EndScope"
+                      ]
                     }
                   ]
                 }
@@ -218,7 +226,9 @@
                           }
                         ]
                       },
-                      "kind": "Assign"
+                      "kinds": [
+                        "Assign"
+                      ]
                     },
                     {
                       "location": {
@@ -247,7 +257,9 @@
                           "text": "Branch taken"
                         }
                       },
-                      "kind": "BranchTaken"
+                      "kinds": [
+                        "BranchTaken"
+                      ]
                     },
                     {
                       "location": {
@@ -276,7 +288,9 @@
                           "text": "return"
                         }
                       },
-                      "kind": "Return"
+                      "kinds": [
+                        "Return"
+                      ]
                     },
                     {
                       "location": {
@@ -305,7 +319,9 @@
                           "text": "myReader no longer refers to a database resource"
                         }
                       },
-                      "kind": "EndScope"
+                      "kinds": [
+                        "EndScope"
+                      ]
                     },
                     {
                       "location": {
@@ -334,7 +350,9 @@
                           "text": "myReader end scope : Database resource leaked"
                         }
                       },
-                      "kind": "EndScope"
+                      "kinds": [
+                        "EndScope"
+                      ]
                     }
                   ]
                 }

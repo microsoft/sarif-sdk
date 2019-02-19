@@ -38,9 +38,25 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.Kind != right.Kind)
+            if (!object.ReferenceEquals(left.Kinds, right.Kinds))
             {
-                return false;
+                if (left.Kinds == null || right.Kinds == null)
+                {
+                    return false;
+                }
+
+                if (left.Kinds.Count != right.Kinds.Count)
+                {
+                    return false;
+                }
+
+                for (int index_0 = 0; index_0 < left.Kinds.Count; ++index_0)
+                {
+                    if (left.Kinds[index_0] != right.Kinds[index_0])
+                    {
+                        return false;
+                    }
+                }
             }
 
             if (left.Module != right.Module)
@@ -135,9 +151,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Stack.ValueGetHashCode();
                 }
 
-                if (obj.Kind != null)
+                if (obj.Kinds != null)
                 {
-                    result = (result * 31) + obj.Kind.GetHashCode();
+                    foreach (var value_4 in obj.Kinds)
+                    {
+                        result = result * 31;
+                        if (value_4 != null)
+                        {
+                            result = (result * 31) + value_4.GetHashCode();
+                        }
+                    }
                 }
 
                 if (obj.Module != null)
@@ -149,12 +172,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_0 = 0;
-                    foreach (var value_4 in obj.State)
+                    foreach (var value_5 in obj.State)
                     {
-                        xor_0 ^= value_4.Key.GetHashCode();
-                        if (value_4.Value != null)
+                        xor_0 ^= value_5.Key.GetHashCode();
+                        if (value_5.Value != null)
                         {
-                            xor_0 ^= value_4.Value.GetHashCode();
+                            xor_0 ^= value_5.Value.GetHashCode();
                         }
                     }
 
@@ -169,12 +192,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_1 = 0;
-                    foreach (var value_5 in obj.Properties)
+                    foreach (var value_6 in obj.Properties)
                     {
-                        xor_1 ^= value_5.Key.GetHashCode();
-                        if (value_5.Value != null)
+                        xor_1 ^= value_6.Key.GetHashCode();
+                        if (value_6.Value != null)
                         {
-                            xor_1 ^= value_5.Value.GetHashCode();
+                            xor_1 ^= value_6.Value.GetHashCode();
                         }
                     }
 

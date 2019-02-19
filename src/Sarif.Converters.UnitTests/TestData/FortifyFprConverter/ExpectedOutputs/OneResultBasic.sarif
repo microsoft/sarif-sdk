@@ -76,7 +76,9 @@
                           "text": "SqlCommand.ctor()"
                         }
                       },
-                      "kind": "InCall"
+                      "kinds": [
+                        "InCall"
+                      ]
                     }
                   ]
                 }

@@ -76,7 +76,9 @@
                           "text": "SqlCommand.ctor()"
                         }
                       },
-                      "kind": "InCall"
+                      "kinds": [
+                        "InCall"
+                      ]
                     }
                   ]
                 }
@@ -163,7 +165,9 @@
                           "text": "Read ex"
                         }
                       },
-                      "kind": "Read"
+                      "kinds": [
+                        "Read"
+                      ]
                     },
                     {
                       "location": {
@@ -192,7 +196,9 @@
                           "text": "ToString(this : return)"
                         }
                       },
-                      "kind": "InOutCall"
+                      "kinds": [
+                        "InOutCall"
+                      ]
                     },
                     {
                       "location": {
@@ -221,7 +227,9 @@
                           "text": "Error(0)"
                         }
                       },
-                      "kind": "InCall"
+                      "kinds": [
+                        "InCall"
+                      ]
                     },
                     {
                       "location": {
@@ -240,7 +248,9 @@
                           "text": "WriteLog(1)"
                         }
                       },
-                      "kind": "InCall"
+                      "kinds": [
+                        "InCall"
+                      ]
                     },
                     {
                       "location": {
@@ -269,7 +279,9 @@
                           "text": "Concat(1 : return)"
                         }
                       },
-                      "kind": "InOutCall"
+                      "kinds": [
+                        "InOutCall"
+                      ]
                     },
                     {
                       "location": {
@@ -298,7 +310,9 @@
                           "text": "WriteLine(0)"
                         }
                       },
-                      "kind": "InCall"
+                      "kinds": [
+                        "InCall"
+                      ]
                     }
                   ]
                 }

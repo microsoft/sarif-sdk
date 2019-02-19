@@ -2023,9 +2023,15 @@
           "$ref": "#/definitions/stack"
         },
 
-        "kind": {
-          "description": "A string describing the type of this location.",
-          "type": "string"
+        "kinds": {
+          "description": "A set of distinct strings that categorize the thread flow location. Well-known kinds include acquire, release, enter, exit, call, return, branch, implicit, false, true, caution, danger, unknown, unreachable, taint, function, handler, lock, memory, resource, and scope.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "type": "string"
+          }
         },
 
         "module": {

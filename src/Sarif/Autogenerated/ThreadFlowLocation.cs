@@ -46,10 +46,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Stack Stack { get; set; }
 
         /// <summary>
-        /// A string describing the type of this location.
+        /// A set of distinct strings that categorize the thread flow location. Well-known kinds include acquire, release, enter, exit, call, return, branch, implicit, false, true, caution, danger, unknown, unreachable, taint, function, handler, lock, memory, resource, and scope.
         /// </summary>
-        [DataMember(Name = "kind", IsRequired = false, EmitDefaultValue = false)]
-        public string Kind { get; set; }
+        [DataMember(Name = "kinds", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public IList<string> Kinds { get; set; }
 
         /// <summary>
         /// The name of the module that contains the code that is executing.
@@ -110,8 +111,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="stack">
         /// An initialization value for the <see cref="P:Stack" /> property.
         /// </param>
-        /// <param name="kind">
-        /// An initialization value for the <see cref="P:Kind" /> property.
+        /// <param name="kinds">
+        /// An initialization value for the <see cref="P:Kinds" /> property.
         /// </param>
         /// <param name="module">
         /// An initialization value for the <see cref="P:Module" /> property.
@@ -134,9 +135,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ThreadFlowLocation(Location location, Stack stack, string kind, string module, IDictionary<string, string> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
+        public ThreadFlowLocation(Location location, Stack stack, IEnumerable<string> kinds, string module, IDictionary<string, string> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(location, stack, kind, module, state, nestingLevel, executionOrder, executionTimeUtc, importance, properties);
+            Init(location, stack, kinds, module, state, nestingLevel, executionOrder, executionTimeUtc, importance, properties);
         }
 
         /// <summary>
@@ -155,7 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Location, other.Stack, other.Kind, other.Module, other.State, other.NestingLevel, other.ExecutionOrder, other.ExecutionTimeUtc, other.Importance, other.Properties);
+            Init(other.Location, other.Stack, other.Kinds, other.Module, other.State, other.NestingLevel, other.ExecutionOrder, other.ExecutionTimeUtc, other.Importance, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -176,7 +177,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ThreadFlowLocation(this);
         }
 
-        private void Init(Location location, Stack stack, string kind, string module, IDictionary<string, string> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Location location, Stack stack, IEnumerable<string> kinds, string module, IDictionary<string, string> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (location != null)
             {
@@ -188,7 +189,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Stack = new Stack(stack);
             }
 
-            Kind = kind;
+            if (kinds != null)
+            {
+                var destination_0 = new List<string>();
+                foreach (var value_0 in kinds)
+                {
+                    destination_0.Add(value_0);
+                }
+
+                Kinds = destination_0;
+            }
+
             Module = module;
             if (state != null)
             {
