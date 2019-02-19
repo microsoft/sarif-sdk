@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// A region within a file where a result was detected.
+    /// A region within an artifact where a result was detected.
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int EndColumn { get; set; }
 
         /// <summary>
-        /// The zero-based offset from the beginning of the file of the first character in the region.
+        /// The zero-based offset from the beginning of the artifact of the first character in the region.
         /// </summary>
         [DataMember(Name = "charOffset", IsRequired = false, EmitDefaultValue = false)]
         public int CharOffset { get; set; }
@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int CharLength { get; set; }
 
         /// <summary>
-        /// The zero-based offset from the beginning of the file of the first byte in the region.
+        /// The zero-based offset from the beginning of the artifact of the first byte in the region.
         /// </summary>
         [DataMember(Name = "byteOffset", IsRequired = false, EmitDefaultValue = false)]
         public int ByteOffset { get; set; }
@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int ByteLength { get; set; }
 
         /// <summary>
-        /// The portion of the file contents within the specified region.
+        /// The portion of the artifact contents within the specified region.
         /// </summary>
         [DataMember(Name = "snippet", IsRequired = false, EmitDefaultValue = false)]
         public ArtifactContent Snippet { get; set; }
@@ -93,7 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Message Message { get; set; }
 
         /// <summary>
-        /// Specifies the source language, if any, of the portion of the file specified by the region object.
+        /// Specifies the source language, if any, of the portion of the artifact specified by the region object.
         /// </summary>
         [DataMember(Name = "sourceLanguage", IsRequired = false, EmitDefaultValue = false)]
         public string SourceLanguage { get; set; }

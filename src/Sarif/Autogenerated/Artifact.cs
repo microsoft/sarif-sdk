@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public ArtifactContent Contents { get; set; }
 
         /// <summary>
-        /// Specifies the encoding for a artifact object that refers to a text file.
+        /// Specifies the encoding for an artifact object that refers to a text file.
         /// </summary>
         [DataMember(Name = "encoding", IsRequired = false, EmitDefaultValue = false)]
         public string Encoding { get; set; }
@@ -93,13 +93,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string SourceLanguage { get; set; }
 
         /// <summary>
-        /// A dictionary, each of whose keys is the name of a hash function and each of whose values is the hashed value of the file produced by the specified hash function.
+        /// A dictionary, each of whose keys is the name of a hash function and each of whose values is the hashed value of the artifact produced by the specified hash function.
         /// </summary>
         [DataMember(Name = "hashes", IsRequired = false, EmitDefaultValue = false)]
         public IDictionary<string, string> Hashes { get; set; }
 
         /// <summary>
-        /// The Coordinated Universal Time (UTC) date and time at which the file was most recently modified. See "Date/time properties" in the SARIF spec for the required format.
+        /// The Coordinated Universal Time (UTC) date and time at which the artifact was most recently modified. See "Date/time properties" in the SARIF spec for the required format.
         /// </summary>
         [DataMember(Name = "lastModifiedTimeUtc", IsRequired = false, EmitDefaultValue = false)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter))]

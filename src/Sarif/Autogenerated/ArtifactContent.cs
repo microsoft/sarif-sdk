@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Represents content from an external file.
+    /// Represents the contents of an artifact.
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
@@ -33,19 +33,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// UTF-8-encoded content from a text file.
+        /// UTF-8-encoded content from a text artifact.
         /// </summary>
         [DataMember(Name = "text", IsRequired = false, EmitDefaultValue = false)]
         public string Text { get; set; }
 
         /// <summary>
-        /// MIME Base64-encoded content from a binary file, or from a text file in its original encoding.
+        /// MIME Base64-encoded content from a binary artifact, or from a text artifact in its original encoding.
         /// </summary>
         [DataMember(Name = "binary", IsRequired = false, EmitDefaultValue = false)]
         public string Binary { get; set; }
 
         /// <summary>
-        /// Key/value pairs that provide additional information about the external file.
+        /// Key/value pairs that provide additional information about the artifact content.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }

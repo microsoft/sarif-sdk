@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// Identifies the file and region.
+        /// Identifies the artifact and region.
         /// </summary>
         [DataMember(Name = "physicalLocation", IsRequired = false, EmitDefaultValue = false)]
         public PhysicalLocation PhysicalLocation { get; set; }

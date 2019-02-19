@@ -23,19 +23,19 @@ namespace SarifToCsv
             }
         }
 
-        public static string FileUri(this ArtifactLocation fileLocation, Run run)
+        public static string FileUri(this ArtifactLocation artifactLocation, Run run)
         {
-            if (fileLocation == null)
+            if (artifactLocation == null)
             {
                 return null;
             }
-            else if (fileLocation.Uri != null)
+            else if (artifactLocation.Uri != null)
             {
-                return fileLocation.Uri.ToString();
+                return artifactLocation.Uri.ToString();
             }
-            else if (fileLocation.FileIndex >= 0 && fileLocation.FileIndex < run.Files.Count)
+            else if (artifactLocation.FileIndex >= 0 && artifactLocation.FileIndex < run.Files.Count)
             {
-                return run.Files[fileLocation.FileIndex].ArtifactLocation?.Uri?.ToString();
+                return run.Files[artifactLocation.FileIndex].ArtifactLocation?.Uri?.ToString();
             }
             else
             {

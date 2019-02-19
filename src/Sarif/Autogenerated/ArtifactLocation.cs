@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Specifies the location of a file.
+    /// Specifies the location of an artifact.
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string UriBaseId { get; set; }
 
         /// <summary>
-        /// The index within the run artifacts array of the file object associated with the file location.
+        /// The index within the run artifacts array of the artifact object associated with the artifact location.
         /// </summary>
         [DataMember(Name = "index", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int Index { get; set; }
 
         /// <summary>
-        /// Key/value pairs that provide additional information about the file location.
+        /// Key/value pairs that provide additional information about the artifact location.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }

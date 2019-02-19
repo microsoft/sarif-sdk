@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// The replacement of a single region of a file.
+    /// The replacement of a single region of an artifact.
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// The region of the file to delete.
+        /// The region of the artifact to delete.
         /// </summary>
         [DataMember(Name = "deletedRegion", IsRequired = true)]
         public Region DeletedRegion { get; set; }

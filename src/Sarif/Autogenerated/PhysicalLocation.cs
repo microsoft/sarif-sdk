@@ -39,19 +39,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int Id { get; set; }
 
         /// <summary>
-        /// The location of the file.
+        /// The location of the artifact.
         /// </summary>
         [DataMember(Name = "artifactLocation", IsRequired = true)]
         public ArtifactLocation ArtifactLocation { get; set; }
 
         /// <summary>
-        /// Specifies a portion of the file.
+        /// Specifies a portion of the artifact.
         /// </summary>
         [DataMember(Name = "region", IsRequired = false, EmitDefaultValue = false)]
         public Region Region { get; set; }
 
         /// <summary>
-        /// Specifies a portion of the file that encloses the region. Allows a viewer to display additional context around the region.
+        /// Specifies a portion of the artifact that encloses the region. Allows a viewer to display additional context around the region.
         /// </summary>
         [DataMember(Name = "contextRegion", IsRequired = false, EmitDefaultValue = false)]
         public Region ContextRegion { get; set; }
