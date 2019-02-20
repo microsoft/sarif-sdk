@@ -4,8 +4,10 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -60,6 +62,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The zero-based offset from the beginning of the artifact of the first character in the region.
         /// </summary>
         [DataMember(Name = "charOffset", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(-1)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public int CharOffset { get; set; }
 
         /// <summary>
@@ -109,6 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public Region()
         {
+            CharOffset = -1;
         }
 
         /// <summary>

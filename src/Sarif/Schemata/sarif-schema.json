@@ -1215,7 +1215,8 @@
         "charOffset": {
           "description": "The zero-based offset from the beginning of the artifact of the first character in the region.",
           "type": "integer",
-          "minimum": 0
+          "minimum": -1,
+          "default": -1
         },
 
         "charLength": {
