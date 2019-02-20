@@ -167,7 +167,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
                     inputRegion: new Region() { CharOffset = 0, CharLength = 20 }),
 
                 new TestCaseData(outputRegion : s_Complete_File_V2,
-                    inputRegion: new Region() { StartLine = 1, EndLine = 4, EndColumn = 4 }),
+                    inputRegion: new Region() { StartLine = 1, EndLine = 4, EndColumn = 4, CharOffset = 0 }),
 
                 new TestCaseData(outputRegion : s_Complete_File_V2,
                     inputRegion: new Region() { StartLine = 1, EndLine = 4, EndColumn = 4, CharOffset = 0, CharLength = 20 }),
@@ -197,7 +197,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
                     inputRegion: new Region() { CharOffset = 0, CharLength = 12 }),
 
                 new TestCaseData(outputRegion: s_Complete_File_New_Lines_Only,
-                    inputRegion: new Region() { StartLine = 1, EndLine = 4 }),
+                    inputRegion: new Region() { StartLine = 1, EndLine = 4, CharOffset = 0 }),
 
                 new TestCaseData(outputRegion: s_Complete_File_New_Lines_Only,
                     inputRegion: new Region() { StartLine = 1, EndLine = 4, CharOffset = 0, CharLength = 12 }),
@@ -222,7 +222,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
                     inputRegion: new Region() { CharOffset = 0, CharLength = 10  }),
 
                 new TestCaseData(outputRegion: s_Complete_File_Carriage_Returns_Only,
-                    inputRegion: new Region() { StartLine = 1, EndLine = 6, EndColumn = 1 }),
+                    inputRegion: new Region() { StartLine = 1, EndLine = 6, EndColumn = 1, CharOffset = 0 }),
 
                 new TestCaseData(outputRegion: s_Complete_File_Carriage_Returns_Only,
                     inputRegion: new Region() { StartLine = 1, EndLine = 6, EndColumn = 1, CharOffset = 0, CharLength = 10 }),
