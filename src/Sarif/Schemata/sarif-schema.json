@@ -1215,7 +1215,8 @@
         "charOffset": {
           "description": "The zero-based offset from the beginning of the artifact of the first character in the region.",
           "type": "integer",
-          "minimum": 0
+          "minimum": -1,
+          "default": -1
         },
 
         "charLength": {
@@ -1445,7 +1446,7 @@
           "minimum": -1
         },
 
-        "ruleExtensionIndex": {
+        "extensionIndex": {
           "description": "The index within the run.tool.extensions array of the tool component object which describes the plug-in or tool extension that produced the result.",
           "type": "integer",
           "default": -1,

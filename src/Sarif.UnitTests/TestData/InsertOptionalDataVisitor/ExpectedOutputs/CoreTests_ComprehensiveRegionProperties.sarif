@@ -88,6 +88,7 @@
                   "startColumn": 1,
                   "endLine": 1,
                   "endColumn": 24,
+                  "charOffset": 0,
                   "charLength": 23
                 }
               }
