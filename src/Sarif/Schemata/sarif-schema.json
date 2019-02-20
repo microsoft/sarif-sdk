@@ -1445,7 +1445,7 @@
           "minimum": -1
         },
 
-        "extensionIndex": {
+        "ruleExtensionIndex": {
           "description": "The index within the run.tool.extensions array of the tool component object which describes the plug-in or tool extension that produced the result.",
           "type": "integer",
           "default": -1,
