@@ -9,6 +9,11 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 {
     public class FileRegionsCacheTests
     {
+        public FileRegionsCacheTests()
+        {
+            SarifUtilities.UnitTesting = true;
+        }
+
         private class TestCaseData
         {
             public TestCaseData(Region inputRegion, Region outputRegion)
@@ -159,10 +164,13 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
                     inputRegion: new Region() { StartLine = 3, StartColumn = 5, EndLine = 3, EndColumn = 7 }),
 
                 new TestCaseData(outputRegion : s_Complete_File_V2,
-                    inputRegion: new Region() { CharLength = 20, CharOffset = 0 }),
+                    inputRegion: new Region() { CharOffset = 0, CharLength = 20 }),
 
                 new TestCaseData(outputRegion : s_Complete_File_V2,
-                    inputRegion: new Region() { StartLine = 1, EndLine = 4, EndColumn = 4, CharOffset = 0 }),
+                    inputRegion: new Region() { StartLine = 1, EndLine = 4, EndColumn = 4 }),
+
+                new TestCaseData(outputRegion : s_Complete_File_V2,
+                    inputRegion: new Region() { StartLine = 1, EndLine = 4, EndColumn = 4, CharOffset = 0, CharLength = 20 }),
 
                 new TestCaseData(outputRegion : s_Complete_File_V1,
                     inputRegion: new Region() { StartLine = 1, EndLine = 5, CharOffset = 0 }),
@@ -186,16 +194,23 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
                 // 
                 // Sanity check sample with new line characters only
                 new TestCaseData(outputRegion: s_Complete_File_New_Lines_Only,
-                    inputRegion: new Region() { CharLength = 12, CharOffset = 0 }),
+                    inputRegion: new Region() { CharOffset = 0, CharLength = 12 }),
 
                 new TestCaseData(outputRegion: s_Complete_File_New_Lines_Only,
-                    inputRegion: new Region() { StartLine = 1, EndLine = 4, CharOffset = 0 }),
+                    inputRegion: new Region() { StartLine = 1, EndLine = 4 }),
+
+                new TestCaseData(outputRegion: s_Complete_File_New_Lines_Only,
+                    inputRegion: new Region() { StartLine = 1, EndLine = 4, CharOffset = 0, CharLength = 12 }),
+
 
                 new TestCaseData(outputRegion: s_Fragment_New_Lines_Only,
                     inputRegion: new Region() { CharOffset = 3, CharLength = 9 }),
 
                 new TestCaseData(outputRegion: s_Fragment_New_Lines_Only,
-                    inputRegion: new Region() { StartLine = 1, EndLine = 4, StartColumn = 4, EndColumn = 1, CharOffset = 0 })
+                    inputRegion: new Region() { StartLine = 1, EndLine = 4, StartColumn = 4, EndColumn = 1 }),
+
+                new TestCaseData(outputRegion: s_Fragment_New_Lines_Only,
+                    inputRegion: new Region() { StartLine = 1, EndLine = 4, StartColumn = 4, EndColumn = 1, CharOffset = 0, CharLength = 9 })
             });
 
         private static ReadOnlyCollection<TestCaseData> s_carriageReturnTestCasess =
@@ -204,10 +219,13 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
                 // 
                 // Sanity check sample with carriage return characters only
                 new TestCaseData(outputRegion: s_Complete_File_Carriage_Returns_Only,
-                    inputRegion: new Region() { CharLength = 10, CharOffset = 0 }),
+                    inputRegion: new Region() { CharOffset = 0, CharLength = 10  }),
 
                 new TestCaseData(outputRegion: s_Complete_File_Carriage_Returns_Only,
-                    inputRegion: new Region() { StartLine = 1, EndLine = 6, EndColumn = 1, CharOffset = 0 }),
+                    inputRegion: new Region() { StartLine = 1, EndLine = 6, EndColumn = 1 }),
+
+                new TestCaseData(outputRegion: s_Complete_File_Carriage_Returns_Only,
+                    inputRegion: new Region() { StartLine = 1, EndLine = 6, EndColumn = 1, CharOffset = 0, CharLength = 10 }),
 
                 new TestCaseData(outputRegion: s_Fragment_Carriage_Returns_Only,
                     inputRegion: new Region() { CharOffset = 4, CharLength = 6 }),
