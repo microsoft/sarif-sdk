@@ -751,6 +751,7 @@
                   "startColumn": 1,
                   "endLine": 1,
                   "endColumn": 4,
+                  "charOffset": 0,
                   "charLength": 3
                 }
               }
@@ -766,6 +767,7 @@
                   "replacements": [
                     {
                       "deletedRegion": {
+                        "charOffset": 0,
                         "charLength": 3
                       },
                       "insertedContent": {
@@ -31043,6 +31045,7 @@
                   "startColumn": 1,
                   "endLine": 1,
                   "endColumn": 4,
+                  "charOffset": 0,
                   "charLength": 3
                 }
               }
@@ -31058,6 +31061,7 @@
                   "replacements": [
                     {
                       "deletedRegion": {
+                        "charOffset": 0,
                         "charLength": 3
                       },
                       "insertedContent": {
@@ -31111,6 +31115,7 @@
                   "startColumn": 1,
                   "endLine": 1,
                   "endColumn": 4,
+                  "charOffset": 0,
                   "charLength": 3
                 }
               }
@@ -31126,6 +31131,7 @@
                   "replacements": [
                     {
                       "deletedRegion": {
+                        "charOffset": 0,
                         "charLength": 3
                       },
                       "insertedContent": {
@@ -31253,6 +31259,7 @@
                   "startColumn": 1,
                   "endLine": 1,
                   "endColumn": 4,
+                  "charOffset": 0,
                   "charLength": 3
                 }
               }
@@ -31268,6 +31275,7 @@
                   "replacements": [
                     {
                       "deletedRegion": {
+                        "charOffset": 0,
                         "charLength": 3
                       },
                       "insertedContent": {
@@ -31386,6 +31394,7 @@
                   "startColumn": 1,
                   "endLine": 1,
                   "endColumn": 4,
+                  "charOffset": 0,
                   "charLength": 3
                 }
               }
@@ -31401,6 +31410,7 @@
                   "replacements": [
                     {
                       "deletedRegion": {
+                        "charOffset": 0,
                         "charLength": 3
                       },
                       "insertedContent": {

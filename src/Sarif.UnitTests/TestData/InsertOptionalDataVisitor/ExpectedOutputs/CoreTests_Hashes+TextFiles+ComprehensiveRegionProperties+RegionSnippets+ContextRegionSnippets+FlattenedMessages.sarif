@@ -108,6 +108,7 @@
                   "startColumn": 1,
                   "endLine": 1,
                   "endColumn": 24,
+                  "charOffset": 0,
                   "charLength": 23,
                   "snippet": {
                     "text": "Region_At_Start_Of_File"
@@ -118,6 +119,7 @@
                   "startColumn": 1,
                   "endLine": 2,
                   "endColumn": 14,
+                  "charOffset":  0,
                   "charLength": 73,
                   "snippet": {
                     "text": "Region_At_Start_Of_File (this isn't part of the region...)\r\nMore context."

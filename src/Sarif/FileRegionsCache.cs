@@ -248,11 +248,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             int offset = lineInfo.StartOffset;
             offset += region.StartColumn - 1;
 
-            if (region.CharOffset == 0)
+            if (region.CharOffset == 0 || region.CharOffset == -1)
             {
                 region.CharOffset = offset;
             }
-            Debug.Assert(region.CharOffset == offset);
+
+            SarifUtilities.DebugAssert(region.CharOffset == offset);
         }
 
         private void PopulateCharLength(NewLineIndex lineIndex, Region region)

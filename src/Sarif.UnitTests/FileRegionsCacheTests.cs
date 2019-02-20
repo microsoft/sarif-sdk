@@ -127,15 +127,15 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
 
         private static ReadOnlyCollection<TestCaseData> s_specExampleTestCases =
             new ReadOnlyCollection<TestCaseData>(new TestCaseData[]
-            {                
+            {   
                 // Insertion point at beginning of binary file
                 new TestCaseData(outputRegion : s_Insertion_Beginning_Of_Binary_File,
-                    inputRegion: new Region() { }),
+                    inputRegion: new Region() { CharOffset = 0}),
 
                 // Insertion point at beginning of text file, can only
                 // be denoted by use of startLine
                 new TestCaseData(outputRegion : s_Insertion_Beginning_Of_Text_File,
-                    inputRegion: new Region() { StartLine = 1, StartColumn = 1, EndColumn = 1 }),
+                    inputRegion: new Region() { StartLine = 1, StartColumn = 1, EndColumn = 1, CharOffset = 0 }),
 
                 new TestCaseData(outputRegion : s_Insertion_End_Of_File,
                     inputRegion: new Region() { CharOffset = 20 }),
@@ -159,13 +159,13 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
                     inputRegion: new Region() { StartLine = 3, StartColumn = 5, EndLine = 3, EndColumn = 7 }),
 
                 new TestCaseData(outputRegion : s_Complete_File_V2,
-                    inputRegion: new Region() { CharLength = 20 }),
+                    inputRegion: new Region() { CharLength = 20, CharOffset = 0 }),
 
                 new TestCaseData(outputRegion : s_Complete_File_V2,
-                    inputRegion: new Region() { StartLine = 1, EndLine = 4, EndColumn = 4 }),
+                    inputRegion: new Region() { StartLine = 1, EndLine = 4, EndColumn = 4, CharOffset = 0 }),
 
                 new TestCaseData(outputRegion : s_Complete_File_V1,
-                    inputRegion: new Region() { StartLine = 1, EndLine = 5 }),
+                    inputRegion: new Region() { StartLine = 1, EndLine = 5, CharOffset = 0 }),
 
                 new TestCaseData(outputRegion: s_Line_3,
                     inputRegion: new Region() {CharOffset = 11, CharLength = 4 }),
@@ -186,28 +186,28 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests
                 // 
                 // Sanity check sample with new line characters only
                 new TestCaseData(outputRegion: s_Complete_File_New_Lines_Only,
-                    inputRegion: new Region() { CharLength = 12 }),
+                    inputRegion: new Region() { CharLength = 12, CharOffset = 0 }),
 
                 new TestCaseData(outputRegion: s_Complete_File_New_Lines_Only,
-                    inputRegion: new Region() { StartLine = 1, EndLine = 4 }),
+                    inputRegion: new Region() { StartLine = 1, EndLine = 4, CharOffset = 0 }),
 
                 new TestCaseData(outputRegion: s_Fragment_New_Lines_Only,
                     inputRegion: new Region() { CharOffset = 3, CharLength = 9 }),
 
                 new TestCaseData(outputRegion: s_Fragment_New_Lines_Only,
-                    inputRegion: new Region() { StartLine = 1, EndLine = 4, StartColumn = 4, EndColumn = 1 })
+                    inputRegion: new Region() { StartLine = 1, EndLine = 4, StartColumn = 4, EndColumn = 1, CharOffset = 0 })
             });
 
         private static ReadOnlyCollection<TestCaseData> s_carriageReturnTestCasess =
             new ReadOnlyCollection<TestCaseData>(new TestCaseData[]
-            {                 
+            {
                 // 
                 // Sanity check sample with carriage return characters only
                 new TestCaseData(outputRegion: s_Complete_File_Carriage_Returns_Only,
-                    inputRegion: new Region() { CharLength = 10 }),
+                    inputRegion: new Region() { CharLength = 10, CharOffset = 0 }),
 
                 new TestCaseData(outputRegion: s_Complete_File_Carriage_Returns_Only,
-                    inputRegion: new Region() { StartLine = 1, EndLine = 6, EndColumn = 1 }),
+                    inputRegion: new Region() { StartLine = 1, EndLine = 6, EndColumn = 1, CharOffset = 0 }),
 
                 new TestCaseData(outputRegion: s_Fragment_Carriage_Returns_Only,
                     inputRegion: new Region() { CharOffset = 4, CharLength = 6 }),
