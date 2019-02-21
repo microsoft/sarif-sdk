@@ -274,7 +274,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 region.CharLength = charLength;
             }
-            Debug.Assert(region.CharLength == charLength);
+            SarifUtilities.DebugAssert(region.CharLength == charLength);
         }
 
         private NewLineIndex GetNewLineIndex(Uri uri, out string fileText)
