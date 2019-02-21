@@ -22,12 +22,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static Result BuildResult(FailureLevel level, IAnalysisContext context, Region region, string ruleMessageId, params string[] arguments)
         {
-            // If we have a failure level, the kind is Fail, otherwise Debug.
+            // If we have a failure level, the kind is Fail, otherwise None.
             // A message of kind == debug and failure level == none is a trace
             // message, pure and simple.
             ResultKind kind = (level != FailureLevel.None)
                 ? ResultKind.Fail 
-                : ResultKind.Debug;
+                : ResultKind.None;
 
             return BuildResult(level, kind, context, region, ruleMessageId, arguments);
         }

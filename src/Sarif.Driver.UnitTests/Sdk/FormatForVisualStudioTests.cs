@@ -149,7 +149,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             new object[]
             {
                 FailureLevel.None,
-                ResultKind.Debug,
+                ResultKind.None,
                 MultiLineTestRegion,
                 $"{TestAnalysisTarget}(2,4,3,5): info {TestRuleId}: First: 42, Second: 54",
                 TestAnalysisTarget

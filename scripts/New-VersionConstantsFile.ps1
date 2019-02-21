@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-Uses the information in the file CurrentVersion.xml to synthesize a file containing
+Uses the package construction version details within build.props to synthesize a file containing
 compilation constants used to set the version attributes of the assembly being built.
 #>
 
@@ -30,7 +30,7 @@ namespace $namespace
     {
         public const string Prerelease = "$versionSuffix";
         public const string AssemblyVersion = "$versionPrefix";
-        public const string FileVersion = AssemblyVersion + Prerelease + "$packageVersionSuffix";
+        public const string FileVersion = AssemblyVersion + ".0";
     }
 }
 "@

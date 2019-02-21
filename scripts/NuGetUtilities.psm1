@@ -35,8 +35,6 @@ function Get-PackageVersion([switch]$previous) {
         $version += $packageVersionSuffix
     }
 
-   Write-Information "  *** RETURNING VERSION: $version."
-
    $version
 }
 

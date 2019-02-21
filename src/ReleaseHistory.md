@@ -261,4 +261,4 @@
 
 ## **v2.0.0-csd.2.beta.2019.01.24.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.01.24.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.01.24.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.01.24.1)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.01.24.1))
 * BUGFIX: 'region.charOffset' default value should be -1 (invalid value) rather than 0. Fixes an issue where 'region.charLength' is > 0 but 'region.charOffset' is absent (because its value of 0 was incorrectly elided due to being the default value). 
-* API BREAKING: rename 'result.kind' enum value 'none' to 'debug'
+* BUGFIX: rename 'result.kind' enum value 'none' to 'debug'
