@@ -7,6 +7,6 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         public const string Prerelease = "csd.2.beta.2019-01-24";
         public const string AssemblyVersion = "2.0.0";
-        public const string FileVersion = AssemblyVersion + ".0";
+        public const string FileVersion = AssemblyVersion + Prerelease + ".1";
     }
 }
