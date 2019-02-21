@@ -1456,7 +1456,7 @@
         "kind": {
           "description": "A value that categorizes results by evaluation state.",
           "default": "fail",
-          "enum": [ "none", "notApplicable", "pass", "fail", "review", "open" ]
+          "enum": [ "debug", "notApplicable", "pass", "fail", "review", "open" ]
         },
 
         "level": {

@@ -560,7 +560,7 @@
         "typeName": "ResultKind",
         "description": "Values specifying the evaluation state of a result.",
         "memberNames": [
-          "None",
+          "Debug",
           "NotApplicable",
           "Pass",
           "Fail",

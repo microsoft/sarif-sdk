@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
     public enum ResultKind
     {
-        None,
+        Debug,
         NotApplicable,
         Pass,
         Fail,
