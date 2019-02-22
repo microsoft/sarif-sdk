@@ -229,7 +229,7 @@
 ## **v2.0.0-csd.2.beta.2019-01-09** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019-01-09) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019-01-09) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019-01-09) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019-01-09)
 * BUGFIX: Result matching improvements in properties persistence.
 * FEATURE: Fortify FPR converter improvements.
-* API Non-BREAKING: Remove uniqueness requirement from 'result.locations'.
+* API NON-BREAKING: Remove uniqueness requirement from 'result.locations'.
 * API NON-BREAKING: Add 'run.newlineSequences' to schema. https://github.com/oasis-tcs/sarif-spec/issues/169
 * API NON-BREAKING: Add 'rule.deprecatedIds' to schema. https://github.com/oasis-tcs/sarif-spec/issues/293
 * API NON-BREAKING: Add 'versionControlDetails.mappedTo'. https://github.com/oasis-tcs/sarif-spec/issues/248
@@ -261,3 +261,7 @@
 
 ## **v2.0.0-csd.2.beta.2019.01.24.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.01.24.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.01.24.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.01.24.1)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.01.24.1))
 * BUGFIX: 'region.charOffset' default value should be -1 (invalid value) rather than 0. Fixes an issue where 'region.charLength' is > 0 but 'region.charOffset' is absent (because its value of 0 was incorrectly elided due to being the default value). 
+
+## **v2.0.0-csd.2.beta.2019.02.20** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.02.20) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.02.20) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.02.20)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.02.20))
+* API BREAKING: Remove 'invocation'attachments', now replaced by 'run.tool.extensions'. https://github.com/oasis-tcs/sarif-spec/issues/327
+

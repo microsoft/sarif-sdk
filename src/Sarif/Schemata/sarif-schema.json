@@ -220,7 +220,7 @@
     },
 
     "attachment": {
-      "description": "An artifact relevant to a tool invocation or to a result.",
+      "description": "An artifact relevant to a result.",
       "type": "object",
       "additionalProperties": false,
       "properties": {
@@ -686,17 +686,6 @@
           "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/artifactLocation"
-          }
-        },
-
-        "attachments": {
-          "description": "A set of artifacts relevant to the invocation of the tool.",
-          "type": "array",
-          "minItems": 0,
-          "uniqueItems": true,
-          "default": [],
-          "items": {
-            "$ref": "#/definitions/attachment"
           }
         },
 

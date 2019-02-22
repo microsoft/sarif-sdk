@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-01-24",
-  "version": "2.0.0-csd.2.beta.2019-01-24",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-02-20",
+  "version": "2.0.0-csd.2.beta.2019-02-20",
   "runs": [
     {
       "tool": {
@@ -119,7 +119,7 @@
                   "startColumn": 1,
                   "endLine": 2,
                   "endColumn": 14,
-                  "charOffset":  0,
+                  "charOffset": 0,
                   "charLength": 73,
                   "snippet": {
                     "text": "Region_At_Start_Of_File (this isn't part of the region...)\r\nMore context."

@@ -416,14 +416,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (node.Attachments != null)
-                {
-                    for (int index_0 = 0; index_0 < node.Attachments.Count; ++index_0)
-                    {
-                        node.Attachments[index_0] = VisitNullChecked(node.Attachments[index_0]);
-                    }
-                }
-
                 if (node.ReportingConfigurationOverrides != null)
                 {
                     for (int index_0 = 0; index_0 < node.ReportingConfigurationOverrides.Count; ++index_0)

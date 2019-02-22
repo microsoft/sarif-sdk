@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// An artifact relevant to a tool invocation or to a result.
+    /// An artifact relevant to a result.
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
