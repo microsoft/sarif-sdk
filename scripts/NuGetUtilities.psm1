@@ -22,14 +22,20 @@ $PackageSource = "https://nuget.org"
 $PackageOutputDirectoryRoot = Join-Path $BinRoot NuGet
 
 function Get-PackageVersion([switch]$previous) {
-    $versionPrefix, $versionSuffix = & $PSScriptRoot\Get-VersionConstants.ps1 -Previous:$previous
+    $versionPrefix, $versionSuffix, $packageVersionSuffix = & $PSScriptRoot\Get-VersionConstants.ps1 -Previous:$previous
     $version = $versionPrefix
-    if ($versionSuffix)
+    
+	if ($versionSuffix)
     {
         $version += "-$versionSuffix"
     }
 
-    $version
+    if ($packageVersionSuffix)
+    {
+        $version += $packageVersionSuffix
+    }
+
+   $version
 }
 
 function Get-PackageDirectoryName($configuration) {
@@ -39,13 +45,17 @@ function Get-PackageDirectoryName($configuration) {
 function New-NuGetPackageFromProjectFile($configuration, $project, $version) {
     $projectFile = "$SourceRoot\$project\$project.csproj"
 
+	# Note that we override the standard version construct via the VersionPrefix and 
+	# VersionSuffix properties so that we can specify an additional suffix that's only
+	# applied to the package.
     $arguments =
         "pack", $projectFile,
         "--configuration", $configuration,
         "--no-build", "--no-restore",
         "--include-source", "--include-symbols",
         "-p:Platform=$Platform",
-        "--output", (Get-PackageDirectoryName $configuration)
+        "--output", (Get-PackageDirectoryName $configuration),
+		"-p:Version=$version"
 
     Write-CommandLine dotnet $arguments
 

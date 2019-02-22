@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-Uses the information in the file CurrentVersion.xml to synthesize a file containing
+Uses the package construction version details within build.props to synthesize a file containing
 compilation constants used to set the version attributes of the assembly being built.
 #>
 
@@ -11,7 +11,13 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-$versionPrefix, $versionSuffix = & "$PSScriptRoot\Get-VersionConstants.ps1"
+$versionPrefix, $versionSuffix, $packageVersionSuffix = & "$PSScriptRoot\Get-VersionConstants.ps1"
+
+if (!$packageVersionSuffix)
+{
+	$packageVersionSuffix = ".0"
+}
+
 
 $versionConstantsFileContents =
 @"
