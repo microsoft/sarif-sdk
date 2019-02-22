@@ -559,8 +559,8 @@
       "arguments": {
         "typeName": "ResultKind",
         "description": "Values specifying the evaluation state of a result.",
+        "zeroValueName": "None",
         "memberNames": [
-          "None",
           "NotApplicable",
           "Pass",
           "Fail",
