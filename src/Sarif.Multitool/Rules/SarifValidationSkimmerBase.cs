@@ -405,16 +405,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             Analyze(invocation, invocationPointer);
 
-            if (invocation.Attachments != null)
-            {
-                string attachmentsPointer = invocationPointer.AtProperty(SarifPropertyName.Attachments);
-
-                for (int i = 0; i < invocation.Attachments.Count; ++i)
-                {
-                    Visit(invocation.Attachments[i], attachmentsPointer.AtIndex(i));
-                }
-            }
-
             if (invocation.ExecutableLocation != null)
             {
                 Visit(invocation.ExecutableLocation, invocationPointer.AtProperty(SarifPropertyName.ExecutableLocation));
