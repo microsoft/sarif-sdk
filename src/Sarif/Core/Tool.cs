@@ -32,7 +32,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             Tool tool = new Tool
             {
-                Language = CultureInfo.CurrentCulture.Name,
                 Driver = new ToolComponent
                 {
                     Name = name,

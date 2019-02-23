@@ -5,8 +5,7 @@
     {
       "tool": {
         "name": "CodeScanner",
-        "semanticVersion": "2.1.0",
-        "language": "en-US"
+        "semanticVersion": "2.1.0"
       },
       "invocation": {
         "commandLine": "CodeScanner @collections.rsp"

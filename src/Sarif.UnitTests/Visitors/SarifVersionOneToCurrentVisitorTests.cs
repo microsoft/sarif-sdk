@@ -35,6 +35,10 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
             => RunTest("Minimum.sarif");
 
         [Fact]
+        public void SarifTransformerTests_ToCurrent_MinimumWithLanguage()
+            => RunTest("MinimumWithLanguage.sarif");
+
+        [Fact]
         public void SarifTransformerTests_ToCurrent_MinimumWithTwoRuns()
             => RunTest("MinimumWithTwoRuns.sarif");
 

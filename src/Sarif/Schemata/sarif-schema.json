@@ -2071,12 +2071,6 @@
       "type": "object",
       "properties": {
 
-        "language": {
-          "description": "The tool language (expressed as an ISO 649 two-letter lowercase culture code) and region (expressed as an ISO 3166 two-letter uppercase subculture code associated with a country or region).",
-          "type": "string",
-          "default": "en-US"
-        },
-
         "driver": {
           "description": "The analysis tool that was run.",
           "$ref": "#/definitions/toolComponent"

@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 case "2.0.0-csd.2.beta.2019-02-20":
                 {
-                    // SARIF TC31. Nothing to do.
+                    // SARIF TC32. Nothing to do.
                     break;
                 }
 
