@@ -5,9 +5,9 @@
     {
       "tool": {
         "name": "CodeScanner",
-        "semanticVersion": "2.1.0"
-      },
-      "results": []
+        "semanticVersion": "2.1.0",
+        "language": "en-US"
+      }
     }
   ]
 }

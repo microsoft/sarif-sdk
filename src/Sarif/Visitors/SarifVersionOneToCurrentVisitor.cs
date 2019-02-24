@@ -1100,7 +1100,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 tool = new Tool()
                 {
-                    Language = v1Tool.Language ?? "en-US",
+                    // V2 doesn't support Language, hence v1Tool.Language will be ignored.
                     Driver = new ToolComponent
                     {
                         DottedQuadFileVersion = v1Tool.FileVersion,

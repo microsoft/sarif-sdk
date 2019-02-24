@@ -45,19 +45,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 case "2.0.0-csd.2.beta.2019-02-20":
                 {
-                    // SARIF TC31. Nothing to do.
+                    // SARIF TC32. Nothing to do.
                     break;
                 }
 
                 case "2.0.0-csd.2.beta.2019-01-24":
+                case "2.0.0-csd.2.beta.2019-01-24.1":
                 {
-                    // SARIF TC31. Nothing to do.
+                    modifiedLog |= ApplyChangesFromTC32(sarifLog);
                     break;
                 }
 
                 case "2.0.0-csd.2.beta.2019-01-09":
                 {
                     modifiedLog |= ApplyChangesFromTC31(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC32(sarifLog);
                     break;
                 }
 
@@ -72,6 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         out fileLocationKeyToIndexMap,
                         out ruleKeyToIndexMap);
                     modifiedLog |= ApplyChangesFromTC31(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC32(sarifLog);
                     break;
 
                 }
@@ -85,6 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         out fileLocationKeyToIndexMap,
                         out ruleKeyToIndexMap);
                     modifiedLog |= ApplyChangesFromTC31(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC32(sarifLog);
                     break;
                 }
             }
@@ -122,9 +126,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return transformedSarifLog;
         }
 
+        private static bool ApplyChangesFromTC32(JObject sarifLog)
+        {
+            UpdateSarifLogVersion(sarifLog);
+            if (sarifLog["runs"] is JArray runs)
+            {
+                foreach (JObject run in runs)
+                {
+                    // https://github.com/oasis-tcs/sarif-spec/issues/325
+                    RemoveToolLanguage(run);
+                }
+            }
+            return true;
+        }
+
+        private static void RemoveToolLanguage(JObject run)
+        {
+            JObject tool = (JObject)run["tool"];
+            if (tool["language"] is JToken language)
+            {
+                tool.Remove("language");
+            }
+        }
+
         private static bool ApplyChangesFromTC31(JObject sarifLog)
         {
-            UpdateSarifLogVersion(sarifLog);            ;
+            UpdateSarifLogVersion(sarifLog);
 
             if (sarifLog["runs"] is JArray runs)
             {

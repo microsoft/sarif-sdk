@@ -28,11 +28,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.Language != right.Language)
-            {
-                return false;
-            }
-
             if (!ToolComponent.ValueComparer.Equals(left.Driver, right.Driver))
             {
                 return false;
@@ -94,11 +89,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (obj.Language != null)
-                {
-                    result = (result * 31) + obj.Language.GetHashCode();
-                }
-
                 if (obj.Driver != null)
                 {
                     result = (result * 31) + obj.Driver.ValueGetHashCode();

@@ -4,8 +4,7 @@
   "runs": [
     {
       "tool": {
-        "name": "CodeScanner",
-        "language": "en-US"
+        "name": "CodeScanner"
       },
       "files": {
         "http://localhost:34420/HtmlFixes.html": {

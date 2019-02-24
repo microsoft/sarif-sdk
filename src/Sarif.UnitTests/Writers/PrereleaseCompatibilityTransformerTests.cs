@@ -78,5 +78,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             RunTest("MultiformatMessageStrings.sarif");
         }
+
+        [Fact]
+        public void PrereleaseCompatibilityTransformer_ToolWithLanguage()
+        {
+            RunTest("ToolWithLanguage.sarif");
+        }
     }
 }

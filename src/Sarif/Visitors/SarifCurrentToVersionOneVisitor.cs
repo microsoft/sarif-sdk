@@ -1181,7 +1181,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     FileVersion = v2Tool.Driver.DottedQuadFileVersion,
                     FullName = v2Tool.Driver.FullName,
-                    Language = v2Tool.Language,
                     Name = v2Tool.Driver.Name,
                     Properties = v2Tool.Properties,
                     SemanticVersion = v2Tool.Driver.SemanticVersion,
