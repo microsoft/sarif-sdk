@@ -14,7 +14,7 @@
 
     "version": {
       "description": "The SARIF format version of this log file.",
-      "enum": [ "2.0.0-csd.2.beta.2019-01-24" ]
+      "enum": [ "2.0.0-csd.2.beta.2019-02-20" ]
     },
 
     "runs": {
