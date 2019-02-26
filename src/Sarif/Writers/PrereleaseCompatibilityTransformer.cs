@@ -189,17 +189,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // Access and modify toolComponent.notificationDescriptors
             if (toolComponent["notificationDescriptors"] is JArray notificationDescriptors)
             {
-                ConvertReportingDescriptorsNameToString(notificationDescriptors);
+                ConvertReportingDescriptorNamesToString(notificationDescriptors);
             }
 
             // Access and modify toolComponent.ruleDescriptors
             if (toolComponent["ruleDescriptors"] is JArray ruleDescriptors)
             {
-                ConvertReportingDescriptorsNameToString(ruleDescriptors);
+                ConvertReportingDescriptorNamesToString(ruleDescriptors);
             }
         }
 
-        private static void ConvertReportingDescriptorsNameToString(JArray reportingDescriptors)
+        private static void ConvertReportingDescriptorNamesToString(JArray reportingDescriptors)
         {
             foreach (JObject reportingDescriptor in reportingDescriptors)
             {
