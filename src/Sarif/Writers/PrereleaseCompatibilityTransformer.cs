@@ -178,7 +178,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             if (tool["extensions"] is JArray extensions)
             {
                 foreach (JObject toolComponent in extensions)
-                ModifyReportingDescriptorNameTypeInToolComponent(toolComponent);
+                {
+                    ModifyReportingDescriptorNameTypeInToolComponent(toolComponent);
+                }
             }
         }
 
