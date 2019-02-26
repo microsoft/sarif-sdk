@@ -135,6 +135,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     // https://github.com/oasis-tcs/sarif-spec/issues/325
                     RemoveToolLanguage(run);
+
+                    // Modify reportingDescriptor.name type to string
+                    ModifyReportingDescriptorNameType(run);
                 }
             }
             return true;
@@ -146,6 +149,65 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             if (tool["language"] is JToken language)
             {
                 tool.Remove("language");
+            }
+        }
+
+        private static void ModifyReportingDescriptorNameType(JObject run)
+        {
+            // Access and modify run.tool
+            JObject tool = (JObject)run["tool"];
+            ModifyReportingDescriptorNameTypeInTool(tool);
+
+            // Access and modify run.conversion.tool
+            if (run["conversion"] is JObject conversion)
+            {
+                tool = (JObject)conversion["tool"];
+                ModifyReportingDescriptorNameTypeInTool(tool);
+            }
+        }
+
+        private static void ModifyReportingDescriptorNameTypeInTool(JObject tool)
+        {
+            // Access and modify tool.driver
+            if (tool["driver"] is JObject driver)
+            {
+                ModifyReportingDescriptorNameTypeInToolComponent(driver);
+            }
+
+            // Access and modify each item in tool.extensions
+            if (tool["extensions"] is JArray extensions)
+            {
+                foreach (JObject toolComponent in extensions)
+                ModifyReportingDescriptorNameTypeInToolComponent(toolComponent);
+            }
+        }
+
+        private static void ModifyReportingDescriptorNameTypeInToolComponent(JObject toolComponent)
+        {
+            // Access and modify toolComponent.notificationDescriptors
+            if (toolComponent["notificationDescriptors"] is JArray notificationDescriptors)
+            {
+                foreach (JObject reportingDescriptor in notificationDescriptors)
+                {
+                    ModifyReportingDescriptorNameInReportingDescriptor(reportingDescriptor);
+                }
+            }
+
+            // Access and modify toolComponent.ruleDescriptors
+            if (toolComponent["ruleDescriptors"] is JArray ruleDescriptors)
+            {
+                foreach (JObject reportingDescriptor in ruleDescriptors)
+                {
+                    ModifyReportingDescriptorNameInReportingDescriptor(reportingDescriptor);
+                }
+            }
+        }
+
+        private static void ModifyReportingDescriptorNameInReportingDescriptor(JObject reportingDescriptor)
+        {
+            if (reportingDescriptor["name"] is JObject message && message["text"] is JToken text)
+            {
+                reportingDescriptor["name"] = text;
             }
         }
 
@@ -204,6 +266,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
             return true;
         }
+
         private static void RecursivePropertyRename(JObject parentObject, JProperty property, Dictionary<string, string> renamedMembers)
         {
             JToken newValue = property.Value;

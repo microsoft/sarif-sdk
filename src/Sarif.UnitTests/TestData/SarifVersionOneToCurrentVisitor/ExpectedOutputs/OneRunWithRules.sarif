@@ -35,9 +35,7 @@
             },
             {
               "id": "C2003",
-              "name": {
-                "text": "Rule C2003"
-              },
+              "name": "Rule C2003",
               "shortDescription": {
                 "text": "Rules were meant to be broken."
               },
