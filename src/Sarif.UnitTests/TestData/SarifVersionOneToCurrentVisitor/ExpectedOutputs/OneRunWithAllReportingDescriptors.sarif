@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-02-20",
+  "version": "2.0.0-csd.2.beta.2019-02-20",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "CodeScanner",
+          "semanticVersion": "2.1.0",
+          "ruleDescriptors": [
+            {
+              "id": "C2003",
+              "name": "Rule C2003",
+              "shortDescription": {
+                "text": "Rules were meant to be broken."
+              },
+              "fullDescription": {
+                "text": "This is a test for validating modification of tool.driver.ruleDescriptors"
+              },
+              "defaultConfiguration": {
+                "enabled": false,
+                "level": "note",
+                "rank": -1.0
+              }
+            },
+            {
+              "id": "C2004",
+              "name": "Rule C2004",
+              "shortDescription": {
+                "text": "Another rule meant to be broken."
+              },
+              "fullDescription": {
+                "text": "This is a test for validating modification of tool.driver.ruleDescriptors"
+              },
+              "defaultConfiguration": {
+                "enabled": false,
+                "level": "note",
+                "rank": -1.0
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "C2003",
+          "ruleIndex": 0,
+          "message": {
+            "text": "Some testing occurred."
+          }
+        },
+        {
+          "ruleId": "C2004",
+          "ruleIndex": 1,
+          "message": {
+            "text": "Some testing occurred."
+          }
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

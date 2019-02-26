@@ -59,8 +59,12 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
             => RunTest("OneRunWithFiles.sarif");
 
         [Fact]
-        public void SarifTransformerTests_ToCurrent_OneRunWitRules()
+        public void SarifTransformerTests_ToCurrent_OneRunWithRules()
             => RunTest("OneRunWithRules.sarif");
+
+        [Fact]
+        public void SarifTransformerTests_ToCurrent_OneRunWithAllReportingDescriptors()
+            => RunTest("OneRunWithAllReportingDescriptors.sarif");
 
         [Fact]
         public void SarifTransformerTests_ToCurrent_OneRunWithBasicInvocation()

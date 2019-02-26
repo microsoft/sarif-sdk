@@ -137,7 +137,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     RemoveToolLanguage(run);
 
                     // Modify reportingDescriptor.name type to string
-                    ModifyReportingDescriptorNameType(run);
+                    ConvertAllReportingDescriptorNamesToString(run);
                 }
             }
             return true;
@@ -152,26 +152,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        private static void ModifyReportingDescriptorNameType(JObject run)
+        private static void ConvertAllReportingDescriptorNamesToString(JObject run)
         {
             // Access and modify run.tool
             JObject tool = (JObject)run["tool"];
-            ModifyReportingDescriptorNameTypeInTool(tool);
+            ConvertToolReportingDescriptorNamesToString(tool);
 
             // Access and modify run.conversion.tool
             if (run["conversion"] is JObject conversion)
             {
                 tool = (JObject)conversion["tool"];
-                ModifyReportingDescriptorNameTypeInTool(tool);
+                ConvertToolReportingDescriptorNamesToString(tool);
             }
         }
 
-        private static void ModifyReportingDescriptorNameTypeInTool(JObject tool)
+        private static void ConvertToolReportingDescriptorNamesToString(JObject tool)
         {
             // Access and modify tool.driver
             if (tool["driver"] is JObject driver)
             {
-                ModifyReportingDescriptorNameTypeInToolComponent(driver);
+                ConvertToolComponentReportingDescriptorNamesToString(driver);
             }
 
             // Access and modify each item in tool.extensions
@@ -179,37 +179,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 foreach (JObject toolComponent in extensions)
                 {
-                    ModifyReportingDescriptorNameTypeInToolComponent(toolComponent);
+                    ConvertToolComponentReportingDescriptorNamesToString(toolComponent);
                 }
             }
         }
 
-        private static void ModifyReportingDescriptorNameTypeInToolComponent(JObject toolComponent)
+        private static void ConvertToolComponentReportingDescriptorNamesToString(JObject toolComponent)
         {
             // Access and modify toolComponent.notificationDescriptors
             if (toolComponent["notificationDescriptors"] is JArray notificationDescriptors)
             {
-                foreach (JObject reportingDescriptor in notificationDescriptors)
-                {
-                    ModifyReportingDescriptorNameInReportingDescriptor(reportingDescriptor);
-                }
+                ConvertReportingDescriptorsNameToString(notificationDescriptors);
             }
 
             // Access and modify toolComponent.ruleDescriptors
             if (toolComponent["ruleDescriptors"] is JArray ruleDescriptors)
             {
-                foreach (JObject reportingDescriptor in ruleDescriptors)
-                {
-                    ModifyReportingDescriptorNameInReportingDescriptor(reportingDescriptor);
-                }
+                ConvertReportingDescriptorsNameToString(ruleDescriptors);
             }
         }
 
-        private static void ModifyReportingDescriptorNameInReportingDescriptor(JObject reportingDescriptor)
+        private static void ConvertReportingDescriptorsNameToString(JArray reportingDescriptors)
         {
-            if (reportingDescriptor["name"] is JObject message && message["text"] is JToken text)
+            foreach (JObject reportingDescriptor in reportingDescriptors)
             {
-                reportingDescriptor["name"] = text;
+                if (reportingDescriptor["name"] is JObject message && message["text"] is JToken text)
+                {
+                    reportingDescriptor["name"] = text;
+                }
             }
         }
 
