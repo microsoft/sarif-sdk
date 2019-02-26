@@ -602,7 +602,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
-                node.Name = VisitNullChecked(node.Name);
                 node.ShortDescription = VisitNullChecked(node.ShortDescription);
                 node.FullDescription = VisitNullChecked(node.FullDescription);
                 if (node.MessageStrings != null)

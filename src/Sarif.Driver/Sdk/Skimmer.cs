@@ -73,9 +73,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             int length = Math.Min(fullDescription.Length, 80);
             bool truncated = length < fullDescription.Length;
             return fullDescription.Substring(0, length) + (truncated ? "..." : "");
-        }       
+        }
 
-        public override Message Name {  get { return new Message { Text = this.GetType().Name }; } }
+        public override string Name => this.GetType().Name;
 
         public IDictionary<string, string> Options { get; }
 

@@ -1296,7 +1296,7 @@
 
         "name": {
           "description": "A report identifier that is understandable to an end user.",
-          "$ref": "#/definitions/message"
+          "type": "string"
         },
 
         "shortDescription": {

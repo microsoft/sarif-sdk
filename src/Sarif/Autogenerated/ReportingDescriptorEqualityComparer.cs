@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!Message.ValueComparer.Equals(left.Name, right.Name))
+            if (left.Name != right.Name)
             {
                 return false;
             }
@@ -160,7 +160,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (obj.Name != null)
                 {
-                    result = (result * 31) + obj.Name.ValueGetHashCode();
+                    result = (result * 31) + obj.Name.GetHashCode();
                 }
 
                 if (obj.ShortDescription != null)

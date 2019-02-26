@@ -837,7 +837,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     HelpUri = v2ReportingDescriptor.HelpUri,
                     Id = v2ReportingDescriptor.Id,
                     MessageFormats = ConvertToV1MessageStringsDictionary(v2ReportingDescriptor.MessageStrings),
-                    Name = v2ReportingDescriptor.Name?.Text,
+                    Name = v2ReportingDescriptor.Name,
                     Properties = v2ReportingDescriptor.Properties,
                     ShortDescription = v2ReportingDescriptor.ShortDescription?.Text
                 };

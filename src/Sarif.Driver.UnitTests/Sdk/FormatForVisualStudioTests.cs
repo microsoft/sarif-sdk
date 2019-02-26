@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         private static readonly ReportingDescriptor TestRule = new ReportingDescriptor
         {
             Id = TestRuleId,
-            Name = new Message { Text = "ThisIsATest" },
+            Name = "ThisIsATest",
             ShortDescription = new Message { Text = "short description" },
             FullDescription = new Message { Text = "full description" },
             MessageStrings = new Dictionary<string, MultiformatMessageString>
