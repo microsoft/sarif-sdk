@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!Message.ValueComparer.Equals(left.Message, right.Message))
+            if (left.Message != right.Message)
             {
                 return false;
             }
@@ -106,7 +106,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (obj.Message != null)
                 {
-                    result = (result * 31) + obj.Message.ValueGetHashCode();
+                    result = (result * 31) + obj.Message.GetHashCode();
                 }
 
                 if (obj.Stack != null)

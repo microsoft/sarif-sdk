@@ -276,7 +276,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
-                node.Message = VisitNullChecked(node.Message);
                 node.Stack = VisitNullChecked(node.Stack);
                 if (node.InnerExceptions != null)
                 {

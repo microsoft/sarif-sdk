@@ -114,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     InnerExceptions = v2ExceptionData.InnerExceptions?.Select(CreateExceptionDataVersionOne).ToList(),
                     Kind = v2ExceptionData.Kind,
-                    Message = v2ExceptionData.Message?.Text,
+                    Message = v2ExceptionData.Message,
                     Stack = CreateStackVersionOne(v2ExceptionData.Stack)
                 };
             }

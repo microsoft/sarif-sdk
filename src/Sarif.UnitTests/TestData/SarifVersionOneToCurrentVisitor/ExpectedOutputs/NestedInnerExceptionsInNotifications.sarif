@@ -41,6 +41,34 @@
                   {
                     "kind": "System.ArgumentException",
                     "message": "length is < 0"
+                  },
+                  {
+                    "kind": "System.CustomException",
+                    "message": "Please look at innerexception for more details",
+                    "innerExceptions": [
+                      {
+                        "kind": "System.ArgumentException",
+                        "message": "length is < 0"
+                      },
+                      {
+                        "kind": "CustomException",
+                        "message": "Dig deeper!",
+                        "innerExceptions": [
+                          {
+                            "kind": "Magic exception",
+                            "message": "This is the true exception message."
+                          }
+                        ]
+                      },
+                      {
+                        "kind": "AnotherCustomException",
+                        "message": "This is make believe exception for testing."
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "YetAnotherCustomException",
+                    "message": "This is make believe exception for testing."
                   }
                 ]
               }
@@ -59,12 +87,21 @@
               "ruleId": "ABC0001",
               "message": {
                 "text": "Could not disable rule \"ABC0001\" because there is no rule with that id."
+              },
+              "exception": {
+                "kind": "ExecutionEngine.RuleFailureException",
+                "message": "Unhandled exception during rule evaluation.",
+                "innerExceptions": [
+                  {
+                    "kind": "ACustomException",
+                    "message": "This is make believe exception for testing."
+                  }
+                ]
               }
             }
           ]
         }
       ],
-      "results": [],
       "columnKind": "utf16CodeUnits"
     }
   ]

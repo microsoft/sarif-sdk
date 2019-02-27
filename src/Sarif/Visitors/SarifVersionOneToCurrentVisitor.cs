@@ -133,7 +133,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     InnerExceptions = v1ExceptionData.InnerExceptions?.Select(CreateExceptionData).ToList(),
                     Kind = v1ExceptionData.Kind,
-                    Message = v1ExceptionData.Message?.ToMessage(),
+                    Message = v1ExceptionData.Message,
                     Stack = CreateStack(v1ExceptionData.Stack)
                 };
             }
