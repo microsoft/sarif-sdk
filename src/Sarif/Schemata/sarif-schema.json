@@ -534,6 +534,16 @@
         "tool": {
           "description": "An external property file containing a run.tool object to be merged with the root log file.",
           "$ref": "#/definitions/externalPropertyFile"
+        },
+
+        "taxonomies": {
+          "description": "An array of external property files containing run.taxonomies arrays to be merged with the root log file.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/externalPropertyFile"
+          }
         }
       }
     },
@@ -1841,6 +1851,17 @@
         "externalPropertyFiles": {
           "description": "References to external property files that should be inlined with the content of a root log file.",
           "$ref": "#/definitions/externalPropertyFiles"
+        },
+
+        "taxonomies": {
+          "description": "An array of reportDescriptor objects relevant to a taxonomy in which results are categorized.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/reportingDescriptor"
+          }
         },
 
         "properties": {

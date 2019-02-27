@@ -131,6 +131,27 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (!object.ReferenceEquals(left.Taxonomies, right.Taxonomies))
+            {
+                if (left.Taxonomies == null || right.Taxonomies == null)
+                {
+                    return false;
+                }
+
+                if (left.Taxonomies.Count != right.Taxonomies.Count)
+                {
+                    return false;
+                }
+
+                for (int index_4 = 0; index_4 < left.Taxonomies.Count; ++index_4)
+                {
+                    if (!ExternalPropertyFile.ValueComparer.Equals(left.Taxonomies[index_4], right.Taxonomies[index_4]))
+                    {
+                        return false;
+                    }
+                }
+            }
+
             return true;
         }
 
@@ -210,6 +231,18 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.Tool != null)
                 {
                     result = (result * 31) + obj.Tool.ValueGetHashCode();
+                }
+
+                if (obj.Taxonomies != null)
+                {
+                    foreach (var value_4 in obj.Taxonomies)
+                    {
+                        result = result * 31;
+                        if (value_4 != null)
+                        {
+                            result = (result * 31) + value_4.ValueGetHashCode();
+                        }
+                    }
                 }
             }
 
