@@ -10,7 +10,7 @@
           "shortDescription": "Rules were meant to be broken.",
           "fullDescription": "This is a test for validating modification of tool.driver.ruleDescriptors",
           "configuration": "disabled",
-          "defaultLevel": "pass"
+          "defaultLevel": "error"
         },
         "C2004": {
           "id": "C2004",
@@ -18,7 +18,7 @@
           "shortDescription": "Another rule meant to be broken.",
           "fullDescription": "This is a test for validating modification of tool.driver.ruleDescriptors",
           "configuration": "disabled",
-          "defaultLevel": "pass"
+          "defaultLevel": "error"
         }
       },
       "tool": {

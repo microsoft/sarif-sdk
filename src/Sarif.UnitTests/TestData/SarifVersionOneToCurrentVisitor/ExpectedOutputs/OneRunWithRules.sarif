@@ -28,8 +28,7 @@
                 "text": "Catfish season continuous hen lamb include dose copy grant."
               },
               "defaultConfiguration": {
-                "level": "error",
-                "rank": -1.0
+                "level": "error"
               },
               "helpUri": "http://www.domain.com/rules/c2002.html"
             },
@@ -44,8 +43,7 @@
               },
               "defaultConfiguration": {
                 "enabled": false,
-                "level": "note",
-                "rank": -1.0
+                "level": "error"
               }
             }
           ]
