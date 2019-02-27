@@ -417,7 +417,7 @@
 
         "message": {
           "description": "A message that describes the exception.",
-          "$ref": "#/definitions/message"
+          "type": "string"
         },
 
         "stack": {

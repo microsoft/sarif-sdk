@@ -230,13 +230,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 Exception = new ExceptionData
                 {
                     Kind = "System.AggregateException",
-                    Message = "Bad thing".ToMessage(),
+                    Message = "Bad thing",
                     InnerExceptions = new[]
                     {
                         new ExceptionData
                         {
                             Kind = "System.ArgumentNullException",
-                            Message = "x cannot be null".ToMessage(),
+                            Message = "x cannot be null",
                             Stack = new Stack
                             {
                                 Frames = new StackFrame[]

@@ -135,9 +135,68 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     // https://github.com/oasis-tcs/sarif-spec/issues/325
                     RemoveToolLanguage(run);
+
+                    // Modify exception.message to string
+                    ConvertAllExceptionMessagesToString(run);
                 }
             }
             return true;
+        }
+
+        private static void ConvertAllExceptionMessagesToString(JObject run)
+        {
+            if (run["conversion"] is JObject conversion && conversion["invocation"] is JObject invocation)
+            {
+                ConvertInvocationExceptionMessagesToString(invocation);
+            }
+
+            if (run["invocations"] is JArray invocations)
+            {
+                foreach (JObject item in invocations)
+                {
+                    ConvertInvocationExceptionMessagesToString(item);
+                }
+            }
+        }
+
+        private static void ConvertInvocationExceptionMessagesToString(JObject invocation)
+        {
+            if (invocation["toolNotifications"] is JArray toolNotifications)
+            {
+                ConvertNotificationExceptionMessagesToString(toolNotifications);
+            }
+
+            if (invocation["configurationNotifications"] is JArray configurationNotifications)
+            {
+                ConvertNotificationExceptionMessagesToString(configurationNotifications);
+            }
+        }
+
+        private static void ConvertNotificationExceptionMessagesToString(JArray Notifications)
+        {
+            foreach (JObject notification in Notifications)
+            {
+                if (notification["exception"] is JObject exception)
+                {
+                    ConvertExceptionMessageToString(exception);
+                }
+            }
+        }
+
+        private static void ConvertExceptionMessageToString(JObject exception)
+        {
+            if (exception["message"] is JObject message && message["text"] is JToken text)
+            {
+                exception["message"] = text;
+            }
+
+            if (exception["innerExceptions"] is JArray innerExceptions)
+            {
+                foreach (JObject innerException in innerExceptions)
+                {
+                    ConvertExceptionMessageToString(innerException);
+                }
+            }
         }
 
         private static void RemoveToolLanguage(JObject run)

@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExceptionData
             {
                 Kind = exception.GetType().Name,
-                Message = exception.Message.ToMessage(),
+                Message = exception.Message,
                 InnerExceptions = GetInnerExceptions(exception),
                 Stack = Stack.Create(exception.StackTrace)
             };

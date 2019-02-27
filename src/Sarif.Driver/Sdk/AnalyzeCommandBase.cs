@@ -680,7 +680,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 exceptionData = new ExceptionData
                 {
                     Kind = ex.GetType().FullName,
-                    Message = ex.Message.ToMessage(),
+                    Message = ex.Message,
                     Stack = Stack.CreateStacks(ex).FirstOrDefault()
                 };
             }

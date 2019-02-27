@@ -84,5 +84,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             RunTest("ToolWithLanguage.sarif");
         }
+
+        [Fact]
+        public void PrereleaseCompatibilityTransformer_NestedInnerExceptionsInNotifications()
+        {
+            RunTest("NestedInnerExceptionsInNotifications.sarif");
+        }
     }
 }

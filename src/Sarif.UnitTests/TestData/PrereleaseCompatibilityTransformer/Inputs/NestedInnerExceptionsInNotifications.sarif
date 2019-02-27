@@ -1,0 +1,121 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-10-10",
+  "version": "2.0.0-csd.2.beta.2018-10-10",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner",
+        "semanticVersion": "2.1.0"
+      },
+      "invocations": [
+        {
+          "commandLine": "CodeScanner @collections.rsp",
+          "toolNotifications": [
+            {
+              "id": "CTN0001",
+              "message": {
+                "text": "Run started."
+              },
+              "level": "note"
+            },
+            {
+              "id": "CTN9999",
+              "ruleId": "C2152",
+              "message": {
+                "text": "Exception evaluating rule \"C2152\". Rule disabled; run continues."
+              },
+              "level": "error",
+              "threadId": 52,
+              "timeUtc": "2016-07-16T14:18:43.119Z",
+              "exception": {
+                "kind": "ExecutionEngine.RuleFailureException",
+                "message": {
+                  "text": "Unhandled exception during rule evaluation."
+                },
+                "innerExceptions": [
+                  {
+                    "kind": "System.ArgumentException",
+                    "message": {
+                      "text": "length is < 0"
+                    }
+                  },
+                  {
+                    "kind": "System.CustomException",
+                    "message": {
+                      "text": "Please look at innerexception for more details"
+                    },
+                    "innerExceptions": [
+                      {
+                        "kind": "System.ArgumentException",
+                        "message": {
+                          "text": "length is < 0"
+                        }
+                      },
+                      {
+                        "kind": "CustomException",
+                        "message": {
+                          "text": "Dig deeper!"
+                        },
+                        "innerExceptions": [
+                          {
+                            "kind": "Magic exception",
+                            "message": {
+                              "text": "This is the true exception message."
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "kind": "AnotherCustomException",
+                        "message": {
+                          "text": "This is make believe exception for testing."
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "YetAnotherCustomException",
+                    "message": {
+                      "text": "This is make believe exception for testing."
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "id": "CTN0002",
+              "message": {
+                "text": "Run ended."
+              },
+              "level": "note"
+            }
+          ],
+          "configurationNotifications": [
+            {
+              "id": "UnknownRule",
+              "ruleId": "ABC0001",
+              "message": {
+                "text": "Could not disable rule \"ABC0001\" because there is no rule with that id."
+              },
+              "exception": {
+                "kind": "ExecutionEngine.RuleFailureException",
+                "message": {
+                  "text": "Unhandled exception during rule evaluation."
+                },
+                "innerExceptions": [
+                  {
+                    "kind": "ACustomException",
+                    "message": {
+                      "text": "This is make believe exception for testing."
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}
