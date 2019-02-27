@@ -135,8 +135,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     // https://github.com/oasis-tcs/sarif-spec/issues/325
                     RemoveToolLanguage(run);
-
-                    // Modify reportingDescriptor.name type to string
                     ConvertAllReportingDescriptorNamesToString(run);
                 }
             }
