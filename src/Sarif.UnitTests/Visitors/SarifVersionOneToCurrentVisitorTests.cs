@@ -93,5 +93,9 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
         [Fact]
         public void SarifTransformerTests_ToCurrent_CodeFlows()
             => RunTest("CodeFlows.sarif");
+
+        [Fact]
+        public void SarifTransformerTests_ToCurrent_NestedInnerExceptionsInNotifications()
+            => RunTest("NestedInnerExceptionsInNotifications.sarif");
     }
 }

@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner",
+        "semanticVersion": "2.1.0"
+      },
+      "invocation": {
+        "commandLine": "CodeScanner @collections.rsp"
+      },
+      "configurationNotifications": [
+        {
+          "id": "UnknownRule",
+          "ruleId": "ABC0001",
+          "level": "warning",
+          "message": "Could not disable rule \"ABC0001\" because there is no rule with that id.",
+          "exception": {
+            "kind": "ExecutionEngine.RuleFailureException",
+            "message": "Unhandled exception during rule evaluation.",
+            "innerExceptions": [
+              {
+                "kind": "ACustomException",
+                "message": "This is make believe exception for testing."
+              }
+            ]
+          }
+        }
+      ],
+      "toolNotifications": [
+        {
+          "id": "CTN0001",
+          "level": "note",
+          "message": "Run started."
+        },
+        {
+          "id": "CTN9999",
+          "ruleId": "C2152",
+          "level": "error",
+          "message": "Exception evaluating rule \"C2152\". Rule disabled; run continues.",
+          "physicalLocation": {
+            "uri": "file:///home/buildAgent/src/crypto/hash.cpp"
+          },
+          "threadId": 52,
+          "time": "2016-07-16T14:18:43.119Z",
+          "exception": {
+            "kind": "ExecutionEngine.RuleFailureException",
+            "message": "Unhandled exception during rule evaluation.",
+            "innerExceptions": [
+              {
+                "kind": "System.ArgumentException",
+                "message": "length is < 0"
+              },
+              {
+                "kind": "System.CustomException",
+                "message": "Please look at innerexception for more details",
+                "innerExceptions": [
+                  {
+                    "kind": "System.ArgumentException",
+                    "message": "length is < 0"
+                  },
+                  {
+                    "kind": "CustomException",
+                    "message": "Dig deeper!",
+                    "innerExceptions": [
+                      {
+                        "kind": "Magic exception",
+                        "message": "This is the true exception message."
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "AnotherCustomException",
+                    "message": "This is make believe exception for testing."
+                  }
+                ]
+              },
+              {
+                "kind": "YetAnotherCustomException",
+                "message": "This is make believe exception for testing."
+              }
+            ]
+          }
+        },
+        {
+          "id": "CTN0002",
+          "level": "note",
+          "message": "Run ended."
+        }
+      ]
+    }
+  ]
+}

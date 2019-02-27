@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A message that describes the exception.
         /// </summary>
         [DataMember(Name = "message", IsRequired = false, EmitDefaultValue = false)]
-        public Message Message { get; set; }
+        public string Message { get; set; }
 
         /// <summary>
         /// The sequence of function calls leading to the exception.
@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ExceptionData(string kind, Message message, Stack stack, IEnumerable<ExceptionData> innerExceptions, IDictionary<string, SerializedPropertyInfo> properties)
+        public ExceptionData(string kind, string message, Stack stack, IEnumerable<ExceptionData> innerExceptions, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(kind, message, stack, innerExceptions, properties);
         }
@@ -128,14 +128,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExceptionData(this);
         }
 
-        private void Init(string kind, Message message, Stack stack, IEnumerable<ExceptionData> innerExceptions, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string kind, string message, Stack stack, IEnumerable<ExceptionData> innerExceptions, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Kind = kind;
-            if (message != null)
-            {
-                Message = new Message(message);
-            }
-
+            Message = message;
             if (stack != null)
             {
                 Stack = new Stack(stack);

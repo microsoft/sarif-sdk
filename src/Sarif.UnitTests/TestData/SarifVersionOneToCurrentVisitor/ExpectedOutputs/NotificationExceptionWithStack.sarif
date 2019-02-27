@@ -20,9 +20,7 @@
               "level": "error",
               "exception": {
                 "kind": "ExecutionEngine.RuleFailureException",
-                "message": {
-                  "text": "Unhandled exception during rule evaluation."
-                },
+                "message": "Unhandled exception during rule evaluation.",
                 "stack": {
                   "message": {
                     "text": "This is the stack messasge."
@@ -98,9 +96,7 @@
                 "innerExceptions": [
                   {
                     "kind": "System.ArgumentException",
-                    "message": {
-                      "text": "length is < 0"
-                    }
+                    "message": "length is < 0"
                   }
                 ]
               }
