@@ -81,12 +81,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public bool ShouldSerializeToolNotifications()
         {
-            return this.ToolNotifications.HasAtLeastOneNonNullValue();
+            return this.ToolExecutionNotifications.HasAtLeastOneNonNullValue();
         }
 
         public bool ShouldSerializeConfigurationNotifications()
         {
-            return this.ConfigurationNotifications.HasAtLeastOneNonNullValue();
+            return this.ToolConfigurationNotifications.HasAtLeastOneNonNullValue();
         }
     }
 }

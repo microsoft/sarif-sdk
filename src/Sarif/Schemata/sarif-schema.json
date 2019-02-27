@@ -716,7 +716,7 @@
           }
         },
 
-        "toolNotifications": {
+        "toolExecutionNotifications": {
           "description": "A list of runtime conditions detected by the tool during the analysis.",
           "type": "array",
           "minItems": 0,
@@ -727,7 +727,7 @@
           }
         },
 
-        "configurationNotifications": {
+        "toolConfigurationNotifications": {
           "description": "A list of conditions detected by the tool that are relevant to the tool's configuration.",
           "type": "array",
           "minItems": 0,

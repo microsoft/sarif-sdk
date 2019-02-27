@@ -277,25 +277,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     WorkingDirectory = v2Invocation.WorkingDirectory?.Uri?.OriginalString
                 };
 
-                if (v2Invocation.ConfigurationNotifications != null)
+                if (v2Invocation.ToolConfigurationNotifications != null)
                 {
                     if (_currentRun.ConfigurationNotifications == null)
                     {
                         _currentRun.ConfigurationNotifications = new List<NotificationVersionOne>();
                     }
 
-                    IEnumerable<NotificationVersionOne> notifications = v2Invocation.ConfigurationNotifications.Select(CreateNotificationVersionOne);
+                    IEnumerable<NotificationVersionOne> notifications = v2Invocation.ToolConfigurationNotifications.Select(CreateNotificationVersionOne);
                     _currentRun.ConfigurationNotifications = _currentRun.ConfigurationNotifications.Union(notifications).ToList();
                 }
 
-                if (v2Invocation.ToolNotifications != null)
+                if (v2Invocation.ToolExecutionNotifications != null)
                 {
                     if (_currentRun.ToolNotifications == null)
                     {
                         _currentRun.ToolNotifications = new List<NotificationVersionOne>();
                     }
 
-                    List<NotificationVersionOne> notifications = v2Invocation.ToolNotifications.Select(CreateNotificationVersionOne).ToList();
+                    List<NotificationVersionOne> notifications = v2Invocation.ToolExecutionNotifications.Select(CreateNotificationVersionOne).ToList();
                     _currentRun.ToolNotifications = _currentRun.ToolNotifications.Union(notifications).ToList();
                 }
             }

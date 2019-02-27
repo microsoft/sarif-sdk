@@ -85,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             _invocation = new Invocation();
-            _invocation.ToolNotifications = new List<Notification>();
+            _invocation.ToolExecutionNotifications = new List<Notification>();
             _results.Clear();
             _files.Clear();
             _rules.Clear();
@@ -849,7 +849,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     string errorCode = _reader.GetAttribute(_strings.CodeAttribute);
                     string message = _reader.ReadElementContentAsString();
 
-                    _invocation.ToolNotifications.Add(new Notification
+                    _invocation.ToolExecutionNotifications.Add(new Notification
                     {
                         Id = errorCode,
                         Level = FailureLevel.Error,

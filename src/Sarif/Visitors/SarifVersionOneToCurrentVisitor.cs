@@ -277,8 +277,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     invocation = new Invocation();
                 }
 
-                invocation.ToolNotifications = toolNotifications;
-                invocation.ConfigurationNotifications = configurationNotifications;
+                invocation.ToolExecutionNotifications = toolNotifications;
+                invocation.ToolConfigurationNotifications = configurationNotifications;
             }
 
             return invocation;

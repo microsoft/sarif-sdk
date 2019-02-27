@@ -440,14 +440,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 Visit(invocation.StdoutStderr, invocationPointer.AtProperty(SarifPropertyName.StdoutStderr));
             }
 
-            if (invocation.ToolNotifications != null)
+            if (invocation.ToolExecutionNotifications != null)
             {
-                Visit(invocation.ToolNotifications, invocationPointer, SarifPropertyName.ToolNotifications);
+                Visit(invocation.ToolExecutionNotifications, invocationPointer, SarifPropertyName.ToolNotifications);
             }
 
-            if (invocation.ConfigurationNotifications != null)
+            if (invocation.ToolConfigurationNotifications != null)
             {
-                Visit(invocation.ConfigurationNotifications, invocationPointer, SarifPropertyName.ConfigurationNotifications);
+                Visit(invocation.ToolConfigurationNotifications, invocationPointer, SarifPropertyName.ConfigurationNotifications);
             }
         }
 
