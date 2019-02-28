@@ -138,9 +138,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                     // Modify exception.message to string
                     ConvertAllExceptionMessagesToString(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/330
+                    RenameToolNotificationNodes(run);
                 }
             }
             return true;
+        }
+
+        private static void RenameToolNotificationNodes(JObject run)
+        {
+            var universallyRenamedMembers = new Dictionary<string, string>
+            {
+                ["toolNotifications"] = "toolExecutionNotifications",
+                ["configurationNotifications"] = "toolConfigurationNotifications"
+            };
+
+            RecursivePropertyRename(run, universallyRenamedMembers);
         }
 
         private static void ConvertAllExceptionMessagesToString(JObject run)

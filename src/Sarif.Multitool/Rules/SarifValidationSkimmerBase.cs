@@ -442,12 +442,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (invocation.ToolExecutionNotifications != null)
             {
-                Visit(invocation.ToolExecutionNotifications, invocationPointer, SarifPropertyName.ToolNotifications);
+                Visit(invocation.ToolExecutionNotifications, invocationPointer, SarifPropertyName.ToolExecutionNotifications);
             }
 
             if (invocation.ToolConfigurationNotifications != null)
             {
-                Visit(invocation.ToolConfigurationNotifications, invocationPointer, SarifPropertyName.ConfigurationNotifications);
+                Visit(invocation.ToolConfigurationNotifications, invocationPointer, SarifPropertyName.ToolConfigurationNotifications);
             }
         }
 

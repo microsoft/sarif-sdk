@@ -12,7 +12,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Attachments = "attachments";
         public const string Changes = "changes";
         public const string CodeFlows = "codeFlows";
-        public const string ConfigurationNotifications = "configurationNotifications";
         public const string Conversion = "conversion";
         public const string ConversionSources = "conversionSources";
         public const string Description = "description";
@@ -68,9 +67,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Step = "step";
         public const string Text = "text";
         public const string ThreadFlows = "threadFlows";
-        public const string ToolNotifications = "toolNotifications";
         public const string Tool = "tool";
         public const string ToolComponent = "toolComponent";
+        public const string ToolConfigurationNotifications = "toolConfigurationNotifications";
+        public const string ToolExecutionNotifications = "toolExecutionNotifications";
         public const string Uri = "uri";
         public const string VersionControlProvenance = "versionControlProvenance";
         public const string WorkItemUris = "workItemUris";
