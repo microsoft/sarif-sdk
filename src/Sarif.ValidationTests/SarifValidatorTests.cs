@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             _schema = SchemaReader.ReadSchema(schemaText, JsonSchemaFile);
         }
 
-        [Fact(Skip = "JSchema attempts to instantiate types from the compiled Sarif assembly that no longer exist")]
+        [Fact]
         public void ValidateAllTheThings()
         {
             // First, we start with builders that only populate required properties that are backed by primitives.
@@ -40,14 +40,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                 (sarifLog) =>
                 {
                     sarifLog.Runs[0].Tool.Driver.DottedQuadFileVersion = "1.0.1.2";
+                    sarifLog.Runs[0].Tool.Extensions[0].DottedQuadFileVersion = "1.0.1.2";
                     sarifLog.Runs[0].Conversion.Tool.Driver.DottedQuadFileVersion = "2.7.1500.12";
+                    sarifLog.Runs[0].Conversion.Tool.Extensions[0].DottedQuadFileVersion = "2.7.1500.12";
                     return sarifLog;
                 };
 
             ValidateDefaultDocument(propertyValueBuilders, callback);
         }
 
-        [Fact(Skip = "JSchema attempts to instantiate types from the compiled Sarif assembly that no longer exist")]
+        [Fact]
         public void ValidatesUriConversion()
         {
             // First, we start with builders that only populate required properties that are backed by primitives.
@@ -62,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             ValidateDefaultDocument(propertyValueBuilders);
         }
 
-        [Fact(Skip = "JSchema attempts to instantiate types from the compiled Sarif assembly that no longer exist")]
+        [Fact]
         public void DefaultValuesDoNotSerialize()
         {
             ValidateDefaultDocument(propertyValueBuilders: DefaultObjectPopulatingVisitor.GetBuildersForRequiredPrimitives());
@@ -107,7 +109,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             // clonedLog.Should().BeEquivalentTo(sarifLog);
         }
 
-        [Fact(Skip = "JSchema attempts to instantiate types from the compiled Sarif assembly that no longer exist")]
+        [Fact]
         public void ValidatesAllTestFiles()
         {
             var validator = new Validator(_schema);
@@ -135,6 +137,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             @"v2\ConverterTestData",
             @"v2\SpecExamples",
             @"v2\ObsoleteFormats",
+            @"..\..\Sarif.UnitTests\net461\TestData"
         };
 
         private static IEnumerable<string> s_testCases;
@@ -179,9 +182,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             foreach (var error in errors)
             {
-#if JSCHEMA_UPGRADED
                 sb.AppendLine(error.FormatForVisualStudio(RuleFactory.GetRuleFromRuleId(error.RuleId)));
-#endif
             }
 
             return sb.ToString();
