@@ -11,7 +11,7 @@
       },
       "invocations": [
         {
-          "toolNotifications": [
+          "toolExecutionNotifications": [
             {
               "id": "CTN0001",
               "message": {
