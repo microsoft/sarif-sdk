@@ -1021,21 +1021,14 @@
       "additionalProperties": false,
       "properties": {
 
-        "id": {
-          "description": "An identifier for the condition that was encountered.",
-          "type": "string"
+        "notificationDescriptorReference": {
+          "description": "A reference that can be used to locate the reporting descriptor for the notification.",
+          "$ref": "#/definitions/reportingDescriptorReference"
         },
 
-        "ruleId": {
-          "description": "The stable, unique identifier of the rule, if any, to which this notification is relevant.",
-          "type": "string"
-        },
-
-        "ruleIndex": {
-          "description": "The index within the run resources array of the rule object, if any, associated with this notification.",
-          "type": "integer",
-          "default": -1,
-          "minimum": -1
+        "associatedRuleDescriptorReference": {
+          "description": "A reference that can be used to locate the reporting descriptor for the rule, if any, that is associated with this notification.",
+          "$ref": "#/definitions/reportingDescriptorReference"
         },
 
         "physicalLocation": {
@@ -1389,29 +1382,36 @@
           "$ref": "#/definitions/reportingConfiguration"
         },
 
-        "notificationIndex": {
-          "description": "The index within the toolComponent.notificationDescriptors array of the reportingDescriptor associated with this override.",
-          "type": "integer",
-          "default": -1,
-          "minimum": -1
-        },
-
-        "ruleIndex": {
-          "description": "The index within the toolComponent.ruleDescriptors array of the reportingDescriptor associated with this override.",
-          "type": "integer",
-          "default": -1,
-          "minimum": -1
-        },
-
-        "extensionIndex": {
-          "description": "The index within the run.tool.extensions array of the toolComponent object which describes the plug-in or tool extension that produced the report.",
-          "type": "integer",
-          "default": -1,
-          "minimum": -1
+        "notificationDescriptorReference": {
+          "description": "A reference that can be used to locate the reporting descriptor associated with this reporting configuration override.",
+          "$ref": "#/definitions/reportingDescriptorReference"
         },
 
         "properties": {
           "description": "Key/value pairs that provide additional information about the reporting configuration.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      }
+    },
+
+    "reportingDescriptorReference": {
+      "description": "Information about how to locate a relevant reporting descriptor.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+
+        "id": {
+          "description": "A notification identifier.",
+          "type": "string"
+        },
+
+        "pointer": {
+          "description": "A JSON pointer used to retrieve a reporting descriptor from an array within a tool component.",
+          "type": "string"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the reporting descriptor reference.",
           "$ref": "#/definitions/propertyBag"
         }
       }
@@ -1428,18 +1428,9 @@
           "type": "string"
         },
 
-        "ruleIndex": {
-          "description": "The index within the run resources array of the rule object associated with this result.",
-          "type": "integer",
-          "default": -1,
-          "minimum": -1
-        },
-
-        "ruleExtensionIndex": {
-          "description": "The index within the run.tool.extensions array of the tool component object which describes the plug-in or tool extension that produced the result.",
-          "type": "integer",
-          "default": -1,
-          "minimum": -1
+        "rulePointer": {
+          "description": "A JSON pointer used to retrieve the rule reporting descriptor, to which this notification is relevant, from an array within a tool component.",
+          "type": "string"
         },
 
         "kind": {
