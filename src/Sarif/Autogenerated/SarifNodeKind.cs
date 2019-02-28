@@ -48,14 +48,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         Conversion,
         /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Edge" />.
-        /// </summary>
-        Edge,
-        /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="EdgeTraversal" />.
-        /// </summary>
-        EdgeTraversal,
-        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ExceptionData" />.
         /// </summary>
         ExceptionData,
@@ -71,14 +63,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Fix" />.
         /// </summary>
         Fix,
-        /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Graph" />.
-        /// </summary>
-        Graph,
-        /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="GraphTraversal" />.
-        /// </summary>
-        GraphTraversal,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Invocation" />.
         /// </summary>
@@ -99,10 +83,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="MultiformatMessageString" />.
         /// </summary>
         MultiformatMessageString,
-        /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Node" />.
-        /// </summary>
-        Node,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Notification" />.
         /// </summary>

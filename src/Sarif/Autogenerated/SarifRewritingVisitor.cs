@@ -60,10 +60,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitCodeFlow((CodeFlow)node);
                 case SarifNodeKind.Conversion:
                     return VisitConversion((Conversion)node);
-                case SarifNodeKind.Edge:
-                    return VisitEdge((Edge)node);
-                case SarifNodeKind.EdgeTraversal:
-                    return VisitEdgeTraversal((EdgeTraversal)node);
                 case SarifNodeKind.ExceptionData:
                     return VisitExceptionData((ExceptionData)node);
                 case SarifNodeKind.ExternalPropertyFile:
@@ -72,10 +68,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitExternalPropertyFiles((ExternalPropertyFiles)node);
                 case SarifNodeKind.Fix:
                     return VisitFix((Fix)node);
-                case SarifNodeKind.Graph:
-                    return VisitGraph((Graph)node);
-                case SarifNodeKind.GraphTraversal:
-                    return VisitGraphTraversal((GraphTraversal)node);
                 case SarifNodeKind.Invocation:
                     return VisitInvocation((Invocation)node);
                 case SarifNodeKind.Location:
@@ -86,8 +78,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitMessage((Message)node);
                 case SarifNodeKind.MultiformatMessageString:
                     return VisitMultiformatMessageString((MultiformatMessageString)node);
-                case SarifNodeKind.Node:
-                    return VisitNode((Node)node);
                 case SarifNodeKind.Notification:
                     return VisitNotification((Notification)node);
                 case SarifNodeKind.PhysicalLocation:
@@ -252,26 +242,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             return node;
         }
 
-        public virtual Edge VisitEdge(Edge node)
-        {
-            if (node != null)
-            {
-                node.Label = VisitNullChecked(node.Label);
-            }
-
-            return node;
-        }
-
-        public virtual EdgeTraversal VisitEdgeTraversal(EdgeTraversal node)
-        {
-            if (node != null)
-            {
-                node.Message = VisitNullChecked(node.Message);
-            }
-
-            return node;
-        }
-
         public virtual ExceptionData VisitExceptionData(ExceptionData node)
         {
             if (node != null)
@@ -304,7 +274,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.Conversion = VisitNullChecked(node.Conversion);
-                node.Graphs = VisitNullChecked(node.Graphs);
                 node.ExternalizedProperties = VisitNullChecked(node.ExternalizedProperties);
                 if (node.Artifacts != null)
                 {
@@ -354,48 +323,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     for (int index_0 = 0; index_0 < node.Changes.Count; ++index_0)
                     {
                         node.Changes[index_0] = VisitNullChecked(node.Changes[index_0]);
-                    }
-                }
-            }
-
-            return node;
-        }
-
-        public virtual Graph VisitGraph(Graph node)
-        {
-            if (node != null)
-            {
-                node.Description = VisitNullChecked(node.Description);
-                if (node.Nodes != null)
-                {
-                    for (int index_0 = 0; index_0 < node.Nodes.Count; ++index_0)
-                    {
-                        node.Nodes[index_0] = VisitNullChecked(node.Nodes[index_0]);
-                    }
-                }
-
-                if (node.Edges != null)
-                {
-                    for (int index_0 = 0; index_0 < node.Edges.Count; ++index_0)
-                    {
-                        node.Edges[index_0] = VisitNullChecked(node.Edges[index_0]);
-                    }
-                }
-            }
-
-            return node;
-        }
-
-        public virtual GraphTraversal VisitGraphTraversal(GraphTraversal node)
-        {
-            if (node != null)
-            {
-                node.Description = VisitNullChecked(node.Description);
-                if (node.EdgeTraversals != null)
-                {
-                    for (int index_0 = 0; index_0 < node.EdgeTraversals.Count; ++index_0)
-                    {
-                        node.EdgeTraversals[index_0] = VisitNullChecked(node.EdgeTraversals[index_0]);
                     }
                 }
             }
@@ -490,24 +417,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
-            }
-
-            return node;
-        }
-
-        public virtual Node VisitNode(Node node)
-        {
-            if (node != null)
-            {
-                node.Label = VisitNullChecked(node.Label);
-                node.Location = VisitNullChecked(node.Location);
-                if (node.Children != null)
-                {
-                    for (int index_0 = 0; index_0 < node.Children.Count; ++index_0)
-                    {
-                        node.Children[index_0] = VisitNullChecked(node.Children[index_0]);
-                    }
-                }
             }
 
             return node;
@@ -654,27 +563,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (node.Graphs != null)
-                {
-                    var keys = node.Graphs.Keys.ToArray();
-                    foreach (var key in keys)
-                    {
-                        var value = node.Graphs[key];
-                        if (value != null)
-                        {
-                            node.Graphs[key] = VisitNullChecked(value);
-                        }
-                    }
-                }
-
-                if (node.GraphTraversals != null)
-                {
-                    for (int index_0 = 0; index_0 < node.GraphTraversals.Count; ++index_0)
-                    {
-                        node.GraphTraversals[index_0] = VisitNullChecked(node.GraphTraversals[index_0]);
-                    }
-                }
-
                 if (node.RelatedLocations != null)
                 {
                     for (int index_0 = 0; index_0 < node.RelatedLocations.Count; ++index_0)
@@ -772,19 +660,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     for (int index_0 = 0; index_0 < node.LogicalLocations.Count; ++index_0)
                     {
                         node.LogicalLocations[index_0] = VisitNullChecked(node.LogicalLocations[index_0]);
-                    }
-                }
-
-                if (node.Graphs != null)
-                {
-                    var keys = node.Graphs.Keys.ToArray();
-                    foreach (var key in keys)
-                    {
-                        var value = node.Graphs[key];
-                        if (value != null)
-                        {
-                            node.Graphs[key] = VisitNullChecked(value);
-                        }
                     }
                 }
 

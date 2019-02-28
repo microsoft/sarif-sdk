@@ -32,11 +32,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!ExternalPropertyFile.ValueComparer.Equals(left.Graphs, right.Graphs))
-            {
-                return false;
-            }
-
             if (!ExternalPropertyFile.ValueComparer.Equals(left.ExternalizedProperties, right.ExternalizedProperties))
             {
                 return false;
@@ -147,11 +142,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.Conversion != null)
                 {
                     result = (result * 31) + obj.Conversion.ValueGetHashCode();
-                }
-
-                if (obj.Graphs != null)
-                {
-                    result = (result * 31) + obj.Graphs.ValueGetHashCode();
                 }
 
                 if (obj.ExternalizedProperties != null)

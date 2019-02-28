@@ -138,9 +138,48 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                     // Modify exception.message to string
                     ConvertAllExceptionMessagesToString(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/326
+                    RemoveGraphsAndRelatedTypes(run);
                 }
             }
             return true;
+        }
+
+        private static void RemoveGraphsAndRelatedTypes(JObject run)
+        {
+            if (run["graphs"] is JObject)
+            {
+                run.Remove("graphs");
+            }
+
+            if (run["results"] is JArray results)
+            {
+                foreach (JObject result in results)
+                {
+                    if (result["graphs"] is JObject)
+                    {
+                        result.Remove("graphs");
+                    }
+
+                    if (result["graphTraversals"] is JArray)
+                    {
+                        result.Remove("graphTraversals");
+                    }
+                }
+            }
+
+            if (run["externalPropertyFiles"] is JArray externalPropertyFiles)
+            {
+                foreach (JObject externalPropertyFile in externalPropertyFiles)
+                {
+                    if (externalPropertyFile["graphs"] is JObject)
+                    {
+                        externalPropertyFile.Remove("graphs");
+                    }
+                }
+            }
+
         }
 
         private static void ConvertAllExceptionMessagesToString(JObject run)

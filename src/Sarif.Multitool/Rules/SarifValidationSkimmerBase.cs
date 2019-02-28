@@ -71,14 +71,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
         }
 
-        protected virtual void Analyze(Edge edge, string edgePointer)
-        {
-        }
-
-        protected virtual void Analyze(EdgeTraversal edgeTraversal, string edgeTraversalPointer)
-        {
-        }
-
         protected virtual void Analyze(ArtifactChange fileChange, string fileChangePointer)
         {
         }
@@ -88,10 +80,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         }
 
         protected virtual void Analyze(Artifact fileData, string filePointer)
-        {
-        }
-
-        protected virtual void Analyze(Graph graph, string graphKey, string graphPointer)
         {
         }
 
@@ -106,10 +94,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
         }
         protected virtual void Analyze(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
-        {
-        }
-
-        protected virtual void Analyze(Node node, string nodePointer)
         {
         }
 
@@ -295,21 +279,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
-        private void Visit(Edge edge, string edgePointer)
-        {
-            Analyze(edge, edgePointer);
-        }
-
-        private void Visit(EdgeTraversal edgeTraversal, string edgeTraversalPointer)
-        {
-            Analyze(edgeTraversal, edgeTraversalPointer);
-
-            if (edgeTraversal.Message != null)
-            {
-                Visit(edgeTraversal.Message, edgeTraversalPointer.AtProperty(SarifPropertyName.Message));
-            }
-        }
-
         private void Visit(Artifact fileData, string filePointer)
         {
             Analyze(fileData, filePointer);
@@ -350,54 +319,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             if (fileChange.ArtifactLocation != null)
             {
                 Visit(fileChange.ArtifactLocation, fileChangePointer.AtProperty(SarifPropertyName.ArtifactLocation));
-            }
-        }
-
-        private void Visit(Graph graph, string graphKey, string graphPointer)
-        {
-            Analyze(graph, graphKey, graphPointer);
-
-            if (graph.Description != null)
-            {
-                Visit(graph.Description, graphPointer.AtProperty(SarifPropertyName.Description));
-            }
-
-            if (graph.Edges != null)
-            {
-                string edgesPointer = graphPointer.AtProperty(SarifPropertyName.Edges);
-
-                for (int i = 0; i < graph.Edges.Count; ++i)
-                {
-                    Visit(graph.Edges[i], edgesPointer.AtIndex(i));
-                }
-            }
-
-            if (graph.Nodes != null)
-            {
-                string nodesPointer = graphPointer.AtProperty(SarifPropertyName.Nodes);
-
-                for (int i = 0; i < graph.Nodes.Count; ++i)
-                {
-                    Visit(graph.Nodes[i], nodesPointer.AtIndex(i));
-                }
-            }
-        }
-
-        private void Visit(GraphTraversal graphTraversal, string graphTraversalPointer)
-        {
-            if (graphTraversal.Description != null)
-            {
-                Visit(graphTraversal.Description, graphTraversalPointer.AtProperty(SarifPropertyName.Description));
-            }
-
-            if (graphTraversal.EdgeTraversals != null)
-            {
-                string edgeTraversalsPointer = graphTraversalPointer.AtProperty(SarifPropertyName.EdgeTraversals);
-
-                for (int i = 0; i < graphTraversal.EdgeTraversals.Count; ++i)
-                {
-                    Visit(graphTraversal.EdgeTraversals[i], edgeTraversalsPointer.AtIndex(i));
-                }
             }
         }
 
@@ -477,16 +398,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         private void VisitReportingDescriptor(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
         {
             Analyze(reportingDescriptor, reportingDescriptorPointer);
-        }
-
-        private void Visit(Node node, string nodePointer)
-        {
-            Analyze(node, nodePointer);
-
-            if (node.Location != null)
-            {
-                Visit(node.Location, nodePointer.AtProperty(SarifPropertyName.Location));
-            }
         }
 
         private void Visit(Notification notification, string notificationPointer)
@@ -581,26 +492,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             if (result.Provenance != null)
             {
                 Visit(result.Provenance, resultPointer.AtProperty(SarifPropertyName.Provenance));
-            }
-
-            if (result.Graphs != null)
-            {
-                string graphsPointer = resultPointer.AtProperty(SarifPropertyName.Graphs);
-
-                foreach (string key in result.Graphs.Keys)
-                {
-                    Visit(result.Graphs[key], key, graphsPointer.AtProperty(key));
-                }
-            }
-
-            if (result.GraphTraversals != null)
-            {
-                string graphTraversalsPointer = resultPointer.AtProperty(SarifPropertyName.GraphTraversals);
-
-                for (int i = 0; i < result.GraphTraversals.Count; ++i)
-                {
-                    Visit(result.GraphTraversals[i], graphTraversalsPointer.AtIndex(i));
-                }
             }
 
             if (result.Message != null)
@@ -711,16 +602,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 for (int i = 0; i < run.LogicalLocations.Count; ++i)
                 {
                     Visit(run.LogicalLocations[i], logicalLocationsPointer.AtIndex(i));
-                }
-            }
-
-            if (run.Graphs != null)
-            {
-                string graphsPointer = runPointer.AtProperty(SarifPropertyName.Graphs);
-
-                foreach (string key in run.Graphs.Keys)
-                {
-                    Visit(run.Graphs[key], key, graphsPointer.AtProperty(key));
                 }
             }
 

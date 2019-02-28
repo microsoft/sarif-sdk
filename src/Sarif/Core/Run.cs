@@ -10,7 +10,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public partial class Run
     {
-        private static Graph EmptyGraph = new Graph();
         private static Artifact EmptyFile = new Artifact();
         private static Invocation EmptyInvocation = new Invocation();
         private static LogicalLocation EmptyLogicalLocation = new LogicalLocation();
@@ -146,8 +145,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         public bool ShouldSerializeArtifacts() { return this.Artifacts.HasAtLeastOneNonNullValue(); }
-
-        public bool ShouldSerializeGraphs() { return this.Graphs.HasAtLeastOneNonNullValue(); }
 
         public bool ShouldSerializeInvocations() { return this.Invocations.HasAtLeastOneNonDefaultValue(Invocation.ValueComparer); }
 

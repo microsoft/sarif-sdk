@@ -80,12 +80,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<LogicalLocation> LogicalLocations { get; set; }
 
         /// <summary>
-        /// A dictionary, each of whose keys is the id of a graph and each of whose values is a 'graph' object with that id.
-        /// </summary>
-        [DataMember(Name = "graphs", IsRequired = false, EmitDefaultValue = false)]
-        public IDictionary<string, Graph> Graphs { get; set; }
-
-        /// <summary>
         /// The set of results contained in an SARIF log. The results array can be omitted when a run is solely exporting rules metadata. It must be present (but may be empty) if a log file represents an actual scan.
         /// </summary>
         [DataMember(Name = "results", IsRequired = false, EmitDefaultValue = false)]
@@ -202,9 +196,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="logicalLocations">
         /// An initialization value for the <see cref="P:LogicalLocations" /> property.
         /// </param>
-        /// <param name="graphs">
-        /// An initialization value for the <see cref="P:Graphs" /> property.
-        /// </param>
         /// <param name="results">
         /// An initialization value for the <see cref="P:Results" /> property.
         /// </param>
@@ -241,9 +232,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, ArtifactLocation> originalUriBaseIds, IEnumerable<Artifact> artifacts, IEnumerable<LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string markdownMessageMimeType, string redactionToken, string defaultFileEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFiles externalPropertyFiles, IDictionary<string, SerializedPropertyInfo> properties)
+        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, ArtifactLocation> originalUriBaseIds, IEnumerable<Artifact> artifacts, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<Result> results, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string markdownMessageMimeType, string redactionToken, string defaultFileEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFiles externalPropertyFiles, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(tool, invocations, conversion, versionControlProvenance, originalUriBaseIds, artifacts, logicalLocations, graphs, results, id, aggregateIds, baselineInstanceGuid, markdownMessageMimeType, redactionToken, defaultFileEncoding, defaultSourceLanguage, newlineSequences, columnKind, externalPropertyFiles, properties);
+            Init(tool, invocations, conversion, versionControlProvenance, originalUriBaseIds, artifacts, logicalLocations, results, id, aggregateIds, baselineInstanceGuid, markdownMessageMimeType, redactionToken, defaultFileEncoding, defaultSourceLanguage, newlineSequences, columnKind, externalPropertyFiles, properties);
         }
 
         /// <summary>
@@ -262,7 +253,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocations, other.Conversion, other.VersionControlProvenance, other.OriginalUriBaseIds, other.Artifacts, other.LogicalLocations, other.Graphs, other.Results, other.Id, other.AggregateIds, other.BaselineInstanceGuid, other.MarkdownMessageMimeType, other.RedactionToken, other.DefaultFileEncoding, other.DefaultSourceLanguage, other.NewlineSequences, other.ColumnKind, other.ExternalPropertyFiles, other.Properties);
+            Init(other.Tool, other.Invocations, other.Conversion, other.VersionControlProvenance, other.OriginalUriBaseIds, other.Artifacts, other.LogicalLocations, other.Results, other.Id, other.AggregateIds, other.BaselineInstanceGuid, other.MarkdownMessageMimeType, other.RedactionToken, other.DefaultFileEncoding, other.DefaultSourceLanguage, other.NewlineSequences, other.ColumnKind, other.ExternalPropertyFiles, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -283,7 +274,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, ArtifactLocation> originalUriBaseIds, IEnumerable<Artifact> artifacts, IEnumerable<LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string markdownMessageMimeType, string redactionToken, string defaultFileEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFiles externalPropertyFiles, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, ArtifactLocation> originalUriBaseIds, IEnumerable<Artifact> artifacts, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<Result> results, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string markdownMessageMimeType, string redactionToken, string defaultFileEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFiles externalPropertyFiles, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (tool != null)
             {
@@ -376,27 +367,18 @@ namespace Microsoft.CodeAnalysis.Sarif
                 LogicalLocations = destination_3;
             }
 
-            if (graphs != null)
-            {
-                Graphs = new Dictionary<string, Graph>();
-                foreach (var value_5 in graphs)
-                {
-                    Graphs.Add(value_5.Key, new Graph(value_5.Value));
-                }
-            }
-
             if (results != null)
             {
                 var destination_4 = new List<Result>();
-                foreach (var value_6 in results)
+                foreach (var value_5 in results)
                 {
-                    if (value_6 == null)
+                    if (value_5 == null)
                     {
                         destination_4.Add(null);
                     }
                     else
                     {
-                        destination_4.Add(new Result(value_6));
+                        destination_4.Add(new Result(value_5));
                     }
                 }
 
@@ -411,15 +393,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (aggregateIds != null)
             {
                 var destination_5 = new List<RunAutomationDetails>();
-                foreach (var value_7 in aggregateIds)
+                foreach (var value_6 in aggregateIds)
                 {
-                    if (value_7 == null)
+                    if (value_6 == null)
                     {
                         destination_5.Add(null);
                     }
                     else
                     {
-                        destination_5.Add(new RunAutomationDetails(value_7));
+                        destination_5.Add(new RunAutomationDetails(value_6));
                     }
                 }
 
@@ -434,9 +416,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (newlineSequences != null)
             {
                 var destination_6 = new List<string>();
-                foreach (var value_8 in newlineSequences)
+                foreach (var value_7 in newlineSequences)
                 {
-                    destination_6.Add(value_8);
+                    destination_6.Add(value_7);
                 }
 
                 NewlineSequences = destination_6;

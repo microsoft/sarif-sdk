@@ -275,8 +275,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
             run.Results = newRunResults;
             run.Artifacts = indexRemappingVisitor.CurrentFiles;
-            
-            var graphs = new Dictionary<string, Graph>();
             var ruleData = new Dictionary<string, ReportingDescriptor>();
             var invocations = new List<Invocation>();
 
@@ -285,11 +283,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
             foreach (Run currentRun in currentRuns)
             {
-                if (currentRun.Graphs != null)
-                {
-                    MergeDictionaryInto(graphs, currentRun.Graphs, GraphEqualityComparer.Instance);
-                }
-
                 if (currentRun.Invocations != null)
                 {
                     invocations.AddRange(currentRun.Invocations);
@@ -301,7 +294,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 }
             }
 
-            run.Graphs = graphs;
             run.LogicalLocations = new List<LogicalLocation>(indexRemappingVisitor.RemappedLogicalLocationIndices.Keys);
             //run.Resources = new Resources() { MessageStrings = messageData, Rules = ruleData }; TODO
             run.Invocations = invocations;

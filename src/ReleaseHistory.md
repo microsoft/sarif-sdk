@@ -266,3 +266,4 @@
 * API BREAKING: Remove 'invocation.attachments', now replaced by 'run.tool.extensions'. https://github.com/oasis-tcs/sarif-spec/issues/327
 * API BREAKING: Remove 'tool.language' and localization support. https://github.com/oasis-tcs/sarif-spec/issues/325
 * API NON-BREAKING: Improve logicalLocation.kind. https://github.com/oasis-tcs/sarif-spec/issues/291
+* API BREAKING: Remove graphs and related types from v2 https://github.com/oasis-tcs/sarif-spec/issues/326

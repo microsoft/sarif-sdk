@@ -60,14 +60,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         private readonly JsonSchema _schema;
         private readonly IDictionary<Type, PrimitiveValueBuilder> _typeToPropertyValueConstructorMap;
 
-        // There are two places in the format where objects nest references to the defining 
+        // There are places in the format where objects nest references to the defining 
         // type. 'exception.innerExceptions' is an array of exception objects. 
-        // 'node.children' is another collection of nodes. We need to watch for these
+        // We need to watch for these
         // scenarios to prevent re-entrancy and eventual stack consumption when 
         // producing samples of these types.
-        private bool _visitingGraphNode;
         private bool _visitingExceptionData;
-
 
         public override object Visit(ISarifNode node)
         {
@@ -100,15 +98,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         // Retain nesting level for visiting graph nodes, to prevent
         // unbounded re-entrance populating exception.innerExceptions
-        public override Node VisitNode(Node node)
-        {
-            _visitingGraphNode = true;
-            node = base.VisitNode(node);
-            _visitingGraphNode = false;
-
-            return node;
-        }
-
         private void PopulateInstanceWithDefaultMemberValues(ISarifNode node)
         {           
             Type nodeType = node.GetType();
@@ -181,11 +170,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node.SarifNodeKind == SarifNodeKind.ExceptionData &&
                 property.Name == "InnerExceptions" &&
                 _visitingExceptionData) { return; }
-
-            // Similar approach applies for graph node.children
-            if (node.SarifNodeKind == SarifNodeKind.Node &&
-                property.Name == "Children" &&
-                _visitingGraphNode) { return; }
 
             object propertyValue = null;
             Type propertyType = property.PropertyType;

@@ -38,12 +38,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         public ExternalPropertyFile Conversion { get; set; }
 
         /// <summary>
-        /// An external property file containing a run.graphs object to be merged with the root log file.
-        /// </summary>
-        [DataMember(Name = "graphs", IsRequired = false, EmitDefaultValue = false)]
-        public ExternalPropertyFile Graphs { get; set; }
-
-        /// <summary>
         /// An external property file containing a run.properties object to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "externalizedProperties", IsRequired = false, EmitDefaultValue = false)]
@@ -92,9 +86,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="conversion">
         /// An initialization value for the <see cref="P:Conversion" /> property.
         /// </param>
-        /// <param name="graphs">
-        /// An initialization value for the <see cref="P:Graphs" /> property.
-        /// </param>
         /// <param name="externalizedProperties">
         /// An initialization value for the <see cref="P:ExternalizedProperties" /> property.
         /// </param>
@@ -113,9 +104,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="tool">
         /// An initialization value for the <see cref="P:Tool" /> property.
         /// </param>
-        public ExternalPropertyFiles(ExternalPropertyFile conversion, ExternalPropertyFile graphs, ExternalPropertyFile externalizedProperties, IEnumerable<ExternalPropertyFile> artifacts, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ExternalPropertyFile> results, ExternalPropertyFile tool)
+        public ExternalPropertyFiles(ExternalPropertyFile conversion, ExternalPropertyFile externalizedProperties, IEnumerable<ExternalPropertyFile> artifacts, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ExternalPropertyFile> results, ExternalPropertyFile tool)
         {
-            Init(conversion, graphs, externalizedProperties, artifacts, invocations, logicalLocations, results, tool);
+            Init(conversion, externalizedProperties, artifacts, invocations, logicalLocations, results, tool);
         }
 
         /// <summary>
@@ -134,7 +125,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Conversion, other.Graphs, other.ExternalizedProperties, other.Artifacts, other.Invocations, other.LogicalLocations, other.Results, other.Tool);
+            Init(other.Conversion, other.ExternalizedProperties, other.Artifacts, other.Invocations, other.LogicalLocations, other.Results, other.Tool);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -155,16 +146,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExternalPropertyFiles(this);
         }
 
-        private void Init(ExternalPropertyFile conversion, ExternalPropertyFile graphs, ExternalPropertyFile externalizedProperties, IEnumerable<ExternalPropertyFile> artifacts, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ExternalPropertyFile> results, ExternalPropertyFile tool)
+        private void Init(ExternalPropertyFile conversion, ExternalPropertyFile externalizedProperties, IEnumerable<ExternalPropertyFile> artifacts, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ExternalPropertyFile> results, ExternalPropertyFile tool)
         {
             if (conversion != null)
             {
                 Conversion = new ExternalPropertyFile(conversion);
-            }
-
-            if (graphs != null)
-            {
-                Graphs = new ExternalPropertyFile(graphs);
             }
 
             if (externalizedProperties != null)

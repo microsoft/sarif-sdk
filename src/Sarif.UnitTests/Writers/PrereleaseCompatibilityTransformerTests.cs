@@ -90,5 +90,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             RunTest("NestedInnerExceptionsInNotifications.sarif");
         }
+
+        [Fact]
+        public void PrereleaseCompatibilityTransformer_WithGraphs()
+        {
+            RunTest("WithGraphs.sarif");
+        }
     }
 }

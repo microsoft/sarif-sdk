@@ -15,14 +15,12 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
         {
             var run = new Run
             {
-                Graphs = new Dictionary<string, Graph>(),
                 Artifacts = new List<Artifact>(),
                 Invocations = new Invocation[] { },
                 LogicalLocations = new List<LogicalLocation>()
             };
 
             run.Artifacts.Should().NotBeNull();
-            run.Graphs.Should().NotBeNull();
             run.Invocations.Should().NotBeNull();
 
             run = SerializeAndDeserialize(run);
@@ -33,7 +31,6 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             // (i.e., entirely absent) representation on disk when saved.
 
             run.Artifacts.Should().BeNull();
-            run.Graphs.Should().BeNull();
             run.Invocations.Should().BeNull();
             run.LogicalLocations.Should().BeNull();
 

@@ -1,0 +1,337 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-02-20",
+  "version": "2.0.0-csd.2.beta.2019-02-20",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "CodeScanner"
+        }
+      },
+      "invocations": [
+        {
+          "responseFiles": [
+            {
+              "uri": "file.c",
+              "uriBaseId": "%SRCROOT%"
+            }
+          ],
+          "toolNotifications": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file.c",
+                  "uriBaseId": "%SRCROOT%"
+                }
+              },
+              "message": {
+                "text": "Message."
+              }
+            }
+          ],
+          "configurationNotifications": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file.c",
+                  "uriBaseId": "%SRCROOT%"
+                }
+              },
+              "message": {
+                "text": "Message."
+              }
+            }
+          ],
+          "executableLocation": {
+            "uri": "file.c",
+            "uriBaseId": "%SRCROOT%"
+          },
+          "stdin": {
+            "uri": "/c:/log/in.txt",
+            "uriBaseId": "%SRCROOT%"
+          },
+          "stdout": {
+            "uri": "/c:/log/out.txt",
+            "uriBaseId": "%SRCROOT%"
+          },
+          "stderr": {
+            "uri": "/c:/log/err.txt",
+            "uriBaseId": "%SRCROOT%"
+          },
+          "stdoutStderr": {
+            "uri": "/c:/log/out-err.txt",
+            "uriBaseId": "%SRCROOT%"
+          }
+        }
+      ],
+      "conversion": {
+        "tool": {
+          "driver": {
+            "name": "ConversionTool"
+          }
+        },
+        "analysisToolLogFiles": [
+          {
+            "uri": "file.c",
+            "uriBaseId": "%SRCROOT%"
+          }
+        ]
+      },
+      "versionControlProvenance": [
+        {
+          "repositoryUri": "https://github.com/example-corp/browser",
+          "revisionId": "de67ef7",
+          "mappedTo": {
+            "uri": "/browser",
+            "uriBaseId": "%SRCROOT%"
+          }
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file.c",
+            "index": 0
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "message": {
+            "text": "[No message provided]."
+          },
+          "analysisTarget": {
+            "uri": "file.c",
+            "uriBaseId": "%SRCROOT%"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file.c",
+                  "uriBaseId": "%SRCROOT%"
+                }
+              }
+            }
+          ],
+          "stacks": [
+            {
+              "frames": [
+                {
+                  "location": {
+                    "physicalLocation": {
+                      "artifactLocation": {
+                        "uri": "file.c",
+                        "uriBaseId": "%SRCROOT%"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file.c",
+                            "uriBaseId": "%SRCROOT%"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file.c",
+                  "uriBaseId": "%SRCROOT%"
+                }
+              }
+            }
+          ],
+          "attachments": [
+            {
+              "artifactLocation": {
+                "uri": "file.c",
+                "uriBaseId": "%SRCROOT%"
+              }
+            }
+          ],
+          "provenance": {
+            "conversionSources": [
+              {
+                "artifactLocation": {
+                  "uri": "file.c",
+                  "uriBaseId": "%SRCROOT%"
+                }
+              }
+            ]
+          },
+          "fixes": [
+            {
+              "changes": [
+                {
+                  "artifactLocation": {
+                    "uri": "file.c",
+                    "uriBaseId": "%SRCROOT%"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 0,
+                        "charLength": 1
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "message": {
+            "text": "result message with period.",
+            "markdown": "_Rich_ result message with period."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///c:/src/file.c"
+                },
+                "region": {
+                  "startLine": 1,
+                  "message": {
+                    "text": "region message with period.",
+                    "markdown": "_Rich_ region message with period."
+                  }
+                }
+              },
+              "message": {
+                "text": "location message with period.",
+                "markdown": "_Rich_ location message with period."
+              }
+            }
+          ],
+          "stacks": [
+            {
+              "message": {
+                "text": "stack message with period.",
+                "markdown": "_Rich_ stack message with period."
+              },
+              "frames": [
+                {
+                  "location": {
+                    "message": {
+                      "text": "frame message with period.",
+                      "markdown": "_Rich_ frame message with period."
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "codeFlows": [
+            {
+              "message": {
+                "text": "codeFlow message with period.",
+                "markdown": "_Rich_ codeFlow message with period."
+              },
+              "threadFlows": [
+                {
+                  "message": {
+                    "text": "threadFlow message with period.",
+                    "markdown": "_Rich_ threadFlow message with period."
+                  },
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///c:/src/file.c"
+                          },
+                          "region": {
+                            "startLine": 42,
+                            "startColumn": 12
+                          }
+                        },
+                        "message": {
+                          "text": "ThreadFlow location message with period.",
+                          "markdown": "_Rich_ ThreadFlow location message with period."
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "attachments": [
+            {
+              "description": {
+                "text": "attachment description with period.",
+                "markdown": "_Rich_ attachment description with period."
+              },
+              "artifactLocation": {
+                "uri": "file:///c:/output/screenshot.png"
+              },
+              "rectangles": [
+                {
+                  "left": 100.0,
+                  "right": 100.0,
+                  "message": {
+                    "text": "rectangle message with period.",
+                    "markdown": "_Rich_ rectangle message with period."
+                  }
+                }
+              ]
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "fix description with period.",
+                "markdown": "_Rich_ fix description with period."
+              },
+              "changes": [
+                {
+                  "artifactLocation": {
+                    "uri": "file:///c:/src/file.c"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "byteLength": 1
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits",
+      "properties": {
+        "expectedResults": {
+          "resultLocationPointers": []
+        }
+      }
+    }
+  ]
+}

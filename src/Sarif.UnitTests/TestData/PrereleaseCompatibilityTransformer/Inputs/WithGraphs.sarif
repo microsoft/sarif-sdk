@@ -1,0 +1,432 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "version": "2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner"
+      },
+      "conversion": {
+        "tool": {
+          "name": "ConversionTool"
+        },
+        "analysisToolLogFiles": [
+          {
+            "uri": "file.c",
+            "uriBaseId": "%SRCROOT%"
+          }
+        ]
+      },
+      "files": {
+        "file.c": {
+          "fileLocation": {
+            "uri": "file.c",
+            "uriBaseId": "%SRCROOT%"
+          }
+        }
+      },
+      "graphs": {
+        "g1": {
+          "id": "g1",
+          "nodes": [
+            {
+              "id": "n1",
+              "location": {
+                "physicalLocation": {
+                  "fileLocation": {
+                    "uri": "file.c",
+                    "uriBaseId": "%SRCROOT%"
+                  }
+                }
+              }
+            }
+          ],
+          "edges": [
+            {
+              "id": "e1",
+              "sourceNodeId": "n1",
+              "targetNodeId": "n1"
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "attachments": [
+            {
+              "fileLocation": {
+                "uri": "file.c",
+                "uriBaseId": "%SRCROOT%"
+              }
+            }
+          ],
+          "configurationNotifications": [
+            {
+              "message": {
+                "text": "Message."
+              },
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file.c",
+                  "uriBaseId": "%SRCROOT%"
+                }
+              }
+            }
+          ],
+          "executableLocation": {
+            "uri": "file.c",
+            "uriBaseId": "%SRCROOT%"
+          },
+          "responseFiles": [
+            {
+              "uri": "file.c",
+              "uriBaseId": "%SRCROOT%"
+            }
+          ],
+          "stdin": {
+            "uri": "/c:/log/in.txt",
+            "uriBaseId": "%SRCROOT%"
+          },
+          "stdout": {
+            "uri": "/c:/log/out.txt",
+            "uriBaseId": "%SRCROOT%"
+          },
+          "stderr": {
+            "uri": "/c:/log/err.txt",
+            "uriBaseId": "%SRCROOT%"
+          },
+          "stdoutStderr": {
+            "uri": "/c:/log/out-err.txt",
+            "uriBaseId": "%SRCROOT%"
+          },
+          "toolNotifications": [
+            {
+              "message": {
+                "text": "Message."
+              },
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file.c",
+                  "uriBaseId": "%SRCROOT%"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "analysisTarget": {
+            "uri": "file.c",
+            "uriBaseId": "%SRCROOT%"
+          },
+          "attachments": [
+            {
+              "fileLocation": {
+                "uri": "file.c",
+                "uriBaseId": "%SRCROOT%"
+              }
+            }
+          ],
+          "provenance": {
+            "conversionSources": [
+              {
+                "fileLocation": {
+                  "uri": "file.c",
+                  "uriBaseId": "%SRCROOT%"
+                }
+              }
+            ]
+          },
+          "graphs": {
+            "g1": {
+              "id": "g1",
+              "nodes": [
+                {
+                  "id": "n1",
+                  "location": {
+                    "physicalLocation": {
+                      "fileLocation": {
+                        "uri": "file.c",
+                        "uriBaseId": "%SRCROOT%"
+                      }
+                    }
+                  }
+                }
+              ],
+              "edges": [
+                {
+                  "id": "e1",
+                  "sourceNodeId": "n1",
+                  "targetNodeId": "n1"
+                }
+              ]
+            }
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file.c",
+                  "uriBaseId": "%SRCROOT%"
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file.c",
+                  "uriBaseId": "%SRCROOT%"
+                }
+              }
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file.c",
+                            "uriBaseId": "%SRCROOT%"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "stacks": [
+            {
+              "frames": [
+                {
+                  "location": {
+                    "physicalLocation": {
+                      "fileLocation": {
+                        "uri": "file.c",
+                        "uriBaseId": "%SRCROOT%"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "fixes": [
+            {
+              "fileChanges": [
+                {
+                  "fileLocation": {
+                    "uri": "file.c",
+                    "uriBaseId": "%SRCROOT%"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 0,
+                        "charLength": 1
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "TST0001",
+          "level": "error",
+          "message": {
+            "text": "result message with period.",
+            "richText": "_Rich_ result message with period."
+          },
+          "locations": [
+            {
+              "message": {
+                "text": "location message with period.",
+                "richText": "_Rich_ location message with period."
+              },
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///c:/src/file.c"
+                },
+                "region": {
+                  "startLine": 1,
+                  "message": {
+                    "text": "region message with period.",
+                    "richText": "_Rich_ region message with period."
+                  }
+                }
+              }
+            }
+          ],
+          "attachments": [
+            {
+              "fileLocation": {
+                "uri": "file:///c:/output/screenshot.png"
+              },
+              "description": {
+                "text": "attachment description with period.",
+                "richText": "_Rich_ attachment description with period."
+              },
+              "rectangles": [
+                {
+                  "top": 0,
+                  "bottom": 0,
+                  "left": 100,
+                  "right": 100,
+                  "message": {
+                    "text": "rectangle message with period.",
+                    "richText": "_Rich_ rectangle message with period."
+                  }
+                }
+              ]
+            }
+          ],
+          "codeFlows": [
+            {
+              "message": {
+                "text": "codeFlow message with period.",
+                "richText": "_Rich_ codeFlow message with period."
+              },
+              "threadFlows": [
+                {
+                  "message": {
+                    "text": "threadFlow message with period.",
+                    "richText": "_Rich_ threadFlow message with period."
+                  },
+                  "locations": [
+                    {
+                      "location": {
+                        "message": {
+                          "text": "ThreadFlow location message with period.",
+                          "richText": "_Rich_ ThreadFlow location message with period."
+                        },
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///c:/src/file.c"
+                          },
+                          "region": {
+                            "startLine": 42,
+                            "startColumn": 12
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "stacks": [
+            {
+              "message": {
+                "text": "stack message with period.",
+                "richText": "_Rich_ stack message with period."
+              },
+              "frames": [
+                {
+                  "location": {
+                    "message": {
+                      "text": "frame message with period.",
+                      "richText": "_Rich_ frame message with period."
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "graphs": {
+            "g": {
+              "id": "g",
+              "description": {
+                "text": "graph description with period.",
+                "richText": "_Rich_ graph description with period."
+              },
+              "nodes": [
+                {
+                  "id": "n1"
+                },
+                {
+                  "id": "n2"
+                }
+              ],
+              "edges": [
+                {
+                  "id": "e",
+                  "sourceNodeId": "n1",
+                  "targetNodeId": "n2"
+                }
+              ]
+            }
+          },
+          "graphTraversals": [
+            {
+              "graphId": "g",
+              "description": {
+                "text": "graphTraversal description with period.",
+                "richText": "_Rich_ graphTraversal description with period."
+              },
+              "edgeTraversals": [
+                {
+                  "edgeId": "e",
+                  "message": {
+                    "text": "edgeTraversal message with period.",
+                    "richText": "_Rich_ edgeTraversal message with period."
+                  }
+                }
+              ]
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "fix description with period.",
+                "richText": "_Rich_ fix description with period."
+              },
+              "fileChanges": [
+                {
+                  "fileLocation": {
+                    "uri": "file:///c:/src/file.c"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "byteOffset": 0,
+                        "byteLength": 1
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "versionControlProvenance": [
+        {
+          "repositoryUri": "https://github.com/example-corp/browser",
+          "revisionId": "de67ef7",
+          "mappedTo": {
+            "uri": "/browser",
+            "uriBaseId": "%SRCROOT%"
+          }
+        }
+      ],
+      "properties": {
+        "expectedResults": {
+          "resultLocationPointers": []
+        }
+      }
+    }
+  ]
+}
