@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int ParentIndex { get; set; }
 
         /// <summary>
-        /// The type of construct this logical location component refers to. Should be one of 'function', 'member', 'module', 'namespace', 'parameter', 'resource', 'returnType', 'type', or 'variable', if any of those accurately describe the construct.
+        /// The type of construct this logical location component refers to. Should be one of 'function', 'member', 'module', 'namespace', 'parameter', 'resource', 'returnType', 'type', 'variable', 'object', 'array', 'property', 'value', 'element', 'text', 'attribute', 'comment', 'declaration', 'dtd' or 'processingInstruction', if any of those accurately describe the construct.
         /// </summary>
         [DataMember(Name = "kind", IsRequired = false, EmitDefaultValue = false)]
         public string Kind { get; set; }
