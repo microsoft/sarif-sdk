@@ -706,8 +706,18 @@
           "type": "integer"
         },
 
-        "reportingConfigurationOverrides": {
-          "description": "An array of reportingConfigurationOverride objects that describe runtime reporting behavior.",
+        "notificationConfigurationOverrides": {
+          "description": "An array of reportingConfigurationOverride objects that describe runtime notification reporting behavior.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/reportingConfigurationOverride"
+          }
+        },
+
+        "ruleConfigurationOverrides": {
+          "description": "An array of reportingConfigurationOverride objects that describe runtime rule reporting behavior.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
