@@ -2107,8 +2107,8 @@
           "type": "string"
         },
 
-        "company": {
-          "description": "The company or organization that produced the tool.",
+        "organization": {
+          "description": "The organization or company that produced the tool.",
           "type": "string"
         },
 
@@ -2119,12 +2119,12 @@
 
         "shortDescription": {
           "description": "A brief, multiformat description of the tool.",
-          "$ref": "#/definitions/message"
+          "$ref": "#/definitions/multiformatMessageString"
         },
 
         "longDescription": {
           "description": "A comprehensive multiformat description of the tool.",
-          "$ref": "#/definitions/message"
+          "$ref": "#/definitions/multiformatMessageString"
         },
 
         "fullName": {
