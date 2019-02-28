@@ -14,7 +14,7 @@
               "uriBaseId": "%SRCROOT%"
             }
           ],
-          "toolExecutionNotifications": [
+          "toolNotifications": [
             {
               "physicalLocation": {
                 "artifactLocation": {
@@ -27,7 +27,7 @@
               }
             }
           ],
-          "toolConfigurationNotifications": [
+          "configurationNotifications": [
             {
               "physicalLocation": {
                 "artifactLocation": {

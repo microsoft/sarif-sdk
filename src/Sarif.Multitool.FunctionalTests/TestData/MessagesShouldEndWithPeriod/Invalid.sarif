@@ -179,7 +179,7 @@
       ],
       "invocations": [
         {
-          "toolConfigurationNotifications": [
+          "configurationNotifications": [
             {
               "message": {
                 "text": "configurationNotification message without period",
@@ -187,7 +187,7 @@
               }
             }
           ],
-          "toolExecutionNotifications": [
+          "toolNotifications": [
             {
               "message": {
                 "text": "toolNotification message without period",
