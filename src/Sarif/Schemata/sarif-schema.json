@@ -2118,12 +2118,12 @@
         },
 
         "shortDescription": {
-          "description": "A brief, multiformat description of the tool.",
+          "description": "A brief description of the tool.",
           "$ref": "#/definitions/multiformatMessageString"
         },
 
-        "longDescription": {
-          "description": "A comprehensive multiformat description of the tool.",
+        "fullDescription": {
+          "description": "A comprehensive description of the tool.",
           "$ref": "#/definitions/multiformatMessageString"
         },
 
