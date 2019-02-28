@@ -41,6 +41,30 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Name { get; set; }
 
         /// <summary>
+        /// The company or organization that produced the tool.
+        /// </summary>
+        [DataMember(Name = "company", IsRequired = false, EmitDefaultValue = false)]
+        public string Company { get; set; }
+
+        /// <summary>
+        /// A product suite to which the tool belongs.
+        /// </summary>
+        [DataMember(Name = "product", IsRequired = false, EmitDefaultValue = false)]
+        public string Product { get; set; }
+
+        /// <summary>
+        /// A brief, multiformat description of the tool.
+        /// </summary>
+        [DataMember(Name = "shortDescription", IsRequired = false, EmitDefaultValue = false)]
+        public Message ShortDescription { get; set; }
+
+        /// <summary>
+        /// A comprehensive multiformat description of the tool.
+        /// </summary>
+        [DataMember(Name = "longDescription", IsRequired = false, EmitDefaultValue = false)]
+        public Message LongDescription { get; set; }
+
+        /// <summary>
         /// The name of the component along with its version and any other useful identifying information, such as its locale.
         /// </summary>
         [DataMember(Name = "fullName", IsRequired = false, EmitDefaultValue = false)]
@@ -118,6 +142,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="name">
         /// An initialization value for the <see cref="P:Name" /> property.
         /// </param>
+        /// <param name="company">
+        /// An initialization value for the <see cref="P:Company" /> property.
+        /// </param>
+        /// <param name="product">
+        /// An initialization value for the <see cref="P:Product" /> property.
+        /// </param>
+        /// <param name="shortDescription">
+        /// An initialization value for the <see cref="P:ShortDescription" /> property.
+        /// </param>
+        /// <param name="longDescription">
+        /// An initialization value for the <see cref="P:LongDescription" /> property.
+        /// </param>
         /// <param name="fullName">
         /// An initialization value for the <see cref="P:FullName" /> property.
         /// </param>
@@ -148,9 +184,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ToolComponent(string name, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notificationDescriptors, IEnumerable<ReportingDescriptor> ruleDescriptors, int artifactIndex, IDictionary<string, SerializedPropertyInfo> properties)
+        public ToolComponent(string name, string company, string product, Message shortDescription, Message longDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notificationDescriptors, IEnumerable<ReportingDescriptor> ruleDescriptors, int artifactIndex, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(name, fullName, version, semanticVersion, dottedQuadFileVersion, downloadUri, globalMessageStrings, notificationDescriptors, ruleDescriptors, artifactIndex, properties);
+            Init(name, company, product, shortDescription, longDescription, fullName, version, semanticVersion, dottedQuadFileVersion, downloadUri, globalMessageStrings, notificationDescriptors, ruleDescriptors, artifactIndex, properties);
         }
 
         /// <summary>
@@ -169,7 +205,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Name, other.FullName, other.Version, other.SemanticVersion, other.DottedQuadFileVersion, other.DownloadUri, other.GlobalMessageStrings, other.NotificationDescriptors, other.RuleDescriptors, other.ArtifactIndex, other.Properties);
+            Init(other.Name, other.Company, other.Product, other.ShortDescription, other.LongDescription, other.FullName, other.Version, other.SemanticVersion, other.DottedQuadFileVersion, other.DownloadUri, other.GlobalMessageStrings, other.NotificationDescriptors, other.RuleDescriptors, other.ArtifactIndex, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -190,9 +226,21 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ToolComponent(this);
         }
 
-        private void Init(string name, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notificationDescriptors, IEnumerable<ReportingDescriptor> ruleDescriptors, int artifactIndex, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string name, string company, string product, Message shortDescription, Message longDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notificationDescriptors, IEnumerable<ReportingDescriptor> ruleDescriptors, int artifactIndex, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Name = name;
+            Company = company;
+            Product = product;
+            if (shortDescription != null)
+            {
+                ShortDescription = new Message(shortDescription);
+            }
+
+            if (longDescription != null)
+            {
+                LongDescription = new Message(longDescription);
+            }
+
             FullName = fullName;
             Version = version;
             SemanticVersion = semanticVersion;
