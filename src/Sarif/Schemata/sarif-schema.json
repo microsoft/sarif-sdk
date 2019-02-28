@@ -2107,6 +2107,26 @@
           "type": "string"
         },
 
+        "organization": {
+          "description": "The organization or company that produced the tool.",
+          "type": "string"
+        },
+
+        "product": {
+          "description": "A product suite to which the tool belongs.",
+          "type": "string"
+        },
+
+        "shortDescription": {
+          "description": "A brief description of the tool.",
+          "$ref": "#/definitions/multiformatMessageString"
+        },
+
+        "fullDescription": {
+          "description": "A comprehensive description of the tool.",
+          "$ref": "#/definitions/multiformatMessageString"
+        },
+
         "fullName": {
           "description": "The name of the component along with its version and any other useful identifying information, such as its locale.",
           "type": "string"
