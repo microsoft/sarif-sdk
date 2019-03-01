@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // from an arbitrary rule instance. This allows users to create a generic property descriptor
             // that is further qualified (by feature name) to be associated with a different check.
             return new PerLanguageOption<T>(
-                feature: rule.Id + "." + rule.Name.Text,
+                feature: rule.Id + "." + rule.Name,
                 name: option.Name,
                 defaultValue: option.DefaultValue,
                 description: option.Description );

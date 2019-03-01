@@ -31,8 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             if (reportingDescriptor.Id != null &&
                 reportingDescriptor.Name != null &&
-                reportingDescriptor.Name.Text != null &&
-                reportingDescriptor.Id.Equals(reportingDescriptor.Name.Text, StringComparison.OrdinalIgnoreCase))
+                reportingDescriptor.Id.Equals(reportingDescriptor.Name, StringComparison.OrdinalIgnoreCase))
             {
                 LogResult(
                     reportingDescriptorPointer,
