@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     ? Formatting.Indented
                     : Formatting.None;
 
-                Directory.CreateDirectory(mergeOptions.OutputFolderPath);
+                Directory.CreateDirectory(outputDirectory);
 
                 FileHelpers.WriteSarifFile(_fileSystem, combinedLog, outputName, formatting);
             }
