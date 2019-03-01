@@ -266,3 +266,4 @@
 * API BREAKING: Remove `invocation.attachments`, now replaced by `run.tool.extensions`. https://github.com/oasis-tcs/sarif-spec/issues/327
 * API BREAKING: Remove `tool.language` and localization support. https://github.com/oasis-tcs/sarif-spec/issues/325
 * API NON-BREAKING: Add additional properties to toolComponent. https://github.com/oasis-tcs/sarif-spec/issues/336
+* API NON-BREAKING: Provide a caching mechanism for duplicated code flow data. https://github.com/oasis-tcs/sarif-spec/issues/320
