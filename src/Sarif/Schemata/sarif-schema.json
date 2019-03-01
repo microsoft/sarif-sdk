@@ -522,7 +522,7 @@
         },
 
         "threadFlowLocations": {
-          "description": "An array of threadFlowLocation objects cached in external file.",
+          "description": "An array of external property files containing run.threadFlowLocations arrays to be merged with the root log file.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
