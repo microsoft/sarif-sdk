@@ -28,6 +28,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.Index != right.Index)
+            {
+                return false;
+            }
+
             if (!Location.ValueComparer.Equals(left.Location, right.Location))
             {
                 return false;
@@ -141,6 +146,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
+                result = (result * 31) + obj.Index.GetHashCode();
                 if (obj.Location != null)
                 {
                     result = (result * 31) + obj.Location.ValueGetHashCode();
