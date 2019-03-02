@@ -20,6 +20,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         SarifLog,
         /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Address" />.
+        /// </summary>
+        Address,
+        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Artifact" />.
         /// </summary>
         Artifact,

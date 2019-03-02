@@ -35,6 +35,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
+        /// The address of the location.
+        /// </summary>
+        [DataMember(Name = "address", IsRequired = false, EmitDefaultValue = false)]
+        public Address Address { get; set; }
+
+        /// <summary>
         /// Identifies the artifact and region.
         /// </summary>
         [DataMember(Name = "physicalLocation", IsRequired = false, EmitDefaultValue = false)]
@@ -84,6 +90,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Initializes a new instance of the <see cref="Location" /> class from the supplied values.
         /// </summary>
+        /// <param name="address">
+        /// An initialization value for the <see cref="P:Address" /> property.
+        /// </param>
         /// <param name="physicalLocation">
         /// An initialization value for the <see cref="P:PhysicalLocation" /> property.
         /// </param>
@@ -102,9 +111,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Location(PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, int logicalLocationIndex, Message message, IEnumerable<Region> annotations, IDictionary<string, SerializedPropertyInfo> properties)
+        public Location(Address address, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, int logicalLocationIndex, Message message, IEnumerable<Region> annotations, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(physicalLocation, fullyQualifiedLogicalName, logicalLocationIndex, message, annotations, properties);
+            Init(address, physicalLocation, fullyQualifiedLogicalName, logicalLocationIndex, message, annotations, properties);
         }
 
         /// <summary>
@@ -123,7 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.PhysicalLocation, other.FullyQualifiedLogicalName, other.LogicalLocationIndex, other.Message, other.Annotations, other.Properties);
+            Init(other.Address, other.PhysicalLocation, other.FullyQualifiedLogicalName, other.LogicalLocationIndex, other.Message, other.Annotations, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -144,8 +153,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Location(this);
         }
 
-        private void Init(PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, int logicalLocationIndex, Message message, IEnumerable<Region> annotations, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Address address, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, int logicalLocationIndex, Message message, IEnumerable<Region> annotations, IDictionary<string, SerializedPropertyInfo> properties)
         {
+            if (address != null)
+            {
+                Address = new Address(address);
+            }
+
             if (physicalLocation != null)
             {
                 PhysicalLocation = new PhysicalLocation(physicalLocation);

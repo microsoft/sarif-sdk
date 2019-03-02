@@ -43,12 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.Address != right.Address)
-            {
-                return false;
-            }
-
-            if (left.Offset != right.Offset)
+            if (!Address.ValueComparer.Equals(left.Address, right.Address))
             {
                 return false;
             }
@@ -120,8 +115,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 result = (result * 31) + obj.ThreadId.GetHashCode();
-                result = (result * 31) + obj.Address.GetHashCode();
-                result = (result * 31) + obj.Offset.GetHashCode();
+                if (obj.Address != null)
+                {
+                    result = (result * 31) + obj.Address.ValueGetHashCode();
+                }
+
                 if (obj.Parameters != null)
                 {
                     foreach (var value_2 in obj.Parameters)

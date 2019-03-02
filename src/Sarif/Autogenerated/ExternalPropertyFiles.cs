@@ -5,6 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -74,6 +75,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<ExternalPropertyFile> Results { get; set; }
 
         /// <summary>
+        /// The addresses associated with external property files, if any.
+        /// </summary>
+        [DataMember(Name = "addresses", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public IList<Address> Addresses { get; set; }
+
+        /// <summary>
         /// An external property file containing a run.tool object to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "tool", IsRequired = false, EmitDefaultValue = false)]
@@ -110,12 +118,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="results">
         /// An initialization value for the <see cref="P:Results" /> property.
         /// </param>
+        /// <param name="addresses">
+        /// An initialization value for the <see cref="P:Addresses" /> property.
+        /// </param>
         /// <param name="tool">
         /// An initialization value for the <see cref="P:Tool" /> property.
         /// </param>
-        public ExternalPropertyFiles(ExternalPropertyFile conversion, ExternalPropertyFile graphs, ExternalPropertyFile externalizedProperties, IEnumerable<ExternalPropertyFile> artifacts, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ExternalPropertyFile> results, ExternalPropertyFile tool)
+        public ExternalPropertyFiles(ExternalPropertyFile conversion, ExternalPropertyFile graphs, ExternalPropertyFile externalizedProperties, IEnumerable<ExternalPropertyFile> artifacts, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ExternalPropertyFile> results, IEnumerable<Address> addresses, ExternalPropertyFile tool)
         {
-            Init(conversion, graphs, externalizedProperties, artifacts, invocations, logicalLocations, results, tool);
+            Init(conversion, graphs, externalizedProperties, artifacts, invocations, logicalLocations, results, addresses, tool);
         }
 
         /// <summary>
@@ -134,7 +145,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Conversion, other.Graphs, other.ExternalizedProperties, other.Artifacts, other.Invocations, other.LogicalLocations, other.Results, other.Tool);
+            Init(other.Conversion, other.Graphs, other.ExternalizedProperties, other.Artifacts, other.Invocations, other.LogicalLocations, other.Results, other.Addresses, other.Tool);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -155,7 +166,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExternalPropertyFiles(this);
         }
 
-        private void Init(ExternalPropertyFile conversion, ExternalPropertyFile graphs, ExternalPropertyFile externalizedProperties, IEnumerable<ExternalPropertyFile> artifacts, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ExternalPropertyFile> results, ExternalPropertyFile tool)
+        private void Init(ExternalPropertyFile conversion, ExternalPropertyFile graphs, ExternalPropertyFile externalizedProperties, IEnumerable<ExternalPropertyFile> artifacts, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ExternalPropertyFile> results, IEnumerable<Address> addresses, ExternalPropertyFile tool)
         {
             if (conversion != null)
             {
@@ -242,6 +253,24 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 Results = destination_3;
+            }
+
+            if (addresses != null)
+            {
+                var destination_4 = new List<Address>();
+                foreach (var value_4 in addresses)
+                {
+                    if (value_4 == null)
+                    {
+                        destination_4.Add(null);
+                    }
+                    else
+                    {
+                        destination_4.Add(new Address(value_4));
+                    }
+                }
+
+                Addresses = destination_4;
             }
 
             if (tool != null)

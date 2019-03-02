@@ -126,6 +126,27 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
+            if (!object.ReferenceEquals(left.Addresses, right.Addresses))
+            {
+                if (left.Addresses == null || right.Addresses == null)
+                {
+                    return false;
+                }
+
+                if (left.Addresses.Count != right.Addresses.Count)
+                {
+                    return false;
+                }
+
+                for (int index_4 = 0; index_4 < left.Addresses.Count; ++index_4)
+                {
+                    if (!Address.ValueComparer.Equals(left.Addresses[index_4], right.Addresses[index_4]))
+                    {
+                        return false;
+                    }
+                }
+            }
+
             if (!ExternalPropertyFile.ValueComparer.Equals(left.Tool, right.Tool))
             {
                 return false;
@@ -203,6 +224,18 @@ namespace Microsoft.CodeAnalysis.Sarif
                         if (value_3 != null)
                         {
                             result = (result * 31) + value_3.ValueGetHashCode();
+                        }
+                    }
+                }
+
+                if (obj.Addresses != null)
+                {
+                    foreach (var value_4 in obj.Addresses)
+                    {
+                        result = result * 31;
+                        if (value_4 != null)
+                        {
+                            result = (result * 31) + value_4.ValueGetHashCode();
                         }
                     }
                 }
