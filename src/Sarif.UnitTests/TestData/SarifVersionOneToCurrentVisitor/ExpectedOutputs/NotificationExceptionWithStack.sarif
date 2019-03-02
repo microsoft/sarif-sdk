@@ -46,7 +46,9 @@
                       },
                       "module": "RuleLibrary",
                       "threadId": 52,
-                      "address": 10092852
+                      "address": {
+                        "baseAddress": 10092852
+                      }
                     },
                     {
                       "location": {
@@ -60,7 +62,9 @@
                       },
                       "module": "RuleLibrary",
                       "threadId": 52,
-                      "address": 1002485
+                      "address": {
+                        "baseAddress": 1002485
+                      }
                     },
                     {
                       "location": {
@@ -73,8 +77,10 @@
                       },
                       "module": "ExecutionEngine",
                       "threadId": 52,
-                      "address": 10073356,
-                      "offset": 10475
+                      "address": {
+                        "baseAddress": 10073356,
+                        "offset": 10475
+                      }
                     },
                     {
                       "location": {
@@ -88,8 +94,10 @@
                       },
                       "module": "Target",
                       "threadId": 52,
-                      "address": 10073356,
-                      "offset": 10475
+                      "address": {
+                        "baseAddress": 10073356,
+                        "offset": 10475
+                      }
                     }
                   ]
                 },

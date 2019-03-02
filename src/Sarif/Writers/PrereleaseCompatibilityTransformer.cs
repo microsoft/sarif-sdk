@@ -186,7 +186,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     {
                         foreach (JObject item in stacks)
                         {
-                            ConvertExceptionStackFrameAddressesToAddressObjects(item);
+                            ConvertStackFrameAddressesToAddressObjects(item);
                         }
                     }
 
@@ -198,7 +198,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                                 threadflow["threadflowLocation"] is JObject threadflowLocation &&
                                 threadflowLocation["Stack"] is JObject stack)
                             {
-                                ConvertExceptionStackFrameAddressesToAddressObjects(stack);
+                                ConvertStackFrameAddressesToAddressObjects(stack);
                             }
                         }
                     }
@@ -230,11 +230,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        private static void ConvertStackFrameAddressesToAddressObjects(JObject exception)
+        private static void ConvertExceptionStackFrameAddressesToAddressObjects(JObject exception)
         {
             if (exception["stack"] is JObject stack)
             {
-                ConvertExceptionStackFrameAddressesToAddressObjects(stack);
+                ConvertStackFrameAddressesToAddressObjects(stack);
             }
 
             if (exception["innerExceptions"] is JArray innerExceptions)
@@ -246,25 +246,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        private static void ConvertExceptionStackFrameAddressesToAddressObjects(JObject stack)
+        private static void ConvertStackFrameAddressesToAddressObjects(JObject stack)
         {
-            if (stack["stackFrame"] is JObject stackFrame)
+            if (stack["frames"] is JArray frames)
             {
-                var stackFrameAddress = stackFrame["address"] as JToken;
-                var stackFrameOffset = stackFrame["offset"] as JToken;
-
-                stackFrame.Remove("address");
-                stackFrame.Remove("offset");
-
-                var address = new JObject
+                foreach (JObject stackFrame in frames)
                 {
-                    { "baseAddress", stackFrameAddress },
-                    { "offset", stackFrameOffset }
-                };
+                    var address = new JObject();
 
-                stackFrame.Add("address", address);
+                    if (stackFrame["address"] is JToken stackFrameAddress)
+                    {
+                        address.Add("baseAddress", stackFrameAddress);
+                        stackFrame.Remove("address");
+                    }
 
+                    if (stackFrame["offset"] is JToken stackFrameOffset)
+                    {
+                        address.Add("offset", stackFrameOffset);
+                        stackFrame.Remove("offset");
+                    }
 
+                    if (address.Count > 0)
+                    {
+                        stackFrame.Add("address", address);
+                    }
+                }
             }
         }
 
