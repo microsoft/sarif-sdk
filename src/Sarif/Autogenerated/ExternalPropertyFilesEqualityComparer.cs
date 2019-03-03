@@ -105,6 +105,27 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
+            if (!object.ReferenceEquals(left.ThreadFlowLocations, right.ThreadFlowLocations))
+            {
+                if (left.ThreadFlowLocations == null || right.ThreadFlowLocations == null)
+                {
+                    return false;
+                }
+
+                if (left.ThreadFlowLocations.Count != right.ThreadFlowLocations.Count)
+                {
+                    return false;
+                }
+
+                for (int index_3 = 0; index_3 < left.ThreadFlowLocations.Count; ++index_3)
+                {
+                    if (!ThreadFlowLocation.ValueComparer.Equals(left.ThreadFlowLocations[index_3], right.ThreadFlowLocations[index_3]))
+                    {
+                        return false;
+                    }
+                }
+            }
+
             if (!object.ReferenceEquals(left.Results, right.Results))
             {
                 if (left.Results == null || right.Results == null)
@@ -117,9 +138,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                for (int index_3 = 0; index_3 < left.Results.Count; ++index_3)
+                for (int index_4 = 0; index_4 < left.Results.Count; ++index_4)
                 {
-                    if (!ExternalPropertyFile.ValueComparer.Equals(left.Results[index_3], right.Results[index_3]))
+                    if (!ExternalPropertyFile.ValueComparer.Equals(left.Results[index_4], right.Results[index_4]))
                     {
                         return false;
                     }
@@ -195,14 +216,26 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.Results != null)
+                if (obj.ThreadFlowLocations != null)
                 {
-                    foreach (var value_3 in obj.Results)
+                    foreach (var value_3 in obj.ThreadFlowLocations)
                     {
                         result = result * 31;
                         if (value_3 != null)
                         {
                             result = (result * 31) + value_3.ValueGetHashCode();
+                        }
+                    }
+                }
+
+                if (obj.Results != null)
+                {
+                    foreach (var value_4 in obj.Results)
+                    {
+                        result = result * 31;
+                        if (value_4 != null)
+                        {
+                            result = (result * 31) + value_4.ValueGetHashCode();
                         }
                     }
                 }
