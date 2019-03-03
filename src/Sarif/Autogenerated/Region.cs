@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A region within an artifact where a result was detected.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
     public partial class Region : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Region> ValueComparer => RegionEqualityComparer.Instance;

@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Specifies the information necessary to retrieve a desired revision from a version control system.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
     public partial class VersionControlDetails : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<VersionControlDetails> ValueComparer => VersionControlDetailsEqualityComparer.Instance;
