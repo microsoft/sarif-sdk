@@ -214,9 +214,7 @@
           "description": "Key/value pairs that provide additional information about the artifact location.",
           "$ref": "#/definitions/propertyBag"
         }
-      },
-
-      "required": [ "uri" ]
+      }
     },
 
     "attachment": {

@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A set of threadFlows which together describe a pattern of code execution relevant to detecting a result.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
     public partial class CodeFlow : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<CodeFlow> ValueComparer => CodeFlowEqualityComparer.Instance;

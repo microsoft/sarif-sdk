@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type ReportingDescriptor for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
     internal sealed class ReportingDescriptorEqualityComparer : IEqualityComparer<ReportingDescriptor>
     {
         internal static readonly ReportingDescriptorEqualityComparer Instance = new ReportingDescriptorEqualityComparer();
