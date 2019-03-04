@@ -544,8 +544,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 _run.Invocations.Add(new Invocation());
             }
 
-            _run.Invocations[0].ToolNotifications = _run.Invocations[0].ToolNotifications ?? new List<Notification>();
-            _run.Invocations[0].ToolNotifications.Add(notification);
+            _run.Invocations[0].ToolExecutionNotifications = _run.Invocations[0].ToolExecutionNotifications ?? new List<Notification>();
+            _run.Invocations[0].ToolExecutionNotifications.Add(notification);
         }
 
         public void LogConfigurationNotification(Notification notification)
@@ -555,8 +555,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 _run.Invocations.Add(new Invocation());
             }
 
-            _run.Invocations[0].ConfigurationNotifications = _run.Invocations[0].ConfigurationNotifications ?? new List<Notification>();
-            _run.Invocations[0].ConfigurationNotifications.Add(notification);
+            _run.Invocations[0].ToolConfigurationNotifications = _run.Invocations[0].ToolConfigurationNotifications ?? new List<Notification>();
+            _run.Invocations[0].ToolConfigurationNotifications.Add(notification);
         }
     }
 }

@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<ExternalPropertyFile> LogicalLocations { get; set; }
 
         /// <summary>
-        /// An array of threadFlowLocation objects cached in external file.
+        /// An array of external property files containing run.threadFlowLocations arrays to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "threadFlowLocations", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]

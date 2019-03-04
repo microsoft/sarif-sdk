@@ -134,40 +134,49 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 foreach (JObject run in runs)
                 {
                     // https://github.com/oasis-tcs/sarif-spec/issues/325
+                    // https://github.com/oasis-tcs/sarif-spec/issues/330
                     RemoveToolLanguage(run);
-                    ConvertAllExceptionMessagesToString(run);
                     ConvertAllReportingDescriptorNamesToString(run);
+                    ConvertAllExceptionMessagesToStringAndRenameToolNotificationNodes(run);
                 }
             }
             return true;
         }
 
-        private static void ConvertAllExceptionMessagesToString(JObject run)
+        private static void ConvertAllExceptionMessagesToStringAndRenameToolNotificationNodes(JObject run)
         {
             if (run["conversion"] is JObject conversion && conversion["invocation"] is JObject invocation)
             {
-                ConvertInvocationExceptionMessagesToString(invocation);
+                ConvertInvocationExceptionMessagesToStringAndRenameToolNotifications(invocation);
             }
 
             if (run["invocations"] is JArray invocations)
             {
                 foreach (JObject item in invocations)
                 {
-                    ConvertInvocationExceptionMessagesToString(item);
+                    ConvertInvocationExceptionMessagesToStringAndRenameToolNotifications(item);
                 }
             }
         }
 
-        private static void ConvertInvocationExceptionMessagesToString(JObject invocation)
+        private static void ConvertInvocationExceptionMessagesToStringAndRenameToolNotifications(JObject invocation)
         {
             if (invocation["toolNotifications"] is JArray toolNotifications)
             {
                 ConvertNotificationExceptionMessagesToString(toolNotifications);
+
+                // https://github.com/oasis-tcs/sarif-spec/issues/330
+                invocation.Remove("toolNotifications");
+                invocation["toolExecutionNotifications"] = toolNotifications;
             }
 
             if (invocation["configurationNotifications"] is JArray configurationNotifications)
             {
                 ConvertNotificationExceptionMessagesToString(configurationNotifications);
+
+                // https://github.com/oasis-tcs/sarif-spec/issues/330
+                invocation.Remove("configurationNotifications");
+                invocation["toolConfigurationNotifications"] = configurationNotifications;
             }
         }
 
