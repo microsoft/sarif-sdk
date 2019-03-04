@@ -14,7 +14,7 @@
 
     "version": {
       "description": "The SARIF format version of this log file.",
-      "enum": [ "2.0.0-csd.2.beta.2019-01-24" ]
+      "enum": [ "2.0.0-csd.2.beta.2019-02-20" ]
     },
 
     "runs": {
@@ -214,9 +214,7 @@
           "description": "Key/value pairs that provide additional information about the artifact location.",
           "$ref": "#/definitions/propertyBag"
         }
-      },
-
-      "required": [ "uri" ]
+      }
     },
 
     "attachment": {
@@ -518,6 +516,17 @@
           "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/externalPropertyFile"
+          }
+        },
+
+        "threadFlowLocations": {
+          "description": "An array of external property files containing run.threadFlowLocations arrays to be merged with the root log file.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/threadFlowLocation"
           }
         },
 
@@ -898,7 +907,7 @@
         },
 
         "kind": {
-          "description": "The type of construct this logical location component refers to. Should be one of 'function', 'member', 'module', 'namespace', 'parameter', 'resource', 'returnType', 'type', or 'variable', if any of those accurately describe the construct.",
+          "description": "The type of construct this logical location component refers to. Should be one of 'function', 'member', 'module', 'namespace', 'parameter', 'resource', 'returnType', 'type', 'variable', 'object', 'array', 'property', 'value', 'element', 'text', 'attribute', 'comment', 'declaration', 'dtd' or 'processingInstruction', if any of those accurately describe the construct.",
           "type": "string"
         },
 
@@ -1296,7 +1305,7 @@
 
         "name": {
           "description": "A report identifier that is understandable to an end user.",
-          "$ref": "#/definitions/message"
+          "type": "string"
         },
 
         "shortDescription": {
@@ -1843,6 +1852,17 @@
           "$ref": "#/definitions/externalPropertyFiles"
         },
 
+        "threadFlowLocations": {
+          "description": "An array of threadFlowLocation objects cached at run level.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/threadFlowLocation"
+          }
+        },
+
         "properties": {
           "description": "Key/value pairs that provide additional information about the run.",
           "$ref": "#/definitions/propertyBag"
@@ -2003,6 +2023,13 @@
       "type": "object",
       "properties": {
 
+        "index": {
+          "description": "The index within the run threadFlowLocations array.",
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
+        },
+
         "location": {
           "description": "The code location.",
           "$ref": "#/definitions/location"
@@ -2105,6 +2132,26 @@
         "name": {
           "description": "The name of the component.",
           "type": "string"
+        },
+
+        "organization": {
+          "description": "The organization or company that produced the tool.",
+          "type": "string"
+        },
+
+        "product": {
+          "description": "A product suite to which the tool belongs.",
+          "type": "string"
+        },
+
+        "shortDescription": {
+          "description": "A brief description of the tool.",
+          "$ref": "#/definitions/multiformatMessageString"
+        },
+
+        "fullDescription": {
+          "description": "A comprehensive description of the tool.",
+          "$ref": "#/definitions/multiformatMessageString"
         },
 
         "fullName": {

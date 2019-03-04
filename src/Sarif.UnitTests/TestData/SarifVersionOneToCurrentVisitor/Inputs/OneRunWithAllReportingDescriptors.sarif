@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "rules": {
+        "C2003": {
+          "id": "C2003",
+          "name": "Rule C2003",
+          "shortDescription": "Rules were meant to be broken.",
+          "fullDescription": "This is a test for validating modification of tool.driver.ruleDescriptors",
+          "configuration": "disabled",
+          "defaultLevel": "error"
+        },
+        "C2004": {
+          "id": "C2004",
+          "name": "Rule C2004",
+          "shortDescription": "Another rule meant to be broken.",
+          "fullDescription": "This is a test for validating modification of tool.driver.ruleDescriptors",
+          "configuration": "disabled",
+          "defaultLevel": "error"
+        }
+      },
+      "tool": {
+        "name": "CodeScanner",
+        "semanticVersion": "2.1.0",
+        "notificationDescriptors": [
+          {
+            "id": "MSG0001",
+            "helpUri": "www.example.com/notifications/msg0001.html"
+          },
+          {
+            "id": "MSG0002",
+            "helpUri": "www.example.com/notifications/msg0002.html"
+          }
+        ]
+      },
+      "results": [
+        {
+          "ruleId": "C2003",
+          "ruleKey": "C2003",
+          "message": "Some testing occurred."
+        },
+        {
+          "ruleId": "C2004",
+          "ruleKey": "C2004",
+          "message": "Some testing occurred."
+        }
+      ]
+    }
+  ]
+}

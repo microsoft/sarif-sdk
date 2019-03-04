@@ -180,10 +180,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Result result,
             IAnalysisLogger logger)
         {
-#if JSCHEMA_UPGRADED
             ReportingDescriptor rule = RuleFactory.GetRuleFromRuleId(result.RuleId);
             logger.Log(rule, result);
-#endif
         }
     }
 }

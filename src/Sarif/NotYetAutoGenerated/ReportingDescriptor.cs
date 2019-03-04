@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A report identifier that is understandable to an end user.
         /// </summary>
         [DataMember(Name = "name", IsRequired = false, EmitDefaultValue = false)]
-        public virtual Message Name { get; set; }
+        public virtual string Name { get; set; }
 
         /// <summary>
         /// A concise description of the report. Should be a single sentence that is understandable when visible space is limited to a single line of text.
@@ -137,9 +137,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ReportingDescriptor(string id, IEnumerable<string> deprecatedIds, Message name, Message shortDescription, Message fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
+        public ReportingDescriptor(string id, string name, IEnumerable<string> deprecatedIds, Message shortDescription, Message fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, deprecatedIds, name, shortDescription, fullDescription, messageStrings, defaultConfiguration, helpUri, help, properties);
+            Init(id, name, deprecatedIds, shortDescription, fullDescription, messageStrings, defaultConfiguration, helpUri, help, properties);
         }
 
         /// <summary>
@@ -158,7 +158,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.DeprecatedIds, other.Name, other.ShortDescription, other.FullDescription, other.MessageStrings, other.DefaultConfiguration, other.HelpUri, other.Help, other.Properties);
+            Init(other.Id, other.Name, other.DeprecatedIds, other.ShortDescription, other.FullDescription, other.MessageStrings, other.DefaultConfiguration, other.HelpUri, other.Help, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -179,9 +179,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ReportingDescriptor(this);
         }
 
-        private void Init(string id, IEnumerable<string> deprecatedIds, Message name, Message shortDescription, Message fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string id, string name, IEnumerable<string> deprecatedIds, Message shortDescription, Message fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
+            Name = name;
+
             if (deprecatedIds != null)
             {
                 var destination_0 = new List<string>();
@@ -191,11 +193,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 DeprecatedIds = destination_0;
-            }
-
-            if (name != null)
-            {
-                Name = new Message(name);
             }
 
             if (shortDescription != null)

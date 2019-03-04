@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Run for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
     internal sealed class RunEqualityComparer : IEqualityComparer<Run>
     {
         internal static readonly RunEqualityComparer Instance = new RunEqualityComparer();
@@ -269,6 +269,27 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (!object.ReferenceEquals(left.ThreadFlowLocations, right.ThreadFlowLocations))
+            {
+                if (left.ThreadFlowLocations == null || right.ThreadFlowLocations == null)
+                {
+                    return false;
+                }
+
+                if (left.ThreadFlowLocations.Count != right.ThreadFlowLocations.Count)
+                {
+                    return false;
+                }
+
+                for (int index_7 = 0; index_7 < left.ThreadFlowLocations.Count; ++index_7)
+                {
+                    if (!ThreadFlowLocation.ValueComparer.Equals(left.ThreadFlowLocations[index_7], right.ThreadFlowLocations[index_7]))
+                    {
+                        return false;
+                    }
+                }
+            }
+
             if (!object.ReferenceEquals(left.Properties, right.Properties))
             {
                 if (left.Properties == null || right.Properties == null || left.Properties.Count != right.Properties.Count)
@@ -466,16 +487,28 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.ExternalPropertyFiles.ValueGetHashCode();
                 }
 
+                if (obj.ThreadFlowLocations != null)
+                {
+                    foreach (var value_15 in obj.ThreadFlowLocations)
+                    {
+                        result = result * 31;
+                        if (value_15 != null)
+                        {
+                            result = (result * 31) + value_15.ValueGetHashCode();
+                        }
+                    }
+                }
+
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_2 = 0;
-                    foreach (var value_15 in obj.Properties)
+                    foreach (var value_16 in obj.Properties)
                     {
-                        xor_2 ^= value_15.Key.GetHashCode();
-                        if (value_15.Value != null)
+                        xor_2 ^= value_16.Key.GetHashCode();
+                        if (value_16.Value != null)
                         {
-                            xor_2 ^= value_15.Value.GetHashCode();
+                            xor_2 ^= value_16.Value.GetHashCode();
                         }
                     }
 

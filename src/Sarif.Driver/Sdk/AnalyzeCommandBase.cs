@@ -448,7 +448,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     }
                     else
                     {
-                        Warnings.LogUnsupportedPlatformForRule(context, skimmer.Name.Text, skimmer.SupportedPlatforms, currentOS);
+                        Warnings.LogUnsupportedPlatformForRule(context, skimmer.Name, skimmer.SupportedPlatforms, currentOS);
                     }
                 }
             }
