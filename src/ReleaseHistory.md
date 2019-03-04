@@ -266,4 +266,3 @@
 * API BREAKING: Remove 'invocation.attachments', now replaced by 'run.tool.extensions'. https://github.com/oasis-tcs/sarif-spec/issues/327
 * API BREAKING: Remove 'tool.language' and localization support. https://github.com/oasis-tcs/sarif-spec/issues/325
 * API BREAKING: Rename invocation.toolNotifications and invocation.configurationNotifications to toolExecutionNotifications and toolConfigurationNotifications. https://github.com/oasis-tcs/sarif-spec/issues/330
-
