@@ -12,7 +12,7 @@
       "invocations": [
         {
           "commandLine": "CodeScanner @collections.rsp",
-          "toolNotifications": [
+          "toolExecutionNotifications": [
             {
               "id": "CTN0001",
               "message": {
@@ -81,7 +81,7 @@
               "level": "note"
             }
           ],
-          "configurationNotifications": [
+          "toolConfigurationNotifications": [
             {
               "id": "UnknownRule",
               "ruleId": "ABC0001",

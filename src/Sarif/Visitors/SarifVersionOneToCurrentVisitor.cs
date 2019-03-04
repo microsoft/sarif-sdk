@@ -278,8 +278,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     invocation = new Invocation();
                 }
 
-                invocation.ToolNotifications = toolNotifications;
-                invocation.ConfigurationNotifications = configurationNotifications;
+                invocation.ToolExecutionNotifications = toolNotifications;
+                invocation.ToolConfigurationNotifications = configurationNotifications;
             }
 
             return invocation;
@@ -802,7 +802,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     HelpUri = v1Rule.HelpUri,
                     Id = v1Rule.Id,
                     MessageStrings = v1Rule.MessageFormats.ConvertToMultiformatMessageStringsDictionary(),
-                    Name = CreateMessage(v1Rule.Name),
+                    Name = v1Rule.Name,
                     Properties = v1Rule.Properties,
                     ShortDescription = CreateMessage(v1Rule.ShortDescription)
                 };

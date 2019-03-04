@@ -51,13 +51,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             SelectiveCompare(actualResults, expectedResults);
 
-            IList<Notification> actualConfigurationNotifications = actualLog.Runs[0].Invocations?[0]?.ConfigurationNotifications;
-            IList<Notification> expectedConfigurationNotifications = expectedLog.Runs[0].Invocations?[0]?.ConfigurationNotifications;
+            IList<Notification> actualConfigurationNotifications = actualLog.Runs[0].Invocations?[0]?.ToolConfigurationNotifications;
+            IList<Notification> expectedConfigurationNotifications = expectedLog.Runs[0].Invocations?[0]?.ToolConfigurationNotifications;
 
             SelectiveCompare(actualConfigurationNotifications, expectedConfigurationNotifications);
 
-            IList<Notification> actualToolNotifications = actualLog.Runs[0].Invocations?[0]?.ToolNotifications;
-            IList<Notification> expectedToolNotifications = expectedLog.Runs[0].Invocations[0]?.ToolNotifications;
+            IList<Notification> actualToolNotifications = actualLog.Runs[0].Invocations?[0]?.ToolExecutionNotifications;
+            IList<Notification> expectedToolNotifications = expectedLog.Runs[0].Invocations[0]?.ToolExecutionNotifications;
 
             SelectiveCompare(actualToolNotifications, expectedToolNotifications);
 

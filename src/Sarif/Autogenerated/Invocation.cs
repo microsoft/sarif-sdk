@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// The runtime environment of the analysis tool run.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
     public partial class Invocation : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Invocation> ValueComparer => InvocationEqualityComparer.Instance;
@@ -80,16 +80,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// A list of runtime conditions detected by the tool during the analysis.
         /// </summary>
-        [DataMember(Name = "toolNotifications", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "toolExecutionNotifications", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<Notification> ToolNotifications { get; set; }
+        public IList<Notification> ToolExecutionNotifications { get; set; }
 
         /// <summary>
         /// A list of conditions detected by the tool that are relevant to the tool's configuration.
         /// </summary>
-        [DataMember(Name = "configurationNotifications", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "toolConfigurationNotifications", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<Notification> ConfigurationNotifications { get; set; }
+        public IList<Notification> ToolConfigurationNotifications { get; set; }
 
         /// <summary>
         /// The reason for the process exit.
@@ -218,11 +218,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="reportingConfigurationOverrides">
         /// An initialization value for the <see cref="P:ReportingConfigurationOverrides" /> property.
         /// </param>
-        /// <param name="toolNotifications">
-        /// An initialization value for the <see cref="P:ToolNotifications" /> property.
+        /// <param name="toolExecutionNotifications">
+        /// An initialization value for the <see cref="P:ToolExecutionNotifications" /> property.
         /// </param>
-        /// <param name="configurationNotifications">
-        /// An initialization value for the <see cref="P:ConfigurationNotifications" /> property.
+        /// <param name="toolConfigurationNotifications">
+        /// An initialization value for the <see cref="P:ToolConfigurationNotifications" /> property.
         /// </param>
         /// <param name="exitCodeDescription">
         /// An initialization value for the <see cref="P:ExitCodeDescription" /> property.
@@ -272,9 +272,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Invocation(string commandLine, IEnumerable<string> arguments, IEnumerable<ArtifactLocation> responseFiles, DateTime startTimeUtc, DateTime endTimeUtc, int exitCode, IEnumerable<ReportingConfigurationOverride> reportingConfigurationOverrides, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, string exitCodeDescription, string exitSignalName, int exitSignalNumber, string processStartFailureMessage, bool toolExecutionSuccessful, string machine, string account, int processId, ArtifactLocation executableLocation, ArtifactLocation workingDirectory, IDictionary<string, string> environmentVariables, ArtifactLocation stdin, ArtifactLocation stdout, ArtifactLocation stderr, ArtifactLocation stdoutStderr, IDictionary<string, SerializedPropertyInfo> properties)
+        public Invocation(string commandLine, IEnumerable<string> arguments, IEnumerable<ArtifactLocation> responseFiles, DateTime startTimeUtc, DateTime endTimeUtc, int exitCode, IEnumerable<ReportingConfigurationOverride> reportingConfigurationOverrides, IEnumerable<Notification> toolExecutionNotifications, IEnumerable<Notification> toolConfigurationNotifications, string exitCodeDescription, string exitSignalName, int exitSignalNumber, string processStartFailureMessage, bool toolExecutionSuccessful, string machine, string account, int processId, ArtifactLocation executableLocation, ArtifactLocation workingDirectory, IDictionary<string, string> environmentVariables, ArtifactLocation stdin, ArtifactLocation stdout, ArtifactLocation stderr, ArtifactLocation stdoutStderr, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(commandLine, arguments, responseFiles, startTimeUtc, endTimeUtc, exitCode, reportingConfigurationOverrides, toolNotifications, configurationNotifications, exitCodeDescription, exitSignalName, exitSignalNumber, processStartFailureMessage, toolExecutionSuccessful, machine, account, processId, executableLocation, workingDirectory, environmentVariables, stdin, stdout, stderr, stdoutStderr, properties);
+            Init(commandLine, arguments, responseFiles, startTimeUtc, endTimeUtc, exitCode, reportingConfigurationOverrides, toolExecutionNotifications, toolConfigurationNotifications, exitCodeDescription, exitSignalName, exitSignalNumber, processStartFailureMessage, toolExecutionSuccessful, machine, account, processId, executableLocation, workingDirectory, environmentVariables, stdin, stdout, stderr, stdoutStderr, properties);
         }
 
         /// <summary>
@@ -293,7 +293,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.CommandLine, other.Arguments, other.ResponseFiles, other.StartTimeUtc, other.EndTimeUtc, other.ExitCode, other.ReportingConfigurationOverrides, other.ToolNotifications, other.ConfigurationNotifications, other.ExitCodeDescription, other.ExitSignalName, other.ExitSignalNumber, other.ProcessStartFailureMessage, other.ToolExecutionSuccessful, other.Machine, other.Account, other.ProcessId, other.ExecutableLocation, other.WorkingDirectory, other.EnvironmentVariables, other.Stdin, other.Stdout, other.Stderr, other.StdoutStderr, other.Properties);
+            Init(other.CommandLine, other.Arguments, other.ResponseFiles, other.StartTimeUtc, other.EndTimeUtc, other.ExitCode, other.ReportingConfigurationOverrides, other.ToolExecutionNotifications, other.ToolConfigurationNotifications, other.ExitCodeDescription, other.ExitSignalName, other.ExitSignalNumber, other.ProcessStartFailureMessage, other.ToolExecutionSuccessful, other.Machine, other.Account, other.ProcessId, other.ExecutableLocation, other.WorkingDirectory, other.EnvironmentVariables, other.Stdin, other.Stdout, other.Stderr, other.StdoutStderr, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -314,7 +314,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Invocation(this);
         }
 
-        private void Init(string commandLine, IEnumerable<string> arguments, IEnumerable<ArtifactLocation> responseFiles, DateTime startTimeUtc, DateTime endTimeUtc, int exitCode, IEnumerable<ReportingConfigurationOverride> reportingConfigurationOverrides, IEnumerable<Notification> toolNotifications, IEnumerable<Notification> configurationNotifications, string exitCodeDescription, string exitSignalName, int exitSignalNumber, string processStartFailureMessage, bool toolExecutionSuccessful, string machine, string account, int processId, ArtifactLocation executableLocation, ArtifactLocation workingDirectory, IDictionary<string, string> environmentVariables, ArtifactLocation stdin, ArtifactLocation stdout, ArtifactLocation stderr, ArtifactLocation stdoutStderr, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string commandLine, IEnumerable<string> arguments, IEnumerable<ArtifactLocation> responseFiles, DateTime startTimeUtc, DateTime endTimeUtc, int exitCode, IEnumerable<ReportingConfigurationOverride> reportingConfigurationOverrides, IEnumerable<Notification> toolExecutionNotifications, IEnumerable<Notification> toolConfigurationNotifications, string exitCodeDescription, string exitSignalName, int exitSignalNumber, string processStartFailureMessage, bool toolExecutionSuccessful, string machine, string account, int processId, ArtifactLocation executableLocation, ArtifactLocation workingDirectory, IDictionary<string, string> environmentVariables, ArtifactLocation stdin, ArtifactLocation stdout, ArtifactLocation stderr, ArtifactLocation stdoutStderr, IDictionary<string, SerializedPropertyInfo> properties)
         {
             CommandLine = commandLine;
             if (arguments != null)
@@ -367,10 +367,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 ReportingConfigurationOverrides = destination_2;
             }
 
-            if (toolNotifications != null)
+            if (toolExecutionNotifications != null)
             {
                 var destination_3 = new List<Notification>();
-                foreach (var value_3 in toolNotifications)
+                foreach (var value_3 in toolExecutionNotifications)
                 {
                     if (value_3 == null)
                     {
@@ -382,13 +382,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                ToolNotifications = destination_3;
+                ToolExecutionNotifications = destination_3;
             }
 
-            if (configurationNotifications != null)
+            if (toolConfigurationNotifications != null)
             {
                 var destination_4 = new List<Notification>();
-                foreach (var value_4 in configurationNotifications)
+                foreach (var value_4 in toolConfigurationNotifications)
                 {
                     if (value_4 == null)
                     {
@@ -400,7 +400,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                ConfigurationNotifications = destination_4;
+                ToolConfigurationNotifications = destination_4;
             }
 
             ExitCodeDescription = exitCodeDescription;

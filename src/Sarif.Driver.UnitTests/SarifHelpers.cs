@@ -23,17 +23,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 resultAction(result);
             }
 
-            if (run.Invocations?[0]?.ToolNotifications != null)
+            if (run.Invocations?[0]?.ToolExecutionNotifications != null)
             {
-                foreach (Notification notification in run.Invocations[0].ToolNotifications)
+                foreach (Notification notification in run.Invocations[0].ToolExecutionNotifications)
                 {
                     toolNotificationAction(notification);
                 }
             }
 
-            if (run.Invocations?[0]?.ConfigurationNotifications != null)
+            if (run.Invocations?[0]?.ToolConfigurationNotifications != null)
             {
-                foreach (Notification notification in run.Invocations[0].ConfigurationNotifications)
+                foreach (Notification notification in run.Invocations[0].ToolConfigurationNotifications)
                 {
                     configurationNotificationAction(notification);
                 }

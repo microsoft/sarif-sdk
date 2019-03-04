@@ -423,19 +423,19 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (node.ToolNotifications != null)
+                if (node.ToolExecutionNotifications != null)
                 {
-                    for (int index_0 = 0; index_0 < node.ToolNotifications.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.ToolExecutionNotifications.Count; ++index_0)
                     {
-                        node.ToolNotifications[index_0] = VisitNullChecked(node.ToolNotifications[index_0]);
+                        node.ToolExecutionNotifications[index_0] = VisitNullChecked(node.ToolExecutionNotifications[index_0]);
                     }
                 }
 
-                if (node.ConfigurationNotifications != null)
+                if (node.ToolConfigurationNotifications != null)
                 {
-                    for (int index_0 = 0; index_0 < node.ConfigurationNotifications.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.ToolConfigurationNotifications.Count; ++index_0)
                     {
-                        node.ConfigurationNotifications[index_0] = VisitNullChecked(node.ConfigurationNotifications[index_0]);
+                        node.ToolConfigurationNotifications[index_0] = VisitNullChecked(node.ToolConfigurationNotifications[index_0]);
                     }
                 }
 
@@ -601,7 +601,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
-                node.Name = VisitNullChecked(node.Name);
                 node.ShortDescription = VisitNullChecked(node.ShortDescription);
                 node.FullDescription = VisitNullChecked(node.FullDescription);
                 if (node.MessageStrings != null)

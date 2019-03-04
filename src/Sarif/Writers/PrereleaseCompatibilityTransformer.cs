@@ -134,41 +134,49 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 foreach (JObject run in runs)
                 {
                     // https://github.com/oasis-tcs/sarif-spec/issues/325
+                    // https://github.com/oasis-tcs/sarif-spec/issues/330
                     RemoveToolLanguage(run);
-
-                    // Modify exception.message to string
-                    ConvertAllExceptionMessagesToString(run);
+                    ConvertAllReportingDescriptorNamesToString(run);
+                    ConvertAllExceptionMessagesToStringAndRenameToolNotificationNodes(run);
                 }
             }
             return true;
         }
 
-        private static void ConvertAllExceptionMessagesToString(JObject run)
+        private static void ConvertAllExceptionMessagesToStringAndRenameToolNotificationNodes(JObject run)
         {
             if (run["conversion"] is JObject conversion && conversion["invocation"] is JObject invocation)
             {
-                ConvertInvocationExceptionMessagesToString(invocation);
+                ConvertInvocationExceptionMessagesToStringAndRenameToolNotifications(invocation);
             }
 
             if (run["invocations"] is JArray invocations)
             {
                 foreach (JObject item in invocations)
                 {
-                    ConvertInvocationExceptionMessagesToString(item);
+                    ConvertInvocationExceptionMessagesToStringAndRenameToolNotifications(item);
                 }
             }
         }
 
-        private static void ConvertInvocationExceptionMessagesToString(JObject invocation)
+        private static void ConvertInvocationExceptionMessagesToStringAndRenameToolNotifications(JObject invocation)
         {
             if (invocation["toolNotifications"] is JArray toolNotifications)
             {
                 ConvertNotificationExceptionMessagesToString(toolNotifications);
+
+                // https://github.com/oasis-tcs/sarif-spec/issues/330
+                invocation.Remove("toolNotifications");
+                invocation["toolExecutionNotifications"] = toolNotifications;
             }
 
             if (invocation["configurationNotifications"] is JArray configurationNotifications)
             {
                 ConvertNotificationExceptionMessagesToString(configurationNotifications);
+
+                // https://github.com/oasis-tcs/sarif-spec/issues/330
+                invocation.Remove("configurationNotifications");
+                invocation["toolConfigurationNotifications"] = configurationNotifications;
             }
         }
 
@@ -205,6 +213,64 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             if (tool["language"] is JToken language)
             {
                 tool.Remove("language");
+            }
+        }
+
+        private static void ConvertAllReportingDescriptorNamesToString(JObject run)
+        {
+            // Access and modify run.tool
+            JObject tool = (JObject)run["tool"];
+            ConvertToolReportingDescriptorNamesToString(tool);
+
+            // Access and modify run.conversion.tool
+            if (run["conversion"] is JObject conversion)
+            {
+                tool = (JObject)conversion["tool"];
+                ConvertToolReportingDescriptorNamesToString(tool);
+            }
+        }
+
+        private static void ConvertToolReportingDescriptorNamesToString(JObject tool)
+        {
+            // Access and modify tool.driver
+            if (tool["driver"] is JObject driver)
+            {
+                ConvertToolComponentReportingDescriptorNamesToString(driver);
+            }
+
+            // Access and modify each item in tool.extensions
+            if (tool["extensions"] is JArray extensions)
+            {
+                foreach (JObject toolComponent in extensions)
+                {
+                    ConvertToolComponentReportingDescriptorNamesToString(toolComponent);
+                }
+            }
+        }
+
+        private static void ConvertToolComponentReportingDescriptorNamesToString(JObject toolComponent)
+        {
+            // Access and modify toolComponent.notificationDescriptors
+            if (toolComponent["notificationDescriptors"] is JArray notificationDescriptors)
+            {
+                ConvertReportingDescriptorNamesToString(notificationDescriptors);
+            }
+
+            // Access and modify toolComponent.ruleDescriptors
+            if (toolComponent["ruleDescriptors"] is JArray ruleDescriptors)
+            {
+                ConvertReportingDescriptorNamesToString(ruleDescriptors);
+            }
+        }
+
+        private static void ConvertReportingDescriptorNamesToString(JArray reportingDescriptors)
+        {
+            foreach (JObject reportingDescriptor in reportingDescriptors)
+            {
+                if (reportingDescriptor["name"] is JObject message && message["text"] is JToken text)
+                {
+                    reportingDescriptor["name"] = text;
+                }
             }
         }
 
@@ -263,6 +329,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
             return true;
         }
+
         private static void RecursivePropertyRename(JObject parentObject, JProperty property, Dictionary<string, string> renamedMembers)
         {
             JToken newValue = property.Value;

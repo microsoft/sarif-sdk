@@ -224,9 +224,7 @@
           "description": "Key/value pairs that provide additional information about the artifact location.",
           "$ref": "#/definitions/propertyBag"
         }
-      },
-
-      "required": [ "uri" ]
+      }
     },
 
     "attachment": {
@@ -531,6 +529,17 @@
           }
         },
 
+        "threadFlowLocations": {
+          "description": "An array of external property files containing run.threadFlowLocations arrays to be merged with the root log file.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/threadFlowLocation"
+          }
+        },
+
         "results": {
           "description": "An array of external property files containing run.results arrays to be merged with the root log file.",
           "type": "array",
@@ -726,7 +735,7 @@
           }
         },
 
-        "toolNotifications": {
+        "toolExecutionNotifications": {
           "description": "A list of runtime conditions detected by the tool during the analysis.",
           "type": "array",
           "minItems": 0,
@@ -737,7 +746,7 @@
           }
         },
 
-        "configurationNotifications": {
+        "toolConfigurationNotifications": {
           "description": "A list of conditions detected by the tool that are relevant to the tool's configuration.",
           "type": "array",
           "minItems": 0,
@@ -1306,7 +1315,7 @@
 
         "name": {
           "description": "A report identifier that is understandable to an end user.",
-          "$ref": "#/definitions/message"
+          "type": "string"
         },
 
         "shortDescription": {
@@ -1853,6 +1862,17 @@
           "$ref": "#/definitions/externalPropertyFiles"
         },
 
+        "threadFlowLocations": {
+          "description": "An array of threadFlowLocation objects cached at run level.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/threadFlowLocation"
+          }
+        },
+
         "properties": {
           "description": "Key/value pairs that provide additional information about the run.",
           "$ref": "#/definitions/propertyBag"
@@ -2012,6 +2032,13 @@
       "additionalProperties": false,
       "type": "object",
       "properties": {
+
+        "index": {
+          "description": "The index within the run threadFlowLocations array.",
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
+        },
 
         "location": {
           "description": "The code location.",
