@@ -40,11 +40,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public override string Id => throw new InvalidOperationException($"The {nameof(Id)} property must be overridden in the SkimmerBase-derived class.");
 
-        public override Message FullDescription => throw new InvalidOperationException($"The {nameof(FullDescription)} property must be overridden in the SkimmerBase-derived class.");
+        public override MultiformatMessageString FullDescription => throw new InvalidOperationException($"The {nameof(FullDescription)} property must be overridden in the SkimmerBase-derived class.");
 
-        public override Message ShortDescription
+        public override MultiformatMessageString ShortDescription
         {
-            get { return new Message { Text = FirstSentence(FullDescription.Text) }; }
+            get { return new MultiformatMessageString { Text = FirstSentence(FullDescription.Text) }; }
         }
 
         internal static string FirstSentence(string fullDescription)

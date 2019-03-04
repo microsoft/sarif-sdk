@@ -510,6 +510,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return message;
         }
 
+        internal MultiformatMessageString CreateMultiformatMessageString(string text)
+        {
+            MultiformatMessageString multiformatMessageString = null;
+
+            if (text != null)
+            {
+                multiformatMessageString = new MultiformatMessageString
+                {
+                    Text = text
+                };
+            }
+
+            return multiformatMessageString;
+        }
+
         internal Notification CreateNotification(NotificationVersionOne v1Notification)
         {
             Notification notification = null;
@@ -798,13 +813,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 rule = new ReportingDescriptor
                 {
-                    FullDescription = CreateMessage(v1Rule.FullDescription),
+                    FullDescription = CreateMultiformatMessageString(v1Rule.FullDescription),
                     HelpUri = v1Rule.HelpUri,
                     Id = v1Rule.Id,
                     MessageStrings = v1Rule.MessageFormats.ConvertToMultiformatMessageStringsDictionary(),
                     Name = v1Rule.Name,
                     Properties = v1Rule.Properties,
-                    ShortDescription = CreateMessage(v1Rule.ShortDescription)
+                    ShortDescription = CreateMultiformatMessageString(v1Rule.ShortDescription)
                 };
 
                 FailureLevel level = Utilities.CreateReportingConfigurationDefaultLevel(v1Rule.DefaultLevel);

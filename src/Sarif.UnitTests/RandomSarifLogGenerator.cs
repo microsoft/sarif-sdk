@@ -150,7 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     new ReportingDescriptor()
                     {
                         Id = ruleId,
-                        FullDescription = new Message
+                        FullDescription = new MultiformatMessageString
                         {
                             Text = "TestRule"
                         }

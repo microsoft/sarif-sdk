@@ -1320,12 +1320,12 @@
 
         "shortDescription": {
           "description": "A concise description of the report. Should be a single sentence that is understandable when visible space is limited to a single line of text.",
-          "$ref": "#/definitions/message"
+          "$ref": "#/definitions/multiformatMessageString"
         },
 
         "fullDescription": {
           "description": "A description of the report. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.",
-          "$ref": "#/definitions/message"
+          "$ref": "#/definitions/multiformatMessageString"
         },
 
         "messageStrings": {

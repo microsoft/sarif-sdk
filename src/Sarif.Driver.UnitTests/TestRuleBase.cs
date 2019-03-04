@@ -21,9 +21,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public override string Name => this.GetType().Name;
 
-        public override Message FullDescription { get { return new Message { Text = this.GetType().Name + " full description." }; } }
+        public override MultiformatMessageString FullDescription { get { return new MultiformatMessageString { Text = this.GetType().Name + " full description." }; } }
 
-        public override Message ShortDescription { get { return new Message { Text = this.GetType().Name + " short description." }; } }
+        public override MultiformatMessageString ShortDescription { get { return new MultiformatMessageString { Text = this.GetType().Name + " short description." }; } }
 
         public IDictionary<string, string> MessageFormats
         {
