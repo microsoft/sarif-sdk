@@ -366,7 +366,6 @@
         {
           "commandLine": "[REMOVED]insourceanalyzer.exe -scan -b The_Build_ID -machine-output -f C:\\projects\\myproject\\scans\\2018-01-01_12:00:00\\Scan.fpr -format fpr",
           "startTimeUtc": "2018-01-01T12:00:00.000Z",
-          "toolExecutionNotifications": [],
           "machine": "SCANMACHINE",
           "account": "johndoe",
           "properties": {
