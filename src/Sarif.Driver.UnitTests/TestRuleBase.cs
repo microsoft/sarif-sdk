@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public override FailureLevel DefaultLevel { get { return FailureLevel.Warning; } }
 
-        public override Message Name { get { return new Message { Text = this.GetType().Name }; } }
+        public override string Name => this.GetType().Name;
 
         public override Message FullDescription { get { return new Message { Text = this.GetType().Name + " full description." }; } }
 

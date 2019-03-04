@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 RuleUtilities.BuildResult(ResultKind.NotApplicable, context, null,
                     nameof(SdkResources.NotApplicable_InvalidMetadata),
                     context.TargetUri.GetFileName(),
-                    context.Rule.Name.Text,
+                    context.Rule.Name,
                     reasonForNotAnalyzing));
 
             context.RuntimeErrors |= RuntimeConditions.RuleNotApplicableToTarget;

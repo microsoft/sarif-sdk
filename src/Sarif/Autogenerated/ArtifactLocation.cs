@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Specifies the location of an artifact.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
     public partial class ArtifactLocation : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ArtifactLocation> ValueComparer => ArtifactLocationEqualityComparer.Instance;
@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// A string containing a valid relative or absolute URI.
         /// </summary>
-        [DataMember(Name = "uri", IsRequired = true)]
+        [DataMember(Name = "uri", IsRequired = false, EmitDefaultValue = false)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter))]
         public Uri Uri { get; set; }
 

@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         }
 
 
-        public override Message Name
+        public override string Name
         {
             get
             {
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 {
                     throw new InvalidOperationException(nameof(ExceptionCondition.AccessingName));
                 }
-                return new Message { Text = nameof(ExceptionRaisingRule) };
+                return nameof(ExceptionRaisingRule);
             }
         }
 

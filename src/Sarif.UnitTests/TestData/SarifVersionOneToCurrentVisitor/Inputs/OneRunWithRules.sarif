@@ -27,7 +27,7 @@
           "shortDescription": "Rules were meant to be broken.",
           "fullDescription": "Rent internal rebellion competence biography photograph.",
           "configuration": "disabled",
-          "defaultLevel": "pass"
+          "defaultLevel": "error"
         }
       },
       "tool": {

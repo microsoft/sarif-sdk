@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Information about how a specific tool report was reconfigured at runtime.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
     public partial class ReportingConfigurationOverride : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ReportingConfigurationOverride> ValueComparer => ReportingConfigurationOverrideEqualityComparer.Instance;

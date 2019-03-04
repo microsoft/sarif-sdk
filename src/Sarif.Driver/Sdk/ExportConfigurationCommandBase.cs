@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     object objectResult;
                     PropertiesDictionary properties;
 
-                    string ruleOptionsKey = rule.Id + "." + rule.Name.Text + ".Options";
+                    string ruleOptionsKey = rule.Id + "." + rule.Name + ".Options";
 
                     if (!allOptions.TryGetValue(ruleOptionsKey, out objectResult))
                     {

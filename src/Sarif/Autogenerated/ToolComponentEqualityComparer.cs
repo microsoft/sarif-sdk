@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type ToolComponent for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
     internal sealed class ToolComponentEqualityComparer : IEqualityComparer<ToolComponent>
     {
         internal static readonly ToolComponentEqualityComparer Instance = new ToolComponentEqualityComparer();
@@ -29,6 +29,26 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             if (left.Name != right.Name)
+            {
+                return false;
+            }
+
+            if (left.Organization != right.Organization)
+            {
+                return false;
+            }
+
+            if (left.Product != right.Product)
+            {
+                return false;
+            }
+
+            if (!MultiformatMessageString.ValueComparer.Equals(left.ShortDescription, right.ShortDescription))
+            {
+                return false;
+            }
+
+            if (!MultiformatMessageString.ValueComparer.Equals(left.FullDescription, right.FullDescription))
             {
                 return false;
             }
@@ -165,6 +185,26 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.Name != null)
                 {
                     result = (result * 31) + obj.Name.GetHashCode();
+                }
+
+                if (obj.Organization != null)
+                {
+                    result = (result * 31) + obj.Organization.GetHashCode();
+                }
+
+                if (obj.Product != null)
+                {
+                    result = (result * 31) + obj.Product.GetHashCode();
+                }
+
+                if (obj.ShortDescription != null)
+                {
+                    result = (result * 31) + obj.ShortDescription.ValueGetHashCode();
+                }
+
+                if (obj.FullDescription != null)
+                {
+                    result = (result * 31) + obj.FullDescription.ValueGetHashCode();
                 }
 
                 if (obj.FullName != null)
