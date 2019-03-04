@@ -134,13 +134,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 foreach (JObject run in runs)
                 {
                     // https://github.com/oasis-tcs/sarif-spec/issues/325
-                    RemoveToolLanguage(run);
-
-                    // Modify exception.message to string.
-                    //https://github.com/oasis-tcs/sarif-spec/issues/325
-                    //
-                    // Rename invocation.toolNotifications and invocation.configurationNotifications
                     // https://github.com/oasis-tcs/sarif-spec/issues/330
+                    RemoveToolLanguage(run);
+                    ConvertAllReportingDescriptorNamesToString(run);
                     ConvertAllExceptionMessagesToStringAndRenameToolNotificationNodes(run);
                 }
             }
