@@ -27,6 +27,16 @@
       }
     },
 
+    "inlineExternalPropertyFiles": {
+      "description": "References to external property files that share data between runs.",
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "items": {
+        "$ref": "#/definitions/externalPropertyFile"
+      }
+    },
+
     "properties": {
       "description": "Key/value pairs that provide additional information about the log file.",
       "$ref": "#/definitions/propertyBag"

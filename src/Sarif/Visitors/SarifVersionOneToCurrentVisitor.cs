@@ -40,6 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             SarifLog = new SarifLog(SarifVersion.Current.ConvertToSchemaUri(),
                                     SarifVersion.Current,
                                     new List<Run>(),
+                                    null,
                                     properties: null);
 
             foreach (RunVersionOne v1Run in v1SarifLog.Runs)
