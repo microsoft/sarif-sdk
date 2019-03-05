@@ -133,14 +133,89 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 foreach (JObject run in runs)
                 {
-                    // https://github.com/oasis-tcs/sarif-spec/issues/325
                     // https://github.com/oasis-tcs/sarif-spec/issues/330
                     RemoveToolLanguage(run);
                     ConvertAllReportingDescriptorNamesToString(run);
                     ConvertAllExceptionMessagesToStringAndRenameToolNotificationNodes(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/325
+                    UpdateAllExternalPropertyFilePropertyTypes(run);
                 }
             }
             return true;
+        }
+
+        private static void UpdateAllExternalPropertyFilePropertyTypes(JObject run)
+        {
+            if (run["externalPropertyFiles"] is JObject externalPropertyFiles)
+            {
+                if(externalPropertyFiles["conversion"] is JObject conversion)
+                {
+                    UpdateExternalPropertyFilePropertyTypes(conversion);
+                }
+
+                if (externalPropertyFiles["graphs"] is JObject graphs)
+                {
+                    UpdateExternalPropertyFilePropertyTypes(graphs);
+                }
+
+                if (externalPropertyFiles["externalizedProperties"] is JObject externalizedProperties)
+                {
+                    UpdateExternalPropertyFilePropertyTypes(externalizedProperties);
+                }
+
+                if (externalPropertyFiles["artifacts"] is JArray artifacts)
+                {
+                    foreach (JObject artifact in artifacts)
+                    {
+                        UpdateExternalPropertyFilePropertyTypes(artifact);
+                    }
+                }
+
+                if (externalPropertyFiles["invocations"] is JArray invocations)
+                {
+                    foreach (JObject invocation in invocations)
+                    {
+                        UpdateExternalPropertyFilePropertyTypes(invocation);
+                    }
+                }
+
+                if (externalPropertyFiles["logicalLocations"] is JArray logicalLocations)
+                {
+                    foreach (JObject logicalLocation in logicalLocations)
+                    {
+                        UpdateExternalPropertyFilePropertyTypes(logicalLocation);
+                    }
+                }
+
+                if (externalPropertyFiles["results"] is JArray results)
+                {
+                    foreach (JObject result in results)
+                    {
+                        UpdateExternalPropertyFilePropertyTypes(result);
+                    }
+                }
+
+                if (externalPropertyFiles["tool"] is JObject tool)
+                {
+                    UpdateExternalPropertyFilePropertyTypes(tool);
+                }
+            }
+        }
+
+        private static void UpdateExternalPropertyFilePropertyTypes(JObject externalPropertyFile)
+        {
+            if (externalPropertyFile["instanceGuid"] is JToken instanceGuid)
+            {
+                externalPropertyFile.Remove("instanceGuid");
+                externalPropertyFile.Add("guid", instanceGuid);
+            }
+
+            if (externalPropertyFile["artifactLocation"] is JObject artifactLocation)
+            {
+                externalPropertyFile.Remove("artifactLocation");
+                externalPropertyFile.Add("location", artifactLocation);
+            }
         }
 
         private static void ConvertAllExceptionMessagesToStringAndRenameToolNotificationNodes(JObject run)

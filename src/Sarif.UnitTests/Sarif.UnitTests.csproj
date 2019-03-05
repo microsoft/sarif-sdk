@@ -20,11 +20,13 @@
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\NestedInnerExceptionsInNotifications.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\RunResources.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ToolWithLanguage.sarif" />
+    <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\WithExternalPropertyFiles.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\ComprehensiveToolProperties.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\MultiformatMessageStrings.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\NestedInnerExceptionsInNotifications.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\RunResources.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\ToolWithLanguage.sarif" />
+    <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\WithExternalPropertyFiles.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\MinimumWithLanguage.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\NestedInnerExceptionsInNotifications.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\OneRunWithAllReportingDescriptors.sarif" />
@@ -61,7 +63,9 @@
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\RuleIdCollisions.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\NestedFiles.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ToolWithLanguage.sarif" />
+    <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\WithExternalPropertyFiles.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\ComprehensiveFileProperties.sarif" />
+    <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\WithExternalPropertyFiles.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\MultiformatMessageStrings.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\ComprehensiveToolProperties.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\NestedInnerExceptionsInNotifications.sarif" />
