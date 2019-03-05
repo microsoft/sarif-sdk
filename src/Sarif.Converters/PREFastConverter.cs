@@ -91,7 +91,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 FullyQualifiedLogicalName = defect.Function
             };
 
-            location.SetProperty("funcline", defect.Funcline);
+            if (!string.IsNullOrEmpty(defect.Funcline))
+            {
+                location.SetProperty("funcline", defect.Funcline);
+            }
 
             AddLogicalLocation(defect.Function, defect.Decorated);
 
