@@ -201,6 +201,16 @@
       }
     }
   ],
+  "externalPropertyFiles": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
   "fix": [
     {
       "kind": "BaseTypeHint",
