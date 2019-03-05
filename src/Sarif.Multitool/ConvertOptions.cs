@@ -21,5 +21,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             "plugin-assembly-path",
             HelpText = "Path to plugin assembly containing converter types.")]
         public string PluginAssemblyPath { get; internal set; }
+
+        [Option(
+            "tool-name-override",
+            HelpText = "A tool name that should replace the converter default in any generated SARIF file.")]
+        public string ToolNameOverride{ get; internal set; }
     }
 }

@@ -38,7 +38,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                                                 convertOptions.OutputFilePath,
                                                 loggingOptions,
                                                 dataToInsert,
-                                                convertOptions.PluginAssemblyPath);
+                                                convertOptions.PluginAssemblyPath,
+                                                convertOptions.ToolNameOverride);
             }
             catch (Exception ex)
             {

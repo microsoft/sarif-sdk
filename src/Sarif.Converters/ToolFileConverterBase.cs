@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             logicalLocation.Name = GetLogicalLocationName(logicalLocation.ParentKey, fullyQualifiedLogicalName, delimiter);
             logicalLocation.FullyQualifiedName = fullyQualifiedLogicalName;
 
-            while (LogicalLocationsDictionary.ContainsKey(generatedKey))
+            while (generatedKey != null && LogicalLocationsDictionary.ContainsKey(generatedKey))
             {
                 LogicalLocation logLoc = LogicalLocationsDictionary[generatedKey].DeepClone();
                 logLoc.Name = GetLogicalLocationName(logLoc.ParentKey, fullyQualifiedLogicalName, delimiter);
@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 logicalLocation.Name = null;
             }
 
-            if (!LogicalLocationsDictionary.ContainsKey(generatedKey))
+            if (generatedKey != null && !LogicalLocationsDictionary.ContainsKey(generatedKey))
             {
                 LogicalLocationsDictionary.Add(generatedKey, logicalLocation);
             }
@@ -87,7 +87,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (parentKey == null)
             {
-                index = !string.IsNullOrWhiteSpace(delimiter) ? fullyQualifiedLogicalName.LastIndexOf(delimiter) : -1;
+                index = -1;
+
+                if (fullyQualifiedLogicalName != null)
+                {
+                    index = !string.IsNullOrWhiteSpace(delimiter) ? fullyQualifiedLogicalName.LastIndexOf(delimiter) : -1;
+                }
             }
             else
             {

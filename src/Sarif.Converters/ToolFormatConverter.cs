@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -38,7 +39,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string outputFileName,
             LoggingOptions loggingOptions = LoggingOptions.None,
             OptionallyEmittedData dataToInsert = OptionallyEmittedData.None,
-            string pluginAssemblyPath = null)
+            string pluginAssemblyPath = null,
+            string toolNameOverride = null)
         {
             if (inputFileName == null) { throw new ArgumentNullException(nameof(inputFileName)); }
             if (outputFileName == null) { throw new ArgumentNullException(nameof(outputFileName)); }
@@ -69,6 +71,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     ConvertToStandardFormat(toolFormat, input, output, dataToInsert, pluginAssemblyPath);
                 }
+            }
+
+            if (!string.IsNullOrEmpty(toolNameOverride))
+            {
+                JToken sarifLog = JToken.Parse(File.ReadAllText(outputFileName));
+
+                if (sarifLog["runs"] is JArray runs)
+                {
+                    if (runs.First is JObject run)
+                    {
+                        // Every converted log file only has a singe run, so
+                        // we only need to process the first item...
+                        if (run["tool"] is JObject tool)
+                        {
+                            tool["name"] = toolNameOverride;
+                        }
+                    }
+                }
+
+                File.WriteAllText(outputFileName, sarifLog.ToString());
             }
         }
 
