@@ -505,7 +505,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     ConfigurationFilePath = configFileName ?? TestAnalyzeCommand.DefaultPolicyName,
                     Recurse = true,
                     OutputFilePath = path,
-                    SarifVersion = SarifVersion.Current
+                    SarifOutputVersion = SarifVersion.Current
                 };
 
                 var command = new TestAnalyzeCommand();
@@ -575,7 +575,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                     Recurse = true,
                     OutputFilePath = path,
                     PrettyPrint = true,
-                    SarifVersion = SarifVersion.OneZeroZero
+                    SarifOutputVersion = SarifVersion.OneZeroZero
                 };
 
                 var command = new TestAnalyzeCommand();

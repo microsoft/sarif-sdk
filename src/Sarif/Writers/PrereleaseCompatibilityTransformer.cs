@@ -112,15 +112,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 updatedLog = modifiedLog ? sarifLog.ToString(formatting) : prereleaseSarifLog;
                 transformedSarifLog = JsonConvert.DeserializeObject<SarifLog>(updatedLog, settings);
-
-                // We already have a textual representation of the log file (produced a couple lines
-                // above this call). We are required to regenerate it, however, in order to properly 
-                // elide default values, etc. I could not find a way for the JToken driven
-                // ToString()/text-generating mechanism to honor default value ignore/populate settings.
-                if (modifiedLog)
-                {
-                    updatedLog = JsonConvert.SerializeObject(transformedSarifLog, formatting);
-                }
+                updatedLog = JsonConvert.SerializeObject(transformedSarifLog, formatting);
             }
 
             return transformedSarifLog;
