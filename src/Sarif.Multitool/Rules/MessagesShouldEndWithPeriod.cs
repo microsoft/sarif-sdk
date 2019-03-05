@@ -60,6 +60,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
+        protected override void Analyze(MultiformatMessageString multiformatMessageString, string multiformatMessageStringPointer)
+        {
+            AnalyzeMessageString(multiformatMessageString.Text, multiformatMessageStringPointer, SarifPropertyName.Text);
+            AnalyzeMessageString(multiformatMessageString.Markdown, multiformatMessageStringPointer, SarifPropertyName.Markdown);
+        }
+
         protected override void Analyze(Message message, string messagePointer)
         {
             AnalyzeMessageString(message.Text, messagePointer, SarifPropertyName.Text);
