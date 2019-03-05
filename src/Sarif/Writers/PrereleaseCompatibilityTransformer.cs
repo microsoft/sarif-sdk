@@ -138,10 +138,61 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     RemoveToolLanguage(run);
                     ConvertAllReportingDescriptorNamesToString(run);
                     ConvertAllExceptionMessagesToStringAndRenameToolNotificationNodes(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/336
+                    UpdateAllToolComponentProperties(run);
                 }
             }
             return true;
         }
+
+        private static void UpdateAllToolComponentProperties(JObject run)
+        {
+            // Access and modify run.tool
+            if (run["tool"] is JObject tool)
+            {
+                UpdateToolObjectToolComponentProperties(tool);
+            }
+            // else throw exception: todo
+
+            // Access and modify run.conversion.tool
+            if (run["conversion"] is JObject conversion && conversion["tool"] is JObject tool2)
+            {
+                UpdateToolObjectToolComponentProperties(tool2);
+            }
+        }
+
+        private static void UpdateToolObjectToolComponentProperties(JObject tool)
+        {
+            // Access and modify tool.driver
+            if (tool["driver"] is JObject driver)
+            {
+                UpdateToolComponentProperties(driver);
+            }
+
+            // Access and modify each item in tool.extensions
+            if (tool["extensions"] is JArray extensions)
+            {
+                foreach (JObject toolComponent in extensions)
+                {
+                    UpdateToolComponentProperties(toolComponent);
+                }
+            }
+        }
+
+        private static void UpdateToolComponentProperties(JObject toolComponent)
+        {
+            // Access and modify artifactIndex
+            if (toolComponent["artifactIndex"] is JToken artifactIndex)
+            {
+                toolComponent.Remove("artifactIndex");
+                var artifactIndices = new JArray();
+                artifactIndices.Add(artifactIndex);
+
+                toolComponent.Add("artifactIndices", artifactIndices);
+            }
+        }
+
 
         private static void ConvertAllExceptionMessagesToStringAndRenameToolNotificationNodes(JObject run)
         {

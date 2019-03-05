@@ -10,7 +10,8 @@
         "fullName": "CodeScanner for EN-US",
         "version": "2.1.0 optimized release for x86",
         "dottedQuadFileVersion": "1.2.3.4",
-        "downloadUri": "https://example.com/sensitive_terms.html"
+        "downloadUri": "https://example.com/sensitive_terms.html",
+        "artifactIndex": 1
       },
       "resources": {
         "messageStrings": { "noContent": "This file has no content to review." },
