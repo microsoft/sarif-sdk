@@ -24,8 +24,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
         }
 
-        protected override bool RebaselineExpectedResults => false;
-
         protected override string ConstructTestOutputFromInputResource(string inputResourceName)
         {
             PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(

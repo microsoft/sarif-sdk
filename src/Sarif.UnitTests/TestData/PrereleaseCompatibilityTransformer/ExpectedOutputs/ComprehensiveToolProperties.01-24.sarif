@@ -25,9 +25,19 @@
                 }
               }
             }
+          ],
+          "artifactIndices": [
+            0
           ]
         }
       },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "CodeScanner.exe"
+          }
+        }
+      ],
       "results": [
         {
           "ruleId": "TEST1001",
