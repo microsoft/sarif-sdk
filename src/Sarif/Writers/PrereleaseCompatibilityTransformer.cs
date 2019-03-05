@@ -153,7 +153,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 UpdateToolObjectToolComponentProperties(tool);
             }
-            // else throw exception: todo
 
             // Access and modify run.conversion.tool
             if (run["conversion"] is JObject conversion && conversion["tool"] is JObject tool2)
