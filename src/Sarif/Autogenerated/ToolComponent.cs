@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// A component, such as a plug-in or the default driver, of the analysis tool that was run.
+    /// A component, such as the driver or a plugin, of the analysis tool that was run.
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
@@ -35,61 +35,61 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// The name of the component.
+        /// The name of the tool component.
         /// </summary>
         [DataMember(Name = "name", IsRequired = true)]
         public string Name { get; set; }
 
         /// <summary>
-        /// The organization or company that produced the tool.
+        /// The organization or company that produced the tool component.
         /// </summary>
         [DataMember(Name = "organization", IsRequired = false, EmitDefaultValue = false)]
         public string Organization { get; set; }
 
         /// <summary>
-        /// A product suite to which the tool belongs.
+        /// A product suite to which the tool component belongs.
         /// </summary>
         [DataMember(Name = "product", IsRequired = false, EmitDefaultValue = false)]
         public string Product { get; set; }
 
         /// <summary>
-        /// A brief description of the tool.
+        /// A brief description of the tool component.
         /// </summary>
         [DataMember(Name = "shortDescription", IsRequired = false, EmitDefaultValue = false)]
         public MultiformatMessageString ShortDescription { get; set; }
 
         /// <summary>
-        /// A comprehensive description of the tool.
+        /// A comprehensive description of the tool component.
         /// </summary>
         [DataMember(Name = "fullDescription", IsRequired = false, EmitDefaultValue = false)]
         public MultiformatMessageString FullDescription { get; set; }
 
         /// <summary>
-        /// The name of the component along with its version and any other useful identifying information, such as its locale.
+        /// The name of the tool component along with its version and any other useful identifying information, such as its locale.
         /// </summary>
         [DataMember(Name = "fullName", IsRequired = false, EmitDefaultValue = false)]
         public string FullName { get; set; }
 
         /// <summary>
-        /// The component version, in whatever format the component natively provides.
+        /// The tool component's version, in whatever format the component natively provides.
         /// </summary>
         [DataMember(Name = "version", IsRequired = false, EmitDefaultValue = false)]
         public string Version { get; set; }
 
         /// <summary>
-        /// The component version in the format specified by Semantic Versioning 2.0.
+        /// The tool component's version in the format specified by Semantic Versioning 2.0.
         /// </summary>
         [DataMember(Name = "semanticVersion", IsRequired = false, EmitDefaultValue = false)]
         public string SemanticVersion { get; set; }
 
         /// <summary>
-        /// The binary version of the component's primary executable file expressed as four non-negative integers separated by a period (for operating systems that express file versions in this way).
+        /// The binary version of the tool component's primary executable file expressed as four non-negative integers separated by a period (for operating systems that express file versions in this way).
         /// </summary>
         [DataMember(Name = "dottedQuadFileVersion", IsRequired = false, EmitDefaultValue = false)]
         public string DottedQuadFileVersion { get; set; }
 
         /// <summary>
-        /// The absolute URI from which the component can be downloaded.
+        /// The absolute URI from which the tool component can be downloaded.
         /// </summary>
         [DataMember(Name = "downloadUri", IsRequired = false, EmitDefaultValue = false)]
         public Uri DownloadUri { get; set; }
@@ -101,21 +101,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IDictionary<string, MultiformatMessageString> GlobalMessageStrings { get; set; }
 
         /// <summary>
-        /// An array of reportDescriptor objects relevant to the notifications related to the configuration and runtime execution of the component.
+        /// An array of reportDescriptor objects relevant to the notifications related to the configuration and runtime execution of the tool component.
         /// </summary>
         [DataMember(Name = "notificationDescriptors", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<ReportingDescriptor> NotificationDescriptors { get; set; }
 
         /// <summary>
-        /// An array of reportDescriptor objects relevant to the analysis performed by the component.
+        /// An array of reportDescriptor objects relevant to the analysis performed by the tool component.
         /// </summary>
         [DataMember(Name = "ruleDescriptors", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<ReportingDescriptor> RuleDescriptors { get; set; }
 
         /// <summary>
-        /// The index within the run artifacts array of the artifact object associated with the component.
+        /// The index within the run artifacts array of the artifact object associated with the tool component.
         /// </summary>
         [DataMember(Name = "artifactIndex", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
@@ -123,7 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int ArtifactIndex { get; set; }
 
         /// <summary>
-        /// Key/value pairs that provide additional information about the component.
+        /// Key/value pairs that provide additional information about the tool component.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
