@@ -112,15 +112,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 updatedLog = modifiedLog ? sarifLog.ToString(formatting) : prereleaseSarifLog;
                 transformedSarifLog = JsonConvert.DeserializeObject<SarifLog>(updatedLog, settings);
-
-                // We already have a textual representation of the log file (produced a couple lines
-                // above this call). We are required to regenerate it, however, in order to properly 
-                // elide default values, etc. I could not find a way for the JToken driven
-                // ToString()/text-generating mechanism to honor default value ignore/populate settings.
-                if (modifiedLog)
-                {
-                    updatedLog = JsonConvert.SerializeObject(transformedSarifLog, formatting);
-                }
+                updatedLog = JsonConvert.SerializeObject(transformedSarifLog, formatting);
             }
 
             return transformedSarifLog;
@@ -138,10 +130,60 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     RemoveToolLanguage(run);
                     ConvertAllReportingDescriptorNamesToString(run);
                     ConvertAllExceptionMessagesToStringAndRenameToolNotificationNodes(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/336
+                    UpdateAllToolComponentProperties(run);
                 }
             }
             return true;
         }
+
+        private static void UpdateAllToolComponentProperties(JObject run)
+        {
+            // Access and modify run.tool
+            if (run["tool"] is JObject tool)
+            {
+                UpdateToolObjectToolComponentProperties(tool);
+            }
+
+            // Access and modify run.conversion.tool
+            if (run["conversion"] is JObject conversion && conversion["tool"] is JObject tool2)
+            {
+                UpdateToolObjectToolComponentProperties(tool2);
+            }
+        }
+
+        private static void UpdateToolObjectToolComponentProperties(JObject tool)
+        {
+            // Access and modify tool.driver
+            if (tool["driver"] is JObject driver)
+            {
+                UpdateToolComponentProperties(driver);
+            }
+
+            // Access and modify each item in tool.extensions
+            if (tool["extensions"] is JArray extensions)
+            {
+                foreach (JObject toolComponent in extensions)
+                {
+                    UpdateToolComponentProperties(toolComponent);
+                }
+            }
+        }
+
+        private static void UpdateToolComponentProperties(JObject toolComponent)
+        {
+            // Access and modify artifactIndex
+            if (toolComponent["artifactIndex"] is JToken artifactIndex)
+            {
+                toolComponent.Remove("artifactIndex");
+                var artifactIndices = new JArray();
+                artifactIndices.Add(artifactIndex);
+
+                toolComponent.Add("artifactIndices", artifactIndices);
+            }
+        }
+
 
         private static void ConvertAllExceptionMessagesToStringAndRenameToolNotificationNodes(JObject run)
         {

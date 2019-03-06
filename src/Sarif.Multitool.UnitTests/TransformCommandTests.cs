@@ -166,7 +166,7 @@ namespace Sarif.Multitool.UnitTests
             var options = new TransformOptions
             {
                 Inline = true,
-                TargetVersion = targetVersion,
+                SarifOutputVersion = targetVersion,
                 InputFilePath = logFilePath
             };
 

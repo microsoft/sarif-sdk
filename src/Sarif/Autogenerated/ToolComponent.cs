@@ -4,7 +4,6 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
@@ -115,12 +114,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<ReportingDescriptor> RuleDescriptors { get; set; }
 
         /// <summary>
-        /// The index within the run artifacts array of the artifact object associated with the component.
+        /// The indices within the run artifacts array of the artifact objects associated with the component.
         /// </summary>
-        [DataMember(Name = "artifactIndex", IsRequired = false, EmitDefaultValue = false)]
-        [DefaultValue(-1)]
+        [DataMember(Name = "artifactIndices", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public int ArtifactIndex { get; set; }
+        public IList<int> ArtifactIndices { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the component.
@@ -133,7 +131,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public ToolComponent()
         {
-            ArtifactIndex = -1;
         }
 
         /// <summary>
@@ -178,15 +175,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="ruleDescriptors">
         /// An initialization value for the <see cref="P:RuleDescriptors" /> property.
         /// </param>
-        /// <param name="artifactIndex">
-        /// An initialization value for the <see cref="P:ArtifactIndex" /> property.
+        /// <param name="artifactIndices">
+        /// An initialization value for the <see cref="P:ArtifactIndices" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ToolComponent(string name, string organization, string product, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notificationDescriptors, IEnumerable<ReportingDescriptor> ruleDescriptors, int artifactIndex, IDictionary<string, SerializedPropertyInfo> properties)
+        public ToolComponent(string name, string organization, string product, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notificationDescriptors, IEnumerable<ReportingDescriptor> ruleDescriptors, IEnumerable<int> artifactIndices, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(name, organization, product, shortDescription, fullDescription, fullName, version, semanticVersion, dottedQuadFileVersion, downloadUri, globalMessageStrings, notificationDescriptors, ruleDescriptors, artifactIndex, properties);
+            Init(name, organization, product, shortDescription, fullDescription, fullName, version, semanticVersion, dottedQuadFileVersion, downloadUri, globalMessageStrings, notificationDescriptors, ruleDescriptors, artifactIndices, properties);
         }
 
         /// <summary>
@@ -205,7 +202,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Name, other.Organization, other.Product, other.ShortDescription, other.FullDescription, other.FullName, other.Version, other.SemanticVersion, other.DottedQuadFileVersion, other.DownloadUri, other.GlobalMessageStrings, other.NotificationDescriptors, other.RuleDescriptors, other.ArtifactIndex, other.Properties);
+            Init(other.Name, other.Organization, other.Product, other.ShortDescription, other.FullDescription, other.FullName, other.Version, other.SemanticVersion, other.DottedQuadFileVersion, other.DownloadUri, other.GlobalMessageStrings, other.NotificationDescriptors, other.RuleDescriptors, other.ArtifactIndices, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -226,7 +223,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ToolComponent(this);
         }
 
-        private void Init(string name, string organization, string product, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notificationDescriptors, IEnumerable<ReportingDescriptor> ruleDescriptors, int artifactIndex, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string name, string organization, string product, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notificationDescriptors, IEnumerable<ReportingDescriptor> ruleDescriptors, IEnumerable<int> artifactIndices, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Name = name;
             Organization = organization;
@@ -295,7 +292,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                 RuleDescriptors = destination_1;
             }
 
-            ArtifactIndex = artifactIndex;
+            if (artifactIndices != null)
+            {
+                var destination_2 = new List<int>();
+                foreach (var value_3 in artifactIndices)
+                {
+                    destination_2.Add(value_3);
+                }
+
+                ArtifactIndices = destination_2;
+            }
+
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);

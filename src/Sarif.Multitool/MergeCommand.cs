@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    internal class MergeCommand
+    internal class MergeCommand : CommandBase
     {
         private readonly IFileSystem _fileSystem;
 
@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             try
             {
-                var sarifFiles = FileHelpers.CreateTargetsSet(mergeOptions.TargetFileSpecifiers, mergeOptions.Recurse);
+                var sarifFiles = CreateTargetsSet(mergeOptions.TargetFileSpecifiers, mergeOptions.Recurse);
 
                 var allRuns = ParseFiles(sarifFiles);
 
@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 Directory.CreateDirectory(outputDirectory);
 
-                FileHelpers.WriteSarifFile(_fileSystem, combinedLog, outputName, formatting);
+                WriteSarifFile(_fileSystem, combinedLog, outputName, formatting);
             }
             catch (Exception ex)
             {
@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 	    {
             foreach (var file in sarifFiles)
             {
-                yield return FileHelpers.ReadSarifFile<SarifLog>(_fileSystem, file);
+                yield return ReadSarifFile<SarifLog>(_fileSystem, file);
             }
         }
         
