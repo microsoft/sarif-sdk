@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// The effective address of a reported issue.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
     public partial class Address : ISarifNode
     {
         public static IEqualityComparer<Address> ValueComparer => AddressEqualityComparer.Instance;
