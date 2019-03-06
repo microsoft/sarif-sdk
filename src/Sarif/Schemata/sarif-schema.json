@@ -536,7 +536,7 @@
           "uniqueItems": true,
           "default": [],
           "items": {
-            "$ref": "#/definitions/threadFlowLocation"
+            "$ref": "#/definitions/externalPropertyFile"
           }
         },
 
