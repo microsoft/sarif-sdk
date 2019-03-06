@@ -9,11 +9,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     [Verb("transform", HelpText = "Transform a SARIF log to a different version.")]
     internal class TransformOptions : SingleFileOptionsBase
     {
-        [Option(
-            'v',
-            "target-version",
-            HelpText = "The SARIF version to which the input file will be transformed.",
-            Default = SarifVersion.Current)]
-        public SarifVersion TargetVersion { get; set; }
     }
 }

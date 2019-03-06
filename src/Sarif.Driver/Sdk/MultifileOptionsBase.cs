@@ -22,11 +22,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public string OutputFolderPath { get; internal set; }
 
 
+        [Option(
+            'i',
+            "inline",
+            Default = false,
+            HelpText = "Write all newly generated content to the input file.")]
+        public bool Inline { get; set; }
+
+
         [Value(0,
             MetaName = "<files>",
             HelpText = "Files to process (wildcards ? and * allowed).",
-            Required = false)]
+            Required = true)]
         public IEnumerable<string> TargetFileSpecifiers { get; internal set; }
-
     }
 }
