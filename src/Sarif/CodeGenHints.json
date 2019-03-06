@@ -1,892 +1,902 @@
 {
-  "*.Properties": [
-    {
-      "kind": "DictionaryHint",
-      "arguments": {
-        "valueTypeName": "SerializedPropertyInfo",
-        "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
-        "comparisonKind": "ObjectEquals",
-        "hashKind": "ScalarReferenceType",
-        "initializationKind": "SimpleAssign"
-      }
-    },
-    {
-      "kind": "PropertyModifiersHint",
-      "arguments": {
-        "modifiers": [
-          "internal",
-          "override"
-        ]
-      }
-    }
-  ],
-  "artifact": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "Artifact.Hashes": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "Artifact.LastModifiedTimeUtc": [
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter)" ]
-      }
-    }
-  ],
-  "Artifact.Roles": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "ArtifactRoles",
-        "description": "Values specifying the roles played by the file in the analysis.",
-        "flags": true,
-        "zeroValueName": "None",
-        "memberNames": [
-          "AnalysisTarget",
-          "Attachment",
-          "ResponseFile",
-          "ResultFile",
-          "StandardStream",
-          "TraceFile",
-          "UnmodifiedFile",
-          "ModifiedFile",
-          "AddedFile",
-          "DeletedFile",
-          "RenamedFile",
-          "GeneratedFile"
-        ]
-      }
-    },
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(FlagsEnumConverter)" ]
-      }
-    }
-  ],
-  "artifactChange": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "artifactContent": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "artifactLocation": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "ArtifactLocation.Uri": [
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter)" ]
-      }
-    }
-  ],
-  "attachment": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "codeFlow": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "conversion": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "edge": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "edgeTraversal": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "EdgeTraversal.FinalState": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "exception": [
-    {
-      "kind": "ClassNameHint",
-      "arguments": {
-        "className": "ExceptionData"
-      }
-    }
-  ],
-  "exceptionData": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "externalPropertyFile": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "fix": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "graph": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "graphTraversal": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "GraphTraversal.InitialState": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "invocation": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "Invocation.EndTimeUtc": [
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter)" ]
-      }
-    }
-  ],
-  "Invocation.EnvironmentVariables": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "Invocation.StartTimeUtc": [
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter)" ]
-      }
-    }
-  ],
-  "location": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "logicalLocation": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "message": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "node": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "notification": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "Notification.Level": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "FailureLevel",
-        "description": "Values specifying the failure level of a notification or result.",
-        "memberNames": [
-          "None",
-          "Note",
-          "Warning",
-          "Error"
-        ]
-      }
-    },
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter)" ]
-      }
-    }
-  ],
-  "Notification.TimeUtc": [
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter)" ]
-      }
-    }
-  ],
-  "multiformatMessageString": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "physicalLocation": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "rectangle": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "region": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "replacement": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "reportingConfiguration": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "ReportingConfiguration.Level": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "FailureLevel",
-        "description": "Values specifying the failure level of a notification or result.",
-        "memberNames": [
-          "None",
-          "Note",
-          "Warning",
-          "Error"
-        ]
-      }
-    },
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter)" ]
-      }
-    }
-  ],
-  "ReportingConfiguration.Parameters": [
-    {
-      "kind": "DictionaryHint",
-      "arguments": {
-        "valueTypeName": "SerializedPropertyInfo",
-        "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
-        "comparisonKind": "ObjectEquals",
-        "hashKind": "ScalarReferenceType",
-        "initializationKind": "SimpleAssign"
-      }
-    }
-  ],
-  "reportingConfigurationOverride": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "reportingDescriptor": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "ReportingDescriptor.HelpUri": [
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter)" ]
-      }
-    }
-  ],
-  "ReportingDescriptor.MessageStrings": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "ReportingDescriptor.RichMessageStrings": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "resources": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "result": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "Result.BaselineState": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "BaselineState",
-        "description": "The state of a result relative to a baseline of a previous run.",
-        "zeroValueName": "None",
-        "memberNames": [
-          "Unchanged",
-          "Updated",
-          "New",
-          "Absent"
-        ]
-      }
-    },
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter)" ]
-      }
-    }
-  ],
-  "Result.Fingerprints": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "Result.Graphs": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "Result.HostedViewerUri": [
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(UriConverter)" ]
-      }
-    }
-  ],
-  "Result.Kind": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "ResultKind",
-        "description": "Values specifying the evaluation state of a result.",
-        "zeroValueName": "None",
-        "memberNames": [
-          "NotApplicable",
-          "Pass",
-          "Fail",
-          "Review",
-          "Open"
-        ]
-      }
-    },
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter)" ]
-      }
-    }
-  ],
-  "Result.Level": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "FailureLevel",
-        "description": "Values specifying the failure level of a notification or result.",
-        "memberNames": [
-          "None",
-          "Note",
-          "Warning",
-          "Error"
-        ]
-      }
-    },
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter)" ]
-      }
-    }
-  ],
-  "Result.PartialFingerprints": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "Result.SuppressionStates": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "SuppressionStates",
-        "description": "The state of a result relative to a baseline of a previous run.",
-        "flags": true,
-        "zeroValueName": "None",
-        "memberNames": [
-          "SuppressedInSource",
-          "SuppressedExternally"
-        ]
-      }
-    },
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(FlagsEnumConverter)" ]
-      }
-    }
-  ],
-  "Result.WorkItemUris": [
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonProperty",
-        "arguments": [ "ItemConverterType = typeof(UriConverter)" ]
-      }
-    }
-  ],
-  "resultProvenance": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "run": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "Run.ColumnKind": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "ColumnKind",
-        "description": "A value that specifies the unit in which the tool measures columns.",
-        "zeroValueName": "None",
-        "memberNames": [
-          "utf16CodeUnits",
-          "unicodeCodePoints"
-        ]
-      }
-    },
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter)" ]
-      }
-    }
-  ],
-  "Run.Graphs": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "Run.OriginalUriBaseIds": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "runAutomationDetails": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "sarifLog": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "SarifLog.$schema": [
-    {
-      "kind": "PropertyNameHint",
-      "arguments": {
-        "dotNetPropertyName": "SchemaUri"
-      }
-    }
-  ],
-  "SarifLog.SchemaUri": [
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(UriConverter)" ]
-      }
-    }
-  ],
-  "SarifLog.Version": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "SarifVersion",
-        "description": "Possible values for the SARIF schema version.",
-        "allowMemberCountMismatch": true,
-        "zeroValueName": "Unknown",
-        "memberNames": [
-          "OneZeroZero",
-          "Current"
-        ]
-      }
-    },
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.SarifVersionConverter)" ]
-      }
-    }
-  ],
-  "stack": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "stackFrame": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "threadFlow": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "threadFlowLocation": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "ThreadFlowLocation.Importance": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "ThreadFlowLocationImportance",
-        "description": "Values specifying the importance of an \"threadFlowLocation\" within the \"codeFlow\" in which it occurs"
-      }
-    },
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter)" ]
-      }
-    }
-  ],
-  "ThreadFlowLocation.State": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "ThreadflowLocation.ExecutionTimeUtc": [
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter)" ]
-      }
-    }
-  ],
-  "tool": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "Tool.DownloadUri": [
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(UriConverter)" ]
-      }
-    }
-  ],
-  "toolComponent": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "ToolComponent.GlobalMessageStrings": [
-    {
-      "kind": "DictionaryHint"
-    }
-  ],
-  "versionControlDetails": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "VersionControlDetails.RepositoryUri": [
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(UriConverter)" ]
-      }
-    }
-  ],
-  "VersionControlDetails.AsOfTimeUtc": [
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter)" ]
-      }
-    }
-  ]
+    "*.Properties": [
+        {
+            "kind": "DictionaryHint",
+            "arguments": {
+                "valueTypeName": "SerializedPropertyInfo",
+                "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
+                "comparisonKind": "ObjectEquals",
+                "hashKind": "ScalarReferenceType",
+                "initializationKind": "SimpleAssign"
+            }
+        },
+        {
+            "kind": "PropertyModifiersHint",
+            "arguments": {
+                "modifiers": [
+                    "internal",
+                    "override"
+                ]
+            }
+        }
+    ],
+    "artifact": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "Artifact.Hashes": [
+        {
+            "kind": "DictionaryHint"
+        }
+    ],
+    "Artifact.LastModifiedTimeUtc": [
+        {
+            "kind": "AttributeHint",
+            "arguments": {
+                "namespaceName": "Newtonsoft.Json",
+                "typeName": "JsonConverter",
+                "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter)" ]
+            }
+        }
+    ],
+    "Artifact.Roles": [
+        {
+            "kind": "EnumHint",
+            "arguments": {
+                "typeName": "ArtifactRoles",
+                "description": "Values specifying the roles played by the file in the analysis.",
+                "flags": true,
+                "zeroValueName": "None",
+                "memberNames": [
+                    "AnalysisTarget",
+                    "Attachment",
+                    "ResponseFile",
+                    "ResultFile",
+                    "StandardStream",
+                    "TraceFile",
+                    "UnmodifiedFile",
+                    "ModifiedFile",
+                    "AddedFile",
+                    "DeletedFile",
+                    "RenamedFile",
+                    "GeneratedFile"
+                ]
+            }
+        },
+        {
+            "kind": "AttributeHint",
+            "arguments": {
+                "namespaceName": "Newtonsoft.Json",
+                "typeName": "JsonConverter",
+                "arguments": [ "typeof(FlagsEnumConverter)" ]
+            }
+        }
+    ],
+    "artifactChange": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "artifactContent": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "artifactLocation": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "ArtifactLocation.Uri": [
+        {
+            "kind": "AttributeHint",
+            "arguments": {
+                "namespaceName": "Newtonsoft.Json",
+                "typeName": "JsonConverter",
+                "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter)" ]
+            }
+        }
+    ],
+    "attachment": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "codeFlow": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "conversion": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "edge": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "edgeTraversal": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "EdgeTraversal.FinalState": [
+        {
+            "kind": "DictionaryHint"
+        }
+    ],
+    "exception": [
+        {
+            "kind": "ClassNameHint",
+            "arguments": {
+                "className": "ExceptionData"
+            }
+        }
+    ],
+    "exceptionData": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "externalPropertyFile": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "fix": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "graph": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "graphTraversal": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "GraphTraversal.InitialState": [
+        {
+            "kind": "DictionaryHint"
+        }
+    ],
+    "invocation": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "Invocation.EndTimeUtc": [
+        {
+            "kind": "AttributeHint",
+            "arguments": {
+                "namespaceName": "Newtonsoft.Json",
+                "typeName": "JsonConverter",
+                "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter)" ]
+            }
+        }
+    ],
+    "Invocation.EnvironmentVariables": [
+        {
+            "kind": "DictionaryHint"
+        }
+    ],
+    "Invocation.StartTimeUtc": [
+        {
+            "kind": "AttributeHint",
+            "arguments": {
+                "namespaceName": "Newtonsoft.Json",
+                "typeName": "JsonConverter",
+                "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter)" ]
+            }
+        }
+    ],
+    "location": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "logicalLocation": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "message": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "node": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "notification": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "Notification.Level": [
+        {
+            "kind": "EnumHint",
+            "arguments": {
+                "typeName": "FailureLevel",
+                "description": "Values specifying the failure level of a notification or result.",
+                "memberNames": [
+                    "None",
+                    "Note",
+                    "Warning",
+                    "Error"
+                ]
+            }
+        },
+        {
+            "kind": "AttributeHint",
+            "arguments": {
+                "namespaceName": "Newtonsoft.Json",
+                "typeName": "JsonConverter",
+                "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter)" ]
+            }
+        }
+    ],
+    "Notification.TimeUtc": [
+        {
+            "kind": "AttributeHint",
+            "arguments": {
+                "namespaceName": "Newtonsoft.Json",
+                "typeName": "JsonConverter",
+                "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter)" ]
+            }
+        }
+    ],
+    "multiformatMessageString": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "physicalLocation": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "rectangle": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "region": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "replacement": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "reportingConfiguration": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "ReportingConfiguration.Level": [
+        {
+            "kind": "EnumHint",
+            "arguments": {
+                "typeName": "FailureLevel",
+                "description": "Values specifying the failure level of a notification or result.",
+                "memberNames": [
+                    "None",
+                    "Note",
+                    "Warning",
+                    "Error"
+                ]
+            }
+        },
+        {
+            "kind": "AttributeHint",
+            "arguments": {
+                "namespaceName": "Newtonsoft.Json",
+                "typeName": "JsonConverter",
+                "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter)" ]
+            }
+        }
+    ],
+    "ReportingConfiguration.Parameters": [
+        {
+            "kind": "DictionaryHint",
+            "arguments": {
+                "valueTypeName": "SerializedPropertyInfo",
+                "namespaceName": "Microsoft.CodeAnalysis.Sarif.Readers",
+                "comparisonKind": "ObjectEquals",
+                "hashKind": "ScalarReferenceType",
+                "initializationKind": "SimpleAssign"
+            }
+        }
+    ],
+    "reportingConfigurationOverride": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "reportingDescriptor": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "ReportingDescriptor.HelpUri": [
+        {
+            "kind": "AttributeHint",
+            "arguments": {
+                "namespaceName": "Newtonsoft.Json",
+                "typeName": "JsonConverter",
+                "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.UriConverter)" ]
+            }
+        }
+    ],
+    "ReportingDescriptor.MessageStrings": [
+        {
+            "kind": "DictionaryHint"
+        }
+    ],
+    "ReportingDescriptor.RichMessageStrings": [
+        {
+            "kind": "DictionaryHint"
+        }
+    ],
+    "reportingDescriptorReference": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "resources": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "result": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "Result.BaselineState": [
+        {
+            "kind": "EnumHint",
+            "arguments": {
+                "typeName": "BaselineState",
+                "description": "The state of a result relative to a baseline of a previous run.",
+                "zeroValueName": "None",
+                "memberNames": [
+                    "Unchanged",
+                    "Updated",
+                    "New",
+                    "Absent"
+                ]
+            }
+        },
+        {
+            "kind": "AttributeHint",
+            "arguments": {
+                "namespaceName": "Newtonsoft.Json",
+                "typeName": "JsonConverter",
+                "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter)" ]
+            }
+        }
+    ],
+    "Result.Fingerprints": [
+        {
+            "kind": "DictionaryHint"
+        }
+    ],
+    "Result.Graphs": [
+        {
+            "kind": "DictionaryHint"
+        }
+    ],
+    "Result.HostedViewerUri": [
+        {
+            "kind": "AttributeHint",
+            "arguments": {
+                "namespaceName": "Newtonsoft.Json",
+                "typeName": "JsonConverter",
+                "arguments": [ "typeof(UriConverter)" ]
+            }
+        }
+    ],
+    "Result.Kind": [
+        {
+            "kind": "EnumHint",
+            "arguments": {
+                "typeName": "ResultKind",
+                "description": "Values specifying the evaluation state of a result.",
+                "zeroValueName": "None",
+                "memberNames": [
+                    "NotApplicable",
+                    "Pass",
+                    "Fail",
+                    "Review",
+                    "Open"
+                ]
+            }
+        },
+        {
+            "kind": "AttributeHint",
+            "arguments": {
+                "namespaceName": "Newtonsoft.Json",
+                "typeName": "JsonConverter",
+                "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter)" ]
+            }
+        }
+    ],
+    "Result.Level": [
+        {
+            "kind": "EnumHint",
+            "arguments": {
+                "typeName": "FailureLevel",
+                "description": "Values specifying the failure level of a notification or result.",
+                "memberNames": [
+                    "None",
+                    "Note",
+                    "Warning",
+                    "Error"
+                ]
+            }
+        },
+        {
+            "kind": "AttributeHint",
+            "arguments": {
+                "namespaceName": "Newtonsoft.Json",
+                "typeName": "JsonConverter",
+                "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter)" ]
+            }
+        }
+    ],
+    "Result.PartialFingerprints": [
+        {
+            "kind": "DictionaryHint"
+        }
+    ],
+    "Result.SuppressionStates": [
+        {
+            "kind": "EnumHint",
+            "arguments": {
+                "typeName": "SuppressionStates",
+                "description": "The state of a result relative to a baseline of a previous run.",
+                "flags": true,
+                "zeroValueName": "None",
+                "memberNames": [
+                    "SuppressedInSource",
+                    "SuppressedExternally"
+                ]
+            }
+        },
+        {
+            "kind": "AttributeHint",
+            "arguments": {
+                "namespaceName": "Newtonsoft.Json",
+                "typeName": "JsonConverter",
+                "arguments": [ "typeof(FlagsEnumConverter)" ]
+            }
+        }
+    ],
+    "Result.WorkItemUris": [
+        {
+            "kind": "AttributeHint",
+            "arguments": {
+                "namespaceName": "Newtonsoft.Json",
+                "typeName": "JsonProperty",
+                "arguments": [ "ItemConverterType = typeof(UriConverter)" ]
+            }
+        }
+    ],
+    "resultProvenance": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "run": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "Run.ColumnKind": [
+        {
+            "kind": "EnumHint",
+            "arguments": {
+                "typeName": "ColumnKind",
+                "description": "A value that specifies the unit in which the tool measures columns.",
+                "zeroValueName": "None",
+                "memberNames": [
+                    "utf16CodeUnits",
+                    "unicodeCodePoints"
+                ]
+            }
+        },
+        {
+            "kind": "AttributeHint",
+            "arguments": {
+                "namespaceName": "Newtonsoft.Json",
+                "typeName": "JsonConverter",
+                "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter)" ]
+            }
+        }
+    ],
+    "Run.Graphs": [
+        {
+            "kind": "DictionaryHint"
+        }
+    ],
+    "Run.OriginalUriBaseIds": [
+        {
+            "kind": "DictionaryHint"
+        }
+    ],
+    "runAutomationDetails": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "sarifLog": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "SarifLog.$schema": [
+        {
+            "kind": "PropertyNameHint",
+            "arguments": {
+                "dotNetPropertyName": "SchemaUri"
+            }
+        }
+    ],
+    "SarifLog.SchemaUri": [
+        {
+            "kind": "AttributeHint",
+            "arguments": {
+                "namespaceName": "Newtonsoft.Json",
+                "typeName": "JsonConverter",
+                "arguments": [ "typeof(UriConverter)" ]
+            }
+        }
+    ],
+    "SarifLog.Version": [
+        {
+            "kind": "EnumHint",
+            "arguments": {
+                "typeName": "SarifVersion",
+                "description": "Possible values for the SARIF schema version.",
+                "allowMemberCountMismatch": true,
+                "zeroValueName": "Unknown",
+                "memberNames": [
+                    "OneZeroZero",
+                    "Current"
+                ]
+            }
+        },
+        {
+            "kind": "AttributeHint",
+            "arguments": {
+                "namespaceName": "Newtonsoft.Json",
+                "typeName": "JsonConverter",
+                "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.SarifVersionConverter)" ]
+            }
+        }
+    ],
+    "stack": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "stackFrame": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "threadFlow": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "threadFlowLocation": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "ThreadFlowLocation.Importance": [
+        {
+            "kind": "EnumHint",
+            "arguments": {
+                "typeName": "ThreadFlowLocationImportance",
+                "description": "Values specifying the importance of an \"threadFlowLocation\" within the \"codeFlow\" in which it occurs"
+            }
+        },
+        {
+            "kind": "AttributeHint",
+            "arguments": {
+                "namespaceName": "Newtonsoft.Json",
+                "typeName": "JsonConverter",
+                "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter)" ]
+            }
+        }
+    ],
+    "ThreadFlowLocation.State": [
+        {
+            "kind": "DictionaryHint"
+        }
+    ],
+    "ThreadflowLocation.ExecutionTimeUtc": [
+        {
+            "kind": "AttributeHint",
+            "arguments": {
+                "namespaceName": "Newtonsoft.Json",
+                "typeName": "JsonConverter",
+                "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter)" ]
+            }
+        }
+    ],
+    "tool": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "Tool.DownloadUri": [
+        {
+            "kind": "AttributeHint",
+            "arguments": {
+                "namespaceName": "Newtonsoft.Json",
+                "typeName": "JsonConverter",
+                "arguments": [ "typeof(UriConverter)" ]
+            }
+        }
+    ],
+    "toolComponent": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "ToolComponent.GlobalMessageStrings": [
+        {
+            "kind": "DictionaryHint"
+        }
+    ],
+    "versionControlDetails": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "VersionControlDetails.RepositoryUri": [
+        {
+            "kind": "AttributeHint",
+            "arguments": {
+                "namespaceName": "Newtonsoft.Json",
+                "typeName": "JsonConverter",
+                "arguments": [ "typeof(UriConverter)" ]
+            }
+        }
+    ],
+    "VersionControlDetails.AsOfTimeUtc": [
+        {
+            "kind": "AttributeHint",
+            "arguments": {
+                "namespaceName": "Newtonsoft.Json",
+                "typeName": "JsonConverter",
+                "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter)" ]
+            }
+        }
+    ]
 }
