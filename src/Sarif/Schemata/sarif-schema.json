@@ -2208,59 +2208,59 @@
         },
 
     "toolComponent": {
-      "description": "A component, such as a plug-in or the default driver, of the analysis tool that was run.",
+      "description": "A component, such as a plug-in or the driver, of the analysis tool that was run.",
       "additionalProperties": false,
       "type": "object",
         "properties": {
 
             "name": {
-                "description": "The name of the component.",
+                "description": "The name of the tool component.",
                 "type": "string"
             },
 
             "organization": {
-                "description": "The organization or company that produced the tool.",
+                "description": "The organization or company that produced the tool component.",
                 "type": "string"
             },
 
             "product": {
-                "description": "A product suite to which the tool belongs.",
+                "description": "A product suite to which the tool component belongs.",
                 "type": "string"
             },
 
             "shortDescription": {
-                "description": "A brief description of the tool.",
+                "description": "A brief description of the tool component.",
                 "$ref": "#/definitions/multiformatMessageString"
             },
 
             "fullDescription": {
-                "description": "A comprehensive description of the tool.",
+                "description": "A comprehensive description of the tool component.",
                 "$ref": "#/definitions/multiformatMessageString"
             },
 
             "fullName": {
-                "description": "The name of the component along with its version and any other useful identifying information, such as its locale.",
+                "description": "The name of the tool component along with its version and any other useful identifying information, such as its locale.",
                 "type": "string"
             },
 
             "version": {
-                "description": "The component version, in whatever format the component natively provides.",
+                "description": "The tool component version, in whatever format the component natively provides.",
                 "type": "string"
             },
 
             "semanticVersion": {
-                "description": "The component version in the format specified by Semantic Versioning 2.0.",
+                "description": "The tool component version in the format specified by Semantic Versioning 2.0.",
                 "type": "string"
             },
 
             "dottedQuadFileVersion": {
-                "description": "The binary version of the component's primary executable file expressed as four non-negative integers separated by a period (for operating systems that express file versions in this way).",
+                "description": "The binary version of the tool component's primary executable file expressed as four non-negative integers separated by a period (for operating systems that express file versions in this way).",
                 "type": "string",
                 "pattern": "[0-9]+(\\.[0-9]+){3}"
             },
 
             "downloadUri": {
-                "description": "The absolute URI from which the component can be downloaded.",
+                "description": "The absolute URI from which the tool component can be downloaded.",
                 "type": "string",
                 "format": "uri"
             },
@@ -2274,7 +2274,7 @@
             },
 
             "notificationDescriptors": {
-                "description": "An array of reportDescriptor objects relevant to the notifications related to the configuration and runtime execution of the component.",
+                "description": "An array of reportDescriptor objects relevant to the notifications related to the configuration and runtime execution of the tool component.",
                 "type": "array",
                 "minItems": 0,
                 "uniqueItems": true,
@@ -2285,7 +2285,7 @@
             },
 
             "ruleDescriptors": {
-                "description": "An array of reportDescriptor objects relevant to the analysis performed by the component.",
+                "description": "An array of reportDescriptor objects relevant to the analysis performed by the tool component.",
                 "type": "array",
                 "minItems": 0,
                 "uniqueItems": true,
@@ -2296,7 +2296,7 @@
             },
 
             "artifactIndices": {
-                "description": "The indices within the run artifacts array of the artifact objects associated with the component.",
+                "description": "The indices within the run artifacts array of the artifact objects associated with the tool component.",
                 "type": "array",
                 "minItems": 0,
                 "uniqueItems": true,
@@ -2307,7 +2307,7 @@
             },
 
             "properties": {
-                "description": "Key/value pairs that provide additional information about the component.",
+                "description": "Key/value pairs that provide additional information about the tool component.",
                 "$ref": "#/definitions/propertyBag"
             }
         },
