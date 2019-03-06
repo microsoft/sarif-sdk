@@ -82,6 +82,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<ExternalPropertyFile> Results { get; set; }
 
         /// <summary>
+        /// An array of external property files containing run.taxonomies arrays to be merged with the root log file.
+        /// </summary>
+        [DataMember(Name = "taxonomies", IsRequired = false, EmitDefaultValue = false)]
+        public IList<ExternalPropertyFile> Taxonomies { get; set; }
+
+        /// <summary>
         /// An external property file containing a run.tool object to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "tool", IsRequired = false, EmitDefaultValue = false)]
@@ -121,12 +127,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="results">
         /// An initialization value for the <see cref="P:Results" /> property.
         /// </param>
+        /// <param name="taxonomies">
+        /// An initialization value for the <see cref="P:Taxonomies" /> property.
+        /// </param>
         /// <param name="tool">
         /// An initialization value for the <see cref="P:Tool" /> property.
         /// </param>
-        public ExternalPropertyFiles(ExternalPropertyFile conversion, ExternalPropertyFile graphs, ExternalPropertyFile externalizedProperties, IEnumerable<ExternalPropertyFile> artifacts, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ExternalPropertyFile> results, ExternalPropertyFile tool)
+        public ExternalPropertyFiles(ExternalPropertyFile conversion, ExternalPropertyFile graphs, ExternalPropertyFile externalizedProperties, IEnumerable<ExternalPropertyFile> artifacts, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ExternalPropertyFile> results, IEnumerable<ExternalPropertyFile> taxonomies, ExternalPropertyFile tool)
         {
-            Init(conversion, graphs, externalizedProperties, artifacts, invocations, logicalLocations, threadFlowLocations, results, tool);
+            Init(conversion, graphs, externalizedProperties, artifacts, invocations, logicalLocations, threadFlowLocations, results, taxonomies, tool);
         }
 
         /// <summary>
@@ -145,7 +154,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Conversion, other.Graphs, other.ExternalizedProperties, other.Artifacts, other.Invocations, other.LogicalLocations, other.ThreadFlowLocations, other.Results, other.Tool);
+            Init(other.Conversion, other.Graphs, other.ExternalizedProperties, other.Artifacts, other.Invocations, other.LogicalLocations, other.ThreadFlowLocations, other.Results, other.Taxonomies, other.Tool);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -166,7 +175,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExternalPropertyFiles(this);
         }
 
-        private void Init(ExternalPropertyFile conversion, ExternalPropertyFile graphs, ExternalPropertyFile externalizedProperties, IEnumerable<ExternalPropertyFile> artifacts, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ExternalPropertyFile> results, ExternalPropertyFile tool)
+        private void Init(ExternalPropertyFile conversion, ExternalPropertyFile graphs, ExternalPropertyFile externalizedProperties, IEnumerable<ExternalPropertyFile> artifacts, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ExternalPropertyFile> results, IEnumerable<ExternalPropertyFile> taxonomies, ExternalPropertyFile tool)
         {
             if (conversion != null)
             {
@@ -271,6 +280,24 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 Results = destination_4;
+            }
+
+            if (taxonomies != null)
+            {
+                var destination_5 = new List<ExternalPropertyFile>();
+                foreach (var value_5 in taxonomies)
+                {
+                    if (value_5 == null)
+                    {
+                        destination_5.Add(null);
+                    }
+                    else
+                    {
+                        destination_5.Add(new ExternalPropertyFile(value_5));
+                    }
+                }
+
+                Taxonomies = destination_5;
             }
 
             if (tool != null)
