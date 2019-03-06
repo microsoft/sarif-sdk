@@ -956,7 +956,7 @@
                 },
 
                 "messageId": {
-                    "description": "The resource id for a plain text or Markdown message string.",
+                    "description": "The message identifier for this message.",
                     "type": "string"
                 },
 
@@ -1395,18 +1395,18 @@
         },
 
         "reportingDescriptorTranslation": {
-            "description": "tbd",
+            "description": "Provides localized message strings for a reporting descriptor in a single language.",
             "additionalProperties": false,
             "type": "object",
             "properties": {
 
                 "id": {
-                    "description": "TBD matches reportingDescriptor.id",
+                    "description": "The stable, opaque identifier of the reporting descriptor to which this translation belongs, matching reportingDescriptor.id.",
                     "type": "string"
                 },
 
                 "guid": {
-                    "description": "A unique identifer for the reporting descriptor in the form of a GUID, matches reportingDescriptor.guid",
+                    "description": "The unique identifier in the form of a GUID of the reporting descriptor to which this translation belongs, matching reportingDescriptor.guid.",
                     "type": "string"
                 },
 
@@ -1421,7 +1421,7 @@
                 },
 
                 "messageStrings": {
-                    "description": "A set of name/value pairs with arbitrary names. Each value is a multiformatMessageString object, which holds message strings in plain text and (optionally) Markdown format. The property namesshould be a subset of the names in reportingDescriptor.messageStrings.",
+                    "description": "A set of name/value pairs with arbitrary names. Each value is a multiformatMessageString object, which holds message strings in plain text and (optionally) Markdown format. The property names are a subset of the property names in the messageStrings property of the reportingDescriptor object to which this translation belongs.",
                     "type": "object",
                     "additionalProperties": {
                         "$ref": "#/definitions/multiformatMessageString"
@@ -1983,7 +1983,7 @@
                 },
 
                 "taxonomies": {
-                    "description": "An array of reportDescriptor objects relevant to a taxonomy in which results are categorized.",
+                    "description": "An array of reportingDescriptor objects relevant to a taxonomy in which results are categorized.",
                     "type": "array",
                     "minItems": 0,
                     "uniqueItems": true,
@@ -1994,7 +1994,7 @@
                 },
 
                 "translation": {
-                    "description": "Describes the translations for the analysis tool.",
+                    "description": "The set of available translations of the localized data provided by the tool.",
                     "type": "array",
                     "minItems": 0,
                     "uniqueItems": true,
@@ -2270,6 +2270,11 @@
       "type": "object",
         "properties": {
 
+            "guid": {
+                "description": "A unique identifer for the tool component in the form of a GUID.",
+                "type": "string"
+            },
+
             "name": {
                 "description": "The name of the component.",
                 "type": "string"
@@ -2323,7 +2328,7 @@
             },
 
             "globalMessageStrings": {
-                "description": "A dictionary, each of whose keys is a resource identifier and each of whose values is a multiformatMessageString object, which holds message strings in plain text and (optionally) Markdown format. The strings can include placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.",
+                "description": "A dictionary, each of whose keys is a message identifier and each of whose values is a multiformatMessageString object, which holds message strings in plain text and (optionally) Markdown format. The strings can include placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.",
                 "type": "object",
                 "additionalProperties": {
                     "$ref": "#/definitions/multiformatMessageString"
@@ -2331,7 +2336,7 @@
             },
 
             "notificationDescriptors": {
-                "description": "An array of reportDescriptor objects relevant to the notifications related to the configuration and runtime execution of the component.",
+                "description": "An array of reportingDescriptor objects relevant to the notifications related to the configuration and runtime execution of the component.",
                 "type": "array",
                 "minItems": 0,
                 "uniqueItems": true,
@@ -2342,7 +2347,7 @@
             },
 
             "ruleDescriptors": {
-                "description": "An array of reportDescriptor objects relevant to the analysis performed by the component.",
+                "description": "An array of reportingDescriptor objects relevant to the analysis performed by the component.",
                 "type": "array",
                 "minItems": 0,
                 "uniqueItems": true,
@@ -2363,11 +2368,6 @@
                 }
             },
 
-            "guid": {
-                    "description": "A unique identifer for the tool component in the form of a GUID.",
-                    "type": "string"
-                },
-
             "properties": {
                 "description": "Key/value pairs that provide additional information about the component.",
                 "$ref": "#/definitions/propertyBag"
@@ -2378,18 +2378,18 @@
         },
 
         "toolComponentTranslation": {
-            "description": "TBD.",
+            "description": "Provides localized message strings for a tool component in a single language.",
             "additionalProperties": false,
             "type": "object",
             "properties": {
 
                 "toolComponentGuid": {
-                    "description": "TBD must be GUID format: matches toolComponent.guid.",
+                    "description": "The unique identifier for the tool component in the form of a GUID, matching toolComponent.guid.",
                     "type": "string"
                 },
 
                 "location": {
-                    "description": "The location where translation can be obtained.",
+                    "description": "The location of the translation.",
                     "$ref": "#/definitions/artifactLocation"
                 },
 
@@ -2399,12 +2399,12 @@
                 },
 
                 "partialTranslation": {
-                    "description": "Should be true if this object contains a subset of the strings defined by the tool component.",
+                    "description": "True if this object contains a subset of the strings defined by the tool component.",
                     "type": "boolean"
                 },
 
                 "globalMessageStrings": {
-                    "description": "A set of name/value pairs with property names as a subset of the names in toolComponent.globalMessageStrings.",
+                    "description": "A dictionary, each of whose keys is a message identifier and each of whose values is a multiformatMessageString object, which holds message strings in plain text and (optionally) Markdown format. The strings can include placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments. The property names are a subset of the property names in the globalMessageStrings property of the toolComponent object to which this translation belongs.",
                     "type": "object",
                     "additionalProperties": {
                         "$ref": "#/definitions/multiformatMessageString"
@@ -2412,7 +2412,7 @@
                 },
 
                 "reportingDescriptors": {
-                    "description": "TBD.",
+                    "description": "Provides an array of translations for a reporting descriptor in a available languages.",
                     "type": "array",
                     "minItems": 0,
                     "uniqueItems": true,
@@ -2423,7 +2423,7 @@
                 },
 
                 "notificationDescriptors": {
-                    "description": "TBD.",
+                    "description": "Provides an array of translations for a notification descriptor in a available languages.",
                     "type": "array",
                     "minItems": 0,
                     "uniqueItems": true,
@@ -2441,18 +2441,18 @@
         },
 
         "translation": {
-            "description": "TBD.",
+            "description": "Provides localized strings for the current run in a single language.",
             "type": "object",
             "additionalProperties": false,
             "properties": {
 
                 "language": {
-                    "description": "Translation language. Must be in ISO 639 format, e.g., 'en-US'.",
+                    "description": "The translation language in ISO 639 format, e.g., 'en-US'.",
                     "type": "string"
                 },
 
                 "toolComponentTranslations": {
-                    "description": "TBD",
+                    "description": "Provides localized message strings for a single tool component in a single language.",
                     "type": "array",
                     "minItems": 0,
                     "uniqueItems": false,

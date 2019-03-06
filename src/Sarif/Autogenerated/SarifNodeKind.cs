@@ -132,6 +132,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         ReportingDescriptor,
         /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ReportingDescriptorTranslation" />.
+        /// </summary>
+        ReportingDescriptorTranslation,
+        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ReportingConfiguration" />.
         /// </summary>
         ReportingConfiguration,
@@ -183,6 +187,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ToolComponent" />.
         /// </summary>
         ToolComponent,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ToolComponentTranslation" />.
+        /// </summary>
+        ToolComponentTranslation,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Translation" />.
+        /// </summary>
+        Translation,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="VersionControlDetails" />.
         /// </summary>

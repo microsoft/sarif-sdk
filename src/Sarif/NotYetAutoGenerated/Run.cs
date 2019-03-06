@@ -166,11 +166,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<ThreadFlowLocation> ThreadFlowLocations { get; set; }
 
         /// <summary>
-        /// An array of reportDescriptor objects relevant to a taxonomy in which results are categorized.
+        /// An array of reportingDescriptor objects relevant to a taxonomy in which results are categorized.
         /// </summary>
         [DataMember(Name = "taxonomies", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<ReportingDescriptor> Taxonomies { get; set; }
+
+        /// <summary>
+        /// The set of available translations of the localized data provided by the tool.
+        /// </summary>
+        [DataMember(Name = "translation", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public IList<Translation> Translation { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the run.
@@ -258,12 +265,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="taxonomies">
         /// An initialization value for the <see cref="P:Taxonomies" /> property.
         /// </param>
+        /// <param name="translation">
+        /// An initialization value for the <see cref="P:Translation" /> property.
+        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, ArtifactLocation> originalUriBaseIds, IEnumerable<Artifact> artifacts, IEnumerable<LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string markdownMessageMimeType, string redactionToken, string defaultFileEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFiles externalPropertyFiles, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ReportingDescriptor> taxonomies, IDictionary<string, SerializedPropertyInfo> properties)
+        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, ArtifactLocation> originalUriBaseIds, IEnumerable<Artifact> artifacts, IEnumerable<LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string markdownMessageMimeType, string redactionToken, string defaultFileEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFiles externalPropertyFiles, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ReportingDescriptor> taxonomies, IEnumerable<Translation> translation, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(tool, invocations, conversion, versionControlProvenance, originalUriBaseIds, artifacts, logicalLocations, graphs, results, id, aggregateIds, baselineInstanceGuid, markdownMessageMimeType, redactionToken, defaultFileEncoding, defaultSourceLanguage, newlineSequences, columnKind, externalPropertyFiles, threadFlowLocations, taxonomies, properties);
+            Init(tool, invocations, conversion, versionControlProvenance, originalUriBaseIds, artifacts, logicalLocations, graphs, results, id, aggregateIds, baselineInstanceGuid, markdownMessageMimeType, redactionToken, defaultFileEncoding, defaultSourceLanguage, newlineSequences, columnKind, externalPropertyFiles, threadFlowLocations, taxonomies, translation, properties);
         }
 
         /// <summary>
@@ -282,7 +292,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocations, other.Conversion, other.VersionControlProvenance, other.OriginalUriBaseIds, other.Artifacts, other.LogicalLocations, other.Graphs, other.Results, other.Id, other.AggregateIds, other.BaselineInstanceGuid, other.MarkdownMessageMimeType, other.RedactionToken, other.DefaultFileEncoding, other.DefaultSourceLanguage, other.NewlineSequences, other.ColumnKind, other.ExternalPropertyFiles, other.ThreadFlowLocations, other.Taxonomies, other.Properties);
+            Init(other.Tool, other.Invocations, other.Conversion, other.VersionControlProvenance, other.OriginalUriBaseIds, other.Artifacts, other.LogicalLocations, other.Graphs, other.Results, other.Id, other.AggregateIds, other.BaselineInstanceGuid, other.MarkdownMessageMimeType, other.RedactionToken, other.DefaultFileEncoding, other.DefaultSourceLanguage, other.NewlineSequences, other.ColumnKind, other.ExternalPropertyFiles, other.ThreadFlowLocations, other.Taxonomies, other.Translation, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -303,7 +313,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, ArtifactLocation> originalUriBaseIds, IEnumerable<Artifact> artifacts, IEnumerable<LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string markdownMessageMimeType, string redactionToken, string defaultFileEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFiles externalPropertyFiles, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ReportingDescriptor> taxonomies, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, ArtifactLocation> originalUriBaseIds, IEnumerable<Artifact> artifacts, IEnumerable<LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string markdownMessageMimeType, string redactionToken, string defaultFileEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFiles externalPropertyFiles, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ReportingDescriptor> taxonomies, IEnumerable<Translation> translation, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (tool != null)
             {
@@ -502,6 +512,24 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 Taxonomies = destination_8;
+            }
+
+            if (translation != null)
+            {
+                var destination_9 = new List<Translation>();
+                foreach (var value_11 in translation)
+                {
+                    if (value_11 == null)
+                    {
+                        destination_9.Add(null);
+                    }
+                    else
+                    {
+                        destination_9.Add(new Translation(value_11));
+                    }
+                }
+
+                Translation = destination_9;
             }
 
             if (properties != null)

@@ -34,6 +34,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
+        /// A unique identifer for the tool component in the form of a GUID.
+        /// </summary>
+        [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
+        public string Guid { get; set; }
+
+        /// <summary>
         /// The name of the component.
         /// </summary>
         [DataMember(Name = "name", IsRequired = true)]
@@ -94,20 +100,20 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Uri DownloadUri { get; set; }
 
         /// <summary>
-        /// A dictionary, each of whose keys is a resource identifier and each of whose values is a multiformatMessageString object, which holds message strings in plain text and (optionally) Markdown format. The strings can include placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.
+        /// A dictionary, each of whose keys is a message identifier and each of whose values is a multiformatMessageString object, which holds message strings in plain text and (optionally) Markdown format. The strings can include placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.
         /// </summary>
         [DataMember(Name = "globalMessageStrings", IsRequired = false, EmitDefaultValue = false)]
         public IDictionary<string, MultiformatMessageString> GlobalMessageStrings { get; set; }
 
         /// <summary>
-        /// An array of reportDescriptor objects relevant to the notifications related to the configuration and runtime execution of the component.
+        /// An array of reportingDescriptor objects relevant to the notifications related to the configuration and runtime execution of the component.
         /// </summary>
         [DataMember(Name = "notificationDescriptors", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<ReportingDescriptor> NotificationDescriptors { get; set; }
 
         /// <summary>
-        /// An array of reportDescriptor objects relevant to the analysis performed by the component.
+        /// An array of reportingDescriptor objects relevant to the analysis performed by the component.
         /// </summary>
         [DataMember(Name = "ruleDescriptors", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
@@ -136,6 +142,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Initializes a new instance of the <see cref="ToolComponent" /> class from the supplied values.
         /// </summary>
+        /// <param name="guid">
+        /// An initialization value for the <see cref="P:Guid" /> property.
+        /// </param>
         /// <param name="name">
         /// An initialization value for the <see cref="P:Name" /> property.
         /// </param>
@@ -181,9 +190,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ToolComponent(string name, string organization, string product, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notificationDescriptors, IEnumerable<ReportingDescriptor> ruleDescriptors, IEnumerable<int> artifactIndices, IDictionary<string, SerializedPropertyInfo> properties)
+        public ToolComponent(string guid, string name, string organization, string product, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notificationDescriptors, IEnumerable<ReportingDescriptor> ruleDescriptors, IEnumerable<int> artifactIndices, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(name, organization, product, shortDescription, fullDescription, fullName, version, semanticVersion, dottedQuadFileVersion, downloadUri, globalMessageStrings, notificationDescriptors, ruleDescriptors, artifactIndices, properties);
+            Init(guid, name, organization, product, shortDescription, fullDescription, fullName, version, semanticVersion, dottedQuadFileVersion, downloadUri, globalMessageStrings, notificationDescriptors, ruleDescriptors, artifactIndices, properties);
         }
 
         /// <summary>
@@ -202,7 +211,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Name, other.Organization, other.Product, other.ShortDescription, other.FullDescription, other.FullName, other.Version, other.SemanticVersion, other.DottedQuadFileVersion, other.DownloadUri, other.GlobalMessageStrings, other.NotificationDescriptors, other.RuleDescriptors, other.ArtifactIndices, other.Properties);
+            Init(other.Guid, other.Name, other.Organization, other.Product, other.ShortDescription, other.FullDescription, other.FullName, other.Version, other.SemanticVersion, other.DottedQuadFileVersion, other.DownloadUri, other.GlobalMessageStrings, other.NotificationDescriptors, other.RuleDescriptors, other.ArtifactIndices, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -223,8 +232,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ToolComponent(this);
         }
 
-        private void Init(string name, string organization, string product, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notificationDescriptors, IEnumerable<ReportingDescriptor> ruleDescriptors, IEnumerable<int> artifactIndices, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string guid, string name, string organization, string product, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notificationDescriptors, IEnumerable<ReportingDescriptor> ruleDescriptors, IEnumerable<int> artifactIndices, IDictionary<string, SerializedPropertyInfo> properties)
         {
+            Guid = guid;
             Name = name;
             Organization = organization;
             Product = product;

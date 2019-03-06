@@ -33,6 +33,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.Guid != right.Guid)
+            {
+                return false;
+            }
+
             if (!object.ReferenceEquals(left.DeprecatedIds, right.DeprecatedIds))
             {
                 if (left.DeprecatedIds == null || right.DeprecatedIds == null)
@@ -186,6 +191,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.Id != null)
                 {
                     result = (result * 31) + obj.Id.GetHashCode();
+                }
+
+                if (obj.Guid != null)
+                {
+                    result = (result * 31) + obj.Guid.GetHashCode();
                 }
 
                 if (obj.DeprecatedIds != null)

@@ -43,6 +43,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public virtual string Id { get; set; }
 
         /// <summary>
+        /// A unique identifer for the reporting descriptor in the form of a GUID.
+        /// </summary>
+        [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
+        public virtual string Guid { get; set; }
+
+        /// <summary>
         /// An array of stable, opaque identifiers by which this report was known in some previous version of the analysis tool.
         /// </summary>
         [DataMember(Name = "deprecatedIds", IsRequired = false, EmitDefaultValue = false)]
@@ -121,6 +127,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="id">
         /// An initialization value for the <see cref="P:Id" /> property.
         /// </param>
+        /// <param name="guid">
+        /// An initialization value for the <see cref="P:Guid" /> property.
+        /// </param>
         /// <param name="deprecatedIds">
         /// An initialization value for the <see cref="P:DeprecatedIds" /> property.
         /// </param>
@@ -154,9 +163,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ReportingDescriptor(string id, string name, IEnumerable<string> deprecatedIds, Message shortDescription, Message fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, Message help, IEnumerable<ReportingDescriptorReference> taxonomyReferences, IEnumerable<ReportingDescriptorReference> optionalTaxonomyReferences, IDictionary<string, SerializedPropertyInfo> properties)
+        public ReportingDescriptor(string id, string guid, IEnumerable<string> deprecatedIds, string name, Message shortDescription, Message fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, Message help, IEnumerable<ReportingDescriptorReference> taxonomyReferences, IEnumerable<ReportingDescriptorReference> optionalTaxonomyReferences, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, name, deprecatedIds, shortDescription, fullDescription, messageStrings, defaultConfiguration, helpUri, help, taxonomyReferences, optionalTaxonomyReferences, properties);
+            Init(id, guid, deprecatedIds, name, shortDescription, fullDescription, messageStrings, defaultConfiguration, helpUri, help, taxonomyReferences, optionalTaxonomyReferences, properties);
         }
 
         /// <summary>
@@ -175,7 +184,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.Name, other.DeprecatedIds, other.ShortDescription, other.FullDescription, other.MessageStrings, other.DefaultConfiguration, other.HelpUri, other.Help, other.TaxonomyReferences, other.OptionalTaxonomyReferences, other.Properties);
+            Init(other.Id, other.Guid, other.DeprecatedIds, other.Name, other.ShortDescription, other.FullDescription, other.MessageStrings, other.DefaultConfiguration, other.HelpUri, other.Help, other.TaxonomyReferences, other.OptionalTaxonomyReferences, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -196,11 +205,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ReportingDescriptor(this);
         }
 
-        private void Init(string id, string name, IEnumerable<string> deprecatedIds, Message shortDescription, Message fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, Message help, IEnumerable<ReportingDescriptorReference> taxonomyReferences, IEnumerable<ReportingDescriptorReference> optionalTaxonomyReferences, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string id, string guid, IEnumerable<string> deprecatedIds, string name, Message shortDescription, Message fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, Message help, IEnumerable<ReportingDescriptorReference> taxonomyReferences, IEnumerable<ReportingDescriptorReference> optionalTaxonomyReferences, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
-            Name = name;
-
+            Guid = guid;
             if (deprecatedIds != null)
             {
                 var destination_0 = new List<string>();
@@ -212,6 +220,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 DeprecatedIds = destination_0;
             }
 
+            Name = name;
             if (shortDescription != null)
             {
                 ShortDescription = new Message(shortDescription);
