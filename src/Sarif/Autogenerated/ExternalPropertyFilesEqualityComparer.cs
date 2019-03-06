@@ -286,12 +286,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (obj.Taxonomies != null)
                 {
-                    foreach (var value_5 in obj.Taxonomies)
+                    foreach (var value_7 in obj.Taxonomies)
                     {
                         result = result * 31;
-                        if (value_5 != null)
+                        if (value_7 != null)
                         {
-                            result = (result * 31) + value_5.ValueGetHashCode();
+                            result = (result * 31) + value_7.ValueGetHashCode();
                         }
                     }
                 }
@@ -305,12 +305,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_0 = 0;
-                    foreach (var value_7 in obj.Properties)
+                    foreach (var value_8 in obj.Properties)
                     {
-                        xor_0 ^= value_7.Key.GetHashCode();
-                        if (value_7.Value != null)
+                        xor_0 ^= value_8.Key.GetHashCode();
+                        if (value_8.Value != null)
                         {
-                            xor_0 ^= value_7.Value.GetHashCode();
+                            xor_0 ^= value_8.Value.GetHashCode();
                         }
                     }
 
