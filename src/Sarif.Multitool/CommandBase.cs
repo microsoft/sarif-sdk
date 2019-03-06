@@ -3,15 +3,14 @@
 
 using System;
 using System.Collections.Generic;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Microsoft.CodeAnalysis.Sarif.Driver
+namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    /// <summary>
-    /// Helper functions for input and output files.
-    /// </summary>
-    static class FileHelpers
+
+    public abstract class CommandBase
     {
         public static T ReadSarifFile<T>(IFileSystem fileSystem, string filePath, IContractResolver contractResolver = null)
         {
@@ -19,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             var settings = new JsonSerializerSettings
             {
-                ContractResolver  = contractResolver,
+                ContractResolver = contractResolver,
             };
 
 
