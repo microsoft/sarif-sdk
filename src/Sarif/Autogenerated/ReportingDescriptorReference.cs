@@ -10,15 +10,15 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Represents the contents of an artifact.
+    /// Information about how to locate a relevant reporting descriptor.
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
-    public partial class ArtifactContent : PropertyBagHolder, ISarifNode
+    public partial class ReportingDescriptorReference : PropertyBagHolder, ISarifNode
     {
-        public static IEqualityComparer<ArtifactContent> ValueComparer => ArtifactContentEqualityComparer.Instance;
+        public static IEqualityComparer<ReportingDescriptorReference> ValueComparer => ReportingDescriptorReferenceEqualityComparer.Instance;
 
-        public bool ValueEquals(ArtifactContent other) => ValueComparer.Equals(this, other);
+        public bool ValueEquals(ReportingDescriptorReference other) => ValueComparer.Equals(this, other);
         public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
 
         /// <summary>
@@ -28,54 +28,54 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                return SarifNodeKind.ArtifactContent;
+                return SarifNodeKind.ReportingDescriptorReference;
             }
         }
 
         /// <summary>
-        /// UTF-8-encoded content from a text artifact.
+        /// A notification identifier.
         /// </summary>
-        [DataMember(Name = "text", IsRequired = false, EmitDefaultValue = false)]
-        public string Text { get; set; }
+        [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
+        public string Id { get; set; }
 
         /// <summary>
-        /// MIME Base64-encoded content from a binary artifact, or from a text artifact in its original encoding.
+        /// A JSON pointer used to retrieve a reporting descriptor from an array within a tool component.
         /// </summary>
-        [DataMember(Name = "binary", IsRequired = false, EmitDefaultValue = false)]
-        public string Binary { get; set; }
+        [DataMember(Name = "pointer", IsRequired = false, EmitDefaultValue = false)]
+        public string Pointer { get; set; }
 
         /// <summary>
-        /// Key/value pairs that provide additional information about the artifact content.
+        /// Key/value pairs that provide additional information about the reporting descriptor reference.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ArtifactContent" /> class.
+        /// Initializes a new instance of the <see cref="ReportingDescriptorReference" /> class.
         /// </summary>
-        public ArtifactContent()
+        public ReportingDescriptorReference()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ArtifactContent" /> class from the supplied values.
+        /// Initializes a new instance of the <see cref="ReportingDescriptorReference" /> class from the supplied values.
         /// </summary>
-        /// <param name="text">
-        /// An initialization value for the <see cref="P:Text" /> property.
+        /// <param name="id">
+        /// An initialization value for the <see cref="P:Id" /> property.
         /// </param>
-        /// <param name="binary">
-        /// An initialization value for the <see cref="P:Binary" /> property.
+        /// <param name="pointer">
+        /// An initialization value for the <see cref="P:Pointer" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ArtifactContent(string text, string binary, IDictionary<string, SerializedPropertyInfo> properties)
+        public ReportingDescriptorReference(string id, string pointer, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(text, binary, properties);
+            Init(id, pointer, properties);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ArtifactContent" /> class from the specified instance.
+        /// Initializes a new instance of the <see cref="ReportingDescriptorReference" /> class from the specified instance.
         /// </summary>
         /// <param name="other">
         /// The instance from which the new instance is to be initialized.
@@ -83,14 +83,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <exception cref="ArgumentNullException">
         /// Thrown if <paramref name="other" /> is null.
         /// </exception>
-        public ArtifactContent(ArtifactContent other)
+        public ReportingDescriptorReference(ReportingDescriptorReference other)
         {
             if (other == null)
             {
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Text, other.Binary, other.Properties);
+            Init(other.Id, other.Pointer, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -101,20 +101,20 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public ArtifactContent DeepClone()
+        public ReportingDescriptorReference DeepClone()
         {
-            return (ArtifactContent)DeepCloneCore();
+            return (ReportingDescriptorReference)DeepCloneCore();
         }
 
         private ISarifNode DeepCloneCore()
         {
-            return new ArtifactContent(this);
+            return new ReportingDescriptorReference(this);
         }
 
-        private void Init(string text, string binary, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string id, string pointer, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Text = text;
-            Binary = binary;
+            Id = id;
+            Pointer = pointer;
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);

@@ -20,6 +20,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public abstract class FileDiffingTests
     {
+        protected virtual bool RebaselineExpectedResults => false;
+
         public static string GetTestDirectory(string subdirectory = "")
         {
             return Path.GetFullPath(Path.Combine(@".\TestData", subdirectory));
@@ -56,8 +58,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         protected virtual string TestLogResourceNameRoot => "Microsoft.CodeAnalysis.Sarif.UnitTests.TestData." + TypeUnderTest;
 
         protected virtual string ConstructTestOutputFromInputResource(string inputResourceName) { return string.Empty; }
-
-        protected virtual bool RebaselineExpectedResults => false;
 
         protected virtual void RunTest(string inputResourceName, string expectedOutputResourceName = null)
         {

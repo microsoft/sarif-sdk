@@ -4,6 +4,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
@@ -14,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A location visited by an analysis tool while simulating or monitoring the execution of a program.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
     public partial class ThreadFlowLocation : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ThreadFlowLocation> ValueComparer => ThreadFlowLocationEqualityComparer.Instance;
@@ -32,6 +33,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return SarifNodeKind.ThreadFlowLocation;
             }
         }
+
+        /// <summary>
+        /// The index within the run threadFlowLocations array.
+        /// </summary>
+        [DataMember(Name = "index", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(-1)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public int Index { get; set; }
 
         /// <summary>
         /// The code location.
@@ -86,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Specifies the importance of this location in understanding the code flow in which it occurs. The order from most to least important is "essential", "important", "unimportant". Default: "important".
         /// </summary>
         [DataMember(Name = "importance", IsRequired = false, EmitDefaultValue = false)]
-        [JsonConverter(typeof(EnumConverter))]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
         public ThreadFlowLocationImportance Importance { get; set; }
 
         /// <summary>
@@ -100,11 +109,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public ThreadFlowLocation()
         {
+            Index = -1;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ThreadFlowLocation" /> class from the supplied values.
         /// </summary>
+        /// <param name="index">
+        /// An initialization value for the <see cref="P:Index" /> property.
+        /// </param>
         /// <param name="location">
         /// An initialization value for the <see cref="P:Location" /> property.
         /// </param>
@@ -135,9 +148,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ThreadFlowLocation(Location location, Stack stack, IEnumerable<string> kinds, string module, IDictionary<string, string> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
+        public ThreadFlowLocation(int index, Location location, Stack stack, IEnumerable<string> kinds, string module, IDictionary<string, string> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(location, stack, kinds, module, state, nestingLevel, executionOrder, executionTimeUtc, importance, properties);
+            Init(index, location, stack, kinds, module, state, nestingLevel, executionOrder, executionTimeUtc, importance, properties);
         }
 
         /// <summary>
@@ -156,7 +169,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Location, other.Stack, other.Kinds, other.Module, other.State, other.NestingLevel, other.ExecutionOrder, other.ExecutionTimeUtc, other.Importance, other.Properties);
+            Init(other.Index, other.Location, other.Stack, other.Kinds, other.Module, other.State, other.NestingLevel, other.ExecutionOrder, other.ExecutionTimeUtc, other.Importance, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -177,8 +190,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ThreadFlowLocation(this);
         }
 
-        private void Init(Location location, Stack stack, IEnumerable<string> kinds, string module, IDictionary<string, string> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int index, Location location, Stack stack, IEnumerable<string> kinds, string module, IDictionary<string, string> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
         {
+            Index = index;
             if (location != null)
             {
                 Location = new Location(location);

@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type ExternalPropertyFiles for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
     internal sealed class ExternalPropertyFilesEqualityComparer : IEqualityComparer<ExternalPropertyFiles>
     {
         internal static readonly ExternalPropertyFilesEqualityComparer Instance = new ExternalPropertyFilesEqualityComparer();
@@ -105,6 +105,27 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
+            if (!object.ReferenceEquals(left.ThreadFlowLocations, right.ThreadFlowLocations))
+            {
+                if (left.ThreadFlowLocations == null || right.ThreadFlowLocations == null)
+                {
+                    return false;
+                }
+
+                if (left.ThreadFlowLocations.Count != right.ThreadFlowLocations.Count)
+                {
+                    return false;
+                }
+
+                for (int index_3 = 0; index_3 < left.ThreadFlowLocations.Count; ++index_3)
+                {
+                    if (!ThreadFlowLocation.ValueComparer.Equals(left.ThreadFlowLocations[index_3], right.ThreadFlowLocations[index_3]))
+                    {
+                        return false;
+                    }
+                }
+            }
+
             if (!object.ReferenceEquals(left.Results, right.Results))
             {
                 if (left.Results == null || right.Results == null)
@@ -117,30 +138,30 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                for (int index_3 = 0; index_3 < left.Results.Count; ++index_3)
+                for (int index_4 = 0; index_4 < left.Results.Count; ++index_4)
                 {
-                    if (!ExternalPropertyFile.ValueComparer.Equals(left.Results[index_3], right.Results[index_3]))
+                    if (!ExternalPropertyFile.ValueComparer.Equals(left.Results[index_4], right.Results[index_4]))
                     {
                         return false;
                     }
                 }
             }
 
-            if (!object.ReferenceEquals(left.Addresses, right.Addresses))
+            if (!object.ReferenceEquals(left.Taxonomies, right.Taxonomies))
             {
-                if (left.Addresses == null || right.Addresses == null)
+                if (left.Taxonomies == null || right.Taxonomies == null)
                 {
                     return false;
                 }
 
-                if (left.Addresses.Count != right.Addresses.Count)
+                if (left.Taxonomies.Count != right.Taxonomies.Count)
                 {
                     return false;
                 }
 
-                for (int index_4 = 0; index_4 < left.Addresses.Count; ++index_4)
+                for (int index_5 = 0; index_5 < left.Taxonomies.Count; ++index_5)
                 {
-                    if (!Address.ValueComparer.Equals(left.Addresses[index_4], right.Addresses[index_4]))
+                    if (!ExternalPropertyFile.ValueComparer.Equals(left.Taxonomies[index_5], right.Taxonomies[index_5]))
                     {
                         return false;
                     }
@@ -216,9 +237,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.Results != null)
+                if (obj.ThreadFlowLocations != null)
                 {
-                    foreach (var value_3 in obj.Results)
+                    foreach (var value_3 in obj.ThreadFlowLocations)
                     {
                         result = result * 31;
                         if (value_3 != null)
@@ -228,14 +249,26 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.Addresses != null)
+                if (obj.Results != null)
                 {
-                    foreach (var value_4 in obj.Addresses)
+                    foreach (var value_4 in obj.Results)
                     {
                         result = result * 31;
                         if (value_4 != null)
                         {
                             result = (result * 31) + value_4.ValueGetHashCode();
+                        }
+                    }
+                }
+
+                if (obj.Taxonomies != null)
+                {
+                    foreach (var value_5 in obj.Taxonomies)
+                    {
+                        result = result * 31;
+                        if (value_5 != null)
+                        {
+                            result = (result * 31) + value_5.ValueGetHashCode();
                         }
                     }
                 }

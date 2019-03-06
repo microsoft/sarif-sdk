@@ -299,7 +299,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     {
                         new Invocation
                         {
-                            ConfigurationNotifications = new List<Notification>(s_notifications)
+                            ToolConfigurationNotifications = new List<Notification>(s_notifications)
                         }
                     };                    
                 });
@@ -311,7 +311,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                 var invocation = new Invocation
                 {
-                    ConfigurationNotifications = s_notifications
+                    ToolConfigurationNotifications = s_notifications
                 };
                 uut.WriteInvocations(new[] { invocation });
             });
@@ -329,7 +329,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     {
                         new Invocation
                         {
-                            ToolNotifications = new List<Notification>(s_notifications)
+                            ToolExecutionNotifications = new List<Notification>(s_notifications)
                         }
                     };
                 });
@@ -341,7 +341,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                 var invocation = new Invocation
                 {
-                    ToolNotifications = s_notifications
+                    ToolExecutionNotifications = s_notifications
                 };
                 uut.WriteInvocations(new[] { invocation });
             });

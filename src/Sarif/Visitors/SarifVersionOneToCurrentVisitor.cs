@@ -40,6 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             SarifLog = new SarifLog(SarifVersion.Current.ConvertToSchemaUri(),
                                     SarifVersion.Current,
                                     new List<Run>(),
+                                    null,
                                     properties: null);
 
             foreach (RunVersionOne v1Run in v1SarifLog.Runs)
@@ -277,8 +278,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     invocation = new Invocation();
                 }
 
-                invocation.ToolNotifications = toolNotifications;
-                invocation.ConfigurationNotifications = configurationNotifications;
+                invocation.ToolExecutionNotifications = toolNotifications;
+                invocation.ToolConfigurationNotifications = configurationNotifications;
             }
 
             return invocation;

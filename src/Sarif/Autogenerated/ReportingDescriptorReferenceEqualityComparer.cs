@@ -9,14 +9,14 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Defines methods to support the comparison of objects of type MultiformatMessageString for equality.
+    /// Defines methods to support the comparison of objects of type ReportingDescriptorReference for equality.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
-    internal sealed class MultiformatMessageStringEqualityComparer : IEqualityComparer<MultiformatMessageString>
+    internal sealed class ReportingDescriptorReferenceEqualityComparer : IEqualityComparer<ReportingDescriptorReference>
     {
-        internal static readonly MultiformatMessageStringEqualityComparer Instance = new MultiformatMessageStringEqualityComparer();
+        internal static readonly ReportingDescriptorReferenceEqualityComparer Instance = new ReportingDescriptorReferenceEqualityComparer();
 
-        public bool Equals(MultiformatMessageString left, MultiformatMessageString right)
+        public bool Equals(ReportingDescriptorReference left, ReportingDescriptorReference right)
         {
             if (ReferenceEquals(left, right))
             {
@@ -28,12 +28,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.Text != right.Text)
+            if (left.Id != right.Id)
             {
                 return false;
             }
 
-            if (left.Markdown != right.Markdown)
+            if (left.Pointer != right.Pointer)
             {
                 return false;
             }
@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public int GetHashCode(MultiformatMessageString obj)
+        public int GetHashCode(ReportingDescriptorReference obj)
         {
             if (ReferenceEquals(obj, null))
             {
@@ -73,14 +73,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (obj.Text != null)
+                if (obj.Id != null)
                 {
-                    result = (result * 31) + obj.Text.GetHashCode();
+                    result = (result * 31) + obj.Id.GetHashCode();
                 }
 
-                if (obj.Markdown != null)
+                if (obj.Pointer != null)
                 {
-                    result = (result * 31) + obj.Markdown.GetHashCode();
+                    result = (result * 31) + obj.Pointer.GetHashCode();
                 }
 
                 if (obj.Properties != null)

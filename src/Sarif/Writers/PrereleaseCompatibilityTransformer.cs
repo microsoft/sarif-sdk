@@ -112,15 +112,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 updatedLog = modifiedLog ? sarifLog.ToString(formatting) : prereleaseSarifLog;
                 transformedSarifLog = JsonConvert.DeserializeObject<SarifLog>(updatedLog, settings);
-
-                // We already have a textual representation of the log file (produced a couple lines
-                // above this call). We are required to regenerate it, however, in order to properly 
-                // elide default values, etc. I could not find a way for the JToken driven
-                // ToString()/text-generating mechanism to honor default value ignore/populate settings.
-                if (modifiedLog)
-                {
-                    updatedLog = JsonConvert.SerializeObject(transformedSarifLog, formatting);
-                }
+                updatedLog = JsonConvert.SerializeObject(transformedSarifLog, formatting);
             }
 
             return transformedSarifLog;
@@ -134,178 +126,105 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 foreach (JObject run in runs)
                 {
                     // https://github.com/oasis-tcs/sarif-spec/issues/325
+                    // https://github.com/oasis-tcs/sarif-spec/issues/330
                     RemoveToolLanguage(run);
-                    ConvertAllExceptionMessagesToString(run);
                     ConvertAllReportingDescriptorNamesToString(run);
+                    ConvertAllExceptionMessagesToStringAndRenameToolNotificationNodes(run);
 
-                    // https://github.com/oasis-tcs/sarif-spec/issues/302
-                    ConvertAllStackFrameAddressesToAddressObjects(run);
+                    // https://github.com/oasis-tcs/sarif-spec/issues/336
+                    UpdateAllToolComponentProperties(run);
                 }
             }
             return true;
         }
 
-        private static void ConvertAllStackFrameAddressesToAddressObjects(JObject run)
+        private static void UpdateAllToolComponentProperties(JObject run)
         {
-            // We need to remove StackFrame.Address (int) and StackFrame.Offset (int) and transfer those
-            // to a single Address object with properties "BaseAddress" and "Offset".
+            // Access and modify run.tool
+            if (run["tool"] is JObject tool)
+            {
+                UpdateToolObjectToolComponentProperties(tool);
+            }
 
-            // Previously:
-            //      "stackFrame" : {
-            //          "address" : 324 ,
-            //          "offset" : 346
-            //      }
-            // Now:
-            //      "stackFrame" : {
-            //          "address" : {
-            //              "baseAddress" : 324,
-            //              "offset" : 346
-            //          }
-            //      }
+            // Access and modify run.conversion.tool
+            if (run["conversion"] is JObject conversion && conversion["tool"] is JObject tool2)
+            {
+                UpdateToolObjectToolComponentProperties(tool2);
+            }
+        }
 
-            // The code walks through all possible paths to Stackframe node and performs updates.
+        private static void UpdateToolObjectToolComponentProperties(JObject tool)
+        {
+            // Access and modify tool.driver
+            if (tool["driver"] is JObject driver)
+            {
+                UpdateToolComponentProperties(driver);
+            }
 
+            // Access and modify each item in tool.extensions
+            if (tool["extensions"] is JArray extensions)
+            {
+                foreach (JObject toolComponent in extensions)
+                {
+                    UpdateToolComponentProperties(toolComponent);
+                }
+            }
+        }
+
+        private static void UpdateToolComponentProperties(JObject toolComponent)
+        {
+            // Access and modify artifactIndex
+            if (toolComponent["artifactIndex"] is JToken artifactIndex)
+            {
+                toolComponent.Remove("artifactIndex");
+                var artifactIndices = new JArray();
+                artifactIndices.Add(artifactIndex);
+
+                toolComponent.Add("artifactIndices", artifactIndices);
+            }
+        }
+
+
+        private static void ConvertAllExceptionMessagesToStringAndRenameToolNotificationNodes(JObject run)
+        {
             if (run["conversion"] is JObject conversion && conversion["invocation"] is JObject invocation)
             {
-                ConvertInvocationStackFrameAddressesToAddressObjects(invocation);
+                ConvertInvocationExceptionMessagesToStringAndRenameToolNotifications(invocation);
             }
 
             if (run["invocations"] is JArray invocations)
             {
                 foreach (JObject item in invocations)
                 {
-                    ConvertInvocationStackFrameAddressesToAddressObjects(item);
-                }
-            }
-
-            if (run["results"] is JArray results)
-            {
-                foreach (JObject result in results)
-                {
-                    if (result["stacks"] is JArray stacks)
-                    {
-                        foreach (JObject item in stacks)
-                        {
-                            ConvertStackFrameAddressesToAddressObjects(item);
-                        }
-                    }
-
-                    if (result["codeflows"] is JArray codeflows)
-                    {
-                        foreach (JObject codeflow in codeflows)
-                        {
-                            if (codeflow["threadflow"] is JObject threadflow && 
-                                threadflow["threadflowLocation"] is JObject threadflowLocation &&
-                                threadflowLocation["Stack"] is JObject stack)
-                            {
-                                ConvertStackFrameAddressesToAddressObjects(stack);
-                            }
-                        }
-                    }
+                    ConvertInvocationExceptionMessagesToStringAndRenameToolNotifications(item);
                 }
             }
         }
 
-        private static void ConvertInvocationStackFrameAddressesToAddressObjects(JObject item)
-        {
-            if (item["toolNotifications"] is JArray toolNotifications)
-            {
-                ConvertNotificationsStackFrameAddressesToAddressObjects(toolNotifications);
-            }
-
-            if (item["configurationNotifications"] is JArray configurationNotifications)
-            {
-                ConvertNotificationsStackFrameAddressesToAddressObjects(configurationNotifications);
-            }
-        }
-
-        private static void ConvertNotificationsStackFrameAddressesToAddressObjects(JArray notifications)
-        {
-            foreach (JObject notification in notifications)
-            {
-                if (notification["exception"] is JObject exception)
-                {
-                    ConvertExceptionStackFrameAddressesToAddressObjects(exception);
-                }
-            }
-        }
-
-        private static void ConvertExceptionStackFrameAddressesToAddressObjects(JObject exception)
-        {
-            if (exception["stack"] is JObject stack)
-            {
-                ConvertStackFrameAddressesToAddressObjects(stack);
-            }
-
-            if (exception["innerExceptions"] is JArray innerExceptions)
-            {
-                foreach (JObject innerException in innerExceptions)
-                {
-                    ConvertExceptionStackFrameAddressesToAddressObjects(innerException);
-                }
-            }
-        }
-
-        private static void ConvertStackFrameAddressesToAddressObjects(JObject stack)
-        {
-            if (stack["frames"] is JArray frames)
-            {
-                foreach (JObject stackFrame in frames)
-                {
-                    var address = new JObject();
-
-                    if (stackFrame["address"] is JToken stackFrameAddress)
-                    {
-                        address.Add("baseAddress", stackFrameAddress);
-                        stackFrame.Remove("address");
-                    }
-
-                    if (stackFrame["offset"] is JToken stackFrameOffset)
-                    {
-                        address.Add("offset", stackFrameOffset);
-                        stackFrame.Remove("offset");
-                    }
-
-                    if (address.Count > 0)
-                    {
-                        stackFrame.Add("address", address);
-                    }
-                }
-            }
-        }
-
-        private static void ConvertAllExceptionMessagesToString(JObject run)
-        {
-            if (run["conversion"] is JObject conversion && conversion["invocation"] is JObject invocation)
-            {
-                ConvertInvocationExceptionMessagesToString(invocation);
-            }
-
-            if (run["invocations"] is JArray invocations)
-            {
-                foreach (JObject item in invocations)
-                {
-                    ConvertInvocationExceptionMessagesToString(item);
-                }
-            }
-        }
-
-        private static void ConvertInvocationExceptionMessagesToString(JObject invocation)
+        private static void ConvertInvocationExceptionMessagesToStringAndRenameToolNotifications(JObject invocation)
         {
             if (invocation["toolNotifications"] is JArray toolNotifications)
             {
                 ConvertNotificationExceptionMessagesToString(toolNotifications);
+
+                // https://github.com/oasis-tcs/sarif-spec/issues/330
+                invocation.Remove("toolNotifications");
+                invocation["toolExecutionNotifications"] = toolNotifications;
             }
 
             if (invocation["configurationNotifications"] is JArray configurationNotifications)
             {
                 ConvertNotificationExceptionMessagesToString(configurationNotifications);
+
+                // https://github.com/oasis-tcs/sarif-spec/issues/330
+                invocation.Remove("configurationNotifications");
+                invocation["toolConfigurationNotifications"] = configurationNotifications;
             }
         }
 
-        private static void ConvertNotificationExceptionMessagesToString(JArray notifications)
+        private static void ConvertNotificationExceptionMessagesToString(JArray Notifications)
         {
-            foreach (JObject notification in notifications)
+            foreach (JObject notification in Notifications)
             {
                 if (notification["exception"] is JObject exception)
                 {

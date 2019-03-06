@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// References to external property files that should be inlined with the content of a root log file.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
     public partial class ExternalPropertyFiles : ISarifNode
     {
         public static IEqualityComparer<ExternalPropertyFiles> ValueComparer => ExternalPropertyFilesEqualityComparer.Instance;
@@ -69,17 +69,23 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<ExternalPropertyFile> LogicalLocations { get; set; }
 
         /// <summary>
+        /// An array of external property files containing run.threadFlowLocations arrays to be merged with the root log file.
+        /// </summary>
+        [DataMember(Name = "threadFlowLocations", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public IList<ThreadFlowLocation> ThreadFlowLocations { get; set; }
+
+        /// <summary>
         /// An array of external property files containing run.results arrays to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "results", IsRequired = false, EmitDefaultValue = false)]
         public IList<ExternalPropertyFile> Results { get; set; }
 
         /// <summary>
-        /// The addresses associated with external property files, if any.
+        /// An array of external property files containing run.taxonomies arrays to be merged with the root log file.
         /// </summary>
-        [DataMember(Name = "addresses", IsRequired = false, EmitDefaultValue = false)]
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<Address> Addresses { get; set; }
+        [DataMember(Name = "taxonomies", IsRequired = false, EmitDefaultValue = false)]
+        public IList<ExternalPropertyFile> Taxonomies { get; set; }
 
         /// <summary>
         /// An external property file containing a run.tool object to be merged with the root log file.
@@ -115,18 +121,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="logicalLocations">
         /// An initialization value for the <see cref="P:LogicalLocations" /> property.
         /// </param>
+        /// <param name="threadFlowLocations">
+        /// An initialization value for the <see cref="P:ThreadFlowLocations" /> property.
+        /// </param>
         /// <param name="results">
         /// An initialization value for the <see cref="P:Results" /> property.
         /// </param>
-        /// <param name="addresses">
-        /// An initialization value for the <see cref="P:Addresses" /> property.
+        /// <param name="taxonomies">
+        /// An initialization value for the <see cref="P:Taxonomies" /> property.
         /// </param>
         /// <param name="tool">
         /// An initialization value for the <see cref="P:Tool" /> property.
         /// </param>
-        public ExternalPropertyFiles(ExternalPropertyFile conversion, ExternalPropertyFile graphs, ExternalPropertyFile externalizedProperties, IEnumerable<ExternalPropertyFile> artifacts, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ExternalPropertyFile> results, IEnumerable<Address> addresses, ExternalPropertyFile tool)
+        public ExternalPropertyFiles(ExternalPropertyFile conversion, ExternalPropertyFile graphs, ExternalPropertyFile externalizedProperties, IEnumerable<ExternalPropertyFile> artifacts, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ExternalPropertyFile> results, IEnumerable<ExternalPropertyFile> taxonomies, ExternalPropertyFile tool)
         {
-            Init(conversion, graphs, externalizedProperties, artifacts, invocations, logicalLocations, results, addresses, tool);
+            Init(conversion, graphs, externalizedProperties, artifacts, invocations, logicalLocations, threadFlowLocations, results, taxonomies, tool);
         }
 
         /// <summary>
@@ -145,7 +154,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Conversion, other.Graphs, other.ExternalizedProperties, other.Artifacts, other.Invocations, other.LogicalLocations, other.Results, other.Addresses, other.Tool);
+            Init(other.Conversion, other.Graphs, other.ExternalizedProperties, other.Artifacts, other.Invocations, other.LogicalLocations, other.ThreadFlowLocations, other.Results, other.Taxonomies, other.Tool);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -166,7 +175,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExternalPropertyFiles(this);
         }
 
-        private void Init(ExternalPropertyFile conversion, ExternalPropertyFile graphs, ExternalPropertyFile externalizedProperties, IEnumerable<ExternalPropertyFile> artifacts, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ExternalPropertyFile> results, IEnumerable<Address> addresses, ExternalPropertyFile tool)
+        private void Init(ExternalPropertyFile conversion, ExternalPropertyFile graphs, ExternalPropertyFile externalizedProperties, IEnumerable<ExternalPropertyFile> artifacts, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ExternalPropertyFile> results, IEnumerable<ExternalPropertyFile> taxonomies, ExternalPropertyFile tool)
         {
             if (conversion != null)
             {
@@ -237,10 +246,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 LogicalLocations = destination_2;
             }
 
-            if (results != null)
+            if (threadFlowLocations != null)
             {
-                var destination_3 = new List<ExternalPropertyFile>();
-                foreach (var value_3 in results)
+                var destination_3 = new List<ThreadFlowLocation>();
+                foreach (var value_3 in threadFlowLocations)
                 {
                     if (value_3 == null)
                     {
@@ -248,17 +257,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_3.Add(new ExternalPropertyFile(value_3));
+                        destination_3.Add(new ThreadFlowLocation(value_3));
                     }
                 }
 
-                Results = destination_3;
+                ThreadFlowLocations = destination_3;
             }
 
-            if (addresses != null)
+            if (results != null)
             {
-                var destination_4 = new List<Address>();
-                foreach (var value_4 in addresses)
+                var destination_4 = new List<ExternalPropertyFile>();
+                foreach (var value_4 in results)
                 {
                     if (value_4 == null)
                     {
@@ -266,11 +275,29 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_4.Add(new Address(value_4));
+                        destination_4.Add(new ExternalPropertyFile(value_4));
                     }
                 }
 
-                Addresses = destination_4;
+                Results = destination_4;
+            }
+
+            if (taxonomies != null)
+            {
+                var destination_5 = new List<ExternalPropertyFile>();
+                foreach (var value_5 in taxonomies)
+                {
+                    if (value_5 == null)
+                    {
+                        destination_5.Add(null);
+                    }
+                    else
+                    {
+                        destination_5.Add(new ExternalPropertyFile(value_5));
+                    }
+                }
+
+                Taxonomies = destination_5;
             }
 
             if (tool != null)

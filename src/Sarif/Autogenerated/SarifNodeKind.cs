@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// A set of values for all the types that implement <see cref="ISarifNode" />.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
     public enum SarifNodeKind
     {
         /// <summary>
@@ -143,6 +143,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ReportingConfigurationOverride" />.
         /// </summary>
         ReportingConfigurationOverride,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ReportingDescriptorReference" />.
+        /// </summary>
+        ReportingDescriptorReference,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Result" />.
         /// </summary>

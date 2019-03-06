@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type ToolComponent for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
     internal sealed class ToolComponentEqualityComparer : IEqualityComparer<ToolComponent>
     {
         internal static readonly ToolComponentEqualityComparer Instance = new ToolComponentEqualityComparer();
@@ -142,9 +142,25 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (left.ArtifactIndex != right.ArtifactIndex)
+            if (!object.ReferenceEquals(left.ArtifactIndices, right.ArtifactIndices))
             {
-                return false;
+                if (left.ArtifactIndices == null || right.ArtifactIndices == null)
+                {
+                    return false;
+                }
+
+                if (left.ArtifactIndices.Count != right.ArtifactIndices.Count)
+                {
+                    return false;
+                }
+
+                for (int index_2 = 0; index_2 < left.ArtifactIndices.Count; ++index_2)
+                {
+                    if (left.ArtifactIndices[index_2] != right.ArtifactIndices[index_2])
+                    {
+                        return false;
+                    }
+                }
             }
 
             if (!object.ReferenceEquals(left.Properties, right.Properties))
@@ -272,17 +288,25 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                result = (result * 31) + obj.ArtifactIndex.GetHashCode();
+                if (obj.ArtifactIndices != null)
+                {
+                    foreach (var value_7 in obj.ArtifactIndices)
+                    {
+                        result = result * 31;
+                        result = (result * 31) + value_7.GetHashCode();
+                    }
+                }
+
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_1 = 0;
-                    foreach (var value_7 in obj.Properties)
+                    foreach (var value_8 in obj.Properties)
                     {
-                        xor_1 ^= value_7.Key.GetHashCode();
-                        if (value_7.Value != null)
+                        xor_1 ^= value_8.Key.GetHashCode();
+                        if (value_8.Value != null)
                         {
-                            xor_1 ^= value_7.Value.GetHashCode();
+                            xor_1 ^= value_8.Value.GetHashCode();
                         }
                     }
 

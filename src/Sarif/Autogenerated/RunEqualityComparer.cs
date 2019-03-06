@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Run for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
     internal sealed class RunEqualityComparer : IEqualityComparer<Run>
     {
         internal static readonly RunEqualityComparer Instance = new RunEqualityComparer();
@@ -269,21 +269,42 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!object.ReferenceEquals(left.Addresses, right.Addresses))
+            if (!object.ReferenceEquals(left.ThreadFlowLocations, right.ThreadFlowLocations))
             {
-                if (left.Addresses == null || right.Addresses == null)
+                if (left.ThreadFlowLocations == null || right.ThreadFlowLocations == null)
                 {
                     return false;
                 }
 
-                if (left.Addresses.Count != right.Addresses.Count)
+                if (left.ThreadFlowLocations.Count != right.ThreadFlowLocations.Count)
                 {
                     return false;
                 }
 
-                for (int index_7 = 0; index_7 < left.Addresses.Count; ++index_7)
+                for (int index_7 = 0; index_7 < left.ThreadFlowLocations.Count; ++index_7)
                 {
-                    if (!Address.ValueComparer.Equals(left.Addresses[index_7], right.Addresses[index_7]))
+                    if (!ThreadFlowLocation.ValueComparer.Equals(left.ThreadFlowLocations[index_7], right.ThreadFlowLocations[index_7]))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            if (!object.ReferenceEquals(left.Taxonomies, right.Taxonomies))
+            {
+                if (left.Taxonomies == null || right.Taxonomies == null)
+                {
+                    return false;
+                }
+
+                if (left.Taxonomies.Count != right.Taxonomies.Count)
+                {
+                    return false;
+                }
+
+                for (int index_8 = 0; index_8 < left.Taxonomies.Count; ++index_8)
+                {
+                    if (!ReportingDescriptor.ValueComparer.Equals(left.Taxonomies[index_8], right.Taxonomies[index_8]))
                     {
                         return false;
                     }
@@ -487,9 +508,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.ExternalPropertyFiles.ValueGetHashCode();
                 }
 
-                if (obj.Addresses != null)
+                if (obj.ThreadFlowLocations != null)
                 {
-                    foreach (var value_15 in obj.Addresses)
+                    foreach (var value_15 in obj.ThreadFlowLocations)
                     {
                         result = result * 31;
                         if (value_15 != null)
@@ -499,16 +520,28 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
+                if (obj.Taxonomies != null)
+                {
+                    foreach (var value_16 in obj.Taxonomies)
+                    {
+                        result = result * 31;
+                        if (value_16 != null)
+                        {
+                            result = (result * 31) + value_16.ValueGetHashCode();
+                        }
+                    }
+                }
+
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_2 = 0;
-                    foreach (var value_16 in obj.Properties)
+                    foreach (var value_17 in obj.Properties)
                     {
-                        xor_2 ^= value_16.Key.GetHashCode();
-                        if (value_16.Value != null)
+                        xor_2 ^= value_17.Key.GetHashCode();
+                        if (value_17.Value != null)
                         {
-                            xor_2 ^= value_16.Value.GetHashCode();
+                            xor_2 ^= value_17.Value.GetHashCode();
                         }
                     }
 

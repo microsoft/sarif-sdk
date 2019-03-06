@@ -15,8 +15,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         public FortifyFprConverterTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
 
-        protected override bool RebaselineExpectedResults => false;
-
         protected override string ConstructTestOutputFromInputResource(string inputResource)
         {
             byte[] fprData = GetResourceBytes(inputResource);

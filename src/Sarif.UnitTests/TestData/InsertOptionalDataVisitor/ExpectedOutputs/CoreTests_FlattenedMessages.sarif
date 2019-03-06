@@ -39,7 +39,7 @@
       },
       "invocations": [
         {
-          "toolNotifications": [
+          "toolExecutionNotifications": [
             {
               "message": {
                 "text": "A notification was raised. Notification kind was: 'tool notification'.",
@@ -50,7 +50,7 @@
               }
             }
           ],
-          "configurationNotifications": [
+          "toolConfigurationNotifications": [
             {
               "message": {
                 "text": "A notification was raised. Notification kind was: 'configuration notification'.",

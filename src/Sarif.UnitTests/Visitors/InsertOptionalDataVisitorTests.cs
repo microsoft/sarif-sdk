@@ -24,8 +24,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
         }
 
-        protected override bool RebaselineExpectedResults => false;
-
         protected override string ConstructTestOutputFromInputResource(string inputResourceName)
         {
             PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
@@ -137,8 +135,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     new Invocation
                     {
-                        ToolNotifications = new List<Notification>{ },
-                        ConfigurationNotifications = new List<Notification>{ }
+                        ToolExecutionNotifications = new List<Notification>{ },
+                        ToolConfigurationNotifications = new List<Notification>{ }
                     }
                 },
                 Tool = new Tool
@@ -224,8 +222,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             Run run = CreateBasicRunForMessageStringLookupTesting();
 
-            IList<Notification> toolNotifications = run.Invocations[0].ToolNotifications;
-            IList<Notification> configurationNotifications = run.Invocations[0].ConfigurationNotifications;
+            IList<Notification> toolNotifications = run.Invocations[0].ToolExecutionNotifications;
+            IList<Notification> configurationNotifications = run.Invocations[0].ToolConfigurationNotifications;
 
             // Shared message id with no overriding rule id
             toolNotifications.Add(

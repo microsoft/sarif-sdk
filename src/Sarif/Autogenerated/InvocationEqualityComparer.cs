@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type Invocation for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
     internal sealed class InvocationEqualityComparer : IEqualityComparer<Invocation>
     {
         internal static readonly InvocationEqualityComparer Instance = new InvocationEqualityComparer();
@@ -111,42 +111,42 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!object.ReferenceEquals(left.ToolNotifications, right.ToolNotifications))
+            if (!object.ReferenceEquals(left.ToolExecutionNotifications, right.ToolExecutionNotifications))
             {
-                if (left.ToolNotifications == null || right.ToolNotifications == null)
+                if (left.ToolExecutionNotifications == null || right.ToolExecutionNotifications == null)
                 {
                     return false;
                 }
 
-                if (left.ToolNotifications.Count != right.ToolNotifications.Count)
+                if (left.ToolExecutionNotifications.Count != right.ToolExecutionNotifications.Count)
                 {
                     return false;
                 }
 
-                for (int index_3 = 0; index_3 < left.ToolNotifications.Count; ++index_3)
+                for (int index_3 = 0; index_3 < left.ToolExecutionNotifications.Count; ++index_3)
                 {
-                    if (!Notification.ValueComparer.Equals(left.ToolNotifications[index_3], right.ToolNotifications[index_3]))
+                    if (!Notification.ValueComparer.Equals(left.ToolExecutionNotifications[index_3], right.ToolExecutionNotifications[index_3]))
                     {
                         return false;
                     }
                 }
             }
 
-            if (!object.ReferenceEquals(left.ConfigurationNotifications, right.ConfigurationNotifications))
+            if (!object.ReferenceEquals(left.ToolConfigurationNotifications, right.ToolConfigurationNotifications))
             {
-                if (left.ConfigurationNotifications == null || right.ConfigurationNotifications == null)
+                if (left.ToolConfigurationNotifications == null || right.ToolConfigurationNotifications == null)
                 {
                     return false;
                 }
 
-                if (left.ConfigurationNotifications.Count != right.ConfigurationNotifications.Count)
+                if (left.ToolConfigurationNotifications.Count != right.ToolConfigurationNotifications.Count)
                 {
                     return false;
                 }
 
-                for (int index_4 = 0; index_4 < left.ConfigurationNotifications.Count; ++index_4)
+                for (int index_4 = 0; index_4 < left.ToolConfigurationNotifications.Count; ++index_4)
                 {
-                    if (!Notification.ValueComparer.Equals(left.ConfigurationNotifications[index_4], right.ConfigurationNotifications[index_4]))
+                    if (!Notification.ValueComparer.Equals(left.ToolConfigurationNotifications[index_4], right.ToolConfigurationNotifications[index_4]))
                     {
                         return false;
                     }
@@ -324,9 +324,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.ToolNotifications != null)
+                if (obj.ToolExecutionNotifications != null)
                 {
-                    foreach (var value_7 in obj.ToolNotifications)
+                    foreach (var value_7 in obj.ToolExecutionNotifications)
                     {
                         result = result * 31;
                         if (value_7 != null)
@@ -336,9 +336,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.ConfigurationNotifications != null)
+                if (obj.ToolConfigurationNotifications != null)
                 {
-                    foreach (var value_8 in obj.ConfigurationNotifications)
+                    foreach (var value_8 in obj.ToolConfigurationNotifications)
                     {
                         result = result * 31;
                         if (value_8 != null)

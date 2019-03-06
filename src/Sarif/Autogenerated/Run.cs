@@ -159,11 +159,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         public ExternalPropertyFiles ExternalPropertyFiles { get; set; }
 
         /// <summary>
-        /// The addresses associated with this run instance, if any.
+        /// An array of threadFlowLocation objects cached at run level.
         /// </summary>
-        [DataMember(Name = "addresses", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "threadFlowLocations", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<Address> Addresses { get; set; }
+        public IList<ThreadFlowLocation> ThreadFlowLocations { get; set; }
+
+        /// <summary>
+        /// An array of reportDescriptor objects relevant to a taxonomy in which results are categorized.
+        /// </summary>
+        [DataMember(Name = "taxonomies", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public IList<ReportingDescriptor> Taxonomies { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the run.
@@ -245,15 +252,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="externalPropertyFiles">
         /// An initialization value for the <see cref="P:ExternalPropertyFiles" /> property.
         /// </param>
-        /// <param name="addresses">
-        /// An initialization value for the <see cref="P:Addresses" /> property.
+        /// <param name="threadFlowLocations">
+        /// An initialization value for the <see cref="P:ThreadFlowLocations" /> property.
+        /// </param>
+        /// <param name="taxonomies">
+        /// An initialization value for the <see cref="P:Taxonomies" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, ArtifactLocation> originalUriBaseIds, IEnumerable<Artifact> artifacts, IEnumerable<LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string markdownMessageMimeType, string redactionToken, string defaultFileEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFiles externalPropertyFiles, IEnumerable<Address> addresses, IDictionary<string, SerializedPropertyInfo> properties)
+        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, ArtifactLocation> originalUriBaseIds, IEnumerable<Artifact> artifacts, IEnumerable<LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string markdownMessageMimeType, string redactionToken, string defaultFileEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFiles externalPropertyFiles, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ReportingDescriptor> taxonomies, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(tool, invocations, conversion, versionControlProvenance, originalUriBaseIds, artifacts, logicalLocations, graphs, results, id, aggregateIds, baselineInstanceGuid, markdownMessageMimeType, redactionToken, defaultFileEncoding, defaultSourceLanguage, newlineSequences, columnKind, externalPropertyFiles, addresses, properties);
+            Init(tool, invocations, conversion, versionControlProvenance, originalUriBaseIds, artifacts, logicalLocations, graphs, results, id, aggregateIds, baselineInstanceGuid, markdownMessageMimeType, redactionToken, defaultFileEncoding, defaultSourceLanguage, newlineSequences, columnKind, externalPropertyFiles, threadFlowLocations, taxonomies, properties);
         }
 
         /// <summary>
@@ -272,7 +282,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocations, other.Conversion, other.VersionControlProvenance, other.OriginalUriBaseIds, other.Artifacts, other.LogicalLocations, other.Graphs, other.Results, other.Id, other.AggregateIds, other.BaselineInstanceGuid, other.MarkdownMessageMimeType, other.RedactionToken, other.DefaultFileEncoding, other.DefaultSourceLanguage, other.NewlineSequences, other.ColumnKind, other.ExternalPropertyFiles, other.Addresses, other.Properties);
+            Init(other.Tool, other.Invocations, other.Conversion, other.VersionControlProvenance, other.OriginalUriBaseIds, other.Artifacts, other.LogicalLocations, other.Graphs, other.Results, other.Id, other.AggregateIds, other.BaselineInstanceGuid, other.MarkdownMessageMimeType, other.RedactionToken, other.DefaultFileEncoding, other.DefaultSourceLanguage, other.NewlineSequences, other.ColumnKind, other.ExternalPropertyFiles, other.ThreadFlowLocations, other.Taxonomies, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -293,7 +303,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, ArtifactLocation> originalUriBaseIds, IEnumerable<Artifact> artifacts, IEnumerable<LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string markdownMessageMimeType, string redactionToken, string defaultFileEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFiles externalPropertyFiles, IEnumerable<Address> addresses, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, ArtifactLocation> originalUriBaseIds, IEnumerable<Artifact> artifacts, IEnumerable<LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string markdownMessageMimeType, string redactionToken, string defaultFileEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFiles externalPropertyFiles, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ReportingDescriptor> taxonomies, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (tool != null)
             {
@@ -458,10 +468,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 ExternalPropertyFiles = new ExternalPropertyFiles(externalPropertyFiles);
             }
 
-            if (addresses != null)
+            if (threadFlowLocations != null)
             {
-                var destination_7 = new List<Address>();
-                foreach (var value_9 in addresses)
+                var destination_7 = new List<ThreadFlowLocation>();
+                foreach (var value_9 in threadFlowLocations)
                 {
                     if (value_9 == null)
                     {
@@ -469,11 +479,29 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_7.Add(new Address(value_9));
+                        destination_7.Add(new ThreadFlowLocation(value_9));
                     }
                 }
 
-                Addresses = destination_7;
+                ThreadFlowLocations = destination_7;
+            }
+
+            if (taxonomies != null)
+            {
+                var destination_8 = new List<ReportingDescriptor>();
+                foreach (var value_10 in taxonomies)
+                {
+                    if (value_10 == null)
+                    {
+                        destination_8.Add(null);
+                    }
+                    else
+                    {
+                        destination_8.Add(new ReportingDescriptor(value_10));
+                    }
+                }
+
+                Taxonomies = destination_8;
             }
 
             if (properties != null)
