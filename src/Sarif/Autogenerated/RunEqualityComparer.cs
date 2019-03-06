@@ -290,6 +290,27 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
+            if (!object.ReferenceEquals(left.Taxonomies, right.Taxonomies))
+            {
+                if (left.Taxonomies == null || right.Taxonomies == null)
+                {
+                    return false;
+                }
+
+                if (left.Taxonomies.Count != right.Taxonomies.Count)
+                {
+                    return false;
+                }
+
+                for (int index_8 = 0; index_8 < left.Taxonomies.Count; ++index_8)
+                {
+                    if (!ReportingDescriptor.ValueComparer.Equals(left.Taxonomies[index_8], right.Taxonomies[index_8]))
+                    {
+                        return false;
+                    }
+                }
+            }
+
             if (!object.ReferenceEquals(left.Properties, right.Properties))
             {
                 if (left.Properties == null || right.Properties == null || left.Properties.Count != right.Properties.Count)
@@ -499,16 +520,28 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
+                if (obj.Taxonomies != null)
+                {
+                    foreach (var value_16 in obj.Taxonomies)
+                    {
+                        result = result * 31;
+                        if (value_16 != null)
+                        {
+                            result = (result * 31) + value_16.ValueGetHashCode();
+                        }
+                    }
+                }
+
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_2 = 0;
-                    foreach (var value_16 in obj.Properties)
+                    foreach (var value_17 in obj.Properties)
                     {
-                        xor_2 ^= value_16.Key.GetHashCode();
-                        if (value_16.Value != null)
+                        xor_2 ^= value_17.Key.GetHashCode();
+                        if (value_17.Value != null)
                         {
-                            xor_2 ^= value_16.Value.GetHashCode();
+                            xor_2 ^= value_17.Value.GetHashCode();
                         }
                     }
 
