@@ -204,14 +204,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static void ConvertInvocationStackFrameAddressesToAddressObjects(JObject item)
         {
-            if (item["toolNotifications"] is JArray toolNotifications)
+            if (item["toolExecutionNotifications"] is JArray toolExecutionNotifications)
             {
-                ConvertNotificationsStackFrameAddressesToAddressObjects(toolNotifications);
+                ConvertNotificationsStackFrameAddressesToAddressObjects(toolExecutionNotifications);
             }
 
-            if (item["configurationNotifications"] is JArray configurationNotifications)
+            if (item["toolConfigurationNotifications"] is JArray toolConfigurationNotifications)
             {
-                ConvertNotificationsStackFrameAddressesToAddressObjects(configurationNotifications);
+                ConvertNotificationsStackFrameAddressesToAddressObjects(toolConfigurationNotifications);
             }
         }
 
