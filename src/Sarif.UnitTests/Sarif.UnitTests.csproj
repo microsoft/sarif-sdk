@@ -15,11 +15,13 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
+    <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ComprehensiveToolProperties.01-24.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ComprehensiveToolProperties.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\MultiformatMessageStrings.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\NestedInnerExceptionsInNotifications.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\RunResources.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ToolWithLanguage.sarif" />
+    <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\ComprehensiveToolProperties.01-24.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\WithExternalPropertyFiles.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\ComprehensiveToolProperties.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\MultiformatMessageStrings.sarif" />
@@ -56,6 +58,7 @@
     <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_TextFiles.sarif" />
     <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\Inputs\CoreTests.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ComprehensiveFileProperties.sarif" />
+    <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ComprehensiveToolProperties.01-24.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\MultiformatMessageStrings.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ComprehensiveToolProperties.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\NestedInnerExceptionsInNotifications.sarif" />
@@ -66,6 +69,7 @@
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\WithExternalPropertyFiles.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\ComprehensiveFileProperties.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\WithExternalPropertyFiles.sarif" />
+    <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\ComprehensiveToolProperties.01-24.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\MultiformatMessageStrings.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\ComprehensiveToolProperties.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\NestedInnerExceptionsInNotifications.sarif" />

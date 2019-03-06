@@ -16,8 +16,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         public PrereleaseCompatibilityTransformerTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
 
-        protected override bool RebaselineExpectedResults => false;
-
         protected override string ConstructTestOutputFromInputResource(string inputResourceName)
         {
             string inputResourceText = GetResourceText(inputResourceName);
@@ -71,6 +69,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public void PrereleaseCompatibilityTransformer_ComprehensiveToolProperties()
         {
             RunTest("ComprehensiveToolProperties.sarif");
+        }
+
+        [Fact]
+        public void PrereleaseCompatibilityTransformer_ComprehensiveToolProperties_01_24()
+        {
+            RunTest("ComprehensiveToolProperties.01-24.sarif");
         }
 
         [Fact]

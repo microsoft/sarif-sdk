@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    internal class RewriteCommand
+    internal class RewriteCommand : CommandBase
     {
         private readonly IFileSystem _fileSystem;
 
@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 rewriteOptions = ValidateOptions(rewriteOptions);
                 
-                SarifLog actualLog = FileHelpers.ReadSarifFile<SarifLog>(_fileSystem, rewriteOptions.InputFilePath);
+                SarifLog actualLog = ReadSarifFile<SarifLog>(_fileSystem, rewriteOptions.InputFilePath);
 
                 OptionallyEmittedData dataToInsert = rewriteOptions.DataToInsert.ToFlags();
                 IDictionary<string, ArtifactLocation> originalUriBaseIds = rewriteOptions.ConstructUriBaseIdsDictionary();
@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     ? Formatting.Indented
                     : Formatting.None;
 
-                FileHelpers.WriteSarifFile(_fileSystem, reformattedLog, fileName, formatting);
+                WriteSarifFile(_fileSystem, reformattedLog, fileName, formatting);
             }
             catch(Exception ex)
             {
