@@ -64,12 +64,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!Message.ValueComparer.Equals(left.ShortDescription, right.ShortDescription))
+            if (!MultiformatMessageString.ValueComparer.Equals(left.ShortDescription, right.ShortDescription))
             {
                 return false;
             }
 
-            if (!Message.ValueComparer.Equals(left.FullDescription, right.FullDescription))
+            if (!MultiformatMessageString.ValueComparer.Equals(left.FullDescription, right.FullDescription))
             {
                 return false;
             }

@@ -64,13 +64,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A concise description of the report. Should be a single sentence that is understandable when visible space is limited to a single line of text.
         /// </summary>
         [DataMember(Name = "shortDescription", IsRequired = false, EmitDefaultValue = false)]
-        public virtual Message ShortDescription { get; set; }
+        public virtual MultiformatMessageString ShortDescription { get; set; }
 
         /// <summary>
         /// A description of the report. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.
         /// </summary>
         [DataMember(Name = "fullDescription", IsRequired = false, EmitDefaultValue = false)]
-        public virtual Message FullDescription { get; set; }
+        public virtual MultiformatMessageString FullDescription { get; set; }
 
         /// <summary>
         /// A set of name/value pairs with arbitrary names. The value within each name/value pair consists of plain text interspersed with placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.
@@ -163,9 +163,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ReportingDescriptor(string id, string guid, IEnumerable<string> deprecatedIds, string name, Message shortDescription, Message fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, Message help, IEnumerable<ReportingDescriptorReference> taxonomyReferences, IEnumerable<ReportingDescriptorReference> optionalTaxonomyReferences, IDictionary<string, SerializedPropertyInfo> properties)
+        public ReportingDescriptor(string id, string guid, string name, IEnumerable<string> deprecatedIds, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, Message help, IEnumerable<ReportingDescriptorReference> taxonomyReferences, IEnumerable<ReportingDescriptorReference> optionalTaxonomyReferences, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, guid, deprecatedIds, name, shortDescription, fullDescription, messageStrings, defaultConfiguration, helpUri, help, taxonomyReferences, optionalTaxonomyReferences, properties);
+            Init(id, guid, name, deprecatedIds, shortDescription, fullDescription, messageStrings, defaultConfiguration, helpUri, help, taxonomyReferences, optionalTaxonomyReferences, properties);
         }
 
         /// <summary>
@@ -205,10 +205,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ReportingDescriptor(this);
         }
 
-        private void Init(string id, string guid, IEnumerable<string> deprecatedIds, string name, Message shortDescription, Message fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, Message help, IEnumerable<ReportingDescriptorReference> taxonomyReferences, IEnumerable<ReportingDescriptorReference> optionalTaxonomyReferences, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string id, string guid, string name, IEnumerable<string> deprecatedIds, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, Message help, IEnumerable<ReportingDescriptorReference> taxonomyReferences, IEnumerable<ReportingDescriptorReference> optionalTaxonomyReferences, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             Guid = guid;
+            Name = name;
             if (deprecatedIds != null)
             {
                 var destination_0 = new List<string>();
@@ -220,15 +221,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                 DeprecatedIds = destination_0;
             }
 
-            Name = name;
             if (shortDescription != null)
             {
-                ShortDescription = new Message(shortDescription);
+                ShortDescription = new MultiformatMessageString(shortDescription);
             }
 
             if (fullDescription != null)
             {
-                FullDescription = new Message(fullDescription);
+                FullDescription = new MultiformatMessageString(fullDescription);
             }
 
             if (messageStrings != null)

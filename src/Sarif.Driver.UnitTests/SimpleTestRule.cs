@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         public override string Id => "TEST002";
 
-        public override Message FullDescription { get { return new Message { Text = String.Empty }; } }
+        public override MultiformatMessageString FullDescription { get { return new MultiformatMessageString { Text = String.Empty }; } }
 
         public override void Analyze(TestAnalysisContext context)
         {

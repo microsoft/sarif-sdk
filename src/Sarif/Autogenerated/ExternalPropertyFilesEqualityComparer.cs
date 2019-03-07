@@ -119,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_3 = 0; index_3 < left.ThreadFlowLocations.Count; ++index_3)
                 {
-                    if (!ThreadFlowLocation.ValueComparer.Equals(left.ThreadFlowLocations[index_3], right.ThreadFlowLocations[index_3]))
+                    if (!ExternalPropertyFile.ValueComparer.Equals(left.ThreadFlowLocations[index_3], right.ThreadFlowLocations[index_3]))
                     {
                         return false;
                     }
@@ -162,6 +162,27 @@ namespace Microsoft.CodeAnalysis.Sarif
                 for (int index_5 = 0; index_5 < left.Taxonomies.Count; ++index_5)
                 {
                     if (!ExternalPropertyFile.ValueComparer.Equals(left.Taxonomies[index_5], right.Taxonomies[index_5]))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            if (!object.ReferenceEquals(left.Addresses, right.Addresses))
+            {
+                if (left.Addresses == null || right.Addresses == null)
+                {
+                    return false;
+                }
+
+                if (left.Addresses.Count != right.Addresses.Count)
+                {
+                    return false;
+                }
+
+                for (int index_6 = 0; index_6 < left.Addresses.Count; ++index_6)
+                {
+                    if (!ExternalPropertyFile.ValueComparer.Equals(left.Addresses[index_6], right.Addresses[index_6]))
                     {
                         return false;
                     }
@@ -269,6 +290,18 @@ namespace Microsoft.CodeAnalysis.Sarif
                         if (value_5 != null)
                         {
                             result = (result * 31) + value_5.ValueGetHashCode();
+                        }
+                    }
+                }
+
+                if (obj.Addresses != null)
+                {
+                    foreach (var value_6 in obj.Addresses)
+                    {
+                        result = result * 31;
+                        if (value_6 != null)
+                        {
+                            result = (result * 31) + value_6.ValueGetHashCode();
                         }
                     }
                 }

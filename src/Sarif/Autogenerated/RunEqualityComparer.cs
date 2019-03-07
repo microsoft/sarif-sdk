@@ -311,21 +311,21 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!object.ReferenceEquals(left.Translation, right.Translation))
+            if (!object.ReferenceEquals(left.Addresses, right.Addresses))
             {
-                if (left.Translation == null || right.Translation == null)
+                if (left.Addresses == null || right.Addresses == null)
                 {
                     return false;
                 }
 
-                if (left.Translation.Count != right.Translation.Count)
+                if (left.Addresses.Count != right.Addresses.Count)
                 {
                     return false;
                 }
 
-                for (int index_9 = 0; index_9 < left.Translation.Count; ++index_9)
+                for (int index_9 = 0; index_9 < left.Addresses.Count; ++index_9)
                 {
-                    if (!Translation.ValueComparer.Equals(left.Translation[index_9], right.Translation[index_9]))
+                    if (!Address.ValueComparer.Equals(left.Addresses[index_9], right.Addresses[index_9]))
                     {
                         return false;
                     }
@@ -553,9 +553,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.Translation != null)
+                if (obj.Addresses != null)
                 {
-                    foreach (var value_17 in obj.Translation)
+                    foreach (var value_17 in obj.Addresses)
                     {
                         result = result * 31;
                         if (value_17 != null)

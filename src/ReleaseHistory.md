@@ -272,4 +272,6 @@
 * API BREAKING: Remove `invocation.attachments`, now replaced by `run.tool.extensions`. https://github.com/oasis-tcs/sarif-spec/issues/327
 * API BREAKING: Remove `tool.language` and localization support. https://github.com/oasis-tcs/sarif-spec/issues/325
 * API BREAKING: Rename `invocation.toolNotifications` and `invocation.configurationNotifications` to `toolExecutionNotifications` and `toolConfigurationNotifications`. https://github.com/oasis-tcs/sarif-spec/issues/330
+* API NON-BREAKING: Add additional properties to toolComponent. https://github.com/oasis-tcs/sarif-spec/issues/336
+* API BREAKING: Add address property to a location object (and other nodes). https://github.com/oasis-tcs/sarif-spec/issues/302
 * API NON-BREAKING: Introduce new localization mechanism. https://github.com/oasis-tcs/sarif-spec/issues/338

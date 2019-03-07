@@ -47,6 +47,42 @@
 
     "definitions": {
 
+        "address": {
+            "description": "The effective address of a reported issue.",
+            "additionalProperties": false,
+            "type": "object",
+            "properties": {
+                "baseAddress": {
+                    "description": "A base address rendered as a hexadecimal string.",
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "kind": {
+                    "description": "An open-ended string that identifies the address kind. 'section' and 'segment' are well-known values.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "A name that is associated with the address, e.g., '.text'.",
+                    "type": "string"
+                },
+                "offset": {
+                    "description": "an offset from the base address, if present, rendered as a hexadecimal string.",
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "index": {
+                    "description": "An index into run.addresses used to retrieve a cached instance to represent the address.",
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "parentIndex": {
+                    "description": "An index into run.addresses to retrieve a parent address. The parent can provide a base address (from which the current offset value is relevant) and other details.",
+                    "type": "integer",
+                    "minimum": 0
+                }
+            }
+        },
+
         "artifact": {
             "description": "A single artifact. In some cases, this artifact might be nested within another artifact.",
             "additionalProperties": false,
@@ -529,16 +565,16 @@
                     }
                 },
 
-                "threadFlowLocations": {
-                    "description": "An array of external property files containing run.threadFlowLocations arrays to be merged with the root log file.",
-                    "type": "array",
-                    "minItems": 0,
-                    "uniqueItems": true,
-                    "default": [],
-                    "items": {
-                        "$ref": "#/definitions/threadFlowLocation"
-                    }
-                },
+        "threadFlowLocations": {
+          "description": "An array of external property files containing run.threadFlowLocations arrays to be merged with the root log file.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/externalPropertyFile"
+          }
+        },
 
                 "results": {
                     "description": "An array of external property files containing run.results arrays to be merged with the root log file.",
@@ -555,6 +591,17 @@
                     "type": "array",
                     "minItems": 1,
                     "uniqueItems": true,
+                    "items": {
+                        "$ref": "#/definitions/externalPropertyFile"
+                    }
+                },
+
+                "addresses": {
+                    "description": "An array of external property files containing run.addresses arrays to be merged with the root log file.",
+                    "type": "array",
+                    "minItems": 0,
+                    "uniqueItems": false,
+                    "default": [],
                     "items": {
                         "$ref": "#/definitions/externalPropertyFile"
                     }
@@ -857,6 +904,11 @@
             "additionalProperties": false,
             "type": "object",
             "properties": {
+
+                "address": {
+                    "description": "The address of the location.",
+                    "$ref": "#/definitions/address"
+                },
 
                 "physicalLocation": {
                     "description": "Identifies the artifact and region.",
@@ -1333,15 +1385,15 @@
                     "type": "string"
                 },
 
-                "shortDescription": {
-                    "description": "A concise description of the report. Should be a single sentence that is understandable when visible space is limited to a single line of text.",
-                    "$ref": "#/definitions/message"
-                },
+        "shortDescription": {
+          "description": "A concise description of the report. Should be a single sentence that is understandable when visible space is limited to a single line of text.",
+          "$ref": "#/definitions/multiformatMessageString"
+        },
 
-                "fullDescription": {
-                    "description": "A description of the report. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.",
-                    "$ref": "#/definitions/message"
-                },
+        "fullDescription": {
+          "description": "A description of the report. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.",
+          "$ref": "#/definitions/multiformatMessageString"
+        },
 
                 "messageStrings": {
                     "description": "A set of name/value pairs with arbitrary names. Each value is a multiformatMessageString object, which holds message strings in plain text and (optionally) Markdown format. The strings can include placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.",
@@ -1993,6 +2045,17 @@
                     }
                 },
 
+                "addresses": {
+                    "description": "Addresses associated with this run instance, if any.",
+                    "type": "array",
+                    "minItems": 0,
+                    "uniqueItems": false,
+                    "default": [],
+                    "items": {
+                        "$ref": "#/definitions/address"
+                    }
+                },
+
                 "translation": {
                     "description": "The set of available translations of the localized data provided by the tool.",
                     "type": "array",
@@ -2098,12 +2161,7 @@
 
                 "address": {
                     "description": "The address of the method or function that is executing.",
-                    "type": "integer"
-                },
-
-                "offset": {
-                    "description": "The offset from the method or function that is executing.",
-                    "type": "integer"
+                    "$ref": "#/definitions/address"
                 },
 
                 "parameters": {
@@ -2264,11 +2322,11 @@
             "required": [ "driver" ]
         },
 
-    "toolComponent": {
-      "description": "A component, such as a plug-in or the default driver, of the analysis tool that was run.",
-      "additionalProperties": false,
-      "type": "object",
-        "properties": {
+        "toolComponent": {
+            "description": "A component, such as a plug-in or the driver, of the analysis tool that was run.",
+            "additionalProperties": false,
+            "type": "object",
+            "properties": {
 
             "guid": {
                 "description": "A unique identifer for the tool component in the form of a GUID.",
@@ -2280,99 +2338,99 @@
                 "type": "string"
             },
 
-            "organization": {
-                "description": "The organization or company that produced the tool.",
-                "type": "string"
-            },
+                "organization": {
+                    "description": "The organization or company that produced the tool component.",
+                    "type": "string"
+                },
 
-            "product": {
-                "description": "A product suite to which the tool belongs.",
-                "type": "string"
-            },
+                "product": {
+                    "description": "A product suite to which the tool component belongs.",
+                    "type": "string"
+                },
 
-            "shortDescription": {
-                "description": "A brief description of the tool.",
-                "$ref": "#/definitions/multiformatMessageString"
-            },
-
-            "fullDescription": {
-                "description": "A comprehensive description of the tool.",
-                "$ref": "#/definitions/multiformatMessageString"
-            },
-
-            "fullName": {
-                "description": "The name of the component along with its version and any other useful identifying information, such as its locale.",
-                "type": "string"
-            },
-
-            "version": {
-                "description": "The component version, in whatever format the component natively provides.",
-                "type": "string"
-            },
-
-            "semanticVersion": {
-                "description": "The component version in the format specified by Semantic Versioning 2.0.",
-                "type": "string"
-            },
-
-            "dottedQuadFileVersion": {
-                "description": "The binary version of the component's primary executable file expressed as four non-negative integers separated by a period (for operating systems that express file versions in this way).",
-                "type": "string",
-                "pattern": "[0-9]+(\\.[0-9]+){3}"
-            },
-
-            "downloadUri": {
-                "description": "The absolute URI from which the component can be downloaded.",
-                "type": "string",
-                "format": "uri"
-            },
-
-            "globalMessageStrings": {
-                "description": "A dictionary, each of whose keys is a message identifier and each of whose values is a multiformatMessageString object, which holds message strings in plain text and (optionally) Markdown format. The strings can include placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.",
-                "type": "object",
-                "additionalProperties": {
+                "shortDescription": {
+                    "description": "A brief description of the tool component.",
                     "$ref": "#/definitions/multiformatMessageString"
+                },
+
+                "fullDescription": {
+                    "description": "A comprehensive description of the tool component.",
+                    "$ref": "#/definitions/multiformatMessageString"
+                },
+
+                "fullName": {
+                    "description": "The name of the tool component along with its version and any other useful identifying information, such as its locale.",
+                    "type": "string"
+                },
+
+                "version": {
+                    "description": "The tool component version, in whatever format the component natively provides.",
+                    "type": "string"
+                },
+
+                "semanticVersion": {
+                    "description": "The tool component version in the format specified by Semantic Versioning 2.0.",
+                    "type": "string"
+                },
+
+                "dottedQuadFileVersion": {
+                    "description": "The binary version of the tool component's primary executable file expressed as four non-negative integers separated by a period (for operating systems that express file versions in this way).",
+                    "type": "string",
+                    "pattern": "[0-9]+(\\.[0-9]+){3}"
+                },
+
+                "downloadUri": {
+                    "description": "The absolute URI from which the tool component can be downloaded.",
+                    "type": "string",
+                    "format": "uri"
+                },
+
+                "globalMessageStrings": {
+                    "description": "A dictionary, each of whose keys is a resource identifier and each of whose values is a multiformatMessageString object, which holds message strings in plain text and (optionally) Markdown format. The strings can include placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.",
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/multiformatMessageString"
+                    }
+                },
+
+                "notificationDescriptors": {
+                    "description": "An array of reportDescriptor objects relevant to the notifications related to the configuration and runtime execution of the tool component.",
+                    "type": "array",
+                    "minItems": 0,
+                    "uniqueItems": true,
+                    "default": [],
+                    "items": {
+                        "$ref": "#/definitions/reportingDescriptor"
+                    }
+                },
+
+                "ruleDescriptors": {
+                    "description": "An array of reportDescriptor objects relevant to the analysis performed by the tool component.",
+                    "type": "array",
+                    "minItems": 0,
+                    "uniqueItems": true,
+                    "default": [],
+                    "items": {
+                        "$ref": "#/definitions/reportingDescriptor"
+                    }
+                },
+
+                "artifactIndices": {
+                    "description": "The indices within the run artifacts array of the artifact objects associated with the tool component.",
+                    "type": "array",
+                    "minItems": 0,
+                    "uniqueItems": true,
+                    "default": [],
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+
+                "properties": {
+                    "description": "Key/value pairs that provide additional information about the tool component.",
+                    "$ref": "#/definitions/propertyBag"
                 }
             },
-
-            "notificationDescriptors": {
-                "description": "An array of reportingDescriptor objects relevant to the notifications related to the configuration and runtime execution of the component.",
-                "type": "array",
-                "minItems": 0,
-                "uniqueItems": true,
-                "default": [],
-                "items": {
-                    "$ref": "#/definitions/reportingDescriptor"
-                }
-            },
-
-            "ruleDescriptors": {
-                "description": "An array of reportingDescriptor objects relevant to the analysis performed by the component.",
-                "type": "array",
-                "minItems": 0,
-                "uniqueItems": true,
-                "default": [],
-                "items": {
-                    "$ref": "#/definitions/reportingDescriptor"
-                }
-            },
-
-            "artifactIndices": {
-                "description": "The indices within the run artifacts array of the artifact objects associated with the component.",
-                "type": "array",
-                "minItems": 0,
-                "uniqueItems": true,
-                "default": [],
-                "items": {
-                    "type": "integer"
-                }
-            },
-
-            "properties": {
-                "description": "Key/value pairs that provide additional information about the component.",
-                "$ref": "#/definitions/propertyBag"
-            }
-        },
 
             "required": [ "name" ]
         },

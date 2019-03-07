@@ -632,12 +632,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 if (AtStartOfNonEmpty(_strings.Abstract))
                 {
                     string content = _reader.ReadElementContentAsString();
-                    rule.ShortDescription = new Message { Text = FortifyUtilities.ParseFormattedContentText(content) };
+                    rule.ShortDescription = new MultiformatMessageString { Text = FortifyUtilities.ParseFormattedContentText(content) };
                 }
                 else if (AtStartOfNonEmpty(_strings.Explanation))
                 {
                     string content = _reader.ReadElementContentAsString();
-                    rule.FullDescription = new Message { Text = FortifyUtilities.ParseFormattedContentText(content) };
+                    rule.FullDescription = new MultiformatMessageString { Text = FortifyUtilities.ParseFormattedContentText(content) };
                 }
                 else if (AtStartOfNonEmpty(_strings.CustomDescription))
                 {
@@ -912,11 +912,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 result.RuleIndex = ruleIndex;
 
                 ReportingDescriptor rule = _rules[ruleIndex];
-                Message message = rule.ShortDescription ?? rule.FullDescription;
+                Message message = new Message();
 
                 if (_resultToReplacementDefinitionDictionary.TryGetValue(result, out Dictionary<string, string> replacements))
                 {
-                    string messageText = message?.Text;
+                    string messageText = (rule.ShortDescription ?? rule.FullDescription)?.Text;
                     foreach (string key in replacements.Keys)
                     {
                         string value = replacements[key];
@@ -933,8 +933,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             messageText = messageText.Replace(string.Format(ReplacementTokenFormat, key), value);
                         }
                     }
-
-                    message = message.DeepClone();
                     message.Text = messageText;
                 }
                 result.Message = message;
