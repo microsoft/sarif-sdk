@@ -96,9 +96,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         [Fact]
-        public void PrereleaseCompatibilityTransformer_WithExternalPropertyFiles()
+        public void PrereleaseCompatibilityTransformer_WithExternalPropertyFiles_01_24()
         {
-            RunTest("WithExternalPropertyFiles.sarif");
+            RunTest("WithExternalPropertyFiles.01-24.sarif");
         }
     }
 }
