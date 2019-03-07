@@ -597,13 +597,13 @@
                 },
 
                 "addresses": {
-                    "description": "The addresses associated with external property files, if any.",
+                    "description": "An array of external property files containing run.addresses arrays to be merged with the root log file.",
                     "type": "array",
                     "minItems": 0,
                     "uniqueItems": false,
                     "default": [],
                     "items": {
-                        "$ref": "#/definitions/address"
+                        "$ref": "#/definitions/externalPropertyFile"
                     }
                 },
 
@@ -2000,7 +2000,7 @@
                 },
 
                 "addresses": {
-                    "description": "The addresses associated with this run instance, if any.",
+                    "description": "Addresses associated with this run instance, if any.",
                     "type": "array",
                     "minItems": 0,
                     "uniqueItems": false,

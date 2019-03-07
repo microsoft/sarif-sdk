@@ -182,7 +182,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_6 = 0; index_6 < left.Addresses.Count; ++index_6)
                 {
-                    if (!Address.ValueComparer.Equals(left.Addresses[index_6], right.Addresses[index_6]))
+                    if (!ExternalPropertyFile.ValueComparer.Equals(left.Addresses[index_6], right.Addresses[index_6]))
                     {
                         return false;
                     }
