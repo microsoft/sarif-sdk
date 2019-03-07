@@ -39,9 +39,12 @@ module.exports = function (results, data) {
         $schema: "http://json.schemastore.org/sarif-2.0.0",
         runs: [
             {
-                files: [],
+                artifacts: [],
                 tool: {
-                    name: "ESLint"
+                    driver: {
+                        name: "ESLint",
+                        downloadUri: "https://eslint.org"
+                    }
                 }
             }
         ]
@@ -151,13 +154,11 @@ module.exports = function (results, data) {
             }
 
             sarifResults.push(sarifResult);
-
         });
-
     });
 
     Object.keys(sarifFiles).forEach(function (path) {
-        sarifLog.runs[0].files.push(sarifFiles[path]);
+        sarifLog.runs[0].artifacts.push(sarifFiles[path]);
     });
 
     if (sarifResults.length > 0) {
@@ -165,9 +166,16 @@ module.exports = function (results, data) {
     }
 
     if (Object.keys(sarifRules).length > 0) {
-        sarifLog.runs[0].resources = {
-            rules: sarifRules
+        sarifLog.runs[0].tool.driver = {
+            ruleDescriptors: []
         };
+
+        var ruleIndex = 0;
+        Object.keys(sarifRules).forEach(function (ruleId) {
+            var rule = sarifRules[ruleId];
+            rule.ruleIndex = ruleIndex++;
+            sarifLog.runs[0].tool.driver.ruleDescriptors.push(rule);
+        });
     }
 
     return JSON.stringify(sarifLog,

@@ -36,9 +36,12 @@ module.exports = function(results) {
         $schema: "http://json.schemastore.org/sarif-2.0.0",
         runs: [
             {
-                files: [],
+                artifacts: [],
                 tool: {
-                    name: "ESLint"
+                    driver: {
+                        name: "ESLint",
+                        downloadUri: "https://eslint.org"
+                    }
                 }
             }
         ]
@@ -127,13 +130,11 @@ module.exports = function(results) {
             }
 
             sarifResults.push(sarifResult);
-
         });
-
     });
 
     Object.keys(sarifFiles).forEach(function (path) {
-        sarifLog.runs[0].files.push(sarifFiles[path]);
+        sarifLog.runs[0].artifacts.push(sarifFiles[path]);
     });
 
     if (sarifResults.length > 0) {
