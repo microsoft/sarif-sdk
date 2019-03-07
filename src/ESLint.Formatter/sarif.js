@@ -30,7 +30,14 @@ function getResultLevel(message) {
 // Public Interface
 //------------------------------------------------------------------------------
 
-module.exports = function(results) {
+module.exports = function (results) {
+    let version;
+
+    try {
+        const pkg = require("../../package.json");
+        version = pkg.version;
+    } catch { }
+
     const sarifLog = {
         version: "2.0.0",
         $schema: "http://json.schemastore.org/sarif-2.0.0",
@@ -40,7 +47,8 @@ module.exports = function(results) {
                 tool: {
                     driver: {
                         name: "ESLint",
-                        downloadUri: "https://eslint.org"
+                        downloadUri: "https://eslint.org",
+                        version: version
                     }
                 }
             }
@@ -59,7 +67,7 @@ module.exports = function(results) {
 
             // Create a new entry in the files dictionary.
             sarifFiles[result.filePath] = {
-                fileLocation: {
+                location: {
                     uri: result.filePath
                 }
             };
@@ -101,7 +109,7 @@ module.exports = function(results) {
                 locations: [
                     {
                         physicalLocation: {
-                            fileLocation: {
+                            artifactLocation: {
                                 uri: result.filePath
                             }
                         }
