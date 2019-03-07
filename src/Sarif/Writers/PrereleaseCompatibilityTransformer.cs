@@ -127,7 +127,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     // https://github.com/oasis-tcs/sarif-spec/issues/330
                     RemoveToolLanguage(run);
-                    ConvertAllReportingDescriptorNamesToString(run);
+                    UpdateAllReportingDescriptorPropertyTypes(run);
                     ConvertAllExceptionMessagesToStringAndRenameToolNotificationNodes(run);
 
                     // https://github.com/oasis-tcs/sarif-spec/issues/325
@@ -135,10 +135,143 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                     // https://github.com/oasis-tcs/sarif-spec/issues/336
                     UpdateAllToolComponentProperties(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/302
+                    ConvertAllStackFrameAddressesToAddressObjects(run);
                 }
             }
             return true;
         }
+
+        private static void ConvertAllStackFrameAddressesToAddressObjects(JObject run)
+        {
+            // We need to remove StackFrame.Address (int) and StackFrame.Offset (int) and transfer those
+            // to a single Address object with properties "BaseAddress" and "Offset".
+
+            // Previously:
+            //      "stackFrame" : {
+            //          "address" : 324 ,
+            //          "offset" : 346
+            //      }
+            // Now:
+            //      "stackFrame" : {
+            //          "address" : {
+            //              "baseAddress" : 324,
+            //              "offset" : 346
+            //          }
+            //      }
+
+            // The code walks through all possible paths to Stackframe node and performs updates.
+
+            if (run["conversion"] is JObject conversion && conversion["invocation"] is JObject invocation)
+            {
+                ConvertInvocationStackFrameAddressesToAddressObjects(invocation);
+            }
+
+            if (run["invocations"] is JArray invocations)
+            {
+                foreach (JObject item in invocations)
+                {
+                    ConvertInvocationStackFrameAddressesToAddressObjects(item);
+                }
+            }
+
+            if (run["results"] is JArray results)
+            {
+                foreach (JObject result in results)
+                {
+                    if (result["stacks"] is JArray stacks)
+                    {
+                        foreach (JObject item in stacks)
+                        {
+                            ConvertStackFrameAddressesToAddressObjects(item);
+                        }
+                    }
+
+                    if (result["codeflows"] is JArray codeflows)
+                    {
+                        foreach (JObject codeflow in codeflows)
+                        {
+                            if (codeflow["threadflow"] is JObject threadflow &&
+                                threadflow["threadflowLocation"] is JObject threadflowLocation &&
+                                threadflowLocation["Stack"] is JObject stack)
+                            {
+                                ConvertStackFrameAddressesToAddressObjects(stack);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private static void ConvertInvocationStackFrameAddressesToAddressObjects(JObject item)
+        {
+            if (item["toolExecutionNotifications"] is JArray toolExecutionNotifications)
+            {
+                ConvertNotificationsStackFrameAddressesToAddressObjects(toolExecutionNotifications);
+            }
+
+            if (item["toolConfigurationNotifications"] is JArray toolConfigurationNotifications)
+            {
+                ConvertNotificationsStackFrameAddressesToAddressObjects(toolConfigurationNotifications);
+            }
+        }
+
+        private static void ConvertNotificationsStackFrameAddressesToAddressObjects(JArray notifications)
+        {
+            foreach (JObject notification in notifications)
+            {
+                if (notification["exception"] is JObject exception)
+                {
+                    ConvertExceptionStackFrameAddressesToAddressObjects(exception);
+                }
+            }
+        }
+
+        private static void ConvertExceptionStackFrameAddressesToAddressObjects(JObject exception)
+        {
+            if (exception["stack"] is JObject stack)
+            {
+                ConvertStackFrameAddressesToAddressObjects(stack);
+            }
+
+            if (exception["innerExceptions"] is JArray innerExceptions)
+            {
+                foreach (JObject innerException in innerExceptions)
+                {
+                    ConvertExceptionStackFrameAddressesToAddressObjects(innerException);
+                }
+            }
+        }
+
+        private static void ConvertStackFrameAddressesToAddressObjects(JObject stack)
+        {
+            if (stack["frames"] is JArray frames)
+            {
+                foreach (JObject stackFrame in frames)
+                {
+                    var address = new JObject();
+
+                    if (stackFrame["address"] is JToken stackFrameAddress)
+                    {
+                        address.Add("baseAddress", stackFrameAddress);
+                        stackFrame.Remove("address");
+                    }
+
+                    if (stackFrame["offset"] is JToken stackFrameOffset)
+                    {
+                        address.Add("offset", stackFrameOffset);
+                        stackFrame.Remove("offset");
+                    }
+
+                    if (address.Count > 0)
+                    {
+                        stackFrame.Add("address", address);
+                    }
+                }
+            }
+        }
+
 
         private static void UpdateAllToolComponentProperties(JObject run)
         {
@@ -297,9 +430,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        private static void ConvertNotificationExceptionMessagesToString(JArray Notifications)
+        private static void ConvertNotificationExceptionMessagesToString(JArray notifications)
         {
-            foreach (JObject notification in Notifications)
+            foreach (JObject notification in notifications)
             {
                 if (notification["exception"] is JObject exception)
                 {
@@ -333,26 +466,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        private static void ConvertAllReportingDescriptorNamesToString(JObject run)
+        private static void UpdateAllReportingDescriptorPropertyTypes(JObject run)
         {
             // Access and modify run.tool
             JObject tool = (JObject)run["tool"];
-            ConvertToolReportingDescriptorNamesToString(tool);
+            UpdateToolReportingDescriptorPropertyTypes(tool);
 
             // Access and modify run.conversion.tool
             if (run["conversion"] is JObject conversion)
             {
                 tool = (JObject)conversion["tool"];
-                ConvertToolReportingDescriptorNamesToString(tool);
+                UpdateToolReportingDescriptorPropertyTypes(tool);
             }
         }
 
-        private static void ConvertToolReportingDescriptorNamesToString(JObject tool)
+        private static void UpdateToolReportingDescriptorPropertyTypes(JObject tool)
         {
             // Access and modify tool.driver
             if (tool["driver"] is JObject driver)
             {
-                ConvertToolComponentReportingDescriptorNamesToString(driver);
+                UpdateToolComponentReportingDescriptorPropertyTypes(driver);
             }
 
             // Access and modify each item in tool.extensions
@@ -360,33 +493,65 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 foreach (JObject toolComponent in extensions)
                 {
-                    ConvertToolComponentReportingDescriptorNamesToString(toolComponent);
+                    UpdateToolComponentReportingDescriptorPropertyTypes(toolComponent);
                 }
             }
         }
 
-        private static void ConvertToolComponentReportingDescriptorNamesToString(JObject toolComponent)
+        private static void UpdateToolComponentReportingDescriptorPropertyTypes(JObject toolComponent)
         {
             // Access and modify toolComponent.notificationDescriptors
             if (toolComponent["notificationDescriptors"] is JArray notificationDescriptors)
             {
-                ConvertReportingDescriptorNamesToString(notificationDescriptors);
+                UpdateReportingDescriptorPropertyTypes(notificationDescriptors);
             }
 
             // Access and modify toolComponent.ruleDescriptors
             if (toolComponent["ruleDescriptors"] is JArray ruleDescriptors)
             {
-                ConvertReportingDescriptorNamesToString(ruleDescriptors);
+                UpdateReportingDescriptorPropertyTypes(ruleDescriptors);
             }
         }
 
-        private static void ConvertReportingDescriptorNamesToString(JArray reportingDescriptors)
+        private static void UpdateReportingDescriptorPropertyTypes(JArray reportingDescriptors)
         {
             foreach (JObject reportingDescriptor in reportingDescriptors)
             {
                 if (reportingDescriptor["name"] is JObject message && message["text"] is JToken text)
                 {
                     reportingDescriptor["name"] = text;
+                }
+
+                if (reportingDescriptor["shortDescription"] is JObject message2)
+                {
+                    // We must convert this JObject from type "Message" to "MultiformatMessageString".
+                    // Both Objects have common JTokens "text" and "markdown" which do not need modification.
+                    // Hence, we only need to strip out additional properties that Message object may have (messageId and arguments).
+                    if (message2["messageId"] is JToken)
+                    {
+                        message2.Remove("messageId");
+                    }
+
+                    if (message2["arguments"] is JArray)
+                    {
+                        message2.Remove("arguments");
+                    }
+                }
+
+                if (reportingDescriptor["fullDescription"] is JObject message3)
+                {
+                    // We must convert this JObject from type "Message" to "MultiformatMessageString".
+                    // Both Objects have common JTokens "text" and "markdown" which do not need modification.
+                    // Hence, we only need to strip out additional properties that Message object may have (messageId and arguments).
+                    if (message3["messageId"] is JToken)
+                    {
+                        message3.Remove("messageId");
+                    }
+
+                    if (message3["arguments"] is JArray)
+                    {
+                        message3.Remove("arguments");
+                    }
                 }
             }
         }

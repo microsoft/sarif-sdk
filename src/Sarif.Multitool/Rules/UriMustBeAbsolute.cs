@@ -10,12 +10,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class UriMustBeAbsolute : SarifValidationSkimmerBase
     {
-        private readonly Message _fullDescription = new Message
+        private readonly MultiformatMessageString _fullDescription = new MultiformatMessageString
         {
             Text = RuleResources.SARIF1015_UriMustBeAbsolute
         };
 
-        public override Message FullDescription => _fullDescription;
+        public override MultiformatMessageString FullDescription => _fullDescription;
 
         public override FailureLevel DefaultLevel => FailureLevel.Error;
 

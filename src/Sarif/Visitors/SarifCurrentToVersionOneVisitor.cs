@@ -1131,9 +1131,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 stackFrame = new StackFrameVersionOne
                 {
-                    Address = v2StackFrame.Address,
+                    Address = v2StackFrame.Address.BaseAddress,
                     Module = v2StackFrame.Module,
-                    Offset = v2StackFrame.Offset,
+                    Offset = v2StackFrame.Address.Offset,
                     Parameters = v2StackFrame.Parameters,
                     Properties = v2StackFrame.Properties,
                     ThreadId = v2StackFrame.ThreadId

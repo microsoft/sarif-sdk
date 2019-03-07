@@ -61,7 +61,7 @@ namespace Sarif.Sdk.Sample
                 {
                     Id ="CA1819",
                     Name = "Properties should not return arrays",
-                    FullDescription = new Message { Text = "Arrays returned by properties are not write-protected, even if the property is read-only. To keep the array tamper-proof, the property must return a copy of the array. Typically, users will not understand the adverse performance implications of calling such a property." },
+                    FullDescription = new MultiformatMessageString { Text = "Arrays returned by properties are not write-protected, even if the property is read-only. To keep the array tamper-proof, the property must return a copy of the array. Typically, users will not understand the adverse performance implications of calling such a property." },
                     MessageStrings = new Dictionary<string, MultiformatMessageString>
                     {
                         {
@@ -77,7 +77,7 @@ namespace Sarif.Sdk.Sample
                 {
                     Id ="CA1820",
                     Name = "Test for empty strings using string length",
-                    FullDescription = new Message { Text = "Comparing strings by using the String.Length property or the String.IsNullOrEmpty method is significantly faster than using Equals." },
+                    FullDescription = new MultiformatMessageString { Text = "Comparing strings by using the String.Length property or the String.IsNullOrEmpty method is significantly faster than using Equals." },
                     MessageStrings = new Dictionary<string, MultiformatMessageString>
                     {
                         {
@@ -93,7 +93,7 @@ namespace Sarif.Sdk.Sample
                 {
                     Id ="CA2105",
                     Name = "Array fields should not be read only",
-                    FullDescription = new Message { Text = "When you apply the read-only (ReadOnly in Visual Basic) modifier to a field that contains an array, the field cannot be changed to reference a different array. However, the elements of the array stored in a read-only field can be changed." },
+                    FullDescription = new MultiformatMessageString { Text = "When you apply the read-only (ReadOnly in Visual Basic) modifier to a field that contains an array, the field cannot be changed to reference a different array. However, the elements of the array stored in a read-only field can be changed." },
                     MessageStrings = new Dictionary<string, MultiformatMessageString>
                     {
                         {
@@ -109,7 +109,7 @@ namespace Sarif.Sdk.Sample
                 {
                     Id ="CA2215",
                     Name = "Dispose methods should call base class dispose",
-                    FullDescription = new Message { Text = "If a type inherits from a disposable type, it must call the Dispose method of the base type from its own Dispose method." },
+                    FullDescription = new MultiformatMessageString { Text = "If a type inherits from a disposable type, it must call the Dispose method of the base type from its own Dispose method." },
                     MessageStrings = new Dictionary<string, MultiformatMessageString>
                     {
                         {

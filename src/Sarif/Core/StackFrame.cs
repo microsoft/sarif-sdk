@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (ilOffset != -1)
             {
-                stackFrame.Offset = ilOffset;
+                stackFrame.Address.Offset = ilOffset;
             }
 
             if (nativeOffset != -1)
