@@ -133,10 +133,143 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                     // https://github.com/oasis-tcs/sarif-spec/issues/336
                     UpdateAllToolComponentProperties(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/302
+                    ConvertAllStackFrameAddressesToAddressObjects(run);
                 }
             }
             return true;
         }
+
+        private static void ConvertAllStackFrameAddressesToAddressObjects(JObject run)
+        {
+            // We need to remove StackFrame.Address (int) and StackFrame.Offset (int) and transfer those
+            // to a single Address object with properties "BaseAddress" and "Offset".
+
+            // Previously:
+            //      "stackFrame" : {
+            //          "address" : 324 ,
+            //          "offset" : 346
+            //      }
+            // Now:
+            //      "stackFrame" : {
+            //          "address" : {
+            //              "baseAddress" : 324,
+            //              "offset" : 346
+            //          }
+            //      }
+
+            // The code walks through all possible paths to Stackframe node and performs updates.
+
+            if (run["conversion"] is JObject conversion && conversion["invocation"] is JObject invocation)
+            {
+                ConvertInvocationStackFrameAddressesToAddressObjects(invocation);
+            }
+
+            if (run["invocations"] is JArray invocations)
+            {
+                foreach (JObject item in invocations)
+                {
+                    ConvertInvocationStackFrameAddressesToAddressObjects(item);
+                }
+            }
+
+            if (run["results"] is JArray results)
+            {
+                foreach (JObject result in results)
+                {
+                    if (result["stacks"] is JArray stacks)
+                    {
+                        foreach (JObject item in stacks)
+                        {
+                            ConvertStackFrameAddressesToAddressObjects(item);
+                        }
+                    }
+
+                    if (result["codeflows"] is JArray codeflows)
+                    {
+                        foreach (JObject codeflow in codeflows)
+                        {
+                            if (codeflow["threadflow"] is JObject threadflow &&
+                                threadflow["threadflowLocation"] is JObject threadflowLocation &&
+                                threadflowLocation["Stack"] is JObject stack)
+                            {
+                                ConvertStackFrameAddressesToAddressObjects(stack);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private static void ConvertInvocationStackFrameAddressesToAddressObjects(JObject item)
+        {
+            if (item["toolExecutionNotifications"] is JArray toolExecutionNotifications)
+            {
+                ConvertNotificationsStackFrameAddressesToAddressObjects(toolExecutionNotifications);
+            }
+
+            if (item["toolConfigurationNotifications"] is JArray toolConfigurationNotifications)
+            {
+                ConvertNotificationsStackFrameAddressesToAddressObjects(toolConfigurationNotifications);
+            }
+        }
+
+        private static void ConvertNotificationsStackFrameAddressesToAddressObjects(JArray notifications)
+        {
+            foreach (JObject notification in notifications)
+            {
+                if (notification["exception"] is JObject exception)
+                {
+                    ConvertExceptionStackFrameAddressesToAddressObjects(exception);
+                }
+            }
+        }
+
+        private static void ConvertExceptionStackFrameAddressesToAddressObjects(JObject exception)
+        {
+            if (exception["stack"] is JObject stack)
+            {
+                ConvertStackFrameAddressesToAddressObjects(stack);
+            }
+
+            if (exception["innerExceptions"] is JArray innerExceptions)
+            {
+                foreach (JObject innerException in innerExceptions)
+                {
+                    ConvertExceptionStackFrameAddressesToAddressObjects(innerException);
+                }
+            }
+        }
+
+        private static void ConvertStackFrameAddressesToAddressObjects(JObject stack)
+        {
+            if (stack["frames"] is JArray frames)
+            {
+                foreach (JObject stackFrame in frames)
+                {
+                    var address = new JObject();
+
+                    if (stackFrame["address"] is JToken stackFrameAddress)
+                    {
+                        address.Add("baseAddress", stackFrameAddress);
+                        stackFrame.Remove("address");
+                    }
+
+                    if (stackFrame["offset"] is JToken stackFrameOffset)
+                    {
+                        address.Add("offset", stackFrameOffset);
+                        stackFrame.Remove("offset");
+                    }
+
+                    if (address.Count > 0)
+                    {
+                        stackFrame.Add("address", address);
+                    }
+                }
+            }
+        }
+
 
         private static void UpdateAllToolComponentProperties(JObject run)
         {
@@ -222,9 +355,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        private static void ConvertNotificationExceptionMessagesToString(JArray Notifications)
+        private static void ConvertNotificationExceptionMessagesToString(JArray notifications)
         {
-            foreach (JObject notification in Notifications)
+            foreach (JObject notification in notifications)
             {
                 if (notification["exception"] is JObject exception)
                 {
