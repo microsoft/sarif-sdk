@@ -565,16 +565,16 @@
                     }
                 },
 
-                "threadFlowLocations": {
-                    "description": "An array of external property files containing run.threadFlowLocations arrays to be merged with the root log file.",
-                    "type": "array",
-                    "minItems": 0,
-                    "uniqueItems": true,
-                    "default": [],
-                    "items": {
-                        "$ref": "#/definitions/threadFlowLocation"
-                    }
-                },
+        "threadFlowLocations": {
+          "description": "An array of external property files containing run.threadFlowLocations arrays to be merged with the root log file.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/externalPropertyFile"
+          }
+        },
 
                 "results": {
                     "description": "An array of external property files containing run.results arrays to be merged with the root log file.",
