@@ -90,6 +90,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "help", IsRequired = false, EmitDefaultValue = false)]
         public virtual Message Help { get; set; }
+        /// <summary>
+        /// An array of references used to locate a set of taxonomy reporting descriptors that are always applicable to a result.
+        /// </summary>
+        [DataMember(Name = "taxonomyReferences", IsRequired = false, EmitDefaultValue = false)]
+        public virtual IList<ReportingDescriptorReference> TaxonomyReferences { get; set; }
+
+        /// <summary>
+        /// An array of references used to locate an optional set of taxonomy reporting descriptors that may be applied to a result.
+        /// </summary>
+        [DataMember(Name = "optionalTaxonomyReferences", IsRequired = false, EmitDefaultValue = false)]
+        public virtual IList<ReportingDescriptorReference> OptionalTaxonomyReferences { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the report.
@@ -134,12 +145,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="help">
         /// An initialization value for the <see cref="P:Help" /> property.
         /// </param>
+        /// <param name="taxonomyReferences">
+        /// An initialization value for the <see cref="P:TaxonomyReferences" /> property.
+        /// </param>
+        /// <param name="optionalTaxonomyReferences">
+        /// An initialization value for the <see cref="P:OptionalTaxonomyReferences" /> property.
+        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ReportingDescriptor(string id, string name, IEnumerable<string> deprecatedIds, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
+        public ReportingDescriptor(string id, string name, IEnumerable<string> deprecatedIds, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, Message help, IEnumerable<ReportingDescriptorReference> taxonomyReferences, IEnumerable<ReportingDescriptorReference> optionalTaxonomyReferences, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, name, deprecatedIds, shortDescription, fullDescription, messageStrings, defaultConfiguration, helpUri, help, properties);
+            Init(id, name, deprecatedIds, shortDescription, fullDescription, messageStrings, defaultConfiguration, helpUri, help, taxonomyReferences, optionalTaxonomyReferences, properties);
         }
 
         /// <summary>
@@ -158,7 +175,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.Name, other.DeprecatedIds, other.ShortDescription, other.FullDescription, other.MessageStrings, other.DefaultConfiguration, other.HelpUri, other.Help, other.Properties);
+            Init(other.Id, other.Name, other.DeprecatedIds, other.ShortDescription, other.FullDescription, other.MessageStrings, other.DefaultConfiguration, other.HelpUri, other.Help, other.TaxonomyReferences, other.OptionalTaxonomyReferences, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -179,7 +196,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ReportingDescriptor(this);
         }
 
-        private void Init(string id, string name, IEnumerable<string> deprecatedIds, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, Message help, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string id, string name, IEnumerable<string> deprecatedIds, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, Message help, IEnumerable<ReportingDescriptorReference> taxonomyReferences, IEnumerable<ReportingDescriptorReference> optionalTaxonomyReferences, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             Name = name;
@@ -227,6 +244,42 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (help != null)
             {
                 Help = new Message(help);
+            }
+
+            if (taxonomyReferences != null)
+            {
+                var destination_1 = new List<ReportingDescriptorReference>();
+                foreach (var value_2 in taxonomyReferences)
+                {
+                    if (value_2 == null)
+                    {
+                        destination_1.Add(null);
+                    }
+                    else
+                    {
+                        destination_1.Add(new ReportingDescriptorReference(value_2));
+                    }
+                }
+
+                TaxonomyReferences = destination_1;
+            }
+
+            if (optionalTaxonomyReferences != null)
+            {
+                var destination_2 = new List<ReportingDescriptorReference>();
+                foreach (var value_3 in optionalTaxonomyReferences)
+                {
+                    if (value_3 == null)
+                    {
+                        destination_2.Add(null);
+                    }
+                    else
+                    {
+                        destination_2.Add(new ReportingDescriptorReference(value_3));
+                    }
+                }
+
+                OptionalTaxonomyReferences = destination_2;
             }
 
             if (properties != null)
