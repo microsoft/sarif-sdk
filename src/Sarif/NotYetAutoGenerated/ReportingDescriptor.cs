@@ -184,7 +184,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.Guid, other.DeprecatedIds, other.Name, other.ShortDescription, other.FullDescription, other.MessageStrings, other.DefaultConfiguration, other.HelpUri, other.Help, other.TaxonomyReferences, other.OptionalTaxonomyReferences, other.Properties);
+            Init(other.Id, other.Guid, other.Name, other.DeprecatedIds, other.ShortDescription, other.FullDescription, other.MessageStrings, other.DefaultConfiguration, other.HelpUri, other.Help, other.TaxonomyReferences, other.OptionalTaxonomyReferences, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
