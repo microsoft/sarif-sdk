@@ -9,12 +9,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public class MessagesShouldEndWithPeriod : SarifValidationSkimmerBase
     {
-        private readonly Message _fullDescription = new Message
+        private readonly MultiformatMessageString _fullDescription = new MultiformatMessageString
         {
             Text = RuleResources.SARIF1008_MessagesShouldEndWithPeriod
         };
 
-        public override Message FullDescription => _fullDescription;
+        public override MultiformatMessageString FullDescription => _fullDescription;
 
         public override FailureLevel DefaultLevel => FailureLevel.Warning;
 
@@ -58,6 +58,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     AnalyzeMessageString(messageString.Markdown, messageStringPointer, SarifPropertyName.Markdown);
                 }
             }
+        }
+
+        protected override void Analyze(MultiformatMessageString multiformatMessageString, string multiformatMessageStringPointer)
+        {
+            AnalyzeMessageString(multiformatMessageString.Text, multiformatMessageStringPointer, SarifPropertyName.Text);
+            AnalyzeMessageString(multiformatMessageString.Markdown, multiformatMessageStringPointer, SarifPropertyName.Markdown);
         }
 
         protected override void Analyze(Message message, string messagePointer)

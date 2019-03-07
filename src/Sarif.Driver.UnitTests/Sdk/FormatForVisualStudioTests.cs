@@ -21,8 +21,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             Id = TestRuleId,
             Name = "ThisIsATest",
-            ShortDescription = new Message { Text = "short description" },
-            FullDescription = new Message { Text = "full description" },
+            ShortDescription = new MultiformatMessageString { Text = "short description" },
+            FullDescription = new MultiformatMessageString { Text = "full description" },
             MessageStrings = new Dictionary<string, MultiformatMessageString>
             {
                 [TestMessageStringId] = new MultiformatMessageString { Text = "First: {0}, Second: {1}" }

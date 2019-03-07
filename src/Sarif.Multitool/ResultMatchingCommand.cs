@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    internal class ResultMatchingCommand
+    internal class ResultMatchingCommand : CommandBase
     {
         private readonly IFileSystem _fileSystem;
 
@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 SarifLog baselineFile = null;
                 if (!string.IsNullOrEmpty(matchingOptions.PreviousFilePath))
                 {
-                    baselineFile = FileHelpers.ReadSarifFile<SarifLog>(_fileSystem, matchingOptions.PreviousFilePath);
+                    baselineFile = ReadSarifFile<SarifLog>(_fileSystem, matchingOptions.PreviousFilePath);
                 }
 
                 string outputFilePath = matchingOptions.OutputFilePath;
@@ -39,19 +39,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 foreach (string currentFilePath in matchingOptions.CurrentFilePaths)
                 {
-                    currentSarifLogs.Add(FileHelpers.ReadSarifFile<SarifLog>(_fileSystem, currentFilePath));
+                    currentSarifLogs.Add(ReadSarifFile<SarifLog>(_fileSystem, currentFilePath));
                 }
-                
+
                 ISarifLogMatcher matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
 
                 SarifLog output = matcher.Match(new SarifLog[] { baselineFile }, currentSarifLogs).First();
-                
+
                 var formatting = matchingOptions.PrettyPrint
                         ? Newtonsoft.Json.Formatting.Indented
                         : Newtonsoft.Json.Formatting.None;
-                
-                FileHelpers.WriteSarifFile(_fileSystem, output, outputFilePath, formatting);
+
+                WriteSarifFile(_fileSystem, output, outputFilePath, formatting);
             }
+
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());

@@ -4,7 +4,6 @@
 using System;
 using System.IO;
 using System.Text;
-using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
@@ -13,7 +12,7 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    internal class TransformCommand
+    internal class TransformCommand : CommandBase
     {
         private readonly bool _testing;
         private readonly IFileSystem _fileSystem;
@@ -28,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             try
             {
-                if (transformOptions.TargetVersion != SarifVersion.OneZeroZero && transformOptions.TargetVersion != SarifVersion.Current)
+                if (transformOptions.SarifOutputVersion != SarifVersion.OneZeroZero && transformOptions.SarifOutputVersion != SarifVersion.Current)
                 {
                     Console.WriteLine(MultitoolResources.ErrorInvalidTransformTargetVersion);
                     return 1;
@@ -55,14 +54,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 // current v2, then drop it down to v1.
                 // 
                 // We do not support transforming to any obsoleted pre-release v2 formats. 
-                if (transformOptions.TargetVersion == SarifVersion.Current)
+                if (transformOptions.SarifOutputVersion == SarifVersion.Current)
                 {
                     if (inputVersion == "1.0.0")
                     {
-                        SarifLogVersionOne actualLog = FileHelpers.ReadSarifFile<SarifLogVersionOne>(_fileSystem, transformOptions.InputFilePath, SarifContractResolverVersionOne.Instance);
+                        SarifLogVersionOne actualLog = ReadSarifFile<SarifLogVersionOne>(_fileSystem, transformOptions.InputFilePath, SarifContractResolverVersionOne.Instance);
                         var visitor = new SarifVersionOneToCurrentVisitor();
                         visitor.VisitSarifLogVersionOne(actualLog);
-                        FileHelpers.WriteSarifFile(_fileSystem, visitor.SarifLog, fileName, formatting);
+                        WriteSarifFile(_fileSystem, visitor.SarifLog, fileName, formatting);
                     }
                     else
                     {
@@ -105,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         var visitor = new SarifCurrentToVersionOneVisitor();
                         visitor.VisitSarifLog(actualLog);
 
-                        FileHelpers.WriteSarifFile(_fileSystem, visitor.SarifLogVersionOne, fileName, formatting, SarifContractResolverVersionOne.Instance);
+                        WriteSarifFile(_fileSystem, visitor.SarifLogVersionOne, fileName, formatting, SarifContractResolverVersionOne.Instance);
                     }
                 }
             }

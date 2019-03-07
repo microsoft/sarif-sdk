@@ -105,6 +105,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected virtual void Analyze(Message message, string messagePointer)
         {
         }
+
+        protected virtual void Analyze(MultiformatMessageString multiformatMessageString, string multiformatMessageStringPointer)
+        {
+        }
+
         protected virtual void Analyze(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
         {
         }
@@ -472,6 +477,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         private void Visit(Message message, string messagePointer)
         {
             Analyze(message, messagePointer);
+        }
+
+        private void Visit(MultiformatMessageString multiformatMessageString, string multiformatMessageStringPointer)
+        {
+            Analyze(multiformatMessageString, multiformatMessageStringPointer);
         }
 
         private void VisitReportingDescriptor(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)

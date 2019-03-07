@@ -59,12 +59,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!Message.ValueComparer.Equals(left.ShortDescription, right.ShortDescription))
+            if (!MultiformatMessageString.ValueComparer.Equals(left.ShortDescription, right.ShortDescription))
             {
                 return false;
             }
 
-            if (!Message.ValueComparer.Equals(left.FullDescription, right.FullDescription))
+            if (!MultiformatMessageString.ValueComparer.Equals(left.FullDescription, right.FullDescription))
             {
                 return false;
             }
@@ -104,6 +104,48 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (!Message.ValueComparer.Equals(left.Help, right.Help))
             {
                 return false;
+            }
+
+            if (!object.ReferenceEquals(left.TaxonomyReferences, right.TaxonomyReferences))
+            {
+                if (left.TaxonomyReferences == null || right.TaxonomyReferences == null)
+                {
+                    return false;
+                }
+
+                if (left.TaxonomyReferences.Count != right.TaxonomyReferences.Count)
+                {
+                    return false;
+                }
+
+                for (int index_1 = 0; index_1 < left.TaxonomyReferences.Count; ++index_1)
+                {
+                    if (!ReportingDescriptorReference.ValueComparer.Equals(left.TaxonomyReferences[index_1], right.TaxonomyReferences[index_1]))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            if (!object.ReferenceEquals(left.OptionalTaxonomyReferences, right.OptionalTaxonomyReferences))
+            {
+                if (left.OptionalTaxonomyReferences == null || right.OptionalTaxonomyReferences == null)
+                {
+                    return false;
+                }
+
+                if (left.OptionalTaxonomyReferences.Count != right.OptionalTaxonomyReferences.Count)
+                {
+                    return false;
+                }
+
+                for (int index_2 = 0; index_2 < left.OptionalTaxonomyReferences.Count; ++index_2)
+                {
+                    if (!ReportingDescriptorReference.ValueComparer.Equals(left.OptionalTaxonomyReferences[index_2], right.OptionalTaxonomyReferences[index_2]))
+                    {
+                        return false;
+                    }
+                }
             }
 
             if (!object.ReferenceEquals(left.Properties, right.Properties))
@@ -204,16 +246,40 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Help.ValueGetHashCode();
                 }
 
+                if (obj.TaxonomyReferences != null)
+                {
+                    foreach (var value_6 in obj.TaxonomyReferences)
+                    {
+                        result = result * 31;
+                        if (value_6 != null)
+                        {
+                            result = (result * 31) + value_6.ValueGetHashCode();
+                        }
+                    }
+                }
+
+                if (obj.OptionalTaxonomyReferences != null)
+                {
+                    foreach (var value_7 in obj.OptionalTaxonomyReferences)
+                    {
+                        result = result * 31;
+                        if (value_7 != null)
+                        {
+                            result = (result * 31) + value_7.ValueGetHashCode();
+                        }
+                    }
+                }
+
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_1 = 0;
-                    foreach (var value_6 in obj.Properties)
+                    foreach (var value_8 in obj.Properties)
                     {
-                        xor_1 ^= value_6.Key.GetHashCode();
-                        if (value_6.Value != null)
+                        xor_1 ^= value_8.Key.GetHashCode();
+                        if (value_8.Value != null)
                         {
-                            xor_1 ^= value_6.Value.GetHashCode();
+                            xor_1 ^= value_8.Value.GetHashCode();
                         }
                     }
 
