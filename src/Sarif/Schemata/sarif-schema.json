@@ -2056,7 +2056,7 @@
                     }
                 },
 
-                "translation": {
+                "translations": {
                     "description": "The set of available translations of the localized data provided by the tool.",
                     "type": "array",
                     "minItems": 0,
