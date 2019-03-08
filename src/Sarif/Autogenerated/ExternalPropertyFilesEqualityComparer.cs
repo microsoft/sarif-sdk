@@ -4,6 +4,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -194,6 +195,28 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (!object.ReferenceEquals(left.Properties, right.Properties))
+            {
+                if (left.Properties == null || right.Properties == null || left.Properties.Count != right.Properties.Count)
+                {
+                    return false;
+                }
+
+                foreach (var value_0 in left.Properties)
+                {
+                    SerializedPropertyInfo value_1;
+                    if (!right.Properties.TryGetValue(value_0.Key, out value_1))
+                    {
+                        return false;
+                    }
+
+                    if (!object.Equals(value_0.Value, value_1))
+                    {
+                        return false;
+                    }
+                }
+            }
+
             return true;
         }
 
@@ -224,31 +247,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (obj.Artifacts != null)
                 {
-                    foreach (var value_0 in obj.Artifacts)
-                    {
-                        result = result * 31;
-                        if (value_0 != null)
-                        {
-                            result = (result * 31) + value_0.ValueGetHashCode();
-                        }
-                    }
-                }
-
-                if (obj.Invocations != null)
-                {
-                    foreach (var value_1 in obj.Invocations)
-                    {
-                        result = result * 31;
-                        if (value_1 != null)
-                        {
-                            result = (result * 31) + value_1.ValueGetHashCode();
-                        }
-                    }
-                }
-
-                if (obj.LogicalLocations != null)
-                {
-                    foreach (var value_2 in obj.LogicalLocations)
+                    foreach (var value_2 in obj.Artifacts)
                     {
                         result = result * 31;
                         if (value_2 != null)
@@ -258,9 +257,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.ThreadFlowLocations != null)
+                if (obj.Invocations != null)
                 {
-                    foreach (var value_3 in obj.ThreadFlowLocations)
+                    foreach (var value_3 in obj.Invocations)
                     {
                         result = result * 31;
                         if (value_3 != null)
@@ -270,9 +269,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.Results != null)
+                if (obj.LogicalLocations != null)
                 {
-                    foreach (var value_4 in obj.Results)
+                    foreach (var value_4 in obj.LogicalLocations)
                     {
                         result = result * 31;
                         if (value_4 != null)
@@ -282,9 +281,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.Taxonomies != null)
+                if (obj.ThreadFlowLocations != null)
                 {
-                    foreach (var value_5 in obj.Taxonomies)
+                    foreach (var value_5 in obj.ThreadFlowLocations)
                     {
                         result = result * 31;
                         if (value_5 != null)
@@ -294,9 +293,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.Addresses != null)
+                if (obj.Results != null)
                 {
-                    foreach (var value_6 in obj.Addresses)
+                    foreach (var value_6 in obj.Results)
                     {
                         result = result * 31;
                         if (value_6 != null)
@@ -306,9 +305,49 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
+                if (obj.Taxonomies != null)
+                {
+                    foreach (var value_7 in obj.Taxonomies)
+                    {
+                        result = result * 31;
+                        if (value_7 != null)
+                        {
+                            result = (result * 31) + value_7.ValueGetHashCode();
+                        }
+                    }
+                }
+
+                if (obj.Addresses != null)
+                {
+                    foreach (var value_8 in obj.Addresses)
+                    {
+                        result = result * 31;
+                        if (value_8 != null)
+                        {
+                            result = (result * 31) + value_8.ValueGetHashCode();
+                        }
+                    }
+                }
+
                 if (obj.Tool != null)
                 {
                     result = (result * 31) + obj.Tool.ValueGetHashCode();
+                }
+
+                if (obj.Properties != null)
+                {
+                    // Use xor for dictionaries to be order-independent.
+                    int xor_0 = 0;
+                    foreach (var value_9 in obj.Properties)
+                    {
+                        xor_0 ^= value_9.Key.GetHashCode();
+                        if (value_9.Value != null)
+                        {
+                            xor_0 ^= value_9.Value.GetHashCode();
+                        }
+                    }
+
+                    result = (result * 31) + xor_0;
                 }
             }
 

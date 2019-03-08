@@ -293,7 +293,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
-                node.ArtifactLocation = VisitNullChecked(node.ArtifactLocation);
+                node.Location = VisitNullChecked(node.Location);
             }
 
             return node;
@@ -327,6 +327,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                     for (int index_0 = 0; index_0 < node.LogicalLocations.Count; ++index_0)
                     {
                         node.LogicalLocations[index_0] = VisitNullChecked(node.LogicalLocations[index_0]);
+                    }
+                }
+
+                if (node.ThreadFlowLocations != null)
+                {
+                    for (int index_0 = 0; index_0 < node.ThreadFlowLocations.Count; ++index_0)
+                    {
+                        node.ThreadFlowLocations[index_0] = VisitNullChecked(node.ThreadFlowLocations[index_0]);
                     }
                 }
 
@@ -805,6 +813,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 node.ExternalPropertyFiles = VisitNullChecked(node.ExternalPropertyFiles);
+                if (node.ThreadFlowLocations != null)
+                {
+                    for (int index_0 = 0; index_0 < node.ThreadFlowLocations.Count; ++index_0)
+                    {
+                        node.ThreadFlowLocations[index_0] = VisitNullChecked(node.ThreadFlowLocations[index_0]);
+                    }
+                }
             }
 
             return node;
@@ -829,6 +844,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                     for (int index_0 = 0; index_0 < node.Runs.Count; ++index_0)
                     {
                         node.Runs[index_0] = VisitNullChecked(node.Runs[index_0]);
+                    }
+                }
+
+                if (node.InlineExternalPropertyFiles != null)
+                {
+                    for (int index_0 = 0; index_0 < node.InlineExternalPropertyFiles.Count; ++index_0)
+                    {
+                        node.InlineExternalPropertyFiles[index_0] = VisitNullChecked(node.InlineExternalPropertyFiles[index_0]);
                     }
                 }
             }
@@ -912,6 +935,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                node.ShortDescription = VisitNullChecked(node.ShortDescription);
+                node.FullDescription = VisitNullChecked(node.FullDescription);
                 if (node.GlobalMessageStrings != null)
                 {
                     var keys = node.GlobalMessageStrings.Keys.ToArray();

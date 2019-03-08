@@ -490,12 +490,12 @@
         "externalPropertyFile": {
             "type": "object",
             "properties": {
-                "artifactLocation": {
+                "location": {
                     "description": "The location of the external property file.",
                     "$ref": "#/definitions/artifactLocation"
                 },
 
-                "instanceGuid": {
+                "guid": {
                     "description": "A stable, unique identifer for the external property file in the form of a GUID.",
                     "type": "string"
                 },
@@ -610,6 +610,11 @@
                 "tool": {
                     "description": "An external property file containing a run.tool object to be merged with the root log file.",
                     "$ref": "#/definitions/externalPropertyFile"
+                },
+
+                "properties": {
+                    "description": "Key/value pairs that provide additional information about the external property files.",
+                    "$ref": "#/definitions/propertyBag"
                 }
             }
         },

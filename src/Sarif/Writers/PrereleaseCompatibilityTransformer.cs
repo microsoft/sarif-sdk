@@ -125,11 +125,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 foreach (JObject run in runs)
                 {
-                    // https://github.com/oasis-tcs/sarif-spec/issues/325
                     // https://github.com/oasis-tcs/sarif-spec/issues/330
                     RemoveToolLanguage(run);
                     UpdateAllReportingDescriptorPropertyTypes(run);
                     ConvertAllExceptionMessagesToStringAndRenameToolNotificationNodes(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/325
+                    UpdateAllExternalPropertyFilePropertyTypes(run);
 
                     // https://github.com/oasis-tcs/sarif-spec/issues/336
                     UpdateAllToolComponentProperties(run);
@@ -301,6 +303,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     UpdateToolComponentProperties(toolComponent);
                 }
+            }
+        }
+
+        private static void UpdateAllExternalPropertyFilePropertyTypes(JObject run)
+        {
+            if (run["externalPropertyFiles"] is JObject externalPropertyFiles)
+            {
+                var renamedMembers = new Dictionary<string, string>
+                {
+                    ["instanceGuid"] = "guid",
+                    ["artifactLocation"] = "location"
+                };
+
+                RecursivePropertyRename(run, renamedMembers);
             }
         }
 
