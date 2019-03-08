@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2019-01-24 JSON Schema: a standard format for the output of static analysis tools.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
     public partial class SarifLog : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<SarifLog> ValueComparer => SarifLogEqualityComparer.Instance;

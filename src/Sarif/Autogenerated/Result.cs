@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A result produced by an analysis tool.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
     public partial class Result : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Result> ValueComparer => ResultEqualityComparer.Instance;
@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// The index within the run.tool.extensions array of the tool component object which describes the plug-in or tool extension that produced the result.
         /// </summary>
-        [DataMember(Name = "extensionIndex", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "ruleExtensionIndex", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public int RuleExtensionIndex { get; set; }
@@ -112,7 +112,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Message Message { get; set; }
 
         /// <summary>
-        /// Identifies the file that the analysis tool was instructed to scan. This need not be the same as the file where the result actually occurred.
+        /// Identifies the artifact that the analysis tool was instructed to scan. This need not be the same as the artifact where the result actually occurred.
         /// </summary>
         [DataMember(Name = "analysisTarget", IsRequired = false, EmitDefaultValue = false)]
         public ArtifactLocation AnalysisTarget { get; set; }
@@ -210,7 +210,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public double Rank { get; set; }
 
         /// <summary>
-        /// A set of files relevant to the result.
+        /// A set of artifacts relevant to the result.
         /// </summary>
         [DataMember(Name = "attachments", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
@@ -276,8 +276,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="ruleIndex">
         /// An initialization value for the <see cref="P:RuleIndex" /> property.
         /// </param>
-        /// <param name="extensionIndex">
-        /// An initialization value for the <see cref="P:ExtensionIndex" /> property.
+        /// <param name="ruleExtensionIndex">
+        /// An initialization value for the <see cref="P:RuleExtensionIndex" /> property.
         /// </param>
         /// <param name="kind">
         /// An initialization value for the <see cref="P:Kind" /> property.
@@ -354,9 +354,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Result(string ruleId, int ruleIndex, int extensionIndex, ResultKind kind, FailureLevel level, Message message, ArtifactLocation analysisTarget, IEnumerable<Location> locations, string instanceGuid, string correlationGuid, int occurrenceCount, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IDictionary<string, Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, double rank, IEnumerable<Attachment> attachments, Uri hostedViewerUri, IEnumerable<Uri> workItemUris, ResultProvenance provenance, IEnumerable<Fix> fixes, IEnumerable<ReportingDescriptorReference> taxonomyReferences, IDictionary<string, SerializedPropertyInfo> properties)
+        public Result(string ruleId, int ruleIndex, int ruleExtensionIndex, ResultKind kind, FailureLevel level, Message message, ArtifactLocation analysisTarget, IEnumerable<Location> locations, string instanceGuid, string correlationGuid, int occurrenceCount, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IDictionary<string, Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, double rank, IEnumerable<Attachment> attachments, Uri hostedViewerUri, IEnumerable<Uri> workItemUris, ResultProvenance provenance, IEnumerable<Fix> fixes, IEnumerable<ReportingDescriptorReference> taxonomyReferences, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(ruleId, ruleIndex, extensionIndex, kind, level, message, analysisTarget, locations, instanceGuid, correlationGuid, occurrenceCount, partialFingerprints, fingerprints, stacks, codeFlows, graphs, graphTraversals, relatedLocations, suppressionStates, baselineState, rank, attachments, hostedViewerUri, workItemUris, provenance, fixes, taxonomyReferences, properties);
+            Init(ruleId, ruleIndex, ruleExtensionIndex, kind, level, message, analysisTarget, locations, instanceGuid, correlationGuid, occurrenceCount, partialFingerprints, fingerprints, stacks, codeFlows, graphs, graphTraversals, relatedLocations, suppressionStates, baselineState, rank, attachments, hostedViewerUri, workItemUris, provenance, fixes, taxonomyReferences, properties);
         }
 
         /// <summary>
@@ -396,11 +396,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Result(this);
         }
 
-        private void Init(string ruleId, int ruleIndex, int extensionIndex, ResultKind kind, FailureLevel level, Message message, ArtifactLocation analysisTarget, IEnumerable<Location> locations, string instanceGuid, string correlationGuid, int occurrenceCount, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IDictionary<string, Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, double rank, IEnumerable<Attachment> attachments, Uri hostedViewerUri, IEnumerable<Uri> workItemUris, ResultProvenance provenance, IEnumerable<Fix> fixes, IEnumerable<ReportingDescriptorReference> taxonomyReferences, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string ruleId, int ruleIndex, int ruleExtensionIndex, ResultKind kind, FailureLevel level, Message message, ArtifactLocation analysisTarget, IEnumerable<Location> locations, string instanceGuid, string correlationGuid, int occurrenceCount, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IDictionary<string, Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, SuppressionStates suppressionStates, BaselineState baselineState, double rank, IEnumerable<Attachment> attachments, Uri hostedViewerUri, IEnumerable<Uri> workItemUris, ResultProvenance provenance, IEnumerable<Fix> fixes, IEnumerable<ReportingDescriptorReference> taxonomyReferences, IDictionary<string, SerializedPropertyInfo> properties)
         {
             RuleId = ruleId;
             RuleIndex = ruleIndex;
-            RuleExtensionIndex = extensionIndex;
+            RuleExtensionIndex = ruleExtensionIndex;
             Kind = kind;
             Level = level;
             if (message != null)

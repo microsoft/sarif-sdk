@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Describes a single run of an analysis tool, and contains the reported output of that run.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
     public partial class Run : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Run> ValueComparer => RunEqualityComparer.Instance;
@@ -54,14 +54,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Conversion Conversion { get; set; }
 
         /// <summary>
-        /// Specifies the revision in version control of the files that were scanned.
+        /// Specifies the revision in version control of the artifacts that were scanned.
         /// </summary>
         [DataMember(Name = "versionControlProvenance", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<VersionControlDetails> VersionControlProvenance { get; set; }
 
         /// <summary>
-        /// The file location specified by each uriBaseId symbol on the machine where the tool originally ran.
+        /// The artifact location specified by each uriBaseId symbol on the machine where the tool originally ran.
         /// </summary>
         [DataMember(Name = "originalUriBaseIds", IsRequired = false, EmitDefaultValue = false)]
         public IDictionary<string, ArtifactLocation> OriginalUriBaseIds { get; set; }
@@ -125,13 +125,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string RedactionToken { get; set; }
 
         /// <summary>
-        /// Specifies the default encoding for any file object that refers to a text file.
+        /// Specifies the default encoding for any artifact object that refers to a text file.
         /// </summary>
         [DataMember(Name = "defaultFileEncoding", IsRequired = false, EmitDefaultValue = false)]
         public string DefaultFileEncoding { get; set; }
 
         /// <summary>
-        /// Specifies the default source language for any file object that refers to a text file that contains source code.
+        /// Specifies the default source language for any artifact object that refers to a text file that contains source code.
         /// </summary>
         [DataMember(Name = "defaultSourceLanguage", IsRequired = false, EmitDefaultValue = false)]
         public string DefaultSourceLanguage { get; set; }
