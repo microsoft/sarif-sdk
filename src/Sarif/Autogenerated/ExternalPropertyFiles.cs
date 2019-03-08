@@ -5,6 +5,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -14,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
-    public partial class ExternalPropertyFiles : ISarifNode
+    public partial class ExternalPropertyFiles : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ExternalPropertyFiles> ValueComparer => ExternalPropertyFilesEqualityComparer.Instance;
 
@@ -73,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "threadFlowLocations", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ThreadFlowLocation> ThreadFlowLocations { get; set; }
+        public IList<ExternalPropertyFile> ThreadFlowLocations { get; set; }
 
         /// <summary>
         /// An array of external property files containing run.results arrays to be merged with the root log file.
@@ -88,10 +89,23 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<ExternalPropertyFile> Taxonomies { get; set; }
 
         /// <summary>
+        /// An array of external property files containing run.addresses arrays to be merged with the root log file.
+        /// </summary>
+        [DataMember(Name = "addresses", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public IList<ExternalPropertyFile> Addresses { get; set; }
+
+        /// <summary>
         /// An external property file containing a run.tool object to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "tool", IsRequired = false, EmitDefaultValue = false)]
         public ExternalPropertyFile Tool { get; set; }
+
+        /// <summary>
+        /// Key/value pairs that provide additional information about the external property files.
+        /// </summary>
+        [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExternalPropertyFiles" /> class.
@@ -130,12 +144,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="taxonomies">
         /// An initialization value for the <see cref="P:Taxonomies" /> property.
         /// </param>
+        /// <param name="addresses">
+        /// An initialization value for the <see cref="P:Addresses" /> property.
+        /// </param>
         /// <param name="tool">
         /// An initialization value for the <see cref="P:Tool" /> property.
         /// </param>
-        public ExternalPropertyFiles(ExternalPropertyFile conversion, ExternalPropertyFile graphs, ExternalPropertyFile externalizedProperties, IEnumerable<ExternalPropertyFile> artifacts, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ExternalPropertyFile> results, IEnumerable<ExternalPropertyFile> taxonomies, ExternalPropertyFile tool)
+        /// <param name="properties">
+        /// An initialization value for the <see cref="P:Properties" /> property.
+        /// </param>
+        public ExternalPropertyFiles(ExternalPropertyFile conversion, ExternalPropertyFile graphs, ExternalPropertyFile externalizedProperties, IEnumerable<ExternalPropertyFile> artifacts, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ExternalPropertyFile> threadFlowLocations, IEnumerable<ExternalPropertyFile> results, IEnumerable<ExternalPropertyFile> taxonomies, IEnumerable<ExternalPropertyFile> addresses, ExternalPropertyFile tool, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(conversion, graphs, externalizedProperties, artifacts, invocations, logicalLocations, threadFlowLocations, results, taxonomies, tool);
+            Init(conversion, graphs, externalizedProperties, artifacts, invocations, logicalLocations, threadFlowLocations, results, taxonomies, addresses, tool, properties);
         }
 
         /// <summary>
@@ -154,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Conversion, other.Graphs, other.ExternalizedProperties, other.Artifacts, other.Invocations, other.LogicalLocations, other.ThreadFlowLocations, other.Results, other.Taxonomies, other.Tool);
+            Init(other.Conversion, other.Graphs, other.ExternalizedProperties, other.Artifacts, other.Invocations, other.LogicalLocations, other.ThreadFlowLocations, other.Results, other.Taxonomies, other.Addresses, other.Tool, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -175,7 +195,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExternalPropertyFiles(this);
         }
 
-        private void Init(ExternalPropertyFile conversion, ExternalPropertyFile graphs, ExternalPropertyFile externalizedProperties, IEnumerable<ExternalPropertyFile> artifacts, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ExternalPropertyFile> results, IEnumerable<ExternalPropertyFile> taxonomies, ExternalPropertyFile tool)
+        private void Init(ExternalPropertyFile conversion, ExternalPropertyFile graphs, ExternalPropertyFile externalizedProperties, IEnumerable<ExternalPropertyFile> artifacts, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ExternalPropertyFile> threadFlowLocations, IEnumerable<ExternalPropertyFile> results, IEnumerable<ExternalPropertyFile> taxonomies, IEnumerable<ExternalPropertyFile> addresses, ExternalPropertyFile tool, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (conversion != null)
             {
@@ -248,7 +268,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (threadFlowLocations != null)
             {
-                var destination_3 = new List<ThreadFlowLocation>();
+                var destination_3 = new List<ExternalPropertyFile>();
                 foreach (var value_3 in threadFlowLocations)
                 {
                     if (value_3 == null)
@@ -257,7 +277,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_3.Add(new ThreadFlowLocation(value_3));
+                        destination_3.Add(new ExternalPropertyFile(value_3));
                     }
                 }
 
@@ -300,9 +320,32 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Taxonomies = destination_5;
             }
 
+            if (addresses != null)
+            {
+                var destination_6 = new List<ExternalPropertyFile>();
+                foreach (var value_6 in addresses)
+                {
+                    if (value_6 == null)
+                    {
+                        destination_6.Add(null);
+                    }
+                    else
+                    {
+                        destination_6.Add(new ExternalPropertyFile(value_6));
+                    }
+                }
+
+                Addresses = destination_6;
+            }
+
             if (tool != null)
             {
                 Tool = new ExternalPropertyFile(tool);
+            }
+
+            if (properties != null)
+            {
+                Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
             }
         }
     }

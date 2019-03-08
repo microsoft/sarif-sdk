@@ -9,14 +9,14 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Defines methods to support the comparison of objects of type StackFrame for equality.
+    /// Defines methods to support the comparison of objects of type ReportingDescriptorTranslation for equality.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
-    internal sealed class StackFrameEqualityComparer : IEqualityComparer<StackFrame>
+    internal sealed class ReportingDescriptorTranslationEqualityComparer : IEqualityComparer<ReportingDescriptorTranslation>
     {
-        internal static readonly StackFrameEqualityComparer Instance = new StackFrameEqualityComparer();
+        internal static readonly ReportingDescriptorTranslationEqualityComparer Instance = new ReportingDescriptorTranslationEqualityComparer();
 
-        public bool Equals(StackFrame left, StackFrame right)
+        public bool Equals(ReportingDescriptorTranslation left, ReportingDescriptorTranslation right)
         {
             if (ReferenceEquals(left, right))
             {
@@ -28,45 +28,29 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!Location.ValueComparer.Equals(left.Location, right.Location))
+            if (left.Id != right.Id)
             {
                 return false;
             }
 
-            if (left.Module != right.Module)
+            if (left.Guid != right.Guid)
             {
                 return false;
             }
 
-            if (left.ThreadId != right.ThreadId)
+            if (!MultiformatMessageString.ValueComparer.Equals(left.ShortDescription, right.ShortDescription))
             {
                 return false;
             }
 
-            if (!Address.ValueComparer.Equals(left.Address, right.Address))
+            if (!MultiformatMessageString.ValueComparer.Equals(left.FullDescription, right.FullDescription))
             {
                 return false;
             }
 
-            if (!object.ReferenceEquals(left.Parameters, right.Parameters))
+            if (!object.Equals(left.MessageStrings, right.MessageStrings))
             {
-                if (left.Parameters == null || right.Parameters == null)
-                {
-                    return false;
-                }
-
-                if (left.Parameters.Count != right.Parameters.Count)
-                {
-                    return false;
-                }
-
-                for (int index_0 = 0; index_0 < left.Parameters.Count; ++index_0)
-                {
-                    if (left.Parameters[index_0] != right.Parameters[index_0])
-                    {
-                        return false;
-                    }
-                }
+                return false;
             }
 
             if (!object.ReferenceEquals(left.Properties, right.Properties))
@@ -94,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public int GetHashCode(StackFrame obj)
+        public int GetHashCode(ReportingDescriptorTranslation obj)
         {
             if (ReferenceEquals(obj, null))
             {
@@ -104,44 +88,41 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (obj.Location != null)
+                if (obj.Id != null)
                 {
-                    result = (result * 31) + obj.Location.ValueGetHashCode();
+                    result = (result * 31) + obj.Id.GetHashCode();
                 }
 
-                if (obj.Module != null)
+                if (obj.Guid != null)
                 {
-                    result = (result * 31) + obj.Module.GetHashCode();
+                    result = (result * 31) + obj.Guid.GetHashCode();
                 }
 
-                result = (result * 31) + obj.ThreadId.GetHashCode();
-                if (obj.Address != null)
+                if (obj.ShortDescription != null)
                 {
-                    result = (result * 31) + obj.Address.ValueGetHashCode();
+                    result = (result * 31) + obj.ShortDescription.ValueGetHashCode();
                 }
 
-                if (obj.Parameters != null)
+                if (obj.FullDescription != null)
                 {
-                    foreach (var value_2 in obj.Parameters)
-                    {
-                        result = result * 31;
-                        if (value_2 != null)
-                        {
-                            result = (result * 31) + value_2.GetHashCode();
-                        }
-                    }
+                    result = (result * 31) + obj.FullDescription.ValueGetHashCode();
+                }
+
+                if (obj.MessageStrings != null)
+                {
+                    result = (result * 31) + obj.MessageStrings.GetHashCode();
                 }
 
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_0 = 0;
-                    foreach (var value_3 in obj.Properties)
+                    foreach (var value_2 in obj.Properties)
                     {
-                        xor_0 ^= value_3.Key.GetHashCode();
-                        if (value_3.Value != null)
+                        xor_0 ^= value_2.Key.GetHashCode();
+                        if (value_2.Value != null)
                         {
-                            xor_0 ^= value_3.Value.GetHashCode();
+                            xor_0 ^= value_2.Value.GetHashCode();
                         }
                     }
 

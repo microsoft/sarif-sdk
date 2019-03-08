@@ -201,6 +201,16 @@
             }
         }
     ],
+    "externalPropertyFiles": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
     "fix": [
         {
             "kind": "BaseTypeHint",
@@ -490,6 +500,16 @@
         }
     ],
     "reportingDescriptorReference": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
+    "reportingDescriptorTranslation": [
         {
             "kind": "BaseTypeHint",
             "arguments": {
@@ -864,9 +884,29 @@
             }
         }
     ],
+    "toolComponentTranslation": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
     "ToolComponent.GlobalMessageStrings": [
         {
             "kind": "DictionaryHint"
+        }
+    ],
+    "translation": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
         }
     ],
     "versionControlDetails": [

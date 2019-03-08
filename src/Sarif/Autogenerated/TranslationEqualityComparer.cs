@@ -9,14 +9,14 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Defines methods to support the comparison of objects of type Location for equality.
+    /// Defines methods to support the comparison of objects of type Translation for equality.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
-    internal sealed class LocationEqualityComparer : IEqualityComparer<Location>
+    internal sealed class TranslationEqualityComparer : IEqualityComparer<Translation>
     {
-        internal static readonly LocationEqualityComparer Instance = new LocationEqualityComparer();
+        internal static readonly TranslationEqualityComparer Instance = new TranslationEqualityComparer();
 
-        public bool Equals(Location left, Location right)
+        public bool Equals(Translation left, Translation right)
         {
             if (ReferenceEquals(left, right))
             {
@@ -28,46 +28,26 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!Address.ValueComparer.Equals(left.Address, right.Address))
+            if (left.Language != right.Language)
             {
                 return false;
             }
 
-            if (!PhysicalLocation.ValueComparer.Equals(left.PhysicalLocation, right.PhysicalLocation))
+            if (!object.ReferenceEquals(left.ToolComponentTranslations, right.ToolComponentTranslations))
             {
-                return false;
-            }
-
-            if (left.FullyQualifiedLogicalName != right.FullyQualifiedLogicalName)
-            {
-                return false;
-            }
-
-            if (left.LogicalLocationIndex != right.LogicalLocationIndex)
-            {
-                return false;
-            }
-
-            if (!Message.ValueComparer.Equals(left.Message, right.Message))
-            {
-                return false;
-            }
-
-            if (!object.ReferenceEquals(left.Annotations, right.Annotations))
-            {
-                if (left.Annotations == null || right.Annotations == null)
+                if (left.ToolComponentTranslations == null || right.ToolComponentTranslations == null)
                 {
                     return false;
                 }
 
-                if (left.Annotations.Count != right.Annotations.Count)
+                if (left.ToolComponentTranslations.Count != right.ToolComponentTranslations.Count)
                 {
                     return false;
                 }
 
-                for (int index_0 = 0; index_0 < left.Annotations.Count; ++index_0)
+                for (int index_0 = 0; index_0 < left.ToolComponentTranslations.Count; ++index_0)
                 {
-                    if (!Region.ValueComparer.Equals(left.Annotations[index_0], right.Annotations[index_0]))
+                    if (!ToolComponentTranslation.ValueComparer.Equals(left.ToolComponentTranslations[index_0], right.ToolComponentTranslations[index_0]))
                     {
                         return false;
                     }
@@ -99,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public int GetHashCode(Location obj)
+        public int GetHashCode(Translation obj)
         {
             if (ReferenceEquals(obj, null))
             {
@@ -109,30 +89,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (obj.Address != null)
+                if (obj.Language != null)
                 {
-                    result = (result * 31) + obj.Address.ValueGetHashCode();
+                    result = (result * 31) + obj.Language.GetHashCode();
                 }
 
-                if (obj.PhysicalLocation != null)
+                if (obj.ToolComponentTranslations != null)
                 {
-                    result = (result * 31) + obj.PhysicalLocation.ValueGetHashCode();
-                }
-
-                if (obj.FullyQualifiedLogicalName != null)
-                {
-                    result = (result * 31) + obj.FullyQualifiedLogicalName.GetHashCode();
-                }
-
-                result = (result * 31) + obj.LogicalLocationIndex.GetHashCode();
-                if (obj.Message != null)
-                {
-                    result = (result * 31) + obj.Message.ValueGetHashCode();
-                }
-
-                if (obj.Annotations != null)
-                {
-                    foreach (var value_2 in obj.Annotations)
+                    foreach (var value_2 in obj.ToolComponentTranslations)
                     {
                         result = result * 31;
                         if (value_2 != null)

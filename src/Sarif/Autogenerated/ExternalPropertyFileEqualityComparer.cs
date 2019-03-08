@@ -28,12 +28,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!ArtifactLocation.ValueComparer.Equals(left.ArtifactLocation, right.ArtifactLocation))
+            if (!ArtifactLocation.ValueComparer.Equals(left.Location, right.Location))
             {
                 return false;
             }
 
-            if (left.InstanceGuid != right.InstanceGuid)
+            if (left.Guid != right.Guid)
             {
                 return false;
             }
@@ -78,14 +78,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (obj.ArtifactLocation != null)
+                if (obj.Location != null)
                 {
-                    result = (result * 31) + obj.ArtifactLocation.ValueGetHashCode();
+                    result = (result * 31) + obj.Location.ValueGetHashCode();
                 }
 
-                if (obj.InstanceGuid != null)
+                if (obj.Guid != null)
                 {
-                    result = (result * 31) + obj.InstanceGuid.GetHashCode();
+                    result = (result * 31) + obj.Guid.GetHashCode();
                 }
 
                 result = (result * 31) + obj.ItemCount.GetHashCode();

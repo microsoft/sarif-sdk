@@ -311,6 +311,48 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
+            if (!object.ReferenceEquals(left.Addresses, right.Addresses))
+            {
+                if (left.Addresses == null || right.Addresses == null)
+                {
+                    return false;
+                }
+
+                if (left.Addresses.Count != right.Addresses.Count)
+                {
+                    return false;
+                }
+
+                for (int index_9 = 0; index_9 < left.Addresses.Count; ++index_9)
+                {
+                    if (!Address.ValueComparer.Equals(left.Addresses[index_9], right.Addresses[index_9]))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            if (!object.ReferenceEquals(left.Translations, right.Translations))
+            {
+                if (left.Translations == null || right.Translations == null)
+                {
+                    return false;
+                }
+
+                if (left.Translations.Count != right.Translations.Count)
+                {
+                    return false;
+                }
+
+                for (int index_10 = 0; index_10 < left.Translations.Count; ++index_10)
+                {
+                    if (!Translation.ValueComparer.Equals(left.Translations[index_10], right.Translations[index_10]))
+                    {
+                        return false;
+                    }
+                }
+            }
+
             if (!object.ReferenceEquals(left.Properties, right.Properties))
             {
                 if (left.Properties == null || right.Properties == null || left.Properties.Count != right.Properties.Count)
@@ -532,16 +574,40 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
+                if (obj.Addresses != null)
+                {
+                    foreach (var value_17 in obj.Addresses)
+                    {
+                        result = result * 31;
+                        if (value_17 != null)
+                        {
+                            result = (result * 31) + value_17.ValueGetHashCode();
+                        }
+                    }
+                }
+
+                if (obj.Translations != null)
+                {
+                    foreach (var value_18 in obj.Translations)
+                    {
+                        result = result * 31;
+                        if (value_18 != null)
+                        {
+                            result = (result * 31) + value_18.ValueGetHashCode();
+                        }
+                    }
+                }
+
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_2 = 0;
-                    foreach (var value_17 in obj.Properties)
+                    foreach (var value_19 in obj.Properties)
                     {
-                        xor_2 ^= value_17.Key.GetHashCode();
-                        if (value_17.Value != null)
+                        xor_2 ^= value_19.Key.GetHashCode();
+                        if (value_19.Value != null)
                         {
-                            xor_2 ^= value_17.Value.GetHashCode();
+                            xor_2 ^= value_19.Value.GetHashCode();
                         }
                     }
 
