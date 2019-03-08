@@ -2334,7 +2334,7 @@
             },
 
             "name": {
-                "description": "The name of the component.",
+                "description": "The name of the tool component.",
                 "type": "string"
             },
 

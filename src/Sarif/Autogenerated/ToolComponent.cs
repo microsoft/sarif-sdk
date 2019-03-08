@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Guid { get; set; }
 
         /// <summary>
-        /// The name of the component.
+        /// The name of the tool component.
         /// </summary>
         [DataMember(Name = "name", IsRequired = true)]
         public string Name { get; set; }
