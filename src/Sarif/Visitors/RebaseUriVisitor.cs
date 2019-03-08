@@ -12,6 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
     /// </summary>
     public class RebaseUriVisitor : SarifRewritingVisitor
     {
+        private Run _currentRun;
         private readonly Uri _baseUri;
         private readonly string _uriBaseId;
         private readonly bool _rebaseRelativeUris;
@@ -33,23 +34,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
         {
-            ArtifactLocation newNode = base.VisitArtifactLocation(node);
-
-            if (newNode.Uri.IsAbsoluteUri && _baseUri.IsBaseOf(newNode.Uri))
+            if (_currentRun == null || _currentRun.OriginalUriBaseIds == null || !_currentRun.OriginalUriBaseIds.Values.Contains(node))
             {
-                newNode.UriBaseId = _uriBaseId;
-                newNode.Uri = _baseUri.MakeRelativeUri(node.Uri);
-            }
-            else if (_rebaseRelativeUris && !newNode.Uri.IsAbsoluteUri)
-            {
-                newNode.UriBaseId = _uriBaseId;
+                if (node.Uri.IsAbsoluteUri && _baseUri.IsBaseOf(node.Uri))
+                {
+                    node.UriBaseId = _uriBaseId;
+                    node.Uri = _baseUri.MakeRelativeUri(node.Uri);
+                }
+                else if (_rebaseRelativeUris && !node.Uri.IsAbsoluteUri)
+                {
+                    node.UriBaseId = _uriBaseId;
+                }
             }
 
-            return newNode;
+            return node;
         }
 
         public override Run VisitRun(Run node)
         {
+            _currentRun = node;
+
             Run newRun = base.VisitRun(node);
 
             newRun.OriginalUriBaseIds = newRun.OriginalUriBaseIds ?? new Dictionary<string, ArtifactLocation>();
