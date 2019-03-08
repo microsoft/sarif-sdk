@@ -1,49 +1,49 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta.2019-01-24 JSON Schema",
-  "description": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2019-01-24 JSON Schema: a standard format for the output of static analysis tools.",
-  "additionalProperties": false,
-  "type": "object",
-  "properties": {
-
-    "$schema": {
-      "description": "The URI of the JSON schema corresponding to the version.",
-      "type": "string",
-      "format": "uri"
-    },
-
-    "version": {
-      "description": "The SARIF format version of this log file.",
-      "enum": [ "2.0.0-csd.2.beta.2019-02-20" ]
-    },
-
-    "runs": {
-      "description": "The set of runs contained in this log file.",
-      "type": "array",
-      "minItems": 0,
-      "uniqueItems": false,
-      "items": {
-        "$ref": "#/definitions/run"
-      }
-    },
-
-    "inlineExternalPropertyFiles": {
-      "description": "References to external property files that share data between runs.",
-      "type": "array",
-      "minItems": 0,
-      "uniqueItems": false,
-      "items": {
-        "$ref": "#/definitions/externalPropertyFile"
-      }
-    },
-
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta.2019-01-24 JSON Schema",
+    "description": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2019-01-24 JSON Schema: a standard format for the output of static analysis tools.",
+    "additionalProperties": false,
+    "type": "object",
     "properties": {
-      "description": "Key/value pairs that provide additional information about the log file.",
-      "$ref": "#/definitions/propertyBag"
-    }
-  },
 
-  "required": [ "version", "runs" ],
+        "$schema": {
+            "description": "The URI of the JSON schema corresponding to the version.",
+            "type": "string",
+            "format": "uri"
+        },
+
+        "version": {
+            "description": "The SARIF format version of this log file.",
+            "enum": [ "2.0.0-csd.2.beta.2019-02-20" ]
+        },
+
+        "runs": {
+            "description": "The set of runs contained in this log file.",
+            "type": "array",
+            "minItems": 0,
+            "uniqueItems": false,
+            "items": {
+                "$ref": "#/definitions/run"
+            }
+        },
+
+        "inlineExternalProperties": {
+            "description": "References to external property files that share data between runs.",
+            "type": "array",
+            "minItems": 0,
+            "uniqueItems": false,
+            "items": {
+                "$ref": "#/definitions/externalProperties"
+            }
+        },
+
+        "properties": {
+            "description": "Key/value pairs that provide additional information about the log file.",
+            "$ref": "#/definitions/propertyBag"
+        }
+    },
+
+    "required": [ "version", "runs" ],
 
     "definitions": {
 
@@ -487,6 +487,118 @@
             }
         },
 
+        "externalProperties": {
+            "type": "object",
+            "properties": {
+
+                "$schema": {
+                    "description": "tbd",
+                    "type": "string"
+                },
+
+                "version": {},
+
+                "instanceGuid": {},
+
+                "runInstanceGuid": {},
+
+                "run.conversion": {
+                    "description": "A conversion object that describes how a converter transformed an analysis tool's native reporting format into the SARIF format.",
+                    "$ref": "#/definitions/conversion"
+                },
+
+                "run.graphs": {},
+
+                "run.externizedProperties": {},
+
+                "run.artifacts": {
+                    "description": "An array of artifact objects relevant to the run.",
+                    "type": "array",
+                    "minItems": 0,
+                    "uniqueItems": true,
+                    "items": {
+                        "$ref": "#/definitions/artifact"
+                    }
+                },
+
+                "run.invocations": {
+                    "description": "Describes the invocation of the analysis tool.",
+                    "type": "array",
+                    "minItems": 0,
+                    "uniqueItems": false,
+                    "default": [],
+                    "items": {
+                        "$ref": "#/definitions/invocation"
+                    }
+                },
+
+                "run.logicalLocations": {
+                    "description": "An array of logical locations such as namespaces, types or functions.",
+                    "type": "array",
+                    "minItems": 0,
+                    "uniqueItems": true,
+                    "default": [],
+                    "items": {
+                        "$ref": "#/definitions/logicalLocation"
+                    }
+                },
+
+                "run.threadFlowLocations": {
+                    "description": "An array of threadFlowLocation objects cached at run level.",
+                    "type": "array",
+                    "minItems": 0,
+                    "uniqueItems": true,
+                    "default": [],
+                    "items": {
+                        "$ref": "#/definitions/threadFlowLocation"
+                    }
+                },
+
+                "run.results": {
+                    "description": "The set of results contained in an SARIF log. The results array can be omitted when a run is solely exporting rules metadata. It must be present (but may be empty) if a log file represents an actual scan.",
+                    "type": "array",
+                    "minItems": 0,
+                    "uniqueItems": false,
+                    "items": {
+                        "$ref": "#/definitions/result"
+                    }
+                },
+
+                "run.taxonomies": {
+                    "description": "An array of reportingDescriptor objects relevant to a taxonomy in which results are categorized.",
+                    "type": "array",
+                    "minItems": 0,
+                    "uniqueItems": true,
+                    "default": [],
+                    "items": {
+                        "$ref": "#/definitions/reportingDescriptor"
+                    }
+                },
+
+                "run.addresses": {
+                    "description": "Addresses associated with this run instance, if any.",
+                    "type": "array",
+                    "minItems": 0,
+                    "uniqueItems": false,
+                    "default": [],
+                    "items": {
+                        "$ref": "#/definitions/address"
+                    }
+                },
+
+                "run.tool": {
+                    "description": "Information about the tool or tool pipeline that generated the results in this run. A run can only contain results produced by a single tool or tool pipeline. A run can aggregate results from multiple log files, as long as context around the tool run (tool command-line arguments and the like) is identical for all aggregated files.",
+                    "$ref": "#/definitions/tool"
+                },
+
+                "properties": {
+                    "description": "Key/value pairs that provide additional information about the run.",
+                    "$ref": "#/definitions/propertyBag"
+                }
+            },
+            "required": [ "version"]
+        },
+
         "externalPropertyFile": {
             "type": "object",
             "properties": {
@@ -565,16 +677,16 @@
                     }
                 },
 
-        "threadFlowLocations": {
-          "description": "An array of external property files containing run.threadFlowLocations arrays to be merged with the root log file.",
-          "type": "array",
-          "minItems": 0,
-          "uniqueItems": true,
-          "default": [],
-          "items": {
-            "$ref": "#/definitions/externalPropertyFile"
-          }
-        },
+                "threadFlowLocations": {
+                    "description": "An array of external property files containing run.threadFlowLocations arrays to be merged with the root log file.",
+                    "type": "array",
+                    "minItems": 0,
+                    "uniqueItems": true,
+                    "default": [],
+                    "items": {
+                        "$ref": "#/definitions/externalPropertyFile"
+                    }
+                },
 
                 "results": {
                     "description": "An array of external property files containing run.results arrays to be merged with the root log file.",
@@ -1390,15 +1502,15 @@
                     "type": "string"
                 },
 
-        "shortDescription": {
-          "description": "A concise description of the report. Should be a single sentence that is understandable when visible space is limited to a single line of text.",
-          "$ref": "#/definitions/multiformatMessageString"
-        },
+                "shortDescription": {
+                    "description": "A concise description of the report. Should be a single sentence that is understandable when visible space is limited to a single line of text.",
+                    "$ref": "#/definitions/multiformatMessageString"
+                },
 
-        "fullDescription": {
-          "description": "A description of the report. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.",
-          "$ref": "#/definitions/multiformatMessageString"
-        },
+                "fullDescription": {
+                    "description": "A description of the report. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.",
+                    "$ref": "#/definitions/multiformatMessageString"
+                },
 
                 "messageStrings": {
                     "description": "A set of name/value pairs with arbitrary names. Each value is a multiformatMessageString object, which holds message strings in plain text and (optionally) Markdown format. The strings can include placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.",
@@ -2333,15 +2445,15 @@
             "type": "object",
             "properties": {
 
-            "guid": {
-                "description": "A unique identifer for the tool component in the form of a GUID.",
-                "type": "string"
-            },
+                "guid": {
+                    "description": "A unique identifer for the tool component in the form of a GUID.",
+                    "type": "string"
+                },
 
-            "name": {
-                "description": "The name of the tool component.",
-                "type": "string"
-            },
+                "name": {
+                    "description": "The name of the tool component.",
+                    "type": "string"
+                },
 
                 "organization": {
                     "description": "The organization or company that produced the tool component.",
@@ -2579,4 +2691,3 @@
         }
     }
 }
-  
