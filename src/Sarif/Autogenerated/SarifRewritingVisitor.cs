@@ -442,14 +442,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                node.Driver = VisitNullChecked(node.Driver);
-                if (node.Extensions != null)
+                if (node.Addresses != null)
                 {
-                    for (int index_0 = 0; index_0 < node.Extensions.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.Addresses.Count; ++index_0)
                     {
-                        node.Extensions[index_0] = VisitNullChecked(node.Extensions[index_0]);
+                        node.Addresses[index_0] = VisitNullChecked(node.Addresses[index_0]);
                     }
                 }
+
+                node.Tool = VisitNullChecked(node.Tool);
             }
 
             return node;

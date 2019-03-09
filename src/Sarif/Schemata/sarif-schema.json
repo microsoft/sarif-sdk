@@ -727,20 +727,20 @@
                     }
                 },
 
-                "driver": {
-                    "description": "An external property file containing a run.tool.driver object to be merged with the root log file.",
-                    "$ref": "#/definitions/externalPropertyFile"
-                },
-
-                "extensions": {
-                    "description": "An array of external property files containing run.tool.extensions arrays to be merged with the root log file.",
+                "addresses": {
+                    "description": "An array of external property files containing run.addresses arrays to be merged with the root log file.",
                     "type": "array",
                     "minItems": 0,
-                    "uniqueItems": true,
+                    "uniqueItems": false,
                     "default": [],
                     "items": {
                         "$ref": "#/definitions/externalPropertyFile"
                     }
+                },
+
+                "tool": {
+                    "description": "An external property file containing a run.tool object to be merged with the root log file.",
+                    "$ref": "#/definitions/externalPropertyFile"
                 },
 
                 "properties": {

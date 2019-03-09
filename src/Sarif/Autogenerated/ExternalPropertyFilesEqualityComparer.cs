@@ -169,30 +169,30 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!ExternalPropertyFile.ValueComparer.Equals(left.Driver, right.Driver))
+            if (!object.ReferenceEquals(left.Addresses, right.Addresses))
             {
-                return false;
-            }
-
-            if (!object.ReferenceEquals(left.Extensions, right.Extensions))
-            {
-                if (left.Extensions == null || right.Extensions == null)
+                if (left.Addresses == null || right.Addresses == null)
                 {
                     return false;
                 }
 
-                if (left.Extensions.Count != right.Extensions.Count)
+                if (left.Addresses.Count != right.Addresses.Count)
                 {
                     return false;
                 }
 
-                for (int index_6 = 0; index_6 < left.Extensions.Count; ++index_6)
+                for (int index_6 = 0; index_6 < left.Addresses.Count; ++index_6)
                 {
-                    if (!ExternalPropertyFile.ValueComparer.Equals(left.Extensions[index_6], right.Extensions[index_6]))
+                    if (!ExternalPropertyFile.ValueComparer.Equals(left.Addresses[index_6], right.Addresses[index_6]))
                     {
                         return false;
                     }
                 }
+            }
+
+            if (!ExternalPropertyFile.ValueComparer.Equals(left.Tool, right.Tool))
+            {
+                return false;
             }
 
             if (!object.ReferenceEquals(left.Properties, right.Properties))
@@ -317,14 +317,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.Driver != null)
+                if (obj.Addresses != null)
                 {
-                    result = (result * 31) + obj.Driver.ValueGetHashCode();
-                }
-
-                if (obj.Extensions != null)
-                {
-                    foreach (var value_8 in obj.Extensions)
+                    foreach (var value_8 in obj.Addresses)
                     {
                         result = result * 31;
                         if (value_8 != null)
@@ -332,6 +327,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                             result = (result * 31) + value_8.ValueGetHashCode();
                         }
                     }
+                }
+
+                if (obj.Tool != null)
+                {
+                    result = (result * 31) + obj.Tool.ValueGetHashCode();
                 }
 
                 if (obj.Properties != null)
