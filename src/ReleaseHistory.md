@@ -275,3 +275,6 @@
 * API NON-BREAKING: Add additional properties to toolComponent. https://github.com/oasis-tcs/sarif-spec/issues/336
 * API BREAKING: Add address property to a location object (and other nodes). https://github.com/oasis-tcs/sarif-spec/issues/302
 * API NON-BREAKING: Introduce new localization mechanism. https://github.com/oasis-tcs/sarif-spec/issues/338
+* API BREAKING: External property file related renames. https://github.com/oasis-tcs/sarif-spec/issues/335
+* API NON-BREAKING: Update logical location kinds to accommodate XML and JSON paths. https://github.com/oasis-tcs/sarif-spec/issues/291
+* API NON-BREAKING: Define result taxonomies. https://github.com/oasis-tcs/sarif-spec/issues/314
