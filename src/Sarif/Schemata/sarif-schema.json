@@ -491,27 +491,46 @@
             "type": "object",
             "properties": {
 
-                "$schema": {
-                    "description": "tbd",
+                "schema": {
+                    "description": "The URI of the JSON schema corresponding to the version of the external property file format.",
+                    "type": "string",
+                    "format": "uri"
+                },
+
+                "version": {
+                    "description": "The SARIF format version of this log file.",
+                    "enum": [ "2.0.0-csd.2.beta.2019-02-20" ]
+                },
+
+                "guid": {
+                    "description": "A stable, unique identifer for the external properties in the form of a GUID.",
                     "type": "string"
                 },
 
-                "version": {},
+                "runGuid": {
+                    "description": "A stable, unique identifer for the external properties in the form of a GUID.",
+                    "type": "string"
+                },
 
-                "instanceGuid": {},
-
-                "runInstanceGuid": {},
-
-                "run.conversion": {
+                "conversion": {
                     "description": "A conversion object that describes how a converter transformed an analysis tool's native reporting format into the SARIF format.",
                     "$ref": "#/definitions/conversion"
                 },
 
-                "run.graphs": {},
+                "graphs": {
+                    "description": "A dictionary, each of whose keys is the id of a graph and each of whose values is a 'graph' object with that id.",
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/graph"
+                    }
+                },
 
-                "run.externizedProperties": {},
+                "externalizedProperties": {
+                    "description": "Key/value pairs that provide additional information about the run.",
+                    "$ref": "#/definitions/propertyBag"
+                },
 
-                "run.artifacts": {
+                "artifacts": {
                     "description": "An array of artifact objects relevant to the run.",
                     "type": "array",
                     "minItems": 0,
@@ -521,7 +540,7 @@
                     }
                 },
 
-                "run.invocations": {
+                "invocations": {
                     "description": "Describes the invocation of the analysis tool.",
                     "type": "array",
                     "minItems": 0,
@@ -532,7 +551,7 @@
                     }
                 },
 
-                "run.logicalLocations": {
+                "logicalLocations": {
                     "description": "An array of logical locations such as namespaces, types or functions.",
                     "type": "array",
                     "minItems": 0,
@@ -543,7 +562,7 @@
                     }
                 },
 
-                "run.threadFlowLocations": {
+                "threadFlowLocations": {
                     "description": "An array of threadFlowLocation objects cached at run level.",
                     "type": "array",
                     "minItems": 0,
@@ -554,7 +573,7 @@
                     }
                 },
 
-                "run.results": {
+                "results": {
                     "description": "The set of results contained in an SARIF log. The results array can be omitted when a run is solely exporting rules metadata. It must be present (but may be empty) if a log file represents an actual scan.",
                     "type": "array",
                     "minItems": 0,
@@ -564,7 +583,7 @@
                     }
                 },
 
-                "run.taxonomies": {
+                "taxonomies": {
                     "description": "An array of reportingDescriptor objects relevant to a taxonomy in which results are categorized.",
                     "type": "array",
                     "minItems": 0,
@@ -575,28 +594,28 @@
                     }
                 },
 
-                "run.addresses": {
-                    "description": "Addresses associated with this run instance, if any.",
+                "driver": {
+                    "description": "The analysis tool that was run.",
+                    "$ref": "#/definitions/toolComponent"
+                },
+
+                "extensions": {
+                    "description": "Tool extensions that contributed to or reconfigured the analysis tool that was run.",
                     "type": "array",
                     "minItems": 0,
-                    "uniqueItems": false,
+                    "uniqueItems": true,
                     "default": [],
                     "items": {
-                        "$ref": "#/definitions/address"
+                        "$ref": "#/definitions/toolComponent"
                     }
                 },
 
-                "run.tool": {
-                    "description": "Information about the tool or tool pipeline that generated the results in this run. A run can only contain results produced by a single tool or tool pipeline. A run can aggregate results from multiple log files, as long as context around the tool run (tool command-line arguments and the like) is identical for all aggregated files.",
-                    "$ref": "#/definitions/tool"
-                },
-
                 "properties": {
-                    "description": "Key/value pairs that provide additional information about the run.",
+                    "description": "Key/value pairs that provide additional information about the external properties.",
                     "$ref": "#/definitions/propertyBag"
                 }
             },
-            "required": [ "version"]
+            "required": [ "version" ]
         },
 
         "externalPropertyFile": {
@@ -708,20 +727,20 @@
                     }
                 },
 
-                "addresses": {
-                    "description": "An array of external property files containing run.addresses arrays to be merged with the root log file.",
+                "driver": {
+                    "description": "An external property file containing a run.tool.driver object to be merged with the root log file.",
+                    "$ref": "#/definitions/externalPropertyFile"
+                },
+
+                "extensions": {
+                    "description": "An array of external property files containing run.tool.extensions arrays to be merged with the root log file.",
                     "type": "array",
                     "minItems": 0,
-                    "uniqueItems": false,
+                    "uniqueItems": true,
                     "default": [],
                     "items": {
                         "$ref": "#/definitions/externalPropertyFile"
                     }
-                },
-
-                "tool": {
-                    "description": "An external property file containing a run.tool object to be merged with the root log file.",
-                    "$ref": "#/definitions/externalPropertyFile"
                 },
 
                 "properties": {
