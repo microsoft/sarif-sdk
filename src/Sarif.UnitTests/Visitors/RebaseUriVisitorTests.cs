@@ -236,13 +236,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             public override ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
             {
-                FileLocationUris = FileLocationUris ?? new List<string>();
-                FileLocationUris.Add(node.Uri.OriginalString);
+                if (_currentRun.OriginalUriBaseIds == null || !_currentRun.OriginalUriBaseIds.Values.Contains(node))
+                {
 
-                FileLocationUriBaseIds = FileLocationUriBaseIds ?? new List<string>();
-                FileLocationUriBaseIds.Add(node.UriBaseId);
+                    FileLocationUris = FileLocationUris ?? new List<string>();
+                    FileLocationUris.Add(node.Uri.OriginalString);
 
+                    FileLocationUriBaseIds = FileLocationUriBaseIds ?? new List<string>();
+                    FileLocationUriBaseIds.Add(node.UriBaseId);
+                }
                 return base.VisitArtifactLocation(node);
+            }
+
+            private Run _currentRun;
+
+            public override Run VisitRun(Run node)
+            {
+                _currentRun = node;
+                return base.VisitRun(node);
             }
 
             public List<string> FileLocationUris { get; set; }
