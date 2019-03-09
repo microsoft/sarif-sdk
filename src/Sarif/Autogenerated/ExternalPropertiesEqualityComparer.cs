@@ -9,14 +9,14 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Defines methods to support the comparison of objects of type ExternalPropertyFiles for equality.
+    /// Defines methods to support the comparison of objects of type ExternalProperties for equality.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
-    internal sealed class ExternalPropertyFilesEqualityComparer : IEqualityComparer<ExternalPropertyFiles>
+    internal sealed class ExternalPropertiesEqualityComparer : IEqualityComparer<ExternalProperties>
     {
-        internal static readonly ExternalPropertyFilesEqualityComparer Instance = new ExternalPropertyFilesEqualityComparer();
+        internal static readonly ExternalPropertiesEqualityComparer Instance = new ExternalPropertiesEqualityComparer();
 
-        public bool Equals(ExternalPropertyFiles left, ExternalPropertyFiles right)
+        public bool Equals(ExternalProperties left, ExternalProperties right)
         {
             if (ReferenceEquals(left, right))
             {
@@ -28,17 +28,37 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!ExternalPropertyFile.ValueComparer.Equals(left.Conversion, right.Conversion))
+            if (left.Schema != right.Schema)
             {
                 return false;
             }
 
-            if (!ExternalPropertyFile.ValueComparer.Equals(left.Graphs, right.Graphs))
+            if (left.Version != right.Version)
             {
                 return false;
             }
 
-            if (!ExternalPropertyFile.ValueComparer.Equals(left.ExternalizedProperties, right.ExternalizedProperties))
+            if (left.Guid != right.Guid)
+            {
+                return false;
+            }
+
+            if (left.RunGuid != right.RunGuid)
+            {
+                return false;
+            }
+
+            if (!Conversion.ValueComparer.Equals(left.Conversion, right.Conversion))
+            {
+                return false;
+            }
+
+            if (!object.Equals(left.Graphs, right.Graphs))
+            {
+                return false;
+            }
+
+            if (!PropertyBag.ValueComparer.Equals(left.ExternalizedProperties, right.ExternalizedProperties))
             {
                 return false;
             }
@@ -57,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_0 = 0; index_0 < left.Artifacts.Count; ++index_0)
                 {
-                    if (!ExternalPropertyFile.ValueComparer.Equals(left.Artifacts[index_0], right.Artifacts[index_0]))
+                    if (!Artifact.ValueComparer.Equals(left.Artifacts[index_0], right.Artifacts[index_0]))
                     {
                         return false;
                     }
@@ -78,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_1 = 0; index_1 < left.Invocations.Count; ++index_1)
                 {
-                    if (!ExternalPropertyFile.ValueComparer.Equals(left.Invocations[index_1], right.Invocations[index_1]))
+                    if (!Invocation.ValueComparer.Equals(left.Invocations[index_1], right.Invocations[index_1]))
                     {
                         return false;
                     }
@@ -99,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_2 = 0; index_2 < left.LogicalLocations.Count; ++index_2)
                 {
-                    if (!ExternalPropertyFile.ValueComparer.Equals(left.LogicalLocations[index_2], right.LogicalLocations[index_2]))
+                    if (!LogicalLocation.ValueComparer.Equals(left.LogicalLocations[index_2], right.LogicalLocations[index_2]))
                     {
                         return false;
                     }
@@ -120,7 +140,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_3 = 0; index_3 < left.ThreadFlowLocations.Count; ++index_3)
                 {
-                    if (!ExternalPropertyFile.ValueComparer.Equals(left.ThreadFlowLocations[index_3], right.ThreadFlowLocations[index_3]))
+                    if (!ThreadFlowLocation.ValueComparer.Equals(left.ThreadFlowLocations[index_3], right.ThreadFlowLocations[index_3]))
                     {
                         return false;
                     }
@@ -141,7 +161,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_4 = 0; index_4 < left.Results.Count; ++index_4)
                 {
-                    if (!ExternalPropertyFile.ValueComparer.Equals(left.Results[index_4], right.Results[index_4]))
+                    if (!Result.ValueComparer.Equals(left.Results[index_4], right.Results[index_4]))
                     {
                         return false;
                     }
@@ -162,14 +182,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_5 = 0; index_5 < left.Taxonomies.Count; ++index_5)
                 {
-                    if (!ExternalPropertyFile.ValueComparer.Equals(left.Taxonomies[index_5], right.Taxonomies[index_5]))
+                    if (!ReportingDescriptor.ValueComparer.Equals(left.Taxonomies[index_5], right.Taxonomies[index_5]))
                     {
                         return false;
                     }
                 }
             }
 
-            if (!ExternalPropertyFile.ValueComparer.Equals(left.Driver, right.Driver))
+            if (!ToolComponent.ValueComparer.Equals(left.Driver, right.Driver))
             {
                 return false;
             }
@@ -188,7 +208,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_6 = 0; index_6 < left.Extensions.Count; ++index_6)
                 {
-                    if (!ExternalPropertyFile.ValueComparer.Equals(left.Extensions[index_6], right.Extensions[index_6]))
+                    if (!ToolComponent.ValueComparer.Equals(left.Extensions[index_6], right.Extensions[index_6]))
                     {
                         return false;
                     }
@@ -220,7 +240,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public int GetHashCode(ExternalPropertyFiles obj)
+        public int GetHashCode(ExternalProperties obj)
         {
             if (ReferenceEquals(obj, null))
             {
@@ -230,6 +250,26 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
+                if (obj.Schema != null)
+                {
+                    result = (result * 31) + obj.Schema.GetHashCode();
+                }
+
+                if (obj.Version != null)
+                {
+                    result = (result * 31) + obj.Version.GetHashCode();
+                }
+
+                if (obj.Guid != null)
+                {
+                    result = (result * 31) + obj.Guid.GetHashCode();
+                }
+
+                if (obj.RunGuid != null)
+                {
+                    result = (result * 31) + obj.RunGuid.GetHashCode();
+                }
+
                 if (obj.Conversion != null)
                 {
                     result = (result * 31) + obj.Conversion.ValueGetHashCode();
@@ -237,7 +277,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (obj.Graphs != null)
                 {
-                    result = (result * 31) + obj.Graphs.ValueGetHashCode();
+                    result = (result * 31) + obj.Graphs.GetHashCode();
                 }
 
                 if (obj.ExternalizedProperties != null)
