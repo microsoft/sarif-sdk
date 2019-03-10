@@ -269,9 +269,10 @@
 * API NON-BREAKING: Add additional properties to `toolComponent`. https://github.com/oasis-tcs/sarif-spec/issues/336
 * API NON-BREAKING: Provide a caching mechanism for duplicated code flow data. https://github.com/oasis-tcs/sarif-spec/issues/320
 * API NON-BREAKING: Add `inlineExternalPropertyFiles` at the log level. https://github.com/oasis-tcs/sarif-spec/issues/321
-* API BREAKING: Remove `invocation.attachments`, now replaced by `run.tool.extensions`. https://github.com/oasis-tcs/sarif-spec/issues/327
-* API BREAKING: Remove `tool.language` and localization support. https://github.com/oasis-tcs/sarif-spec/issues/325
-* API BREAKING: Rename `invocation.toolNotifications` and `invocation.configurationNotifications` to `toolExecutionNotifications` and `toolConfigurationNotifications`. https://github.com/oasis-tcs/sarif-spec/issues/330
+* API NON-BREAKING: Update logical location kinds to accommodate XML and JSON paths. https://github.com/oasis-tcs/sarif-spec/issues/291
+* API NON-BREAKING: Define result taxonomies. https://github.com/oasis-tcs/sarif-spec/issues/314* API BREAKING: Remove `invocation.attachments`, now replaced by `run.tool.extensions`. https://github.com/oasis-tcs/sarif-spec/issues/327
+* API NON-BREAKING: Introduce new localization mechanism. https://github.com/oasis-tcs/sarif-spec/issues/338* API BREAKING: Remove `tool.language` and localization support. https://github.com/oasis-tcs/sarif-spec/issues/325
 * API NON-BREAKING: Add additional properties to toolComponent. https://github.com/oasis-tcs/sarif-spec/issues/336
+* API BREAKING: Rename `invocation.toolNotifications` and `invocation.configurationNotifications` to `toolExecutionNotifications` and `toolConfigurationNotifications`. https://github.com/oasis-tcs/sarif-spec/issues/330
 * API BREAKING: Add address property to a location object (and other nodes). https://github.com/oasis-tcs/sarif-spec/issues/302
-* API NON-BREAKING: Introduce new localization mechanism. https://github.com/oasis-tcs/sarif-spec/issues/338
+* API BREAKING: External property file related renames. https://github.com/oasis-tcs/sarif-spec/issues/335
