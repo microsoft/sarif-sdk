@@ -20,11 +20,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentNullException(nameof(path));
             }
 
-            if (System.IO.Directory.Exists(path))
-            {
-                return MimeType.Directory;
-            }
-
             foreach (ImmutableArray<ImmutableArray<string>> extensionsTable in GetExtensionsTables())
             {
                 foreach (ImmutableArray<string> tableEntry in extensionsTable)
@@ -39,6 +34,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     }
                 }
             }
+
+            if (System.IO.Directory.Exists(path))
+            {
+                return MimeType.Directory;
+            }
+
             return MimeType.Binary;
         }
 
