@@ -141,8 +141,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 };
             }
 
-            location.FullyQualifiedLogicalName = CreateFullyQualifiedLogicalName(context, out int logicalLocationIndex);
-            location.LogicalLocationIndex = logicalLocationIndex;
+            location.LogicalLocation = new LogicalLocation
+            {
+                FullyQualifiedName = CreateFullyQualifiedLogicalName(context, out int logicalLocationIndex),
+                ParentIndex = logicalLocationIndex
+            };
 
             result.Locations = new List<Location> { location };
 

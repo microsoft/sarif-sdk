@@ -37,7 +37,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Module = assembly?.GetName().Name,
                 Location = new Location
                 {
-                    FullyQualifiedLogicalName = fullyQualifiedName
+                    LogicalLocation = new LogicalLocation
+                    {
+                        FullyQualifiedName = fullyQualifiedName
+                    }
                 }
             };
 
@@ -75,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public override string ToString()
         {
-            string result = AT + this.Location?.FullyQualifiedLogicalName;
+            string result = AT + this.Location?.LogicalLocation?.FullyQualifiedName;
 
             if (this.Location?.PhysicalLocation?.ArtifactLocation?.Uri != null)
             {

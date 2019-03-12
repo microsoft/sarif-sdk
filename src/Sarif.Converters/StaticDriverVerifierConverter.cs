@@ -135,7 +135,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     Importance = ThreadFlowLocationImportance.Unimportant,
                     Location = new Location
                     {
-                        Message = new Message()
+                        Message = new Message(),
+                        LogicalLocation = new LogicalLocation()
                     }
                 };
 
@@ -162,7 +163,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                     if (ExtractCallerAndCallee(extraMsg.Trim(), out caller, out callee))
                     {
-                        threadFlowLocation.Location.FullyQualifiedLogicalName = caller;
+                        threadFlowLocation.Location.LogicalLocation.FullyQualifiedName = caller;
                         threadFlowLocation.Location.Message.Text = callee;
                         threadFlowLocation.SetProperty("target", callee);
                         _callers.Push(caller);
@@ -192,7 +193,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     Debug.Assert(_callers.Count > 0);
 
                     threadFlowLocation.NestingLevel = nestingLevel--;
-                    threadFlowLocation.Location.FullyQualifiedLogicalName = _callers.Pop();
+                    threadFlowLocation.Location.LogicalLocation.FullyQualifiedName = _callers.Pop();
                 }
                 else
                 {

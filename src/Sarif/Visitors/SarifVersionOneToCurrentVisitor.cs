@@ -334,12 +334,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 location = new Location
                 {
-                    FullyQualifiedLogicalName = v1Location.FullyQualifiedLogicalName,
+                    LogicalLocation = new LogicalLocation { FullyQualifiedName = v1Location.FullyQualifiedLogicalName},
                     PhysicalLocation = CreatePhysicalLocation(v1Location.ResultFile ?? v1Location.AnalysisTarget),
                     Properties = v1Location.Properties
                 };
 
-                if (!string.IsNullOrWhiteSpace(location.FullyQualifiedLogicalName))
+                if (!string.IsNullOrWhiteSpace(location.LogicalLocation?.FullyQualifiedName))
                 {
                     if (_v1KeyToV2LogicalLocationMap.TryGetValue(key, out LogicalLocation logicalLocation))
                     {
@@ -351,7 +351,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                             _v2LogicalLocationToIndexMap[logicalLocation] = index;
                         }
 
-                        location.LogicalLocationIndex = index;
+                        location.LogicalLocation.ParentIndex = index;
                     }
                 }
             }
@@ -373,7 +373,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                                                                                                          a.Message))
                                                                       .Where(r => r != null)
                                                                       .ToList(),
-                    FullyQualifiedLogicalName = v1AnnotatedCodeLocation.FullyQualifiedLogicalName,
+                    LogicalLocation = new LogicalLocation { FullyQualifiedName = v1AnnotatedCodeLocation.FullyQualifiedLogicalName },
                     Message = CreateMessage(v1AnnotatedCodeLocation.Message),
                     PhysicalLocation = CreatePhysicalLocation(v1AnnotatedCodeLocation.PhysicalLocation),
                     Properties = v1AnnotatedCodeLocation.Properties
@@ -386,7 +386,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     if (_v1KeyToV2LogicalLocationMap.TryGetValue(logicalLocationKey, out LogicalLocation logicalLocation))
                     {
                         _v2LogicalLocationToIndexMap.TryGetValue(logicalLocation, out int index);
-                        location.LogicalLocationIndex = index;
+                        location.LogicalLocation.ParentIndex = index;
                     }
                 }
 
@@ -432,16 +432,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             logicalLocationKey = logicalLocationKey ?? fullyQualifiedLogicalName;
 
             // Retrieve logical location so that we can acquire the index
-            _v1KeyToV2LogicalLocationMap.TryGetValue(logicalLocationKey, out LogicalLocation logicalLocation);            
+            _v1KeyToV2LogicalLocationMap.TryGetValue(logicalLocationKey, out LogicalLocation logicalLocation);
 
-            location.FullyQualifiedLogicalName = fullyQualifiedLogicalName ?? logicalLocation?.FullyQualifiedName;
+            location.LogicalLocation = new LogicalLocation { FullyQualifiedName = fullyQualifiedLogicalName ?? logicalLocation?.FullyQualifiedName };
 
             if (logicalLocation == null || !_v2LogicalLocationToIndexMap.TryGetValue(logicalLocation, out int logicalLocationIndex))
             {
                 logicalLocationIndex = -1;
             }
 
-            location.LogicalLocationIndex = logicalLocationIndex;
+
+            location.LogicalLocation.ParentIndex = logicalLocationIndex;
 
             if (uri != null)
             {

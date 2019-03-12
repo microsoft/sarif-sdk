@@ -221,8 +221,11 @@ Possible resolution: delete", result.Message.Text);
 
             var expectedLocation = new Location
             {
-                FullyQualifiedLogicalName = "my_fancy_binary\\my_method",
-                LogicalLocationIndex = 1
+                LogicalLocation = new LogicalLocation
+                {
+                    FullyQualifiedName = "my_fancy_binary\\my_method",
+                    ParentIndex = 1
+                }
             };
 
             var expectedLogicalLocations = new List<LogicalLocation>
@@ -251,8 +254,11 @@ Possible resolution: delete", result.Message.Text);
 
             var expectedLocation = new Location
             {
-                FullyQualifiedLogicalName = "my_method",
-                LogicalLocationIndex = 0
+                LogicalLocation = new LogicalLocation
+                {
+                    FullyQualifiedName = "my_method",
+                    ParentIndex = 0
+                }
             };
 
             var expectedLogicalLocations = new List<LogicalLocation>
@@ -280,8 +286,11 @@ Possible resolution: delete", result.Message.Text);
 
             var expectedLocation = new Location
             {
-                FullyQualifiedLogicalName = "FancyPackageName\\my_method",
-                LogicalLocationIndex = 1
+                LogicalLocation = new LogicalLocation
+                {
+                    FullyQualifiedName = "FancyPackageName\\my_method",
+                    ParentIndex = 1
+                }
             };
             
             var expectedLogicalLocations = new List<LogicalLocation>
@@ -309,8 +318,11 @@ Possible resolution: delete", result.Message.Text);
 
             var expectedLocation = new Location
             {
-                FullyQualifiedLogicalName = "FancyPackageName",
-                LogicalLocationIndex = 0
+                LogicalLocation = new LogicalLocation
+                {
+                    FullyQualifiedName = "FancyPackageName",
+                    ParentIndex = 0
+                }
             };
 
             var expectedLogicalLocations = new List<LogicalLocation>
@@ -344,8 +356,11 @@ Possible resolution: delete", result.Message.Text);
                         Uri = new Uri("File Goes Here", UriKind.RelativeOrAbsolute)
                     },
                 },
-                FullyQualifiedLogicalName = "LastResortModule",
-                LogicalLocationIndex = 0
+                LogicalLocation = new LogicalLocation
+                {
+                    FullyQualifiedName = "LastResortModule",
+                    ParentIndex = 0
+                }
             };
 
             var expectedLogicalLocations = new List< LogicalLocation>
@@ -391,8 +406,8 @@ Possible resolution: delete", result.Message.Text);
 
             Location location = result.Locations.First();
             LogicalLocation logicalLocation =
-                location.LogicalLocationIndex > -1
-                ? converter.LogicalLocations[location.LogicalLocationIndex]
+                location.LogicalLocation.ParentIndex > -1
+                ? converter.LogicalLocations[location.LogicalLocation.ParentIndex]
                 : null;
 
             return new LocationInfo

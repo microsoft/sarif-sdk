@@ -920,16 +920,9 @@
                     "$ref": "#/definitions/physicalLocation"
                 },
 
-                "fullyQualifiedLogicalName": {
-                    "description": "The human-readable fully qualified name of the logical location. If run.logicalLocations is present, this value matches a property name within that object, from which further information about the logical location can be obtained.",
-                    "type": "string"
-                },
-
-                "logicalLocationIndex": {
-                    "description": "The index within the logical locations array of the logical location associated with the result.",
-                    "type": "integer",
-                    "default": -1,
-                    "minimum": -1
+                "logicalLocation": {
+                    "description": "The logical location associated with the result.",
+                    "$ref": "#/definitions/logicalLocation"
                 },
 
                 "message": {
