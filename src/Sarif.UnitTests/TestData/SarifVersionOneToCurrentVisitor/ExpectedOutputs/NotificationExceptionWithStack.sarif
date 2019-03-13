@@ -27,71 +27,79 @@
                   },
                   "frames": [
                     {
-                      "location": {
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "file:///C:/src/main.cs"
-                          },
-                          "region": {
-                            "startLine": 15,
-                            "startColumn": 9,
-                            "endColumn": 9
-                          }
+                        "location": {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/src/main.cs"
+                                },
+                                "region": {
+                                    "startLine": 15,
+                                    "startColumn": 9,
+                                    "endColumn": 9
+                                }
+                            },
+                            "logicalLocation": {
+                                "fullyQualifiedName": "Ambiguous.Item",
+                                "parentIndex": 0
+                            },
+                            "message": {
+                                "text": "Exception thrown"
+                            }
                         },
-                        "fullyQualifiedLogicalName": "Ambiguous.Item",
-                        "logicalLocationIndex": 0,
-                        "message": {
-                          "text": "Exception thrown"
+                        "module": "RuleLibrary",
+                        "threadId": 52,
+                        "address": {
+                            "baseAddress": 10092852
                         }
-                      },
-                      "module": "RuleLibrary",
-                      "threadId": 52,
-                      "address": {
-                        "baseAddress": 10092852
-                      }
                     },
                     {
-                      "location": {
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "file:///C:/src/main.cs"
-                          }
+                        "location": {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/src/main.cs"
+                                }
+                            },
+                            "logicalLocation": {
+                                "fullyQualifiedName": "Rules.SecureHashAlgorithmRule.Register",
+                                "parentIndex": 1
+                            }
                         },
-                        "fullyQualifiedLogicalName": "Rules.SecureHashAlgorithmRule.Register",
-                        "logicalLocationIndex": 1
-                      },
-                      "module": "RuleLibrary",
-                      "threadId": 52,
-                      "address": {
-                        "baseAddress": 1002485
-                      }
+                        "module": "RuleLibrary",
+                        "threadId": 52,
+                        "address": {
+                            "baseAddress": 1002485
+                        }
                     },
                     {
-                      "location": {
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "file:///C:/src/utils.cs"
-                          }
+                        "location": {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/src/utils.cs"
+                                }
+                            },
+                            "logicalLocation": {
+                                "fullyQualifiedName": "ExecutionEngine.Engine.EvaluateRule"
+                            }
                         },
-                        "fullyQualifiedLogicalName": "ExecutionEngine.Engine.EvaluateRule"
-                      },
-                      "module": "ExecutionEngine",
-                      "threadId": 52,
-                      "address": {
+                        "module": "ExecutionEngine",
+                        "threadId": 52,
+                        "address": {
                         "baseAddress": 10073356,
                         "offset": 10475
                       }
                     },
                     {
-                      "location": {
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "uri": "file:///C:/src/testtarget.cs"
-                          }
+                        "location": {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/src/testtarget.cs"
+                                }
+                            },
+                            "logicalLocation": {
+                                "fullyQualifiedName": "Ambiguous.Item",
+                                "parentIndex": 2
+                            }
                         },
-                        "fullyQualifiedLogicalName": "Ambiguous.Item",
-                        "logicalLocationIndex": 2
-                      },
                       "module": "Target",
                       "threadId": 52,
                       "address": {

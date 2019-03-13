@@ -334,7 +334,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 location = new Location
                 {
-                    LogicalLocation = new LogicalLocation { FullyQualifiedName = v1Location.FullyQualifiedLogicalName},
+                    LogicalLocation = CreateLogicalLocation(v1Location.FullyQualifiedLogicalName),
                     PhysicalLocation = CreatePhysicalLocation(v1Location.ResultFile ?? v1Location.AnalysisTarget),
                     Properties = v1Location.Properties
                 };
@@ -359,6 +359,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return location;
         }
 
+        private static LogicalLocation CreateLogicalLocation(string fullyQualifiedLogicalName)
+        {
+            return string.IsNullOrWhiteSpace(fullyQualifiedLogicalName) ?
+                                    null :
+                                    new LogicalLocation { FullyQualifiedName = fullyQualifiedLogicalName };
+        }
+
         internal Location CreateLocation(AnnotatedCodeLocationVersionOne v1AnnotatedCodeLocation)
         {
             Location location = null;
@@ -373,7 +380,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                                                                                                          a.Message))
                                                                       .Where(r => r != null)
                                                                       .ToList(),
-                    LogicalLocation = new LogicalLocation { FullyQualifiedName = v1AnnotatedCodeLocation.FullyQualifiedLogicalName },
+                    LogicalLocation = CreateLogicalLocation(v1AnnotatedCodeLocation.FullyQualifiedLogicalName),
                     Message = CreateMessage(v1AnnotatedCodeLocation.Message),
                     PhysicalLocation = CreatePhysicalLocation(v1AnnotatedCodeLocation.PhysicalLocation),
                     Properties = v1AnnotatedCodeLocation.Properties

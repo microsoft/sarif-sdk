@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 case "2.0.0-csd.2.beta.2019-02-20":
                 {
-                    // SARIF TC32. Nothing to do.
+                    // SARIF TC32/TC33. Nothing to do.
                     break;
                 }
 
@@ -53,6 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 case "2.0.0-csd.2.beta.2019-01-24.1":
                 {
                     modifiedLog |= ApplyChangesFromTC32(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     break;
                 }
 
@@ -60,6 +61,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     modifiedLog |= ApplyChangesFromTC31(sarifLog);
                     modifiedLog |= ApplyChangesFromTC32(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     break;
                 }
 
@@ -75,6 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         out ruleKeyToIndexMap);
                     modifiedLog |= ApplyChangesFromTC31(sarifLog);
                     modifiedLog |= ApplyChangesFromTC32(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     break;
 
                 }
@@ -89,6 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         out ruleKeyToIndexMap);
                     modifiedLog |= ApplyChangesFromTC31(sarifLog);
                     modifiedLog |= ApplyChangesFromTC32(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     break;
                 }
             }
@@ -116,6 +120,216 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             return transformedSarifLog;
+        }
+
+        private static bool ApplyChangesFromTC33(JObject sarifLog)
+        {
+            UpdateSarifLogVersion(sarifLog);
+            if (sarifLog["runs"] is JArray runs)
+            {
+                foreach (JObject run in runs)
+                {
+                    // https://github.com/oasis-tcs/sarif-spec/issues/340
+                    AddLogicalLocationToAllLocationNodes(run);
+                }
+            }
+            return true;
+        }
+
+        private static void AddLogicalLocationToAllLocationNodes(JObject run)
+        {
+            // We need to remove location.fullyQualifiedLogicalName (string) and location.logicalLocationIndex (int) and transfer those
+            // to a single LogicalLocation object with properties "fullyQualifiedName" and "parentIndex".
+
+            // Previously:
+            //      "location" : {
+            //          "fullyQualifiedLogicalName" : "test" ,
+            //          "logicalLocationIndex" : 1
+            //      }
+            // Now:
+            //      "location" : {
+            //          "logicalLocation" : {
+            //              "fullyQualifiedName" : "test",
+            //              "parentIndex" : 1
+            //          }
+            //      }
+
+            // The code walks through all possible paths to 'location' node and performs updates.
+
+            // sarifLog.runs[].results[].locations[]
+            // sarifLog.runs[].results[].relatedLocations[]
+            // sarifLog.runs[].results[].stacks[].frames[].location
+            // sarifLog.runs[].results[].codeFlows[].threadFlows[].threadflowLocations[].location
+            // sarifLog.runs[].results[].codeflows[].threadFlows[].locations[].stack.frames[].location
+
+            // sarifLog.runs[].threadFlowLocations[].stack.frames[].location
+            // sarifLog.runs[].threadflowLocations[].location
+
+            // sarifLog.runs[].invocations[].toolExecutionNotifications[].exception.stack.frames[].location
+            // sarifLog.runs[].invocations[].toolExecutionNotifications[].exception.innerExceptions[].stack.frames[].location (recursive reference)
+            // sarifLog.runs[].invocations[].toolConfigurationNotifications[].exception.stack.frames[].location
+            // sarifLog.runs[].invocations[].toolConfigurationNotifications[].exception.innerExceptions[].stack.frames[].location (recursive reference)
+
+            // sarifLog.runs[].conversion.invocation.toolExecutionNotifications[].exception.stack.frames[].location
+            // sarifLog.runs[].conversion.invocation.toolExecutionNotifications[].exception.innerExceptions[].stack.frames[].location (recursive reference)
+            // sarifLog.runs[].conversion.invocation.toolConfigurationNotifications[].exception.stack.frames[].location
+            // sarifLog.runs[].conversion.invocation.toolConfigurationNotifications[].exception.innerExceptions[].stack.frames[].location (recursive reference)
+
+            // Note: Ignoring graph related paths since no one is using this feature at the moment:
+            // sarifLog.runs[].results[].graphs.nodes[].location
+            // sarifLog.runs[].graphs.nodes[].location
+            // sarifLog.runs[].graphs.nodes[].children[].location (recursive reference)
+
+
+            if (run["results"] is JArray results)
+            {
+                foreach (JObject result in results)
+                {
+                    if (result["locations"] is JArray locations)
+                    {
+                        foreach (JObject item in locations)
+                        {
+                            AddLogicalLocationToSingleLocationNode(item);
+                        }
+                    }
+
+                    if (result["relatedLocations"] is JArray relatedLocations)
+                    {
+                        foreach (JObject item in relatedLocations)
+                        {
+                            AddLogicalLocationToSingleLocationNode(item);
+                        }
+                    }
+
+                    if (result["stacks"] is JArray stacks)
+                    {
+                        foreach (JObject item in stacks)
+                        {
+                            AddLogicalLocationToStackLocationNodes(item);
+                        }
+                    }
+
+                    if (result["codeflows"] is JArray codeflows)
+                    {
+                        foreach (JObject codeflow in codeflows)
+                        {
+                            if (codeflow["threadflow"] is JObject threadflow &&
+                                threadflow["threadflowLocation"] is JObject threadflowLocation)
+                            {
+                                if (threadflowLocation["location"] is JObject location)
+                                {
+                                    AddLogicalLocationToSingleLocationNode(location);
+                                }
+
+                                if (threadflowLocation["stack"] is JObject stack)
+                                {
+                                    AddLogicalLocationToStackLocationNodes(stack);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (run["threadflowLocations"] is JArray threadflowLocations)
+            {
+                foreach (JObject threadflowLocation in threadflowLocations)
+                {
+                    if (threadflowLocation["location"] is JObject location)
+                    {
+                        AddLogicalLocationToSingleLocationNode(location);
+                    }
+                }
+            }
+
+            if (run["conversion"] is JObject conversion && conversion["invocation"] is JObject invocation)
+            {
+                AddLogicalLocationToInvocationLocationNodes(invocation);
+            }
+
+            if (run["invocations"] is JArray invocations)
+            {
+                foreach (JObject item in invocations)
+                {
+                    AddLogicalLocationToInvocationLocationNodes(item);
+                }
+            }
+        }
+
+        private static void AddLogicalLocationToSingleLocationNode(JObject location)
+        {
+            var logicalLocation = new JObject();
+
+            if (location["fullyQualifiedLogicalName"] is JToken fullyQualifiedLogicalName)
+            {
+                logicalLocation.Add("fullyQualifiedName", fullyQualifiedLogicalName);
+                location.Remove("fullyQualifiedLogicalName");
+            }
+
+            if (location["logicalLocationIndex"] is JToken logicalLocationIndex)
+            {
+                logicalLocation.Add("parentIndex", logicalLocationIndex);
+                location.Remove("logicalLocationIndex");
+            }
+
+            if (logicalLocation.Count > 0)
+            {
+                location.Add("address", logicalLocation);
+            }
+        }
+
+        private static void AddLogicalLocationToStackLocationNodes(JObject stack)
+        {
+            if (stack["frames"] is JArray frames)
+            {
+                foreach (JObject stackFrame in frames)
+                {
+                    if (frames["location"] is JObject location)
+                    {
+                        AddLogicalLocationToSingleLocationNode(location);
+                    }
+                }
+            }
+        }
+
+        private static void AddLogicalLocationToInvocationLocationNodes(JObject invocation)
+        {
+            if (invocation["toolExecutionNotifications"] is JArray toolExecutionNotifications)
+            {
+                AddLogicalLocationToNotificationsLocationNodes(toolExecutionNotifications);
+            }
+
+            if (invocation["toolConfigurationNotifications"] is JArray toolConfigurationNotifications)
+            {
+                AddLogicalLocationToNotificationsLocationNodes(toolConfigurationNotifications);
+            }
+        }
+
+        private static void AddLogicalLocationToNotificationsLocationNodes(JArray notifications)
+        {
+            foreach (JObject notification in notifications)
+            {
+                if (notification["exception"] is JObject exception)
+                {
+                    AddLogicalLocationToExceptionLocationNodes(exception);
+                }
+            }
+        }
+
+        private static void AddLogicalLocationToExceptionLocationNodes(JObject exception)
+        {
+            if (exception["stack"] is JObject stack)
+            {
+                AddLogicalLocationToStackLocationNodes(stack);
+            }
+
+            if (exception["innerExceptions"] is JArray innerExceptions)
+            {
+                foreach (JObject innerException in innerExceptions)
+                {
+                    AddLogicalLocationToExceptionLocationNodes(innerException);
+                }
+            }
         }
 
         private static bool ApplyChangesFromTC32(JObject sarifLog)
