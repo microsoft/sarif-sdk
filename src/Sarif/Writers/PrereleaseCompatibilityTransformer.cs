@@ -159,11 +159,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // sarifLog.runs[].results[].locations[]
             // sarifLog.runs[].results[].relatedLocations[]
             // sarifLog.runs[].results[].stacks[].frames[].location
-            // sarifLog.runs[].results[].codeFlows[].threadFlows[].threadflowLocations[].location
-            // sarifLog.runs[].results[].codeflows[].threadFlows[].locations[].stack.frames[].location
+            // sarifLog.runs[].results[].codeFlows[].threadFlows[].Locations[].location
+            // sarifLog.runs[].results[].codeFlows[].threadFlows[].locations[].stack.frames[].location
 
             // sarifLog.runs[].threadFlowLocations[].stack.frames[].location
-            // sarifLog.runs[].threadflowLocations[].location
+            // sarifLog.runs[].threadFlowLocations[].location
 
             // sarifLog.runs[].invocations[].toolExecutionNotifications[].exception.stack.frames[].location
             // sarifLog.runs[].invocations[].toolExecutionNotifications[].exception.innerExceptions[].stack.frames[].location (recursive reference)
@@ -209,21 +209,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         }
                     }
 
-                    if (result["codeflows"] is JArray codeflows)
+                    if (result["codeFlows"] is JArray codeFlows)
                     {
-                        foreach (JObject codeflow in codeflows)
+                        foreach (JObject codeFlow in codeFlows)
                         {
-                            if (codeflow["threadflow"] is JObject threadflow &&
-                                threadflow["threadflowLocation"] is JObject threadflowLocation)
+                            if (codeFlow["threadFlows"] is JArray threadFlows)
                             {
-                                if (threadflowLocation["location"] is JObject location)
+                                foreach (JObject threadFlow in threadFlows)
                                 {
-                                    AddLogicalLocationToSingleLocationNode(location);
-                                }
+                                    if (threadFlow["locations"] is JArray tfLocations)
+                                    {
+                                        foreach (JObject threadFlowLocation in tfLocations)
+                                        {
+                                            if (threadFlowLocation["location"] is JObject location)
+                                            {
+                                                AddLogicalLocationToSingleLocationNode(location);
+                                            }
 
-                                if (threadflowLocation["stack"] is JObject stack)
-                                {
-                                    AddLogicalLocationToStackLocationNodes(stack);
+                                            if (threadFlowLocation["stack"] is JObject stack)
+                                            {
+                                                AddLogicalLocationToStackLocationNodes(stack);
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -231,11 +239,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 }
             }
 
-            if (run["threadflowLocations"] is JArray threadflowLocations)
+            if (run["threadFlowLocations"] is JArray threadFlowLocations)
             {
-                foreach (JObject threadflowLocation in threadflowLocations)
+                foreach (JObject threadFlowLocation in threadFlowLocations)
                 {
-                    if (threadflowLocation["location"] is JObject location)
+                    if (threadFlowLocation["location"] is JObject location)
                     {
                         AddLogicalLocationToSingleLocationNode(location);
                     }
@@ -402,15 +410,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         }
                     }
 
-                    if (result["codeflows"] is JArray codeflows)
+                    if (result["codeFlows"] is JArray codeFlows)
                     {
-                        foreach (JObject codeflow in codeflows)
+                        foreach (JObject codeFlow in codeFlows)
                         {
-                            if (codeflow["threadflow"] is JObject threadflow &&
-                                threadflow["threadflowLocation"] is JObject threadflowLocation &&
-                                threadflowLocation["Stack"] is JObject stack)
+                            if (codeFlow["threadFlows"] is JArray threadFlows)
                             {
-                                ConvertStackFrameAddressesToAddressObjects(stack);
+                                foreach(JObject threadFlow in threadFlows)
+                                {
+                                    if (threadFlow["locations"] is JArray threadFlowLocations)
+                                    {
+                                        foreach (JObject threadFlowLocation in threadFlowLocations)
+                                        {
+                                            if (threadFlowLocation["stack"] is JObject stack)
+                                            {
+                                                ConvertStackFrameAddressesToAddressObjects(stack);
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
