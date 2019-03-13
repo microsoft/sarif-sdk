@@ -526,8 +526,13 @@
                 },
 
                 "graphs": {
-                    "description": "An external property file containing a run.graphs object to be merged with the root log file.",
-                    "$ref": "#/definitions/externalPropertyFile"
+                    "description": "An array of external property files containing a run.graphs object to be merged with the root log file.",
+                    "type": "array",
+                    "minItems": 1,
+                    "uniqueItems": true,
+                    "items": {
+                        "$ref": "#/definitions/externalPropertyFile"
+                    }
                 },
 
                 "externalizedProperties": {
@@ -700,6 +705,11 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
+
+                "graphIndex": {
+                    "description": "The index within the run.graphs to be associated with the result.",
+                    "type": "integer"
+                },
 
                 "graphId": {
                     "description": "A string that uniquely identifies that graph being traversed.",
@@ -1705,9 +1715,12 @@
                 },
 
                 "graphs": {
-                    "description": "A dictionary, each of whose keys is the id of a graph and each of whose values is a 'graph' object with that id.",
-                    "type": "object",
-                    "additionalProperties": {
+                    "description": "An array of zero or more unique graph objects associated with the result.",
+                    "type": "array",
+                    "minItems": 0,
+                    "uniqueItems": true,
+                    "default": [],
+                    "items": {
                         "$ref": "#/definitions/graph"
                     }
                 },
@@ -1947,9 +1960,12 @@
                 },
 
                 "graphs": {
-                    "description": "A dictionary, each of whose keys is the id of a graph and each of whose values is a 'graph' object with that id.",
-                    "type": "object",
-                    "additionalProperties": {
+                    "description": "An array of zero or more unique graph objects associated with the run.",
+                    "type": "array",
+                    "minItems": 0,
+                    "uniqueItems": true,
+                    "default": [],
+                    "items": {
                         "$ref": "#/definitions/graph"
                     }
                 },
