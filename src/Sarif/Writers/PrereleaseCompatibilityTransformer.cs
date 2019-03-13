@@ -274,7 +274,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (logicalLocation.Count > 0)
             {
-                location.Add("address", logicalLocation);
+                location.Add("logicalLocation", logicalLocation);
             }
         }
 
@@ -284,7 +284,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 foreach (JObject stackFrame in frames)
                 {
-                    if (frames["location"] is JObject location)
+                    if (stackFrame["location"] is JObject location)
                     {
                         AddLogicalLocationToSingleLocationNode(location);
                     }

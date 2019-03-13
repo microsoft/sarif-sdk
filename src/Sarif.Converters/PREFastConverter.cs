@@ -83,8 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var location = new Location()
             {
-                PhysicalLocation = physicalLocation,
-                LogicalLocation = new LogicalLocation { FullyQualifiedName = defect.Function }
+                PhysicalLocation = physicalLocation
             };
 
             if (!string.IsNullOrEmpty(defect.Funcline))
@@ -93,7 +92,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
             int logicalLocationIndex = AddLogicalLocation(defect.Function, defect.Decorated);
 
-            location.LogicalLocation.ParentIndex = logicalLocationIndex;
+            if (!string.IsNullOrWhiteSpace(defect.Function) || logicalLocationIndex > -1)
+            {
+                location.LogicalLocation = new LogicalLocation
+                {
+                    FullyQualifiedName = defect.Function,
+                    ParentIndex = logicalLocationIndex
+                };
+            }
 
             var result = new Result
             {
