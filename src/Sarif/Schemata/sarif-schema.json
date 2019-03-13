@@ -565,16 +565,16 @@
                     }
                 },
 
-        "threadFlowLocations": {
-          "description": "An array of external property files containing run.threadFlowLocations arrays to be merged with the root log file.",
-          "type": "array",
-          "minItems": 0,
-          "uniqueItems": true,
-          "default": [],
-          "items": {
-            "$ref": "#/definitions/externalPropertyFile"
-          }
-        },
+                "threadFlowLocations": {
+                    "description": "An array of external property files containing run.threadFlowLocations arrays to be merged with the root log file.",
+                    "type": "array",
+                    "minItems": 0,
+                    "uniqueItems": true,
+                    "default": [],
+                    "items": {
+                        "$ref": "#/definitions/externalPropertyFile"
+                    }
+                },
 
                 "results": {
                     "description": "An array of external property files containing run.results arrays to be merged with the root log file.",
@@ -607,9 +607,20 @@
                     }
                 },
 
-                "tool": {
-                    "description": "An external property file containing a run.tool object to be merged with the root log file.",
+                "driver": {
+                    "description": "An external property file containing a run.driver object to be merged with the root log file.",
                     "$ref": "#/definitions/externalPropertyFile"
+                },
+
+                "extensions": {
+                    "description": "An array of external property files containing run.extensions arrays to be merged with the root log file.",
+                    "type": "array",
+                    "minItems": 0,
+                    "uniqueItems": false,
+                    "default": [],
+                    "items": {
+                        "$ref": "#/definitions/externalPropertyFile"
+                    }
                 },
 
                 "properties": {
