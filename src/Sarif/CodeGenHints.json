@@ -201,6 +201,29 @@
             }
         }
     ],
+    "ExternalProperties.Version": [
+        {
+            "kind": "EnumHint",
+            "arguments": {
+                "typeName": "SarifVersion",
+                "description": "Possible values for the SARIF schema version.",
+                "allowMemberCountMismatch": true,
+                "zeroValueName": "Unknown",
+                "memberNames": [
+                    "OneZeroZero",
+                    "Current"
+                ]
+            }
+        },
+        {
+            "kind": "AttributeHint",
+            "arguments": {
+                "namespaceName": "Newtonsoft.Json",
+                "typeName": "JsonConverter",
+                "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.SarifVersionConverter)" ]
+            }
+        }
+    ],
     "externalPropertyFile": [
         {
             "kind": "BaseTypeHint",

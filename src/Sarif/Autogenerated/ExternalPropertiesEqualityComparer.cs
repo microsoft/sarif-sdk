@@ -255,11 +255,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Schema.GetHashCode();
                 }
 
-                if (obj.Version != null)
-                {
-                    result = (result * 31) + obj.Version.GetHashCode();
-                }
-
+                result = (result * 31) + obj.Version.GetHashCode();
                 if (obj.Guid != null)
                 {
                     result = (result * 31) + obj.Guid.GetHashCode();
