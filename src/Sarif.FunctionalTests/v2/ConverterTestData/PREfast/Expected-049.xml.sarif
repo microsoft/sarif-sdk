@@ -74,8 +74,10 @@
                   "startColumn": 13
                 }
               },
-              "fullyQualifiedLogicalName": "test_b_a",
-              "logicalLocationIndex": 0,
+              "logicalLocation": {
+                  "fullyQualifiedName": "test_b_a",
+                  "parentIndex": 0
+              },
               "properties": {
                 "funcline": "29"
               }
@@ -137,8 +139,10 @@
                   "startColumn": 13
                 }
               },
-              "fullyQualifiedLogicalName": "test_d_b",
-              "logicalLocationIndex": 1,
+              "logicalLocation": {
+                  "fullyQualifiedName": "test_d_b",
+                  "parentIndex": 1
+              },
               "properties": {
                 "funcline": "34"
               }
@@ -190,21 +194,23 @@
           },
           "locations": [
             {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///c:/somepath/test049.cpp",
-                  "index": 0
+                "physicalLocation": {
+                    "artifactLocation": {
+                        "uri": "file:///c:/somepath/test049.cpp",
+                        "index": 0
+                    },
+                    "region": {
+                        "startLine": 42,
+                        "startColumn": 13
+                    }
                 },
-                "region": {
-                  "startLine": 42,
-                  "startColumn": 13
+                "logicalLocation": {
+                    "fullyQualifiedName": "test_d_a",
+                    "parentIndex": 2
+                },
+                "properties": {
+                    "funcline": "40"
                 }
-              },
-              "fullyQualifiedLogicalName": "test_d_a",
-              "logicalLocationIndex": 2,
-              "properties": {
-                "funcline": "40"
-              }
             }
           ],
           "codeFlows": [

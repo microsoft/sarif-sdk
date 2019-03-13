@@ -135,8 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     Importance = ThreadFlowLocationImportance.Unimportant,
                     Location = new Location
                     {
-                        Message = new Message(),
-                        LogicalLocation = new LogicalLocation()
+                        Message = new Message()
                     }
                 };
 
@@ -163,7 +162,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                     if (ExtractCallerAndCallee(extraMsg.Trim(), out caller, out callee))
                     {
-                        threadFlowLocation.Location.LogicalLocation.FullyQualifiedName = caller;
+                        if(!string.IsNullOrWhiteSpace(caller))
+                        {
+                            threadFlowLocation.Location.LogicalLocation = new LogicalLocation
+                            {
+                                FullyQualifiedName = caller
+                            };
+                        }
                         threadFlowLocation.Location.Message.Text = callee;
                         threadFlowLocation.SetProperty("target", callee);
                         _callers.Push(caller);
@@ -193,7 +198,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     Debug.Assert(_callers.Count > 0);
 
                     threadFlowLocation.NestingLevel = nestingLevel--;
-                    threadFlowLocation.Location.LogicalLocation.FullyQualifiedName = _callers.Pop();
+
+                    string fullyQualifiedLogicalName = _callers.Pop();
+                    if(!string.IsNullOrWhiteSpace(fullyQualifiedLogicalName))
+                    {
+                        threadFlowLocation.Location.LogicalLocation = new LogicalLocation
+                        {
+                            FullyQualifiedName = fullyQualifiedLogicalName
+                        };
+                    }
                 }
                 else
                 {
