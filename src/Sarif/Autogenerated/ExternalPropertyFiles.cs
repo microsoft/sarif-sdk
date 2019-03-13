@@ -40,10 +40,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public ExternalPropertyFile Conversion { get; set; }
 
         /// <summary>
-        /// An external property file containing a run.graphs object to be merged with the root log file.
+        /// An array of external property files containing a run.graphs object to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "graphs", IsRequired = false, EmitDefaultValue = false)]
-        public ExternalPropertyFile Graphs { get; set; }
+        public IList<ExternalPropertyFile> Graphs { get; set; }
 
         /// <summary>
         /// An external property file containing a run.properties object to be merged with the root log file.
@@ -153,7 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ExternalPropertyFiles(ExternalPropertyFile conversion, ExternalPropertyFile graphs, ExternalPropertyFile externalizedProperties, IEnumerable<ExternalPropertyFile> artifacts, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ExternalPropertyFile> threadFlowLocations, IEnumerable<ExternalPropertyFile> results, IEnumerable<ExternalPropertyFile> taxonomies, IEnumerable<ExternalPropertyFile> addresses, ExternalPropertyFile tool, IDictionary<string, SerializedPropertyInfo> properties)
+        public ExternalPropertyFiles(ExternalPropertyFile conversion, IEnumerable<ExternalPropertyFile> graphs, ExternalPropertyFile externalizedProperties, IEnumerable<ExternalPropertyFile> artifacts, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ExternalPropertyFile> threadFlowLocations, IEnumerable<ExternalPropertyFile> results, IEnumerable<ExternalPropertyFile> taxonomies, IEnumerable<ExternalPropertyFile> addresses, ExternalPropertyFile tool, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(conversion, graphs, externalizedProperties, artifacts, invocations, logicalLocations, threadFlowLocations, results, taxonomies, addresses, tool, properties);
         }
@@ -195,7 +195,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExternalPropertyFiles(this);
         }
 
-        private void Init(ExternalPropertyFile conversion, ExternalPropertyFile graphs, ExternalPropertyFile externalizedProperties, IEnumerable<ExternalPropertyFile> artifacts, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ExternalPropertyFile> threadFlowLocations, IEnumerable<ExternalPropertyFile> results, IEnumerable<ExternalPropertyFile> taxonomies, IEnumerable<ExternalPropertyFile> addresses, ExternalPropertyFile tool, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(ExternalPropertyFile conversion, IEnumerable<ExternalPropertyFile> graphs, ExternalPropertyFile externalizedProperties, IEnumerable<ExternalPropertyFile> artifacts, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ExternalPropertyFile> threadFlowLocations, IEnumerable<ExternalPropertyFile> results, IEnumerable<ExternalPropertyFile> taxonomies, IEnumerable<ExternalPropertyFile> addresses, ExternalPropertyFile tool, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (conversion != null)
             {
@@ -204,18 +204,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (graphs != null)
             {
-                Graphs = new ExternalPropertyFile(graphs);
-            }
-
-            if (externalizedProperties != null)
-            {
-                ExternalizedProperties = new ExternalPropertyFile(externalizedProperties);
-            }
-
-            if (artifacts != null)
-            {
                 var destination_0 = new List<ExternalPropertyFile>();
-                foreach (var value_0 in artifacts)
+                foreach (var value_0 in graphs)
                 {
                     if (value_0 == null)
                     {
@@ -227,13 +217,18 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                Artifacts = destination_0;
+                Graphs = destination_0;
             }
 
-            if (invocations != null)
+            if (externalizedProperties != null)
+            {
+                ExternalizedProperties = new ExternalPropertyFile(externalizedProperties);
+            }
+
+            if (artifacts != null)
             {
                 var destination_1 = new List<ExternalPropertyFile>();
-                foreach (var value_1 in invocations)
+                foreach (var value_1 in artifacts)
                 {
                     if (value_1 == null)
                     {
@@ -245,13 +240,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                Invocations = destination_1;
+                Artifacts = destination_1;
             }
 
-            if (logicalLocations != null)
+            if (invocations != null)
             {
                 var destination_2 = new List<ExternalPropertyFile>();
-                foreach (var value_2 in logicalLocations)
+                foreach (var value_2 in invocations)
                 {
                     if (value_2 == null)
                     {
@@ -263,13 +258,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                LogicalLocations = destination_2;
+                Invocations = destination_2;
             }
 
-            if (threadFlowLocations != null)
+            if (logicalLocations != null)
             {
                 var destination_3 = new List<ExternalPropertyFile>();
-                foreach (var value_3 in threadFlowLocations)
+                foreach (var value_3 in logicalLocations)
                 {
                     if (value_3 == null)
                     {
@@ -281,13 +276,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                ThreadFlowLocations = destination_3;
+                LogicalLocations = destination_3;
             }
 
-            if (results != null)
+            if (threadFlowLocations != null)
             {
                 var destination_4 = new List<ExternalPropertyFile>();
-                foreach (var value_4 in results)
+                foreach (var value_4 in threadFlowLocations)
                 {
                     if (value_4 == null)
                     {
@@ -299,13 +294,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                Results = destination_4;
+                ThreadFlowLocations = destination_4;
             }
 
-            if (taxonomies != null)
+            if (results != null)
             {
                 var destination_5 = new List<ExternalPropertyFile>();
-                foreach (var value_5 in taxonomies)
+                foreach (var value_5 in results)
                 {
                     if (value_5 == null)
                     {
@@ -317,13 +312,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                Taxonomies = destination_5;
+                Results = destination_5;
             }
 
-            if (addresses != null)
+            if (taxonomies != null)
             {
                 var destination_6 = new List<ExternalPropertyFile>();
-                foreach (var value_6 in addresses)
+                foreach (var value_6 in taxonomies)
                 {
                     if (value_6 == null)
                     {
@@ -335,7 +330,25 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                Addresses = destination_6;
+                Taxonomies = destination_6;
+            }
+
+            if (addresses != null)
+            {
+                var destination_7 = new List<ExternalPropertyFile>();
+                foreach (var value_7 in addresses)
+                {
+                    if (value_7 == null)
+                    {
+                        destination_7.Add(null);
+                    }
+                    else
+                    {
+                        destination_7.Add(new ExternalPropertyFile(value_7));
+                    }
+                }
+
+                Addresses = destination_7;
             }
 
             if (tool != null)
