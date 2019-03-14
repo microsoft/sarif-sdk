@@ -479,7 +479,7 @@
                     },
                     {
                         "location": {
-                            "uri": "sarif:/inlineExternalProperties/0"
+                            "uri": "sarif:/inlineExternalProperties/1"
                         }
                     }
                 ],
@@ -491,7 +491,7 @@
                     },
                     {
                         "location": {
-                            "uri": "sarif:/inlineExternalProperties/0"
+                            "uri": "sarif:/inlineExternalProperties/1"
                         }
                     }
                 ],
@@ -503,7 +503,7 @@
                     },
                     {
                         "location": {
-                            "uri": "sarif:/inlineExternalProperties/0"
+                            "uri": "sarif:/inlineExternalProperties/1"
                         }
                     }
                 ],
@@ -515,7 +515,7 @@
                     },
                     {
                         "location": {
-                            "uri": "sarif:/inlineExternalProperties/0"
+                            "uri": "sarif:/inlineExternalProperties/1"
                         }
                     }
                 ],
@@ -527,7 +527,7 @@
                     },
                     {
                         "location": {
-                            "uri": "sarif:/inlineExternalProperties/0"
+                            "uri": "sarif:/inlineExternalProperties/1"
                         }
                     }
                 ],
@@ -539,7 +539,7 @@
                     },
                     {
                         "location": {
-                            "uri": "sarif:/inlineExternalProperties/0"
+                            "uri": "sarif:/inlineExternalProperties/1"
                         }
                     }
                 ],
@@ -551,7 +551,7 @@
                     },
                     {
                         "location": {
-                            "uri": "sarif:/inlineExternalProperties/0"
+                            "uri": "sarif:/inlineExternalProperties/1"
                         }
                     }
                 ]
