@@ -106,7 +106,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!Message.ValueComparer.Equals(left.Help, right.Help))
+            if (!MultiformatMessageString.ValueComparer.Equals(left.Help, right.Help))
             {
                 return false;
             }
