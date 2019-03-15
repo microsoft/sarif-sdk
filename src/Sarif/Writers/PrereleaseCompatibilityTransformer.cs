@@ -1739,7 +1739,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 return;
             }
 
-            (string currentNodeName, string childPath) = SplitCurrentNodeNameAndRemainingLeafNodePath(possiblePathToLeafNode);
+            (string currentNodeName, string remainingLeafNodePath) = SplitCurrentNodeNameAndRemainingLeafNodePath(possiblePathToLeafNode);
 
             if (currentNodeName.EndsWith(arrayIndicatorSymbol))
             {
@@ -1747,9 +1747,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                 if (rootNode[currentNodeName] is JArray currentArray)
                 {
-                    foreach (JObject currentLog in currentArray)
+                    foreach (JObject currentNode in currentArray)
                     {
-                        PerformActionOnLeafNodeIfExists(childPath, currentLog, action);
+                        PerformActionOnLeafNodeIfExists(remainingLeafNodePath, currentNode, action);
                     }
                 }
             }
@@ -1757,26 +1757,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 if (rootNode[currentNodeName] is JObject currentNode)
                 {
-                    PerformActionOnLeafNodeIfExists(childPath, currentNode, action);
+                    PerformActionOnLeafNodeIfExists(remainingLeafNodePath, currentNode, action);
                 }
             }
         }
 
-        private static (string, string) SplitCurrentNodeNameAndRemainingLeafNodePath(string fullPath)
+        private static (string currentNodeName, string remainingLeafNodePath) SplitCurrentNodeNameAndRemainingLeafNodePath(string fullPath)
         {
             char[] delimiter = { nodeDelimiterSymbol };
 
             string[] splitItems = fullPath.Split(separator: delimiter, count: 2);
 
-            string currentNodeName = splitItems[0];
-            string remainingLeafNodePath = null;
-
-            if (splitItems.Length == 2)
+            if (splitItems.Length == 1)
             {
-                remainingLeafNodePath = splitItems[1];
+                return (currentNodeName: splitItems[0], null);
             }
 
-            return (currentNodeName, remainingLeafNodePath);
+            return (currentNodeName: splitItems[0], remainingLeafNodePath: splitItems[1]);
         }
     }
 }
