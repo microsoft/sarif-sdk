@@ -23,6 +23,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private const string SchemaPropertyPattern = @"""\$schema""\s*:\s*""[^""]+""";
         private static readonly Regex s_SchemaRegex = new Regex(SchemaPropertyPattern, RegexOptions.Compiled);
 
+        private delegate void ActionOnJObject(JObject jObject);
+        private const string arrayIndicatorSymbol = "[]";
+        private const char nodeDelimiterSymbol = '.';
+
         public static SarifLog UpdateToCurrentVersion(
             string prereleaseSarifLog, 
             Formatting formatting, 
@@ -455,7 +459,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 "conversion.tool.extensions[].ruleDescriptors[]"
             };
 
-            ApplyActionOnNodeIfPathExists(reportingDescriptorPathsToUpdate, run, UpdateReportingDescriptorPropertyTypes);
+            PerformActionOnLeafNodeIfExists(reportingDescriptorPathsToUpdate, run, UpdateReportingDescriptorPropertyTypes);
 
         }
 
@@ -1719,84 +1723,60 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return modifiedNotification;
         }
 
-        private delegate void ActionOnJObject(JObject jObject);
-
-        private static void ApplyActionOnNodeIfPathExists(string[] possibleNodePaths, JObject rootNode, ActionOnJObject action)
+        private static void PerformActionOnLeafNodeIfExists(string[] possiblePathsToLeafNode, JObject rootNode, ActionOnJObject action)
         {
-            var nodesToUpdate = FindAllNodes(possibleNodePaths, rootNode);            
-
-            foreach (JObject node in nodesToUpdate)
+            foreach(string nodePath in possiblePathsToLeafNode)
             {
-                action(node);
+                PerformActionOnLeafNodeIfExists(nodePath, rootNode, action);
             }
-
         }
 
-        private static List<JObject> FindAllNodes(string[] fullPaths, JObject rootlog)
+        private static void PerformActionOnLeafNodeIfExists(string possiblePathToLeafNode, JObject rootNode, ActionOnJObject action)
         {
-            var nodes = new List<JObject>();
-
-            foreach (string path in fullPaths)
+            if (possiblePathToLeafNode == null)
             {
-                nodes.AddRange(GetAllNodesAtPath(path, rootlog));
+                action(rootNode);
+                return;
             }
 
-            return nodes;
-        }
+            (string currentNodeName, string childPath) = SplitCurrentNodeNameAndRemainingLeafNodePath(possiblePathToLeafNode);
 
-        private static List<JObject> GetAllNodesAtPath(string fullPath, JObject rootLog)
-        {
-            if (fullPath == null)
+            if (currentNodeName.EndsWith(arrayIndicatorSymbol))
             {
-                return new List<JObject>() { rootLog };
-            }
+                currentNodeName = currentNodeName.TrimEnd(arrayIndicatorSymbol.ToCharArray());
 
-            (string currentNodeName, string childPath) = SplitCurrentNodeNameAndChildPath(fullPath);
-
-            var leafNodes = new List<JObject>();
-
-            if (currentNodeName.EndsWith("[]"))
-            {
-                currentNodeName = currentNodeName.TrimEnd("[]".ToCharArray());
-
-                if (rootLog[currentNodeName] is JArray currentLogs)
+                if (rootNode[currentNodeName] is JArray currentArray)
                 {
-                    foreach (JObject currentLog in currentLogs)
+                    foreach (JObject currentLog in currentArray)
                     {
-                        leafNodes.AddRange(GetAllNodesAtPath(childPath, currentLog));
+                        PerformActionOnLeafNodeIfExists(childPath, currentLog, action);
                     }
                 }
             }
             else
             {
-                if (rootLog[currentNodeName] is JObject currentLog)
+                if (rootNode[currentNodeName] is JObject currentNode)
                 {
-                    leafNodes.AddRange(GetAllNodesAtPath(childPath, currentLog));
+                    PerformActionOnLeafNodeIfExists(childPath, currentNode, action);
                 }
             }
-
-            return leafNodes;
-
         }
 
-        private static (string, string) SplitCurrentNodeNameAndChildPath(string fullPath)
+        private static (string, string) SplitCurrentNodeNameAndRemainingLeafNodePath(string fullPath)
         {
-            if (string.IsNullOrWhiteSpace(fullPath))
+            char[] delimiter = { nodeDelimiterSymbol };
+
+            string[] splitItems = fullPath.Split(separator: delimiter, count: 2);
+
+            string currentNodeName = splitItems[0];
+            string remainingLeafNodePath = null;
+
+            if (splitItems.Length == 2)
             {
-                throw new ArgumentNullException(nameof(fullPath));
+                remainingLeafNodePath = splitItems[1];
             }
 
-            char[] delimiter = { '.' };
-
-            string[] splittedItems = fullPath.Split(delimiter, 2);
-
-            if(splittedItems.Length == 1)
-            {
-                return (splittedItems[0], null);
-            }
-
-            return (splittedItems[0], splittedItems[1]);
+            return (currentNodeName, remainingLeafNodePath);
         }
-
     }
 }
