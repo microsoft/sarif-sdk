@@ -43,9 +43,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             switch (version)
             {
+                case "2.0.0-csd.2.beta.2019-04-03":
+                {
+                    // SARIF TC33. Nothing to do.
+                    break;
+                }
+
                 case "2.0.0-csd.2.beta.2019-02-20":
                 {
-                    // SARIF TC32. Nothing to do.
+                    modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     break;
                 }
 
@@ -53,6 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 case "2.0.0-csd.2.beta.2019-01-24.1":
                 {
                     modifiedLog |= ApplyChangesFromTC32(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     break;
                 }
 
@@ -60,6 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     modifiedLog |= ApplyChangesFromTC31(sarifLog);
                     modifiedLog |= ApplyChangesFromTC32(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     break;
                 }
 
@@ -75,6 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         out ruleKeyToIndexMap);
                     modifiedLog |= ApplyChangesFromTC31(sarifLog);
                     modifiedLog |= ApplyChangesFromTC32(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     break;
 
                 }
@@ -89,6 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         out ruleKeyToIndexMap);
                     modifiedLog |= ApplyChangesFromTC31(sarifLog);
                     modifiedLog |= ApplyChangesFromTC32(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     break;
                 }
             }
@@ -116,6 +126,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             return transformedSarifLog;
+        }
+
+        private static bool ApplyChangesFromTC33(JObject sarifLog)
+        {
+            UpdateSarifLogVersion(sarifLog);
+            if (sarifLog["runs"] is JArray runs)
+            {
+                foreach (JObject run in runs)
+                {
+                    // https://github.com/oasis-tcs/sarif-spec/issues/337
+                    ConvertToolToDriverInExternalPropertyFiles(run);
+                }
+            }
+            return true;
+        }
+
+        private static void ConvertToolToDriverInExternalPropertyFiles(JObject run)
+        {
+            if (run["externalPropertyFiles"] is JObject externalPropertyFiles &&
+                externalPropertyFiles["tool"] is JObject toolExternalPropertyFile)
+            {
+                externalPropertyFiles.Remove("tool");
+                externalPropertyFiles.Add("driver", toolExternalPropertyFile);
+            }
         }
 
         private static bool ApplyChangesFromTC32(JObject sarifLog)
