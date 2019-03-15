@@ -190,9 +190,30 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!ExternalPropertyFile.ValueComparer.Equals(left.Tool, right.Tool))
+            if (!ExternalPropertyFile.ValueComparer.Equals(left.Driver, right.Driver))
             {
                 return false;
+            }
+
+            if (!object.ReferenceEquals(left.Extensions, right.Extensions))
+            {
+                if (left.Extensions == null || right.Extensions == null)
+                {
+                    return false;
+                }
+
+                if (left.Extensions.Count != right.Extensions.Count)
+                {
+                    return false;
+                }
+
+                for (int index_7 = 0; index_7 < left.Extensions.Count; ++index_7)
+                {
+                    if (!ExternalPropertyFile.ValueComparer.Equals(left.Extensions[index_7], right.Extensions[index_7]))
+                    {
+                        return false;
+                    }
+                }
             }
 
             if (!object.ReferenceEquals(left.Properties, right.Properties))
@@ -329,21 +350,33 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.Tool != null)
+                if (obj.Driver != null)
                 {
-                    result = (result * 31) + obj.Tool.ValueGetHashCode();
+                    result = (result * 31) + obj.Driver.ValueGetHashCode();
+                }
+
+                if (obj.Extensions != null)
+                {
+                    foreach (var value_9 in obj.Extensions)
+                    {
+                        result = result * 31;
+                        if (value_9 != null)
+                        {
+                            result = (result * 31) + value_9.ValueGetHashCode();
+                        }
+                    }
                 }
 
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_0 = 0;
-                    foreach (var value_9 in obj.Properties)
+                    foreach (var value_10 in obj.Properties)
                     {
-                        xor_0 ^= value_9.Key.GetHashCode();
-                        if (value_9.Value != null)
+                        xor_0 ^= value_10.Key.GetHashCode();
+                        if (value_10.Value != null)
                         {
-                            xor_0 ^= value_9.Value.GetHashCode();
+                            xor_0 ^= value_10.Value.GetHashCode();
                         }
                     }
 
