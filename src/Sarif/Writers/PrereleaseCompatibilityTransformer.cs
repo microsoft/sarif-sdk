@@ -24,8 +24,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private static readonly Regex s_SchemaRegex = new Regex(SchemaPropertyPattern, RegexOptions.Compiled);
 
         private delegate void ActionOnJObject(JObject jObject);
-        private const string arrayIndicatorSymbol = "[]";
-        private const char nodeDelimiterSymbol = '.';
+        private const string ArrayIndicatorSymbol = "[]";
+        private const char NodeDelimiterSymbol = '.';
 
         public static SarifLog UpdateToCurrentVersion(
             string prereleaseSarifLog, 
@@ -1741,9 +1741,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             (string currentNodeName, string remainingLeafNodePath) = SplitCurrentNodeNameAndRemainingLeafNodePath(possiblePathToLeafNode);
 
-            if (currentNodeName.EndsWith(arrayIndicatorSymbol))
+            if (currentNodeName.EndsWith(ArrayIndicatorSymbol))
             {
-                currentNodeName = currentNodeName.TrimEnd(arrayIndicatorSymbol.ToCharArray());
+                currentNodeName = currentNodeName.TrimEnd(ArrayIndicatorSymbol.ToCharArray());
 
                 if (rootNode[currentNodeName] is JArray currentArray)
                 {
@@ -1764,7 +1764,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static (string currentNodeName, string remainingLeafNodePath) SplitCurrentNodeNameAndRemainingLeafNodePath(string fullPath)
         {
-            char[] delimiter = { nodeDelimiterSymbol };
+            char[] delimiter = { NodeDelimiterSymbol };
 
             string[] splitItems = fullPath.Split(separator: delimiter, count: 2);
 
