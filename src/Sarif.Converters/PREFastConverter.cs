@@ -87,8 +87,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 FullyQualifiedLogicalName = defect.Function
             };
 
-            location.SetProperty("funcline", defect.Funcline);
-
+            if (!string.IsNullOrEmpty(defect.Funcline))
+            {
+                location.SetProperty("funcline", defect.Funcline);
+            }
             int logicalLocationIndex = AddLogicalLocation(defect.Function, defect.Decorated);
 
             location.LogicalLocationIndex = logicalLocationIndex;
@@ -112,6 +114,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private int AddLogicalLocation(string name, string decoratedName)
         {
+            if (string.IsNullOrEmpty(name))
+            {
+                return -1;
+            }
+
             const string ScopeOperator = "::";
             string fullyQualifiedName = name;
 
