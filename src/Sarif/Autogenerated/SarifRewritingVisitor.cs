@@ -381,7 +381,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                node.Tool = VisitNullChecked(node.Tool);
+                node.Driver = VisitNullChecked(node.Driver);
+                if (node.Extensions != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Extensions.Count; ++index_0)
+                    {
+                        node.Extensions[index_0] = VisitNullChecked(node.Extensions[index_0]);
+                    }
+                }
             }
 
             return node;
