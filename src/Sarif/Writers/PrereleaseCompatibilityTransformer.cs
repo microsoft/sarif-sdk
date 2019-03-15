@@ -409,90 +409,58 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static void UpdateAllReportingDescriptorPropertyTypes(JObject run)
         {
-            // Access and modify run.tool
-            JObject tool = (JObject)run["tool"];
-            UpdateToolReportingDescriptorPropertyTypes(tool);
-
-            // Access and modify run.conversion.tool
-            if (run["conversion"] is JObject conversion)
+            string[] reportingDescriptorPathsToUpdate =
             {
-                tool = (JObject)conversion["tool"];
-                UpdateToolReportingDescriptorPropertyTypes(tool);
-            }
+                "tool.driver.notificationDescriptors[]",
+                "conversion.tool.driver.notificationDescriptors[]",
+                "tool.extensions[].notificationDescriptors[]",
+                "conversion.tool.extensions[].notificationDescriptors[]",
+                "tool.driver.ruleDescriptors[]",
+                "conversion.tool.driver.ruleDescriptors[]",
+                "tool.extensions[].ruleDescriptors",
+                "conversion.tool.extensions[].ruleDescriptors[]"
+            };
+
+            ApplyActionOnNodeIfPathExists(reportingDescriptorPathsToUpdate, run, UpdateReportingDescriptorPropertyTypes);
+
         }
 
-        private static void UpdateToolReportingDescriptorPropertyTypes(JObject tool)
+        private static void UpdateReportingDescriptorPropertyTypes(JObject reportingDescriptor)
         {
-            // Access and modify tool.driver
-            if (tool["driver"] is JObject driver)
+            if (reportingDescriptor["name"] is JObject message && message["text"] is JToken text)
             {
-                UpdateToolComponentReportingDescriptorPropertyTypes(driver);
+                reportingDescriptor["name"] = text;
             }
 
-            // Access and modify each item in tool.extensions
-            if (tool["extensions"] is JArray extensions)
+            if (reportingDescriptor["shortDescription"] is JObject message2)
             {
-                foreach (JObject toolComponent in extensions)
+                // We must convert this JObject from type "Message" to "MultiformatMessageString".
+                // Both Objects have common JTokens "text" and "markdown" which do not need modification.
+                // Hence, we only need to strip out additional properties that Message object may have (messageId and arguments).
+                if (message2["messageId"] is JToken)
                 {
-                    UpdateToolComponentReportingDescriptorPropertyTypes(toolComponent);
-                }
-            }
-        }
-
-        private static void UpdateToolComponentReportingDescriptorPropertyTypes(JObject toolComponent)
-        {
-            // Access and modify toolComponent.notificationDescriptors
-            if (toolComponent["notificationDescriptors"] is JArray notificationDescriptors)
-            {
-                UpdateReportingDescriptorPropertyTypes(notificationDescriptors);
-            }
-
-            // Access and modify toolComponent.ruleDescriptors
-            if (toolComponent["ruleDescriptors"] is JArray ruleDescriptors)
-            {
-                UpdateReportingDescriptorPropertyTypes(ruleDescriptors);
-            }
-        }
-
-        private static void UpdateReportingDescriptorPropertyTypes(JArray reportingDescriptors)
-        {
-            foreach (JObject reportingDescriptor in reportingDescriptors)
-            {
-                if (reportingDescriptor["name"] is JObject message && message["text"] is JToken text)
-                {
-                    reportingDescriptor["name"] = text;
+                    message2.Remove("messageId");
                 }
 
-                if (reportingDescriptor["shortDescription"] is JObject message2)
+                if (message2["arguments"] is JArray)
                 {
-                    // We must convert this JObject from type "Message" to "MultiformatMessageString".
-                    // Both Objects have common JTokens "text" and "markdown" which do not need modification.
-                    // Hence, we only need to strip out additional properties that Message object may have (messageId and arguments).
-                    if (message2["messageId"] is JToken)
-                    {
-                        message2.Remove("messageId");
-                    }
+                    message2.Remove("arguments");
+                }
+            }
 
-                    if (message2["arguments"] is JArray)
-                    {
-                        message2.Remove("arguments");
-                    }
+            if (reportingDescriptor["fullDescription"] is JObject message3)
+            {
+                // We must convert this JObject from type "Message" to "MultiformatMessageString".
+                // Both Objects have common JTokens "text" and "markdown" which do not need modification.
+                // Hence, we only need to strip out additional properties that Message object may have (messageId and arguments).
+                if (message3["messageId"] is JToken)
+                {
+                    message3.Remove("messageId");
                 }
 
-                if (reportingDescriptor["fullDescription"] is JObject message3)
+                if (message3["arguments"] is JArray)
                 {
-                    // We must convert this JObject from type "Message" to "MultiformatMessageString".
-                    // Both Objects have common JTokens "text" and "markdown" which do not need modification.
-                    // Hence, we only need to strip out additional properties that Message object may have (messageId and arguments).
-                    if (message3["messageId"] is JToken)
-                    {
-                        message3.Remove("messageId");
-                    }
-
-                    if (message3["arguments"] is JArray)
-                    {
-                        message3.Remove("arguments");
-                    }
+                    message3.Remove("arguments");
                 }
             }
         }
@@ -1716,5 +1684,85 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             return modifiedNotification;
         }
+
+        private delegate void ActionOnJObject(JObject jObject);
+
+        private static void ApplyActionOnNodeIfPathExists(string[] possibleNodePaths, JObject rootNode, ActionOnJObject action)
+        {
+            var nodesToUpdate = FindAllNodes(possibleNodePaths, rootNode);            
+
+            foreach (JObject node in nodesToUpdate)
+            {
+                action(node);
+            }
+
+        }
+
+        private static List<JObject> FindAllNodes(string[] fullPaths, JObject rootlog)
+        {
+            var nodes = new List<JObject>();
+
+            foreach (string path in fullPaths)
+            {
+                nodes.AddRange(GetAllNodesAtPath(path, rootlog));
+            }
+
+            return nodes;
+        }
+
+        private static List<JObject> GetAllNodesAtPath(string fullPath, JObject rootLog)
+        {
+            if (fullPath == null)
+            {
+                return new List<JObject>() { rootLog };
+            }
+
+            (string currentNodeName, string childPath) = SplitCurrentNodeNameAndChildPath(fullPath);
+
+            var leafNodes = new List<JObject>();
+
+            if (currentNodeName.EndsWith("[]"))
+            {
+                currentNodeName = currentNodeName.TrimEnd("[]".ToCharArray());
+
+                if (rootLog[currentNodeName] is JArray currentLogs)
+                {
+                    foreach (JObject currentLog in currentLogs)
+                    {
+                        leafNodes.AddRange(GetAllNodesAtPath(childPath, currentLog));
+                    }
+                }
+            }
+            else
+            {
+                if (rootLog[currentNodeName] is JObject currentLog)
+                {
+                    leafNodes.AddRange(GetAllNodesAtPath(childPath, currentLog));
+                }
+            }
+
+            return leafNodes;
+
+        }
+
+        private static (string, string) SplitCurrentNodeNameAndChildPath(string fullPath)
+        {
+            if (string.IsNullOrWhiteSpace(fullPath))
+            {
+                throw new ArgumentNullException(nameof(fullPath));
+            }
+
+            char[] delimiter = { '.' };
+
+            string[] splittedItems = fullPath.Split(delimiter, 2);
+
+            if(splittedItems.Length == 1)
+            {
+                return (splittedItems[0], null);
+            }
+
+            return (splittedItems[0], splittedItems[1]);
+        }
+
     }
 }
