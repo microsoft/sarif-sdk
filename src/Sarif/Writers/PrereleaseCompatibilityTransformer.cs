@@ -43,9 +43,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             switch (version)
             {
-                case "2.0.0-csd.2.beta.2019-02-20":
+                case "2.0.0-csd.2.beta.2019-04-03":
                 {
                     // SARIF TC32. Nothing to do.
+                    break;
+                }
+
+                case "2.0.0-csd.2.beta.2019-02-20":
+                {
+                    modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     break;
                 }
 
