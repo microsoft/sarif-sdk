@@ -1,0 +1,122 @@
+{
+    "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-01-24",
+    "version": "2.0.0-csd.2.beta.2019-01-24",
+    "runs": [
+        {
+            "tool": {
+                "language": "en-US",
+                "driver": {
+                    "name": "CodeScanner",
+                    "semanticVersion": "2.1.0",
+                    "ruleDescriptors": [
+                        {
+                            "id": "C2001",
+                            "shortDescription": {
+                                "text": "A variable was used without being initialized."
+                            },
+                            "messageStrings": {
+                                "default": {
+                                    "text": "Variable \"{0}\" was used without being initialized.",
+                                    "markdown": "test-markdown-text"
+                                }
+                            },
+                            "properties": {
+                                "some_key": "FoxForceFive"
+                            }
+                        },
+                        {
+                            "id": "C2002",
+                            "fullDescription": {
+                                "text": "Catfish season continuous hen lamb include dose copy grant."
+                            },
+                            "helpUri": "http://www.domain.com/rules/c2002.html",
+                            "defaultConfiguration": {
+                                "enabled": true,
+                                "level": "error"
+                            }
+                        },
+                        {
+                            "id": "C2003",
+                            "name": {
+                                "text": "Rule C2003 for C#"
+                            },
+                            "shortDescription": {
+                                "text": "C# rules were meant to be broken."
+                            },
+                            "fullDescription": {
+                                "text": "Rent internal rebellion competence biography photograph.",
+                                "markdown": "This is a markdown.",
+                                "arguments": [
+                                    "arg1",
+                                    "arg2",
+                                    "arg3"
+                                ],
+                                "messageId": "MSG001"
+                            }
+                        },
+                        {
+                            "id": "C2003",
+                            "name": {
+                                "text": "Rule C2003 for VB"
+                            },
+                            "shortDescription": {
+                                "text": "VB rules were meant to be broken.",
+                                "markdown": "This is another markdown.",
+                                "arguments": [
+                                    "arg4",
+                                    "arg5",
+                                    "arg6"
+                                ],
+                                "messageId": "MSG002"
+                            },
+                            "fullDescription": {
+                                "text": "Rent internal rebellion competence biography photograph."
+                            },
+                            "help": {
+                                "text": "This is generic help for the reported issue.",
+                                "markdown": "markdown help.",
+                                "arguments": [
+                                    "arg10",
+                                    "arg11",
+                                    "arg12"
+                                ],
+                                "messageId": "MSG003"
+                            }
+                        }
+                    ]
+                }
+            },
+            "results": [
+                {
+                    "ruleId": "C2001",
+                    "ruleIndex": 0,
+                    "message": {
+                        "text": "Some testing occurred."
+                    }
+                },
+                {
+                    "ruleId": "C2002",
+                    "ruleIndex": 1,
+                    "message": {
+                        "text": "Some testing occurred."
+                    }
+                },
+                {
+                    "ruleId": "C2003",
+                    "ruleIndex": 2,
+                    "message": {
+                        "text": "Some testing occurred."
+                    }
+                },
+                {
+                    "ruleId": "C2003",
+                    "ruleIndex": 3,
+                    "message": {
+                        "text": "Some testing occurred."
+                    }
+                }
+            ],
+            "columnKind": "utf16CodeUnits"
+        }
+    ]
+}

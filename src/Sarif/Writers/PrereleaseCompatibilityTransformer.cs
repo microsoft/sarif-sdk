@@ -141,6 +141,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     // https://github.com/oasis-tcs/sarif-spec/issues/337
                     ConvertToolToDriverInExternalPropertyFiles(run);
+
+                    UpdateAllReportingDescriptorPropertyTypes(run, UpdateReportingDescriptorHelp);
                 }
             }
             return true;
@@ -165,7 +167,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     // https://github.com/oasis-tcs/sarif-spec/issues/330
                     RemoveToolLanguage(run);
-                    UpdateAllReportingDescriptorPropertyTypes(run);
+                    UpdateAllReportingDescriptorPropertyTypes(run, UpdateReportingDescriptorNameShortDescriptionAndFullDescription);
                     ConvertAllExceptionMessagesToStringAndRenameToolNotificationNodes(run);
 
                     // https://github.com/oasis-tcs/sarif-spec/issues/325
@@ -445,7 +447,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        private static void UpdateAllReportingDescriptorPropertyTypes(JObject run)
+        private static void UpdateAllReportingDescriptorPropertyTypes(JObject run, ActionOnJObject action)
         {
             string[] reportingDescriptorPathsToUpdate =
             {
@@ -459,47 +461,49 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 "conversion.tool.extensions[].ruleDescriptors[]"
             };
 
-            PerformActionOnLeafNodeIfExists(reportingDescriptorPathsToUpdate, run, UpdateReportingDescriptorPropertyTypes);
+            PerformActionOnLeafNodeIfExists(reportingDescriptorPathsToUpdate, run, action);
 
         }
 
-        private static void UpdateReportingDescriptorPropertyTypes(JObject reportingDescriptor)
+        private static void UpdateReportingDescriptorHelp(JObject reportingDescriptor)
+        {
+           if (reportingDescriptor["help"] is JObject help)
+            {
+                ConvertMessageToMultiFormatMessageString(help);
+            }
+        }
+
+        private static void ConvertMessageToMultiFormatMessageString(JObject message)
+        {
+            // We must convert the input JObject from type "Message" to "MultiformatMessageString".
+            // Both Objects have common JTokens "text" and "markdown" which do not need modification.
+            // Hence, we only need to strip out additional properties that Message object may have (messageId and arguments).
+            if (message["messageId"] is JToken)
+            {
+                message.Remove("messageId");
+            }
+
+            if (message["arguments"] is JArray)
+            {
+                message.Remove("arguments");
+            }
+        }
+
+        private static void UpdateReportingDescriptorNameShortDescriptionAndFullDescription(JObject reportingDescriptor)
         {
             if (reportingDescriptor["name"] is JObject message && message["text"] is JToken text)
             {
                 reportingDescriptor["name"] = text;
             }
 
-            if (reportingDescriptor["shortDescription"] is JObject message2)
+            if (reportingDescriptor["shortDescription"] is JObject shortDescription)
             {
-                // We must convert this JObject from type "Message" to "MultiformatMessageString".
-                // Both Objects have common JTokens "text" and "markdown" which do not need modification.
-                // Hence, we only need to strip out additional properties that Message object may have (messageId and arguments).
-                if (message2["messageId"] is JToken)
-                {
-                    message2.Remove("messageId");
-                }
-
-                if (message2["arguments"] is JArray)
-                {
-                    message2.Remove("arguments");
-                }
+                ConvertMessageToMultiFormatMessageString(shortDescription);
             }
 
-            if (reportingDescriptor["fullDescription"] is JObject message3)
+            if (reportingDescriptor["fullDescription"] is JObject fullDescription)
             {
-                // We must convert this JObject from type "Message" to "MultiformatMessageString".
-                // Both Objects have common JTokens "text" and "markdown" which do not need modification.
-                // Hence, we only need to strip out additional properties that Message object may have (messageId and arguments).
-                if (message3["messageId"] is JToken)
-                {
-                    message3.Remove("messageId");
-                }
-
-                if (message3["arguments"] is JArray)
-                {
-                    message3.Remove("arguments");
-                }
+                ConvertMessageToMultiFormatMessageString(fullDescription);
             }
         }
 
