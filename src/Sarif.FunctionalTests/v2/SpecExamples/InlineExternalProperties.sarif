@@ -17,44 +17,7 @@
                 }
             },
 
-            "externalizedProperties": {
-                "tags": [
-                    "Copyrighted",
-                    "Telemetry"
-                ]
-            },
-
             "artifacts": [
-                {
-                    "location": {
-                        "uri": "file:///home/list.txt"
-                    },
-                    "length": 43,
-                    "mimeType": "text/plain",
-                    "contents": {
-                        "text": "VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw=="
-                    },
-                    "hashes": {
-                        "sha256": "d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"
-                    }
-                },
-                {
-                    "location": {
-                        "uri": "file:///home/buildAgent/bin/app.zip"
-                    },
-                    "mimeType": "application/zip",
-                    "properties": {
-                        "my_key": "some value"
-                    }
-                },
-                {
-                    "location": {
-                        "uri": "file:///home/buildAgent/bin/app.zip#/docs/intro.docx"
-                    },
-                    "offset": 17522,
-                    "length": 4050,
-                    "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                },
                 {
                     "location": {
                         "uri": "file:///home/buildAgent/bin/app.zip#/data.zip"
@@ -190,10 +153,6 @@
                 {
                     "name": "collections::list",
                     "kind": "type"
-                },
-                {
-                    "name": "collections",
-                    "kind": "namespace"
                 }
             ],
 
@@ -438,6 +397,56 @@
                     ]
                 }
             ]
+        },
+        {
+            "version": "2.0.0-csd.2.beta.2019-02-20",
+
+            "externalizedProperties": {
+                "tags": [
+                    "Copyrighted",
+                    "Telemetry"
+                ]
+            },
+
+            "artifacts": [
+                {
+                    "location": {
+                        "uri": "file:///home/list.txt"
+                    },
+                    "length": 43,
+                    "mimeType": "text/plain",
+                    "contents": {
+                        "text": "VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw=="
+                    },
+                    "hashes": {
+                        "sha256": "d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"
+                    }
+                },
+                {
+                    "location": {
+                        "uri": "file:///home/buildAgent/bin/app.zip"
+                    },
+                    "mimeType": "application/zip",
+                    "properties": {
+                        "my_key": "some value"
+                    }
+                },
+                {
+                    "location": {
+                        "uri": "file:///home/buildAgent/bin/app.zip#/docs/intro.docx"
+                    },
+                    "offset": 17522,
+                    "length": 4050,
+                    "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                }
+            ],
+
+            "logicalLocations": [
+                {
+                    "name": "collections",
+                    "kind": "namespace"
+                }
+            ]
         }
     ],
     "runs": [
@@ -461,14 +470,9 @@
                         "uri": "sarif:/inlineExternalProperties/0"
                     }
                 },
-                "graphs": {
-                    "location": {
-                        "uri": "sarif:/inlineExternalProperties/0"
-                    }
-                },
                 "externalizedProperties": {
                     "location": {
-                        "uri": "sarif:/inlineExternalProperties/0"
+                        "uri": "sarif:/inlineExternalProperties/1"
                     }
                 },
                 "artifacts": [
@@ -488,26 +492,9 @@
                         "location": {
                             "uri": "sarif:/inlineExternalProperties/0"
                         }
-                    },
-                    {
-                        "location": {
-                            "uri": "sarif:/inlineExternalProperties/1"
-                        }
                     }
                 ],
                 "logicalLocations": [
-                    {
-                        "location": {
-                            "uri": "sarif:/inlineExternalProperties/0"
-                        }
-                    },
-                    {
-                        "location": {
-                            "uri": "sarif:/inlineExternalProperties/1"
-                        }
-                    }
-                ],
-                "threadFlowLocations": [
                     {
                         "location": {
                             "uri": "sarif:/inlineExternalProperties/0"
@@ -523,35 +510,6 @@
                     {
                         "location": {
                             "uri": "sarif:/inlineExternalProperties/0"
-                        }
-                    },
-                    {
-                        "location": {
-                            "uri": "sarif:/inlineExternalProperties/1"
-                        }
-                    }
-                ],
-                "taxonomies": [
-                    {
-                        "location": {
-                            "uri": "sarif:/inlineExternalProperties/0"
-                        }
-                    },
-                    {
-                        "location": {
-                            "uri": "sarif:/inlineExternalProperties/1"
-                        }
-                    }
-                ],
-                "addresses": [
-                    {
-                        "location": {
-                            "uri": "sarif:/inlineExternalProperties/0"
-                        }
-                    },
-                    {
-                        "location": {
-                            "uri": "sarif:/inlineExternalProperties/1"
                         }
                     }
                 ]

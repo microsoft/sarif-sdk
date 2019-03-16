@@ -498,27 +498,27 @@
                 },
 
                 "version": {
-                    "description": "The SARIF format version of this log file.",
+                    "description": "The SARIF format version of this external properties object.",
                     "enum": [ "2.0.0-csd.2.beta.2019-02-20" ]
                 },
 
                 "guid": {
-                    "description": "A stable, unique identifer for the external properties in the form of a GUID.",
+                    "description": "A stable, unique identifer for this external properties object, in the form of a GUID.",
                     "type": "string"
                 },
 
                 "runGuid": {
-                    "description": "A stable, unique identifer for the external properties in the form of a GUID.",
+                    "description": "A stable, unique identifer for the run associated with this external properties object, in the form of a GUID.",
                     "type": "string"
                 },
 
                 "conversion": {
-                    "description": "A conversion object that describes how a converter transformed an analysis tool's native reporting format into the SARIF format.",
+                    "description": "A conversion object that will be merged with an external run.",
                     "$ref": "#/definitions/conversion"
                 },
 
                 "graphs": {
-                    "description": "A dictionary, each of whose keys is the id of a graph and each of whose values is a 'graph' object with that id.",
+                    "description": "An array of graph objects the will merged with an external run.",
                     "type": "object",
                     "additionalProperties": {
                         "$ref": "#/definitions/graph"
@@ -526,12 +526,12 @@
                 },
 
                 "externalizedProperties": {
-                    "description": "Key/value pairs that provide additional information about the run.",
+                    "description": "Key/value pairs that provide additional information that will be merged with an external run.",
                     "$ref": "#/definitions/propertyBag"
                 },
 
                 "artifacts": {
-                    "description": "An array of artifact objects relevant to the run.",
+                    "description": "An array of artifact objects that will be merged with an external run.",
                     "type": "array",
                     "minItems": 0,
                     "uniqueItems": true,
@@ -541,7 +541,7 @@
                 },
 
                 "invocations": {
-                    "description": "Describes the invocation of the analysis tool.",
+                    "description": "Describes the invocation of the analysis tool that will be merged with an external run.",
                     "type": "array",
                     "minItems": 0,
                     "uniqueItems": false,
@@ -552,7 +552,7 @@
                 },
 
                 "logicalLocations": {
-                    "description": "An array of logical locations such as namespaces, types or functions.",
+                    "description": "An array of logical locations such as namespaces, types or functions that will be merged with an external run.",
                     "type": "array",
                     "minItems": 0,
                     "uniqueItems": true,
@@ -563,7 +563,7 @@
                 },
 
                 "threadFlowLocations": {
-                    "description": "An array of threadFlowLocation objects cached at run level.",
+                    "description": "An array of threadFlowLocation objects that will be merged with an external run.",
                     "type": "array",
                     "minItems": 0,
                     "uniqueItems": true,
@@ -574,7 +574,7 @@
                 },
 
                 "results": {
-                    "description": "The set of results contained in an SARIF log. The results array can be omitted when a run is solely exporting rules metadata. It must be present (but may be empty) if a log file represents an actual scan.",
+                    "description": "An array of result objects that will be merged with an external run.",
                     "type": "array",
                     "minItems": 0,
                     "uniqueItems": false,
@@ -584,7 +584,7 @@
                 },
 
                 "taxonomies": {
-                    "description": "An array of reportingDescriptor objects relevant to a taxonomy in which results are categorized.",
+                    "description": "An array of reportingDescriptor objects that will be merged with an external run.",
                     "type": "array",
                     "minItems": 0,
                     "uniqueItems": true,
@@ -595,12 +595,12 @@
                 },
 
                 "driver": {
-                    "description": "The analysis tool that was run.",
+                    "description": "The analysis tool object that will be merged with an external run.",
                     "$ref": "#/definitions/toolComponent"
                 },
 
                 "extensions": {
-                    "description": "Tool extensions that contributed to or reconfigured the analysis tool that was run.",
+                    "description": "Tool extensions that will be merged with an external run.",
                     "type": "array",
                     "minItems": 0,
                     "uniqueItems": true,

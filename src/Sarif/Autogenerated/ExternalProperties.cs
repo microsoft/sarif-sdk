@@ -37,90 +37,90 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Uri Schema { get; set; }
 
         /// <summary>
-        /// The SARIF format version of this log file.
+        /// The SARIF format version of this external properties object.
         /// </summary>
         [DataMember(Name = "version", IsRequired = true)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.SarifVersionConverter))]
         public SarifVersion Version { get; set; }
 
         /// <summary>
-        /// A stable, unique identifer for the external properties in the form of a GUID.
+        /// A stable, unique identifer for this external properties object, in the form of a GUID.
         /// </summary>
         [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
         public string Guid { get; set; }
 
         /// <summary>
-        /// A stable, unique identifer for the external properties in the form of a GUID.
+        /// A stable, unique identifer for the run associated with this external properties object, in the form of a GUID.
         /// </summary>
         [DataMember(Name = "runGuid", IsRequired = false, EmitDefaultValue = false)]
         public string RunGuid { get; set; }
 
         /// <summary>
-        /// A conversion object that describes how a converter transformed an analysis tool's native reporting format into the SARIF format.
+        /// A conversion object that will be merged with an external run.
         /// </summary>
         [DataMember(Name = "conversion", IsRequired = false, EmitDefaultValue = false)]
         public Conversion Conversion { get; set; }
 
         /// <summary>
-        /// A dictionary, each of whose keys is the id of a graph and each of whose values is a 'graph' object with that id.
+        /// An array of graph objects the will merged with an external run.
         /// </summary>
         [DataMember(Name = "graphs", IsRequired = false, EmitDefaultValue = false)]
         public object Graphs { get; set; }
 
         /// <summary>
-        /// Key/value pairs that provide additional information about the run.
+        /// Key/value pairs that provide additional information that will be merged with an external run.
         /// </summary>
         [DataMember(Name = "externalizedProperties", IsRequired = false, EmitDefaultValue = false)]
         public PropertyBag ExternalizedProperties { get; set; }
 
         /// <summary>
-        /// An array of artifact objects relevant to the run.
+        /// An array of artifact objects that will be merged with an external run.
         /// </summary>
         [DataMember(Name = "artifacts", IsRequired = false, EmitDefaultValue = false)]
         public IList<Artifact> Artifacts { get; set; }
 
         /// <summary>
-        /// Describes the invocation of the analysis tool.
+        /// Describes the invocation of the analysis tool that will be merged with an external run.
         /// </summary>
         [DataMember(Name = "invocations", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<Invocation> Invocations { get; set; }
 
         /// <summary>
-        /// An array of logical locations such as namespaces, types or functions.
+        /// An array of logical locations such as namespaces, types or functions that will be merged with an external run.
         /// </summary>
         [DataMember(Name = "logicalLocations", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<LogicalLocation> LogicalLocations { get; set; }
 
         /// <summary>
-        /// An array of threadFlowLocation objects cached at run level.
+        /// An array of threadFlowLocation objects that will be merged with an external run.
         /// </summary>
         [DataMember(Name = "threadFlowLocations", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<ThreadFlowLocation> ThreadFlowLocations { get; set; }
 
         /// <summary>
-        /// The set of results contained in an SARIF log. The results array can be omitted when a run is solely exporting rules metadata. It must be present (but may be empty) if a log file represents an actual scan.
+        /// An array of result objects that will be merged with an external run.
         /// </summary>
         [DataMember(Name = "results", IsRequired = false, EmitDefaultValue = false)]
         public IList<Result> Results { get; set; }
 
         /// <summary>
-        /// An array of reportingDescriptor objects relevant to a taxonomy in which results are categorized.
+        /// An array of reportingDescriptor objects that will be merged with an external run.
         /// </summary>
         [DataMember(Name = "taxonomies", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<ReportingDescriptor> Taxonomies { get; set; }
 
         /// <summary>
-        /// The analysis tool that was run.
+        /// The analysis tool object that will be merged with an external run.
         /// </summary>
         [DataMember(Name = "driver", IsRequired = false, EmitDefaultValue = false)]
         public ToolComponent Driver { get; set; }
 
         /// <summary>
-        /// Tool extensions that contributed to or reconfigured the analysis tool that was run.
+        /// Tool extensions that will be merged with an external run.
         /// </summary>
         [DataMember(Name = "extensions", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
