@@ -23,10 +23,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private const string SchemaPropertyPattern = @"""\$schema""\s*:\s*""[^""]+""";
         private static readonly Regex s_SchemaRegex = new Regex(SchemaPropertyPattern, RegexOptions.Compiled);
 
-        private delegate void ActionOnJObject(JObject jObject);
-        private const string ArrayIndicatorSymbol = "[]";
-        private const char NodeDelimiterSymbol = '.';
-
         public static SarifLog UpdateToCurrentVersion(
             string prereleaseSarifLog, 
             Formatting formatting, 
@@ -47,15 +43,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             switch (version)
             {
-                case "2.0.0-csd.2.beta.2019-04-03":
-                {
-                    // SARIF TC33. Nothing to do.
-                    break;
-                }
-
                 case "2.0.0-csd.2.beta.2019-02-20":
                 {
-                    modifiedLog |= ApplyChangesFromTC33(sarifLog);
+                    // SARIF TC32. Nothing to do.
                     break;
                 }
 
@@ -63,7 +53,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 case "2.0.0-csd.2.beta.2019-01-24.1":
                 {
                     modifiedLog |= ApplyChangesFromTC32(sarifLog);
-                    modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     break;
                 }
 
@@ -71,7 +60,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     modifiedLog |= ApplyChangesFromTC31(sarifLog);
                     modifiedLog |= ApplyChangesFromTC32(sarifLog);
-                    modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     break;
                 }
 
@@ -87,7 +75,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         out ruleKeyToIndexMap);
                     modifiedLog |= ApplyChangesFromTC31(sarifLog);
                     modifiedLog |= ApplyChangesFromTC32(sarifLog);
-                    modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     break;
 
                 }
@@ -102,7 +89,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         out ruleKeyToIndexMap);
                     modifiedLog |= ApplyChangesFromTC31(sarifLog);
                     modifiedLog |= ApplyChangesFromTC32(sarifLog);
-                    modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     break;
                 }
             }
@@ -132,32 +118,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return transformedSarifLog;
         }
 
-        private static bool ApplyChangesFromTC33(JObject sarifLog)
-        {
-            UpdateSarifLogVersion(sarifLog);
-            if (sarifLog["runs"] is JArray runs)
-            {
-                foreach (JObject run in runs)
-                {
-                    // https://github.com/oasis-tcs/sarif-spec/issues/337
-                    ConvertToolToDriverInExternalPropertyFiles(run);
-
-                    UpdateAllReportingDescriptorPropertyTypes(run, UpdateReportingDescriptorHelp);
-                }
-            }
-            return true;
-        }
-
-        private static void ConvertToolToDriverInExternalPropertyFiles(JObject run)
-        {
-            if (run["externalPropertyFiles"] is JObject externalPropertyFiles &&
-                externalPropertyFiles["tool"] is JObject toolExternalPropertyFile)
-            {
-                externalPropertyFiles.Remove("tool");
-                externalPropertyFiles.Add("driver", toolExternalPropertyFile);
-            }
-        }
-
         private static bool ApplyChangesFromTC32(JObject sarifLog)
         {
             UpdateSarifLogVersion(sarifLog);
@@ -167,7 +127,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     // https://github.com/oasis-tcs/sarif-spec/issues/330
                     RemoveToolLanguage(run);
-                    UpdateAllReportingDescriptorPropertyTypes(run, UpdateReportingDescriptorNameShortDescriptionAndFullDescription);
+                    UpdateAllReportingDescriptorPropertyTypes(run);
                     ConvertAllExceptionMessagesToStringAndRenameToolNotificationNodes(run);
 
                     // https://github.com/oasis-tcs/sarif-spec/issues/325
@@ -447,63 +407,93 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        private static void UpdateAllReportingDescriptorPropertyTypes(JObject run, ActionOnJObject action)
+        private static void UpdateAllReportingDescriptorPropertyTypes(JObject run)
         {
-            string[] reportingDescriptorPathsToUpdate =
+            // Access and modify run.tool
+            JObject tool = (JObject)run["tool"];
+            UpdateToolReportingDescriptorPropertyTypes(tool);
+
+            // Access and modify run.conversion.tool
+            if (run["conversion"] is JObject conversion)
             {
-                "tool.driver.notificationDescriptors[]",
-                "conversion.tool.driver.notificationDescriptors[]",
-                "tool.extensions[].notificationDescriptors[]",
-                "conversion.tool.extensions[].notificationDescriptors[]",
-                "tool.driver.ruleDescriptors[]",
-                "conversion.tool.driver.ruleDescriptors[]",
-                "tool.extensions[].ruleDescriptors",
-                "conversion.tool.extensions[].ruleDescriptors[]"
-            };
-
-            PerformActionOnLeafNodeIfExists(reportingDescriptorPathsToUpdate, run, action);
-
-        }
-
-        private static void UpdateReportingDescriptorHelp(JObject reportingDescriptor)
-        {
-           if (reportingDescriptor["help"] is JObject help)
-            {
-                ConvertMessageToMultiFormatMessageString(help);
+                tool = (JObject)conversion["tool"];
+                UpdateToolReportingDescriptorPropertyTypes(tool);
             }
         }
 
-        private static void ConvertMessageToMultiFormatMessageString(JObject message)
+        private static void UpdateToolReportingDescriptorPropertyTypes(JObject tool)
         {
-            // We must convert the input JObject from type "Message" to "MultiformatMessageString".
-            // Both Objects have common JTokens "text" and "markdown" which do not need modification.
-            // Hence, we only need to strip out additional properties that Message object may have (messageId and arguments).
-            if (message["messageId"] is JToken)
+            // Access and modify tool.driver
+            if (tool["driver"] is JObject driver)
             {
-                message.Remove("messageId");
+                UpdateToolComponentReportingDescriptorPropertyTypes(driver);
             }
 
-            if (message["arguments"] is JArray)
+            // Access and modify each item in tool.extensions
+            if (tool["extensions"] is JArray extensions)
             {
-                message.Remove("arguments");
+                foreach (JObject toolComponent in extensions)
+                {
+                    UpdateToolComponentReportingDescriptorPropertyTypes(toolComponent);
+                }
             }
         }
 
-        private static void UpdateReportingDescriptorNameShortDescriptionAndFullDescription(JObject reportingDescriptor)
+        private static void UpdateToolComponentReportingDescriptorPropertyTypes(JObject toolComponent)
         {
-            if (reportingDescriptor["name"] is JObject message && message["text"] is JToken text)
+            // Access and modify toolComponent.notificationDescriptors
+            if (toolComponent["notificationDescriptors"] is JArray notificationDescriptors)
             {
-                reportingDescriptor["name"] = text;
+                UpdateReportingDescriptorPropertyTypes(notificationDescriptors);
             }
 
-            if (reportingDescriptor["shortDescription"] is JObject shortDescription)
+            // Access and modify toolComponent.ruleDescriptors
+            if (toolComponent["ruleDescriptors"] is JArray ruleDescriptors)
             {
-                ConvertMessageToMultiFormatMessageString(shortDescription);
+                UpdateReportingDescriptorPropertyTypes(ruleDescriptors);
             }
+        }
 
-            if (reportingDescriptor["fullDescription"] is JObject fullDescription)
+        private static void UpdateReportingDescriptorPropertyTypes(JArray reportingDescriptors)
+        {
+            foreach (JObject reportingDescriptor in reportingDescriptors)
             {
-                ConvertMessageToMultiFormatMessageString(fullDescription);
+                if (reportingDescriptor["name"] is JObject message && message["text"] is JToken text)
+                {
+                    reportingDescriptor["name"] = text;
+                }
+
+                if (reportingDescriptor["shortDescription"] is JObject message2)
+                {
+                    // We must convert this JObject from type "Message" to "MultiformatMessageString".
+                    // Both Objects have common JTokens "text" and "markdown" which do not need modification.
+                    // Hence, we only need to strip out additional properties that Message object may have (messageId and arguments).
+                    if (message2["messageId"] is JToken)
+                    {
+                        message2.Remove("messageId");
+                    }
+
+                    if (message2["arguments"] is JArray)
+                    {
+                        message2.Remove("arguments");
+                    }
+                }
+
+                if (reportingDescriptor["fullDescription"] is JObject message3)
+                {
+                    // We must convert this JObject from type "Message" to "MultiformatMessageString".
+                    // Both Objects have common JTokens "text" and "markdown" which do not need modification.
+                    // Hence, we only need to strip out additional properties that Message object may have (messageId and arguments).
+                    if (message3["messageId"] is JToken)
+                    {
+                        message3.Remove("messageId");
+                    }
+
+                    if (message3["arguments"] is JArray)
+                    {
+                        message3.Remove("arguments");
+                    }
+                }
             }
         }
 
@@ -1725,59 +1715,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             return modifiedNotification;
-        }
-
-        private static void PerformActionOnLeafNodeIfExists(string[] possiblePathsToLeafNode, JObject rootNode, ActionOnJObject action)
-        {
-            foreach(string nodePath in possiblePathsToLeafNode)
-            {
-                PerformActionOnLeafNodeIfExists(nodePath, rootNode, action);
-            }
-        }
-
-        private static void PerformActionOnLeafNodeIfExists(string possiblePathToLeafNode, JObject rootNode, ActionOnJObject action)
-        {
-            if (possiblePathToLeafNode == null)
-            {
-                action(rootNode);
-                return;
-            }
-
-            (string currentNodeName, string remainingLeafNodePath) = SplitCurrentNodeNameAndRemainingLeafNodePath(possiblePathToLeafNode);
-
-            if (currentNodeName.EndsWith(ArrayIndicatorSymbol))
-            {
-                currentNodeName = currentNodeName.TrimEnd(ArrayIndicatorSymbol.ToCharArray());
-
-                if (rootNode[currentNodeName] is JArray currentArray)
-                {
-                    foreach (JObject currentNode in currentArray)
-                    {
-                        PerformActionOnLeafNodeIfExists(remainingLeafNodePath, currentNode, action);
-                    }
-                }
-            }
-            else
-            {
-                if (rootNode[currentNodeName] is JObject currentNode)
-                {
-                    PerformActionOnLeafNodeIfExists(remainingLeafNodePath, currentNode, action);
-                }
-            }
-        }
-
-        private static (string currentNodeName, string remainingLeafNodePath) SplitCurrentNodeNameAndRemainingLeafNodePath(string fullPath)
-        {
-            char[] delimiter = { NodeDelimiterSymbol };
-
-            string[] splitItems = fullPath.Split(separator: delimiter, count: 2);
-
-            if (splitItems.Length == 1)
-            {
-                return (currentNodeName: splitItems[0], null);
-            }
-
-            return (currentNodeName: splitItems[0], remainingLeafNodePath: splitItems[1]);
         }
     }
 }

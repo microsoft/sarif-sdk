@@ -96,17 +96,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<ExternalPropertyFile> Addresses { get; set; }
 
         /// <summary>
-        /// An external property file containing a run.driver object to be merged with the root log file.
+        /// An external property file containing a run.tool object to be merged with the root log file.
         /// </summary>
-        [DataMember(Name = "driver", IsRequired = false, EmitDefaultValue = false)]
-        public ExternalPropertyFile Driver { get; set; }
-
-        /// <summary>
-        /// An array of external property files containing run.extensions arrays to be merged with the root log file.
-        /// </summary>
-        [DataMember(Name = "extensions", IsRequired = false, EmitDefaultValue = false)]
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ExternalPropertyFile> Extensions { get; set; }
+        [DataMember(Name = "tool", IsRequired = false, EmitDefaultValue = false)]
+        public ExternalPropertyFile Tool { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the external property files.
@@ -154,18 +147,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="addresses">
         /// An initialization value for the <see cref="P:Addresses" /> property.
         /// </param>
-        /// <param name="driver">
-        /// An initialization value for the <see cref="P:Driver" /> property.
-        /// </param>
-        /// <param name="extensions">
-        /// An initialization value for the <see cref="P:Extensions" /> property.
+        /// <param name="tool">
+        /// An initialization value for the <see cref="P:Tool" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ExternalPropertyFiles(ExternalPropertyFile conversion, ExternalPropertyFile graphs, ExternalPropertyFile externalizedProperties, IEnumerable<ExternalPropertyFile> artifacts, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ExternalPropertyFile> threadFlowLocations, IEnumerable<ExternalPropertyFile> results, IEnumerable<ExternalPropertyFile> taxonomies, IEnumerable<ExternalPropertyFile> addresses, ExternalPropertyFile driver, IEnumerable<ExternalPropertyFile> extensions, IDictionary<string, SerializedPropertyInfo> properties)
+        public ExternalPropertyFiles(ExternalPropertyFile conversion, ExternalPropertyFile graphs, ExternalPropertyFile externalizedProperties, IEnumerable<ExternalPropertyFile> artifacts, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ExternalPropertyFile> threadFlowLocations, IEnumerable<ExternalPropertyFile> results, IEnumerable<ExternalPropertyFile> taxonomies, IEnumerable<ExternalPropertyFile> addresses, ExternalPropertyFile tool, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(conversion, graphs, externalizedProperties, artifacts, invocations, logicalLocations, threadFlowLocations, results, taxonomies, addresses, driver, extensions, properties);
+            Init(conversion, graphs, externalizedProperties, artifacts, invocations, logicalLocations, threadFlowLocations, results, taxonomies, addresses, tool, properties);
         }
 
         /// <summary>
@@ -184,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Conversion, other.Graphs, other.ExternalizedProperties, other.Artifacts, other.Invocations, other.LogicalLocations, other.ThreadFlowLocations, other.Results, other.Taxonomies, other.Addresses, other.Driver, other.Extensions, other.Properties);
+            Init(other.Conversion, other.Graphs, other.ExternalizedProperties, other.Artifacts, other.Invocations, other.LogicalLocations, other.ThreadFlowLocations, other.Results, other.Taxonomies, other.Addresses, other.Tool, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -205,7 +195,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExternalPropertyFiles(this);
         }
 
-        private void Init(ExternalPropertyFile conversion, ExternalPropertyFile graphs, ExternalPropertyFile externalizedProperties, IEnumerable<ExternalPropertyFile> artifacts, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ExternalPropertyFile> threadFlowLocations, IEnumerable<ExternalPropertyFile> results, IEnumerable<ExternalPropertyFile> taxonomies, IEnumerable<ExternalPropertyFile> addresses, ExternalPropertyFile driver, IEnumerable<ExternalPropertyFile> extensions, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(ExternalPropertyFile conversion, ExternalPropertyFile graphs, ExternalPropertyFile externalizedProperties, IEnumerable<ExternalPropertyFile> artifacts, IEnumerable<ExternalPropertyFile> invocations, IEnumerable<ExternalPropertyFile> logicalLocations, IEnumerable<ExternalPropertyFile> threadFlowLocations, IEnumerable<ExternalPropertyFile> results, IEnumerable<ExternalPropertyFile> taxonomies, IEnumerable<ExternalPropertyFile> addresses, ExternalPropertyFile tool, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (conversion != null)
             {
@@ -348,27 +338,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Addresses = destination_6;
             }
 
-            if (driver != null)
+            if (tool != null)
             {
-                Driver = new ExternalPropertyFile(driver);
-            }
-
-            if (extensions != null)
-            {
-                var destination_7 = new List<ExternalPropertyFile>();
-                foreach (var value_7 in extensions)
-                {
-                    if (value_7 == null)
-                    {
-                        destination_7.Add(null);
-                    }
-                    else
-                    {
-                        destination_7.Add(new ExternalPropertyFile(value_7));
-                    }
-                }
-
-                Extensions = destination_7;
+                Tool = new ExternalPropertyFile(tool);
             }
 
             if (properties != null)
