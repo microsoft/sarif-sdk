@@ -80,7 +80,7 @@
               "message": {
                 "text": "Analyzing 'SyntaxError.sarif'..."
               },
-              "level": "note",
+              "level": "none",
               "time": "2018-06-24T19:20:52.812Z"
             }
           ]
