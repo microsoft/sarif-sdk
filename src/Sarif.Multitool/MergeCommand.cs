@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         
         internal static string GetOutputFileName(MergeOptions mergeOptions)
         {
-            return !string.IsNullOrEmpty(mergeOptions.OutputFileName)
+            return string.IsNullOrEmpty(mergeOptions.OutputFileName) == false
                 ? mergeOptions.OutputFileName
                 : "combined.sarif";
         }

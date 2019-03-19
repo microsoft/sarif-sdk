@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         [Fact]
         public void MimeType_GuessesFromFileName_Other()
         {
-            Assert.Equal("application/octet-stream", MimeType.DetermineFromFileExtension("example.exe"));
+            Assert.Equal(MimeType.Binary, MimeType.DetermineFromFileExtension("example.exe"));
         }
 
         [Fact]
@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         [Fact]
         public void MimeType_GuessesFromFileName_RequiresPeriod()
         {
-            Assert.Equal("application/octet-stream", MimeType.DetermineFromFileExtension("examplexml"));
+            Assert.Equal(MimeType.Binary, MimeType.DetermineFromFileExtension("examplexml"));
         }
 
         [Fact]

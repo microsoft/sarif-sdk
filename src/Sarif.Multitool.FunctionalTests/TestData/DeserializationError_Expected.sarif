@@ -83,7 +83,7 @@
               "message": {
                 "text": "Analyzing 'DeserializationError.sarif'..."
               },
-              "level": "note",
+              "level": "none",
               "time":"2018-06-24T19:03:07.315Z"
              }
            ]
