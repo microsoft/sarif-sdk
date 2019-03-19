@@ -80,12 +80,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             public SarifLog Log;
             
-            internal string GetOutputFileName(RebaseUriOptions mergeOptions)
+            internal string GetOutputFileName(RebaseUriOptions rebaseUriOptions)
             {
-                if (mergeOptions.Inline) { return FileName; }
+                if (rebaseUriOptions.Inline) { return FileName; }
 
-                return !string.IsNullOrEmpty(mergeOptions.OutputFolderPath)
-                    ? Path.GetFullPath(mergeOptions.OutputFolderPath) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(FileName) + "-rebased.sarif"
+                return !string.IsNullOrEmpty(rebaseUriOptions.OutputFolderPath)
+                    ? Path.GetFullPath(rebaseUriOptions.OutputFolderPath) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(FileName) + "-rebased.sarif"
                     : Path.GetDirectoryName(FileName) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(FileName) + "-rebased.sarif";
             }
         }
