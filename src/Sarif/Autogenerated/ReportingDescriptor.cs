@@ -95,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Provides the primary documentation for the report, useful when there is no online documentation.
         /// </summary>
         [DataMember(Name = "help", IsRequired = false, EmitDefaultValue = false)]
-        public virtual Message Help { get; set; }
+        public virtual MultiformatMessageString Help { get; set; }
         /// <summary>
         /// An array of references used to locate a set of taxonomy reporting descriptors that are always applicable to a result.
         /// </summary>
@@ -163,7 +163,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ReportingDescriptor(string id, string guid, string name, IEnumerable<string> deprecatedIds, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, Message help, IEnumerable<ReportingDescriptorReference> taxonomyReferences, IEnumerable<ReportingDescriptorReference> optionalTaxonomyReferences, IDictionary<string, SerializedPropertyInfo> properties)
+        public ReportingDescriptor(string id, string guid, string name, IEnumerable<string> deprecatedIds, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, MultiformatMessageString help, IEnumerable<ReportingDescriptorReference> taxonomyReferences, IEnumerable<ReportingDescriptorReference> optionalTaxonomyReferences, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(id, guid, name, deprecatedIds, shortDescription, fullDescription, messageStrings, defaultConfiguration, helpUri, help, taxonomyReferences, optionalTaxonomyReferences, properties);
         }
@@ -205,7 +205,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ReportingDescriptor(this);
         }
 
-        private void Init(string id, string guid, string name, IEnumerable<string> deprecatedIds, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, Message help, IEnumerable<ReportingDescriptorReference> taxonomyReferences, IEnumerable<ReportingDescriptorReference> optionalTaxonomyReferences, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string id, string guid, string name, IEnumerable<string> deprecatedIds, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, MultiformatMessageString help, IEnumerable<ReportingDescriptorReference> taxonomyReferences, IEnumerable<ReportingDescriptorReference> optionalTaxonomyReferences, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             Guid = guid;
@@ -252,7 +252,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (help != null)
             {
-                Help = new Message(help);
+                Help = new MultiformatMessageString(help);
             }
 
             if (taxonomyReferences != null)
