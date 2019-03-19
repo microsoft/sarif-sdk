@@ -513,12 +513,12 @@
                 },
 
                 "conversion": {
-                    "description": "A conversion object that will be merged with an external run.",
+                    "description": "A conversion object that will be merged with a separate run.",
                     "$ref": "#/definitions/conversion"
                 },
 
                 "graphs": {
-                    "description": "An array of graph objects the will merged with an external run.",
+                    "description": "An array of graph objects that will merged with a separate run.",
                     "type": "object",
                     "additionalProperties": {
                         "$ref": "#/definitions/graph"
@@ -526,12 +526,12 @@
                 },
 
                 "externalizedProperties": {
-                    "description": "Key/value pairs that provide additional information that will be merged with an external run.",
+                    "description": "Key/value pairs that provide additional information that will be merged with a separate run.",
                     "$ref": "#/definitions/propertyBag"
                 },
 
                 "artifacts": {
-                    "description": "An array of artifact objects that will be merged with an external run.",
+                    "description": "An array of artifact objects that will be merged with a separate run.",
                     "type": "array",
                     "minItems": 0,
                     "uniqueItems": true,
@@ -541,7 +541,7 @@
                 },
 
                 "invocations": {
-                    "description": "Describes the invocation of the analysis tool that will be merged with an external run.",
+                    "description": "Describes the invocation of the analysis tool that will be merged with a separate run.",
                     "type": "array",
                     "minItems": 0,
                     "uniqueItems": false,
@@ -552,7 +552,7 @@
                 },
 
                 "logicalLocations": {
-                    "description": "An array of logical locations such as namespaces, types or functions that will be merged with an external run.",
+                    "description": "An array of logical locations such as namespaces, types or functions that will be merged with a separate run.",
                     "type": "array",
                     "minItems": 0,
                     "uniqueItems": true,
@@ -563,7 +563,7 @@
                 },
 
                 "threadFlowLocations": {
-                    "description": "An array of threadFlowLocation objects that will be merged with an external run.",
+                    "description": "An array of threadFlowLocation objects that will be merged with a separate run.",
                     "type": "array",
                     "minItems": 0,
                     "uniqueItems": true,
@@ -574,7 +574,7 @@
                 },
 
                 "results": {
-                    "description": "An array of result objects that will be merged with an external run.",
+                    "description": "An array of result objects that will be merged with a separate run.",
                     "type": "array",
                     "minItems": 0,
                     "uniqueItems": false,
@@ -584,7 +584,7 @@
                 },
 
                 "taxonomies": {
-                    "description": "An array of reportingDescriptor objects that will be merged with an external run.",
+                    "description": "An array of reportingDescriptor objects that will be merged with a separate run.",
                     "type": "array",
                     "minItems": 0,
                     "uniqueItems": true,
@@ -595,12 +595,12 @@
                 },
 
                 "driver": {
-                    "description": "The analysis tool object that will be merged with an external run.",
+                    "description": "The analysis tool object that will be merged with a separate run.",
                     "$ref": "#/definitions/toolComponent"
                 },
 
                 "extensions": {
-                    "description": "Tool extensions that will be merged with an external run.",
+                    "description": "Tool extensions that will be merged with a separate run.",
                     "type": "array",
                     "minItems": 0,
                     "uniqueItems": true,

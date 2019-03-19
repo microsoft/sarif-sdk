@@ -27,20 +27,20 @@
 
         "conversion": {
             "description": "A conversion object that will be merged with an external run.",
-            "$ref": "http://json.schemastore.org/sarif#/definitions/conversion"
+            "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/conversion"
         },
 
         "graphs": {
             "description": "An array of graph objects the will merged with an external run.",
             "type": "object",
             "additionalProperties": {
-                "$ref": "http://json.schemastore.org/sarif#/definitions/graph"
+                "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/graph"
             }
         },
 
         "externalizedProperties": {
             "description": "Key/value pairs that provide additional information that will be merged with an external run.",
-            "$ref": "http://json.schemastore.org/sarif#/definitions/propertyBag"
+            "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/propertyBag"
         },
 
         "artifacts": {
@@ -49,7 +49,7 @@
             "minItems": 0,
             "uniqueItems": true,
             "items": {
-                "$ref": "http://json.schemastore.org/sarif#/definitions/artifact"
+                "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/artifact"
             }
         },
 
@@ -60,7 +60,7 @@
             "uniqueItems": false,
             "default": [],
             "items": {
-                "$ref": "http://json.schemastore.org/sarif#/definitions/invocation"
+                "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/invocation"
             }
         },
 
@@ -71,7 +71,7 @@
             "uniqueItems": true,
             "default": [],
             "items": {
-                "$ref": "http://json.schemastore.org/sarif#/definitions/logicalLocation"
+                "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/logicalLocation"
             }
         },
 
@@ -82,7 +82,7 @@
             "uniqueItems": true,
             "default": [],
             "items": {
-                "$ref": "http://json.schemastore.org/sarif#/definitions/threadFlowLocation"
+                "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/threadFlowLocation"
             }
         },
 
@@ -92,7 +92,7 @@
             "minItems": 0,
             "uniqueItems": false,
             "items": {
-                "$ref": "http://json.schemastore.org/sarif#/definitions/result"
+                "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/result"
             }
         },
 
@@ -103,13 +103,13 @@
             "uniqueItems": true,
             "default": [],
             "items": {
-                "$ref": "http://json.schemastore.org/sarif#/definitions/reportingDescriptor"
+                "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/reportingDescriptor"
             }
         },
 
         "driver": {
             "description": "The analysis tool object that will be merged with an external run.",
-            "$ref": "http://json.schemastore.org/sarif#/definitions/toolComponent"
+            "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/toolComponent"
         },
 
         "extensions": {
@@ -119,13 +119,13 @@
             "uniqueItems": true,
             "default": [],
             "items": {
-                "$ref": "http://json.schemastore.org/sarif#/definitions/toolComponent"
+                "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/toolComponent"
             }
         },
 
         "properties": {
             "description": "Key/value pairs that provide additional information about the external properties.",
-            "$ref": "http://json.schemastore.org/sarif#/definitions/propertyBag"
+            "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/propertyBag"
         }
     },
     "required": [ "version" ]

@@ -56,71 +56,71 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string RunGuid { get; set; }
 
         /// <summary>
-        /// A conversion object that will be merged with an external run.
+        /// A conversion object that will be merged with a separate run.
         /// </summary>
         [DataMember(Name = "conversion", IsRequired = false, EmitDefaultValue = false)]
         public Conversion Conversion { get; set; }
 
         /// <summary>
-        /// An array of graph objects the will merged with an external run.
+        /// An array of graph objects that will merged with a separate run.
         /// </summary>
         [DataMember(Name = "graphs", IsRequired = false, EmitDefaultValue = false)]
         public object Graphs { get; set; }
 
         /// <summary>
-        /// Key/value pairs that provide additional information that will be merged with an external run.
+        /// Key/value pairs that provide additional information that will be merged with a separate run.
         /// </summary>
         [DataMember(Name = "externalizedProperties", IsRequired = false, EmitDefaultValue = false)]
         public PropertyBag ExternalizedProperties { get; set; }
 
         /// <summary>
-        /// An array of artifact objects that will be merged with an external run.
+        /// An array of artifact objects that will be merged with a separate run.
         /// </summary>
         [DataMember(Name = "artifacts", IsRequired = false, EmitDefaultValue = false)]
         public IList<Artifact> Artifacts { get; set; }
 
         /// <summary>
-        /// Describes the invocation of the analysis tool that will be merged with an external run.
+        /// Describes the invocation of the analysis tool that will be merged with a separate run.
         /// </summary>
         [DataMember(Name = "invocations", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<Invocation> Invocations { get; set; }
 
         /// <summary>
-        /// An array of logical locations such as namespaces, types or functions that will be merged with an external run.
+        /// An array of logical locations such as namespaces, types or functions that will be merged with a separate run.
         /// </summary>
         [DataMember(Name = "logicalLocations", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<LogicalLocation> LogicalLocations { get; set; }
 
         /// <summary>
-        /// An array of threadFlowLocation objects that will be merged with an external run.
+        /// An array of threadFlowLocation objects that will be merged with a separate run.
         /// </summary>
         [DataMember(Name = "threadFlowLocations", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<ThreadFlowLocation> ThreadFlowLocations { get; set; }
 
         /// <summary>
-        /// An array of result objects that will be merged with an external run.
+        /// An array of result objects that will be merged with a separate run.
         /// </summary>
         [DataMember(Name = "results", IsRequired = false, EmitDefaultValue = false)]
         public IList<Result> Results { get; set; }
 
         /// <summary>
-        /// An array of reportingDescriptor objects that will be merged with an external run.
+        /// An array of reportingDescriptor objects that will be merged with a separate run.
         /// </summary>
         [DataMember(Name = "taxonomies", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<ReportingDescriptor> Taxonomies { get; set; }
 
         /// <summary>
-        /// The analysis tool object that will be merged with an external run.
+        /// The analysis tool object that will be merged with a separate run.
         /// </summary>
         [DataMember(Name = "driver", IsRequired = false, EmitDefaultValue = false)]
         public ToolComponent Driver { get; set; }
 
         /// <summary>
-        /// Tool extensions that will be merged with an external run.
+        /// Tool extensions that will be merged with a separate run.
         /// </summary>
         [DataMember(Name = "extensions", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
