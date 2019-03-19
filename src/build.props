@@ -43,6 +43,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <HighEntropyVA>true</HighEntropyVA> 
     <!-- The line causes the assemblies in a project's referenced NuGet packages to be
          copied to the output directory. If we omit it from a test project, the tests
          fail on AppVeyor (and only there, for some reason).

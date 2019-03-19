@@ -25,7 +25,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 var sarifFiles = GetSarifFiles(absoluteUriOptions);
 
-                Directory.CreateDirectory(absoluteUriOptions.OutputFolderPath);
+                if (!absoluteUriOptions.Inline)
+                {
+                    Directory.CreateDirectory(absoluteUriOptions.OutputFolderPath);
+                }
+
                 foreach (var sarifLog in sarifFiles)
                 {
                     sarifLog.Log = sarifLog.Log.MakeUrisAbsolute();
@@ -64,10 +68,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             public SarifLog Log;
 
-            internal string GetOutputFileName(AbsoluteUriOptions mergeOptions)
+            internal string GetOutputFileName(AbsoluteUriOptions absoluteUriOptions)
             {
-                return !string.IsNullOrEmpty(mergeOptions.OutputFolderPath)
-                    ? Path.GetFullPath(mergeOptions.OutputFolderPath) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(FileName) + "-absolute.sarif"
+                if (absoluteUriOptions.Inline) { return FileName; }
+
+                return !string.IsNullOrEmpty(absoluteUriOptions.OutputFolderPath)
+                    ? Path.GetFullPath(absoluteUriOptions.OutputFolderPath) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(FileName) + "-absolute.sarif"
                     : Path.GetDirectoryName(FileName) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(FileName) + "-absolute.sarif";
             }
         }
