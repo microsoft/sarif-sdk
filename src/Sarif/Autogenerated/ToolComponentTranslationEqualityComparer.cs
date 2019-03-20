@@ -38,6 +38,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.DownloadUri != right.DownloadUri)
+            {
+                return false;
+            }
+
             if (left.SemanticVersion != right.SemanticVersion)
             {
                 return false;
@@ -138,6 +143,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.Location != null)
                 {
                     result = (result * 31) + obj.Location.ValueGetHashCode();
+                }
+
+                if (obj.DownloadUri != null)
+                {
+                    result = (result * 31) + obj.DownloadUri.GetHashCode();
                 }
 
                 if (obj.SemanticVersion != null)
