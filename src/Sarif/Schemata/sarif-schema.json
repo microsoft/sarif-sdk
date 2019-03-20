@@ -2045,8 +2045,14 @@
         },
 
         "conversion": {
-          "description": "A conversion object that describes how a converter transformed an analysis tool's native reporting format into the SARIF format.",
-          "$ref": "#/definitions/conversion"
+            "description": "A conversion object that describes how a converter transformed an analysis tool's native reporting format into the SARIF format.",
+            "$ref": "#/definitions/conversion"
+        },
+
+        "language": {
+            "description": "The language of the messages emitted into the log file during this run (expressed as an ISO 649 two-letter lowercase culture code) and region (expressed as an ISO 3166 two-letter uppercase subculture code associated with a country or region).",
+            "type": "string",
+            "default": "en-US"
         },
 
         "versionControlProvenance": {
@@ -2587,63 +2593,69 @@
       "description": "Provides localized message strings for a tool component in a single language.",
       "additionalProperties": false,
       "type": "object",
-      "properties": {
-
-        "toolComponentGuid": {
-          "description": "The unique identifier for the tool component in the form of a GUID, matching toolComponent.guid.",
-          "type": "string"
-        },
-
-        "location": {
-          "description": "The location of the translation.",
-          "$ref": "#/definitions/artifactLocation"
-        },
-
-        "semanticVersion": {
-          "description": "The semantic version of the tool component for which the translation was made.",
-          "type": "string"
-        },
-
-        "partialTranslation": {
-          "description": "True if this object contains a subset of the strings defined by the tool component.",
-          "type": "boolean"
-        },
-
-        "globalMessageStrings": {
-          "description": "A dictionary, each of whose keys is a message identifier and each of whose values is a multiformatMessageString object, which holds message strings in plain text and (optionally) Markdown format. The strings can include placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments. The property names are a subset of the property names in the globalMessageStrings property of the toolComponent object to which this translation belongs.",
-          "type": "object",
-          "additionalProperties": {
-            "$ref": "#/definitions/multiformatMessageString"
-          }
-        },
-
-        "reportingDescriptors": {
-          "description": "Provides an array of translations for a reporting descriptor in a available languages.",
-          "type": "array",
-          "minItems": 0,
-          "uniqueItems": true,
-          "default": [],
-          "items": {
-            "$ref": "#/definitions/reportingDescriptorTranslation"
-          }
-        },
-
-        "notificationDescriptors": {
-          "description": "Provides an array of translations for a notification descriptor in a available languages.",
-          "type": "array",
-          "minItems": 0,
-          "uniqueItems": true,
-          "default": [],
-          "items": {
-            "$ref": "#/definitions/reportingDescriptorTranslation"
-          }
-        },
-
         "properties": {
-          "description": "Key/value pairs that provide additional information about the translationComponentTranslation.",
-          "$ref": "#/definitions/propertyBag"
+
+            "toolComponentGuid": {
+                "description": "The unique identifier for the tool component in the form of a GUID, matching toolComponent.guid.",
+                "type": "string"
+            },
+
+            "location": {
+                "description": "The location of the translation.",
+                "$ref": "#/definitions/artifactLocation"
+            },
+
+            "downloadUri": {
+                "description": "The absolute URI from which the tool component translation can be downloaded.",
+                "type": "string",
+                "format": "uri"
+            },
+
+            "semanticVersion": {
+                "description": "The semantic version of the tool component for which the translation was made.",
+                "type": "string"
+            },
+
+            "partialTranslation": {
+                "description": "True if this object contains a subset of the strings defined by the tool component.",
+                "type": "boolean"
+            },
+
+            "globalMessageStrings": {
+                "description": "A dictionary, each of whose keys is a message identifier and each of whose values is a multiformatMessageString object, which holds message strings in plain text and (optionally) Markdown format. The strings can include placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments. The property names are a subset of the property names in the globalMessageStrings property of the toolComponent object to which this translation belongs.",
+                "type": "object",
+                "additionalProperties": {
+                    "$ref": "#/definitions/multiformatMessageString"
+                }
+            },
+
+            "reportingDescriptors": {
+                "description": "Provides an array of translations for a reporting descriptor in a available languages.",
+                "type": "array",
+                "minItems": 0,
+                "uniqueItems": true,
+                "default": [],
+                "items": {
+                    "$ref": "#/definitions/reportingDescriptorTranslation"
+                }
+            },
+
+            "notificationDescriptors": {
+                "description": "Provides an array of translations for a notification descriptor in a available languages.",
+                "type": "array",
+                "minItems": 0,
+                "uniqueItems": true,
+                "default": [],
+                "items": {
+                    "$ref": "#/definitions/reportingDescriptorTranslation"
+                }
+            },
+
+            "properties": {
+                "description": "Key/value pairs that provide additional information about the translationComponentTranslation.",
+                "$ref": "#/definitions/propertyBag"
+            }
         }
-      }
     },
 
     "translation": {

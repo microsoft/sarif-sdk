@@ -59,6 +59,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.Language != right.Language)
+            {
+                return false;
+            }
+
             if (!object.ReferenceEquals(left.VersionControlProvenance, right.VersionControlProvenance))
             {
                 if (left.VersionControlProvenance == null || right.VersionControlProvenance == null)
@@ -408,6 +413,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.Conversion != null)
                 {
                     result = (result * 31) + obj.Conversion.ValueGetHashCode();
+                }
+
+                if (obj.Language != null)
+                {
+                    result = (result * 31) + obj.Language.GetHashCode();
                 }
 
                 if (obj.VersionControlProvenance != null)
