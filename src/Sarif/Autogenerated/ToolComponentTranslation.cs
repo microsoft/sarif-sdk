@@ -46,6 +46,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public ArtifactLocation Location { get; set; }
 
         /// <summary>
+        /// The absolute URI from which the tool component translation can be downloaded.
+        /// </summary>
+        [DataMember(Name = "downloadUri", IsRequired = false, EmitDefaultValue = false)]
+        public Uri DownloadUri { get; set; }
+
+        /// <summary>
         /// The semantic version of the tool component for which the translation was made.
         /// </summary>
         [DataMember(Name = "semanticVersion", IsRequired = false, EmitDefaultValue = false)]
@@ -99,6 +105,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="location">
         /// An initialization value for the <see cref="P:Location" /> property.
         /// </param>
+        /// <param name="downloadUri">
+        /// An initialization value for the <see cref="P:DownloadUri" /> property.
+        /// </param>
         /// <param name="semanticVersion">
         /// An initialization value for the <see cref="P:SemanticVersion" /> property.
         /// </param>
@@ -117,9 +126,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ToolComponentTranslation(string toolComponentGuid, ArtifactLocation location, string semanticVersion, bool partialTranslation, object globalMessageStrings, IEnumerable<ReportingDescriptorTranslation> reportingDescriptors, IEnumerable<ReportingDescriptorTranslation> notificationDescriptors, IDictionary<string, SerializedPropertyInfo> properties)
+        public ToolComponentTranslation(string toolComponentGuid, ArtifactLocation location, Uri downloadUri, string semanticVersion, bool partialTranslation, object globalMessageStrings, IEnumerable<ReportingDescriptorTranslation> reportingDescriptors, IEnumerable<ReportingDescriptorTranslation> notificationDescriptors, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(toolComponentGuid, location, semanticVersion, partialTranslation, globalMessageStrings, reportingDescriptors, notificationDescriptors, properties);
+            Init(toolComponentGuid, location, downloadUri, semanticVersion, partialTranslation, globalMessageStrings, reportingDescriptors, notificationDescriptors, properties);
         }
 
         /// <summary>
@@ -138,7 +147,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.ToolComponentGuid, other.Location, other.SemanticVersion, other.PartialTranslation, other.GlobalMessageStrings, other.ReportingDescriptors, other.NotificationDescriptors, other.Properties);
+            Init(other.ToolComponentGuid, other.Location, other.DownloadUri, other.SemanticVersion, other.PartialTranslation, other.GlobalMessageStrings, other.ReportingDescriptors, other.NotificationDescriptors, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -159,12 +168,17 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ToolComponentTranslation(this);
         }
 
-        private void Init(string toolComponentGuid, ArtifactLocation location, string semanticVersion, bool partialTranslation, object globalMessageStrings, IEnumerable<ReportingDescriptorTranslation> reportingDescriptors, IEnumerable<ReportingDescriptorTranslation> notificationDescriptors, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string toolComponentGuid, ArtifactLocation location, Uri downloadUri, string semanticVersion, bool partialTranslation, object globalMessageStrings, IEnumerable<ReportingDescriptorTranslation> reportingDescriptors, IEnumerable<ReportingDescriptorTranslation> notificationDescriptors, IDictionary<string, SerializedPropertyInfo> properties)
         {
             ToolComponentGuid = toolComponentGuid;
             if (location != null)
             {
                 Location = new ArtifactLocation(location);
+            }
+
+            if (downloadUri != null)
+            {
+                DownloadUri = new Uri(downloadUri.OriginalString, downloadUri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
             }
 
             SemanticVersion = semanticVersion;
