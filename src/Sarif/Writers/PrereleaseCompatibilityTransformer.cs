@@ -141,17 +141,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     // https://github.com/oasis-tcs/sarif-spec/issues/337
                     ConvertToolToDriverInExternalPropertyFiles(run);
-
-                    // https://github.com/oasis-tcs/sarif-spec/issues/338
-                    AddRunLanguageDefaultValue(run);
                 }
             }
             return true;
-        }
-
-        private static void AddRunLanguageDefaultValue(JObject run)
-        {
-            run["language"] = "en-US";
         }
 
         private static void ConvertToolToDriverInExternalPropertyFiles(JObject run)
