@@ -575,6 +575,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 node.Address = VisitNullChecked(node.Address);
                 node.PhysicalLocation = VisitNullChecked(node.PhysicalLocation);
+                node.LogicalLocation = VisitNullChecked(node.LogicalLocation);
                 node.Message = VisitNullChecked(node.Message);
                 if (node.Annotations != null)
                 {

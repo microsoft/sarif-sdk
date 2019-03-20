@@ -122,9 +122,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             SetSarifResultPropertiesForProblem(result, problem);
-            var location = new Location();
-            location.FullyQualifiedLogicalName = AddLogicalLocationEntriesForProblem(problem, out int logicalLocationIndex);
-            location.LogicalLocationIndex = logicalLocationIndex;
+            var location = new Location
+            {
+                LogicalLocation = new LogicalLocation
+                {
+                    FullyQualifiedName = AddLogicalLocationEntriesForProblem(problem, out int logicalLocationIndex),
+                    Index = logicalLocationIndex
+                }
+            };
 
             Uri uri;
             string file = problem.File;

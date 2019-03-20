@@ -118,10 +118,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (match.Success)
                 {
-                    stackFrame.Location = new Location
+                    stackFrame.Location = new Location();
+                    if(!string.IsNullOrWhiteSpace(match.Groups[1].Value))
                     {
-                        FullyQualifiedLogicalName = match.Groups[1].Value
-                    };
+                        stackFrame.Location.LogicalLocation = new LogicalLocation
+                        {
+                            FullyQualifiedName = match.Groups[1].Value
+                        };
+                    }
 
                     if (!string.IsNullOrEmpty(match.Groups[2].Value))
                     {

@@ -53,11 +53,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override Location VisitLocation(Location node)
         {
-            if (_fullyQualifiedLogicalNameToIndexMap != null && !string.IsNullOrEmpty(node.FullyQualifiedLogicalName))
+            if (_fullyQualifiedLogicalNameToIndexMap != null && !string.IsNullOrEmpty(node?.LogicalLocation?.FullyQualifiedName))
             {
-                if (_fullyQualifiedLogicalNameToIndexMap.TryGetValue(node.FullyQualifiedLogicalName, out int index))
+                if (_fullyQualifiedLogicalNameToIndexMap.TryGetValue(node.LogicalLocation.FullyQualifiedName, out int index))
                 {
-                    node.LogicalLocationIndex = index;
+                    node.LogicalLocation.Index = index;
                 }
             }
 

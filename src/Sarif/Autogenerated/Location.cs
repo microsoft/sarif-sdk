@@ -4,7 +4,6 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
@@ -47,18 +46,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public PhysicalLocation PhysicalLocation { get; set; }
 
         /// <summary>
-        /// The human-readable fully qualified name of the logical location. If run.logicalLocations is present, this value matches a property name within that object, from which further information about the logical location can be obtained.
+        /// The logical location associated with the result.
         /// </summary>
-        [DataMember(Name = "fullyQualifiedLogicalName", IsRequired = false, EmitDefaultValue = false)]
-        public string FullyQualifiedLogicalName { get; set; }
-
-        /// <summary>
-        /// The index within the logical locations array of the logical location associated with the result.
-        /// </summary>
-        [DataMember(Name = "logicalLocationIndex", IsRequired = false, EmitDefaultValue = false)]
-        [DefaultValue(-1)]
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public int LogicalLocationIndex { get; set; }
+        [DataMember(Name = "logicalLocation", IsRequired = false, EmitDefaultValue = false)]
+        public LogicalLocation LogicalLocation { get; set; }
 
         /// <summary>
         /// A message relevant to the location.
@@ -84,7 +75,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public Location()
         {
-            LogicalLocationIndex = -1;
         }
 
         /// <summary>
@@ -96,11 +86,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="physicalLocation">
         /// An initialization value for the <see cref="P:PhysicalLocation" /> property.
         /// </param>
-        /// <param name="fullyQualifiedLogicalName">
-        /// An initialization value for the <see cref="P:FullyQualifiedLogicalName" /> property.
-        /// </param>
-        /// <param name="logicalLocationIndex">
-        /// An initialization value for the <see cref="P:LogicalLocationIndex" /> property.
+        /// <param name="logicalLocation">
+        /// An initialization value for the <see cref="P:LogicalLocation" /> property.
         /// </param>
         /// <param name="message">
         /// An initialization value for the <see cref="P:Message" /> property.
@@ -111,9 +98,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Location(Address address, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, int logicalLocationIndex, Message message, IEnumerable<Region> annotations, IDictionary<string, SerializedPropertyInfo> properties)
+        public Location(Address address, PhysicalLocation physicalLocation, LogicalLocation logicalLocation, Message message, IEnumerable<Region> annotations, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(address, physicalLocation, fullyQualifiedLogicalName, logicalLocationIndex, message, annotations, properties);
+            Init(address, physicalLocation, logicalLocation, message, annotations, properties);
         }
 
         /// <summary>
@@ -132,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Address, other.PhysicalLocation, other.FullyQualifiedLogicalName, other.LogicalLocationIndex, other.Message, other.Annotations, other.Properties);
+            Init(other.Address, other.PhysicalLocation, other.LogicalLocation, other.Message, other.Annotations, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -153,7 +140,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Location(this);
         }
 
-        private void Init(Address address, PhysicalLocation physicalLocation, string fullyQualifiedLogicalName, int logicalLocationIndex, Message message, IEnumerable<Region> annotations, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Address address, PhysicalLocation physicalLocation, LogicalLocation logicalLocation, Message message, IEnumerable<Region> annotations, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (address != null)
             {
@@ -165,8 +152,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 PhysicalLocation = new PhysicalLocation(physicalLocation);
             }
 
-            FullyQualifiedLogicalName = fullyQualifiedLogicalName;
-            LogicalLocationIndex = logicalLocationIndex;
+            if (logicalLocation != null)
+            {
+                LogicalLocation = new LogicalLocation(logicalLocation);
+            }
+
             if (message != null)
             {
                 Message = new Message(message);
