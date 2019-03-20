@@ -45,6 +45,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Binary { get; set; }
 
         /// <summary>
+        /// TBD
+        /// </summary>
+        [DataMember(Name = "rendered", IsRequired = false, EmitDefaultValue = false)]
+        public MultiformatMessageString Rendered { get; set; }
+
+        /// <summary>
         /// Key/value pairs that provide additional information about the artifact content.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
@@ -66,12 +72,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="binary">
         /// An initialization value for the <see cref="P:Binary" /> property.
         /// </param>
+        /// <param name="rendered">
+        /// An initialization value for the <see cref="P:Rendered" /> property.
+        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ArtifactContent(string text, string binary, IDictionary<string, SerializedPropertyInfo> properties)
+        public ArtifactContent(string text, string binary, MultiformatMessageString rendered, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(text, binary, properties);
+            Init(text, binary, rendered, properties);
         }
 
         /// <summary>
@@ -90,7 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Text, other.Binary, other.Properties);
+            Init(other.Text, other.Binary, other.Rendered, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -111,10 +120,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ArtifactContent(this);
         }
 
-        private void Init(string text, string binary, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string text, string binary, MultiformatMessageString rendered, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Text = text;
             Binary = binary;
+            if (rendered != null)
+            {
+                Rendered = new MultiformatMessageString(rendered);
+            }
+
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
