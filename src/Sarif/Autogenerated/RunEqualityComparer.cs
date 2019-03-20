@@ -264,7 +264,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!ExternalPropertyFiles.ValueComparer.Equals(left.ExternalPropertyFiles, right.ExternalPropertyFiles))
+            if (!ExternalPropertyFileReferences.ValueComparer.Equals(left.ExternalPropertyFileReferences, right.ExternalPropertyFileReferences))
             {
                 return false;
             }
@@ -545,9 +545,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 result = (result * 31) + obj.ColumnKind.GetHashCode();
-                if (obj.ExternalPropertyFiles != null)
+                if (obj.ExternalPropertyFileReferences != null)
                 {
-                    result = (result * 31) + obj.ExternalPropertyFiles.ValueGetHashCode();
+                    result = (result * 31) + obj.ExternalPropertyFileReferences.ValueGetHashCode();
                 }
 
                 if (obj.ThreadFlowLocations != null)

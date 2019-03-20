@@ -224,7 +224,7 @@
             }
         }
     ],
-    "externalPropertyFile": [
+    "externalPropertyFileReference": [
         {
             "kind": "BaseTypeHint",
             "arguments": {
@@ -234,7 +234,7 @@
             }
         }
     ],
-    "externalPropertyFiles": [
+    "externalPropertyFileReferences": [
         {
             "kind": "BaseTypeHint",
             "arguments": {

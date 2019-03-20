@@ -618,52 +618,53 @@
             "required": [ "version" ]
         },
 
-    "externalPropertyFile": {
+    "externalPropertyFileReference": {
       "type": "object",
-      "properties": {
-        "location": {
-          "description": "The location of the external property file.",
-          "$ref": "#/definitions/artifactLocation"
-        },
-
-        "guid": {
-          "description": "A stable, unique identifer for the external property file in the form of a GUID.",
-          "type": "string"
-        },
-
-        "itemCount": {
-          "description": "A non-negative integer specifying the number of items contained in the external property file.",
-          "type": "integer",
-          "default": 0,
-          "minimum": 0
-        },
-
         "properties": {
-          "description": "Key/value pairs that provide additional information about the external property file.",
-          "$ref": "#/definitions/propertyBag"
+
+            "location": {
+                "description": "The location of the external property file.",
+                "$ref": "#/definitions/artifactLocation"
+            },
+
+            "guid": {
+                "description": "A stable, unique identifer for the external property file in the form of a GUID.",
+                "type": "string"
+            },
+
+            "itemCount": {
+                "description": "A non-negative integer specifying the number of items contained in the external property file.",
+                "type": "integer",
+                "default": 0,
+                "minimum": 0
+            },
+
+            "properties": {
+                "description": "Key/value pairs that provide additional information about the external property file.",
+                "$ref": "#/definitions/propertyBag"
+            }
         }
-      }
     },
 
-    "externalPropertyFiles": {
+    "externalPropertyFileReferences": {
       "description": "References to external property files that should be inlined with the content of a root log file.",
       "additionalProperties": false,
       "type": "object",
       "properties": {
 
         "conversion": {
-          "description": "An external property file containing a run.conversion object to be merged with the root log file.",
-          "$ref": "#/definitions/externalPropertyFile"
+            "description": "An external property file containing a run.conversion object to be merged with the root log file.",
+            "$ref": "#/definitions/externalPropertyFileReference"
         },
 
         "graphs": {
-          "description": "An external property file containing a run.graphs object to be merged with the root log file.",
-          "$ref": "#/definitions/externalPropertyFile"
+            "description": "An external property file containing a run.graphs object to be merged with the root log file.",
+            "$ref": "#/definitions/externalPropertyFileReference"
         },
 
         "externalizedProperties": {
-          "description": "An external property file containing a run.properties object to be merged with the root log file.",
-          "$ref": "#/definitions/externalPropertyFile"
+            "description": "An external property file containing a run.properties object to be merged with the root log file.",
+            "$ref": "#/definitions/externalPropertyFileReference"
         },
 
         "artifacts": {
@@ -671,9 +672,9 @@
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
-          "items": {
-            "$ref": "#/definitions/externalPropertyFile"
-          }
+            "items": {
+                "$ref": "#/definitions/externalPropertyFileReference"
+            }
         },
 
         "invocations": {
@@ -681,9 +682,9 @@
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
-          "items": {
-            "$ref": "#/definitions/externalPropertyFile"
-          }
+            "items": {
+                "$ref": "#/definitions/externalPropertyFileReference"
+            }
         },
 
         "logicalLocations": {
@@ -691,30 +692,30 @@
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
-          "items": {
-            "$ref": "#/definitions/externalPropertyFile"
-          }
+            "items": {
+                "$ref": "#/definitions/externalPropertyFileReference"
+            }
         },
 
-                "threadFlowLocations": {
-                    "description": "An array of external property files containing run.threadFlowLocations arrays to be merged with the root log file.",
-                    "type": "array",
-                    "minItems": 0,
-                    "uniqueItems": true,
-                    "default": [],
-                    "items": {
-                        "$ref": "#/definitions/externalPropertyFile"
-                    }
-                },
+        "threadFlowLocations": {
+            "description": "An array of external property files containing run.threadFlowLocations arrays to be merged with the root log file.",
+            "type": "array",
+            "minItems": 0,
+            "uniqueItems": true,
+            "default": [],
+            "items": {
+                "$ref": "#/definitions/externalPropertyFileReference"
+            }
+        },
 
         "results": {
           "description": "An array of external property files containing run.results arrays to be merged with the root log file.",
           "type": "array",
           "minItems": 1,
           "uniqueItems": false,
-          "items": {
-            "$ref": "#/definitions/externalPropertyFile"
-          }
+            "items": {
+                "$ref": "#/definitions/externalPropertyFileReference"
+            }
         },
 
         "taxonomies": {
@@ -722,9 +723,9 @@
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
-          "items": {
-            "$ref": "#/definitions/externalPropertyFile"
-          }
+            "items": {
+                "$ref": "#/definitions/externalPropertyFileReference"
+            }
         },
 
         "addresses": {
@@ -733,26 +734,26 @@
           "minItems": 0,
           "uniqueItems": false,
           "default": [],
-          "items": {
-            "$ref": "#/definitions/externalPropertyFile"
-          }
+            "items": {
+                "$ref": "#/definitions/externalPropertyFileReference"
+            }
         },
 
-                "driver": {
-                    "description": "An external property file containing a run.driver object to be merged with the root log file.",
-                    "$ref": "#/definitions/externalPropertyFile"
-                },
+        "driver": {
+            "description": "An external property file containing a run.driver object to be merged with the root log file.",
+            "$ref": "#/definitions/externalPropertyFileReference"
+        },
 
-                "extensions": {
-                    "description": "An array of external property files containing run.extensions arrays to be merged with the root log file.",
-                    "type": "array",
-                    "minItems": 0,
-                    "uniqueItems": false,
-                    "default": [],
-                    "items": {
-                        "$ref": "#/definitions/externalPropertyFile"
-                    }
-                },
+        "extensions": {
+            "description": "An array of external property files containing run.extensions arrays to be merged with the root log file.",
+            "type": "array",
+            "minItems": 0,
+            "uniqueItems": false,
+            "default": [],
+            "items": {
+                "$ref": "#/definitions/externalPropertyFileReference"
+            }
+        },
 
         "properties": {
           "description": "Key/value pairs that provide additional information about the external property files.",
@@ -2165,9 +2166,9 @@
           "default": "unicodeCodePoints"
         },
 
-        "externalPropertyFiles": {
-          "description": "References to external property files that should be inlined with the content of a root log file.",
-          "$ref": "#/definitions/externalPropertyFiles"
+        "externalPropertyFileReferences": {
+            "description": "References to external property files that should be inlined with the content of a root log file.",
+            "$ref": "#/definitions/externalPropertyFileReferences"
         },
 
         "threadFlowLocations": {
