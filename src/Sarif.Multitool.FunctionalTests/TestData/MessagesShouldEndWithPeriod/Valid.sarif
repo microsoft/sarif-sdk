@@ -110,48 +110,6 @@
               ]
             }
           ],
-          "graphs": {
-            "g": {
-              "id": "g",
-              "description": {
-                "text": "graph description with period.",
-                "richText": "_Rich_ graph description with period."
-              },
-              "nodes": [
-                {
-                  "id": "n1"
-                },
-                {
-                  "id": "n2"
-                }
-              ],
-              "edges": [
-                {
-                  "id": "e",
-                  "sourceNodeId": "n1",
-                  "targetNodeId": "n2"
-                }
-              ]
-            }
-          },
-          "graphTraversals": [
-            {
-              "graphId": "g",
-              "description": {
-                "text": "graphTraversal description with period.",
-                "richText": "_Rich_ graphTraversal description with period."
-              },
-              "edgeTraversals": [
-                {
-                  "edgeId": "e",
-                  "message": {
-                    "text": "edgeTraversal message with period.",
-                    "richText": "_Rich_ edgeTraversal message with period."
-                  }
-                }
-              ]
-            }
-          ],
           "fixes": [
             {
               "description": {
