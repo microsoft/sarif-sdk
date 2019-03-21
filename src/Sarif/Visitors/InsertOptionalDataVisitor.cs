@@ -175,7 +175,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     node.Text = node.Arguments?.Count > 0 
                         ? rule.Format(node.MessageId, node.Arguments) 
-                        : formatString.Text;
+                        : formatString?.Text;
                 }
 
                 if (node.Text == null &&
@@ -183,7 +183,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     node.Text = node.Arguments?.Count > 0
                         ? string.Format(CultureInfo.CurrentCulture, formatString.Text, node.Arguments.ToArray())
-                        : formatString.Text;
+                        : formatString?.Text;
                 }
             }
             return base.VisitMessage(node);

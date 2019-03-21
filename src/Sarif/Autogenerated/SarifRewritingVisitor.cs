@@ -68,10 +68,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitEdgeTraversal((EdgeTraversal)node);
                 case SarifNodeKind.ExceptionData:
                     return VisitExceptionData((ExceptionData)node);
-                case SarifNodeKind.ExternalPropertyFile:
-                    return VisitExternalPropertyFile((ExternalPropertyFile)node);
-                case SarifNodeKind.ExternalPropertyFiles:
-                    return VisitExternalPropertyFiles((ExternalPropertyFiles)node);
+                case SarifNodeKind.ExternalProperties:
+                    return VisitExternalProperties((ExternalProperties)node);
+                case SarifNodeKind.ExternalPropertyFileReference:
+                    return VisitExternalPropertyFileReference((ExternalPropertyFileReference)node);
+                case SarifNodeKind.ExternalPropertyFileReferences:
+                    return VisitExternalPropertyFileReferences((ExternalPropertyFileReferences)node);
                 case SarifNodeKind.Fix:
                     return VisitFix((Fix)node);
                 case SarifNodeKind.Graph:
@@ -308,7 +310,74 @@ namespace Microsoft.CodeAnalysis.Sarif
             return node;
         }
 
-        public virtual ExternalPropertyFile VisitExternalPropertyFile(ExternalPropertyFile node)
+        public virtual ExternalProperties VisitExternalProperties(ExternalProperties node)
+        {
+            if (node != null)
+            {
+                node.Conversion = VisitNullChecked(node.Conversion);
+                node.ExternalizedProperties = VisitNullChecked(node.ExternalizedProperties);
+                if (node.Artifacts != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Artifacts.Count; ++index_0)
+                    {
+                        node.Artifacts[index_0] = VisitNullChecked(node.Artifacts[index_0]);
+                    }
+                }
+
+                if (node.Invocations != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Invocations.Count; ++index_0)
+                    {
+                        node.Invocations[index_0] = VisitNullChecked(node.Invocations[index_0]);
+                    }
+                }
+
+                if (node.LogicalLocations != null)
+                {
+                    for (int index_0 = 0; index_0 < node.LogicalLocations.Count; ++index_0)
+                    {
+                        node.LogicalLocations[index_0] = VisitNullChecked(node.LogicalLocations[index_0]);
+                    }
+                }
+
+                if (node.ThreadFlowLocations != null)
+                {
+                    for (int index_0 = 0; index_0 < node.ThreadFlowLocations.Count; ++index_0)
+                    {
+                        node.ThreadFlowLocations[index_0] = VisitNullChecked(node.ThreadFlowLocations[index_0]);
+                    }
+                }
+
+                if (node.Results != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Results.Count; ++index_0)
+                    {
+                        node.Results[index_0] = VisitNullChecked(node.Results[index_0]);
+                    }
+                }
+
+                if (node.Taxonomies != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Taxonomies.Count; ++index_0)
+                    {
+                        node.Taxonomies[index_0] = VisitNullChecked(node.Taxonomies[index_0]);
+                    }
+                }
+
+                node.Driver = VisitNullChecked(node.Driver);
+                if (node.Extensions != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Extensions.Count; ++index_0)
+                    {
+                        node.Extensions[index_0] = VisitNullChecked(node.Extensions[index_0]);
+                    }
+                }
+            }
+
+            return node;
+        }
+
+        public virtual ExternalPropertyFileReference VisitExternalPropertyFileReference(ExternalPropertyFileReference node)
         {
             if (node != null)
             {
@@ -318,7 +387,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return node;
         }
 
-        public virtual ExternalPropertyFiles VisitExternalPropertyFiles(ExternalPropertyFiles node)
+        public virtual ExternalPropertyFileReferences VisitExternalPropertyFileReferences(ExternalPropertyFileReferences node)
         {
             if (node != null)
             {
@@ -388,7 +457,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                node.Tool = VisitNullChecked(node.Tool);
+                node.Driver = VisitNullChecked(node.Driver);
+                if (node.Extensions != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Extensions.Count; ++index_0)
+                    {
+                        node.Extensions[index_0] = VisitNullChecked(node.Extensions[index_0]);
+                    }
+                }
             }
 
             return node;
@@ -884,7 +960,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                node.ExternalPropertyFiles = VisitNullChecked(node.ExternalPropertyFiles);
+                node.ExternalPropertyFileReferences = VisitNullChecked(node.ExternalPropertyFileReferences);
                 if (node.ThreadFlowLocations != null)
                 {
                     for (int index_0 = 0; index_0 < node.ThreadFlowLocations.Count; ++index_0)
@@ -943,11 +1019,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (node.InlineExternalPropertyFiles != null)
+                if (node.InlineExternalProperties != null)
                 {
-                    for (int index_0 = 0; index_0 < node.InlineExternalPropertyFiles.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.InlineExternalProperties.Count; ++index_0)
                     {
-                        node.InlineExternalPropertyFiles[index_0] = VisitNullChecked(node.InlineExternalPropertyFiles[index_0]);
+                        node.InlineExternalProperties[index_0] = VisitNullChecked(node.InlineExternalProperties[index_0]);
                     }
                 }
             }

@@ -23,6 +23,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private const string SchemaPropertyPattern = @"""\$schema""\s*:\s*""[^""]+""";
         private static readonly Regex s_SchemaRegex = new Regex(SchemaPropertyPattern, RegexOptions.Compiled);
 
+        private delegate void ActionOnJObject(JObject jObject);
+        private const string ArrayIndicatorSymbol = "[]";
+        private const char NodeDelimiterSymbol = '.';
+
         public static SarifLog UpdateToCurrentVersion(
             string prereleaseSarifLog, 
             Formatting formatting, 
@@ -43,9 +47,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             switch (version)
             {
+                case "2.0.0-csd.2.beta.2019-04-03":
+                {
+                    // SARIF TC33. Nothing to do.
+                    break;
+                }
+
                 case "2.0.0-csd.2.beta.2019-02-20":
                 {
-                    // SARIF TC32. Nothing to do.
+                    modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     break;
                 }
 
@@ -53,6 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 case "2.0.0-csd.2.beta.2019-01-24.1":
                 {
                     modifiedLog |= ApplyChangesFromTC32(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     break;
                 }
 
@@ -60,6 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     modifiedLog |= ApplyChangesFromTC31(sarifLog);
                     modifiedLog |= ApplyChangesFromTC32(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     break;
                 }
 
@@ -75,6 +87,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         out ruleKeyToIndexMap);
                     modifiedLog |= ApplyChangesFromTC31(sarifLog);
                     modifiedLog |= ApplyChangesFromTC32(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     break;
 
                 }
@@ -89,6 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         out ruleKeyToIndexMap);
                     modifiedLog |= ApplyChangesFromTC31(sarifLog);
                     modifiedLog |= ApplyChangesFromTC32(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     break;
                 }
             }
@@ -116,6 +130,42 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             return transformedSarifLog;
+        }
+
+        private static bool ApplyChangesFromTC33(JObject sarifLog)
+        {
+            UpdateSarifLogVersion(sarifLog);
+            if (sarifLog["runs"] is JArray runs)
+            {
+                foreach (JObject run in runs)
+                {
+                    // https://github.com/oasis-tcs/sarif-spec/issues/337
+                    ConvertToolToDriverInExternalPropertyFiles(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/338
+                    ModifyExternalPropertyFilesToExternalPropertyFileReferences(run);
+                }
+            }
+            return true;
+        }
+
+        private static void ModifyExternalPropertyFilesToExternalPropertyFileReferences(JObject run)
+        {
+            if (run["externalPropertyFiles"] is JObject externalPropertyFiles)
+            {
+                run.Remove("externalPropertyFiles");
+                run.Add("externalPropertyFileReferences", externalPropertyFiles);
+            }
+        }
+
+        private static void ConvertToolToDriverInExternalPropertyFiles(JObject run)
+        {
+            if (run["externalPropertyFiles"] is JObject externalPropertyFiles &&
+                externalPropertyFiles["tool"] is JObject toolExternalPropertyFile)
+            {
+                externalPropertyFiles.Remove("tool");
+                externalPropertyFiles.Add("driver", toolExternalPropertyFile);
+            }
         }
 
         private static bool ApplyChangesFromTC32(JObject sarifLog)
@@ -409,90 +459,58 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static void UpdateAllReportingDescriptorPropertyTypes(JObject run)
         {
-            // Access and modify run.tool
-            JObject tool = (JObject)run["tool"];
-            UpdateToolReportingDescriptorPropertyTypes(tool);
-
-            // Access and modify run.conversion.tool
-            if (run["conversion"] is JObject conversion)
+            string[] reportingDescriptorPathsToUpdate =
             {
-                tool = (JObject)conversion["tool"];
-                UpdateToolReportingDescriptorPropertyTypes(tool);
-            }
+                "tool.driver.notificationDescriptors[]",
+                "conversion.tool.driver.notificationDescriptors[]",
+                "tool.extensions[].notificationDescriptors[]",
+                "conversion.tool.extensions[].notificationDescriptors[]",
+                "tool.driver.ruleDescriptors[]",
+                "conversion.tool.driver.ruleDescriptors[]",
+                "tool.extensions[].ruleDescriptors",
+                "conversion.tool.extensions[].ruleDescriptors[]"
+            };
+
+            PerformActionOnLeafNodeIfExists(reportingDescriptorPathsToUpdate, run, UpdateReportingDescriptorPropertyTypes);
+
         }
 
-        private static void UpdateToolReportingDescriptorPropertyTypes(JObject tool)
+        private static void UpdateReportingDescriptorPropertyTypes(JObject reportingDescriptor)
         {
-            // Access and modify tool.driver
-            if (tool["driver"] is JObject driver)
+            if (reportingDescriptor["name"] is JObject message && message["text"] is JToken text)
             {
-                UpdateToolComponentReportingDescriptorPropertyTypes(driver);
+                reportingDescriptor["name"] = text;
             }
 
-            // Access and modify each item in tool.extensions
-            if (tool["extensions"] is JArray extensions)
+            if (reportingDescriptor["shortDescription"] is JObject message2)
             {
-                foreach (JObject toolComponent in extensions)
+                // We must convert this JObject from type "Message" to "MultiformatMessageString".
+                // Both Objects have common JTokens "text" and "markdown" which do not need modification.
+                // Hence, we only need to strip out additional properties that Message object may have (messageId and arguments).
+                if (message2["messageId"] is JToken)
                 {
-                    UpdateToolComponentReportingDescriptorPropertyTypes(toolComponent);
-                }
-            }
-        }
-
-        private static void UpdateToolComponentReportingDescriptorPropertyTypes(JObject toolComponent)
-        {
-            // Access and modify toolComponent.notificationDescriptors
-            if (toolComponent["notificationDescriptors"] is JArray notificationDescriptors)
-            {
-                UpdateReportingDescriptorPropertyTypes(notificationDescriptors);
-            }
-
-            // Access and modify toolComponent.ruleDescriptors
-            if (toolComponent["ruleDescriptors"] is JArray ruleDescriptors)
-            {
-                UpdateReportingDescriptorPropertyTypes(ruleDescriptors);
-            }
-        }
-
-        private static void UpdateReportingDescriptorPropertyTypes(JArray reportingDescriptors)
-        {
-            foreach (JObject reportingDescriptor in reportingDescriptors)
-            {
-                if (reportingDescriptor["name"] is JObject message && message["text"] is JToken text)
-                {
-                    reportingDescriptor["name"] = text;
+                    message2.Remove("messageId");
                 }
 
-                if (reportingDescriptor["shortDescription"] is JObject message2)
+                if (message2["arguments"] is JArray)
                 {
-                    // We must convert this JObject from type "Message" to "MultiformatMessageString".
-                    // Both Objects have common JTokens "text" and "markdown" which do not need modification.
-                    // Hence, we only need to strip out additional properties that Message object may have (messageId and arguments).
-                    if (message2["messageId"] is JToken)
-                    {
-                        message2.Remove("messageId");
-                    }
+                    message2.Remove("arguments");
+                }
+            }
 
-                    if (message2["arguments"] is JArray)
-                    {
-                        message2.Remove("arguments");
-                    }
+            if (reportingDescriptor["fullDescription"] is JObject message3)
+            {
+                // We must convert this JObject from type "Message" to "MultiformatMessageString".
+                // Both Objects have common JTokens "text" and "markdown" which do not need modification.
+                // Hence, we only need to strip out additional properties that Message object may have (messageId and arguments).
+                if (message3["messageId"] is JToken)
+                {
+                    message3.Remove("messageId");
                 }
 
-                if (reportingDescriptor["fullDescription"] is JObject message3)
+                if (message3["arguments"] is JArray)
                 {
-                    // We must convert this JObject from type "Message" to "MultiformatMessageString".
-                    // Both Objects have common JTokens "text" and "markdown" which do not need modification.
-                    // Hence, we only need to strip out additional properties that Message object may have (messageId and arguments).
-                    if (message3["messageId"] is JToken)
-                    {
-                        message3.Remove("messageId");
-                    }
-
-                    if (message3["arguments"] is JArray)
-                    {
-                        message3.Remove("arguments");
-                    }
+                    message3.Remove("arguments");
                 }
             }
         }
@@ -1715,6 +1733,59 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             return modifiedNotification;
+        }
+
+        private static void PerformActionOnLeafNodeIfExists(string[] possiblePathsToLeafNode, JObject rootNode, ActionOnJObject action)
+        {
+            foreach(string nodePath in possiblePathsToLeafNode)
+            {
+                PerformActionOnLeafNodeIfExists(nodePath, rootNode, action);
+            }
+        }
+
+        private static void PerformActionOnLeafNodeIfExists(string possiblePathToLeafNode, JObject rootNode, ActionOnJObject action)
+        {
+            if (possiblePathToLeafNode == null)
+            {
+                action(rootNode);
+                return;
+            }
+
+            (string currentNodeName, string remainingLeafNodePath) = SplitCurrentNodeNameAndRemainingLeafNodePath(possiblePathToLeafNode);
+
+            if (currentNodeName.EndsWith(ArrayIndicatorSymbol))
+            {
+                currentNodeName = currentNodeName.TrimEnd(ArrayIndicatorSymbol.ToCharArray());
+
+                if (rootNode[currentNodeName] is JArray currentArray)
+                {
+                    foreach (JObject currentNode in currentArray)
+                    {
+                        PerformActionOnLeafNodeIfExists(remainingLeafNodePath, currentNode, action);
+                    }
+                }
+            }
+            else
+            {
+                if (rootNode[currentNodeName] is JObject currentNode)
+                {
+                    PerformActionOnLeafNodeIfExists(remainingLeafNodePath, currentNode, action);
+                }
+            }
+        }
+
+        private static (string currentNodeName, string remainingLeafNodePath) SplitCurrentNodeNameAndRemainingLeafNodePath(string fullPath)
+        {
+            char[] delimiter = { NodeDelimiterSymbol };
+
+            string[] splitItems = fullPath.Split(separator: delimiter, count: 2);
+
+            if (splitItems.Length == 1)
+            {
+                return (currentNodeName: splitItems[0], null);
+            }
+
+            return (currentNodeName: splitItems[0], remainingLeafNodePath: splitItems[1]);
         }
     }
 }

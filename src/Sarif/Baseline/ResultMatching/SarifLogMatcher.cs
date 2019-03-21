@@ -276,8 +276,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             run.Results = newRunResults;
             run.Artifacts = indexRemappingVisitor.CurrentFiles;
             
-            var graphs = new List<Graph>();
-            var ruleData = new Dictionary<string, ReportingDescriptor>();
+            var graphs = new Dictionary<string, Graph>();
+            //var ruleData = new Dictionary<string, ReportingDescriptor>();
             var invocations = new List<Invocation>();
 
             // TODO tool message strings are not currently handled

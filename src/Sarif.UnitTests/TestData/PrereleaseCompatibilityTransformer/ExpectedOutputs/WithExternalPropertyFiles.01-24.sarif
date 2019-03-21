@@ -105,7 +105,7 @@
                         "itemCount": 2
                     }
                 ],
-                "tool": {
+                "driver": {
                     "location": {
                         "uri": "externalized/tool.sarif-external-properties",
                         "uriBaseId": "TESTROOT"

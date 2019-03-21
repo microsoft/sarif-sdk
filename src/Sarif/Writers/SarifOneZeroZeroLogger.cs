@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 Formatting = PrettyPrint ? Formatting.Indented : Formatting.None
             };
 
-            //File.WriteAllText(_outputFilePath, JsonConvert.SerializeObject(transformer.SarifLogVersionOne, v1Settings));
+            File.WriteAllText(_outputFilePath, JsonConvert.SerializeObject(transformer.SarifLogVersionOne, v1Settings));
         }
     }
 }

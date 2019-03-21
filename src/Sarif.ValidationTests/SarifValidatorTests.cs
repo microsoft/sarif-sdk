@@ -43,6 +43,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                     sarifLog.Runs[0].Tool.Extensions[0].DottedQuadFileVersion = "1.0.1.2";
                     sarifLog.Runs[0].Conversion.Tool.Driver.DottedQuadFileVersion = "2.7.1500.12";
                     sarifLog.Runs[0].Conversion.Tool.Extensions[0].DottedQuadFileVersion = "2.7.1500.12";
+
+                    sarifLog.InlineExternalProperties[0].Conversion.Tool.Driver.DottedQuadFileVersion = "2.7.1500.12";
+                    sarifLog.InlineExternalProperties[0].Conversion.Tool.Extensions[0].DottedQuadFileVersion = "2.7.1500.12";
+                    sarifLog.InlineExternalProperties[0].Driver.DottedQuadFileVersion = "2.7.1500.12";
+                    sarifLog.InlineExternalProperties[0].Extensions[0].DottedQuadFileVersion = "2.7.1500.12";
+
                     return sarifLog;
                 };
 
@@ -79,6 +85,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             visitor.Visit(sarifLog);
 
             sarifLog.Version = SarifVersion.Current;
+
+            sarifLog.InlineExternalProperties[0].Version = SarifVersion.Current;
 
             if (postPopulationCallback != null)
             {
