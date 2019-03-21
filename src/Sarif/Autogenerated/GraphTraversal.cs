@@ -4,6 +4,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
@@ -36,14 +37,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// The index within the run.graphs to be associated with the result.
         /// </summary>
-        [DataMember(Name = "graphIndex", IsRequired = false, EmitDefaultValue = false)]
-        public int GraphIndex { get; set; }
+        [DataMember(Name = "runGraphIndex", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(-1)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public int RunGraphIndex { get; set; }
 
         /// <summary>
-        /// A string that uniquely identifies that graph being traversed.
+        /// The index within the result.graphs to be associated with the result.
         /// </summary>
-        [DataMember(Name = "graphId", IsRequired = true)]
-        public string GraphId { get; set; }
+        [DataMember(Name = "resultGraphIndex", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(-1)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public int ResultGraphIndex { get; set; }
 
         /// <summary>
         /// A description of this graph traversal.
@@ -75,16 +80,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public GraphTraversal()
         {
+            RunGraphIndex = -1;
+            ResultGraphIndex = -1;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GraphTraversal" /> class from the supplied values.
         /// </summary>
-        /// <param name="graphIndex">
-        /// An initialization value for the <see cref="P:GraphIndex" /> property.
+        /// <param name="runGraphIndex">
+        /// An initialization value for the <see cref="P:RunGraphIndex" /> property.
         /// </param>
-        /// <param name="graphId">
-        /// An initialization value for the <see cref="P:GraphId" /> property.
+        /// <param name="resultGraphIndex">
+        /// An initialization value for the <see cref="P:ResultGraphIndex" /> property.
         /// </param>
         /// <param name="description">
         /// An initialization value for the <see cref="P:Description" /> property.
@@ -98,9 +105,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public GraphTraversal(int graphIndex, string graphId, Message description, IDictionary<string, string> initialState, IEnumerable<EdgeTraversal> edgeTraversals, IDictionary<string, SerializedPropertyInfo> properties)
+        public GraphTraversal(int runGraphIndex, int resultGraphIndex, Message description, IDictionary<string, string> initialState, IEnumerable<EdgeTraversal> edgeTraversals, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(graphIndex, graphId, description, initialState, edgeTraversals, properties);
+            Init(runGraphIndex, resultGraphIndex, description, initialState, edgeTraversals, properties);
         }
 
         /// <summary>
@@ -119,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.GraphIndex, other.GraphId, other.Description, other.InitialState, other.EdgeTraversals, other.Properties);
+            Init(other.RunGraphIndex, other.ResultGraphIndex, other.Description, other.InitialState, other.EdgeTraversals, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -140,10 +147,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new GraphTraversal(this);
         }
 
-        private void Init(int graphIndex, string graphId, Message description, IDictionary<string, string> initialState, IEnumerable<EdgeTraversal> edgeTraversals, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int runGraphIndex, int resultGraphIndex, Message description, IDictionary<string, string> initialState, IEnumerable<EdgeTraversal> edgeTraversals, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            GraphIndex = graphIndex;
-            GraphId = graphId;
+            RunGraphIndex = runGraphIndex;
+            ResultGraphIndex = resultGraphIndex;
             if (description != null)
             {
                 Description = new Message(description);

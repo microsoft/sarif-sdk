@@ -315,6 +315,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.Conversion = VisitNullChecked(node.Conversion);
+                if (node.Graphs != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Graphs.Count; ++index_0)
+                    {
+                        node.Graphs[index_0] = VisitNullChecked(node.Graphs[index_0]);
+                    }
+                }
+
                 node.ExternalizedProperties = VisitNullChecked(node.ExternalizedProperties);
                 if (node.Artifacts != null)
                 {

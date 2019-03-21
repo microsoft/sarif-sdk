@@ -28,12 +28,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.GraphIndex != right.GraphIndex)
+            if (left.RunGraphIndex != right.RunGraphIndex)
             {
                 return false;
             }
 
-            if (left.GraphId != right.GraphId)
+            if (left.ResultGraphIndex != right.ResultGraphIndex)
             {
                 return false;
             }
@@ -121,12 +121,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                result = (result * 31) + obj.GraphIndex.GetHashCode();
-                if (obj.GraphId != null)
-                {
-                    result = (result * 31) + obj.GraphId.GetHashCode();
-                }
-
+                result = (result * 31) + obj.RunGraphIndex.GetHashCode();
+                result = (result * 31) + obj.ResultGraphIndex.GetHashCode();
                 if (obj.Description != null)
                 {
                     result = (result * 31) + obj.Description.ValueGetHashCode();
