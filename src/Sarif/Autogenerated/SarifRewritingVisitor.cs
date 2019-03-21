@@ -128,6 +128,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitStack((Stack)node);
                 case SarifNodeKind.StackFrame:
                     return VisitStackFrame((StackFrame)node);
+                case SarifNodeKind.Suppression:
+                    return VisitSuppression((Suppression)node);
                 case SarifNodeKind.ThreadFlow:
                     return VisitThreadFlow((ThreadFlow)node);
                 case SarifNodeKind.ThreadFlowLocation:
@@ -837,6 +839,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
+                if (node.Suppressions != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Suppressions.Count; ++index_0)
+                    {
+                        node.Suppressions[index_0] = VisitNullChecked(node.Suppressions[index_0]);
+                    }
+                }
+
                 if (node.Attachments != null)
                 {
                     for (int index_0 = 0; index_0 < node.Attachments.Count; ++index_0)
@@ -1057,6 +1067,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 node.Location = VisitNullChecked(node.Location);
                 node.Address = VisitNullChecked(node.Address);
+            }
+
+            return node;
+        }
+
+        public virtual Suppression VisitSuppression(Suppression node)
+        {
+            if (node != null)
+            {
+                node.Location = VisitNullChecked(node.Location);
             }
 
             return node;
