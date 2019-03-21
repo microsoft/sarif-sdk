@@ -74,19 +74,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (run.AutomationDetails != null)
             {
-                _jsonWriter.WritePropertyName("id");
+                _jsonWriter.WritePropertyName("automationDetails");
                 _serializer.Serialize(_jsonWriter, run.AutomationDetails);
             }
 
             if (!string.IsNullOrEmpty(run.BaselineGuid))
             {
-                _jsonWriter.WritePropertyName("baselineInstanceGuid");
+                _jsonWriter.WritePropertyName("baselineGuid");
                 _serializer.Serialize(_jsonWriter, run.BaselineGuid);
             }
 
             if (run.RunAggregates != null)
             {
-                _jsonWriter.WritePropertyName("aggregateIds");
+                _jsonWriter.WritePropertyName("runAggregates");
                 _serializer.Serialize(_jsonWriter, run.RunAggregates);
             }
 
