@@ -657,15 +657,15 @@
             "$ref": "#/definitions/externalPropertyFileReference"
         },
 
-                "graphs": {
-                    "description": "An array of external property files containing a run.graphs object to be merged with the root log file.",
-                    "type": "array",
-                    "minItems": 1,
-                    "uniqueItems": true,
-                    "items": {
-                        "$ref": "#/definitions/externalPropertyFile"
-                    }
-                },
+        "graphs": {
+            "description": "An array of external property files containing a run.graphs object to be merged with the root log file.",
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+                "$ref": "#/definitions/externalPropertyFileReference"
+            }
+        },
 
         "externalizedProperties": {
             "description": "An external property file containing a run.properties object to be merged with the root log file.",
