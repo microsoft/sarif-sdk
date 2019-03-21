@@ -198,6 +198,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                node.Rendered = VisitNullChecked(node.Rendered);
             }
 
             return node;
@@ -573,7 +574,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
-                node.Address = VisitNullChecked(node.Address);
                 node.PhysicalLocation = VisitNullChecked(node.PhysicalLocation);
                 node.Message = VisitNullChecked(node.Message);
                 if (node.Annotations != null)
@@ -649,6 +649,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                node.Address = VisitNullChecked(node.Address);
                 node.ArtifactLocation = VisitNullChecked(node.ArtifactLocation);
                 node.Region = VisitNullChecked(node.Region);
                 node.ContextRegion = VisitNullChecked(node.ContextRegion);
