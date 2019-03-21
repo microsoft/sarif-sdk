@@ -835,6 +835,16 @@
             }
         }
     ],
+    "suppression": [
+        {
+            "kind": "BaseTypeHint",
+            "arguments": {
+                "baseTypeNames": [
+                    "PropertyBagHolder"
+                ]
+            }
+        }
+    ],
     "threadFlow": [
         {
             "kind": "BaseTypeHint",
