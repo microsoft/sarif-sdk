@@ -729,7 +729,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     BaselineState = Utilities.CreateBaselineState(v1Result.BaselineState),
                     CodeFlows = v1Result.CodeFlows?.Select(CreateCodeFlow).ToList(),
                     Fixes = v1Result.Fixes?.Select(CreateFix).ToList(),
-                    InstanceGuid = v1Result.Id,
+                    Guid = v1Result.Id,
                     Level = Utilities.CreateFailureLevel(v1Result.Level),
                     Kind = Utilities.CreateResultKind(v1Result.Level),
                     Locations = v1Result.Locations?.Select(CreateLocation).ToList(),
@@ -858,21 +858,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         id = new RunAutomationDetails
                         {
-                            InstanceGuid = v1Run.Id,
-                            InstanceId = v1Run.StableId != null ? v1Run.StableId + "/" : null
+                            Guid = v1Run.Id,
+                            Id = v1Run.StableId != null ? v1Run.StableId + "/" : null
                         };
                     }
 
                     if (v1Run.AutomationId != null)
                     {
-                        aggregateIds = new[] { new RunAutomationDetails { InstanceId = v1Run.AutomationId + "/" } };
+                        aggregateIds = new[] { new RunAutomationDetails { Id = v1Run.AutomationId + "/" } };
                     }
 
                     run = new Run()
                     {
-                        Id = id,
-                        AggregateIds = aggregateIds,
-                        BaselineInstanceGuid = v1Run.BaselineId,
+                        AutomationDetails = id,
+                        RunAggregates = aggregateIds,
+                        BaselineGuid = v1Run.BaselineId,
                         Properties = v1Run.Properties,
                         Tool = CreateTool(v1Run.Tool),
                         ColumnKind = ColumnKind.Utf16CodeUnits

@@ -954,12 +954,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                node.Id = VisitNullChecked(node.Id);
-                if (node.AggregateIds != null)
+                node.AutomationDetails = VisitNullChecked(node.AutomationDetails);
+                if (node.RunAggregates != null)
                 {
-                    for (int index_0 = 0; index_0 < node.AggregateIds.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.RunAggregates.Count; ++index_0)
                     {
-                        node.AggregateIds[index_0] = VisitNullChecked(node.AggregateIds[index_0]);
+                        node.RunAggregates[index_0] = VisitNullChecked(node.RunAggregates[index_0]);
                     }
                 }
 

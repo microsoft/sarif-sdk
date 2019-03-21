@@ -72,22 +72,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _jsonWriter.WriteStartObject(); // Begin: run
 
-            if (run.Id != null)
+            if (run.AutomationDetails != null)
             {
                 _jsonWriter.WritePropertyName("id");
-                _serializer.Serialize(_jsonWriter, run.Id);
+                _serializer.Serialize(_jsonWriter, run.AutomationDetails);
             }
 
-            if (!string.IsNullOrEmpty(run.BaselineInstanceGuid))
+            if (!string.IsNullOrEmpty(run.BaselineGuid))
             {
                 _jsonWriter.WritePropertyName("baselineInstanceGuid");
-                _serializer.Serialize(_jsonWriter, run.BaselineInstanceGuid);
+                _serializer.Serialize(_jsonWriter, run.BaselineGuid);
             }
 
-            if (run.AggregateIds != null)
+            if (run.RunAggregates != null)
             {
                 _jsonWriter.WritePropertyName("aggregateIds");
-                _serializer.Serialize(_jsonWriter, run.AggregateIds);
+                _serializer.Serialize(_jsonWriter, run.RunAggregates);
             }
 
             if (run.Conversion != null)

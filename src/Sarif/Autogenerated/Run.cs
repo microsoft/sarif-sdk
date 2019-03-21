@@ -102,21 +102,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Automation details that describe this run.
         /// </summary>
-        [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
-        public RunAutomationDetails Id { get; set; }
+        [DataMember(Name = "automationDetails", IsRequired = false, EmitDefaultValue = false)]
+        public RunAutomationDetails AutomationDetails { get; set; }
 
         /// <summary>
         /// Automation details that describe the aggregate of runs to which this run belongs.
         /// </summary>
-        [DataMember(Name = "aggregateIds", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "RunAggregates", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<RunAutomationDetails> AggregateIds { get; set; }
+        public IList<RunAutomationDetails> RunAggregates { get; set; }
 
         /// <summary>
-        /// The 'instanceGuid' property of a previous SARIF 'run' that comprises the baseline that was used to compute result 'baselineState' properties for the run.
+        /// The 'guid' property of a previous SARIF 'run' that comprises the baseline that was used to compute result 'baselineState' properties for the run.
         /// </summary>
-        [DataMember(Name = "baselineInstanceGuid", IsRequired = false, EmitDefaultValue = false)]
-        public string BaselineInstanceGuid { get; set; }
+        [DataMember(Name = "baselineGuid", IsRequired = false, EmitDefaultValue = false)]
+        public string BaselineGuid { get; set; }
 
         /// <summary>
         /// The MIME type of all Markdown text message properties in the run. Default: "text/markdown;variant=GFM"
@@ -292,9 +292,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, string language, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, ArtifactLocation> originalUriBaseIds, IEnumerable<Artifact> artifacts, IEnumerable<LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string markdownMessageMimeType, string redactionToken, string defaultFileEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFiles externalPropertyFiles, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ReportingDescriptor> taxonomies, IEnumerable<Address> addresses, IEnumerable<Translation> translations, IDictionary<string, SerializedPropertyInfo> properties)
+        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, string language, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, ArtifactLocation> originalUriBaseIds, IEnumerable<Artifact> artifacts, IEnumerable<LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, RunAutomationDetails automationDetails, IEnumerable<RunAutomationDetails> runAggregates, string baselineGuid, string markdownMessageMimeType, string redactionToken, string defaultFileEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFiles externalPropertyFiles, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ReportingDescriptor> taxonomies, IEnumerable<Address> addresses, IEnumerable<Translation> translations, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(tool, invocations, conversion, language, versionControlProvenance, originalUriBaseIds, artifacts, logicalLocations, graphs, results, id, aggregateIds, baselineInstanceGuid, markdownMessageMimeType, redactionToken, defaultFileEncoding, defaultSourceLanguage, newlineSequences, columnKind, externalPropertyFiles, threadFlowLocations, taxonomies, addresses, translations, properties);
+            Init(tool, invocations, conversion, language, versionControlProvenance, originalUriBaseIds, artifacts, logicalLocations, graphs, results, automationDetails, runAggregates, baselineGuid, markdownMessageMimeType, redactionToken, defaultFileEncoding, defaultSourceLanguage, newlineSequences, columnKind, externalPropertyFiles, threadFlowLocations, taxonomies, addresses, translations, properties);
         }
 
         /// <summary>
@@ -313,7 +313,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocations, other.Conversion, other.Language, other.VersionControlProvenance, other.OriginalUriBaseIds, other.Artifacts, other.LogicalLocations, other.Graphs, other.Results, other.Id, other.AggregateIds, other.BaselineInstanceGuid, other.MarkdownMessageMimeType, other.RedactionToken, other.DefaultFileEncoding, other.DefaultSourceLanguage, other.NewlineSequences, other.ColumnKind, other.ExternalPropertyFiles, other.ThreadFlowLocations, other.Taxonomies, other.Addresses, other.Translations, other.Properties);
+            Init(other.Tool, other.Invocations, other.Conversion, other.Language, other.VersionControlProvenance, other.OriginalUriBaseIds, other.Artifacts, other.LogicalLocations, other.Graphs, other.Results, other.AutomationDetails, other.RunAggregates, other.BaselineGuid, other.MarkdownMessageMimeType, other.RedactionToken, other.DefaultFileEncoding, other.DefaultSourceLanguage, other.NewlineSequences, other.ColumnKind, other.ExternalPropertyFiles, other.ThreadFlowLocations, other.Taxonomies, other.Addresses, other.Translations, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -334,7 +334,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, string language, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, ArtifactLocation> originalUriBaseIds, IEnumerable<Artifact> artifacts, IEnumerable<LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, RunAutomationDetails id, IEnumerable<RunAutomationDetails> aggregateIds, string baselineInstanceGuid, string markdownMessageMimeType, string redactionToken, string defaultFileEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFiles externalPropertyFiles, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ReportingDescriptor> taxonomies, IEnumerable<Address> addresses, IEnumerable<Translation> translations, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, string language, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, ArtifactLocation> originalUriBaseIds, IEnumerable<Artifact> artifacts, IEnumerable<LogicalLocation> logicalLocations, IDictionary<string, Graph> graphs, IEnumerable<Result> results, RunAutomationDetails automationDetails, IEnumerable<RunAutomationDetails> runAggregates, string baselineGuid, string markdownMessageMimeType, string redactionToken, string defaultFileEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFiles externalPropertyFiles, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ReportingDescriptor> taxonomies, IEnumerable<Address> addresses, IEnumerable<Translation> translations, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (tool != null)
             {
@@ -455,15 +455,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Results = destination_4;
             }
 
-            if (id != null)
+            if (automationDetails != null)
             {
-                Id = new RunAutomationDetails(id);
+                AutomationDetails = new RunAutomationDetails(automationDetails);
             }
 
-            if (aggregateIds != null)
+            if (runAggregates != null)
             {
                 var destination_5 = new List<RunAutomationDetails>();
-                foreach (var value_7 in aggregateIds)
+                foreach (var value_7 in runAggregates)
                 {
                     if (value_7 == null)
                     {
@@ -475,10 +475,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                AggregateIds = destination_5;
+                RunAggregates = destination_5;
             }
 
-            BaselineInstanceGuid = baselineInstanceGuid;
+            BaselineGuid = baselineGuid;
             MarkdownMessageMimeType = markdownMessageMimeType;
             RedactionToken = redactionToken;
             DefaultFileEncoding = defaultFileEncoding;

@@ -211,7 +211,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             Run run = new Run()
             {
                 Tool = tool,
-                Id = currentRuns.First().Id,
+                AutomationDetails = currentRuns.First().AutomationDetails,
             };
 
             IDictionary<string, SerializedPropertyInfo> properties = null;
@@ -220,7 +220,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             {
                 // We flow the baseline instance id forward (which becomes the 
                 // baseline guid for the merged log)
-                run.BaselineInstanceGuid = previousRuns.First().Id?.InstanceGuid;
+                run.BaselineGuid = previousRuns.First().AutomationDetails?.Guid;
             }
 
             bool initializeFromOldest = PropertyBagMergeBehavior.HasFlag(DictionaryMergeBehavior.InitializeFromOldest);

@@ -80,9 +80,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 OriginalResultMatchingProperties = new Dictionary<string, object>();
             }
 
-            if (PreviousResult.OriginalRun.Id?.InstanceGuid != null)
+            if (PreviousResult.OriginalRun.AutomationDetails?.Guid != null)
             {
-                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, PreviousResult.OriginalRun.Id.InstanceGuid);
+                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, PreviousResult.OriginalRun.AutomationDetails.Guid);
             }
 
             Run = PreviousResult.OriginalRun;
@@ -104,9 +104,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 OriginalResultMatchingProperties = new Dictionary<string, object>();
             }
 
-            if (CurrentResult.OriginalRun.Id?.InstanceGuid != null)
+            if (CurrentResult.OriginalRun.AutomationDetails?.Guid != null)
             {
-                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, CurrentResult.OriginalRun.Id.InstanceGuid);
+                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, CurrentResult.OriginalRun.AutomationDetails.Guid);
             }
 
             // Potentially temporary -- we persist the "originally found date" forward, and this sets it.
@@ -135,9 +135,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 OriginalResultMatchingProperties = new Dictionary<string, object>();
             }
 
-            if (CurrentResult.OriginalRun.Id?.InstanceGuid != null)
+            if (CurrentResult.OriginalRun.AutomationDetails?.Guid != null)
             {
-                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, CurrentResult.OriginalRun.Id.InstanceGuid);
+                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, CurrentResult.OriginalRun.AutomationDetails.Guid);
             }
 
             Run = CurrentResult.OriginalRun;

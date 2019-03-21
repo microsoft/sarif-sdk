@@ -38,12 +38,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.FirstDetectionRunInstanceGuid != right.FirstDetectionRunInstanceGuid)
+            if (left.FirstDetectionRunGuid != right.FirstDetectionRunGuid)
             {
                 return false;
             }
 
-            if (left.LastDetectionRunInstanceGuid != right.LastDetectionRunInstanceGuid)
+            if (left.LastDetectionRunGuid != right.LastDetectionRunGuid)
             {
                 return false;
             }
@@ -111,14 +111,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 result = (result * 31) + obj.FirstDetectionTimeUtc.GetHashCode();
                 result = (result * 31) + obj.LastDetectionTimeUtc.GetHashCode();
-                if (obj.FirstDetectionRunInstanceGuid != null)
+                if (obj.FirstDetectionRunGuid != null)
                 {
-                    result = (result * 31) + obj.FirstDetectionRunInstanceGuid.GetHashCode();
+                    result = (result * 31) + obj.FirstDetectionRunGuid.GetHashCode();
                 }
 
-                if (obj.LastDetectionRunInstanceGuid != null)
+                if (obj.LastDetectionRunGuid != null)
                 {
-                    result = (result * 31) + obj.LastDetectionRunInstanceGuid.GetHashCode();
+                    result = (result * 31) + obj.LastDetectionRunGuid.GetHashCode();
                 }
 
                 result = (result * 31) + obj.InvocationIndex.GetHashCode();
