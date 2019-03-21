@@ -141,9 +141,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     // https://github.com/oasis-tcs/sarif-spec/issues/337
                     ConvertToolToDriverInExternalPropertyFiles(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/338
+                    ModifyExternalPropertyFilesToExternalPropertyFileReferences(run);
                 }
             }
             return true;
+        }
+
+        private static void ModifyExternalPropertyFilesToExternalPropertyFileReferences(JObject run)
+        {
+            if (run["externalPropertyFiles"] is JObject externalPropertyFiles)
+            {
+                run.Remove("externalPropertyFiles");
+                run.Add("externalPropertyFileReferences", externalPropertyFiles);
+            }
         }
 
         private static void ConvertToolToDriverInExternalPropertyFiles(JObject run)
