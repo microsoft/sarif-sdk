@@ -613,7 +613,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return new Region
             {
                 StartLine = startLine,
-                EndLine = endLine,
                 StartColumn = startColumn,
                 EndColumn = endColumn
             };

@@ -36,6 +36,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (fileLocation == null) { throw new ArgumentNullException(nameof(fileLocation)); }
 
+            if (fileLocation.Index > -1)
+            {
+                return fileLocation.Index;
+            }
+
             if (this.Artifacts?.Count == 0)
             {
                 if (!addToFilesTableIfNotPresent)
