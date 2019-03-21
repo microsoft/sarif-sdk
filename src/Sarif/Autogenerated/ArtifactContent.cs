@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Binary { get; set; }
 
         /// <summary>
-        /// TBD
+        /// An alternate rendered representation of the artifact (e.g., a decompiled representation of a binary region).
         /// </summary>
         [DataMember(Name = "rendered", IsRequired = false, EmitDefaultValue = false)]
         public MultiformatMessageString Rendered { get; set; }

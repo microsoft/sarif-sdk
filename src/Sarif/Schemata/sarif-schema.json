@@ -242,7 +242,7 @@
         },
 
         "rendered": {
-            "description": "TBD",
+            "description": "An alternate rendered representation of the artifact (e.g., a decompiled representation of a binary region).",
             "$ref": "#/definitions/multiformatMessageString"
         },
 
