@@ -195,10 +195,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 run.Add("runAggregates", aggregateIds);
             }
 
-            // run.results[].instanceGuid -> run.results[].guid
-            // run.results[].resultProvenance.firstDetectionRunInstanceGuid -> run.results[].resultProvenance.firstDetectionRunGuid
-            // run.results[].resultProvenance.lastDetectionRunInstanceGuid -> run.results[].resultProvenance.lastDetectionRunGuid
-
             if (run["results"] is JArray results)
             {
                 foreach (JObject result in results)
