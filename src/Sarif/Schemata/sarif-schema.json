@@ -1719,12 +1719,24 @@
       "properties": {
 
         "id": {
-          "description": "A notification identifier.",
+          "description": "The Id of the descriptor.",
           "type": "string"
         },
 
-        "pointer": {
-          "description": "A JSON pointer used to retrieve a reporting descriptor from an array within a tool component.",
+        "index": {
+          "description": "The index into an array of descriptors",
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
+        },
+
+        "toolComponentGuid": {
+          "description": "A guid that uniquely identifies the tool component associated with the descriptor.",
+          "type": "string"
+        },
+
+        "descriptorGuid": {
+          "description": "A guid that uniquely identifies the descriptor.",
           "type": "string"
         },
 

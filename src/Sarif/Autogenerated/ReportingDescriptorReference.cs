@@ -4,8 +4,10 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -33,16 +35,30 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// A notification identifier.
+        /// The Id of the descriptor.
         /// </summary>
         [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
         public string Id { get; set; }
 
         /// <summary>
-        /// A JSON pointer used to retrieve a reporting descriptor from an array within a tool component.
+        /// The index into an array of descriptors
         /// </summary>
-        [DataMember(Name = "pointer", IsRequired = false, EmitDefaultValue = false)]
-        public string Pointer { get; set; }
+        [DataMember(Name = "index", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(-1)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public int Index { get; set; }
+
+        /// <summary>
+        /// A guid that uniquely identifies the tool component associated with the descriptor.
+        /// </summary>
+        [DataMember(Name = "toolComponentGuid", IsRequired = false, EmitDefaultValue = false)]
+        public string ToolComponentGuid { get; set; }
+
+        /// <summary>
+        /// A guid that uniquely identifies the descriptor.
+        /// </summary>
+        [DataMember(Name = "descriptorGuid", IsRequired = false, EmitDefaultValue = false)]
+        public string DescriptorGuid { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the reporting descriptor reference.
@@ -55,6 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public ReportingDescriptorReference()
         {
+            Index = -1;
         }
 
         /// <summary>
@@ -63,15 +80,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="id">
         /// An initialization value for the <see cref="P:Id" /> property.
         /// </param>
-        /// <param name="pointer">
-        /// An initialization value for the <see cref="P:Pointer" /> property.
+        /// <param name="index">
+        /// An initialization value for the <see cref="P:Index" /> property.
+        /// </param>
+        /// <param name="toolComponentGuid">
+        /// An initialization value for the <see cref="P:ToolComponentGuid" /> property.
+        /// </param>
+        /// <param name="descriptorGuid">
+        /// An initialization value for the <see cref="P:DescriptorGuid" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ReportingDescriptorReference(string id, string pointer, IDictionary<string, SerializedPropertyInfo> properties)
+        public ReportingDescriptorReference(string id, int index, string toolComponentGuid, string descriptorGuid, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, pointer, properties);
+            Init(id, index, toolComponentGuid, descriptorGuid, properties);
         }
 
         /// <summary>
@@ -90,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.Pointer, other.Properties);
+            Init(other.Id, other.Index, other.ToolComponentGuid, other.DescriptorGuid, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -111,10 +134,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ReportingDescriptorReference(this);
         }
 
-        private void Init(string id, string pointer, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string id, int index, string toolComponentGuid, string descriptorGuid, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
-            Pointer = pointer;
+            Index = index;
+            ToolComponentGuid = toolComponentGuid;
+            DescriptorGuid = descriptorGuid;
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
