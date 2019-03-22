@@ -35,8 +35,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// A string that indicates where the suppression is persisted.
         /// </summary>
-        [DataMember(Name = "state", IsRequired = true)]
-        public string State { get; set; }
+        [DataMember(Name = "kind", IsRequired = true)]
+        public SuppressionKind Kind { get; set; }
 
         /// <summary>
         /// Identifies the location associated with the suppression.
@@ -60,8 +60,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Initializes a new instance of the <see cref="Suppression" /> class from the supplied values.
         /// </summary>
-        /// <param name="state">
-        /// An initialization value for the <see cref="P:State" /> property.
+        /// <param name="kind">
+        /// An initialization value for the <see cref="P:Kind" /> property.
         /// </param>
         /// <param name="location">
         /// An initialization value for the <see cref="P:Location" /> property.
@@ -69,9 +69,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Suppression(string state, Location location, IDictionary<string, SerializedPropertyInfo> properties)
+        public Suppression(SuppressionKind kind, Location location, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(state, location, properties);
+            Init(kind, location, properties);
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.State, other.Location, other.Properties);
+            Init(other.Kind, other.Location, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -111,9 +111,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Suppression(this);
         }
 
-        private void Init(string state, Location location, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(SuppressionKind kind, Location location, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            State = state;
+            Kind = kind;
             if (location != null)
             {
                 Location = new Location(location);

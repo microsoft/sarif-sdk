@@ -737,7 +737,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Properties = v1Result.Properties,
                     RelatedLocations = v1Result.RelatedLocations?.Select(CreateLocation).ToList(),
                     Stacks = v1Result.Stacks?.Select(CreateStack).ToList(),
-                    SuppressionStates = Utilities.CreateSuppressionStates(v1Result.SuppressionStates)
+                    Suppressions = Utilities.CreateSuppressions(v1Result.SuppressionStates)
                 };
 
                 // The v2 spec says that analysisTarget is required only if it differs from the result location.

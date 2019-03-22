@@ -190,30 +190,57 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
         }
 
-        public static SuppressionStates CreateSuppressionStates(SuppressionStatesVersionOne v1SuppressionStates)
+        public static List<Suppression> CreateSuppressions(SuppressionStatesVersionOne v1SuppressionStates)
         {
-            switch (v1SuppressionStates)
+            List<Suppression> suppressions = null;
+
+            if (v1SuppressionStates.HasFlag(SuppressionStatesVersionOne.SuppressedExternally))
             {
-                case SuppressionStatesVersionOne.SuppressedExternally:
-                    return SuppressionStates.SuppressedExternally;
-                case SuppressionStatesVersionOne.SuppressedInSource:
-                    return SuppressionStates.SuppressedInSource;
-                default:
-                    return SuppressionStates.None;
+                suppressions.Add(new Suppression { Kind = SuppressionKind.SuppressedExternally });
             }
+
+            if (v1SuppressionStates.HasFlag(SuppressionStatesVersionOne.SuppressedInSource))
+            {
+                suppressions.Add(new Suppression { Kind = SuppressionKind.SuppressedInSource });
+            }
+
+            return suppressions;
         }
 
-        public static SuppressionStatesVersionOne CreateSuppressionStatesVersionOne(SuppressionStates v2SuppressionStates)
+        public static SuppressionStatesVersionOne CreateSuppressionStatesVersionOne(IList<Suppression> v2Suppressions)
         {
-            switch (v2SuppressionStates)
+            bool isSuppressedExternally = false;
+            bool isSuppressedInSource = false;
+
+            foreach(Suppression suppression in v2Suppressions)
             {
-                case SuppressionStates.SuppressedExternally:
-                    return SuppressionStatesVersionOne.SuppressedExternally;
-                case SuppressionStates.SuppressedInSource:
-                    return SuppressionStatesVersionOne.SuppressedInSource;
-                default:
-                    return SuppressionStatesVersionOne.None;
+                switch (suppression.Kind)
+                {
+                    case SuppressionKind.SuppressedExternally:
+                        isSuppressedExternally = true;
+                        break;
+                    case SuppressionKind.SuppressedInSource:
+                        isSuppressedInSource = true;
+                        break;
+                }
+
+                if (isSuppressedExternally && isSuppressedInSource)
+                {
+                    return SuppressionStatesVersionOne.SuppressedInSource | SuppressionStatesVersionOne.SuppressedExternally;
+                }
             }
+
+            if (isSuppressedInSource)
+            {
+                return SuppressionStatesVersionOne.SuppressedInSource;
+            }
+
+            if(isSuppressedExternally)
+            {
+                return SuppressionStatesVersionOne.SuppressedExternally;
+            }
+
+            return SuppressionStatesVersionOne.None;
         }
 
         public static BaselineState CreateBaselineState(BaselineStateVersionOne v1BaselineState)

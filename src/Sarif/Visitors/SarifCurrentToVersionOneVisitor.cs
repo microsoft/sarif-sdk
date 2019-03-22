@@ -771,7 +771,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     RelatedLocations = v2Result.RelatedLocations?.Select(CreateAnnotatedCodeLocationVersionOne).ToList(),
                     Snippet = v2Result.Locations?[0]?.PhysicalLocation?.Region?.Snippet?.Text,
                     Stacks = v2Result.Stacks?.Select(CreateStackVersionOne).ToList(),
-                    SuppressionStates = Utilities.CreateSuppressionStatesVersionOne(v2Result.SuppressionStates)
+                    SuppressionStates = Utilities.CreateSuppressionStatesVersionOne(v2Result.Suppressions)
                 };
 
                 if (result.Fixes != null)

@@ -2340,7 +2340,7 @@
       "type": "object",
       "properties": {
 
-        "state": {
+        "kind": {
           "description": "A string that indicates where the suppression is persisted.",
           "enum": [
             "suppressedInSource",
@@ -2358,7 +2358,7 @@
           "$ref": "#/definitions/propertyBag"
         }
       },
-      "required": [ "state" ]
+      "required": [ "kind" ]
     },
 
     "threadFlow": {

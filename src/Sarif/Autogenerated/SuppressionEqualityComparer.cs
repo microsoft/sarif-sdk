@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.State != right.State)
+            if (left.Kind != right.Kind)
             {
                 return false;
             }
@@ -73,11 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (obj.State != null)
-                {
-                    result = (result * 31) + obj.State.GetHashCode();
-                }
-
+                result = (result * 31) + obj.Kind.GetHashCode();
                 if (obj.Location != null)
                 {
                     result = (result * 31) + obj.Location.ValueGetHashCode();
