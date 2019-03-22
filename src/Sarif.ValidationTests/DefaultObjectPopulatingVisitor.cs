@@ -87,6 +87,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             return base.Visit(node);
         }
 
+        public override Result VisitResult(Result node)
+        {
+            return base.VisitResult(node);
+        }
+
         // Retain nesting level for visiting exceptions to prevent
         // unbounded re-entrance populating exception.innerExceptions
         public override ExceptionData VisitExceptionData(ExceptionData node)
@@ -242,6 +247,25 @@ namespace Microsoft.CodeAnalysis.Sarif
                         object dictionaryValue = Activator.CreateInstance(genericTypeArgument);
                         AddElementToDictionary(propertyValue, dictionaryValue);
                     }
+                }
+            }
+            else if ((property.PropertyType.BaseType == typeof(Enum)))
+            {
+                // This code sets any enum to the first non-zero value we encounter
+                foreach (var enumValue in Enum.GetValues(property.PropertyType))
+                {
+                    if ((int)enumValue != 0)
+                    {
+                        propertyValue = enumValue;
+                        break;
+                    }
+                }
+                
+                // This code ensures both that we encounter an enum value that is non-zero,
+                // and that no enum definitions skips the value of one in its definition
+                if ((int)propertyValue != 1)
+                {
+                    throw new InvalidOperationException();
                 }
             }
 
