@@ -375,7 +375,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 RuleId = "CA0000",
                 Message = new Message { Arguments = new List<string>(new string[] { "hello!" }) },
-                SuppressionStates = SuppressionStates.SuppressedInSource,
+                Suppressions = new List<Suppression> { new Suppression { Kind = SuppressionKind.SuppressedInSource } },
                 PartialFingerprints = new Dictionary<string, string>(),
                 AnalysisTarget = new ArtifactLocation
                 {
