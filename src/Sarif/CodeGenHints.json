@@ -826,14 +826,15 @@
   "Suppression.Kind": [
     {
       "kind": "EnumHint",
-      "arguments": {
-        "typeName": "SuppressionKind",
-        "description": "The state of a result relative to a baseline of a previous run.",
-        "memberNames": [
-          "SuppressedInSource",
-          "SuppressedExternally"
-        ]
-      }
+        "arguments": {
+            "typeName": "SuppressionKind",
+            "description": "The state of a result relative to a baseline of a previous run.",
+            "zeroValueName": "None",
+            "memberNames": [
+                "SuppressedInSource",
+                "SuppressedExternally"
+            ]
+        }
     },
     {
       "kind": "AttributeHint",

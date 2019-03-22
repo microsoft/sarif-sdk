@@ -11,6 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
     public enum SuppressionKind
     {
+        None,
         SuppressedInSource,
         SuppressedExternally
     }

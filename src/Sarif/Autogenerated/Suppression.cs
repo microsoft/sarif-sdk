@@ -6,6 +6,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -36,6 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A string that indicates where the suppression is persisted.
         /// </summary>
         [DataMember(Name = "kind", IsRequired = true)]
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
         public SuppressionKind Kind { get; set; }
 
         /// <summary>

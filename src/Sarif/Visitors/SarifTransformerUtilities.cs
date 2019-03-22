@@ -196,11 +196,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             if (v1SuppressionStates.HasFlag(SuppressionStatesVersionOne.SuppressedExternally))
             {
+                suppressions = new List<Suppression>();
                 suppressions.Add(new Suppression { Kind = SuppressionKind.SuppressedExternally });
             }
 
             if (v1SuppressionStates.HasFlag(SuppressionStatesVersionOne.SuppressedInSource))
             {
+                suppressions = suppressions ?? new List<Suppression>();
                 suppressions.Add(new Suppression { Kind = SuppressionKind.SuppressedInSource });
             }
 
