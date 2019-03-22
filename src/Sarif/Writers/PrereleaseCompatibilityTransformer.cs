@@ -142,6 +142,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     // https://github.com/oasis-tcs/sarif-spec/issues/337
                     ConvertToolToDriverInExternalPropertyFiles(run);
 
+                    // https://github.com/oasis-tcs/sarif-spec/issues/338
+                    ModifyExternalPropertyFilesToExternalPropertyFileReferences(run);
+
                     // https://github.com/oasis-tcs/sarif-spec/issues/344
                     ConvertSuppressionStatesToSuppressions(run);
                 }
@@ -176,6 +179,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         }
                     }
                 }
+            }
+        }
+
+        private static void ModifyExternalPropertyFilesToExternalPropertyFileReferences(JObject run)
+        {
+            if (run["externalPropertyFiles"] is JObject externalPropertyFiles)
+            {
+                run.Remove("externalPropertyFiles");
+                run.Add("externalPropertyFileReferences", externalPropertyFiles);
             }
         }
 

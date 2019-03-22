@@ -20,6 +20,16 @@
       }
     }
   ],
+  "address": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
   "artifact": [
     {
       "kind": "BaseTypeHint",
@@ -224,7 +234,7 @@
       }
     }
   ],
-  "externalPropertyFile": [
+  "externalPropertyFileReference": [
     {
       "kind": "BaseTypeHint",
       "arguments": {
@@ -234,7 +244,7 @@
       }
     }
   ],
-  "externalPropertyFiles": [
+  "externalPropertyFileReferences": [
     {
       "kind": "BaseTypeHint",
       "arguments": {
@@ -826,15 +836,15 @@
   "Suppression.Kind": [
     {
       "kind": "EnumHint",
-        "arguments": {
-            "typeName": "SuppressionKind",
-            "description": "The state of a result relative to a baseline of a previous run.",
-            "zeroValueName": "None",
-            "memberNames": [
-                "SuppressedInSource",
-                "SuppressedExternally"
-            ]
-        }
+      "arguments": {
+        "typeName": "SuppressionKind",
+        "description": "The state of a result relative to a baseline of a previous run.",
+        "zeroValueName": "None",
+        "memberNames": [
+          "SuppressedInSource",
+          "SuppressedExternally"
+        ]
+      }
     },
     {
       "kind": "AttributeHint",

@@ -9,14 +9,14 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Defines methods to support the comparison of objects of type ExternalPropertyFile for equality.
+    /// Defines methods to support the comparison of objects of type ExternalPropertyFileReference for equality.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
-    internal sealed class ExternalPropertyFileEqualityComparer : IEqualityComparer<ExternalPropertyFile>
+    internal sealed class ExternalPropertyFileReferenceEqualityComparer : IEqualityComparer<ExternalPropertyFileReference>
     {
-        internal static readonly ExternalPropertyFileEqualityComparer Instance = new ExternalPropertyFileEqualityComparer();
+        internal static readonly ExternalPropertyFileReferenceEqualityComparer Instance = new ExternalPropertyFileReferenceEqualityComparer();
 
-        public bool Equals(ExternalPropertyFile left, ExternalPropertyFile right)
+        public bool Equals(ExternalPropertyFileReference left, ExternalPropertyFileReference right)
         {
             if (ReferenceEquals(left, right))
             {
@@ -68,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public int GetHashCode(ExternalPropertyFile obj)
+        public int GetHashCode(ExternalPropertyFileReference obj)
         {
             if (ReferenceEquals(obj, null))
             {

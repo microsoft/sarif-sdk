@@ -70,10 +70,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitExceptionData((ExceptionData)node);
                 case SarifNodeKind.ExternalProperties:
                     return VisitExternalProperties((ExternalProperties)node);
-                case SarifNodeKind.ExternalPropertyFile:
-                    return VisitExternalPropertyFile((ExternalPropertyFile)node);
-                case SarifNodeKind.ExternalPropertyFiles:
-                    return VisitExternalPropertyFiles((ExternalPropertyFiles)node);
+                case SarifNodeKind.ExternalPropertyFileReference:
+                    return VisitExternalPropertyFileReference((ExternalPropertyFileReference)node);
+                case SarifNodeKind.ExternalPropertyFileReferences:
+                    return VisitExternalPropertyFileReferences((ExternalPropertyFileReferences)node);
                 case SarifNodeKind.Fix:
                     return VisitFix((Fix)node);
                 case SarifNodeKind.Graph:
@@ -200,6 +200,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                node.Rendered = VisitNullChecked(node.Rendered);
             }
 
             return node;
@@ -379,7 +380,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return node;
         }
 
-        public virtual ExternalPropertyFile VisitExternalPropertyFile(ExternalPropertyFile node)
+        public virtual ExternalPropertyFileReference VisitExternalPropertyFileReference(ExternalPropertyFileReference node)
         {
             if (node != null)
             {
@@ -389,7 +390,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return node;
         }
 
-        public virtual ExternalPropertyFiles VisitExternalPropertyFiles(ExternalPropertyFiles node)
+        public virtual ExternalPropertyFileReferences VisitExternalPropertyFileReferences(ExternalPropertyFileReferences node)
         {
             if (node != null)
             {
@@ -575,7 +576,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
-                node.Address = VisitNullChecked(node.Address);
                 node.PhysicalLocation = VisitNullChecked(node.PhysicalLocation);
                 node.Message = VisitNullChecked(node.Message);
                 if (node.Annotations != null)
@@ -651,6 +651,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                node.Address = VisitNullChecked(node.Address);
                 node.ArtifactLocation = VisitNullChecked(node.ArtifactLocation);
                 node.Region = VisitNullChecked(node.Region);
                 node.ContextRegion = VisitNullChecked(node.ContextRegion);
@@ -973,7 +974,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                node.ExternalPropertyFiles = VisitNullChecked(node.ExternalPropertyFiles);
+                node.ExternalPropertyFileReferences = VisitNullChecked(node.ExternalPropertyFileReferences);
                 if (node.ThreadFlowLocations != null)
                 {
                     for (int index_0 = 0; index_0 < node.ThreadFlowLocations.Count; ++index_0)

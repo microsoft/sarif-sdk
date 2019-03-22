@@ -68,13 +68,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         ExternalProperties,
         /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ExternalPropertyFile" />.
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ExternalPropertyFileReference" />.
         /// </summary>
-        ExternalPropertyFile,
+        ExternalPropertyFileReference,
         /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ExternalPropertyFiles" />.
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ExternalPropertyFileReferences" />.
         /// </summary>
-        ExternalPropertyFiles,
+        ExternalPropertyFileReferences,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Fix" />.
         /// </summary>
