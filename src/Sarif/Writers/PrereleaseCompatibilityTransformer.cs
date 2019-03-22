@@ -141,9 +141,42 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     // https://github.com/oasis-tcs/sarif-spec/issues/337
                     ConvertToolToDriverInExternalPropertyFiles(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/344
+                    ConvertSuppressionStatesToSuppressions(run);
                 }
             }
             return true;
+        }
+
+        private static void ConvertSuppressionStatesToSuppressions(JObject run)
+        {
+            if (run["results"] is JArray results)
+            {
+                foreach (JObject result in results)
+                {
+                    if (result["suppressionStates"] is JArray suppressionStates)
+                    {
+                        result.Remove("suppressionStates");
+                        var suppressions = new JArray();
+
+                        foreach (JToken suppressionState in suppressionStates)
+                        {
+                            var suppression = new JObject
+                            {
+                                { "kind", suppressionState }
+                            };
+
+                            suppressions.Add(suppression);
+                        }
+
+                        if (suppressions.Count > 0)
+                        {
+                            result.Add("suppressions", suppressions);
+                        }
+                    }
+                }
+            }
         }
 
         private static void ConvertToolToDriverInExternalPropertyFiles(JObject run)
