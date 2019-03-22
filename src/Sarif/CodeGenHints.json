@@ -834,6 +834,14 @@
           "SuppressedExternally"
         ]
       }
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "JsonConverter",
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter)" ]
+      }
     }
   ],
   "threadFlow": [

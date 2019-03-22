@@ -209,6 +209,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public static SuppressionStatesVersionOne CreateSuppressionStatesVersionOne(IList<Suppression> v2Suppressions)
         {
+            if (v2Suppressions == null)
+            {
+                return SuppressionStatesVersionOne.None;
+            }
+
             bool isSuppressedExternally = false;
             bool isSuppressedInSource = false;
 
