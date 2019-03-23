@@ -384,7 +384,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.RuleId, other.RuleIndex, other.RuleExtensionIndex, other.Kind, other.Level, other.Message, other.AnalysisTarget, other.Locations, other.InstanceGuid, other.CorrelationGuid, other.OccurrenceCount, other.PartialFingerprints, other.Fingerprints, other.Stacks, other.CodeFlows, other.Graphs, other.GraphTraversals, other.RelatedLocations, other.SuppressionStates, other.BaselineState, other.Rank, other.Attachments, other.HostedViewerUri, other.WorkItemUris, other.Provenance, other.Fixes, other.TaxonomyReferences, other.ruleDescriptorReference, other.Properties);
+            Init(other.RuleId, other.RuleIndex, other.RuleExtensionIndex, other.Kind, other.Level, other.Message, other.AnalysisTarget, other.Locations, other.InstanceGuid, other.CorrelationGuid, other.OccurrenceCount, other.PartialFingerprints, other.Fingerprints, other.Stacks, other.CodeFlows, other.Graphs, other.GraphTraversals, other.RelatedLocations, other.SuppressionStates, other.BaselineState, other.Rank, other.Attachments, other.HostedViewerUri, other.WorkItemUris, other.Provenance, other.Fixes, other.TaxonomyReferences, other.RuleDescriptorReference, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
