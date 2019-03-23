@@ -35,30 +35,30 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// The Id of the descriptor.
+        /// The id of the descriptor.
         /// </summary>
         [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
         public string Id { get; set; }
 
         /// <summary>
-        /// The index into an array of descriptors
+        /// The index into an array of descriptors in toolComponent.ruleDescriptors, toolComponent.notificationDescriptors, or toolComponent.taxonomyDescriptors, depending on context.
         /// </summary>
-        [DataMember(Name = "index", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "index", IsRequired = true)]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public int Index { get; set; }
 
         /// <summary>
-        /// A guid that uniquely identifies the tool component associated with the descriptor.
-        /// </summary>
-        [DataMember(Name = "toolComponentGuid", IsRequired = false, EmitDefaultValue = false)]
-        public string ToolComponentGuid { get; set; }
-
-        /// <summary>
         /// A guid that uniquely identifies the descriptor.
         /// </summary>
-        [DataMember(Name = "descriptorGuid", IsRequired = false, EmitDefaultValue = false)]
-        public string DescriptorGuid { get; set; }
+        [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
+        public string Guid { get; set; }
+
+        /// <summary>
+        /// A reference used to locate the toolComponent associated with the descriptor.
+        /// </summary>
+        [DataMember(Name = "toolComponentReference", IsRequired = false, EmitDefaultValue = false)]
+        public ToolComponentReference ToolComponentReference { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the reporting descriptor reference.
@@ -83,18 +83,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="index">
         /// An initialization value for the <see cref="P:Index" /> property.
         /// </param>
-        /// <param name="toolComponentGuid">
-        /// An initialization value for the <see cref="P:ToolComponentGuid" /> property.
+        /// <param name="guid">
+        /// An initialization value for the <see cref="P:Guid" /> property.
         /// </param>
-        /// <param name="descriptorGuid">
-        /// An initialization value for the <see cref="P:DescriptorGuid" /> property.
+        /// <param name="toolComponentReference">
+        /// An initialization value for the <see cref="P:ToolComponentReference" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ReportingDescriptorReference(string id, int index, string toolComponentGuid, string descriptorGuid, IDictionary<string, SerializedPropertyInfo> properties)
+        public ReportingDescriptorReference(string id, int index, string guid, ToolComponentReference toolComponentReference, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, index, toolComponentGuid, descriptorGuid, properties);
+            Init(id, index, guid, toolComponentReference, properties);
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.Index, other.ToolComponentGuid, other.DescriptorGuid, other.Properties);
+            Init(other.Id, other.Index, other.Guid, other.ToolComponentReference, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -134,12 +134,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ReportingDescriptorReference(this);
         }
 
-        private void Init(string id, int index, string toolComponentGuid, string descriptorGuid, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string id, int index, string guid, ToolComponentReference toolComponentReference, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             Index = index;
-            ToolComponentGuid = toolComponentGuid;
-            DescriptorGuid = descriptorGuid;
+            Guid = guid;
+            if (toolComponentReference != null)
+            {
+                ToolComponentReference = new ToolComponentReference(toolComponentReference);
+            }
+
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);

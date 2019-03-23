@@ -28,21 +28,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.Id != right.Id)
-            {
-                return false;
-            }
-
-            if (left.RuleId != right.RuleId)
-            {
-                return false;
-            }
-
-            if (left.RuleIndex != right.RuleIndex)
-            {
-                return false;
-            }
-
             if (!PhysicalLocation.ValueComparer.Equals(left.PhysicalLocation, right.PhysicalLocation))
             {
                 return false;
@@ -69,6 +54,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             if (!ExceptionData.ValueComparer.Equals(left.Exception, right.Exception))
+            {
+                return false;
+            }
+
+            if (!ReportingDescriptorReference.ValueComparer.Equals(left.NotificationDescriptorReference, right.NotificationDescriptorReference))
+            {
+                return false;
+            }
+
+            if (!ReportingDescriptorReference.ValueComparer.Equals(left.AssociatedRuleDescriptorReference, right.AssociatedRuleDescriptorReference))
             {
                 return false;
             }
@@ -108,17 +103,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (obj.Id != null)
-                {
-                    result = (result * 31) + obj.Id.GetHashCode();
-                }
-
-                if (obj.RuleId != null)
-                {
-                    result = (result * 31) + obj.RuleId.GetHashCode();
-                }
-
-                result = (result * 31) + obj.RuleIndex.GetHashCode();
                 if (obj.PhysicalLocation != null)
                 {
                     result = (result * 31) + obj.PhysicalLocation.ValueGetHashCode();
@@ -135,6 +119,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.Exception != null)
                 {
                     result = (result * 31) + obj.Exception.ValueGetHashCode();
+                }
+
+                if (obj.NotificationDescriptorReference != null)
+                {
+                    result = (result * 31) + obj.NotificationDescriptorReference.ValueGetHashCode();
+                }
+
+                if (obj.AssociatedRuleDescriptorReference != null)
+                {
+                    result = (result * 31) + obj.AssociatedRuleDescriptorReference.ValueGetHashCode();
                 }
 
                 if (obj.Properties != null)

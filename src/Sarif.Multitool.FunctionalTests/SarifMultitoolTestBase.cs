@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Notification actualNotification = actualNotifications[i];
                     Notification expectedNotification = expectedNotifications[i];
 
-                    actualNotification.RuleId.Should().Be(expectedNotification.RuleId);
+                    actualNotification.AssociatedRuleDescriptorReference.Id.Should().Be(expectedNotification.AssociatedRuleDescriptorReference.Id);
 
                     actualNotification.Level.Should().Be(expectedNotification.Level);
                 }

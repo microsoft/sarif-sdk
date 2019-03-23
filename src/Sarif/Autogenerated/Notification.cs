@@ -35,26 +35,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// An identifier for the condition that was encountered.
-        /// </summary>
-        [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
-        public string Id { get; set; }
-
-        /// <summary>
-        /// The stable, unique identifier of the rule, if any, to which this notification is relevant.
-        /// </summary>
-        [DataMember(Name = "ruleId", IsRequired = false, EmitDefaultValue = false)]
-        public string RuleId { get; set; }
-
-        /// <summary>
-        /// The index within the run resources array of the rule object, if any, associated with this notification.
-        /// </summary>
-        [DataMember(Name = "ruleIndex", IsRequired = false, EmitDefaultValue = false)]
-        [DefaultValue(-1)]
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public int RuleIndex { get; set; }
-
-        /// <summary>
         /// The artifact and region relevant to this notification.
         /// </summary>
         [DataMember(Name = "physicalLocation", IsRequired = false, EmitDefaultValue = false)]
@@ -95,6 +75,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         public ExceptionData Exception { get; set; }
 
         /// <summary>
+        /// A reference used to locate the descriptor relevant to this notification.
+        /// </summary>
+        [DataMember(Name = "notificationDescriptorReference", IsRequired = true)]
+        public ReportingDescriptorReference NotificationDescriptorReference { get; set; }
+
+        /// <summary>
+        /// A reference used to locate the rule descriptor associated with this notification.
+        /// </summary>
+        [DataMember(Name = "associatedRuleDescriptorReference", IsRequired = false, EmitDefaultValue = false)]
+        public ReportingDescriptorReference AssociatedRuleDescriptorReference { get; set; }
+
+        /// <summary>
         /// Key/value pairs that provide additional information about the notification.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
@@ -105,22 +97,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public Notification()
         {
-            RuleIndex = -1;
             Level = FailureLevel.Warning;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Notification" /> class from the supplied values.
         /// </summary>
-        /// <param name="id">
-        /// An initialization value for the <see cref="P:Id" /> property.
-        /// </param>
-        /// <param name="ruleId">
-        /// An initialization value for the <see cref="P:RuleId" /> property.
-        /// </param>
-        /// <param name="ruleIndex">
-        /// An initialization value for the <see cref="P:RuleIndex" /> property.
-        /// </param>
         /// <param name="physicalLocation">
         /// An initialization value for the <see cref="P:PhysicalLocation" /> property.
         /// </param>
@@ -139,12 +121,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="exception">
         /// An initialization value for the <see cref="P:Exception" /> property.
         /// </param>
+        /// <param name="notificationDescriptorReference">
+        /// An initialization value for the <see cref="P:NotificationDescriptorReference" /> property.
+        /// </param>
+        /// <param name="associatedRuleDescriptorReference">
+        /// An initialization value for the <see cref="P:AssociatedRuleDescriptorReference" /> property.
+        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Notification(string id, string ruleId, int ruleIndex, PhysicalLocation physicalLocation, Message message, FailureLevel level, int threadId, DateTime timeUtc, ExceptionData exception, IDictionary<string, SerializedPropertyInfo> properties)
+        public Notification(PhysicalLocation physicalLocation, Message message, FailureLevel level, int threadId, DateTime timeUtc, ExceptionData exception, ReportingDescriptorReference notificationDescriptorReference, ReportingDescriptorReference associatedRuleDescriptorReference, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, ruleId, ruleIndex, physicalLocation, message, level, threadId, timeUtc, exception, properties);
+            Init(physicalLocation, message, level, threadId, timeUtc, exception, notificationDescriptorReference, associatedRuleDescriptorReference, properties);
         }
 
         /// <summary>
@@ -163,7 +151,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.RuleId, other.RuleIndex, other.PhysicalLocation, other.Message, other.Level, other.ThreadId, other.TimeUtc, other.Exception, other.Properties);
+            Init(other.PhysicalLocation, other.Message, other.Level, other.ThreadId, other.TimeUtc, other.Exception, other.NotificationDescriptorReference, other.AssociatedRuleDescriptorReference, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -184,11 +172,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Notification(this);
         }
 
-        private void Init(string id, string ruleId, int ruleIndex, PhysicalLocation physicalLocation, Message message, FailureLevel level, int threadId, DateTime timeUtc, ExceptionData exception, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(PhysicalLocation physicalLocation, Message message, FailureLevel level, int threadId, DateTime timeUtc, ExceptionData exception, ReportingDescriptorReference notificationDescriptorReference, ReportingDescriptorReference associatedRuleDescriptorReference, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Id = id;
-            RuleId = ruleId;
-            RuleIndex = ruleIndex;
             if (physicalLocation != null)
             {
                 PhysicalLocation = new PhysicalLocation(physicalLocation);
@@ -205,6 +190,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (exception != null)
             {
                 Exception = new ExceptionData(exception);
+            }
+
+            if (notificationDescriptorReference != null)
+            {
+                NotificationDescriptorReference = new ReportingDescriptorReference(notificationDescriptorReference);
+            }
+
+            if (associatedRuleDescriptorReference != null)
+            {
+                AssociatedRuleDescriptorReference = new ReportingDescriptorReference(associatedRuleDescriptorReference);
             }
 
             if (properties != null)
