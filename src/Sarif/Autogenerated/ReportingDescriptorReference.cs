@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// The index into an array of descriptors in toolComponent.ruleDescriptors, toolComponent.notificationDescriptors, or toolComponent.taxonomyDescriptors, depending on context.
         /// </summary>
-        [DataMember(Name = "index", IsRequired = true)]
+        [DataMember(Name = "index", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public int Index { get; set; }

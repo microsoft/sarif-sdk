@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// A reference used to locate the descriptor relevant to this notification.
         /// </summary>
-        [DataMember(Name = "notificationDescriptorReference", IsRequired = true)]
+        [DataMember(Name = "notificationDescriptorReference", IsRequired = false, EmitDefaultValue = false)]
         public ReportingDescriptorReference NotificationDescriptorReference { get; set; }
 
         /// <summary>

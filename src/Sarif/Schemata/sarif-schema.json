@@ -1298,7 +1298,7 @@
         }
       },
 
-      "required": [ "message", "notificationDescriptorReference" ]
+      "required": [ "message" ]
     },
 
     "physicalLocation": {
@@ -1737,9 +1737,7 @@
           "description": "Key/value pairs that provide additional information about the reporting descriptor reference.",
           "$ref": "#/definitions/propertyBag"
         }
-      },
-
-      "required": [ "index" ]
+      }
     },
 
     "result": {

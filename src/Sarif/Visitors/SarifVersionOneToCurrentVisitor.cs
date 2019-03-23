@@ -534,21 +534,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 notification = new Notification
                 {
                     Exception = CreateExceptionData(v1Notification.Exception),
-                    NotificationDescriptorReference = new ReportingDescriptorReference
-                    {
-                        Id = v1Notification.Id,
-                    },
                     Level = Utilities.CreateFailureLevel(v1Notification.Level),
                     Message = CreateMessage(v1Notification.Message),
                     PhysicalLocation = CreatePhysicalLocation(v1Notification.PhysicalLocation),
                     Properties = v1Notification.Properties,
-                    AssociatedRuleDescriptorReference = new ReportingDescriptorReference
-                    {
-                        Id = v1Notification.RuleId,
-                    },
                     ThreadId = v1Notification.ThreadId,
                     TimeUtc = v1Notification.Time
                 };
+
+                if (!string.IsNullOrWhiteSpace(v1Notification.Id))
+                {
+                    notification.NotificationDescriptorReference = new ReportingDescriptorReference
+                    {
+                        Id = v1Notification.Id,
+                    };
+                }
+
+                if (!string.IsNullOrWhiteSpace(v1Notification.RuleId))
+                {
+                    notification.AssociatedRuleDescriptorReference = new ReportingDescriptorReference
+                    {
+                        Id = v1Notification.RuleId,
+                    };
+                }
             }
 
             return notification;

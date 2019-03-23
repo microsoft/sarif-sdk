@@ -487,18 +487,26 @@ namespace Microsoft.CodeAnalysis.Sarif
             var notification = new Notification
             {
                 PhysicalLocation = physicalLocation,
-                NotificationDescriptorReference = new ReportingDescriptorReference
-                {
-                    Id = notificationId,
-                },
-                AssociatedRuleDescriptorReference = new ReportingDescriptorReference
-                {
-                    Id = ruleId,
-                },
                 Level = level,
                 Message = new Message { Text = message },
                 Exception = exceptionData
             };
+
+            if (!string.IsNullOrWhiteSpace(notificationId))
+            {
+                notification.NotificationDescriptorReference = new ReportingDescriptorReference
+                {
+                    Id = notificationId,
+                };
+            }
+
+            if (!string.IsNullOrWhiteSpace(ruleId))
+            {
+                notification.AssociatedRuleDescriptorReference = new ReportingDescriptorReference
+                {
+                    Id = ruleId,
+                };
+            }
 
             return notification;
         }

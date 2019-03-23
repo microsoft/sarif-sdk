@@ -71,6 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             bool actualHasNotifications = actualNotifications != null && actualNotifications.Count > 0;
             bool expectedHasNotifications = expectedNotifications != null && expectedNotifications.Count > 0;
+
             actualHasNotifications.Should().Be(expectedHasNotifications);
 
             if (actualHasNotifications && expectedHasNotifications)
@@ -82,7 +83,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Notification actualNotification = actualNotifications[i];
                     Notification expectedNotification = expectedNotifications[i];
 
-                    actualNotification.AssociatedRuleDescriptorReference.Id.Should().Be(expectedNotification.AssociatedRuleDescriptorReference.Id);
+                    bool actualHasAssociatedRuleDescriptorReference = actualNotification.AssociatedRuleDescriptorReference != null;
+                    bool expectedHasAssociatedRuleDescriptorReference = expectedNotification.AssociatedRuleDescriptorReference != null;
+
+                    actualHasAssociatedRuleDescriptorReference.Should().Be(expectedHasAssociatedRuleDescriptorReference);
+
+                    if (actualHasAssociatedRuleDescriptorReference && expectedHasAssociatedRuleDescriptorReference)
+                    {
+                        actualNotification.AssociatedRuleDescriptorReference.Id.Should().Be(expectedNotification.AssociatedRuleDescriptorReference.Id);
+                    }
 
                     actualNotification.Level.Should().Be(expectedNotification.Level);
                 }
