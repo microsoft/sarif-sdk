@@ -20,6 +20,16 @@
       }
     }
   ],
+  "address": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
   "artifact": [
     {
       "kind": "BaseTypeHint",
