@@ -180,6 +180,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         StackFrame,
         /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Suppression" />.
+        /// </summary>
+        Suppression,
+        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ThreadFlow" />.
         /// </summary>
         ThreadFlow,

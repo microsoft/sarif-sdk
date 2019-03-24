@@ -51,52 +51,52 @@
       "description": "The effective address of a reported issue.",
       "additionalProperties": false,
       "type": "object",
+      "properties": {
+
+        "baseAddress": {
+          "description": "A base address rendered as a hexadecimal string.",
+          "type": "integer",
+          "minimum": 0
+        },
+
+        "kind": {
+          "description": "An open-ended string that identifies the address kind. 'section' and 'segment' are well-known values.",
+          "type": "string"
+        },
+
+        "name": {
+          "description": "A name that is associated with the address, e.g., '.text'.",
+          "type": "string"
+        },
+
+        "fullyQualifiedName": {
+          "description": "A human-readable fully qualified name that is associated with the address.",
+          "type": "string"
+        },
+
+        "offset": {
+          "description": "an offset from the base address, if present, rendered as a hexadecimal string.",
+          "type": "integer",
+          "minimum": 0
+        },
+
+        "index": {
+          "description": "An index into run.addresses used to retrieve a cached instance to represent the address.",
+          "type": "integer",
+          "minimum": 0
+        },
+
+        "parentIndex": {
+          "description": "An index into run.addresses to retrieve a parent address. The parent can provide a base address (from which the current offset value is relevant) and other details.",
+          "type": "integer",
+          "minimum": 0
+        },
+
         "properties": {
-
-            "baseAddress": {
-                "description": "A base address rendered as a hexadecimal string.",
-                "type": "integer",
-                "minimum": 0
-            },
-
-            "kind": {
-                "description": "An open-ended string that identifies the address kind. 'section' and 'segment' are well-known values.",
-                "type": "string"
-            },
-
-            "name": {
-                "description": "A name that is associated with the address, e.g., '.text'.",
-                "type": "string"
-            },
-
-            "fullyQualifiedName": {
-                "description": "A human-readable fully qualified name that is associated with the address.",
-                "type": "string"
-            },
-
-            "offset": {
-                "description": "an offset from the base address, if present, rendered as a hexadecimal string.",
-                "type": "integer",
-                "minimum": 0
-            },
-
-            "index": {
-                "description": "An index into run.addresses used to retrieve a cached instance to represent the address.",
-                "type": "integer",
-                "minimum": 0
-            },
-
-            "parentIndex": {
-                "description": "An index into run.addresses to retrieve a parent address. The parent can provide a base address (from which the current offset value is relevant) and other details.",
-                "type": "integer",
-                "minimum": 0
-            },
-
-            "properties": {
-                "description": "Key/value pairs that provide additional information about the address.",
-                "$ref": "#/definitions/propertyBag"
-            }
+          "description": "Key/value pairs that provide additional information about the address.",
+          "$ref": "#/definitions/propertyBag"
         }
+      }
     },
 
     "artifact": {
@@ -237,13 +237,13 @@
         },
 
         "binary": {
-            "description": "MIME Base64-encoded content from a binary artifact, or from a text artifact in its original encoding.",
-            "type": "string"
+          "description": "MIME Base64-encoded content from a binary artifact, or from a text artifact in its original encoding.",
+          "type": "string"
         },
 
         "rendered": {
-            "description": "An alternate rendered representation of the artifact (e.g., a decompiled representation of a binary region).",
-            "$ref": "#/definitions/multiformatMessageString"
+          "description": "An alternate rendered representation of the artifact (e.g., a decompiled representation of a binary region).",
+          "$ref": "#/definitions/multiformatMessageString"
         },
 
         "properties": {
@@ -1336,38 +1336,38 @@
       "description": "A physical location relevant to a result. Specifies a reference to a programming artifact together with a range of bytes or characters within that artifact.",
       "additionalProperties": false,
       "type": "object",
-        "properties": {
+      "properties": {
 
-            "id": {
-                "description": "Value that distinguishes this physical location from all other physical locations in this run object.",
-                "type": "integer"
-            },
-
-            "address": {
-                "description": "The address of the location.",
-                "$ref": "#/definitions/address"
-            },
-
-            "artifactLocation": {
-                "description": "The location of the artifact.",
-                "$ref": "#/definitions/artifactLocation"
-            },
-
-            "region": {
-                "description": "Specifies a portion of the artifact.",
-                "$ref": "#/definitions/region"
-            },
-
-            "contextRegion": {
-                "description": "Specifies a portion of the artifact that encloses the region. Allows a viewer to display additional context around the region.",
-                "$ref": "#/definitions/region"
-            },
-
-            "properties": {
-                "description": "Key/value pairs that provide additional information about the physical location.",
-                "$ref": "#/definitions/propertyBag"
-            }
+        "id": {
+          "description": "Value that distinguishes this physical location from all other physical locations in this run object.",
+          "type": "integer"
         },
+
+        "address": {
+          "description": "The address of the location.",
+          "$ref": "#/definitions/address"
+        },
+
+        "artifactLocation": {
+          "description": "The location of the artifact.",
+          "$ref": "#/definitions/artifactLocation"
+        },
+
+        "region": {
+          "description": "Specifies a portion of the artifact.",
+          "$ref": "#/definitions/region"
+        },
+
+        "contextRegion": {
+          "description": "Specifies a portion of the artifact that encloses the region. Allows a viewer to display additional context around the region.",
+          "$ref": "#/definitions/region"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the physical location.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      },
 
       "required": [ "artifactLocation" ]
     },
@@ -1921,16 +1921,14 @@
           }
         },
 
-        "suppressionStates": {
-          "description": "A set of flags indicating one or more suppression conditions.",
+        "suppressions": {
+          "description": "A set of suppressions relevant to this result.",
           "type": "array",
           "minItems": 0,
-          "uniqueItems": true,
+          "uniqueItems": false,
+          "default": [],
           "items": {
-            "enum": [
-              "suppressedInSource",
-              "suppressedExternally"
-            ]
+            "$ref": "#/definitions/suppression"
           }
         },
 
@@ -2388,6 +2386,33 @@
           "$ref": "#/definitions/propertyBag"
         }
       }
+    },
+
+    "suppression": {
+      "description": "A suppression that is relevant to a result.",
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+
+        "kind": {
+          "description": "A string that indicates where the suppression is persisted.",
+          "enum": [
+            "suppressedInSource",
+            "suppressedExternally"
+          ]
+        },
+
+        "location": {
+          "description": "Identifies the location associated with the suppression.",
+          "$ref": "#/definitions/location"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the suppression.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      },
+      "required": [ "kind" ]
     },
 
     "threadFlow": {

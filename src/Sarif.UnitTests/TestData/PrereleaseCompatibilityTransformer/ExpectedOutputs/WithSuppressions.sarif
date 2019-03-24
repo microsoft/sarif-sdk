@@ -1,0 +1,161 @@
+﻿{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-02-20",
+  "version": "2.0.0-csd.2.beta.2019-02-20",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "CodeScanner",
+          "fullName": "CodeScanner 1.1 for Unix (en-US)",
+          "ruleDescriptors": [
+            {
+              "id": "C2001",
+              "shortDescription": {
+                "text": "A variable was used without being initialized."
+              },
+              "fullDescription": {
+                "text": "A variable was used without being initialized. This can result in runtime errors such as null reference exceptions."
+              },
+              "messageStrings": {
+                "default": {
+                  "text": "Variable \"{0}\" was used without being initialized."
+                }
+              }
+            },
+            {
+              "id": "C2002",
+              "shortDescription": {
+                "text": "a random rule."
+              },
+              "fullDescription": {
+                "text": "this is a random rule just for testing"
+              }
+            }
+          ]
+        }
+      },
+      "conversion": {
+        "tool": {
+          "driver": {
+            "name": "CodeScanner Legacy File Format Converter",
+            "fullName": "CodeScanner Converter Tool"
+          }
+        }
+      },
+      "results": [
+        {
+          "ruleId": "C2001",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "text": "[No message provided]."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/buildAgent/src/collections/list.h"
+                },
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 9,
+                  "endLine": 15,
+                  "endColumn": 10,
+                  "byteOffset": 254,
+                  "byteLength": 1,
+                  "snippet": {
+                    "text": "add_core(ptr, offset, val);\n    return;"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "collections::list:add"
+            }
+          ],
+          "suppressions": [
+            {
+              "kind": "suppressedExternally"
+            },
+            {
+              "kind": "suppressedInSource"
+            }
+          ],
+          "baselineState": "unchanged"
+        },
+        {
+          "ruleId": "C2002",
+          "ruleIndex": 1,
+          "level": "error",
+          "message": {
+            "text": "[No message provided]."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/buildAgent/src/collections/list3.h"
+                },
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 30,
+                  "endLine": 18,
+                  "endColumn": 50,
+                  "byteOffset": 254,
+                  "byteLength": 4,
+                  "snippet": {
+                    "text": "random text snippet;"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "collections::list:add"
+            }
+          ],
+          "suppressions": [
+            {
+              "kind": "suppressedInSource"
+            }
+          ],
+          "baselineState": "unchanged"
+        },
+        {
+          "ruleId": "C2001",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "text": "[No message provided]."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/buildAgent/src/collections/list2.h"
+                },
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 9,
+                  "endLine": 15,
+                  "endColumn": 10,
+                  "byteOffset": 254,
+                  "byteLength": 1,
+                  "snippet": {
+                    "text": "add_core(ptr, offset, val);\n    return;"
+                  }
+                }
+              },
+              "fullyQualifiedLogicalName": "collections::list:add"
+            }
+          ],
+          "suppressions": [
+            {
+              "kind": "suppressedExternally"
+            },
+            {
+              "kind": "suppressedInSource"
+            }
+          ],
+          "baselineState": "unchanged"
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

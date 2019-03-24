@@ -100,5 +100,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             RunTest("WithExternalPropertyFiles.01-24.sarif");
         }
+
+        [Fact]
+        public void PrereleaseCompatibilityTransformer_WithSuppressions()
+        {
+            RunTest("WithSuppressions.sarif");
+        }
     }
 }

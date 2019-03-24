@@ -679,29 +679,6 @@
       "kind": "DictionaryHint"
     }
   ],
-  "Result.SuppressionStates": [
-    {
-      "kind": "EnumHint",
-      "arguments": {
-        "typeName": "SuppressionStates",
-        "description": "The state of a result relative to a baseline of a previous run.",
-        "flags": true,
-        "zeroValueName": "None",
-        "memberNames": [
-          "SuppressedInSource",
-          "SuppressedExternally"
-        ]
-      }
-    },
-    {
-      "kind": "AttributeHint",
-      "arguments": {
-        "namespaceName": "Newtonsoft.Json",
-        "typeName": "JsonConverter",
-        "arguments": [ "typeof(FlagsEnumConverter)" ]
-      }
-    }
-  ],
   "Result.WorkItemUris": [
     {
       "kind": "AttributeHint",
@@ -842,6 +819,39 @@
         "baseTypeNames": [
           "PropertyBagHolder"
         ]
+      }
+    }
+  ],
+  "suppression": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+
+  "Suppression.Kind": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "SuppressionKind",
+        "description": "The state of a result relative to a baseline of a previous run.",
+        "zeroValueName": "None",
+        "memberNames": [
+          "SuppressedInSource",
+          "SuppressedExternally"
+        ]
+      }
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "JsonConverter",
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter)" ]
       }
     }
   ],
