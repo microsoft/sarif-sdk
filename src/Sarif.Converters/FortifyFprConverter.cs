@@ -107,10 +107,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var run = new Run()
             {
-                Id = new RunAutomationDetails
+                AutomationDetails = new RunAutomationDetails
                 {
-                    InstanceGuid = _runId,
-                    InstanceId = _automationId + "/"
+                    Guid = _runId,
+                    Id = _automationId + "/"
                 },
                 Artifacts = new List<Artifact>(_files),
                 Tool = new Tool

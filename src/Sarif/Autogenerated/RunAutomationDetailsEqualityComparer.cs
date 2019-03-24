@@ -33,12 +33,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.InstanceId != right.InstanceId)
+            if (left.Id != right.Id)
             {
                 return false;
             }
 
-            if (left.InstanceGuid != right.InstanceGuid)
+            if (left.Guid != right.Guid)
             {
                 return false;
             }
@@ -88,14 +88,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Description.ValueGetHashCode();
                 }
 
-                if (obj.InstanceId != null)
+                if (obj.Id != null)
                 {
-                    result = (result * 31) + obj.InstanceId.GetHashCode();
+                    result = (result * 31) + obj.Id.GetHashCode();
                 }
 
-                if (obj.InstanceGuid != null)
+                if (obj.Guid != null)
                 {
-                    result = (result * 31) + obj.InstanceGuid.GetHashCode();
+                    result = (result * 31) + obj.Guid.GetHashCode();
                 }
 
                 if (obj.CorrelationGuid != null)

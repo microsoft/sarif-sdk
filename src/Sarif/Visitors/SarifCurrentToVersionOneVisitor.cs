@@ -763,7 +763,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     BaselineState = Utilities.CreateBaselineStateVersionOne(v2Result.BaselineState),
                     Fixes = v2Result.Fixes?.Select(CreateFixVersionOne).ToList(),
-                    Id = v2Result.InstanceGuid,
+                    Id = v2Result.Guid,
                     Level = Utilities.CreateResultLevelVersionOne(v2Result.Level, v2Result.Kind),
                     Locations = v2Result.Locations?.Select(CreateLocationVersionOne).ToList(),
                     Message = v2Result.Message?.Text,
@@ -883,12 +883,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     CreateFileKeyIndexMappings(v2Run.Artifacts, out _v1FileKeyToV2IndexMap, out _v2FileIndexToV1KeyMap);
                     _v2RuleIndexToV1KeyMap = CreateV2RuleIndexToV1KeyMapping(v2Run.Tool.Driver.RuleDescriptors);
 
-                    run.BaselineId = v2Run.BaselineInstanceGuid;
+                    run.BaselineId = v2Run.BaselineGuid;
                     run.Files = CreateFileDataVersionOneDictionary();
-                    run.Id = v2Run.Id?.InstanceGuid;
-                    run.AutomationId = v2Run.AggregateIds?.FirstOrDefault()?.InstanceId;
+                    run.Id = v2Run.AutomationDetails?.Guid;
+                    run.AutomationId = v2Run.RunAggregates?.FirstOrDefault()?.Id;
 
-                    run.StableId = v2Run.Id?.InstanceIdLogicalComponent();
+                    run.StableId = v2Run.AutomationDetails?.InstanceIdLogicalComponent();
 
                     run.Invocation = CreateInvocationVersionOne(v2Run.Invocations?[0]);
                     run.LogicalLocations = CreateLogicalLocationVersionOneDictionary(v2Run.LogicalLocations);

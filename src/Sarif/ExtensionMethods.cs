@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static string InstanceIdInstanceComponent(this RunAutomationDetails runAutomationDetails)
         {
-            string instanceId = runAutomationDetails.InstanceId;
+            string instanceId = runAutomationDetails.Id;
 
             if (instanceId == null)
             {
@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static string InstanceIdLogicalComponent(this RunAutomationDetails runAutomationDetails)
         {
-            string instanceId = runAutomationDetails.InstanceId;
+            string instanceId = runAutomationDetails.Id;
 
             if (instanceId == null)
             {

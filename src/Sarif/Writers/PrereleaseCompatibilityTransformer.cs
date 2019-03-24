@@ -150,6 +150,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                     // https://github.com/oasis-tcs/sarif-spec/issues/344
                     ConvertSuppressionStatesToSuppressions(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/341
+                    RenameAllInstanceGuidsAndIds(run);
                 }
             }
             return true;
@@ -257,6 +260,94 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 run.Remove("externalPropertyFiles");
                 run.Add("externalPropertyFileReferences", externalPropertyFiles);
+            }
+        }
+
+        private static void RenameAllInstanceGuidsAndIds(JObject run)
+        {
+            // The following properties will be renamed:
+
+            // run.baselineInstanceGuid -> run.baselineGuid
+
+            // run.id -> run.automationDetails
+            // run.id.instanceId -> run.automationDetails.id
+            // run.id.instanceGuid -> run.automationDetails.guid
+
+            // run.aggregateIds -> run.runAggregates
+            // run.aggregateIds[].instanceId -> run.runAggregates[].id
+            // run.aggregateIds[].instanceGuid -> run.runAggregates[].guid
+
+            // run.results[].instanceGuid -> run.results[].guid
+            // run.results[].resultProvenance.firstDetectionRunInstanceGuid -> run.results[].resultProvenance.firstDetectionRunGuid
+            // run.results[].resultProvenance.lastDetectionRunInstanceGuid -> run.results[].resultProvenance.lastDetectionRunGuid
+
+
+            if (run["baselineInstanceGuid"] is JToken baselineInstanceGuid)
+            {
+                run.Remove("baselineInstanceGuid");
+                run.Add("baselineGuid", baselineInstanceGuid);
+            }
+
+            if (run["id"] is JObject id)
+            {
+                RenameInstanceGuidToGuidInNode(id);
+                RenameInstanceIdToIdInNode(id);
+
+                run.Remove("id");
+                run.Add("automationDetails", id);
+            }
+
+            if (run["aggregateIds"] is JArray aggregateIds)
+            {
+                foreach (JObject aggregateId in aggregateIds)
+                {
+                    RenameInstanceGuidToGuidInNode(aggregateId);
+                    RenameInstanceIdToIdInNode(aggregateId);
+                }
+
+                run.Remove("aggregateIds");
+                run.Add("runAggregates", aggregateIds);
+            }
+
+            if (run["results"] is JArray results)
+            {
+                foreach (JObject result in results)
+                {
+                    RenameInstanceGuidToGuidInNode(result);
+
+                    if (result["resultProvenance"] is JObject resultProvenance)
+                    {
+                        if (resultProvenance["firstDetectionRunInstanceGuid"] is JToken firstDetectionRunInstanceGuid)
+                        {
+                            resultProvenance.Remove("firstDetectionRunInstanceGuid");
+                            resultProvenance.Add("firstDetectionRunGuid", firstDetectionRunInstanceGuid);
+                        }
+
+                        if (resultProvenance["lastDetectionRunInstanceGuid"] is JToken lastDetectionRunInstanceGuid)
+                        {
+                            resultProvenance.Remove("lastDetectionRunInstanceGuid");
+                            resultProvenance.Add("lastDetectionRunGuid", lastDetectionRunInstanceGuid);
+                        }
+                    }
+                }
+            }
+        }
+
+        private static void RenameInstanceGuidToGuidInNode(JObject node)
+        {
+            if (node["instanceGuid"] is JToken instanceGuid)
+            {
+                node.Remove("instanceGuid");
+                node.Add("guid", instanceGuid);
+            }
+        }
+
+        private static void RenameInstanceIdToIdInNode(JObject node)
+        {
+            if (node["instanceId"] is JToken instanceId)
+            {
+                node.Remove("instanceId");
+                node.Add("id", instanceId);
             }
         }
 

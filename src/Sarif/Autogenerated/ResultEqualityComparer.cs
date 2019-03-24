@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (left.InstanceGuid != right.InstanceGuid)
+            if (left.Guid != right.Guid)
             {
                 return false;
             }
@@ -444,9 +444,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.InstanceGuid != null)
+                if (obj.Guid != null)
                 {
-                    result = (result * 31) + obj.InstanceGuid.GetHashCode();
+                    result = (result * 31) + obj.Guid.GetHashCode();
                 }
 
                 if (obj.CorrelationGuid != null)
