@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             else if (objectType == typeof(BaselineState))
                 contract.Converter = EnumConverter.Instance;
 
-            else if (objectType == typeof(SuppressionStates))
+            else if (objectType == typeof(SuppressionKind))
                 contract.Converter = FlagsEnumConverter.Instance;
 
             else if (objectType == typeof(ArtifactRoles))

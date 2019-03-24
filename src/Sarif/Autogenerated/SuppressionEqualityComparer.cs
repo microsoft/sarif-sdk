@@ -9,14 +9,14 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Defines methods to support the comparison of objects of type ReportingDescriptorReference for equality.
+    /// Defines methods to support the comparison of objects of type Suppression for equality.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
-    internal sealed class ReportingDescriptorReferenceEqualityComparer : IEqualityComparer<ReportingDescriptorReference>
+    internal sealed class SuppressionEqualityComparer : IEqualityComparer<Suppression>
     {
-        internal static readonly ReportingDescriptorReferenceEqualityComparer Instance = new ReportingDescriptorReferenceEqualityComparer();
+        internal static readonly SuppressionEqualityComparer Instance = new SuppressionEqualityComparer();
 
-        public bool Equals(ReportingDescriptorReference left, ReportingDescriptorReference right)
+        public bool Equals(Suppression left, Suppression right)
         {
             if (ReferenceEquals(left, right))
             {
@@ -28,22 +28,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.Id != right.Id)
+            if (left.Kind != right.Kind)
             {
                 return false;
             }
 
-            if (left.Index != right.Index)
-            {
-                return false;
-            }
-
-            if (left.Guid != right.Guid)
-            {
-                return false;
-            }
-
-            if (!ToolComponentReference.ValueComparer.Equals(left.ToolComponentReference, right.ToolComponentReference))
+            if (!Location.ValueComparer.Equals(left.Location, right.Location))
             {
                 return false;
             }
@@ -73,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public int GetHashCode(ReportingDescriptorReference obj)
+        public int GetHashCode(Suppression obj)
         {
             if (ReferenceEquals(obj, null))
             {
@@ -83,20 +73,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (obj.Id != null)
+                result = (result * 31) + obj.Kind.GetHashCode();
+                if (obj.Location != null)
                 {
-                    result = (result * 31) + obj.Id.GetHashCode();
-                }
-
-                result = (result * 31) + obj.Index.GetHashCode();
-                if (obj.Guid != null)
-                {
-                    result = (result * 31) + obj.Guid.GetHashCode();
-                }
-
-                if (obj.ToolComponentReference != null)
-                {
-                    result = (result * 31) + obj.ToolComponentReference.ValueGetHashCode();
+                    result = (result * 31) + obj.Location.ValueGetHashCode();
                 }
 
                 if (obj.Properties != null)

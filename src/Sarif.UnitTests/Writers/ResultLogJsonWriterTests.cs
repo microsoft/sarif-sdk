@@ -210,8 +210,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             new Notification
             {
-                Id = "NOT0001",
-                RuleId = "TST0001",
+                NotificationDescriptorReference = new ReportingDescriptorReference
+                {
+                    Id = "NOT0001",
+                },
+                AssociatedRuleDescriptorReference = new ReportingDescriptorReference
+                {
+                    Id = "TST0001",
+                },
                 Level = FailureLevel.Error,
                 Message = new Message { Text = "This is a test" },
                 PhysicalLocation = new PhysicalLocation

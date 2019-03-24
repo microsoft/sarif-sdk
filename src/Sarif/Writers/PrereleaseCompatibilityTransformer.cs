@@ -142,11 +142,125 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     // https://github.com/oasis-tcs/sarif-spec/issues/337
                     ConvertToolToDriverInExternalPropertyFiles(run);
 
+                    // https://github.com/oasis-tcs/sarif-spec/issues/338
+                    ModifyExternalPropertyFilesToExternalPropertyFileReferences(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/324
+                    UpdateAllNotificationDescriptorReferences(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/344
+                    ConvertSuppressionStatesToSuppressions(run);
+
                     // https://github.com/oasis-tcs/sarif-spec/issues/341
                     RenameAllInstanceGuidsAndIds(run);
                 }
             }
             return true;
+        }
+
+        private static void UpdateAllNotificationDescriptorReferences(JObject run)
+        {
+            // Previously:
+            //      "notification" : {
+            //          "id" : "notif001" ,
+            //          "ruleId" : "rule001",
+            //          "ruleIndex" : 1
+            //      }
+            // Now:
+            //      "notification" : {
+            //          "notificationDescriptorReference" : {
+            //              "id" : "notif001"
+            //          }
+            //          "associatedRuleDescriptorReference" : {
+            //              "id" : "rule001",
+            //              "index" : 1
+            //          }
+            //      }
+
+            string[] notificationPathsToUpdate =
+            {
+                "invocations[].toolExecutionNotifications[]",
+                "invocations[].toolConfigurationNotifications[]",
+                "conversion.invocation.toolExecutionNotifications[]",
+                "conversion.invocation.toolConfigurationNotifications[]"
+            };
+
+            PerformActionOnLeafNodeIfExists(
+                possiblePathsToLeafNode: notificationPathsToUpdate,
+                rootNode: run,
+                action: UpdateNotificationDescriptorReferencesInSingleNotificationObject);
+        }
+
+        private static void UpdateNotificationDescriptorReferencesInSingleNotificationObject(JObject notification)
+        {
+            if(notification["id"] is JToken id)
+            {
+                var notificationDescriptorReference = new JObject
+                {
+                    { "id", id }
+                };
+
+                notification.Remove("id");
+                notification.Add("notificationDescriptorReference", notificationDescriptorReference);
+            }
+
+            var associatedRuleDescriptorReference = new JObject();
+
+            if (notification["ruleId"] is JToken ruleId)
+            {
+                associatedRuleDescriptorReference.Add("id", ruleId);
+                notification.Remove("ruleId");
+            }
+
+            if (notification["ruleIndex"] is JToken ruleIndex)
+            {
+                associatedRuleDescriptorReference.Add("index", ruleIndex);
+                notification.Remove("ruleIndex");
+            }
+
+            if (associatedRuleDescriptorReference.Count > 0)
+            {
+                notification.Add("associatedRuleDescriptorReference", associatedRuleDescriptorReference);
+            }
+        }
+
+        private static void ConvertSuppressionStatesToSuppressions(JObject run)
+        {
+            if (run["results"] is JArray results)
+            {
+                foreach (JObject result in results)
+                {
+                    if (result["suppressionStates"] is JArray suppressionStates)
+                    {
+                        result.Remove("suppressionStates");
+                        var suppressions = new JArray();
+
+                        foreach (JToken suppressionState in suppressionStates)
+                        {
+                            var suppression = new JObject
+                            {
+                                { "kind", suppressionState }
+                            };
+
+                            suppressions.Add(suppression);
+                        }
+
+                        if (suppressions.Count > 0)
+                        {
+                            result.Add("suppressions", suppressions);
+                        }
+                    }
+                }
+            }
+        }
+
+        private static void ModifyExternalPropertyFilesToExternalPropertyFileReferences(JObject run)
+        {
+            if (run["externalPropertyFiles"] is JObject externalPropertyFiles)
+            {
+                run.Remove("externalPropertyFiles");
+                run.Add("externalPropertyFileReferences", externalPropertyFiles);
+            }
         }
 
         private static void RenameAllInstanceGuidsAndIds(JObject run)

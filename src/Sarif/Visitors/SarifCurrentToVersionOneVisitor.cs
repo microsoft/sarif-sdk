@@ -360,12 +360,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 notification = new NotificationVersionOne
                 {
                     Exception = CreateExceptionDataVersionOne(v2Notification.Exception),
-                    Id = v2Notification.Id,
+                    Id = v2Notification.NotificationDescriptorReference?.Id,
                     Level = Utilities.CreateNotificationLevelVersionOne(v2Notification.Level),
                     Message = v2Notification.Message?.Text,
                     PhysicalLocation = CreatePhysicalLocationVersionOne(v2Notification.PhysicalLocation),
                     Properties = v2Notification.Properties,
-                    RuleId = v2Notification.RuleId,
+                    RuleId = v2Notification.AssociatedRuleDescriptorReference?.Id,
                     ThreadId = v2Notification.ThreadId,
                     Time = v2Notification.TimeUtc
                 };
@@ -771,7 +771,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     RelatedLocations = v2Result.RelatedLocations?.Select(CreateAnnotatedCodeLocationVersionOne).ToList(),
                     Snippet = v2Result.Locations?[0]?.PhysicalLocation?.Region?.Snippet?.Text,
                     Stacks = v2Result.Stacks?.Select(CreateStackVersionOne).ToList(),
-                    SuppressionStates = Utilities.CreateSuppressionStatesVersionOne(v2Result.SuppressionStates)
+                    SuppressionStates = Utilities.CreateSuppressionStatesVersionOne(v2Result.Suppressions)
                 };
 
                 if (result.Fixes != null)

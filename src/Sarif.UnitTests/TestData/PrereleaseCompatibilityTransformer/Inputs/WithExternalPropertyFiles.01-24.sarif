@@ -19,13 +19,6 @@
                     },
                     "instanceGuid": "B10DFE7E-2088-48EB-8CE6-F0679A2365F8"
                 },
-                "graphs": {
-                    "artifactLocation": {
-                        "uri": "externalized/graphs.sarif-external-properties",
-                        "uriBaseId": "TESTROOT"
-                    },
-                    "instanceGuid": "B10DFE7E-2088-48EB-8CE6-F0679A230000"
-                },
                 "externalizedProperties": {
                     "artifactLocation": {
                         "uri": "externalized/externalizedProperties.sarif-external-properties",
