@@ -1834,7 +1834,7 @@
           }
         },
 
-        "Guid": {
+        "guid": {
           "description": "A stable, unique identifer for the result in the form of a GUID.",
           "type": "string"
         },
@@ -2169,7 +2169,7 @@
           "$ref": "#/definitions/runAutomationDetails"
         },
 
-        "RunAggregates": {
+        "runAggregates": {
             "description": "Automation details that describe the aggregate of runs to which this run belongs.",
             "type": "array",
             "minItems": 0,
