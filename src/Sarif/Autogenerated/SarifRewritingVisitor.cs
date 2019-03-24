@@ -136,6 +136,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitTool((Tool)node);
                 case SarifNodeKind.ToolComponent:
                     return VisitToolComponent((ToolComponent)node);
+                case SarifNodeKind.ToolComponentReference:
+                    return VisitToolComponentReference((ToolComponentReference)node);
                 case SarifNodeKind.ToolComponentTranslation:
                     return VisitToolComponentTranslation((ToolComponentTranslation)node);
                 case SarifNodeKind.Translation:
@@ -640,6 +642,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 node.PhysicalLocation = VisitNullChecked(node.PhysicalLocation);
                 node.Message = VisitNullChecked(node.Message);
                 node.Exception = VisitNullChecked(node.Exception);
+                node.NotificationDescriptorReference = VisitNullChecked(node.NotificationDescriptorReference);
+                node.AssociatedRuleDescriptorReference = VisitNullChecked(node.AssociatedRuleDescriptorReference);
             }
 
             return node;
@@ -763,6 +767,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                node.ToolComponentReference = VisitNullChecked(node.ToolComponentReference);
             }
 
             return node;
@@ -862,6 +867,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                         node.TaxonomyReferences[index_0] = VisitNullChecked(node.TaxonomyReferences[index_0]);
                     }
                 }
+
+                node.RuleDescriptorReference = VisitNullChecked(node.RuleDescriptorReference);
             }
 
             return node;
@@ -1142,6 +1149,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                         node.RuleDescriptors[index_0] = VisitNullChecked(node.RuleDescriptors[index_0]);
                     }
                 }
+            }
+
+            return node;
+        }
+
+        public virtual ToolComponentReference VisitToolComponentReference(ToolComponentReference node)
+        {
+            if (node != null)
+            {
             }
 
             return node;

@@ -1,49 +1,49 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "title": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta.2019-02-20 JSON Schema",
-    "description": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2019-02-20 JSON Schema: a standard format for the output of static analysis tools.",
-    "additionalProperties": false,
-    "type": "object",
-    "properties": {
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta.2019-02-20 JSON Schema",
+  "description": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2019-02-20 JSON Schema: a standard format for the output of static analysis tools.",
+  "additionalProperties": false,
+  "type": "object",
+  "properties": {
 
-        "$schema": {
-            "description": "The URI of the JSON schema corresponding to the version.",
-            "type": "string",
-            "format": "uri"
-        },
-
-        "version": {
-            "description": "The SARIF format version of this log file.",
-            "enum": [ "2.0.0-csd.2.beta.2019-02-20" ]
-        },
-
-        "runs": {
-            "description": "The set of runs contained in this log file.",
-            "type": "array",
-            "minItems": 0,
-            "uniqueItems": false,
-            "items": {
-                "$ref": "#/definitions/run"
-            }
-        },
-
-        "inlineExternalProperties": {
-            "description": "References to external property files that share data between runs.",
-            "type": "array",
-            "minItems": 0,
-            "uniqueItems": false,
-            "items": {
-                "$ref": "#/definitions/externalProperties"
-            }
-        },
-
-        "properties": {
-            "description": "Key/value pairs that provide additional information about the log file.",
-            "$ref": "#/definitions/propertyBag"
-        }
+    "$schema": {
+      "description": "The URI of the JSON schema corresponding to the version.",
+      "type": "string",
+      "format": "uri"
     },
 
-    "required": [ "version", "runs" ],
+    "version": {
+      "description": "The SARIF format version of this log file.",
+      "enum": [ "2.0.0-csd.2.beta.2019-02-20" ]
+    },
+
+    "runs": {
+      "description": "The set of runs contained in this log file.",
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "items": {
+        "$ref": "#/definitions/run"
+      }
+    },
+
+    "inlineExternalProperties": {
+      "description": "References to external property files that share data between runs.",
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "items": {
+        "$ref": "#/definitions/externalProperties"
+      }
+    },
+
+    "properties": {
+      "description": "Key/value pairs that provide additional information about the log file.",
+      "$ref": "#/definitions/propertyBag"
+    }
+  },
+
+  "required": [ "version", "runs" ],
 
   "definitions": {
 
@@ -501,170 +501,170 @@
           }
         },
 
-                "properties": {
-                    "description": "Key/value pairs that provide additional information about the exception.",
-                    "$ref": "#/definitions/propertyBag"
-                }
-            }
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the exception.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      }
+    },
+
+    "externalProperties": {
+      "type": "object",
+      "properties": {
+
+        "schema": {
+          "description": "The URI of the JSON schema corresponding to the version of the external property file format.",
+          "type": "string",
+          "format": "uri"
         },
 
-        "externalProperties": {
-            "type": "object",
-            "properties": {
-
-                "schema": {
-                    "description": "The URI of the JSON schema corresponding to the version of the external property file format.",
-                    "type": "string",
-                    "format": "uri"
-                },
-
-                "version": {
-                    "description": "The SARIF format version of this external properties object.",
-                    "enum": [ "2.0.0-csd.2.beta.2019-02-20" ]
-                },
-
-                "guid": {
-                    "description": "A stable, unique identifer for this external properties object, in the form of a GUID.",
-                    "type": "string"
-                },
-
-                "runGuid": {
-                    "description": "A stable, unique identifer for the run associated with this external properties object, in the form of a GUID.",
-                    "type": "string"
-                },
-
-                "conversion": {
-                    "description": "A conversion object that will be merged with a separate run.",
-                    "$ref": "#/definitions/conversion"
-                },
-
-                "graphs": {
-                    "description": "An array of graph objects that will merged with a separate run.",
-                    "type": "object",
-                    "additionalProperties": {
-                        "$ref": "#/definitions/graph"
-                    }
-                },
-
-                "externalizedProperties": {
-                    "description": "Key/value pairs that provide additional information that will be merged with a separate run.",
-                    "$ref": "#/definitions/propertyBag"
-                },
-
-                "artifacts": {
-                    "description": "An array of artifact objects that will be merged with a separate run.",
-                    "type": "array",
-                    "minItems": 0,
-                    "uniqueItems": true,
-                    "items": {
-                        "$ref": "#/definitions/artifact"
-                    }
-                },
-
-                "invocations": {
-                    "description": "Describes the invocation of the analysis tool that will be merged with a separate run.",
-                    "type": "array",
-                    "minItems": 0,
-                    "uniqueItems": false,
-                    "default": [],
-                    "items": {
-                        "$ref": "#/definitions/invocation"
-                    }
-                },
-
-                "logicalLocations": {
-                    "description": "An array of logical locations such as namespaces, types or functions that will be merged with a separate run.",
-                    "type": "array",
-                    "minItems": 0,
-                    "uniqueItems": true,
-                    "default": [],
-                    "items": {
-                        "$ref": "#/definitions/logicalLocation"
-                    }
-                },
-
-                "threadFlowLocations": {
-                    "description": "An array of threadFlowLocation objects that will be merged with a separate run.",
-                    "type": "array",
-                    "minItems": 0,
-                    "uniqueItems": true,
-                    "default": [],
-                    "items": {
-                        "$ref": "#/definitions/threadFlowLocation"
-                    }
-                },
-
-                "results": {
-                    "description": "An array of result objects that will be merged with a separate run.",
-                    "type": "array",
-                    "minItems": 0,
-                    "uniqueItems": false,
-                    "items": {
-                        "$ref": "#/definitions/result"
-                    }
-                },
-
-                "taxonomies": {
-                    "description": "An array of reportingDescriptor objects that will be merged with a separate run.",
-                    "type": "array",
-                    "minItems": 0,
-                    "uniqueItems": true,
-                    "default": [],
-                    "items": {
-                        "$ref": "#/definitions/reportingDescriptor"
-                    }
-                },
-
-                "driver": {
-                    "description": "The analysis tool object that will be merged with a separate run.",
-                    "$ref": "#/definitions/toolComponent"
-                },
-
-                "extensions": {
-                    "description": "Tool extensions that will be merged with a separate run.",
-                    "type": "array",
-                    "minItems": 0,
-                    "uniqueItems": true,
-                    "default": [],
-                    "items": {
-                        "$ref": "#/definitions/toolComponent"
-                    }
-                },
-
-                "properties": {
-                    "description": "Key/value pairs that provide additional information about the external properties.",
-                    "$ref": "#/definitions/propertyBag"
-                }
-            },
-            "required": [ "version" ]
+        "version": {
+          "description": "The SARIF format version of this external properties object.",
+          "enum": [ "2.0.0-csd.2.beta.2019-02-20" ]
         },
+
+        "guid": {
+          "description": "A stable, unique identifer for this external properties object, in the form of a GUID.",
+          "type": "string"
+        },
+
+        "runGuid": {
+          "description": "A stable, unique identifer for the run associated with this external properties object, in the form of a GUID.",
+          "type": "string"
+        },
+
+        "conversion": {
+          "description": "A conversion object that will be merged with a separate run.",
+          "$ref": "#/definitions/conversion"
+        },
+
+        "graphs": {
+          "description": "An array of graph objects that will merged with a separate run.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/graph"
+          }
+        },
+
+        "externalizedProperties": {
+          "description": "Key/value pairs that provide additional information that will be merged with a separate run.",
+          "$ref": "#/definitions/propertyBag"
+        },
+
+        "artifacts": {
+          "description": "An array of artifact objects that will be merged with a separate run.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/artifact"
+          }
+        },
+
+        "invocations": {
+          "description": "Describes the invocation of the analysis tool that will be merged with a separate run.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": false,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/invocation"
+          }
+        },
+
+        "logicalLocations": {
+          "description": "An array of logical locations such as namespaces, types or functions that will be merged with a separate run.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/logicalLocation"
+          }
+        },
+
+        "threadFlowLocations": {
+          "description": "An array of threadFlowLocation objects that will be merged with a separate run.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/threadFlowLocation"
+          }
+        },
+
+        "results": {
+          "description": "An array of result objects that will be merged with a separate run.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": false,
+          "items": {
+            "$ref": "#/definitions/result"
+          }
+        },
+
+        "taxonomies": {
+          "description": "An array of reportingDescriptor objects that will be merged with a separate run.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/reportingDescriptor"
+          }
+        },
+
+        "driver": {
+          "description": "The analysis tool object that will be merged with a separate run.",
+          "$ref": "#/definitions/toolComponent"
+        },
+
+        "extensions": {
+          "description": "Tool extensions that will be merged with a separate run.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/toolComponent"
+          }
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the external properties.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      },
+      "required": [ "version" ]
+    },
 
     "externalPropertyFileReference": {
       "type": "object",
+      "properties": {
+
+        "location": {
+          "description": "The location of the external property file.",
+          "$ref": "#/definitions/artifactLocation"
+        },
+
+        "guid": {
+          "description": "A stable, unique identifer for the external property file in the form of a GUID.",
+          "type": "string"
+        },
+
+        "itemCount": {
+          "description": "A non-negative integer specifying the number of items contained in the external property file.",
+          "type": "integer",
+          "default": 0,
+          "minimum": 0
+        },
+
         "properties": {
-
-            "location": {
-                "description": "The location of the external property file.",
-                "$ref": "#/definitions/artifactLocation"
-            },
-
-            "guid": {
-                "description": "A stable, unique identifer for the external property file in the form of a GUID.",
-                "type": "string"
-            },
-
-            "itemCount": {
-                "description": "A non-negative integer specifying the number of items contained in the external property file.",
-                "type": "integer",
-                "default": 0,
-                "minimum": 0
-            },
-
-            "properties": {
-                "description": "Key/value pairs that provide additional information about the external property file.",
-                "$ref": "#/definitions/propertyBag"
-            }
+          "description": "Key/value pairs that provide additional information about the external property file.",
+          "$ref": "#/definitions/propertyBag"
         }
+      }
     },
 
     "externalPropertyFileReferences": {
@@ -674,18 +674,18 @@
       "properties": {
 
         "conversion": {
-            "description": "An external property file containing a run.conversion object to be merged with the root log file.",
-            "$ref": "#/definitions/externalPropertyFileReference"
+          "description": "An external property file containing a run.conversion object to be merged with the root log file.",
+          "$ref": "#/definitions/externalPropertyFileReference"
         },
 
         "graphs": {
-            "description": "An external property file containing a run.graphs object to be merged with the root log file.",
-            "$ref": "#/definitions/externalPropertyFileReference"
+          "description": "An external property file containing a run.graphs object to be merged with the root log file.",
+          "$ref": "#/definitions/externalPropertyFileReference"
         },
 
         "externalizedProperties": {
-            "description": "An external property file containing a run.properties object to be merged with the root log file.",
-            "$ref": "#/definitions/externalPropertyFileReference"
+          "description": "An external property file containing a run.properties object to be merged with the root log file.",
+          "$ref": "#/definitions/externalPropertyFileReference"
         },
 
         "artifacts": {
@@ -693,9 +693,9 @@
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
-            "items": {
-                "$ref": "#/definitions/externalPropertyFileReference"
-            }
+          "items": {
+            "$ref": "#/definitions/externalPropertyFileReference"
+          }
         },
 
         "invocations": {
@@ -703,9 +703,9 @@
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
-            "items": {
-                "$ref": "#/definitions/externalPropertyFileReference"
-            }
+          "items": {
+            "$ref": "#/definitions/externalPropertyFileReference"
+          }
         },
 
         "logicalLocations": {
@@ -713,20 +713,20 @@
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
-            "items": {
-                "$ref": "#/definitions/externalPropertyFileReference"
-            }
+          "items": {
+            "$ref": "#/definitions/externalPropertyFileReference"
+          }
         },
 
         "threadFlowLocations": {
-            "description": "An array of external property files containing run.threadFlowLocations arrays to be merged with the root log file.",
-            "type": "array",
-            "minItems": 0,
-            "uniqueItems": true,
-            "default": [],
-            "items": {
-                "$ref": "#/definitions/externalPropertyFileReference"
-            }
+          "description": "An array of external property files containing run.threadFlowLocations arrays to be merged with the root log file.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/externalPropertyFileReference"
+          }
         },
 
         "results": {
@@ -734,9 +734,9 @@
           "type": "array",
           "minItems": 1,
           "uniqueItems": false,
-            "items": {
-                "$ref": "#/definitions/externalPropertyFileReference"
-            }
+          "items": {
+            "$ref": "#/definitions/externalPropertyFileReference"
+          }
         },
 
         "taxonomies": {
@@ -744,9 +744,9 @@
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
-            "items": {
-                "$ref": "#/definitions/externalPropertyFileReference"
-            }
+          "items": {
+            "$ref": "#/definitions/externalPropertyFileReference"
+          }
         },
 
         "addresses": {
@@ -755,25 +755,25 @@
           "minItems": 0,
           "uniqueItems": false,
           "default": [],
-            "items": {
-                "$ref": "#/definitions/externalPropertyFileReference"
-            }
+          "items": {
+            "$ref": "#/definitions/externalPropertyFileReference"
+          }
         },
 
         "driver": {
-            "description": "An external property file containing a run.driver object to be merged with the root log file.",
-            "$ref": "#/definitions/externalPropertyFileReference"
+          "description": "An external property file containing a run.driver object to be merged with the root log file.",
+          "$ref": "#/definitions/externalPropertyFileReference"
         },
 
         "extensions": {
-            "description": "An array of external property files containing run.extensions arrays to be merged with the root log file.",
-            "type": "array",
-            "minItems": 0,
-            "uniqueItems": false,
-            "default": [],
-            "items": {
-                "$ref": "#/definitions/externalPropertyFileReference"
-            }
+          "description": "An array of external property files containing run.extensions arrays to be merged with the root log file.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": false,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/externalPropertyFileReference"
+          }
         },
 
         "properties": {
@@ -1266,23 +1266,6 @@
       "additionalProperties": false,
       "properties": {
 
-        "id": {
-          "description": "An identifier for the condition that was encountered.",
-          "type": "string"
-        },
-
-        "ruleId": {
-          "description": "The stable, unique identifier of the rule, if any, to which this notification is relevant.",
-          "type": "string"
-        },
-
-        "ruleIndex": {
-          "description": "The index within the run resources array of the rule object, if any, associated with this notification.",
-          "type": "integer",
-          "default": -1,
-          "minimum": -1
-        },
-
         "physicalLocation": {
           "description": "The artifact and region relevant to this notification.",
           "$ref": "#/definitions/physicalLocation"
@@ -1313,6 +1296,16 @@
         "exception": {
           "description": "The runtime exception, if any, relevant to this notification.",
           "$ref": "#/definitions/exception"
+        },
+
+        "notificationDescriptorReference": {
+          "description": "A reference used to locate the descriptor relevant to this notification.",
+          "$ref": "#/definitions/reportingDescriptorReference"
+        },
+
+        "associatedRuleDescriptorReference": {
+          "description": "A reference used to locate the rule descriptor associated with this notification.",
+          "$ref": "#/definitions/reportingDescriptorReference"
         },
 
         "properties": {
@@ -1554,15 +1547,15 @@
           "type": "string"
         },
 
-                "shortDescription": {
-                    "description": "A concise description of the report. Should be a single sentence that is understandable when visible space is limited to a single line of text.",
-                    "$ref": "#/definitions/multiformatMessageString"
-                },
+        "shortDescription": {
+          "description": "A concise description of the report. Should be a single sentence that is understandable when visible space is limited to a single line of text.",
+          "$ref": "#/definitions/multiformatMessageString"
+        },
 
-                "fullDescription": {
-                    "description": "A description of the report. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.",
-                    "$ref": "#/definitions/multiformatMessageString"
-                },
+        "fullDescription": {
+          "description": "A description of the report. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.",
+          "$ref": "#/definitions/multiformatMessageString"
+        },
 
         "messageStrings": {
           "description": "A set of name/value pairs with arbitrary names. Each value is a multiformatMessageString object, which holds message strings in plain text and (optionally) Markdown format. The strings can include placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.",
@@ -1740,13 +1733,25 @@
       "properties": {
 
         "id": {
-          "description": "A notification identifier.",
+          "description": "The id of the descriptor.",
           "type": "string"
         },
 
-        "pointer": {
-          "description": "A JSON pointer used to retrieve a reporting descriptor from an array within a tool component.",
+        "index": {
+          "description": "The index into an array of descriptors in toolComponent.ruleDescriptors, toolComponent.notificationDescriptors, or toolComponent.taxonomyDescriptors, depending on context.",
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
+        },
+
+        "guid": {
+          "description": "A guid that uniquely identifies the descriptor.",
           "type": "string"
+        },
+
+        "toolComponentReference": {
+          "description": "A reference used to locate the toolComponent associated with the descriptor.",
+          "$ref": "#/definitions/toolComponentReference"
         },
 
         "properties": {
@@ -1982,6 +1987,11 @@
           }
         },
 
+        "ruleDescriptorReference": {
+          "description": "A reference used to locate the rule descriptor relevant to this result.",
+          "$ref": "#/definitions/reportingDescriptorReference"
+        },
+
         "properties": {
           "description": "Key/value pairs that provide additional information about the result.",
           "$ref": "#/definitions/propertyBag"
@@ -2066,14 +2076,14 @@
         },
 
         "conversion": {
-            "description": "A conversion object that describes how a converter transformed an analysis tool's native reporting format into the SARIF format.",
-            "$ref": "#/definitions/conversion"
+          "description": "A conversion object that describes how a converter transformed an analysis tool's native reporting format into the SARIF format.",
+          "$ref": "#/definitions/conversion"
         },
 
         "language": {
-            "description": "The language of the messages emitted into the log file during this run (expressed as an ISO 649 two-letter lowercase culture code) and region (expressed as an ISO 3166 two-letter uppercase subculture code associated with a country or region).",
-            "type": "string",
-            "default": "en-US"
+          "description": "The language of the messages emitted into the log file during this run (expressed as an ISO 649 two-letter lowercase culture code) and region (expressed as an ISO 3166 two-letter uppercase subculture code associated with a country or region).",
+          "type": "string",
+          "default": "en-US"
         },
 
         "versionControlProvenance": {
@@ -2194,8 +2204,8 @@
         },
 
         "externalPropertyFileReferences": {
-            "description": "References to external property files that should be inlined with the content of a root log file.",
-            "$ref": "#/definitions/externalPropertyFileReferences"
+          "description": "References to external property files that should be inlined with the content of a root log file.",
+          "$ref": "#/definitions/externalPropertyFileReferences"
         },
 
         "threadFlowLocations": {
@@ -2610,73 +2620,100 @@
       "required": [ "name" ]
     },
 
+    "toolComponentReference": {
+      "description": "",
+      "type": "object",
+      "properties": {
+
+        "name": {
+          "description": "The 'name' property of the referenced toolComponent.",
+          "type": "string"
+        },
+
+        "index": {
+          "description": "An index into the referenced toolComponent in tool.extensions.",
+          "type": "integer"
+        },
+
+        "guid": {
+          "description": "The 'guid' property of the referenced toolComponent.",
+          "type": "string"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the toolComponentReference.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      }
+    },
+
     "toolComponentTranslation": {
       "description": "Provides localized message strings for a tool component in a single language.",
       "additionalProperties": false,
       "type": "object",
+      "properties": {
+
+        "toolComponentGuid": {
+          "description": "The unique identifier for the tool component in the form of a GUID, matching toolComponent.guid.",
+          "type": "string"
+        },
+
+        "location": {
+          "description": "The location of the translation.",
+          "$ref": "#/definitions/artifactLocation"
+        },
+
+        "downloadUri": {
+          "description": "The absolute URI from which the tool component translation can be downloaded.",
+          "type": "string",
+          "format": "uri"
+        },
+
+        "semanticVersion": {
+          "description": "The semantic version of the tool component for which the translation was made.",
+          "type": "string"
+        },
+
+        "partialTranslation": {
+          "description": "True if this object contains a subset of the strings defined by the tool component.",
+          "type": "boolean"
+        },
+
+        "globalMessageStrings": {
+          "description": "A dictionary, each of whose keys is a message identifier and each of whose values is a multiformatMessageString object, which holds message strings in plain text and (optionally) Markdown format. The strings can include placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments. The property names are a subset of the property names in the globalMessageStrings property of the toolComponent object to which this translation belongs.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/multiformatMessageString"
+          }
+        },
+
+        "reportingDescriptors": {
+          "description": "Provides an array of translations for a reporting descriptor in a available languages.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/reportingDescriptorTranslation"
+          }
+        },
+
+        "notificationDescriptors": {
+          "description": "Provides an array of translations for a notification descriptor in a available languages.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/reportingDescriptorTranslation"
+          }
+        },
+
         "properties": {
-
-            "toolComponentGuid": {
-                "description": "The unique identifier for the tool component in the form of a GUID, matching toolComponent.guid.",
-                "type": "string"
-            },
-
-            "location": {
-                "description": "The location of the translation.",
-                "$ref": "#/definitions/artifactLocation"
-            },
-
-            "downloadUri": {
-                "description": "The absolute URI from which the tool component translation can be downloaded.",
-                "type": "string",
-                "format": "uri"
-            },
-
-            "semanticVersion": {
-                "description": "The semantic version of the tool component for which the translation was made.",
-                "type": "string"
-            },
-
-            "partialTranslation": {
-                "description": "True if this object contains a subset of the strings defined by the tool component.",
-                "type": "boolean"
-            },
-
-            "globalMessageStrings": {
-                "description": "A dictionary, each of whose keys is a message identifier and each of whose values is a multiformatMessageString object, which holds message strings in plain text and (optionally) Markdown format. The strings can include placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments. The property names are a subset of the property names in the globalMessageStrings property of the toolComponent object to which this translation belongs.",
-                "type": "object",
-                "additionalProperties": {
-                    "$ref": "#/definitions/multiformatMessageString"
-                }
-            },
-
-            "reportingDescriptors": {
-                "description": "Provides an array of translations for a reporting descriptor in a available languages.",
-                "type": "array",
-                "minItems": 0,
-                "uniqueItems": true,
-                "default": [],
-                "items": {
-                    "$ref": "#/definitions/reportingDescriptorTranslation"
-                }
-            },
-
-            "notificationDescriptors": {
-                "description": "Provides an array of translations for a notification descriptor in a available languages.",
-                "type": "array",
-                "minItems": 0,
-                "uniqueItems": true,
-                "default": [],
-                "items": {
-                    "$ref": "#/definitions/reportingDescriptorTranslation"
-                }
-            },
-
-            "properties": {
-                "description": "Key/value pairs that provide additional information about the translationComponentTranslation.",
-                "$ref": "#/definitions/propertyBag"
-            }
+          "description": "Key/value pairs that provide additional information about the translationComponentTranslation.",
+          "$ref": "#/definitions/propertyBag"
         }
+      }
     },
 
     "translation": {
