@@ -33,11 +33,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.Guid != right.Guid)
-            {
-                return false;
-            }
-
             if (!object.ReferenceEquals(left.DeprecatedIds, right.DeprecatedIds))
             {
                 if (left.DeprecatedIds == null || right.DeprecatedIds == null)
@@ -59,9 +54,56 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
+            if (left.Guid != right.Guid)
+            {
+                return false;
+            }
+
+            if (!object.ReferenceEquals(left.DeprecatedGuids, right.DeprecatedGuids))
+            {
+                if (left.DeprecatedGuids == null || right.DeprecatedGuids == null)
+                {
+                    return false;
+                }
+
+                if (left.DeprecatedGuids.Count != right.DeprecatedGuids.Count)
+                {
+                    return false;
+                }
+
+                for (int index_1 = 0; index_1 < left.DeprecatedGuids.Count; ++index_1)
+                {
+                    if (left.DeprecatedGuids[index_1] != right.DeprecatedGuids[index_1])
+                    {
+                        return false;
+                    }
+                }
+            }
+
             if (left.Name != right.Name)
             {
                 return false;
+            }
+
+            if (!object.ReferenceEquals(left.DeprecatedNames, right.DeprecatedNames))
+            {
+                if (left.DeprecatedNames == null || right.DeprecatedNames == null)
+                {
+                    return false;
+                }
+
+                if (left.DeprecatedNames.Count != right.DeprecatedNames.Count)
+                {
+                    return false;
+                }
+
+                for (int index_2 = 0; index_2 < left.DeprecatedNames.Count; ++index_2)
+                {
+                    if (left.DeprecatedNames[index_2] != right.DeprecatedNames[index_2])
+                    {
+                        return false;
+                    }
+                }
             }
 
             if (!MultiformatMessageString.ValueComparer.Equals(left.ShortDescription, right.ShortDescription))
@@ -123,9 +165,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                for (int index_1 = 0; index_1 < left.TaxonomyReferences.Count; ++index_1)
+                for (int index_3 = 0; index_3 < left.TaxonomyReferences.Count; ++index_3)
                 {
-                    if (!ReportingDescriptorReference.ValueComparer.Equals(left.TaxonomyReferences[index_1], right.TaxonomyReferences[index_1]))
+                    if (!ReportingDescriptorReference.ValueComparer.Equals(left.TaxonomyReferences[index_3], right.TaxonomyReferences[index_3]))
                     {
                         return false;
                     }
@@ -144,9 +186,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                for (int index_2 = 0; index_2 < left.OptionalTaxonomyReferences.Count; ++index_2)
+                for (int index_4 = 0; index_4 < left.OptionalTaxonomyReferences.Count; ++index_4)
                 {
-                    if (!ReportingDescriptorReference.ValueComparer.Equals(left.OptionalTaxonomyReferences[index_2], right.OptionalTaxonomyReferences[index_2]))
+                    if (!ReportingDescriptorReference.ValueComparer.Equals(left.OptionalTaxonomyReferences[index_4], right.OptionalTaxonomyReferences[index_4]))
                     {
                         return false;
                     }
@@ -193,11 +235,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Id.GetHashCode();
                 }
 
-                if (obj.Guid != null)
-                {
-                    result = (result * 31) + obj.Guid.GetHashCode();
-                }
-
                 if (obj.DeprecatedIds != null)
                 {
                     foreach (var value_4 in obj.DeprecatedIds)
@@ -210,9 +247,38 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
+                if (obj.Guid != null)
+                {
+                    result = (result * 31) + obj.Guid.GetHashCode();
+                }
+
+                if (obj.DeprecatedGuids != null)
+                {
+                    foreach (var value_5 in obj.DeprecatedGuids)
+                    {
+                        result = result * 31;
+                        if (value_5 != null)
+                        {
+                            result = (result * 31) + value_5.GetHashCode();
+                        }
+                    }
+                }
+
                 if (obj.Name != null)
                 {
                     result = (result * 31) + obj.Name.GetHashCode();
+                }
+
+                if (obj.DeprecatedNames != null)
+                {
+                    foreach (var value_6 in obj.DeprecatedNames)
+                    {
+                        result = result * 31;
+                        if (value_6 != null)
+                        {
+                            result = (result * 31) + value_6.GetHashCode();
+                        }
+                    }
                 }
 
                 if (obj.ShortDescription != null)
@@ -229,12 +295,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_0 = 0;
-                    foreach (var value_5 in obj.MessageStrings)
+                    foreach (var value_7 in obj.MessageStrings)
                     {
-                        xor_0 ^= value_5.Key.GetHashCode();
-                        if (value_5.Value != null)
+                        xor_0 ^= value_7.Key.GetHashCode();
+                        if (value_7.Value != null)
                         {
-                            xor_0 ^= value_5.Value.GetHashCode();
+                            xor_0 ^= value_7.Value.GetHashCode();
                         }
                     }
 
@@ -258,24 +324,24 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (obj.TaxonomyReferences != null)
                 {
-                    foreach (var value_6 in obj.TaxonomyReferences)
+                    foreach (var value_8 in obj.TaxonomyReferences)
                     {
                         result = result * 31;
-                        if (value_6 != null)
+                        if (value_8 != null)
                         {
-                            result = (result * 31) + value_6.ValueGetHashCode();
+                            result = (result * 31) + value_8.ValueGetHashCode();
                         }
                     }
                 }
 
                 if (obj.OptionalTaxonomyReferences != null)
                 {
-                    foreach (var value_7 in obj.OptionalTaxonomyReferences)
+                    foreach (var value_9 in obj.OptionalTaxonomyReferences)
                     {
                         result = result * 31;
-                        if (value_7 != null)
+                        if (value_9 != null)
                         {
-                            result = (result * 31) + value_7.ValueGetHashCode();
+                            result = (result * 31) + value_9.ValueGetHashCode();
                         }
                     }
                 }
@@ -284,12 +350,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_1 = 0;
-                    foreach (var value_8 in obj.Properties)
+                    foreach (var value_10 in obj.Properties)
                     {
-                        xor_1 ^= value_8.Key.GetHashCode();
-                        if (value_8.Value != null)
+                        xor_1 ^= value_10.Key.GetHashCode();
+                        if (value_10.Value != null)
                         {
-                            xor_1 ^= value_8.Value.GetHashCode();
+                            xor_1 ^= value_10.Value.GetHashCode();
                         }
                     }
 
