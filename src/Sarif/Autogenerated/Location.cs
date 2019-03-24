@@ -34,6 +34,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
+        /// The address of the location.
+        /// </summary>
+        [DataMember(Name = "address", IsRequired = false, EmitDefaultValue = false)]
+        public Address Address { get; set; }
+
+        /// <summary>
         /// Identifies the artifact and region.
         /// </summary>
         [DataMember(Name = "physicalLocation", IsRequired = false, EmitDefaultValue = false)]
@@ -74,6 +80,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Initializes a new instance of the <see cref="Location" /> class from the supplied values.
         /// </summary>
+        /// <param name="address">
+        /// An initialization value for the <see cref="P:Address" /> property.
+        /// </param>
         /// <param name="physicalLocation">
         /// An initialization value for the <see cref="P:PhysicalLocation" /> property.
         /// </param>
@@ -133,6 +142,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private void Init(PhysicalLocation physicalLocation, LogicalLocation logicalLocation, Message message, IEnumerable<Region> annotations, IDictionary<string, SerializedPropertyInfo> properties)
         {
+            if (address != null)
+            {
+                Address = new Address(address);
+            }
+
             if (physicalLocation != null)
             {
                 PhysicalLocation = new PhysicalLocation(physicalLocation);
