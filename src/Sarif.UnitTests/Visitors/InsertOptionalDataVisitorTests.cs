@@ -229,7 +229,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             toolNotifications.Add(
                 new Notification
                 {
-                    Id = NotificationId,
+                    NotificationDescriptorReference = new ReportingDescriptorReference
+                    {
+                        Id = NotificationId
+                    },
                     Message = new Message {  MessageId = SharedMessageId}
                 });
             configurationNotifications.Add(toolNotifications[0]);
@@ -241,8 +244,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             toolNotifications.Add(
                 new Notification
                 {
-                    Id = NotificationId,
-                    RuleIndex = RuleIndex,
+                    NotificationDescriptorReference = new ReportingDescriptorReference
+                    {
+                        Id = NotificationId
+                    },
+                    AssociatedRuleDescriptorReference = new ReportingDescriptorReference
+                    {
+                        Index = RuleIndex
+                    },
                     Message = new Message { MessageId = UniqueGlobalMessageId }
                 });
             configurationNotifications.Add(toolNotifications[1]);
@@ -254,8 +263,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             toolNotifications.Add(
                 new Notification
                 {
-                    Id = NotificationId,
-                    RuleIndex = RuleIndex,
+                    NotificationDescriptorReference = new ReportingDescriptorReference
+                    {
+                        Id = NotificationId
+                    },
+                    AssociatedRuleDescriptorReference = new ReportingDescriptorReference
+                    {
+                        Index = RuleIndex
+                    },
                     Message = new Message { MessageId = SharedMessageId }
                 });
             configurationNotifications.Add(toolNotifications[2]);

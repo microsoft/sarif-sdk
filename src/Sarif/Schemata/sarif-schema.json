@@ -51,36 +51,52 @@
       "description": "The effective address of a reported issue.",
       "additionalProperties": false,
       "type": "object",
-      "properties": {
-        "baseAddress": {
-          "description": "A base address rendered as a hexadecimal string.",
-          "type": "integer",
-          "minimum": 0
-        },
-        "kind": {
-          "description": "An open-ended string that identifies the address kind. 'section' and 'segment' are well-known values.",
-          "type": "string"
-        },
-        "name": {
-          "description": "A name that is associated with the address, e.g., '.text'.",
-          "type": "string"
-        },
-        "offset": {
-          "description": "an offset from the base address, if present, rendered as a hexadecimal string.",
-          "type": "integer",
-          "minimum": 0
-        },
-        "index": {
-          "description": "An index into run.addresses used to retrieve a cached instance to represent the address.",
-          "type": "integer",
-          "minimum": 0
-        },
-        "parentIndex": {
-          "description": "An index into run.addresses to retrieve a parent address. The parent can provide a base address (from which the current offset value is relevant) and other details.",
-          "type": "integer",
-          "minimum": 0
+        "properties": {
+
+            "baseAddress": {
+                "description": "A base address rendered as a hexadecimal string.",
+                "type": "integer",
+                "minimum": 0
+            },
+
+            "kind": {
+                "description": "An open-ended string that identifies the address kind. 'section' and 'segment' are well-known values.",
+                "type": "string"
+            },
+
+            "name": {
+                "description": "A name that is associated with the address, e.g., '.text'.",
+                "type": "string"
+            },
+
+            "fullyQualifiedName": {
+                "description": "A human-readable fully qualified name that is associated with the address.",
+                "type": "string"
+            },
+
+            "offset": {
+                "description": "an offset from the base address, if present, rendered as a hexadecimal string.",
+                "type": "integer",
+                "minimum": 0
+            },
+
+            "index": {
+                "description": "An index into run.addresses used to retrieve a cached instance to represent the address.",
+                "type": "integer",
+                "minimum": 0
+            },
+
+            "parentIndex": {
+                "description": "An index into run.addresses to retrieve a parent address. The parent can provide a base address (from which the current offset value is relevant) and other details.",
+                "type": "integer",
+                "minimum": 0
+            },
+
+            "properties": {
+                "description": "Key/value pairs that provide additional information about the address.",
+                "$ref": "#/definitions/propertyBag"
+            }
         }
-      }
     },
 
     "artifact": {
@@ -221,8 +237,13 @@
         },
 
         "binary": {
-          "description": "MIME Base64-encoded content from a binary artifact, or from a text artifact in its original encoding.",
-          "type": "string"
+            "description": "MIME Base64-encoded content from a binary artifact, or from a text artifact in its original encoding.",
+            "type": "string"
+        },
+
+        "rendered": {
+            "description": "An alternate rendered representation of the artifact (e.g., a decompiled representation of a binary region).",
+            "$ref": "#/definitions/multiformatMessageString"
         },
 
         "properties": {
@@ -1068,11 +1089,6 @@
       "type": "object",
       "properties": {
 
-        "address": {
-          "description": "The address of the location.",
-          "$ref": "#/definitions/address"
-        },
-
         "physicalLocation": {
           "description": "Identifies the artifact and region.",
           "$ref": "#/definitions/physicalLocation"
@@ -1265,23 +1281,6 @@
       "additionalProperties": false,
       "properties": {
 
-        "id": {
-          "description": "An identifier for the condition that was encountered.",
-          "type": "string"
-        },
-
-        "ruleId": {
-          "description": "The stable, unique identifier of the rule, if any, to which this notification is relevant.",
-          "type": "string"
-        },
-
-        "ruleIndex": {
-          "description": "The index within the run resources array of the rule object, if any, associated with this notification.",
-          "type": "integer",
-          "default": -1,
-          "minimum": -1
-        },
-
         "physicalLocation": {
           "description": "The artifact and region relevant to this notification.",
           "$ref": "#/definitions/physicalLocation"
@@ -1314,6 +1313,16 @@
           "$ref": "#/definitions/exception"
         },
 
+        "notificationDescriptorReference": {
+          "description": "A reference used to locate the descriptor relevant to this notification.",
+          "$ref": "#/definitions/reportingDescriptorReference"
+        },
+
+        "associatedRuleDescriptorReference": {
+          "description": "A reference used to locate the rule descriptor associated with this notification.",
+          "$ref": "#/definitions/reportingDescriptorReference"
+        },
+
         "properties": {
           "description": "Key/value pairs that provide additional information about the notification.",
           "$ref": "#/definitions/propertyBag"
@@ -1327,33 +1336,38 @@
       "description": "A physical location relevant to a result. Specifies a reference to a programming artifact together with a range of bytes or characters within that artifact.",
       "additionalProperties": false,
       "type": "object",
-      "properties": {
-
-        "id": {
-          "description": "Value that distinguishes this physical location from all other physical locations in this run object.",
-          "type": "integer"
-        },
-
-        "artifactLocation": {
-          "description": "The location of the artifact.",
-          "$ref": "#/definitions/artifactLocation"
-        },
-
-        "region": {
-          "description": "Specifies a portion of the artifact.",
-          "$ref": "#/definitions/region"
-        },
-
-        "contextRegion": {
-          "description": "Specifies a portion of the artifact that encloses the region. Allows a viewer to display additional context around the region.",
-          "$ref": "#/definitions/region"
-        },
-
         "properties": {
-          "description": "Key/value pairs that provide additional information about the physical location.",
-          "$ref": "#/definitions/propertyBag"
-        }
-      },
+
+            "id": {
+                "description": "Value that distinguishes this physical location from all other physical locations in this run object.",
+                "type": "integer"
+            },
+
+            "address": {
+                "description": "The address of the location.",
+                "$ref": "#/definitions/address"
+            },
+
+            "artifactLocation": {
+                "description": "The location of the artifact.",
+                "$ref": "#/definitions/artifactLocation"
+            },
+
+            "region": {
+                "description": "Specifies a portion of the artifact.",
+                "$ref": "#/definitions/region"
+            },
+
+            "contextRegion": {
+                "description": "Specifies a portion of the artifact that encloses the region. Allows a viewer to display additional context around the region.",
+                "$ref": "#/definitions/region"
+            },
+
+            "properties": {
+                "description": "Key/value pairs that provide additional information about the physical location.",
+                "$ref": "#/definitions/propertyBag"
+            }
+        },
 
       "required": [ "artifactLocation" ]
     },
@@ -1734,13 +1748,25 @@
       "properties": {
 
         "id": {
-          "description": "A notification identifier.",
+          "description": "The id of the descriptor.",
           "type": "string"
         },
 
-        "pointer": {
-          "description": "A JSON pointer used to retrieve a reporting descriptor from an array within a tool component.",
+        "index": {
+          "description": "The index into an array of descriptors in toolComponent.ruleDescriptors, toolComponent.notificationDescriptors, or toolComponent.taxonomyDescriptors, depending on context.",
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
+        },
+
+        "guid": {
+          "description": "A guid that uniquely identifies the descriptor.",
           "type": "string"
+        },
+
+        "toolComponentReference": {
+          "description": "A reference used to locate the toolComponent associated with the descriptor.",
+          "$ref": "#/definitions/toolComponentReference"
         },
 
         "properties": {
@@ -1978,6 +2004,11 @@
           "items": {
             "$ref": "#/definitions/reportingDescriptorReference"
           }
+        },
+
+        "ruleDescriptorReference": {
+          "description": "A reference used to locate the rule descriptor relevant to this result.",
+          "$ref": "#/definitions/reportingDescriptorReference"
         },
 
         "properties": {
@@ -2609,6 +2640,33 @@
       },
 
       "required": [ "name" ]
+    },
+
+    "toolComponentReference": {
+      "description": "",
+      "type": "object",
+      "properties": {
+
+        "name": {
+          "description": "The 'name' property of the referenced toolComponent.",
+          "type": "string"
+        },
+
+        "index": {
+          "description": "An index into the referenced toolComponent in tool.extensions.",
+          "type": "integer"
+        },
+
+        "guid": {
+          "description": "The 'guid' property of the referenced toolComponent.",
+          "type": "string"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the toolComponentReference.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      }
     },
 
     "toolComponentTranslation": {

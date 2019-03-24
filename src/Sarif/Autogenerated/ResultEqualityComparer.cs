@@ -357,6 +357,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
+            if (!ReportingDescriptorReference.ValueComparer.Equals(left.RuleDescriptorReference, right.RuleDescriptorReference))
+            {
+                return false;
+            }
+
             if (!object.ReferenceEquals(left.Properties, right.Properties))
             {
                 if (left.Properties == null || right.Properties == null || left.Properties.Count != right.Properties.Count)
@@ -585,6 +590,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                             result = (result * 31) + value_17.ValueGetHashCode();
                         }
                     }
+                }
+
+                if (obj.RuleDescriptorReference != null)
+                {
+                    result = (result * 31) + obj.RuleDescriptorReference.ValueGetHashCode();
                 }
 
                 if (obj.Properties != null)
