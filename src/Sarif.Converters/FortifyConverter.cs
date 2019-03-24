@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var run = new Run()
             {
-                Id = new RunAutomationDetails
+                AutomationDetails = new RunAutomationDetails
                 {
                     Description = new Message
                     {

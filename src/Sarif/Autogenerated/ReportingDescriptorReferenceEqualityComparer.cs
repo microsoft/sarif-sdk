@@ -33,7 +33,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.Pointer != right.Pointer)
+            if (left.Index != right.Index)
+            {
+                return false;
+            }
+
+            if (left.Guid != right.Guid)
+            {
+                return false;
+            }
+
+            if (!ToolComponentReference.ValueComparer.Equals(left.ToolComponentReference, right.ToolComponentReference))
             {
                 return false;
             }
@@ -78,9 +88,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Id.GetHashCode();
                 }
 
-                if (obj.Pointer != null)
+                result = (result * 31) + obj.Index.GetHashCode();
+                if (obj.Guid != null)
                 {
-                    result = (result * 31) + obj.Pointer.GetHashCode();
+                    result = (result * 31) + obj.Guid.GetHashCode();
+                }
+
+                if (obj.ToolComponentReference != null)
+                {
+                    result = (result * 31) + obj.ToolComponentReference.ValueGetHashCode();
                 }
 
                 if (obj.Properties != null)

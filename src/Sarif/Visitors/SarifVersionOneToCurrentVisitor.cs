@@ -557,15 +557,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 notification = new Notification
                 {
                     Exception = CreateExceptionData(v1Notification.Exception),
-                    Id = v1Notification.Id,
                     Level = Utilities.CreateFailureLevel(v1Notification.Level),
                     Message = CreateMessage(v1Notification.Message),
                     PhysicalLocation = CreatePhysicalLocation(v1Notification.PhysicalLocation),
                     Properties = v1Notification.Properties,
-                    RuleId = v1Notification.RuleId,
                     ThreadId = v1Notification.ThreadId,
                     TimeUtc = v1Notification.Time
                 };
+
+                if (!string.IsNullOrWhiteSpace(v1Notification.Id))
+                {
+                    notification.NotificationDescriptorReference = new ReportingDescriptorReference
+                    {
+                        Id = v1Notification.Id,
+                    };
+                }
+
+                if (!string.IsNullOrWhiteSpace(v1Notification.RuleId))
+                {
+                    notification.AssociatedRuleDescriptorReference = new ReportingDescriptorReference
+                    {
+                        Id = v1Notification.RuleId,
+                    };
+                }
             }
 
             return notification;
@@ -752,7 +766,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     BaselineState = Utilities.CreateBaselineState(v1Result.BaselineState),
                     CodeFlows = v1Result.CodeFlows?.Select(CreateCodeFlow).ToList(),
                     Fixes = v1Result.Fixes?.Select(CreateFix).ToList(),
-                    InstanceGuid = v1Result.Id,
+                    Guid = v1Result.Id,
                     Level = Utilities.CreateFailureLevel(v1Result.Level),
                     Kind = Utilities.CreateResultKind(v1Result.Level),
                     Locations = v1Result.Locations?.Select(CreateLocation).ToList(),
@@ -760,7 +774,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Properties = v1Result.Properties,
                     RelatedLocations = v1Result.RelatedLocations?.Select(CreateLocation).ToList(),
                     Stacks = v1Result.Stacks?.Select(CreateStack).ToList(),
-                    SuppressionStates = Utilities.CreateSuppressionStates(v1Result.SuppressionStates)
+                    Suppressions = Utilities.CreateSuppressions(v1Result.SuppressionStates)
                 };
 
                 // The v2 spec says that analysisTarget is required only if it differs from the result location.
@@ -881,21 +895,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         id = new RunAutomationDetails
                         {
-                            InstanceGuid = v1Run.Id,
-                            InstanceId = v1Run.StableId != null ? v1Run.StableId + "/" : null
+                            Guid = v1Run.Id,
+                            Id = v1Run.StableId != null ? v1Run.StableId + "/" : null
                         };
                     }
 
                     if (v1Run.AutomationId != null)
                     {
-                        aggregateIds = new[] { new RunAutomationDetails { InstanceId = v1Run.AutomationId + "/" } };
+                        aggregateIds = new[] { new RunAutomationDetails { Id = v1Run.AutomationId + "/" } };
                     }
 
                     run = new Run()
                     {
-                        Id = id,
-                        AggregateIds = aggregateIds,
-                        BaselineInstanceGuid = v1Run.BaselineId,
+                        AutomationDetails = id,
+                        RunAggregates = aggregateIds,
+                        BaselineGuid = v1Run.BaselineId,
                         Properties = v1Run.Properties,
                         Tool = CreateTool(v1Run.Tool),
                         ColumnKind = ColumnKind.Utf16CodeUnits

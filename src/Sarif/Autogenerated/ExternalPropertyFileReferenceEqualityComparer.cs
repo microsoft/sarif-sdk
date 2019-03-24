@@ -9,14 +9,14 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Defines methods to support the comparison of objects of type RunAutomationDetails for equality.
+    /// Defines methods to support the comparison of objects of type ExternalPropertyFileReference for equality.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
-    internal sealed class RunAutomationDetailsEqualityComparer : IEqualityComparer<RunAutomationDetails>
+    internal sealed class ExternalPropertyFileReferenceEqualityComparer : IEqualityComparer<ExternalPropertyFileReference>
     {
-        internal static readonly RunAutomationDetailsEqualityComparer Instance = new RunAutomationDetailsEqualityComparer();
+        internal static readonly ExternalPropertyFileReferenceEqualityComparer Instance = new ExternalPropertyFileReferenceEqualityComparer();
 
-        public bool Equals(RunAutomationDetails left, RunAutomationDetails right)
+        public bool Equals(ExternalPropertyFileReference left, ExternalPropertyFileReference right)
         {
             if (ReferenceEquals(left, right))
             {
@@ -28,12 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!Message.ValueComparer.Equals(left.Description, right.Description))
-            {
-                return false;
-            }
-
-            if (left.Id != right.Id)
+            if (!ArtifactLocation.ValueComparer.Equals(left.Location, right.Location))
             {
                 return false;
             }
@@ -43,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.CorrelationGuid != right.CorrelationGuid)
+            if (left.ItemCount != right.ItemCount)
             {
                 return false;
             }
@@ -73,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public int GetHashCode(RunAutomationDetails obj)
+        public int GetHashCode(ExternalPropertyFileReference obj)
         {
             if (ReferenceEquals(obj, null))
             {
@@ -83,14 +78,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (obj.Description != null)
+                if (obj.Location != null)
                 {
-                    result = (result * 31) + obj.Description.ValueGetHashCode();
-                }
-
-                if (obj.Id != null)
-                {
-                    result = (result * 31) + obj.Id.GetHashCode();
+                    result = (result * 31) + obj.Location.ValueGetHashCode();
                 }
 
                 if (obj.Guid != null)
@@ -98,11 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Guid.GetHashCode();
                 }
 
-                if (obj.CorrelationGuid != null)
-                {
-                    result = (result * 31) + obj.CorrelationGuid.GetHashCode();
-                }
-
+                result = (result * 31) + obj.ItemCount.GetHashCode();
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.

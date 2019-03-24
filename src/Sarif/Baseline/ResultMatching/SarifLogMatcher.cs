@@ -211,7 +211,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             Run run = new Run()
             {
                 Tool = tool,
-                Id = currentRuns.First().Id,
+                AutomationDetails = currentRuns.First().AutomationDetails,
             };
 
             IDictionary<string, SerializedPropertyInfo> properties = null;
@@ -220,7 +220,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             {
                 // We flow the baseline instance id forward (which becomes the 
                 // baseline guid for the merged log)
-                run.BaselineInstanceGuid = previousRuns.First().Id?.InstanceGuid;
+                run.BaselineGuid = previousRuns.First().AutomationDetails?.Guid;
             }
 
             bool initializeFromOldest = PropertyBagMergeBehavior.HasFlag(DictionaryMergeBehavior.InitializeFromOldest);
@@ -276,7 +276,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             run.Results = newRunResults;
             run.Artifacts = indexRemappingVisitor.CurrentFiles;
             
-            var graphs = new Dictionary<string, Graph>();
+            var graphs = new List<Graph>();
             //var ruleData = new Dictionary<string, ReportingDescriptor>();
             var invocations = new List<Invocation>();
 
@@ -287,7 +287,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             {
                 if (currentRun.Graphs != null)
                 {
-                    MergeDictionaryInto(graphs, currentRun.Graphs, GraphEqualityComparer.Instance);
+                    graphs.AddRange(currentRun.Graphs);
                 }
 
                 if (currentRun.Invocations != null)

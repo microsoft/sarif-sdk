@@ -1,0 +1,126 @@
+﻿{
+  "version": "2.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner",
+        "fullName": "CodeScanner 1.1 for Unix (en-US)"
+      },
+      "conversion": {
+        "tool": {
+          "name": "CodeScanner Legacy File Format Converter",
+          "fullName": "CodeScanner Converter Tool"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "C2001",
+          "suppressionStates": [ "suppressedExternally", "suppressedInSource" ],
+          "baselineState": "existing",
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///home/buildAgent/src/collections/list.h"
+                },
+                "region": {
+                  "snippet": {
+                    "text": "add_core(ptr, offset, val);\n    return;"
+                  },
+                  "startLine": 15,
+                  "startColumn": 9,
+                  "endLine": 15,
+                  "endColumn": 10,
+                  "byteLength": 1,
+                  "byteOffset": 254
+                }
+              },
+              "fullyQualifiedLogicalName": "collections::list:add"
+            }
+          ]
+        },
+        {
+          "ruleId": "C2002",
+          "suppressionStates": [ "suppressedInSource" ],
+          "baselineState": "existing",
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///home/buildAgent/src/collections/list3.h"
+                },
+                "region": {
+                  "snippet": {
+                    "text": "random text snippet;"
+                  },
+                  "startLine": 18,
+                  "startColumn": 30,
+                  "endLine": 18,
+                  "endColumn": 50,
+                  "byteLength": 4,
+                  "byteOffset": 254
+                }
+              },
+              "fullyQualifiedLogicalName": "collections::list:add"
+            }
+          ]
+        },
+        {
+          "ruleId": "C2001",
+          "suppressionStates": [ "suppressedExternally", "suppressedInSource" ],
+          "baselineState": "existing",
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///home/buildAgent/src/collections/list2.h"
+                },
+                "region": {
+                  "snippet": {
+                    "text": "add_core(ptr, offset, val);\n    return;"
+                  },
+                  "startLine": 15,
+                  "startColumn": 9,
+                  "endLine": 15,
+                  "endColumn": 10,
+                  "byteLength": 1,
+                  "byteOffset": 254
+                }
+              },
+              "fullyQualifiedLogicalName": "collections::list:add"
+            }
+          ]
+        }
+      ],
+      "resources": {
+        "rules": {
+          "C2001": {
+            "id": "C2001",
+            "shortDescription": {
+              "text": "A variable was used without being initialized."
+            },
+            "fullDescription": {
+              "text": "A variable was used without being initialized. This can result in runtime errors such as null reference exceptions."
+            },
+            "messageStrings": {
+              "default": "Variable \"{0}\" was used without being initialized."
+            }
+          },
+          "C2002": {
+            "id": "C2002",
+            "shortDescription": {
+              "text": "a random rule."
+            },
+            "fullDescription": {
+              "text": "this is a random rule just for testing"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

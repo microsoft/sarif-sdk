@@ -447,7 +447,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                             Uri = context.TargetUri
                         }
                     },
-                    Id = Notes.Msg001AnalyzingTarget,
+                    NotificationDescriptorReference = new ReportingDescriptorReference
+                    {
+                        Id = Notes.Msg001AnalyzingTarget
+                    },
                     Message = new Message { Text = message },
                     Level = FailureLevel.None,
                     TimeUtc = DateTime.UtcNow,

@@ -104,7 +104,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if ("ExcludedInSource".Equals(status))
             {
-                result.SuppressionStates = SuppressionStates.SuppressedInSource;
+                result.Suppressions = new List<Suppression>
+                {
+                    new Suppression
+                    {
+                        Kind = SuppressionKind.SuppressedInSource
+                    }
+                };
+
             }
             else if ("ExcludedInProject".Equals(status))
             {

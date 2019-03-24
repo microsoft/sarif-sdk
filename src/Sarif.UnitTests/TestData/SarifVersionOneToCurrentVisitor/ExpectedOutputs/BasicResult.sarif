@@ -241,7 +241,11 @@
               }
             }
           ],
-          "suppressionStates": ["suppressedExternally"],
+          "suppressions": [
+            {
+              "kind": "suppressedExternally"
+            }
+          ],
           "baselineState": "unchanged"
         }
       ],

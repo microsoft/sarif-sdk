@@ -47,16 +47,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         public DateTime LastDetectionTimeUtc { get; set; }
 
         /// <summary>
-        /// A GUID-valued string equal to the id.instanceGuid property of the run in which the result was first detected.
+        /// A GUID-valued string equal to the automationDetails.guid property of the run in which the result was first detected.
         /// </summary>
-        [DataMember(Name = "firstDetectionRunInstanceGuid", IsRequired = false, EmitDefaultValue = false)]
-        public string FirstDetectionRunInstanceGuid { get; set; }
+        [DataMember(Name = "firstDetectionRunGuid", IsRequired = false, EmitDefaultValue = false)]
+        public string FirstDetectionRunGuid { get; set; }
 
         /// <summary>
-        /// A GUID-valued string equal to the id.instanceGuid property of the run in which the result was most recently detected.
+        /// A GUID-valued string equal to the automationDetails.guid property of the run in which the result was most recently detected.
         /// </summary>
-        [DataMember(Name = "lastDetectionRunInstanceGuid", IsRequired = false, EmitDefaultValue = false)]
-        public string LastDetectionRunInstanceGuid { get; set; }
+        [DataMember(Name = "lastDetectionRunGuid", IsRequired = false, EmitDefaultValue = false)]
+        public string LastDetectionRunGuid { get; set; }
 
         /// <summary>
         /// The index within the run.invocations array of the invocation object which describes the tool invocation that detected the result.
@@ -96,11 +96,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="lastDetectionTimeUtc">
         /// An initialization value for the <see cref="P:LastDetectionTimeUtc" /> property.
         /// </param>
-        /// <param name="firstDetectionRunInstanceGuid">
-        /// An initialization value for the <see cref="P:FirstDetectionRunInstanceGuid" /> property.
+        /// <param name="firstDetectionRunGuid">
+        /// An initialization value for the <see cref="P:FirstDetectionRunGuid" /> property.
         /// </param>
-        /// <param name="lastDetectionRunInstanceGuid">
-        /// An initialization value for the <see cref="P:LastDetectionRunInstanceGuid" /> property.
+        /// <param name="lastDetectionRunGuid">
+        /// An initialization value for the <see cref="P:LastDetectionRunGuid" /> property.
         /// </param>
         /// <param name="invocationIndex">
         /// An initialization value for the <see cref="P:InvocationIndex" /> property.
@@ -111,9 +111,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ResultProvenance(DateTime firstDetectionTimeUtc, DateTime lastDetectionTimeUtc, string firstDetectionRunInstanceGuid, string lastDetectionRunInstanceGuid, int invocationIndex, IEnumerable<PhysicalLocation> conversionSources, IDictionary<string, SerializedPropertyInfo> properties)
+        public ResultProvenance(DateTime firstDetectionTimeUtc, DateTime lastDetectionTimeUtc, string firstDetectionRunGuid, string lastDetectionRunGuid, int invocationIndex, IEnumerable<PhysicalLocation> conversionSources, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(firstDetectionTimeUtc, lastDetectionTimeUtc, firstDetectionRunInstanceGuid, lastDetectionRunInstanceGuid, invocationIndex, conversionSources, properties);
+            Init(firstDetectionTimeUtc, lastDetectionTimeUtc, firstDetectionRunGuid, lastDetectionRunGuid, invocationIndex, conversionSources, properties);
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.FirstDetectionTimeUtc, other.LastDetectionTimeUtc, other.FirstDetectionRunInstanceGuid, other.LastDetectionRunInstanceGuid, other.InvocationIndex, other.ConversionSources, other.Properties);
+            Init(other.FirstDetectionTimeUtc, other.LastDetectionTimeUtc, other.FirstDetectionRunGuid, other.LastDetectionRunGuid, other.InvocationIndex, other.ConversionSources, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -153,12 +153,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ResultProvenance(this);
         }
 
-        private void Init(DateTime firstDetectionTimeUtc, DateTime lastDetectionTimeUtc, string firstDetectionRunInstanceGuid, string lastDetectionRunInstanceGuid, int invocationIndex, IEnumerable<PhysicalLocation> conversionSources, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(DateTime firstDetectionTimeUtc, DateTime lastDetectionTimeUtc, string firstDetectionRunGuid, string lastDetectionRunGuid, int invocationIndex, IEnumerable<PhysicalLocation> conversionSources, IDictionary<string, SerializedPropertyInfo> properties)
         {
             FirstDetectionTimeUtc = firstDetectionTimeUtc;
             LastDetectionTimeUtc = lastDetectionTimeUtc;
-            FirstDetectionRunInstanceGuid = firstDetectionRunInstanceGuid;
-            LastDetectionRunInstanceGuid = lastDetectionRunInstanceGuid;
+            FirstDetectionRunGuid = firstDetectionRunGuid;
+            LastDetectionRunGuid = lastDetectionRunGuid;
             InvocationIndex = invocationIndex;
             if (conversionSources != null)
             {

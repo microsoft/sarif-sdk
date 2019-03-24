@@ -167,10 +167,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 resultCount: 0,
                 (log) => {
                     log.Runs[0].Invocations = new List<Invocation> { s_invocation };
-                    log.Runs[0].Id = new RunAutomationDetails
+                    log.Runs[0].AutomationDetails = new RunAutomationDetails
                     {
-                        InstanceGuid = instanceGuid,
-                        InstanceId = instanceId
+                        Guid = instanceGuid,
+                        Id = instanceId
                     };
                 });
 
@@ -178,10 +178,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 var run = new Run()
                 {
-                    Id = new RunAutomationDetails
+                    AutomationDetails = new RunAutomationDetails
                     {
-                        InstanceGuid = instanceGuid,
-                        InstanceId = automationLogicalId + "/" + instanceGuid
+                        Guid = instanceGuid,
+                        Id = automationLogicalId + "/" + instanceGuid
                     },
                     Tool = DefaultTool,
                 };
@@ -210,8 +210,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             new Notification
             {
-                Id = "NOT0001",
-                RuleId = "TST0001",
+                NotificationDescriptorReference = new ReportingDescriptorReference
+                {
+                    Id = "NOT0001",
+                },
+                AssociatedRuleDescriptorReference = new ReportingDescriptorReference
+                {
+                    Id = "TST0001",
+                },
                 Level = FailureLevel.Error,
                 Message = new Message { Text = "This is a test" },
                 PhysicalLocation = new PhysicalLocation
