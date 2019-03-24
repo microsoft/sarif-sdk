@@ -318,6 +318,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.Conversion = VisitNullChecked(node.Conversion);
+                if (node.Graphs != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Graphs.Count; ++index_0)
+                    {
+                        node.Graphs[index_0] = VisitNullChecked(node.Graphs[index_0]);
+                    }
+                }
+
                 node.ExternalizedProperties = VisitNullChecked(node.ExternalizedProperties);
                 if (node.Artifacts != null)
                 {
@@ -395,7 +403,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.Conversion = VisitNullChecked(node.Conversion);
-                node.Graphs = VisitNullChecked(node.Graphs);
+                if (node.Graphs != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Graphs.Count; ++index_0)
+                    {
+                        node.Graphs[index_0] = VisitNullChecked(node.Graphs[index_0]);
+                    }
+                }
+
                 node.ExternalizedProperties = VisitNullChecked(node.ExternalizedProperties);
                 if (node.Artifacts != null)
                 {
@@ -816,14 +831,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (node.Graphs != null)
                 {
-                    var keys = node.Graphs.Keys.ToArray();
-                    foreach (var key in keys)
+                    for (int index_0 = 0; index_0 < node.Graphs.Count; ++index_0)
                     {
-                        var value = node.Graphs[key];
-                        if (value != null)
-                        {
-                            node.Graphs[key] = VisitNullChecked(value);
-                        }
+                        node.Graphs[index_0] = VisitNullChecked(node.Graphs[index_0]);
                     }
                 }
 
@@ -943,14 +953,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (node.Graphs != null)
                 {
-                    var keys = node.Graphs.Keys.ToArray();
-                    foreach (var key in keys)
+                    for (int index_0 = 0; index_0 < node.Graphs.Count; ++index_0)
                     {
-                        var value = node.Graphs[key];
-                        if (value != null)
-                        {
-                            node.Graphs[key] = VisitNullChecked(value);
-                        }
+                        node.Graphs[index_0] = VisitNullChecked(node.Graphs[index_0]);
                     }
                 }
 

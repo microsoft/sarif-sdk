@@ -25,31 +25,6 @@
           }
         }
       },
-      "graphs": {
-        "g1": {
-          "id": "g1",
-          "nodes": [
-            {
-              "id": "n1",
-              "location": {
-                "physicalLocation": {
-                  "fileLocation": {
-                    "uri": "file.c",
-                    "uriBaseId": "%SRCROOT%"
-                  }
-                }
-              }
-            }
-          ],
-          "edges": [
-            {
-              "id": "e1",
-              "sourceNodeId": "n1",
-              "targetNodeId": "n1"
-            }
-          ]
-        }
-      },
       "invocations": [
         {
           "attachments": [
@@ -139,31 +114,6 @@
                 }
               }
             ]
-          },
-          "graphs": {
-            "g1": {
-              "id": "g1",
-              "nodes": [
-                {
-                  "id": "n1",
-                  "location": {
-                    "physicalLocation": {
-                      "fileLocation": {
-                        "uri": "file.c",
-                        "uriBaseId": "%SRCROOT%"
-                      }
-                    }
-                  }
-                }
-              ],
-              "edges": [
-                {
-                  "id": "e1",
-                  "sourceNodeId": "n1",
-                  "targetNodeId": "n1"
-                }
-              ]
-            }
           },
           "locations": [
             {

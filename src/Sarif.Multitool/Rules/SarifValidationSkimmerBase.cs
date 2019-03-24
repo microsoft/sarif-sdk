@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
         }
 
-        protected virtual void Analyze(Graph graph, string graphKey, string graphPointer)
+        protected virtual void Analyze(Graph graph, string graphPointer)
         {
         }
 
@@ -358,9 +358,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
-        private void Visit(Graph graph, string graphKey, string graphPointer)
+        private void Visit(Graph graph, string graphPointer)
         {
-            Analyze(graph, graphKey, graphPointer);
+            Analyze(graph, graphPointer);
 
             if (graph.Description != null)
             {
@@ -597,9 +597,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 string graphsPointer = resultPointer.AtProperty(SarifPropertyName.Graphs);
 
-                foreach (string key in result.Graphs.Keys)
+                for (int i = 0; i < result.Graphs.Count; ++i)
                 {
-                    Visit(result.Graphs[key], key, graphsPointer.AtProperty(key));
+                    Visit(result.Graphs[i], graphsPointer.AtIndex(i));
                 }
             }
 
@@ -728,9 +728,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 string graphsPointer = runPointer.AtProperty(SarifPropertyName.Graphs);
 
-                foreach (string key in run.Graphs.Keys)
+                for (int i = 0; i < run.Graphs.Count; ++i)
                 {
-                    Visit(run.Graphs[key], key, graphsPointer.AtProperty(key));
+                    Visit(run.Graphs[i], graphsPointer.AtIndex(i));
                 }
             }
 

@@ -276,7 +276,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             run.Results = newRunResults;
             run.Artifacts = indexRemappingVisitor.CurrentFiles;
             
-            var graphs = new Dictionary<string, Graph>();
+            var graphs = new List<Graph>();
             //var ruleData = new Dictionary<string, ReportingDescriptor>();
             var invocations = new List<Invocation>();
 
@@ -287,7 +287,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             {
                 if (currentRun.Graphs != null)
                 {
-                    MergeDictionaryInto(graphs, currentRun.Graphs, GraphEqualityComparer.Instance);
+                    graphs.AddRange(currentRun.Graphs);
                 }
 
                 if (currentRun.Invocations != null)
