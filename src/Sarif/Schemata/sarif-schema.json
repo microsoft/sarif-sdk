@@ -1,49 +1,49 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "title": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta.2019-02-20 JSON Schema",
-    "description": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2019-02-20 JSON Schema: a standard format for the output of static analysis tools.",
-    "additionalProperties": false,
-    "type": "object",
-    "properties": {
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta.2019-02-20 JSON Schema",
+  "description": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2019-02-20 JSON Schema: a standard format for the output of static analysis tools.",
+  "additionalProperties": false,
+  "type": "object",
+  "properties": {
 
-        "$schema": {
-            "description": "The URI of the JSON schema corresponding to the version.",
-            "type": "string",
-            "format": "uri"
-        },
-
-        "version": {
-            "description": "The SARIF format version of this log file.",
-            "enum": [ "2.0.0-csd.2.beta.2019-02-20" ]
-        },
-
-        "runs": {
-            "description": "The set of runs contained in this log file.",
-            "type": "array",
-            "minItems": 0,
-            "uniqueItems": false,
-            "items": {
-                "$ref": "#/definitions/run"
-            }
-        },
-
-        "inlineExternalProperties": {
-            "description": "References to external property files that share data between runs.",
-            "type": "array",
-            "minItems": 0,
-            "uniqueItems": false,
-            "items": {
-                "$ref": "#/definitions/externalProperties"
-            }
-        },
-
-        "properties": {
-            "description": "Key/value pairs that provide additional information about the log file.",
-            "$ref": "#/definitions/propertyBag"
-        }
+    "$schema": {
+      "description": "The URI of the JSON schema corresponding to the version.",
+      "type": "string",
+      "format": "uri"
     },
 
-    "required": [ "version", "runs" ],
+    "version": {
+      "description": "The SARIF format version of this log file.",
+      "enum": [ "2.0.0-csd.2.beta.2019-02-20" ]
+    },
+
+    "runs": {
+      "description": "The set of runs contained in this log file.",
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "items": {
+        "$ref": "#/definitions/run"
+      }
+    },
+
+    "inlineExternalProperties": {
+      "description": "References to external property files that share data between runs.",
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "items": {
+        "$ref": "#/definitions/externalProperties"
+      }
+    },
+
+    "properties": {
+      "description": "Key/value pairs that provide additional information about the log file.",
+      "$ref": "#/definitions/propertyBag"
+    }
+  },
+
+  "required": [ "version", "runs" ],
 
   "definitions": {
 
@@ -540,8 +540,11 @@
 
         "graphs": {
           "description": "An array of graph objects that will merged with a separate run.",
-          "type": "object",
-          "additionalProperties": {
+          "type": "array",
+          "minItems": 0,
+          "default": [],
+          "uniqueItems": true,
+          "items": {
             "$ref": "#/definitions/graph"
           }
         },
@@ -679,8 +682,13 @@
         },
 
         "graphs": {
-          "description": "An external property file containing a run.graphs object to be merged with the root log file.",
-          "$ref": "#/definitions/externalPropertyFileReference"
+          "description": "An array of external property files containing a run.graphs object to be merged with the root log file.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/externalPropertyFileReference"
+          }
         },
 
         "externalizedProperties": {
@@ -865,9 +873,18 @@
       "additionalProperties": false,
       "properties": {
 
-        "graphId": {
-          "description": "A string that uniquely identifies that graph being traversed.",
-          "type": "string"
+        "runGraphIndex": {
+          "description": "The index within the run.graphs to be associated with the result.",
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
+        },
+
+        "resultGraphIndex": {
+          "description": "The index within the result.graphs to be associated with the result.",
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
         },
 
         "description": {
@@ -898,9 +915,7 @@
           "description": "Key/value pairs that provide additional information about the graph traversal.",
           "$ref": "#/definitions/propertyBag"
         }
-      },
-
-      "required": [ "graphId" ]
+      }
     },
 
     "invocation": {
@@ -1266,23 +1281,6 @@
       "additionalProperties": false,
       "properties": {
 
-        "id": {
-          "description": "An identifier for the condition that was encountered.",
-          "type": "string"
-        },
-
-        "ruleId": {
-          "description": "The stable, unique identifier of the rule, if any, to which this notification is relevant.",
-          "type": "string"
-        },
-
-        "ruleIndex": {
-          "description": "The index within the run resources array of the rule object, if any, associated with this notification.",
-          "type": "integer",
-          "default": -1,
-          "minimum": -1
-        },
-
         "physicalLocation": {
           "description": "The artifact and region relevant to this notification.",
           "$ref": "#/definitions/physicalLocation"
@@ -1313,6 +1311,16 @@
         "exception": {
           "description": "The runtime exception, if any, relevant to this notification.",
           "$ref": "#/definitions/exception"
+        },
+
+        "notificationDescriptorReference": {
+          "description": "A reference used to locate the descriptor relevant to this notification.",
+          "$ref": "#/definitions/reportingDescriptorReference"
+        },
+
+        "associatedRuleDescriptorReference": {
+          "description": "A reference used to locate the rule descriptor associated with this notification.",
+          "$ref": "#/definitions/reportingDescriptorReference"
         },
 
         "properties": {
@@ -1740,13 +1748,25 @@
       "properties": {
 
         "id": {
-          "description": "A notification identifier.",
+          "description": "The id of the descriptor.",
           "type": "string"
         },
 
-        "pointer": {
-          "description": "A JSON pointer used to retrieve a reporting descriptor from an array within a tool component.",
+        "index": {
+          "description": "The index into an array of descriptors in toolComponent.ruleDescriptors, toolComponent.notificationDescriptors, or toolComponent.taxonomyDescriptors, depending on context.",
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
+        },
+
+        "guid": {
+          "description": "A guid that uniquely identifies the descriptor.",
           "type": "string"
+        },
+
+        "toolComponentReference": {
+          "description": "A reference used to locate the toolComponent associated with the descriptor.",
+          "$ref": "#/definitions/toolComponentReference"
         },
 
         "properties": {
@@ -1869,9 +1889,12 @@
         },
 
         "graphs": {
-          "description": "A dictionary, each of whose keys is the id of a graph and each of whose values is a 'graph' object with that id.",
-          "type": "object",
-          "additionalProperties": {
+          "description": "An array of zero or more unique graph objects associated with the result.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
             "$ref": "#/definitions/graph"
           }
         },
@@ -1879,8 +1902,9 @@
         "graphTraversals": {
           "description": "An array of one or more unique 'graphTraversal' objects.",
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
           "uniqueItems": true,
+          "default": [],
           "items": {
             "$ref": "#/definitions/graphTraversal"
           }
@@ -1978,6 +2002,11 @@
           "items": {
             "$ref": "#/definitions/reportingDescriptorReference"
           }
+        },
+
+        "ruleDescriptorReference": {
+          "description": "A reference used to locate the rule descriptor relevant to this result.",
+          "$ref": "#/definitions/reportingDescriptorReference"
         },
 
         "properties": {
@@ -2115,9 +2144,12 @@
         },
 
         "graphs": {
-          "description": "A dictionary, each of whose keys is the id of a graph and each of whose values is a 'graph' object with that id.",
-          "type": "object",
-          "additionalProperties": {
+          "description": "An array of zero or more unique graph objects associated with the run.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
             "$ref": "#/definitions/graph"
           }
         },
@@ -2633,6 +2665,33 @@
       },
 
       "required": [ "name" ]
+    },
+
+    "toolComponentReference": {
+      "description": "",
+      "type": "object",
+      "properties": {
+
+        "name": {
+          "description": "The 'name' property of the referenced toolComponent.",
+          "type": "string"
+        },
+
+        "index": {
+          "description": "An index into the referenced toolComponent in tool.extensions.",
+          "type": "integer"
+        },
+
+        "guid": {
+          "description": "The 'guid' property of the referenced toolComponent.",
+          "type": "string"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the toolComponentReference.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      }
     },
 
     "toolComponentTranslation": {

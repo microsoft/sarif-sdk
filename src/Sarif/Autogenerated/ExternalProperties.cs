@@ -65,7 +65,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An array of graph objects that will merged with a separate run.
         /// </summary>
         [DataMember(Name = "graphs", IsRequired = false, EmitDefaultValue = false)]
-        public object Graphs { get; set; }
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public IList<Graph> Graphs { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information that will be merged with a separate run.
@@ -190,7 +191,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ExternalProperties(Uri schema, SarifVersion version, string guid, string runGuid, Conversion conversion, object graphs, PropertyBag externalizedProperties, IEnumerable<Artifact> artifacts, IEnumerable<Invocation> invocations, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<Result> results, IEnumerable<ReportingDescriptor> taxonomies, ToolComponent driver, IEnumerable<ToolComponent> extensions, IDictionary<string, SerializedPropertyInfo> properties)
+        public ExternalProperties(Uri schema, SarifVersion version, string guid, string runGuid, Conversion conversion, IEnumerable<Graph> graphs, PropertyBag externalizedProperties, IEnumerable<Artifact> artifacts, IEnumerable<Invocation> invocations, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<Result> results, IEnumerable<ReportingDescriptor> taxonomies, ToolComponent driver, IEnumerable<ToolComponent> extensions, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(schema, version, guid, runGuid, conversion, graphs, externalizedProperties, artifacts, invocations, logicalLocations, threadFlowLocations, results, taxonomies, driver, extensions, properties);
         }
@@ -232,7 +233,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExternalProperties(this);
         }
 
-        private void Init(Uri schema, SarifVersion version, string guid, string runGuid, Conversion conversion, object graphs, PropertyBag externalizedProperties, IEnumerable<Artifact> artifacts, IEnumerable<Invocation> invocations, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<Result> results, IEnumerable<ReportingDescriptor> taxonomies, ToolComponent driver, IEnumerable<ToolComponent> extensions, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Uri schema, SarifVersion version, string guid, string runGuid, Conversion conversion, IEnumerable<Graph> graphs, PropertyBag externalizedProperties, IEnumerable<Artifact> artifacts, IEnumerable<Invocation> invocations, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<Result> results, IEnumerable<ReportingDescriptor> taxonomies, ToolComponent driver, IEnumerable<ToolComponent> extensions, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (schema != null)
             {
@@ -247,16 +248,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Conversion = new Conversion(conversion);
             }
 
-            Graphs = graphs;
-            if (externalizedProperties != null)
+            if (graphs != null)
             {
-                ExternalizedProperties = new PropertyBag(externalizedProperties);
-            }
-
-            if (artifacts != null)
-            {
-                var destination_0 = new List<Artifact>();
-                foreach (var value_0 in artifacts)
+                var destination_0 = new List<Graph>();
+                foreach (var value_0 in graphs)
                 {
                     if (value_0 == null)
                     {
@@ -264,17 +259,22 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_0.Add(new Artifact(value_0));
+                        destination_0.Add(new Graph(value_0));
                     }
                 }
 
-                Artifacts = destination_0;
+                Graphs = destination_0;
             }
 
-            if (invocations != null)
+            if (externalizedProperties != null)
             {
-                var destination_1 = new List<Invocation>();
-                foreach (var value_1 in invocations)
+                ExternalizedProperties = new PropertyBag(externalizedProperties);
+            }
+
+            if (artifacts != null)
+            {
+                var destination_1 = new List<Artifact>();
+                foreach (var value_1 in artifacts)
                 {
                     if (value_1 == null)
                     {
@@ -282,17 +282,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_1.Add(new Invocation(value_1));
+                        destination_1.Add(new Artifact(value_1));
                     }
                 }
 
-                Invocations = destination_1;
+                Artifacts = destination_1;
             }
 
-            if (logicalLocations != null)
+            if (invocations != null)
             {
-                var destination_2 = new List<LogicalLocation>();
-                foreach (var value_2 in logicalLocations)
+                var destination_2 = new List<Invocation>();
+                foreach (var value_2 in invocations)
                 {
                     if (value_2 == null)
                     {
@@ -300,17 +300,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_2.Add(new LogicalLocation(value_2));
+                        destination_2.Add(new Invocation(value_2));
                     }
                 }
 
-                LogicalLocations = destination_2;
+                Invocations = destination_2;
             }
 
-            if (threadFlowLocations != null)
+            if (logicalLocations != null)
             {
-                var destination_3 = new List<ThreadFlowLocation>();
-                foreach (var value_3 in threadFlowLocations)
+                var destination_3 = new List<LogicalLocation>();
+                foreach (var value_3 in logicalLocations)
                 {
                     if (value_3 == null)
                     {
@@ -318,17 +318,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_3.Add(new ThreadFlowLocation(value_3));
+                        destination_3.Add(new LogicalLocation(value_3));
                     }
                 }
 
-                ThreadFlowLocations = destination_3;
+                LogicalLocations = destination_3;
             }
 
-            if (results != null)
+            if (threadFlowLocations != null)
             {
-                var destination_4 = new List<Result>();
-                foreach (var value_4 in results)
+                var destination_4 = new List<ThreadFlowLocation>();
+                foreach (var value_4 in threadFlowLocations)
                 {
                     if (value_4 == null)
                     {
@@ -336,17 +336,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_4.Add(new Result(value_4));
+                        destination_4.Add(new ThreadFlowLocation(value_4));
                     }
                 }
 
-                Results = destination_4;
+                ThreadFlowLocations = destination_4;
             }
 
-            if (taxonomies != null)
+            if (results != null)
             {
-                var destination_5 = new List<ReportingDescriptor>();
-                foreach (var value_5 in taxonomies)
+                var destination_5 = new List<Result>();
+                foreach (var value_5 in results)
                 {
                     if (value_5 == null)
                     {
@@ -354,11 +354,29 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_5.Add(new ReportingDescriptor(value_5));
+                        destination_5.Add(new Result(value_5));
                     }
                 }
 
-                Taxonomies = destination_5;
+                Results = destination_5;
+            }
+
+            if (taxonomies != null)
+            {
+                var destination_6 = new List<ReportingDescriptor>();
+                foreach (var value_6 in taxonomies)
+                {
+                    if (value_6 == null)
+                    {
+                        destination_6.Add(null);
+                    }
+                    else
+                    {
+                        destination_6.Add(new ReportingDescriptor(value_6));
+                    }
+                }
+
+                Taxonomies = destination_6;
             }
 
             if (driver != null)
@@ -368,20 +386,20 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (extensions != null)
             {
-                var destination_6 = new List<ToolComponent>();
-                foreach (var value_6 in extensions)
+                var destination_7 = new List<ToolComponent>();
+                foreach (var value_7 in extensions)
                 {
-                    if (value_6 == null)
+                    if (value_7 == null)
                     {
-                        destination_6.Add(null);
+                        destination_7.Add(null);
                     }
                     else
                     {
-                        destination_6.Add(new ToolComponent(value_6));
+                        destination_7.Add(new ToolComponent(value_7));
                     }
                 }
 
-                Extensions = destination_6;
+                Extensions = destination_7;
             }
 
             if (properties != null)

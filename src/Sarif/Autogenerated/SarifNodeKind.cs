@@ -200,6 +200,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         ToolComponent,
         /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ToolComponentReference" />.
+        /// </summary>
+        ToolComponentReference,
+        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ToolComponentTranslation" />.
         /// </summary>
         ToolComponentTranslation,

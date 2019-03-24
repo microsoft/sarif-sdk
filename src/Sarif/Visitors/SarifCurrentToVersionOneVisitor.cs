@@ -360,12 +360,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 notification = new NotificationVersionOne
                 {
                     Exception = CreateExceptionDataVersionOne(v2Notification.Exception),
-                    Id = v2Notification.Id,
+                    Id = v2Notification.NotificationDescriptorReference?.Id,
                     Level = Utilities.CreateNotificationLevelVersionOne(v2Notification.Level),
                     Message = v2Notification.Message?.Text,
                     PhysicalLocation = CreatePhysicalLocationVersionOne(v2Notification.PhysicalLocation),
                     Properties = v2Notification.Properties,
-                    RuleId = v2Notification.RuleId,
+                    RuleId = v2Notification.AssociatedRuleDescriptorReference?.Id,
                     ThreadId = v2Notification.ThreadId,
                     Time = v2Notification.TimeUtc
                 };

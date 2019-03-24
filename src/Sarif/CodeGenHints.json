@@ -937,6 +937,16 @@
       }
     }
   ],
+  "toolComponentReference": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
   "toolComponentTranslation": [
     {
       "kind": "BaseTypeHint",
