@@ -334,12 +334,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 location = new Location
                 {
-                    FullyQualifiedLogicalName = v1Location.FullyQualifiedLogicalName,
                     PhysicalLocation = CreatePhysicalLocation(v1Location.ResultFile ?? v1Location.AnalysisTarget),
                     Properties = v1Location.Properties
                 };
 
-                if (!string.IsNullOrWhiteSpace(location.FullyQualifiedLogicalName))
+                if (!string.IsNullOrWhiteSpace(v1Location.FullyQualifiedLogicalName))
+                {
+                    location.LogicalLocation = new LogicalLocation
+                    {
+                        FullyQualifiedName = v1Location.FullyQualifiedLogicalName
+                    };
+                }
+
+                if (!string.IsNullOrWhiteSpace(location.LogicalLocation?.FullyQualifiedName))
                 {
                     if (_v1KeyToV2LogicalLocationMap.TryGetValue(key, out LogicalLocation logicalLocation))
                     {
@@ -351,7 +358,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                             _v2LogicalLocationToIndexMap[logicalLocation] = index;
                         }
 
-                        location.LogicalLocationIndex = index;
+                        location.LogicalLocation.Index = index;
                     }
                 }
             }
@@ -373,11 +380,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                                                                                                          a.Message))
                                                                       .Where(r => r != null)
                                                                       .ToList(),
-                    FullyQualifiedLogicalName = v1AnnotatedCodeLocation.FullyQualifiedLogicalName,
                     Message = CreateMessage(v1AnnotatedCodeLocation.Message),
                     PhysicalLocation = CreatePhysicalLocation(v1AnnotatedCodeLocation.PhysicalLocation),
                     Properties = v1AnnotatedCodeLocation.Properties
                 };
+
+                if (!string.IsNullOrWhiteSpace(v1AnnotatedCodeLocation.FullyQualifiedLogicalName))
+                {
+                    location.LogicalLocation = new LogicalLocation
+                    {
+                        FullyQualifiedName = v1AnnotatedCodeLocation.FullyQualifiedLogicalName
+                    };
+                }
 
                 string logicalLocationKey = v1AnnotatedCodeLocation.LogicalLocationKey ?? v1AnnotatedCodeLocation.FullyQualifiedLogicalName;
 
@@ -386,7 +400,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     if (_v1KeyToV2LogicalLocationMap.TryGetValue(logicalLocationKey, out LogicalLocation logicalLocation))
                     {
                         _v2LogicalLocationToIndexMap.TryGetValue(logicalLocation, out int index);
-                        location.LogicalLocationIndex = index;
+
+                        if (location.LogicalLocation == null)
+                        {
+                            location.LogicalLocation = new LogicalLocation();
+                        }
+
+                        location.LogicalLocation.Index = index;
                     }
                 }
 
@@ -432,16 +452,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             logicalLocationKey = logicalLocationKey ?? fullyQualifiedLogicalName;
 
             // Retrieve logical location so that we can acquire the index
-            _v1KeyToV2LogicalLocationMap.TryGetValue(logicalLocationKey, out LogicalLocation logicalLocation);            
+            _v1KeyToV2LogicalLocationMap.TryGetValue(logicalLocationKey, out LogicalLocation logicalLocation);
 
-            location.FullyQualifiedLogicalName = fullyQualifiedLogicalName ?? logicalLocation?.FullyQualifiedName;
+            location.LogicalLocation = new LogicalLocation
+            {
+                FullyQualifiedName = fullyQualifiedLogicalName ?? logicalLocation?.FullyQualifiedName
+            };
 
             if (logicalLocation == null || !_v2LogicalLocationToIndexMap.TryGetValue(logicalLocation, out int logicalLocationIndex))
             {
                 logicalLocationIndex = -1;
             }
 
-            location.LogicalLocationIndex = logicalLocationIndex;
+            location.LogicalLocation.Index = logicalLocationIndex;
 
             if (uri != null)
             {

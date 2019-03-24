@@ -153,6 +153,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                     // https://github.com/oasis-tcs/sarif-spec/issues/341
                     RenameAllInstanceGuidsAndIds(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/340
+                    AddLogicalLocationToAllLocationNodes(run);
                 }
             }
             return true;
@@ -351,6 +354,78 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
+        private static void AddLogicalLocationToAllLocationNodes(JObject run)
+        {
+            // We need to remove location.fullyQualifiedLogicalName (string) and location.logicalLocationIndex (int) and transfer those
+            // to a single LogicalLocation object with properties "fullyQualifiedName" and "parentIndex".
+
+            // Previously:
+            //      "location" : {
+            //          "fullyQualifiedLogicalName" : "test" ,
+            //          "logicalLocationIndex" : 1
+            //      }
+            // Now:
+            //      "location" : {
+            //          "logicalLocation" : {
+            //              "fullyQualifiedName" : "test",
+            //              "Index" : 1
+            //          }
+            //      }
+
+            // The code walks through all possible paths to 'location' node and performs updates.
+            string[] locationPathsToUpdate =
+            {
+
+                "results[].locations[]",
+                "results[].relatedLocations[]",
+                "results[].stacks[].frames[].location",
+                "results[].codeFlows[].threadFlows[].locations[].location",
+                "results[].codeFlows[].threadFlows[].locations[].stack.frames[].location",
+
+                "threadFlowLocations[].stack.frames[].location",
+                "threadFlowLocations[].location",
+
+                "invocations[].toolExecutionNotifications[].exception.stack.frames[].location",
+                "invocations[].toolExecutionNotifications[].exception.innerExceptions[].stack.frames[].location", // (recursive reference)
+                "invocations[].toolConfigurationNotifications[].exception.stack.frames[].location",
+                "invocations[].toolConfigurationNotifications[].exception.innerExceptions[].stack.frames[].location", // (recursive reference)
+
+                "conversion.invocation.toolExecutionNotifications[].exception.stack.frames[].location",
+                "conversion.invocation.toolExecutionNotifications[].exception.innerExceptions[].stack.frames[].location", // (recursive reference)
+                "conversion.invocation.toolConfigurationNotifications[].exception.stack.frames[].location",
+                "conversion.invocation.toolConfigurationNotifications[].exception.innerExceptions[].stack.frames[].location" // (recursive reference)
+
+                // Note: Ignoring graph related paths since no one is using this feature at the moment:
+                //"results[].graphs.nodes[].location"
+                //"graphs.nodes[].location"
+                //"graphs.nodes[].children[].location" //(recursive reference)
+            };
+            PerformActionOnLeafNodeIfExists(locationPathsToUpdate, run, AddLogicalLocationToSingleLocationNode);
+        }
+
+        private static void AddLogicalLocationToSingleLocationNode(JObject location)
+        {
+            var logicalLocation = new JObject();
+
+            if (location["fullyQualifiedLogicalName"] is JToken fullyQualifiedLogicalName)
+            {
+                logicalLocation.Add("fullyQualifiedName", fullyQualifiedLogicalName);
+                location.Remove("fullyQualifiedLogicalName");
+            }
+
+            if (location["logicalLocationIndex"] is JToken logicalLocationIndex)
+            {
+                logicalLocation.Add("index", logicalLocationIndex);
+                location.Remove("logicalLocationIndex");
+            }
+
+            if (logicalLocation.Count > 0)
+            {
+                location.Add("logicalLocation", logicalLocation);
+            }
+        }
+
+
         private static void ConvertToolToDriverInExternalPropertyFiles(JObject run)
         {
             if (run["externalPropertyFiles"] is JObject externalPropertyFiles &&
@@ -514,7 +589,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 }
             }
         }
-
 
         private static void UpdateAllToolComponentProperties(JObject run)
         {

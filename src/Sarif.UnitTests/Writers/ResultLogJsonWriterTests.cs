@@ -252,7 +252,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                                         Module = "a.dll",
                                         Location = new Location
                                         {
-                                            FullyQualifiedLogicalName = "N1.N2.C.M1",
+                                            LogicalLocation = new LogicalLocation
+                                            {
+                                                FullyQualifiedName = "N1.N2.C.M1"
+                                            },
                                             PhysicalLocation = new PhysicalLocation
                                             {
                                                 ArtifactLocation = new ArtifactLocation
@@ -272,7 +275,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                                         Module = "a.dll",
                                         Location = new Location
                                         {
-                                            FullyQualifiedLogicalName = "N1.N2.C.M2",
+                                            LogicalLocation = new LogicalLocation
+                                            {
+                                                FullyQualifiedName = "N1.N2.C.M2"
+                                            },
                                             PhysicalLocation = new PhysicalLocation
                                             {
                                                 ArtifactLocation = new ArtifactLocation

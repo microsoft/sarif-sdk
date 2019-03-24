@@ -35,27 +35,37 @@ namespace Microsoft.CodeAnalysis.Sarif
             StackFrame stackFrame = new StackFrame
             {
                 Module = assembly?.GetName().Name,
-                Location = new Location
-                {
-                    FullyQualifiedLogicalName = fullyQualifiedName
-                }
+                Location = new Location()
             };
 
-            if (fileName != null)
+            if (!string.IsNullOrWhiteSpace(fullyQualifiedName))
             {
                 stackFrame.Location = new Location
                 {
-                    PhysicalLocation = new PhysicalLocation
+                    LogicalLocation = new LogicalLocation
                     {
-                        ArtifactLocation = new ArtifactLocation
-                        {
-                            Uri = new Uri(fileName)
-                        },
-                        Region = new Region
-                        {
-                            StartLine = dotNetStackFrame.GetFileLineNumber(),
-                            StartColumn = dotNetStackFrame.GetFileColumnNumber()
-                        }
+                        FullyQualifiedName = fullyQualifiedName
+                    }
+                };
+            }
+
+            if (fileName != null)
+            {
+                if(stackFrame.Location == null)
+                {
+                    stackFrame.Location = new Location();
+                }
+
+                stackFrame.Location.PhysicalLocation = new PhysicalLocation
+                {
+                    ArtifactLocation = new ArtifactLocation
+                    {
+                        Uri = new Uri(fileName)
+                    },
+                    Region = new Region
+                    {
+                        StartLine = dotNetStackFrame.GetFileLineNumber(),
+                        StartColumn = dotNetStackFrame.GetFileColumnNumber()
                     }
                 };
             }
@@ -75,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public override string ToString()
         {
-            string result = AT + this.Location?.FullyQualifiedLogicalName;
+            string result = AT + this.Location?.LogicalLocation?.FullyQualifiedName;
 
             if (this.Location?.PhysicalLocation?.ArtifactLocation?.Uri != null)
             {

@@ -33,6 +33,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.Index != right.Index)
+            {
+                return false;
+            }
+
             if (left.FullyQualifiedName != right.FullyQualifiedName)
             {
                 return false;
@@ -93,6 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Name.GetHashCode();
                 }
 
+                result = (result * 31) + obj.Index.GetHashCode();
                 if (obj.FullyQualifiedName != null)
                 {
                     result = (result * 31) + obj.FullyQualifiedName.GetHashCode();

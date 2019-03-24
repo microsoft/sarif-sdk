@@ -34,7 +34,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             Location location = new Location
             {
-                FullyQualifiedLogicalName = "a"
+                LogicalLocation = new LogicalLocation
+                {
+                    FullyQualifiedName = "a"
+                }
             };
 
             var logicalLocation = new LogicalLocation
@@ -58,12 +61,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             Location location1 = new Location
             {
-                FullyQualifiedLogicalName = "a"
+                LogicalLocation = new LogicalLocation
+                {
+                    FullyQualifiedName = "a"
+                }
             };
 
             Location location2 = new Location
             {
-                FullyQualifiedLogicalName = "a"
+                LogicalLocation = new LogicalLocation
+                {
+                    FullyQualifiedName = "a"
+                }
             };
 
             var logicalLocation1 = new LogicalLocation
@@ -98,7 +107,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             Location location1 = new Location
             {
-                FullyQualifiedLogicalName = "a"
+                LogicalLocation = new LogicalLocation
+                {
+                    FullyQualifiedName = "a"
+                }
             };
 
             var logicalLocation1 = new LogicalLocation
@@ -109,7 +121,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             Location location2 = new Location
             {
-                FullyQualifiedLogicalName = "a"
+                LogicalLocation = new LogicalLocation
+                {
+                    FullyQualifiedName = "a"
+                }
             };
 
             var logicalLocation2 = new LogicalLocation
@@ -120,7 +135,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             Location location3 = new Location
             {
-                FullyQualifiedLogicalName = "a"
+                LogicalLocation = new LogicalLocation
+                {
+                    FullyQualifiedName = "a"
+                }
             };
 
             var logicalLocation3 = new LogicalLocation

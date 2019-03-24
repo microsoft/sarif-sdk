@@ -41,6 +41,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Name { get; set; }
 
         /// <summary>
+        /// The index within the logical locations array.
+        /// </summary>
+        [DataMember(Name = "index", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(-1)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public int Index { get; set; }
+
+        /// <summary>
         /// The human-readable fully qualified name of the logical location.
         /// </summary>
         [DataMember(Name = "fullyQualifiedName", IsRequired = false, EmitDefaultValue = false)]
@@ -77,6 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public LogicalLocation()
         {
+            Index = -1;
             ParentIndex = -1;
         }
 
@@ -85,6 +94,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         /// <param name="name">
         /// An initialization value for the <see cref="P:Name" /> property.
+        /// </param>
+        /// <param name="index">
+        /// An initialization value for the <see cref="P:Index" /> property.
         /// </param>
         /// <param name="fullyQualifiedName">
         /// An initialization value for the <see cref="P:FullyQualifiedName" /> property.
@@ -101,9 +113,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public LogicalLocation(string name, string fullyQualifiedName, string decoratedName, int parentIndex, string kind, IDictionary<string, SerializedPropertyInfo> properties)
+        public LogicalLocation(string name, int index, string fullyQualifiedName, string decoratedName, int parentIndex, string kind, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(name, fullyQualifiedName, decoratedName, parentIndex, kind, properties);
+            Init(name, index, fullyQualifiedName, decoratedName, parentIndex, kind, properties);
         }
 
         /// <summary>
@@ -122,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Name, other.FullyQualifiedName, other.DecoratedName, other.ParentIndex, other.Kind, other.Properties);
+            Init(other.Name, other.Index, other.FullyQualifiedName, other.DecoratedName, other.ParentIndex, other.Kind, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -143,9 +155,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new LogicalLocation(this);
         }
 
-        private void Init(string name, string fullyQualifiedName, string decoratedName, int parentIndex, string kind, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string name, int index, string fullyQualifiedName, string decoratedName, int parentIndex, string kind, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Name = name;
+            Index = index;
             FullyQualifiedName = fullyQualifiedName;
             DecoratedName = decoratedName;
             ParentIndex = parentIndex;

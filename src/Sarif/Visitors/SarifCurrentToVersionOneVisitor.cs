@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 annotatedCodeLocation = new AnnotatedCodeLocationVersionOne
                 {
                     Annotations = v2Location.Annotations?.Select(CreateAnnotationVersionOne).ToList(),
-                    FullyQualifiedLogicalName = v2Location.FullyQualifiedLogicalName,
+                    FullyQualifiedLogicalName = v2Location.LogicalLocation?.FullyQualifiedName,
                     Message = v2Location.Message?.Text,
                     PhysicalLocation = CreatePhysicalLocationVersionOne(v2Location.PhysicalLocation),
                     Snippet = v2Location.PhysicalLocation?.Region?.Snippet?.Text
@@ -311,16 +311,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 location = new LocationVersionOne
                 {
-                    FullyQualifiedLogicalName = v2Location.FullyQualifiedLogicalName,
+                    FullyQualifiedLogicalName = v2Location.LogicalLocation?.FullyQualifiedName,
                     Properties = v2Location.Properties,
                     ResultFile = CreatePhysicalLocationVersionOne(v2Location.PhysicalLocation)
                 };
 
-                if (!string.IsNullOrWhiteSpace(v2Location.FullyQualifiedLogicalName))
+                if (!string.IsNullOrWhiteSpace(v2Location.LogicalLocation?.FullyQualifiedName))
                 {
-                    if (v2Location.LogicalLocationIndex != -1)
+                    if (v2Location.LogicalLocation.Index != -1)
                     {
-                        location.DecoratedName = _currentV2Run.LogicalLocations[v2Location.LogicalLocationIndex].DecoratedName;
+                        location.DecoratedName = _currentV2Run.LogicalLocations[v2Location.LogicalLocation.Index].DecoratedName;
                     }
                 }
             }
@@ -1142,13 +1142,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 Location location = v2StackFrame.Location;
                 if (location != null)
                 {
-                    string fqln = location.FullyQualifiedLogicalName;
+                    string fqln = location.LogicalLocation?.FullyQualifiedName;
 
                     if (_currentV2Run.LogicalLocations != null &&
-                        !string.IsNullOrWhiteSpace(_currentV2Run.LogicalLocations[location.LogicalLocationIndex].FullyQualifiedName))
+                        location.LogicalLocation != null &&
+                        !string.IsNullOrWhiteSpace(_currentV2Run.LogicalLocations[location.LogicalLocation.Index].FullyQualifiedName))
                     {
-                        stackFrame.FullyQualifiedLogicalName = _currentV2Run.LogicalLocations[location.LogicalLocationIndex].FullyQualifiedName;
-                        stackFrame.LogicalLocationKey = fqln != _currentV2Run.LogicalLocations[location.LogicalLocationIndex].FullyQualifiedName ? fqln : null;
+                        stackFrame.FullyQualifiedLogicalName = _currentV2Run.LogicalLocations[location.LogicalLocation.Index].FullyQualifiedName;
+                        stackFrame.LogicalLocationKey = fqln != _currentV2Run.LogicalLocations[location.LogicalLocation.Index].FullyQualifiedName ? fqln : null;
                     }
                     else
                     {
