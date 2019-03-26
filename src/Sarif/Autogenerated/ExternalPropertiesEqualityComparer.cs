@@ -184,27 +184,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!object.ReferenceEquals(left.Taxonomies, right.Taxonomies))
-            {
-                if (left.Taxonomies == null || right.Taxonomies == null)
-                {
-                    return false;
-                }
-
-                if (left.Taxonomies.Count != right.Taxonomies.Count)
-                {
-                    return false;
-                }
-
-                for (int index_6 = 0; index_6 < left.Taxonomies.Count; ++index_6)
-                {
-                    if (!ReportingDescriptor.ValueComparer.Equals(left.Taxonomies[index_6], right.Taxonomies[index_6]))
-                    {
-                        return false;
-                    }
-                }
-            }
-
             if (!ToolComponent.ValueComparer.Equals(left.Driver, right.Driver))
             {
                 return false;
@@ -222,9 +201,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                for (int index_7 = 0; index_7 < left.Extensions.Count; ++index_7)
+                for (int index_6 = 0; index_6 < left.Extensions.Count; ++index_6)
                 {
-                    if (!ToolComponent.ValueComparer.Equals(left.Extensions[index_7], right.Extensions[index_7]))
+                    if (!ToolComponent.ValueComparer.Equals(left.Extensions[index_6], right.Extensions[index_6]))
                     {
                         return false;
                     }
@@ -364,9 +343,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.Taxonomies != null)
+                if (obj.Driver != null)
                 {
-                    foreach (var value_8 in obj.Taxonomies)
+                    result = (result * 31) + obj.Driver.ValueGetHashCode();
+                }
+
+                if (obj.Extensions != null)
+                {
+                    foreach (var value_8 in obj.Extensions)
                     {
                         result = result * 31;
                         if (value_8 != null)
@@ -376,33 +360,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.Driver != null)
-                {
-                    result = (result * 31) + obj.Driver.ValueGetHashCode();
-                }
-
-                if (obj.Extensions != null)
-                {
-                    foreach (var value_9 in obj.Extensions)
-                    {
-                        result = result * 31;
-                        if (value_9 != null)
-                        {
-                            result = (result * 31) + value_9.ValueGetHashCode();
-                        }
-                    }
-                }
-
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_0 = 0;
-                    foreach (var value_10 in obj.Properties)
+                    foreach (var value_9 in obj.Properties)
                     {
-                        xor_0 ^= value_10.Key.GetHashCode();
-                        if (value_10.Value != null)
+                        xor_0 ^= value_9.Key.GetHashCode();
+                        if (value_9.Value != null)
                         {
-                            xor_0 ^= value_10.Value.GetHashCode();
+                            xor_0 ^= value_9.Value.GetHashCode();
                         }
                     }
 

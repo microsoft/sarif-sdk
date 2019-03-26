@@ -369,14 +369,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (node.Taxonomies != null)
-                {
-                    for (int index_0 = 0; index_0 < node.Taxonomies.Count; ++index_0)
-                    {
-                        node.Taxonomies[index_0] = VisitNullChecked(node.Taxonomies[index_0]);
-                    }
-                }
-
                 node.Driver = VisitNullChecked(node.Driver);
                 if (node.Extensions != null)
                 {
@@ -451,14 +443,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     for (int index_0 = 0; index_0 < node.Results.Count; ++index_0)
                     {
                         node.Results[index_0] = VisitNullChecked(node.Results[index_0]);
-                    }
-                }
-
-                if (node.Taxonomies != null)
-                {
-                    for (int index_0 = 0; index_0 < node.Taxonomies.Count; ++index_0)
-                    {
-                        node.Taxonomies[index_0] = VisitNullChecked(node.Taxonomies[index_0]);
                     }
                 }
 
@@ -761,19 +745,19 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 node.DefaultConfiguration = VisitNullChecked(node.DefaultConfiguration);
                 node.Help = VisitNullChecked(node.Help);
-                if (node.TaxonomyReferences != null)
+                if (node.TaxonReferences != null)
                 {
-                    for (int index_0 = 0; index_0 < node.TaxonomyReferences.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.TaxonReferences.Count; ++index_0)
                     {
-                        node.TaxonomyReferences[index_0] = VisitNullChecked(node.TaxonomyReferences[index_0]);
+                        node.TaxonReferences[index_0] = VisitNullChecked(node.TaxonReferences[index_0]);
                     }
                 }
 
-                if (node.OptionalTaxonomyReferences != null)
+                if (node.OptionalTaxonReferences != null)
                 {
-                    for (int index_0 = 0; index_0 < node.OptionalTaxonomyReferences.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.OptionalTaxonReferences.Count; ++index_0)
                     {
-                        node.OptionalTaxonomyReferences[index_0] = VisitNullChecked(node.OptionalTaxonomyReferences[index_0]);
+                        node.OptionalTaxonReferences[index_0] = VisitNullChecked(node.OptionalTaxonReferences[index_0]);
                     }
                 }
             }
@@ -881,11 +865,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (node.TaxonomyReferences != null)
+                if (node.TaxonReferences != null)
                 {
-                    for (int index_0 = 0; index_0 < node.TaxonomyReferences.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.TaxonReferences.Count; ++index_0)
                     {
-                        node.TaxonomyReferences[index_0] = VisitNullChecked(node.TaxonomyReferences[index_0]);
+                        node.TaxonReferences[index_0] = VisitNullChecked(node.TaxonReferences[index_0]);
                     }
                 }
 
@@ -1173,6 +1157,30 @@ namespace Microsoft.CodeAnalysis.Sarif
                     for (int index_0 = 0; index_0 < node.RuleDescriptors.Count; ++index_0)
                     {
                         node.RuleDescriptors[index_0] = VisitNullChecked(node.RuleDescriptors[index_0]);
+                    }
+                }
+
+                if (node.TaxonDescriptors != null)
+                {
+                    for (int index_0 = 0; index_0 < node.TaxonDescriptors.Count; ++index_0)
+                    {
+                        node.TaxonDescriptors[index_0] = VisitNullChecked(node.TaxonDescriptors[index_0]);
+                    }
+                }
+
+                if (node.ReportingConfigurationOverrides != null)
+                {
+                    for (int index_0 = 0; index_0 < node.ReportingConfigurationOverrides.Count; ++index_0)
+                    {
+                        node.ReportingConfigurationOverrides[index_0] = VisitNullChecked(node.ReportingConfigurationOverrides[index_0]);
+                    }
+                }
+
+                if (node.SupportedTaxonomies != null)
+                {
+                    for (int index_0 = 0; index_0 < node.SupportedTaxonomies.Count; ++index_0)
+                    {
+                        node.SupportedTaxonomies[index_0] = VisitNullChecked(node.SupportedTaxonomies[index_0]);
                     }
                 }
             }

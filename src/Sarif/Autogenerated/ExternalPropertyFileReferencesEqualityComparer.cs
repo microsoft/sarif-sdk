@@ -164,27 +164,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!object.ReferenceEquals(left.Taxonomies, right.Taxonomies))
-            {
-                if (left.Taxonomies == null || right.Taxonomies == null)
-                {
-                    return false;
-                }
-
-                if (left.Taxonomies.Count != right.Taxonomies.Count)
-                {
-                    return false;
-                }
-
-                for (int index_6 = 0; index_6 < left.Taxonomies.Count; ++index_6)
-                {
-                    if (!ExternalPropertyFileReference.ValueComparer.Equals(left.Taxonomies[index_6], right.Taxonomies[index_6]))
-                    {
-                        return false;
-                    }
-                }
-            }
-
             if (!object.ReferenceEquals(left.Addresses, right.Addresses))
             {
                 if (left.Addresses == null || right.Addresses == null)
@@ -197,9 +176,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                for (int index_7 = 0; index_7 < left.Addresses.Count; ++index_7)
+                for (int index_6 = 0; index_6 < left.Addresses.Count; ++index_6)
                 {
-                    if (!ExternalPropertyFileReference.ValueComparer.Equals(left.Addresses[index_7], right.Addresses[index_7]))
+                    if (!ExternalPropertyFileReference.ValueComparer.Equals(left.Addresses[index_6], right.Addresses[index_6]))
                     {
                         return false;
                     }
@@ -223,9 +202,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                for (int index_8 = 0; index_8 < left.Extensions.Count; ++index_8)
+                for (int index_7 = 0; index_7 < left.Extensions.Count; ++index_7)
                 {
-                    if (!ExternalPropertyFileReference.ValueComparer.Equals(left.Extensions[index_8], right.Extensions[index_8]))
+                    if (!ExternalPropertyFileReference.ValueComparer.Equals(left.Extensions[index_7], right.Extensions[index_7]))
                     {
                         return false;
                     }
@@ -349,26 +328,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.Taxonomies != null)
+                if (obj.Addresses != null)
                 {
-                    foreach (var value_8 in obj.Taxonomies)
+                    foreach (var value_8 in obj.Addresses)
                     {
                         result = result * 31;
                         if (value_8 != null)
                         {
                             result = (result * 31) + value_8.ValueGetHashCode();
-                        }
-                    }
-                }
-
-                if (obj.Addresses != null)
-                {
-                    foreach (var value_9 in obj.Addresses)
-                    {
-                        result = result * 31;
-                        if (value_9 != null)
-                        {
-                            result = (result * 31) + value_9.ValueGetHashCode();
                         }
                     }
                 }
@@ -380,12 +347,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (obj.Extensions != null)
                 {
-                    foreach (var value_10 in obj.Extensions)
+                    foreach (var value_9 in obj.Extensions)
                     {
                         result = result * 31;
-                        if (value_10 != null)
+                        if (value_9 != null)
                         {
-                            result = (result * 31) + value_10.ValueGetHashCode();
+                            result = (result * 31) + value_9.ValueGetHashCode();
                         }
                     }
                 }
@@ -394,12 +361,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_0 = 0;
-                    foreach (var value_11 in obj.Properties)
+                    foreach (var value_10 in obj.Properties)
                     {
-                        xor_0 ^= value_11.Key.GetHashCode();
-                        if (value_11.Value != null)
+                        xor_0 ^= value_10.Key.GetHashCode();
+                        if (value_10.Value != null)
                         {
-                            xor_0 ^= value_11.Value.GetHashCode();
+                            xor_0 ^= value_10.Value.GetHashCode();
                         }
                     }
 

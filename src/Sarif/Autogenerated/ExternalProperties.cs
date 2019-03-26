@@ -108,13 +108,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<Result> Results { get; set; }
 
         /// <summary>
-        /// An array of reportingDescriptor objects that will be merged with a separate run.
-        /// </summary>
-        [DataMember(Name = "taxonomies", IsRequired = false, EmitDefaultValue = false)]
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ReportingDescriptor> Taxonomies { get; set; }
-
-        /// <summary>
         /// The analysis tool object that will be merged with a separate run.
         /// </summary>
         [DataMember(Name = "driver", IsRequired = false, EmitDefaultValue = false)]
@@ -179,9 +172,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="results">
         /// An initialization value for the <see cref="P:Results" /> property.
         /// </param>
-        /// <param name="taxonomies">
-        /// An initialization value for the <see cref="P:Taxonomies" /> property.
-        /// </param>
         /// <param name="driver">
         /// An initialization value for the <see cref="P:Driver" /> property.
         /// </param>
@@ -191,9 +181,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ExternalProperties(Uri schema, SarifVersion version, string guid, string runGuid, Conversion conversion, IEnumerable<Graph> graphs, PropertyBag externalizedProperties, IEnumerable<Artifact> artifacts, IEnumerable<Invocation> invocations, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<Result> results, IEnumerable<ReportingDescriptor> taxonomies, ToolComponent driver, IEnumerable<ToolComponent> extensions, IDictionary<string, SerializedPropertyInfo> properties)
+        public ExternalProperties(Uri schema, SarifVersion version, string guid, string runGuid, Conversion conversion, IEnumerable<Graph> graphs, PropertyBag externalizedProperties, IEnumerable<Artifact> artifacts, IEnumerable<Invocation> invocations, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<Result> results, ToolComponent driver, IEnumerable<ToolComponent> extensions, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(schema, version, guid, runGuid, conversion, graphs, externalizedProperties, artifacts, invocations, logicalLocations, threadFlowLocations, results, taxonomies, driver, extensions, properties);
+            Init(schema, version, guid, runGuid, conversion, graphs, externalizedProperties, artifacts, invocations, logicalLocations, threadFlowLocations, results, driver, extensions, properties);
         }
 
         /// <summary>
@@ -212,7 +202,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Schema, other.Version, other.Guid, other.RunGuid, other.Conversion, other.Graphs, other.ExternalizedProperties, other.Artifacts, other.Invocations, other.LogicalLocations, other.ThreadFlowLocations, other.Results, other.Taxonomies, other.Driver, other.Extensions, other.Properties);
+            Init(other.Schema, other.Version, other.Guid, other.RunGuid, other.Conversion, other.Graphs, other.ExternalizedProperties, other.Artifacts, other.Invocations, other.LogicalLocations, other.ThreadFlowLocations, other.Results, other.Driver, other.Extensions, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -233,7 +223,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExternalProperties(this);
         }
 
-        private void Init(Uri schema, SarifVersion version, string guid, string runGuid, Conversion conversion, IEnumerable<Graph> graphs, PropertyBag externalizedProperties, IEnumerable<Artifact> artifacts, IEnumerable<Invocation> invocations, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<Result> results, IEnumerable<ReportingDescriptor> taxonomies, ToolComponent driver, IEnumerable<ToolComponent> extensions, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Uri schema, SarifVersion version, string guid, string runGuid, Conversion conversion, IEnumerable<Graph> graphs, PropertyBag externalizedProperties, IEnumerable<Artifact> artifacts, IEnumerable<Invocation> invocations, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<Result> results, ToolComponent driver, IEnumerable<ToolComponent> extensions, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (schema != null)
             {
@@ -361,24 +351,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Results = destination_5;
             }
 
-            if (taxonomies != null)
-            {
-                var destination_6 = new List<ReportingDescriptor>();
-                foreach (var value_6 in taxonomies)
-                {
-                    if (value_6 == null)
-                    {
-                        destination_6.Add(null);
-                    }
-                    else
-                    {
-                        destination_6.Add(new ReportingDescriptor(value_6));
-                    }
-                }
-
-                Taxonomies = destination_6;
-            }
-
             if (driver != null)
             {
                 Driver = new ToolComponent(driver);
@@ -386,20 +358,20 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (extensions != null)
             {
-                var destination_7 = new List<ToolComponent>();
-                foreach (var value_7 in extensions)
+                var destination_6 = new List<ToolComponent>();
+                foreach (var value_6 in extensions)
                 {
-                    if (value_7 == null)
+                    if (value_6 == null)
                     {
-                        destination_7.Add(null);
+                        destination_6.Add(null);
                     }
                     else
                     {
-                        destination_7.Add(new ToolComponent(value_7));
+                        destination_6.Add(new ToolComponent(value_6));
                     }
                 }
 
-                Extensions = destination_7;
+                Extensions = destination_6;
             }
 
             if (properties != null)

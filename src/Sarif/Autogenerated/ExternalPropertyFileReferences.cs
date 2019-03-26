@@ -83,12 +83,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<ExternalPropertyFileReference> Results { get; set; }
 
         /// <summary>
-        /// An array of external property files containing run.taxonomies arrays to be merged with the root log file.
-        /// </summary>
-        [DataMember(Name = "taxonomies", IsRequired = false, EmitDefaultValue = false)]
-        public IList<ExternalPropertyFileReference> Taxonomies { get; set; }
-
-        /// <summary>
         /// An array of external property files containing run.addresses arrays to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "addresses", IsRequired = false, EmitDefaultValue = false)]
@@ -148,9 +142,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="results">
         /// An initialization value for the <see cref="P:Results" /> property.
         /// </param>
-        /// <param name="taxonomies">
-        /// An initialization value for the <see cref="P:Taxonomies" /> property.
-        /// </param>
         /// <param name="addresses">
         /// An initialization value for the <see cref="P:Addresses" /> property.
         /// </param>
@@ -163,9 +154,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ExternalPropertyFileReferences(ExternalPropertyFileReference conversion, IEnumerable<ExternalPropertyFileReference> graphs, ExternalPropertyFileReference externalizedProperties, IEnumerable<ExternalPropertyFileReference> artifacts, IEnumerable<ExternalPropertyFileReference> invocations, IEnumerable<ExternalPropertyFileReference> logicalLocations, IEnumerable<ExternalPropertyFileReference> threadFlowLocations, IEnumerable<ExternalPropertyFileReference> results, IEnumerable<ExternalPropertyFileReference> taxonomies, IEnumerable<ExternalPropertyFileReference> addresses, ExternalPropertyFileReference driver, IEnumerable<ExternalPropertyFileReference> extensions, IDictionary<string, SerializedPropertyInfo> properties)
+        public ExternalPropertyFileReferences(ExternalPropertyFileReference conversion, IEnumerable<ExternalPropertyFileReference> graphs, ExternalPropertyFileReference externalizedProperties, IEnumerable<ExternalPropertyFileReference> artifacts, IEnumerable<ExternalPropertyFileReference> invocations, IEnumerable<ExternalPropertyFileReference> logicalLocations, IEnumerable<ExternalPropertyFileReference> threadFlowLocations, IEnumerable<ExternalPropertyFileReference> results, IEnumerable<ExternalPropertyFileReference> addresses, ExternalPropertyFileReference driver, IEnumerable<ExternalPropertyFileReference> extensions, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(conversion, graphs, externalizedProperties, artifacts, invocations, logicalLocations, threadFlowLocations, results, taxonomies, addresses, driver, extensions, properties);
+            Init(conversion, graphs, externalizedProperties, artifacts, invocations, logicalLocations, threadFlowLocations, results, addresses, driver, extensions, properties);
         }
 
         /// <summary>
@@ -184,7 +175,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Conversion, other.Graphs, other.ExternalizedProperties, other.Artifacts, other.Invocations, other.LogicalLocations, other.ThreadFlowLocations, other.Results, other.Taxonomies, other.Addresses, other.Driver, other.Extensions, other.Properties);
+            Init(other.Conversion, other.Graphs, other.ExternalizedProperties, other.Artifacts, other.Invocations, other.LogicalLocations, other.ThreadFlowLocations, other.Results, other.Addresses, other.Driver, other.Extensions, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -205,7 +196,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExternalPropertyFileReferences(this);
         }
 
-        private void Init(ExternalPropertyFileReference conversion, IEnumerable<ExternalPropertyFileReference> graphs, ExternalPropertyFileReference externalizedProperties, IEnumerable<ExternalPropertyFileReference> artifacts, IEnumerable<ExternalPropertyFileReference> invocations, IEnumerable<ExternalPropertyFileReference> logicalLocations, IEnumerable<ExternalPropertyFileReference> threadFlowLocations, IEnumerable<ExternalPropertyFileReference> results, IEnumerable<ExternalPropertyFileReference> taxonomies, IEnumerable<ExternalPropertyFileReference> addresses, ExternalPropertyFileReference driver, IEnumerable<ExternalPropertyFileReference> extensions, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(ExternalPropertyFileReference conversion, IEnumerable<ExternalPropertyFileReference> graphs, ExternalPropertyFileReference externalizedProperties, IEnumerable<ExternalPropertyFileReference> artifacts, IEnumerable<ExternalPropertyFileReference> invocations, IEnumerable<ExternalPropertyFileReference> logicalLocations, IEnumerable<ExternalPropertyFileReference> threadFlowLocations, IEnumerable<ExternalPropertyFileReference> results, IEnumerable<ExternalPropertyFileReference> addresses, ExternalPropertyFileReference driver, IEnumerable<ExternalPropertyFileReference> extensions, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (conversion != null)
             {
@@ -325,10 +316,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Results = destination_5;
             }
 
-            if (taxonomies != null)
+            if (addresses != null)
             {
                 var destination_6 = new List<ExternalPropertyFileReference>();
-                foreach (var value_6 in taxonomies)
+                foreach (var value_6 in addresses)
                 {
                     if (value_6 == null)
                     {
@@ -340,13 +331,18 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                Taxonomies = destination_6;
+                Addresses = destination_6;
             }
 
-            if (addresses != null)
+            if (driver != null)
+            {
+                Driver = new ExternalPropertyFileReference(driver);
+            }
+
+            if (extensions != null)
             {
                 var destination_7 = new List<ExternalPropertyFileReference>();
-                foreach (var value_7 in addresses)
+                foreach (var value_7 in extensions)
                 {
                     if (value_7 == null)
                     {
@@ -358,30 +354,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                Addresses = destination_7;
-            }
-
-            if (driver != null)
-            {
-                Driver = new ExternalPropertyFileReference(driver);
-            }
-
-            if (extensions != null)
-            {
-                var destination_8 = new List<ExternalPropertyFileReference>();
-                foreach (var value_8 in extensions)
-                {
-                    if (value_8 == null)
-                    {
-                        destination_8.Add(null);
-                    }
-                    else
-                    {
-                        destination_8.Add(new ExternalPropertyFileReference(value_8));
-                    }
-                }
-
-                Extensions = destination_8;
+                Extensions = destination_7;
             }
 
             if (properties != null)

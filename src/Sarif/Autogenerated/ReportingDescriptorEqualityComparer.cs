@@ -153,42 +153,42 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!object.ReferenceEquals(left.TaxonomyReferences, right.TaxonomyReferences))
+            if (!object.ReferenceEquals(left.TaxonReferences, right.TaxonReferences))
             {
-                if (left.TaxonomyReferences == null || right.TaxonomyReferences == null)
+                if (left.TaxonReferences == null || right.TaxonReferences == null)
                 {
                     return false;
                 }
 
-                if (left.TaxonomyReferences.Count != right.TaxonomyReferences.Count)
+                if (left.TaxonReferences.Count != right.TaxonReferences.Count)
                 {
                     return false;
                 }
 
-                for (int index_3 = 0; index_3 < left.TaxonomyReferences.Count; ++index_3)
+                for (int index_3 = 0; index_3 < left.TaxonReferences.Count; ++index_3)
                 {
-                    if (!ReportingDescriptorReference.ValueComparer.Equals(left.TaxonomyReferences[index_3], right.TaxonomyReferences[index_3]))
+                    if (!ReportingDescriptorReference.ValueComparer.Equals(left.TaxonReferences[index_3], right.TaxonReferences[index_3]))
                     {
                         return false;
                     }
                 }
             }
 
-            if (!object.ReferenceEquals(left.OptionalTaxonomyReferences, right.OptionalTaxonomyReferences))
+            if (!object.ReferenceEquals(left.OptionalTaxonReferences, right.OptionalTaxonReferences))
             {
-                if (left.OptionalTaxonomyReferences == null || right.OptionalTaxonomyReferences == null)
+                if (left.OptionalTaxonReferences == null || right.OptionalTaxonReferences == null)
                 {
                     return false;
                 }
 
-                if (left.OptionalTaxonomyReferences.Count != right.OptionalTaxonomyReferences.Count)
+                if (left.OptionalTaxonReferences.Count != right.OptionalTaxonReferences.Count)
                 {
                     return false;
                 }
 
-                for (int index_4 = 0; index_4 < left.OptionalTaxonomyReferences.Count; ++index_4)
+                for (int index_4 = 0; index_4 < left.OptionalTaxonReferences.Count; ++index_4)
                 {
-                    if (!ReportingDescriptorReference.ValueComparer.Equals(left.OptionalTaxonomyReferences[index_4], right.OptionalTaxonomyReferences[index_4]))
+                    if (!ReportingDescriptorReference.ValueComparer.Equals(left.OptionalTaxonReferences[index_4], right.OptionalTaxonReferences[index_4]))
                     {
                         return false;
                     }
@@ -322,9 +322,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Help.ValueGetHashCode();
                 }
 
-                if (obj.TaxonomyReferences != null)
+                if (obj.TaxonReferences != null)
                 {
-                    foreach (var value_8 in obj.TaxonomyReferences)
+                    foreach (var value_8 in obj.TaxonReferences)
                     {
                         result = result * 31;
                         if (value_8 != null)
@@ -334,9 +334,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.OptionalTaxonomyReferences != null)
+                if (obj.OptionalTaxonReferences != null)
                 {
-                    foreach (var value_9 in obj.OptionalTaxonomyReferences)
+                    foreach (var value_9 in obj.OptionalTaxonReferences)
                     {
                         result = result * 31;
                         if (value_9 != null)

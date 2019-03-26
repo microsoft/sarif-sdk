@@ -352,21 +352,21 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!object.ReferenceEquals(left.TaxonomyReferences, right.TaxonomyReferences))
+            if (!object.ReferenceEquals(left.TaxonReferences, right.TaxonReferences))
             {
-                if (left.TaxonomyReferences == null || right.TaxonomyReferences == null)
+                if (left.TaxonReferences == null || right.TaxonReferences == null)
                 {
                     return false;
                 }
 
-                if (left.TaxonomyReferences.Count != right.TaxonomyReferences.Count)
+                if (left.TaxonReferences.Count != right.TaxonReferences.Count)
                 {
                     return false;
                 }
 
-                for (int index_10 = 0; index_10 < left.TaxonomyReferences.Count; ++index_10)
+                for (int index_10 = 0; index_10 < left.TaxonReferences.Count; ++index_10)
                 {
-                    if (!ReportingDescriptorReference.ValueComparer.Equals(left.TaxonomyReferences[index_10], right.TaxonomyReferences[index_10]))
+                    if (!ReportingDescriptorReference.ValueComparer.Equals(left.TaxonReferences[index_10], right.TaxonReferences[index_10]))
                     {
                         return false;
                     }
@@ -607,9 +607,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.TaxonomyReferences != null)
+                if (obj.TaxonReferences != null)
                 {
-                    foreach (var value_18 in obj.TaxonomyReferences)
+                    foreach (var value_18 in obj.TaxonReferences)
                     {
                         result = result * 31;
                         if (value_18 != null)

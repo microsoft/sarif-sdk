@@ -113,11 +113,44 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<ReportingDescriptor> NotificationDescriptors { get; set; }
 
         /// <summary>
-        /// An array of reportDescriptor objects relevant to the analysis performed by the tool component.
+        /// An array of reportingDescriptor objects relevant to the analysis performed by the tool component.
         /// </summary>
         [DataMember(Name = "ruleDescriptors", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<ReportingDescriptor> RuleDescriptors { get; set; }
+
+        /// <summary>
+        /// An array of reportingDescriptor objects relevant to the definitions of both standard and per tool taxonomies.
+        /// </summary>
+        [DataMember(Name = "taxonDescriptors", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public IList<ReportingDescriptor> TaxonDescriptors { get; set; }
+
+        /// <summary>
+        /// An array of reportingDescriptor objects relevant to the reporting configuration overrides for the tool component.
+        /// </summary>
+        [DataMember(Name = "reportingConfigurationOverrides", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public IList<ReportingDescriptor> ReportingConfigurationOverrides { get; set; }
+
+        /// <summary>
+        /// An array of toolComponentReference objects to declare the taxonomies supported by the tool component.
+        /// </summary>
+        [DataMember(Name = "supportedTaxonomies", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public IList<ToolComponentReference> SupportedTaxonomies { get; set; }
+
+        /// <summary>
+        /// The semantic version for the localized data.
+        /// </summary>
+        [DataMember(Name = "localizedDataSemanticVersion", IsRequired = false, EmitDefaultValue = false)]
+        public string LocalizedDataSemanticVersion { get; set; }
+
+        /// <summary>
+        /// The minimum semantic version required for the localized data.
+        /// </summary>
+        [DataMember(Name = "minimumRequiredLocalizedDataSemanticVersion", IsRequired = false, EmitDefaultValue = false)]
+        public string MinimumRequiredLocalizedDataSemanticVersion { get; set; }
 
         /// <summary>
         /// The indices within the run artifacts array of the artifact objects associated with the tool component.
@@ -184,15 +217,30 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="ruleDescriptors">
         /// An initialization value for the <see cref="P:RuleDescriptors" /> property.
         /// </param>
+        /// <param name="taxonDescriptors">
+        /// An initialization value for the <see cref="P:TaxonDescriptors" /> property.
+        /// </param>
+        /// <param name="reportingConfigurationOverrides">
+        /// An initialization value for the <see cref="P:ReportingConfigurationOverrides" /> property.
+        /// </param>
+        /// <param name="supportedTaxonomies">
+        /// An initialization value for the <see cref="P:SupportedTaxonomies" /> property.
+        /// </param>
+        /// <param name="localizedDataSemanticVersion">
+        /// An initialization value for the <see cref="P:LocalizedDataSemanticVersion" /> property.
+        /// </param>
+        /// <param name="minimumRequiredLocalizedDataSemanticVersion">
+        /// An initialization value for the <see cref="P:MinimumRequiredLocalizedDataSemanticVersion" /> property.
+        /// </param>
         /// <param name="artifactIndices">
         /// An initialization value for the <see cref="P:ArtifactIndices" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ToolComponent(string guid, string name, string organization, string product, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notificationDescriptors, IEnumerable<ReportingDescriptor> ruleDescriptors, IEnumerable<int> artifactIndices, IDictionary<string, SerializedPropertyInfo> properties)
+        public ToolComponent(string guid, string name, string organization, string product, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notificationDescriptors, IEnumerable<ReportingDescriptor> ruleDescriptors, IEnumerable<ReportingDescriptor> taxonDescriptors, IEnumerable<ReportingDescriptor> reportingConfigurationOverrides, IEnumerable<ToolComponentReference> supportedTaxonomies, string localizedDataSemanticVersion, string minimumRequiredLocalizedDataSemanticVersion, IEnumerable<int> artifactIndices, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(guid, name, organization, product, shortDescription, fullDescription, fullName, version, semanticVersion, dottedQuadFileVersion, downloadUri, globalMessageStrings, notificationDescriptors, ruleDescriptors, artifactIndices, properties);
+            Init(guid, name, organization, product, shortDescription, fullDescription, fullName, version, semanticVersion, dottedQuadFileVersion, downloadUri, globalMessageStrings, notificationDescriptors, ruleDescriptors, taxonDescriptors, reportingConfigurationOverrides, supportedTaxonomies, localizedDataSemanticVersion, minimumRequiredLocalizedDataSemanticVersion, artifactIndices, properties);
         }
 
         /// <summary>
@@ -211,7 +259,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Guid, other.Name, other.Organization, other.Product, other.ShortDescription, other.FullDescription, other.FullName, other.Version, other.SemanticVersion, other.DottedQuadFileVersion, other.DownloadUri, other.GlobalMessageStrings, other.NotificationDescriptors, other.RuleDescriptors, other.ArtifactIndices, other.Properties);
+            Init(other.Guid, other.Name, other.Organization, other.Product, other.ShortDescription, other.FullDescription, other.FullName, other.Version, other.SemanticVersion, other.DottedQuadFileVersion, other.DownloadUri, other.GlobalMessageStrings, other.NotificationDescriptors, other.RuleDescriptors, other.TaxonDescriptors, other.ReportingConfigurationOverrides, other.SupportedTaxonomies, other.LocalizedDataSemanticVersion, other.MinimumRequiredLocalizedDataSemanticVersion, other.ArtifactIndices, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -232,7 +280,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ToolComponent(this);
         }
 
-        private void Init(string guid, string name, string organization, string product, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notificationDescriptors, IEnumerable<ReportingDescriptor> ruleDescriptors, IEnumerable<int> artifactIndices, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string guid, string name, string organization, string product, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notificationDescriptors, IEnumerable<ReportingDescriptor> ruleDescriptors, IEnumerable<ReportingDescriptor> taxonDescriptors, IEnumerable<ReportingDescriptor> reportingConfigurationOverrides, IEnumerable<ToolComponentReference> supportedTaxonomies, string localizedDataSemanticVersion, string minimumRequiredLocalizedDataSemanticVersion, IEnumerable<int> artifactIndices, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Guid = guid;
             Name = name;
@@ -302,15 +350,71 @@ namespace Microsoft.CodeAnalysis.Sarif
                 RuleDescriptors = destination_1;
             }
 
-            if (artifactIndices != null)
+            if (taxonDescriptors != null)
             {
-                var destination_2 = new List<int>();
-                foreach (var value_3 in artifactIndices)
+                var destination_2 = new List<ReportingDescriptor>();
+                foreach (var value_3 in taxonDescriptors)
                 {
-                    destination_2.Add(value_3);
+                    if (value_3 == null)
+                    {
+                        destination_2.Add(null);
+                    }
+                    else
+                    {
+                        destination_2.Add(new ReportingDescriptor(value_3));
+                    }
                 }
 
-                ArtifactIndices = destination_2;
+                TaxonDescriptors = destination_2;
+            }
+
+            if (reportingConfigurationOverrides != null)
+            {
+                var destination_3 = new List<ReportingDescriptor>();
+                foreach (var value_4 in reportingConfigurationOverrides)
+                {
+                    if (value_4 == null)
+                    {
+                        destination_3.Add(null);
+                    }
+                    else
+                    {
+                        destination_3.Add(new ReportingDescriptor(value_4));
+                    }
+                }
+
+                ReportingConfigurationOverrides = destination_3;
+            }
+
+            if (supportedTaxonomies != null)
+            {
+                var destination_4 = new List<ToolComponentReference>();
+                foreach (var value_5 in supportedTaxonomies)
+                {
+                    if (value_5 == null)
+                    {
+                        destination_4.Add(null);
+                    }
+                    else
+                    {
+                        destination_4.Add(new ToolComponentReference(value_5));
+                    }
+                }
+
+                SupportedTaxonomies = destination_4;
+            }
+
+            LocalizedDataSemanticVersion = localizedDataSemanticVersion;
+            MinimumRequiredLocalizedDataSemanticVersion = minimumRequiredLocalizedDataSemanticVersion;
+            if (artifactIndices != null)
+            {
+                var destination_5 = new List<int>();
+                foreach (var value_6 in artifactIndices)
+                {
+                    destination_5.Add(value_6);
+                }
+
+                ArtifactIndices = destination_5;
             }
 
             if (properties != null)
