@@ -75,7 +75,12 @@
           "AddedFile",
           "DeletedFile",
           "RenamedFile",
-          "GeneratedFile"
+          "GeneratedFile",
+          "Driver",
+          "Extension",
+          "Translation",
+          "Taxonomy",
+          "Policy"
         ]
       }
     },
@@ -962,6 +967,7 @@
       "kind": "DictionaryHint"
     }
   ],
+
   "translation": [
     {
       "kind": "BaseTypeHint",
@@ -969,6 +975,39 @@
         "baseTypeNames": [
           "PropertyBagHolder"
         ]
+      }
+    }
+  ],
+  "translationMetadata": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "ToolComponent.Contents": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "ToolComponentContents",
+        "description": "Values specifying the roles played by the file in the analysis.",
+        "flags": true,
+        "zeroValueName": "None",
+        "memberNames": [
+          "LocalizedData",
+          "NonLocalizedData"
+        ]
+      }
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "JsonConverter",
+        "arguments": [ "typeof(FlagsEnumConverter)" ]
       }
     }
   ],
