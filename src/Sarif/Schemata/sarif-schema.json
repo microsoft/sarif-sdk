@@ -147,7 +147,12 @@
               "addedFile",
               "deletedFile",
               "renamedFile",
-              "uncontrolledFile"
+              "uncontrolledFile",
+              "driver",
+              "extension",
+              "translation",
+              "taxonomy",
+              "policy"
             ]
           }
         },
@@ -634,6 +639,17 @@
           }
         },
 
+        "policies": {
+          "description": "Tool policies that will be merged with a separate run.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/toolComponent"
+          }
+        },
+
         "properties": {
           "description": "Key/value pairs that provide additional information about the external properties.",
           "$ref": "#/definitions/propertyBag"
@@ -775,6 +791,17 @@
 
         "extensions": {
           "description": "An array of external property files containing run.extensions arrays to be merged with the root log file.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": false,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/externalPropertyFileReference"
+          }
+        },
+
+        "policies": {
+          "description": "An array of external property files containing run.policies arrays to be merged with the root log file.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": false,
@@ -2191,14 +2218,14 @@
         },
 
         "runAggregates": {
-            "description": "Automation details that describe the aggregate of runs to which this run belongs.",
-            "type": "array",
-            "minItems": 0,
-            "uniqueItems": true,
-            "default": [],
-            "items": {
-                "$ref": "#/definitions/runAutomationDetails"
-            }
+          "description": "Automation details that describe the aggregate of runs to which this run belongs.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/runAutomationDetails"
+          }
         },
 
         "baselineGuid": {
@@ -2290,6 +2317,17 @@
           "default": [],
           "items": {
             "$ref": "#/definitions/translation"
+          }
+        },
+
+        "policies": {
+          "description": "Contains configurations that override both reportingDescriptor.defaultConfiguration (the tool's default severities) and invocation.configurationOverrides (severities established at run-time from the command line).",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/toolComponent"
           }
         },
 
@@ -2647,7 +2685,7 @@
         },
 
         "notificationDescriptors": {
-          "description": "An array of reportDescriptor objects relevant to the notifications related to the configuration and runtime execution of the tool component.",
+          "description": "An array of reportingDescriptor objects relevant to the notifications related to the configuration and runtime execution of the tool component.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
@@ -2658,7 +2696,18 @@
         },
 
         "ruleDescriptors": {
-          "description": "An array of reportDescriptor objects relevant to the analysis performed by the tool component.",
+          "description": "An array of reportingDescriptor objects relevant to the analysis performed by the tool component.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/reportingDescriptor"
+          }
+        },
+
+        "taxa": {
+          "description": "An array of reportingDescriptor objects relevant to the definitions of both standard and per tool taxonomies.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
@@ -2677,6 +2726,49 @@
           "items": {
             "type": "integer"
           }
+        },
+
+        "language": {
+          "description": "The language of the the localized strings defined in this component (expressed as an ISO 649 two-letter lowercase culture code) and region (expressed as an ISO 3166 two-letter uppercase subculture code associated with a country or region).",
+          "type": "string"
+        },
+
+        "contents": {
+          "description": "The kinds of data contained in this object.",
+          "type": "array",
+          "uniqueItems": true,
+          "default": [ "localizedData", "nonLocalizedData" ],
+          "items": {
+            "enum": [
+              "localizedData",
+              "nonLocalizedData"
+            ]
+          }
+        },
+
+        "isComprehensive": {
+          "description": "true if this object contains a complete definition of the localizable and/or non-localizable data for this component.",
+          "type": "boolean"
+        },
+
+        "localizedDataSemanticVersion": {
+          "description": "The semantic version of the localized strings defined in this component; used by components that define translations.",
+          "type": "string"
+        },
+
+        "minimumRequiredLocalizedDataSemanticVersion": {
+          "description": "The minimum value of localizedDataSemanticVersion required in translations consumed by this component; used by components that consume translations.",
+          "type": "string"
+        },
+
+        "associatedComponent": {
+          "description": "The component for which the current component is a translation or a plugin.",
+          "$ref": "#/definitions/toolComponentReference"
+        },
+
+        "translationMetadata": {
+          "description": "Translation metadata, required for a translation, forbidden for other component types.",
+          "$ref": "#/definitions/translationMetadata"
         },
 
         "properties": {
@@ -2810,6 +2902,51 @@
           "$ref": "#/definitions/propertyBag"
         }
       }
+    },
+
+    "translationMetadata": {
+      "description": "Provides additional metadata related to translation.",
+      "type": "object",
+      "properties": {
+
+        "name": {
+          "description": "The name associated with the translation metadata.",
+          "type": "string"
+        },
+
+        "fullName": {
+          "description": "The full name associated with the translation metadata.",
+          "type": "string"
+        },
+
+        "shortDescription": {
+          "description": "A brief description of the translation metadata.",
+          "$ref": "#/definitions/multiformatMessageString"
+        },
+
+        "fullDescription": {
+          "description": "A comprehensive description of the translation metadata.",
+          "$ref": "#/definitions/multiformatMessageString"
+        },
+
+        "downloadUri": {
+          "description": "The absolute URI from which the translation metadata can be downloaded.",
+          "type": "string",
+          "format": "uri"
+        },
+
+        "informationUri ": {
+          "description": "The absolute URI from whichinformation related to the translation metadata can be downloaded.",
+          "type": "string",
+          "format": "uri"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the translation metadata.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      },
+      "required": ["name"]
     },
 
     "versionControlDetails": {

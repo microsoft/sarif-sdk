@@ -144,6 +144,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitToolComponentTranslation((ToolComponentTranslation)node);
                 case SarifNodeKind.Translation:
                     return VisitTranslation((Translation)node);
+                case SarifNodeKind.TranslationMetadata:
+                    return VisitTranslationMetadata((TranslationMetadata)node);
                 case SarifNodeKind.VersionControlDetails:
                     return VisitVersionControlDetails((VersionControlDetails)node);
                 default:
@@ -385,6 +387,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                         node.Extensions[index_0] = VisitNullChecked(node.Extensions[index_0]);
                     }
                 }
+
+                if (node.Policies != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Policies.Count; ++index_0)
+                    {
+                        node.Policies[index_0] = VisitNullChecked(node.Policies[index_0]);
+                    }
+                }
             }
 
             return node;
@@ -476,6 +486,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                     for (int index_0 = 0; index_0 < node.Extensions.Count; ++index_0)
                     {
                         node.Extensions[index_0] = VisitNullChecked(node.Extensions[index_0]);
+                    }
+                }
+
+                if (node.Policies != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Policies.Count; ++index_0)
+                    {
+                        node.Policies[index_0] = VisitNullChecked(node.Policies[index_0]);
                     }
                 }
             }
@@ -1019,6 +1037,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                         node.Translations[index_0] = VisitNullChecked(node.Translations[index_0]);
                     }
                 }
+
+                if (node.Policies != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Policies.Count; ++index_0)
+                    {
+                        node.Policies[index_0] = VisitNullChecked(node.Policies[index_0]);
+                    }
+                }
             }
 
             return node;
@@ -1175,6 +1201,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                         node.RuleDescriptors[index_0] = VisitNullChecked(node.RuleDescriptors[index_0]);
                     }
                 }
+
+                if (node.Taxa != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Taxa.Count; ++index_0)
+                    {
+                        node.Taxa[index_0] = VisitNullChecked(node.Taxa[index_0]);
+                    }
+                }
+
+                node.AssociatedComponent = VisitNullChecked(node.AssociatedComponent);
+                node.TranslationMetadata = VisitNullChecked(node.TranslationMetadata);
             }
 
             return node;
@@ -1225,6 +1262,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                         node.ToolComponentTranslations[index_0] = VisitNullChecked(node.ToolComponentTranslations[index_0]);
                     }
                 }
+            }
+
+            return node;
+        }
+
+        public virtual TranslationMetadata VisitTranslationMetadata(TranslationMetadata node)
+        {
+            if (node != null)
+            {
+                node.ShortDescription = VisitNullChecked(node.ShortDescription);
+                node.FullDescription = VisitNullChecked(node.FullDescription);
             }
 
             return node;

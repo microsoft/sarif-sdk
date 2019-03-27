@@ -212,6 +212,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         Translation,
         /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="TranslationMetadata" />.
+        /// </summary>
+        TranslationMetadata,
+        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="VersionControlDetails" />.
         /// </summary>
         VersionControlDetails
