@@ -120,7 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<ReportingDescriptor> RuleDescriptors { get; set; }
 
         /// <summary>
-        /// An array of reportingDescriptor objects relevant to the definitions of both standard and per tool taxonomies.
+        /// An array of reportingDescriptor objects relevant to the definitions of both standalone and tool-defined taxonomies.
         /// </summary>
         [DataMember(Name = "taxa", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
@@ -148,13 +148,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         public ToolComponentContents Contents { get; set; }
 
         /// <summary>
-        /// true if this object contains a complete definition of the localizable and/or non-localizable data for this component.
+        /// Specifies whether this object contains a complete definition of the localizable and/or non-localizable data for this component, as opposed to including only data that is relevant to the results persisted to this log file.
         /// </summary>
         [DataMember(Name = "isComprehensive", IsRequired = false, EmitDefaultValue = false)]
         public bool IsComprehensive { get; set; }
 
         /// <summary>
-        /// The semantic version of the localized strings defined in this component; used by components that define translations.
+        /// The semantic version of the localized strings defined in this component; maintained by components that provide translations.
         /// </summary>
         [DataMember(Name = "localizedDataSemanticVersion", IsRequired = false, EmitDefaultValue = false)]
         public string LocalizedDataSemanticVersion { get; set; }
@@ -166,13 +166,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string MinimumRequiredLocalizedDataSemanticVersion { get; set; }
 
         /// <summary>
-        /// The component for which the current component is a translation or a plugin.
+        /// The component which is strongly associated with this component. For a translation, this refers to the component which has been translated. For an extension, this is the driver that provides the extension's plugin model.
         /// </summary>
         [DataMember(Name = "associatedComponent", IsRequired = false, EmitDefaultValue = false)]
         public ToolComponentReference AssociatedComponent { get; set; }
 
         /// <summary>
-        /// Translation metadata, required for a translation, forbidden for other component types.
+        /// Translation metadata, required for a translation, not populated by other component types.
         /// </summary>
         [DataMember(Name = "translationMetadata", IsRequired = false, EmitDefaultValue = false)]
         public TranslationMetadata TranslationMetadata { get; set; }

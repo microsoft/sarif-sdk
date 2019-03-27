@@ -2321,7 +2321,7 @@
         },
 
         "policies": {
-          "description": "Contains configurations that override both reportingDescriptor.defaultConfiguration (the tool's default severities) and invocation.configurationOverrides (severities established at run-time from the command line).",
+          "description": "Contains configurations that may potentially override both reportingDescriptor.defaultConfiguration (the tool's default severities) and invocation.configurationOverrides (severities established at run-time from the command line).",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
@@ -2707,7 +2707,7 @@
         },
 
         "taxa": {
-          "description": "An array of reportingDescriptor objects relevant to the definitions of both standard and per tool taxonomies.",
+          "description": "An array of reportingDescriptor objects relevant to the definitions of both standalone and tool-defined taxonomies.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
@@ -2747,12 +2747,12 @@
         },
 
         "isComprehensive": {
-          "description": "true if this object contains a complete definition of the localizable and/or non-localizable data for this component.",
+          "description": "Specifies whether this object contains a complete definition of the localizable and/or non-localizable data for this component, as opposed to including only data that is relevant to the results persisted to this log file.",
           "type": "boolean"
         },
 
         "localizedDataSemanticVersion": {
-          "description": "The semantic version of the localized strings defined in this component; used by components that define translations.",
+          "description": "The semantic version of the localized strings defined in this component; maintained by components that provide translations.",
           "type": "string"
         },
 
@@ -2762,12 +2762,12 @@
         },
 
         "associatedComponent": {
-          "description": "The component for which the current component is a translation or a plugin.",
+          "description": "The component which is strongly associated with this component. For a translation, this refers to the component which has been translated. For an extension, this is the driver that provides the extension's plugin model.",
           "$ref": "#/definitions/toolComponentReference"
         },
 
         "translationMetadata": {
-          "description": "Translation metadata, required for a translation, forbidden for other component types.",
+          "description": "Translation metadata, required for a translation, not populated by other component types.",
           "$ref": "#/definitions/translationMetadata"
         },
 
