@@ -116,6 +116,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<ExternalPropertyFileReference> Policies { get; set; }
 
         /// <summary>
+        /// An array of external property files containing run.translations arrays to be merged with the root log file.
+        /// </summary>
+        [DataMember(Name = "translations", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public IList<ExternalPropertyFileReference> Translations { get; set; }
+
+        /// <summary>
         /// Key/value pairs that provide additional information about the external property files.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
@@ -170,12 +177,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="policies">
         /// An initialization value for the <see cref="P:Policies" /> property.
         /// </param>
+        /// <param name="translations">
+        /// An initialization value for the <see cref="P:Translations" /> property.
+        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ExternalPropertyFileReferences(ExternalPropertyFileReference conversion, IEnumerable<ExternalPropertyFileReference> graphs, ExternalPropertyFileReference externalizedProperties, IEnumerable<ExternalPropertyFileReference> artifacts, IEnumerable<ExternalPropertyFileReference> invocations, IEnumerable<ExternalPropertyFileReference> logicalLocations, IEnumerable<ExternalPropertyFileReference> threadFlowLocations, IEnumerable<ExternalPropertyFileReference> results, IEnumerable<ExternalPropertyFileReference> taxonomies, IEnumerable<ExternalPropertyFileReference> addresses, ExternalPropertyFileReference driver, IEnumerable<ExternalPropertyFileReference> extensions, IEnumerable<ExternalPropertyFileReference> policies, IDictionary<string, SerializedPropertyInfo> properties)
+        public ExternalPropertyFileReferences(ExternalPropertyFileReference conversion, IEnumerable<ExternalPropertyFileReference> graphs, ExternalPropertyFileReference externalizedProperties, IEnumerable<ExternalPropertyFileReference> artifacts, IEnumerable<ExternalPropertyFileReference> invocations, IEnumerable<ExternalPropertyFileReference> logicalLocations, IEnumerable<ExternalPropertyFileReference> threadFlowLocations, IEnumerable<ExternalPropertyFileReference> results, IEnumerable<ExternalPropertyFileReference> taxonomies, IEnumerable<ExternalPropertyFileReference> addresses, ExternalPropertyFileReference driver, IEnumerable<ExternalPropertyFileReference> extensions, IEnumerable<ExternalPropertyFileReference> policies, IEnumerable<ExternalPropertyFileReference> translations, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(conversion, graphs, externalizedProperties, artifacts, invocations, logicalLocations, threadFlowLocations, results, taxonomies, addresses, driver, extensions, policies, properties);
+            Init(conversion, graphs, externalizedProperties, artifacts, invocations, logicalLocations, threadFlowLocations, results, taxonomies, addresses, driver, extensions, policies, translations, properties);
         }
 
         /// <summary>
@@ -194,7 +204,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Conversion, other.Graphs, other.ExternalizedProperties, other.Artifacts, other.Invocations, other.LogicalLocations, other.ThreadFlowLocations, other.Results, other.Taxonomies, other.Addresses, other.Driver, other.Extensions, other.Policies, other.Properties);
+            Init(other.Conversion, other.Graphs, other.ExternalizedProperties, other.Artifacts, other.Invocations, other.LogicalLocations, other.ThreadFlowLocations, other.Results, other.Taxonomies, other.Addresses, other.Driver, other.Extensions, other.Policies, other.Translations, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -215,7 +225,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExternalPropertyFileReferences(this);
         }
 
-        private void Init(ExternalPropertyFileReference conversion, IEnumerable<ExternalPropertyFileReference> graphs, ExternalPropertyFileReference externalizedProperties, IEnumerable<ExternalPropertyFileReference> artifacts, IEnumerable<ExternalPropertyFileReference> invocations, IEnumerable<ExternalPropertyFileReference> logicalLocations, IEnumerable<ExternalPropertyFileReference> threadFlowLocations, IEnumerable<ExternalPropertyFileReference> results, IEnumerable<ExternalPropertyFileReference> taxonomies, IEnumerable<ExternalPropertyFileReference> addresses, ExternalPropertyFileReference driver, IEnumerable<ExternalPropertyFileReference> extensions, IEnumerable<ExternalPropertyFileReference> policies, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(ExternalPropertyFileReference conversion, IEnumerable<ExternalPropertyFileReference> graphs, ExternalPropertyFileReference externalizedProperties, IEnumerable<ExternalPropertyFileReference> artifacts, IEnumerable<ExternalPropertyFileReference> invocations, IEnumerable<ExternalPropertyFileReference> logicalLocations, IEnumerable<ExternalPropertyFileReference> threadFlowLocations, IEnumerable<ExternalPropertyFileReference> results, IEnumerable<ExternalPropertyFileReference> taxonomies, IEnumerable<ExternalPropertyFileReference> addresses, ExternalPropertyFileReference driver, IEnumerable<ExternalPropertyFileReference> extensions, IEnumerable<ExternalPropertyFileReference> policies, IEnumerable<ExternalPropertyFileReference> translations, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (conversion != null)
             {
@@ -410,6 +420,24 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 Policies = destination_9;
+            }
+
+            if (translations != null)
+            {
+                var destination_10 = new List<ExternalPropertyFileReference>();
+                foreach (var value_10 in translations)
+                {
+                    if (value_10 == null)
+                    {
+                        destination_10.Add(null);
+                    }
+                    else
+                    {
+                        destination_10.Add(new ExternalPropertyFileReference(value_10));
+                    }
+                }
+
+                Translations = destination_10;
             }
 
             if (properties != null)

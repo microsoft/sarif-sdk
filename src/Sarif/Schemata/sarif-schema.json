@@ -136,7 +136,6 @@
           "items": {
             "enum": [
               "analysisTarget",
-              "toolComponent",
               "attachment",
               "responseFile",
               "resultFile",
@@ -613,13 +612,13 @@
         },
 
         "taxonomies": {
-          "description": "An array of reportingDescriptor objects that will be merged with a separate run.",
+          "description": "Tool taxonomies that will be merged with a separate run.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
           "default": [],
           "items": {
-            "$ref": "#/definitions/reportingDescriptor"
+            "$ref": "#/definitions/toolComponent"
           }
         },
 
@@ -641,6 +640,17 @@
 
         "policies": {
           "description": "Tool policies that will be merged with a separate run.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/toolComponent"
+          }
+        },
+
+        "translations": {
+          "description": "Tool translations that will be merged with a separate run.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
@@ -802,6 +812,17 @@
 
         "policies": {
           "description": "An array of external property files containing run.policies arrays to be merged with the root log file.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": false,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/externalPropertyFileReference"
+          }
+        },
+
+        "translations": {
+          "description": "An array of external property files containing run.translations arrays to be merged with the root log file.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": false,
@@ -1340,12 +1361,12 @@
           "$ref": "#/definitions/exception"
         },
 
-        "notificationDescriptorReference": {
+        "descriptor": {
           "description": "A reference used to locate the descriptor relevant to this notification.",
           "$ref": "#/definitions/reportingDescriptorReference"
         },
 
-        "associatedRuleDescriptorReference": {
+        "associatedRule": {
           "description": "A reference used to locate the rule descriptor associated with this notification.",
           "$ref": "#/definitions/reportingDescriptorReference"
         },
@@ -1569,7 +1590,6 @@
           "type": "string"
         },
 
-
         "deprecatedIds": {
           "description": "An array of stable, opaque identifiers by which this report was known in some previous version of the analysis tool.",
           "type": "array",
@@ -1644,7 +1664,7 @@
           "$ref": "#/definitions/multiformatMessageString"
         },
 
-        "taxonomyReferences": {
+        "taxa": {
           "description": "An array of references used to locate a set of taxonomy reporting descriptors that are always applicable to a result.",
           "type": "array",
           "minItems": 1,
@@ -1654,7 +1674,7 @@
           }
         },
 
-        "optionalTaxonomyReferences": {
+        "optionalTaxa": {
           "description": "An array of references used to locate an optional set of taxonomy reporting descriptors that may be applied to a result.",
           "type": "array",
           "minItems": 1,
@@ -1666,47 +1686,6 @@
 
         "properties": {
           "description": "Key/value pairs that provide additional information about the report.",
-          "$ref": "#/definitions/propertyBag"
-        }
-      }
-    },
-
-    "reportingDescriptorTranslation": {
-      "description": "Provides localized message strings for a reporting descriptor in a single language.",
-      "additionalProperties": false,
-      "type": "object",
-      "properties": {
-
-        "id": {
-          "description": "The stable, opaque identifier of the reporting descriptor to which this translation belongs, matching reportingDescriptor.id.",
-          "type": "string"
-        },
-
-        "guid": {
-          "description": "The unique identifier in the form of a GUID of the reporting descriptor to which this translation belongs, matching reportingDescriptor.guid.",
-          "type": "string"
-        },
-
-        "shortDescription": {
-          "description": "A concise description of the report. Should be a single sentence that is understandable when visible space is limited to a single line of text.",
-          "$ref": "#/definitions/multiformatMessageString"
-        },
-
-        "fullDescription": {
-          "description": "A description of the report. Should, as far as possible, provide details sufficient to enable resolution of any problem indicated by the result.",
-          "$ref": "#/definitions/multiformatMessageString"
-        },
-
-        "messageStrings": {
-          "description": "A set of name/value pairs with arbitrary names. Each value is a multiformatMessageString object, which holds message strings in plain text and (optionally) Markdown format. The property names are a subset of the property names in the messageStrings property of the reportingDescriptor object to which this translation belongs.",
-          "type": "object",
-          "additionalProperties": {
-            "$ref": "#/definitions/multiformatMessageString"
-          }
-        },
-
-        "properties": {
-          "description": "Key/value pairs that provide additional information about reportingDescriptorTranslation.",
           "$ref": "#/definitions/propertyBag"
         }
       }
@@ -1812,7 +1791,7 @@
           "type": "string"
         },
 
-        "toolComponentReference": {
+        "toolComponent": {
           "description": "A reference used to locate the toolComponent associated with the descriptor.",
           "$ref": "#/definitions/toolComponentReference"
         },
@@ -2042,7 +2021,7 @@
           }
         },
 
-        "taxonomyReferences": {
+        "taxa": {
           "description": "An array of references to taxonomy reporting descriptors that are applicable to the result.",
           "type": "array",
           "minItems": 1,
@@ -2052,7 +2031,7 @@
           }
         },
 
-        "ruleDescriptorReference": {
+        "rule": {
           "description": "A reference used to locate the rule descriptor relevant to this result.",
           "$ref": "#/definitions/reportingDescriptorReference"
         },
@@ -2288,13 +2267,13 @@
         },
 
         "taxonomies": {
-          "description": "An array of reportingDescriptor objects relevant to a taxonomy in which results are categorized.",
+          "description": "An array of toolComponent objects relevant to a taxonomy in which results are categorized.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
           "default": [],
           "items": {
-            "$ref": "#/definitions/reportingDescriptor"
+            "$ref": "#/definitions/toolComponent"
           }
         },
 
@@ -2316,7 +2295,7 @@
           "uniqueItems": true,
           "default": [],
           "items": {
-            "$ref": "#/definitions/translation"
+            "$ref": "#/definitions/toolComponent"
           }
         },
 
@@ -2684,7 +2663,7 @@
           }
         },
 
-        "notificationDescriptors": {
+        "notifications": {
           "description": "An array of reportingDescriptor objects relevant to the notifications related to the configuration and runtime execution of the tool component.",
           "type": "array",
           "minItems": 0,
@@ -2695,7 +2674,7 @@
           }
         },
 
-        "ruleDescriptors": {
+        "rules": {
           "description": "An array of reportingDescriptor objects relevant to the analysis performed by the tool component.",
           "type": "array",
           "minItems": 0,
@@ -2802,103 +2781,6 @@
 
         "properties": {
           "description": "Key/value pairs that provide additional information about the toolComponentReference.",
-          "$ref": "#/definitions/propertyBag"
-        }
-      }
-    },
-
-    "toolComponentTranslation": {
-      "description": "Provides localized message strings for a tool component in a single language.",
-      "additionalProperties": false,
-      "type": "object",
-      "properties": {
-
-        "toolComponentGuid": {
-          "description": "The unique identifier for the tool component in the form of a GUID, matching toolComponent.guid.",
-          "type": "string"
-        },
-
-        "location": {
-          "description": "The location of the translation.",
-          "$ref": "#/definitions/artifactLocation"
-        },
-
-        "downloadUri": {
-          "description": "The absolute URI from which the tool component translation can be downloaded.",
-          "type": "string",
-          "format": "uri"
-        },
-
-        "semanticVersion": {
-          "description": "The semantic version of the tool component for which the translation was made.",
-          "type": "string"
-        },
-
-        "partialTranslation": {
-          "description": "True if this object contains a subset of the strings defined by the tool component.",
-          "type": "boolean"
-        },
-
-        "globalMessageStrings": {
-          "description": "A dictionary, each of whose keys is a message identifier and each of whose values is a multiformatMessageString object, which holds message strings in plain text and (optionally) Markdown format. The strings can include placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments. The property names are a subset of the property names in the globalMessageStrings property of the toolComponent object to which this translation belongs.",
-          "type": "object",
-          "additionalProperties": {
-            "$ref": "#/definitions/multiformatMessageString"
-          }
-        },
-
-        "reportingDescriptors": {
-          "description": "Provides an array of translations for a reporting descriptor in a available languages.",
-          "type": "array",
-          "minItems": 0,
-          "uniqueItems": true,
-          "default": [],
-          "items": {
-            "$ref": "#/definitions/reportingDescriptorTranslation"
-          }
-        },
-
-        "notificationDescriptors": {
-          "description": "Provides an array of translations for a notification descriptor in a available languages.",
-          "type": "array",
-          "minItems": 0,
-          "uniqueItems": true,
-          "default": [],
-          "items": {
-            "$ref": "#/definitions/reportingDescriptorTranslation"
-          }
-        },
-
-        "properties": {
-          "description": "Key/value pairs that provide additional information about the translationComponentTranslation.",
-          "$ref": "#/definitions/propertyBag"
-        }
-      }
-    },
-
-    "translation": {
-      "description": "Provides localized strings for the current run in a single language.",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-
-        "language": {
-          "description": "The translation language in ISO 639 format, e.g., 'en-US'.",
-          "type": "string"
-        },
-
-        "toolComponentTranslations": {
-          "description": "Provides localized message strings for a single tool component in a single language.",
-          "type": "array",
-          "minItems": 0,
-          "uniqueItems": false,
-          "items": {
-            "$ref": "#/definitions/toolComponentTranslation"
-          }
-        },
-
-        "properties": {
-          "description": "Key/value pairs that provide additional information about the translation.",
           "$ref": "#/definitions/propertyBag"
         }
       }

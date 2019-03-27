@@ -308,7 +308,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_9 = 0; index_9 < left.Taxonomies.Count; ++index_9)
                 {
-                    if (!ReportingDescriptor.ValueComparer.Equals(left.Taxonomies[index_9], right.Taxonomies[index_9]))
+                    if (!ToolComponent.ValueComparer.Equals(left.Taxonomies[index_9], right.Taxonomies[index_9]))
                     {
                         return false;
                     }
@@ -350,7 +350,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 for (int index_11 = 0; index_11 < left.Translations.Count; ++index_11)
                 {
-                    if (!Translation.ValueComparer.Equals(left.Translations[index_11], right.Translations[index_11]))
+                    if (!ToolComponent.ValueComparer.Equals(left.Translations[index_11], right.Translations[index_11]))
                     {
                         return false;
                     }

@@ -344,7 +344,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             _toolNotifications.Add(new Notification
             {
-                NotificationDescriptorReference = new ReportingDescriptorReference
+                Descriptor = new ReportingDescriptorReference
                 {
                     Id = id,
                 },

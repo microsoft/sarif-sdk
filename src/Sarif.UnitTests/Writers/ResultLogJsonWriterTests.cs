@@ -210,11 +210,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             new Notification
             {
-                NotificationDescriptorReference = new ReportingDescriptorReference
+                Descriptor = new ReportingDescriptorReference
                 {
                     Id = "NOT0001",
                 },
-                AssociatedRuleDescriptorReference = new ReportingDescriptorReference
+                AssociatedRule = new ReportingDescriptorReference
                 {
                     Id = "TST0001",
                 },

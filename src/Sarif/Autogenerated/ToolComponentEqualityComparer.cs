@@ -105,42 +105,42 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!object.ReferenceEquals(left.NotificationDescriptors, right.NotificationDescriptors))
+            if (!object.ReferenceEquals(left.Notifications, right.Notifications))
             {
-                if (left.NotificationDescriptors == null || right.NotificationDescriptors == null)
+                if (left.Notifications == null || right.Notifications == null)
                 {
                     return false;
                 }
 
-                if (left.NotificationDescriptors.Count != right.NotificationDescriptors.Count)
+                if (left.Notifications.Count != right.Notifications.Count)
                 {
                     return false;
                 }
 
-                for (int index_0 = 0; index_0 < left.NotificationDescriptors.Count; ++index_0)
+                for (int index_0 = 0; index_0 < left.Notifications.Count; ++index_0)
                 {
-                    if (!ReportingDescriptor.ValueComparer.Equals(left.NotificationDescriptors[index_0], right.NotificationDescriptors[index_0]))
+                    if (!ReportingDescriptor.ValueComparer.Equals(left.Notifications[index_0], right.Notifications[index_0]))
                     {
                         return false;
                     }
                 }
             }
 
-            if (!object.ReferenceEquals(left.RuleDescriptors, right.RuleDescriptors))
+            if (!object.ReferenceEquals(left.Rules, right.Rules))
             {
-                if (left.RuleDescriptors == null || right.RuleDescriptors == null)
+                if (left.Rules == null || right.Rules == null)
                 {
                     return false;
                 }
 
-                if (left.RuleDescriptors.Count != right.RuleDescriptors.Count)
+                if (left.Rules.Count != right.Rules.Count)
                 {
                     return false;
                 }
 
-                for (int index_1 = 0; index_1 < left.RuleDescriptors.Count; ++index_1)
+                for (int index_1 = 0; index_1 < left.Rules.Count; ++index_1)
                 {
-                    if (!ReportingDescriptor.ValueComparer.Equals(left.RuleDescriptors[index_1], right.RuleDescriptors[index_1]))
+                    if (!ReportingDescriptor.ValueComparer.Equals(left.Rules[index_1], right.Rules[index_1]))
                     {
                         return false;
                     }
@@ -330,9 +330,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + xor_0;
                 }
 
-                if (obj.NotificationDescriptors != null)
+                if (obj.Notifications != null)
                 {
-                    foreach (var value_5 in obj.NotificationDescriptors)
+                    foreach (var value_5 in obj.Notifications)
                     {
                         result = result * 31;
                         if (value_5 != null)
@@ -342,9 +342,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.RuleDescriptors != null)
+                if (obj.Rules != null)
                 {
-                    foreach (var value_6 in obj.RuleDescriptors)
+                    foreach (var value_6 in obj.Rules)
                     {
                         result = result * 31;
                         if (value_6 != null)

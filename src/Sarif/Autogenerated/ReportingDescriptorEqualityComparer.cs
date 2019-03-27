@@ -153,42 +153,42 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!object.ReferenceEquals(left.TaxonomyReferences, right.TaxonomyReferences))
+            if (!object.ReferenceEquals(left.Taxa, right.Taxa))
             {
-                if (left.TaxonomyReferences == null || right.TaxonomyReferences == null)
+                if (left.Taxa == null || right.Taxa == null)
                 {
                     return false;
                 }
 
-                if (left.TaxonomyReferences.Count != right.TaxonomyReferences.Count)
+                if (left.Taxa.Count != right.Taxa.Count)
                 {
                     return false;
                 }
 
-                for (int index_3 = 0; index_3 < left.TaxonomyReferences.Count; ++index_3)
+                for (int index_3 = 0; index_3 < left.Taxa.Count; ++index_3)
                 {
-                    if (!ReportingDescriptorReference.ValueComparer.Equals(left.TaxonomyReferences[index_3], right.TaxonomyReferences[index_3]))
+                    if (!ReportingDescriptorReference.ValueComparer.Equals(left.Taxa[index_3], right.Taxa[index_3]))
                     {
                         return false;
                     }
                 }
             }
 
-            if (!object.ReferenceEquals(left.OptionalTaxonomyReferences, right.OptionalTaxonomyReferences))
+            if (!object.ReferenceEquals(left.OptionalTaxa, right.OptionalTaxa))
             {
-                if (left.OptionalTaxonomyReferences == null || right.OptionalTaxonomyReferences == null)
+                if (left.OptionalTaxa == null || right.OptionalTaxa == null)
                 {
                     return false;
                 }
 
-                if (left.OptionalTaxonomyReferences.Count != right.OptionalTaxonomyReferences.Count)
+                if (left.OptionalTaxa.Count != right.OptionalTaxa.Count)
                 {
                     return false;
                 }
 
-                for (int index_4 = 0; index_4 < left.OptionalTaxonomyReferences.Count; ++index_4)
+                for (int index_4 = 0; index_4 < left.OptionalTaxa.Count; ++index_4)
                 {
-                    if (!ReportingDescriptorReference.ValueComparer.Equals(left.OptionalTaxonomyReferences[index_4], right.OptionalTaxonomyReferences[index_4]))
+                    if (!ReportingDescriptorReference.ValueComparer.Equals(left.OptionalTaxa[index_4], right.OptionalTaxa[index_4]))
                     {
                         return false;
                     }
@@ -322,9 +322,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Help.ValueGetHashCode();
                 }
 
-                if (obj.TaxonomyReferences != null)
+                if (obj.Taxa != null)
                 {
-                    foreach (var value_8 in obj.TaxonomyReferences)
+                    foreach (var value_8 in obj.Taxa)
                     {
                         result = result * 31;
                         if (value_8 != null)
@@ -334,9 +334,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.OptionalTaxonomyReferences != null)
+                if (obj.OptionalTaxa != null)
                 {
-                    foreach (var value_9 in obj.OptionalTaxonomyReferences)
+                    foreach (var value_9 in obj.OptionalTaxa)
                     {
                         result = result * 31;
                         if (value_9 != null)

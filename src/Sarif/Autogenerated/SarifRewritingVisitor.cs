@@ -112,8 +112,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitReportingDescriptor((ReportingDescriptor)node);
                 case SarifNodeKind.ReportingDescriptorReference:
                     return VisitReportingDescriptorReference((ReportingDescriptorReference)node);
-                case SarifNodeKind.ReportingDescriptorTranslation:
-                    return VisitReportingDescriptorTranslation((ReportingDescriptorTranslation)node);
                 case SarifNodeKind.Result:
                     return VisitResult((Result)node);
                 case SarifNodeKind.ResultProvenance:
@@ -140,10 +138,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitToolComponent((ToolComponent)node);
                 case SarifNodeKind.ToolComponentReference:
                     return VisitToolComponentReference((ToolComponentReference)node);
-                case SarifNodeKind.ToolComponentTranslation:
-                    return VisitToolComponentTranslation((ToolComponentTranslation)node);
-                case SarifNodeKind.Translation:
-                    return VisitTranslation((Translation)node);
                 case SarifNodeKind.TranslationMetadata:
                     return VisitTranslationMetadata((TranslationMetadata)node);
                 case SarifNodeKind.VersionControlDetails:
@@ -395,6 +389,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                         node.Policies[index_0] = VisitNullChecked(node.Policies[index_0]);
                     }
                 }
+
+                if (node.Translations != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Translations.Count; ++index_0)
+                    {
+                        node.Translations[index_0] = VisitNullChecked(node.Translations[index_0]);
+                    }
+                }
             }
 
             return node;
@@ -494,6 +496,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                     for (int index_0 = 0; index_0 < node.Policies.Count; ++index_0)
                     {
                         node.Policies[index_0] = VisitNullChecked(node.Policies[index_0]);
+                    }
+                }
+
+                if (node.Translations != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Translations.Count; ++index_0)
+                    {
+                        node.Translations[index_0] = VisitNullChecked(node.Translations[index_0]);
                     }
                 }
             }
@@ -678,8 +688,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 node.PhysicalLocation = VisitNullChecked(node.PhysicalLocation);
                 node.Message = VisitNullChecked(node.Message);
                 node.Exception = VisitNullChecked(node.Exception);
-                node.NotificationDescriptorReference = VisitNullChecked(node.NotificationDescriptorReference);
-                node.AssociatedRuleDescriptorReference = VisitNullChecked(node.AssociatedRuleDescriptorReference);
+                node.Descriptor = VisitNullChecked(node.Descriptor);
+                node.AssociatedRule = VisitNullChecked(node.AssociatedRule);
             }
 
             return node;
@@ -779,19 +789,19 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 node.DefaultConfiguration = VisitNullChecked(node.DefaultConfiguration);
                 node.Help = VisitNullChecked(node.Help);
-                if (node.TaxonomyReferences != null)
+                if (node.Taxa != null)
                 {
-                    for (int index_0 = 0; index_0 < node.TaxonomyReferences.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.Taxa.Count; ++index_0)
                     {
-                        node.TaxonomyReferences[index_0] = VisitNullChecked(node.TaxonomyReferences[index_0]);
+                        node.Taxa[index_0] = VisitNullChecked(node.Taxa[index_0]);
                     }
                 }
 
-                if (node.OptionalTaxonomyReferences != null)
+                if (node.OptionalTaxa != null)
                 {
-                    for (int index_0 = 0; index_0 < node.OptionalTaxonomyReferences.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.OptionalTaxa.Count; ++index_0)
                     {
-                        node.OptionalTaxonomyReferences[index_0] = VisitNullChecked(node.OptionalTaxonomyReferences[index_0]);
+                        node.OptionalTaxa[index_0] = VisitNullChecked(node.OptionalTaxa[index_0]);
                     }
                 }
             }
@@ -803,18 +813,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
-                node.ToolComponentReference = VisitNullChecked(node.ToolComponentReference);
-            }
-
-            return node;
-        }
-
-        public virtual ReportingDescriptorTranslation VisitReportingDescriptorTranslation(ReportingDescriptorTranslation node)
-        {
-            if (node != null)
-            {
-                node.ShortDescription = VisitNullChecked(node.ShortDescription);
-                node.FullDescription = VisitNullChecked(node.FullDescription);
+                node.ToolComponent = VisitNullChecked(node.ToolComponent);
             }
 
             return node;
@@ -899,15 +898,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (node.TaxonomyReferences != null)
+                if (node.Taxa != null)
                 {
-                    for (int index_0 = 0; index_0 < node.TaxonomyReferences.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.Taxa.Count; ++index_0)
                     {
-                        node.TaxonomyReferences[index_0] = VisitNullChecked(node.TaxonomyReferences[index_0]);
+                        node.Taxa[index_0] = VisitNullChecked(node.Taxa[index_0]);
                     }
                 }
 
-                node.RuleDescriptorReference = VisitNullChecked(node.RuleDescriptorReference);
+                node.Rule = VisitNullChecked(node.Rule);
             }
 
             return node;
@@ -1186,19 +1185,19 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (node.NotificationDescriptors != null)
+                if (node.Notifications != null)
                 {
-                    for (int index_0 = 0; index_0 < node.NotificationDescriptors.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.Notifications.Count; ++index_0)
                     {
-                        node.NotificationDescriptors[index_0] = VisitNullChecked(node.NotificationDescriptors[index_0]);
+                        node.Notifications[index_0] = VisitNullChecked(node.Notifications[index_0]);
                     }
                 }
 
-                if (node.RuleDescriptors != null)
+                if (node.Rules != null)
                 {
-                    for (int index_0 = 0; index_0 < node.RuleDescriptors.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.Rules.Count; ++index_0)
                     {
-                        node.RuleDescriptors[index_0] = VisitNullChecked(node.RuleDescriptors[index_0]);
+                        node.Rules[index_0] = VisitNullChecked(node.Rules[index_0]);
                     }
                 }
 
@@ -1221,47 +1220,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
-            }
-
-            return node;
-        }
-
-        public virtual ToolComponentTranslation VisitToolComponentTranslation(ToolComponentTranslation node)
-        {
-            if (node != null)
-            {
-                node.Location = VisitNullChecked(node.Location);
-                if (node.ReportingDescriptors != null)
-                {
-                    for (int index_0 = 0; index_0 < node.ReportingDescriptors.Count; ++index_0)
-                    {
-                        node.ReportingDescriptors[index_0] = VisitNullChecked(node.ReportingDescriptors[index_0]);
-                    }
-                }
-
-                if (node.NotificationDescriptors != null)
-                {
-                    for (int index_0 = 0; index_0 < node.NotificationDescriptors.Count; ++index_0)
-                    {
-                        node.NotificationDescriptors[index_0] = VisitNullChecked(node.NotificationDescriptors[index_0]);
-                    }
-                }
-            }
-
-            return node;
-        }
-
-        public virtual Translation VisitTranslation(Translation node)
-        {
-            if (node != null)
-            {
-                if (node.ToolComponentTranslations != null)
-                {
-                    for (int index_0 = 0; index_0 < node.ToolComponentTranslations.Count; ++index_0)
-                    {
-                        node.ToolComponentTranslations[index_0] = VisitNullChecked(node.ToolComponentTranslations[index_0]);
-                    }
-                }
             }
 
             return node;

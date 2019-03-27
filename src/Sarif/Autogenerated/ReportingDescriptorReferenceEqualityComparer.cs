@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!ToolComponentReference.ValueComparer.Equals(left.ToolComponentReference, right.ToolComponentReference))
+            if (!ToolComponentReference.ValueComparer.Equals(left.ToolComponent, right.ToolComponent))
             {
                 return false;
             }
@@ -94,9 +94,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Guid.GetHashCode();
                 }
 
-                if (obj.ToolComponentReference != null)
+                if (obj.ToolComponent != null)
                 {
-                    result = (result * 31) + obj.ToolComponentReference.ValueGetHashCode();
+                    result = (result * 31) + obj.ToolComponent.ValueGetHashCode();
                 }
 
                 if (obj.Properties != null)

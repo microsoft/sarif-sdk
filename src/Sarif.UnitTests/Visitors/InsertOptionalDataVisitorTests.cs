@@ -148,7 +148,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                             [UniqueGlobalMessageId] = new MultiformatMessageString { Text = UniqueGlobalMessageValue },
                             [SharedMessageId] = new MultiformatMessageString { Text = SharedKeyGlobalMessageValue }
                         },
-                        RuleDescriptors = new List<ReportingDescriptor>
+                        Rules = new List<ReportingDescriptor>
                         {
                             new ReportingDescriptor
                             {
@@ -229,7 +229,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             toolNotifications.Add(
                 new Notification
                 {
-                    NotificationDescriptorReference = new ReportingDescriptorReference
+                    Descriptor = new ReportingDescriptorReference
                     {
                         Id = NotificationId
                     },
@@ -244,11 +244,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             toolNotifications.Add(
                 new Notification
                 {
-                    NotificationDescriptorReference = new ReportingDescriptorReference
+                    Descriptor = new ReportingDescriptorReference
                     {
                         Id = NotificationId
                     },
-                    AssociatedRuleDescriptorReference = new ReportingDescriptorReference
+                    AssociatedRule = new ReportingDescriptorReference
                     {
                         Index = RuleIndex
                     },
@@ -263,11 +263,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             toolNotifications.Add(
                 new Notification
                 {
-                    NotificationDescriptorReference = new ReportingDescriptorReference
+                    Descriptor = new ReportingDescriptorReference
                     {
                         Id = NotificationId
                     },
-                    AssociatedRuleDescriptorReference = new ReportingDescriptorReference
+                    AssociatedRule = new ReportingDescriptorReference
                     {
                         Index = RuleIndex
                     },

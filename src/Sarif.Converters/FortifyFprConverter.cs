@@ -118,7 +118,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     Driver = new ToolComponent
                     {
                         Name = ToolName,
-                        RuleDescriptors = _rules
+                        Rules = _rules
                     }
                 },
                 Invocations = new[] { _invocation },
@@ -851,7 +851,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                     _invocation.ToolExecutionNotifications.Add(new Notification
                     {
-                        NotificationDescriptorReference = new ReportingDescriptorReference
+                        Descriptor = new ReportingDescriptorReference
                         {
                             Id = errorCode
                         },

@@ -261,11 +261,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
                 if (result.RuleIndex != -1)
                 {
-                    ReportingDescriptor rule = resultPair.Run.Tool.Driver.RuleDescriptors[0];
+                    ReportingDescriptor rule = resultPair.Run.Tool.Driver.Rules[0];
                     if (!reportingDescriptors.TryGetValue(rule, out int ruleIndex))
                     {
-                        reportingDescriptors[rule] = run.Tool.Driver.RuleDescriptors.Count;
-                        run.Tool.Driver.RuleDescriptors.Add(rule);
+                        reportingDescriptors[rule] = run.Tool.Driver.Rules.Count;
+                        run.Tool.Driver.Rules.Add(rule);
                     }
                     result.RuleIndex = ruleIndex;
                 }

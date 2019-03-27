@@ -1,13 +1,13 @@
 {
-  "$schema": "json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-01-24",
-  "version": "2.0.0-csd.2.beta.2019-01-24",
+  "$schema": "json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-04-03",
+  "version": "2.0.0-csd.2.beta.2019-04-03",
   "runs": [
     {
       "tool": {
         "driver": {
           "name": "CodeScanner",
           "downloadUri": "tools/codescanner/download.html",
-          "notificationDescriptors": [
+          "notifications": [
             {
               "id": "MSG0001",
               "helpUri": "www.example.com/notifications/msg0001.html"
@@ -17,7 +17,7 @@
               "helpUri": "www.example.com/notifications/msg0002.html"
             }
           ],
-          "ruleDescriptors": [
+          "rules": [
             {
               "id": "TST0001",
               "helpUri": "www.example.com/rules/tst0001.html"
@@ -55,9 +55,9 @@
             "runs[0].tool.driver.downloadUri",
             "runs[0].results[0].workItemUris[0]",
             "runs[0].originalUriBaseIds.SRCROOT",
-            "runs[0].tool.driver.notificationDescriptors[0].helpUri",
-            "runs[0].tool.driver.notificationDescriptors[1].helpUri",
-            "runs[0].tool.driver.ruleDescriptors[0].helpUri",
+            "runs[0].tool.driver.notifications[0].helpUri",
+            "runs[0].tool.driver.notifications[1].helpUri",
+            "runs[0].tool.driver.rules[0].helpUri",
             "runs[0].versionControlProvenance[0].repositoryUri"
           ]
         }

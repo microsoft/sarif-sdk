@@ -843,21 +843,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             Analyze(toolComponent, toolComponentPointer);
 
-            if (toolComponent.NotificationDescriptors != null)
+            if (toolComponent.Notifications != null)
             {
-                string notificationsPointer = toolComponentPointer.AtProperty(SarifPropertyName.NotificationDescriptors);
-                for (int i = 0; i < toolComponent.NotificationDescriptors.Count; ++i)
+                string notificationsPointer = toolComponentPointer.AtProperty(SarifPropertyName.Notifications);
+                for (int i = 0; i < toolComponent.Notifications.Count; ++i)
                 {
-                    Visit(toolComponent.NotificationDescriptors[i], notificationsPointer.AtIndex(i));
+                    Visit(toolComponent.Notifications[i], notificationsPointer.AtIndex(i));
                 }
             }
 
-            if (toolComponent.RuleDescriptors != null)
+            if (toolComponent.Rules != null)
             {
-                string rulesPointer = toolComponentPointer.AtProperty(SarifPropertyName.RuleDescriptors);
-                for (int i = 0; i < toolComponent.RuleDescriptors.Count; ++i)
+                string rulesPointer = toolComponentPointer.AtProperty(SarifPropertyName.Rules);
+                for (int i = 0; i < toolComponent.Rules.Count; ++i)
                 {
-                    Visit(toolComponent.RuleDescriptors[i], rulesPointer.AtIndex(i));
+                    Visit(toolComponent.Rules[i], rulesPointer.AtIndex(i));
                 }
             }
         }

@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         AddedFile = 256,
         DeletedFile = 512,
         RenamedFile = 1024,
-        GeneratedFile = 2048,
+        UncontrolledFile = 2048,
         Driver = 4096,
         Extension = 8192,
         Translation = 16384,

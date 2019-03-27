@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     Driver = new ToolComponent
                     {
                         Name = ToolName,
-                        RuleDescriptors = rules
+                        Rules = rules
                     }
                 },
             };

@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     {
                         Name = "Test",
                         Version = "1.0",
-                        RuleDescriptors = new List<ReportingDescriptor>(GenerateRules(ruleIds))
+                        Rules = new List<ReportingDescriptor>(GenerateRules(ruleIds))
                     }
                 },
                 Artifacts = GenerateFiles(filePaths),

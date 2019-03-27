@@ -567,7 +567,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 if (!string.IsNullOrWhiteSpace(v1Notification.Id))
                 {
-                    notification.NotificationDescriptorReference = new ReportingDescriptorReference
+                    notification.Descriptor = new ReportingDescriptorReference
                     {
                         Id = v1Notification.Id,
                     };
@@ -575,7 +575,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 if (!string.IsNullOrWhiteSpace(v1Notification.RuleId))
                 {
-                    notification.AssociatedRuleDescriptorReference = new ReportingDescriptorReference
+                    notification.AssociatedRule = new ReportingDescriptorReference
                     {
                         Id = v1Notification.RuleId,
                     };
@@ -919,11 +919,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     if (v1Run.Rules != null)
                     {
-                        run.Tool.Driver.RuleDescriptors = new List<ReportingDescriptor>();
+                        run.Tool.Driver.Rules = new List<ReportingDescriptor>();
 
                         foreach (var pair in v1Run.Rules)
                         {
-                            run.Tool.Driver.RuleDescriptors.Add(CreateRule(pair.Value));
+                            run.Tool.Driver.Rules.Add(CreateRule(pair.Value));
                         }
                     }
 

@@ -108,16 +108,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// An array of reportingDescriptor objects relevant to the notifications related to the configuration and runtime execution of the tool component.
         /// </summary>
-        [DataMember(Name = "notificationDescriptors", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "notifications", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ReportingDescriptor> NotificationDescriptors { get; set; }
+        public IList<ReportingDescriptor> Notifications { get; set; }
 
         /// <summary>
         /// An array of reportingDescriptor objects relevant to the analysis performed by the tool component.
         /// </summary>
-        [DataMember(Name = "ruleDescriptors", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "rules", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ReportingDescriptor> RuleDescriptors { get; set; }
+        public IList<ReportingDescriptor> Rules { get; set; }
 
         /// <summary>
         /// An array of reportingDescriptor objects relevant to the definitions of both standalone and tool-defined taxonomies.
@@ -229,11 +229,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="globalMessageStrings">
         /// An initialization value for the <see cref="P:GlobalMessageStrings" /> property.
         /// </param>
-        /// <param name="notificationDescriptors">
-        /// An initialization value for the <see cref="P:NotificationDescriptors" /> property.
+        /// <param name="notifications">
+        /// An initialization value for the <see cref="P:Notifications" /> property.
         /// </param>
-        /// <param name="ruleDescriptors">
-        /// An initialization value for the <see cref="P:RuleDescriptors" /> property.
+        /// <param name="rules">
+        /// An initialization value for the <see cref="P:Rules" /> property.
         /// </param>
         /// <param name="taxa">
         /// An initialization value for the <see cref="P:Taxa" /> property.
@@ -265,9 +265,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ToolComponent(string guid, string name, string organization, string product, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notificationDescriptors, IEnumerable<ReportingDescriptor> ruleDescriptors, IEnumerable<ReportingDescriptor> taxa, IEnumerable<int> artifactIndices, string language, ToolComponentContents contents, bool isComprehensive, string localizedDataSemanticVersion, string minimumRequiredLocalizedDataSemanticVersion, ToolComponentReference associatedComponent, TranslationMetadata translationMetadata, IDictionary<string, SerializedPropertyInfo> properties)
+        public ToolComponent(string guid, string name, string organization, string product, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notifications, IEnumerable<ReportingDescriptor> rules, IEnumerable<ReportingDescriptor> taxa, IEnumerable<int> artifactIndices, string language, ToolComponentContents contents, bool isComprehensive, string localizedDataSemanticVersion, string minimumRequiredLocalizedDataSemanticVersion, ToolComponentReference associatedComponent, TranslationMetadata translationMetadata, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(guid, name, organization, product, shortDescription, fullDescription, fullName, version, semanticVersion, dottedQuadFileVersion, downloadUri, globalMessageStrings, notificationDescriptors, ruleDescriptors, taxa, artifactIndices, language, contents, isComprehensive, localizedDataSemanticVersion, minimumRequiredLocalizedDataSemanticVersion, associatedComponent, translationMetadata, properties);
+            Init(guid, name, organization, product, shortDescription, fullDescription, fullName, version, semanticVersion, dottedQuadFileVersion, downloadUri, globalMessageStrings, notifications, rules, taxa, artifactIndices, language, contents, isComprehensive, localizedDataSemanticVersion, minimumRequiredLocalizedDataSemanticVersion, associatedComponent, translationMetadata, properties);
         }
 
         /// <summary>
@@ -286,7 +286,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Guid, other.Name, other.Organization, other.Product, other.ShortDescription, other.FullDescription, other.FullName, other.Version, other.SemanticVersion, other.DottedQuadFileVersion, other.DownloadUri, other.GlobalMessageStrings, other.NotificationDescriptors, other.RuleDescriptors, other.Taxa, other.ArtifactIndices, other.Language, other.Contents, other.IsComprehensive, other.LocalizedDataSemanticVersion, other.MinimumRequiredLocalizedDataSemanticVersion, other.AssociatedComponent, other.TranslationMetadata, other.Properties);
+            Init(other.Guid, other.Name, other.Organization, other.Product, other.ShortDescription, other.FullDescription, other.FullName, other.Version, other.SemanticVersion, other.DottedQuadFileVersion, other.DownloadUri, other.GlobalMessageStrings, other.Notifications, other.Rules, other.Taxa, other.ArtifactIndices, other.Language, other.Contents, other.IsComprehensive, other.LocalizedDataSemanticVersion, other.MinimumRequiredLocalizedDataSemanticVersion, other.AssociatedComponent, other.TranslationMetadata, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -307,7 +307,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ToolComponent(this);
         }
 
-        private void Init(string guid, string name, string organization, string product, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notificationDescriptors, IEnumerable<ReportingDescriptor> ruleDescriptors, IEnumerable<ReportingDescriptor> taxa, IEnumerable<int> artifactIndices, string language, ToolComponentContents contents, bool isComprehensive, string localizedDataSemanticVersion, string minimumRequiredLocalizedDataSemanticVersion, ToolComponentReference associatedComponent, TranslationMetadata translationMetadata, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string guid, string name, string organization, string product, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notifications, IEnumerable<ReportingDescriptor> rules, IEnumerable<ReportingDescriptor> taxa, IEnumerable<int> artifactIndices, string language, ToolComponentContents contents, bool isComprehensive, string localizedDataSemanticVersion, string minimumRequiredLocalizedDataSemanticVersion, ToolComponentReference associatedComponent, TranslationMetadata translationMetadata, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Guid = guid;
             Name = name;
@@ -341,10 +341,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (notificationDescriptors != null)
+            if (notifications != null)
             {
                 var destination_0 = new List<ReportingDescriptor>();
-                foreach (var value_1 in notificationDescriptors)
+                foreach (var value_1 in notifications)
                 {
                     if (value_1 == null)
                     {
@@ -356,13 +356,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                NotificationDescriptors = destination_0;
+                Notifications = destination_0;
             }
 
-            if (ruleDescriptors != null)
+            if (rules != null)
             {
                 var destination_1 = new List<ReportingDescriptor>();
-                foreach (var value_2 in ruleDescriptors)
+                foreach (var value_2 in rules)
                 {
                     if (value_2 == null)
                     {
@@ -374,7 +374,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                RuleDescriptors = destination_1;
+                Rules = destination_1;
             }
 
             if (taxa != null)

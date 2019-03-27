@@ -108,11 +108,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<Result> Results { get; set; }
 
         /// <summary>
-        /// An array of reportingDescriptor objects that will be merged with a separate run.
+        /// Tool taxonomies that will be merged with a separate run.
         /// </summary>
         [DataMember(Name = "taxonomies", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ReportingDescriptor> Taxonomies { get; set; }
+        public IList<ToolComponent> Taxonomies { get; set; }
 
         /// <summary>
         /// The analysis tool object that will be merged with a separate run.
@@ -133,6 +133,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "policies", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<ToolComponent> Policies { get; set; }
+
+        /// <summary>
+        /// Tool translations that will be merged with a separate run.
+        /// </summary>
+        [DataMember(Name = "translations", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public IList<ToolComponent> Translations { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the external properties.
@@ -198,12 +205,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="policies">
         /// An initialization value for the <see cref="P:Policies" /> property.
         /// </param>
+        /// <param name="translations">
+        /// An initialization value for the <see cref="P:Translations" /> property.
+        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ExternalProperties(Uri schema, SarifVersion version, string guid, string runGuid, Conversion conversion, IEnumerable<Graph> graphs, PropertyBag externalizedProperties, IEnumerable<Artifact> artifacts, IEnumerable<Invocation> invocations, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<Result> results, IEnumerable<ReportingDescriptor> taxonomies, ToolComponent driver, IEnumerable<ToolComponent> extensions, IEnumerable<ToolComponent> policies, IDictionary<string, SerializedPropertyInfo> properties)
+        public ExternalProperties(Uri schema, SarifVersion version, string guid, string runGuid, Conversion conversion, IEnumerable<Graph> graphs, PropertyBag externalizedProperties, IEnumerable<Artifact> artifacts, IEnumerable<Invocation> invocations, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<Result> results, IEnumerable<ToolComponent> taxonomies, ToolComponent driver, IEnumerable<ToolComponent> extensions, IEnumerable<ToolComponent> policies, IEnumerable<ToolComponent> translations, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(schema, version, guid, runGuid, conversion, graphs, externalizedProperties, artifacts, invocations, logicalLocations, threadFlowLocations, results, taxonomies, driver, extensions, policies, properties);
+            Init(schema, version, guid, runGuid, conversion, graphs, externalizedProperties, artifacts, invocations, logicalLocations, threadFlowLocations, results, taxonomies, driver, extensions, policies, translations, properties);
         }
 
         /// <summary>
@@ -222,7 +232,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Schema, other.Version, other.Guid, other.RunGuid, other.Conversion, other.Graphs, other.ExternalizedProperties, other.Artifacts, other.Invocations, other.LogicalLocations, other.ThreadFlowLocations, other.Results, other.Taxonomies, other.Driver, other.Extensions, other.Policies, other.Properties);
+            Init(other.Schema, other.Version, other.Guid, other.RunGuid, other.Conversion, other.Graphs, other.ExternalizedProperties, other.Artifacts, other.Invocations, other.LogicalLocations, other.ThreadFlowLocations, other.Results, other.Taxonomies, other.Driver, other.Extensions, other.Policies, other.Translations, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -243,7 +253,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExternalProperties(this);
         }
 
-        private void Init(Uri schema, SarifVersion version, string guid, string runGuid, Conversion conversion, IEnumerable<Graph> graphs, PropertyBag externalizedProperties, IEnumerable<Artifact> artifacts, IEnumerable<Invocation> invocations, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<Result> results, IEnumerable<ReportingDescriptor> taxonomies, ToolComponent driver, IEnumerable<ToolComponent> extensions, IEnumerable<ToolComponent> policies, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Uri schema, SarifVersion version, string guid, string runGuid, Conversion conversion, IEnumerable<Graph> graphs, PropertyBag externalizedProperties, IEnumerable<Artifact> artifacts, IEnumerable<Invocation> invocations, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<Result> results, IEnumerable<ToolComponent> taxonomies, ToolComponent driver, IEnumerable<ToolComponent> extensions, IEnumerable<ToolComponent> policies, IEnumerable<ToolComponent> translations, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (schema != null)
             {
@@ -373,7 +383,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (taxonomies != null)
             {
-                var destination_6 = new List<ReportingDescriptor>();
+                var destination_6 = new List<ToolComponent>();
                 foreach (var value_6 in taxonomies)
                 {
                     if (value_6 == null)
@@ -382,7 +392,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_6.Add(new ReportingDescriptor(value_6));
+                        destination_6.Add(new ToolComponent(value_6));
                     }
                 }
 
@@ -428,6 +438,24 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 Policies = destination_8;
+            }
+
+            if (translations != null)
+            {
+                var destination_9 = new List<ToolComponent>();
+                foreach (var value_9 in translations)
+                {
+                    if (value_9 == null)
+                    {
+                        destination_9.Add(null);
+                    }
+                    else
+                    {
+                        destination_9.Add(new ToolComponent(value_9));
+                    }
+                }
+
+                Translations = destination_9;
             }
 
             if (properties != null)
