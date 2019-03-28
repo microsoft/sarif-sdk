@@ -248,14 +248,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// An array of references to taxonomy reporting descriptors that are applicable to the result.
         /// </summary>
-        [DataMember(Name = "taxonomyReferences", IsRequired = false, EmitDefaultValue = false)]
-        public IList<ReportingDescriptorReference> TaxonomyReferences { get; set; }
+        [DataMember(Name = "taxa", IsRequired = false, EmitDefaultValue = false)]
+        public IList<ReportingDescriptorReference> Taxa { get; set; }
 
         /// <summary>
         /// A reference used to locate the rule descriptor relevant to this result.
         /// </summary>
-        [DataMember(Name = "ruleDescriptorReference", IsRequired = false, EmitDefaultValue = false)]
-        public ReportingDescriptorReference RuleDescriptorReference { get; set; }
+        [DataMember(Name = "rule", IsRequired = false, EmitDefaultValue = false)]
+        public ReportingDescriptorReference Rule { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the result.
@@ -356,18 +356,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="fixes">
         /// An initialization value for the <see cref="P:Fixes" /> property.
         /// </param>
-        /// <param name="taxonomyReferences">
-        /// An initialization value for the <see cref="P:TaxonomyReferences" /> property.
+        /// <param name="taxa">
+        /// An initialization value for the <see cref="P:Taxa" /> property.
         /// </param>
-        /// <param name="ruleDescriptorReference">
-        /// An initialization value for the <see cref="P:RuleDescriptorReference" /> property.
+        /// <param name="rule">
+        /// An initialization value for the <see cref="P:Rule" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Result(string ruleId, int ruleIndex, int ruleExtensionIndex, ResultKind kind, FailureLevel level, Message message, ArtifactLocation analysisTarget, IEnumerable<Location> locations, string guid, string correlationGuid, int occurrenceCount, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, IEnumerable<Suppression> suppressions, BaselineState baselineState, double rank, IEnumerable<Attachment> attachments, Uri hostedViewerUri, IEnumerable<Uri> workItemUris, ResultProvenance provenance, IEnumerable<Fix> fixes, IEnumerable<ReportingDescriptorReference> taxonomyReferences, ReportingDescriptorReference ruleDescriptorReference, IDictionary<string, SerializedPropertyInfo> properties)
+        public Result(string ruleId, int ruleIndex, int ruleExtensionIndex, ResultKind kind, FailureLevel level, Message message, ArtifactLocation analysisTarget, IEnumerable<Location> locations, string guid, string correlationGuid, int occurrenceCount, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, IEnumerable<Suppression> suppressions, BaselineState baselineState, double rank, IEnumerable<Attachment> attachments, Uri hostedViewerUri, IEnumerable<Uri> workItemUris, ResultProvenance provenance, IEnumerable<Fix> fixes, IEnumerable<ReportingDescriptorReference> taxa, ReportingDescriptorReference rule, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(ruleId, ruleIndex, ruleExtensionIndex, kind, level, message, analysisTarget, locations, guid, correlationGuid, occurrenceCount, partialFingerprints, fingerprints, stacks, codeFlows, graphs, graphTraversals, relatedLocations, suppressions, baselineState, rank, attachments, hostedViewerUri, workItemUris, provenance, fixes, taxonomyReferences, ruleDescriptorReference, properties);
+            Init(ruleId, ruleIndex, ruleExtensionIndex, kind, level, message, analysisTarget, locations, guid, correlationGuid, occurrenceCount, partialFingerprints, fingerprints, stacks, codeFlows, graphs, graphTraversals, relatedLocations, suppressions, baselineState, rank, attachments, hostedViewerUri, workItemUris, provenance, fixes, taxa, rule, properties);
         }
 
         /// <summary>
@@ -386,7 +386,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.RuleId, other.RuleIndex, other.RuleExtensionIndex, other.Kind, other.Level, other.Message, other.AnalysisTarget, other.Locations, other.Guid, other.CorrelationGuid, other.OccurrenceCount, other.PartialFingerprints, other.Fingerprints, other.Stacks, other.CodeFlows, other.Graphs, other.GraphTraversals, other.RelatedLocations, other.Suppressions, other.BaselineState, other.Rank, other.Attachments, other.HostedViewerUri, other.WorkItemUris, other.Provenance, other.Fixes, other.TaxonomyReferences, other.RuleDescriptorReference, other.Properties);
+            Init(other.RuleId, other.RuleIndex, other.RuleExtensionIndex, other.Kind, other.Level, other.Message, other.AnalysisTarget, other.Locations, other.Guid, other.CorrelationGuid, other.OccurrenceCount, other.PartialFingerprints, other.Fingerprints, other.Stacks, other.CodeFlows, other.Graphs, other.GraphTraversals, other.RelatedLocations, other.Suppressions, other.BaselineState, other.Rank, other.Attachments, other.HostedViewerUri, other.WorkItemUris, other.Provenance, other.Fixes, other.Taxa, other.Rule, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -407,7 +407,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Result(this);
         }
 
-        private void Init(string ruleId, int ruleIndex, int ruleExtensionIndex, ResultKind kind, FailureLevel level, Message message, ArtifactLocation analysisTarget, IEnumerable<Location> locations, string guid, string correlationGuid, int occurrenceCount, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, IEnumerable<Suppression> suppressions, BaselineState baselineState, double rank, IEnumerable<Attachment> attachments, Uri hostedViewerUri, IEnumerable<Uri> workItemUris, ResultProvenance provenance, IEnumerable<Fix> fixes, IEnumerable<ReportingDescriptorReference> taxonomyReferences, ReportingDescriptorReference ruleDescriptorReference, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string ruleId, int ruleIndex, int ruleExtensionIndex, ResultKind kind, FailureLevel level, Message message, ArtifactLocation analysisTarget, IEnumerable<Location> locations, string guid, string correlationGuid, int occurrenceCount, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, IEnumerable<Suppression> suppressions, BaselineState baselineState, double rank, IEnumerable<Attachment> attachments, Uri hostedViewerUri, IEnumerable<Uri> workItemUris, ResultProvenance provenance, IEnumerable<Fix> fixes, IEnumerable<ReportingDescriptorReference> taxa, ReportingDescriptorReference rule, IDictionary<string, SerializedPropertyInfo> properties)
         {
             RuleId = ruleId;
             RuleIndex = ruleIndex;
@@ -622,10 +622,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Fixes = destination_9;
             }
 
-            if (taxonomyReferences != null)
+            if (taxa != null)
             {
                 var destination_10 = new List<ReportingDescriptorReference>();
-                foreach (var value_10 in taxonomyReferences)
+                foreach (var value_10 in taxa)
                 {
                     if (value_10 == null)
                     {
@@ -637,12 +637,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                TaxonomyReferences = destination_10;
+                Taxa = destination_10;
             }
 
-            if (ruleDescriptorReference != null)
+            if (rule != null)
             {
-                RuleDescriptorReference = new ReportingDescriptorReference(ruleDescriptorReference);
+                Rule = new ReportingDescriptorReference(rule);
             }
 
             if (properties != null)

@@ -57,8 +57,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// A reference used to locate the toolComponent associated with the descriptor.
         /// </summary>
-        [DataMember(Name = "toolComponentReference", IsRequired = false, EmitDefaultValue = false)]
-        public ToolComponentReference ToolComponentReference { get; set; }
+        [DataMember(Name = "toolComponent", IsRequired = false, EmitDefaultValue = false)]
+        public ToolComponentReference ToolComponent { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the reporting descriptor reference.
@@ -86,15 +86,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="guid">
         /// An initialization value for the <see cref="P:Guid" /> property.
         /// </param>
-        /// <param name="toolComponentReference">
-        /// An initialization value for the <see cref="P:ToolComponentReference" /> property.
+        /// <param name="toolComponent">
+        /// An initialization value for the <see cref="P:ToolComponent" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ReportingDescriptorReference(string id, int index, string guid, ToolComponentReference toolComponentReference, IDictionary<string, SerializedPropertyInfo> properties)
+        public ReportingDescriptorReference(string id, int index, string guid, ToolComponentReference toolComponent, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, index, guid, toolComponentReference, properties);
+            Init(id, index, guid, toolComponent, properties);
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.Index, other.Guid, other.ToolComponentReference, other.Properties);
+            Init(other.Id, other.Index, other.Guid, other.ToolComponent, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -134,14 +134,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ReportingDescriptorReference(this);
         }
 
-        private void Init(string id, int index, string guid, ToolComponentReference toolComponentReference, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string id, int index, string guid, ToolComponentReference toolComponent, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             Index = index;
             Guid = guid;
-            if (toolComponentReference != null)
+            if (toolComponent != null)
             {
-                ToolComponentReference = new ToolComponentReference(toolComponentReference);
+                ToolComponent = new ToolComponentReference(toolComponent);
             }
 
             if (properties != null)

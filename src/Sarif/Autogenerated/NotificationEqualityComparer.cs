@@ -58,12 +58,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!ReportingDescriptorReference.ValueComparer.Equals(left.NotificationDescriptorReference, right.NotificationDescriptorReference))
+            if (!ReportingDescriptorReference.ValueComparer.Equals(left.Descriptor, right.Descriptor))
             {
                 return false;
             }
 
-            if (!ReportingDescriptorReference.ValueComparer.Equals(left.AssociatedRuleDescriptorReference, right.AssociatedRuleDescriptorReference))
+            if (!ReportingDescriptorReference.ValueComparer.Equals(left.AssociatedRule, right.AssociatedRule))
             {
                 return false;
             }
@@ -121,14 +121,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Exception.ValueGetHashCode();
                 }
 
-                if (obj.NotificationDescriptorReference != null)
+                if (obj.Descriptor != null)
                 {
-                    result = (result * 31) + obj.NotificationDescriptorReference.ValueGetHashCode();
+                    result = (result * 31) + obj.Descriptor.ValueGetHashCode();
                 }
 
-                if (obj.AssociatedRuleDescriptorReference != null)
+                if (obj.AssociatedRule != null)
                 {
-                    result = (result * 31) + obj.AssociatedRuleDescriptorReference.ValueGetHashCode();
+                    result = (result * 31) + obj.AssociatedRule.ValueGetHashCode();
                 }
 
                 if (obj.Properties != null)

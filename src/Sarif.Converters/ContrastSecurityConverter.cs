@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // 2. Retain a pointer to the rules dictionary, which we will use to set rule severity
             Run run = sarifLog.Runs[0];
-            _rules = run.Tool.Driver.RuleDescriptors.ToDictionary(rule => rule.Id);
+            _rules = run.Tool.Driver.Rules.ToDictionary(rule => rule.Id);
 
             run.OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>
             {

@@ -61,8 +61,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             SelectiveCompare(actualToolNotifications, expectedToolNotifications);
 
-            IList<ReportingDescriptor> actualRules = actualLog.Runs[0].Tool.Driver.RuleDescriptors;
-            IList<ReportingDescriptor> expectedRules = expectedLog.Runs[0].Tool.Driver.RuleDescriptors;
+            IList<ReportingDescriptor> actualRules = actualLog.Runs[0].Tool.Driver.Rules;
+            IList<ReportingDescriptor> expectedRules = expectedLog.Runs[0].Tool.Driver.Rules;
 
             SelectiveCompare(actualRules, expectedRules);
         }
@@ -83,14 +83,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     Notification actualNotification = actualNotifications[i];
                     Notification expectedNotification = expectedNotifications[i];
 
-                    bool actualHasAssociatedRuleDescriptorReference = actualNotification.AssociatedRuleDescriptorReference != null;
-                    bool expectedHasAssociatedRuleDescriptorReference = expectedNotification.AssociatedRuleDescriptorReference != null;
+                    bool actualHasAssociatedRuleDescriptorReference = actualNotification.AssociatedRule != null;
+                    bool expectedHasAssociatedRuleDescriptorReference = expectedNotification.AssociatedRule != null;
 
                     actualHasAssociatedRuleDescriptorReference.Should().Be(expectedHasAssociatedRuleDescriptorReference);
 
                     if (actualHasAssociatedRuleDescriptorReference && expectedHasAssociatedRuleDescriptorReference)
                     {
-                        actualNotification.AssociatedRuleDescriptorReference.Id.Should().Be(expectedNotification.AssociatedRuleDescriptorReference.Id);
+                        actualNotification.AssociatedRule.Id.Should().Be(expectedNotification.AssociatedRule.Id);
                     }
 
                     actualNotification.Level.Should().Be(expectedNotification.Level);

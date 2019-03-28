@@ -352,28 +352,28 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!object.ReferenceEquals(left.TaxonomyReferences, right.TaxonomyReferences))
+            if (!object.ReferenceEquals(left.Taxa, right.Taxa))
             {
-                if (left.TaxonomyReferences == null || right.TaxonomyReferences == null)
+                if (left.Taxa == null || right.Taxa == null)
                 {
                     return false;
                 }
 
-                if (left.TaxonomyReferences.Count != right.TaxonomyReferences.Count)
+                if (left.Taxa.Count != right.Taxa.Count)
                 {
                     return false;
                 }
 
-                for (int index_10 = 0; index_10 < left.TaxonomyReferences.Count; ++index_10)
+                for (int index_10 = 0; index_10 < left.Taxa.Count; ++index_10)
                 {
-                    if (!ReportingDescriptorReference.ValueComparer.Equals(left.TaxonomyReferences[index_10], right.TaxonomyReferences[index_10]))
+                    if (!ReportingDescriptorReference.ValueComparer.Equals(left.Taxa[index_10], right.Taxa[index_10]))
                     {
                         return false;
                     }
                 }
             }
 
-            if (!ReportingDescriptorReference.ValueComparer.Equals(left.RuleDescriptorReference, right.RuleDescriptorReference))
+            if (!ReportingDescriptorReference.ValueComparer.Equals(left.Rule, right.Rule))
             {
                 return false;
             }
@@ -607,9 +607,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.TaxonomyReferences != null)
+                if (obj.Taxa != null)
                 {
-                    foreach (var value_18 in obj.TaxonomyReferences)
+                    foreach (var value_18 in obj.Taxa)
                     {
                         result = result * 31;
                         if (value_18 != null)
@@ -619,9 +619,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.RuleDescriptorReference != null)
+                if (obj.Rule != null)
                 {
-                    result = (result * 31) + obj.RuleDescriptorReference.ValueGetHashCode();
+                    result = (result * 31) + obj.Rule.ValueGetHashCode();
                 }
 
                 if (obj.Properties != null)

@@ -112,14 +112,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// An array of references used to locate a set of taxonomy reporting descriptors that are always applicable to a result.
         /// </summary>
-        [DataMember(Name = "taxonomyReferences", IsRequired = false, EmitDefaultValue = false)]
-        public virtual IList<ReportingDescriptorReference> TaxonomyReferences { get; set; }
+        [DataMember(Name = "taxa", IsRequired = false, EmitDefaultValue = false)]
+        public virtual IList<ReportingDescriptorReference> Taxa { get; set; }
 
         /// <summary>
         /// An array of references used to locate an optional set of taxonomy reporting descriptors that may be applied to a result.
         /// </summary>
-        [DataMember(Name = "optionalTaxonomyReferences", IsRequired = false, EmitDefaultValue = false)]
-        public virtual IList<ReportingDescriptorReference> OptionalTaxonomyReferences { get; set; }
+        [DataMember(Name = "optionalTaxa", IsRequired = false, EmitDefaultValue = false)]
+        public virtual IList<ReportingDescriptorReference> OptionalTaxa { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the report.
@@ -173,18 +173,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="help">
         /// An initialization value for the <see cref="P:Help" /> property.
         /// </param>
-        /// <param name="taxonomyReferences">
-        /// An initialization value for the <see cref="P:TaxonomyReferences" /> property.
+        /// <param name="taxa">
+        /// An initialization value for the <see cref="P:Taxa" /> property.
         /// </param>
-        /// <param name="optionalTaxonomyReferences">
-        /// An initialization value for the <see cref="P:OptionalTaxonomyReferences" /> property.
+        /// <param name="optionalTaxa">
+        /// An initialization value for the <see cref="P:OptionalTaxa" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ReportingDescriptor(string id, IEnumerable<string> deprecatedIds, string guid, IEnumerable<string> deprecatedGuids, string name, IEnumerable<string> deprecatedNames, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, MultiformatMessageString help, IEnumerable<ReportingDescriptorReference> taxonomyReferences, IEnumerable<ReportingDescriptorReference> optionalTaxonomyReferences, IDictionary<string, SerializedPropertyInfo> properties)
+        public ReportingDescriptor(string id, IEnumerable<string> deprecatedIds, string guid, IEnumerable<string> deprecatedGuids, string name, IEnumerable<string> deprecatedNames, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, MultiformatMessageString help, IEnumerable<ReportingDescriptorReference> taxa, IEnumerable<ReportingDescriptorReference> optionalTaxa, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, deprecatedIds, guid, deprecatedGuids, name, deprecatedNames, shortDescription, fullDescription, messageStrings, defaultConfiguration, helpUri, help, taxonomyReferences, optionalTaxonomyReferences, properties);
+            Init(id, deprecatedIds, guid, deprecatedGuids, name, deprecatedNames, shortDescription, fullDescription, messageStrings, defaultConfiguration, helpUri, help, taxa, optionalTaxa, properties);
         }
 
         /// <summary>
@@ -203,7 +203,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.DeprecatedIds, other.Guid, other.DeprecatedGuids, other.Name, other.DeprecatedNames, other.ShortDescription, other.FullDescription, other.MessageStrings, other.DefaultConfiguration, other.HelpUri, other.Help, other.TaxonomyReferences, other.OptionalTaxonomyReferences, other.Properties);
+            Init(other.Id, other.DeprecatedIds, other.Guid, other.DeprecatedGuids, other.Name, other.DeprecatedNames, other.ShortDescription, other.FullDescription, other.MessageStrings, other.DefaultConfiguration, other.HelpUri, other.Help, other.Taxa, other.OptionalTaxa, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -224,7 +224,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ReportingDescriptor(this);
         }
 
-        private void Init(string id, IEnumerable<string> deprecatedIds, string guid, IEnumerable<string> deprecatedGuids, string name, IEnumerable<string> deprecatedNames, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, MultiformatMessageString help, IEnumerable<ReportingDescriptorReference> taxonomyReferences, IEnumerable<ReportingDescriptorReference> optionalTaxonomyReferences, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string id, IEnumerable<string> deprecatedIds, string guid, IEnumerable<string> deprecatedGuids, string name, IEnumerable<string> deprecatedNames, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, MultiformatMessageString help, IEnumerable<ReportingDescriptorReference> taxa, IEnumerable<ReportingDescriptorReference> optionalTaxa, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             if (deprecatedIds != null)
@@ -296,10 +296,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Help = new MultiformatMessageString(help);
             }
 
-            if (taxonomyReferences != null)
+            if (taxa != null)
             {
                 var destination_3 = new List<ReportingDescriptorReference>();
-                foreach (var value_4 in taxonomyReferences)
+                foreach (var value_4 in taxa)
                 {
                     if (value_4 == null)
                     {
@@ -311,13 +311,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                TaxonomyReferences = destination_3;
+                Taxa = destination_3;
             }
 
-            if (optionalTaxonomyReferences != null)
+            if (optionalTaxa != null)
             {
                 var destination_4 = new List<ReportingDescriptorReference>();
-                foreach (var value_5 in optionalTaxonomyReferences)
+                foreach (var value_5 in optionalTaxa)
                 {
                     if (value_5 == null)
                     {
@@ -329,7 +329,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                OptionalTaxonomyReferences = destination_4;
+                OptionalTaxa = destination_4;
             }
 
             if (properties != null)

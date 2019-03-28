@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                             Uri = context.TargetUri
                         }
                     },
-                    NotificationDescriptorReference = new ReportingDescriptorReference
+                    Descriptor = new ReportingDescriptorReference
                     {
                         Id = Wrn997_InvalidTarget
                     },
@@ -70,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                             Uri = context.TargetUri
                         }
                     },
-                    NotificationDescriptorReference = new ReportingDescriptorReference
+                    Descriptor = new ReportingDescriptorReference
                     {
                         Id = Wrn998_UnsupportedPlatform
                     },
@@ -99,7 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogConfigurationNotification(
                 new Notification
                 {
-                    NotificationDescriptorReference = new ReportingDescriptorReference
+                    Descriptor = new ReportingDescriptorReference
                     {
                         Id = Wrn999_RuleExplicitlyDisabled
                     },

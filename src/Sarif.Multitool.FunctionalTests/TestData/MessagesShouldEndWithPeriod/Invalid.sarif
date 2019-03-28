@@ -205,12 +205,12 @@
             "runs[0].invocations[0].toolConfigurationNotifications[0].message.markdown",
             "runs[0].invocations[0].toolExecutionNotifications[0].message.text",
             "runs[0].invocations[0].toolExecutionNotifications[0].message.markdown",
-            "runs[0].tool.driver.ruleDescriptors[0].shortDescription.text",
-            "runs[0].tool.driver.ruleDescriptors[0].shortDescription.markdown",
-            "runs[0].tool.driver.ruleDescriptors[0].fullDescription.text",
-            "runs[0].tool.driver.ruleDescriptors[0].fullDescription.markdown",
-            "runs[0].tool.driver.ruleDescriptors[0].messageStrings.Default.text",
-            "runs[0].tool.driver.ruleDescriptors[0].messageStrings.Default.markdown"
+            "runs[0].tool.driver.rules[0].shortDescription.text",
+            "runs[0].tool.driver.rules[0].shortDescription.markdown",
+            "runs[0].tool.driver.rules[0].fullDescription.text",
+            "runs[0].tool.driver.rules[0].fullDescription.markdown",
+            "runs[0].tool.driver.rules[0].messageStrings.Default.text",
+            "runs[0].tool.driver.rules[0].messageStrings.Default.markdown"
           ]
         }
       }

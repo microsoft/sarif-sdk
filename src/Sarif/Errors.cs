@@ -278,11 +278,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                             Uri = context.TargetUri
                         },
                     },
-                    NotificationDescriptorReference = new ReportingDescriptorReference
+                    Descriptor = new ReportingDescriptorReference
                     {
                         Id = ERR997_MissingReportingConfiguration,
                     },
-                    AssociatedRuleDescriptorReference = new ReportingDescriptorReference
+                    AssociatedRule = new ReportingDescriptorReference
                     {
                         Id = context.Rule.Id,
                     },
@@ -494,7 +494,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (!string.IsNullOrWhiteSpace(notificationId))
             {
-                notification.NotificationDescriptorReference = new ReportingDescriptorReference
+                notification.Descriptor = new ReportingDescriptorReference
                 {
                     Id = notificationId,
                 };
@@ -502,7 +502,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (!string.IsNullOrWhiteSpace(ruleId))
             {
-                notification.AssociatedRuleDescriptorReference = new ReportingDescriptorReference
+                notification.AssociatedRule = new ReportingDescriptorReference
                 {
                     Id = ruleId,
                 };

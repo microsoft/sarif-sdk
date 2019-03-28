@@ -156,9 +156,43 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                     // https://github.com/oasis-tcs/sarif-spec/issues/340
                     AddLogicalLocationToAllLocationNodes(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/338
+                    RenameAllToolComponentDescriptors(run);
                 }
             }
             return true;
+        }
+
+        private static void RenameAllToolComponentDescriptors(JObject run)
+        {
+            string[] toolComponentPathsToUpdate =
+            {
+                "tool.driver",
+                "tool.extensions[]",
+                "conversion.tool.driver",
+                "conversion.tool.extensions[]"
+            };
+
+            PerformActionOnLeafNodeIfExists(
+                possiblePathsToLeafNode: toolComponentPathsToUpdate,
+                rootNode: run,
+                action: RenameToolComponentDescriptors);
+        }
+
+        private static void RenameToolComponentDescriptors(JObject toolComponent)
+        {
+            if (toolComponent["ruleDescriptors"] is JArray ruleDescriptors)
+            {
+                toolComponent.Remove("ruleDescriptors");
+                toolComponent.Add("rules", ruleDescriptors);
+            }
+
+            if (toolComponent["notificationDescriptors"] is JArray notificationDescriptors)
+            {
+                toolComponent.Remove("notificationDescriptors");
+                toolComponent.Add("notifications", notificationDescriptors);
+            }
         }
 
         private static void UpdateAllNotificationDescriptorReferences(JObject run)
@@ -204,7 +238,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 };
 
                 notification.Remove("id");
-                notification.Add("notificationDescriptorReference", notificationDescriptorReference);
+                notification.Add("descriptor", notificationDescriptorReference);
             }
 
             var associatedRuleDescriptorReference = new JObject();
@@ -223,7 +257,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (associatedRuleDescriptorReference.Count > 0)
             {
-                notification.Add("associatedRuleDescriptorReference", associatedRuleDescriptorReference);
+                notification.Add("associatedRule", associatedRuleDescriptorReference);
             }
         }
 

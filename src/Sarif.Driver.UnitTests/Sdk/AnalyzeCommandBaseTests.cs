@@ -712,7 +712,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 run.Invocations[0].ToolConfigurationNotifications.Where((notification) => notification.Level == FailureLevel.Error).Count().Should().Be(1);
                 run.Invocations[0].ToolConfigurationNotifications.Where((notification) => notification.Level == FailureLevel.Warning).Count().Should().Be(3);
 
-                run.Invocations[0].ToolConfigurationNotifications.Where((notification) => notification.NotificationDescriptorReference.Id == Warnings.Wrn999_RuleExplicitlyDisabled).Count().Should().Be(3);
+                run.Invocations[0].ToolConfigurationNotifications.Where((notification) => notification.Descriptor.Id == Warnings.Wrn999_RuleExplicitlyDisabled).Count().Should().Be(3);
 
                 toolNotificationCount.Should().Be(0);
             }

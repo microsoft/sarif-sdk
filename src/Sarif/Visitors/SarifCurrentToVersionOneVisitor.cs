@@ -360,12 +360,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 notification = new NotificationVersionOne
                 {
                     Exception = CreateExceptionDataVersionOne(v2Notification.Exception),
-                    Id = v2Notification.NotificationDescriptorReference?.Id,
+                    Id = v2Notification.Descriptor?.Id,
                     Level = Utilities.CreateNotificationLevelVersionOne(v2Notification.Level),
                     Message = v2Notification.Message?.Text,
                     PhysicalLocation = CreatePhysicalLocationVersionOne(v2Notification.PhysicalLocation),
                     Properties = v2Notification.Properties,
-                    RuleId = v2Notification.AssociatedRuleDescriptorReference?.Id,
+                    RuleId = v2Notification.AssociatedRule?.Id,
                     ThreadId = v2Notification.ThreadId,
                     Time = v2Notification.TimeUtc
                 };
@@ -881,7 +881,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     _currentRun = run;
 
                     CreateFileKeyIndexMappings(v2Run.Artifacts, out _v1FileKeyToV2IndexMap, out _v2FileIndexToV1KeyMap);
-                    _v2RuleIndexToV1KeyMap = CreateV2RuleIndexToV1KeyMapping(v2Run.Tool.Driver.RuleDescriptors);
+                    _v2RuleIndexToV1KeyMap = CreateV2RuleIndexToV1KeyMapping(v2Run.Tool.Driver.Rules);
 
                     run.BaselineId = v2Run.BaselineGuid;
                     run.Files = CreateFileDataVersionOneDictionary();
@@ -895,7 +895,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     run.Properties = v2Run.Properties;
                     run.Results = new List<ResultVersionOne>();
 
-                    run.Rules = ConvertRulesArrayToDictionary(_currentV2Run.Tool.Driver.RuleDescriptors, _v2RuleIndexToV1KeyMap);
+                    run.Rules = ConvertRulesArrayToDictionary(_currentV2Run.Tool.Driver.Rules, _v2RuleIndexToV1KeyMap);
                     run.Tool = CreateToolVersionOne(v2Run.Tool);
 
                     foreach (Result v2Result in v2Run.Results)

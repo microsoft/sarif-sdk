@@ -75,7 +75,7 @@
           "AddedFile",
           "DeletedFile",
           "RenamedFile",
-          "GeneratedFile",
+          "UncontrolledFile",
           "Driver",
           "Extension",
           "Translation",
