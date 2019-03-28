@@ -224,6 +224,48 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (!object.ReferenceEquals(left.SupportedTaxonomies, right.SupportedTaxonomies))
+            {
+                if (left.SupportedTaxonomies == null || right.SupportedTaxonomies == null)
+                {
+                    return false;
+                }
+
+                if (left.SupportedTaxonomies.Count != right.SupportedTaxonomies.Count)
+                {
+                    return false;
+                }
+
+                for (int index_4 = 0; index_4 < left.SupportedTaxonomies.Count; ++index_4)
+                {
+                    if (!ToolComponentReference.ValueComparer.Equals(left.SupportedTaxonomies[index_4], right.SupportedTaxonomies[index_4]))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            if (!object.ReferenceEquals(left.ReportingConfigurationOverrides, right.ReportingConfigurationOverrides))
+            {
+                if (left.ReportingConfigurationOverrides == null || right.ReportingConfigurationOverrides == null)
+                {
+                    return false;
+                }
+
+                if (left.ReportingConfigurationOverrides.Count != right.ReportingConfigurationOverrides.Count)
+                {
+                    return false;
+                }
+
+                for (int index_5 = 0; index_5 < left.ReportingConfigurationOverrides.Count; ++index_5)
+                {
+                    if (!ReportingDescriptor.ValueComparer.Equals(left.ReportingConfigurationOverrides[index_5], right.ReportingConfigurationOverrides[index_5]))
+                    {
+                        return false;
+                    }
+                }
+            }
+
             if (!object.ReferenceEquals(left.Properties, right.Properties))
             {
                 if (left.Properties == null || right.Properties == null || left.Properties.Count != right.Properties.Count)
@@ -402,16 +444,40 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.TranslationMetadata.ValueGetHashCode();
                 }
 
+                if (obj.SupportedTaxonomies != null)
+                {
+                    foreach (var value_9 in obj.SupportedTaxonomies)
+                    {
+                        result = result * 31;
+                        if (value_9 != null)
+                        {
+                            result = (result * 31) + value_9.ValueGetHashCode();
+                        }
+                    }
+                }
+
+                if (obj.ReportingConfigurationOverrides != null)
+                {
+                    foreach (var value_10 in obj.ReportingConfigurationOverrides)
+                    {
+                        result = result * 31;
+                        if (value_10 != null)
+                        {
+                            result = (result * 31) + value_10.ValueGetHashCode();
+                        }
+                    }
+                }
+
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_1 = 0;
-                    foreach (var value_9 in obj.Properties)
+                    foreach (var value_11 in obj.Properties)
                     {
-                        xor_1 ^= value_9.Key.GetHashCode();
-                        if (value_9.Value != null)
+                        xor_1 ^= value_11.Key.GetHashCode();
+                        if (value_11.Value != null)
                         {
-                            xor_1 ^= value_9.Value.GetHashCode();
+                            xor_1 ^= value_11.Value.GetHashCode();
                         }
                     }
 

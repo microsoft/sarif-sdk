@@ -30,6 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         Extension = 8192,
         Translation = 16384,
         Taxonomy = 32768,
-        Policy = 65536
+        Policy = 65536,
+        ReportingConfigurationOverride = 131072
     }
 }
