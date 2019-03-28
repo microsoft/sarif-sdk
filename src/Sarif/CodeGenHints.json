@@ -81,7 +81,7 @@
           "Translation",
           "Taxonomy",
           "Policy",
-          "ReportingConfigurationOverride"
+          "ReferencedOnCommandLine"
         ]
       }
     },

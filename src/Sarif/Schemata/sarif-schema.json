@@ -152,7 +152,7 @@
               "translation",
               "taxonomy",
               "policy",
-              "reportingConfigurationOverride"
+              "referencedOnCommandLine"
             ]
           }
         },
@@ -2760,17 +2760,6 @@
           "default": [],
           "items": {
             "$ref": "#/definitions/toolComponentReference"
-          }
-        },
-
-        "reportingConfigurationOverrides": {
-          "description": "An array of reportingDescriptor objects relevant to the reporting configuration overrides for the tool component.",
-          "type": "array",
-          "minItems": 0,
-          "uniqueItems": true,
-          "default": [],
-          "items": {
-            "$ref": "#/definitions/reportingDescriptor"
           }
         },
 
