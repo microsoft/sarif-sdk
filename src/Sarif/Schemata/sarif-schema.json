@@ -1821,13 +1821,6 @@
           "minimum": -1
         },
 
-        "ruleExtensionIndex": {
-          "description": "The index within the run.tool.extensions array of the tool component object which describes the plug-in or tool extension that produced the result.",
-          "type": "integer",
-          "default": -1,
-          "minimum": -1
-        },
-
         "kind": {
           "description": "A value that categorizes results by evaluation state.",
           "default": "fail",
