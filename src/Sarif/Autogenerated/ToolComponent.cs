@@ -4,6 +4,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
@@ -137,6 +138,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The language of the the localized strings defined in this component (expressed as an ISO 649 two-letter lowercase culture code) and region (expressed as an ISO 3166 two-letter uppercase subculture code associated with a country or region).
         /// </summary>
         [DataMember(Name = "language", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue("en-US")]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public string Language { get; set; }
 
         /// <summary>
@@ -188,6 +191,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public ToolComponent()
         {
+            Language = "en-US";
         }
 
         /// <summary>

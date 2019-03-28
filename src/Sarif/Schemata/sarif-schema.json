@@ -2709,7 +2709,8 @@
 
         "language": {
           "description": "The language of the the localized strings defined in this component (expressed as an ISO 649 two-letter lowercase culture code) and region (expressed as an ISO 3166 two-letter uppercase subculture code associated with a country or region).",
-          "type": "string"
+          "type": "string",
+          "default": "en-US"
         },
 
         "contents": {
