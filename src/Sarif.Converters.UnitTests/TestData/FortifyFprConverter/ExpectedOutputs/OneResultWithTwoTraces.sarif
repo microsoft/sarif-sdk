@@ -23,13 +23,10 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "Helpers/DBHelper.cs",
-                  "uriBaseId": "SRCROOT",
                   "index": 0
                 },
                 "region": {
                   "startLine": 146,
-                  "endLine": 146,
                   "snippet": {
                     "text": "                    SqlDataReader myReader = myCommand.ExecuteReader();"
                   }
@@ -53,13 +50,10 @@
                       "location": {
                         "physicalLocation": {
                           "artifactLocation": {
-                            "uri": "Helpers/DBHelper.cs",
-                            "uriBaseId": "SRCROOT",
                             "index": 0
                           },
                           "region": {
                             "startLine": 146,
-                            "endLine": 146,
                             "snippet": {
                               "text": "                    SqlDataReader myReader = myCommand.ExecuteReader();"
                             }
@@ -78,7 +72,6 @@
                         "annotations": [
                           {
                             "startLine": 146,
-                            "endLine": 146,
                             "message": {
                               "text": "myReader refers to a database resource"
                             }
@@ -93,13 +86,10 @@
                       "location": {
                         "physicalLocation": {
                           "artifactLocation": {
-                            "uri": "Helpers/DBHelper.cs",
-                            "uriBaseId": "SRCROOT",
                             "index": 0
                           },
                           "region": {
                             "startLine": 148,
-                            "endLine": 148,
                             "snippet": {
                               "text": "                    while (myReader.Read())"
                             }
@@ -124,13 +114,10 @@
                       "location": {
                         "physicalLocation": {
                           "artifactLocation": {
-                            "uri": "Helpers/DBHelper.cs",
-                            "uriBaseId": "SRCROOT",
                             "index": 0
                           },
                           "region": {
                             "startLine": 139,
-                            "endLine": 139,
                             "snippet": {
                               "text": "                using (SqlConnection conn = new SqlConnection(ConnectionString))"
                             }
@@ -155,8 +142,6 @@
                       "location": {
                         "physicalLocation": {
                           "artifactLocation": {
-                            "uri": "Helpers/DBHelper.cs",
-                            "uriBaseId": "SRCROOT",
                             "index": 0
                           },
                           "region": {
@@ -194,13 +179,10 @@
                       "location": {
                         "physicalLocation": {
                           "artifactLocation": {
-                            "uri": "Helpers/DBHelper.cs",
-                            "uriBaseId": "SRCROOT",
                             "index": 0
                           },
                           "region": {
                             "startLine": 146,
-                            "endLine": 146,
                             "snippet": {
                               "text": "                    SqlDataReader myReader = myCommand.ExecuteReader();"
                             }
@@ -219,7 +201,6 @@
                         "annotations": [
                           {
                             "startLine": 146,
-                            "endLine": 146,
                             "message": {
                               "text": "myReader refers to a database resource"
                             }
@@ -234,13 +215,10 @@
                       "location": {
                         "physicalLocation": {
                           "artifactLocation": {
-                            "uri": "Helpers/DBHelper.cs",
-                            "uriBaseId": "SRCROOT",
                             "index": 0
                           },
                           "region": {
                             "startLine": 148,
-                            "endLine": 148,
                             "snippet": {
                               "text": "                    while (myReader.Read())"
                             }
@@ -265,13 +243,10 @@
                       "location": {
                         "physicalLocation": {
                           "artifactLocation": {
-                            "uri": "Helpers/DBHelper.cs",
-                            "uriBaseId": "SRCROOT",
                             "index": 0
                           },
                           "region": {
                             "startLine": 150,
-                            "endLine": 150,
                             "snippet": {
                               "text": "                        return new AppICTOItem()"
                             }
@@ -296,13 +271,10 @@
                       "location": {
                         "physicalLocation": {
                           "artifactLocation": {
-                            "uri": "Helpers/DBHelper.cs",
-                            "uriBaseId": "SRCROOT",
                             "index": 0
                           },
                           "region": {
                             "startLine": 150,
-                            "endLine": 150,
                             "snippet": {
                               "text": "                        return new AppICTOItem()"
                             }
@@ -327,13 +299,10 @@
                       "location": {
                         "physicalLocation": {
                           "artifactLocation": {
-                            "uri": "Helpers/DBHelper.cs",
-                            "uriBaseId": "SRCROOT",
                             "index": 0
                           },
                           "region": {
                             "startLine": 150,
-                            "endLine": 150,
                             "snippet": {
                               "text": "                        return new AppICTOItem()"
                             }
@@ -364,13 +333,10 @@
               "physicalLocation": {
                 "id": 1,
                 "artifactLocation": {
-                  "uri": "Helpers/DBHelper.cs",
-                  "uriBaseId": "SRCROOT",
                   "index": 0
                 },
                 "region": {
-                  "startLine": 146,
-                  "endLine": 146
+                  "startLine": 146
                 }
               }
             }
@@ -408,8 +374,7 @@
         {
           "location": {
             "uri": "Helpers/DBHelper.cs",
-            "uriBaseId": "SRCROOT",
-            "index": 0
+            "uriBaseId": "SRCROOT"
           },
           "length": 8297,
           "mimeType": "text/x-csharp",
