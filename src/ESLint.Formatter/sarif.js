@@ -31,12 +31,6 @@ function getResultLevel(message) {
 //------------------------------------------------------------------------------
 
 module.exports = function (results) {
-    let version;
-
-    try {
-        const pkg = require("../../package.json");
-        version = pkg.version;
-    } catch { }
 
     const sarifLog = {
         version: "2.0.0",
@@ -47,8 +41,7 @@ module.exports = function (results) {
                 tool: {
                     driver: {
                         name: "ESLint",
-                        downloadUri: "https://eslint.org",
-                        version: version
+                        downloadUri: "https://eslint.org"
                     }
                 }
             }

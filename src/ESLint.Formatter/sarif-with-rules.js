@@ -32,12 +32,6 @@ function getResultLevel(message) {
 //------------------------------------------------------------------------------
 
 module.exports = function (results, data) {
-    let version;
-
-    try {
-        const pkg = require("../../package.json");
-        version = pkg.version;
-    } catch { }
 
     const rulesMetdata = lodash.get(data, "rulesMetdata", null);
 
@@ -50,8 +44,7 @@ module.exports = function (results, data) {
                 tool: {
                     driver: {
                         name: "ESLint",
-                        downloadUri: "https://eslint.org",
-                        version: version
+                        downloadUri: "https://eslint.org"
                     }
                 }
             }
