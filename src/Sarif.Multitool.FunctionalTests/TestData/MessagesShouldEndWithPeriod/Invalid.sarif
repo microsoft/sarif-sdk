@@ -110,48 +110,6 @@
               ]
             }
           ],
-          "graphs": {
-            "g": {
-              "id": "g",
-              "description": {
-                "text": "graph description without period",
-                "richText": "_Rich_ graph description without period"
-              },
-              "nodes": [
-                {
-                  "id": "n1"
-                },
-                {
-                  "id": "n2"
-                }
-              ],
-              "edges": [
-                {
-                  "id": "e",
-                  "sourceNodeId": "n1",
-                  "targetNodeId": "n2"
-                }
-              ]
-            }
-          },
-          "graphTraversals": [
-            {
-              "graphId": "g",
-              "description": {
-                "text": "graphTraversal description without period",
-                "richText": "_Rich_ graphTraversal description without period"
-              },
-              "edgeTraversals": [
-                {
-                  "edgeId": "e",
-                  "message": {
-                    "text": "edgeTraversal message without period",
-                    "richText": "_Rich_ edgeTraversal message without period"
-                  }
-                }
-              ]
-            }
-          ],
           "fixes": [
             {
               "description": {
@@ -241,24 +199,18 @@
             "runs[0].results[0].stacks[0].message.markdown",
             "runs[0].results[0].stacks[0].frames[0].location.message.text",
             "runs[0].results[0].stacks[0].frames[0].location.message.markdown",
-            "runs[0].results[0].graphs.g.description.text",
-            "runs[0].results[0].graphs.g.description.markdown",
-            "runs[0].results[0].graphTraversals[0].description.text",
-            "runs[0].results[0].graphTraversals[0].description.markdown",
-            "runs[0].results[0].graphTraversals[0].edgeTraversals[0].message.text",
-            "runs[0].results[0].graphTraversals[0].edgeTraversals[0].message.markdown",
             "runs[0].results[0].fixes[0].description.text",
             "runs[0].results[0].fixes[0].description.markdown",
             "runs[0].invocations[0].toolConfigurationNotifications[0].message.text",
             "runs[0].invocations[0].toolConfigurationNotifications[0].message.markdown",
             "runs[0].invocations[0].toolExecutionNotifications[0].message.text",
             "runs[0].invocations[0].toolExecutionNotifications[0].message.markdown",
-            "runs[0].tool.driver.ruleDescriptors[0].shortDescription.text",
-            "runs[0].tool.driver.ruleDescriptors[0].shortDescription.markdown",
-            "runs[0].tool.driver.ruleDescriptors[0].fullDescription.text",
-            "runs[0].tool.driver.ruleDescriptors[0].fullDescription.markdown",
-            "runs[0].tool.driver.ruleDescriptors[0].messageStrings.Default.text",
-            "runs[0].tool.driver.ruleDescriptors[0].messageStrings.Default.markdown"
+            "runs[0].tool.driver.rules[0].shortDescription.text",
+            "runs[0].tool.driver.rules[0].shortDescription.markdown",
+            "runs[0].tool.driver.rules[0].fullDescription.text",
+            "runs[0].tool.driver.rules[0].fullDescription.markdown",
+            "runs[0].tool.driver.rules[0].messageStrings.Default.text",
+            "runs[0].tool.driver.rules[0].messageStrings.Default.markdown"
           ]
         }
       }

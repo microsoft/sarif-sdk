@@ -38,8 +38,10 @@
                             "endColumn": 9
                           }
                         },
-                        "fullyQualifiedLogicalName": "Ambiguous.Item",
-                        "logicalLocationIndex": 0,
+                        "logicalLocation": {
+                            "fullyQualifiedName": "Ambiguous.Item",
+                            "index": 0
+                        },
                         "message": {
                           "text": "Exception thrown"
                         }
@@ -57,8 +59,10 @@
                             "uri": "file:///C:/src/main.cs"
                           }
                         },
-                        "fullyQualifiedLogicalName": "Rules.SecureHashAlgorithmRule.Register",
-                        "logicalLocationIndex": 1
+                        "logicalLocation": {
+                            "fullyQualifiedName": "Rules.SecureHashAlgorithmRule.Register",
+                            "index": 1
+                        }
                       },
                       "module": "RuleLibrary",
                       "threadId": 52,
@@ -73,7 +77,9 @@
                             "uri": "file:///C:/src/utils.cs"
                           }
                         },
-                        "fullyQualifiedLogicalName": "ExecutionEngine.Engine.EvaluateRule"
+                        "logicalLocation": {
+                            "fullyQualifiedName": "ExecutionEngine.Engine.EvaluateRule"
+                        }
                       },
                       "module": "ExecutionEngine",
                       "threadId": 52,
@@ -89,8 +95,10 @@
                             "uri": "file:///C:/src/testtarget.cs"
                           }
                         },
-                        "fullyQualifiedLogicalName": "Ambiguous.Item",
-                        "logicalLocationIndex": 2
+                        "logicalLocation": {
+                            "fullyQualifiedName": "Ambiguous.Item",
+                            "index": 2
+                        }
                       },
                       "module": "Target",
                       "threadId": 52,

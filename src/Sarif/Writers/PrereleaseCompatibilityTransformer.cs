@@ -141,10 +141,324 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     // https://github.com/oasis-tcs/sarif-spec/issues/337
                     ConvertToolToDriverInExternalPropertyFiles(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/338
+                    ModifyExternalPropertyFilesToExternalPropertyFileReferences(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/324
+                    UpdateAllNotificationDescriptorReferences(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/344
+                    ConvertSuppressionStatesToSuppressions(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/341
+                    RenameAllInstanceGuidsAndIds(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/340
+                    AddLogicalLocationToAllLocationNodes(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/338
+                    RenameAllToolComponentDescriptors(run);
                 }
             }
             return true;
         }
+
+        private static void RenameAllToolComponentDescriptors(JObject run)
+        {
+            string[] toolComponentPathsToUpdate =
+            {
+                "tool.driver",
+                "tool.extensions[]",
+                "conversion.tool.driver",
+                "conversion.tool.extensions[]"
+            };
+
+            PerformActionOnLeafNodeIfExists(
+                possiblePathsToLeafNode: toolComponentPathsToUpdate,
+                rootNode: run,
+                action: RenameToolComponentDescriptors);
+        }
+
+        private static void RenameToolComponentDescriptors(JObject toolComponent)
+        {
+            if (toolComponent["ruleDescriptors"] is JArray ruleDescriptors)
+            {
+                toolComponent.Remove("ruleDescriptors");
+                toolComponent.Add("rules", ruleDescriptors);
+            }
+
+            if (toolComponent["notificationDescriptors"] is JArray notificationDescriptors)
+            {
+                toolComponent.Remove("notificationDescriptors");
+                toolComponent.Add("notifications", notificationDescriptors);
+            }
+        }
+
+        private static void UpdateAllNotificationDescriptorReferences(JObject run)
+        {
+            // Previously:
+            //      "notification" : {
+            //          "id" : "notif001" ,
+            //          "ruleId" : "rule001",
+            //          "ruleIndex" : 1
+            //      }
+            // Now:
+            //      "notification" : {
+            //          "notificationDescriptorReference" : {
+            //              "id" : "notif001"
+            //          }
+            //          "associatedRuleDescriptorReference" : {
+            //              "id" : "rule001",
+            //              "index" : 1
+            //          }
+            //      }
+
+            string[] notificationPathsToUpdate =
+            {
+                "invocations[].toolExecutionNotifications[]",
+                "invocations[].toolConfigurationNotifications[]",
+                "conversion.invocation.toolExecutionNotifications[]",
+                "conversion.invocation.toolConfigurationNotifications[]"
+            };
+
+            PerformActionOnLeafNodeIfExists(
+                possiblePathsToLeafNode: notificationPathsToUpdate,
+                rootNode: run,
+                action: UpdateNotificationDescriptorReferencesInSingleNotificationObject);
+        }
+
+        private static void UpdateNotificationDescriptorReferencesInSingleNotificationObject(JObject notification)
+        {
+            if(notification["id"] is JToken id)
+            {
+                var notificationDescriptorReference = new JObject
+                {
+                    { "id", id }
+                };
+
+                notification.Remove("id");
+                notification.Add("descriptor", notificationDescriptorReference);
+            }
+
+            var associatedRuleDescriptorReference = new JObject();
+
+            if (notification["ruleId"] is JToken ruleId)
+            {
+                associatedRuleDescriptorReference.Add("id", ruleId);
+                notification.Remove("ruleId");
+            }
+
+            if (notification["ruleIndex"] is JToken ruleIndex)
+            {
+                associatedRuleDescriptorReference.Add("index", ruleIndex);
+                notification.Remove("ruleIndex");
+            }
+
+            if (associatedRuleDescriptorReference.Count > 0)
+            {
+                notification.Add("associatedRule", associatedRuleDescriptorReference);
+            }
+        }
+
+        private static void ConvertSuppressionStatesToSuppressions(JObject run)
+        {
+            if (run["results"] is JArray results)
+            {
+                foreach (JObject result in results)
+                {
+                    if (result["suppressionStates"] is JArray suppressionStates)
+                    {
+                        result.Remove("suppressionStates");
+                        var suppressions = new JArray();
+
+                        foreach (JToken suppressionState in suppressionStates)
+                        {
+                            var suppression = new JObject
+                            {
+                                { "kind", suppressionState }
+                            };
+
+                            suppressions.Add(suppression);
+                        }
+
+                        if (suppressions.Count > 0)
+                        {
+                            result.Add("suppressions", suppressions);
+                        }
+                    }
+                }
+            }
+        }
+
+        private static void ModifyExternalPropertyFilesToExternalPropertyFileReferences(JObject run)
+        {
+            if (run["externalPropertyFiles"] is JObject externalPropertyFiles)
+            {
+                run.Remove("externalPropertyFiles");
+                run.Add("externalPropertyFileReferences", externalPropertyFiles);
+            }
+        }
+
+        private static void RenameAllInstanceGuidsAndIds(JObject run)
+        {
+            // The following properties will be renamed:
+
+            // run.baselineInstanceGuid -> run.baselineGuid
+
+            // run.id -> run.automationDetails
+            // run.id.instanceId -> run.automationDetails.id
+            // run.id.instanceGuid -> run.automationDetails.guid
+
+            // run.aggregateIds -> run.runAggregates
+            // run.aggregateIds[].instanceId -> run.runAggregates[].id
+            // run.aggregateIds[].instanceGuid -> run.runAggregates[].guid
+
+            // run.results[].instanceGuid -> run.results[].guid
+            // run.results[].resultProvenance.firstDetectionRunInstanceGuid -> run.results[].resultProvenance.firstDetectionRunGuid
+            // run.results[].resultProvenance.lastDetectionRunInstanceGuid -> run.results[].resultProvenance.lastDetectionRunGuid
+
+
+            if (run["baselineInstanceGuid"] is JToken baselineInstanceGuid)
+            {
+                run.Remove("baselineInstanceGuid");
+                run.Add("baselineGuid", baselineInstanceGuid);
+            }
+
+            if (run["id"] is JObject id)
+            {
+                RenameInstanceGuidToGuidInNode(id);
+                RenameInstanceIdToIdInNode(id);
+
+                run.Remove("id");
+                run.Add("automationDetails", id);
+            }
+
+            if (run["aggregateIds"] is JArray aggregateIds)
+            {
+                foreach (JObject aggregateId in aggregateIds)
+                {
+                    RenameInstanceGuidToGuidInNode(aggregateId);
+                    RenameInstanceIdToIdInNode(aggregateId);
+                }
+
+                run.Remove("aggregateIds");
+                run.Add("runAggregates", aggregateIds);
+            }
+
+            if (run["results"] is JArray results)
+            {
+                foreach (JObject result in results)
+                {
+                    RenameInstanceGuidToGuidInNode(result);
+
+                    if (result["resultProvenance"] is JObject resultProvenance)
+                    {
+                        if (resultProvenance["firstDetectionRunInstanceGuid"] is JToken firstDetectionRunInstanceGuid)
+                        {
+                            resultProvenance.Remove("firstDetectionRunInstanceGuid");
+                            resultProvenance.Add("firstDetectionRunGuid", firstDetectionRunInstanceGuid);
+                        }
+
+                        if (resultProvenance["lastDetectionRunInstanceGuid"] is JToken lastDetectionRunInstanceGuid)
+                        {
+                            resultProvenance.Remove("lastDetectionRunInstanceGuid");
+                            resultProvenance.Add("lastDetectionRunGuid", lastDetectionRunInstanceGuid);
+                        }
+                    }
+                }
+            }
+        }
+
+        private static void RenameInstanceGuidToGuidInNode(JObject node)
+        {
+            if (node["instanceGuid"] is JToken instanceGuid)
+            {
+                node.Remove("instanceGuid");
+                node.Add("guid", instanceGuid);
+            }
+        }
+
+        private static void RenameInstanceIdToIdInNode(JObject node)
+        {
+            if (node["instanceId"] is JToken instanceId)
+            {
+                node.Remove("instanceId");
+                node.Add("id", instanceId);
+            }
+        }
+
+        private static void AddLogicalLocationToAllLocationNodes(JObject run)
+        {
+            // We need to remove location.fullyQualifiedLogicalName (string) and location.logicalLocationIndex (int) and transfer those
+            // to a single LogicalLocation object with properties "fullyQualifiedName" and "parentIndex".
+
+            // Previously:
+            //      "location" : {
+            //          "fullyQualifiedLogicalName" : "test" ,
+            //          "logicalLocationIndex" : 1
+            //      }
+            // Now:
+            //      "location" : {
+            //          "logicalLocation" : {
+            //              "fullyQualifiedName" : "test",
+            //              "Index" : 1
+            //          }
+            //      }
+
+            // The code walks through all possible paths to 'location' node and performs updates.
+            string[] locationPathsToUpdate =
+            {
+
+                "results[].locations[]",
+                "results[].relatedLocations[]",
+                "results[].stacks[].frames[].location",
+                "results[].codeFlows[].threadFlows[].locations[].location",
+                "results[].codeFlows[].threadFlows[].locations[].stack.frames[].location",
+
+                "threadFlowLocations[].stack.frames[].location",
+                "threadFlowLocations[].location",
+
+                "invocations[].toolExecutionNotifications[].exception.stack.frames[].location",
+                "invocations[].toolExecutionNotifications[].exception.innerExceptions[].stack.frames[].location", // (recursive reference)
+                "invocations[].toolConfigurationNotifications[].exception.stack.frames[].location",
+                "invocations[].toolConfigurationNotifications[].exception.innerExceptions[].stack.frames[].location", // (recursive reference)
+
+                "conversion.invocation.toolExecutionNotifications[].exception.stack.frames[].location",
+                "conversion.invocation.toolExecutionNotifications[].exception.innerExceptions[].stack.frames[].location", // (recursive reference)
+                "conversion.invocation.toolConfigurationNotifications[].exception.stack.frames[].location",
+                "conversion.invocation.toolConfigurationNotifications[].exception.innerExceptions[].stack.frames[].location" // (recursive reference)
+
+                // Note: Ignoring graph related paths since no one is using this feature at the moment:
+                //"results[].graphs.nodes[].location"
+                //"graphs.nodes[].location"
+                //"graphs.nodes[].children[].location" //(recursive reference)
+            };
+            PerformActionOnLeafNodeIfExists(locationPathsToUpdate, run, AddLogicalLocationToSingleLocationNode);
+        }
+
+        private static void AddLogicalLocationToSingleLocationNode(JObject location)
+        {
+            var logicalLocation = new JObject();
+
+            if (location["fullyQualifiedLogicalName"] is JToken fullyQualifiedLogicalName)
+            {
+                logicalLocation.Add("fullyQualifiedName", fullyQualifiedLogicalName);
+                location.Remove("fullyQualifiedLogicalName");
+            }
+
+            if (location["logicalLocationIndex"] is JToken logicalLocationIndex)
+            {
+                logicalLocation.Add("index", logicalLocationIndex);
+                location.Remove("logicalLocationIndex");
+            }
+
+            if (logicalLocation.Count > 0)
+            {
+                location.Add("logicalLocation", logicalLocation);
+            }
+        }
+
 
         private static void ConvertToolToDriverInExternalPropertyFiles(JObject run)
         {
@@ -309,7 +623,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 }
             }
         }
-
 
         private static void UpdateAllToolComponentProperties(JObject run)
         {

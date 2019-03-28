@@ -28,8 +28,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         {
                             ArtifactLocation = new ArtifactLocation { Uri = _remappedUri, UriBaseId = _remappedUriBaseId, Index = Int32.MaxValue}
                         },
-                        FullyQualifiedLogicalName = _remappedFullyQualifiedLogicalName,
-                        LogicalLocationIndex = Int32.MaxValue
+                        LogicalLocation = new LogicalLocation
+                        {
+                            FullyQualifiedName = _remappedFullyQualifiedLogicalName,
+                            Index = Int32.MaxValue
+                        },
                     }
                 }
             };
@@ -44,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             var visitor = new UpdateIndicesFromLegacyDataVisitor(null, null, null);
             visitor.VisitResult(result);
 
-            result.Locations[0].LogicalLocationIndex.Should().Be(Int32.MaxValue);
+            result.Locations[0].LogicalLocation.Index.Should().Be(Int32.MaxValue);
             result.Locations[0].PhysicalLocation.ArtifactLocation.Index.Should().Be(Int32.MaxValue);
         }
 
@@ -62,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             var visitor = new UpdateIndicesFromLegacyDataVisitor(fullyQualifiedLogicalNameToIndexMap, fileLocationKeyToIndexMap: null, ruleKeyToIndexMap: null);
             visitor.VisitResult(result);
 
-            result.Locations[0].LogicalLocationIndex.Should().Be(remappedIndex);
+            result.Locations[0].LogicalLocation.Index.Should().Be(remappedIndex);
             result.Locations[0].PhysicalLocation.ArtifactLocation.Index.Should().Be(Int32.MaxValue);
         }
 
@@ -82,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             var visitor = new UpdateIndicesFromLegacyDataVisitor(fullyQualifiedLogicalNameToIndexMap: null, fileLocationKeyToIndexMap: fileLocationKeyToIndexMap, ruleKeyToIndexMap: null);
             visitor.VisitResult(result);
 
-            result.Locations[0].LogicalLocationIndex.Should().Be(Int32.MaxValue);
+            result.Locations[0].LogicalLocation.Index.Should().Be(Int32.MaxValue);
             result.Locations[0].PhysicalLocation.ArtifactLocation.Index.Should().Be(remappedIndex);
         }
 
@@ -107,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     Driver = new ToolComponent
                     {
-                        RuleDescriptors = new List<ReportingDescriptor>
+                        Rules = new List<ReportingDescriptor>
                         {
                             new ReportingDescriptor { Id = actualRuleId }
                         }
@@ -178,8 +181,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         {
                             ArtifactLocation = new ArtifactLocation { Uri = new Uri(Guid.NewGuid().ToString(), UriKind.Relative), UriBaseId = Guid.NewGuid().ToString(), Index = random.Next()}
                         },
-                        FullyQualifiedLogicalName = Guid.NewGuid().ToString(),
-                        LogicalLocationIndex = random.Next()
+                        LogicalLocation = new LogicalLocation
+                        {
+                            FullyQualifiedName = Guid.NewGuid().ToString(),
+                            Index = random.Next()
+                        }
                     }
                 }
             };

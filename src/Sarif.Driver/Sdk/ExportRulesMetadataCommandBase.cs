@@ -127,7 +127,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 sortedRules[numericId] = rule;
             }
 
-            run.Tool.Driver.RuleDescriptors = new List<ReportingDescriptor>(sortedRules.Values);
+            run.Tool.Driver.Rules = new List<ReportingDescriptor>(sortedRules.Values);
 
             var settings = new JsonSerializerSettings()
             {

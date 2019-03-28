@@ -28,22 +28,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!Address.ValueComparer.Equals(left.Address, right.Address))
-            {
-                return false;
-            }
-
             if (!PhysicalLocation.ValueComparer.Equals(left.PhysicalLocation, right.PhysicalLocation))
             {
                 return false;
             }
 
-            if (left.FullyQualifiedLogicalName != right.FullyQualifiedLogicalName)
-            {
-                return false;
-            }
-
-            if (left.LogicalLocationIndex != right.LogicalLocationIndex)
+            if (!LogicalLocation.ValueComparer.Equals(left.LogicalLocation, right.LogicalLocation))
             {
                 return false;
             }
@@ -109,22 +99,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (obj.Address != null)
-                {
-                    result = (result * 31) + obj.Address.ValueGetHashCode();
-                }
-
                 if (obj.PhysicalLocation != null)
                 {
                     result = (result * 31) + obj.PhysicalLocation.ValueGetHashCode();
                 }
 
-                if (obj.FullyQualifiedLogicalName != null)
+                if (obj.LogicalLocation != null)
                 {
-                    result = (result * 31) + obj.FullyQualifiedLogicalName.GetHashCode();
+                    result = (result * 31) + obj.LogicalLocation.ValueGetHashCode();
                 }
 
-                result = (result * 31) + obj.LogicalLocationIndex.GetHashCode();
                 if (obj.Message != null)
                 {
                     result = (result * 31) + obj.Message.ValueGetHashCode();

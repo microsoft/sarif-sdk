@@ -167,7 +167,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 _dataToInsert.HasFlag(OptionallyEmittedData.FlattenedMessages))
             {
                 MultiformatMessageString formatString = null;
-                ReportingDescriptor rule = _ruleIndex != -1 ? _run.Tool.Driver.RuleDescriptors[_ruleIndex] : null;
+                ReportingDescriptor rule = _ruleIndex != -1 ? _run.Tool.Driver.Rules[_ruleIndex] : null;
             
                 if (rule != null &&
                     rule.MessageStrings != null &&

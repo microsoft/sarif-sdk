@@ -148,7 +148,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                             [UniqueGlobalMessageId] = new MultiformatMessageString { Text = UniqueGlobalMessageValue },
                             [SharedMessageId] = new MultiformatMessageString { Text = SharedKeyGlobalMessageValue }
                         },
-                        RuleDescriptors = new List<ReportingDescriptor>
+                        Rules = new List<ReportingDescriptor>
                         {
                             new ReportingDescriptor
                             {
@@ -229,7 +229,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             toolNotifications.Add(
                 new Notification
                 {
-                    Id = NotificationId,
+                    Descriptor = new ReportingDescriptorReference
+                    {
+                        Id = NotificationId
+                    },
                     Message = new Message {  MessageId = SharedMessageId}
                 });
             configurationNotifications.Add(toolNotifications[0]);
@@ -241,8 +244,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             toolNotifications.Add(
                 new Notification
                 {
-                    Id = NotificationId,
-                    RuleIndex = RuleIndex,
+                    Descriptor = new ReportingDescriptorReference
+                    {
+                        Id = NotificationId
+                    },
+                    AssociatedRule = new ReportingDescriptorReference
+                    {
+                        Index = RuleIndex
+                    },
                     Message = new Message { MessageId = UniqueGlobalMessageId }
                 });
             configurationNotifications.Add(toolNotifications[1]);
@@ -254,8 +263,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             toolNotifications.Add(
                 new Notification
                 {
-                    Id = NotificationId,
-                    RuleIndex = RuleIndex,
+                    Descriptor = new ReportingDescriptorReference
+                    {
+                        Id = NotificationId
+                    },
+                    AssociatedRule = new ReportingDescriptorReference
+                    {
+                        Index = RuleIndex
+                    },
                     Message = new Message { MessageId = SharedMessageId }
                 });
             configurationNotifications.Add(toolNotifications[2]);

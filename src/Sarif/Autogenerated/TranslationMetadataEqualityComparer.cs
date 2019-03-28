@@ -9,14 +9,14 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Defines methods to support the comparison of objects of type ReportingDescriptorTranslation for equality.
+    /// Defines methods to support the comparison of objects of type TranslationMetadata for equality.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
-    internal sealed class ReportingDescriptorTranslationEqualityComparer : IEqualityComparer<ReportingDescriptorTranslation>
+    internal sealed class TranslationMetadataEqualityComparer : IEqualityComparer<TranslationMetadata>
     {
-        internal static readonly ReportingDescriptorTranslationEqualityComparer Instance = new ReportingDescriptorTranslationEqualityComparer();
+        internal static readonly TranslationMetadataEqualityComparer Instance = new TranslationMetadataEqualityComparer();
 
-        public bool Equals(ReportingDescriptorTranslation left, ReportingDescriptorTranslation right)
+        public bool Equals(TranslationMetadata left, TranslationMetadata right)
         {
             if (ReferenceEquals(left, right))
             {
@@ -28,12 +28,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.Id != right.Id)
+            if (left.Name != right.Name)
             {
                 return false;
             }
 
-            if (left.Guid != right.Guid)
+            if (left.FullName != right.FullName)
             {
                 return false;
             }
@@ -48,7 +48,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!object.Equals(left.MessageStrings, right.MessageStrings))
+            if (left.DownloadUri != right.DownloadUri)
+            {
+                return false;
+            }
+
+            if (left.InformationUri  != right.InformationUri )
             {
                 return false;
             }
@@ -78,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public int GetHashCode(ReportingDescriptorTranslation obj)
+        public int GetHashCode(TranslationMetadata obj)
         {
             if (ReferenceEquals(obj, null))
             {
@@ -88,14 +93,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (obj.Id != null)
+                if (obj.Name != null)
                 {
-                    result = (result * 31) + obj.Id.GetHashCode();
+                    result = (result * 31) + obj.Name.GetHashCode();
                 }
 
-                if (obj.Guid != null)
+                if (obj.FullName != null)
                 {
-                    result = (result * 31) + obj.Guid.GetHashCode();
+                    result = (result * 31) + obj.FullName.GetHashCode();
                 }
 
                 if (obj.ShortDescription != null)
@@ -108,9 +113,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.FullDescription.ValueGetHashCode();
                 }
 
-                if (obj.MessageStrings != null)
+                if (obj.DownloadUri != null)
                 {
-                    result = (result * 31) + obj.MessageStrings.GetHashCode();
+                    result = (result * 31) + obj.DownloadUri.GetHashCode();
+                }
+
+                if (obj.InformationUri  != null)
+                {
+                    result = (result * 31) + obj.InformationUri .GetHashCode();
                 }
 
                 if (obj.Properties != null)

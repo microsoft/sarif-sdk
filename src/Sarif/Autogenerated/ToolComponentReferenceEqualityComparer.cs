@@ -9,14 +9,14 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Defines methods to support the comparison of objects of type Translation for equality.
+    /// Defines methods to support the comparison of objects of type ToolComponentReference for equality.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
-    internal sealed class TranslationEqualityComparer : IEqualityComparer<Translation>
+    internal sealed class ToolComponentReferenceEqualityComparer : IEqualityComparer<ToolComponentReference>
     {
-        internal static readonly TranslationEqualityComparer Instance = new TranslationEqualityComparer();
+        internal static readonly ToolComponentReferenceEqualityComparer Instance = new ToolComponentReferenceEqualityComparer();
 
-        public bool Equals(Translation left, Translation right)
+        public bool Equals(ToolComponentReference left, ToolComponentReference right)
         {
             if (ReferenceEquals(left, right))
             {
@@ -28,30 +28,19 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.Language != right.Language)
+            if (left.Name != right.Name)
             {
                 return false;
             }
 
-            if (!object.ReferenceEquals(left.ToolComponentTranslations, right.ToolComponentTranslations))
+            if (left.Index != right.Index)
             {
-                if (left.ToolComponentTranslations == null || right.ToolComponentTranslations == null)
-                {
-                    return false;
-                }
+                return false;
+            }
 
-                if (left.ToolComponentTranslations.Count != right.ToolComponentTranslations.Count)
-                {
-                    return false;
-                }
-
-                for (int index_0 = 0; index_0 < left.ToolComponentTranslations.Count; ++index_0)
-                {
-                    if (!ToolComponentTranslation.ValueComparer.Equals(left.ToolComponentTranslations[index_0], right.ToolComponentTranslations[index_0]))
-                    {
-                        return false;
-                    }
-                }
+            if (left.Guid != right.Guid)
+            {
+                return false;
             }
 
             if (!object.ReferenceEquals(left.Properties, right.Properties))
@@ -79,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public int GetHashCode(Translation obj)
+        public int GetHashCode(ToolComponentReference obj)
         {
             if (ReferenceEquals(obj, null))
             {
@@ -89,33 +78,27 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (obj.Language != null)
+                if (obj.Name != null)
                 {
-                    result = (result * 31) + obj.Language.GetHashCode();
+                    result = (result * 31) + obj.Name.GetHashCode();
                 }
 
-                if (obj.ToolComponentTranslations != null)
+                result = (result * 31) + obj.Index.GetHashCode();
+                if (obj.Guid != null)
                 {
-                    foreach (var value_2 in obj.ToolComponentTranslations)
-                    {
-                        result = result * 31;
-                        if (value_2 != null)
-                        {
-                            result = (result * 31) + value_2.ValueGetHashCode();
-                        }
-                    }
+                    result = (result * 31) + obj.Guid.GetHashCode();
                 }
 
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_0 = 0;
-                    foreach (var value_3 in obj.Properties)
+                    foreach (var value_2 in obj.Properties)
                     {
-                        xor_0 ^= value_3.Key.GetHashCode();
-                        if (value_3.Value != null)
+                        xor_0 ^= value_2.Key.GetHashCode();
+                        if (value_2.Value != null)
                         {
-                            xor_0 ^= value_3.Value.GetHashCode();
+                            xor_0 ^= value_2.Value.GetHashCode();
                         }
                     }
 

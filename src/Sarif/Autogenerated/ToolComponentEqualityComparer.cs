@@ -105,42 +105,63 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!object.ReferenceEquals(left.NotificationDescriptors, right.NotificationDescriptors))
+            if (!object.ReferenceEquals(left.Notifications, right.Notifications))
             {
-                if (left.NotificationDescriptors == null || right.NotificationDescriptors == null)
+                if (left.Notifications == null || right.Notifications == null)
                 {
                     return false;
                 }
 
-                if (left.NotificationDescriptors.Count != right.NotificationDescriptors.Count)
+                if (left.Notifications.Count != right.Notifications.Count)
                 {
                     return false;
                 }
 
-                for (int index_0 = 0; index_0 < left.NotificationDescriptors.Count; ++index_0)
+                for (int index_0 = 0; index_0 < left.Notifications.Count; ++index_0)
                 {
-                    if (!ReportingDescriptor.ValueComparer.Equals(left.NotificationDescriptors[index_0], right.NotificationDescriptors[index_0]))
+                    if (!ReportingDescriptor.ValueComparer.Equals(left.Notifications[index_0], right.Notifications[index_0]))
                     {
                         return false;
                     }
                 }
             }
 
-            if (!object.ReferenceEquals(left.RuleDescriptors, right.RuleDescriptors))
+            if (!object.ReferenceEquals(left.Rules, right.Rules))
             {
-                if (left.RuleDescriptors == null || right.RuleDescriptors == null)
+                if (left.Rules == null || right.Rules == null)
                 {
                     return false;
                 }
 
-                if (left.RuleDescriptors.Count != right.RuleDescriptors.Count)
+                if (left.Rules.Count != right.Rules.Count)
                 {
                     return false;
                 }
 
-                for (int index_1 = 0; index_1 < left.RuleDescriptors.Count; ++index_1)
+                for (int index_1 = 0; index_1 < left.Rules.Count; ++index_1)
                 {
-                    if (!ReportingDescriptor.ValueComparer.Equals(left.RuleDescriptors[index_1], right.RuleDescriptors[index_1]))
+                    if (!ReportingDescriptor.ValueComparer.Equals(left.Rules[index_1], right.Rules[index_1]))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            if (!object.ReferenceEquals(left.Taxa, right.Taxa))
+            {
+                if (left.Taxa == null || right.Taxa == null)
+                {
+                    return false;
+                }
+
+                if (left.Taxa.Count != right.Taxa.Count)
+                {
+                    return false;
+                }
+
+                for (int index_2 = 0; index_2 < left.Taxa.Count; ++index_2)
+                {
+                    if (!ReportingDescriptor.ValueComparer.Equals(left.Taxa[index_2], right.Taxa[index_2]))
                     {
                         return false;
                     }
@@ -159,13 +180,48 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                for (int index_2 = 0; index_2 < left.ArtifactIndices.Count; ++index_2)
+                for (int index_3 = 0; index_3 < left.ArtifactIndices.Count; ++index_3)
                 {
-                    if (left.ArtifactIndices[index_2] != right.ArtifactIndices[index_2])
+                    if (left.ArtifactIndices[index_3] != right.ArtifactIndices[index_3])
                     {
                         return false;
                     }
                 }
+            }
+
+            if (left.Language != right.Language)
+            {
+                return false;
+            }
+
+            if (left.Contents != right.Contents)
+            {
+                return false;
+            }
+
+            if (left.IsComprehensive != right.IsComprehensive)
+            {
+                return false;
+            }
+
+            if (left.LocalizedDataSemanticVersion != right.LocalizedDataSemanticVersion)
+            {
+                return false;
+            }
+
+            if (left.MinimumRequiredLocalizedDataSemanticVersion != right.MinimumRequiredLocalizedDataSemanticVersion)
+            {
+                return false;
+            }
+
+            if (!ToolComponentReference.ValueComparer.Equals(left.AssociatedComponent, right.AssociatedComponent))
+            {
+                return false;
+            }
+
+            if (!TranslationMetadata.ValueComparer.Equals(left.TranslationMetadata, right.TranslationMetadata))
+            {
+                return false;
             }
 
             if (!object.ReferenceEquals(left.Properties, right.Properties))
@@ -274,9 +330,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + xor_0;
                 }
 
-                if (obj.NotificationDescriptors != null)
+                if (obj.Notifications != null)
                 {
-                    foreach (var value_5 in obj.NotificationDescriptors)
+                    foreach (var value_5 in obj.Notifications)
                     {
                         result = result * 31;
                         if (value_5 != null)
@@ -286,9 +342,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.RuleDescriptors != null)
+                if (obj.Rules != null)
                 {
-                    foreach (var value_6 in obj.RuleDescriptors)
+                    foreach (var value_6 in obj.Rules)
                     {
                         result = result * 31;
                         if (value_6 != null)
@@ -298,25 +354,64 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.ArtifactIndices != null)
+                if (obj.Taxa != null)
                 {
-                    foreach (var value_7 in obj.ArtifactIndices)
+                    foreach (var value_7 in obj.Taxa)
                     {
                         result = result * 31;
-                        result = (result * 31) + value_7.GetHashCode();
+                        if (value_7 != null)
+                        {
+                            result = (result * 31) + value_7.ValueGetHashCode();
+                        }
                     }
+                }
+
+                if (obj.ArtifactIndices != null)
+                {
+                    foreach (var value_8 in obj.ArtifactIndices)
+                    {
+                        result = result * 31;
+                        result = (result * 31) + value_8.GetHashCode();
+                    }
+                }
+
+                if (obj.Language != null)
+                {
+                    result = (result * 31) + obj.Language.GetHashCode();
+                }
+
+                result = (result * 31) + obj.Contents.GetHashCode();
+                result = (result * 31) + obj.IsComprehensive.GetHashCode();
+                if (obj.LocalizedDataSemanticVersion != null)
+                {
+                    result = (result * 31) + obj.LocalizedDataSemanticVersion.GetHashCode();
+                }
+
+                if (obj.MinimumRequiredLocalizedDataSemanticVersion != null)
+                {
+                    result = (result * 31) + obj.MinimumRequiredLocalizedDataSemanticVersion.GetHashCode();
+                }
+
+                if (obj.AssociatedComponent != null)
+                {
+                    result = (result * 31) + obj.AssociatedComponent.ValueGetHashCode();
+                }
+
+                if (obj.TranslationMetadata != null)
+                {
+                    result = (result * 31) + obj.TranslationMetadata.ValueGetHashCode();
                 }
 
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_1 = 0;
-                    foreach (var value_8 in obj.Properties)
+                    foreach (var value_9 in obj.Properties)
                     {
-                        xor_1 ^= value_8.Key.GetHashCode();
-                        if (value_8.Value != null)
+                        xor_1 ^= value_9.Key.GetHashCode();
+                        if (value_9.Value != null)
                         {
-                            xor_1 ^= value_8.Value.GetHashCode();
+                            xor_1 ^= value_9.Value.GetHashCode();
                         }
                     }
 

@@ -278,8 +278,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                             Uri = context.TargetUri
                         },
                     },
-                    Id = ERR997_MissingReportingConfiguration,
-                    RuleId = context.Rule.Id,
+                    Descriptor = new ReportingDescriptorReference
+                    {
+                        Id = ERR997_MissingReportingConfiguration,
+                    },
+                    AssociatedRule = new ReportingDescriptorReference
+                    {
+                        Id = context.Rule.Id,
+                    },
                     Level = FailureLevel.Error,
                     Message = new Message { Text = message }
                 });
@@ -481,12 +487,26 @@ namespace Microsoft.CodeAnalysis.Sarif
             var notification = new Notification
             {
                 PhysicalLocation = physicalLocation,
-                Id = notificationId,
-                RuleId = ruleId,
                 Level = level,
                 Message = new Message { Text = message },
                 Exception = exceptionData
             };
+
+            if (!string.IsNullOrWhiteSpace(notificationId))
+            {
+                notification.Descriptor = new ReportingDescriptorReference
+                {
+                    Id = notificationId,
+                };
+            }
+
+            if (!string.IsNullOrWhiteSpace(ruleId))
+            {
+                notification.AssociatedRule = new ReportingDescriptorReference
+                {
+                    Id = ruleId,
+                };
+            }
 
             return notification;
         }

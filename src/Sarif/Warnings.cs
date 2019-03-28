@@ -35,7 +35,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                             Uri = context.TargetUri
                         }
                     },
-                    Id = Wrn997_InvalidTarget,
+                    Descriptor = new ReportingDescriptorReference
+                    {
+                        Id = Wrn997_InvalidTarget
+                    },
                     Message = new Message { Text = message },
                     Level = FailureLevel.Note,
                 });
@@ -67,7 +70,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                             Uri = context.TargetUri
                         }
                     },
-                    Id = Wrn998_UnsupportedPlatform,
+                    Descriptor = new ReportingDescriptorReference
+                    {
+                        Id = Wrn998_UnsupportedPlatform
+                    },
                     Message = new Message { Text = message },
                     Level = FailureLevel.Warning,
                 });
@@ -93,7 +99,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogConfigurationNotification(
                 new Notification
                 {
-                    Id = Wrn999_RuleExplicitlyDisabled,
+                    Descriptor = new ReportingDescriptorReference
+                    {
+                        Id = Wrn999_RuleExplicitlyDisabled
+                    },
                     Message = new Message { Text = message },
                     Level = FailureLevel.Warning,
                 });

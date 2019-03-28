@@ -308,8 +308,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 ruleIndex = _ruleToIndexMap.Count;
                 _ruleToIndexMap[rule] = ruleIndex;
-                _run.Tool.Driver.RuleDescriptors = _run.Tool.Driver.RuleDescriptors ?? new OrderSensitiveValueComparisonList<ReportingDescriptor>(ReportingDescriptor.ValueComparer);
-                _run.Tool.Driver.RuleDescriptors.Add(rule);
+                _run.Tool.Driver.Rules = _run.Tool.Driver.Rules ?? new OrderSensitiveValueComparisonList<ReportingDescriptor>(ReportingDescriptor.ValueComparer);
+                _run.Tool.Driver.Rules.Add(rule);
             }
 
             return ruleIndex;
@@ -447,7 +447,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                             Uri = context.TargetUri
                         }
                     },
-                    Id = Notes.Msg001AnalyzingTarget,
+                    Descriptor = new ReportingDescriptorReference
+                    {
+                        Id = Notes.Msg001AnalyzingTarget
+                    },
                     Message = new Message { Text = message },
                     Level = FailureLevel.None,
                     TimeUtc = DateTime.UtcNow,

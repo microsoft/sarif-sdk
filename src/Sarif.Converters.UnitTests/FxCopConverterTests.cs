@@ -375,7 +375,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 RuleId = "CA0000",
                 Message = new Message { Arguments = new List<string>(new string[] { "hello!" }) },
-                SuppressionStates = SuppressionStates.SuppressedInSource,
+                Suppressions = new List<Suppression> { new Suppression { Kind = SuppressionKind.SuppressedInSource } },
                 PartialFingerprints = new Dictionary<string, string>(),
                 AnalysisTarget = new ArtifactLocation
                 {
@@ -393,8 +393,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             },
                             Region = new Region { StartLine = 13 }
                         },
-                        FullyQualifiedLogicalName = expectedLogicalLocation,
-                        LogicalLocationIndex = 3
+                        LogicalLocation = new LogicalLocation
+                        {
+                            FullyQualifiedName = expectedLogicalLocation,
+                            Index = 3
+                        }
                     }
                 }
             };
@@ -479,7 +482,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var converter = new FxCopConverter();
             Result result = converter.CreateResult(context);
 
-            result.Locations.First().FullyQualifiedLogicalName.Should().Be(@"myresource.resx");
+            result.Locations.First().LogicalLocation.FullyQualifiedName.Should().Be(@"myresource.resx");
         }
     }
 

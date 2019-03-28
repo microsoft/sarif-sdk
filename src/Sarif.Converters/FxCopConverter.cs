@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     Driver = new ToolComponent
                     {
                         Name = ToolName,
-                        RuleDescriptors = rules
+                        Rules = rules
                     }
                 },
             };
@@ -104,7 +104,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if ("ExcludedInSource".Equals(status))
             {
-                result.SuppressionStates = SuppressionStates.SuppressedInSource;
+                result.Suppressions = new List<Suppression>
+                {
+                    new Suppression
+                    {
+                        Kind = SuppressionKind.SuppressedInSource
+                    }
+                };
+
             }
             else if ("ExcludedInProject".Equals(status))
             {
@@ -141,8 +148,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 };
             }
 
-            location.FullyQualifiedLogicalName = CreateFullyQualifiedLogicalName(context, out int logicalLocationIndex);
-            location.LogicalLocationIndex = logicalLocationIndex;
+            string fullyQualifiedLogicalName = CreateFullyQualifiedLogicalName(context, out int logicalLocationIndex);
+
+            if (!string.IsNullOrWhiteSpace(fullyQualifiedLogicalName) || logicalLocationIndex > -1)
+            {
+                location.LogicalLocation = new LogicalLocation
+                {
+                    FullyQualifiedName = fullyQualifiedLogicalName,
+                    Index = logicalLocationIndex
+                };
+            }
 
             result.Locations = new List<Location> { location };
 

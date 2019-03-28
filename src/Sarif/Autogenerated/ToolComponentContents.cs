@@ -7,14 +7,14 @@ using System.CodeDom.Compiler;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// The state of a result relative to a baseline of a previous run.
+    /// Values specifying the roles played by the file in the analysis.
     /// </summary>
     [Flags]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
-    public enum SuppressionStates
+    public enum ToolComponentContents
     {
         None,
-        SuppressedInSource = 1,
-        SuppressedExternally = 2
+        LocalizedData = 1,
+        NonLocalizedData = 2
     }
 }

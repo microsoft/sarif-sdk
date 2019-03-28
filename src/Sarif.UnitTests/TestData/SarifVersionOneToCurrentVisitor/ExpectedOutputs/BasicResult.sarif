@@ -114,20 +114,22 @@
           },
           "locations": [
             {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/buildAgent/src/collections/list.h"
+                "physicalLocation": {
+                    "artifactLocation": {
+                        "uri": "file:///home/buildAgent/src/collections/list.h"
+                    },
+                    "region": {
+                        "startLine": 1,
+                        "startColumn": 1,
+                        "endLine": 1,
+                        "endColumn": 28,
+                        "byteLength": 27
+                    }
                 },
-                "region": {
-                  "startLine": 1,
-                  "startColumn": 1,
-                  "endLine": 1,
-                  "endColumn": 28,
-                  "byteLength": 27
+                "logicalLocation": {
+                    "fullyQualifiedName": "collections::list",
+                    "Index": 1
                 }
-              },
-              "fullyQualifiedLogicalName": "collections::list",
-              "logicalLocationIndex": 1
             },
             {
               "physicalLocation": {
@@ -139,8 +141,10 @@
                   "endLine": 12
                 }
               },
-              "fullyQualifiedLogicalName": "collections::list",
-              "logicalLocationIndex": 3
+                "logicalLocation": {
+                    "fullyQualifiedName": "collections::list",
+                    "Index": 3
+                }
             }
           ]
         },
@@ -174,8 +178,10 @@
                   }
                 }
               },
-              "fullyQualifiedLogicalName": "collections::list::add",
-              "logicalLocationIndex": 2
+              "logicalLocation": {
+                "fullyQualifiedName": "collections::list::add",
+                "Index": 2
+              }
             }
           ],
           "relatedLocations": [
@@ -190,8 +196,10 @@
                   "byteLength": 4
                 }
               },
-              "fullyQualifiedLogicalName": "collections::list::add",
-              "logicalLocationIndex": 2,
+              "logicalLocation": {
+                "fullyQualifiedName": "collections::list::add",
+                "index": 2
+              },
               "message": {
                 "text": "\"count\" was declared here."
               }
@@ -206,8 +214,10 @@
                   "byteLength": 3
                 }
               },
-              "fullyQualifiedLogicalName": "collections::list",
-              "logicalLocationIndex": 1,
+              "logicalLocation": {
+                "fullyQualifiedName": "collections::list",
+                "index": 1
+              },
               "message": {
                 "text": "Another reference to \"count\" was declared here."
               }
@@ -222,14 +232,20 @@
                   "endLine": 12
                 }
               },
-              "fullyQualifiedLogicalName": "collections::list",
-              "logicalLocationIndex": 3,
+                "logicalLocation": {
+                    "fullyQualifiedName": "collections::list",
+                    "index": 3
+                },
               "message": {
                 "text": "This reference to \"collections::list\" is not relevant to the problem."
               }
             }
           ],
-          "suppressionStates": ["suppressedExternally"],
+          "suppressions": [
+            {
+              "kind": "suppressedExternally"
+            }
+          ],
           "baselineState": "unchanged"
         }
       ],

@@ -4,6 +4,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -42,6 +43,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.FullyQualifiedName != right.FullyQualifiedName)
+            {
+                return false;
+            }
+
             if (left.Offset != right.Offset)
             {
                 return false;
@@ -55,6 +61,28 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (left.ParentIndex != right.ParentIndex)
             {
                 return false;
+            }
+
+            if (!object.ReferenceEquals(left.Properties, right.Properties))
+            {
+                if (left.Properties == null || right.Properties == null || left.Properties.Count != right.Properties.Count)
+                {
+                    return false;
+                }
+
+                foreach (var value_0 in left.Properties)
+                {
+                    SerializedPropertyInfo value_1;
+                    if (!right.Properties.TryGetValue(value_0.Key, out value_1))
+                    {
+                        return false;
+                    }
+
+                    if (!object.Equals(value_0.Value, value_1))
+                    {
+                        return false;
+                    }
+                }
             }
 
             return true;
@@ -81,9 +109,29 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Name.GetHashCode();
                 }
 
+                if (obj.FullyQualifiedName != null)
+                {
+                    result = (result * 31) + obj.FullyQualifiedName.GetHashCode();
+                }
+
                 result = (result * 31) + obj.Offset.GetHashCode();
                 result = (result * 31) + obj.Index.GetHashCode();
                 result = (result * 31) + obj.ParentIndex.GetHashCode();
+                if (obj.Properties != null)
+                {
+                    // Use xor for dictionaries to be order-independent.
+                    int xor_0 = 0;
+                    foreach (var value_2 in obj.Properties)
+                    {
+                        xor_0 ^= value_2.Key.GetHashCode();
+                        if (value_2.Value != null)
+                        {
+                            xor_0 ^= value_2.Value.GetHashCode();
+                        }
+                    }
+
+                    result = (result * 31) + xor_0;
+                }
             }
 
             return result;

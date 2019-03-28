@@ -91,31 +91,6 @@
           }
         }
       ],
-      "graphs": {
-        "g1": {
-          "id": "g1",
-          "nodes": [
-            {
-              "id": "n1",
-              "location": {
-                "physicalLocation": {
-                  "artifactLocation": {
-                    "uri": "file:///C:/src/file.c",
-                    "uriBaseId": "%SRCROOT%"
-                  }
-                }
-              }
-            }
-          ],
-          "edges": [
-            {
-              "id": "e1",
-              "sourceNodeId": "n1",
-              "targetNodeId": "n1"
-            }
-          ]
-        }
-      },
       "results": [
         {
           "ruleId": "TST0001",
@@ -173,31 +148,6 @@
               ]
             }
           ],
-          "graphs": {
-            "g1": {
-              "id": "g1",
-              "nodes": [
-                {
-                  "id": "n1",
-                  "location": {
-                    "physicalLocation": {
-                      "artifactLocation": {
-                        "uri": "file:///C:/src/file.c",
-                        "uriBaseId": "%SRCROOT%"
-                      }
-                    }
-                  }
-                }
-              ],
-              "edges": [
-                {
-                  "id": "e1",
-                  "sourceNodeId": "n1",
-                  "targetNodeId": "n1"
-                }
-              ]
-            }
-          },
           "relatedLocations": [
             {
               "physicalLocation": {
@@ -253,7 +203,6 @@
           "resultLocationPointers": [
             "runs[0].conversion.analysisToolLogFiles[0].uri",
             "runs[0].artifacts[0].location.uri",
-            "runs[0].graphs.g1.nodes[0].location.physicalLocation.artifactLocation.uri",
             "runs[0].invocations[0].toolConfigurationNotifications[0].physicalLocation.artifactLocation.uri",
             "runs[0].invocations[0].executableLocation.uri",
             "runs[0].invocations[0].responseFiles[0].uri",
@@ -265,7 +214,6 @@
             "runs[0].results[0].analysisTarget.uri",
             "runs[0].results[0].attachments[0].artifactLocation.uri",
             "runs[0].results[0].provenance.conversionSources[0].artifactLocation.uri",
-            "runs[0].results[0].graphs.g1.nodes[0].location.physicalLocation.artifactLocation.uri",
             "runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri",
             "runs[0].results[0].relatedLocations[0].physicalLocation.artifactLocation.uri",
             "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0].location.physicalLocation.artifactLocation.uri",

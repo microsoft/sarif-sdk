@@ -344,7 +344,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             _toolNotifications.Add(new Notification
             {
-                Id = id,
+                Descriptor = new ReportingDescriptorReference
+                {
+                    Id = id,
+                },
                 TimeUtc = DateTime.UtcNow,
                 Level = level,
                 Message = new Message { Text = messageWithLineNumber }

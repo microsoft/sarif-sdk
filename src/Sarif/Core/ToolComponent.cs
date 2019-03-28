@@ -8,14 +8,14 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     public partial class ToolComponent
     {        
-        public bool ShouldSerializeRuleDescriptors()
+        public bool ShouldSerializeRules()
         {
-            return this.RuleDescriptors.HasAtLeastOneNonNullValue();
+            return this.Rules.HasAtLeastOneNonNullValue();
         }
 
-        public bool ShouldSerializeNotificationDescriptors()
+        public bool ShouldSerializeNotifications()
         {
-            return this.NotificationDescriptors.HasAtLeastOneNonNullValue();
+            return this.Notifications.HasAtLeastOneNonNullValue();
         }
     }
 }

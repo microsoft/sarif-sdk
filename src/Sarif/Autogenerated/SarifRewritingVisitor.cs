@@ -70,10 +70,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitExceptionData((ExceptionData)node);
                 case SarifNodeKind.ExternalProperties:
                     return VisitExternalProperties((ExternalProperties)node);
-                case SarifNodeKind.ExternalPropertyFile:
-                    return VisitExternalPropertyFile((ExternalPropertyFile)node);
-                case SarifNodeKind.ExternalPropertyFiles:
-                    return VisitExternalPropertyFiles((ExternalPropertyFiles)node);
+                case SarifNodeKind.ExternalPropertyFileReference:
+                    return VisitExternalPropertyFileReference((ExternalPropertyFileReference)node);
+                case SarifNodeKind.ExternalPropertyFileReferences:
+                    return VisitExternalPropertyFileReferences((ExternalPropertyFileReferences)node);
                 case SarifNodeKind.Fix:
                     return VisitFix((Fix)node);
                 case SarifNodeKind.Graph:
@@ -112,8 +112,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitReportingDescriptor((ReportingDescriptor)node);
                 case SarifNodeKind.ReportingDescriptorReference:
                     return VisitReportingDescriptorReference((ReportingDescriptorReference)node);
-                case SarifNodeKind.ReportingDescriptorTranslation:
-                    return VisitReportingDescriptorTranslation((ReportingDescriptorTranslation)node);
                 case SarifNodeKind.Result:
                     return VisitResult((Result)node);
                 case SarifNodeKind.ResultProvenance:
@@ -128,6 +126,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitStack((Stack)node);
                 case SarifNodeKind.StackFrame:
                     return VisitStackFrame((StackFrame)node);
+                case SarifNodeKind.Suppression:
+                    return VisitSuppression((Suppression)node);
                 case SarifNodeKind.ThreadFlow:
                     return VisitThreadFlow((ThreadFlow)node);
                 case SarifNodeKind.ThreadFlowLocation:
@@ -136,10 +136,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitTool((Tool)node);
                 case SarifNodeKind.ToolComponent:
                     return VisitToolComponent((ToolComponent)node);
-                case SarifNodeKind.ToolComponentTranslation:
-                    return VisitToolComponentTranslation((ToolComponentTranslation)node);
-                case SarifNodeKind.Translation:
-                    return VisitTranslation((Translation)node);
+                case SarifNodeKind.ToolComponentReference:
+                    return VisitToolComponentReference((ToolComponentReference)node);
+                case SarifNodeKind.TranslationMetadata:
+                    return VisitTranslationMetadata((TranslationMetadata)node);
                 case SarifNodeKind.VersionControlDetails:
                     return VisitVersionControlDetails((VersionControlDetails)node);
                 default:
@@ -198,6 +198,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                node.Rendered = VisitNullChecked(node.Rendered);
             }
 
             return node;
@@ -315,6 +316,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.Conversion = VisitNullChecked(node.Conversion);
+                if (node.Graphs != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Graphs.Count; ++index_0)
+                    {
+                        node.Graphs[index_0] = VisitNullChecked(node.Graphs[index_0]);
+                    }
+                }
+
                 node.ExternalizedProperties = VisitNullChecked(node.ExternalizedProperties);
                 if (node.Artifacts != null)
                 {
@@ -372,12 +381,28 @@ namespace Microsoft.CodeAnalysis.Sarif
                         node.Extensions[index_0] = VisitNullChecked(node.Extensions[index_0]);
                     }
                 }
+
+                if (node.Policies != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Policies.Count; ++index_0)
+                    {
+                        node.Policies[index_0] = VisitNullChecked(node.Policies[index_0]);
+                    }
+                }
+
+                if (node.Translations != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Translations.Count; ++index_0)
+                    {
+                        node.Translations[index_0] = VisitNullChecked(node.Translations[index_0]);
+                    }
+                }
             }
 
             return node;
         }
 
-        public virtual ExternalPropertyFile VisitExternalPropertyFile(ExternalPropertyFile node)
+        public virtual ExternalPropertyFileReference VisitExternalPropertyFileReference(ExternalPropertyFileReference node)
         {
             if (node != null)
             {
@@ -387,12 +412,19 @@ namespace Microsoft.CodeAnalysis.Sarif
             return node;
         }
 
-        public virtual ExternalPropertyFiles VisitExternalPropertyFiles(ExternalPropertyFiles node)
+        public virtual ExternalPropertyFileReferences VisitExternalPropertyFileReferences(ExternalPropertyFileReferences node)
         {
             if (node != null)
             {
                 node.Conversion = VisitNullChecked(node.Conversion);
-                node.Graphs = VisitNullChecked(node.Graphs);
+                if (node.Graphs != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Graphs.Count; ++index_0)
+                    {
+                        node.Graphs[index_0] = VisitNullChecked(node.Graphs[index_0]);
+                    }
+                }
+
                 node.ExternalizedProperties = VisitNullChecked(node.ExternalizedProperties);
                 if (node.Artifacts != null)
                 {
@@ -456,6 +488,22 @@ namespace Microsoft.CodeAnalysis.Sarif
                     for (int index_0 = 0; index_0 < node.Extensions.Count; ++index_0)
                     {
                         node.Extensions[index_0] = VisitNullChecked(node.Extensions[index_0]);
+                    }
+                }
+
+                if (node.Policies != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Policies.Count; ++index_0)
+                    {
+                        node.Policies[index_0] = VisitNullChecked(node.Policies[index_0]);
+                    }
+                }
+
+                if (node.Translations != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Translations.Count; ++index_0)
+                    {
+                        node.Translations[index_0] = VisitNullChecked(node.Translations[index_0]);
                     }
                 }
             }
@@ -573,8 +621,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
-                node.Address = VisitNullChecked(node.Address);
                 node.PhysicalLocation = VisitNullChecked(node.PhysicalLocation);
+                node.LogicalLocation = VisitNullChecked(node.LogicalLocation);
                 node.Message = VisitNullChecked(node.Message);
                 if (node.Annotations != null)
                 {
@@ -640,6 +688,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 node.PhysicalLocation = VisitNullChecked(node.PhysicalLocation);
                 node.Message = VisitNullChecked(node.Message);
                 node.Exception = VisitNullChecked(node.Exception);
+                node.Descriptor = VisitNullChecked(node.Descriptor);
+                node.AssociatedRule = VisitNullChecked(node.AssociatedRule);
             }
 
             return node;
@@ -649,6 +699,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                node.Address = VisitNullChecked(node.Address);
                 node.ArtifactLocation = VisitNullChecked(node.ArtifactLocation);
                 node.Region = VisitNullChecked(node.Region);
                 node.ContextRegion = VisitNullChecked(node.ContextRegion);
@@ -738,19 +789,19 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 node.DefaultConfiguration = VisitNullChecked(node.DefaultConfiguration);
                 node.Help = VisitNullChecked(node.Help);
-                if (node.TaxonomyReferences != null)
+                if (node.Taxa != null)
                 {
-                    for (int index_0 = 0; index_0 < node.TaxonomyReferences.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.Taxa.Count; ++index_0)
                     {
-                        node.TaxonomyReferences[index_0] = VisitNullChecked(node.TaxonomyReferences[index_0]);
+                        node.Taxa[index_0] = VisitNullChecked(node.Taxa[index_0]);
                     }
                 }
 
-                if (node.OptionalTaxonomyReferences != null)
+                if (node.OptionalTaxa != null)
                 {
-                    for (int index_0 = 0; index_0 < node.OptionalTaxonomyReferences.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.OptionalTaxa.Count; ++index_0)
                     {
-                        node.OptionalTaxonomyReferences[index_0] = VisitNullChecked(node.OptionalTaxonomyReferences[index_0]);
+                        node.OptionalTaxa[index_0] = VisitNullChecked(node.OptionalTaxa[index_0]);
                     }
                 }
             }
@@ -762,17 +813,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
-            }
-
-            return node;
-        }
-
-        public virtual ReportingDescriptorTranslation VisitReportingDescriptorTranslation(ReportingDescriptorTranslation node)
-        {
-            if (node != null)
-            {
-                node.ShortDescription = VisitNullChecked(node.ShortDescription);
-                node.FullDescription = VisitNullChecked(node.FullDescription);
+                node.ToolComponent = VisitNullChecked(node.ToolComponent);
             }
 
             return node;
@@ -810,14 +851,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (node.Graphs != null)
                 {
-                    var keys = node.Graphs.Keys.ToArray();
-                    foreach (var key in keys)
+                    for (int index_0 = 0; index_0 < node.Graphs.Count; ++index_0)
                     {
-                        var value = node.Graphs[key];
-                        if (value != null)
-                        {
-                            node.Graphs[key] = VisitNullChecked(value);
-                        }
+                        node.Graphs[index_0] = VisitNullChecked(node.Graphs[index_0]);
                     }
                 }
 
@@ -834,6 +870,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                     for (int index_0 = 0; index_0 < node.RelatedLocations.Count; ++index_0)
                     {
                         node.RelatedLocations[index_0] = VisitNullChecked(node.RelatedLocations[index_0]);
+                    }
+                }
+
+                if (node.Suppressions != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Suppressions.Count; ++index_0)
+                    {
+                        node.Suppressions[index_0] = VisitNullChecked(node.Suppressions[index_0]);
                     }
                 }
 
@@ -854,13 +898,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (node.TaxonomyReferences != null)
+                if (node.Taxa != null)
                 {
-                    for (int index_0 = 0; index_0 < node.TaxonomyReferences.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.Taxa.Count; ++index_0)
                     {
-                        node.TaxonomyReferences[index_0] = VisitNullChecked(node.TaxonomyReferences[index_0]);
+                        node.Taxa[index_0] = VisitNullChecked(node.Taxa[index_0]);
                     }
                 }
+
+                node.Rule = VisitNullChecked(node.Rule);
             }
 
             return node;
@@ -935,14 +981,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (node.Graphs != null)
                 {
-                    var keys = node.Graphs.Keys.ToArray();
-                    foreach (var key in keys)
+                    for (int index_0 = 0; index_0 < node.Graphs.Count; ++index_0)
                     {
-                        var value = node.Graphs[key];
-                        if (value != null)
-                        {
-                            node.Graphs[key] = VisitNullChecked(value);
-                        }
+                        node.Graphs[index_0] = VisitNullChecked(node.Graphs[index_0]);
                     }
                 }
 
@@ -954,16 +995,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                node.Id = VisitNullChecked(node.Id);
-                if (node.AggregateIds != null)
+                node.AutomationDetails = VisitNullChecked(node.AutomationDetails);
+                if (node.RunAggregates != null)
                 {
-                    for (int index_0 = 0; index_0 < node.AggregateIds.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.RunAggregates.Count; ++index_0)
                     {
-                        node.AggregateIds[index_0] = VisitNullChecked(node.AggregateIds[index_0]);
+                        node.RunAggregates[index_0] = VisitNullChecked(node.RunAggregates[index_0]);
                     }
                 }
 
-                node.ExternalPropertyFiles = VisitNullChecked(node.ExternalPropertyFiles);
+                node.ExternalPropertyFileReferences = VisitNullChecked(node.ExternalPropertyFileReferences);
                 if (node.ThreadFlowLocations != null)
                 {
                     for (int index_0 = 0; index_0 < node.ThreadFlowLocations.Count; ++index_0)
@@ -993,6 +1034,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                     for (int index_0 = 0; index_0 < node.Translations.Count; ++index_0)
                     {
                         node.Translations[index_0] = VisitNullChecked(node.Translations[index_0]);
+                    }
+                }
+
+                if (node.Policies != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Policies.Count; ++index_0)
+                    {
+                        node.Policies[index_0] = VisitNullChecked(node.Policies[index_0]);
                     }
                 }
             }
@@ -1062,6 +1111,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             return node;
         }
 
+        public virtual Suppression VisitSuppression(Suppression node)
+        {
+            if (node != null)
+            {
+                node.Location = VisitNullChecked(node.Location);
+            }
+
+            return node;
+        }
+
         public virtual ThreadFlow VisitThreadFlow(ThreadFlow node)
         {
             if (node != null)
@@ -1126,62 +1185,52 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (node.NotificationDescriptors != null)
+                if (node.Notifications != null)
                 {
-                    for (int index_0 = 0; index_0 < node.NotificationDescriptors.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.Notifications.Count; ++index_0)
                     {
-                        node.NotificationDescriptors[index_0] = VisitNullChecked(node.NotificationDescriptors[index_0]);
+                        node.Notifications[index_0] = VisitNullChecked(node.Notifications[index_0]);
                     }
                 }
 
-                if (node.RuleDescriptors != null)
+                if (node.Rules != null)
                 {
-                    for (int index_0 = 0; index_0 < node.RuleDescriptors.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.Rules.Count; ++index_0)
                     {
-                        node.RuleDescriptors[index_0] = VisitNullChecked(node.RuleDescriptors[index_0]);
+                        node.Rules[index_0] = VisitNullChecked(node.Rules[index_0]);
                     }
                 }
+
+                if (node.Taxa != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Taxa.Count; ++index_0)
+                    {
+                        node.Taxa[index_0] = VisitNullChecked(node.Taxa[index_0]);
+                    }
+                }
+
+                node.AssociatedComponent = VisitNullChecked(node.AssociatedComponent);
+                node.TranslationMetadata = VisitNullChecked(node.TranslationMetadata);
             }
 
             return node;
         }
 
-        public virtual ToolComponentTranslation VisitToolComponentTranslation(ToolComponentTranslation node)
+        public virtual ToolComponentReference VisitToolComponentReference(ToolComponentReference node)
         {
             if (node != null)
             {
-                node.Location = VisitNullChecked(node.Location);
-                if (node.ReportingDescriptors != null)
-                {
-                    for (int index_0 = 0; index_0 < node.ReportingDescriptors.Count; ++index_0)
-                    {
-                        node.ReportingDescriptors[index_0] = VisitNullChecked(node.ReportingDescriptors[index_0]);
-                    }
-                }
-
-                if (node.NotificationDescriptors != null)
-                {
-                    for (int index_0 = 0; index_0 < node.NotificationDescriptors.Count; ++index_0)
-                    {
-                        node.NotificationDescriptors[index_0] = VisitNullChecked(node.NotificationDescriptors[index_0]);
-                    }
-                }
             }
 
             return node;
         }
 
-        public virtual Translation VisitTranslation(Translation node)
+        public virtual TranslationMetadata VisitTranslationMetadata(TranslationMetadata node)
         {
             if (node != null)
             {
-                if (node.ToolComponentTranslations != null)
-                {
-                    for (int index_0 = 0; index_0 < node.ToolComponentTranslations.Count; ++index_0)
-                    {
-                        node.ToolComponentTranslations[index_0] = VisitNullChecked(node.ToolComponentTranslations[index_0]);
-                    }
-                }
+                node.ShortDescription = VisitNullChecked(node.ShortDescription);
+                node.FullDescription = VisitNullChecked(node.FullDescription);
             }
 
             return node;

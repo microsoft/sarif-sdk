@@ -55,9 +55,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override Location VisitLocation(Location node)
         {
-            if (node.LogicalLocationIndex != -1 && HistoricalLogicalLocations != null)
+            if (node.LogicalLocation != null && node.LogicalLocation.Index != -1 && HistoricalLogicalLocations != null)
             {
-                LogicalLocation logicalLocation = HistoricalLogicalLocations[node.LogicalLocationIndex];
+                LogicalLocation logicalLocation = HistoricalLogicalLocations[node.LogicalLocation.Index];
 
                 if (!RemappedLogicalLocationIndices.TryGetValue(logicalLocation, out int remappedIndex))
                 {
@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     RemappedLogicalLocationIndices[logicalLocation] = remappedIndex;
                 }
 
-                node.LogicalLocationIndex = remappedIndex;
+                node.LogicalLocation.Index = remappedIndex;
             }
             return base.VisitLocation(node);
         }
