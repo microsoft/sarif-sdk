@@ -188,13 +188,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<ToolComponentReference> SupportedTaxonomies { get; set; }
 
         /// <summary>
-        /// An array of reportingDescriptor objects relevant to the reporting configuration overrides for the tool component.
-        /// </summary>
-        [DataMember(Name = "reportingConfigurationOverrides", IsRequired = false, EmitDefaultValue = false)]
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ReportingDescriptor> ReportingConfigurationOverrides { get; set; }
-
-        /// <summary>
         /// Key/value pairs that provide additional information about the tool component.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
@@ -283,15 +276,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="supportedTaxonomies">
         /// An initialization value for the <see cref="P:SupportedTaxonomies" /> property.
         /// </param>
-        /// <param name="reportingConfigurationOverrides">
-        /// An initialization value for the <see cref="P:ReportingConfigurationOverrides" /> property.
-        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ToolComponent(string guid, string name, string organization, string product, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notifications, IEnumerable<ReportingDescriptor> rules, IEnumerable<ReportingDescriptor> taxa, IEnumerable<int> artifactIndices, string language, ToolComponentContents contents, bool isComprehensive, string localizedDataSemanticVersion, string minimumRequiredLocalizedDataSemanticVersion, ToolComponentReference associatedComponent, TranslationMetadata translationMetadata, IEnumerable<ToolComponentReference> supportedTaxonomies, IEnumerable<ReportingDescriptor> reportingConfigurationOverrides, IDictionary<string, SerializedPropertyInfo> properties)
+        public ToolComponent(string guid, string name, string organization, string product, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notifications, IEnumerable<ReportingDescriptor> rules, IEnumerable<ReportingDescriptor> taxa, IEnumerable<int> artifactIndices, string language, ToolComponentContents contents, bool isComprehensive, string localizedDataSemanticVersion, string minimumRequiredLocalizedDataSemanticVersion, ToolComponentReference associatedComponent, TranslationMetadata translationMetadata, IEnumerable<ToolComponentReference> supportedTaxonomies, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(guid, name, organization, product, shortDescription, fullDescription, fullName, version, semanticVersion, dottedQuadFileVersion, downloadUri, globalMessageStrings, notifications, rules, taxa, artifactIndices, language, contents, isComprehensive, localizedDataSemanticVersion, minimumRequiredLocalizedDataSemanticVersion, associatedComponent, translationMetadata, supportedTaxonomies, reportingConfigurationOverrides, properties);
+            Init(guid, name, organization, product, shortDescription, fullDescription, fullName, version, semanticVersion, dottedQuadFileVersion, downloadUri, globalMessageStrings, notifications, rules, taxa, artifactIndices, language, contents, isComprehensive, localizedDataSemanticVersion, minimumRequiredLocalizedDataSemanticVersion, associatedComponent, translationMetadata, supportedTaxonomies, properties);
         }
 
         /// <summary>
@@ -310,7 +300,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Guid, other.Name, other.Organization, other.Product, other.ShortDescription, other.FullDescription, other.FullName, other.Version, other.SemanticVersion, other.DottedQuadFileVersion, other.DownloadUri, other.GlobalMessageStrings, other.Notifications, other.Rules, other.Taxa, other.ArtifactIndices, other.Language, other.Contents, other.IsComprehensive, other.LocalizedDataSemanticVersion, other.MinimumRequiredLocalizedDataSemanticVersion, other.AssociatedComponent, other.TranslationMetadata, other.SupportedTaxonomies, other.ReportingConfigurationOverrides, other.Properties);
+            Init(other.Guid, other.Name, other.Organization, other.Product, other.ShortDescription, other.FullDescription, other.FullName, other.Version, other.SemanticVersion, other.DottedQuadFileVersion, other.DownloadUri, other.GlobalMessageStrings, other.Notifications, other.Rules, other.Taxa, other.ArtifactIndices, other.Language, other.Contents, other.IsComprehensive, other.LocalizedDataSemanticVersion, other.MinimumRequiredLocalizedDataSemanticVersion, other.AssociatedComponent, other.TranslationMetadata, other.SupportedTaxonomies, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -331,7 +321,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ToolComponent(this);
         }
 
-        private void Init(string guid, string name, string organization, string product, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notifications, IEnumerable<ReportingDescriptor> rules, IEnumerable<ReportingDescriptor> taxa, IEnumerable<int> artifactIndices, string language, ToolComponentContents contents, bool isComprehensive, string localizedDataSemanticVersion, string minimumRequiredLocalizedDataSemanticVersion, ToolComponentReference associatedComponent, TranslationMetadata translationMetadata, IEnumerable<ToolComponentReference> supportedTaxonomies, IEnumerable<ReportingDescriptor> reportingConfigurationOverrides, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string guid, string name, string organization, string product, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notifications, IEnumerable<ReportingDescriptor> rules, IEnumerable<ReportingDescriptor> taxa, IEnumerable<int> artifactIndices, string language, ToolComponentContents contents, bool isComprehensive, string localizedDataSemanticVersion, string minimumRequiredLocalizedDataSemanticVersion, ToolComponentReference associatedComponent, TranslationMetadata translationMetadata, IEnumerable<ToolComponentReference> supportedTaxonomies, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Guid = guid;
             Name = name;
@@ -461,24 +451,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 SupportedTaxonomies = destination_4;
-            }
-
-            if (reportingConfigurationOverrides != null)
-            {
-                var destination_5 = new List<ReportingDescriptor>();
-                foreach (var value_6 in reportingConfigurationOverrides)
-                {
-                    if (value_6 == null)
-                    {
-                        destination_5.Add(null);
-                    }
-                    else
-                    {
-                        destination_5.Add(new ReportingDescriptor(value_6));
-                    }
-                }
-
-                ReportingConfigurationOverrides = destination_5;
             }
 
             if (properties != null)

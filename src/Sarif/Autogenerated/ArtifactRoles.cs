@@ -31,6 +31,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         Translation = 16384,
         Taxonomy = 32768,
         Policy = 65536,
-        ReportingConfigurationOverride = 131072
+        ReferencedOnCommandLine = 131072
     }
 }

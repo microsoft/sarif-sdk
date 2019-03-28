@@ -1218,14 +1218,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                         node.SupportedTaxonomies[index_0] = VisitNullChecked(node.SupportedTaxonomies[index_0]);
                     }
                 }
-
-                if (node.ReportingConfigurationOverrides != null)
-                {
-                    for (int index_0 = 0; index_0 < node.ReportingConfigurationOverrides.Count; ++index_0)
-                    {
-                        node.ReportingConfigurationOverrides[index_0] = VisitNullChecked(node.ReportingConfigurationOverrides[index_0]);
-                    }
-                }
             }
 
             return node;
