@@ -42,7 +42,8 @@
           ]
         }
       ],
-      "columnKind": "utf16CodeUnits"
+      "columnKind": "utf16CodeUnits",
+      "language": "en-GB"
     }
   ]
 }
