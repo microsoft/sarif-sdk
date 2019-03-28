@@ -5,14 +5,12 @@
 
 "use strict";
 
-
 //------------------------------------------------------------------------------
 // Requirements
 //------------------------------------------------------------------------------
 
-const assert = require("chai").assert,
-    formatter = require("../sarif");
-
+const assert = require("chai").assert;
+const formatter = require("../sarif");
 
 //------------------------------------------------------------------------------
 // Tests
@@ -28,9 +26,8 @@ describe("formatter:sarif", () => {
 
         it("should return a log with one file and no results", () => {
             const result = JSON.parse(formatter(code));
-
-            assert.hasAllKeys(result.runs[0].files, sourceFilePath);
-            assert.strictEqual(result.runs[0].files[sourceFilePath].fileLocation.uri, sourceFilePath);
+            
+            assert.strictEqual(result.runs[0].artifacts[0].location.uri, sourceFilePath);
             assert.isUndefined(result.runs[0].results);
         });
     });
@@ -50,14 +47,13 @@ describe("formatter:sarif", () => {
         it("should return a log with one file and one result", () => {
             const result = JSON.parse(formatter(code));
 
-            assert.hasAllKeys(result.runs[0].files, sourceFilePath);
-            assert.strictEqual(result.runs[0].files[sourceFilePath].fileLocation.uri, sourceFilePath);
+            assert.strictEqual(result.runs[0].artifacts[0].location.uri, sourceFilePath);
             assert.isDefined(result.runs[0].results);
             assert.lengthOf(result.runs[0].results, 1);
             assert.strictEqual(result.runs[0].results[0].level, "error");
             assert.isDefined(result.runs[0].results[0].message);
             assert.strictEqual(result.runs[0].results[0].message.text, code[0].messages[0].message);
-            assert.strictEqual(result.runs[0].results[0].locations[0].physicalLocation.fileLocation.uri, sourceFilePath);
+            assert.strictEqual(result.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri, sourceFilePath);
         });
     });
 });
@@ -178,14 +174,13 @@ describe("formatter:sarif", () => {
         }];
 
         it("should return a log with two files and three results", () => {
-            const result = JSON.parse(formatter(code));
+            const text = formatter(code);
+            const result = JSON.parse(text);
 
             assert.lengthOf(result.runs[0].results, 3);
-            
-            assert.hasAllKeys(result.runs[0].files, [sourceFilePath1, sourceFilePath2]);
 
-            assert.strictEqual(result.runs[0].files[sourceFilePath1].fileLocation.uri, sourceFilePath1);
-            assert.strictEqual(result.runs[0].files[sourceFilePath2].fileLocation.uri, sourceFilePath2);
+            assert.strictEqual(result.runs[0].artifacts[0].location.uri, sourceFilePath1);
+            assert.strictEqual(result.runs[0].artifacts[1].location.uri, sourceFilePath2);
 
             assert.strictEqual(result.runs[0].results[0].level, "error");
             assert.strictEqual(result.runs[0].results[1].level, "warning");
@@ -195,9 +190,9 @@ describe("formatter:sarif", () => {
             assert.strictEqual(result.runs[0].results[1].message.text, "Some warning.");
             assert.strictEqual(result.runs[0].results[2].message.text, "Unexpected something.");
 
-            assert.strictEqual(result.runs[0].results[0].locations[0].physicalLocation.fileLocation.uri, sourceFilePath1);
-            assert.strictEqual(result.runs[0].results[1].locations[0].physicalLocation.fileLocation.uri, sourceFilePath1);
-            assert.strictEqual(result.runs[0].results[2].locations[0].physicalLocation.fileLocation.uri, sourceFilePath2);
+            assert.strictEqual(result.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri, sourceFilePath1);
+            assert.strictEqual(result.runs[0].results[1].locations[0].physicalLocation.artifactLocation.uri, sourceFilePath1);
+            assert.strictEqual(result.runs[0].results[2].locations[0].physicalLocation.artifactLocation.uri, sourceFilePath2);
 
             assert.isUndefined(result.runs[0].results[0].locations[0].physicalLocation.region);
 

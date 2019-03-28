@@ -5,14 +5,12 @@
 
 "use strict";
 
-
 //------------------------------------------------------------------------------
 // Requirements
 //------------------------------------------------------------------------------
 
-const assert = require("chai").assert,
-    formatter = require("../sarif-with-rules");
-
+const assert = require("chai").assert;
+const formatter = require("../sarif-with-rules");
 
 //------------------------------------------------------------------------------
 // Global Test Content
@@ -67,8 +65,8 @@ describe("formatter:sarif", () => {
         it("should return a log with one file and no results", () => {
             const result = JSON.parse(formatter(code, null));
 
-            assert.hasAllKeys(result.runs[0].files, sourceFilePath);
-            assert.strictEqual(result.runs[0].files[sourceFilePath].fileLocation.uri, sourceFilePath);
+            assert.hasAllKeys(result.runs[0].artifacts, sourceFilePath);
+            assert.strictEqual(result.runs[0].artifacts[sourceFilePath].artifactLocation.uri, sourceFilePath);
             assert.isUndefined(result.runs[0].results);
         });
     });
@@ -88,14 +86,14 @@ describe("formatter:sarif", () => {
         it("should return a log with one file and one result", () => {
             const result = JSON.parse(formatter(code));
 
-            assert.hasAllKeys(result.runs[0].files, sourceFilePath);
-            assert.strictEqual(result.runs[0].files[sourceFilePath].fileLocation.uri, sourceFilePath);
+            assert.hasAllKeys(result.runs[0].artifacts, sourceFilePath);
+            assert.strictEqual(result.runs[0].artifacts[sourceFilePath].artifactLocation.uri, sourceFilePath);
             assert.isDefined(result.runs[0].results);
             assert.lengthOf(result.runs[0].results, 1);
             assert.strictEqual(result.runs[0].results[0].level, "error");
             assert.isDefined(result.runs[0].results[0].message);
             assert.strictEqual(result.runs[0].results[0].message.text, code[0].messages[0].message);
-            assert.strictEqual(result.runs[0].results[0].locations[0].physicalLocation.fileLocation.uri, sourceFilePath);
+            assert.strictEqual(result.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri, sourceFilePath);
         });
     });
 });
@@ -116,11 +114,11 @@ describe("formatter:sarif", () => {
             const result = JSON.parse(formatter(code, rules));
             const rule = rules.get(ruleid);
 
-            assert.hasAllKeys(result.runs[0].resources.rules, ruleid);
-            assert.strictEqual(result.runs[0].resources.rules[ruleid].id, ruleid);
-            assert.strictEqual(result.runs[0].resources.rules[ruleid].shortDescription.text, rule.meta.docs.description);
-            assert.strictEqual(result.runs[0].resources.rules[ruleid].helpUri, rule.meta.docs.url);
-            assert.strictEqual(result.runs[0].resources.rules[ruleid].tags.category, rule.meta.docs.category);
+            assert.hasAllKeys(result.runs[0].tool.driver.ruleDescriptors, ruleid);
+            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid].id, ruleid);
+            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid].shortDescription.text, rule.meta.docs.description);
+            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid].helpUri, rule.meta.docs.url);
+            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid].tags.category, rule.meta.docs.category);
         });
     });
 });
@@ -264,26 +262,26 @@ describe("formatter:sarif", () => {
 
             assert.lengthOf(result.runs[0].results, 4);
 
-            assert.hasAllKeys(result.runs[0].resources.rules, [ruleid1, ruleid2, ruleid3]);
-            assert.hasAllKeys(result.runs[0].files, [sourceFilePath1, sourceFilePath2]);
+            assert.hasAllKeys(result.runs[0].tool.driver.ruleDescriptors, [ruleid1, ruleid2, ruleid3]);
+            assert.hasAllKeys(result.runs[0].artifacts, [sourceFilePath1, sourceFilePath2]);
 
-            assert.strictEqual(result.runs[0].files[sourceFilePath1].fileLocation.uri, sourceFilePath1);
-            assert.strictEqual(result.runs[0].files[sourceFilePath2].fileLocation.uri, sourceFilePath2);
+            assert.strictEqual(result.runs[0].files[sourceFilePath1].artifactLocation.uri, sourceFilePath1);
+            assert.strictEqual(result.runs[0].files[sourceFilePath2].artifactLocation.uri, sourceFilePath2);
 
-            assert.strictEqual(result.runs[0].resources.rules[ruleid1].id, ruleid1);
-            assert.strictEqual(result.runs[0].resources.rules[ruleid1].shortDescription.text, rule1.meta.docs.description);
-            assert.strictEqual(result.runs[0].resources.rules[ruleid1].helpUri, rule1.meta.docs.url);
-            assert.strictEqual(result.runs[0].resources.rules[ruleid1].tags.category, rule1.meta.docs.category);
+            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid1].id, ruleid1);
+            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid1].shortDescription.text, rule1.meta.docs.description);
+            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid1].helpUri, rule1.meta.docs.url);
+            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid1].tags.category, rule1.meta.docs.category);
 
-            assert.strictEqual(result.runs[0].resources.rules[ruleid2].id, ruleid2);
-            assert.strictEqual(result.runs[0].resources.rules[ruleid2].shortDescription.text, rule2.meta.docs.description);
-            assert.strictEqual(result.runs[0].resources.rules[ruleid2].helpUri, rule2.meta.docs.url);
-            assert.strictEqual(result.runs[0].resources.rules[ruleid2].tags.category, rule2.meta.docs.category);
+            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid2].id, ruleid2);
+            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid2].shortDescription.text, rule2.meta.docs.description);
+            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid2].helpUri, rule2.meta.docs.url);
+            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid2].tags.category, rule2.meta.docs.category);
 
-            assert.strictEqual(result.runs[0].resources.rules[ruleid3].id, ruleid3);
-            assert.strictEqual(result.runs[0].resources.rules[ruleid3].shortDescription.text, rule3.meta.docs.description);
-            assert.strictEqual(result.runs[0].resources.rules[ruleid3].helpUri, rule3.meta.docs.url);
-            assert.strictEqual(result.runs[0].resources.rules[ruleid3].tags.category, rule3.meta.docs.category);
+            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid3].id, ruleid3);
+            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid3].shortDescription.text, rule3.meta.docs.description);
+            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid3].helpUri, rule3.meta.docs.url);
+            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid3].tags.category, rule3.meta.docs.category);
 
             assert.strictEqual(result.runs[0].results[0].ruleId, "the-rule");
             assert.strictEqual(result.runs[0].results[1].ruleId, ruleid1);
@@ -300,10 +298,10 @@ describe("formatter:sarif", () => {
             assert.strictEqual(result.runs[0].results[2].message.text, "Unexpected something.");
             assert.strictEqual(result.runs[0].results[3].message.text, "Custom error.");
 
-            assert.strictEqual(result.runs[0].results[0].locations[0].physicalLocation.fileLocation.uri, sourceFilePath1);
-            assert.strictEqual(result.runs[0].results[1].locations[0].physicalLocation.fileLocation.uri, sourceFilePath1);
-            assert.strictEqual(result.runs[0].results[2].locations[0].physicalLocation.fileLocation.uri, sourceFilePath2);
-            assert.strictEqual(result.runs[0].results[3].locations[0].physicalLocation.fileLocation.uri, sourceFilePath2);
+            assert.strictEqual(result.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri, sourceFilePath1);
+            assert.strictEqual(result.runs[0].results[1].locations[0].physicalLocation.artifactLocation.uri, sourceFilePath1);
+            assert.strictEqual(result.runs[0].results[2].locations[0].physicalLocation.artifactLocation.uri, sourceFilePath2);
+            assert.strictEqual(result.runs[0].results[3].locations[0].physicalLocation.artifactLocation.uri, sourceFilePath2);
 
             assert.isUndefined(result.runs[0].results[0].locations[0].physicalLocation.region);
 
