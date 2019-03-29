@@ -151,7 +151,8 @@
               "extension",
               "translation",
               "taxonomy",
-              "policy"
+              "policy",
+              "referencedOnCommandLine"
             ]
           }
         },
@@ -2749,6 +2750,17 @@
         "translationMetadata": {
           "description": "Translation metadata, required for a translation, not populated by other component types.",
           "$ref": "#/definitions/translationMetadata"
+        },
+
+        "supportedTaxonomies": {
+          "description": "An array of toolComponentReference objects to declare the taxonomies supported by the tool component.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/toolComponentReference"
+          }
         },
 
         "properties": {

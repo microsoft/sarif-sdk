@@ -1211,6 +1211,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 node.AssociatedComponent = VisitNullChecked(node.AssociatedComponent);
                 node.TranslationMetadata = VisitNullChecked(node.TranslationMetadata);
+                if (node.SupportedTaxonomies != null)
+                {
+                    for (int index_0 = 0; index_0 < node.SupportedTaxonomies.Count; ++index_0)
+                    {
+                        node.SupportedTaxonomies[index_0] = VisitNullChecked(node.SupportedTaxonomies[index_0]);
+                    }
+                }
             }
 
             return node;

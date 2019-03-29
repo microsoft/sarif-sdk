@@ -80,7 +80,8 @@
           "Extension",
           "Translation",
           "Taxonomy",
-          "Policy"
+          "Policy",
+          "ReferencedOnCommandLine"
         ]
       }
     },
