@@ -81,7 +81,8 @@
           "Translation",
           "Taxonomy",
           "Policy",
-          "ReferencedOnCommandLine"
+          "ReferencedOnCommandLine",
+          "MemoryContents"
         ]
       }
     },

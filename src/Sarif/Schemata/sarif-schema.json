@@ -152,7 +152,8 @@
               "translation",
               "taxonomy",
               "policy",
-              "referencedOnCommandLine"
+              "referencedOnCommandLine",
+              "memoryContents"
             ]
           }
         },
@@ -661,6 +662,17 @@
           }
         },
 
+        "addresses": {
+          "description": "Addresses that will be merged with a separate run.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": false,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/address"
+          }
+        },
+
         "properties": {
           "description": "Key/value pairs that provide additional information about the external properties.",
           "$ref": "#/definitions/propertyBag"
@@ -711,7 +723,8 @@
         "graphs": {
           "description": "An array of external property files containing a run.graphs object to be merged with the root log file.",
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
+          "default": [],
           "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/externalPropertyFileReference"
@@ -1015,8 +1028,19 @@
           "type": "integer"
         },
 
-        "configurationOverrides": {
-          "description": "An array of configurationOverride objects that describe runtime reporting behavior.",
+        "ruleConfigurationOverrides": {
+          "description": "An array of configurationOverride objects that describe rules related runtime overrides.",
+          "type": "array",
+          "minItems": 0,
+          "default": [],
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/configurationOverride"
+          }
+        },
+
+        "notificationConfigurationOverrides": {
+          "description": "An array of configurationOverride objects that describe notifications related runtime overrides.",
           "type": "array",
           "minItems": 0,
           "default": [],
@@ -1669,7 +1693,8 @@
         "taxa": {
           "description": "An array of references used to locate a set of taxonomy reporting descriptors that are always applicable to a result.",
           "type": "array",
-          "minItems": 1,
+          "default": [],
+          "minItems": 0,
           "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/reportingDescriptorReference"
@@ -1679,7 +1704,8 @@
         "optionalTaxa": {
           "description": "An array of references used to locate an optional set of taxonomy reporting descriptors that may be applied to a result.",
           "type": "array",
-          "minItems": 1,
+          "default": [],
+          "minItems": 0,
           "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/reportingDescriptorReference"
@@ -2019,7 +2045,8 @@
         "taxa": {
           "description": "An array of references to taxonomy reporting descriptors that are applicable to the result.",
           "type": "array",
-          "minItems": 1,
+          "default": [],
+          "minItems": 0,
           "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/reportingDescriptorReference"
@@ -2615,6 +2642,11 @@
           "type": "string"
         },
 
+        "productSuite": {
+          "description": "A localizable string containing the name of the suite of products to which the tool component belongs.",
+          "type": "string"
+        },
+
         "shortDescription": {
           "description": "A brief description of the tool component.",
           "$ref": "#/definitions/multiformatMessageString"
@@ -2644,6 +2676,11 @@
           "description": "The binary version of the tool component's primary executable file expressed as four non-negative integers separated by a period (for operating systems that express file versions in this way).",
           "type": "string",
           "pattern": "[0-9]+(\\.[0-9]+){3}"
+        },
+
+        "releaseDateUtc": {
+          "description": "A string specifying the UTC date (and optionally, the time) of the component’s release.",
+          "type": "string"
         },
 
         "downloadUri": {

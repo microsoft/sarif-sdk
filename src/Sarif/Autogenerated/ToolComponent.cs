@@ -59,6 +59,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Product { get; set; }
 
         /// <summary>
+        /// A localizable string containing the name of the suite of products to which the tool component belongs.
+        /// </summary>
+        [DataMember(Name = "productSuite", IsRequired = false, EmitDefaultValue = false)]
+        public string ProductSuite { get; set; }
+
+        /// <summary>
         /// A brief description of the tool component.
         /// </summary>
         [DataMember(Name = "shortDescription", IsRequired = false, EmitDefaultValue = false)]
@@ -93,6 +99,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         [DataMember(Name = "dottedQuadFileVersion", IsRequired = false, EmitDefaultValue = false)]
         public string DottedQuadFileVersion { get; set; }
+
+        /// <summary>
+        /// A string specifying the UTC date (and optionally, the time) of the component�s release.
+        /// </summary>
+        [DataMember(Name = "releaseDateUtc", IsRequired = false, EmitDefaultValue = false)]
+        public string ReleaseDateUtc { get; set; }
 
         /// <summary>
         /// The absolute URI from which the tool component can be downloaded.
@@ -216,6 +228,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="product">
         /// An initialization value for the <see cref="P:Product" /> property.
         /// </param>
+        /// <param name="productSuite">
+        /// An initialization value for the <see cref="P:ProductSuite" /> property.
+        /// </param>
         /// <param name="shortDescription">
         /// An initialization value for the <see cref="P:ShortDescription" /> property.
         /// </param>
@@ -233,6 +248,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </param>
         /// <param name="dottedQuadFileVersion">
         /// An initialization value for the <see cref="P:DottedQuadFileVersion" /> property.
+        /// </param>
+        /// <param name="releaseDateUtc">
+        /// An initialization value for the <see cref="P:ReleaseDateUtc" /> property.
         /// </param>
         /// <param name="downloadUri">
         /// An initialization value for the <see cref="P:DownloadUri" /> property.
@@ -279,9 +297,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ToolComponent(string guid, string name, string organization, string product, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notifications, IEnumerable<ReportingDescriptor> rules, IEnumerable<ReportingDescriptor> taxa, IEnumerable<int> artifactIndices, string language, ToolComponentContents contents, bool isComprehensive, string localizedDataSemanticVersion, string minimumRequiredLocalizedDataSemanticVersion, ToolComponentReference associatedComponent, TranslationMetadata translationMetadata, IEnumerable<ToolComponentReference> supportedTaxonomies, IDictionary<string, SerializedPropertyInfo> properties)
+        public ToolComponent(string guid, string name, string organization, string product, string productSuite, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, string releaseDateUtc, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notifications, IEnumerable<ReportingDescriptor> rules, IEnumerable<ReportingDescriptor> taxa, IEnumerable<int> artifactIndices, string language, ToolComponentContents contents, bool isComprehensive, string localizedDataSemanticVersion, string minimumRequiredLocalizedDataSemanticVersion, ToolComponentReference associatedComponent, TranslationMetadata translationMetadata, IEnumerable<ToolComponentReference> supportedTaxonomies, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(guid, name, organization, product, shortDescription, fullDescription, fullName, version, semanticVersion, dottedQuadFileVersion, downloadUri, globalMessageStrings, notifications, rules, taxa, artifactIndices, language, contents, isComprehensive, localizedDataSemanticVersion, minimumRequiredLocalizedDataSemanticVersion, associatedComponent, translationMetadata, supportedTaxonomies, properties);
+            Init(guid, name, organization, product, productSuite, shortDescription, fullDescription, fullName, version, semanticVersion, dottedQuadFileVersion, releaseDateUtc, downloadUri, globalMessageStrings, notifications, rules, taxa, artifactIndices, language, contents, isComprehensive, localizedDataSemanticVersion, minimumRequiredLocalizedDataSemanticVersion, associatedComponent, translationMetadata, supportedTaxonomies, properties);
         }
 
         /// <summary>
@@ -300,7 +318,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Guid, other.Name, other.Organization, other.Product, other.ShortDescription, other.FullDescription, other.FullName, other.Version, other.SemanticVersion, other.DottedQuadFileVersion, other.DownloadUri, other.GlobalMessageStrings, other.Notifications, other.Rules, other.Taxa, other.ArtifactIndices, other.Language, other.Contents, other.IsComprehensive, other.LocalizedDataSemanticVersion, other.MinimumRequiredLocalizedDataSemanticVersion, other.AssociatedComponent, other.TranslationMetadata, other.SupportedTaxonomies, other.Properties);
+            Init(other.Guid, other.Name, other.Organization, other.Product, other.ProductSuite, other.ShortDescription, other.FullDescription, other.FullName, other.Version, other.SemanticVersion, other.DottedQuadFileVersion, other.ReleaseDateUtc, other.DownloadUri, other.GlobalMessageStrings, other.Notifications, other.Rules, other.Taxa, other.ArtifactIndices, other.Language, other.Contents, other.IsComprehensive, other.LocalizedDataSemanticVersion, other.MinimumRequiredLocalizedDataSemanticVersion, other.AssociatedComponent, other.TranslationMetadata, other.SupportedTaxonomies, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -321,12 +339,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ToolComponent(this);
         }
 
-        private void Init(string guid, string name, string organization, string product, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notifications, IEnumerable<ReportingDescriptor> rules, IEnumerable<ReportingDescriptor> taxa, IEnumerable<int> artifactIndices, string language, ToolComponentContents contents, bool isComprehensive, string localizedDataSemanticVersion, string minimumRequiredLocalizedDataSemanticVersion, ToolComponentReference associatedComponent, TranslationMetadata translationMetadata, IEnumerable<ToolComponentReference> supportedTaxonomies, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string guid, string name, string organization, string product, string productSuite, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, string releaseDateUtc, Uri downloadUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notifications, IEnumerable<ReportingDescriptor> rules, IEnumerable<ReportingDescriptor> taxa, IEnumerable<int> artifactIndices, string language, ToolComponentContents contents, bool isComprehensive, string localizedDataSemanticVersion, string minimumRequiredLocalizedDataSemanticVersion, ToolComponentReference associatedComponent, TranslationMetadata translationMetadata, IEnumerable<ToolComponentReference> supportedTaxonomies, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Guid = guid;
             Name = name;
             Organization = organization;
             Product = product;
+            ProductSuite = productSuite;
             if (shortDescription != null)
             {
                 ShortDescription = new MultiformatMessageString(shortDescription);
@@ -341,6 +360,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Version = version;
             SemanticVersion = semanticVersion;
             DottedQuadFileVersion = dottedQuadFileVersion;
+            ReleaseDateUtc = releaseDateUtc;
             if (downloadUri != null)
             {
                 DownloadUri = new Uri(downloadUri.OriginalString, downloadUri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);

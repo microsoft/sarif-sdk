@@ -241,6 +241,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An array of references to taxonomy reporting descriptors that are applicable to the result.
         /// </summary>
         [DataMember(Name = "taxa", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<ReportingDescriptorReference> Taxa { get; set; }
 
         /// <summary>
