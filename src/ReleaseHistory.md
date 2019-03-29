@@ -290,3 +290,4 @@
 * API BREAKING: Rename all 'instanceGuid' properties to 'guid'. https://github.com/oasis-tcs/sarif-spec/issues/341
 * API NON-BREAKING: Add 'reportingDescriptor.deprecatedNames' and 'deprecatedGuids' to match 'deprecatedIds' property. https://github.com/oasis-tcs/sarif-spec/issues/346
 * API NON-BREAKING: Add 'referencedOnCommandLine' as a role. https://github.com/oasis-tcs/sarif-spec/issues/347
+* API NON-BREAKING: Rename reportingConfigurationOverride to configurationOverride. https://github.com/oasis-tcs/sarif-spec/issues/350

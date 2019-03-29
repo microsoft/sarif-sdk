@@ -90,21 +90,21 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!object.ReferenceEquals(left.ReportingConfigurationOverrides, right.ReportingConfigurationOverrides))
+            if (!object.ReferenceEquals(left.ConfigurationOverrides, right.ConfigurationOverrides))
             {
-                if (left.ReportingConfigurationOverrides == null || right.ReportingConfigurationOverrides == null)
+                if (left.ConfigurationOverrides == null || right.ConfigurationOverrides == null)
                 {
                     return false;
                 }
 
-                if (left.ReportingConfigurationOverrides.Count != right.ReportingConfigurationOverrides.Count)
+                if (left.ConfigurationOverrides.Count != right.ConfigurationOverrides.Count)
                 {
                     return false;
                 }
 
-                for (int index_2 = 0; index_2 < left.ReportingConfigurationOverrides.Count; ++index_2)
+                for (int index_2 = 0; index_2 < left.ConfigurationOverrides.Count; ++index_2)
                 {
-                    if (!ReportingConfigurationOverride.ValueComparer.Equals(left.ReportingConfigurationOverrides[index_2], right.ReportingConfigurationOverrides[index_2]))
+                    if (!ConfigurationOverride.ValueComparer.Equals(left.ConfigurationOverrides[index_2], right.ConfigurationOverrides[index_2]))
                     {
                         return false;
                     }
@@ -312,9 +312,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 result = (result * 31) + obj.StartTimeUtc.GetHashCode();
                 result = (result * 31) + obj.EndTimeUtc.GetHashCode();
                 result = (result * 31) + obj.ExitCode.GetHashCode();
-                if (obj.ReportingConfigurationOverrides != null)
+                if (obj.ConfigurationOverrides != null)
                 {
-                    foreach (var value_6 in obj.ReportingConfigurationOverrides)
+                    foreach (var value_6 in obj.ConfigurationOverrides)
                     {
                         result = result * 31;
                         if (value_6 != null)

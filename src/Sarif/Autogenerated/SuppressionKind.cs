@@ -13,6 +13,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         None,
         SuppressedInSource,
-        SuppressedExternally
+        SuppressedExternally,
+        UnderReview,
+        SuppressionRejected
     }
 }

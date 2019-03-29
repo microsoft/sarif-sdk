@@ -1015,13 +1015,14 @@
           "type": "integer"
         },
 
-        "reportingConfigurationOverrides": {
-          "description": "An array of reportingConfigurationOverride objects that describe runtime reporting behavior.",
+        "configurationOverrides": {
+          "description": "An array of configurationOverride objects that describe runtime reporting behavior.",
           "type": "array",
           "minItems": 0,
+          "default": [],
           "uniqueItems": true,
           "items": {
-            "$ref": "#/definitions/reportingConfigurationOverride"
+            "$ref": "#/definitions/configurationOverride"
           }
         },
 
@@ -1730,7 +1731,7 @@
       }
     },
 
-    "reportingConfigurationOverride": {
+    "configurationOverride": {
       "description": "Information about how a specific tool report was reconfigured at runtime.",
       "type": "object",
       "additionalProperties": false,
@@ -2430,7 +2431,9 @@
           "description": "A string that indicates where the suppression is persisted.",
           "enum": [
             "suppressedInSource",
-            "suppressedExternally"
+            "suppressedExternally",
+            "underReview",
+            "suppressionRejected"
           ]
         },
 
