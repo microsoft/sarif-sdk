@@ -10,8 +10,8 @@
     <Product Condition=" '$(Product)' == '' ">Microsoft SARIF SDK</Product>
     <Copyright Condition=" '$(Copyright)' == '' ">© Microsoft Corporation. All rights reserved.</Copyright>
     <VersionPrefix>2.0.0</VersionPrefix>
-    <VersionSuffix>csd.2.beta.2019-02-20</VersionSuffix>
-    <PackageVersionSuffix></PackageVersionSuffix>
+    <VersionSuffix>csd.2.beta.2019-04-03</VersionSuffix>
+    <PackageVersionSuffix>.0</PackageVersionSuffix>
 
     <!--
     Whenever you increment VersionPrefix or VersionSuffix, copy the old value(s)
@@ -24,8 +24,8 @@
     hides the previous package versions on nuget.org.
     -->
     <PreviousVersionPrefix>2.0.0</PreviousVersionPrefix>
-    <PreviousVersionSuffix>csd.2.beta.2019-01-24</PreviousVersionSuffix>
-    <PreviousPackageVersionSuffix>.1</PreviousPackageVersionSuffix>
+    <PreviousVersionSuffix>csd.2.beta.2019-02-20</PreviousVersionSuffix>
+    <PreviousPackageVersionSuffix></PreviousPackageVersionSuffix>
   </PropertyGroup>
 
   <PropertyGroup Label="Build">
