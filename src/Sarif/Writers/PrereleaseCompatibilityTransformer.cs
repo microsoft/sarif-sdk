@@ -158,10 +158,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     AddLogicalLocationToAllLocationNodes(run);
 
                     // https://github.com/oasis-tcs/sarif-spec/issues/338
+                    MoveToolLanguageToRun(run);
                     RenameAllToolComponentDescriptors(run);
+
+
                 }
             }
             return true;
+        }
+
+        private static void MoveToolLanguageToRun(JObject run)
+        {
+            JObject tool = (JObject)run["tool"];
+            if (tool["language"] is JToken language)
+            {
+                tool.Remove("language");
+                run.Add("language", language);
+            }
         }
 
         private static void RenameAllToolComponentDescriptors(JObject run)
@@ -478,7 +491,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 foreach (JObject run in runs)
                 {
                     // https://github.com/oasis-tcs/sarif-spec/issues/330
-                    RemoveToolLanguage(run);
                     UpdateAllReportingDescriptorPropertyTypes(run);
                     ConvertAllExceptionMessagesToStringAndRenameToolNotificationNodes(run);
 
@@ -746,15 +758,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     ConvertExceptionMessageToString(innerException);
                 }
-            }
-        }
-
-        private static void RemoveToolLanguage(JObject run)
-        {
-            JObject tool = (JObject)run["tool"];
-            if (tool["language"] is JToken language)
-            {
-                tool.Remove("language");
             }
         }
 

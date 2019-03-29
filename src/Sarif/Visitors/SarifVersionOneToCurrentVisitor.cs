@@ -911,6 +911,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         RunAggregates = aggregateIds,
                         BaselineGuid = v1Run.BaselineId,
                         Properties = v1Run.Properties,
+                        Language = v1Run.Tool?.Language ?? "en-US",
                         Tool = CreateTool(v1Run.Tool),
                         ColumnKind = ColumnKind.Utf16CodeUnits
                     };
@@ -1156,7 +1157,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 tool = new Tool()
                 {
-                    // V2 doesn't support Language, hence v1Tool.Language will be ignored.
                     Driver = new ToolComponent
                     {
                         DottedQuadFileVersion = v1Tool.FileVersion,

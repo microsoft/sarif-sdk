@@ -896,7 +896,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     run.Results = new List<ResultVersionOne>();
 
                     run.Rules = ConvertRulesArrayToDictionary(_currentV2Run.Tool.Driver.Rules, _v2RuleIndexToV1KeyMap);
-                    run.Tool = CreateToolVersionOne(v2Run.Tool);
+                    run.Tool = CreateToolVersionOne(v2Run.Tool, v2Run.Language);
 
                     foreach (Result v2Result in v2Run.Results)
                     {
@@ -1172,7 +1172,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return stackFrame;
         }
 
-        internal ToolVersionOne CreateToolVersionOne(Tool v2Tool)
+        internal ToolVersionOne CreateToolVersionOne(Tool v2Tool, string language)
         {
             ToolVersionOne tool = null;
 
@@ -1182,6 +1182,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     FileVersion = v2Tool.Driver.DottedQuadFileVersion,
                     FullName = v2Tool.Driver.FullName,
+                    Language = language,
                     Name = v2Tool.Driver.Name,
                     Properties = v2Tool.Properties,
                     SemanticVersion = v2Tool.Driver.SemanticVersion,
