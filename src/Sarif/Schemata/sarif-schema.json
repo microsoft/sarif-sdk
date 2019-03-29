@@ -83,13 +83,15 @@
         "index": {
           "description": "An index into run.addresses used to retrieve a cached instance to represent the address.",
           "type": "integer",
-          "minimum": 0
+          "default": -1,
+          "minimum": -1
         },
 
         "parentIndex": {
           "description": "An index into run.addresses to retrieve a parent address. The parent can provide a base address (from which the current offset value is relevant) and other details.",
           "type": "integer",
-          "minimum": 0
+          "default": -1,
+          "minimum": -1
         },
 
         "properties": {
@@ -1742,32 +1744,17 @@
           "$ref": "#/definitions/reportingConfiguration"
         },
 
-        "notificationIndex": {
-          "description": "The index within the toolComponent.notificationDescriptors array of the reportingDescriptor associated with this override.",
-          "type": "integer",
-          "default": -1,
-          "minimum": -1
-        },
-
-        "ruleIndex": {
-          "description": "The index within the toolComponent.ruleDescriptors array of the reportingDescriptor associated with this override.",
-          "type": "integer",
-          "default": -1,
-          "minimum": -1
-        },
-
-        "extensionIndex": {
-          "description": "The index within the run.tool.extensions array of the toolComponent object which describes the plug-in or tool extension that produced the report.",
-          "type": "integer",
-          "default": -1,
-          "minimum": -1
+        "descriptor": {
+          "description": "A reference used to locate the descriptor relevant to this configuration override.",
+          "$ref": "#/definitions/reportingDescriptorReference"
         },
 
         "properties": {
           "description": "Key/value pairs that provide additional information about the reporting configuration.",
           "$ref": "#/definitions/propertyBag"
         }
-      }
+      },
+      "required": ["configuration", "descriptor"]
     },
 
     "reportingDescriptorReference": {
@@ -1821,6 +1808,11 @@
           "type": "integer",
           "default": -1,
           "minimum": -1
+        },
+
+        "rule": {
+          "description": "A reference used to locate the rule descriptor relevant to this result.",
+          "$ref": "#/definitions/reportingDescriptorReference"
         },
 
         "kind": {
@@ -2024,11 +2016,6 @@
           "items": {
             "$ref": "#/definitions/reportingDescriptorReference"
           }
-        },
-
-        "rule": {
-          "description": "A reference used to locate the rule descriptor relevant to this result.",
-          "$ref": "#/definitions/reportingDescriptorReference"
         },
 
         "properties": {
@@ -2780,7 +2767,9 @@
 
         "index": {
           "description": "An index into the referenced toolComponent in tool.extensions.",
-          "type": "integer"
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
         },
 
         "guid": {

@@ -4,8 +4,10 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -66,12 +68,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An index into run.addresses used to retrieve a cached instance to represent the address.
         /// </summary>
         [DataMember(Name = "index", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(-1)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public int Index { get; set; }
 
         /// <summary>
         /// An index into run.addresses to retrieve a parent address. The parent can provide a base address (from which the current offset value is relevant) and other details.
         /// </summary>
         [DataMember(Name = "parentIndex", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(-1)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public int ParentIndex { get; set; }
 
         /// <summary>
@@ -85,6 +91,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public Address()
         {
+            Index = -1;
+            ParentIndex = -1;
         }
 
         /// <summary>
