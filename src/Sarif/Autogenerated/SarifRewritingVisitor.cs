@@ -261,6 +261,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.Configuration = VisitNullChecked(node.Configuration);
+                node.Descriptor = VisitNullChecked(node.Descriptor);
             }
 
             return node;
@@ -823,6 +824,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                node.Rule = VisitNullChecked(node.Rule);
                 node.Message = VisitNullChecked(node.Message);
                 node.AnalysisTarget = VisitNullChecked(node.AnalysisTarget);
                 if (node.Locations != null)
@@ -905,8 +907,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                         node.Taxa[index_0] = VisitNullChecked(node.Taxa[index_0]);
                     }
                 }
-
-                node.Rule = VisitNullChecked(node.Rule);
             }
 
             return node;

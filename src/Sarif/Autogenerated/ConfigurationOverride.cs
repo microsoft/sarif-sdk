@@ -4,10 +4,8 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
-using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -37,32 +35,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Specifies how the report was configured during the scan.
         /// </summary>
-        [DataMember(Name = "configuration", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "configuration", IsRequired = true)]
         public ReportingConfiguration Configuration { get; set; }
 
         /// <summary>
-        /// The index within the toolComponent.notificationDescriptors array of the reportingDescriptor associated with this override.
+        /// A reference used to locate the descriptor relevant to this configuration override.
         /// </summary>
-        [DataMember(Name = "notificationIndex", IsRequired = false, EmitDefaultValue = false)]
-        [DefaultValue(-1)]
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public int NotificationIndex { get; set; }
-
-        /// <summary>
-        /// The index within the toolComponent.ruleDescriptors array of the reportingDescriptor associated with this override.
-        /// </summary>
-        [DataMember(Name = "ruleIndex", IsRequired = false, EmitDefaultValue = false)]
-        [DefaultValue(-1)]
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public int RuleIndex { get; set; }
-
-        /// <summary>
-        /// The index within the run.tool.extensions array of the toolComponent object which describes the plug-in or tool extension that produced the report.
-        /// </summary>
-        [DataMember(Name = "extensionIndex", IsRequired = false, EmitDefaultValue = false)]
-        [DefaultValue(-1)]
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public int ExtensionIndex { get; set; }
+        [DataMember(Name = "descriptor", IsRequired = true)]
+        public ReportingDescriptorReference Descriptor { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the reporting configuration.
@@ -75,9 +55,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public ConfigurationOverride()
         {
-            NotificationIndex = -1;
-            RuleIndex = -1;
-            ExtensionIndex = -1;
         }
 
         /// <summary>
@@ -86,21 +63,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="configuration">
         /// An initialization value for the <see cref="P:Configuration" /> property.
         /// </param>
-        /// <param name="notificationIndex">
-        /// An initialization value for the <see cref="P:NotificationIndex" /> property.
-        /// </param>
-        /// <param name="ruleIndex">
-        /// An initialization value for the <see cref="P:RuleIndex" /> property.
-        /// </param>
-        /// <param name="extensionIndex">
-        /// An initialization value for the <see cref="P:ExtensionIndex" /> property.
+        /// <param name="descriptor">
+        /// An initialization value for the <see cref="P:Descriptor" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ConfigurationOverride(ReportingConfiguration configuration, int notificationIndex, int ruleIndex, int extensionIndex, IDictionary<string, SerializedPropertyInfo> properties)
+        public ConfigurationOverride(ReportingConfiguration configuration, ReportingDescriptorReference descriptor, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(configuration, notificationIndex, ruleIndex, extensionIndex, properties);
+            Init(configuration, descriptor, properties);
         }
 
         /// <summary>
@@ -119,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Configuration, other.NotificationIndex, other.RuleIndex, other.ExtensionIndex, other.Properties);
+            Init(other.Configuration, other.Descriptor, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -140,16 +111,18 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ConfigurationOverride(this);
         }
 
-        private void Init(ReportingConfiguration configuration, int notificationIndex, int ruleIndex, int extensionIndex, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(ReportingConfiguration configuration, ReportingDescriptorReference descriptor, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (configuration != null)
             {
                 Configuration = new ReportingConfiguration(configuration);
             }
 
-            NotificationIndex = notificationIndex;
-            RuleIndex = ruleIndex;
-            ExtensionIndex = extensionIndex;
+            if (descriptor != null)
+            {
+                Descriptor = new ReportingDescriptorReference(descriptor);
+            }
+
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);

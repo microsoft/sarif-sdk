@@ -33,17 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.NotificationIndex != right.NotificationIndex)
-            {
-                return false;
-            }
-
-            if (left.RuleIndex != right.RuleIndex)
-            {
-                return false;
-            }
-
-            if (left.ExtensionIndex != right.ExtensionIndex)
+            if (!ReportingDescriptorReference.ValueComparer.Equals(left.Descriptor, right.Descriptor))
             {
                 return false;
             }
@@ -88,9 +78,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Configuration.ValueGetHashCode();
                 }
 
-                result = (result * 31) + obj.NotificationIndex.GetHashCode();
-                result = (result * 31) + obj.RuleIndex.GetHashCode();
-                result = (result * 31) + obj.ExtensionIndex.GetHashCode();
+                if (obj.Descriptor != null)
+                {
+                    result = (result * 31) + obj.Descriptor.ValueGetHashCode();
+                }
+
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
