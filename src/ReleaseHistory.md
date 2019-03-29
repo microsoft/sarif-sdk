@@ -281,3 +281,12 @@
 
 ## **v2.0.0-csd.2.beta.2019.04.03** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.04.03) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.04.03) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.04.03)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.04.03))
 * API NON-BREAKING: Add Introduce new localization mechanism (post ballot changes). https://github.com/oasis-tcs/sarif-spec/issues/338
+* API BREAKING: Add address property to a location object (post ballot changes). https://github.com/oasis-tcs/sarif-spec/issues/302
+* API NON-BREAKING: Define result taxonomies. https://github.com/oasis-tcs/sarif-spec/issues/314
+* API NON-BREAKING: Define a reportingDescriptorReference object. https://github.com/oasis-tcs/sarif-spec/issues/324
+* API BREAKING: Change run.graphs and result.graphs from objects to arrays. https://github.com/oasis-tcs/sarif-spec/issues/326
+* API BREAKING: External property file related renames (post ballot changes). https://github.com/oasis-tcs/sarif-spec/issues/335
+* API NON-BREAKING: Allow toolComponents to be externalized. https://github.com/oasis-tcs/sarif-spec/issues/337
+* API BREAKING: Rename all 'instanceGuid' properties to 'guid'. https://github.com/oasis-tcs/sarif-spec/issues/341
+* API NON-BREAKING: Add 'reportingDescriptor.deprecatedNames' and 'deprecatedGuids' to match 'deprecatedIds' property. https://github.com/oasis-tcs/sarif-spec/issues/346
+* API NON-BREAKING: Add 'referencedOnCommandLine' as a role. https://github.com/oasis-tcs/sarif-spec/issues/347
