@@ -134,7 +134,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static bool ApplyChangesFromTC33(JObject sarifLog)
         {
-            UpdateSarifLogVersion(sarifLog);
+            UpdateSarifLogVersionAndSchema(sarifLog);
+
             if (sarifLog["runs"] is JArray runs)
             {
                 foreach (JObject run in runs)
@@ -485,7 +486,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static bool ApplyChangesFromTC32(JObject sarifLog)
         {
-            UpdateSarifLogVersion(sarifLog);
             if (sarifLog["runs"] is JArray runs)
             {
                 foreach (JObject run in runs)
@@ -821,8 +821,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static bool ApplyChangesFromTC31(JObject sarifLog)
         {
-            UpdateSarifLogVersion(sarifLog);
-
             if (sarifLog["runs"] is JArray runs)
             {
                 foreach (JObject run in runs)
@@ -1147,7 +1145,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // code. This would prevent multiple passes over things like the run.results array.
             // We've isolated the changes here instead simply to keep them grouped together.
 
-            bool modifiedLog = UpdateSarifLogVersion(sarifLog); 
+            bool modifiedLog = false; 
 
             // For completness, this update added run.newlineSequences to the schema
             // This is a non-breaking (additive) change, so there is no work to do.
@@ -1569,7 +1567,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static bool ApplyCoreTransformations(JObject sarifLog)
         {
-            bool modifiedLog = UpdateSarifLogVersion(sarifLog); 
+            bool modifiedLog = false;
 
             if (sarifLog["runs"] is JArray runs)
             {
@@ -1604,25 +1602,42 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return modifiedLog;
         }
 
-        private static bool UpdateSarifLogVersion(JObject sarifLog)
+        private static bool UpdateSarifLogVersionAndSchema(JObject sarifLog)
         {
-            bool modifiedLog = false;
+            bool modifiedLog = UpdateVersionAndSchema(sarifLog);
 
-            string version = (string)sarifLog["version"];
-            if (version != SarifUtilities.SemanticVersion)
+            if (sarifLog["inlineExternalProperties"] is JArray inlineExternalPropertiesArray)
             {
-                sarifLog["version"] = SarifUtilities.SemanticVersion;
-                modifiedLog = true;
+                foreach (JObject inlineExternalProperties in inlineExternalPropertiesArray)
+                {
+                    modifiedLog |= UpdateVersionAndSchema(inlineExternalProperties);
+                }
             }
-
-            string schema = (string)sarifLog["$schema"];
-            if (schema != SarifUtilities.SarifSchemaUri)
-            {
-                sarifLog["$schema"] = SarifUtilities.SarifSchemaUri;
-                modifiedLog = true;
-            }
-
             return modifiedLog;
+        }
+
+        private static bool UpdateVersionAndSchema(JObject jObject)
+        {
+            bool modified = false;
+
+            modified |= UpdatePropertyValueIfPresent(jObject, "version", SarifUtilities.SemanticVersion);
+            modified |= UpdatePropertyValueIfPresent(jObject, "$schema", SarifUtilities.SarifSchemaUri);
+
+            return modified;
+        }
+
+        private static bool UpdatePropertyValueIfPresent(JObject jObject, string propertyName, string propertyValue)
+        {
+            bool modified = false;
+
+            string existingValue = (string)jObject[propertyName];
+            if (!string.IsNullOrEmpty(existingValue) && existingValue != propertyValue)
+            {
+                jObject[propertyName] =propertyValue;
+                modified = true;
+            }
+
+            return modified;
         }
 
         private static bool RefactorRunAutomationDetails(JObject run)
