@@ -144,9 +144,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         ReportingConfiguration,
         /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ReportingConfigurationOverride" />.
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ConfigurationOverride" />.
         /// </summary>
-        ReportingConfigurationOverride,
+        ConfigurationOverride,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ReportingDescriptorReference" />.
         /// </summary>

@@ -60,6 +60,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitAttachment((Attachment)node);
                 case SarifNodeKind.CodeFlow:
                     return VisitCodeFlow((CodeFlow)node);
+                case SarifNodeKind.ConfigurationOverride:
+                    return VisitConfigurationOverride((ConfigurationOverride)node);
                 case SarifNodeKind.Conversion:
                     return VisitConversion((Conversion)node);
                 case SarifNodeKind.Edge:
@@ -106,8 +108,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitReplacement((Replacement)node);
                 case SarifNodeKind.ReportingConfiguration:
                     return VisitReportingConfiguration((ReportingConfiguration)node);
-                case SarifNodeKind.ReportingConfigurationOverride:
-                    return VisitReportingConfigurationOverride((ReportingConfigurationOverride)node);
                 case SarifNodeKind.ReportingDescriptor:
                     return VisitReportingDescriptor((ReportingDescriptor)node);
                 case SarifNodeKind.ReportingDescriptorReference:
@@ -251,6 +251,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                         node.ThreadFlows[index_0] = VisitNullChecked(node.ThreadFlows[index_0]);
                     }
                 }
+            }
+
+            return node;
+        }
+
+        public virtual ConfigurationOverride VisitConfigurationOverride(ConfigurationOverride node)
+        {
+            if (node != null)
+            {
+                node.Configuration = VisitNullChecked(node.Configuration);
             }
 
             return node;
@@ -582,11 +592,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (node.ReportingConfigurationOverrides != null)
+                if (node.ConfigurationOverrides != null)
                 {
-                    for (int index_0 = 0; index_0 < node.ReportingConfigurationOverrides.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.ConfigurationOverrides.Count; ++index_0)
                     {
-                        node.ReportingConfigurationOverrides[index_0] = VisitNullChecked(node.ReportingConfigurationOverrides[index_0]);
+                        node.ConfigurationOverrides[index_0] = VisitNullChecked(node.ConfigurationOverrides[index_0]);
                     }
                 }
 
@@ -753,16 +763,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
-            }
-
-            return node;
-        }
-
-        public virtual ReportingConfigurationOverride VisitReportingConfigurationOverride(ReportingConfigurationOverride node)
-        {
-            if (node != null)
-            {
-                node.Configuration = VisitNullChecked(node.Configuration);
             }
 
             return node;

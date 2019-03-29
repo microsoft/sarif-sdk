@@ -16,11 +16,11 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
-    public partial class ReportingConfigurationOverride : PropertyBagHolder, ISarifNode
+    public partial class ConfigurationOverride : PropertyBagHolder, ISarifNode
     {
-        public static IEqualityComparer<ReportingConfigurationOverride> ValueComparer => ReportingConfigurationOverrideEqualityComparer.Instance;
+        public static IEqualityComparer<ConfigurationOverride> ValueComparer => ConfigurationOverrideEqualityComparer.Instance;
 
-        public bool ValueEquals(ReportingConfigurationOverride other) => ValueComparer.Equals(this, other);
+        public bool ValueEquals(ConfigurationOverride other) => ValueComparer.Equals(this, other);
         public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                return SarifNodeKind.ReportingConfigurationOverride;
+                return SarifNodeKind.ConfigurationOverride;
             }
         }
 
@@ -71,9 +71,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReportingConfigurationOverride" /> class.
+        /// Initializes a new instance of the <see cref="ConfigurationOverride" /> class.
         /// </summary>
-        public ReportingConfigurationOverride()
+        public ConfigurationOverride()
         {
             NotificationIndex = -1;
             RuleIndex = -1;
@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReportingConfigurationOverride" /> class from the supplied values.
+        /// Initializes a new instance of the <see cref="ConfigurationOverride" /> class from the supplied values.
         /// </summary>
         /// <param name="configuration">
         /// An initialization value for the <see cref="P:Configuration" /> property.
@@ -98,13 +98,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ReportingConfigurationOverride(ReportingConfiguration configuration, int notificationIndex, int ruleIndex, int extensionIndex, IDictionary<string, SerializedPropertyInfo> properties)
+        public ConfigurationOverride(ReportingConfiguration configuration, int notificationIndex, int ruleIndex, int extensionIndex, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(configuration, notificationIndex, ruleIndex, extensionIndex, properties);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReportingConfigurationOverride" /> class from the specified instance.
+        /// Initializes a new instance of the <see cref="ConfigurationOverride" /> class from the specified instance.
         /// </summary>
         /// <param name="other">
         /// The instance from which the new instance is to be initialized.
@@ -112,7 +112,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <exception cref="ArgumentNullException">
         /// Thrown if <paramref name="other" /> is null.
         /// </exception>
-        public ReportingConfigurationOverride(ReportingConfigurationOverride other)
+        public ConfigurationOverride(ConfigurationOverride other)
         {
             if (other == null)
             {
@@ -130,14 +130,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public ReportingConfigurationOverride DeepClone()
+        public ConfigurationOverride DeepClone()
         {
-            return (ReportingConfigurationOverride)DeepCloneCore();
+            return (ConfigurationOverride)DeepCloneCore();
         }
 
         private ISarifNode DeepCloneCore()
         {
-            return new ReportingConfigurationOverride(this);
+            return new ConfigurationOverride(this);
         }
 
         private void Init(ReportingConfiguration configuration, int notificationIndex, int ruleIndex, int extensionIndex, IDictionary<string, SerializedPropertyInfo> properties)

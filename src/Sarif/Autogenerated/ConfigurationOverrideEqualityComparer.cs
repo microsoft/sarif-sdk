@@ -9,14 +9,14 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Defines methods to support the comparison of objects of type ReportingConfigurationOverride for equality.
+    /// Defines methods to support the comparison of objects of type ConfigurationOverride for equality.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
-    internal sealed class ReportingConfigurationOverrideEqualityComparer : IEqualityComparer<ReportingConfigurationOverride>
+    internal sealed class ConfigurationOverrideEqualityComparer : IEqualityComparer<ConfigurationOverride>
     {
-        internal static readonly ReportingConfigurationOverrideEqualityComparer Instance = new ReportingConfigurationOverrideEqualityComparer();
+        internal static readonly ConfigurationOverrideEqualityComparer Instance = new ConfigurationOverrideEqualityComparer();
 
-        public bool Equals(ReportingConfigurationOverride left, ReportingConfigurationOverride right)
+        public bool Equals(ConfigurationOverride left, ConfigurationOverride right)
         {
             if (ReferenceEquals(left, right))
             {
@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public int GetHashCode(ReportingConfigurationOverride obj)
+        public int GetHashCode(ConfigurationOverride obj)
         {
             if (ReferenceEquals(obj, null))
             {

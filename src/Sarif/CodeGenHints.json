@@ -508,7 +508,7 @@
       }
     }
   ],
-  "reportingConfigurationOverride": [
+  "configurationOverride": [
     {
       "kind": "BaseTypeHint",
       "arguments": {
@@ -848,7 +848,9 @@
         "zeroValueName": "None",
         "memberNames": [
           "SuppressedInSource",
-          "SuppressedExternally"
+          "SuppressedExternally",
+          "UnderReview",
+          "SuppressionRejected"
         ]
       }
     },
