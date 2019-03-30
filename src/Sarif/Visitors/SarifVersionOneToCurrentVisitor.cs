@@ -477,7 +477,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 };
             }
 
-            if (address > -1 || offset > -1)
+            if (address > 0 || offset > 0)
             {
                 if (location.PhysicalLocation == null)
                 {
@@ -486,8 +486,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 location.PhysicalLocation.Address = new Address
                 {
-                    BaseAddress = (address > -1) ? string.Format("0x{0:X}", address): null,
-                    Offset = (offset > -1) ? string.Format("0x{0:X}", offset): null
+                    BaseAddress = (address > 0) ? string.Format("0x{0:X}", address): null,
+                    Offset = (offset > 0) ? string.Format("0x{0:X}", offset): null
                 };
             }
             return location;
