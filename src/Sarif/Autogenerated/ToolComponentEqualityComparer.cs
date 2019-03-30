@@ -48,6 +48,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.ProductSuite != right.ProductSuite)
+            {
+                return false;
+            }
+
             if (!MultiformatMessageString.ValueComparer.Equals(left.ShortDescription, right.ShortDescription))
             {
                 return false;
@@ -74,6 +79,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             if (left.DottedQuadFileVersion != right.DottedQuadFileVersion)
+            {
+                return false;
+            }
+
+            if (left.ReleaseDateUtc != right.ReleaseDateUtc)
             {
                 return false;
             }
@@ -300,6 +310,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Product.GetHashCode();
                 }
 
+                if (obj.ProductSuite != null)
+                {
+                    result = (result * 31) + obj.ProductSuite.GetHashCode();
+                }
+
                 if (obj.ShortDescription != null)
                 {
                     result = (result * 31) + obj.ShortDescription.ValueGetHashCode();
@@ -328,6 +343,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.DottedQuadFileVersion != null)
                 {
                     result = (result * 31) + obj.DottedQuadFileVersion.GetHashCode();
+                }
+
+                if (obj.ReleaseDateUtc != null)
+                {
+                    result = (result * 31) + obj.ReleaseDateUtc.GetHashCode();
                 }
 
                 if (obj.DownloadUri != null)

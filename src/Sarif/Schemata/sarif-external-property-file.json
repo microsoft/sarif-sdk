@@ -148,6 +148,17 @@
       }
     },
 
+    "addresses": {
+      "description": "Addresses that will be merged with with an external run.",
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "default": [],
+      "items": {
+        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/address"
+      }
+    },
+
     "properties": {
       "description": "Key/value pairs that provide additional information about the external properties.",
       "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/propertyBag"
