@@ -140,9 +140,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 foreach (JObject run in runs)
                 {
-                    // https://github.com/oasis-tcs/sarif-spec/issues/302
-                    MoveAllStackFrameAddressesToLocation(run);
-
                     // https://github.com/oasis-tcs/sarif-spec/issues/337
                     ConvertToolToDriverInExternalPropertyFiles(run);
 
@@ -164,6 +161,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     // https://github.com/oasis-tcs/sarif-spec/issues/338
                     MoveToolLanguageToRun(run);
                     RenameAllToolComponentDescriptors(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/302
+                    MoveAllStackFrameAddressesToLocation(run);
                 }
             }
             return true;
@@ -571,11 +571,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 var location = stackFrame["location"] is JObject ? stackFrame["location"] : new JObject();
                 var physicalLocation = location["physicalLocation"] is JObject ? location["physicalLocation"] : new JObject();
 
-                physicalLocation = new JObject
-                {
-                    { "address", address }
-                };
-
+                physicalLocation["address"] = address;
                 location["physicalLocation"] = physicalLocation;
                 stackFrame["location"] = location;
             }

@@ -1177,14 +1177,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         {
             if (string.IsNullOrWhiteSpace(hexValue))
             {
-                return -1;
+                return 0;
             }
             // strip the leading 0x if found.
             if (hexValue.StartsWith("0x", StringComparison.OrdinalIgnoreCase))
             {
                 hexValue = hexValue.Substring(2);
             }
-            return int.TryParse(hexValue, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out int address) ? address : -1;
+            return int.TryParse(hexValue, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out int address) ? address : 0;
         }
 
         internal ToolVersionOne CreateToolVersionOne(Tool v2Tool, string language)
