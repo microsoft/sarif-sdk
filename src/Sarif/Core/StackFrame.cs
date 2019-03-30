@@ -72,7 +72,20 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (ilOffset != -1)
             {
-                stackFrame.Address.Offset = ilOffset;
+                if (stackFrame.Location == null)
+                {
+                    stackFrame.Location = new Location();
+                }
+
+                if (stackFrame.Location.PhysicalLocation == null)
+                {
+                    stackFrame.Location.PhysicalLocation = new PhysicalLocation();
+                }
+
+                stackFrame.Location.PhysicalLocation.Address = new Address
+                {
+                    Offset = string.Format("0x{0:X}", ilOffset)
+                };
             }
 
             if (nativeOffset != -1)

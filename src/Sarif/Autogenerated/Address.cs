@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A base address rendered as a hexadecimal string.
         /// </summary>
         [DataMember(Name = "baseAddress", IsRequired = false, EmitDefaultValue = false)]
-        public int BaseAddress { get; set; }
+        public string BaseAddress { get; set; }
 
         /// <summary>
         /// An open-ended string that identifies the address kind. 'section' and 'segment' are well-known values.
@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// an offset from the base address, if present, rendered as a hexadecimal string.
         /// </summary>
         [DataMember(Name = "offset", IsRequired = false, EmitDefaultValue = false)]
-        public int Offset { get; set; }
+        public string Offset { get; set; }
 
         /// <summary>
         /// An index into run.addresses used to retrieve a cached instance to represent the address.
@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Address(int baseAddress, string kind, string name, string fullyQualifiedName, int offset, int index, int parentIndex, IDictionary<string, SerializedPropertyInfo> properties)
+        public Address(string baseAddress, string kind, string name, string fullyQualifiedName, string offset, int index, int parentIndex, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(baseAddress, kind, name, fullyQualifiedName, offset, index, parentIndex, properties);
         }
@@ -164,7 +164,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Address(this);
         }
 
-        private void Init(int baseAddress, string kind, string name, string fullyQualifiedName, int offset, int index, int parentIndex, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string baseAddress, string kind, string name, string fullyQualifiedName, string offset, int index, int parentIndex, IDictionary<string, SerializedPropertyInfo> properties)
         {
             BaseAddress = baseAddress;
             Kind = kind;

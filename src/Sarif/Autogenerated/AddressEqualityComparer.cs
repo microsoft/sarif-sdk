@@ -98,7 +98,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                result = (result * 31) + obj.BaseAddress.GetHashCode();
+                if (obj.BaseAddress != null)
+                {
+                    result = (result * 31) + obj.BaseAddress.GetHashCode();
+                }
+
                 if (obj.Kind != null)
                 {
                     result = (result * 31) + obj.Kind.GetHashCode();
@@ -114,7 +118,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.FullyQualifiedName.GetHashCode();
                 }
 
-                result = (result * 31) + obj.Offset.GetHashCode();
+                if (obj.Offset != null)
+                {
+                    result = (result * 31) + obj.Offset.GetHashCode();
+                }
+
                 result = (result * 31) + obj.Index.GetHashCode();
                 result = (result * 31) + obj.ParentIndex.GetHashCode();
                 if (obj.Properties != null)

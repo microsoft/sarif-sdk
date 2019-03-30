@@ -442,7 +442,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                                          Uri uri,
                                          string uriBaseId,
                                          int column,
-                                         int line)
+                                         int line,
+                                         int address,
+                                         int offset)
         {
             var location = new Location
             {
@@ -475,6 +477,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 };
             }
 
+            if (address > -1 || offset > -1)
+            {
+                if (location.PhysicalLocation == null)
+                {
+                    location.PhysicalLocation = new PhysicalLocation();
+                }
+
+                location.PhysicalLocation.Address = new Address
+                {
+                    BaseAddress = (address > -1) ? string.Format("0x{0:X}", address): null,
+                    Offset = (offset > -1) ? string.Format("0x{0:X}", offset): null
+                };
+            }
             return location;
         }
 
@@ -1126,11 +1141,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 stackFrame = new StackFrame
                 {
-                    Address = new Address
-                    {
-                        BaseAddress = v1StackFrame.Address,
-                        Offset = v1StackFrame.Offset
-                    },
                     Module = v1StackFrame.Module,
                     Parameters = v1StackFrame.Parameters,
                     Properties = v1StackFrame.Properties,
@@ -1144,7 +1154,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                                                  v1StackFrame.Uri,
                                                  v1StackFrame.UriBaseId,
                                                  v1StackFrame.Column,
-                                                 v1StackFrame.Line);
+                                                 v1StackFrame.Line,
+                                                 v1StackFrame.Address,
+                                                 v1StackFrame.Offset);
 
             return stackFrame;
         }

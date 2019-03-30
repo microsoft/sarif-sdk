@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security;
@@ -1131,9 +1132,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 stackFrame = new StackFrameVersionOne
                 {
-                    Address = v2StackFrame.Address.BaseAddress,
+                    Address = HexToInt(v2StackFrame.Location?.PhysicalLocation?.Address?.BaseAddress),
                     Module = v2StackFrame.Module,
-                    Offset = v2StackFrame.Address.Offset,
+                    Offset = HexToInt(v2StackFrame.Location?.PhysicalLocation?.Address?.Offset),
                     Parameters = v2StackFrame.Parameters,
                     Properties = v2StackFrame.Properties,
                     ThreadId = v2StackFrame.ThreadId
@@ -1170,6 +1171,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return stackFrame;
+        }
+
+        private static int HexToInt(string hexValue)
+        {
+            if (string.IsNullOrWhiteSpace(hexValue))
+            {
+                return -1;
+            }
+            // strip the leading 0x if found.
+            if (hexValue.StartsWith("0x", StringComparison.OrdinalIgnoreCase))
+            {
+                hexValue = hexValue.Substring(2);
+            }
+            return int.TryParse(hexValue, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out int address) ? address : -1;
         }
 
         internal ToolVersionOne CreateToolVersionOne(Tool v2Tool, string language)

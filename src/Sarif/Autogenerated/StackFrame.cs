@@ -52,12 +52,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int ThreadId { get; set; }
 
         /// <summary>
-        /// The address of the method or function that is executing.
-        /// </summary>
-        [DataMember(Name = "address", IsRequired = false, EmitDefaultValue = false)]
-        public Address Address { get; set; }
-
-        /// <summary>
         /// The parameters of the call that is executing.
         /// </summary>
         [DataMember(Name = "parameters", IsRequired = false, EmitDefaultValue = false)]
@@ -89,18 +83,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="threadId">
         /// An initialization value for the <see cref="P:ThreadId" /> property.
         /// </param>
-        /// <param name="address">
-        /// An initialization value for the <see cref="P:Address" /> property.
-        /// </param>
         /// <param name="parameters">
         /// An initialization value for the <see cref="P:Parameters" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public StackFrame(Location location, string module, int threadId, Address address, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
+        public StackFrame(Location location, string module, int threadId, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(location, module, threadId, address, parameters, properties);
+            Init(location, module, threadId, parameters, properties);
         }
 
         /// <summary>
@@ -119,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Location, other.Module, other.ThreadId, other.Address, other.Parameters, other.Properties);
+            Init(other.Location, other.Module, other.ThreadId, other.Parameters, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -140,7 +131,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new StackFrame(this);
         }
 
-        private void Init(Location location, string module, int threadId, Address address, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Location location, string module, int threadId, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (location != null)
             {
@@ -149,11 +140,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             Module = module;
             ThreadId = threadId;
-            if (address != null)
-            {
-                Address = new Address(address);
-            }
-
             if (parameters != null)
             {
                 var destination_0 = new List<string>();

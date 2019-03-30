@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// The location of the artifact.
         /// </summary>
-        [DataMember(Name = "artifactLocation", IsRequired = true)]
+        [DataMember(Name = "artifactLocation", IsRequired = false, EmitDefaultValue = false)]
         public ArtifactLocation ArtifactLocation { get; set; }
 
         /// <summary>
