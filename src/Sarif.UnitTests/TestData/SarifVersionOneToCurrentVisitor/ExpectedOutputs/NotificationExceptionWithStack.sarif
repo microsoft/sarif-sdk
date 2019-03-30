@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-02-20",
-  "version": "2.0.0-csd.2.beta.2019-02-20",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-04-03",
+  "version": "2.0.0-csd.2.beta.2019-04-03",
   "runs": [
     {
       "tool": {
@@ -13,7 +13,9 @@
         {
           "toolExecutionNotifications": [
             {
-              "id": "CTN0001",
+              "descriptor": {
+                "id": "CTN0001"
+              },
               "message": {
                 "text": "Unhandled exception."
               },
@@ -29,6 +31,10 @@
                     {
                       "location": {
                         "physicalLocation": {
+                          "address": {
+                            "baseAddress": "0x9A0134",
+                            "offset": "0x0"
+                          },
                           "artifactLocation": {
                             "uri": "file:///C:/src/main.cs"
                           },
@@ -39,7 +45,7 @@
                           }
                         },
                         "logicalLocation": {
-                            "fullyQualifiedName": "Ambiguous.Item",
+                          "fullyQualifiedName": "Ambiguous.Item",
                             "index": 0
                         },
                         "message": {
@@ -47,50 +53,52 @@
                         }
                       },
                       "module": "RuleLibrary",
-                      "threadId": 52,
-                      "address": {
-                        "baseAddress": 10092852
-                      }
+                      "threadId": 52
                     },
                     {
                       "location": {
                         "physicalLocation": {
+                          "address": {
+                            "baseAddress": "0xF4BF5",
+                            "offset": "0x0"
+                          },
                           "artifactLocation": {
                             "uri": "file:///C:/src/main.cs"
                           }
                         },
                         "logicalLocation": {
-                            "fullyQualifiedName": "Rules.SecureHashAlgorithmRule.Register",
+                          "fullyQualifiedName": "Rules.SecureHashAlgorithmRule.Register",
                             "index": 1
                         }
                       },
                       "module": "RuleLibrary",
-                      "threadId": 52,
-                      "address": {
-                        "baseAddress": 1002485
-                      }
+                      "threadId": 52
                     },
                     {
                       "location": {
                         "physicalLocation": {
+                          "address": {
+                            "baseAddress": "0x99B50C",
+                            "offset": "0x28EB"
+                          },
                           "artifactLocation": {
                             "uri": "file:///C:/src/utils.cs"
                           }
                         },
                         "logicalLocation": {
-                            "fullyQualifiedName": "ExecutionEngine.Engine.EvaluateRule"
+                          "fullyQualifiedName": "ExecutionEngine.Engine.EvaluateRule"
                         }
                       },
                       "module": "ExecutionEngine",
-                      "threadId": 52,
-                      "address": {
-                        "baseAddress": 10073356,
-                        "offset": 10475
-                      }
+                      "threadId": 52
                     },
                     {
                       "location": {
                         "physicalLocation": {
+                          "address": {
+                            "baseAddress": "0x99B50C",
+                            "offset": "0x28EB"
+                          },
                           "artifactLocation": {
                             "uri": "file:///C:/src/testtarget.cs"
                           }
@@ -101,11 +109,7 @@
                         }
                       },
                       "module": "Target",
-                      "threadId": 52,
-                      "address": {
-                        "baseAddress": 10073356,
-                        "offset": 10475
-                      }
+                      "threadId": 52
                     }
                   ]
                 },
