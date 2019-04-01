@@ -162,7 +162,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     MoveToolLanguageToRun(run);
                     RenameAllToolComponentDescriptors(run);
 
-
+                    // https://github.com/oasis-tcs/sarif-spec/issues/302
+                    MoveAllStackFrameAddressesToLocation(run);
                 }
             }
             return true;
@@ -473,7 +474,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-
         private static void ConvertToolToDriverInExternalPropertyFiles(JObject run)
         {
             if (run["externalPropertyFiles"] is JObject externalPropertyFiles &&
@@ -499,140 +499,81 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                     // https://github.com/oasis-tcs/sarif-spec/issues/336
                     UpdateAllToolComponentProperties(run);
-
-                    // https://github.com/oasis-tcs/sarif-spec/issues/302
-                    ConvertAllStackFrameAddressesToAddressObjects(run);
                 }
             }
             return true;
         }
 
-        private static void ConvertAllStackFrameAddressesToAddressObjects(JObject run)
+        private static void MoveAllStackFrameAddressesToLocation(JObject run)
         {
             // We need to remove StackFrame.Address (int) and StackFrame.Offset (int) and transfer those
             // to a single Address object with properties "BaseAddress" and "Offset".
 
             // Previously:
-            //      "stackFrame" : {
-            //          "address" : 324 ,
-            //          "offset" : 346
-            //      }
+            //  "stackFrame" : {
+            //      "address" : 324 ,
+            //      "offset" : 346
+            //  }
             // Now:
-            //      "stackFrame" : {
-            //          "address" : {
-            //              "baseAddress" : 324,
-            //              "offset" : 346
+            //  "stackFrame" : {
+            //      "location" : {
+            //          "physicalLocation" : {
+            //              "address" : {
+            //                  "baseAddress" : "0x144",
+            //                  "offset" : "0x15A"
+            //              }
             //          }
             //      }
+            //  }
 
             // The code walks through all possible paths to Stackframe node and performs updates.
-
-            if (run["conversion"] is JObject conversion && conversion["invocation"] is JObject invocation)
+            string[] addressPathsToUpdate =
             {
-                ConvertInvocationStackFrameAddressesToAddressObjects(invocation);
-            }
+                 "conversion.invocation.toolExecutionNotifications[].exception.stack.frames[]",
+                 "conversion.invocation.toolConfigurationNotifications[].exception.stack.frames[]",
+                 "conversion.invocation.toolExecutionNotifications[].exception.innerExceptions[].stack.frames[]",
+                 "conversion.invocation.toolConfigurationNotifications[].exception.innerExceptions[].stack.frames[]",
 
-            if (run["invocations"] is JArray invocations)
-            {
-                foreach (JObject item in invocations)
-                {
-                    ConvertInvocationStackFrameAddressesToAddressObjects(item);
-                }
-            }
+                 "invocations[].toolExecutionNotifications[].exception.stack.frames[]",
+                 "invocations[].toolExecutionNotifications[].exception.stack.frames[]",
+                 "invocations[].toolConfigurationNotifications[].exception.innerExceptions[].stack.frames[]",
+                 "invocations[].toolConfigurationNotifications[].exception.innerExceptions[].stack.frames[]",
 
-            if (run["results"] is JArray results)
-            {
-                foreach (JObject result in results)
-                {
-                    if (result["stacks"] is JArray stacks)
-                    {
-                        foreach (JObject item in stacks)
-                        {
-                            ConvertStackFrameAddressesToAddressObjects(item);
-                        }
-                    }
+                 "results[].codeFlows[].threadFlows[].locations[].stack.frames[]",
+                 "results[].stacks[].frames[]"
+            };
 
-                    if (result["codeflows"] is JArray codeflows)
-                    {
-                        foreach (JObject codeflow in codeflows)
-                        {
-                            if (codeflow["threadflow"] is JObject threadflow &&
-                                threadflow["threadflowLocation"] is JObject threadflowLocation &&
-                                threadflowLocation["Stack"] is JObject stack)
-                            {
-                                ConvertStackFrameAddressesToAddressObjects(stack);
-                            }
-                        }
-                    }
-                }
-            }
+            PerformActionOnLeafNodeIfExists(
+                possiblePathsToLeafNode: addressPathsToUpdate,
+                rootNode: run,
+                action: MoveSingleStackFrameAddressToLocation);
+
         }
 
-        private static void ConvertInvocationStackFrameAddressesToAddressObjects(JObject item)
+        private static void MoveSingleStackFrameAddressToLocation(JObject stackFrame)
         {
-            if (item["toolExecutionNotifications"] is JArray toolExecutionNotifications)
+            var address = new JObject();
+
+            if (stackFrame["address"] is JToken stackFrameAddress)
             {
-                ConvertNotificationsStackFrameAddressesToAddressObjects(toolExecutionNotifications);
+                address.Add("baseAddress", string.Format("0x{0:X}", stackFrameAddress));
+                stackFrame.Remove("address");
             }
 
-            if (item["toolConfigurationNotifications"] is JArray toolConfigurationNotifications)
+            if (stackFrame["offset"] is JToken stackFrameOffset)
             {
-                ConvertNotificationsStackFrameAddressesToAddressObjects(toolConfigurationNotifications);
-            }
-        }
-
-        private static void ConvertNotificationsStackFrameAddressesToAddressObjects(JArray notifications)
-        {
-            foreach (JObject notification in notifications)
-            {
-                if (notification["exception"] is JObject exception)
-                {
-                    ConvertExceptionStackFrameAddressesToAddressObjects(exception);
-                }
-            }
-        }
-
-        private static void ConvertExceptionStackFrameAddressesToAddressObjects(JObject exception)
-        {
-            if (exception["stack"] is JObject stack)
-            {
-                ConvertStackFrameAddressesToAddressObjects(stack);
+                address.Add("offset", string.Format("0x{0:X}", stackFrameOffset));
+                stackFrame.Remove("offset");
             }
 
-            if (exception["innerExceptions"] is JArray innerExceptions)
+            if (address.Count > 0)
             {
-                foreach (JObject innerException in innerExceptions)
-                {
-                    ConvertExceptionStackFrameAddressesToAddressObjects(innerException);
-                }
-            }
-        }
+                var location = stackFrame["location"] is JObject ? stackFrame["location"] : new JObject();
+                var physicalLocation = location["physicalLocation"] is JObject ? location["physicalLocation"] : new JObject();
 
-        private static void ConvertStackFrameAddressesToAddressObjects(JObject stack)
-        {
-            if (stack["frames"] is JArray frames)
-            {
-                foreach (JObject stackFrame in frames)
-                {
-                    var address = new JObject();
-
-                    if (stackFrame["address"] is JToken stackFrameAddress)
-                    {
-                        address.Add("baseAddress", stackFrameAddress);
-                        stackFrame.Remove("address");
-                    }
-
-                    if (stackFrame["offset"] is JToken stackFrameOffset)
-                    {
-                        address.Add("offset", stackFrameOffset);
-                        stackFrame.Remove("offset");
-                    }
-
-                    if (address.Count > 0)
-                    {
-                        stackFrame.Add("address", address);
-                    }
-                }
+                physicalLocation["address"] = address;
+                location["physicalLocation"] = physicalLocation;
+                stackFrame["location"] = location;
             }
         }
 

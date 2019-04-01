@@ -55,8 +55,7 @@
 
         "baseAddress": {
           "description": "A base address rendered as a hexadecimal string.",
-          "type": "integer",
-          "minimum": 0
+          "type": "string"
         },
 
         "kind": {
@@ -76,8 +75,7 @@
 
         "offset": {
           "description": "an offset from the base address, if present, rendered as a hexadecimal string.",
-          "type": "integer",
-          "minimum": 0
+          "type": "string"
         },
 
         "index": {
@@ -1443,9 +1441,7 @@
           "description": "Key/value pairs that provide additional information about the physical location.",
           "$ref": "#/definitions/propertyBag"
         }
-      },
-
-      "required": [ "artifactLocation" ]
+      }
     },
 
     "propertyBag": {
@@ -2409,11 +2405,6 @@
         "threadId": {
           "description": "The thread identifier of the stack frame.",
           "type": "integer"
-        },
-
-        "address": {
-          "description": "The address of the method or function that is executing.",
-          "$ref": "#/definitions/address"
         },
 
         "parameters": {
