@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-02-20",
-  "version": "2.0.0-csd.2.beta.2019-02-20",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-04-03",
+  "version": "2.0.0-csd.2.beta.2019-04-03",
   "runs": [
     {
       "tool": {
@@ -14,15 +14,15 @@
           "commandLine": "CodeScanner @collections.rsp",
           "toolExecutionNotifications": [
             {
-              "id": "CTN0001",
               "message": {
                 "text": "Run started."
               },
-              "level": "note"
+              "level": "note",
+              "descriptor": {
+                "id": "CTN0001"
+              }
             },
             {
-              "id": "CTN9999",
-              "ruleId": "C2152",
               "message": {
                 "text": "Exception evaluating rule \"C2152\". Rule disabled; run continues."
               },
@@ -66,20 +66,26 @@
                     "message": "This is make believe exception for testing."
                   }
                 ]
+              },
+              "descriptor": {
+                "id": "CTN9999"
+              },
+              "associatedRule": {
+                "id": "C2152"
               }
             },
             {
-              "id": "CTN0002",
               "message": {
                 "text": "Run ended."
               },
-              "level": "note"
+              "level": "note",
+              "descriptor": {
+                "id": "CTN0002"
+              }
             }
           ],
           "toolConfigurationNotifications": [
             {
-              "id": "UnknownRule",
-              "ruleId": "ABC0001",
               "message": {
                 "text": "Could not disable rule \"ABC0001\" because there is no rule with that id."
               },
@@ -92,6 +98,12 @@
                     "message": "This is make believe exception for testing."
                   }
                 ]
+              },
+              "descriptor": {
+                "id": "UnknownRule"
+              },
+              "associatedRule": {
+                "id": "ABC0001"
               }
             }
           ]

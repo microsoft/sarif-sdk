@@ -1,13 +1,13 @@
-﻿{
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-02-20",
-  "version": "2.0.0-csd.2.beta.2019-02-20",
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-04-03",
+  "version": "2.0.0-csd.2.beta.2019-04-03",
   "runs": [
     {
       "tool": {
         "driver": {
           "name": "CodeScanner",
           "fullName": "CodeScanner 1.1 for Unix (en-US)",
-          "ruleDescriptors": [
+          "rules": [
             {
               "id": "C2001",
               "shortDescription": {
@@ -68,7 +68,9 @@
                   }
                 }
               },
-              "fullyQualifiedLogicalName": "collections::list:add"
+              "logicalLocation": {
+                "fullyQualifiedName": "collections::list:add"
+              }
             }
           ],
           "suppressions": [
@@ -106,7 +108,9 @@
                   }
                 }
               },
-              "fullyQualifiedLogicalName": "collections::list:add"
+              "logicalLocation": {
+                "fullyQualifiedName": "collections::list:add"
+              }
             }
           ],
           "suppressions": [
@@ -141,7 +145,9 @@
                   }
                 }
               },
-              "fullyQualifiedLogicalName": "collections::list:add"
+              "logicalLocation": {
+                "fullyQualifiedName": "collections::list:add"
+              }
             }
           ],
           "suppressions": [
