@@ -44,6 +44,9 @@ $TestRunnerRootPath = "$NuGetPackageRoot\xunit.runner.console\2.3.1\tools\"
 $failedTestProjects = @()
 foreach ($project in $Projects.Tests) {
     foreach ($framework in $Frameworks.Application) {
+
+        if (-not $AppVeyor -and $framework -ne "netcoreapp2.0") { continue; }
+
         Write-Information "Running tests in ${project}: $framework..."
         Push-Location $BinRoot\${Platform}_$Configuration\$project\$framework
         $dll = "$project" + ".dll"

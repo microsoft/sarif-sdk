@@ -9,14 +9,14 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Defines methods to support the comparison of objects of type ReportingConfigurationOverride for equality.
+    /// Defines methods to support the comparison of objects of type ConfigurationOverride for equality.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
-    internal sealed class ReportingConfigurationOverrideEqualityComparer : IEqualityComparer<ReportingConfigurationOverride>
+    internal sealed class ConfigurationOverrideEqualityComparer : IEqualityComparer<ConfigurationOverride>
     {
-        internal static readonly ReportingConfigurationOverrideEqualityComparer Instance = new ReportingConfigurationOverrideEqualityComparer();
+        internal static readonly ConfigurationOverrideEqualityComparer Instance = new ConfigurationOverrideEqualityComparer();
 
-        public bool Equals(ReportingConfigurationOverride left, ReportingConfigurationOverride right)
+        public bool Equals(ConfigurationOverride left, ConfigurationOverride right)
         {
             if (ReferenceEquals(left, right))
             {
@@ -33,17 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.NotificationIndex != right.NotificationIndex)
-            {
-                return false;
-            }
-
-            if (left.RuleIndex != right.RuleIndex)
-            {
-                return false;
-            }
-
-            if (left.ExtensionIndex != right.ExtensionIndex)
+            if (!ReportingDescriptorReference.ValueComparer.Equals(left.Descriptor, right.Descriptor))
             {
                 return false;
             }
@@ -73,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public int GetHashCode(ReportingConfigurationOverride obj)
+        public int GetHashCode(ConfigurationOverride obj)
         {
             if (ReferenceEquals(obj, null))
             {
@@ -88,9 +78,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Configuration.ValueGetHashCode();
                 }
 
-                result = (result * 31) + obj.NotificationIndex.GetHashCode();
-                result = (result * 31) + obj.RuleIndex.GetHashCode();
-                result = (result * 31) + obj.ExtensionIndex.GetHashCode();
+                if (obj.Descriptor != null)
+                {
+                    result = (result * 31) + obj.Descriptor.ValueGetHashCode();
+                }
+
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.

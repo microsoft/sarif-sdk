@@ -80,7 +80,9 @@
           "Extension",
           "Translation",
           "Taxonomy",
-          "Policy"
+          "Policy",
+          "ReferencedOnCommandLine",
+          "MemoryContents"
         ]
       }
     },
@@ -507,7 +509,7 @@
       }
     }
   ],
-  "reportingConfigurationOverride": [
+  "configurationOverride": [
     {
       "kind": "BaseTypeHint",
       "arguments": {
@@ -847,7 +849,9 @@
         "zeroValueName": "None",
         "memberNames": [
           "SuppressedInSource",
-          "SuppressedExternally"
+          "SuppressedExternally",
+          "UnderReview",
+          "SuppressionRejected"
         ]
       }
     },

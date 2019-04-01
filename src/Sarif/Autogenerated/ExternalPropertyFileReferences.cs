@@ -43,6 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An array of external property files containing a run.graphs object to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "graphs", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<ExternalPropertyFileReference> Graphs { get; set; }
 
         /// <summary>

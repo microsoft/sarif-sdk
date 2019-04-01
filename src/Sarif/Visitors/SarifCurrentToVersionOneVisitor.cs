@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security;
@@ -896,7 +897,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     run.Results = new List<ResultVersionOne>();
 
                     run.Rules = ConvertRulesArrayToDictionary(_currentV2Run.Tool.Driver.Rules, _v2RuleIndexToV1KeyMap);
-                    run.Tool = CreateToolVersionOne(v2Run.Tool);
+                    run.Tool = CreateToolVersionOne(v2Run.Tool, v2Run.Language);
 
                     foreach (Result v2Result in v2Run.Results)
                     {
@@ -1131,9 +1132,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 stackFrame = new StackFrameVersionOne
                 {
-                    Address = v2StackFrame.Address.BaseAddress,
+                    Address = HexToInt(v2StackFrame.Location?.PhysicalLocation?.Address?.BaseAddress),
                     Module = v2StackFrame.Module,
-                    Offset = v2StackFrame.Address.Offset,
+                    Offset = HexToInt(v2StackFrame.Location?.PhysicalLocation?.Address?.Offset),
                     Parameters = v2StackFrame.Parameters,
                     Properties = v2StackFrame.Properties,
                     ThreadId = v2StackFrame.ThreadId
@@ -1172,7 +1173,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return stackFrame;
         }
 
-        internal ToolVersionOne CreateToolVersionOne(Tool v2Tool)
+        private static int HexToInt(string hexValue)
+        {
+            if (string.IsNullOrWhiteSpace(hexValue))
+            {
+                return 0;
+            }
+            // strip the leading 0x if found.
+            if (hexValue.StartsWith("0x", StringComparison.OrdinalIgnoreCase))
+            {
+                hexValue = hexValue.Substring(2);
+            }
+            return int.TryParse(hexValue, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out int address) ? address : 0;
+        }
+
+        internal ToolVersionOne CreateToolVersionOne(Tool v2Tool, string language)
         {
             ToolVersionOne tool = null;
 
@@ -1182,6 +1197,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     FileVersion = v2Tool.Driver.DottedQuadFileVersion,
                     FullName = v2Tool.Driver.FullName,
+                    Language = language,
                     Name = v2Tool.Driver.Name,
                     Properties = v2Tool.Properties,
                     SemanticVersion = v2Tool.Driver.SemanticVersion,

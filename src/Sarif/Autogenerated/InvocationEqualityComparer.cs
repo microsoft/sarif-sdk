@@ -90,21 +90,42 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!object.ReferenceEquals(left.ReportingConfigurationOverrides, right.ReportingConfigurationOverrides))
+            if (!object.ReferenceEquals(left.RuleConfigurationOverrides, right.RuleConfigurationOverrides))
             {
-                if (left.ReportingConfigurationOverrides == null || right.ReportingConfigurationOverrides == null)
+                if (left.RuleConfigurationOverrides == null || right.RuleConfigurationOverrides == null)
                 {
                     return false;
                 }
 
-                if (left.ReportingConfigurationOverrides.Count != right.ReportingConfigurationOverrides.Count)
+                if (left.RuleConfigurationOverrides.Count != right.RuleConfigurationOverrides.Count)
                 {
                     return false;
                 }
 
-                for (int index_2 = 0; index_2 < left.ReportingConfigurationOverrides.Count; ++index_2)
+                for (int index_2 = 0; index_2 < left.RuleConfigurationOverrides.Count; ++index_2)
                 {
-                    if (!ReportingConfigurationOverride.ValueComparer.Equals(left.ReportingConfigurationOverrides[index_2], right.ReportingConfigurationOverrides[index_2]))
+                    if (!ConfigurationOverride.ValueComparer.Equals(left.RuleConfigurationOverrides[index_2], right.RuleConfigurationOverrides[index_2]))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            if (!object.ReferenceEquals(left.NotificationConfigurationOverrides, right.NotificationConfigurationOverrides))
+            {
+                if (left.NotificationConfigurationOverrides == null || right.NotificationConfigurationOverrides == null)
+                {
+                    return false;
+                }
+
+                if (left.NotificationConfigurationOverrides.Count != right.NotificationConfigurationOverrides.Count)
+                {
+                    return false;
+                }
+
+                for (int index_3 = 0; index_3 < left.NotificationConfigurationOverrides.Count; ++index_3)
+                {
+                    if (!ConfigurationOverride.ValueComparer.Equals(left.NotificationConfigurationOverrides[index_3], right.NotificationConfigurationOverrides[index_3]))
                     {
                         return false;
                     }
@@ -123,9 +144,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                for (int index_3 = 0; index_3 < left.ToolExecutionNotifications.Count; ++index_3)
+                for (int index_4 = 0; index_4 < left.ToolExecutionNotifications.Count; ++index_4)
                 {
-                    if (!Notification.ValueComparer.Equals(left.ToolExecutionNotifications[index_3], right.ToolExecutionNotifications[index_3]))
+                    if (!Notification.ValueComparer.Equals(left.ToolExecutionNotifications[index_4], right.ToolExecutionNotifications[index_4]))
                     {
                         return false;
                     }
@@ -144,9 +165,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                for (int index_4 = 0; index_4 < left.ToolConfigurationNotifications.Count; ++index_4)
+                for (int index_5 = 0; index_5 < left.ToolConfigurationNotifications.Count; ++index_5)
                 {
-                    if (!Notification.ValueComparer.Equals(left.ToolConfigurationNotifications[index_4], right.ToolConfigurationNotifications[index_4]))
+                    if (!Notification.ValueComparer.Equals(left.ToolConfigurationNotifications[index_5], right.ToolConfigurationNotifications[index_5]))
                     {
                         return false;
                     }
@@ -312,9 +333,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 result = (result * 31) + obj.StartTimeUtc.GetHashCode();
                 result = (result * 31) + obj.EndTimeUtc.GetHashCode();
                 result = (result * 31) + obj.ExitCode.GetHashCode();
-                if (obj.ReportingConfigurationOverrides != null)
+                if (obj.RuleConfigurationOverrides != null)
                 {
-                    foreach (var value_6 in obj.ReportingConfigurationOverrides)
+                    foreach (var value_6 in obj.RuleConfigurationOverrides)
                     {
                         result = result * 31;
                         if (value_6 != null)
@@ -324,9 +345,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.ToolExecutionNotifications != null)
+                if (obj.NotificationConfigurationOverrides != null)
                 {
-                    foreach (var value_7 in obj.ToolExecutionNotifications)
+                    foreach (var value_7 in obj.NotificationConfigurationOverrides)
                     {
                         result = result * 31;
                         if (value_7 != null)
@@ -336,14 +357,26 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.ToolConfigurationNotifications != null)
+                if (obj.ToolExecutionNotifications != null)
                 {
-                    foreach (var value_8 in obj.ToolConfigurationNotifications)
+                    foreach (var value_8 in obj.ToolExecutionNotifications)
                     {
                         result = result * 31;
                         if (value_8 != null)
                         {
                             result = (result * 31) + value_8.ValueGetHashCode();
+                        }
+                    }
+                }
+
+                if (obj.ToolConfigurationNotifications != null)
+                {
+                    foreach (var value_9 in obj.ToolConfigurationNotifications)
+                    {
+                        result = result * 31;
+                        if (value_9 != null)
+                        {
+                            result = (result * 31) + value_9.ValueGetHashCode();
                         }
                     }
                 }
@@ -390,12 +423,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_0 = 0;
-                    foreach (var value_9 in obj.EnvironmentVariables)
+                    foreach (var value_10 in obj.EnvironmentVariables)
                     {
-                        xor_0 ^= value_9.Key.GetHashCode();
-                        if (value_9.Value != null)
+                        xor_0 ^= value_10.Key.GetHashCode();
+                        if (value_10.Value != null)
                         {
-                            xor_0 ^= value_9.Value.GetHashCode();
+                            xor_0 ^= value_10.Value.GetHashCode();
                         }
                     }
 
@@ -426,12 +459,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_1 = 0;
-                    foreach (var value_10 in obj.Properties)
+                    foreach (var value_11 in obj.Properties)
                     {
-                        xor_1 ^= value_10.Key.GetHashCode();
-                        if (value_10.Value != null)
+                        xor_1 ^= value_11.Key.GetHashCode();
+                        if (value_11.Value != null)
                         {
-                            xor_1 ^= value_10.Value.GetHashCode();
+                            xor_1 ^= value_11.Value.GetHashCode();
                         }
                     }
 

@@ -1,10 +1,10 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-02-20",
-  "version": "2.0.0-csd.2.beta.2019-02-20",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-04-03",
+  "version": "2.0.0-csd.2.beta.2019-04-03",
   "runs": [
     {
-      "id": {
-        "instanceId": "The_Build_ID/"
+      "automationDetails": {
+        "id": "The_Build_ID/"
       },
       "originalUriBaseIds": {
         "SRCROOT": {
@@ -108,7 +108,7 @@
       "tool": {
         "driver": {
           "name": "HP Fortify Static Code Analyzer",
-          "ruleDescriptors": [
+          "rules": [
             {
               "id": "31D4607A-A3FF-447C-908A-CA2BBE4CE4B7",
               "shortDescription": {

@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta.2019-02-20 JSON Schema",
-  "description": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2019-02-20 JSON Schema: a standard format for the output of static analysis tools.",
+  "title": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta.2019-04-03 JSON Schema",
+  "description": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2019-04-03 JSON Schema: a standard format for the output of static analysis tools.",
   "additionalProperties": false,
   "type": "object",
   "properties": {
@@ -14,7 +14,7 @@
 
     "version": {
       "description": "The SARIF format version of this log file.",
-      "enum": [ "2.0.0-csd.2.beta.2019-02-20" ]
+      "enum": [ "2.0.0-csd.2.beta.2019-04-03" ]
     },
 
     "runs": {
@@ -55,8 +55,7 @@
 
         "baseAddress": {
           "description": "A base address rendered as a hexadecimal string.",
-          "type": "integer",
-          "minimum": 0
+          "type": "string"
         },
 
         "kind": {
@@ -76,20 +75,21 @@
 
         "offset": {
           "description": "an offset from the base address, if present, rendered as a hexadecimal string.",
-          "type": "integer",
-          "minimum": 0
+          "type": "string"
         },
 
         "index": {
           "description": "An index into run.addresses used to retrieve a cached instance to represent the address.",
           "type": "integer",
-          "minimum": 0
+          "default": -1,
+          "minimum": -1
         },
 
         "parentIndex": {
           "description": "An index into run.addresses to retrieve a parent address. The parent can provide a base address (from which the current offset value is relevant) and other details.",
           "type": "integer",
-          "minimum": 0
+          "default": -1,
+          "minimum": -1
         },
 
         "properties": {
@@ -151,7 +151,9 @@
               "extension",
               "translation",
               "taxonomy",
-              "policy"
+              "policy",
+              "referencedOnCommandLine",
+              "memoryContents"
             ]
           }
         },
@@ -524,7 +526,7 @@
 
         "version": {
           "description": "The SARIF format version of this external properties object.",
-          "enum": [ "2.0.0-csd.2.beta.2019-02-20" ]
+          "enum": [ "2.0.0-csd.2.beta.2019-04-03" ]
         },
 
         "guid": {
@@ -660,6 +662,17 @@
           }
         },
 
+        "addresses": {
+          "description": "Addresses that will be merged with a separate run.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": false,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/address"
+          }
+        },
+
         "properties": {
           "description": "Key/value pairs that provide additional information about the external properties.",
           "$ref": "#/definitions/propertyBag"
@@ -710,7 +723,8 @@
         "graphs": {
           "description": "An array of external property files containing a run.graphs object to be merged with the root log file.",
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
+          "default": [],
           "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/externalPropertyFileReference"
@@ -1014,13 +1028,25 @@
           "type": "integer"
         },
 
-        "reportingConfigurationOverrides": {
-          "description": "An array of reportingConfigurationOverride objects that describe runtime reporting behavior.",
+        "ruleConfigurationOverrides": {
+          "description": "An array of configurationOverride objects that describe rules related runtime overrides.",
           "type": "array",
           "minItems": 0,
+          "default": [],
           "uniqueItems": true,
           "items": {
-            "$ref": "#/definitions/reportingConfigurationOverride"
+            "$ref": "#/definitions/configurationOverride"
+          }
+        },
+
+        "notificationConfigurationOverrides": {
+          "description": "An array of configurationOverride objects that describe notifications related runtime overrides.",
+          "type": "array",
+          "minItems": 0,
+          "default": [],
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/configurationOverride"
           }
         },
 
@@ -1415,9 +1441,7 @@
           "description": "Key/value pairs that provide additional information about the physical location.",
           "$ref": "#/definitions/propertyBag"
         }
-      },
-
-      "required": [ "artifactLocation" ]
+      }
     },
 
     "propertyBag": {
@@ -1667,7 +1691,8 @@
         "taxa": {
           "description": "An array of references used to locate a set of taxonomy reporting descriptors that are always applicable to a result.",
           "type": "array",
-          "minItems": 1,
+          "default": [],
+          "minItems": 0,
           "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/reportingDescriptorReference"
@@ -1677,7 +1702,8 @@
         "optionalTaxa": {
           "description": "An array of references used to locate an optional set of taxonomy reporting descriptors that may be applied to a result.",
           "type": "array",
-          "minItems": 1,
+          "default": [],
+          "minItems": 0,
           "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/reportingDescriptorReference"
@@ -1729,7 +1755,7 @@
       }
     },
 
-    "reportingConfigurationOverride": {
+    "configurationOverride": {
       "description": "Information about how a specific tool report was reconfigured at runtime.",
       "type": "object",
       "additionalProperties": false,
@@ -1740,32 +1766,17 @@
           "$ref": "#/definitions/reportingConfiguration"
         },
 
-        "notificationIndex": {
-          "description": "The index within the toolComponent.notificationDescriptors array of the reportingDescriptor associated with this override.",
-          "type": "integer",
-          "default": -1,
-          "minimum": -1
-        },
-
-        "ruleIndex": {
-          "description": "The index within the toolComponent.ruleDescriptors array of the reportingDescriptor associated with this override.",
-          "type": "integer",
-          "default": -1,
-          "minimum": -1
-        },
-
-        "extensionIndex": {
-          "description": "The index within the run.tool.extensions array of the toolComponent object which describes the plug-in or tool extension that produced the report.",
-          "type": "integer",
-          "default": -1,
-          "minimum": -1
+        "descriptor": {
+          "description": "A reference used to locate the descriptor relevant to this configuration override.",
+          "$ref": "#/definitions/reportingDescriptorReference"
         },
 
         "properties": {
           "description": "Key/value pairs that provide additional information about the reporting configuration.",
           "$ref": "#/definitions/propertyBag"
         }
-      }
+      },
+      "required": ["configuration", "descriptor"]
     },
 
     "reportingDescriptorReference": {
@@ -1821,11 +1832,9 @@
           "minimum": -1
         },
 
-        "ruleExtensionIndex": {
-          "description": "The index within the run.tool.extensions array of the tool component object which describes the plug-in or tool extension that produced the result.",
-          "type": "integer",
-          "default": -1,
-          "minimum": -1
+        "rule": {
+          "description": "A reference used to locate the rule descriptor relevant to this result.",
+          "$ref": "#/definitions/reportingDescriptorReference"
         },
 
         "kind": {
@@ -2024,16 +2033,12 @@
         "taxa": {
           "description": "An array of references to taxonomy reporting descriptors that are applicable to the result.",
           "type": "array",
-          "minItems": 1,
+          "default": [],
+          "minItems": 0,
           "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/reportingDescriptorReference"
           }
-        },
-
-        "rule": {
-          "description": "A reference used to locate the rule descriptor relevant to this result.",
-          "$ref": "#/definitions/reportingDescriptorReference"
         },
 
         "properties": {
@@ -2402,11 +2407,6 @@
           "type": "integer"
         },
 
-        "address": {
-          "description": "The address of the method or function that is executing.",
-          "$ref": "#/definitions/address"
-        },
-
         "parameters": {
           "description": "The parameters of the call that is executing.",
           "type": "array",
@@ -2436,7 +2436,9 @@
           "description": "A string that indicates where the suppression is persisted.",
           "enum": [
             "suppressedInSource",
-            "suppressedExternally"
+            "suppressedExternally",
+            "underReview",
+            "suppressionRejected"
           ]
         },
 
@@ -2618,6 +2620,11 @@
           "type": "string"
         },
 
+        "productSuite": {
+          "description": "A localizable string containing the name of the suite of products to which the tool component belongs.",
+          "type": "string"
+        },
+
         "shortDescription": {
           "description": "A brief description of the tool component.",
           "$ref": "#/definitions/multiformatMessageString"
@@ -2647,6 +2654,11 @@
           "description": "The binary version of the tool component's primary executable file expressed as four non-negative integers separated by a period (for operating systems that express file versions in this way).",
           "type": "string",
           "pattern": "[0-9]+(\\.[0-9]+){3}"
+        },
+
+        "releaseDateUtc": {
+          "description": "A string specifying the UTC date (and optionally, the time) of the component’s release.",
+          "type": "string"
         },
 
         "downloadUri": {
@@ -2751,6 +2763,17 @@
           "$ref": "#/definitions/translationMetadata"
         },
 
+        "supportedTaxonomies": {
+          "description": "An array of toolComponentReference objects to declare the taxonomies supported by the tool component.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/toolComponentReference"
+          }
+        },
+
         "properties": {
           "description": "Key/value pairs that provide additional information about the tool component.",
           "$ref": "#/definitions/propertyBag"
@@ -2772,7 +2795,9 @@
 
         "index": {
           "description": "An index into the referenced toolComponent in tool.extensions.",
-          "type": "integer"
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
         },
 
         "guid": {

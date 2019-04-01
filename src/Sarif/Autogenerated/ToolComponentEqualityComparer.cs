@@ -48,6 +48,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.ProductSuite != right.ProductSuite)
+            {
+                return false;
+            }
+
             if (!MultiformatMessageString.ValueComparer.Equals(left.ShortDescription, right.ShortDescription))
             {
                 return false;
@@ -74,6 +79,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             if (left.DottedQuadFileVersion != right.DottedQuadFileVersion)
+            {
+                return false;
+            }
+
+            if (left.ReleaseDateUtc != right.ReleaseDateUtc)
             {
                 return false;
             }
@@ -224,6 +234,27 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (!object.ReferenceEquals(left.SupportedTaxonomies, right.SupportedTaxonomies))
+            {
+                if (left.SupportedTaxonomies == null || right.SupportedTaxonomies == null)
+                {
+                    return false;
+                }
+
+                if (left.SupportedTaxonomies.Count != right.SupportedTaxonomies.Count)
+                {
+                    return false;
+                }
+
+                for (int index_4 = 0; index_4 < left.SupportedTaxonomies.Count; ++index_4)
+                {
+                    if (!ToolComponentReference.ValueComparer.Equals(left.SupportedTaxonomies[index_4], right.SupportedTaxonomies[index_4]))
+                    {
+                        return false;
+                    }
+                }
+            }
+
             if (!object.ReferenceEquals(left.Properties, right.Properties))
             {
                 if (left.Properties == null || right.Properties == null || left.Properties.Count != right.Properties.Count)
@@ -279,6 +310,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Product.GetHashCode();
                 }
 
+                if (obj.ProductSuite != null)
+                {
+                    result = (result * 31) + obj.ProductSuite.GetHashCode();
+                }
+
                 if (obj.ShortDescription != null)
                 {
                     result = (result * 31) + obj.ShortDescription.ValueGetHashCode();
@@ -307,6 +343,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.DottedQuadFileVersion != null)
                 {
                     result = (result * 31) + obj.DottedQuadFileVersion.GetHashCode();
+                }
+
+                if (obj.ReleaseDateUtc != null)
+                {
+                    result = (result * 31) + obj.ReleaseDateUtc.GetHashCode();
                 }
 
                 if (obj.DownloadUri != null)
@@ -402,16 +443,28 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.TranslationMetadata.ValueGetHashCode();
                 }
 
+                if (obj.SupportedTaxonomies != null)
+                {
+                    foreach (var value_9 in obj.SupportedTaxonomies)
+                    {
+                        result = result * 31;
+                        if (value_9 != null)
+                        {
+                            result = (result * 31) + value_9.ValueGetHashCode();
+                        }
+                    }
+                }
+
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_1 = 0;
-                    foreach (var value_9 in obj.Properties)
+                    foreach (var value_10 in obj.Properties)
                     {
-                        xor_1 ^= value_9.Key.GetHashCode();
-                        if (value_9.Value != null)
+                        xor_1 ^= value_10.Key.GetHashCode();
+                        if (value_10.Value != null)
                         {
-                            xor_1 ^= value_9.Value.GetHashCode();
+                            xor_1 ^= value_10.Value.GetHashCode();
                         }
                     }
 

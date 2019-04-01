@@ -113,12 +113,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An array of references used to locate a set of taxonomy reporting descriptors that are always applicable to a result.
         /// </summary>
         [DataMember(Name = "taxa", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public virtual IList<ReportingDescriptorReference> Taxa { get; set; }
 
         /// <summary>
         /// An array of references used to locate an optional set of taxonomy reporting descriptors that may be applied to a result.
         /// </summary>
         [DataMember(Name = "optionalTaxa", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public virtual IList<ReportingDescriptorReference> OptionalTaxa { get; set; }
 
         /// <summary>

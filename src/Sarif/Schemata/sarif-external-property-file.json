@@ -100,13 +100,13 @@
     },
 
     "taxonomies": {
-      "description": "An array of reportingDescriptor objects that will be merged with an external run.",
+      "description": "Tool taxonomies that will be merged with an external run.",
       "type": "array",
       "minItems": 0,
       "uniqueItems": true,
       "default": [],
       "items": {
-        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/reportingDescriptor"
+        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/toolComponent"
       }
     },
 
@@ -123,6 +123,39 @@
       "default": [],
       "items": {
         "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/toolComponent"
+      }
+    },
+
+    "policies": {
+      "description": "Tool policies that will be merged with an external run.",
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": true,
+      "default": [],
+      "items": {
+        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/toolComponent"
+      }
+    },
+
+    "translations": {
+      "description": "Tool translations that will be merged with an external run.",
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": true,
+      "default": [],
+      "items": {
+        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/toolComponent"
+      }
+    },
+
+    "addresses": {
+      "description": "Addresses that will be merged with with an external run.",
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "default": [],
+      "items": {
+        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/address"
       }
     },
 
