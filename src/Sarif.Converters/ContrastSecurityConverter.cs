@@ -218,7 +218,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             Result result = new Result()
             {
-                Level = GetFailureLevel(ruleId),
+                Level = GetRuleFailureLevel(ruleId),
                 RuleId = ruleId,
                 Message = new Message { Text = "TODO: missing message construction for '" + ruleId + "' rule." }
             };
@@ -255,7 +255,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
-                Level = GetFailureLevel(ContrastSecurityRuleIds.AntiCachingControlsMissing),
+                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.AntiCachingControlsMissing),
                 RuleId = ContrastSecurityRuleIds.AntiCachingControlsMissing,
                 Locations = locations,
                 Message = new Message
@@ -299,7 +299,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             });
 
             result.Locations = locations;
-            result.Level = GetFailureLevel(ContrastSecurityRuleIds.AuthorizationRulesMissingDenyRule);
+            result.Level = GetRuleFailureLevel(ContrastSecurityRuleIds.AuthorizationRulesMissingDenyRule);
 
             if (locationPath == null)
             {
@@ -352,7 +352,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
-                Level = GetFailureLevel(ContrastSecurityRuleIds.PagesWithoutAntiClickjackingControls),
+                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.PagesWithoutAntiClickjackingControls),
                 RuleId = ContrastSecurityRuleIds.PagesWithoutAntiClickjackingControls,
                 Locations = locations,
                 Message = new Message
@@ -389,7 +389,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             result = new Result
             {
-                Level = GetFailureLevel(ContrastSecurityRuleIds.CrossSiteScripting),
+                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.CrossSiteScripting),
                 RuleId = ContrastSecurityRuleIds.CrossSiteScripting,
                 Locations = new List<Location>()
                 {
@@ -447,7 +447,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
-                Level = GetFailureLevel(ContrastSecurityRuleIds.DetailedErrorMessagesDisplayed),
+                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.DetailedErrorMessagesDisplayed),
                 RuleId = ContrastSecurityRuleIds.DetailedErrorMessagesDisplayed,
                 Locations = new List<Location>()
                 {
@@ -481,7 +481,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
-                Level = GetFailureLevel(ContrastSecurityRuleIds.EventValidationDisabled),
+                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.EventValidationDisabled),
                 RuleId = ContrastSecurityRuleIds.EventValidationDisabled,
                 Locations = new List<Location>()
                 {
@@ -515,7 +515,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
-                Level = GetFailureLevel(ContrastSecurityRuleIds.FormsAuthenticationSSL),
+                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.FormsAuthenticationSSL),
                 RuleId = ContrastSecurityRuleIds.FormsAuthenticationSSL,
                 Locations = new List<Location>()
                 {
@@ -589,7 +589,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
-                Level = GetFailureLevel(ContrastSecurityRuleIds.FormsWithoutAutocompletePrevention),
+                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.FormsWithoutAutocompletePrevention),
                 RuleId = ContrastSecurityRuleIds.FormsWithoutAutocompletePrevention,
                 Locations = locations,
                 Message = new Message
@@ -648,7 +648,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
-                Level = GetFailureLevel(ContrastSecurityRuleIds.OverlyLongSessionTimeout),
+                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.OverlyLongSessionTimeout),
                 RuleId = ContrastSecurityRuleIds.OverlyLongSessionTimeout,
                 Locations = new List<Location>()
                 {
@@ -725,7 +725,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
-                Level = GetFailureLevel(ContrastSecurityRuleIds.SqlInjection),
+                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.SqlInjection),
                 RuleId = ContrastSecurityRuleIds.SqlInjection,
                 Locations = new List<Location>()
                 {
@@ -797,7 +797,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
-                Level = GetFailureLevel(ContrastSecurityRuleIds.VersionHeaderEnabled),
+                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.VersionHeaderEnabled),
                 RuleId = ContrastSecurityRuleIds.VersionHeaderEnabled,
                 Locations = new List<Location>()
                 {
@@ -831,7 +831,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
-                Level = GetFailureLevel(ContrastSecurityRuleIds.WebApplicationDeployedinDebugMode),
+                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.WebApplicationDeployedinDebugMode),
                 RuleId = ContrastSecurityRuleIds.WebApplicationDeployedinDebugMode,
                 Locations = new List<Location>()
                 {
@@ -931,7 +931,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         // Get the failure level for the rule with the specified id, defaulting to
         // "warning" if the rule does not specify a configuration.
-        private FailureLevel GetFailureLevel(string ruleId)
+        private FailureLevel GetRuleFailureLevel(string ruleId)
         {
             return _rules[ruleId].DefaultConfiguration?.Level ?? FailureLevel.Warning;
         }
