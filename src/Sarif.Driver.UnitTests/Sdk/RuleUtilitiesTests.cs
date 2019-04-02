@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Driver
             // Assert.
             result.RuleId.Should().Be(RuleId);
 
-            result.Message.MessageId.Should().Be(RuleMessageId);
+            result.Message.Id.Should().Be(RuleMessageId);
 
             result.Message.Arguments.Count.Should().Be(Arguments.Length);
             result.Message.Arguments[0].Should().Be(Arguments[0]);

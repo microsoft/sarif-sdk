@@ -43,7 +43,7 @@
           "ruleId": "TEST1001",
           "ruleIndex": 0,
           "message": {
-            "messageId": "a"
+            "id": "a"
           },
           "locations": [
             {

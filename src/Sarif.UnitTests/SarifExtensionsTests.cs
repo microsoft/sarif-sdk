@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Message = new Message()
                 {
                     Arguments = new List<string> { "fox", "dog" },
-                    MessageId = "ruleStr1"
+                    Id = "ruleStr1"
                 },
             };
 
@@ -97,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Message = new Message()
                 {
                     Arguments = new List<string> { "fox", "dog" },
-                    MessageId = "ruleStr1"
+                    Id = "ruleStr1"
                 }
             };
 

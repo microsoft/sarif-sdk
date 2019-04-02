@@ -164,9 +164,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                     // https://github.com/oasis-tcs/sarif-spec/issues/302
                     MoveAllStackFrameAddressesToLocation(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/352
+                    RenameMessageIdToId(run);
                 }
             }
             return true;
+        }
+
+        private static void RenameMessageIdToId(JObject run)
+        {
+            var universallyRenamedMembers = new Dictionary<string, string>
+            {
+                ["messageId"] = "id",
+            };
+
+            RecursivePropertyRename(run, universallyRenamedMembers);
         }
 
         private static void MoveToolLanguageToRun(JObject run)

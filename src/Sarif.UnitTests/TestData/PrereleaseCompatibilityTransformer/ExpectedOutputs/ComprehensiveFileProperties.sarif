@@ -44,7 +44,7 @@
           "ruleId": "C1",
           "ruleIndex": 0,
           "message": {
-            "messageId": "a"
+            "id": "a"
           },
           "locations": [
             {
@@ -64,7 +64,7 @@
           "ruleId": "C1",
           "ruleIndex": 0,
           "message": {
-            "messageId": "a"
+            "id": "a"
           },
           "locations": [
             {

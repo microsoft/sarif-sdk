@@ -263,7 +263,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Locations = locations,
                 Message = new Message
                 {
-                    MessageId = "default",
+                    Id = "default",
                     Arguments = new List<string>
                     {
                         pageCount,     // {0} page Cache-Control header(s) did not contain 'no-store' or 'no-cache';
@@ -306,7 +306,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 result.Message = new Message
                 {
-                    MessageId = "default",
+                    Id = "default",
                     Arguments = new List<string>
                     {                  // The configuration in 
                         path,          // '{0}' is missing a <deny> rule in the <authorization> section.
@@ -317,7 +317,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 result.Message = new Message
                 {
-                    MessageId = "underLocation",
+                    Id = "underLocation",
                     Arguments = new List<string>
                     {                  // The configuration under location 
                         locationPath,  // '{0}' in 
@@ -358,7 +358,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Locations = locations,
                 Message = new Message
                 {
-                    MessageId = "default",
+                    Id = "default",
                     Arguments = new List<string>
                     {
                         pageCount,  // {0} page(s) have insufficient anti-clickjacking controls, 
@@ -405,7 +405,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 result.Message = new Message
                 {
-                    MessageId = "default",
+                    Id = "default",
                     Arguments = new List<string>
                     {                  // A cross-site scripting vulnerability was seen as untrusted data
                         untrustedData, // '{0}' on 
@@ -417,7 +417,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 result.Message = new Message
                 {
-                    MessageId = "hasControlId",
+                    Id = "hasControlId",
                     Arguments = new List<string>
                     {                  // A cross-site scripting vulnerability was seen as untrusted data
                         untrustedData, // '{0}' on 
@@ -459,7 +459,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 },
                 Message = new Message
                 {
-                    MessageId = "default",
+                    Id = "default",
                     Arguments = new List<string>
                     {                  // The configuration in 
                         path,          // '{0}' has 'mode' set to 'Off' in the <customErrors> section.
@@ -493,7 +493,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 },
                 Message = new Message
                 {
-                    MessageId = "default",
+                    Id = "default",
                     Arguments = new List<string>
                     {                  // The configuration in 
                         aspx,          // '{0}' has 'enableEventValidation' set to 'false' in the page directive.
@@ -527,7 +527,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 },
                 Message = new Message
                 {
-                    MessageId = "default",
+                    Id = "default",
                     Arguments = new List<string>
                     {                  // The configuration in 
                         path,          // '{0}' was configured to use forms authentication and 'resquireSSL' was not set to 'true' in an <authentication> section.
@@ -595,7 +595,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Locations = locations,
                 Message = new Message
                 {
-                    MessageId = "default",
+                    Id = "default",
                     Arguments = new List<string>
                     {
                         pageCount,  //'{0}' pages contain a <form> element that do
@@ -660,7 +660,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 },
                 Message = new Message
                 {
-                    MessageId = "default",
+                    Id = "default",
                     Arguments = new List<string>
                     {              // The configuration in the
                         section,   // <{0}> section of 
@@ -737,7 +737,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 },
                 Message = new Message
                 {
-                    MessageId = "default",
+                    Id = "default",
                     Arguments = new List<string>
                     {
                         untrustedData, // SQL injection from untrusted source(s) '{0}'
@@ -809,7 +809,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 },
                 Message = new Message
                 {
-                    MessageId = "default",
+                    Id = "default",
                     Arguments = new List<string>
                     {                  // The configuration in 
                         path,          // '{0}' did not explicitly disable 'enableVersionHeader' in the <httpRuntime> section.
@@ -843,7 +843,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 },
                 Message = new Message
                 {
-                    MessageId = "default",
+                    Id = "default",
                     Arguments = new List<string>
                     {                  // The configuration in 
                         path,          // '{0}' has 'debug' set to 'true' in the <compilation> section.
