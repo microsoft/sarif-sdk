@@ -218,7 +218,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             Result result = new Result()
             {
-                Level = _rules[ruleId].DefaultConfiguration?.Level ?? FailureLevel.Warning,
+                Level = GetFailureLevel(ruleId),
                 RuleId = ruleId,
                 Message = new Message { Text = "TODO: missing message construction for '" + ruleId + "' rule." }
             };
@@ -299,7 +299,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             });
 
             result.Locations = locations;
-            result.Level = _rules[ContrastSecurityRuleIds.AuthorizationRulesMissingDenyRule].DefaultConfiguration?.Level ?? FailureLevel.Warning;
+            result.Level = GetFailureLevel(ContrastSecurityRuleIds.AuthorizationRulesMissingDenyRule);
 
             if (locationPath == null)
             {
@@ -927,6 +927,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 result.SetProperty(key, value);
             }
+        }
+
+        // Get the failure level for the rule with the specified id, defaulting to
+        // "warning" if the rule does not specify a configuration.
+        private FailureLevel GetFailureLevel(string ruleId)
+        {
+            return _rules[ruleId].DefaultConfiguration?.Level ?? FailureLevel.Warning;
         }
     }
 
