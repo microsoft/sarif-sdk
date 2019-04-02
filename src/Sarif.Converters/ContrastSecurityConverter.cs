@@ -218,7 +218,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             Result result = new Result()
             {
-                Level = _rules[ruleId].DefaultConfiguration.Level,
+                Level = _rules[ruleId].DefaultConfiguration?.Level ?? FailureLevel.Warning,
                 RuleId = ruleId,
                 Message = new Message { Text = "TODO: missing message construction for '" + ruleId + "' rule." }
             };
