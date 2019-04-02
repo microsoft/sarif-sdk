@@ -55,6 +55,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>The string constant "ClassID"</summary>
         public readonly string ClassId;
 
+        /// <summary>The string constant "Kingdom"</summary>
+        public readonly string Kingdom;
+
+        /// <summary>The string constant "Type"</summary>
+        public readonly string Type;
+
+        /// <summary>The string constant "Subtype"</summary>
+        public readonly string Subtype;
+
+        /// <summary>The string constant "InstanceSeverity"</summary>
+        public readonly string InstanceSeverity;
+
         /// <summary>The string constant "AnalysisInfo"</summary>
         public readonly string AnalysisInfo;
 
@@ -171,6 +183,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>The string constant "MachineInfo".</summary>
         public readonly string MachineInfo;
 
+        /// <summary>The string constant "FilterResult".</summary>
+        public readonly string FilterResult;
+
+        /// <summary>The string constant "RuleInfo".</summary>
+        public readonly string RuleInfo;
+
+        /// <summary>The string constant "Rule".</summary>
+        public readonly string Rule;
+
+        /// <summary>The string constant "MetaInfo".</summary>
+        public readonly string MetaInfo;
+
+        /// <summary>The string constant "Group".</summary>
+        public readonly string Group;
+
         /// <summary>The string constant "Hostname".</summary>
         public readonly string Hostname;
 
@@ -204,6 +231,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Vulnerabilities = nameTable.Add("Vulnerabilities");
             Vulnerability = nameTable.Add("Vulnerability");
             ClassId = nameTable.Add("ClassID");
+            Kingdom = nameTable.Add("Kingdom");
+            Type = nameTable.Add("Type");
+            Subtype = nameTable.Add("Subtype");
+            InstanceSeverity = nameTable.Add("InstanceSeverity");
             AnalysisInfo = nameTable.Add("AnalysisInfo");
             ReplacementDefinitions = nameTable.Add("ReplacementDefinitions");
             Def = nameTable.Add("Def");
@@ -242,6 +273,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Error = nameTable.Add("Error");
             CodeAttribute = nameTable.Add("code");
             MachineInfo = nameTable.Add("MachineInfo");
+            FilterResult = nameTable.Add("FilterResult");
+            RuleInfo = nameTable.Add("RuleInfo");
+            Rule = nameTable.Add("Rule");
+            MetaInfo = nameTable.Add("MetaInfo");
+            Group = nameTable.Add("Group");
             Hostname = nameTable.Add("Hostname");
             Username = nameTable.Add("Username");
             Platform = nameTable.Add("Platform");

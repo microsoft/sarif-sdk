@@ -23,6 +23,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private readonly NameTable _nameTable;
         private readonly FortifyFprStrings _strings;
         private readonly string[] SupportedReplacementTokens = new[] { "PrimaryLocation.file", "PrimaryLocation.line" };
+        private readonly Dictionary<string, List<string>> ActionTypeToLocationKindMap = new Dictionary<string, List<string>>
+        {
+            { "InCall", new List<string> { "call", "function" } },
+            { "InOutCall", new List<string> { "call", "function", "return" , "function"} },
+            { "BranchTaken", new List<string> { "branch", "true" } },
+            { "BranchNotTaken", new List<string> { "branch", "false" } },
+            { "Return", new List<string> { "return", "function" } },
+            { "EndScope", new List<string> { "exit", "scope" } },
+            { "Assign", new List<string> { "acquire", "resource" } },
+            { "Read", new List<string> { "acquire", "resource" } }
+        };
 
         private XmlReader _reader;
         private Invocation _invocation;
@@ -34,6 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private Dictionary<Uri, Tuple<Artifact, int>> _files;
         private List<ReportingDescriptor> _rules;
         private Dictionary<string, int> _ruleIdToIndexMap;
+        private HashSet<string> _cweIds;
         private Dictionary<ThreadFlowLocation, string> _tflToNodeIdDictionary;
         private Dictionary<ThreadFlowLocation, string> _tflToSnippetIdDictionary;
         private Dictionary<Location, string> _locationToSnippetIdDictionary;
@@ -53,6 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _files = new Dictionary<Uri, Tuple<Artifact, int>>();
             _rules = new List<ReportingDescriptor>();
             _ruleIdToIndexMap = new Dictionary<string, int>();
+            _cweIds = new HashSet<string>();
             _tflToNodeIdDictionary = new Dictionary<ThreadFlowLocation, string>();
             _tflToSnippetIdDictionary = new Dictionary<ThreadFlowLocation, string>();
             _locationToSnippetIdDictionary = new Dictionary<Location, string>();
@@ -91,6 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _files.Clear();
             _rules.Clear();
             _ruleIdToIndexMap.Clear();
+            _cweIds.Clear();
             _tflToNodeIdDictionary.Clear();
             _tflToSnippetIdDictionary.Clear();
             _locationToSnippetIdDictionary.Clear();
@@ -122,11 +136,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     Driver = new ToolComponent
                     {
                         Name = ToolName,
-                        Rules = _rules
+                        Rules = _rules,
+                        SupportedTaxonomies = new List<ToolComponentReference>
+                        {
+                            new ToolComponentReference
+                            {
+                                Name = "CWE",
+                                Index = 0,
+                                Guid = "2B841697-D0DE-45DD-9F19-1EEE1312429"
+                            }
+                        }
+                    }
+                },
+                Taxonomies = new List<ToolComponent>
+                {
+                    new ToolComponent
+                    {
+                        Name = "CWE",
+                        Guid = "2B841697-D0DE-45DD-9F19-1EEE1312429",
+                        Organization = "MITRE",
+                        ShortDescription = new MultiformatMessageString {
+                            Text = "The MITRE Common Weakness Enumeration"
+                        }
                     }
                 },
                 Invocations = new[] { _invocation },
             };
+
+            if (_cweIds.Count > 0)
+            {
+                run.Taxonomies[0].Taxa = _cweIds.Select(c => new ReportingDescriptor { Id = c }).ToList();
+            }
 
             if (!string.IsNullOrWhiteSpace(_originalUriBasePath))
             {
@@ -199,7 +239,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                     else if (AtStartOfNonEmpty(_strings.Description))
                     {
-                        ParseRuleFromDescription();
+                        ParseRuleDescriptions();
                     }
                     else if (AtStartOfNonEmpty(_strings.UnifiedNodePool))
                     {
@@ -220,6 +260,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     else if (AtStartOfNonEmpty(_strings.MachineInfo))
                     {
                         ParseMachineInfo();
+                    }
+                    else if (AtStartOf(_strings.RuleInfo))
+                    {
+                        ParseRuleInfo();
                     }
                 }
             }
@@ -320,8 +364,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     Location = new ArtifactLocation
                     { 
                         Uri = uri,
-                        UriBaseId = uri.IsAbsoluteUri ? null : FileLocationUriBaseId,
-                        Index = -1
+                        UriBaseId = uri.IsAbsoluteUri ? null : FileLocationUriBaseId
                     }
                 };
 
@@ -354,15 +397,54 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
 
             _reader.Read();
+            ReportingDescriptor rule = null;
+            int ruleIndex;
+
             while (!AtEndOf(_strings.Vulnerability))
             {
                 if (AtStartOfNonEmpty(_strings.ClassId))
                 {
-                    result.RuleId = _reader.ReadElementContentAsString();
+                    // Get the rule GUID from the ClassId element.
+                    string ruleId = _reader.ReadElementContentAsString();
 
-                    if (_ruleIdToIndexMap.TryGetValue(result.RuleId, out int ruleIndex))
+                    if (_ruleIdToIndexMap.ContainsKey(ruleId))
                     {
-                        result.RuleIndex = ruleIndex;
+                        // We previously created the rule, so just get the index and rule object.
+                        ruleIndex = _ruleIdToIndexMap[ruleId];
+                        rule = _rules[ruleIndex];
+                    }
+                    else
+                    {
+                        // Create a new rule and add it to the list and index map.
+                        rule = new ReportingDescriptor
+                        {
+                            Id = ruleId
+                        };
+
+                        ruleIndex = _rules.Count;
+                        _rules.Add(rule);
+                        _ruleIdToIndexMap[ruleId] = ruleIndex;
+                    }
+
+                    result.RuleIndex = ruleIndex;
+                }
+                else if (AtStartOfNonEmpty(_strings.Kingdom))
+                {
+                    rule.SetProperty(_strings.Kingdom, _reader.ReadElementContentAsString());
+                }
+                else if (AtStartOfNonEmpty(_strings.Type))
+                {
+                    rule.SetProperty(_strings.Type, _reader.ReadElementContentAsString());
+                }
+                else if (AtStartOfNonEmpty(_strings.Subtype))
+                {
+                    rule.SetProperty(_strings.Subtype, _reader.ReadElementContentAsString());
+                }
+                else if (AtStartOfNonEmpty(_strings.InstanceSeverity))
+                {
+                    if (double.TryParse(_reader.ReadElementContentAsString(), out double rank))
+                    {
+                        result.Rank = rank;
                     }
                 }
                 else if (AtStartOfNonEmpty(_strings.ReplacementDefinitions))
@@ -373,8 +455,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     ParseLocationsFromTraces(result);
                 }
-
-                _reader.Read();
+                else
+                {
+                    _reader.Read();
+                }
             }
 
             _results.Add(result);
@@ -420,7 +504,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                                     && bool.TryParse(isDefaultValue, out bool val)
                                     && val == true)
                                 {
-                                    // This is the default, set the flag so we know to add a result location
+                                    // This is the default, set the flag so we know to add a result location.
                                     isDefault = val;
                                 }
                             }
@@ -446,7 +530,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                                 actionType = actionType ?? string.Empty; // We use empty string to indicates there is an
                                                                          // Action element without a type attribute.
 
-                                // If we don't have a label, get the <Action> value
+                                // If we don't have a label, get the <Action> value.
                                 if (string.IsNullOrWhiteSpace(nodeLabel))
                                 {
                                     nodeLabel = _reader.ReadElementContentAsString();
@@ -496,7 +580,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                                 var tfl = new ThreadFlowLocation
                                 {
-                                    Kinds = new List<string> { actionType },
+                                    Kinds = ConvertActionTypeToLocationKinds(actionType),
                                     Location = location
                                 };
 
@@ -624,12 +708,65 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
         }
 
-        private void ParseRuleFromDescription()
+        private void ParseRuleInfo()
         {
-            var rule = new ReportingDescriptor
+            _reader.Read();
+            while (!AtEndOf(_strings.RuleInfo))
             {
-                Id = _reader.GetAttribute(_strings.ClassIdAttribute)
-            };
+                _reader.Read();
+
+                if (AtStartOfNonEmpty(_strings.Rule))
+                {
+                    string ruleId = _reader.GetAttribute(_strings.IdAttribute);
+                    int ruleIndex = _ruleIdToIndexMap[ruleId];
+                    ReportingDescriptor rule = _rules[ruleIndex];
+
+                    _reader.Read();
+
+                    if (AtStartOfNonEmpty(_strings.MetaInfo))
+                    {
+                        while (!AtEndOf(_strings.MetaInfo))
+                        {
+                            _reader.Read();
+
+                            string groupName = _reader.GetAttribute(_strings.Name);
+
+                            switch (groupName)
+                            {
+                                case "altcategoryCWE":
+                                    string nodeValue = _reader.ReadElementContentAsString();
+
+                                    if (!string.IsNullOrWhiteSpace(nodeValue))
+                                    {
+                                        string[] parts = nodeValue.Split(',');
+
+                                        foreach (string part in parts)
+                                        {
+                                            // Format: CWE ID xxx
+                                            string cweId = part.Substring(part.LastIndexOf(' ') + 1);
+                                            _cweIds.Add(cweId);
+
+                                            rule.Taxa = rule.Taxa ?? new List<ReportingDescriptorReference>();
+                                            rule.Taxa.Add(new ReportingDescriptorReference
+                                            {
+                                                Id = cweId
+                                            });
+                                        }
+                                    }
+
+                                    break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void ParseRuleDescriptions()
+        {
+            string ruleId = _reader.GetAttribute(_strings.ClassIdAttribute);
+            int ruleIndex = _ruleIdToIndexMap[ruleId];
+            ReportingDescriptor rule = _rules[ruleIndex];
 
             _reader.Read();
             while (!AtEndOf(_strings.Description))
@@ -646,7 +783,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
                 else if (AtStartOfNonEmpty(_strings.CustomDescription))
                 {
-                    // Skip the custom description block
+                    // Skip the custom description block.
                     while (!AtEndOf(_strings.CustomDescription))
                     {
                         _reader.Read();
@@ -657,9 +794,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     _reader.Read();
                 }
             }
-
-            _ruleIdToIndexMap[rule.Id] = _ruleIdToIndexMap.Count;
-            _rules.Add(rule);
         }
 
         private void ParseNodes()
@@ -693,11 +827,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     // Step past the empty SourceLocation element.
                     _reader.Read();
 
-                    // Get the node text and type attribute from the Action element
+                    // Get the node text and type attribute from the Action element.
                     string actionType = _reader.GetAttribute(_strings.TypeAttribute);
                     string nodeLabel = _reader.ReadElementContentAsString();
 
-                    // Create the location
+                    // Create the location.
                     var location = new Location
                     {
                         Message = new Message
@@ -796,7 +930,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 using (StringReader reader = new StringReader(text))
                 {
-                    // Read down to the first line we want to include
+                    // Read down to the first line we want to include.
                     for (int i = 0; i < regionStartLine - snippetStartLine; i++)
                     {
                         reader.ReadLine();
@@ -804,13 +938,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                     var sb = new StringBuilder();
 
-                    // Gather the lines we want
+                    // Gather the lines we want.
                     for (int i = 0; i <= regionEndLine - regionStartLine; i++)
                     {
                         sb.AppendLine(reader.ReadLine());
                     }
 
-                    // Trim the trailing line break
+                    // Trim the trailing line break.
                     text = sb.ToString().TrimEnd(new[] { '\r', '\n' });
                 }
 
@@ -895,6 +1029,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
+        private List<string> ConvertActionTypeToLocationKinds(string actionType)
+        {
+            List<string> kinds;
+
+            if (!ActionTypeToLocationKindMap.TryGetValue(actionType, out kinds))
+            {
+                kinds = new List<string> { "unknown" };
+            }
+
+            return kinds;
+        }
+
         private bool AtStartOfNonEmpty(string elementName)
         {
             return AtStartOf(elementName) && !_reader.IsEmptyElement;
@@ -916,10 +1062,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             foreach (Result result in _results)
             {
-                int ruleIndex = _ruleIdToIndexMap[result.RuleId];
-                result.RuleIndex = ruleIndex;
-
-                ReportingDescriptor rule = _rules[ruleIndex];
+                ReportingDescriptor rule = _rules[result.RuleIndex];
                 Message message = new Message();
 
                 if (_resultToReplacementDefinitionDictionary.TryGetValue(result, out Dictionary<string, string> replacements))
@@ -931,13 +1074,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                         if (SupportedReplacementTokens.Contains(key))
                         {
-                            // Replace the token with an embedded hyperlink
+                            // Replace the token with an embedded hyperlink.
                             messageText = messageText.Replace(string.Format(ReplacementTokenFormat, key),
                                                               string.Format(EmbeddedLinkFormat, value));
                         }
                         else
                         {
-                            // Replace the token with plain text
+                            // Replace the token with plain text.
                             messageText = messageText.Replace(string.Format(ReplacementTokenFormat, key), value);
                         }
                     }
@@ -1025,7 +1168,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                                     }
 
                                     tfl.Location = location;
-                                    tfl.Kinds = new List<string> { actionType };
+                                    tfl.Kinds = ConvertActionTypeToLocationKinds(actionType);
                                 }
                             }
                         }

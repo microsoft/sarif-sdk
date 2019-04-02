@@ -70,8 +70,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             // should not interfere with retrieving the file data object. The property bag should
             // not be modified as a result of retrieving the file data index.
             fileLocation = BuildDefaultFileLocation();
-            fileLocation.Index = Int32.MaxValue;
+            fileLocation.SetProperty(Guid.NewGuid().ToString(), "");
             RetrieveFileIndexAndValidate(run, fileLocation, expectedFileIndex: 1);
+
+            // Now use a file location that has no url and therefore relies strictly on
+            // the index in run.artifacts (i.e., _fileToIndexMap will not be used).
+            fileLocation = new ArtifactLocation();
+            fileLocation.Index = 0;
+            RetrieveFileIndexAndValidate(run, fileLocation, expectedFileIndex: 0);
         }
 
         [Fact]
@@ -86,8 +92,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private void RetrieveFileIndexAndValidate(Run run, ArtifactLocation fileLocation, int expectedFileIndex)
         {
+            bool validateIndex = fileLocation.Uri != null;
             int fileIndex = run.GetFileIndex(fileLocation, addToFilesTableIfNotPresent: false);
-            fileLocation.Index.Should().Be(fileIndex);
+
+            if (validateIndex)
+            {
+                fileLocation.Index.Should().Be(fileIndex);
+            }
+
             fileIndex.Should().Be(expectedFileIndex);
         }
 

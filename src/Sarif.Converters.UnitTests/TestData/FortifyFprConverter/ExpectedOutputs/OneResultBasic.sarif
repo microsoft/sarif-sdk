@@ -14,7 +14,6 @@
       "columnKind": "utf16CodeUnits",
       "results": [
         {
-          "ruleId": "31D4607A-A3FF-447C-908A-CA2BBE4CE4B7",
           "ruleIndex": 0,
           "message": {
             "text": "Sample abstract text. SQL injection vulnerability."
@@ -71,7 +70,8 @@
                         }
                       },
                       "kinds": [
-                        "InCall"
+                        "call",
+                        "function"
                       ]
                     }
                   ]
@@ -91,18 +91,8 @@
                 }
               }
             }
-          ]
-        }
-      ],
-      "artifacts": [
-        {
-          "location": {
-            "uri": "Helpers/InvoiceHelper.cs",
-            "uriBaseId": "SRCROOT"
-          },
-          "length": 8297,
-          "mimeType": "text/x-csharp",
-          "encoding": "windows-1252"
+          ],
+          "rank": 2.0
         }
       ],
       "tool": {
@@ -116,7 +106,19 @@
               },
               "fullDescription": {
                 "text": "The quick brown fox jumps over the lazy dog.\nThis section explains the rule in detail."
+              },
+              "properties": {
+                "Kingdom": "Input Validation and Representation",
+                "Type": "SQL Injection",
+                "Subtype": "Value Never Read"
               }
+            }
+          ],
+          "supportedTaxonomies": [
+            {
+              "name": "CWE",
+              "index": 0,
+              "guid": "2B841697-D0DE-45DD-9F19-1EEE1312429"
             }
           ]
         }
@@ -130,6 +132,18 @@
           "properties": {
             "Platform": "Linux"
           }
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "Helpers/InvoiceHelper.cs",
+            "uriBaseId": "SRCROOT",
+            "index": 0
+          },
+          "length": 8297,
+          "mimeType": "text/x-csharp",
+          "encoding": "windows-1252"
         }
       ]
     }

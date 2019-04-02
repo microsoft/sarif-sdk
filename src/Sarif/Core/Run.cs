@@ -36,11 +36,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (fileLocation == null) { throw new ArgumentNullException(nameof(fileLocation)); }
 
-            if (fileLocation.Index > -1)
-            {
-                return fileLocation.Index;
-            }
-
             if (this.Artifacts?.Count == 0)
             {
                 if (!addToFilesTableIfNotPresent)
@@ -52,6 +47,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (_fileToIndexMap == null)
             {
                 InitializeFileToIndexMap();
+            }
+
+            if (fileLocation.Uri == null)
+            {
+                // We only have a file index, so just return it.
+                return fileLocation.Index;
             }
 
             // Strictly speaking, some elements that may contribute to a files table 
