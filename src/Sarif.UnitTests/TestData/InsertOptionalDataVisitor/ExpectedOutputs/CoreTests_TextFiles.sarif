@@ -42,7 +42,7 @@
           "toolExecutionNotifications": [
             {
               "message": {
-                "messageId": "NotificationMessage",
+                "id": "NotificationMessage",
                 "arguments": [
                   "tool notification"
                 ]
@@ -52,7 +52,7 @@
           "toolConfigurationNotifications": [
             {
               "message": {
-                "messageId": "NotificationMessage",
+                "id": "NotificationMessage",
                 "arguments": [
                   "configuration notification"
                 ]
@@ -83,7 +83,7 @@
           "ruleId": "TEST2001",
           "ruleIndex": 0,
           "message": {
-            "messageId": "MatchAtBeginningOfFile",
+            "id": "MatchAtBeginningOfFile",
             "arguments": [
               "Region_At_Start_Of_File"
             ]
@@ -108,7 +108,7 @@
           "ruleId": "TEST2002",
           "ruleIndex": 1,
           "message": {
-            "messageId": "SingleLineInteriorMatch",
+            "id": "SingleLineInteriorMatch",
             "arguments": [
               "Region_One"
             ]
@@ -176,7 +176,7 @@
         {
           "ruleId": "TEST2005",
           "message": {
-            "messageId": "GlobalMessage"
+            "id": "GlobalMessage"
           },
           "locations": [
             {

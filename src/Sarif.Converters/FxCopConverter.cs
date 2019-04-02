@@ -119,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             result.RuleId = context.CheckId;
-            result.Message = new Message { Arguments = context.Items, MessageId = context.ResolutionName, Text = context.Message };
+            result.Message = new Message { Arguments = context.Items, Id = context.ResolutionName, Text = context.Message };
             var location = new Location();
 
             string sourceFile = GetFilePath(context);

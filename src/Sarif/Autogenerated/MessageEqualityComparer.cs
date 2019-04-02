@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.MessageId != right.MessageId)
+            if (left.Id != right.Id)
             {
                 return false;
             }
@@ -109,9 +109,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Markdown.GetHashCode();
                 }
 
-                if (obj.MessageId != null)
+                if (obj.Id != null)
                 {
-                    result = (result * 31) + obj.MessageId.GetHashCode();
+                    result = (result * 31) + obj.Id.GetHashCode();
                 }
 
                 if (obj.Arguments != null)

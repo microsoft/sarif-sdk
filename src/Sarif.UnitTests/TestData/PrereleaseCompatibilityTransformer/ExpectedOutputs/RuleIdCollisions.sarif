@@ -32,7 +32,7 @@
           "ruleId": "SHARED-ID",
           "ruleIndex": 1,
           "message": {
-            "messageId": "a"
+            "id": "a"
           },
           "locations": [
             {
@@ -48,7 +48,7 @@
           "ruleId": "SHARED-ID",
           "ruleIndex": 0,
           "message": {
-            "messageId": "a"
+            "id": "a"
           },
           "locations": [
             {

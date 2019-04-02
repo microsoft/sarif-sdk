@@ -226,7 +226,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (rule != null)
                 {
-                    string messageId = result.Message?.MessageId;
+                    string messageId = result.Message?.Id;
                     MultiformatMessageString formatString = null;
 
                     if (!string.IsNullOrWhiteSpace(messageId)

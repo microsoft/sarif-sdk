@@ -1260,8 +1260,8 @@
           "type": "string"
         },
 
-        "messageId": {
-          "description": "The message identifier for this message.",
+        "id": {
+          "description": "The identifier for this message.",
           "type": "string"
         },
 

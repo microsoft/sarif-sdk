@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 Message = new Message
                 {
-                    MessageId = ruleMessageId,
+                    Id = ruleMessageId,
                     Arguments = arguments
                 },
 

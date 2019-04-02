@@ -277,7 +277,7 @@ namespace Sarif.Sdk.Sample
                             AnalysisTarget = new ArtifactLocation { Uri = new Uri(@"file://d:/src/module/example.dll") }, // This is the file that was analyzed
                             Message = new Message
                             {
-                                MessageId = "Default",
+                                Id = "Default",
                                 Arguments = messageArguments[i]
                             },
                             Locations = new[]

@@ -104,7 +104,7 @@
           "ruleId": "C2001",
           "ruleIndex": 0,
           "message": {
-            "messageId": "default",
+            "id": "default",
             "arguments": [
               "collections::list"
             ]
@@ -153,7 +153,7 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "messageId": "default",
+            "id": "default",
             "arguments": [
               "ptr"
             ]

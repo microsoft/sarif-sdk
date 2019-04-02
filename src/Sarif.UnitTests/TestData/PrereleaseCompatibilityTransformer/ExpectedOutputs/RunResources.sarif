@@ -59,7 +59,7 @@
           "ruleId": "SHARED-ID",
           "ruleIndex": 1,
           "message": {
-            "messageId": "a"
+            "id": "a"
           },
           "locations": [
             {
@@ -77,7 +77,7 @@
           "kind": "notApplicable",
           "level": "none",
           "message": {
-            "messageId": "noContent"
+            "id": "noContent"
           },
           "locations": [
             {
@@ -93,7 +93,7 @@
           "ruleId": "SHARED-ID",
           "ruleIndex": 0,
           "message": {
-            "messageId": "a"
+            "id": "a"
           },
           "locations": [
             {

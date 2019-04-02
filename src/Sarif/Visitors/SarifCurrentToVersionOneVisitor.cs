@@ -813,12 +813,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     result.RuleKey = ruleKey;
                 }
 
-                if (!string.IsNullOrWhiteSpace(v2Result.Message?.MessageId))
+                if (!string.IsNullOrWhiteSpace(v2Result.Message?.Id))
                 {
                     result.FormattedRuleMessage = new FormattedRuleMessageVersionOne
                     {
                         Arguments = v2Result.Message?.Arguments,
-                        FormatId = v2Result.Message.MessageId
+                        FormatId = v2Result.Message.Id
                     };
                 }
             }
