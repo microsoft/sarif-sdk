@@ -10,7 +10,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Xml;
-using System.Xml.Schema;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -18,10 +17,8 @@ using Newtonsoft.Json.Linq;
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     /// <summary>
-    /// Converts exported Contrast Security XML report files to sarif format
+    /// Converts exported Contrast Security XML report files to SARIF format.
     /// </summary>
-    ///<remarks>
-    ///</remarks>
     internal sealed class ContrastSecurityConverter : ToolFileConverterBase
     {
         private const string ContrastSecurityRulesData = "Microsoft.CodeAnalysis.Sarif.Converters.RulesData.ContrastSecurity.sarif";
@@ -59,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Assembly assembly = typeof(ContrastSecurityConverter).Assembly;
             SarifLog sarifLog;
 
-            using (var stream = assembly.GetManifestResourceStream(ContrastSecurityConverter.ContrastSecurityRulesData))
+            using (var stream = assembly.GetManifestResourceStream(ContrastSecurityRulesData))
             using (var streamReader = new StreamReader(stream))
             {
                 string prereleaseRuleDataLogText = streamReader.ReadToEnd();
@@ -932,7 +929,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     }
 
     /// <summary>
-    /// Pluggable FxCop log reader
+    /// Pluggable Contrast Security log reader.
     /// </summary>
     internal sealed class ContrastLogReader
     {
@@ -1031,7 +1028,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         /// <summary>
-        /// COntrast Security exported xml elements and attributes
+        /// Contrast Security exported XML elements and attributes.
         /// </summary>
         private static class SchemaStrings
         {
@@ -1120,21 +1117,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         public void Read(Context context, Stream input)
         {
-            XmlSchemaSet schemaSet = new XmlSchemaSet();
-            Assembly assembly = typeof(ContrastLogReader).Assembly;
-            var settings = new XmlReaderSettings
-            {
-                DtdProcessing = DtdProcessing.Ignore,
-                XmlResolver = null
-            };
-
-            //using (var stream = assembly.GetManifestResourceStream(ContrastLogReader.ContrastSecurityReportSchema))
-            //using (var reader = XmlReader.Create(stream, settings))
-            //{
-            //    XmlSchema schema = XmlSchema.Read(reader, new ValidationEventHandler(ReportError));
-            //    schemaSet.Add(schema);
-            //}
-
             using (var sparseReader = SparseReader.CreateFromStream(_dispatchTable, input, schemaSet: null))
             {
                 if (sparseReader.LocalName.Equals(SchemaStrings.ElementFindings))
