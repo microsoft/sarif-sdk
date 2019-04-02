@@ -168,14 +168,14 @@ module.exports = function (results, data) {
 
     if (Object.keys(sarifRules).length > 0) {
         sarifLog.runs[0].tool.driver = {
-            ruleDescriptors: []
+            rules: []
         };
 
         var ruleIndex = 0;
         Object.keys(sarifRules).forEach(function (ruleId) {
             var rule = sarifRules[ruleId];
             rule.ruleIndex = ruleIndex++;
-            sarifLog.runs[0].tool.driver.ruleDescriptors.push(rule);
+            sarifLog.runs[0].tool.driver.rules.push(rule);
         });
     }
 
