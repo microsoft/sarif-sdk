@@ -107,10 +107,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var run = new Run()
             {
-                Id = new RunAutomationDetails
+                AutomationDetails = new RunAutomationDetails
                 {
-                    InstanceGuid = _runId,
-                    InstanceId = _automationId + "/"
+                    Guid = _runId,
+                    Id = _automationId + "/"
                 },
                 Artifacts = new List<Artifact>(_files),
                 Tool = new Tool
@@ -118,7 +118,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     Driver = new ToolComponent
                     {
                         Name = ToolName,
-                        RuleDescriptors = _rules
+                        Rules = _rules
                     }
                 },
                 Invocations = new[] { _invocation },
@@ -851,7 +851,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                     _invocation.ToolExecutionNotifications.Add(new Notification
                     {
-                        Id = errorCode,
+                        Descriptor = new ReportingDescriptorReference
+                        {
+                            Id = errorCode
+                        },
                         Level = FailureLevel.Error,
                         Message = new Message { Text = message }
                     });

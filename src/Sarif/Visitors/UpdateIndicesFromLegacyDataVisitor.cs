@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     // We need to update the rule id, as it previously referred to a synthesized 
                     // key that resolved some collision in the resources.rules collection.
-                    node.RuleId = _tool.Driver.RuleDescriptors[ruleIndex].Id;
+                    node.RuleId = _tool.Driver.Rules[ruleIndex].Id;
                 }
             }
 
@@ -53,11 +53,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override Location VisitLocation(Location node)
         {
-            if (_fullyQualifiedLogicalNameToIndexMap != null && !string.IsNullOrEmpty(node.FullyQualifiedLogicalName))
+            if (_fullyQualifiedLogicalNameToIndexMap != null && !string.IsNullOrEmpty(node?.LogicalLocation?.FullyQualifiedName))
             {
-                if (_fullyQualifiedLogicalNameToIndexMap.TryGetValue(node.FullyQualifiedLogicalName, out int index))
+                if (_fullyQualifiedLogicalNameToIndexMap.TryGetValue(node.LogicalLocation.FullyQualifiedName, out int index))
                 {
-                    node.LogicalLocationIndex = index;
+                    node.LogicalLocation.Index = index;
                 }
             }
 

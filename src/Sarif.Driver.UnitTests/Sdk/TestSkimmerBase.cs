@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver.UnitTests.Sdk
     {
         public override Uri HelpUri => throw new NotImplementedException();
 
-        public override Message Help => throw new NotImplementedException();
+        public override MultiformatMessageString Help => throw new NotImplementedException();
 
         public override string Id => throw new NotImplementedException();
 

@@ -64,13 +64,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         ExceptionData,
         /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ExternalPropertyFile" />.
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ExternalProperties" />.
         /// </summary>
-        ExternalPropertyFile,
+        ExternalProperties,
         /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ExternalPropertyFiles" />.
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ExternalPropertyFileReference" />.
         /// </summary>
-        ExternalPropertyFiles,
+        ExternalPropertyFileReference,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ExternalPropertyFileReferences" />.
+        /// </summary>
+        ExternalPropertyFileReferences,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Fix" />.
         /// </summary>
@@ -140,9 +144,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         ReportingConfiguration,
         /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ReportingConfigurationOverride" />.
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ConfigurationOverride" />.
         /// </summary>
-        ReportingConfigurationOverride,
+        ConfigurationOverride,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ReportingDescriptorReference" />.
         /// </summary>
@@ -172,6 +176,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         StackFrame,
         /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Suppression" />.
+        /// </summary>
+        Suppression,
+        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ThreadFlow" />.
         /// </summary>
         ThreadFlow,
@@ -187,6 +195,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ToolComponent" />.
         /// </summary>
         ToolComponent,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ToolComponentReference" />.
+        /// </summary>
+        ToolComponentReference,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="TranslationMetadata" />.
+        /// </summary>
+        TranslationMetadata,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="VersionControlDetails" />.
         /// </summary>

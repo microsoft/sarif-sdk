@@ -43,11 +43,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!Address.ValueComparer.Equals(left.Address, right.Address))
-            {
-                return false;
-            }
-
             if (!object.ReferenceEquals(left.Parameters, right.Parameters))
             {
                 if (left.Parameters == null || right.Parameters == null)
@@ -115,11 +110,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 result = (result * 31) + obj.ThreadId.GetHashCode();
-                if (obj.Address != null)
-                {
-                    result = (result * 31) + obj.Address.ValueGetHashCode();
-                }
-
                 if (obj.Parameters != null)
                 {
                     foreach (var value_2 in obj.Parameters)

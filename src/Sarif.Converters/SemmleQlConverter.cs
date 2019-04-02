@@ -68,6 +68,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var results = GetResultsFromStream(input);
 
             PersistResults(output, results);
+
+            if (_toolNotifications.HasAtLeastOneNonNullValue())
+            {
+                output.WriteInvocations(
+                    new[] { new Invocation
+                    {
+                        ToolExecutionNotifications = _toolNotifications
+                    } });
+            }
         }
 
         private Result[] GetResultsFromStream(Stream input)
@@ -335,7 +344,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             _toolNotifications.Add(new Notification
             {
-                Id = id,
+                Descriptor = new ReportingDescriptorReference
+                {
+                    Id = id,
+                },
                 TimeUtc = DateTime.UtcNow,
                 Level = level,
                 Message = new Message { Text = messageWithLineNumber }

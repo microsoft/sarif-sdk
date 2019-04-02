@@ -22,12 +22,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         public override Uri HelpUri => _defaultHelpUri;
 
-        private readonly Message _emptyHelpMessage = new Message
+        private readonly MultiformatMessageString _emptyHelpMessage = new MultiformatMessageString
         {
             Text = string.Empty
         };
 
-        public override Message Help => _emptyHelpMessage;
+        public override MultiformatMessageString Help => _emptyHelpMessage;
 
         protected SarifValidationContext Context { get; private set; }
 
@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
         }
 
-        protected virtual void Analyze(Graph graph, string graphKey, string graphPointer)
+        protected virtual void Analyze(Graph graph, string graphPointer)
         {
         }
 
@@ -358,9 +358,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
-        private void Visit(Graph graph, string graphKey, string graphPointer)
+        private void Visit(Graph graph, string graphPointer)
         {
-            Analyze(graph, graphKey, graphPointer);
+            Analyze(graph, graphPointer);
 
             if (graph.Description != null)
             {
@@ -597,9 +597,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 string graphsPointer = resultPointer.AtProperty(SarifPropertyName.Graphs);
 
-                foreach (string key in result.Graphs.Keys)
+                for (int i = 0; i < result.Graphs.Count; ++i)
                 {
-                    Visit(result.Graphs[key], key, graphsPointer.AtProperty(key));
+                    Visit(result.Graphs[i], graphsPointer.AtIndex(i));
                 }
             }
 
@@ -728,9 +728,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 string graphsPointer = runPointer.AtProperty(SarifPropertyName.Graphs);
 
-                foreach (string key in run.Graphs.Keys)
+                for (int i = 0; i < run.Graphs.Count; ++i)
                 {
-                    Visit(run.Graphs[key], key, graphsPointer.AtProperty(key));
+                    Visit(run.Graphs[i], graphsPointer.AtIndex(i));
                 }
             }
 
@@ -843,21 +843,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             Analyze(toolComponent, toolComponentPointer);
 
-            if (toolComponent.NotificationDescriptors != null)
+            if (toolComponent.Notifications != null)
             {
-                string notificationsPointer = toolComponentPointer.AtProperty(SarifPropertyName.NotificationDescriptors);
-                for (int i = 0; i < toolComponent.NotificationDescriptors.Count; ++i)
+                string notificationsPointer = toolComponentPointer.AtProperty(SarifPropertyName.Notifications);
+                for (int i = 0; i < toolComponent.Notifications.Count; ++i)
                 {
-                    Visit(toolComponent.NotificationDescriptors[i], notificationsPointer.AtIndex(i));
+                    Visit(toolComponent.Notifications[i], notificationsPointer.AtIndex(i));
                 }
             }
 
-            if (toolComponent.RuleDescriptors != null)
+            if (toolComponent.Rules != null)
             {
-                string rulesPointer = toolComponentPointer.AtProperty(SarifPropertyName.RuleDescriptors);
-                for (int i = 0; i < toolComponent.RuleDescriptors.Count; ++i)
+                string rulesPointer = toolComponentPointer.AtProperty(SarifPropertyName.Rules);
+                for (int i = 0; i < toolComponent.Rules.Count; ++i)
                 {
-                    Visit(toolComponent.RuleDescriptors[i], rulesPointer.AtIndex(i));
+                    Visit(toolComponent.Rules[i], rulesPointer.AtIndex(i));
                 }
             }
         }

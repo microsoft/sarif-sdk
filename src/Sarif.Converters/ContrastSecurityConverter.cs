@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // 2. Retain a pointer to the rules dictionary, which we will use to set rule severity
             Run run = sarifLog.Runs[0];
-            _rules = run.Tool.Driver.RuleDescriptors.ToDictionary(rule => rule.Id);
+            _rules = run.Tool.Driver.Rules.ToDictionary(rule => rule.Id);
 
             run.OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>
             {
@@ -383,7 +383,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             string untrustedData = BuildSourcesString(context.Sources);
             string page = context.RequestUri;
-            string caller = context.PropagationEvents[context.PropagationEvents.Count - 1].Stack.Frames[0].Location.FullyQualifiedLogicalName;
+            string caller = context.PropagationEvents[context.PropagationEvents.Count - 1].Stack.Frames[0].Location.LogicalLocation?.FullyQualifiedName;
             string controlID = context.Properties.ContainsKey(nameof(controlID)) ? context.Properties[nameof(controlID)] : null;
 
             Result result;
@@ -718,9 +718,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             string untrustedData = BuildSourcesString(context.Sources);
             string page = context.RequestUri;
-            string source = context.PropagationEvents[0].Stack.Frames[0].Location.FullyQualifiedLogicalName;
-            string caller = context.PropagationEvents[context.PropagationEvents.Count - 1].Stack.Frames[0].Location.FullyQualifiedLogicalName;
-            string sink = context.MethodEvent.Stack.Frames[0].Location.FullyQualifiedLogicalName;
+            string source = context.PropagationEvents[0].Stack.Frames[0].Location.LogicalLocation?.FullyQualifiedName;
+            string caller = context.PropagationEvents[context.PropagationEvents.Count - 1].Stack.Frames[0].Location.LogicalLocation?.FullyQualifiedName;
+            string sink = context.MethodEvent.Stack.Frames[0].Location.LogicalLocation?.FullyQualifiedName;
 
             // default : SQL injection from untrusted source(s) '{0}' observed on '{1}' page. Untrusted data flowed from '{2}' to dangerous sink '{3}' in '{4}'.
 
@@ -1246,7 +1246,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 Location = new Location
                 {
-                    FullyQualifiedLogicalName = signature
+                    LogicalLocation = new LogicalLocation
+                    {
+                        FullyQualifiedName = signature
+                    }
                 }
             };
         }

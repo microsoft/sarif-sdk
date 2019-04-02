@@ -300,14 +300,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             var sb = new StringBuilder(issueType + " ");
 
-            if (!string.IsNullOrEmpty(notification.Id))
+            if (!string.IsNullOrEmpty(notification.Descriptor?.Id))
             {
-                sb.Append(notification.Id + " : ");
+                sb.Append(notification.Descriptor.Id + " : ");
             }
 
-            if (!string.IsNullOrEmpty(notification.RuleId))
+            if (!string.IsNullOrEmpty(notification.AssociatedRule?.Id))
             {
-                sb.Append(notification.RuleId + " : ");
+                sb.Append(notification.AssociatedRule.Id + " : ");
             }
 
             sb.Append(notification.Message.Text);

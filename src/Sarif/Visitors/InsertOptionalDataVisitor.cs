@@ -167,7 +167,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 _dataToInsert.HasFlag(OptionallyEmittedData.FlattenedMessages))
             {
                 MultiformatMessageString formatString = null;
-                ReportingDescriptor rule = _ruleIndex != -1 ? _run.Tool.Driver.RuleDescriptors[_ruleIndex] : null;
+                ReportingDescriptor rule = _ruleIndex != -1 ? _run.Tool.Driver.Rules[_ruleIndex] : null;
             
                 if (rule != null &&
                     rule.MessageStrings != null &&
@@ -175,7 +175,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     node.Text = node.Arguments?.Count > 0 
                         ? rule.Format(node.MessageId, node.Arguments) 
-                        : formatString.Text;
+                        : formatString?.Text;
                 }
 
                 if (node.Text == null &&
@@ -183,7 +183,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     node.Text = node.Arguments?.Count > 0
                         ? string.Format(CultureInfo.CurrentCulture, formatString.Text, node.Arguments.ToArray())
-                        : formatString.Text;
+                        : formatString?.Text;
                 }
             }
             return base.VisitMessage(node);

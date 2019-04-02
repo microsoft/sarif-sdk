@@ -40,7 +40,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             // occurred. Something to discuss moving forward.
             try
             {
-                if (!uri.IsAbsoluteUri || !uri.IsFile || !fileSystem.FileExists(uri.LocalPath))
+                bool workTodo = dataToInsert.HasFlag(OptionallyEmittedData.Hashes)    ||
+                                dataToInsert.HasFlag(OptionallyEmittedData.TextFiles) ||
+                                dataToInsert.HasFlag(OptionallyEmittedData.BinaryFiles);
+                
+                if (!workTodo          ||
+                    !uri.IsAbsoluteUri || 
+                    !uri.IsFile        || 
+                    !fileSystem.FileExists(uri.LocalPath))
                 {
                     return artifact;
                 }

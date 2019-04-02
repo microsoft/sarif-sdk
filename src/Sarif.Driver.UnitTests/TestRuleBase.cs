@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public override IDictionary<string, MultiformatMessageString> MessageStrings { get { return new Dictionary<string, MultiformatMessageString>(); } }
 
-        public override Message Help { get { return new Message() { Text = "[Empty]" }; } }
+        public override MultiformatMessageString Help { get { return new MultiformatMessageString() { Text = "[Empty]" }; } }
 
         public override AnalysisApplicability CanAnalyze(TestAnalysisContext context, out string reasonIfNotApplicable)
         {

@@ -1,0 +1,168 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "SARIF External Property File Schema Version 2.0.0-csd.2.beta.2019-04-03 JSON Schema",
+  "type": "object",
+  "properties": {
+
+    "schema": {
+      "description": "The URI of the JSON schema corresponding to the version of the external property file format.",
+      "type": "string",
+      "format": "uri"
+    },
+
+    "version": {
+      "description": "The SARIF format version of this external properties object.",
+      "enum": [ "2.0.0-csd.2.beta.2019-04-03" ]
+    },
+
+    "guid": {
+      "description": "A stable, unique identifer for this external properties object, in the form of a GUID.",
+      "type": "string"
+    },
+
+    "runGuid": {
+      "description": "A stable, unique identifer for the run associated with this external properties object, in the form of a GUID.",
+      "type": "string"
+    },
+
+    "conversion": {
+      "description": "A conversion object that will be merged with an external run.",
+      "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/conversion"
+    },
+
+    "graphs": {
+      "description": "An array of graph objects that will merged with an external run.",
+      "type": "array",
+      "minItems": 0,
+      "default": [],
+      "uniqueItems": true,
+      "items": {
+        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/graph"
+      }
+    },
+
+    "externalizedProperties": {
+      "description": "Key/value pairs that provide additional information that will be merged with an external run.",
+      "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/propertyBag"
+    },
+
+    "artifacts": {
+      "description": "An array of artifact objects that will be merged with an external run.",
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/artifact"
+      }
+    },
+
+    "invocations": {
+      "description": "Describes the invocation of the analysis tool that will be merged with an external run.",
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "default": [],
+      "items": {
+        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/invocation"
+      }
+    },
+
+    "logicalLocations": {
+      "description": "An array of logical locations such as namespaces, types or functions that will be merged with an external run.",
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": true,
+      "default": [],
+      "items": {
+        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/logicalLocation"
+      }
+    },
+
+    "threadFlowLocations": {
+      "description": "An array of threadFlowLocation objects that will be merged with an external run.",
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": true,
+      "default": [],
+      "items": {
+        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/threadFlowLocation"
+      }
+    },
+
+    "results": {
+      "description": "An array of result objects that will be merged with an external run.",
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "items": {
+        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/result"
+      }
+    },
+
+    "taxonomies": {
+      "description": "Tool taxonomies that will be merged with an external run.",
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": true,
+      "default": [],
+      "items": {
+        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/toolComponent"
+      }
+    },
+
+    "driver": {
+      "description": "The analysis tool object that will be merged with an external run.",
+      "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/toolComponent"
+    },
+
+    "extensions": {
+      "description": "Tool extensions that will be merged with an external run.",
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": true,
+      "default": [],
+      "items": {
+        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/toolComponent"
+      }
+    },
+
+    "policies": {
+      "description": "Tool policies that will be merged with an external run.",
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": true,
+      "default": [],
+      "items": {
+        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/toolComponent"
+      }
+    },
+
+    "translations": {
+      "description": "Tool translations that will be merged with an external run.",
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": true,
+      "default": [],
+      "items": {
+        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/toolComponent"
+      }
+    },
+
+    "addresses": {
+      "description": "Addresses that will be merged with with an external run.",
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": false,
+      "default": [],
+      "items": {
+        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/address"
+      }
+    },
+
+    "properties": {
+      "description": "Key/value pairs that provide additional information about the external properties.",
+      "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/propertyBag"
+    }
+  },
+  "required": [ "version" ]
+}

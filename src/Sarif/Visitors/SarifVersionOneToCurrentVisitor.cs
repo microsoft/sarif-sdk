@@ -334,12 +334,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 location = new Location
                 {
-                    FullyQualifiedLogicalName = v1Location.FullyQualifiedLogicalName,
                     PhysicalLocation = CreatePhysicalLocation(v1Location.ResultFile ?? v1Location.AnalysisTarget),
                     Properties = v1Location.Properties
                 };
 
-                if (!string.IsNullOrWhiteSpace(location.FullyQualifiedLogicalName))
+                if (!string.IsNullOrWhiteSpace(v1Location.FullyQualifiedLogicalName))
+                {
+                    location.LogicalLocation = new LogicalLocation
+                    {
+                        FullyQualifiedName = v1Location.FullyQualifiedLogicalName
+                    };
+                }
+
+                if (!string.IsNullOrWhiteSpace(location.LogicalLocation?.FullyQualifiedName))
                 {
                     if (_v1KeyToV2LogicalLocationMap.TryGetValue(key, out LogicalLocation logicalLocation))
                     {
@@ -351,7 +358,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                             _v2LogicalLocationToIndexMap[logicalLocation] = index;
                         }
 
-                        location.LogicalLocationIndex = index;
+                        location.LogicalLocation.Index = index;
                     }
                 }
             }
@@ -373,11 +380,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                                                                                                          a.Message))
                                                                       .Where(r => r != null)
                                                                       .ToList(),
-                    FullyQualifiedLogicalName = v1AnnotatedCodeLocation.FullyQualifiedLogicalName,
                     Message = CreateMessage(v1AnnotatedCodeLocation.Message),
                     PhysicalLocation = CreatePhysicalLocation(v1AnnotatedCodeLocation.PhysicalLocation),
                     Properties = v1AnnotatedCodeLocation.Properties
                 };
+
+                if (!string.IsNullOrWhiteSpace(v1AnnotatedCodeLocation.FullyQualifiedLogicalName))
+                {
+                    location.LogicalLocation = new LogicalLocation
+                    {
+                        FullyQualifiedName = v1AnnotatedCodeLocation.FullyQualifiedLogicalName
+                    };
+                }
 
                 string logicalLocationKey = v1AnnotatedCodeLocation.LogicalLocationKey ?? v1AnnotatedCodeLocation.FullyQualifiedLogicalName;
 
@@ -386,7 +400,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     if (_v1KeyToV2LogicalLocationMap.TryGetValue(logicalLocationKey, out LogicalLocation logicalLocation))
                     {
                         _v2LogicalLocationToIndexMap.TryGetValue(logicalLocation, out int index);
-                        location.LogicalLocationIndex = index;
+
+                        if (location.LogicalLocation == null)
+                        {
+                            location.LogicalLocation = new LogicalLocation();
+                        }
+
+                        location.LogicalLocation.Index = index;
                     }
                 }
 
@@ -422,7 +442,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                                          Uri uri,
                                          string uriBaseId,
                                          int column,
-                                         int line)
+                                         int line,
+                                         int address,
+                                         int offset)
         {
             var location = new Location
             {
@@ -432,16 +454,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             logicalLocationKey = logicalLocationKey ?? fullyQualifiedLogicalName;
 
             // Retrieve logical location so that we can acquire the index
-            _v1KeyToV2LogicalLocationMap.TryGetValue(logicalLocationKey, out LogicalLocation logicalLocation);            
+            _v1KeyToV2LogicalLocationMap.TryGetValue(logicalLocationKey, out LogicalLocation logicalLocation);
 
-            location.FullyQualifiedLogicalName = fullyQualifiedLogicalName ?? logicalLocation?.FullyQualifiedName;
+            location.LogicalLocation = new LogicalLocation
+            {
+                FullyQualifiedName = fullyQualifiedLogicalName ?? logicalLocation?.FullyQualifiedName
+            };
 
             if (logicalLocation == null || !_v2LogicalLocationToIndexMap.TryGetValue(logicalLocation, out int logicalLocationIndex))
             {
                 logicalLocationIndex = -1;
             }
 
-            location.LogicalLocationIndex = logicalLocationIndex;
+            location.LogicalLocation.Index = logicalLocationIndex;
 
             if (uri != null)
             {
@@ -452,6 +477,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 };
             }
 
+            if (address > 0 || offset > 0)
+            {
+                if (location.PhysicalLocation == null)
+                {
+                    location.PhysicalLocation = new PhysicalLocation();
+                }
+
+                location.PhysicalLocation.Address = new Address
+                {
+                    BaseAddress = (address > 0) ? string.Format("0x{0:X}", address): null,
+                    Offset = (offset > 0) ? string.Format("0x{0:X}", offset): null
+                };
+            }
             return location;
         }
 
@@ -534,15 +572,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 notification = new Notification
                 {
                     Exception = CreateExceptionData(v1Notification.Exception),
-                    Id = v1Notification.Id,
                     Level = Utilities.CreateFailureLevel(v1Notification.Level),
                     Message = CreateMessage(v1Notification.Message),
                     PhysicalLocation = CreatePhysicalLocation(v1Notification.PhysicalLocation),
                     Properties = v1Notification.Properties,
-                    RuleId = v1Notification.RuleId,
                     ThreadId = v1Notification.ThreadId,
                     TimeUtc = v1Notification.Time
                 };
+
+                if (!string.IsNullOrWhiteSpace(v1Notification.Id))
+                {
+                    notification.Descriptor = new ReportingDescriptorReference
+                    {
+                        Id = v1Notification.Id,
+                    };
+                }
+
+                if (!string.IsNullOrWhiteSpace(v1Notification.RuleId))
+                {
+                    notification.AssociatedRule = new ReportingDescriptorReference
+                    {
+                        Id = v1Notification.RuleId,
+                    };
+                }
             }
 
             return notification;
@@ -729,7 +781,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     BaselineState = Utilities.CreateBaselineState(v1Result.BaselineState),
                     CodeFlows = v1Result.CodeFlows?.Select(CreateCodeFlow).ToList(),
                     Fixes = v1Result.Fixes?.Select(CreateFix).ToList(),
-                    InstanceGuid = v1Result.Id,
+                    Guid = v1Result.Id,
                     Level = Utilities.CreateFailureLevel(v1Result.Level),
                     Kind = Utilities.CreateResultKind(v1Result.Level),
                     Locations = v1Result.Locations?.Select(CreateLocation).ToList(),
@@ -737,7 +789,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Properties = v1Result.Properties,
                     RelatedLocations = v1Result.RelatedLocations?.Select(CreateLocation).ToList(),
                     Stacks = v1Result.Stacks?.Select(CreateStack).ToList(),
-                    SuppressionStates = Utilities.CreateSuppressionStates(v1Result.SuppressionStates)
+                    Suppressions = Utilities.CreateSuppressions(v1Result.SuppressionStates)
                 };
 
                 // The v2 spec says that analysisTarget is required only if it differs from the result location.
@@ -858,22 +910,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         id = new RunAutomationDetails
                         {
-                            InstanceGuid = v1Run.Id,
-                            InstanceId = v1Run.StableId != null ? v1Run.StableId + "/" : null
+                            Guid = v1Run.Id,
+                            Id = v1Run.StableId != null ? v1Run.StableId + "/" : null
                         };
                     }
 
                     if (v1Run.AutomationId != null)
                     {
-                        aggregateIds = new[] { new RunAutomationDetails { InstanceId = v1Run.AutomationId + "/" } };
+                        aggregateIds = new[] { new RunAutomationDetails { Id = v1Run.AutomationId + "/" } };
                     }
 
                     run = new Run()
                     {
-                        Id = id,
-                        AggregateIds = aggregateIds,
-                        BaselineInstanceGuid = v1Run.BaselineId,
+                        AutomationDetails = id,
+                        RunAggregates = aggregateIds,
+                        BaselineGuid = v1Run.BaselineId,
                         Properties = v1Run.Properties,
+                        Language = v1Run.Tool?.Language ?? "en-US",
                         Tool = CreateTool(v1Run.Tool),
                         ColumnKind = ColumnKind.Utf16CodeUnits
                     };
@@ -882,11 +935,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     if (v1Run.Rules != null)
                     {
-                        run.Tool.Driver.RuleDescriptors = new List<ReportingDescriptor>();
+                        run.Tool.Driver.Rules = new List<ReportingDescriptor>();
 
                         foreach (var pair in v1Run.Rules)
                         {
-                            run.Tool.Driver.RuleDescriptors.Add(CreateRule(pair.Value));
+                            run.Tool.Driver.Rules.Add(CreateRule(pair.Value));
                         }
                     }
 
@@ -1088,11 +1141,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 stackFrame = new StackFrame
                 {
-                    Address = new Address
-                    {
-                        BaseAddress = v1StackFrame.Address,
-                        Offset = v1StackFrame.Offset
-                    },
                     Module = v1StackFrame.Module,
                     Parameters = v1StackFrame.Parameters,
                     Properties = v1StackFrame.Properties,
@@ -1106,7 +1154,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                                                  v1StackFrame.Uri,
                                                  v1StackFrame.UriBaseId,
                                                  v1StackFrame.Column,
-                                                 v1StackFrame.Line);
+                                                 v1StackFrame.Line,
+                                                 v1StackFrame.Address,
+                                                 v1StackFrame.Offset);
 
             return stackFrame;
         }
@@ -1119,7 +1169,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 tool = new Tool()
                 {
-                    // V2 doesn't support Language, hence v1Tool.Language will be ignored.
                     Driver = new ToolComponent
                     {
                         DottedQuadFileVersion = v1Tool.FileVersion,

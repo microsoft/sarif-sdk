@@ -43,7 +43,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
         {
-            node.Index = _currentRun.GetFileIndex(node, addToFilesTableIfNotPresent: true);            
+            if (_currentRun.OriginalUriBaseIds == null || !_currentRun.OriginalUriBaseIds.Values.Contains(node))
+            {
+                node.Index = _currentRun.GetFileIndex(node, addToFilesTableIfNotPresent: true);
+            }
 
             return base.VisitArtifactLocation(node);            
         }

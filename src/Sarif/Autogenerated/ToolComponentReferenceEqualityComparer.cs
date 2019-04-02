@@ -9,14 +9,14 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Defines methods to support the comparison of objects of type ExternalPropertyFile for equality.
+    /// Defines methods to support the comparison of objects of type ToolComponentReference for equality.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
-    internal sealed class ExternalPropertyFileEqualityComparer : IEqualityComparer<ExternalPropertyFile>
+    internal sealed class ToolComponentReferenceEqualityComparer : IEqualityComparer<ToolComponentReference>
     {
-        internal static readonly ExternalPropertyFileEqualityComparer Instance = new ExternalPropertyFileEqualityComparer();
+        internal static readonly ToolComponentReferenceEqualityComparer Instance = new ToolComponentReferenceEqualityComparer();
 
-        public bool Equals(ExternalPropertyFile left, ExternalPropertyFile right)
+        public bool Equals(ToolComponentReference left, ToolComponentReference right)
         {
             if (ReferenceEquals(left, right))
             {
@@ -28,17 +28,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!ArtifactLocation.ValueComparer.Equals(left.ArtifactLocation, right.ArtifactLocation))
+            if (left.Name != right.Name)
             {
                 return false;
             }
 
-            if (left.InstanceGuid != right.InstanceGuid)
+            if (left.Index != right.Index)
             {
                 return false;
             }
 
-            if (left.ItemCount != right.ItemCount)
+            if (left.Guid != right.Guid)
             {
                 return false;
             }
@@ -68,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public int GetHashCode(ExternalPropertyFile obj)
+        public int GetHashCode(ToolComponentReference obj)
         {
             if (ReferenceEquals(obj, null))
             {
@@ -78,17 +78,17 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (obj.ArtifactLocation != null)
+                if (obj.Name != null)
                 {
-                    result = (result * 31) + obj.ArtifactLocation.ValueGetHashCode();
+                    result = (result * 31) + obj.Name.GetHashCode();
                 }
 
-                if (obj.InstanceGuid != null)
+                result = (result * 31) + obj.Index.GetHashCode();
+                if (obj.Guid != null)
                 {
-                    result = (result * 31) + obj.InstanceGuid.GetHashCode();
+                    result = (result * 31) + obj.Guid.GetHashCode();
                 }
 
-                result = (result * 31) + obj.ItemCount.GetHashCode();
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.

@@ -13,11 +13,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
-    public partial class ExternalPropertyFile : PropertyBagHolder, ISarifNode
+    public partial class ExternalPropertyFileReference : PropertyBagHolder, ISarifNode
     {
-        public static IEqualityComparer<ExternalPropertyFile> ValueComparer => ExternalPropertyFileEqualityComparer.Instance;
+        public static IEqualityComparer<ExternalPropertyFileReference> ValueComparer => ExternalPropertyFileReferenceEqualityComparer.Instance;
 
-        public bool ValueEquals(ExternalPropertyFile other) => ValueComparer.Equals(this, other);
+        public bool ValueEquals(ExternalPropertyFileReference other) => ValueComparer.Equals(this, other);
         public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
 
         /// <summary>
@@ -27,21 +27,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                return SarifNodeKind.ExternalPropertyFile;
+                return SarifNodeKind.ExternalPropertyFileReference;
             }
         }
 
         /// <summary>
         /// The location of the external property file.
         /// </summary>
-        [DataMember(Name = "artifactLocation", IsRequired = false, EmitDefaultValue = false)]
-        public ArtifactLocation ArtifactLocation { get; set; }
+        [DataMember(Name = "location", IsRequired = false, EmitDefaultValue = false)]
+        public ArtifactLocation Location { get; set; }
 
         /// <summary>
         /// A stable, unique identifer for the external property file in the form of a GUID.
         /// </summary>
-        [DataMember(Name = "instanceGuid", IsRequired = false, EmitDefaultValue = false)]
-        public string InstanceGuid { get; set; }
+        [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
+        public string Guid { get; set; }
 
         /// <summary>
         /// A non-negative integer specifying the number of items contained in the external property file.
@@ -58,21 +58,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ExternalPropertyFile" /> class.
+        /// Initializes a new instance of the <see cref="ExternalPropertyFileReference" /> class.
         /// </summary>
-        public ExternalPropertyFile()
+        public ExternalPropertyFileReference()
         {
             ItemCount = 0;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ExternalPropertyFile" /> class from the supplied values.
+        /// Initializes a new instance of the <see cref="ExternalPropertyFileReference" /> class from the supplied values.
         /// </summary>
-        /// <param name="artifactLocation">
-        /// An initialization value for the <see cref="P:ArtifactLocation" /> property.
+        /// <param name="location">
+        /// An initialization value for the <see cref="P:Location" /> property.
         /// </param>
-        /// <param name="instanceGuid">
-        /// An initialization value for the <see cref="P:InstanceGuid" /> property.
+        /// <param name="guid">
+        /// An initialization value for the <see cref="P:Guid" /> property.
         /// </param>
         /// <param name="itemCount">
         /// An initialization value for the <see cref="P:ItemCount" /> property.
@@ -80,13 +80,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ExternalPropertyFile(ArtifactLocation artifactLocation, string instanceGuid, int itemCount, IDictionary<string, SerializedPropertyInfo> properties)
+        public ExternalPropertyFileReference(ArtifactLocation location, string guid, int itemCount, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(artifactLocation, instanceGuid, itemCount, properties);
+            Init(location, guid, itemCount, properties);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ExternalPropertyFile" /> class from the specified instance.
+        /// Initializes a new instance of the <see cref="ExternalPropertyFileReference" /> class from the specified instance.
         /// </summary>
         /// <param name="other">
         /// The instance from which the new instance is to be initialized.
@@ -94,14 +94,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <exception cref="ArgumentNullException">
         /// Thrown if <paramref name="other" /> is null.
         /// </exception>
-        public ExternalPropertyFile(ExternalPropertyFile other)
+        public ExternalPropertyFileReference(ExternalPropertyFileReference other)
         {
             if (other == null)
             {
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.ArtifactLocation, other.InstanceGuid, other.ItemCount, other.Properties);
+            Init(other.Location, other.Guid, other.ItemCount, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -112,24 +112,24 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public ExternalPropertyFile DeepClone()
+        public ExternalPropertyFileReference DeepClone()
         {
-            return (ExternalPropertyFile)DeepCloneCore();
+            return (ExternalPropertyFileReference)DeepCloneCore();
         }
 
         private ISarifNode DeepCloneCore()
         {
-            return new ExternalPropertyFile(this);
+            return new ExternalPropertyFileReference(this);
         }
 
-        private void Init(ArtifactLocation artifactLocation, string instanceGuid, int itemCount, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(ArtifactLocation location, string guid, int itemCount, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            if (artifactLocation != null)
+            if (location != null)
             {
-                ArtifactLocation = new ArtifactLocation(artifactLocation);
+                Location = new ArtifactLocation(location);
             }
 
-            InstanceGuid = instanceGuid;
+            Guid = guid;
             ItemCount = itemCount;
             if (properties != null)
             {

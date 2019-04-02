@@ -41,14 +41,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// A hierarchical string that uniquely identifies this object's containing run object.
         /// </summary>
-        [DataMember(Name = "instanceId", IsRequired = false, EmitDefaultValue = false)]
-        public string InstanceId { get; set; }
+        [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
+        public string Id { get; set; }
 
         /// <summary>
         /// A stable, unique identifer for this object's containing run object in the form of a GUID.
         /// </summary>
-        [DataMember(Name = "instanceGuid", IsRequired = false, EmitDefaultValue = false)]
-        public string InstanceGuid { get; set; }
+        [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
+        public string Guid { get; set; }
 
         /// <summary>
         /// A stable, unique identifier for the equivalence class of runs to which this object's containing run object belongs in the form of a GUID.
@@ -75,11 +75,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="description">
         /// An initialization value for the <see cref="P:Description" /> property.
         /// </param>
-        /// <param name="instanceId">
-        /// An initialization value for the <see cref="P:InstanceId" /> property.
+        /// <param name="id">
+        /// An initialization value for the <see cref="P:Id" /> property.
         /// </param>
-        /// <param name="instanceGuid">
-        /// An initialization value for the <see cref="P:InstanceGuid" /> property.
+        /// <param name="guid">
+        /// An initialization value for the <see cref="P:Guid" /> property.
         /// </param>
         /// <param name="correlationGuid">
         /// An initialization value for the <see cref="P:CorrelationGuid" /> property.
@@ -87,9 +87,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public RunAutomationDetails(Message description, string instanceId, string instanceGuid, string correlationGuid, IDictionary<string, SerializedPropertyInfo> properties)
+        public RunAutomationDetails(Message description, string id, string guid, string correlationGuid, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(description, instanceId, instanceGuid, correlationGuid, properties);
+            Init(description, id, guid, correlationGuid, properties);
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Description, other.InstanceId, other.InstanceGuid, other.CorrelationGuid, other.Properties);
+            Init(other.Description, other.Id, other.Guid, other.CorrelationGuid, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -129,15 +129,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new RunAutomationDetails(this);
         }
 
-        private void Init(Message description, string instanceId, string instanceGuid, string correlationGuid, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Message description, string id, string guid, string correlationGuid, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (description != null)
             {
                 Description = new Message(description);
             }
 
-            InstanceId = instanceId;
-            InstanceGuid = instanceGuid;
+            Id = id;
+            Guid = guid;
             CorrelationGuid = correlationGuid;
             if (properties != null)
             {

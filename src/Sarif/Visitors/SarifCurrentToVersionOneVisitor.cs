@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security;
@@ -56,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 annotatedCodeLocation = new AnnotatedCodeLocationVersionOne
                 {
                     Annotations = v2Location.Annotations?.Select(CreateAnnotationVersionOne).ToList(),
-                    FullyQualifiedLogicalName = v2Location.FullyQualifiedLogicalName,
+                    FullyQualifiedLogicalName = v2Location.LogicalLocation?.FullyQualifiedName,
                     Message = v2Location.Message?.Text,
                     PhysicalLocation = CreatePhysicalLocationVersionOne(v2Location.PhysicalLocation),
                     Snippet = v2Location.PhysicalLocation?.Region?.Snippet?.Text
@@ -311,16 +312,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 location = new LocationVersionOne
                 {
-                    FullyQualifiedLogicalName = v2Location.FullyQualifiedLogicalName,
+                    FullyQualifiedLogicalName = v2Location.LogicalLocation?.FullyQualifiedName,
                     Properties = v2Location.Properties,
                     ResultFile = CreatePhysicalLocationVersionOne(v2Location.PhysicalLocation)
                 };
 
-                if (!string.IsNullOrWhiteSpace(v2Location.FullyQualifiedLogicalName))
+                if (!string.IsNullOrWhiteSpace(v2Location.LogicalLocation?.FullyQualifiedName))
                 {
-                    if (v2Location.LogicalLocationIndex != -1)
+                    if (v2Location.LogicalLocation.Index != -1)
                     {
-                        location.DecoratedName = _currentV2Run.LogicalLocations[v2Location.LogicalLocationIndex].DecoratedName;
+                        location.DecoratedName = _currentV2Run.LogicalLocations[v2Location.LogicalLocation.Index].DecoratedName;
                     }
                 }
             }
@@ -360,12 +361,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 notification = new NotificationVersionOne
                 {
                     Exception = CreateExceptionDataVersionOne(v2Notification.Exception),
-                    Id = v2Notification.Id,
+                    Id = v2Notification.Descriptor?.Id,
                     Level = Utilities.CreateNotificationLevelVersionOne(v2Notification.Level),
                     Message = v2Notification.Message?.Text,
                     PhysicalLocation = CreatePhysicalLocationVersionOne(v2Notification.PhysicalLocation),
                     Properties = v2Notification.Properties,
-                    RuleId = v2Notification.RuleId,
+                    RuleId = v2Notification.AssociatedRule?.Id,
                     ThreadId = v2Notification.ThreadId,
                     Time = v2Notification.TimeUtc
                 };
@@ -763,7 +764,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     BaselineState = Utilities.CreateBaselineStateVersionOne(v2Result.BaselineState),
                     Fixes = v2Result.Fixes?.Select(CreateFixVersionOne).ToList(),
-                    Id = v2Result.InstanceGuid,
+                    Id = v2Result.Guid,
                     Level = Utilities.CreateResultLevelVersionOne(v2Result.Level, v2Result.Kind),
                     Locations = v2Result.Locations?.Select(CreateLocationVersionOne).ToList(),
                     Message = v2Result.Message?.Text,
@@ -771,7 +772,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     RelatedLocations = v2Result.RelatedLocations?.Select(CreateAnnotatedCodeLocationVersionOne).ToList(),
                     Snippet = v2Result.Locations?[0]?.PhysicalLocation?.Region?.Snippet?.Text,
                     Stacks = v2Result.Stacks?.Select(CreateStackVersionOne).ToList(),
-                    SuppressionStates = Utilities.CreateSuppressionStatesVersionOne(v2Result.SuppressionStates)
+                    SuppressionStates = Utilities.CreateSuppressionStatesVersionOne(v2Result.Suppressions)
                 };
 
                 if (result.Fixes != null)
@@ -881,22 +882,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     _currentRun = run;
 
                     CreateFileKeyIndexMappings(v2Run.Artifacts, out _v1FileKeyToV2IndexMap, out _v2FileIndexToV1KeyMap);
-                    _v2RuleIndexToV1KeyMap = CreateV2RuleIndexToV1KeyMapping(v2Run.Tool.Driver.RuleDescriptors);
+                    _v2RuleIndexToV1KeyMap = CreateV2RuleIndexToV1KeyMapping(v2Run.Tool.Driver.Rules);
 
-                    run.BaselineId = v2Run.BaselineInstanceGuid;
+                    run.BaselineId = v2Run.BaselineGuid;
                     run.Files = CreateFileDataVersionOneDictionary();
-                    run.Id = v2Run.Id?.InstanceGuid;
-                    run.AutomationId = v2Run.AggregateIds?.FirstOrDefault()?.InstanceId;
+                    run.Id = v2Run.AutomationDetails?.Guid;
+                    run.AutomationId = v2Run.RunAggregates?.FirstOrDefault()?.Id;
 
-                    run.StableId = v2Run.Id?.InstanceIdLogicalComponent();
+                    run.StableId = v2Run.AutomationDetails?.InstanceIdLogicalComponent();
 
                     run.Invocation = CreateInvocationVersionOne(v2Run.Invocations?[0]);
                     run.LogicalLocations = CreateLogicalLocationVersionOneDictionary(v2Run.LogicalLocations);
                     run.Properties = v2Run.Properties;
                     run.Results = new List<ResultVersionOne>();
 
-                    run.Rules = ConvertRulesArrayToDictionary(_currentV2Run.Tool.Driver.RuleDescriptors, _v2RuleIndexToV1KeyMap);
-                    run.Tool = CreateToolVersionOne(v2Run.Tool);
+                    run.Rules = ConvertRulesArrayToDictionary(_currentV2Run.Tool.Driver.Rules, _v2RuleIndexToV1KeyMap);
+                    run.Tool = CreateToolVersionOne(v2Run.Tool, v2Run.Language);
 
                     foreach (Result v2Result in v2Run.Results)
                     {
@@ -1131,9 +1132,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 stackFrame = new StackFrameVersionOne
                 {
-                    Address = v2StackFrame.Address.BaseAddress,
+                    Address = HexToInt(v2StackFrame.Location?.PhysicalLocation?.Address?.BaseAddress),
                     Module = v2StackFrame.Module,
-                    Offset = v2StackFrame.Address.Offset,
+                    Offset = HexToInt(v2StackFrame.Location?.PhysicalLocation?.Address?.Offset),
                     Parameters = v2StackFrame.Parameters,
                     Properties = v2StackFrame.Properties,
                     ThreadId = v2StackFrame.ThreadId
@@ -1142,13 +1143,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 Location location = v2StackFrame.Location;
                 if (location != null)
                 {
-                    string fqln = location.FullyQualifiedLogicalName;
+                    string fqln = location.LogicalLocation?.FullyQualifiedName;
 
                     if (_currentV2Run.LogicalLocations != null &&
-                        !string.IsNullOrWhiteSpace(_currentV2Run.LogicalLocations[location.LogicalLocationIndex].FullyQualifiedName))
+                        location.LogicalLocation != null &&
+                        !string.IsNullOrWhiteSpace(_currentV2Run.LogicalLocations[location.LogicalLocation.Index].FullyQualifiedName))
                     {
-                        stackFrame.FullyQualifiedLogicalName = _currentV2Run.LogicalLocations[location.LogicalLocationIndex].FullyQualifiedName;
-                        stackFrame.LogicalLocationKey = fqln != _currentV2Run.LogicalLocations[location.LogicalLocationIndex].FullyQualifiedName ? fqln : null;
+                        stackFrame.FullyQualifiedLogicalName = _currentV2Run.LogicalLocations[location.LogicalLocation.Index].FullyQualifiedName;
+                        stackFrame.LogicalLocationKey = fqln != _currentV2Run.LogicalLocations[location.LogicalLocation.Index].FullyQualifiedName ? fqln : null;
                     }
                     else
                     {
@@ -1171,7 +1173,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return stackFrame;
         }
 
-        internal ToolVersionOne CreateToolVersionOne(Tool v2Tool)
+        private static int HexToInt(string hexValue)
+        {
+            if (string.IsNullOrWhiteSpace(hexValue))
+            {
+                return 0;
+            }
+            // strip the leading 0x if found.
+            if (hexValue.StartsWith("0x", StringComparison.OrdinalIgnoreCase))
+            {
+                hexValue = hexValue.Substring(2);
+            }
+            return int.TryParse(hexValue, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out int address) ? address : 0;
+        }
+
+        internal ToolVersionOne CreateToolVersionOne(Tool v2Tool, string language)
         {
             ToolVersionOne tool = null;
 
@@ -1181,6 +1197,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     FileVersion = v2Tool.Driver.DottedQuadFileVersion,
                     FullName = v2Tool.Driver.FullName,
+                    Language = language,
                     Name = v2Tool.Driver.Name,
                     Properties = v2Tool.Properties,
                     SemanticVersion = v2Tool.Driver.SemanticVersion,

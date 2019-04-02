@@ -1,0 +1,111 @@
+﻿{
+    "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-01-24",
+    "version": "2.0.0-csd.2.beta.2019-01-24",
+    "runs": [
+        {
+            "tool": {
+                "driver": {
+                    "name": "CodeScanner",
+                    "semanticVersion": "2.1.0"
+                }
+            },
+            "columnKind": "utf16CodeUnits",
+            "results": [],
+            "externalPropertyFiles": {
+                "conversion": {
+                    "artifactLocation": {
+                        "uri": "externalized/conversion.sarif-external-properties",
+                        "uriBaseId": "TESTROOT"
+                    },
+                    "instanceGuid": "B10DFE7E-2088-48EB-8CE6-F0679A2365F8"
+                },
+                "externalizedProperties": {
+                    "artifactLocation": {
+                        "uri": "externalized/externalizedProperties.sarif-external-properties",
+                        "uriBaseId": "TESTROOT"
+                    },
+                    "instanceGuid": "B10DFE7E-2088-48EB-8CE6-F0679A231111"
+                },
+                "artifacts": [
+                    {
+                        "artifactLocation": {
+                            "uri": "externalized/artifacts1.sarif-external-properties",
+                            "uriBaseId": "TESTROOT"
+                        },
+                        "instanceGuid": "B10DFE7E-2088-48EB-8CE6-F0679A230001",
+                        "itemCount": 2
+                    },
+                    {
+                        "artifactLocation": {
+                            "uri": "externalized/artifacts2.sarif-external-properties",
+                            "uriBaseId": "TESTROOT"
+                        },
+                        "instanceGuid": "B10DFE7E-2088-48EB-8CE6-F0679A230002",
+                        "itemCount": 2
+                    }
+                ],
+                "invocations": [
+                    {
+                        "artifactLocation": {
+                            "uri": "externalized/invocations1.sarif-external-properties",
+                            "uriBaseId": "TESTROOT"
+                        },
+                        "instanceGuid": "B10DFE7E-2088-48EB-8CE6-F0679A234444",
+                        "itemCount": 2
+                    },
+                    {
+                        "artifactLocation": {
+                            "uri": "externalized/artifacts2.sarif-external-properties",
+                            "uriBaseId": "TESTROOT"
+                        },
+                        "instanceGuid": "B10DFE7E-2088-48EB-8CE6-F0679A235555",
+                        "itemCount": 2
+                    }
+                ],
+                "logicalLocations": [
+                    {
+                        "artifactLocation": {
+                            "uri": "externalized/logicalLocations1.sarif-external-properties",
+                            "uriBaseId": "TESTROOT"
+                        },
+                        "instanceGuid": "B10DFE7E-2088-48EB-8CE6-F0679A234566",
+                        "itemCount": 2
+                    },
+                    {
+                        "artifactLocation": {
+                            "uri": "externalized/logicalLocations2.sarif-external-properties",
+                            "uriBaseId": "TESTROOT"
+                        },
+                        "instanceGuid": "B10DFE7E-2088-48EB-8CE6-F0679A236666",
+                        "itemCount": 2
+                    }
+                ],
+                "results": [
+                    {
+                        "artifactLocation": {
+                            "uri": "externalized/results1.sarif-external-properties",
+                            "uriBaseId": "TESTROOT"
+                        },
+                        "instanceGuid": "B10DFE7E-2088-48EB-8CE6-F0679A237777",
+                        "itemCount": 2
+                    },
+                    {
+                        "artifactLocation": {
+                            "uri": "externalized/results2.sarif-external-properties",
+                            "uriBaseId": "TESTROOT"
+                        },
+                        "instanceGuid": "B10DFE7E-2088-48EB-8CE6-F0679A238888",
+                        "itemCount": 2
+                    }
+                ],
+                "tool": {
+                    "artifactLocation": {
+                        "uri": "externalized/tool.sarif-external-properties",
+                        "uriBaseId": "TESTROOT"
+                    },
+                    "instanceGuid": "B10DFE7E-2088-48EB-8CE6-F0679A230003"
+                }
+            }
+        }
+    ]
+}

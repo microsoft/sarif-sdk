@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Markdown { get; set; }
 
         /// <summary>
-        /// The resource id for a plain text or Markdown message string.
+        /// The message identifier for this message.
         /// </summary>
         [DataMember(Name = "messageId", IsRequired = false, EmitDefaultValue = false)]
         public string MessageId { get; set; }

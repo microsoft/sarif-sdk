@@ -4,7 +4,10 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.Serialization;
+using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -13,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
-    public partial class Address : ISarifNode
+    public partial class Address : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Address> ValueComparer => AddressEqualityComparer.Instance;
 
@@ -35,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A base address rendered as a hexadecimal string.
         /// </summary>
         [DataMember(Name = "baseAddress", IsRequired = false, EmitDefaultValue = false)]
-        public int BaseAddress { get; set; }
+        public string BaseAddress { get; set; }
 
         /// <summary>
         /// An open-ended string that identifies the address kind. 'section' and 'segment' are well-known values.
@@ -50,28 +53,46 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Name { get; set; }
 
         /// <summary>
+        /// A human-readable fully qualified name that is associated with the address.
+        /// </summary>
+        [DataMember(Name = "fullyQualifiedName", IsRequired = false, EmitDefaultValue = false)]
+        public string FullyQualifiedName { get; set; }
+
+        /// <summary>
         /// an offset from the base address, if present, rendered as a hexadecimal string.
         /// </summary>
         [DataMember(Name = "offset", IsRequired = false, EmitDefaultValue = false)]
-        public int Offset { get; set; }
+        public string Offset { get; set; }
 
         /// <summary>
         /// An index into run.addresses used to retrieve a cached instance to represent the address.
         /// </summary>
         [DataMember(Name = "index", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(-1)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public int Index { get; set; }
 
         /// <summary>
         /// An index into run.addresses to retrieve a parent address. The parent can provide a base address (from which the current offset value is relevant) and other details.
         /// </summary>
         [DataMember(Name = "parentIndex", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(-1)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public int ParentIndex { get; set; }
+
+        /// <summary>
+        /// Key/value pairs that provide additional information about the address.
+        /// </summary>
+        [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
+        internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Address" /> class.
         /// </summary>
         public Address()
         {
+            Index = -1;
+            ParentIndex = -1;
         }
 
         /// <summary>
@@ -86,6 +107,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="name">
         /// An initialization value for the <see cref="P:Name" /> property.
         /// </param>
+        /// <param name="fullyQualifiedName">
+        /// An initialization value for the <see cref="P:FullyQualifiedName" /> property.
+        /// </param>
         /// <param name="offset">
         /// An initialization value for the <see cref="P:Offset" /> property.
         /// </param>
@@ -95,9 +119,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="parentIndex">
         /// An initialization value for the <see cref="P:ParentIndex" /> property.
         /// </param>
-        public Address(int baseAddress, string kind, string name, int offset, int index, int parentIndex)
+        /// <param name="properties">
+        /// An initialization value for the <see cref="P:Properties" /> property.
+        /// </param>
+        public Address(string baseAddress, string kind, string name, string fullyQualifiedName, string offset, int index, int parentIndex, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(baseAddress, kind, name, offset, index, parentIndex);
+            Init(baseAddress, kind, name, fullyQualifiedName, offset, index, parentIndex, properties);
         }
 
         /// <summary>
@@ -116,7 +143,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.BaseAddress, other.Kind, other.Name, other.Offset, other.Index, other.ParentIndex);
+            Init(other.BaseAddress, other.Kind, other.Name, other.FullyQualifiedName, other.Offset, other.Index, other.ParentIndex, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -137,14 +164,19 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Address(this);
         }
 
-        private void Init(int baseAddress, string kind, string name, int offset, int index, int parentIndex)
+        private void Init(string baseAddress, string kind, string name, string fullyQualifiedName, string offset, int index, int parentIndex, IDictionary<string, SerializedPropertyInfo> properties)
         {
             BaseAddress = baseAddress;
             Kind = kind;
             Name = name;
+            FullyQualifiedName = fullyQualifiedName;
             Offset = offset;
             Index = index;
             ParentIndex = parentIndex;
+            if (properties != null)
+            {
+                Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
+            }
         }
     }
 }

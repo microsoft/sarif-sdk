@@ -202,13 +202,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 run.SetProperty(propertyName, propertyValue);
 
-                run.Id = new RunAutomationDetails
+                run.AutomationDetails = new RunAutomationDetails
                 {
-                    InstanceId = runInstanceId,
-                    InstanceGuid = runInstanceGuid,
+                    Id = runInstanceId,
+                    Guid = runInstanceGuid,
                 };
 
-                run.BaselineInstanceGuid = baselineInstanceGuid;
+                run.BaselineGuid = baselineInstanceGuid;
                 run.Conversion = conversion;
                 run.VersionControlProvenance = new[] { versionControlDetails };
                 run.OriginalUriBaseIds = originalUriBaseIds;
@@ -230,9 +230,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             run = sarifLog.Runs[0];
 
             run.GetProperty<double>(propertyName).Should().Be(propertyValue);
-            run.Id.InstanceGuid.Should().Be(runInstanceGuid);
-            run.BaselineInstanceGuid.Should().Be(baselineInstanceGuid);
-            run.Id.InstanceId.Should().Be(runInstanceId);
+            run.AutomationDetails.Guid.Should().Be(runInstanceGuid);
+            run.BaselineGuid.Should().Be(baselineInstanceGuid);
+            run.AutomationDetails.Id.Should().Be(runInstanceId);
             run.Conversion.Tool.Should().BeEquivalentTo(DefaultTool);
             run.VersionControlProvenance[0].RepositoryUri.Should().BeEquivalentTo(versionControlUri);
             run.OriginalUriBaseIds[originalUriBaseIdKey].Uri.Should().Be(originalUriBaseIdValue);

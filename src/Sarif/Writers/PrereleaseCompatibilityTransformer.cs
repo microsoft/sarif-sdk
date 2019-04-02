@@ -23,6 +23,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private const string SchemaPropertyPattern = @"""\$schema""\s*:\s*""[^""]+""";
         private static readonly Regex s_SchemaRegex = new Regex(SchemaPropertyPattern, RegexOptions.Compiled);
 
+        private delegate void ActionOnJObject(JObject jObject);
+        private const string ArrayIndicatorSymbol = "[]";
+        private const char NodeDelimiterSymbol = '.';
+
         public static SarifLog UpdateToCurrentVersion(
             string prereleaseSarifLog, 
             Formatting formatting, 
@@ -43,9 +47,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             switch (version)
             {
+                case "2.0.0-csd.2.beta.2019-04-03":
+                {
+                    // SARIF TC33. Nothing to do.
+                    break;
+                }
+
                 case "2.0.0-csd.2.beta.2019-02-20":
                 {
-                    // SARIF TC32. Nothing to do.
+                    modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     break;
                 }
 
@@ -53,6 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 case "2.0.0-csd.2.beta.2019-01-24.1":
                 {
                     modifiedLog |= ApplyChangesFromTC32(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     break;
                 }
 
@@ -60,6 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     modifiedLog |= ApplyChangesFromTC31(sarifLog);
                     modifiedLog |= ApplyChangesFromTC32(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     break;
                 }
 
@@ -75,6 +87,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         out ruleKeyToIndexMap);
                     modifiedLog |= ApplyChangesFromTC31(sarifLog);
                     modifiedLog |= ApplyChangesFromTC32(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     break;
 
                 }
@@ -89,6 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         out ruleKeyToIndexMap);
                     modifiedLog |= ApplyChangesFromTC31(sarifLog);
                     modifiedLog |= ApplyChangesFromTC32(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     break;
                 }
             }
@@ -118,158 +132,450 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return transformedSarifLog;
         }
 
-        private static bool ApplyChangesFromTC32(JObject sarifLog)
+        private static bool ApplyChangesFromTC33(JObject sarifLog)
         {
-            UpdateSarifLogVersion(sarifLog);
+            UpdateSarifLogVersionAndSchema(sarifLog);
+
             if (sarifLog["runs"] is JArray runs)
             {
                 foreach (JObject run in runs)
                 {
-                    // https://github.com/oasis-tcs/sarif-spec/issues/325
-                    // https://github.com/oasis-tcs/sarif-spec/issues/330
-                    RemoveToolLanguage(run);
-                    UpdateAllReportingDescriptorPropertyTypes(run);
-                    ConvertAllExceptionMessagesToStringAndRenameToolNotificationNodes(run);
+                    // https://github.com/oasis-tcs/sarif-spec/issues/337
+                    ConvertToolToDriverInExternalPropertyFiles(run);
 
-                    // https://github.com/oasis-tcs/sarif-spec/issues/336
-                    UpdateAllToolComponentProperties(run);
+                    // https://github.com/oasis-tcs/sarif-spec/issues/338
+                    ModifyExternalPropertyFilesToExternalPropertyFileReferences(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/324
+                    UpdateAllNotificationDescriptorReferences(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/344
+                    ConvertSuppressionStatesToSuppressions(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/341
+                    RenameAllInstanceGuidsAndIds(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/340
+                    AddLogicalLocationToAllLocationNodes(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/338
+                    MoveToolLanguageToRun(run);
+                    RenameAllToolComponentDescriptors(run);
 
                     // https://github.com/oasis-tcs/sarif-spec/issues/302
-                    ConvertAllStackFrameAddressesToAddressObjects(run);
+                    MoveAllStackFrameAddressesToLocation(run);
                 }
             }
             return true;
         }
 
-        private static void ConvertAllStackFrameAddressesToAddressObjects(JObject run)
+        private static void MoveToolLanguageToRun(JObject run)
         {
-            // We need to remove StackFrame.Address (int) and StackFrame.Offset (int) and transfer those
-            // to a single Address object with properties "BaseAddress" and "Offset".
+            JObject tool = (JObject)run["tool"];
+            if (tool["language"] is JToken language)
+            {
+                tool.Remove("language");
+                run.Add("language", language);
+            }
+        }
 
+        private static void RenameAllToolComponentDescriptors(JObject run)
+        {
+            string[] toolComponentPathsToUpdate =
+            {
+                "tool.driver",
+                "tool.extensions[]",
+                "conversion.tool.driver",
+                "conversion.tool.extensions[]"
+            };
+
+            PerformActionOnLeafNodeIfExists(
+                possiblePathsToLeafNode: toolComponentPathsToUpdate,
+                rootNode: run,
+                action: RenameToolComponentDescriptors);
+        }
+
+        private static void RenameToolComponentDescriptors(JObject toolComponent)
+        {
+            if (toolComponent["ruleDescriptors"] is JArray ruleDescriptors)
+            {
+                toolComponent.Remove("ruleDescriptors");
+                toolComponent.Add("rules", ruleDescriptors);
+            }
+
+            if (toolComponent["notificationDescriptors"] is JArray notificationDescriptors)
+            {
+                toolComponent.Remove("notificationDescriptors");
+                toolComponent.Add("notifications", notificationDescriptors);
+            }
+        }
+
+        private static void UpdateAllNotificationDescriptorReferences(JObject run)
+        {
             // Previously:
-            //      "stackFrame" : {
-            //          "address" : 324 ,
-            //          "offset" : 346
+            //      "notification" : {
+            //          "id" : "notif001" ,
+            //          "ruleId" : "rule001",
+            //          "ruleIndex" : 1
             //      }
             // Now:
-            //      "stackFrame" : {
-            //          "address" : {
-            //              "baseAddress" : 324,
-            //              "offset" : 346
+            //      "notification" : {
+            //          "notificationDescriptorReference" : {
+            //              "id" : "notif001"
+            //          }
+            //          "associatedRuleDescriptorReference" : {
+            //              "id" : "rule001",
+            //              "index" : 1
             //          }
             //      }
 
-            // The code walks through all possible paths to Stackframe node and performs updates.
-
-            if (run["conversion"] is JObject conversion && conversion["invocation"] is JObject invocation)
+            string[] notificationPathsToUpdate =
             {
-                ConvertInvocationStackFrameAddressesToAddressObjects(invocation);
+                "invocations[].toolExecutionNotifications[]",
+                "invocations[].toolConfigurationNotifications[]",
+                "conversion.invocation.toolExecutionNotifications[]",
+                "conversion.invocation.toolConfigurationNotifications[]"
+            };
+
+            PerformActionOnLeafNodeIfExists(
+                possiblePathsToLeafNode: notificationPathsToUpdate,
+                rootNode: run,
+                action: UpdateNotificationDescriptorReferencesInSingleNotificationObject);
+        }
+
+        private static void UpdateNotificationDescriptorReferencesInSingleNotificationObject(JObject notification)
+        {
+            if(notification["id"] is JToken id)
+            {
+                var notificationDescriptorReference = new JObject
+                {
+                    { "id", id }
+                };
+
+                notification.Remove("id");
+                notification.Add("descriptor", notificationDescriptorReference);
             }
 
-            if (run["invocations"] is JArray invocations)
+            var associatedRuleDescriptorReference = new JObject();
+
+            if (notification["ruleId"] is JToken ruleId)
             {
-                foreach (JObject item in invocations)
+                associatedRuleDescriptorReference.Add("id", ruleId);
+                notification.Remove("ruleId");
+            }
+
+            if (notification["ruleIndex"] is JToken ruleIndex)
+            {
+                associatedRuleDescriptorReference.Add("index", ruleIndex);
+                notification.Remove("ruleIndex");
+            }
+
+            if (associatedRuleDescriptorReference.Count > 0)
+            {
+                notification.Add("associatedRule", associatedRuleDescriptorReference);
+            }
+        }
+
+        private static void ConvertSuppressionStatesToSuppressions(JObject run)
+        {
+            if (run["results"] is JArray results)
+            {
+                foreach (JObject result in results)
                 {
-                    ConvertInvocationStackFrameAddressesToAddressObjects(item);
+                    if (result["suppressionStates"] is JArray suppressionStates)
+                    {
+                        result.Remove("suppressionStates");
+                        var suppressions = new JArray();
+
+                        foreach (JToken suppressionState in suppressionStates)
+                        {
+                            var suppression = new JObject
+                            {
+                                { "kind", suppressionState }
+                            };
+
+                            suppressions.Add(suppression);
+                        }
+
+                        if (suppressions.Count > 0)
+                        {
+                            result.Add("suppressions", suppressions);
+                        }
+                    }
                 }
+            }
+        }
+
+        private static void ModifyExternalPropertyFilesToExternalPropertyFileReferences(JObject run)
+        {
+            if (run["externalPropertyFiles"] is JObject externalPropertyFiles)
+            {
+                run.Remove("externalPropertyFiles");
+                run.Add("externalPropertyFileReferences", externalPropertyFiles);
+            }
+        }
+
+        private static void RenameAllInstanceGuidsAndIds(JObject run)
+        {
+            // The following properties will be renamed:
+
+            // run.baselineInstanceGuid -> run.baselineGuid
+
+            // run.id -> run.automationDetails
+            // run.id.instanceId -> run.automationDetails.id
+            // run.id.instanceGuid -> run.automationDetails.guid
+
+            // run.aggregateIds -> run.runAggregates
+            // run.aggregateIds[].instanceId -> run.runAggregates[].id
+            // run.aggregateIds[].instanceGuid -> run.runAggregates[].guid
+
+            // run.results[].instanceGuid -> run.results[].guid
+            // run.results[].resultProvenance.firstDetectionRunInstanceGuid -> run.results[].resultProvenance.firstDetectionRunGuid
+            // run.results[].resultProvenance.lastDetectionRunInstanceGuid -> run.results[].resultProvenance.lastDetectionRunGuid
+
+
+            if (run["baselineInstanceGuid"] is JToken baselineInstanceGuid)
+            {
+                run.Remove("baselineInstanceGuid");
+                run.Add("baselineGuid", baselineInstanceGuid);
+            }
+
+            if (run["id"] is JObject id)
+            {
+                RenameInstanceGuidToGuidInNode(id);
+                RenameInstanceIdToIdInNode(id);
+
+                run.Remove("id");
+                run.Add("automationDetails", id);
+            }
+
+            if (run["aggregateIds"] is JArray aggregateIds)
+            {
+                foreach (JObject aggregateId in aggregateIds)
+                {
+                    RenameInstanceGuidToGuidInNode(aggregateId);
+                    RenameInstanceIdToIdInNode(aggregateId);
+                }
+
+                run.Remove("aggregateIds");
+                run.Add("runAggregates", aggregateIds);
             }
 
             if (run["results"] is JArray results)
             {
                 foreach (JObject result in results)
                 {
-                    if (result["stacks"] is JArray stacks)
-                    {
-                        foreach (JObject item in stacks)
-                        {
-                            ConvertStackFrameAddressesToAddressObjects(item);
-                        }
-                    }
+                    RenameInstanceGuidToGuidInNode(result);
 
-                    if (result["codeflows"] is JArray codeflows)
+                    if (result["resultProvenance"] is JObject resultProvenance)
                     {
-                        foreach (JObject codeflow in codeflows)
+                        if (resultProvenance["firstDetectionRunInstanceGuid"] is JToken firstDetectionRunInstanceGuid)
                         {
-                            if (codeflow["threadflow"] is JObject threadflow &&
-                                threadflow["threadflowLocation"] is JObject threadflowLocation &&
-                                threadflowLocation["Stack"] is JObject stack)
-                            {
-                                ConvertStackFrameAddressesToAddressObjects(stack);
-                            }
+                            resultProvenance.Remove("firstDetectionRunInstanceGuid");
+                            resultProvenance.Add("firstDetectionRunGuid", firstDetectionRunInstanceGuid);
+                        }
+
+                        if (resultProvenance["lastDetectionRunInstanceGuid"] is JToken lastDetectionRunInstanceGuid)
+                        {
+                            resultProvenance.Remove("lastDetectionRunInstanceGuid");
+                            resultProvenance.Add("lastDetectionRunGuid", lastDetectionRunInstanceGuid);
                         }
                     }
                 }
             }
         }
 
-        private static void ConvertInvocationStackFrameAddressesToAddressObjects(JObject item)
+        private static void RenameInstanceGuidToGuidInNode(JObject node)
         {
-            if (item["toolExecutionNotifications"] is JArray toolExecutionNotifications)
+            if (node["instanceGuid"] is JToken instanceGuid)
             {
-                ConvertNotificationsStackFrameAddressesToAddressObjects(toolExecutionNotifications);
-            }
-
-            if (item["toolConfigurationNotifications"] is JArray toolConfigurationNotifications)
-            {
-                ConvertNotificationsStackFrameAddressesToAddressObjects(toolConfigurationNotifications);
+                node.Remove("instanceGuid");
+                node.Add("guid", instanceGuid);
             }
         }
 
-        private static void ConvertNotificationsStackFrameAddressesToAddressObjects(JArray notifications)
+        private static void RenameInstanceIdToIdInNode(JObject node)
         {
-            foreach (JObject notification in notifications)
+            if (node["instanceId"] is JToken instanceId)
             {
-                if (notification["exception"] is JObject exception)
+                node.Remove("instanceId");
+                node.Add("id", instanceId);
+            }
+        }
+
+        private static void AddLogicalLocationToAllLocationNodes(JObject run)
+        {
+            // We need to remove location.fullyQualifiedLogicalName (string) and location.logicalLocationIndex (int) and transfer those
+            // to a single LogicalLocation object with properties "fullyQualifiedName" and "parentIndex".
+
+            // Previously:
+            //      "location" : {
+            //          "fullyQualifiedLogicalName" : "test" ,
+            //          "logicalLocationIndex" : 1
+            //      }
+            // Now:
+            //      "location" : {
+            //          "logicalLocation" : {
+            //              "fullyQualifiedName" : "test",
+            //              "Index" : 1
+            //          }
+            //      }
+
+            // The code walks through all possible paths to 'location' node and performs updates.
+            string[] locationPathsToUpdate =
+            {
+
+                "results[].locations[]",
+                "results[].relatedLocations[]",
+                "results[].stacks[].frames[].location",
+                "results[].codeFlows[].threadFlows[].locations[].location",
+                "results[].codeFlows[].threadFlows[].locations[].stack.frames[].location",
+
+                "threadFlowLocations[].stack.frames[].location",
+                "threadFlowLocations[].location",
+
+                "invocations[].toolExecutionNotifications[].exception.stack.frames[].location",
+                "invocations[].toolExecutionNotifications[].exception.innerExceptions[].stack.frames[].location", // (recursive reference)
+                "invocations[].toolConfigurationNotifications[].exception.stack.frames[].location",
+                "invocations[].toolConfigurationNotifications[].exception.innerExceptions[].stack.frames[].location", // (recursive reference)
+
+                "conversion.invocation.toolExecutionNotifications[].exception.stack.frames[].location",
+                "conversion.invocation.toolExecutionNotifications[].exception.innerExceptions[].stack.frames[].location", // (recursive reference)
+                "conversion.invocation.toolConfigurationNotifications[].exception.stack.frames[].location",
+                "conversion.invocation.toolConfigurationNotifications[].exception.innerExceptions[].stack.frames[].location" // (recursive reference)
+
+                // Note: Ignoring graph related paths since no one is using this feature at the moment:
+                //"results[].graphs.nodes[].location"
+                //"graphs.nodes[].location"
+                //"graphs.nodes[].children[].location" //(recursive reference)
+            };
+            PerformActionOnLeafNodeIfExists(locationPathsToUpdate, run, AddLogicalLocationToSingleLocationNode);
+        }
+
+        private static void AddLogicalLocationToSingleLocationNode(JObject location)
+        {
+            var logicalLocation = new JObject();
+
+            if (location["fullyQualifiedLogicalName"] is JToken fullyQualifiedLogicalName)
+            {
+                logicalLocation.Add("fullyQualifiedName", fullyQualifiedLogicalName);
+                location.Remove("fullyQualifiedLogicalName");
+            }
+
+            if (location["logicalLocationIndex"] is JToken logicalLocationIndex)
+            {
+                logicalLocation.Add("index", logicalLocationIndex);
+                location.Remove("logicalLocationIndex");
+            }
+
+            if (logicalLocation.Count > 0)
+            {
+                location.Add("logicalLocation", logicalLocation);
+            }
+        }
+
+        private static void ConvertToolToDriverInExternalPropertyFiles(JObject run)
+        {
+            if (run["externalPropertyFiles"] is JObject externalPropertyFiles &&
+                externalPropertyFiles["tool"] is JObject toolExternalPropertyFile)
+            {
+                externalPropertyFiles.Remove("tool");
+                externalPropertyFiles.Add("driver", toolExternalPropertyFile);
+            }
+        }
+
+        private static bool ApplyChangesFromTC32(JObject sarifLog)
+        {
+            if (sarifLog["runs"] is JArray runs)
+            {
+                foreach (JObject run in runs)
                 {
-                    ConvertExceptionStackFrameAddressesToAddressObjects(exception);
+                    // https://github.com/oasis-tcs/sarif-spec/issues/330
+                    UpdateAllReportingDescriptorPropertyTypes(run);
+                    ConvertAllExceptionMessagesToStringAndRenameToolNotificationNodes(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/325
+                    UpdateAllExternalPropertyFilePropertyTypes(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/336
+                    UpdateAllToolComponentProperties(run);
                 }
             }
+            return true;
         }
 
-        private static void ConvertExceptionStackFrameAddressesToAddressObjects(JObject exception)
+        private static void MoveAllStackFrameAddressesToLocation(JObject run)
         {
-            if (exception["stack"] is JObject stack)
-            {
-                ConvertStackFrameAddressesToAddressObjects(stack);
-            }
+            // We need to remove StackFrame.Address (int) and StackFrame.Offset (int) and transfer those
+            // to a single Address object with properties "BaseAddress" and "Offset".
 
-            if (exception["innerExceptions"] is JArray innerExceptions)
+            // Previously:
+            //  "stackFrame" : {
+            //      "address" : 324 ,
+            //      "offset" : 346
+            //  }
+            // Now:
+            //  "stackFrame" : {
+            //      "location" : {
+            //          "physicalLocation" : {
+            //              "address" : {
+            //                  "baseAddress" : "0x144",
+            //                  "offset" : "0x15A"
+            //              }
+            //          }
+            //      }
+            //  }
+
+            // The code walks through all possible paths to Stackframe node and performs updates.
+            string[] addressPathsToUpdate =
             {
-                foreach (JObject innerException in innerExceptions)
-                {
-                    ConvertExceptionStackFrameAddressesToAddressObjects(innerException);
-                }
-            }
+                 "conversion.invocation.toolExecutionNotifications[].exception.stack.frames[]",
+                 "conversion.invocation.toolConfigurationNotifications[].exception.stack.frames[]",
+                 "conversion.invocation.toolExecutionNotifications[].exception.innerExceptions[].stack.frames[]",
+                 "conversion.invocation.toolConfigurationNotifications[].exception.innerExceptions[].stack.frames[]",
+
+                 "invocations[].toolExecutionNotifications[].exception.stack.frames[]",
+                 "invocations[].toolExecutionNotifications[].exception.stack.frames[]",
+                 "invocations[].toolConfigurationNotifications[].exception.innerExceptions[].stack.frames[]",
+                 "invocations[].toolConfigurationNotifications[].exception.innerExceptions[].stack.frames[]",
+
+                 "results[].codeFlows[].threadFlows[].locations[].stack.frames[]",
+                 "results[].stacks[].frames[]"
+            };
+
+            PerformActionOnLeafNodeIfExists(
+                possiblePathsToLeafNode: addressPathsToUpdate,
+                rootNode: run,
+                action: MoveSingleStackFrameAddressToLocation);
+
         }
 
-        private static void ConvertStackFrameAddressesToAddressObjects(JObject stack)
+        private static void MoveSingleStackFrameAddressToLocation(JObject stackFrame)
         {
-            if (stack["frames"] is JArray frames)
+            var address = new JObject();
+
+            if (stackFrame["address"] is JToken stackFrameAddress)
             {
-                foreach (JObject stackFrame in frames)
-                {
-                    var address = new JObject();
+                address.Add("baseAddress", string.Format("0x{0:X}", stackFrameAddress));
+                stackFrame.Remove("address");
+            }
 
-                    if (stackFrame["address"] is JToken stackFrameAddress)
-                    {
-                        address.Add("baseAddress", stackFrameAddress);
-                        stackFrame.Remove("address");
-                    }
+            if (stackFrame["offset"] is JToken stackFrameOffset)
+            {
+                address.Add("offset", string.Format("0x{0:X}", stackFrameOffset));
+                stackFrame.Remove("offset");
+            }
 
-                    if (stackFrame["offset"] is JToken stackFrameOffset)
-                    {
-                        address.Add("offset", stackFrameOffset);
-                        stackFrame.Remove("offset");
-                    }
+            if (address.Count > 0)
+            {
+                var location = stackFrame["location"] is JObject ? stackFrame["location"] : new JObject();
+                var physicalLocation = location["physicalLocation"] is JObject ? location["physicalLocation"] : new JObject();
 
-                    if (address.Count > 0)
-                    {
-                        stackFrame.Add("address", address);
-                    }
-                }
+                physicalLocation["address"] = address;
+                location["physicalLocation"] = physicalLocation;
+                stackFrame["location"] = location;
             }
         }
-
 
         private static void UpdateAllToolComponentProperties(JObject run)
         {
@@ -301,6 +607,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     UpdateToolComponentProperties(toolComponent);
                 }
+            }
+        }
+
+        private static void UpdateAllExternalPropertyFilePropertyTypes(JObject run)
+        {
+            if (run["externalPropertyFiles"] is JObject externalPropertyFiles)
+            {
+                var renamedMembers = new Dictionary<string, string>
+                {
+                    ["instanceGuid"] = "guid",
+                    ["artifactLocation"] = "location"
+                };
+
+                RecursivePropertyRename(run, renamedMembers);
             }
         }
 
@@ -382,109 +702,66 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
         }
 
-        private static void RemoveToolLanguage(JObject run)
-        {
-            JObject tool = (JObject)run["tool"];
-            if (tool["language"] is JToken language)
-            {
-                tool.Remove("language");
-            }
-        }
-
         private static void UpdateAllReportingDescriptorPropertyTypes(JObject run)
         {
-            // Access and modify run.tool
-            JObject tool = (JObject)run["tool"];
-            UpdateToolReportingDescriptorPropertyTypes(tool);
-
-            // Access and modify run.conversion.tool
-            if (run["conversion"] is JObject conversion)
+            string[] reportingDescriptorPathsToUpdate =
             {
-                tool = (JObject)conversion["tool"];
-                UpdateToolReportingDescriptorPropertyTypes(tool);
-            }
+                "tool.driver.notificationDescriptors[]",
+                "conversion.tool.driver.notificationDescriptors[]",
+                "tool.extensions[].notificationDescriptors[]",
+                "conversion.tool.extensions[].notificationDescriptors[]",
+                "tool.driver.ruleDescriptors[]",
+                "conversion.tool.driver.ruleDescriptors[]",
+                "tool.extensions[].ruleDescriptors",
+                "conversion.tool.extensions[].ruleDescriptors[]"
+            };
+
+            PerformActionOnLeafNodeIfExists(reportingDescriptorPathsToUpdate, run, UpdateReportingDescriptorPropertyTypes);
+
         }
 
-        private static void UpdateToolReportingDescriptorPropertyTypes(JObject tool)
+        private static void UpdateReportingDescriptorPropertyTypes(JObject reportingDescriptor)
         {
-            // Access and modify tool.driver
-            if (tool["driver"] is JObject driver)
+            if (reportingDescriptor["name"] is JObject message && message["text"] is JToken text)
             {
-                UpdateToolComponentReportingDescriptorPropertyTypes(driver);
+                reportingDescriptor["name"] = text;
             }
 
-            // Access and modify each item in tool.extensions
-            if (tool["extensions"] is JArray extensions)
+            if (reportingDescriptor["shortDescription"] is JObject message2)
             {
-                foreach (JObject toolComponent in extensions)
+                // We must convert this JObject from type "Message" to "MultiformatMessageString".
+                // Both Objects have common JTokens "text" and "markdown" which do not need modification.
+                // Hence, we only need to strip out additional properties that Message object may have (messageId and arguments).
+                if (message2["messageId"] is JToken)
                 {
-                    UpdateToolComponentReportingDescriptorPropertyTypes(toolComponent);
-                }
-            }
-        }
-
-        private static void UpdateToolComponentReportingDescriptorPropertyTypes(JObject toolComponent)
-        {
-            // Access and modify toolComponent.notificationDescriptors
-            if (toolComponent["notificationDescriptors"] is JArray notificationDescriptors)
-            {
-                UpdateReportingDescriptorPropertyTypes(notificationDescriptors);
-            }
-
-            // Access and modify toolComponent.ruleDescriptors
-            if (toolComponent["ruleDescriptors"] is JArray ruleDescriptors)
-            {
-                UpdateReportingDescriptorPropertyTypes(ruleDescriptors);
-            }
-        }
-
-        private static void UpdateReportingDescriptorPropertyTypes(JArray reportingDescriptors)
-        {
-            foreach (JObject reportingDescriptor in reportingDescriptors)
-            {
-                if (reportingDescriptor["name"] is JObject message && message["text"] is JToken text)
-                {
-                    reportingDescriptor["name"] = text;
+                    message2.Remove("messageId");
                 }
 
-                if (reportingDescriptor["shortDescription"] is JObject message2)
+                if (message2["arguments"] is JArray)
                 {
-                    // We must convert this JObject from type "Message" to "MultiformatMessageString".
-                    // Both Objects have common JTokens "text" and "markdown" which do not need modification.
-                    // Hence, we only need to strip out additional properties that Message object may have (messageId and arguments).
-                    if (message2["messageId"] is JToken)
-                    {
-                        message2.Remove("messageId");
-                    }
+                    message2.Remove("arguments");
+                }
+            }
 
-                    if (message2["arguments"] is JArray)
-                    {
-                        message2.Remove("arguments");
-                    }
+            if (reportingDescriptor["fullDescription"] is JObject message3)
+            {
+                // We must convert this JObject from type "Message" to "MultiformatMessageString".
+                // Both Objects have common JTokens "text" and "markdown" which do not need modification.
+                // Hence, we only need to strip out additional properties that Message object may have (messageId and arguments).
+                if (message3["messageId"] is JToken)
+                {
+                    message3.Remove("messageId");
                 }
 
-                if (reportingDescriptor["fullDescription"] is JObject message3)
+                if (message3["arguments"] is JArray)
                 {
-                    // We must convert this JObject from type "Message" to "MultiformatMessageString".
-                    // Both Objects have common JTokens "text" and "markdown" which do not need modification.
-                    // Hence, we only need to strip out additional properties that Message object may have (messageId and arguments).
-                    if (message3["messageId"] is JToken)
-                    {
-                        message3.Remove("messageId");
-                    }
-
-                    if (message3["arguments"] is JArray)
-                    {
-                        message3.Remove("arguments");
-                    }
+                    message3.Remove("arguments");
                 }
             }
         }
 
         private static bool ApplyChangesFromTC31(JObject sarifLog)
         {
-            UpdateSarifLogVersion(sarifLog);
-
             if (sarifLog["runs"] is JArray runs)
             {
                 foreach (JObject run in runs)
@@ -809,7 +1086,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // code. This would prevent multiple passes over things like the run.results array.
             // We've isolated the changes here instead simply to keep them grouped together.
 
-            bool modifiedLog = UpdateSarifLogVersion(sarifLog); 
+            bool modifiedLog = false; 
 
             // For completness, this update added run.newlineSequences to the schema
             // This is a non-breaking (additive) change, so there is no work to do.
@@ -1231,7 +1508,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static bool ApplyCoreTransformations(JObject sarifLog)
         {
-            bool modifiedLog = UpdateSarifLogVersion(sarifLog); 
+            bool modifiedLog = false;
 
             if (sarifLog["runs"] is JArray runs)
             {
@@ -1266,25 +1543,42 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return modifiedLog;
         }
 
-        private static bool UpdateSarifLogVersion(JObject sarifLog)
+        private static bool UpdateSarifLogVersionAndSchema(JObject sarifLog)
         {
-            bool modifiedLog = false;
+            bool modifiedLog = UpdateVersionAndSchema(sarifLog);
 
-            string version = (string)sarifLog["version"];
-            if (version != SarifUtilities.SemanticVersion)
+            if (sarifLog["inlineExternalProperties"] is JArray inlineExternalPropertiesArray)
             {
-                sarifLog["version"] = SarifUtilities.SemanticVersion;
-                modifiedLog = true;
+                foreach (JObject inlineExternalProperties in inlineExternalPropertiesArray)
+                {
+                    modifiedLog |= UpdateVersionAndSchema(inlineExternalProperties);
+                }
             }
-
-            string schema = (string)sarifLog["$schema"];
-            if (schema != SarifUtilities.SarifSchemaUri)
-            {
-                sarifLog["$schema"] = SarifUtilities.SarifSchemaUri;
-                modifiedLog = true;
-            }
-
             return modifiedLog;
+        }
+
+        private static bool UpdateVersionAndSchema(JObject jObject)
+        {
+            bool modified = false;
+
+            modified |= UpdatePropertyValueIfPresent(jObject, "version", SarifUtilities.SemanticVersion);
+            modified |= UpdatePropertyValueIfPresent(jObject, "$schema", SarifUtilities.SarifSchemaUri);
+
+            return modified;
+        }
+
+        private static bool UpdatePropertyValueIfPresent(JObject jObject, string propertyName, string propertyValue)
+        {
+            bool modified = false;
+
+            string existingValue = (string)jObject[propertyName];
+            if (!string.IsNullOrEmpty(existingValue) && existingValue != propertyValue)
+            {
+                jObject[propertyName] =propertyValue;
+                modified = true;
+            }
+
+            return modified;
         }
 
         private static bool RefactorRunAutomationDetails(JObject run)
@@ -1699,6 +1993,59 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             return modifiedNotification;
+        }
+
+        private static void PerformActionOnLeafNodeIfExists(string[] possiblePathsToLeafNode, JObject rootNode, ActionOnJObject action)
+        {
+            foreach(string nodePath in possiblePathsToLeafNode)
+            {
+                PerformActionOnLeafNodeIfExists(nodePath, rootNode, action);
+            }
+        }
+
+        private static void PerformActionOnLeafNodeIfExists(string possiblePathToLeafNode, JObject rootNode, ActionOnJObject action)
+        {
+            if (possiblePathToLeafNode == null)
+            {
+                action(rootNode);
+                return;
+            }
+
+            (string currentNodeName, string remainingLeafNodePath) = SplitCurrentNodeNameAndRemainingLeafNodePath(possiblePathToLeafNode);
+
+            if (currentNodeName.EndsWith(ArrayIndicatorSymbol))
+            {
+                currentNodeName = currentNodeName.TrimEnd(ArrayIndicatorSymbol.ToCharArray());
+
+                if (rootNode[currentNodeName] is JArray currentArray)
+                {
+                    foreach (JObject currentNode in currentArray)
+                    {
+                        PerformActionOnLeafNodeIfExists(remainingLeafNodePath, currentNode, action);
+                    }
+                }
+            }
+            else
+            {
+                if (rootNode[currentNodeName] is JObject currentNode)
+                {
+                    PerformActionOnLeafNodeIfExists(remainingLeafNodePath, currentNode, action);
+                }
+            }
+        }
+
+        private static (string currentNodeName, string remainingLeafNodePath) SplitCurrentNodeNameAndRemainingLeafNodePath(string fullPath)
+        {
+            char[] delimiter = { NodeDelimiterSymbol };
+
+            string[] splitItems = fullPath.Split(separator: delimiter, count: 2);
+
+            if (splitItems.Length == 1)
+            {
+                return (currentNodeName: splitItems[0], null);
+            }
+
+            return (currentNodeName: splitItems[0], remainingLeafNodePath: splitItems[1]);
         }
     }
 }

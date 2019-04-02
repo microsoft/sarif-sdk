@@ -211,7 +211,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             Run run = new Run()
             {
                 Tool = tool,
-                Id = currentRuns.First().Id,
+                AutomationDetails = currentRuns.First().AutomationDetails,
             };
 
             IDictionary<string, SerializedPropertyInfo> properties = null;
@@ -220,7 +220,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             {
                 // We flow the baseline instance id forward (which becomes the 
                 // baseline guid for the merged log)
-                run.BaselineInstanceGuid = previousRuns.First().Id?.InstanceGuid;
+                run.BaselineGuid = previousRuns.First().AutomationDetails?.Guid;
             }
 
             bool initializeFromOldest = PropertyBagMergeBehavior.HasFlag(DictionaryMergeBehavior.InitializeFromOldest);
@@ -261,11 +261,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
                 if (result.RuleIndex != -1)
                 {
-                    ReportingDescriptor rule = resultPair.Run.Tool.Driver.RuleDescriptors[0];
+                    ReportingDescriptor rule = resultPair.Run.Tool.Driver.Rules[0];
                     if (!reportingDescriptors.TryGetValue(rule, out int ruleIndex))
                     {
-                        reportingDescriptors[rule] = run.Tool.Driver.RuleDescriptors.Count;
-                        run.Tool.Driver.RuleDescriptors.Add(rule);
+                        reportingDescriptors[rule] = run.Tool.Driver.Rules.Count;
+                        run.Tool.Driver.Rules.Add(rule);
                     }
                     result.RuleIndex = ruleIndex;
                 }
@@ -276,8 +276,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             run.Results = newRunResults;
             run.Artifacts = indexRemappingVisitor.CurrentFiles;
             
-            var graphs = new Dictionary<string, Graph>();
-            var ruleData = new Dictionary<string, ReportingDescriptor>();
+            var graphs = new List<Graph>();
+            //var ruleData = new Dictionary<string, ReportingDescriptor>();
             var invocations = new List<Invocation>();
 
             // TODO tool message strings are not currently handled
@@ -287,7 +287,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             {
                 if (currentRun.Graphs != null)
                 {
-                    MergeDictionaryInto(graphs, currentRun.Graphs, GraphEqualityComparer.Instance);
+                    graphs.AddRange(currentRun.Graphs);
                 }
 
                 if (currentRun.Invocations != null)

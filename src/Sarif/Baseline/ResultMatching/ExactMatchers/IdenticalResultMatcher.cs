@@ -98,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             {
                 Result masked = result.DeepClone();
                 masked.CorrelationGuid = null;
-                masked.SuppressionStates = SuppressionStates.None;
+                masked.Suppressions = null;
                 masked.BaselineState = BaselineState.None;
 
                 if (_considerPropertyBagsWhenComparing)

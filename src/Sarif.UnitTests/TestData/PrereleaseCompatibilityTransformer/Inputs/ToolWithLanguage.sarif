@@ -4,7 +4,7 @@
   "runs": [
     {
       "tool": {
-        "language": "en-US",
+        "language": "en-GB",
         "name": "CodeScanner",
         "semanticVersion": "2.1.0"
       },
