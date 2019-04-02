@@ -277,8 +277,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             // authorization-missing-deny : Authorization Rules Missing Deny Rule
 
-            Result result = new Result();
-            result.RuleId = ContrastSecurityRuleIds.AuthorizationRulesMissingDenyRule;
+            var result = new Result
+            {
+                RuleId = ContrastSecurityRuleIds.AuthorizationRulesMissingDenyRule
+            };
 
             // authorization-missing-deny instances track the following properties:
             // 
@@ -297,7 +299,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             });
 
             result.Locations = locations;
-            result.Level = _rules[ContrastSecurityRuleIds.AuthorizationRulesMissingDenyRule].DefaultConfiguration.Level;
+            result.Level = _rules[ContrastSecurityRuleIds.AuthorizationRulesMissingDenyRule].DefaultConfiguration?.Level ?? FailureLevel.Warning;
 
             if (locationPath == null)
             {
