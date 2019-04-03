@@ -13,9 +13,6 @@
         {
           "toolExecutionNotifications": [
             {
-              "descriptor": {
-                "id": "CTN0001"
-              },
               "message": {
                 "text": "Unhandled exception."
               },
@@ -32,7 +29,7 @@
                       "location": {
                         "physicalLocation": {
                           "address": {
-                            "baseAddress": "0x9A0134"
+                            "baseAddress": 10092852
                           },
                           "artifactLocation": {
                             "uri": "file:///C:/src/main.cs"
@@ -44,8 +41,8 @@
                           }
                         },
                         "logicalLocation": {
-                          "fullyQualifiedName": "Ambiguous.Item",
-                          "index": 0
+                          "index": 0,
+                          "fullyQualifiedName": "Ambiguous.Item"
                         },
                         "message": {
                           "text": "Exception thrown"
@@ -58,15 +55,15 @@
                       "location": {
                         "physicalLocation": {
                           "address": {
-                            "baseAddress": "0xF4BF5"
+                            "baseAddress": 1002485
                           },
                           "artifactLocation": {
                             "uri": "file:///C:/src/main.cs"
                           }
                         },
                         "logicalLocation": {
-                          "fullyQualifiedName": "Rules.SecureHashAlgorithmRule.Register",
-                          "index": 1
+                          "index": 1,
+                          "fullyQualifiedName": "Rules.SecureHashAlgorithmRule.Register"
                         }
                       },
                       "module": "RuleLibrary",
@@ -76,8 +73,8 @@
                       "location": {
                         "physicalLocation": {
                           "address": {
-                            "baseAddress": "0x99B50C",
-                            "offset": "0x28EB"
+                            "baseAddress": 10073356,
+                            "offset": 10475
                           },
                           "artifactLocation": {
                             "uri": "file:///C:/src/utils.cs"
@@ -94,16 +91,16 @@
                       "location": {
                         "physicalLocation": {
                           "address": {
-                            "baseAddress": "0x99B50C",
-                            "offset": "0x28EB"
+                            "baseAddress": 10073356,
+                            "offset": 10475
                           },
                           "artifactLocation": {
                             "uri": "file:///C:/src/testtarget.cs"
                           }
                         },
                         "logicalLocation": {
-                          "fullyQualifiedName": "Ambiguous.Item",
-                          "index": 2
+                          "index": 2,
+                          "fullyQualifiedName": "Ambiguous.Item"
                         }
                       },
                       "module": "Target",
@@ -117,6 +114,9 @@
                     "message": "length is < 0"
                   }
                 ]
+              },
+              "descriptor": {
+                "id": "CTN0001"
               }
             }
           ]
