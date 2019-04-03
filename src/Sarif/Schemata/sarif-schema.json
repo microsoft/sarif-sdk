@@ -59,7 +59,7 @@
         },
 
         "kind": {
-          "description": "An open-ended string that identifies the address kind. 'section' and 'segment' are well-known values.",
+          "description": "An open-ended string that identifies the address kind. 'section', 'segment' and 'module' are well-known values.",
           "type": "string"
         },
 
