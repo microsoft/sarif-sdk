@@ -693,7 +693,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             // secure-flag-missing : Session Cookie Has No 'secure' Flag
 
-            // default : The value of the HttpCookie for the cookie '{0}' did not contain the 'secure' flag; the value observed was '{1}.
+            // default : The value of the HttpCookie for the cookie '{0}' did not contain the 'secure' flag; the value observed was '{1}'.
 
             return ConstructNotImplementedRuleResult(ContrastSecurityRuleIds.SessionCookieHasNoSecureFlag);
         }
