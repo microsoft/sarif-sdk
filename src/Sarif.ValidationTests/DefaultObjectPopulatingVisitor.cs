@@ -68,6 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private bool _visitingGraphNode;
         private bool _visitingExceptionData;
 
+        private JsonSchema _currentNodeSchema;
 
         public override object Visit(ISarifNode node)
         {
@@ -117,6 +118,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private void PopulateInstanceWithDefaultMemberValues(ISarifNode node)
         {           
             Type nodeType = node.GetType();
+            _currentNodeSchema = GetJsonSchemaForObject(nodeType.Name);
           
             var binding = BindingFlags.Public | BindingFlags.Instance;
             foreach (PropertyInfo property in nodeType.GetProperties(binding))
@@ -136,14 +138,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                     continue;
                 }
 
-                object defaultValue = null;
-
-                MemberInfo member = nodeType.GetMember(property.Name)[0];
-                foreach (CustomAttributeData attributeData in member?.GetCustomAttributesData())
+                if (ShouldExcludePopulationDueToOneOfCriteria(property.Name))
                 {
-                    if (attributeData.AttributeType.FullName != "System.ComponentModel.DefaultValueAttribute") { continue; }
-                    defaultValue = attributeData.ConstructorArguments[0].Value;
+                    continue;
                 }
+
+                object defaultValue = GetPropertyDefaultValueIfExists(nodeType, property);
 
                 // If the member is decorated with a default value, we'll inject it. Otherwise,
                 // we'll compute a default value based on the node type
@@ -168,6 +168,28 @@ namespace Microsoft.CodeAnalysis.Sarif
                 propertyBagHolder.Tags.Add(meaninglessValue);
                 propertyBagHolder.Tags.Remove(meaninglessValue);
             }
+        }
+
+        private static object GetPropertyDefaultValueIfExists(Type nodeType, PropertyInfo property)
+        {
+            MemberInfo member = nodeType.GetMember(property.Name)[0];
+            foreach (CustomAttributeData attributeData in member?.GetCustomAttributesData())
+            {
+                if (attributeData.AttributeType.FullName == "System.ComponentModel.DefaultValueAttribute")
+                {
+                    var defaultValue = attributeData.ConstructorArguments[0].Value;
+
+                    // DefaultValue of -1 is to ensure an actual value of 0 will not be ignored during serialization,
+                    // Hence, we will substitute them with 0.
+                    if (defaultValue is int defaultIntValue && defaultIntValue == -1)
+                    {
+                        return 0;
+                    }
+
+                    return defaultValue;
+                }
+            }
+            return null;
         }
 
         private void PopulatePropertyWithGeneratedDefaultValue(ISarifNode node, PropertyInfo property)
@@ -195,7 +217,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             object propertyValue = null;
             Type propertyType = property.PropertyType;
 
-            bool isRequired = PropertyIsRequiredBySchema(node.GetType().Name, property.Name);
+            bool isRequired = PropertyIsRequiredBySchema(property.Name) || PropertyIsAnyOfRequiredBySchema(property.Name);
 
             PrimitiveValueBuilder propertyValueBuilder = null;
             if (_typeToPropertyValueConstructorMap.TryGetValue(propertyType, out propertyValueBuilder))
@@ -272,20 +294,114 @@ namespace Microsoft.CodeAnalysis.Sarif
             property.SetValue(node, propertyValue);
         }
 
-        // Converts a .NET object + property name to their JSON equivalents and 
+        // Converts the property name to it's JSON equivalent and 
         // determines whether that property is required according to the schema.
-        private bool PropertyIsRequiredBySchema(string objectTypeName, string propertyName)
+        private bool PropertyIsRequiredBySchema(string propertyName)
         {
-            // SarifLog.Version will be converterd to sarifLog.version
-
-            string jsonTypeName = GetJsonNameFor(objectTypeName);
+            // SarifLog.Version will be converted to sarifLog.version
             string jsonPropertyName = GetJsonNameFor(propertyName);
+
+            return _currentNodeSchema.Required != null && _currentNodeSchema.Required.Contains(jsonPropertyName);
+        }
+
+        // Determines whether that property is in "AnyOf" list according to the schema.
+        private bool PropertyIsAnyOfRequiredBySchema(string propertyName)
+        {
+            // SarifLog.Version will be converted to sarifLog.version
+            string jsonPropertyName = GetJsonNameFor(propertyName);
+
+            if (_currentNodeSchema.AnyOf != null && _currentNodeSchema.AnyOf.Count > 0)
+            {
+                // TODO: Add additional logic to randomly select one or more required subsets and populate only those.
+
+                // As a quick fix, we will populate all properties which are in any required subset.
+                // This means this method must return true for all properties in any required subset in the list.
+                foreach (var item in _currentNodeSchema.AnyOf)
+                {
+                    if (item.Required != null && item.Required.Contains(jsonPropertyName))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        private JsonSchema GetJsonSchemaForObject(string objectTypeName)
+        {
+            // SarifLog.Version will be converted to sarifLog.version
+            string jsonTypeName = GetJsonNameFor(objectTypeName);
 
             // If _schema.Definitions does not contain the jsonTypeName, we are operating
             // against the root sarifLog schema, which is what's stored in _schema
             JsonSchema propertySchema = _schema.Definitions.ContainsKey(jsonTypeName) ? _schema.Definitions[jsonTypeName] : _schema;
+            return propertySchema;
+        }
 
-            return propertySchema.Required != null && propertySchema.Required.Contains(jsonPropertyName);
+        // Converts the property name to it's JSON equivalent and 
+        // determines whether that property should be excluded from population if it's in the "OneOf" list according to the schema.
+        private bool ShouldExcludePopulationDueToOneOfCriteria(string propertyName)
+        {
+            string jsonPropertyName = GetJsonNameFor(propertyName);
+
+            if (_currentNodeSchema.OneOf == null || _currentNodeSchema.OneOf.Count == 0)
+            {
+                return false;
+            }
+
+            bool isPropertyInAnyOneOfSubset = false;
+
+            foreach (var item in _currentNodeSchema.OneOf)
+            {
+                if (item.Required != null && item.Required.Contains(jsonPropertyName))
+                {
+                    isPropertyInAnyOneOfSubset = true;
+                }
+            }
+
+            // The current property is not in any oneOf.required subset, hence treat like a regular property
+            if (!isPropertyInAnyOneOfSubset)
+            {
+                return false;
+            }
+
+            return !ShouldThisOneOfPropertyPopulate(jsonPropertyName);
+        }
+
+        private bool ShouldThisOneOfPropertyPopulate(string jsonPropertyName)
+        {
+            // Only one of the subsets in 'OneOf' list must be present to validate successfully.
+            // ex:
+            //  OneOf : [
+            //      {
+            //          "required" : ["p1", "p2"]
+            //      },
+            //      {
+            //          "required": [ "q1", "q2", "q3" ]
+            //      },
+            //  ]
+            //  Either (p1 & p2) should be populated or (q1, q2, q3) should be populated, but NEVER both.
+
+            // We should populate only the first property in the list and ignore others.
+            // This means this method must return true only for first property and false for others.
+
+            int indexToPopulate = GenerateIndexToPopulateForOneOfProperties();
+
+            if (_currentNodeSchema.OneOf[indexToPopulate].Required != null && _currentNodeSchema.OneOf[indexToPopulate].Required.Contains(jsonPropertyName))
+            {
+                return true;
+            }
+
+            // if we reach here, this must be a property in a required subset but which is not at indexToPopulate.
+            // return false to ensure this property is not populated.
+            return false;
+        }
+
+        private int GenerateIndexToPopulateForOneOfProperties()
+        {
+            // TODO: Have randomization logic to ensure a valid random index is generated during population.
+            // For now, we simply populate the first "OneOf" set.
+            return 0;
         }
 
         private string GetJsonNameFor(string name)

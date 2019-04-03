@@ -1441,7 +1441,15 @@
           "description": "Key/value pairs that provide additional information about the physical location.",
           "$ref": "#/definitions/propertyBag"
         }
-      }
+      },
+      "anyOf": [
+        {
+          "required": [ "address" ]
+        },
+        {
+          "required": [ "artifactLocation" ]
+        }
+      ]
     },
 
     "propertyBag": {
