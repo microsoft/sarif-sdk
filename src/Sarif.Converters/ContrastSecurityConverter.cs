@@ -210,13 +210,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     return ConstructNotImplementedRuleResult(context.RuleId);
                 }
             }
-
-            throw new InvalidOperationException();
         }
 
         private Result ConstructNotImplementedRuleResult(string ruleId)
         {
-            Result result = new Result()
+            var result = new Result
             {
                 Level = GetRuleFailureLevel(ruleId),
                 RuleId = ruleId,
