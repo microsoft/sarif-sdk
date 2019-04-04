@@ -293,4 +293,7 @@
 * API NON-BREAKING: Rename `reportingConfigurationOverride` to `configurationOverride`. https://github.com/oasis-tcs/sarif-spec/issues/350
 
 ## **v2.0.0-csd.2.beta.2019.04-03** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.04-03) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.04-03) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.04-03)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.04-03))
+* API NON-BREAKING: Add `initialState` and `immutableState` properties to thread flow object. Add `immutableState` to `graphTraversal` object. https://github.com/oasis-tcs/sarif-spec/issues/168
 * API BREAKING: Rename `message.messageId` property to `message.id`. https://github.com/oasis-tcs/sarif-spec/issues/352
+* API BREAKING: Update how reporting descriptors describe their taxonomic relationships. https://github.com/oasis-tcs/sarif-spec/issues/356
+
