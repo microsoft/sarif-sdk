@@ -12,10 +12,10 @@ using Newtonsoft.Json;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Information about a tool report that can be configured at runtime.
+    /// Information about a rule or notification that can be configured at runtime.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.61.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
     public partial class ReportingConfiguration : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ReportingConfiguration> ValueComparer => ReportingConfigurationEqualityComparer.Instance;
