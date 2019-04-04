@@ -332,7 +332,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
         private Result ConstructBadMessageAuthenticationCodeResult(IDictionary<string, string> properties)
         {
-            return ConstructNotImplementedRuleResult(ContrastSecurityRuleIds.BadMessageAuthenticationCode);
+            var result = new Result
+            {
+                RuleId = ContrastSecurityRuleIds.BadMessageAuthenticationCode
+            };
+
+            return result;
         }
 
         private Result ConstructPagesWithoutAntiClickjackingControlsResult(IDictionary<string, string> properties)
