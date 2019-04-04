@@ -125,6 +125,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     return ConstructAuthorizationRulesMissingDenyResult(context.Properties);
                 }
 
+                case ContrastSecurityRuleIds.BadMessageAuthenticationCode:
+                {
+                    return ConstructBadMessageAuthenticationCodeResult(context.Properties);
+                }
+
                 case ContrastSecurityRuleIds.CrossSiteScripting:
                 {
                     return ConstructCrossSiteScriptingResult(context);
@@ -324,6 +329,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             return result;
+        }
+        private Result ConstructBadMessageAuthenticationCodeResult(IDictionary<string, string> properties)
+        {
+            return ConstructNotImplementedRuleResult(ContrastSecurityRuleIds.BadMessageAuthenticationCode);
         }
 
         private Result ConstructPagesWithoutAntiClickjackingControlsResult(IDictionary<string, string> properties)
@@ -603,8 +612,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             return result;
         }
-
-
 
         private bool KeyIsReservedPropertyName(string key)
         {
