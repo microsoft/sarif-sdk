@@ -367,6 +367,30 @@
       "required": [ "threadFlows" ]
     },
 
+    "configurationOverride": {
+      "description": "Information about how a specific tool report was reconfigured at runtime.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+
+        "configuration": {
+          "description": "Specifies how the report was configured during the scan.",
+          "$ref": "#/definitions/reportingConfiguration"
+        },
+
+        "descriptor": {
+          "description": "A reference used to locate the descriptor relevant to this configuration override.",
+          "$ref": "#/definitions/reportingDescriptorReference"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the reporting configuration.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      },
+      "required": [ "configuration", "descriptor" ]
+    },
+
     "conversion": {
       "description": "Describes how a converter transformed the output of a static analysis tool from the analysis tool's native output format into the SARIF format.",
       "additionalProperties": false,
@@ -1170,7 +1194,7 @@
 
         "logicalLocation": {
           "description": "The logical location associated with the result.",
-        "$ref": "#/definitions/logicalLocation"
+          "$ref": "#/definitions/logicalLocation"
         },
 
         "message": {
@@ -1203,15 +1227,15 @@
       "properties": {
 
         "name": {
-            "description": "Identifies the construct in which the result occurred. For example, this property might contain the name of a class or a method.",
-            "type": "string"
+          "description": "Identifies the construct in which the result occurred. For example, this property might contain the name of a class or a method.",
+          "type": "string"
         },
 
         "index": {
-            "description": "The index within the logical locations array.",
-            "type": "integer",
-            "default": -1,
-            "minimum": -1
+          "description": "The index within the logical locations array.",
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
         },
 
         "fullyQualifiedName": {
@@ -1688,25 +1712,14 @@
           "$ref": "#/definitions/multiformatMessageString"
         },
 
-        "taxa": {
-          "description": "An array of references used to locate a set of taxonomy reporting descriptors that are always applicable to a result.",
+        "relationships": {
+          "description": "An array of objects that describe relationships between this reporting descriptor and others.",
           "type": "array",
           "default": [],
           "minItems": 0,
           "uniqueItems": true,
           "items": {
-            "$ref": "#/definitions/reportingDescriptorReference"
-          }
-        },
-
-        "optionalTaxa": {
-          "description": "An array of references used to locate an optional set of taxonomy reporting descriptors that may be applied to a result.",
-          "type": "array",
-          "default": [],
-          "minItems": 0,
-          "uniqueItems": true,
-          "items": {
-            "$ref": "#/definitions/reportingDescriptorReference"
+            "$ref": "#/definitions/reportingDescriptorRelationship"
           }
         },
 
@@ -1755,30 +1768,6 @@
       }
     },
 
-    "configurationOverride": {
-      "description": "Information about how a specific tool report was reconfigured at runtime.",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-
-        "configuration": {
-          "description": "Specifies how the report was configured during the scan.",
-          "$ref": "#/definitions/reportingConfiguration"
-        },
-
-        "descriptor": {
-          "description": "A reference used to locate the descriptor relevant to this configuration override.",
-          "$ref": "#/definitions/reportingDescriptorReference"
-        },
-
-        "properties": {
-          "description": "Key/value pairs that provide additional information about the reporting configuration.",
-          "$ref": "#/definitions/propertyBag"
-        }
-      },
-      "required": ["configuration", "descriptor"]
-    },
-
     "reportingDescriptorReference": {
       "description": "Information about how to locate a relevant reporting descriptor.",
       "type": "object",
@@ -1813,6 +1802,37 @@
         }
       }
     },
+
+    "reportingDescriptorRelationship": {
+      "description": "Information about the relation of one reporting descriptor to another.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+
+        "descriptor": {
+          "description": "A reference to the related reporting descriptor.",
+          "$ref": "#/definitions/reportingDescriptorReference"
+        },
+
+        "kinds": {
+          "description": "A set of distinct strings that categorize the relationshship. Well-known kinds include canPrecede, canFollow, canPrecedeOrFollow, willPrecede, willFollow, superset, subset, equal, disjoint, relevant, and incomparable.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "type": "string"
+          }
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the reporting descriptor reference.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      },
+      "required": [ "descriptor", "kinds" ]
+    },
+
 
     "result": {
       "description": "A result produced by an analysis tool.",
@@ -2854,7 +2874,7 @@
           "$ref": "#/definitions/propertyBag"
         }
       },
-      "required": ["name"]
+      "required": [ "name" ]
     },
 
     "versionControlDetails": {
