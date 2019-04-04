@@ -10,7 +10,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Xml;
-using System.Xml.Schema;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -18,10 +17,8 @@ using Newtonsoft.Json.Linq;
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     /// <summary>
-    /// Converts exported Contrast Security XML report files to sarif format
+    /// Converts exported Contrast Security XML report files to SARIF format.
     /// </summary>
-    ///<remarks>
-    ///</remarks>
     internal sealed class ContrastSecurityConverter : ToolFileConverterBase
     {
         private const string ContrastSecurityRulesData = "Microsoft.CodeAnalysis.Sarif.Converters.RulesData.ContrastSecurity.sarif";
@@ -59,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Assembly assembly = typeof(ContrastSecurityConverter).Assembly;
             SarifLog sarifLog;
 
-            using (var stream = assembly.GetManifestResourceStream(ContrastSecurityConverter.ContrastSecurityRulesData))
+            using (var stream = assembly.GetManifestResourceStream(ContrastSecurityRulesData))
             using (var streamReader = new StreamReader(stream))
             {
                 string prereleaseRuleDataLogText = streamReader.ReadToEnd();
@@ -221,7 +218,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             Result result = new Result()
             {
-                Level = _rules[ruleId].DefaultConfiguration.Level,
+                Level = GetRuleFailureLevel(ruleId),
                 RuleId = ruleId,
                 Message = new Message { Text = "TODO: missing message construction for '" + ruleId + "' rule." }
             };
@@ -258,12 +255,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
-                Level = _rules[ContrastSecurityRuleIds.AntiCachingControlsMissing].DefaultConfiguration.Level,
+                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.AntiCachingControlsMissing),
                 RuleId = ContrastSecurityRuleIds.AntiCachingControlsMissing,
                 Locations = locations,
                 Message = new Message
                 {
-                    MessageId = "default",
+                    Id = "default",
                     Arguments = new List<string>
                     {
                         pageCount,     // {0} page Cache-Control header(s) did not contain 'no-store' or 'no-cache';
@@ -280,8 +277,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             // authorization-missing-deny : Authorization Rules Missing Deny Rule
 
-            Result result = new Result();
-            result.RuleId = ContrastSecurityRuleIds.AuthorizationRulesMissingDenyRule;
+            var result = new Result
+            {
+                RuleId = ContrastSecurityRuleIds.AuthorizationRulesMissingDenyRule
+            };
 
             // authorization-missing-deny instances track the following properties:
             // 
@@ -300,13 +299,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             });
 
             result.Locations = locations;
-            result.Level = _rules[ContrastSecurityRuleIds.AuthorizationRulesMissingDenyRule].DefaultConfiguration.Level;
+            result.Level = GetRuleFailureLevel(ContrastSecurityRuleIds.AuthorizationRulesMissingDenyRule);
 
             if (locationPath == null)
             {
                 result.Message = new Message
                 {
-                    MessageId = "default",
+                    Id = "default",
                     Arguments = new List<string>
                     {                  // The configuration in 
                         path,          // '{0}' is missing a <deny> rule in the <authorization> section.
@@ -317,7 +316,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 result.Message = new Message
                 {
-                    MessageId = "underLocation",
+                    Id = "underLocation",
                     Arguments = new List<string>
                     {                  // The configuration under location 
                         locationPath,  // '{0}' in 
@@ -353,12 +352,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
-                Level = _rules[ContrastSecurityRuleIds.PagesWithoutAntiClickjackingControls].DefaultConfiguration.Level,
+                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.PagesWithoutAntiClickjackingControls),
                 RuleId = ContrastSecurityRuleIds.PagesWithoutAntiClickjackingControls,
                 Locations = locations,
                 Message = new Message
                 {
-                    MessageId = "default",
+                    Id = "default",
                     Arguments = new List<string>
                     {
                         pageCount,  // {0} page(s) have insufficient anti-clickjacking controls, 
@@ -390,7 +389,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             result = new Result
             {
-                Level = _rules[ContrastSecurityRuleIds.CrossSiteScripting].DefaultConfiguration.Level,
+                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.CrossSiteScripting),
                 RuleId = ContrastSecurityRuleIds.CrossSiteScripting,
                 Locations = new List<Location>()
                 {
@@ -405,7 +404,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 result.Message = new Message
                 {
-                    MessageId = "default",
+                    Id = "default",
                     Arguments = new List<string>
                     {                  // A cross-site scripting vulnerability was seen as untrusted data
                         untrustedData, // '{0}' on 
@@ -417,7 +416,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 result.Message = new Message
                 {
-                    MessageId = "hasControlId",
+                    Id = "hasControlId",
                     Arguments = new List<string>
                     {                  // A cross-site scripting vulnerability was seen as untrusted data
                         untrustedData, // '{0}' on 
@@ -448,7 +447,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
-                Level = _rules[ContrastSecurityRuleIds.DetailedErrorMessagesDisplayed].DefaultConfiguration.Level,
+                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.DetailedErrorMessagesDisplayed),
                 RuleId = ContrastSecurityRuleIds.DetailedErrorMessagesDisplayed,
                 Locations = new List<Location>()
                 {
@@ -459,7 +458,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 },
                 Message = new Message
                 {
-                    MessageId = "default",
+                    Id = "default",
                     Arguments = new List<string>
                     {                  // The configuration in 
                         path,          // '{0}' has 'mode' set to 'Off' in the <customErrors> section.
@@ -482,7 +481,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
-                Level = _rules[ContrastSecurityRuleIds.EventValidationDisabled].DefaultConfiguration.Level,
+                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.EventValidationDisabled),
                 RuleId = ContrastSecurityRuleIds.EventValidationDisabled,
                 Locations = new List<Location>()
                 {
@@ -493,7 +492,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 },
                 Message = new Message
                 {
-                    MessageId = "default",
+                    Id = "default",
                     Arguments = new List<string>
                     {                  // The configuration in 
                         aspx,          // '{0}' has 'enableEventValidation' set to 'false' in the page directive.
@@ -516,7 +515,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
-                Level = _rules[ContrastSecurityRuleIds.FormsAuthenticationSSL].DefaultConfiguration.Level,
+                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.FormsAuthenticationSSL),
                 RuleId = ContrastSecurityRuleIds.FormsAuthenticationSSL,
                 Locations = new List<Location>()
                 {
@@ -527,7 +526,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 },
                 Message = new Message
                 {
-                    MessageId = "default",
+                    Id = "default",
                     Arguments = new List<string>
                     {                  // The configuration in 
                         path,          // '{0}' was configured to use forms authentication and 'resquireSSL' was not set to 'true' in an <authentication> section.
@@ -590,12 +589,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
-                Level = _rules[ContrastSecurityRuleIds.FormsWithoutAutocompletePrevention].DefaultConfiguration.Level,
+                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.FormsWithoutAutocompletePrevention),
                 RuleId = ContrastSecurityRuleIds.FormsWithoutAutocompletePrevention,
                 Locations = locations,
                 Message = new Message
                 {
-                    MessageId = "default",
+                    Id = "default",
                     Arguments = new List<string>
                     {
                         pageCount,  //'{0}' pages contain a <form> element that do
@@ -649,7 +648,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
-                Level = _rules[ContrastSecurityRuleIds.OverlyLongSessionTimeout].DefaultConfiguration.Level,
+                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.OverlyLongSessionTimeout),
                 RuleId = ContrastSecurityRuleIds.OverlyLongSessionTimeout,
                 Locations = new List<Location>()
                 {
@@ -660,7 +659,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 },
                 Message = new Message
                 {
-                    MessageId = "default",
+                    Id = "default",
                     Arguments = new List<string>
                     {              // The configuration in the
                         section,   // <{0}> section of 
@@ -694,7 +693,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             // secure-flag-missing : Session Cookie Has No 'secure' Flag
 
-            // default : The
+            // default : The value of the HttpCookie for the cookie '{0}' did not contain the 'secure' flag; the value observed was '{1}'.
 
             return ConstructNotImplementedRuleResult(ContrastSecurityRuleIds.SessionCookieHasNoSecureFlag);
         }
@@ -726,7 +725,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
-                Level = _rules[ContrastSecurityRuleIds.SqlInjection].DefaultConfiguration.Level,
+                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.SqlInjection),
                 RuleId = ContrastSecurityRuleIds.SqlInjection,
                 Locations = new List<Location>()
                 {
@@ -737,7 +736,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 },
                 Message = new Message
                 {
-                    MessageId = "default",
+                    Id = "default",
                     Arguments = new List<string>
                     {
                         untrustedData, // SQL injection from untrusted source(s) '{0}'
@@ -798,7 +797,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
-                Level = _rules[ContrastSecurityRuleIds.VersionHeaderEnabled].DefaultConfiguration.Level,
+                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.VersionHeaderEnabled),
                 RuleId = ContrastSecurityRuleIds.VersionHeaderEnabled,
                 Locations = new List<Location>()
                 {
@@ -809,7 +808,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 },
                 Message = new Message
                 {
-                    MessageId = "default",
+                    Id = "default",
                     Arguments = new List<string>
                     {                  // The configuration in 
                         path,          // '{0}' did not explicitly disable 'enableVersionHeader' in the <httpRuntime> section.
@@ -832,7 +831,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var result = new Result
             {
-                Level = _rules[ContrastSecurityRuleIds.WebApplicationDeployedinDebugMode].DefaultConfiguration.Level,
+                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.WebApplicationDeployedinDebugMode),
                 RuleId = ContrastSecurityRuleIds.WebApplicationDeployedinDebugMode,
                 Locations = new List<Location>()
                 {
@@ -843,7 +842,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 },
                 Message = new Message
                 {
-                    MessageId = "default",
+                    Id = "default",
                     Arguments = new List<string>
                     {                  // The configuration in 
                         path,          // '{0}' has 'debug' set to 'true' in the <compilation> section.
@@ -929,10 +928,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 result.SetProperty(key, value);
             }
         }
+
+        // Get the failure level for the rule with the specified id, defaulting to
+        // "warning" if the rule does not specify a configuration.
+        private FailureLevel GetRuleFailureLevel(string ruleId)
+        {
+            return _rules[ruleId].DefaultConfiguration?.Level ?? FailureLevel.Warning;
+        }
     }
 
     /// <summary>
-    /// Pluggable FxCop log reader
+    /// Pluggable Contrast Security log reader.
     /// </summary>
     internal sealed class ContrastLogReader
     {
@@ -1031,7 +1037,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         /// <summary>
-        /// COntrast Security exported xml elements and attributes
+        /// Contrast Security exported XML elements and attributes.
         /// </summary>
         private static class SchemaStrings
         {
@@ -1120,21 +1126,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         public void Read(Context context, Stream input)
         {
-            XmlSchemaSet schemaSet = new XmlSchemaSet();
-            Assembly assembly = typeof(ContrastLogReader).Assembly;
-            var settings = new XmlReaderSettings
-            {
-                DtdProcessing = DtdProcessing.Ignore,
-                XmlResolver = null
-            };
-
-            //using (var stream = assembly.GetManifestResourceStream(ContrastLogReader.ContrastSecurityReportSchema))
-            //using (var reader = XmlReader.Create(stream, settings))
-            //{
-            //    XmlSchema schema = XmlSchema.Read(reader, new ValidationEventHandler(ReportError));
-            //    schemaSet.Add(schema);
-            //}
-
             using (var sparseReader = SparseReader.CreateFromStream(_dispatchTable, input, schemaSet: null))
             {
                 if (sparseReader.LocalName.Equals(SchemaStrings.ElementFindings))

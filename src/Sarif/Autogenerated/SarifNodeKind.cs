@@ -48,6 +48,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         CodeFlow,
         /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ConfigurationOverride" />.
+        /// </summary>
+        ConfigurationOverride,
+        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Conversion" />.
         /// </summary>
         Conversion,
@@ -144,13 +148,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         ReportingConfiguration,
         /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ConfigurationOverride" />.
-        /// </summary>
-        ConfigurationOverride,
-        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ReportingDescriptorReference" />.
         /// </summary>
         ReportingDescriptorReference,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="ReportingDescriptorRelationship" />.
+        /// </summary>
+        ReportingDescriptorRelationship,
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Result" />.
         /// </summary>

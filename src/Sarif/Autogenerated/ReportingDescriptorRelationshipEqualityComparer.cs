@@ -9,14 +9,14 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Defines methods to support the comparison of objects of type Address for equality.
+    /// Defines methods to support the comparison of objects of type ReportingDescriptorRelationship for equality.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
-    internal sealed class AddressEqualityComparer : IEqualityComparer<Address>
+    internal sealed class ReportingDescriptorRelationshipEqualityComparer : IEqualityComparer<ReportingDescriptorRelationship>
     {
-        internal static readonly AddressEqualityComparer Instance = new AddressEqualityComparer();
+        internal static readonly ReportingDescriptorRelationshipEqualityComparer Instance = new ReportingDescriptorRelationshipEqualityComparer();
 
-        public bool Equals(Address left, Address right)
+        public bool Equals(ReportingDescriptorRelationship left, ReportingDescriptorRelationship right)
         {
             if (ReferenceEquals(left, right))
             {
@@ -28,39 +28,30 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.BaseAddress != right.BaseAddress)
+            if (!ReportingDescriptorReference.ValueComparer.Equals(left.Descriptor, right.Descriptor))
             {
                 return false;
             }
 
-            if (left.Kind != right.Kind)
+            if (!object.ReferenceEquals(left.Kinds, right.Kinds))
             {
-                return false;
-            }
+                if (left.Kinds == null || right.Kinds == null)
+                {
+                    return false;
+                }
 
-            if (left.Name != right.Name)
-            {
-                return false;
-            }
+                if (left.Kinds.Count != right.Kinds.Count)
+                {
+                    return false;
+                }
 
-            if (left.FullyQualifiedName != right.FullyQualifiedName)
-            {
-                return false;
-            }
-
-            if (left.Offset != right.Offset)
-            {
-                return false;
-            }
-
-            if (left.Index != right.Index)
-            {
-                return false;
-            }
-
-            if (left.ParentIndex != right.ParentIndex)
-            {
-                return false;
+                for (int index_0 = 0; index_0 < left.Kinds.Count; ++index_0)
+                {
+                    if (left.Kinds[index_0] != right.Kinds[index_0])
+                    {
+                        return false;
+                    }
+                }
             }
 
             if (!object.ReferenceEquals(left.Properties, right.Properties))
@@ -88,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public int GetHashCode(Address obj)
+        public int GetHashCode(ReportingDescriptorRelationship obj)
         {
             if (ReferenceEquals(obj, null))
             {
@@ -98,35 +89,33 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                result = (result * 31) + obj.BaseAddress.GetHashCode();
-                if (obj.Kind != null)
+                if (obj.Descriptor != null)
                 {
-                    result = (result * 31) + obj.Kind.GetHashCode();
+                    result = (result * 31) + obj.Descriptor.ValueGetHashCode();
                 }
 
-                if (obj.Name != null)
+                if (obj.Kinds != null)
                 {
-                    result = (result * 31) + obj.Name.GetHashCode();
+                    foreach (var value_2 in obj.Kinds)
+                    {
+                        result = result * 31;
+                        if (value_2 != null)
+                        {
+                            result = (result * 31) + value_2.GetHashCode();
+                        }
+                    }
                 }
 
-                if (obj.FullyQualifiedName != null)
-                {
-                    result = (result * 31) + obj.FullyQualifiedName.GetHashCode();
-                }
-
-                result = (result * 31) + obj.Offset.GetHashCode();
-                result = (result * 31) + obj.Index.GetHashCode();
-                result = (result * 31) + obj.ParentIndex.GetHashCode();
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_0 = 0;
-                    foreach (var value_2 in obj.Properties)
+                    foreach (var value_3 in obj.Properties)
                     {
-                        xor_0 ^= value_2.Key.GetHashCode();
-                        if (value_2.Value != null)
+                        xor_0 ^= value_3.Key.GetHashCode();
+                        if (value_3.Value != null)
                         {
-                            xor_0 ^= value_2.Value.GetHashCode();
+                            xor_0 ^= value_3.Value.GetHashCode();
                         }
                     }
 

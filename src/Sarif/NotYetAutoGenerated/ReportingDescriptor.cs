@@ -110,18 +110,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         public virtual MultiformatMessageString Help { get; set; }
 
         /// <summary>
-        /// An array of references used to locate a set of taxonomy reporting descriptors that are always applicable to a result.
+        /// An array of objects that describe relationships between this reporting descriptor and others.
         /// </summary>
-        [DataMember(Name = "taxa", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "relationships", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public virtual IList<ReportingDescriptorReference> Taxa { get; set; }
-
-        /// <summary>
-        /// An array of references used to locate an optional set of taxonomy reporting descriptors that may be applied to a result.
-        /// </summary>
-        [DataMember(Name = "optionalTaxa", IsRequired = false, EmitDefaultValue = false)]
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public virtual IList<ReportingDescriptorReference> OptionalTaxa { get; set; }
+        public virtual IList<ReportingDescriptorRelationship> Relationships { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the report.
@@ -175,18 +168,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="help">
         /// An initialization value for the <see cref="P:Help" /> property.
         /// </param>
-        /// <param name="taxa">
-        /// An initialization value for the <see cref="P:Taxa" /> property.
-        /// </param>
-        /// <param name="optionalTaxa">
-        /// An initialization value for the <see cref="P:OptionalTaxa" /> property.
+        /// <param name="relationships">
+        /// An initialization value for the <see cref="P:Relationships" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ReportingDescriptor(string id, IEnumerable<string> deprecatedIds, string guid, IEnumerable<string> deprecatedGuids, string name, IEnumerable<string> deprecatedNames, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, MultiformatMessageString help, IEnumerable<ReportingDescriptorReference> taxa, IEnumerable<ReportingDescriptorReference> optionalTaxa, IDictionary<string, SerializedPropertyInfo> properties)
+        public ReportingDescriptor(string id, IEnumerable<string> deprecatedIds, string guid, IEnumerable<string> deprecatedGuids, string name, IEnumerable<string> deprecatedNames, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, MultiformatMessageString help, IEnumerable<ReportingDescriptorRelationship> relationships, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, deprecatedIds, guid, deprecatedGuids, name, deprecatedNames, shortDescription, fullDescription, messageStrings, defaultConfiguration, helpUri, help, taxa, optionalTaxa, properties);
+            Init(id, deprecatedIds, guid, deprecatedGuids, name, deprecatedNames, shortDescription, fullDescription, messageStrings, defaultConfiguration, helpUri, help, relationships, properties);
         }
 
         /// <summary>
@@ -205,7 +195,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.DeprecatedIds, other.Guid, other.DeprecatedGuids, other.Name, other.DeprecatedNames, other.ShortDescription, other.FullDescription, other.MessageStrings, other.DefaultConfiguration, other.HelpUri, other.Help, other.Taxa, other.OptionalTaxa, other.Properties);
+            Init(other.Id, other.DeprecatedIds, other.Guid, other.DeprecatedGuids, other.Name, other.DeprecatedNames, other.ShortDescription, other.FullDescription, other.MessageStrings, other.DefaultConfiguration, other.HelpUri, other.Help, other.Relationships, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -226,7 +216,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ReportingDescriptor(this);
         }
 
-        private void Init(string id, IEnumerable<string> deprecatedIds, string guid, IEnumerable<string> deprecatedGuids, string name, IEnumerable<string> deprecatedNames, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, MultiformatMessageString help, IEnumerable<ReportingDescriptorReference> taxa, IEnumerable<ReportingDescriptorReference> optionalTaxa, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string id, IEnumerable<string> deprecatedIds, string guid, IEnumerable<string> deprecatedGuids, string name, IEnumerable<string> deprecatedNames, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, IDictionary<string, MultiformatMessageString> messageStrings, ReportingConfiguration defaultConfiguration, Uri helpUri, MultiformatMessageString help, IEnumerable<ReportingDescriptorRelationship> relationships, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             if (deprecatedIds != null)
@@ -298,10 +288,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Help = new MultiformatMessageString(help);
             }
 
-            if (taxa != null)
+            if (relationships != null)
             {
-                var destination_3 = new List<ReportingDescriptorReference>();
-                foreach (var value_4 in taxa)
+                var destination_3 = new List<ReportingDescriptorRelationship>();
+                foreach (var value_4 in relationships)
                 {
                     if (value_4 == null)
                     {
@@ -309,29 +299,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_3.Add(new ReportingDescriptorReference(value_4));
+                        destination_3.Add(new ReportingDescriptorRelationship(value_4));
                     }
                 }
 
-                Taxa = destination_3;
-            }
-
-            if (optionalTaxa != null)
-            {
-                var destination_4 = new List<ReportingDescriptorReference>();
-                foreach (var value_5 in optionalTaxa)
-                {
-                    if (value_5 == null)
-                    {
-                        destination_4.Add(null);
-                    }
-                    else
-                    {
-                        destination_4.Add(new ReportingDescriptorReference(value_5));
-                    }
-                }
-
-                OptionalTaxa = destination_4;
+                Relationships = destination_3;
             }
 
             if (properties != null)

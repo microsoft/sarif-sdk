@@ -171,15 +171,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             
                 if (rule != null &&
                     rule.MessageStrings != null &&
-                    rule.MessageStrings.TryGetValue(node.MessageId, out formatString))
+                    rule.MessageStrings.TryGetValue(node.Id, out formatString))
                 {
                     node.Text = node.Arguments?.Count > 0 
-                        ? rule.Format(node.MessageId, node.Arguments) 
+                        ? rule.Format(node.Id, node.Arguments) 
                         : formatString?.Text;
                 }
 
                 if (node.Text == null &&
-                    _run.Tool.Driver.GlobalMessageStrings?.TryGetValue(node.MessageId, out formatString) == true)
+                    _run.Tool.Driver.GlobalMessageStrings?.TryGetValue(node.Id, out formatString) == true)
                 {
                     node.Text = node.Arguments?.Count > 0
                         ? string.Format(CultureInfo.CurrentCulture, formatString.Text, node.Arguments.ToArray())

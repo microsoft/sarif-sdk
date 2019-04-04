@@ -43,7 +43,7 @@
             {
               "message": {
                 "text": "A notification was raised. Notification kind was: 'tool notification'.",
-                "messageId": "NotificationMessage",
+                "id": "NotificationMessage",
                 "arguments": [
                   "tool notification"
                 ]
@@ -54,7 +54,7 @@
             {
               "message": {
                 "text": "A notification was raised. Notification kind was: 'configuration notification'.",
-                "messageId": "NotificationMessage",
+                "id": "NotificationMessage",
                 "arguments": [
                   "configuration notification"
                 ]
@@ -91,7 +91,7 @@
           "ruleIndex": 0,
           "message": {
             "text": "This result is at the beginning of the file and selects 'Region_At_Start_Of_File'.",
-            "messageId": "MatchAtBeginningOfFile",
+            "id": "MatchAtBeginningOfFile",
             "arguments": [
               "Region_At_Start_Of_File"
             ]
@@ -134,7 +134,7 @@
           "ruleIndex": 1,
           "message": {
             "text": "This result selects a single-line interior region of value 'Region_One'.",
-            "messageId": "SingleLineInteriorMatch",
+            "id": "SingleLineInteriorMatch",
             "arguments": [
               "Region_One"
             ]
@@ -255,7 +255,7 @@
           "ruleId": "TEST2005",
           "message": {
             "text": "A space between two words was detected.",
-            "messageId": "GlobalMessage"
+            "id": "GlobalMessage"
           },
           "locations": [
             {

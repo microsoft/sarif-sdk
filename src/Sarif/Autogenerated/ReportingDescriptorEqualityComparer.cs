@@ -153,42 +153,21 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!object.ReferenceEquals(left.Taxa, right.Taxa))
+            if (!object.ReferenceEquals(left.Relationships, right.Relationships))
             {
-                if (left.Taxa == null || right.Taxa == null)
+                if (left.Relationships == null || right.Relationships == null)
                 {
                     return false;
                 }
 
-                if (left.Taxa.Count != right.Taxa.Count)
+                if (left.Relationships.Count != right.Relationships.Count)
                 {
                     return false;
                 }
 
-                for (int index_3 = 0; index_3 < left.Taxa.Count; ++index_3)
+                for (int index_3 = 0; index_3 < left.Relationships.Count; ++index_3)
                 {
-                    if (!ReportingDescriptorReference.ValueComparer.Equals(left.Taxa[index_3], right.Taxa[index_3]))
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            if (!object.ReferenceEquals(left.OptionalTaxa, right.OptionalTaxa))
-            {
-                if (left.OptionalTaxa == null || right.OptionalTaxa == null)
-                {
-                    return false;
-                }
-
-                if (left.OptionalTaxa.Count != right.OptionalTaxa.Count)
-                {
-                    return false;
-                }
-
-                for (int index_4 = 0; index_4 < left.OptionalTaxa.Count; ++index_4)
-                {
-                    if (!ReportingDescriptorReference.ValueComparer.Equals(left.OptionalTaxa[index_4], right.OptionalTaxa[index_4]))
+                    if (!ReportingDescriptorRelationship.ValueComparer.Equals(left.Relationships[index_3], right.Relationships[index_3]))
                     {
                         return false;
                     }
@@ -322,9 +301,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Help.ValueGetHashCode();
                 }
 
-                if (obj.Taxa != null)
+                if (obj.Relationships != null)
                 {
-                    foreach (var value_8 in obj.Taxa)
+                    foreach (var value_8 in obj.Relationships)
                     {
                         result = result * 31;
                         if (value_8 != null)
@@ -334,28 +313,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.OptionalTaxa != null)
-                {
-                    foreach (var value_9 in obj.OptionalTaxa)
-                    {
-                        result = result * 31;
-                        if (value_9 != null)
-                        {
-                            result = (result * 31) + value_9.ValueGetHashCode();
-                        }
-                    }
-                }
-
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.
                     int xor_1 = 0;
-                    foreach (var value_10 in obj.Properties)
+                    foreach (var value_9 in obj.Properties)
                     {
-                        xor_1 ^= value_10.Key.GetHashCode();
-                        if (value_10.Value != null)
+                        xor_1 ^= value_9.Key.GetHashCode();
+                        if (value_9.Value != null)
                         {
-                            xor_1 ^= value_10.Value.GetHashCode();
+                            xor_1 ^= value_9.Value.GetHashCode();
                         }
                     }
 

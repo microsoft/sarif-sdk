@@ -487,7 +487,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 RuleIndex = ruleIndex,
                 Message = new Message
                 {
-                    MessageId = ruleMessageId,
+                    Id = ruleMessageId,
                     Arguments = arguments
                 },
                 Level = level

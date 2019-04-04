@@ -46,10 +46,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Markdown { get; set; }
 
         /// <summary>
-        /// The message identifier for this message.
+        /// The identifier for this message.
         /// </summary>
-        [DataMember(Name = "messageId", IsRequired = false, EmitDefaultValue = false)]
-        public string MessageId { get; set; }
+        [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
+        public string Id { get; set; }
 
         /// <summary>
         /// An array of strings to substitute into the message string.
@@ -80,8 +80,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="markdown">
         /// An initialization value for the <see cref="P:Markdown" /> property.
         /// </param>
-        /// <param name="messageId">
-        /// An initialization value for the <see cref="P:MessageId" /> property.
+        /// <param name="id">
+        /// An initialization value for the <see cref="P:Id" /> property.
         /// </param>
         /// <param name="arguments">
         /// An initialization value for the <see cref="P:Arguments" /> property.
@@ -89,9 +89,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Message(string text, string markdown, string messageId, IEnumerable<string> arguments, IDictionary<string, SerializedPropertyInfo> properties)
+        public Message(string text, string markdown, string id, IEnumerable<string> arguments, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(text, markdown, messageId, arguments, properties);
+            Init(text, markdown, id, arguments, properties);
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Text, other.Markdown, other.MessageId, other.Arguments, other.Properties);
+            Init(other.Text, other.Markdown, other.Id, other.Arguments, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -131,11 +131,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Message(this);
         }
 
-        private void Init(string text, string markdown, string messageId, IEnumerable<string> arguments, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string text, string markdown, string id, IEnumerable<string> arguments, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Text = text;
             Markdown = markdown;
-            MessageId = messageId;
+            Id = id;
             if (arguments != null)
             {
                 var destination_0 = new List<string>();
