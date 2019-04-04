@@ -9,7 +9,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public const string ArbitraryServerSideForwards = "unvalidated forward";
         public const string AuthorizationRulesMisordered = "authorization-rules-misordered";
         public const string AuthorizationRulesMissingDenyRule = "authorization-missing-deny";
-        public const string BadMessageAuthenticationCode = "crypto-bad-mac";
         public const string CacheControlHeaderDisabled = "cache-control-disabled";
         public const string CrossSiteScripting = "reflected-xss";
         public const string DetailedErrorMessagesDisplayed = "custom-errors-off";

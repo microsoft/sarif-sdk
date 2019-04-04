@@ -125,11 +125,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     return ConstructAuthorizationRulesMissingDenyResult(context.Properties);
                 }
 
-                case ContrastSecurityRuleIds.BadMessageAuthenticationCode:
-                {
-                    return ConstructBadMessageAuthenticationCodeResult(context.Properties);
-                }
-
                 case ContrastSecurityRuleIds.CrossSiteScripting:
                 {
                     return ConstructCrossSiteScriptingResult(context);
@@ -164,6 +159,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     return ConstructInsecureEncryptionAlgorithmsResult(context.Properties);
                 }
+
+                case ContrastSecurityRuleIds.InsecureHashAlgorithms:
+                    {
+                        return ConstructInsecureHashAlgorithmsResult(context.Properties);
+                    }
 
                 case ContrastSecurityRuleIds.OverlyLongSessionTimeout:
                 {
@@ -330,9 +330,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             return result;
         }
-        private Result ConstructBadMessageAuthenticationCodeResult(IDictionary<string, string> properties)
+        private Result ConstructInsecureHashAlgorithmsResult(IDictionary<string, string> properties)
         {
-            const string RuleId = ContrastSecurityRuleIds.BadMessageAuthenticationCode;
+            const string RuleId = ContrastSecurityRuleIds.InsecureHashAlgorithms;
             return new Result
             {
                 RuleId = RuleId,
