@@ -332,9 +332,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
         private Result ConstructBadMessageAuthenticationCodeResult(IDictionary<string, string> properties)
         {
+            string ruleId = ContrastSecurityRuleIds.BadMessageAuthenticationCode;
+
             var result = new Result
             {
-                RuleId = ContrastSecurityRuleIds.BadMessageAuthenticationCode
+                RuleId = ruleId,
+                Level = GetRuleFailureLevel(ruleId)
             };
 
             return result;
