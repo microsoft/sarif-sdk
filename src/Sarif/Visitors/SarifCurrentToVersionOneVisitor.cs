@@ -1132,9 +1132,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 stackFrame = new StackFrameVersionOne
                 {
-                    Address = HexToInt(v2StackFrame.Location?.PhysicalLocation?.Address?.BaseAddress),
+                    Address = v2StackFrame.Location?.PhysicalLocation?.Address?.BaseAddress ?? 0,
                     Module = v2StackFrame.Module,
-                    Offset = HexToInt(v2StackFrame.Location?.PhysicalLocation?.Address?.Offset),
+                    Offset = v2StackFrame.Location?.PhysicalLocation?.Address?.Offset ?? 0,
                     Parameters = v2StackFrame.Parameters,
                     Properties = v2StackFrame.Properties,
                     ThreadId = v2StackFrame.ThreadId
@@ -1171,20 +1171,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return stackFrame;
-        }
-
-        private static int HexToInt(string hexValue)
-        {
-            if (string.IsNullOrWhiteSpace(hexValue))
-            {
-                return 0;
-            }
-            // strip the leading 0x if found.
-            if (hexValue.StartsWith("0x", StringComparison.OrdinalIgnoreCase))
-            {
-                hexValue = hexValue.Substring(2);
-            }
-            return int.TryParse(hexValue, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out int address) ? address : 0;
         }
 
         internal ToolVersionOne CreateToolVersionOne(Tool v2Tool, string language)

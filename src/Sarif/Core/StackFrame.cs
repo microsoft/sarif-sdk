@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 stackFrame.Location.PhysicalLocation.Address = new Address
                 {
-                    Offset = string.Format("0x{0:X}", ilOffset)
+                    Offset = ilOffset
                 };
             }
 

@@ -486,8 +486,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 location.PhysicalLocation.Address = new Address
                 {
-                    BaseAddress = (address > 0) ? string.Format("0x{0:X}", address): null,
-                    Offset = (offset > 0) ? string.Format("0x{0:X}", offset): null
+                    BaseAddress = address,
+                    Offset = offset
                 };
             }
             return location;

@@ -524,7 +524,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             // Previously:
             //  "stackFrame" : {
-            //      "address" : 324 ,
+            //      "address" : 324,
             //      "offset" : 346
             //  }
             // Now:
@@ -532,8 +532,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             //      "location" : {
             //          "physicalLocation" : {
             //              "address" : {
-            //                  "baseAddress" : "0x144",
-            //                  "offset" : "0x15A"
+            //                  "baseAddress" : 324,
+            //                  "offset" : 346
             //              }
             //          }
             //      }
@@ -569,13 +569,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (stackFrame["address"] is JToken stackFrameAddress)
             {
-                address.Add("baseAddress", string.Format("0x{0:X}", stackFrameAddress));
+                address.Add("baseAddress", stackFrameAddress);
                 stackFrame.Remove("address");
             }
 
             if (stackFrame["offset"] is JToken stackFrameOffset)
             {
-                address.Add("offset", string.Format("0x{0:X}", stackFrameOffset));
+                address.Add("offset", stackFrameOffset);
                 stackFrame.Remove("offset");
             }
 
