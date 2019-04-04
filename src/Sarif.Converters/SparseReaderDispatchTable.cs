@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         /// <summary>Handles .</summary>
-        /// <param name="elementName">Name of the element for which a handler shall be installed.</param>
+        /// <param name="elementName">Name of the element for which a handler was installed.</param>
         /// <param name="source">Source for the.</param>
         /// <param name="context">The context.</param>
         /// <returns>true if a dispatcher was registered for that element name; otherwise, false.</returns>

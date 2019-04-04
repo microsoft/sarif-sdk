@@ -248,7 +248,7 @@
 * API BREAKING: Make `resources.rules` an array, not a dictionary. Add result.ruleIndex to point to a rule object associated with the result within `resources.rules`.
 * API BREAKING: `run.logicalLocations` now requires unique array elements. https://github.com/oasis-tcs/sarif-spec/issues/304
 
-## **v2.0.0-csd.2.beta.2019.01.24** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.01.24) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.01.24) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.01.24)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.01.24))
+## **v2.0.0-csd.2.beta.2019.01-24** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.01-24) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.01-24) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.01-24)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.01-24))
 * BUGFIX: SDK compatibility update for sample apps.
 * BUGFIX: Add Sarif.Multitool.exe.config file to multitool package to resolve "Could not load file or assembly `Newtonsoft.Json, Version=9.0.0.0`" exception on using validate command.
 * API BREAKING: rename baselineState `existing` value to `unchanged`. Add new baselineState value `updated`. https://github.com/oasis-tcs/sarif-spec/issues/312
@@ -260,10 +260,10 @@
 * API BREAKING: `threadflowLocation.kind` is now `threadflowLocation.kinds`, an array of strings that categorize the thread flow location. https://github.com/oasis-tcs/sarif-spec/issues/202
 * API BREAKING: `file` renamed to `artifact`. `fileLocation` renamed to `artifactLocation`. `run.files` renamed to `run.artifacts`. https://github.com/oasis-tcs/sarif-spec/issues/309
 
-## **v2.0.0-csd.2.beta.2019.01.24.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.01.24.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.01.24.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.01.24.1)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.01.24.1))
+## **v2.0.0-csd.2.beta.2019.01-24.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.01-24.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.01-24.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.01-24.1)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.01-24.1))
 * BUGFIX: `region.charOffset` default value should be -1 (invalid value) rather than 0. Fixes an issue where `region.charLength` is > 0 but `region.charOffset` is absent (because its value of 0 was incorrectly elided due to being the default value). 
 
-## **v2.0.0-csd.2.beta.2019.02.20** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.02.20) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.02.20) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.02.20)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.02.20))
+## **v2.0.0-csd.2.beta.2019.02-20** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.02-20) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.02-20) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.02-20)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.02-20))
 * COMMAND-LINE BREAKING: Rename `--sarif-version` to `--sarif-output-version`. Remove duplicative tranform `--target-version` command-line argument.
 * COMMAND-LINE NON-BREAKING: add `--inline` option to multitool `rebaseuri` verb, to write output directly into input files.
 * API NON-BREAKING: Add additional properties to `toolComponent`. https://github.com/oasis-tcs/sarif-spec/issues/336
@@ -279,15 +279,18 @@
 * API BREAKING: Add address property to a location object (and other nodes). https://github.com/oasis-tcs/sarif-spec/issues/302
 * API BREAKING: External property file related renames. https://github.com/oasis-tcs/sarif-spec/issues/335
 
-## **v2.0.0-csd.2.beta.2019.04.03** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.04.03) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.04.03) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.04.03)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.04.03))
-* API NON-BREAKING: Add Introduce new localization mechanism (post ballot changes). https://github.com/oasis-tcs/sarif-spec/issues/338
-* API BREAKING: Add address property to a location object (post ballot changes). https://github.com/oasis-tcs/sarif-spec/issues/302
-* API NON-BREAKING: Define result taxonomies. https://github.com/oasis-tcs/sarif-spec/issues/314
-* API NON-BREAKING: Define a reportingDescriptorReference object. https://github.com/oasis-tcs/sarif-spec/issues/324
-* API BREAKING: Change run.graphs and result.graphs from objects to arrays. https://github.com/oasis-tcs/sarif-spec/issues/326
+## **v2.0.0-csd.2.beta.2019.04-03.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.04-03.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.04-03.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.04-03.0)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.04-03.0))
+* API NON-BREAKING: Introduce new localization mechanism (post ballot changes). https://github.com/oasis-tcs/sarif-spec/issues/338
+* API BREAKING: Add `address` property to a `location` object (post ballot changes). https://github.com/oasis-tcs/sarif-spec/issues/302
+* API NON-BREAKING: Define result `taxonomies`. https://github.com/oasis-tcs/sarif-spec/issues/314
+* API NON-BREAKING: Define a `reportingDescriptorReference` object. https://github.com/oasis-tcs/sarif-spec/issues/324
+* API BREAKING: Change `run.graphs` and `result.graphs` from objects to arrays. https://github.com/oasis-tcs/sarif-spec/issues/326
 * API BREAKING: External property file related renames (post ballot changes). https://github.com/oasis-tcs/sarif-spec/issues/335
 * API NON-BREAKING: Allow toolComponents to be externalized. https://github.com/oasis-tcs/sarif-spec/issues/337
-* API BREAKING: Rename all 'instanceGuid' properties to 'guid'. https://github.com/oasis-tcs/sarif-spec/issues/341
-* API NON-BREAKING: Add 'reportingDescriptor.deprecatedNames' and 'deprecatedGuids' to match 'deprecatedIds' property. https://github.com/oasis-tcs/sarif-spec/issues/346
-* API NON-BREAKING: Add 'referencedOnCommandLine' as a role. https://github.com/oasis-tcs/sarif-spec/issues/347
-* API NON-BREAKING: Rename reportingConfigurationOverride to configurationOverride. https://github.com/oasis-tcs/sarif-spec/issues/350
+* API BREAKING: Rename all `instanceGuid` properties to `guid`. https://github.com/oasis-tcs/sarif-spec/issues/341
+* API NON-BREAKING: Add `reportingDescriptor.deprecatedNames` and `deprecatedGuids` to match `deprecatedIds` property. https://github.com/oasis-tcs/sarif-spec/issues/346
+* API NON-BREAKING: Add `referencedOnCommandLine` as a role. https://github.com/oasis-tcs/sarif-spec/issues/347
+* API NON-BREAKING: Rename `reportingConfigurationOverride` to `configurationOverride`. https://github.com/oasis-tcs/sarif-spec/issues/350
+
+## **v2.0.0-csd.2.beta.2019.04-03** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.04-03) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.04-03) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.04-03)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.04-03))
+* API BREAKING: Rename `message.messageId` property to `message.id`. https://github.com/oasis-tcs/sarif-spec/issues/352

@@ -179,7 +179,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     RuleIndex = RuleIndex,
                     Message = new Message
                     {
-                        MessageId = UniqueGlobalMessageId
+                        Id = UniqueGlobalMessageId
                     }
                 });
 
@@ -190,7 +190,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     RuleIndex = RuleIndex,
                     Message = new Message
                     {
-                        MessageId = UniqueRuleMessageId
+                        Id = UniqueRuleMessageId
                     }
                 });
 
@@ -202,7 +202,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     RuleIndex = RuleIndex,
                     Message = new Message
                     {
-                        MessageId = SharedMessageId
+                        Id = SharedMessageId
                     }
                 });
 
@@ -233,7 +233,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         Id = NotificationId
                     },
-                    Message = new Message {  MessageId = SharedMessageId}
+                    Message = new Message {  Id = SharedMessageId}
                 });
             configurationNotifications.Add(toolNotifications[0]);
 
@@ -252,7 +252,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         Index = RuleIndex
                     },
-                    Message = new Message { MessageId = UniqueGlobalMessageId }
+                    Message = new Message { Id = UniqueGlobalMessageId }
                 });
             configurationNotifications.Add(toolNotifications[1]);
 
@@ -271,7 +271,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         Index = RuleIndex
                     },
-                    Message = new Message { MessageId = SharedMessageId }
+                    Message = new Message { Id = SharedMessageId }
                 });
             configurationNotifications.Add(toolNotifications[2]);
 
@@ -310,21 +310,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         {
                             Description = new Message
                             {
-                                MessageId = UniqueGlobalMessageId
+                                Id = UniqueGlobalMessageId
                             }
                         },
                         new Fix
                         {
                             Description = new Message
                             {
-                                MessageId = UniqueRuleMessageId
+                                Id = UniqueRuleMessageId
                             }
                         },
                         new Fix
                         {
                             Description = new Message
                             {
-                                MessageId = SharedMessageId
+                                Id = SharedMessageId
                             }
                         }
                     }
@@ -343,7 +343,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                         {
                             Description = new Message
                             {
-                                MessageId = SharedMessageId
+                                Id = SharedMessageId
                             }
                         }
                     }

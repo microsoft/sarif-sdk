@@ -490,7 +490,7 @@
               "text": "Verifies session cookies have the secure flag."
             },
             "messageStrings": {
-              "default": "The value of the HttpCookie for the cookie '{0}' did not contain the 'secure' flag; the value observed was '{1}."
+              "default": "The value of the HttpCookie for the cookie '{0}' did not contain the 'secure' flag; the value observed was '{1}'."
             },
             "configuration": {
               "defaultLevel": "warning"

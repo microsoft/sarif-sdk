@@ -112,6 +112,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitReportingDescriptor((ReportingDescriptor)node);
                 case SarifNodeKind.ReportingDescriptorReference:
                     return VisitReportingDescriptorReference((ReportingDescriptorReference)node);
+                case SarifNodeKind.ReportingDescriptorRelationship:
+                    return VisitReportingDescriptorRelationship((ReportingDescriptorRelationship)node);
                 case SarifNodeKind.Result:
                     return VisitResult((Result)node);
                 case SarifNodeKind.ResultProvenance:
@@ -806,19 +808,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 node.DefaultConfiguration = VisitNullChecked(node.DefaultConfiguration);
                 node.Help = VisitNullChecked(node.Help);
-                if (node.Taxa != null)
+                if (node.Relationships != null)
                 {
-                    for (int index_0 = 0; index_0 < node.Taxa.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.Relationships.Count; ++index_0)
                     {
-                        node.Taxa[index_0] = VisitNullChecked(node.Taxa[index_0]);
-                    }
-                }
-
-                if (node.OptionalTaxa != null)
-                {
-                    for (int index_0 = 0; index_0 < node.OptionalTaxa.Count; ++index_0)
-                    {
-                        node.OptionalTaxa[index_0] = VisitNullChecked(node.OptionalTaxa[index_0]);
+                        node.Relationships[index_0] = VisitNullChecked(node.Relationships[index_0]);
                     }
                 }
             }
@@ -831,6 +825,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.ToolComponent = VisitNullChecked(node.ToolComponent);
+            }
+
+            return node;
+        }
+
+        public virtual ReportingDescriptorRelationship VisitReportingDescriptorRelationship(ReportingDescriptorRelationship node)
+        {
+            if (node != null)
+            {
+                node.Descriptor = VisitNullChecked(node.Descriptor);
             }
 
             return node;

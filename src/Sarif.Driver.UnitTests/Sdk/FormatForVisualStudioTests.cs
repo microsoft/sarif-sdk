@@ -255,7 +255,7 @@ private Result MakeResultFromTestCase(FailureLevel level, ResultKind kind, Regio
                         "42",
                         "54"
                     },
-                    MessageId = TestMessageStringId
+                    Id = TestMessageStringId
                 }
             };
         }

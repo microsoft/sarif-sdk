@@ -72,9 +72,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 xReader = XmlReader.Create(stream, settings);
                 xReader.MoveToContent(); // If this throws, we destroy the reader in the finally block below.
-                var result = new SparseReader(dispatchTable, xReader); // nothrow
+                var sparseReader = new SparseReader(dispatchTable, xReader); // nothrow
                 xReader = null; // Ownership transfered to SparseReader; don't destroy here
-                return result;
+                return sparseReader;
             }
             finally
             {
