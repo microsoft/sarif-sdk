@@ -1819,7 +1819,6 @@
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
-          "default": [],
           "items": {
             "type": "string"
           }
