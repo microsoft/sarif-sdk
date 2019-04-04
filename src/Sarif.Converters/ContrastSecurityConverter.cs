@@ -221,8 +221,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             var result = new Result
             {
-                Level = GetRuleFailureLevel(ruleId),
                 RuleId = ruleId,
+                Level = GetRuleFailureLevel(ruleId),
                 Message = new Message { Text = $"TODO: missing message construction for rule '{ruleId}'." }
             };
 
@@ -256,10 +256,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             string pageCount = locations.Count.ToString();
 
-            var result = new Result
+            const string RuleId = ContrastSecurityRuleIds.AntiCachingControlsMissing;
+            return new Result
             {
-                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.AntiCachingControlsMissing),
-                RuleId = ContrastSecurityRuleIds.AntiCachingControlsMissing,
+                RuleId = RuleId,
+                Level = GetRuleFailureLevel(RuleId),
                 Locations = locations,
                 Message = new Message
                 {
@@ -272,17 +273,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                 }
             };
-
-            return result;
         }
 
         private Result ConstructAuthorizationRulesMissingDenyResult(IDictionary<string, string> properties)
         {
             // authorization-missing-deny : Authorization Rules Missing Deny Rule
 
+            const string RuleId = ContrastSecurityRuleIds.AuthorizationRulesMissingDenyRule;
             var result = new Result
             {
-                RuleId = ContrastSecurityRuleIds.AuthorizationRulesMissingDenyRule
+                RuleId = RuleId,
+                Level = GetRuleFailureLevel(RuleId)
             };
 
             // authorization-missing-deny instances track the following properties:
@@ -302,7 +303,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             });
 
             result.Locations = locations;
-            result.Level = GetRuleFailureLevel(ContrastSecurityRuleIds.AuthorizationRulesMissingDenyRule);
 
             if (locationPath == null)
             {
@@ -332,15 +332,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
         private Result ConstructBadMessageAuthenticationCodeResult(IDictionary<string, string> properties)
         {
-            string ruleId = ContrastSecurityRuleIds.BadMessageAuthenticationCode;
-
-            var result = new Result
+            const string RuleId = ContrastSecurityRuleIds.BadMessageAuthenticationCode;
+            return new Result
             {
-                RuleId = ruleId,
-                Level = GetRuleFailureLevel(ruleId)
+                RuleId = RuleId,
+                Level = GetRuleFailureLevel(RuleId)
             };
-
-            return result;
         }
 
         private Result ConstructPagesWithoutAntiClickjackingControlsResult(IDictionary<string, string> properties)
@@ -365,10 +362,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string pageCount = locations.Count.ToString();
             string examplePage = locations[0].PhysicalLocation.ArtifactLocation.Uri.ToString();
 
-            var result = new Result
+            const string RuleId = ContrastSecurityRuleIds.PagesWithoutAntiClickjackingControls;
+            return new Result
             {
-                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.PagesWithoutAntiClickjackingControls),
-                RuleId = ContrastSecurityRuleIds.PagesWithoutAntiClickjackingControls,
+                RuleId = RuleId,
+                Level = GetRuleFailureLevel(RuleId),
                 Locations = locations,
                 Message = new Message
                 {
@@ -380,8 +378,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     },
                 }
             };
-
-            return result;
         }
 
         private Result ConstructCrossSiteScriptingResult(ContrastLogReader.Context context)
@@ -400,12 +396,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string caller = context.PropagationEvents[context.PropagationEvents.Count - 1].Stack.Frames[0].Location.LogicalLocation?.FullyQualifiedName;
             string controlID = context.Properties.ContainsKey(nameof(controlID)) ? context.Properties[nameof(controlID)] : null;
 
-            Result result;
-
-            result = new Result
+            const string RuleId = ContrastSecurityRuleIds.CrossSiteScripting;
+            var result = new Result
             {
-                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.CrossSiteScripting),
-                RuleId = ContrastSecurityRuleIds.CrossSiteScripting,
+                RuleId = RuleId,
+                Level = GetRuleFailureLevel(RuleId),
                 Locations = new List<Location>()
                 {
                     new Location
@@ -444,13 +439,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return result;
         }
 
-
                     // A cross-site scripting vulnerability was observed as untrusted data '{0}' on  '{1}' was accessed within  '{2}' control and observed going into the HTTP response without validation or encoding.
-    
 
 
-
-    private Result ConstructDetailedErrorMessagesDisplayedResult(IDictionary<string, string> properties)
+        private Result ConstructDetailedErrorMessagesDisplayedResult(IDictionary<string, string> properties)
         {
             // custom-errors-off : Detailed Error Messages Displayed
 
@@ -460,10 +452,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string path = properties[nameof(path)];
             string snippet = properties[nameof(snippet)];
 
-            var result = new Result
+            const string RuleId = ContrastSecurityRuleIds.DetailedErrorMessagesDisplayed;
+            return new Result
             {
-                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.DetailedErrorMessagesDisplayed),
-                RuleId = ContrastSecurityRuleIds.DetailedErrorMessagesDisplayed,
+                RuleId = RuleId,
+                Level = GetRuleFailureLevel(RuleId),
                 Locations = new List<Location>()
                 {
                     new Location
@@ -480,8 +473,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                 }
             };
-
-            return result;
         }
 
         private Result ConstructEventValidationDisabledResult(IDictionary<string, string> properties)
@@ -494,10 +485,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string aspx = properties[nameof(aspx)];
             string snippet = properties[nameof(snippet)];
 
-            var result = new Result
+            const string RuleId = ContrastSecurityRuleIds.EventValidationDisabled;
+            return new Result
             {
-                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.EventValidationDisabled),
-                RuleId = ContrastSecurityRuleIds.EventValidationDisabled,
+                RuleId = RuleId,
+                Level = GetRuleFailureLevel(RuleId),
                 Locations = new List<Location>()
                 {
                     new Location
@@ -514,8 +506,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                 }
             };
-
-            return result;
         }
 
         private Result ConstructFormsAuthenticationSSLResult(IDictionary<string, string> properties)
@@ -528,10 +518,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string path = properties[nameof(path)];
             string snippet = properties[nameof(snippet)];
 
-            var result = new Result
+            const string RuleId = ContrastSecurityRuleIds.FormsAuthenticationSSL;
+            return new Result
             {
-                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.FormsAuthenticationSSL),
-                RuleId = ContrastSecurityRuleIds.FormsAuthenticationSSL,
+                RuleId = RuleId,
+                Level = GetRuleFailureLevel(RuleId),
                 Locations = new List<Location>()
                 {
                     new Location
@@ -548,8 +539,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                 }
             };
-
-            return result;
         }
 
         private Result ConstructFormsWithoutAutocompletePreventionResult(IDictionary<string, string> properties)
@@ -602,10 +591,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string pageCount = locations.Count.ToString();
             string examplePage = locations[0].PhysicalLocation.ArtifactLocation.Uri.OriginalString;
 
-            var result = new Result
+            const string RuleId = ContrastSecurityRuleIds.FormsWithoutAutocompletePrevention;
+            return new Result
             {
-                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.FormsWithoutAutocompletePrevention),
-                RuleId = ContrastSecurityRuleIds.FormsWithoutAutocompletePrevention,
+                RuleId = RuleId,
+                Level = GetRuleFailureLevel(RuleId),
                 Locations = locations,
                 Message = new Message
                 {
@@ -617,8 +607,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                 }
             };
-
-            return result;
         }
 
         private bool KeyIsReservedPropertyName(string key)
@@ -659,10 +647,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string section = properties[nameof(section)];
             string snippet = properties[nameof(snippet)];
 
-            var result = new Result
+            const string RuleId = ContrastSecurityRuleIds.OverlyLongSessionTimeout;
+            return new Result
             {
-                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.OverlyLongSessionTimeout),
-                RuleId = ContrastSecurityRuleIds.OverlyLongSessionTimeout,
+                RuleId = RuleId,
+                Level = GetRuleFailureLevel(RuleId),
                 Locations = new List<Location>()
                 {
                     new Location
@@ -680,8 +669,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                 }
             };
-
-            return result;
         }
 
         private Result ConstructPathTraversalResult(IDictionary<string, string> properties)
@@ -736,10 +723,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // default : SQL injection from untrusted source(s) '{0}' observed on '{1}' page. Untrusted data flowed from '{2}' to dangerous sink '{3}' in '{4}'.
 
+            const string RuleId = ContrastSecurityRuleIds.SqlInjection;
             var result = new Result
             {
-                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.SqlInjection),
-                RuleId = ContrastSecurityRuleIds.SqlInjection,
+                RuleId = RuleId,
+                Level = GetRuleFailureLevel(RuleId),
                 Locations = new List<Location>()
                 {
                     new Location
@@ -808,10 +796,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             string path = properties[nameof(path)];
 
-            var result = new Result
+            const string RuleId = ContrastSecurityRuleIds.VersionHeaderEnabled;
+            return new Result
             {
-                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.VersionHeaderEnabled),
-                RuleId = ContrastSecurityRuleIds.VersionHeaderEnabled,
+                RuleId = RuleId,
+                Level = GetRuleFailureLevel(RuleId),
                 Locations = new List<Location>()
                 {
                     new Location
@@ -828,8 +817,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                 }
             };
-
-            return result;
         }
 
         private Result ConstructWebApplicationDeployedinDebugModeResult(IDictionary<string, string> properties)
@@ -842,10 +829,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string path = properties[nameof(path)];
             string snippet = properties[nameof(snippet)];
 
-            var result = new Result
+            const string RuleId = ContrastSecurityRuleIds.WebApplicationDeployedinDebugMode;
+            return new Result
             {
-                Level = GetRuleFailureLevel(ContrastSecurityRuleIds.WebApplicationDeployedinDebugMode),
-                RuleId = ContrastSecurityRuleIds.WebApplicationDeployedinDebugMode,
+                RuleId = RuleId,
+                Level = GetRuleFailureLevel(RuleId),
                 Locations = new List<Location>()
                 {
                     new Location
@@ -862,8 +850,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                 }
             };
-
-            return result;
         }
 
         private Region CreateRegion(string snippet)
