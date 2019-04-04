@@ -65,12 +65,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 // Deserialize will return null if there are any JSON deserialization errors
                 // (which can happen, for example, if a property required by the schema is
                 // missing. In that case, again, there's no point in going on.
-                string sarifText = FileSystem.ReadAllText(context.TargetUri.OriginalString);
+                context.InputLogContents = FileSystem.ReadAllText(context.TargetUri.OriginalString);
 
                 PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
                     context.InputLogContents,
                     formatting: Formatting.None,
-                    out sarifText);
+                    out string sarifText);
 
                 context.InputLogContents = sarifText;
                 context.InputLog = context.InputLogContents != null ? Deserialize(context.InputLogContents) : null;
