@@ -979,7 +979,15 @@
         },
 
         "initialState": {
-          "description": "Values of relevant expressions at the start of the graph traversal.",
+          "description": "Values of relevant expressions at the start of the graph traversal that may change during graph traversal.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+
+        "immutableState": {
+          "description": "Values of relevant expressions at the start of the graph traversal that remain constant for the graph traversal.",
           "type": "object",
           "additionalProperties": {
             "type": "string"
@@ -2486,6 +2494,23 @@
         "message": {
           "description": "A message relevant to the thread flow.",
           "$ref": "#/definitions/message"
+        },
+
+
+        "initialState": {
+          "description": "Values of relevant expressions at the start of the thread flow that may change during thread flow execution.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+
+        "immutableState": {
+          "description": "Values of relevant expressions at the start of the thread flow that remain constant.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
         },
 
         "locations": {

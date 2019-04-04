@@ -42,6 +42,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Message Message { get; set; }
 
         /// <summary>
+        /// Values of relevant expressions at the start of the thread flow that may change during thread flow execution.
+        /// </summary>
+        [DataMember(Name = "initialState", IsRequired = false, EmitDefaultValue = false)]
+        public object InitialState { get; set; }
+
+        /// <summary>
+        /// Values of relevant expressions at the start of the thread flow that remain constant.
+        /// </summary>
+        [DataMember(Name = "immutableState", IsRequired = false, EmitDefaultValue = false)]
+        public object ImmutableState { get; set; }
+
+        /// <summary>
         /// A temporally ordered array of 'threadFlowLocation' objects, each of which describes a location visited by the tool while producing the result.
         /// </summary>
         [DataMember(Name = "locations", IsRequired = true)]
@@ -69,15 +81,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="message">
         /// An initialization value for the <see cref="P:Message" /> property.
         /// </param>
+        /// <param name="initialState">
+        /// An initialization value for the <see cref="P:InitialState" /> property.
+        /// </param>
+        /// <param name="immutableState">
+        /// An initialization value for the <see cref="P:ImmutableState" /> property.
+        /// </param>
         /// <param name="locations">
         /// An initialization value for the <see cref="P:Locations" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ThreadFlow(string id, Message message, IEnumerable<ThreadFlowLocation> locations, IDictionary<string, SerializedPropertyInfo> properties)
+        public ThreadFlow(string id, Message message, object initialState, object immutableState, IEnumerable<ThreadFlowLocation> locations, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, message, locations, properties);
+            Init(id, message, initialState, immutableState, locations, properties);
         }
 
         /// <summary>
@@ -96,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.Message, other.Locations, other.Properties);
+            Init(other.Id, other.Message, other.InitialState, other.ImmutableState, other.Locations, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -117,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ThreadFlow(this);
         }
 
-        private void Init(string id, Message message, IEnumerable<ThreadFlowLocation> locations, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string id, Message message, object initialState, object immutableState, IEnumerable<ThreadFlowLocation> locations, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             if (message != null)
@@ -125,6 +143,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Message = new Message(message);
             }
 
+            InitialState = initialState;
+            ImmutableState = immutableState;
             if (locations != null)
             {
                 var destination_0 = new List<ThreadFlowLocation>();
