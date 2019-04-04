@@ -65,6 +65,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
+            if (!object.Equals(left.ImmutableState, right.ImmutableState))
+            {
+                return false;
+            }
+
             if (!object.ReferenceEquals(left.EdgeTraversals, right.EdgeTraversals))
             {
                 if (left.EdgeTraversals == null || right.EdgeTraversals == null)
@@ -142,6 +147,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
 
                     result = (result * 31) + xor_0;
+                }
+
+                if (obj.ImmutableState != null)
+                {
+                    result = (result * 31) + obj.ImmutableState.GetHashCode();
                 }
 
                 if (obj.EdgeTraversals != null)

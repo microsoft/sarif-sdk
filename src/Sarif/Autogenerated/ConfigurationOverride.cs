@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Information about how a specific tool report was reconfigured at runtime.
+    /// Information about how a specific rule or notification was reconfigured at runtime.
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
@@ -33,19 +33,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// Specifies how the report was configured during the scan.
+        /// Specifies how the rule or notification was configured during the scan.
         /// </summary>
         [DataMember(Name = "configuration", IsRequired = true)]
         public ReportingConfiguration Configuration { get; set; }
 
         /// <summary>
-        /// A reference used to locate the descriptor relevant to this configuration override.
+        /// A reference used to locate the descriptor whose configuration was overridden.
         /// </summary>
         [DataMember(Name = "descriptor", IsRequired = true)]
         public ReportingDescriptorReference Descriptor { get; set; }
 
         /// <summary>
-        /// Key/value pairs that provide additional information about the reporting configuration.
+        /// Key/value pairs that provide additional information about the configuration override.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
