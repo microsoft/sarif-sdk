@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string BaseAddress { get; set; }
 
         /// <summary>
-        /// An open-ended string that identifies the address kind. 'section' and 'segment' are well-known values.
+        /// An open-ended string that identifies the address kind. 'section', 'segment' and 'module' are well-known values.
         /// </summary>
         [DataMember(Name = "kind", IsRequired = false, EmitDefaultValue = false)]
         public string Kind { get; set; }
