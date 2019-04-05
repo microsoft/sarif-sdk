@@ -24,60 +24,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             _testDirectory = Path.Combine(Environment.CurrentDirectory, TestDataDirectory, ruleName);
         }
 
-
-        protected void Verify(string testFileName)
+        protected void Verify(string testFileName, bool disablePrereleaseCompatibilityTransform = false)
         {
-            Verify(testFileName, disablePrereleaseCompatibilityTransform: false);
-        }
+            //Verify(testFileName, disablePrereleaseCompatibilityTransform: false);
 
-        protected void Verify(string testFileName, bool disablePrereleaseCompatibilityTransform)
-        {
             string targetPath = Path.Combine(_testDirectory, testFileName);
             string actualFilePath = MakeActualFilePath(_testDirectory, testFileName);
 
-            string inputLogContents = File.ReadAllText(targetPath);
+            ValidateCommandTests.Verify(targetPath, ValidationCallback, disablePrereleaseCompatibilityTransform: false);
+        }
 
-            if (!disablePrereleaseCompatibilityTransform)
-            {
-                PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(inputLogContents, formatting: Formatting.Indented, out inputLogContents);
-            }
+        private void ValidationCallback(string testFileName, string actualLogContents)
+        {
+            string targetPath = Path.Combine(_testDirectory, testFileName);
+            string inputLogContents = File.ReadAllText(targetPath);
 
             SarifLog inputLog = JsonConvert.DeserializeObject<SarifLog>(inputLogContents);
 
             bool expectedResultsArePresent = inputLog.Runs[0].TryGetProperty(ExpectedResultsPropertyName, out ExpectedValidationResults expectedResults);
             expectedResultsArePresent.Should().Be(true);
 
-            var skimmer = new TSkimmer();
-
-            using (var logger = new SarifLogger(
-                    actualFilePath,
-                    LoggingOptions.None,
-                    tool: null,
-                    run: null,
-                    analysisTargets: new string[] { targetPath },
-                    invocationTokensToRedact: null))
-            {
-                logger.AnalysisStarted();
-
-                var context = new SarifValidationContext
-                {
-                    Rule = skimmer,
-                    Logger = logger,
-                    TargetUri = new Uri(targetPath),
-                    SchemaFilePath = JsonSchemaFile,
-                    InputLogContents = inputLogContents,
-                    InputLog = inputLog
-                };
-
-                skimmer.Initialize(context);
-                context.Logger.AnalyzingTarget(context);
-
-                skimmer.Analyze(context);
-
-                logger.AnalysisStopped(RuntimeConditions.None);
-            }
-
-            string actualLogContents = File.ReadAllText(actualFilePath);
             SarifLog outputLog = JsonConvert.DeserializeObject<SarifLog>(actualLogContents);
 
             Verify(outputLog.Runs[0], expectedResults);
