@@ -161,9 +161,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
 
                 case ContrastSecurityRuleIds.InsecureHashAlgorithms:
-                    {
-                        return ConstructInsecureHashAlgorithmsResult(context.Properties);
-                    }
+                {
+                    return ConstructInsecureHashAlgorithmsResult(context);
+                }
 
                 case ContrastSecurityRuleIds.OverlyLongSessionTimeout:
                 {
@@ -330,13 +330,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             return result;
         }
-        private Result ConstructInsecureHashAlgorithmsResult(IDictionary<string, string> properties)
+        private Result ConstructInsecureHashAlgorithmsResult(ContrastLogReader.Context context)
         {
             const string RuleId = ContrastSecurityRuleIds.InsecureHashAlgorithms;
             return new Result
             {
                 RuleId = RuleId,
-                Level = GetRuleFailureLevel(RuleId)
+                Level = GetRuleFailureLevel(RuleId),
+                CodeFlows = CreateCodeFlows(context)
             };
         }
 
@@ -728,6 +729,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 RuleId = RuleId,
                 Level = GetRuleFailureLevel(RuleId),
+                CodeFlows = CreateCodeFlows(context),
                 Locations = new List<Location>()
                 {
                     new Location
@@ -749,29 +751,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             };
 
-            result.CodeFlows = new List<CodeFlow>
-            {
-                new CodeFlow
-                {
-                     ThreadFlows = new List<ThreadFlow>
-                     {
-                         new ThreadFlow
-                         {
-                              Locations = context.PropagationEvents
-                         }
-                     }
-                }
-            };
-
             result.CodeFlows[0].ThreadFlows[0].Locations.Add(context.MethodEvent);
-
-            // ** TODO remove this ** /
-            result.Stacks = new List<Stack>();
-
-            foreach (ThreadFlowLocation threadFlowLocation in result.CodeFlows[0].ThreadFlows[0].Locations)
-            {
-                result.Stacks.Add(threadFlowLocation.Stack);
-            }
 
             return result;
         }
@@ -892,9 +872,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return snippet.Replace("&amp;", "&").Replace("&lt;", "<").Replace("&gt;", ">").Replace("&quot;", "\"").Replace("&apos;", "'");
         }
 
+        private IList<CodeFlow> CreateCodeFlows(ContrastLogReader.Context context)
+        {
+            return context.PropagationEvents == null ?
+                null :
+                new List<CodeFlow>
+                {
+                    new CodeFlow
+                    {
+                         ThreadFlows = new List<ThreadFlow>
+                         {
+                             new ThreadFlow
+                             {
+                                  Locations = context.PropagationEvents
+                                  // TODO: Populate ImmutableState from the headers.
+                             }
+                         }
+                    }
+                };
+        }
+
         private PhysicalLocation CreatePhysicalLocation(string uri, Region region = null)
         {
-            region = region ?? new Region { StartLine = 1, StartColumn = 1, EndColumn = 1 };
             //return new PhysicalLocation
             //{
             //    FileLocation = new FileLocation
