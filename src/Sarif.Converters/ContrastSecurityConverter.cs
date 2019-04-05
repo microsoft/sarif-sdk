@@ -330,6 +330,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             return result;
         }
+
         private Result ConstructInsecureHashAlgorithmsResult(ContrastLogReader.Context context)
         {
             const string RuleId = ContrastSecurityRuleIds.InsecureHashAlgorithms;
@@ -439,9 +440,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             return result;
         }
-
-                    // A cross-site scripting vulnerability was observed as untrusted data '{0}' on  '{1}' was accessed within  '{2}' control and observed going into the HTTP response without validation or encoding.
-
 
         private Result ConstructDetailedErrorMessagesDisplayedResult(IDictionary<string, string> properties)
         {
@@ -894,17 +892,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private PhysicalLocation CreatePhysicalLocation(string uri, Region region = null)
         {
-            //return new PhysicalLocation
-            //{
-            //    FileLocation = new FileLocation
-            //    {
-            //        Uri = new Uri(uri, UriKind.Relative),
-            //        UriBaseId = "SITE_ROOT"
-            //    },
-            //    Region = region,
-            //    ContextRegion = region
-            //};
-
             uri = @"E:\src\WebGoat.NET" + uri.Replace(@"/", @"\");
 
             return new PhysicalLocation
