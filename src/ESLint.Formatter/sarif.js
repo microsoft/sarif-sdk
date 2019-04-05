@@ -5,6 +5,7 @@
 
 "use strict";
 
+const lodash = require("lodash");
 const fs = require("fs");
 const utf8 = require("utf8");
 const jschardet = require("jschardet");
@@ -30,21 +31,28 @@ function getResultLevel(message) {
 // Public Interface
 //------------------------------------------------------------------------------
 
-module.exports = function(results) {
+module.exports = function (results, data) {
+
+    const rulesMetdata = lodash.get(data, "rulesMetdata", null);
+
     const sarifLog = {
         version: "2.0.0",
         $schema: "http://json.schemastore.org/sarif-2.0.0",
         runs: [
             {
-                files: [],
+                artifacts: [],
                 tool: {
-                    name: "ESLint"
+                    driver: {
+                        name: "ESLint",
+                        downloadUri: "https://eslint.org"
+                    }
                 }
             }
         ]
     };
 
     const sarifFiles = {};
+    const sarifRules = {};
     const sarifResults = [];
     const embedFileContents = process.env.SARIF_ESLINT_EMBED === "true";
 
@@ -56,7 +64,7 @@ module.exports = function(results) {
 
             // Create a new entry in the files dictionary.
             sarifFiles[result.filePath] = {
-                fileLocation: {
+                location: {
                     uri: result.filePath
                 }
             };
@@ -98,7 +106,7 @@ module.exports = function(results) {
                 locations: [
                     {
                         physicalLocation: {
-                            fileLocation: {
+                            artifactLocation: {
                                 uri: result.filePath
                             }
                         }
@@ -108,6 +116,26 @@ module.exports = function(results) {
 
             if (message.ruleId) {
                 sarifResult.ruleId = message.ruleId;
+
+                if (rulesMetdata && typeof sarifRules[message.ruleId] === "undefined") {
+                    const meta = rulesMetdata[message.ruleId];
+
+                    // An unknown ruleId will return null. This check prevents unit test failure.
+                    if (meta) {
+
+                        // Create a new entry in the rules dictionary.
+                        sarifRules[message.ruleId] = {
+                            id: message.ruleId,
+                            shortDescription: {
+                                text: meta.docs.description
+                            },
+                            helpUri: meta.docs.url,
+                            tags: {
+                                category: meta.docs.category
+                            }
+                        };
+                    }
+                }
             }
 
             if (message.line > 0 && message.column > 0) {
@@ -127,17 +155,28 @@ module.exports = function(results) {
             }
 
             sarifResults.push(sarifResult);
-
         });
-
     });
 
     Object.keys(sarifFiles).forEach(function (path) {
-        sarifLog.runs[0].files.push(sarifFiles[path]);
+        sarifLog.runs[0].artifacts.push(sarifFiles[path]);
     });
 
     if (sarifResults.length > 0) {
         sarifLog.runs[0].results = sarifResults;
+    }
+
+    if (Object.keys(sarifRules).length > 0) {
+        sarifLog.runs[0].tool.driver = {
+            rules: []
+        };
+
+        var ruleIndex = 0;
+        Object.keys(sarifRules).forEach(function (ruleId) {
+            var rule = sarifRules[ruleId];
+            rule.ruleIndex = ruleIndex++;
+            sarifLog.runs[0].tool.driver.rules.push(rule);
+        });
     }
 
     return JSON.stringify(sarifLog,

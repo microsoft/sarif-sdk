@@ -31,6 +31,7 @@
   "dependencies": {
     "chai": "^4.2.0",
     "jschardet": "latest",
+    "lodash": "^4.17.11",
     "mocha": "^5.2.0",
     "utf8": "^3.0.0"
   }
