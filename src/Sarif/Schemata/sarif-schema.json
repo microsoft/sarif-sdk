@@ -1817,7 +1817,7 @@
       "additionalProperties": false,
       "properties": {
 
-        "descriptor": {
+        "target": {
           "description": "A reference to the related reporting descriptor.",
           "$ref": "#/definitions/reportingDescriptorReference"
         },
@@ -1837,7 +1837,7 @@
           "$ref": "#/definitions/propertyBag"
         }
       },
-      "required": [ "descriptor", "kinds" ]
+      "required": [ "target", "kinds" ]
     },
 
 
@@ -1853,7 +1853,7 @@
         },
 
         "ruleIndex": {
-          "description": "The index within the run resources array of the rule object associated with this result.",
+          "description": "The index within the tool component rules array of the rule object associated with this result.",
           "type": "integer",
           "default": -1,
           "minimum": -1
