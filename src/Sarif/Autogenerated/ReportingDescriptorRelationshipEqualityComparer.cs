@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!ReportingDescriptorReference.ValueComparer.Equals(left.Descriptor, right.Descriptor))
+            if (!ReportingDescriptorReference.ValueComparer.Equals(left.Target, right.Target))
             {
                 return false;
             }
@@ -89,9 +89,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (obj.Descriptor != null)
+                if (obj.Target != null)
                 {
-                    result = (result * 31) + obj.Descriptor.ValueGetHashCode();
+                    result = (result * 31) + obj.Target.ValueGetHashCode();
                 }
 
                 if (obj.Kinds != null)
