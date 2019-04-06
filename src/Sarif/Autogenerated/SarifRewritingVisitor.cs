@@ -834,7 +834,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
-                node.Descriptor = VisitNullChecked(node.Descriptor);
+                node.Target = VisitNullChecked(node.Target);
             }
 
             return node;
