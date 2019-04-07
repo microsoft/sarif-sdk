@@ -391,7 +391,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string untrustedData = BuildSourcesString(context.Sources);
             string page = context.RequestUri;
             string caller = context.PropagationEvents[context.PropagationEvents.Count - 1].Stack.Frames[0].Location.LogicalLocation?.FullyQualifiedName;
-            string controlID = context.Properties.ContainsKey(nameof(controlID)) ? context.Properties[nameof(controlID)] : null;
+            string controlId = context.Properties.ContainsKey(nameof(controlId)) ? context.Properties[nameof(controlId)] : null;
 
             const string RuleId = ContrastSecurityRuleIds.CrossSiteScripting;
             var result = new Result
@@ -407,7 +407,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             };
 
-            if (controlID == null)
+            if (controlId == null)
             {
                 result.Message = new Message
                 {
@@ -428,7 +428,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {                  // A cross-site scripting vulnerability was seen as untrusted data
                         untrustedData, // '{0}' on 
                         page,          // '{1}' was accessed within 
-                        controlID      // '{2}' control and observed going into the HTTP response without validation or encoding.
+                        controlId      // '{2}' control and observed going into the HTTP response without validation or encoding.
                     }
                 };
             }
