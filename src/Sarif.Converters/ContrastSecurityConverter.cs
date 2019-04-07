@@ -878,16 +878,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                              new ThreadFlow
                              {
                                   Locations = context.PropagationEvents,
-                                  ImmutableState = CreateImmutableState()
+                                  ImmutableState = context.Headers
                              }
                          }
                     }
                 };
-        }
-
-        private object CreateImmutableState()
-        {
-            return new object();
         }
 
         private PhysicalLocation CreatePhysicalLocation(string uri, Region region = null)
@@ -974,6 +969,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             public HashSet<Tuple<string, string>> Sources { get; set; }
 
+            public IDictionary<string, string> Headers { get; set; }
+
             internal void RefineFinding(string ruleId)
             {
                 RuleId = ruleId;
@@ -1004,6 +1001,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
             }
 
+            internal void ClearHeaders()
+            {
+                Headers = null;
+            }
+
+            internal void AddHeader(string name, string value)
+            {
+                Headers = Headers ?? new Dictionary<string, string>();
+
+                if (!Headers.ContainsKey(name)) { Headers.Add(name, value); }
+            }
 
             internal void ClearFinding()
             {
@@ -1055,6 +1063,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             public const string AttributeType = "type";
             public const string AttributeRuleId = "ruleId";
             public const string AttributeMethod = "method";
+            public const string AttributeValue = "value";
         }
 
         // Flag used to distinguish between reading both types of XML-persisted
@@ -1173,11 +1182,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static void ReadHeaders(SparseReader reader, object parent)
         {
+            Context context = (Context)parent;
+            context.ClearHeaders();
+
             reader.ReadChildren(SchemaStrings.ElementHeaders, parent);
         }
 
         private static void ReadH(SparseReader reader, object parent)
         {
+            string name = reader.ReadAttributeString(SchemaStrings.AttributeName);
+            string value = reader.ReadAttributeString(SchemaStrings.AttributeValue);
+
+            Context context = (Context)parent;
+            context.AddHeader(name, value);
+
             reader.ReadChildren(SchemaStrings.ElementH, parent);
         }
 
