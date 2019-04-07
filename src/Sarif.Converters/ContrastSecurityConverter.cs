@@ -101,11 +101,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 output.WriteLogicalLocations(LogicalLocations);
             }
 
-            //if (_rules?.Any() == true)
-            //{
-            //    output.WriteRules(_rules.Values.ToList());
-            //}
-
             output.OpenResults();
             output.WriteResults(results);
             output.CloseResults();
