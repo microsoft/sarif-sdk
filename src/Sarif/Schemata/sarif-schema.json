@@ -1823,7 +1823,7 @@
         },
 
         "kinds": {
-          "description": "A set of distinct strings that categorize the relationshship. Well-known kinds include canPrecede, canFollow, canPrecedeOrFollow, willPrecede, willFollow, superset, subset, equal, disjoint, relevant, and incomparable.",
+          "description": "A set of distinct strings that categorize the relationshship. Well-known kinds include canPrecede, canFollow, willPrecede, willFollow, superset, subset, equal, disjoint, relevant, and incomparable.",
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
