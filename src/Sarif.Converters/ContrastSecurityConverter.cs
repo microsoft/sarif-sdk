@@ -882,12 +882,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                          {
                              new ThreadFlow
                              {
-                                  Locations = context.PropagationEvents
-                                  // TODO: Populate ImmutableState from the headers.
+                                  Locations = context.PropagationEvents,
+                                  ImmutableState = CreateImmutableState()
                              }
                          }
                     }
                 };
+        }
+
+        private object CreateImmutableState()
+        {
+            return new object();
         }
 
         private PhysicalLocation CreatePhysicalLocation(string uri, Region region = null)
