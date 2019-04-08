@@ -36,13 +36,11 @@ $Projects.Applications = @(
 $Projects.Products = $Projects.Libraries + $Projects.Applications
 
 $Projects.Tests = @(
-    "Sarif.UnitTests",
-    "Sarif.Converters.UnitTests",
-    "Sarif.Driver.UnitTests",
-    "Sarif.ValidationTests",
-    "Sarif.FunctionalTests",
-    "Sarif.Multitool.FunctionalTests",
-    "Sarif.Multitool.UnitTests"
+    "Test.UnitTests.Sarif",
+    "Test.UnitTests.Sarif.Converters",
+    "Test.UnitTests.Sarif.Driver",
+    "Test.FunctionalTests.Sarif",
+    "Test.UnitTests.Sarif.Multitool"
     )
 
 $Projects.All = $Projects.Products + $Projects.Tests

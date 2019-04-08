@@ -5,11 +5,7 @@
     {
       "tool": {
         "driver": {
-          "name": "testhost",
-          "fullName": "testhost 15.0.0.0",
-          "version": "15.0.0.0",
-          "semanticVersion": "15.0.0",
-          "dottedQuadFileVersion": "15.0.0",
+          "name": "Sarif Functional Testing",
           "rules": [
             {
               "id": "JSON0001",
@@ -26,10 +22,7 @@
                 "level": "error"
               }
             }
-          ],
-          "properties": {
-            "ProductName": "Microsoft.TestHost"
-          }
+          ]
         }
       },
       "invocations": [

@@ -161,7 +161,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             @"v2\ConverterTestData",
             @"v2\SpecExamples",
             @"v2\ObsoleteFormats",
-            @"..\..\Sarif.UnitTests\net461\TestData"
+            @"..\..\Test.UnitTests.Sarif\net461\TestData"
         };
 
         private static IEnumerable<string> s_testCases;
