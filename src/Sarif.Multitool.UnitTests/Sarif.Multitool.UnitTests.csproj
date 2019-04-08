@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Sarif.Driver\Sarif.Driver.csproj" />
     <ProjectReference Include="..\Sarif\Sarif.csproj" />
     <ProjectReference Include="..\Sarif.Multitool\Sarif.Multitool.csproj" />
   </ItemGroup>

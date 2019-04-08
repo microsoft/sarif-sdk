@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-04-03",
+  "version": "2.0.0-csd.2.beta.2019-04-03",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "testhost",
+          "fullName": "testhost 15.0.0.0",
+          "version": "15.0.0.0",
+          "semanticVersion": "15.0.0",
+          "dottedQuadFileVersion": "15.0.0",
+          "properties": {
+            "ProductName": "Microsoft.TestHost"
+          }
+        }
+      },
+      "invocations": [
+        {
+          "toolExecutionNotifications": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1007.EndTimeMustNotBeBeforeStartTime_Valid.sarif",
+                  "uriBaseId": "TEST_DIR"
+                }
+              },
+              "message": {
+                "text": "Analyzing 'Inputs.SARIF1007.EndTimeMustNotBeBeforeStartTime_Valid.sarif'..."
+              },
+              "level": "none",
+              "descriptor": {
+                "id": "MSG001.AnalyzingTarget"
+              }
+            }
+          ]
+        }
+      ],
+      "originalUriBaseIds": {
+        "TEST_DIR": {
+          "uri": "file:///C:/src/sarif-sdk/bld/bin/AnyCPU_Debug/Test.FunctionalTests.Sarif/netcoreapp2.0/FunctionalTestOutput.ValidateCommand"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1007.EndTimeMustNotBeBeforeStartTime_Valid.sarif",
+            "uriBaseId": "TEST_DIR",
+            "index": 0
+          },
+          "mimeType": "application/sarif-json"
+        }
+      ],
+      "results": [],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

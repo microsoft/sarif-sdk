@@ -1,0 +1,103 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-04-03",
+  "version": "2.0.0-csd.2.beta.2019-04-03",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "testhost",
+          "fullName": "testhost 15.0.0.0",
+          "version": "15.0.0.0",
+          "semanticVersion": "15.0.0",
+          "dottedQuadFileVersion": "15.0.0",
+          "rules": [
+            {
+              "id": "JSON0001",
+              "name": "SyntaxError",
+              "fullDescription": {
+                "text": "The schema is not a valid JSON document."
+              },
+              "messageStrings": {
+                "default": {
+                  "text": "at \"{0}\": JSON syntax error: {1}"
+                }
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            }
+          ],
+          "properties": {
+            "ProductName": "Microsoft.TestHost"
+          }
+        }
+      },
+      "invocations": [
+        {
+          "toolExecutionNotifications": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.JSON1001.SyntaxError.sarif",
+                  "uriBaseId": "TEST_DIR"
+                }
+              },
+              "message": {
+                "text": "Analyzing 'Inputs.JSON1001.SyntaxError.sarif'..."
+              },
+              "level": "none",
+              "descriptor": {
+                "id": "MSG001.AnalyzingTarget"
+              }
+            }
+          ]
+        }
+      ],
+      "originalUriBaseIds": {
+        "TEST_DIR": {
+          "uri": "file:///C:/src/sarif-sdk/bld/bin/AnyCPU_Debug/Test.FunctionalTests.Sarif/netcoreapp2.0/FunctionalTestOutput.ValidateCommand"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.JSON1001.SyntaxError.sarif",
+            "uriBaseId": "TEST_DIR",
+            "index": 0
+          },
+          "mimeType": "application/sarif-json"
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "JSON0001",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "default",
+            "arguments": [
+              "$schema",
+              "Invalid property identifier character: ,. Path '$schema', line 3, position 2."
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.JSON1001.SyntaxError.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 2
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

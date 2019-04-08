@@ -1,0 +1,132 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-04-03",
+  "version": "2.0.0-csd.2.beta.2019-04-03",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "testhost",
+          "fullName": "testhost 15.0.0.0",
+          "version": "15.0.0.0",
+          "semanticVersion": "15.0.0",
+          "dottedQuadFileVersion": "15.0.0",
+          "rules": [
+            {
+              "id": "SARIF1001",
+              "name": "DoNotUseFriendlyNameAsRuleId",
+              "shortDescription": {
+                "text": "Do not use the same string for a rule's id and name properties. The id property ..."
+              },
+              "fullDescription": {
+                "text": "Do not use the same string for a rule's id and name properties. The id property must be a stable, opaque identifer such as \"SARIF1001\". The name property should be a string that is understandable to an end user, such as \"DoNotUserFriendlyNameAsRuleId\"."
+              },
+              "messageStrings": {
+                "Default": {
+                  "text": "{0}: The name and id properties of rule \"{1}\" are the same."
+                }
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.0/csprd01/sarif-v2.0-csprd01.html",
+              "help": {
+                "text": ""
+              }
+            }
+          ],
+          "properties": {
+            "ProductName": "Microsoft.TestHost"
+          }
+        }
+      },
+      "invocations": [
+        {
+          "toolExecutionNotifications": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1001.DoNotUseFriendlyNameAsRuleId_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR"
+                }
+              },
+              "message": {
+                "text": "Analyzing 'Inputs.SARIF1001.DoNotUseFriendlyNameAsRuleId_Invalid.sarif'..."
+              },
+              "level": "none",
+              "descriptor": {
+                "id": "MSG001.AnalyzingTarget"
+              }
+            }
+          ]
+        }
+      ],
+      "originalUriBaseIds": {
+        "TEST_DIR": {
+          "uri": "file:///C:/src/sarif-sdk/bld/bin/AnyCPU_Debug/Test.FunctionalTests.Sarif/netcoreapp2.0/FunctionalTestOutput.ValidateCommand"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1001.DoNotUseFriendlyNameAsRuleId_Invalid.sarif",
+            "uriBaseId": "TEST_DIR",
+            "index": 0
+          },
+          "mimeType": "application/sarif-json"
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "SARIF1001",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].tool.driver.rules[0]",
+              "RULE0001"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1001.DoNotUseFriendlyNameAsRuleId_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 13
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1001",
+          "ruleIndex": 0,
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].tool.driver.rules[1]",
+              "RULE0002"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1001.DoNotUseFriendlyNameAsRuleId_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 13
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}
