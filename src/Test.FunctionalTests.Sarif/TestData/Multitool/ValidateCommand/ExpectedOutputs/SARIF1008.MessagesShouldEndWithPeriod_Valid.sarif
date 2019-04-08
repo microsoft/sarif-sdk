@@ -29,11 +29,6 @@
           ]
         }
       ],
-      "originalUriBaseIds": {
-        "TEST_DIR": {
-          "uri": "file:///C:/src/sarif-sdk/bld/bin/AnyCPU_Debug/Test.FunctionalTests.Sarif/netcoreapp2.0/FunctionalTestOutput.ValidateCommand"
-        }
-      },
       "artifacts": [
         {
           "location": {

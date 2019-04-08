@@ -150,6 +150,14 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
                 }
             }
 
+            // Next, we'll remove non-deterministic information, most notably, timestamps emitted for the invocation data.
+            var removeTimestampsVisitor = new RemoveOptionalDataVisitor(OptionallyEmittedData.NondeterministicProperties);
+            removeTimestampsVisitor.Visit(actualLog);
+
+            // Finally, we'll elide non-deterministic build root details
+            var rebaseUrisVisitor = new RebaseUriVisitor("TEST_DIR", new Uri(inputLogDirectory));
+            rebaseUrisVisitor.Visit(actualLog);
+
             // There are differences in log file output depending on whether we are invoking xunit
             // from within Visual Studio or at the command-line via xunit.exe. We elide these differences.
 
@@ -162,14 +170,6 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             driver.Name = "Sarif Functional Testing";
             driver.Properties.Clear();
             actualLog.Runs[0].OriginalUriBaseIds = null;
-
-            // Next, we'll remove non-deterministic information, most notably, timestamps emitted for the invocation data.
-            var removeTimestampsVisitor = new RemoveOptionalDataVisitor(OptionallyEmittedData.NondeterministicProperties);
-            removeTimestampsVisitor.Visit(actualLog);
-
-            // Finally, we'll elide non-deterministic build root details
-            var rebaseUrisVisitor = new RebaseUriVisitor("TEST_DIR", new Uri(inputLogDirectory));
-            rebaseUrisVisitor.Visit(actualLog);
 
             return JsonConvert.SerializeObject(actualLog, Formatting.Indented);
         }
