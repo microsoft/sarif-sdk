@@ -63,6 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         [Fact]
         public void LineMappingStreamReader_WithJsonReader()
         {
+            LogModelSampleBuilder.EnsureSamplesBuilt();
             string filePath = LogModelSampleBuilder.SampleLogPath;
             JsonSerializer serializer = new JsonSerializer();
 
