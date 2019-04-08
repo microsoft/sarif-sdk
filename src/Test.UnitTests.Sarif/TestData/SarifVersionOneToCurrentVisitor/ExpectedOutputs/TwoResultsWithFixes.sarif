@@ -1,12 +1,12 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-02-20",
-  "version": "2.0.0-csd.2.beta.2019-02-20",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-04-03",
+  "version": "2.0.0-csd.2.beta.2019-04-03",
   "runs": [
     {
       "tool": {
         "driver": {
           "name": "CodeScanner",
-          "ruleDescriptors": [
+          "rules": [
             {
               "id": "WEB1079",
               "shortDescription": {
@@ -36,7 +36,7 @@
         {
           "ruleId": "WEB1079",
           "message": {
-            "messageId": "default",
+            "id": "default",
             "arguments": [
               "shape"
             ]
@@ -126,7 +126,7 @@
         {
           "ruleId": "WEB1066",
           "message": {
-            "messageId": "default",
+            "id": "default",
             "arguments": [
               "DIV"
             ]

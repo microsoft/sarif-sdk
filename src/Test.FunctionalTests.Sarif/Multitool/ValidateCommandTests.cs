@@ -153,13 +153,15 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             // There are differences in log file output depending on whether we are invoking xunit
             // from within Visual Studio or at the command-line via xunit.exe. We elide these differences.
 
-            actualLog.Runs[0].Tool.Driver.Name = "Sarif Functional Testing";
-            actualLog.Runs[0].Tool.Driver.Version = null;
-            actualLog.Runs[0].Tool.Driver.FullName = null;
-            actualLog.Runs[0].Tool.Driver.SemanticVersion = null;
-            actualLog.Runs[0].Tool.Driver.DottedQuadFileVersion = null;
-            actualLog.Runs[0].Tool.Driver.Name = "Sarif Functional Testing";
-            actualLog.Runs[0].Tool.Driver.Properties.Clear();
+            ToolComponent driver = actualLog.Runs[0].Tool.Driver;
+            driver.Name = "Sarif Functional Testing";
+            driver.Version = null;
+            driver.FullName = null;
+            driver.SemanticVersion = null;
+            driver.DottedQuadFileVersion = null;
+            driver.Name = "Sarif Functional Testing";
+            driver.Properties.Clear();
+            actualLog.Runs[0].OriginalUriBaseIds = null;
 
             // Next, we'll remove non-deterministic information, most notably, timestamps emitted for the invocation data.
             var removeTimestampsVisitor = new RemoveOptionalDataVisitor(OptionallyEmittedData.NondeterministicProperties);
