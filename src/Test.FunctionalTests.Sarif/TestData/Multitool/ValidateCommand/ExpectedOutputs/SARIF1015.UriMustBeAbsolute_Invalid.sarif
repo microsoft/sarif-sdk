@@ -1,12 +1,27 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-04-03",
-  "version": "2.0.0-csd.2.beta.2019-04-03",
+  "$schema": "http://json.schemastore.org/sarif-2.1.0",
+  "version": "2.1.0",
   "runs": [
     {
       "tool": {
         "driver": {
           "name": "Sarif Functional Testing",
           "rules": [
+            {
+              "id": "JSON1019",
+              "name": "InvalidEnumValue",
+              "fullDescription": {
+                "text": "A string does not match any of the values specified by the schema's \"enum\" property."
+              },
+              "messageStrings": {
+                "default": {
+                  "text": "at \"{0}\": The value \"{1}\" does not match any of the enum values [{2}]."
+                }
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
             {
               "id": "SARIF1015",
               "name": "UriMustBeAbsolute",
@@ -62,8 +77,39 @@
       ],
       "results": [
         {
-          "ruleId": "SARIF1015",
+          "ruleId": "JSON1019",
           "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "default",
+            "arguments": [
+              "version",
+              "\"unknown\"",
+              "\"2.1.0\""
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1015.UriMustBeAbsolute_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 22
+                }
+              }
+            }
+          ],
+          "properties": {
+            "jsonPath": "version"
+          }
+        },
+        {
+          "ruleId": "SARIF1015",
+          "ruleIndex": 1,
           "level": "error",
           "message": {
             "id": "Default",
@@ -90,7 +136,7 @@
         },
         {
           "ruleId": "SARIF1015",
-          "ruleIndex": 0,
+          "ruleIndex": 1,
           "level": "error",
           "message": {
             "id": "Default",
@@ -117,7 +163,7 @@
         },
         {
           "ruleId": "SARIF1015",
-          "ruleIndex": 0,
+          "ruleIndex": 1,
           "level": "error",
           "message": {
             "id": "Default",
@@ -144,7 +190,7 @@
         },
         {
           "ruleId": "SARIF1015",
-          "ruleIndex": 0,
+          "ruleIndex": 1,
           "level": "error",
           "message": {
             "id": "Default",
@@ -171,7 +217,7 @@
         },
         {
           "ruleId": "SARIF1015",
-          "ruleIndex": 0,
+          "ruleIndex": 1,
           "level": "error",
           "message": {
             "id": "Default",
@@ -198,7 +244,7 @@
         },
         {
           "ruleId": "SARIF1015",
-          "ruleIndex": 0,
+          "ruleIndex": 1,
           "level": "error",
           "message": {
             "id": "Default",
@@ -225,7 +271,7 @@
         },
         {
           "ruleId": "SARIF1015",
-          "ruleIndex": 0,
+          "ruleIndex": 1,
           "level": "error",
           "message": {
             "id": "Default",
@@ -252,7 +298,7 @@
         },
         {
           "ruleId": "SARIF1015",
-          "ruleIndex": 0,
+          "ruleIndex": 1,
           "level": "error",
           "message": {
             "id": "Default",

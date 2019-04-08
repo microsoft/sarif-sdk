@@ -304,3 +304,6 @@
 ## **v2.0.0-csd.2.beta.2019.04-03.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.04-03.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.04-03.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.04-03.3)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.04-03.3))
 * API BREAKING: Rename `reportingDescriptor.descriptor` to `reportingDescriptor.target`. https://github.com/oasis-tcs/sarif-spec/issues/356
 * API NON-BREAKING: Remove `canPrecedeOrFollow` from relationship kind list. https://github.com/oasis-tcs/sarif-spec/issues/356
+
+## **v2.1.0--beta.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.0--beta.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.0--beta.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.0--beta.0)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.0--beta.0))
+* API BREAKING: All SARIF state dictionaries now contains multiformat strings as values. https://github.com/oasis-tcs/sarif-spec/issues/361
