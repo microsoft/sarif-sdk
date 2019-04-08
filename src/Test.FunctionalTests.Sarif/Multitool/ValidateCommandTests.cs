@@ -134,7 +134,15 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             mockFileSystem.Setup(x => x.ReadAllText(It.IsNotIn<string>(inputLogFilePath))).Returns<string>(path => File.ReadAllText(path));
             mockFileSystem.Setup(x => x.WriteAllText(It.IsAny<string>(), It.IsAny<string>()));
 
-            int returnCode = new ValidateCommand(mockFileSystem.Object).Run(validateOptions);
+            var validateCommand = new ValidateCommand(mockFileSystem.Object);
+
+            int returnCode = validateCommand.Run(validateOptions);
+
+            if (validateCommand.ExecutionException != null)
+            {
+                Console.WriteLine(validateCommand.ExecutionException.ToString());
+            }
+
             returnCode.Should().Be(0);
 
             var actualLog = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(actualLogFilePath));

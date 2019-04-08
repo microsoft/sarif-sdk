@@ -51,7 +51,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="$(SolutionDir)\Sarif\Schemata\sarif-schema.json" CopyToOutputDirectory="PreserveNewest" />
+    <EmbeddedResource Include="$(SolutionDir)\Sarif\Schemata\sarif-schema.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>

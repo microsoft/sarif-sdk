@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         protected override SarifValidationContext CreateContext(ValidateOptions options, IAnalysisLogger logger, RuntimeConditions runtimeErrors, string filePath = null)
         {
             SarifValidationContext context = base.CreateContext(options, logger, runtimeErrors, filePath);
-            context.SchemaFilePath = options.SchemaFilePath ?? s_CurrentSchemaLocation;
+            context.SchemaFilePath = options.SchemaFilePath;
             context.UpdateInputsToCurrentSarif = options.UpdateInputsToCurrentSarif;
             return context;
         }
@@ -137,7 +137,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string schemaFilePath,
             IAnalysisLogger logger)
         {
-            string schemaText = FileSystem.ReadAllText(schemaFilePath);
+            string schemaText = null;
+
+            if (schemaFilePath != null)
+            {
+                schemaText = FileSystem.ReadAllText(schemaFilePath);
+            }
+            else
+            {
+                string schemaResource = "Microsoft.CodeAnalysis.Sarif.Multitool.sarif-schema.json";
+
+                using (Stream stream = this.GetType().Assembly.GetManifestResourceStream(schemaResource))
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    schemaText = reader.ReadToEnd();
+                }
+            }
+
             JsonSchema schema = SchemaReader.ReadSchema(schemaText, schemaFilePath);
 
             var validator = new Validator(schema);
