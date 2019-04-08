@@ -184,6 +184,6 @@
     <value>If the "contextRegion" property is present, the "region" property must also be present.</value>
   </data>
   <data name="SARIF1016_Default" xml:space="preserve">
-    <value>This "physicalLocation" object contains a "contextRegion" property, but it does not contain a "region" property.</value>
+    <value>{0}: This "physicalLocation" object contains a "contextRegion" property, but it does not contain a "region" property.</value>
   </data>
 </root>

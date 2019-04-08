@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-04-03",
+  "version": "2.0.0-csd.2.beta.2019-04-03",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "CodeScanner",
+          "semanticVersion": "2.1.0"
+        }
+      },
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

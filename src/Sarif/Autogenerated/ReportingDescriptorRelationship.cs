@@ -6,7 +6,6 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
-using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -36,14 +35,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// A reference to the related reporting descriptor.
         /// </summary>
-        [DataMember(Name = "descriptor", IsRequired = true)]
-        public ReportingDescriptorReference Descriptor { get; set; }
+        [DataMember(Name = "target", IsRequired = true)]
+        public ReportingDescriptorReference Target { get; set; }
 
         /// <summary>
-        /// A set of distinct strings that categorize the relationshship. Well-known kinds include canPrecede, canFollow, canPrecedeOrFollow, willPrecede, willFollow, superset, subset, equal, disjoint, relevant, and incomparable.
+        /// A set of distinct strings that categorize the relationshship. Well-known kinds include canPrecede, canFollow, willPrecede, willFollow, superset, subset, equal, disjoint, relevant, and incomparable.
         /// </summary>
         [DataMember(Name = "kinds", IsRequired = true)]
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<string> Kinds { get; set; }
 
         /// <summary>
@@ -62,8 +60,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Initializes a new instance of the <see cref="ReportingDescriptorRelationship" /> class from the supplied values.
         /// </summary>
-        /// <param name="descriptor">
-        /// An initialization value for the <see cref="P:Descriptor" /> property.
+        /// <param name="target">
+        /// An initialization value for the <see cref="P:Target" /> property.
         /// </param>
         /// <param name="kinds">
         /// An initialization value for the <see cref="P:Kinds" /> property.
@@ -71,9 +69,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ReportingDescriptorRelationship(ReportingDescriptorReference descriptor, IEnumerable<string> kinds, IDictionary<string, SerializedPropertyInfo> properties)
+        public ReportingDescriptorRelationship(ReportingDescriptorReference target, IEnumerable<string> kinds, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(descriptor, kinds, properties);
+            Init(target, kinds, properties);
         }
 
         /// <summary>
@@ -92,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Descriptor, other.Kinds, other.Properties);
+            Init(other.Target, other.Kinds, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -113,11 +111,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ReportingDescriptorRelationship(this);
         }
 
-        private void Init(ReportingDescriptorReference descriptor, IEnumerable<string> kinds, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(ReportingDescriptorReference target, IEnumerable<string> kinds, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            if (descriptor != null)
+            if (target != null)
             {
-                Descriptor = new ReportingDescriptorReference(descriptor);
+                Target = new ReportingDescriptorReference(target);
             }
 
             if (kinds != null)

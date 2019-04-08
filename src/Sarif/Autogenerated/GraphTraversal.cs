@@ -57,10 +57,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Message Description { get; set; }
 
         /// <summary>
-        /// Values of relevant expressions at the start of the graph traversal.
+        /// Values of relevant expressions at the start of the graph traversal that may change during graph traversal.
         /// </summary>
         [DataMember(Name = "initialState", IsRequired = false, EmitDefaultValue = false)]
         public IDictionary<string, string> InitialState { get; set; }
+
+        /// <summary>
+        /// Values of relevant expressions at the start of the graph traversal that remain constant for the graph traversal.
+        /// </summary>
+        [DataMember(Name = "immutableState", IsRequired = false, EmitDefaultValue = false)]
+        public object ImmutableState { get; set; }
 
         /// <summary>
         /// The sequences of edges traversed by this graph traversal.
@@ -99,15 +105,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="initialState">
         /// An initialization value for the <see cref="P:InitialState" /> property.
         /// </param>
+        /// <param name="immutableState">
+        /// An initialization value for the <see cref="P:ImmutableState" /> property.
+        /// </param>
         /// <param name="edgeTraversals">
         /// An initialization value for the <see cref="P:EdgeTraversals" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public GraphTraversal(int runGraphIndex, int resultGraphIndex, Message description, IDictionary<string, string> initialState, IEnumerable<EdgeTraversal> edgeTraversals, IDictionary<string, SerializedPropertyInfo> properties)
+        public GraphTraversal(int runGraphIndex, int resultGraphIndex, Message description, IDictionary<string, string> initialState, object immutableState, IEnumerable<EdgeTraversal> edgeTraversals, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(runGraphIndex, resultGraphIndex, description, initialState, edgeTraversals, properties);
+            Init(runGraphIndex, resultGraphIndex, description, initialState, immutableState, edgeTraversals, properties);
         }
 
         /// <summary>
@@ -126,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.RunGraphIndex, other.ResultGraphIndex, other.Description, other.InitialState, other.EdgeTraversals, other.Properties);
+            Init(other.RunGraphIndex, other.ResultGraphIndex, other.Description, other.InitialState, other.ImmutableState, other.EdgeTraversals, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -147,7 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new GraphTraversal(this);
         }
 
-        private void Init(int runGraphIndex, int resultGraphIndex, Message description, IDictionary<string, string> initialState, IEnumerable<EdgeTraversal> edgeTraversals, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int runGraphIndex, int resultGraphIndex, Message description, IDictionary<string, string> initialState, object immutableState, IEnumerable<EdgeTraversal> edgeTraversals, IDictionary<string, SerializedPropertyInfo> properties)
         {
             RunGraphIndex = runGraphIndex;
             ResultGraphIndex = resultGraphIndex;
@@ -161,6 +170,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 InitialState = new Dictionary<string, string>(initialState);
             }
 
+            ImmutableState = immutableState;
             if (edgeTraversals != null)
             {
                 var destination_0 = new List<EdgeTraversal>();

@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 
 using Microsoft.CodeAnalysis.Sarif.Driver;
@@ -14,8 +15,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     internal class ValidateCommand : AnalyzeCommandBase<SarifValidationContext, ValidateOptions>
     {
-        internal static bool s_DisablePrereleaseCompatibilityTransform;
-
         public override string Prerelease => VersionConstants.Prerelease;
 
         private List<Assembly> _defaultPlugInAssemblies;
@@ -44,8 +43,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             SarifValidationContext context = base.CreateContext(options, logger, runtimeErrors, filePath);
             context.SchemaFilePath = options.SchemaFilePath;
+            context.UpdateInputsToCurrentSarif = options.UpdateInputsToCurrentSarif;
             return context;
         }
+
+        private static string s_CurrentSchemaLocation = 
+            Path.Combine(Path.GetDirectoryName(typeof(ValidateCommand).Assembly.Location), "sarif-schema.json");
 
         protected override void AnalyzeTarget(
             IEnumerable<Skimmer<SarifValidationContext>> skimmers,
@@ -56,22 +59,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // but it doesn't know how to invoke schema validation, which has its own set of rules,
             // so we do that ourselves.
             //
-            // Validate will return false if there are any JSON syntax errors. In that case
-            // there's no point in going on.
-            bool ok = Validate(context.TargetUri.LocalPath, context.SchemaFilePath, context.Logger);
+            // Validate will return an empty file if there are any JSON syntax errors. 
+            // In that case there's no point in going on.
+            string sarifText = Validate(context.TargetUri.LocalPath, context.SchemaFilePath, context.Logger, context.UpdateInputsToCurrentSarif);
 
-            if (ok)
+            if (!string.IsNullOrEmpty(sarifText))
             {
-                // Deserialize will return null if there are any JSON deserialization errors
-                // (which can happen, for example, if a property required by the schema is
-                // missing. In that case, again, there's no point in going on.
-                string sarifText = FileSystem.ReadAllText(context.TargetUri.OriginalString);
-
-                PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
-                    context.InputLogContents,
-                    formatting: Formatting.None,
-                    out sarifText);
-
                 context.InputLogContents = sarifText;
                 context.InputLog = context.InputLogContents != null ? Deserialize(context.InputLogContents) : null;
 
@@ -99,15 +92,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return log;
         }
 
-        private bool Validate(string instanceFilePath, string schemaFilePath, IAnalysisLogger logger)
+        private string Validate(
+            string instanceFilePath, 
+            string schemaFilePath, 
+            IAnalysisLogger logger, 
+            bool updateToCurrentSarifVersion = true)
         {
-            bool ok = true;
+            string instanceText = null;
 
             try
             {
-                string instanceText = FileSystem.ReadAllText(instanceFilePath);
+                instanceText = FileSystem.ReadAllText(instanceFilePath);
 
-                if (!s_DisablePrereleaseCompatibilityTransform)
+                if (updateToCurrentSarifVersion)
                 {
                     PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(instanceText, formatting: Formatting.Indented, out instanceText);
                 }
@@ -122,7 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 // If the file isn't syntactically valid JSON, we won't be able to run
                 // the skimmers, because they rely on being able to deserialized the file
                 // into a SarifLog object.
-                ok = false;
+                instanceText = null;
             }
             catch (SchemaValidationException ex)
             {
@@ -131,7 +128,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // The framework will catch all other, unexpected exceptions, and it will
             // cause the tool to exit with a non-0 exit code.
 
-            return ok;
+            return instanceText;
         }
 
         private void PerformSchemaValidation(
@@ -140,7 +137,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             string schemaFilePath,
             IAnalysisLogger logger)
         {
-            string schemaText = FileSystem.ReadAllText(schemaFilePath);
+            string schemaText = null;
+
+            if (schemaFilePath != null)
+            {
+                schemaText = FileSystem.ReadAllText(schemaFilePath);
+            }
+            else
+            {
+                string schemaResource = "Microsoft.CodeAnalysis.Sarif.Multitool.sarif-schema.json";
+
+                using (Stream stream = this.GetType().Assembly.GetManifestResourceStream(schemaResource))
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    schemaText = reader.ReadToEnd();
+                }
+            }
+
             JsonSchema schema = SchemaReader.ReadSchema(schemaText, schemaFilePath);
 
             var validator = new Validator(schema);

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -15,9 +15,9 @@
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.2.1" />
-    <PackageReference Include="Microsoft.Json.Pointer" Version="0.63.0" />
-    <PackageReference Include="Microsoft.Json.Schema" Version="0.63.0" />
-    <PackageReference Include="Microsoft.Json.Schema.Validation" Version="0.63.0" />
+    <PackageReference Include="Microsoft.Json.Pointer" Version="0.64.0" />
+    <PackageReference Include="Microsoft.Json.Schema" Version="0.64.0" />
+    <PackageReference Include="Microsoft.Json.Schema.Validation" Version="0.64.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -49,4 +49,9 @@
       <LastGenOutput>RuleResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="$(SolutionDir)\Sarif\Schemata\sarif-schema.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>

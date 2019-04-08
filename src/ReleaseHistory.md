@@ -292,5 +292,15 @@
 * API NON-BREAKING: Add `referencedOnCommandLine` as a role. https://github.com/oasis-tcs/sarif-spec/issues/347
 * API NON-BREAKING: Rename `reportingConfigurationOverride` to `configurationOverride`. https://github.com/oasis-tcs/sarif-spec/issues/350
 
-## **v2.0.0-csd.2.beta.2019.04-03** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.04-03) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.04-03) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.04-03)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.04-03))
+## **v2.0.0-csd.2.beta.2019.04-03.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.04-03.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.04-03.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.04-03.1)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.04-03.1))
 * API BREAKING: Rename `message.messageId` property to `message.id`. https://github.com/oasis-tcs/sarif-spec/issues/352
+
+## **v2.0.0-csd.2.beta.2019.04-03.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.04-03.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.04-03.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.04-03.2)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.04-03.2))
+* API NON-BREAKING: Add `module` to `address.kind`. https://github.com/oasis-tcs/sarif-spec/issues/353
+* API BREAKING: `address.baseAddress` & `address.offset` to int. https://github.com/oasis-tcs/sarif-spec/issues/353
+* API BREAKING: Update how reporting descriptors describe their taxonomic relationships. https://github.com/oasis-tcs/sarif-spec/issues/356
+* API NON-BREAKING: Add `initialState` and `immutableState` properties to thread flow object. Add `immutableState` to `graphTraversal` object. https://github.com/oasis-tcs/sarif-spec/issues/168
+
+## **v2.0.0-csd.2.beta.2019.04-03.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.0.0-csd.2.beta.2019.04-03.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.0.0-csd.2.beta.2019.04-03.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.0.0-csd.2.beta.2019.04-03.3)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.0.0-csd.2.beta.2019.04-03.3))
+* API BREAKING: Rename `reportingDescriptor.descriptor` to `reportingDescriptor.target`. https://github.com/oasis-tcs/sarif-spec/issues/356
+* API NON-BREAKING: Remove `canPrecedeOrFollow` from relationship kind list. https://github.com/oasis-tcs/sarif-spec/issues/356
