@@ -38,12 +38,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             if (input == null)
             {
-                throw (new ArgumentNullException(nameof(input)));
+                throw new ArgumentNullException(nameof(input));
             }
 
             if (output == null)
             {
-                throw (new ArgumentNullException(nameof(output)));
+                throw new ArgumentNullException(nameof(output));
             }
 
             LogicalLocations.Clear();
@@ -291,11 +291,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string locationPath = properties.ContainsKey(nameof(locationPath)) ? properties[nameof(locationPath)] : null;
             string snippet = properties[nameof(snippet)];
 
-            IList<Location> locations = new List<Location>();
-            locations.Add(new Location
+            IList<Location> locations = new List<Location>
             {
-                PhysicalLocation = CreatePhysicalLocation(path, CreateRegion(snippet)),
-            });
+                new Location
+                {
+                    PhysicalLocation = CreatePhysicalLocation(path, CreateRegion(snippet)),
+                }
+            };
 
             result.Locations = locations;
 
@@ -396,7 +398,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 RuleId = context.RuleId,
                 Level = GetRuleFailureLevel(context.RuleId),
-                Locations = new List<Location>()
+                Locations = new List<Location>
                 {
                     new Location
                     {
@@ -449,7 +451,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 RuleId = context.RuleId,
                 Level = GetRuleFailureLevel(context.RuleId),
-                Locations = new List<Location>()
+                Locations = new List<Location>
                 {
                     new Location
                     {
@@ -567,7 +569,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         }
                     });
 
-                locations.Add(new Location()
+                locations.Add(new Location
                 {
                     PhysicalLocation = new PhysicalLocation
                     {
@@ -644,7 +646,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 RuleId = context.RuleId,
                 Level = GetRuleFailureLevel(context.RuleId),
-                Locations = new List<Location>()
+                Locations = new List<Location>
                 {
                     new Location
                     {
@@ -720,7 +722,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 RuleId = context.RuleId,
                 Level = GetRuleFailureLevel(context.RuleId),
                 CodeFlows = CreateCodeFlows(context),
-                Locations = new List<Location>()
+                Locations = new List<Location>
                 {
                     new Location
                     {
@@ -771,7 +773,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 RuleId = context.RuleId,
                 Level = GetRuleFailureLevel(context.RuleId),
-                Locations = new List<Location>()
+                Locations = new List<Location>
                 {
                     new Location
                     {
@@ -804,7 +806,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 RuleId = context.RuleId,
                 Level = GetRuleFailureLevel(context.RuleId),
-                Locations = new List<Location>()
+                Locations = new List<Location>
                 {
                     new Location
                     {
@@ -849,7 +851,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 sb.AppendLine(lineTokens[1]);
             }
 
-            return new Region()
+            return new Region
             {
                 StartLine = startLine.Value,
                 EndLine = endLine,
@@ -1137,7 +1139,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static void ReadFindings(SparseReader reader, object parent)
         {
-            Context context = (Context)parent;
             reader.ReadChildren(SchemaStrings.ElementFindings, parent);
         }
 
@@ -1151,10 +1152,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             context.RefineFinding(ruleId);
             reader.ReadChildren(SchemaStrings.ElementFinding, parent);
 
-            if (FindingRead != null)
-            {
-                FindingRead(context);
-            }
+            FindingRead?.Invoke(context);
 
             context.ClearFinding();
         }
@@ -1298,7 +1296,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Debug.Assert(context.CurrentThreadFlowLocation == null);
             context.CurrentThreadFlowLocation = new ThreadFlowLocation
             {
-                Stack = new Stack()
+                Stack = new Stack
                 {
                     Frames = new List<StackFrame> { context.Signature }
                 }
