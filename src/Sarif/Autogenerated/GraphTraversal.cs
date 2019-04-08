@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Values of relevant expressions at the start of the graph traversal that may change during graph traversal.
         /// </summary>
         [DataMember(Name = "initialState", IsRequired = false, EmitDefaultValue = false)]
-        public IDictionary<string, string> InitialState { get; set; }
+        public IDictionary<string, MultiformatMessageString> InitialState { get; set; }
 
         /// <summary>
         /// Values of relevant expressions at the start of the graph traversal that remain constant for the graph traversal.
@@ -114,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public GraphTraversal(int runGraphIndex, int resultGraphIndex, Message description, IDictionary<string, string> initialState, object immutableState, IEnumerable<EdgeTraversal> edgeTraversals, IDictionary<string, SerializedPropertyInfo> properties)
+        public GraphTraversal(int runGraphIndex, int resultGraphIndex, Message description, IDictionary<string, MultiformatMessageString> initialState, object immutableState, IEnumerable<EdgeTraversal> edgeTraversals, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(runGraphIndex, resultGraphIndex, description, initialState, immutableState, edgeTraversals, properties);
         }
@@ -156,7 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new GraphTraversal(this);
         }
 
-        private void Init(int runGraphIndex, int resultGraphIndex, Message description, IDictionary<string, string> initialState, object immutableState, IEnumerable<EdgeTraversal> edgeTraversals, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int runGraphIndex, int resultGraphIndex, Message description, IDictionary<string, MultiformatMessageString> initialState, object immutableState, IEnumerable<EdgeTraversal> edgeTraversals, IDictionary<string, SerializedPropertyInfo> properties)
         {
             RunGraphIndex = runGraphIndex;
             ResultGraphIndex = resultGraphIndex;
@@ -167,22 +167,26 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (initialState != null)
             {
-                InitialState = new Dictionary<string, string>(initialState);
+                InitialState = new Dictionary<string, MultiformatMessageString>();
+                foreach (var value_0 in initialState)
+                {
+                    InitialState.Add(value_0.Key, new MultiformatMessageString(value_0.Value));
+                }
             }
 
             ImmutableState = immutableState;
             if (edgeTraversals != null)
             {
                 var destination_0 = new List<EdgeTraversal>();
-                foreach (var value_0 in edgeTraversals)
+                foreach (var value_1 in edgeTraversals)
                 {
-                    if (value_0 == null)
+                    if (value_1 == null)
                     {
                         destination_0.Add(null);
                     }
                     else
                     {
-                        destination_0.Add(new EdgeTraversal(value_0));
+                        destination_0.Add(new EdgeTraversal(value_1));
                     }
                 }
 

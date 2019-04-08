@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A dictionary, each of whose keys specifies a variable or expression, the associated value of which represents the variable or expression value. For an annotation of kind 'continuation', for example, this dictionary might hold the current assumed values of a set of global variables.
         /// </summary>
         [DataMember(Name = "state", IsRequired = false, EmitDefaultValue = false)]
-        public IDictionary<string, string> State { get; set; }
+        public IDictionary<string, MultiformatMessageString> State { get; set; }
 
         /// <summary>
         /// An integer representing a containment hierarchy within the thread flow.
@@ -148,7 +148,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ThreadFlowLocation(int index, Location location, Stack stack, IEnumerable<string> kinds, string module, IDictionary<string, string> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
+        public ThreadFlowLocation(int index, Location location, Stack stack, IEnumerable<string> kinds, string module, IDictionary<string, MultiformatMessageString> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(index, location, stack, kinds, module, state, nestingLevel, executionOrder, executionTimeUtc, importance, properties);
         }
@@ -190,7 +190,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ThreadFlowLocation(this);
         }
 
-        private void Init(int index, Location location, Stack stack, IEnumerable<string> kinds, string module, IDictionary<string, string> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int index, Location location, Stack stack, IEnumerable<string> kinds, string module, IDictionary<string, MultiformatMessageString> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Index = index;
             if (location != null)
@@ -217,7 +217,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             Module = module;
             if (state != null)
             {
-                State = new Dictionary<string, string>(state);
+                State = new Dictionary<string, MultiformatMessageString>();
+                foreach (var value_1 in state)
+                {
+                    State.Add(value_1.Key, new MultiformatMessageString(value_1.Value));
+                }
             }
 
             NestingLevel = nestingLevel;
