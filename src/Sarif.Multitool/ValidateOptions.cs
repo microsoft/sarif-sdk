@@ -12,8 +12,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         [Option(
             'j',
             "json-schema",
-            HelpText = "Path to the SARIF JSON schema.",
-            Required = true)]
+            HelpText = "Path to the SARIF JSON schema.")]
         public string SchemaFilePath { get; set; }
+
+        [Option(
+            "update-inputs-to-current-sarif",
+            HelpText =
+            @"Update any SARIF v1 or prerelease v2 files to the current SARIF v2 format.")]
+        public bool UpdateInputsToCurrentSarif { get; set; }
     }
 }

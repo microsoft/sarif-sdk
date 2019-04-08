@@ -33,6 +33,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public Exception TargetLoadException { get; set; }
 
+        public bool UpdateInputsToCurrentSarif { get; set; }
+
         private Uri _uri;
 
         public Uri TargetUri

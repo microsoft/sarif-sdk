@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-04-03",
+  "version": "2.0.0-csd.2.beta.2019-04-03",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "CodeScanner",
+          "semanticVersion": "2.1.0",
+          "rules": [
+            {
+              "id": "C2001",
+              "shortDescription": {
+                "text": "A variable was used without being initialized."
+              },
+              "messageStrings": {
+                "default": {
+                  "text": "Variable \"{0}\" was used without being initialized."
+                }
+              },
+              "properties": {
+                "some_key": "FoxForceFive"
+              }
+            },
+            {
+              "id": "C2002",
+              "fullDescription": {
+                "text": "Catfish season continuous hen lamb include dose copy grant."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "helpUri": "http://www.domain.com/rules/c2002.html"
+            },
+            {
+              "id": "C2003",
+              "name": "Rule C2003",
+              "shortDescription": {
+                "text": "Rules were meant to be broken."
+              },
+              "fullDescription": {
+                "text": "Rent internal rebellion competence biography photograph."
+              },
+              "defaultConfiguration": {
+                "enabled": false,
+                "level": "error"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "C2001",
+          "ruleIndex": 0,
+          "message": {
+            "id": "default",
+            "arguments": [
+              "someVariable"
+            ]
+          }
+        },
+        {
+          "ruleId": "C2001",
+          "ruleIndex": 0,
+          "message": {
+            "id": "default",
+            "arguments": [
+              "anotherVariable"
+            ]
+          }
+        },
+        {
+          "ruleId": "C2002",
+          "message": {
+            "text": "Some testing occurred."
+          }
+        },
+        {
+          "ruleIndex": 2,
+          "message": {
+            "text": "Some testing occurred."
+          }
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

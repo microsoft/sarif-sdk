@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-04-03",
+  "version": "2.0.0-csd.2.beta.2019-04-03",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Sarif Functional Testing"
+        }
+      },
+      "invocations": [
+        {
+          "toolExecutionNotifications": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Valid.sarif",
+                  "uriBaseId": "TEST_DIR"
+                }
+              },
+              "message": {
+                "text": "Analyzing 'Inputs.SARIF1008.MessagesShouldEndWithPeriod_Valid.sarif'..."
+              },
+              "level": "none",
+              "descriptor": {
+                "id": "MSG001.AnalyzingTarget"
+              }
+            }
+          ]
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1008.MessagesShouldEndWithPeriod_Valid.sarif",
+            "uriBaseId": "TEST_DIR",
+            "index": 0
+          },
+          "mimeType": "application/sarif-json"
+        }
+      ],
+      "results": [],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

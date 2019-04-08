@@ -94,7 +94,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="$(MsBuildThisFileDirectory)CommonAssemblyInfo.cs" />
+    <Compile Include="$(MsBuildThisFileDirectory)Shared\CommonAssemblyInfo.cs" />
   </ItemGroup>
 
 </Project>
