@@ -1840,7 +1840,6 @@
       "required": [ "target", "kinds" ]
     },
 
-
     "result": {
       "description": "A result produced by an analysis tool.",
       "additionalProperties": false,
