@@ -100,13 +100,39 @@
           "name": "HP Fortify Static Code Analyzer",
           "rules": [
             {
-              "id": "31D4607A-A3FF-447C-908A-CA2BBE4CE4B7",
+              "guid": "31D4607A-A3FF-447C-908A-CA2BBE4CE4B7",
               "shortDescription": {
                 "text": "Sample abstract text. SQL injection vulnerability."
               },
               "fullDescription": {
                 "text": "The quick brown fox jumps over the lazy dog.\nThis section explains the rule in detail."
               },
+              "relationships": [
+                {
+                  "target": {
+                    "id": "22",
+                    "toolComponent": {
+                      "name": "CWE",
+                      "guid": "2B841697-D0DE-45DD-9F19-1EEE1312429"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                },
+                {
+                  "target": {
+                    "id": "73",
+                    "toolComponent": {
+                      "name": "CWE",
+                      "guid": "2B841697-D0DE-45DD-9F19-1EEE1312429"
+                    }
+                  },
+                  "kinds": [
+                    "relevant"
+                  ]
+                }
+              ],
               "properties": {
                 "Kingdom": "Input Validation and Representation",
                 "Type": "SQL Injection",

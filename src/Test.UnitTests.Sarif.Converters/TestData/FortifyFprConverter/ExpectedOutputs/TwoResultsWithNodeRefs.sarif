@@ -320,7 +320,7 @@
           "name": "HP Fortify Static Code Analyzer",
           "rules": [
             {
-              "id": "31D4607A-A3FF-447C-908A-CA2BBE4CE4B7",
+              "guid": "31D4607A-A3FF-447C-908A-CA2BBE4CE4B7",
               "shortDescription": {
                 "text": "Sample abstract text. SQL injection vulnerability."
               },
@@ -333,7 +333,7 @@
               }
             },
             {
-              "id": "F7A2423A-1927-40A3-920E-17ADB5430412",
+              "guid": "F7A2423A-1927-40A3-920E-17ADB5430412",
               "shortDescription": {
                 "text": "The function <Replace key=\"EnclosingFunction.name\"/> in <Replace key=\"PrimaryLocation.file\"/> reveals system data or debugging information by calling <Replace key=\"PrimaryCall.name\"/> on line <Replace key=\"PrimaryLocation.line\"/>. The information revealed by <Replace key=\"PrimaryCall.name\"/> could help an adversary form a plan of attack.\r\nRevealing system data or debugging information helps an adversary learn about the system and form a plan of attack."
               },

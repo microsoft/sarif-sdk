@@ -356,7 +356,7 @@
           "name": "HP Fortify Static Code Analyzer",
           "rules": [
             {
-              "id": "97A5F38F-524B-4A83-94FA-9387B5265825",
+              "guid": "97A5F38F-524B-4A83-94FA-9387B5265825",
               "shortDescription": {
                 "text": "The function <Replace key=\"EnclosingFunction.name\"/> in <Replace key=\"PrimaryLocation.file\"/> sometimes fails to release a system resource allocated by <Replace key=\"FirstTransitionFunction\"/> on line <Replace key=\"FirstTraceLocation.line\"/>.\r\nThe program can potentially fail to release a system resource."
               },

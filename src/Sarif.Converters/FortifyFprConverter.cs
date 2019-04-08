@@ -34,6 +34,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             { "Assign", new List<string> { "acquire", "resource" } },
             { "Read", new List<string> { "acquire", "resource" } }
         };
+        private readonly ToolComponent CweToolComponent = new ToolComponent
+        {
+            Name = "CWE",
+            Guid = "2B841697-D0DE-45DD-9F19-1EEE1312429",
+            Organization = "MITRE",
+            ShortDescription = new MultiformatMessageString
+            {
+                Text = "The MITRE Common Weakness Enumeration"
+            }
+        };
 
         private XmlReader _reader;
         private Invocation _invocation;
@@ -150,15 +160,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 },
                 Taxonomies = new List<ToolComponent>
                 {
-                    new ToolComponent
-                    {
-                        Name = "CWE",
-                        Guid = "2B841697-D0DE-45DD-9F19-1EEE1312429",
-                        Organization = "MITRE",
-                        ShortDescription = new MultiformatMessageString {
-                            Text = "The MITRE Common Weakness Enumeration"
-                        }
-                    }
+                    CweToolComponent
                 },
                 Invocations = new[] { _invocation },
             };
@@ -418,7 +420,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         // Create a new rule and add it to the list and index map.
                         rule = new ReportingDescriptor
                         {
-                            Id = ruleId
+                            Guid = ruleId
                         };
 
                         ruleIndex = _rules.Count;
@@ -710,7 +712,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private void ParseRuleInfo()
         {
-            _reader.Read();
             while (!AtEndOf(_strings.RuleInfo))
             {
                 _reader.Read();
@@ -729,7 +730,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         {
                             _reader.Read();
 
-                            string groupName = _reader.GetAttribute(_strings.Name);
+                            string groupName = _reader.GetAttribute(_strings.NameAttribute);
 
                             switch (groupName)
                             {
@@ -745,11 +746,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                                             // Format: CWE ID xxx
                                             string cweId = part.Substring(part.LastIndexOf(' ') + 1);
                                             _cweIds.Add(cweId);
-
-                                            rule.Taxa = rule.Taxa ?? new List<ReportingDescriptorReference>();
-                                            rule.Taxa.Add(new ReportingDescriptorReference
+                                            
+                                            rule.Relationships = rule.Relationships ?? new List<ReportingDescriptorRelationship>();
+                                            rule.Relationships.Add(new ReportingDescriptorRelationship
                                             {
-                                                Id = cweId
+                                                Target = new ReportingDescriptorReference
+                                                {
+                                                    Id = cweId,
+                                                    ToolComponent = new ToolComponentReference
+                                                    {
+                                                        Name = CweToolComponent.Name,
+                                                        Guid = CweToolComponent.Guid
+                                                    }
+                                                },
+                                                Kinds = new List<string>
+                                                {
+                                                    "relevant"
+                                                }
                                             });
                                         }
                                     }

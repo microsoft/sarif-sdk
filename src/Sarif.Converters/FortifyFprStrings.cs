@@ -198,6 +198,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>The string constant "Group".</summary>
         public readonly string Group;
 
+        /// <summary>The string constant "NameAttribute".</summary>
+        public readonly string NameAttribute;
+
         /// <summary>The string constant "Hostname".</summary>
         public readonly string Hostname;
 
@@ -278,6 +281,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Rule = nameTable.Add("Rule");
             MetaInfo = nameTable.Add("MetaInfo");
             Group = nameTable.Add("Group");
+            NameAttribute = nameTable.Add("name");
             Hostname = nameTable.Add("Hostname");
             Username = nameTable.Add("Username");
             Platform = nameTable.Add("Platform");
