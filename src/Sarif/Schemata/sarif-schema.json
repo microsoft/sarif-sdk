@@ -1962,7 +1962,7 @@
         },
 
         "statusCode": {
-          "description": "The response Status Code. Example: 404.",
+          "description": "The response status code. Example: 404.",
           "type": "integer"
         },
 
