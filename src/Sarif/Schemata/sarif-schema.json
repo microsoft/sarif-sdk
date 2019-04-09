@@ -1892,19 +1892,29 @@
           "type": "integer"
         },
 
+        "protocol": {
+          "description": "The request protocol. Example: 'http'.",
+          "type": "string"
+        },
+
+        "version": {
+          "description": "The request version. Example: '1.1'.",
+          "type": "string"
+        },
+
         "uri": {
-          "description": "The uri associated with the web request.",
+          "description": "The URI to which the request is directed.",
           "type": "string",
           "format": "uri"
         },
 
-        "verb": {
-          "description": "The verb associated with the web request. Well-known values include GET, POST, PUT, DELETE, PATCH.",
+        "method": {
+          "description": "The HTTP method. Well-known values are 'GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS', 'TRACE', 'CONNECT'.",
           "type": "string"
         },
 
         "headers": {
-          "description": "The headers associated with the web request.",
+          "description": "The request headers.",
           "type": "object",
           "additionalProperties": {
             "type": "string"
@@ -1912,7 +1922,7 @@
         },
 
         "parameters": {
-          "description": "The parameters associated with the web request.",
+          "description": "The request parameters .",
           "type": "object",
           "additionalProperties": {
             "type": "string"
@@ -1920,7 +1930,7 @@
         },
 
         "body": {
-          "description": "The body associated with the web request.",
+          "description": "The body of the request.",
           "type": "string"
         },
 
@@ -1928,16 +1938,7 @@
           "description": "Key/value pairs that provide additional information about the request.",
           "$ref": "#/definitions/propertyBag"
         }
-      },
-      "required": [ "verb" ],
-      "anyOf": [
-        {
-          "required": [ "index" ]
-        },
-        {
-          "required": [ "uri", "index"]
-        }
-      ]
+      }
     },
 
     "response": {
@@ -1950,8 +1951,28 @@
           "type": "integer"
         },
 
+        "protocol": {
+          "description": "The response protocol. Example: 'http'.",
+          "type": "string"
+        },
+
+        "version": {
+          "description": "The response version. Example: '1.1'.",
+          "type": "string"
+        },
+
+        "statusCode": {
+          "description": "The response Status Code. Example: 404.",
+          "type": "integer"
+        },
+
+        "reasonPhrase": {
+          "description": "The response reason. Example: 'Not found'.",
+          "type": "integer"
+        },
+
         "headers": {
-          "description": "The headers associated with the web response.",
+          "description": "The response headers.",
           "type": "object",
           "additionalProperties": {
             "type": "string"
@@ -1959,7 +1980,7 @@
         },
 
         "body": {
-          "description": "The body associated with the web response.",
+          "description": "The body of the response.",
           "type": "string"
         },
 
@@ -2482,7 +2503,7 @@
         },
 
         "requests": {
-          "description": "Requests associated with this run instance, if any.",
+          "description": "An array of request objects cached at run level.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
@@ -2493,7 +2514,7 @@
         },
 
         "responses": {
-          "description": "Responses associated with this run instance, if any.",
+          "description": "An array of response objects cached at run level.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
