@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             uriBaseIds.Values.First().Uri.LocalPath.Should().Be(path);
         }
 
-        [Fact]
+        [Fact(Skip = "If run concurrently with tests for other libraries, this test fails. To be investigated.")]
         public void ConstructUriBaseIdsDictionary_ConvertsRelativeFilePathToAbsolute()
         {
             string name = "SRC";
