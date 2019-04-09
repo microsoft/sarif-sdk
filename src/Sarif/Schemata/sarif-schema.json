@@ -895,8 +895,9 @@
         "requests": {
           "description": "An array of external property files containing run.requests arrays to be merged with the root log file.",
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
           "uniqueItems": true,
+          "default": [],
           "items": {
             "$ref": "#/definitions/externalPropertyFileReference"
           }
@@ -905,8 +906,9 @@
         "responses": {
           "description": "An array of external property files containing run.responses arrays to be merged with the root log file.",
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
           "uniqueItems": true,
+          "default": [],
           "items": {
             "$ref": "#/definitions/externalPropertyFileReference"
           }
@@ -1931,7 +1933,7 @@
 
         "body": {
           "description": "The body of the request.",
-          "type": "string"
+          "$ref": "#/definitions/artifactContent"
         },
 
         "properties": {
@@ -1962,7 +1964,7 @@
         },
 
         "statusCode": {
-          "description": "The response status code. Example: 404.",
+          "description": "The response status code. Example: 451.",
           "type": "integer"
         },
 
@@ -1981,7 +1983,7 @@
 
         "body": {
           "description": "The body of the response.",
-          "type": "string"
+          "$ref": "#/definitions/artifactContent"
         },
 
         "properties": {
@@ -2780,6 +2782,16 @@
         "importance": {
           "description": "Specifies the importance of this location in understanding the code flow in which it occurs. The order from most to least important is \"essential\", \"important\", \"unimportant\". Default: \"important\".",
           "enum": [ "important", "essential", "unimportant" ]
+        },
+
+        "request": {
+          "description": "A web request associated with this thread flow location.",
+          "$ref": "#/definitions/request"
+        },
+
+        "response": {
+          "description": "A web response associated with this thread flow location.",
+          "$ref": "#/definitions/response"
         },
 
         "properties": {

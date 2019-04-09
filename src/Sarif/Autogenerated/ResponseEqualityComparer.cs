@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.Body != right.Body)
+            if (!ArtifactContent.ValueComparer.Equals(left.Body, right.Body))
             {
                 return false;
             }
@@ -118,7 +118,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (obj.Body != null)
                 {
-                    result = (result * 31) + obj.Body.GetHashCode();
+                    result = (result * 31) + obj.Body.ValueGetHashCode();
                 }
 
                 if (obj.Properties != null)

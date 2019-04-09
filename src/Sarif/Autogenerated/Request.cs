@@ -78,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The body of the request.
         /// </summary>
         [DataMember(Name = "body", IsRequired = false, EmitDefaultValue = false)]
-        public string Body { get; set; }
+        public ArtifactContent Body { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the request.
@@ -123,7 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Request(int index, string protocol, string version, Uri uri, string method, object headers, object parameters, string body, IDictionary<string, SerializedPropertyInfo> properties)
+        public Request(int index, string protocol, string version, Uri uri, string method, object headers, object parameters, ArtifactContent body, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(index, protocol, version, uri, method, headers, parameters, body, properties);
         }
@@ -165,7 +165,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Request(this);
         }
 
-        private void Init(int index, string protocol, string version, Uri uri, string method, object headers, object parameters, string body, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int index, string protocol, string version, Uri uri, string method, object headers, object parameters, ArtifactContent body, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Index = index;
             Protocol = protocol;
@@ -178,7 +178,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             Method = method;
             Headers = headers;
             Parameters = parameters;
-            Body = body;
+            if (body != null)
+            {
+                Body = new ArtifactContent(body);
+            }
+
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);

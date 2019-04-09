@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Version { get; set; }
 
         /// <summary>
-        /// The response status code. Example: 404.
+        /// The response status code. Example: 451.
         /// </summary>
         [DataMember(Name = "statusCode", IsRequired = false, EmitDefaultValue = false)]
         public int StatusCode { get; set; }
@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The body of the response.
         /// </summary>
         [DataMember(Name = "body", IsRequired = false, EmitDefaultValue = false)]
-        public string Body { get; set; }
+        public ArtifactContent Body { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the response.
@@ -114,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Response(int index, string protocol, string version, int statusCode, int reasonPhrase, object headers, string body, IDictionary<string, SerializedPropertyInfo> properties)
+        public Response(int index, string protocol, string version, int statusCode, int reasonPhrase, object headers, ArtifactContent body, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(index, protocol, version, statusCode, reasonPhrase, headers, body, properties);
         }
@@ -156,7 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Response(this);
         }
 
-        private void Init(int index, string protocol, string version, int statusCode, int reasonPhrase, object headers, string body, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int index, string protocol, string version, int statusCode, int reasonPhrase, object headers, ArtifactContent body, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Index = index;
             Protocol = protocol;
@@ -164,7 +164,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             StatusCode = statusCode;
             ReasonPhrase = reasonPhrase;
             Headers = headers;
-            Body = body;
+            if (body != null)
+            {
+                Body = new ArtifactContent(body);
+            }
+
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);

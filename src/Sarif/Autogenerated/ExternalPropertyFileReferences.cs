@@ -127,12 +127,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An array of external property files containing run.requests arrays to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "requests", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<ExternalPropertyFileReference> Requests { get; set; }
 
         /// <summary>
         /// An array of external property files containing run.responses arrays to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "responses", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<ExternalPropertyFileReference> Responses { get; set; }
 
         /// <summary>

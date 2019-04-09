@@ -905,6 +905,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                node.Body = VisitNullChecked(node.Body);
             }
 
             return node;
@@ -914,6 +915,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                node.Body = VisitNullChecked(node.Body);
             }
 
             return node;
@@ -1273,6 +1275,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                         }
                     }
                 }
+
+                node.Request = VisitNullChecked(node.Request);
+                node.Response = VisitNullChecked(node.Response);
             }
 
             return node;
