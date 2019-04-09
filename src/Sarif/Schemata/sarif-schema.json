@@ -697,6 +697,28 @@
           }
         },
 
+        "requests": {
+          "description": "Requests that will be merged with a separate run.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/request"
+          }
+        },
+
+        "responses": {
+          "description": "Responses that will be merged with a separate run.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/response"
+          }
+        },
+
         "properties": {
           "description": "Key/value pairs that provide additional information about the external properties.",
           "$ref": "#/definitions/propertyBag"
@@ -865,6 +887,26 @@
           "minItems": 0,
           "uniqueItems": false,
           "default": [],
+          "items": {
+            "$ref": "#/definitions/externalPropertyFileReference"
+          }
+        },
+
+        "requests": {
+          "description": "An array of external property files containing run.requests arrays to be merged with the root log file.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/externalPropertyFileReference"
+          }
+        },
+
+        "responses": {
+          "description": "An array of external property files containing run.responses arrays to be merged with the root log file.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/externalPropertyFileReference"
           }
@@ -1840,6 +1882,94 @@
       "required": [ "target", "kinds" ]
     },
 
+    "request": {
+      "description": "A web request object.",
+      "type": "object",
+      "properties": {
+
+        "index": {
+          "description": "The index within the run.requests array of the request object associated with this result.",
+          "type": "integer"
+        },
+
+        "uri": {
+          "description": "The uri associated with the web request.",
+          "type": "string",
+          "format": "uri"
+        },
+
+        "verb": {
+          "description": "The verb associated with the web request. Well-known values include GET, POST, PUT, DELETE, PATCH.",
+          "type": "string"
+        },
+
+        "headers": {
+          "description": "The headers associated with the web request.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+
+        "parameters": {
+          "description": "The parameters associated with the web request.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+
+        "body": {
+          "description": "The body associated with the web request.",
+          "type": "string"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the request.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      },
+      "required": [ "verb" ],
+      "anyOf": [
+        {
+          "required": [ "index" ]
+        },
+        {
+          "required": [ "uri", "index"]
+        }
+      ]
+    },
+
+    "response": {
+      "description": "A web response object.",
+      "type": "object",
+      "properties": {
+
+        "index": {
+          "description": "The index within the run.responses array of the response object associated with this result.",
+          "type": "integer"
+        },
+
+        "headers": {
+          "description": "The headers associated with the web response.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+
+        "body": {
+          "description": "The body associated with the web response.",
+          "type": "string"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the response.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      }
+    },
+
     "result": {
       "description": "A result produced by an analysis tool.",
       "additionalProperties": false,
@@ -2065,6 +2195,16 @@
           "items": {
             "$ref": "#/definitions/reportingDescriptorReference"
           }
+        },
+
+        "request": {
+          "description": "A web request associated with this result.",
+          "$ref": "#/definitions/request"
+        },
+
+        "response": {
+          "description": "A web response associated with this result.",
+          "$ref": "#/definitions/response"
         },
 
         "properties": {
@@ -2338,6 +2478,28 @@
           "default": [],
           "items": {
             "$ref": "#/definitions/toolComponent"
+          }
+        },
+
+        "requests": {
+          "description": "Requests associated with this run instance, if any.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/request"
+          }
+        },
+
+        "responses": {
+          "description": "Responses associated with this run instance, if any.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/response"
           }
         },
 
