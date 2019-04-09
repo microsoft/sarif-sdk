@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The values of relevant expressions after the edge has been traversed.
         /// </summary>
         [DataMember(Name = "finalState", IsRequired = false, EmitDefaultValue = false)]
-        public IDictionary<string, string> FinalState { get; set; }
+        public IDictionary<string, MultiformatMessageString> FinalState { get; set; }
 
         /// <summary>
         /// The number of edge traversals necessary to return from a nested graph.
@@ -87,7 +87,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public EdgeTraversal(string edgeId, Message message, IDictionary<string, string> finalState, int stepOverEdgeCount, IDictionary<string, SerializedPropertyInfo> properties)
+        public EdgeTraversal(string edgeId, Message message, IDictionary<string, MultiformatMessageString> finalState, int stepOverEdgeCount, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(edgeId, message, finalState, stepOverEdgeCount, properties);
         }
@@ -129,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new EdgeTraversal(this);
         }
 
-        private void Init(string edgeId, Message message, IDictionary<string, string> finalState, int stepOverEdgeCount, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string edgeId, Message message, IDictionary<string, MultiformatMessageString> finalState, int stepOverEdgeCount, IDictionary<string, SerializedPropertyInfo> properties)
         {
             EdgeId = edgeId;
             if (message != null)
@@ -139,7 +139,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (finalState != null)
             {
-                FinalState = new Dictionary<string, string>(finalState);
+                FinalState = new Dictionary<string, MultiformatMessageString>();
+                foreach (var value_0 in finalState)
+                {
+                    FinalState.Add(value_0.Key, new MultiformatMessageString(value_0.Value));
+                }
             }
 
             StepOverEdgeCount = stepOverEdgeCount;

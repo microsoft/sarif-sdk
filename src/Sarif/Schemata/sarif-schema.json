@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta.2019-04-03 JSON Schema",
-  "description": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2019-04-03 JSON Schema: a standard format for the output of static analysis tools.",
+  "title": "Static Analysis Results Format (SARIF) Version 2.1.0-beta.0 JSON Schema",
+  "description": "Static Analysis Results Format (SARIF) Version 2.1.0-beta.0 JSON Schema: a standard format for the output of static analysis tools.",
   "additionalProperties": false,
   "type": "object",
   "properties": {
@@ -14,7 +14,7 @@
 
     "version": {
       "description": "The SARIF format version of this log file.",
-      "enum": [ "2.0.0-csd.2.beta.2019-04-03" ]
+      "enum": [ "2.1.0" ]
     },
 
     "runs": {
@@ -483,7 +483,7 @@
           "description": "The values of relevant expressions after the edge has been traversed.",
           "type": "object",
           "additionalProperties": {
-            "type": "string"
+            "$ref": "#/definitions/multiformatMessageString"
           }
         },
 
@@ -550,7 +550,7 @@
 
         "version": {
           "description": "The SARIF format version of this external properties object.",
-          "enum": [ "2.0.0-csd.2.beta.2019-04-03" ]
+          "enum": [ "2.1.0" ]
         },
 
         "guid": {
@@ -982,7 +982,7 @@
           "description": "Values of relevant expressions at the start of the graph traversal that may change during graph traversal.",
           "type": "object",
           "additionalProperties": {
-            "type": "string"
+            "$ref": "#/definitions/multiformatMessageString"
           }
         },
 
@@ -990,7 +990,7 @@
           "description": "Values of relevant expressions at the start of the graph traversal that remain constant for the graph traversal.",
           "type": "object",
           "additionalProperties": {
-            "type": "string"
+            "$ref": "#/definitions/multiformatMessageString"
           }
         },
 
@@ -1840,7 +1840,6 @@
       "required": [ "target", "kinds" ]
     },
 
-
     "result": {
       "description": "A result produced by an analysis tool.",
       "additionalProperties": false,
@@ -2501,7 +2500,7 @@
           "description": "Values of relevant expressions at the start of the thread flow that may change during thread flow execution.",
           "type": "object",
           "additionalProperties": {
-            "type": "string"
+            "$ref": "#/definitions/multiformatMessageString"
           }
         },
 
@@ -2509,7 +2508,7 @@
           "description": "Values of relevant expressions at the start of the thread flow that remain constant.",
           "type": "object",
           "additionalProperties": {
-            "type": "string"
+            "$ref": "#/definitions/multiformatMessageString"
           }
         },
 
@@ -2575,7 +2574,7 @@
           "description": "A dictionary, each of whose keys specifies a variable or expression, the associated value of which represents the variable or expression value. For an annotation of kind 'continuation', for example, this dictionary might hold the current assumed values of a set of global variables.",
           "type": "object",
           "additionalProperties": {
-            "type": "string"
+            "$ref": "#/definitions/multiformatMessageString"
           }
         },
 

@@ -1,6 +1,6 @@
 {
-  "$schema": "json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-04-03",
-  "version": "2.0.0-csd.2.beta.2019-04-03",
+  "$schema": "json.schemastore.org/sarif-2.1.0-beta.0",
+  "version": "2.1.0",
   "runs": [
     {
       "tool": {
