@@ -47,15 +47,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             switch (version)
             {
+                case "2.1.0":
+                {
+                    // SARIF TC34. Nothing to do.
+                    break;
+                }
+
                 case "2.0.0-csd.2.beta.2019-04-03":
                 {
-                    // SARIF TC33. Nothing to do.
+                    modifiedLog |= ApplyChangesFromTC34(sarifLog);
                     break;
                 }
 
                 case "2.0.0-csd.2.beta.2019-02-20":
                 {
                     modifiedLog |= ApplyChangesFromTC33(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC34(sarifLog);
                     break;
                 }
 
@@ -64,6 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     modifiedLog |= ApplyChangesFromTC32(sarifLog);
                     modifiedLog |= ApplyChangesFromTC33(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC34(sarifLog);
                     break;
                 }
 
@@ -72,6 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC31(sarifLog);
                     modifiedLog |= ApplyChangesFromTC32(sarifLog);
                     modifiedLog |= ApplyChangesFromTC33(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC34(sarifLog);
                     break;
                 }
 
@@ -88,6 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC31(sarifLog);
                     modifiedLog |= ApplyChangesFromTC32(sarifLog);
                     modifiedLog |= ApplyChangesFromTC33(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC34(sarifLog);
                     break;
 
                 }
@@ -103,6 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC31(sarifLog);
                     modifiedLog |= ApplyChangesFromTC32(sarifLog);
                     modifiedLog |= ApplyChangesFromTC33(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC34(sarifLog);
                     break;
                 }
             }
@@ -132,10 +143,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return transformedSarifLog;
         }
 
-        private static bool ApplyChangesFromTC33(JObject sarifLog)
+        private static bool ApplyChangesFromTC34(JObject sarifLog)
         {
             UpdateSarifLogVersionAndSchema(sarifLog);
+            return true;
+        }
 
+        private static bool ApplyChangesFromTC33(JObject sarifLog)
+        {
             if (sarifLog["runs"] is JArray runs)
             {
                 foreach (JObject run in runs)
