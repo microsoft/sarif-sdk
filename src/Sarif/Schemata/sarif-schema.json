@@ -1922,7 +1922,7 @@
         },
 
         "parameters": {
-          "description": "The request parameters .",
+          "description": "The request parameters.",
           "type": "object",
           "additionalProperties": {
             "type": "string"

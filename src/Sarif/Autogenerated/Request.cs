@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public object Headers { get; set; }
 
         /// <summary>
-        /// The request parameters .
+        /// The request parameters.
         /// </summary>
         [DataMember(Name = "parameters", IsRequired = false, EmitDefaultValue = false)]
         public object Parameters { get; set; }
