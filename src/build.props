@@ -11,7 +11,7 @@
     <Copyright Condition=" '$(Copyright)' == '' ">© Microsoft Corporation. All rights reserved.</Copyright>
     <VersionPrefix>2.1.0</VersionPrefix>
     <VersionSuffix></VersionSuffix>
-    <PackageVersionSuffix>.0</PackageVersionSuffix>
+    <PackageVersionSuffix>beta.0</PackageVersionSuffix>
 
     <!--
     Whenever you increment VersionPrefix or VersionSuffix, copy the old value(s)

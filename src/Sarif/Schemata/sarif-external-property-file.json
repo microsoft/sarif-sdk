@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "SARIF External Property File Schema Version 2.1.0 JSON Schema",
+  "title": "SARIF External Property File Schema Version 2.1.0-beta.0 JSON Schema",
   "type": "object",
   "properties": {
 
