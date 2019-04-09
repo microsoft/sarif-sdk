@@ -108,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Module = v1AnnotatedCodeLocation.Module,
                     NestingLevel = _threadFlowLocationNestingLevel,
                     Properties = v1AnnotatedCodeLocation.Properties,
-                    State = v1AnnotatedCodeLocation.State,
+                    State = v1AnnotatedCodeLocation.State.ConvertToMultiformatMessageStringsDictionary(),
                 };
 
                 if (v1AnnotatedCodeLocation.Kind == AnnotatedCodeLocationKindVersionOne.Call)

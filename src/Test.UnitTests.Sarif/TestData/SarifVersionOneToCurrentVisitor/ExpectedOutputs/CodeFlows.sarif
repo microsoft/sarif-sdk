@@ -59,7 +59,9 @@
                       },
                       "module": "platform",
                       "state": {
-                        "Foo": "bar"
+                        "Foo": {
+                          "text" : "bar"
+                        }
                       },
                       "executionOrder": 3,
                       "importance": "unimportant"
@@ -80,7 +82,9 @@
                       },
                       "module": "platform",
                       "state": {
-                        "Foo": "bar"
+                        "Foo": {
+                          "text": "bar"
+                        }
                       },
                       "executionOrder": 5,
                       "importance": "essential"
@@ -146,7 +150,9 @@
                       },
                       "module": "platform",
                       "state": {
-                        "Foo": "bar"
+                        "Foo": {
+                          "text": "bar"
+                        }
                       },
                       "nestingLevel": 1,
                       "executionOrder": 4,

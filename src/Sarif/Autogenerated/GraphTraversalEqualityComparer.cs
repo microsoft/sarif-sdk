@@ -52,13 +52,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 foreach (var value_0 in left.InitialState)
                 {
-                    string value_1;
+                    MultiformatMessageString value_1;
                     if (!right.InitialState.TryGetValue(value_0.Key, out value_1))
                     {
                         return false;
                     }
 
-                    if (value_0.Value != value_1)
+                    if (!MultiformatMessageString.ValueComparer.Equals(value_0.Value, value_1))
                     {
                         return false;
                     }

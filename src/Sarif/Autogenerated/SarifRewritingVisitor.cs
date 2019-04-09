@@ -302,6 +302,18 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.Message = VisitNullChecked(node.Message);
+                if (node.FinalState != null)
+                {
+                    var keys = node.FinalState.Keys.ToArray();
+                    foreach (var key in keys)
+                    {
+                        var value = node.FinalState[key];
+                        if (value != null)
+                        {
+                            node.FinalState[key] = VisitNullChecked(value);
+                        }
+                    }
+                }
             }
 
             return node;
@@ -579,6 +591,19 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.Description = VisitNullChecked(node.Description);
+                if (node.InitialState != null)
+                {
+                    var keys = node.InitialState.Keys.ToArray();
+                    foreach (var key in keys)
+                    {
+                        var value = node.InitialState[key];
+                        if (value != null)
+                        {
+                            node.InitialState[key] = VisitNullChecked(value);
+                        }
+                    }
+                }
+
                 if (node.EdgeTraversals != null)
                 {
                     for (int index_0 = 0; index_0 < node.EdgeTraversals.Count; ++index_0)
@@ -1163,6 +1188,18 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 node.Location = VisitNullChecked(node.Location);
                 node.Stack = VisitNullChecked(node.Stack);
+                if (node.State != null)
+                {
+                    var keys = node.State.Keys.ToArray();
+                    foreach (var key in keys)
+                    {
+                        var value = node.State[key];
+                        if (value != null)
+                        {
+                            node.State[key] = VisitNullChecked(value);
+                        }
+                    }
+                }
             }
 
             return node;

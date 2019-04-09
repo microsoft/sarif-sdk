@@ -99,7 +99,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     modifiedLog |= ApplyChangesFromTC34(sarifLog);
                     break;
-
                 }
 
                 default:
@@ -146,7 +145,49 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private static bool ApplyChangesFromTC34(JObject sarifLog)
         {
             UpdateSarifLogVersionAndSchema(sarifLog);
+
+            // https://github.com/oasis-tcs/sarif-spec/issues/361
+            ConvertAllStateStringsToMultiFormatMessageStrings(sarifLog);
             return true;
+        }
+
+        private static void ConvertAllStateStringsToMultiFormatMessageStrings(JObject run)
+        {
+            string[] statePathsToUpdate =
+            {
+                "inlineExternalProperties[].results[].graphTraversals[].edgeTraversals[].finalState",
+                "inlineExternalProperties[].results[].graphTraversals[].initialState",
+                "inlineExternalProperties[].results[].graphTraversals[].immutableState",
+                "inlineExternalProperties[].results[].codeFlows[].threadFlows[].initialState",
+                "inlineExternalProperties[].results[].codeFlows[].threadFlows[].immutableState",
+                "inlineExternalProperties[].results[].codeFlows[].threadFlows[].locations[].state",
+                "inlineExternalProperties[].threadFlowLocations[].state",
+
+                "runs[].results[].graphTraversals[].edgeTraversals[].finalState",
+                "runs[].results[].graphTraversals[].initialState",
+                "runs[].results[].graphTraversals[].immutableState",
+                "runs[].results[].codeFlows[].threadFlows[].initialState",
+                "runs[].results[].codeFlows[].threadFlows[].immutableState",
+                "runs[].results[].codeFlows[].threadFlows[].locations[].state",
+                "runs[].threadFlowLocations[].state"
+            };
+
+            PerformActionOnLeafNodeIfExists(
+                possiblePathsToLeafNode: statePathsToUpdate,
+                rootNode: run,
+                action: ConvertSingleStateStringToMultiFormatMessageString);
+        }
+
+        private static void ConvertSingleStateStringToMultiFormatMessageString(JObject state)
+        {
+            foreach (JProperty property in state.Properties())
+            {
+                // Create base multiformatMessageString object with plaintext value
+                JObject multiformatMessageString = CreateMultiformatMessageStringFromPlaintext((string)property.Value);
+
+                // Replace the message strings property with the multi-format version
+                state[property.Name] = multiformatMessageString;
+            }
         }
 
         private static bool ApplyChangesFromTC33(JObject sarifLog)
