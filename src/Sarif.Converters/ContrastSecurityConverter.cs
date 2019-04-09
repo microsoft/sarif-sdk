@@ -101,11 +101,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 output.WriteLogicalLocations(LogicalLocations);
             }
 
-            //if (_rules?.Any() == true)
-            //{
-            //    output.WriteRules(_rules.Values.ToList());
-            //}
-
             output.OpenResults();
             output.WriteResults(results);
             output.CloseResults();
@@ -117,12 +112,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 case ContrastSecurityRuleIds.AntiCachingControlsMissing:
                 {
-                    return ConstructAntiCachingControlsMissingResult(context.Properties);
+                    return ConstructAntiCachingControlsMissingResult(context);
                 }
 
                 case ContrastSecurityRuleIds.AuthorizationRulesMissingDenyRule:
                 {
-                    return ConstructAuthorizationRulesMissingDenyResult(context.Properties);
+                    return ConstructAuthorizationRulesMissingDenyResult(context);
                 }
 
                 case ContrastSecurityRuleIds.CrossSiteScripting:
@@ -132,32 +127,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 case ContrastSecurityRuleIds.DetailedErrorMessagesDisplayed:
                 {
-                    return ConstructDetailedErrorMessagesDisplayedResult(context.Properties);
+                    return ConstructDetailedErrorMessagesDisplayedResult(context);
                 }
 
                 case ContrastSecurityRuleIds.EventValidationDisabled:
                 {
-                    return ConstructEventValidationDisabledResult(context.Properties);
+                    return ConstructEventValidationDisabledResult(context);
                 }
 
                 case ContrastSecurityRuleIds.FormsAuthenticationSSL:
                 {
-                    return ConstructFormsAuthenticationSSLResult(context.Properties);
+                    return ConstructFormsAuthenticationSSLResult(context);
                 }
 
                 case ContrastSecurityRuleIds.FormsWithoutAutocompletePrevention:
                 {
-                    return ConstructFormsWithoutAutocompletePreventionResult(context.Properties);
+                    return ConstructFormsWithoutAutocompletePreventionResult(context);
                 }
 
                 case ContrastSecurityRuleIds.HttpOnlyCookieFlagDisabled:
                 {
-                    return ConstructHttpOnlyCookieFlagDisabledResult(context.Properties);
+                    return ConstructHttpOnlyCookieFlagDisabledResult(context);
                 }
 
                 case ContrastSecurityRuleIds.InsecureEncryptionAlgorithms:
                 {
-                    return ConstructInsecureEncryptionAlgorithmsResult(context.Properties);
+                    return ConstructInsecureEncryptionAlgorithmsResult(context);
                 }
 
                 case ContrastSecurityRuleIds.InsecureHashAlgorithms:
@@ -167,32 +162,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 case ContrastSecurityRuleIds.OverlyLongSessionTimeout:
                 {
-                    return ConstructOverlyLongSessionTimeoutResult(context.Properties);
+                    return ConstructOverlyLongSessionTimeoutResult(context);
                 }
 
                 case ContrastSecurityRuleIds.PagesWithoutAntiClickjackingControls:
                 {
-                    return ConstructPagesWithoutAntiClickjackingControlsResult(context.Properties);
+                    return ConstructPagesWithoutAntiClickjackingControlsResult(context);
                 }
 
                 case ContrastSecurityRuleIds.PathTraversal:
                 {
-                    return ConstructPathTraversalResult(context.Properties);
+                    return ConstructPathTraversalResult(context);
                 }
 
                 case ContrastSecurityRuleIds.RequestValidationModeDisabled:
                 {
-                    return ConstructRequestValidationModeDisabledResult(context.Properties);
+                    return ConstructRequestValidationModeDisabledResult(context);
                 }
 
                 case ContrastSecurityRuleIds.SessionCookieHasNoSecureFlag:
                 {
-                    return ConstructSessionCookieHasNoSecureFlagResult(context.Properties);
+                    return ConstructSessionCookieHasNoSecureFlagResult(context);
                 }
 
                 case ContrastSecurityRuleIds.SessionRewriting:
                 {
-                    return ConstructSessionRewritingResult(context.Properties);
+                    return ConstructSessionRewritingResult(context);
                 }
 
                 case ContrastSecurityRuleIds.SqlInjection:
@@ -202,12 +197,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 case ContrastSecurityRuleIds.VersionHeaderEnabled:
                 {
-                    return ConstructVersionHeaderEnabledResult(context.Properties);
+                    return ConstructVersionHeaderEnabledResult(context);
                 }
 
                 case ContrastSecurityRuleIds.WebApplicationDeployedinDebugMode:
                 {
-                    return ConstructWebApplicationDeployedinDebugModeResult(context.Properties);
+                    return ConstructWebApplicationDeployedinDebugModeResult(context);
                 }
 
                 default:
@@ -229,7 +224,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return result;
         }
 
-        private Result ConstructAntiCachingControlsMissingResult(IDictionary<string, string> properties)
+        private Result ConstructAntiCachingControlsMissingResult(ContrastLogReader.Context context)
         {
             // cache-controls-missing : Anti-Caching Controls Missing
 
@@ -241,6 +236,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string examplePage = null;
             string exampleHeader = null;
 
+            IDictionary<string, string> properties = context.Properties;
             foreach (string key in properties.Keys)
             {
                 if (KeyIsReservedPropertyName(key)) { continue; }
@@ -256,11 +252,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             string pageCount = locations.Count.ToString();
 
-            const string RuleId = ContrastSecurityRuleIds.AntiCachingControlsMissing;
             return new Result
             {
-                RuleId = RuleId,
-                Level = GetRuleFailureLevel(RuleId),
+                RuleId = context.RuleId,
+                Level = GetRuleFailureLevel(context.RuleId),
                 Locations = locations,
                 Message = new Message
                 {
@@ -275,15 +270,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
         }
 
-        private Result ConstructAuthorizationRulesMissingDenyResult(IDictionary<string, string> properties)
+        private Result ConstructAuthorizationRulesMissingDenyResult(ContrastLogReader.Context context)
         {
             // authorization-missing-deny : Authorization Rules Missing Deny Rule
 
-            const string RuleId = ContrastSecurityRuleIds.AuthorizationRulesMissingDenyRule;
             var result = new Result
             {
-                RuleId = RuleId,
-                Level = GetRuleFailureLevel(RuleId)
+                RuleId = context.RuleId,
+                Level = GetRuleFailureLevel(context.RuleId)
             };
 
             // authorization-missing-deny instances track the following properties:
@@ -292,6 +286,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             // <properties name="locationPath">CustomerLogin.aspx</properties>
             // <properties name="snippet">10:     &lt;system.web&gt;&#xD;</properties>
 
+            IDictionary<string, string> properties = context.Properties;
             string path = properties[nameof(path)];
             string locationPath = properties.ContainsKey(nameof(locationPath)) ? properties[nameof(locationPath)] : null;
             string snippet = properties[nameof(snippet)];
@@ -333,16 +328,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private Result ConstructInsecureHashAlgorithmsResult(ContrastLogReader.Context context)
         {
-            const string RuleId = ContrastSecurityRuleIds.InsecureHashAlgorithms;
             return new Result
             {
-                RuleId = RuleId,
-                Level = GetRuleFailureLevel(RuleId),
+                RuleId = context.RuleId,
+                Level = GetRuleFailureLevel(context.RuleId),
                 CodeFlows = CreateCodeFlows(context)
             };
         }
 
-        private Result ConstructPagesWithoutAntiClickjackingControlsResult(IDictionary<string, string> properties)
+        private Result ConstructPagesWithoutAntiClickjackingControlsResult(ContrastLogReader.Context context)
         {
             // cache-controls-missing : Anti-Caching Controls Missing
 
@@ -351,6 +345,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var locations = new List<Location>();
 
+            IDictionary<string, string> properties = context.Properties;
             foreach (string key in properties.Keys)
             {
                 if (KeyIsReservedPropertyName(key)) { continue; }
@@ -364,11 +359,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string pageCount = locations.Count.ToString();
             string examplePage = locations[0].PhysicalLocation.ArtifactLocation.Uri.ToString();
 
-            const string RuleId = ContrastSecurityRuleIds.PagesWithoutAntiClickjackingControls;
             return new Result
             {
-                RuleId = RuleId,
-                Level = GetRuleFailureLevel(RuleId),
+                RuleId = context.RuleId,
+                Level = GetRuleFailureLevel(context.RuleId),
                 Locations = locations,
                 Message = new Message
                 {
@@ -396,13 +390,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string untrustedData = BuildSourcesString(context.Sources);
             string page = context.RequestUri;
             string caller = context.PropagationEvents[context.PropagationEvents.Count - 1].Stack.Frames[0].Location.LogicalLocation?.FullyQualifiedName;
-            string controlID = context.Properties.ContainsKey(nameof(controlID)) ? context.Properties[nameof(controlID)] : null;
+            string controlId = context.Properties.ContainsKey(nameof(controlId)) ? context.Properties[nameof(controlId)] : null;
 
-            const string RuleId = ContrastSecurityRuleIds.CrossSiteScripting;
             var result = new Result
             {
-                RuleId = RuleId,
-                Level = GetRuleFailureLevel(RuleId),
+                RuleId = context.RuleId,
+                Level = GetRuleFailureLevel(context.RuleId),
                 Locations = new List<Location>()
                 {
                     new Location
@@ -412,7 +405,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             };
 
-            if (controlID == null)
+            if (controlId == null)
             {
                 result.Message = new Message
                 {
@@ -433,7 +426,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {                  // A cross-site scripting vulnerability was seen as untrusted data
                         untrustedData, // '{0}' on 
                         page,          // '{1}' was accessed within 
-                        controlID      // '{2}' control and observed going into the HTTP response without validation or encoding.
+                        controlId      // '{2}' control and observed going into the HTTP response without validation or encoding.
                     }
                 };
             }
@@ -441,21 +434,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return result;
         }
 
-        private Result ConstructDetailedErrorMessagesDisplayedResult(IDictionary<string, string> properties)
+        private Result ConstructDetailedErrorMessagesDisplayedResult(ContrastLogReader.Context context)
         {
             // custom-errors-off : Detailed Error Messages Displayed
 
             // <properties name="path">\web.config</properties>
             // <properties name="snippet">30:   &lt;system.web&gt;&#xD;
 
+            IDictionary<string, string> properties = context.Properties;
             string path = properties[nameof(path)];
             string snippet = properties[nameof(snippet)];
 
-            const string RuleId = ContrastSecurityRuleIds.DetailedErrorMessagesDisplayed;
             return new Result
             {
-                RuleId = RuleId,
-                Level = GetRuleFailureLevel(RuleId),
+                RuleId = context.RuleId,
+                Level = GetRuleFailureLevel(context.RuleId),
                 Locations = new List<Location>()
                 {
                     new Location
@@ -474,21 +467,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
         }
 
-        private Result ConstructEventValidationDisabledResult(IDictionary<string, string> properties)
+        private Result ConstructEventValidationDisabledResult(ContrastLogReader.Context context)
         {
             // event-validation-disabled : Event Validation Disabled
 
             // <properties name="aspx">\Content\HeaderInjection.aspx</properties>\
             // <properties name="snippet">1: &lt;%@ Page Title="" Language="C#" ...
 
+            IDictionary<string, string> properties = context.Properties;
             string aspx = properties[nameof(aspx)];
             string snippet = properties[nameof(snippet)];
 
-            const string RuleId = ContrastSecurityRuleIds.EventValidationDisabled;
             return new Result
             {
-                RuleId = RuleId,
-                Level = GetRuleFailureLevel(RuleId),
+                RuleId = context.RuleId,
+                Level = GetRuleFailureLevel(context.RuleId),
                 Locations = new List<Location>()
                 {
                     new Location
@@ -507,21 +500,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
         }
 
-        private Result ConstructFormsAuthenticationSSLResult(IDictionary<string, string> properties)
+        private Result ConstructFormsAuthenticationSSLResult(ContrastLogReader.Context context)
         {
             // forms-auth-ssl : Forms Authentication SSL
 
             // <properties name="path">\web.config</properties>
             // <properties name="snippet">39:     &lt;!-- set up users --&gt;&#xD;
 
+            IDictionary<string, string> properties = context.Properties;
             string path = properties[nameof(path)];
             string snippet = properties[nameof(snippet)];
 
-            const string RuleId = ContrastSecurityRuleIds.FormsAuthenticationSSL;
             return new Result
             {
-                RuleId = RuleId,
-                Level = GetRuleFailureLevel(RuleId),
+                RuleId = context.RuleId,
+                Level = GetRuleFailureLevel(context.RuleId),
                 Locations = new List<Location>()
                 {
                     new Location
@@ -540,7 +533,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
         }
 
-        private Result ConstructFormsWithoutAutocompletePreventionResult(IDictionary<string, string> properties)
+        private Result ConstructFormsWithoutAutocompletePreventionResult(ContrastLogReader.Context context)
         {
             // autocomplete-missing : Forms Without Autocomplete Prevention
 
@@ -548,6 +541,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var locations = new List<Location>();
 
+            IDictionary<string, string> properties = context.Properties;
             foreach (string key in properties.Keys)
             {
                 if (KeyIsReservedPropertyName(key)) { continue; }
@@ -590,11 +584,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string pageCount = locations.Count.ToString();
             string examplePage = locations[0].PhysicalLocation.ArtifactLocation.Uri.OriginalString;
 
-            const string RuleId = ContrastSecurityRuleIds.FormsWithoutAutocompletePrevention;
             return new Result
             {
-                RuleId = RuleId,
-                Level = GetRuleFailureLevel(RuleId),
+                RuleId = context.RuleId,
+                Level = GetRuleFailureLevel(context.RuleId),
                 Locations = locations,
                 Message = new Message
                 {
@@ -616,25 +609,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 key == "route-signature";
         }
 
-        private Result ConstructHttpOnlyCookieFlagDisabledResult(IDictionary<string, string> properties)
+        private Result ConstructHttpOnlyCookieFlagDisabledResult(ContrastLogReader.Context context)
         {
             // http-only-disabled : HttpOnly Cookie Flag Disabled
 
             // default : The configuration in '{0}' had 'httpOnlyCookies' set to 'false' in an <httpCookies> section.
 
-            return ConstructNotImplementedRuleResult(ContrastSecurityRuleIds.HttpOnlyCookieFlagDisabled);
+            return ConstructNotImplementedRuleResult(context.RuleId);
         }
 
-        private Result ConstructInsecureEncryptionAlgorithmsResult(IDictionary<string, string> properties)
+        private Result ConstructInsecureEncryptionAlgorithmsResult(ContrastLogReader.Context context)
         {
             // crypto-bad-cyphers : Insecure Encryption Algorithms
 
             // default : '{0}' obtained a handle to the cryptographically insecure '{1}' algorithm.
 
-            return ConstructNotImplementedRuleResult(ContrastSecurityRuleIds.InsecureEncryptionAlgorithms);
+            return ConstructNotImplementedRuleResult(context.RuleId);
         }
 
-        private Result ConstructOverlyLongSessionTimeoutResult(IDictionary<string, string> properties)
+        private Result ConstructOverlyLongSessionTimeoutResult(ContrastLogReader.Context context)
         {
             // session-timeout : Overly Long Session Timeout
 
@@ -642,15 +635,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             // <properties name="section">sessionState</properties>
             // <properties name="snippet">52:     &lt;trace enabled="false" ...
 
+            IDictionary<string, string> properties = context.Properties;
             string path = properties[nameof(path)];
             string section = properties[nameof(section)];
             string snippet = properties[nameof(snippet)];
 
-            const string RuleId = ContrastSecurityRuleIds.OverlyLongSessionTimeout;
             return new Result
             {
-                RuleId = RuleId,
-                Level = GetRuleFailureLevel(RuleId),
+                RuleId = context.RuleId,
+                Level = GetRuleFailureLevel(context.RuleId),
                 Locations = new List<Location>()
                 {
                     new Location
@@ -670,40 +663,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
         }
 
-        private Result ConstructPathTraversalResult(IDictionary<string, string> properties)
+        private Result ConstructPathTraversalResult(ContrastLogReader.Context context)
         {
             // path-traversal : Path Traversal
 
             // default : Attacker-controlled path traversal was observed from '{0}' on '{1}' page.
 
-            return ConstructNotImplementedRuleResult(ContrastSecurityRuleIds.PathTraversal);
+            return ConstructNotImplementedRuleResult(context.RuleId);
         }
 
-        private Result ConstructRequestValidationModeDisabledResult(IDictionary<string, string> properties)
+        private Result ConstructRequestValidationModeDisabledResult(ContrastLogReader.Context context)
         {
             // request-validation-control-disabled : Request Validation Mode Disabled
 
             // default : The configuration in '{0}' had 'ValidateRequest' set to 'false' in the page directive. Request Validation helps prevent several types of attacks including XSS by detecting potentially dangerous character sequences. An exception is thrown by the framework when a potentially dangerous character sequence is encountered. This exception returns an error page to the user and prevents the application from processing the request. An attacker can submit malicious data to the application that may be processed without further input validation. This malicious data could contain XSS or other injection attacks that may have been prevented by ASP.NET request validation. Note that request validation does not provide 100% protection against XSS or other attacks and should be thought of as a defense-in-depth measure.
 
-            return ConstructNotImplementedRuleResult(ContrastSecurityRuleIds.RequestValidationModeDisabled);
+            return ConstructNotImplementedRuleResult(context.RuleId);
         }
 
-        private Result ConstructSessionCookieHasNoSecureFlagResult(IDictionary<string, string> properties)
+        private Result ConstructSessionCookieHasNoSecureFlagResult(ContrastLogReader.Context context)
         {
             // secure-flag-missing : Session Cookie Has No 'secure' Flag
 
             // default : The value of the HttpCookie for the cookie '{0}' did not contain the 'secure' flag; the value observed was '{1}'.
 
-            return ConstructNotImplementedRuleResult(ContrastSecurityRuleIds.SessionCookieHasNoSecureFlag);
+            return ConstructNotImplementedRuleResult(context.RuleId);
         }
 
-        private Result ConstructSessionRewritingResult(IDictionary<string, string> properties)
+        private Result ConstructSessionRewritingResult(ContrastLogReader.Context context)
         {
             // session-rewriting : Session Rewriting
 
             // default : The configuration the the <forms> section of '{0}' has 'UseCookies' set to a value other than 'cookieless'. As a result, the session ID (which is as good as a username and password) is logged to browser history, server logs and proxy logs. More serious, session rewriting can enable session fixcation attacks, in which an attacker causes a victim to use a well-known session id. If the victim authenticates under the attacker's chosen session ID, the attacker can present that session ID to the server and be recognized as the victim.
 
-            return ConstructNotImplementedRuleResult(ContrastSecurityRuleIds.SessionRewriting);
+            return ConstructNotImplementedRuleResult(context.RuleId);
         }
 
         private Result ConstructSqlInjectionResult(ContrastLogReader.Context context)
@@ -722,11 +715,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // default : SQL injection from untrusted source(s) '{0}' observed on '{1}' page. Untrusted data flowed from '{2}' to dangerous sink '{3}' in '{4}'.
 
-            const string RuleId = ContrastSecurityRuleIds.SqlInjection;
             var result = new Result
             {
-                RuleId = RuleId,
-                Level = GetRuleFailureLevel(RuleId),
+                RuleId = context.RuleId,
+                Level = GetRuleFailureLevel(context.RuleId),
                 CodeFlows = CreateCodeFlows(context),
                 Locations = new List<Location>()
                 {
@@ -766,19 +758,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return sb.ToString();
         }
 
-        private Result ConstructVersionHeaderEnabledResult(IDictionary<string, string> properties)
+        private Result ConstructVersionHeaderEnabledResult(ContrastLogReader.Context context)
         {
             // version-header-enabled : Version Header Enabled
 
             // <properties name="path">\web.config</properties>
 
+            IDictionary<string, string> properties = context.Properties;
             string path = properties[nameof(path)];
 
-            const string RuleId = ContrastSecurityRuleIds.VersionHeaderEnabled;
             return new Result
             {
-                RuleId = RuleId,
-                Level = GetRuleFailureLevel(RuleId),
+                RuleId = context.RuleId,
+                Level = GetRuleFailureLevel(context.RuleId),
                 Locations = new List<Location>()
                 {
                     new Location
@@ -797,21 +789,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
         }
 
-        private Result ConstructWebApplicationDeployedinDebugModeResult(IDictionary<string, string> properties)
+        private Result ConstructWebApplicationDeployedinDebugModeResult(ContrastLogReader.Context context)
         {
             // compilation-debug : Web Application Deployed in Debug Mode
 
             // <properties name="path">\web.config</properties>
             // <properties name="snippet">30:   &lt;system.web&gt;&#xD;
 
+            IDictionary<string, string> properties = context.Properties;
             string path = properties[nameof(path)];
             string snippet = properties[nameof(snippet)];
 
-            const string RuleId = ContrastSecurityRuleIds.WebApplicationDeployedinDebugMode;
             return new Result
             {
-                RuleId = RuleId,
-                Level = GetRuleFailureLevel(RuleId),
+                RuleId = context.RuleId,
+                Level = GetRuleFailureLevel(context.RuleId),
                 Locations = new List<Location>()
                 {
                     new Location
@@ -882,8 +874,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                          {
                              new ThreadFlow
                              {
-                                  Locations = context.PropagationEvents
-                                  // TODO: Populate ImmutableState from the headers.
+                                  Locations = context.PropagationEvents,
+                                  ImmutableState = context.Headers
                              }
                          }
                     }
@@ -974,6 +966,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             public HashSet<Tuple<string, string>> Sources { get; set; }
 
+            public IDictionary<string, string> Headers { get; set; }
+
             internal void RefineFinding(string ruleId)
             {
                 RuleId = ruleId;
@@ -1004,6 +998,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
             }
 
+            internal void ClearHeaders()
+            {
+                Headers = null;
+            }
+
+            internal void AddHeader(string name, string value)
+            {
+                Headers = Headers ?? new Dictionary<string, string>();
+
+                if (!Headers.ContainsKey(name)) { Headers.Add(name, value); }
+            }
 
             internal void ClearFinding()
             {
@@ -1055,6 +1060,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             public const string AttributeType = "type";
             public const string AttributeRuleId = "ruleId";
             public const string AttributeMethod = "method";
+            public const string AttributeValue = "value";
         }
 
         // Flag used to distinguish between reading both types of XML-persisted
@@ -1173,11 +1179,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static void ReadHeaders(SparseReader reader, object parent)
         {
+            Context context = (Context)parent;
+            context.ClearHeaders();
+
             reader.ReadChildren(SchemaStrings.ElementHeaders, parent);
         }
 
         private static void ReadH(SparseReader reader, object parent)
         {
+            string name = reader.ReadAttributeString(SchemaStrings.AttributeName);
+            string value = reader.ReadAttributeString(SchemaStrings.AttributeValue);
+
+            Context context = (Context)parent;
+            context.AddHeader(name, value);
+
             reader.ReadChildren(SchemaStrings.ElementH, parent);
         }
 

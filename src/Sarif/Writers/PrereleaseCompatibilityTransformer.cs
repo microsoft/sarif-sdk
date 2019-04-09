@@ -49,7 +49,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 case "2.1.0":
                 {
-                    // add new case for vNext
                     // SARIF TC34. Nothing to do.
                     break;
                 }
@@ -145,7 +144,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static bool ApplyChangesFromTC34(JObject sarifLog)
         {
-            // TODO: update sarif version
+            UpdateSarifLogVersionAndSchema(sarifLog);
 
             // https://github.com/oasis-tcs/sarif-spec/issues/361
             ConvertAllStateStringsToMultiFormatMessageStrings(sarifLog);
@@ -193,8 +192,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static bool ApplyChangesFromTC33(JObject sarifLog)
         {
-            UpdateSarifLogVersionAndSchema(sarifLog);
-
             if (sarifLog["runs"] is JArray runs)
             {
                 foreach (JObject run in runs)
