@@ -970,6 +970,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             public IDictionary<string, string> Headers { get; set; }
 
+            public IDictionary<string, string> Parameters { get; set; }
+
             internal void RefineFinding(string ruleId)
             {
                 RuleId = ruleId;
@@ -1010,6 +1012,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Headers = Headers ?? new Dictionary<string, string>();
 
                 if (!Headers.ContainsKey(name)) { Headers.Add(name, value); }
+            }
+
+            internal void ClearParameters()
+            {
+                Parameters = null;
+            }
+
+            internal void AddParameter(string name, string value)
+            {
+                Parameters = Parameters ?? new Dictionary<string, string>();
+
+                if (!Parameters.ContainsKey(name)) { Parameters.Add(name, value); }
             }
 
             internal void ClearFinding()
@@ -1196,6 +1210,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static void ReadParameters(SparseReader reader, object parent)
         {
+            Context context = (Context)parent;
+            context.ClearParameters();
+
             reader.ReadChildren(SchemaStrings.ElementParameters, parent);
         }
 
@@ -1282,6 +1299,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static void ReadP(SparseReader reader, object parent)
         {
+            string name = reader.ReadAttributeString(SchemaStrings.AttributeName);
+            string value = reader.ReadAttributeString(SchemaStrings.AttributeValue);
+
+            Context context = (Context)parent;
+            context.AddParameter(name, value);
+
             reader.ReadChildren(SchemaStrings.ElementP, parent);
         }
 
