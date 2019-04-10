@@ -1517,7 +1517,16 @@
           "description": "Key/value pairs that provide additional information about the physical location.",
           "$ref": "#/definitions/propertyBag"
         }
-      }
+      },
+
+      "anyOf": [
+        {
+          "required": [ "address" ]
+        },
+        {
+          "required": [ "artifactLocation" ]
+        }
+      ]
     },
 
     "propertyBag": {
@@ -1905,9 +1914,8 @@
         },
 
         "target": {
-          "description": "The URI to which the request is directed.",
-          "type": "string",
-          "format": "uri"
+          "description": "The target of the request.",
+          "type": "string"
         },
 
         "method": {

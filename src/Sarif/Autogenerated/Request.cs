@@ -51,10 +51,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string Version { get; set; }
 
         /// <summary>
-        /// The URI to which the request is directed.
+        /// The target of the request.
         /// </summary>
         [DataMember(Name = "target", IsRequired = false, EmitDefaultValue = false)]
-        public Uri Target { get; set; }
+        public string Target { get; set; }
 
         /// <summary>
         /// The HTTP method. Well-known values are 'GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS', 'TRACE', 'CONNECT'.
@@ -123,7 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Request(int index, string protocol, string version, Uri target, string method, object headers, object parameters, ArtifactContent body, IDictionary<string, SerializedPropertyInfo> properties)
+        public Request(int index, string protocol, string version, string target, string method, object headers, object parameters, ArtifactContent body, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(index, protocol, version, target, method, headers, parameters, body, properties);
         }
@@ -165,16 +165,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Request(this);
         }
 
-        private void Init(int index, string protocol, string version, Uri target, string method, object headers, object parameters, ArtifactContent body, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int index, string protocol, string version, string target, string method, object headers, object parameters, ArtifactContent body, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Index = index;
             Protocol = protocol;
             Version = version;
-            if (target != null)
-            {
-                Target = new Uri(target.OriginalString, target.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
-            }
-
+            Target = target;
             Method = method;
             Headers = headers;
             Parameters = parameters;
