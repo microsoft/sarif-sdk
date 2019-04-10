@@ -30,6 +30,7 @@ namespace $namespace
     {
         public const string Prerelease = "$versionSuffix";
         public const string AssemblyVersion = "$versionPrefix";
+        public const string PackageVersionSuffix = "$packageVersionSuffix";
         public const string FileVersion = AssemblyVersion + ".0";
     }
 }

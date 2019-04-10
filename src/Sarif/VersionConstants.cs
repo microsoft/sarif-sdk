@@ -7,6 +7,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     {
         public const string Prerelease = "";
         public const string AssemblyVersion = "2.1.0";
+        public const string PackageVersionSuffix = "-beta.2";
         public const string FileVersion = AssemblyVersion + ".0";
     }
 }

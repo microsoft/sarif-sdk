@@ -309,5 +309,9 @@
 * API BREAKING: All SARIF state dictionaries now contains multiformat strings as values. https://github.com/oasis-tcs/sarif-spec/issues/361
 * API NON-BREAKING: Define `request` and `response` objects. https://github.com/oasis-tcs/sarif-spec/issues/362
 
-## **v2.1.0-beta.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.0-beta.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.0-beta.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.0-beta.1)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.0-beta.0))
+## **v2.1.0-beta.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.0-beta.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.0-beta.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.0-beta.1)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.0-beta.1))
 * API BREAKING: Change `request.uri` to `request.target`. https://github.com/oasis-tcs/sarif-spec/issues/362
+
+## **v2.1.0-beta.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.0-beta.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.0-beta.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.0-beta.2)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.0-beta.2)
+* API NON-BREAKING: Change `request.target` type to string. https://github.com/oasis-tcs/sarif-spec/issues/362
+* API BREAKING: anyOf `physicalLocation.artifactLocation` and `physicalLocation.address` is required. https://github.com/oasis-tcs/sarif-spec/issues/353
