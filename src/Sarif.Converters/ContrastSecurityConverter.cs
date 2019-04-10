@@ -847,7 +847,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Version = context.RequestVersion,
                 Method = context.RequestMethod,
                 Target = new Uri(context.RequestTarget, UriKind.RelativeOrAbsolute),
-                Headers = context.Headers
+                Headers = context.Headers,
+                Parameters = context.Parameters
             };
         }
 
@@ -1041,7 +1042,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             // elements
             public const string ElementH = "h";
-            public const string ElementP = "P";
+            public const string ElementP = "p";
             public const string ElementBody = "body";
             public const string ElementArgs = "args";
             public const string ElementObject = "obj";
@@ -1295,11 +1296,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static void ReadP(SparseReader reader, object parent)
         {
+            // p elements occur in two places
+            //
+            // 1. As children of finding/request/parameters. In this context, they have
+            //    attributes "name" and "value", and should be added to the context's
+            //    Parameters dictionary.
+            //
+            // 2. As children of findings/events/propagation-event/properties, in which case
+            //    I don't know what to do with them yet.
+            //
+            // Make sure we don't confuse the one with the other.
             string name = reader.ReadAttributeString(SchemaStrings.AttributeName);
-            string value = reader.ReadAttributeString(SchemaStrings.AttributeValue);
+            if (name != null)
+            {
+                string value = reader.ReadAttributeString(SchemaStrings.AttributeValue);
 
-            Context context = (Context)parent;
-            context.AddParameter(name, value);
+                Context context = (Context)parent;
+                context.AddParameter(name, value);
+            }
 
             reader.ReadChildren(SchemaStrings.ElementP, parent);
         }
