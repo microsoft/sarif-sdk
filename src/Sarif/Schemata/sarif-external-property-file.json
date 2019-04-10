@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "SARIF External Property File Schema Version 2.0.0-csd.2.beta.2019-04-03 JSON Schema",
+  "title": "SARIF External Property File Schema Version 2.1.0-beta.0 JSON Schema",
   "type": "object",
   "properties": {
 
@@ -12,7 +12,7 @@
 
     "version": {
       "description": "The SARIF format version of this external properties object.",
-      "enum": [ "2.0.0-csd.2.beta.2019-04-03" ]
+      "enum": [ "2.1.0" ]
     },
 
     "guid": {
@@ -156,6 +156,28 @@
       "default": [],
       "items": {
         "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/address"
+      }
+    },
+
+    "requests": {
+      "description": "Requests that will be merged with an external run.",
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": true,
+      "default": [],
+      "items": {
+        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/request"
+      }
+    },
+
+    "responses": {
+      "description": "Responses that will be merged with an external run.",
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": true,
+      "default": [],
+      "items": {
+        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/response"
       }
     },
 

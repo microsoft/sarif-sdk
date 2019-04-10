@@ -156,6 +156,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         ReportingDescriptorRelationship,
         /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Request" />.
+        /// </summary>
+        Request,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Response" />.
+        /// </summary>
+        Response,
+        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Result" />.
         /// </summary>
         Result,

@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta.2019-04-03 JSON Schema",
-  "description": "Static Analysis Results Format (SARIF) Version 2.0.0-csd.2.beta-2019-04-03 JSON Schema: a standard format for the output of static analysis tools.",
+  "title": "Static Analysis Results Format (SARIF) Version 2.1.0-beta.0 JSON Schema",
+  "description": "Static Analysis Results Format (SARIF) Version 2.1.0-beta.0 JSON Schema: a standard format for the output of static analysis tools.",
   "additionalProperties": false,
   "type": "object",
   "properties": {
@@ -14,7 +14,7 @@
 
     "version": {
       "description": "The SARIF format version of this log file.",
-      "enum": [ "2.0.0-csd.2.beta.2019-04-03" ]
+      "enum": [ "2.1.0" ]
     },
 
     "runs": {
@@ -483,7 +483,7 @@
           "description": "The values of relevant expressions after the edge has been traversed.",
           "type": "object",
           "additionalProperties": {
-            "type": "string"
+            "$ref": "#/definitions/multiformatMessageString"
           }
         },
 
@@ -550,7 +550,7 @@
 
         "version": {
           "description": "The SARIF format version of this external properties object.",
-          "enum": [ "2.0.0-csd.2.beta.2019-04-03" ]
+          "enum": [ "2.1.0" ]
         },
 
         "guid": {
@@ -694,6 +694,28 @@
           "default": [],
           "items": {
             "$ref": "#/definitions/address"
+          }
+        },
+
+        "requests": {
+          "description": "Requests that will be merged with a separate run.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/request"
+          }
+        },
+
+        "responses": {
+          "description": "Responses that will be merged with a separate run.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/response"
           }
         },
 
@@ -870,6 +892,28 @@
           }
         },
 
+        "requests": {
+          "description": "An array of external property files containing run.requests arrays to be merged with the root log file.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/externalPropertyFileReference"
+          }
+        },
+
+        "responses": {
+          "description": "An array of external property files containing run.responses arrays to be merged with the root log file.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/externalPropertyFileReference"
+          }
+        },
+
         "properties": {
           "description": "Key/value pairs that provide additional information about the external property files.",
           "$ref": "#/definitions/propertyBag"
@@ -982,7 +1026,7 @@
           "description": "Values of relevant expressions at the start of the graph traversal that may change during graph traversal.",
           "type": "object",
           "additionalProperties": {
-            "type": "string"
+            "$ref": "#/definitions/multiformatMessageString"
           }
         },
 
@@ -990,7 +1034,7 @@
           "description": "Values of relevant expressions at the start of the graph traversal that remain constant for the graph traversal.",
           "type": "object",
           "additionalProperties": {
-            "type": "string"
+            "$ref": "#/definitions/multiformatMessageString"
           }
         },
 
@@ -1840,6 +1884,114 @@
       "required": [ "target", "kinds" ]
     },
 
+    "request": {
+      "description": "A web request object.",
+      "type": "object",
+      "properties": {
+
+        "index": {
+          "description": "The index within the run.requests array of the request object associated with this result.",
+          "type": "integer"
+        },
+
+        "protocol": {
+          "description": "The request protocol. Example: 'http'.",
+          "type": "string"
+        },
+
+        "version": {
+          "description": "The request version. Example: '1.1'.",
+          "type": "string"
+        },
+
+        "target": {
+          "description": "The URI to which the request is directed.",
+          "type": "string",
+          "format": "uri"
+        },
+
+        "method": {
+          "description": "The HTTP method. Well-known values are 'GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS', 'TRACE', 'CONNECT'.",
+          "type": "string"
+        },
+
+        "headers": {
+          "description": "The request headers.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+
+        "parameters": {
+          "description": "The request parameters.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+
+        "body": {
+          "description": "The body of the request.",
+          "$ref": "#/definitions/artifactContent"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the request.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      }
+    },
+
+    "response": {
+      "description": "A web response object.",
+      "type": "object",
+      "properties": {
+
+        "index": {
+          "description": "The index within the run.responses array of the response object associated with this result.",
+          "type": "integer"
+        },
+
+        "protocol": {
+          "description": "The response protocol. Example: 'http'.",
+          "type": "string"
+        },
+
+        "version": {
+          "description": "The response version. Example: '1.1'.",
+          "type": "string"
+        },
+
+        "statusCode": {
+          "description": "The response status code. Example: 451.",
+          "type": "integer"
+        },
+
+        "reasonPhrase": {
+          "description": "The response reason. Example: 'Not found'.",
+          "type": "integer"
+        },
+
+        "headers": {
+          "description": "The response headers.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+
+        "body": {
+          "description": "The body of the response.",
+          "$ref": "#/definitions/artifactContent"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the response.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      }
+    },
 
     "result": {
       "description": "A result produced by an analysis tool.",
@@ -2066,6 +2218,16 @@
           "items": {
             "$ref": "#/definitions/reportingDescriptorReference"
           }
+        },
+
+        "request": {
+          "description": "A web request associated with this result.",
+          "$ref": "#/definitions/request"
+        },
+
+        "response": {
+          "description": "A web response associated with this result.",
+          "$ref": "#/definitions/response"
         },
 
         "properties": {
@@ -2342,6 +2504,28 @@
           }
         },
 
+        "requests": {
+          "description": "An array of request objects cached at run level.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/request"
+          }
+        },
+
+        "responses": {
+          "description": "An array of response objects cached at run level.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/response"
+          }
+        },
+
         "properties": {
           "description": "Key/value pairs that provide additional information about the run.",
           "$ref": "#/definitions/propertyBag"
@@ -2501,7 +2685,7 @@
           "description": "Values of relevant expressions at the start of the thread flow that may change during thread flow execution.",
           "type": "object",
           "additionalProperties": {
-            "type": "string"
+            "$ref": "#/definitions/multiformatMessageString"
           }
         },
 
@@ -2509,7 +2693,7 @@
           "description": "Values of relevant expressions at the start of the thread flow that remain constant.",
           "type": "object",
           "additionalProperties": {
-            "type": "string"
+            "$ref": "#/definitions/multiformatMessageString"
           }
         },
 
@@ -2575,7 +2759,7 @@
           "description": "A dictionary, each of whose keys specifies a variable or expression, the associated value of which represents the variable or expression value. For an annotation of kind 'continuation', for example, this dictionary might hold the current assumed values of a set of global variables.",
           "type": "object",
           "additionalProperties": {
-            "type": "string"
+            "$ref": "#/definitions/multiformatMessageString"
           }
         },
 
@@ -2598,6 +2782,16 @@
         "importance": {
           "description": "Specifies the importance of this location in understanding the code flow in which it occurs. The order from most to least important is \"essential\", \"important\", \"unimportant\". Default: \"important\".",
           "enum": [ "important", "essential", "unimportant" ]
+        },
+
+        "request": {
+          "description": "A web request associated with this thread flow location.",
+          "$ref": "#/definitions/request"
+        },
+
+        "response": {
+          "description": "A web response associated with this thread flow location.",
+          "$ref": "#/definitions/response"
         },
 
         "properties": {

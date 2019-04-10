@@ -78,13 +78,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 foreach (var value_0 in left.State)
                 {
-                    string value_1;
+                    MultiformatMessageString value_1;
                     if (!right.State.TryGetValue(value_0.Key, out value_1))
                     {
                         return false;
                     }
 
-                    if (value_0.Value != value_1)
+                    if (!MultiformatMessageString.ValueComparer.Equals(value_0.Value, value_1))
                     {
                         return false;
                     }
@@ -107,6 +107,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             if (left.Importance != right.Importance)
+            {
+                return false;
+            }
+
+            if (!Request.ValueComparer.Equals(left.Request, right.Request))
+            {
+                return false;
+            }
+
+            if (!Response.ValueComparer.Equals(left.Response, right.Response))
             {
                 return false;
             }
@@ -194,6 +204,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                 result = (result * 31) + obj.ExecutionOrder.GetHashCode();
                 result = (result * 31) + obj.ExecutionTimeUtc.GetHashCode();
                 result = (result * 31) + obj.Importance.GetHashCode();
+                if (obj.Request != null)
+                {
+                    result = (result * 31) + obj.Request.ValueGetHashCode();
+                }
+
+                if (obj.Response != null)
+                {
+                    result = (result * 31) + obj.Response.ValueGetHashCode();
+                }
+
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.

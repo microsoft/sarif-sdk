@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 annotatedCodeLocation.Importance = Utilities.CreateAnnotatedCodeLocationImportance(v2ThreadFlowLocation.Importance);
                 annotatedCodeLocation.Module = v2ThreadFlowLocation.Module;
                 annotatedCodeLocation.Properties = v2ThreadFlowLocation.Properties;
-                annotatedCodeLocation.State = v2ThreadFlowLocation.State;
+                annotatedCodeLocation.State = ConvertToV1MessageStringsDictionary(v2ThreadFlowLocation.State);
                 annotatedCodeLocation.Step = v2ThreadFlowLocation.ExecutionOrder;
             }
 
