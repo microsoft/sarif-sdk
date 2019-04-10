@@ -53,8 +53,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// The URI to which the request is directed.
         /// </summary>
-        [DataMember(Name = "uri", IsRequired = false, EmitDefaultValue = false)]
-        public Uri Uri { get; set; }
+        [DataMember(Name = "target", IsRequired = false, EmitDefaultValue = false)]
+        public Uri Target { get; set; }
 
         /// <summary>
         /// The HTTP method. Well-known values are 'GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS', 'TRACE', 'CONNECT'.
@@ -105,8 +105,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="version">
         /// An initialization value for the <see cref="P:Version" /> property.
         /// </param>
-        /// <param name="uri">
-        /// An initialization value for the <see cref="P:Uri" /> property.
+        /// <param name="target">
+        /// An initialization value for the <see cref="P:Target" /> property.
         /// </param>
         /// <param name="method">
         /// An initialization value for the <see cref="P:Method" /> property.
@@ -123,9 +123,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Request(int index, string protocol, string version, Uri uri, string method, object headers, object parameters, ArtifactContent body, IDictionary<string, SerializedPropertyInfo> properties)
+        public Request(int index, string protocol, string version, Uri target, string method, object headers, object parameters, ArtifactContent body, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(index, protocol, version, uri, method, headers, parameters, body, properties);
+            Init(index, protocol, version, target, method, headers, parameters, body, properties);
         }
 
         /// <summary>
@@ -144,7 +144,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Index, other.Protocol, other.Version, other.Uri, other.Method, other.Headers, other.Parameters, other.Body, other.Properties);
+            Init(other.Index, other.Protocol, other.Version, other.Target, other.Method, other.Headers, other.Parameters, other.Body, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -165,14 +165,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Request(this);
         }
 
-        private void Init(int index, string protocol, string version, Uri uri, string method, object headers, object parameters, ArtifactContent body, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int index, string protocol, string version, Uri target, string method, object headers, object parameters, ArtifactContent body, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Index = index;
             Protocol = protocol;
             Version = version;
-            if (uri != null)
+            if (target != null)
             {
-                Uri = new Uri(uri.OriginalString, uri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
+                Target = new Uri(target.OriginalString, target.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
             }
 
             Method = method;
