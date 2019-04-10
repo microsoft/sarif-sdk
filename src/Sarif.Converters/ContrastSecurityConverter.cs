@@ -846,7 +846,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Protocol = context.RequestProtocol,
                 Version = context.RequestVersion,
                 Method = context.RequestMethod,
-                Target = new Uri(context.RequestTarget, UriKind.RelativeOrAbsolute)
+                Target = new Uri(context.RequestTarget, UriKind.RelativeOrAbsolute),
+                Headers = context.Headers
             };
         }
 
