@@ -462,7 +462,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string snippet = properties[nameof(snippet)];
 
             Result result = CreateResultCore(context);
-            result.Locations = new List<Location>()
+            result.Locations = new List<Location>
             {
                 new Location
                 {
@@ -493,7 +493,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string snippet = properties[nameof(snippet)];
 
             Result result = CreateResultCore(context);
-            result.Locations = new List<Location>()
+            result.Locations = new List<Location>
             {
                 new Location
                 {
