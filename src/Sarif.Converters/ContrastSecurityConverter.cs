@@ -377,7 +377,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             // <properties name="route-signature">OWASP.WebGoat.NET.ReflectedXSS</properties>
 
             string untrustedData = BuildSourcesString(context.Sources);
-            string page = context.RequestUri;
+            string page = context.RequestTarget;
             string caller = context.PropagationEvents[context.PropagationEvents.Count - 1].Stack.Frames[0].Location.LogicalLocation?.FullyQualifiedName;
             string controlId = context.Properties.ContainsKey(nameof(controlId)) ? context.Properties[nameof(controlId)] : null;
 
@@ -683,7 +683,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             // <properties name="route-signature">OWASP.WebGoat.NET.ForgotPassword</properties>
 
             string untrustedData = BuildSourcesString(context.Sources);
-            string page = context.RequestUri;
+            string page = context.RequestTarget;
             string source = context.PropagationEvents[0].Stack.Frames[0].Location.LogicalLocation?.FullyQualifiedName;
             string caller = context.PropagationEvents[context.PropagationEvents.Count - 1].Stack.Frames[0].Location.LogicalLocation?.FullyQualifiedName;
             string sink = context.MethodEvent.Stack.Frames[0].Location.LogicalLocation?.FullyQualifiedName;
@@ -834,7 +834,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 RuleId = context.RuleId,
                 Level = GetRuleFailureLevel(context.RuleId),
+                Request = CreateRequest(context),
                 CodeFlows = CreateCodeFlows(context)
+            };
+        }
+
+        private Request CreateRequest(ContrastLogReader.Context context)
+        {
+            return new Request
+            {
+                Protocol = context.RequestProtocol,
+                Version = context.RequestVersion,
+                Method = context.RequestMethod,
+                Target = new Uri(context.RequestTarget, UriKind.RelativeOrAbsolute)
             };
         }
 
@@ -915,9 +927,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             public string RuleId { get; set; }
 
+            public string RequestProtocol { get; set; }
+
+            public string RequestVersion { get; set; }
+
             public string RequestMethod { get; set; }
 
-            public string RequestUri { get; set; }
+            public string RequestTarget { get; set; }
 
             // Holds properties produced by both the <props> and
             // <properties> elements within Contrast XML
@@ -951,9 +967,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 ClearProperties();
             }
 
-            internal void RefineRequest(string uri, string method)
+            internal void RefineRequest(string protocol, string version, string target, string method)
             {
-                RequestUri = uri;
+                RequestProtocol = protocol;
+                RequestVersion = version;
+                RequestTarget = target;
                 RequestMethod = method;
             }
 
@@ -1006,7 +1024,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             internal void ClearRequest()
             {
-                RefineRequest(null, null);
+                RefineRequest(protocol: null, version: null, target: null, method: null);
             }
 
             internal void ClearProperties()
@@ -1048,6 +1066,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             public const string AttributeName = "name";
             public const string AttributeType = "type";
             public const string AttributeRuleId = "ruleId";
+            public const string AttributeProtocol = "protocol";
+            public const string AttributeVersion = "version";
             public const string AttributeMethod = "method";
             public const string AttributeValue = "value";
         }
@@ -1149,10 +1169,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Context context = (Context)parent;
             context.ClearRequest();
 
-            string uri = reader.ReadAttributeString(SchemaStrings.AttributeUri);
+            string protocol = reader.ReadAttributeString(SchemaStrings.AttributeProtocol);
+            string version = reader.ReadAttributeString(SchemaStrings.AttributeVersion);
+            string target = reader.ReadAttributeString(SchemaStrings.AttributeUri);
             string method = reader.ReadAttributeString(SchemaStrings.AttributeMethod);
 
-            context.RefineRequest(uri, method);
+            context.RefineRequest(protocol, version, target, method);
 
             reader.ReadChildren(SchemaStrings.ElementRequest, parent);
         }
