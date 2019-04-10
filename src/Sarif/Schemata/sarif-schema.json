@@ -1904,7 +1904,7 @@
           "type": "string"
         },
 
-        "uri": {
+        "target": {
           "description": "The URI to which the request is directed.",
           "type": "string",
           "format": "uri"
