@@ -11,7 +11,7 @@
     <Copyright Condition=" '$(Copyright)' == '' ">© Microsoft Corporation. All rights reserved.</Copyright>
     <VersionPrefix>2.1.0</VersionPrefix>
     <VersionSuffix></VersionSuffix>
-    <PackageVersionSuffix>-beta.0</PackageVersionSuffix>
+    <PackageVersionSuffix>-beta.1</PackageVersionSuffix>
 
     <!--
     Whenever you increment VersionPrefix or VersionSuffix, copy the old value(s)
@@ -23,9 +23,9 @@
     place. These properties are actually used by the PowerShell script that
     hides the previous package versions on nuget.org.
     -->
-    <PreviousVersionPrefix>2.0.0</PreviousVersionPrefix>
-    <PreviousVersionSuffix>csd.2.beta.2019-04-03</PreviousVersionSuffix>
-    <PreviousPackageVersionSuffix>.3</PreviousPackageVersionSuffix>
+    <PreviousVersionPrefix>2.1.0</PreviousVersionPrefix>
+    <PreviousVersionSuffix></PreviousVersionSuffix>
+    <PreviousPackageVersionSuffix>-beta.0</PreviousPackageVersionSuffix>
   </PropertyGroup>
 
   <PropertyGroup Label="Build">

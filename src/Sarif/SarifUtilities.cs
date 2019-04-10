@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Uri(
                     SarifSchemaUriBase +
                     sarifVersion.ConvertToText() +
-                    (sarifVersion == SarifVersion.Current ? "-beta.0" : ""), UriKind.Absolute);
+                    (sarifVersion == SarifVersion.Current ? "-beta.1" : ""), UriKind.Absolute);
         }
 
         public static Dictionary<string, string> BuildMessageFormats(IEnumerable<string> resourceNames, ResourceManager resourceManager)
