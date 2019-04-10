@@ -114,6 +114,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitReportingDescriptorReference((ReportingDescriptorReference)node);
                 case SarifNodeKind.ReportingDescriptorRelationship:
                     return VisitReportingDescriptorRelationship((ReportingDescriptorRelationship)node);
+                case SarifNodeKind.Request:
+                    return VisitRequest((Request)node);
+                case SarifNodeKind.Response:
+                    return VisitResponse((Response)node);
                 case SarifNodeKind.Result:
                     return VisitResult((Result)node);
                 case SarifNodeKind.ResultProvenance:
@@ -430,6 +434,22 @@ namespace Microsoft.CodeAnalysis.Sarif
                         node.Addresses[index_0] = VisitNullChecked(node.Addresses[index_0]);
                     }
                 }
+
+                if (node.Requests != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Requests.Count; ++index_0)
+                    {
+                        node.Requests[index_0] = VisitNullChecked(node.Requests[index_0]);
+                    }
+                }
+
+                if (node.Responses != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Responses.Count; ++index_0)
+                    {
+                        node.Responses[index_0] = VisitNullChecked(node.Responses[index_0]);
+                    }
+                }
             }
 
             return node;
@@ -537,6 +557,22 @@ namespace Microsoft.CodeAnalysis.Sarif
                     for (int index_0 = 0; index_0 < node.Translations.Count; ++index_0)
                     {
                         node.Translations[index_0] = VisitNullChecked(node.Translations[index_0]);
+                    }
+                }
+
+                if (node.Requests != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Requests.Count; ++index_0)
+                    {
+                        node.Requests[index_0] = VisitNullChecked(node.Requests[index_0]);
+                    }
+                }
+
+                if (node.Responses != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Responses.Count; ++index_0)
+                    {
+                        node.Responses[index_0] = VisitNullChecked(node.Responses[index_0]);
                     }
                 }
             }
@@ -865,6 +901,26 @@ namespace Microsoft.CodeAnalysis.Sarif
             return node;
         }
 
+        public virtual Request VisitRequest(Request node)
+        {
+            if (node != null)
+            {
+                node.Body = VisitNullChecked(node.Body);
+            }
+
+            return node;
+        }
+
+        public virtual Response VisitResponse(Response node)
+        {
+            if (node != null)
+            {
+                node.Body = VisitNullChecked(node.Body);
+            }
+
+            return node;
+        }
+
         public virtual Result VisitResult(Result node)
         {
             if (node != null)
@@ -952,6 +1008,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                         node.Taxa[index_0] = VisitNullChecked(node.Taxa[index_0]);
                     }
                 }
+
+                node.Request = VisitNullChecked(node.Request);
+                node.Response = VisitNullChecked(node.Response);
             }
 
             return node;
@@ -1089,6 +1148,22 @@ namespace Microsoft.CodeAnalysis.Sarif
                         node.Policies[index_0] = VisitNullChecked(node.Policies[index_0]);
                     }
                 }
+
+                if (node.Requests != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Requests.Count; ++index_0)
+                    {
+                        node.Requests[index_0] = VisitNullChecked(node.Requests[index_0]);
+                    }
+                }
+
+                if (node.Responses != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Responses.Count; ++index_0)
+                    {
+                        node.Responses[index_0] = VisitNullChecked(node.Responses[index_0]);
+                    }
+                }
             }
 
             return node;
@@ -1200,6 +1275,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                         }
                     }
                 }
+
+                node.Request = VisitNullChecked(node.Request);
+                node.Response = VisitNullChecked(node.Response);
             }
 
             return node;

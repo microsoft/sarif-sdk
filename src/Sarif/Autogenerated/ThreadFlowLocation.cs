@@ -99,6 +99,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         public ThreadFlowLocationImportance Importance { get; set; }
 
         /// <summary>
+        /// A web request associated with this thread flow location.
+        /// </summary>
+        [DataMember(Name = "request", IsRequired = false, EmitDefaultValue = false)]
+        public Request Request { get; set; }
+
+        /// <summary>
+        /// A web response associated with this thread flow location.
+        /// </summary>
+        [DataMember(Name = "response", IsRequired = false, EmitDefaultValue = false)]
+        public Response Response { get; set; }
+
+        /// <summary>
         /// Key/value pairs that provide additional information about the threadflow location.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
@@ -145,12 +157,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="importance">
         /// An initialization value for the <see cref="P:Importance" /> property.
         /// </param>
+        /// <param name="request">
+        /// An initialization value for the <see cref="P:Request" /> property.
+        /// </param>
+        /// <param name="response">
+        /// An initialization value for the <see cref="P:Response" /> property.
+        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ThreadFlowLocation(int index, Location location, Stack stack, IEnumerable<string> kinds, string module, IDictionary<string, MultiformatMessageString> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
+        public ThreadFlowLocation(int index, Location location, Stack stack, IEnumerable<string> kinds, string module, IDictionary<string, MultiformatMessageString> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, Request request, Response response, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(index, location, stack, kinds, module, state, nestingLevel, executionOrder, executionTimeUtc, importance, properties);
+            Init(index, location, stack, kinds, module, state, nestingLevel, executionOrder, executionTimeUtc, importance, request, response, properties);
         }
 
         /// <summary>
@@ -169,7 +187,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Index, other.Location, other.Stack, other.Kinds, other.Module, other.State, other.NestingLevel, other.ExecutionOrder, other.ExecutionTimeUtc, other.Importance, other.Properties);
+            Init(other.Index, other.Location, other.Stack, other.Kinds, other.Module, other.State, other.NestingLevel, other.ExecutionOrder, other.ExecutionTimeUtc, other.Importance, other.Request, other.Response, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -190,7 +208,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ThreadFlowLocation(this);
         }
 
-        private void Init(int index, Location location, Stack stack, IEnumerable<string> kinds, string module, IDictionary<string, MultiformatMessageString> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int index, Location location, Stack stack, IEnumerable<string> kinds, string module, IDictionary<string, MultiformatMessageString> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, Request request, Response response, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Index = index;
             if (location != null)
@@ -228,6 +246,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             ExecutionOrder = executionOrder;
             ExecutionTimeUtc = executionTimeUtc;
             Importance = importance;
+            if (request != null)
+            {
+                Request = new Request(request);
+            }
+
+            if (response != null)
+            {
+                Response = new Response(response);
+            }
+
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);

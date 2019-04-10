@@ -159,6 +159,28 @@
       }
     },
 
+    "requests": {
+      "description": "Requests that will be merged with an external run.",
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": true,
+      "default": [],
+      "items": {
+        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/request"
+      }
+    },
+
+    "responses": {
+      "description": "Responses that will be merged with an external run.",
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": true,
+      "default": [],
+      "items": {
+        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/response"
+      }
+    },
+
     "properties": {
       "description": "Key/value pairs that provide additional information about the external properties.",
       "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/propertyBag"

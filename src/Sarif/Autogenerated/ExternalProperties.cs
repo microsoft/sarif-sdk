@@ -149,6 +149,20 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<Address> Addresses { get; set; }
 
         /// <summary>
+        /// Requests that will be merged with a separate run.
+        /// </summary>
+        [DataMember(Name = "requests", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public IList<Request> Requests { get; set; }
+
+        /// <summary>
+        /// Responses that will be merged with a separate run.
+        /// </summary>
+        [DataMember(Name = "responses", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public IList<Response> Responses { get; set; }
+
+        /// <summary>
         /// Key/value pairs that provide additional information about the external properties.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
@@ -218,12 +232,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="addresses">
         /// An initialization value for the <see cref="P:Addresses" /> property.
         /// </param>
+        /// <param name="requests">
+        /// An initialization value for the <see cref="P:Requests" /> property.
+        /// </param>
+        /// <param name="responses">
+        /// An initialization value for the <see cref="P:Responses" /> property.
+        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ExternalProperties(Uri schema, SarifVersion version, string guid, string runGuid, Conversion conversion, IEnumerable<Graph> graphs, PropertyBag externalizedProperties, IEnumerable<Artifact> artifacts, IEnumerable<Invocation> invocations, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<Result> results, IEnumerable<ToolComponent> taxonomies, ToolComponent driver, IEnumerable<ToolComponent> extensions, IEnumerable<ToolComponent> policies, IEnumerable<ToolComponent> translations, IEnumerable<Address> addresses, IDictionary<string, SerializedPropertyInfo> properties)
+        public ExternalProperties(Uri schema, SarifVersion version, string guid, string runGuid, Conversion conversion, IEnumerable<Graph> graphs, PropertyBag externalizedProperties, IEnumerable<Artifact> artifacts, IEnumerable<Invocation> invocations, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<Result> results, IEnumerable<ToolComponent> taxonomies, ToolComponent driver, IEnumerable<ToolComponent> extensions, IEnumerable<ToolComponent> policies, IEnumerable<ToolComponent> translations, IEnumerable<Address> addresses, IEnumerable<Request> requests, IEnumerable<Response> responses, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(schema, version, guid, runGuid, conversion, graphs, externalizedProperties, artifacts, invocations, logicalLocations, threadFlowLocations, results, taxonomies, driver, extensions, policies, translations, addresses, properties);
+            Init(schema, version, guid, runGuid, conversion, graphs, externalizedProperties, artifacts, invocations, logicalLocations, threadFlowLocations, results, taxonomies, driver, extensions, policies, translations, addresses, requests, responses, properties);
         }
 
         /// <summary>
@@ -242,7 +262,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Schema, other.Version, other.Guid, other.RunGuid, other.Conversion, other.Graphs, other.ExternalizedProperties, other.Artifacts, other.Invocations, other.LogicalLocations, other.ThreadFlowLocations, other.Results, other.Taxonomies, other.Driver, other.Extensions, other.Policies, other.Translations, other.Addresses, other.Properties);
+            Init(other.Schema, other.Version, other.Guid, other.RunGuid, other.Conversion, other.Graphs, other.ExternalizedProperties, other.Artifacts, other.Invocations, other.LogicalLocations, other.ThreadFlowLocations, other.Results, other.Taxonomies, other.Driver, other.Extensions, other.Policies, other.Translations, other.Addresses, other.Requests, other.Responses, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -263,7 +283,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExternalProperties(this);
         }
 
-        private void Init(Uri schema, SarifVersion version, string guid, string runGuid, Conversion conversion, IEnumerable<Graph> graphs, PropertyBag externalizedProperties, IEnumerable<Artifact> artifacts, IEnumerable<Invocation> invocations, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<Result> results, IEnumerable<ToolComponent> taxonomies, ToolComponent driver, IEnumerable<ToolComponent> extensions, IEnumerable<ToolComponent> policies, IEnumerable<ToolComponent> translations, IEnumerable<Address> addresses, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Uri schema, SarifVersion version, string guid, string runGuid, Conversion conversion, IEnumerable<Graph> graphs, PropertyBag externalizedProperties, IEnumerable<Artifact> artifacts, IEnumerable<Invocation> invocations, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<Result> results, IEnumerable<ToolComponent> taxonomies, ToolComponent driver, IEnumerable<ToolComponent> extensions, IEnumerable<ToolComponent> policies, IEnumerable<ToolComponent> translations, IEnumerable<Address> addresses, IEnumerable<Request> requests, IEnumerable<Response> responses, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (schema != null)
             {
@@ -484,6 +504,42 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 Addresses = destination_10;
+            }
+
+            if (requests != null)
+            {
+                var destination_11 = new List<Request>();
+                foreach (var value_11 in requests)
+                {
+                    if (value_11 == null)
+                    {
+                        destination_11.Add(null);
+                    }
+                    else
+                    {
+                        destination_11.Add(new Request(value_11));
+                    }
+                }
+
+                Requests = destination_11;
+            }
+
+            if (responses != null)
+            {
+                var destination_12 = new List<Response>();
+                foreach (var value_12 in responses)
+                {
+                    if (value_12 == null)
+                    {
+                        destination_12.Add(null);
+                    }
+                    else
+                    {
+                        destination_12.Add(new Response(value_12));
+                    }
+                }
+
+                Responses = destination_12;
             }
 
             if (properties != null)
