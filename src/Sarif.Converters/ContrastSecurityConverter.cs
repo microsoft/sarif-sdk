@@ -848,7 +848,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Method = context.RequestMethod,
                 Target = new Uri(context.RequestTarget, UriKind.RelativeOrAbsolute),
                 Headers = context.Headers,
-                Parameters = context.Parameters
+                Parameters = context.Parameters,
+                Body = string.IsNullOrEmpty(context.RequestBody)
+                    ? null
+                    : new ArtifactContent
+                    {
+                        Text = context.RequestBody
+                    }
             };
         }
 
@@ -936,6 +942,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             public string RequestMethod { get; set; }
 
             public string RequestTarget { get; set; }
+
+            public string RequestBody { get; set; }
 
             // Holds properties produced by both the <props> and
             // <properties> elements within Contrast XML
@@ -1183,7 +1191,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static void ReadBody(SparseReader reader, object parent)
         {
-            reader.ReadChildren(SchemaStrings.ElementBody, parent);
+            Context context = (Context)parent;
+            context.RequestBody = reader.ReadElementContentAsString();
         }
 
         private static void ReadHeaders(SparseReader reader, object parent)
