@@ -876,8 +876,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                          {
                              new ThreadFlow
                              {
-                                  Locations = context.PropagationEvents,
-                                  ImmutableState = context.Headers
+                                  Locations = context.PropagationEvents
                              }
                          }
                     }
