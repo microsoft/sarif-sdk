@@ -846,7 +846,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Protocol = context.RequestProtocol,
                 Version = context.RequestVersion,
                 Method = context.RequestMethod,
-                Target = new Uri(context.RequestTarget, UriKind.RelativeOrAbsolute),
+                Target = context.RequestTarget,
                 Headers = context.Headers,
                 Parameters = context.Parameters,
                 Body = string.IsNullOrEmpty(context.RequestBody)
