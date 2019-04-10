@@ -1305,14 +1305,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static void ReadP(SparseReader reader, object parent)
         {
-            // p elements occur in two places
+            // p elements occur in two places:
             //
             // 1. As children of finding/request/parameters. In this context, they have
             //    attributes "name" and "value", and should be added to the context's
             //    Parameters dictionary.
             //
             // 2. As children of findings/events/propagation-event/properties, in which case
-            //    I don't know what to do with them yet.
+            //    they have attributes "k" and "v" and I don't know what to do with them yet.
             //
             // Make sure we don't confuse the one with the other.
             string name = reader.ReadAttributeString(SchemaStrings.AttributeName);
