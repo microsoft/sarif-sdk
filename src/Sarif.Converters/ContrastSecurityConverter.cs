@@ -252,33 +252,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             string pageCount = locations.Count.ToString();
 
-            return new Result
+            Result result = CreateResultCore(context);
+            result.Locations = locations;
+            result.Message = new Message
             {
-                RuleId = context.RuleId,
-                Level = GetRuleFailureLevel(context.RuleId),
-                Locations = locations,
-                Message = new Message
+                Id = "default",
+                Arguments = new List<string>
                 {
-                    Id = "default",
-                    Arguments = new List<string>
-                    {
-                        pageCount,     // {0} page Cache-Control header(s) did not contain 'no-store' or 'no-cache';
-                        examplePage,   // e.g., the value in page '{1}' 
-                        exampleHeader  // was observed to be '{2}'.
-                    }
+                    pageCount,     // {0} page Cache-Control header(s) did not contain 'no-store' or 'no-cache';
+                    examplePage,   // e.g., the value in page '{1}' 
+                    exampleHeader  // was observed to be '{2}'.
                 }
             };
+
+            return result;
         }
 
         private Result ConstructAuthorizationRulesMissingDenyResult(ContrastLogReader.Context context)
         {
             // authorization-missing-deny : Authorization Rules Missing Deny Rule
 
-            var result = new Result
-            {
-                RuleId = context.RuleId,
-                Level = GetRuleFailureLevel(context.RuleId)
-            };
+            Result result = CreateResultCore(context);
 
             // authorization-missing-deny instances track the following properties:
             // 
@@ -330,12 +324,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private Result ConstructInsecureHashAlgorithmsResult(ContrastLogReader.Context context)
         {
-            return new Result
-            {
-                RuleId = context.RuleId,
-                Level = GetRuleFailureLevel(context.RuleId),
-                CodeFlows = CreateCodeFlows(context)
-            };
+            return CreateResultCore(context);
         }
 
         private Result ConstructPagesWithoutAntiClickjackingControlsResult(ContrastLogReader.Context context)
@@ -361,21 +350,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string pageCount = locations.Count.ToString();
             string examplePage = locations[0].PhysicalLocation.ArtifactLocation.Uri.ToString();
 
-            return new Result
+            Result result = CreateResultCore(context);
+            result.Locations = locations;
+            result.Message = new Message
             {
-                RuleId = context.RuleId,
-                Level = GetRuleFailureLevel(context.RuleId),
-                Locations = locations,
-                Message = new Message
+                Id = "default",
+                Arguments = new List<string>
                 {
-                    Id = "default",
-                    Arguments = new List<string>
-                    {
-                        pageCount,  // {0} page(s) have insufficient anti-clickjacking controls, 
-                        examplePage // e.g., '{1}' 
-                    },
+                    pageCount,  // {0} page(s) have insufficient anti-clickjacking controls, 
+                    examplePage // e.g., '{1}' 
                 }
             };
+
+            return result;
         }
 
         private Result ConstructCrossSiteScriptingResult(ContrastLogReader.Context context)
@@ -394,16 +381,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string caller = context.PropagationEvents[context.PropagationEvents.Count - 1].Stack.Frames[0].Location.LogicalLocation?.FullyQualifiedName;
             string controlId = context.Properties.ContainsKey(nameof(controlId)) ? context.Properties[nameof(controlId)] : null;
 
-            var result = new Result
+            Result result = CreateResultCore(context);
+            result.Locations = new List<Location>
             {
-                RuleId = context.RuleId,
-                Level = GetRuleFailureLevel(context.RuleId),
-                Locations = new List<Location>
+                new Location
                 {
-                    new Location
-                    {
-                        PhysicalLocation = CreatePhysicalLocation(page),
-                    }
+                    PhysicalLocation = CreatePhysicalLocation(page),
                 }
             };
 
@@ -447,26 +430,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string path = properties[nameof(path)];
             string snippet = properties[nameof(snippet)];
 
-            return new Result
+            Result result = CreateResultCore(context);
+            result.Locations = new List<Location>
             {
-                RuleId = context.RuleId,
-                Level = GetRuleFailureLevel(context.RuleId),
-                Locations = new List<Location>
+                new Location
                 {
-                    new Location
-                    {
-                        PhysicalLocation = CreatePhysicalLocation(path, CreateRegion(snippet)),
-                    }
-                },
-                Message = new Message
-                {
-                    Id = "default",
-                    Arguments = new List<string>
-                    {                  // The configuration in 
-                        path,          // '{0}' has 'mode' set to 'Off' in the <customErrors> section.
-                    }
+                    PhysicalLocation = CreatePhysicalLocation(path, CreateRegion(snippet)),
                 }
             };
+            result.Message = new Message
+            {
+                Id = "default",
+                Arguments = new List<string>
+                {                  // The configuration in 
+                    path,          // '{0}' has 'mode' set to 'Off' in the <customErrors> section.
+                }
+            };
+
+            return result;
         }
 
         private Result ConstructEventValidationDisabledResult(ContrastLogReader.Context context)
@@ -480,26 +461,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string aspx = properties[nameof(aspx)];
             string snippet = properties[nameof(snippet)];
 
-            return new Result
+            Result result = CreateResultCore(context);
+            result.Locations = new List<Location>()
             {
-                RuleId = context.RuleId,
-                Level = GetRuleFailureLevel(context.RuleId),
-                Locations = new List<Location>()
+                new Location
                 {
-                    new Location
-                    {
-                        PhysicalLocation = CreatePhysicalLocation(aspx, CreateRegion(snippet)),
-                    }
-                },
-                Message = new Message
-                {
-                    Id = "default",
-                    Arguments = new List<string>
-                    {                  // The configuration in 
-                        aspx,          // '{0}' has 'enableEventValidation' set to 'false' in the page directive.
-                    }
+                    PhysicalLocation = CreatePhysicalLocation(aspx, CreateRegion(snippet)),
                 }
             };
+            result.Message = new Message
+            {
+                Id = "default",
+                Arguments = new List<string>
+                {                  // The configuration in 
+                    aspx,          // '{0}' has 'enableEventValidation' set to 'false' in the page directive.
+                }
+            };
+
+            return result;
         }
 
         private Result ConstructFormsAuthenticationSSLResult(ContrastLogReader.Context context)
@@ -513,26 +492,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string path = properties[nameof(path)];
             string snippet = properties[nameof(snippet)];
 
-            return new Result
+            Result result = CreateResultCore(context);
+            result.Locations = new List<Location>()
             {
-                RuleId = context.RuleId,
-                Level = GetRuleFailureLevel(context.RuleId),
-                Locations = new List<Location>()
+                new Location
                 {
-                    new Location
-                    {
-                        PhysicalLocation = CreatePhysicalLocation(path, CreateRegion(snippet)),
-                    }
-                },
-                Message = new Message
-                {
-                    Id = "default",
-                    Arguments = new List<string>
-                    {                  // The configuration in 
-                        path,          // '{0}' was configured to use forms authentication and 'resquireSSL' was not set to 'true' in an <authentication> section.
-                    }
+                    PhysicalLocation = CreatePhysicalLocation(path, CreateRegion(snippet)),
                 }
             };
+            result.Message = new Message
+            {
+                Id = "default",
+                Arguments = new List<string>
+                {                  // The configuration in 
+                    path,          // '{0}' was configured to use forms authentication and 'resquireSSL' was not set to 'true' in an <authentication> section.
+                }
+            };
+
+            return result;
         }
 
         private Result ConstructFormsWithoutAutocompletePreventionResult(ContrastLogReader.Context context)
@@ -586,21 +563,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string pageCount = locations.Count.ToString();
             string examplePage = locations[0].PhysicalLocation.ArtifactLocation.Uri.OriginalString;
 
-            return new Result
+            Result result = CreateResultCore(context);
+            result.Locations = locations;
+            result.Message = new Message
             {
-                RuleId = context.RuleId,
-                Level = GetRuleFailureLevel(context.RuleId),
-                Locations = locations,
-                Message = new Message
+                Id = "default",
+                Arguments = new List<string>
                 {
-                    Id = "default",
-                    Arguments = new List<string>
-                    {
-                        pageCount,  //'{0}' pages contain a <form> element that do
-                        examplePage, //not have 'autocomplete' set to 'off'; e.g. '{1}'.
-                    }
+                    pageCount,  //'{0}' pages contain a <form> element that do
+                    examplePage, //not have 'autocomplete' set to 'off'; e.g. '{1}'.
                 }
             };
+
+            return result;
         }
 
         private bool KeyIsReservedPropertyName(string key)
@@ -642,27 +617,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string section = properties[nameof(section)];
             string snippet = properties[nameof(snippet)];
 
-            return new Result
+            Result result = CreateResultCore(context);
+            result.Locations = new List<Location>
             {
-                RuleId = context.RuleId,
-                Level = GetRuleFailureLevel(context.RuleId),
-                Locations = new List<Location>
+                new Location
                 {
-                    new Location
-                    {
-                        PhysicalLocation = CreatePhysicalLocation(path, CreateRegion(snippet)),
-                    }
-                },
-                Message = new Message
-                {
-                    Id = "default",
-                    Arguments = new List<string>
-                    {              // The configuration in the
-                        section,   // <{0}> section of 
-                        path       // '{1}' specified a session timeout value greater than 30 minutes.
-                    }
+                    PhysicalLocation = CreatePhysicalLocation(path, CreateRegion(snippet)),
                 }
             };
+            result.Message = new Message
+            {
+                Id = "default",
+                Arguments = new List<string>
+                {              // The configuration in the
+                    section,   // <{0}> section of 
+                    path       // '{1}' specified a session timeout value greater than 30 minutes.
+                }
+            };
+
+            return result;
         }
 
         private Result ConstructPathTraversalResult(ContrastLogReader.Context context)
@@ -717,29 +690,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // default : SQL injection from untrusted source(s) '{0}' observed on '{1}' page. Untrusted data flowed from '{2}' to dangerous sink '{3}' in '{4}'.
 
-            var result = new Result
+            Result result = CreateResultCore(context);
+            result.Locations = new List<Location>
             {
-                RuleId = context.RuleId,
-                Level = GetRuleFailureLevel(context.RuleId),
-                CodeFlows = CreateCodeFlows(context),
-                Locations = new List<Location>
+                new Location
                 {
-                    new Location
-                    {
-                        PhysicalLocation = CreatePhysicalLocation(page),
-                    }
-                },
-                Message = new Message
+                    PhysicalLocation = CreatePhysicalLocation(page),
+                }
+            };
+            result.Message = new Message
+            {
+                Id = "default",
+                Arguments = new List<string>
                 {
-                    Id = "default",
-                    Arguments = new List<string>
-                    {
-                        untrustedData, // SQL injection from untrusted source(s) '{0}'
-                        page,          // observed on '{1}' page.
-                        source,        // Untrusted data flowed from '{2}'
-                        sink,          // to dangerous sink '{3}'
-                        caller         // from a call site in '{4}'.
-                    }
+                    untrustedData, // SQL injection from untrusted source(s) '{0}'
+                    page,          // observed on '{1}' page.
+                    source,        // Untrusted data flowed from '{2}'
+                    sink,          // to dangerous sink '{3}'
+                    caller         // from a call site in '{4}'.
                 }
             };
 
@@ -769,26 +737,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             IDictionary<string, string> properties = context.Properties;
             string path = properties[nameof(path)];
 
-            return new Result
+            Result result = CreateResultCore(context);
+            result.Locations = new List<Location>
             {
-                RuleId = context.RuleId,
-                Level = GetRuleFailureLevel(context.RuleId),
-                Locations = new List<Location>
+                new Location
                 {
-                    new Location
-                    {
-                        PhysicalLocation = CreatePhysicalLocation(path),
-                    }
-                },
-                Message = new Message
-                {
-                    Id = "default",
-                    Arguments = new List<string>
-                    {                  // The configuration in 
-                        path,          // '{0}' did not explicitly disable 'enableVersionHeader' in the <httpRuntime> section.
-                    }
+                    PhysicalLocation = CreatePhysicalLocation(path),
                 }
             };
+            result.Message = new Message
+            {
+                Id = "default",
+                Arguments = new List<string>
+                {                  // The configuration in 
+                    path,          // '{0}' did not explicitly disable 'enableVersionHeader' in the <httpRuntime> section.
+                }
+            };
+
+            return result;
         }
 
         private Result ConstructWebApplicationDeployedinDebugModeResult(ContrastLogReader.Context context)
@@ -802,26 +768,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string path = properties[nameof(path)];
             string snippet = properties[nameof(snippet)];
 
-            return new Result
+            Result result = CreateResultCore(context);
+            result.Locations = new List<Location>
             {
-                RuleId = context.RuleId,
-                Level = GetRuleFailureLevel(context.RuleId),
-                Locations = new List<Location>
+                new Location
                 {
-                    new Location
-                    {
-                        PhysicalLocation = CreatePhysicalLocation(path, CreateRegion(snippet)),
-                    }
-                },
-                Message = new Message
-                {
-                    Id = "default",
-                    Arguments = new List<string>
-                    {                  // The configuration in 
-                        path,          // '{0}' has 'debug' set to 'true' in the <compilation> section.
-                    }
+                    PhysicalLocation = CreatePhysicalLocation(path, CreateRegion(snippet)),
                 }
             };
+            result.Message = new Message
+            {
+                Id = "default",
+                Arguments = new List<string>
+                {                  // The configuration in 
+                    path,          // '{0}' has 'debug' set to 'true' in the <compilation> section.
+                }
+            };
+
+            return result;
         }
 
         private Region CreateRegion(string snippet)
@@ -862,6 +826,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private string NaiveXmlDecode(string snippet)
         {
             return snippet.Replace("&amp;", "&").Replace("&lt;", "<").Replace("&gt;", ">").Replace("&quot;", "\"").Replace("&apos;", "'");
+        }
+
+        private Result CreateResultCore(ContrastLogReader.Context context)
+        {
+            return new Result
+            {
+                RuleId = context.RuleId,
+                Level = GetRuleFailureLevel(context.RuleId),
+                CodeFlows = CreateCodeFlows(context)
+            };
         }
 
         private IList<CodeFlow> CreateCodeFlows(ContrastLogReader.Context context)
