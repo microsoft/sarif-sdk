@@ -178,21 +178,21 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!object.ReferenceEquals(left.ArtifactIndices, right.ArtifactIndices))
+            if (!object.ReferenceEquals(left.Artifacts, right.Artifacts))
             {
-                if (left.ArtifactIndices == null || right.ArtifactIndices == null)
+                if (left.Artifacts == null || right.Artifacts == null)
                 {
                     return false;
                 }
 
-                if (left.ArtifactIndices.Count != right.ArtifactIndices.Count)
+                if (left.Artifacts.Count != right.Artifacts.Count)
                 {
                     return false;
                 }
 
-                for (int index_3 = 0; index_3 < left.ArtifactIndices.Count; ++index_3)
+                for (int index_3 = 0; index_3 < left.Artifacts.Count; ++index_3)
                 {
-                    if (left.ArtifactIndices[index_3] != right.ArtifactIndices[index_3])
+                    if (!Artifact.ValueComparer.Equals(left.Artifacts[index_3], right.Artifacts[index_3]))
                     {
                         return false;
                     }
@@ -407,12 +407,15 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.ArtifactIndices != null)
+                if (obj.Artifacts != null)
                 {
-                    foreach (var value_8 in obj.ArtifactIndices)
+                    foreach (var value_8 in obj.Artifacts)
                     {
                         result = result * 31;
-                        result = (result * 31) + value_8.GetHashCode();
+                        if (value_8 != null)
+                        {
+                            result = (result * 31) + value_8.ValueGetHashCode();
+                        }
                     }
                 }
 

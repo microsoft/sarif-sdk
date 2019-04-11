@@ -214,6 +214,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                node.Description = VisitNullChecked(node.Description);
             }
 
             return node;
@@ -1340,6 +1341,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                     for (int index_0 = 0; index_0 < node.Taxa.Count; ++index_0)
                     {
                         node.Taxa[index_0] = VisitNullChecked(node.Taxa[index_0]);
+                    }
+                }
+
+                if (node.Artifacts != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Artifacts.Count; ++index_0)
+                    {
+                        node.Artifacts[index_0] = VisitNullChecked(node.Artifacts[index_0]);
                     }
                 }
 

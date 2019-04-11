@@ -56,6 +56,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int Index { get; set; }
 
         /// <summary>
+        /// A short description of the artifact location.
+        /// </summary>
+        [DataMember(Name = "description", IsRequired = false, EmitDefaultValue = false)]
+        public Message Description { get; set; }
+
+        /// <summary>
         /// Key/value pairs that provide additional information about the artifact location.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
@@ -81,12 +87,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="index">
         /// An initialization value for the <see cref="P:Index" /> property.
         /// </param>
+        /// <param name="description">
+        /// An initialization value for the <see cref="P:Description" /> property.
+        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ArtifactLocation(Uri uri, string uriBaseId, int index, IDictionary<string, SerializedPropertyInfo> properties)
+        public ArtifactLocation(Uri uri, string uriBaseId, int index, Message description, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(uri, uriBaseId, index, properties);
+            Init(uri, uriBaseId, index, description, properties);
         }
 
         /// <summary>
@@ -105,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Uri, other.UriBaseId, other.Index, other.Properties);
+            Init(other.Uri, other.UriBaseId, other.Index, other.Description, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -126,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ArtifactLocation(this);
         }
 
-        private void Init(Uri uri, string uriBaseId, int index, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Uri uri, string uriBaseId, int index, Message description, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (uri != null)
             {
@@ -135,6 +144,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             UriBaseId = uriBaseId;
             Index = index;
+            if (description != null)
+            {
+                Description = new Message(description);
+            }
+
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
