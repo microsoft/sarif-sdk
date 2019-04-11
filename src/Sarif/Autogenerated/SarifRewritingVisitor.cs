@@ -176,6 +176,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                node.Description = VisitNullChecked(node.Description);
                 node.Location = VisitNullChecked(node.Location);
                 node.Contents = VisitNullChecked(node.Contents);
             }

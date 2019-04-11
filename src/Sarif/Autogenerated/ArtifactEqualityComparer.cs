@@ -28,6 +28,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.Index != right.Index)
+            {
+                return false;
+            }
+
+            if (!Message.ValueComparer.Equals(left.Description, right.Description))
+            {
+                return false;
+            }
+
             if (!ArtifactLocation.ValueComparer.Equals(left.Location, right.Location))
             {
                 return false;
@@ -135,6 +145,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
+                result = (result * 31) + obj.Index.GetHashCode();
+                if (obj.Description != null)
+                {
+                    result = (result * 31) + obj.Description.ValueGetHashCode();
+                }
+
                 if (obj.Location != null)
                 {
                     result = (result * 31) + obj.Location.ValueGetHashCode();

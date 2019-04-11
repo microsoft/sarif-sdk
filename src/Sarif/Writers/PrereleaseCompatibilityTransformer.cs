@@ -49,13 +49,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 case "2.1.0":
                 {
-                    // SARIF TC34. Nothing to do.
+                    modifiedLog |= ApplyChangesFromTC35(sarifLog);
                     break;
                 }
 
                 case "2.0.0-csd.2.beta.2019-04-03":
                 {
                     modifiedLog |= ApplyChangesFromTC34(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC35(sarifLog);
                     break;
                 }
 
@@ -63,6 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     modifiedLog |= ApplyChangesFromTC34(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC35(sarifLog);
                     break;
                 }
 
@@ -72,8 +74,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC32(sarifLog);
                     modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     modifiedLog |= ApplyChangesFromTC34(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC35(sarifLog);
                     break;
-                }
+                    }
 
                 case "2.0.0-csd.2.beta.2019-01-09":
                 {
@@ -81,8 +84,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC32(sarifLog);
                     modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     modifiedLog |= ApplyChangesFromTC34(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC35(sarifLog);
                     break;
-                }
+                    }
 
                 case "2.0.0-csd.2.beta.2018-10-10":
                 case "2.0.0-csd.2.beta.2018-10-10.1":
@@ -98,6 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC32(sarifLog);
                     modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     modifiedLog |= ApplyChangesFromTC34(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC35(sarifLog);
                     break;
                 }
 
@@ -113,6 +118,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC32(sarifLog);
                     modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     modifiedLog |= ApplyChangesFromTC34(sarifLog);
+                    modifiedLog |= ApplyChangesFromTC35(sarifLog);
                     break;
                 }
             }
@@ -140,6 +146,64 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             return transformedSarifLog;
+        }
+
+        private static bool ApplyChangesFromTC35(JObject sarifLog)
+        {
+            // https://github.com/oasis-tcs/sarif-spec/issues/366
+            ConvertAllToolComponentArtifactIndicesToArtifacts(sarifLog);
+
+            return true;
+        }
+
+        private static void ConvertAllToolComponentArtifactIndicesToArtifacts(JObject sarifLog)
+        {
+            string[] toolComponentPathsToUpdate =
+            {
+                "inlineExternalProperties[].driver",
+                "inlineExternalProperties[].extensions[]",
+                "inlineExternalProperties[].taxonomies[]",
+                "inlineExternalProperties[].policies[]",
+                "inlineExternalProperties[].translations[]",
+
+                "inlineExternalProperties[].conversion.tool.driver",
+                "inlineExternalProperties[].conversion.tool.extensions[]",
+
+                "runs[].tool.driver",
+                "runs[].tool.extensions[]",
+                "runs[].taxonomies[]",
+                "runs[].policies[]",
+                "runs[].translations[]",
+
+                "runs[].conversion.tool.driver",
+                "runs[].conversion.tool.extensions[]",
+
+            };
+
+            PerformActionOnLeafNodeIfExists(
+                possiblePathsToLeafNode: toolComponentPathsToUpdate,
+                rootNode: sarifLog,
+                action: ConvertSingleToolComponentArtifactIndicesListToArtifactsList);
+        }
+
+        private static void ConvertSingleToolComponentArtifactIndicesListToArtifactsList(JObject toolComponent)
+        {
+            if (toolComponent["artifactIndices"] is JArray artifactIndices)
+            {
+                var artifacts = new JArray();
+
+                foreach (JToken artifactIndex in artifactIndices)
+                {
+                    var artifact = new JObject
+                    {
+                        { "index", artifactIndex }
+                    };
+                    artifacts.Add(artifact);
+                }
+
+                toolComponent.Remove("artifactIndices");
+                toolComponent.Add("artifacts", artifacts);
+            }
         }
 
         private static bool ApplyChangesFromTC34(JObject sarifLog)
