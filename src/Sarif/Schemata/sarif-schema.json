@@ -31,7 +31,7 @@
       "description": "References to external property files that share data between runs.",
       "type": "array",
       "minItems": 0,
-      "uniqueItems": false,
+      "uniqueItems": true,
       "items": {
         "$ref": "#/definitions/externalProperties"
       }
@@ -287,7 +287,12 @@
           "description": "Key/value pairs that provide additional information about the artifact location.",
           "$ref": "#/definitions/propertyBag"
         }
-      }
+      },
+      "anyOf": [
+        { "required": [ "uri" ] },
+        { "required": [ "index" ] }
+      ]
+
     },
 
     "attachment": {
@@ -770,8 +775,8 @@
           "description": "An array of external property files containing a run.graphs object to be merged with the root log file.",
           "type": "array",
           "minItems": 0,
-          "default": [],
           "uniqueItems": true,
+          "default": [],
           "items": {
             "$ref": "#/definitions/externalPropertyFileReference"
           }
@@ -785,8 +790,9 @@
         "artifacts": {
           "description": "An array of external property files containing run.artifacts arrays to be merged with the root log file.",
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
           "uniqueItems": true,
+          "default": [],
           "items": {
             "$ref": "#/definitions/externalPropertyFileReference"
           }
@@ -795,8 +801,9 @@
         "invocations": {
           "description": "An array of external property files containing run.invocations arrays to be merged with the root log file.",
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
           "uniqueItems": true,
+          "default": [],
           "items": {
             "$ref": "#/definitions/externalPropertyFileReference"
           }
@@ -805,8 +812,9 @@
         "logicalLocations": {
           "description": "An array of external property files containing run.logicalLocations arrays to be merged with the root log file.",
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
           "uniqueItems": true,
+          "default": [],
           "items": {
             "$ref": "#/definitions/externalPropertyFileReference"
           }
@@ -826,8 +834,9 @@
         "results": {
           "description": "An array of external property files containing run.results arrays to be merged with the root log file.",
           "type": "array",
-          "minItems": 1,
-          "uniqueItems": false,
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
           "items": {
             "$ref": "#/definitions/externalPropertyFileReference"
           }
@@ -836,8 +845,9 @@
         "taxonomies": {
           "description": "An array of external property files containing run.taxonomies arrays to be merged with the root log file.",
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
           "uniqueItems": true,
+          "default": [],
           "items": {
             "$ref": "#/definitions/externalPropertyFileReference"
           }
@@ -847,7 +857,7 @@
           "description": "An array of external property files containing run.addresses arrays to be merged with the root log file.",
           "type": "array",
           "minItems": 0,
-          "uniqueItems": false,
+          "uniqueItems": true,
           "default": [],
           "items": {
             "$ref": "#/definitions/externalPropertyFileReference"
@@ -863,7 +873,7 @@
           "description": "An array of external property files containing run.extensions arrays to be merged with the root log file.",
           "type": "array",
           "minItems": 0,
-          "uniqueItems": false,
+          "uniqueItems": true,
           "default": [],
           "items": {
             "$ref": "#/definitions/externalPropertyFileReference"
@@ -874,7 +884,7 @@
           "description": "An array of external property files containing run.policies arrays to be merged with the root log file.",
           "type": "array",
           "minItems": 0,
-          "uniqueItems": false,
+          "uniqueItems": true,
           "default": [],
           "items": {
             "$ref": "#/definitions/externalPropertyFileReference"
@@ -885,7 +895,7 @@
           "description": "An array of external property files containing run.translations arrays to be merged with the root log file.",
           "type": "array",
           "minItems": 0,
-          "uniqueItems": false,
+          "uniqueItems": true,
           "default": [],
           "items": {
             "$ref": "#/definitions/externalPropertyFileReference"
@@ -1356,7 +1366,7 @@
           "description": "Key/value pairs that provide additional information about the message.",
           "$ref": "#/definitions/propertyBag"
         }
-      }
+      } 
     },
 
     "multiformatMessageString": {
@@ -1380,7 +1390,8 @@
           "description": "Key/value pairs that provide additional information about the message.",
           "$ref": "#/definitions/propertyBag"
         }
-      }
+      },
+      "required": [ "text" ]
     },
 
     "node": {
@@ -2388,6 +2399,7 @@
           "type": "array",
           "minItems": 0,
           "uniqueItems": false,
+          "default": [],
           "items": {
             "$ref": "#/definitions/result"
           }

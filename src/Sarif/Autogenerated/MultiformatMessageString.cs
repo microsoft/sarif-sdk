@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// A plain text message string or format string.
         /// </summary>
-        [DataMember(Name = "text", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "text", IsRequired = true)]
         public string Text { get; set; }
 
         /// <summary>

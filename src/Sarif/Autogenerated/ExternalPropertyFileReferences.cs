@@ -56,18 +56,21 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An array of external property files containing run.artifacts arrays to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "artifacts", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<ExternalPropertyFileReference> Artifacts { get; set; }
 
         /// <summary>
         /// An array of external property files containing run.invocations arrays to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "invocations", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<ExternalPropertyFileReference> Invocations { get; set; }
 
         /// <summary>
         /// An array of external property files containing run.logicalLocations arrays to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "logicalLocations", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<ExternalPropertyFileReference> LogicalLocations { get; set; }
 
         /// <summary>
@@ -81,12 +84,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An array of external property files containing run.results arrays to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "results", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<ExternalPropertyFileReference> Results { get; set; }
 
         /// <summary>
         /// An array of external property files containing run.taxonomies arrays to be merged with the root log file.
         /// </summary>
         [DataMember(Name = "taxonomies", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<ExternalPropertyFileReference> Taxonomies { get; set; }
 
         /// <summary>
