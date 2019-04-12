@@ -93,6 +93,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
+            if (left.InformationUri != right.InformationUri)
+            {
+                return false;
+            }
+
             if (!object.ReferenceEquals(left.GlobalMessageStrings, right.GlobalMessageStrings))
             {
                 if (left.GlobalMessageStrings == null || right.GlobalMessageStrings == null || left.GlobalMessageStrings.Count != right.GlobalMessageStrings.Count)
@@ -353,6 +358,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.DownloadUri != null)
                 {
                     result = (result * 31) + obj.DownloadUri.GetHashCode();
+                }
+
+                if (obj.InformationUri != null)
+                {
+                    result = (result * 31) + obj.InformationUri.GetHashCode();
                 }
 
                 if (obj.GlobalMessageStrings != null)

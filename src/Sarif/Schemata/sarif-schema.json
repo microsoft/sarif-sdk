@@ -2919,6 +2919,12 @@
           "format": "uri"
         },
 
+        "informationUri": {
+          "description": "The absolute URI at which information about this version of the tool component can be found.",
+          "type": "string",
+          "format": "uri"
+        },
+
         "globalMessageStrings": {
           "description": "A dictionary, each of whose keys is a resource identifier and each of whose values is a multiformatMessageString object, which holds message strings in plain text and (optionally) Markdown format. The strings can include placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.",
           "type": "object",
@@ -2992,7 +2998,8 @@
 
         "isComprehensive": {
           "description": "Specifies whether this object contains a complete definition of the localizable and/or non-localizable data for this component, as opposed to including only data that is relevant to the results persisted to this log file.",
-          "type": "boolean"
+          "type": "boolean",
+          "default": false
         },
 
         "localizedDataSemanticVersion": {
@@ -3095,8 +3102,8 @@
           "format": "uri"
         },
 
-        "informationUri ": {
-          "description": "The absolute URI from whichinformation related to the translation metadata can be downloaded.",
+        "informationUri": {
+          "description": "The absolute URI from which information related to the translation metadata can be downloaded.",
           "type": "string",
           "format": "uri"
         },
