@@ -749,8 +749,8 @@
         "itemCount": {
           "description": "A non-negative integer specifying the number of items contained in the external property file.",
           "type": "integer",
-          "default": 0,
-          "minimum": 0
+          "default": 1,
+          "minimum": 1
         },
 
         "properties": {
@@ -1366,7 +1366,7 @@
           "description": "Key/value pairs that provide additional information about the message.",
           "$ref": "#/definitions/propertyBag"
         }
-      } 
+      }
     },
 
     "multiformatMessageString": {
@@ -2424,12 +2424,6 @@
         "baselineGuid": {
           "description": "The 'guid' property of a previous SARIF 'run' that comprises the baseline that was used to compute result 'baselineState' properties for the run.",
           "type": "string"
-        },
-
-        "markdownMessageMimeType": {
-          "description": "The MIME type of all Markdown text message properties in the run. Default: \"text/markdown;variant=GFM\"",
-          "type": "string",
-          "default": "text/markdown;variant=GFM"
         },
 
         "redactionToken": {
