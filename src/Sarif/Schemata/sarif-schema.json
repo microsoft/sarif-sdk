@@ -105,13 +105,6 @@
       "type": "object",
       "properties": {
 
-        "index": {
-          "description": "The index within the run artifacts array of the artifact object.",
-          "type": "integer",
-          "default": -1,
-          "minimum": -1
-        },
-
         "description": {
           "description": "A short description of the artifact.",
           "$ref": "#/definitions/message"
