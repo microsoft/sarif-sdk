@@ -195,6 +195,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             object propertyValue = null;
             Type propertyType = property.PropertyType;
 
+            // isRequired flag ensures we don't end up generating a SARIF file that's missing a required property or an anyOf required property,
+            // because such a file wouldn't validate.
             bool isRequired = PropertyIsRequiredBySchema(node.GetType().Name, property.Name) || 
                 PropertyIsAnyOfRequiredBySchema(node.GetType().Name, property.Name);
 
@@ -288,13 +290,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             string jsonPropertyName = GetJsonNameFor(propertyName);
             JsonSchema propertySchema = GetJsonSchemaForObject(objectTypeName);
 
-            if (propertySchema.AnyOf != null && propertySchema.AnyOf.Count > 0)
+            if (propertySchema.AnyOf?.Count > 0 == true)
             {
                 // TODO: Add additional logic to randomly select one or more required subsets and populate only those.
 
                 // As a quick fix, we will populate all properties which are in any required subset.
                 // This means this method must return true for all properties in any required subset in the list.
-                foreach (var item in propertySchema.AnyOf)
+                foreach (JsonSchema item in propertySchema.AnyOf)
                 {
                     if (item.Required != null && item.Required.Contains(jsonPropertyName))
                     {
@@ -307,7 +309,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private JsonSchema GetJsonSchemaForObject(string objectTypeName)
         {
-            // SarifLog.Version will be converted to sarifLog.version
             string jsonTypeName = GetJsonNameFor(objectTypeName);
 
             // If _schema.Definitions does not contain the jsonTypeName, we are operating
@@ -318,6 +319,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private string GetJsonNameFor(string name)
         {
+            // E.g.: SarifLog.Version will be converted to sarifLog.version
             return name.Substring(0, 1).ToLowerInvariant() + name.Substring(1);
         }
 

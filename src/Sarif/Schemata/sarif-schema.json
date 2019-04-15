@@ -637,6 +637,7 @@
           "type": "array",
           "minItems": 0,
           "uniqueItems": false,
+          "default": [],
           "items": {
             "$ref": "#/definitions/result"
           }
@@ -2399,7 +2400,6 @@
           "type": "array",
           "minItems": 0,
           "uniqueItems": false,
-          "default": [],
           "items": {
             "$ref": "#/definitions/result"
           }
