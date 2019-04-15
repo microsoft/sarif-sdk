@@ -2971,14 +2971,13 @@
           }
         },
 
-        "artifacts": {
-          "description": "An array of the artifact objects associated with the tool component.",
+        "locations": {
+          "description": "An array of the artifactLocation objects associated with the tool component.",
           "type": "array",
           "minItems": 0,
-          "uniqueItems": true,
           "default": [],
           "items": {
-            "$ref": "#/definitions/artifact"
+            "$ref": "#/definitions/artifactLocation"
           }
         },
 

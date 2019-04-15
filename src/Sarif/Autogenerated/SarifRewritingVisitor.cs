@@ -1345,11 +1345,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (node.Artifacts != null)
+                if (node.Locations != null)
                 {
-                    for (int index_0 = 0; index_0 < node.Artifacts.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.Locations.Count; ++index_0)
                     {
-                        node.Artifacts[index_0] = VisitNullChecked(node.Artifacts[index_0]);
+                        node.Locations[index_0] = VisitNullChecked(node.Locations[index_0]);
                     }
                 }
 

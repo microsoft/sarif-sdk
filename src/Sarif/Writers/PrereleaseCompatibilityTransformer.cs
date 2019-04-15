@@ -151,12 +151,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private static bool ApplyChangesFromTC35(JObject sarifLog)
         {
             // https://github.com/oasis-tcs/sarif-spec/issues/366
-            ConvertAllToolComponentArtifactIndicesToArtifacts(sarifLog);
+            ConvertAllToolComponentArtifactIndicesToArtifactLocations(sarifLog);
 
             return true;
         }
 
-        private static void ConvertAllToolComponentArtifactIndicesToArtifacts(JObject sarifLog)
+        private static void ConvertAllToolComponentArtifactIndicesToArtifactLocations(JObject sarifLog)
         {
             string[] toolComponentPathsToUpdate =
             {
@@ -183,26 +183,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             PerformActionOnLeafNodeIfExists(
                 possiblePathsToLeafNode: toolComponentPathsToUpdate,
                 rootNode: sarifLog,
-                action: ConvertSingleToolComponentArtifactIndicesListToArtifactsList);
+                action: ConvertSingleToolComponentArtifactIndicesListToArtifactLocations);
         }
 
-        private static void ConvertSingleToolComponentArtifactIndicesListToArtifactsList(JObject toolComponent)
+        private static void ConvertSingleToolComponentArtifactIndicesListToArtifactLocations(JObject toolComponent)
         {
             if (toolComponent["artifactIndices"] is JArray artifactIndices)
             {
-                var artifacts = new JArray();
+                var artifactLocations = new JArray();
 
                 foreach (JToken artifactIndex in artifactIndices)
                 {
-                    var artifact = new JObject
+                    var artifactLocation = new JObject
                     {
                         { "index", artifactIndex }
                     };
-                    artifacts.Add(artifact);
+                    artifactLocations.Add(artifactLocation);
                 }
 
                 toolComponent.Remove("artifactIndices");
-                toolComponent.Add("artifacts", artifacts);
+                toolComponent.Add("locations", artifactLocations);
             }
         }
 

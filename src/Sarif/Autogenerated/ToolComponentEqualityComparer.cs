@@ -178,21 +178,21 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!object.ReferenceEquals(left.Artifacts, right.Artifacts))
+            if (!object.ReferenceEquals(left.Locations, right.Locations))
             {
-                if (left.Artifacts == null || right.Artifacts == null)
+                if (left.Locations == null || right.Locations == null)
                 {
                     return false;
                 }
 
-                if (left.Artifacts.Count != right.Artifacts.Count)
+                if (left.Locations.Count != right.Locations.Count)
                 {
                     return false;
                 }
 
-                for (int index_3 = 0; index_3 < left.Artifacts.Count; ++index_3)
+                for (int index_3 = 0; index_3 < left.Locations.Count; ++index_3)
                 {
-                    if (!Artifact.ValueComparer.Equals(left.Artifacts[index_3], right.Artifacts[index_3]))
+                    if (!ArtifactLocation.ValueComparer.Equals(left.Locations[index_3], right.Locations[index_3]))
                     {
                         return false;
                     }
@@ -407,9 +407,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.Artifacts != null)
+                if (obj.Locations != null)
                 {
-                    foreach (var value_8 in obj.Artifacts)
+                    foreach (var value_8 in obj.Locations)
                     {
                         result = result * 31;
                         if (value_8 != null)
