@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A non-negative integer specifying the number of items contained in the external property file.
         /// </summary>
         [DataMember(Name = "itemCount", IsRequired = false, EmitDefaultValue = false)]
-        [DefaultValue(0)]
+        [DefaultValue(1)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public int ItemCount { get; set; }
 
@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public ExternalPropertyFileReference()
         {
-            ItemCount = 0;
+            ItemCount = 1;
         }
 
         /// <summary>

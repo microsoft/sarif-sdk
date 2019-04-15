@@ -222,11 +222,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.MarkdownMessageMimeType != right.MarkdownMessageMimeType)
-            {
-                return false;
-            }
-
             if (left.RedactionToken != right.RedactionToken)
             {
                 return false;
@@ -578,11 +573,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.BaselineGuid != null)
                 {
                     result = (result * 31) + obj.BaselineGuid.GetHashCode();
-                }
-
-                if (obj.MarkdownMessageMimeType != null)
-                {
-                    result = (result * 31) + obj.MarkdownMessageMimeType.GetHashCode();
                 }
 
                 if (obj.RedactionToken != null)

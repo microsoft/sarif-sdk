@@ -105,6 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An array of result objects that will be merged with a separate run.
         /// </summary>
         [DataMember(Name = "results", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<Result> Results { get; set; }
 
         /// <summary>

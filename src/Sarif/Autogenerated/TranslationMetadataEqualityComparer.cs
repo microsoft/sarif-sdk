@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.InformationUri  != right.InformationUri )
+            if (left.InformationUri != right.InformationUri)
             {
                 return false;
             }
@@ -118,9 +118,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.DownloadUri.GetHashCode();
                 }
 
-                if (obj.InformationUri  != null)
+                if (obj.InformationUri != null)
                 {
-                    result = (result * 31) + obj.InformationUri .GetHashCode();
+                    result = (result * 31) + obj.InformationUri.GetHashCode();
                 }
 
                 if (obj.Properties != null)
