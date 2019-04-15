@@ -31,7 +31,7 @@
       "description": "References to external property files that share data between runs.",
       "type": "array",
       "minItems": 0,
-      "uniqueItems": false,
+      "uniqueItems": true,
       "items": {
         "$ref": "#/definitions/externalProperties"
       }
@@ -297,7 +297,12 @@
           "description": "Key/value pairs that provide additional information about the artifact location.",
           "$ref": "#/definitions/propertyBag"
         }
-      }
+      },
+      "anyOf": [
+        { "required": [ "uri" ] },
+        { "required": [ "index" ] }
+      ]
+
     },
 
     "attachment": {
@@ -642,6 +647,7 @@
           "type": "array",
           "minItems": 0,
           "uniqueItems": false,
+          "default": [],
           "items": {
             "$ref": "#/definitions/result"
           }
@@ -754,8 +760,8 @@
         "itemCount": {
           "description": "A non-negative integer specifying the number of items contained in the external property file.",
           "type": "integer",
-          "default": 0,
-          "minimum": 0
+          "default": 1,
+          "minimum": 1
         },
 
         "properties": {
@@ -780,8 +786,8 @@
           "description": "An array of external property files containing a run.graphs object to be merged with the root log file.",
           "type": "array",
           "minItems": 0,
-          "default": [],
           "uniqueItems": true,
+          "default": [],
           "items": {
             "$ref": "#/definitions/externalPropertyFileReference"
           }
@@ -795,8 +801,9 @@
         "artifacts": {
           "description": "An array of external property files containing run.artifacts arrays to be merged with the root log file.",
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
           "uniqueItems": true,
+          "default": [],
           "items": {
             "$ref": "#/definitions/externalPropertyFileReference"
           }
@@ -805,8 +812,9 @@
         "invocations": {
           "description": "An array of external property files containing run.invocations arrays to be merged with the root log file.",
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
           "uniqueItems": true,
+          "default": [],
           "items": {
             "$ref": "#/definitions/externalPropertyFileReference"
           }
@@ -815,8 +823,9 @@
         "logicalLocations": {
           "description": "An array of external property files containing run.logicalLocations arrays to be merged with the root log file.",
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
           "uniqueItems": true,
+          "default": [],
           "items": {
             "$ref": "#/definitions/externalPropertyFileReference"
           }
@@ -836,8 +845,9 @@
         "results": {
           "description": "An array of external property files containing run.results arrays to be merged with the root log file.",
           "type": "array",
-          "minItems": 1,
-          "uniqueItems": false,
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
           "items": {
             "$ref": "#/definitions/externalPropertyFileReference"
           }
@@ -846,8 +856,9 @@
         "taxonomies": {
           "description": "An array of external property files containing run.taxonomies arrays to be merged with the root log file.",
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
           "uniqueItems": true,
+          "default": [],
           "items": {
             "$ref": "#/definitions/externalPropertyFileReference"
           }
@@ -857,7 +868,7 @@
           "description": "An array of external property files containing run.addresses arrays to be merged with the root log file.",
           "type": "array",
           "minItems": 0,
-          "uniqueItems": false,
+          "uniqueItems": true,
           "default": [],
           "items": {
             "$ref": "#/definitions/externalPropertyFileReference"
@@ -873,7 +884,7 @@
           "description": "An array of external property files containing run.extensions arrays to be merged with the root log file.",
           "type": "array",
           "minItems": 0,
-          "uniqueItems": false,
+          "uniqueItems": true,
           "default": [],
           "items": {
             "$ref": "#/definitions/externalPropertyFileReference"
@@ -884,7 +895,7 @@
           "description": "An array of external property files containing run.policies arrays to be merged with the root log file.",
           "type": "array",
           "minItems": 0,
-          "uniqueItems": false,
+          "uniqueItems": true,
           "default": [],
           "items": {
             "$ref": "#/definitions/externalPropertyFileReference"
@@ -895,7 +906,7 @@
           "description": "An array of external property files containing run.translations arrays to be merged with the root log file.",
           "type": "array",
           "minItems": 0,
-          "uniqueItems": false,
+          "uniqueItems": true,
           "default": [],
           "items": {
             "$ref": "#/definitions/externalPropertyFileReference"
@@ -1390,7 +1401,8 @@
           "description": "Key/value pairs that provide additional information about the message.",
           "$ref": "#/definitions/propertyBag"
         }
-      }
+      },
+      "required": [ "text" ]
     },
 
     "node": {
@@ -2424,12 +2436,6 @@
           "type": "string"
         },
 
-        "markdownMessageMimeType": {
-          "description": "The MIME type of all Markdown text message properties in the run. Default: \"text/markdown;variant=GFM\"",
-          "type": "string",
-          "default": "text/markdown;variant=GFM"
-        },
-
         "redactionToken": {
           "description": "The string used to replace sensitive information in a redaction-aware property.",
           "type": "string"
@@ -2923,6 +2929,12 @@
           "format": "uri"
         },
 
+        "informationUri": {
+          "description": "The absolute URI at which information about this version of the tool component can be found.",
+          "type": "string",
+          "format": "uri"
+        },
+
         "globalMessageStrings": {
           "description": "A dictionary, each of whose keys is a resource identifier and each of whose values is a multiformatMessageString object, which holds message strings in plain text and (optionally) Markdown format. The strings can include placeholders, which can be used to construct a message in combination with an arbitrary number of additional string arguments.",
           "type": "object",
@@ -2995,7 +3007,8 @@
 
         "isComprehensive": {
           "description": "Specifies whether this object contains a complete definition of the localizable and/or non-localizable data for this component, as opposed to including only data that is relevant to the results persisted to this log file.",
-          "type": "boolean"
+          "type": "boolean",
+          "default": false
         },
 
         "localizedDataSemanticVersion": {
@@ -3098,8 +3111,8 @@
           "format": "uri"
         },
 
-        "informationUri ": {
-          "description": "The absolute URI from whichinformation related to the translation metadata can be downloaded.",
+        "informationUri": {
+          "description": "The absolute URI from which information related to the translation metadata can be downloaded.",
           "type": "string",
           "format": "uri"
         },

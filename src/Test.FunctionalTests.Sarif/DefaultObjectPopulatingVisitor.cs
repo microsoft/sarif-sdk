@@ -195,7 +195,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             object propertyValue = null;
             Type propertyType = property.PropertyType;
 
-            bool isRequired = PropertyIsRequiredBySchema(node.GetType().Name, property.Name);
+            // isRequired flag ensures we don't end up generating a SARIF file that's missing a required property or an anyOf required property,
+            // because such a file wouldn't validate.
+            bool isRequired = PropertyIsRequiredBySchema(node.GetType().Name, property.Name) || 
+                PropertyIsAnyOfRequiredBySchema(node.GetType().Name, property.Name);
 
             PrimitiveValueBuilder propertyValueBuilder = null;
             if (_typeToPropertyValueConstructorMap.TryGetValue(propertyType, out propertyValueBuilder))
@@ -276,20 +279,47 @@ namespace Microsoft.CodeAnalysis.Sarif
         // determines whether that property is required according to the schema.
         private bool PropertyIsRequiredBySchema(string objectTypeName, string propertyName)
         {
-            // SarifLog.Version will be converterd to sarifLog.version
-
-            string jsonTypeName = GetJsonNameFor(objectTypeName);
             string jsonPropertyName = GetJsonNameFor(propertyName);
+            JsonSchema propertySchema = GetJsonSchemaForObject(objectTypeName);
+     
+            return propertySchema.Required != null && propertySchema.Required.Contains(jsonPropertyName);
+        }
+
+        private bool PropertyIsAnyOfRequiredBySchema(string objectTypeName, string propertyName)
+        {
+            string jsonPropertyName = GetJsonNameFor(propertyName);
+            JsonSchema propertySchema = GetJsonSchemaForObject(objectTypeName);
+
+            if (propertySchema.AnyOf?.Count > 0 == true)
+            {
+                // TODO: Add additional logic to randomly select one or more required subsets and populate only those.
+
+                // As a quick fix, we will populate all properties which are in any required subset.
+                // This means this method must return true for all properties in any required subset in the list.
+                foreach (JsonSchema item in propertySchema.AnyOf)
+                {
+                    if (item.Required != null && item.Required.Contains(jsonPropertyName))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        private JsonSchema GetJsonSchemaForObject(string objectTypeName)
+        {
+            string jsonTypeName = GetJsonNameFor(objectTypeName);
 
             // If _schema.Definitions does not contain the jsonTypeName, we are operating
             // against the root sarifLog schema, which is what's stored in _schema
             JsonSchema propertySchema = _schema.Definitions.ContainsKey(jsonTypeName) ? _schema.Definitions[jsonTypeName] : _schema;
-
-            return propertySchema.Required != null && propertySchema.Required.Contains(jsonPropertyName);
+            return propertySchema;
         }
 
         private string GetJsonNameFor(string name)
         {
+            // E.g.: SarifLog.Version will be converted to sarifLog.version
             return name.Substring(0, 1).ToLowerInvariant() + name.Substring(1);
         }
 

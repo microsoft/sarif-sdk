@@ -63,10 +63,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Uri DownloadUri { get; set; }
 
         /// <summary>
-        /// The absolute URI from whichinformation related to the translation metadata can be downloaded.
+        /// The absolute URI from which information related to the translation metadata can be downloaded.
         /// </summary>
-        [DataMember(Name = "informationUri ", IsRequired = false, EmitDefaultValue = false)]
-        public Uri InformationUri  { get; set; }
+        [DataMember(Name = "informationUri", IsRequired = false, EmitDefaultValue = false)]
+        public Uri InformationUri { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the translation metadata.
@@ -99,15 +99,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="downloadUri">
         /// An initialization value for the <see cref="P:DownloadUri" /> property.
         /// </param>
-        /// <param name="informationUri ">
-        /// An initialization value for the <see cref="P:InformationUri " /> property.
+        /// <param name="informationUri">
+        /// An initialization value for the <see cref="P:InformationUri" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public TranslationMetadata(string name, string fullName, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, Uri downloadUri, Uri informationUri , IDictionary<string, SerializedPropertyInfo> properties)
+        public TranslationMetadata(string name, string fullName, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, Uri downloadUri, Uri informationUri, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(name, fullName, shortDescription, fullDescription, downloadUri, informationUri , properties);
+            Init(name, fullName, shortDescription, fullDescription, downloadUri, informationUri, properties);
         }
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Name, other.FullName, other.ShortDescription, other.FullDescription, other.DownloadUri, other.InformationUri , other.Properties);
+            Init(other.Name, other.FullName, other.ShortDescription, other.FullDescription, other.DownloadUri, other.InformationUri, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -147,7 +147,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new TranslationMetadata(this);
         }
 
-        private void Init(string name, string fullName, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, Uri downloadUri, Uri informationUri , IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string name, string fullName, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, Uri downloadUri, Uri informationUri, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Name = name;
             FullName = fullName;
@@ -166,9 +166,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                 DownloadUri = new Uri(downloadUri.OriginalString, downloadUri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
             }
 
-            if (informationUri  != null)
+            if (informationUri != null)
             {
-                InformationUri  = new Uri(informationUri .OriginalString, informationUri .IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
+                InformationUri = new Uri(informationUri.OriginalString, informationUri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
             }
 
             if (properties != null)
