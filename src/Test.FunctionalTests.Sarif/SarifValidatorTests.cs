@@ -65,6 +65,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         [Fact]
         public void ValidatesUriConversion()
         {
+            Func<SarifLog, SarifLog> callback =
+                (sarifLog) =>
+                {
+                    var visitor = new KindsPopulatingVisitor();
+                    return visitor.VisitSarifLog(sarifLog);
+                };
+
             // First, we start with builders that only populate required properties that are backed by primitives.
             IDictionary<Type, DefaultObjectPopulatingVisitor.PrimitiveValueBuilder> propertyValueBuilders =
                 DefaultObjectPopulatingVisitor.GetBuildersForRequiredPrimitives();
@@ -74,13 +81,31 @@ namespace Microsoft.CodeAnalysis.Sarif
             // This test therefore ensures that all URI's in the format are properly associated with that converter.            
             propertyValueBuilders[typeof(Uri)] = (isRequired) => { return new Uri(@"c:\path with a space\file.txt"); };
 
-            ValidateDefaultDocument(propertyValueBuilders);
+            ValidateDefaultDocument(propertyValueBuilders, postPopulationCallback: callback);
         }
 
         [Fact]
         public void DefaultValuesDoNotSerialize()
         {
-            ValidateDefaultDocument(propertyValueBuilders: DefaultObjectPopulatingVisitor.GetBuildersForRequiredPrimitives());
+            Func<SarifLog, SarifLog> callback =
+                (sarifLog) =>
+                {
+                    var visitor = new KindsPopulatingVisitor();
+                    return visitor.VisitSarifLog(sarifLog);
+               };
+
+            ValidateDefaultDocument(
+                propertyValueBuilders: DefaultObjectPopulatingVisitor.GetBuildersForRequiredPrimitives(),
+                postPopulationCallback: callback);
+        }
+
+        public class KindsPopulatingVisitor : SarifRewritingVisitor
+        {
+            public override ReportingDescriptorRelationship VisitReportingDescriptorRelationship(ReportingDescriptorRelationship node)
+            {
+                node.Kinds[0] = "relevant";
+                return base.VisitReportingDescriptorRelationship(node);
+            }
         }
 
         private void ValidateDefaultDocument(IDictionary<Type, DefaultObjectPopulatingVisitor.PrimitiveValueBuilder> propertyValueBuilders, Func<SarifLog, SarifLog> postPopulationCallback = null)

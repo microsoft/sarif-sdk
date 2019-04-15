@@ -105,6 +105,11 @@
       "type": "object",
       "properties": {
 
+        "description": {
+          "description": "A short description of the artifact.",
+          "$ref": "#/definitions/message"
+        },
+
         "location": {
           "description": "The location of the artifact.",
           "$ref": "#/definitions/artifactLocation"
@@ -281,6 +286,11 @@
           "type": "integer",
           "default": -1,
           "minimum": -1
+        },
+
+        "description": {
+          "description": "A short description of the artifact location.",
+          "$ref": "#/definitions/message"
         },
 
         "properties": {
@@ -1890,7 +1900,7 @@
         "kinds": {
           "description": "A set of distinct strings that categorize the relationshship. Well-known kinds include canPrecede, canFollow, willPrecede, willFollow, superset, subset, equal, disjoint, relevant, and incomparable.",
           "type": "array",
-          "minItems": 1,
+          "default": [ "relevant" ],
           "uniqueItems": true,
           "items": {
             "type": "string"
@@ -1902,7 +1912,7 @@
           "$ref": "#/definitions/propertyBag"
         }
       },
-      "required": [ "target", "kinds" ]
+      "required": [ "target" ]
     },
 
     "request": {
@@ -2966,14 +2976,13 @@
           }
         },
 
-        "artifactIndices": {
-          "description": "The indices within the run artifacts array of the artifact objects associated with the tool component.",
+        "locations": {
+          "description": "An array of the artifactLocation objects associated with the tool component.",
           "type": "array",
           "minItems": 0,
-          "uniqueItems": true,
           "default": [],
           "items": {
-            "type": "integer"
+            "$ref": "#/definitions/artifactLocation"
           }
         },
 

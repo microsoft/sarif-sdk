@@ -176,6 +176,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                node.Description = VisitNullChecked(node.Description);
                 node.Location = VisitNullChecked(node.Location);
                 node.Contents = VisitNullChecked(node.Contents);
             }
@@ -214,6 +215,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                node.Description = VisitNullChecked(node.Description);
             }
 
             return node;
@@ -1340,6 +1342,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                     for (int index_0 = 0; index_0 < node.Taxa.Count; ++index_0)
                     {
                         node.Taxa[index_0] = VisitNullChecked(node.Taxa[index_0]);
+                    }
+                }
+
+                if (node.Locations != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Locations.Count; ++index_0)
+                    {
+                        node.Locations[index_0] = VisitNullChecked(node.Locations[index_0]);
                     }
                 }
 

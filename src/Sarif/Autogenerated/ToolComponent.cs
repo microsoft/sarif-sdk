@@ -146,11 +146,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<ReportingDescriptor> Taxa { get; set; }
 
         /// <summary>
-        /// The indices within the run artifacts array of the artifact objects associated with the tool component.
+        /// An array of the artifactLocation objects associated with the tool component.
         /// </summary>
-        [DataMember(Name = "artifactIndices", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "locations", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<int> ArtifactIndices { get; set; }
+        public IList<ArtifactLocation> Locations { get; set; }
 
         /// <summary>
         /// The language of the the localized strings defined in this component (expressed as an ISO 649 two-letter lowercase culture code) and region (expressed as an ISO 3166 two-letter uppercase subculture code associated with a country or region).
@@ -279,8 +279,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="taxa">
         /// An initialization value for the <see cref="P:Taxa" /> property.
         /// </param>
-        /// <param name="artifactIndices">
-        /// An initialization value for the <see cref="P:ArtifactIndices" /> property.
+        /// <param name="locations">
+        /// An initialization value for the <see cref="P:Locations" /> property.
         /// </param>
         /// <param name="language">
         /// An initialization value for the <see cref="P:Language" /> property.
@@ -309,9 +309,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ToolComponent(string guid, string name, string organization, string product, string productSuite, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, string releaseDateUtc, Uri downloadUri, Uri informationUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notifications, IEnumerable<ReportingDescriptor> rules, IEnumerable<ReportingDescriptor> taxa, IEnumerable<int> artifactIndices, string language, ToolComponentContents contents, bool isComprehensive, string localizedDataSemanticVersion, string minimumRequiredLocalizedDataSemanticVersion, ToolComponentReference associatedComponent, TranslationMetadata translationMetadata, IEnumerable<ToolComponentReference> supportedTaxonomies, IDictionary<string, SerializedPropertyInfo> properties)
+        public ToolComponent(string guid, string name, string organization, string product, string productSuite, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, string releaseDateUtc, Uri downloadUri, Uri informationUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notifications, IEnumerable<ReportingDescriptor> rules, IEnumerable<ReportingDescriptor> taxa, IEnumerable<ArtifactLocation> locations, string language, ToolComponentContents contents, bool isComprehensive, string localizedDataSemanticVersion, string minimumRequiredLocalizedDataSemanticVersion, ToolComponentReference associatedComponent, TranslationMetadata translationMetadata, IEnumerable<ToolComponentReference> supportedTaxonomies, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(guid, name, organization, product, productSuite, shortDescription, fullDescription, fullName, version, semanticVersion, dottedQuadFileVersion, releaseDateUtc, downloadUri, informationUri, globalMessageStrings, notifications, rules, taxa, artifactIndices, language, contents, isComprehensive, localizedDataSemanticVersion, minimumRequiredLocalizedDataSemanticVersion, associatedComponent, translationMetadata, supportedTaxonomies, properties);
+            Init(guid, name, organization, product, productSuite, shortDescription, fullDescription, fullName, version, semanticVersion, dottedQuadFileVersion, releaseDateUtc, downloadUri, informationUri, globalMessageStrings, notifications, rules, taxa, locations, language, contents, isComprehensive, localizedDataSemanticVersion, minimumRequiredLocalizedDataSemanticVersion, associatedComponent, translationMetadata, supportedTaxonomies, properties);
         }
 
         /// <summary>
@@ -330,7 +330,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Guid, other.Name, other.Organization, other.Product, other.ProductSuite, other.ShortDescription, other.FullDescription, other.FullName, other.Version, other.SemanticVersion, other.DottedQuadFileVersion, other.ReleaseDateUtc, other.DownloadUri, other.InformationUri, other.GlobalMessageStrings, other.Notifications, other.Rules, other.Taxa, other.ArtifactIndices, other.Language, other.Contents, other.IsComprehensive, other.LocalizedDataSemanticVersion, other.MinimumRequiredLocalizedDataSemanticVersion, other.AssociatedComponent, other.TranslationMetadata, other.SupportedTaxonomies, other.Properties);
+            Init(other.Guid, other.Name, other.Organization, other.Product, other.ProductSuite, other.ShortDescription, other.FullDescription, other.FullName, other.Version, other.SemanticVersion, other.DottedQuadFileVersion, other.ReleaseDateUtc, other.DownloadUri, other.InformationUri, other.GlobalMessageStrings, other.Notifications, other.Rules, other.Taxa, other.Locations, other.Language, other.Contents, other.IsComprehensive, other.LocalizedDataSemanticVersion, other.MinimumRequiredLocalizedDataSemanticVersion, other.AssociatedComponent, other.TranslationMetadata, other.SupportedTaxonomies, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -351,7 +351,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ToolComponent(this);
         }
 
-        private void Init(string guid, string name, string organization, string product, string productSuite, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, string releaseDateUtc, Uri downloadUri, Uri informationUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notifications, IEnumerable<ReportingDescriptor> rules, IEnumerable<ReportingDescriptor> taxa, IEnumerable<int> artifactIndices, string language, ToolComponentContents contents, bool isComprehensive, string localizedDataSemanticVersion, string minimumRequiredLocalizedDataSemanticVersion, ToolComponentReference associatedComponent, TranslationMetadata translationMetadata, IEnumerable<ToolComponentReference> supportedTaxonomies, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string guid, string name, string organization, string product, string productSuite, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, string releaseDateUtc, Uri downloadUri, Uri informationUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notifications, IEnumerable<ReportingDescriptor> rules, IEnumerable<ReportingDescriptor> taxa, IEnumerable<ArtifactLocation> locations, string language, ToolComponentContents contents, bool isComprehensive, string localizedDataSemanticVersion, string minimumRequiredLocalizedDataSemanticVersion, ToolComponentReference associatedComponent, TranslationMetadata translationMetadata, IEnumerable<ToolComponentReference> supportedTaxonomies, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Guid = guid;
             Name = name;
@@ -446,15 +446,22 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Taxa = destination_2;
             }
 
-            if (artifactIndices != null)
+            if (locations != null)
             {
-                var destination_3 = new List<int>();
-                foreach (var value_4 in artifactIndices)
+                var destination_3 = new List<ArtifactLocation>();
+                foreach (var value_4 in locations)
                 {
-                    destination_3.Add(value_4);
+                    if (value_4 == null)
+                    {
+                        destination_3.Add(null);
+                    }
+                    else
+                    {
+                        destination_3.Add(new ArtifactLocation(value_4));
+                    }
                 }
 
-                ArtifactIndices = destination_3;
+                Locations = destination_3;
             }
 
             Language = language;

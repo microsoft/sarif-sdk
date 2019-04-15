@@ -35,6 +35,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
+        /// A short description of the artifact.
+        /// </summary>
+        [DataMember(Name = "description", IsRequired = false, EmitDefaultValue = false)]
+        public Message Description { get; set; }
+
+        /// <summary>
         /// The location of the artifact.
         /// </summary>
         [DataMember(Name = "location", IsRequired = false, EmitDefaultValue = false)]
@@ -122,6 +128,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Initializes a new instance of the <see cref="Artifact" /> class from the supplied values.
         /// </summary>
+        /// <param name="description">
+        /// An initialization value for the <see cref="P:Description" /> property.
+        /// </param>
         /// <param name="location">
         /// An initialization value for the <see cref="P:Location" /> property.
         /// </param>
@@ -158,9 +167,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Artifact(ArtifactLocation location, int parentIndex, int offset, int length, ArtifactRoles roles, string mimeType, ArtifactContent contents, string encoding, string sourceLanguage, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
+        public Artifact(Message description, ArtifactLocation location, int parentIndex, int offset, int length, ArtifactRoles roles, string mimeType, ArtifactContent contents, string encoding, string sourceLanguage, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(location, parentIndex, offset, length, roles, mimeType, contents, encoding, sourceLanguage, hashes, lastModifiedTimeUtc, properties);
+            Init(description, location, parentIndex, offset, length, roles, mimeType, contents, encoding, sourceLanguage, hashes, lastModifiedTimeUtc, properties);
         }
 
         /// <summary>
@@ -179,7 +188,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Location, other.ParentIndex, other.Offset, other.Length, other.Roles, other.MimeType, other.Contents, other.Encoding, other.SourceLanguage, other.Hashes, other.LastModifiedTimeUtc, other.Properties);
+            Init(other.Description, other.Location, other.ParentIndex, other.Offset, other.Length, other.Roles, other.MimeType, other.Contents, other.Encoding, other.SourceLanguage, other.Hashes, other.LastModifiedTimeUtc, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -200,8 +209,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Artifact(this);
         }
 
-        private void Init(ArtifactLocation location, int parentIndex, int offset, int length, ArtifactRoles roles, string mimeType, ArtifactContent contents, string encoding, string sourceLanguage, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Message description, ArtifactLocation location, int parentIndex, int offset, int length, ArtifactRoles roles, string mimeType, ArtifactContent contents, string encoding, string sourceLanguage, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
         {
+            if (description != null)
+            {
+                Description = new Message(description);
+            }
+
             if (location != null)
             {
                 Location = new ArtifactLocation(location);
