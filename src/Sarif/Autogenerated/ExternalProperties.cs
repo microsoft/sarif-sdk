@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// The SARIF format version of this external properties object.
         /// </summary>
-        [DataMember(Name = "version", IsRequired = true)]
+        [DataMember(Name = "version", IsRequired = false, EmitDefaultValue = false)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.SarifVersionConverter))]
         public SarifVersion Version { get; set; }
 

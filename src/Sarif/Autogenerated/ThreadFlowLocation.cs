@@ -95,6 +95,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Specifies the importance of this location in understanding the code flow in which it occurs. The order from most to least important is "essential", "important", "unimportant". Default: "important".
         /// </summary>
         [DataMember(Name = "importance", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(ThreadFlowLocationImportance.Important)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
         public ThreadFlowLocationImportance Importance { get; set; }
 
@@ -122,6 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public ThreadFlowLocation()
         {
             Index = -1;
+            Importance = ThreadFlowLocationImportance.Important;
         }
 
         /// <summary>
