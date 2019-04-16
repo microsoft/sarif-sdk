@@ -124,12 +124,14 @@
 
         "offset": {
           "description": "The offset in bytes of the artifact within its containing artifact.",
-          "type": "integer"
+          "type": "integer",
+          "minimum": 0
         },
 
         "length": {
           "description": "The length of the artifact in bytes.",
-          "type": "integer"
+          "type": "integer",
+          "minimum": 0
         },
 
         "roles": {
@@ -504,7 +506,8 @@
 
         "stepOverEdgeCount": {
           "description": "The number of edge traversals necessary to return from a nested graph.",
-          "type": "integer"
+          "type": "integer",
+          "minimum": 0
         },
 
         "properties": {
@@ -1512,7 +1515,8 @@
 
         "id": {
           "description": "Value that distinguishes this physical location from all other physical locations in this run object.",
-          "type": "integer"
+          "type": "integer",
+          "minimum": 0
         },
 
         "address": {
@@ -2114,7 +2118,7 @@
         "stacks": {
           "description": "An array of 'stack' objects relevant to the result.",
           "type": "array",
-          "minItems": 0,
+          "minItems": 1,
           "uniqueItems": false,
           "default": [],
           "items": {
@@ -2147,7 +2151,7 @@
         "graphTraversals": {
           "description": "An array of one or more unique 'graphTraversal' objects.",
           "type": "array",
-          "minItems": 0,
+          "minItems": 1,
           "uniqueItems": true,
           "default": [],
           "items": {
@@ -2170,8 +2174,7 @@
           "description": "A set of suppressions relevant to this result.",
           "type": "array",
           "minItems": 0,
-          "uniqueItems": false,
-          "default": [],
+          "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/suppression"
           }
@@ -2231,9 +2234,8 @@
         "fixes": {
           "description": "An array of 'fix' objects, each of which represents a proposed fix to the problem indicated by the result.",
           "type": "array",
-          "minItems": 0,
+          "minItems": 1,
           "uniqueItems": true,
-          "default": [],
           "items": {
             "$ref": "#/definitions/fix"
           }
@@ -2789,12 +2791,14 @@
 
         "nestingLevel": {
           "description": "An integer representing a containment hierarchy within the thread flow.",
-          "type": "integer"
+          "type": "integer",
+          "minimum": 0
         },
 
         "executionOrder": {
           "description": "An integer representing the temporal order in which execution reached this location.",
-          "type": "integer"
+          "type": "integer",
+          "minimum": 0
         },
 
         "executionTimeUtc": {
@@ -2979,7 +2983,7 @@
         "locations": {
           "description": "An array of the artifactLocation objects associated with the tool component.",
           "type": "array",
-          "minItems": 0,
+          "minItems": 1,
           "default": [],
           "items": {
             "$ref": "#/definitions/artifactLocation"
