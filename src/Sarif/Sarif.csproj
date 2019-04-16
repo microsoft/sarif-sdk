@@ -81,5 +81,5 @@
 
   <Import Project="ToDotNet\ToDotNet.targets" />
 
-  <ProjectExtensions><VisualStudio><UserProperties Schemata_4sarif-schema_1json__JSONSchema="http://json-schema.org/draft-04/schema" CodeGenHints_1json__JSONSchema="http://json.schemastore.org/asmdef" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties CodeGenHints_1json__JSONSchema="http://json.schemastore.org/asmdef" /></VisualStudio></ProjectExtensions>
 </Project>
