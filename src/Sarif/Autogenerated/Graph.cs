@@ -34,12 +34,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// A string that uniquely identifies the graph within a run.graphs or result.graphs array.
-        /// </summary>
-        [DataMember(Name = "id", IsRequired = true)]
-        public string Id { get; set; }
-
-        /// <summary>
         /// A description of the graph.
         /// </summary>
         [DataMember(Name = "description", IsRequired = false, EmitDefaultValue = false)]
@@ -75,9 +69,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Initializes a new instance of the <see cref="Graph" /> class from the supplied values.
         /// </summary>
-        /// <param name="id">
-        /// An initialization value for the <see cref="P:Id" /> property.
-        /// </param>
         /// <param name="description">
         /// An initialization value for the <see cref="P:Description" /> property.
         /// </param>
@@ -90,9 +81,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Graph(string id, Message description, IEnumerable<Node> nodes, IEnumerable<Edge> edges, IDictionary<string, SerializedPropertyInfo> properties)
+        public Graph(Message description, IEnumerable<Node> nodes, IEnumerable<Edge> edges, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, description, nodes, edges, properties);
+            Init(description, nodes, edges, properties);
         }
 
         /// <summary>
@@ -111,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.Description, other.Nodes, other.Edges, other.Properties);
+            Init(other.Description, other.Nodes, other.Edges, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -132,9 +123,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Graph(this);
         }
 
-        private void Init(string id, Message description, IEnumerable<Node> nodes, IEnumerable<Edge> edges, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Message description, IEnumerable<Node> nodes, IEnumerable<Edge> edges, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Id = id;
             if (description != null)
             {
                 Description = new Message(description);

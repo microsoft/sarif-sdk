@@ -158,7 +158,8 @@
               "taxonomy",
               "policy",
               "referencedOnCommandLine",
-              "memoryContents"
+              "memoryContents",
+              "directory"
             ]
           }
         },
@@ -977,11 +978,6 @@
       "additionalProperties": false,
       "properties": {
 
-        "id": {
-          "description": "A string that uniquely identifies the graph within a run.graphs or result.graphs array.",
-          "type": "string"
-        },
-
         "description": {
           "description": "A description of the graph.",
           "$ref": "#/definitions/message"
@@ -1013,9 +1009,7 @@
           "description": "Key/value pairs that provide additional information about the graph.",
           "$ref": "#/definitions/propertyBag"
         }
-      },
-
-      "required": [ "id" ]
+      }
     },
 
     "graphTraversal": {
@@ -2666,6 +2660,11 @@
       "additionalProperties": false,
       "type": "object",
       "properties": {
+
+        "guid": {
+          "description": "A stable, unique identifer for the suprression in the form of a GUID.",
+          "type": "string"
+        },
 
         "kind": {
           "description": "A string that indicates where the suppression is persisted.",

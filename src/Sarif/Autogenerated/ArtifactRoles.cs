@@ -32,6 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         Taxonomy = 32768,
         Policy = 65536,
         ReferencedOnCommandLine = 131072,
-        MemoryContents = 262144
+        MemoryContents = 262144,
+        Directory = 524288
     }
 }
