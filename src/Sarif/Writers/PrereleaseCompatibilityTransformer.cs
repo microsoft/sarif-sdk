@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private const string SchemaPropertyPattern = @"""\$schema""\s*:\s*""[^""]+""";
         private static readonly Regex s_SchemaRegex = new Regex(SchemaPropertyPattern, RegexOptions.Compiled);
 
-        private delegate void ActionOnJObject(JObject jObject);
+        private delegate bool ActionOnJObject(JObject jObject);
         private const string ArrayIndicatorSymbol = "[]";
         private const char NodeDelimiterSymbol = '.';
 
@@ -150,13 +150,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static bool ApplyChangesFromTC35(JObject sarifLog)
         {
-            // https://github.com/oasis-tcs/sarif-spec/issues/366
-            ConvertAllToolComponentArtifactIndicesToArtifactLocations(sarifLog);
+            UpdateSarifLogVersionAndSchema(sarifLog);
 
-            return true;
+            bool modifiedLog = false;
+            
+            // https://github.com/oasis-tcs/sarif-spec/issues/366
+            modifiedLog |= ConvertAllToolComponentArtifactIndicesToArtifactLocations(sarifLog);
+
+            if (sarifLog["runs"] is JArray runs)
+            {
+                foreach (JObject run in runs)
+                {
+                    modifiedLog |= RenameProperty(run, "defaultFileEncoding", "defaultEncoding");
+                }
+            }
+
+            return modifiedLog;
         }
 
-        private static void ConvertAllToolComponentArtifactIndicesToArtifactLocations(JObject sarifLog)
+        private static bool ConvertAllToolComponentArtifactIndicesToArtifactLocations(JObject sarifLog)
         {
             string[] toolComponentPathsToUpdate =
             {
@@ -180,13 +192,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             };
 
-            PerformActionOnLeafNodeIfExists(
+            return PerformActionOnLeafNodeIfExists(
                 possiblePathsToLeafNode: toolComponentPathsToUpdate,
                 rootNode: sarifLog,
                 action: ConvertSingleToolComponentArtifactIndicesListToArtifactLocations);
         }
 
-        private static void ConvertSingleToolComponentArtifactIndicesListToArtifactLocations(JObject toolComponent)
+        private static bool ConvertSingleToolComponentArtifactIndicesListToArtifactLocations(JObject toolComponent)
         {
             if (toolComponent["artifactIndices"] is JArray artifactIndices)
             {
@@ -203,13 +215,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                 toolComponent.Remove("artifactIndices");
                 toolComponent.Add("locations", artifactLocations);
+                return true;
             }
+            return false;
         }
 
         private static bool ApplyChangesFromTC34(JObject sarifLog)
         {
-            UpdateSarifLogVersionAndSchema(sarifLog);
-
             // https://github.com/oasis-tcs/sarif-spec/issues/361
             ConvertAllStateStringsToMultiFormatMessageStrings(sarifLog);
             return true;
@@ -242,7 +254,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 action: ConvertSingleStateStringToMultiFormatMessageString);
         }
 
-        private static void ConvertSingleStateStringToMultiFormatMessageString(JObject state)
+        private static bool ConvertSingleStateStringToMultiFormatMessageString(JObject state)
         {
             foreach (JProperty property in state.Properties())
             {
@@ -252,6 +264,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 // Replace the message strings property with the multi-format version
                 state[property.Name] = multiformatMessageString;
             }
+
+            return true;
         }
 
         private static bool ApplyChangesFromTC33(JObject sarifLog)
@@ -328,19 +342,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 action: RenameToolComponentDescriptors);
         }
 
-        private static void RenameToolComponentDescriptors(JObject toolComponent)
+        private static bool RenameToolComponentDescriptors(JObject toolComponent)
         {
+            bool modified = false;
+
             if (toolComponent["ruleDescriptors"] is JArray ruleDescriptors)
             {
                 toolComponent.Remove("ruleDescriptors");
                 toolComponent.Add("rules", ruleDescriptors);
+                modified = true;
             }
 
             if (toolComponent["notificationDescriptors"] is JArray notificationDescriptors)
             {
                 toolComponent.Remove("notificationDescriptors");
                 toolComponent.Add("notifications", notificationDescriptors);
+                modified = true;
             }
+
+            return modified;
         }
 
         private static void UpdateAllNotificationDescriptorReferences(JObject run)
@@ -376,9 +396,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 action: UpdateNotificationDescriptorReferencesInSingleNotificationObject);
         }
 
-        private static void UpdateNotificationDescriptorReferencesInSingleNotificationObject(JObject notification)
+        private static bool UpdateNotificationDescriptorReferencesInSingleNotificationObject(JObject notification)
         {
-            if(notification["id"] is JToken id)
+            bool modified = false;
+
+            if (notification["id"] is JToken id)
             {
                 var notificationDescriptorReference = new JObject
                 {
@@ -387,6 +409,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                 notification.Remove("id");
                 notification.Add("descriptor", notificationDescriptorReference);
+                modified = true;
             }
 
             var associatedRuleDescriptorReference = new JObject();
@@ -407,6 +430,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 notification.Add("associatedRule", associatedRuleDescriptorReference);
             }
+
+            modified |= associatedRuleDescriptorReference.Count > 0;
+
+            return modified;
         }
 
         private static void ConvertSuppressionStatesToSuppressions(JObject run)
@@ -585,7 +612,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             PerformActionOnLeafNodeIfExists(locationPathsToUpdate, run, AddLogicalLocationToSingleLocationNode);
         }
 
-        private static void AddLogicalLocationToSingleLocationNode(JObject location)
+        private static bool AddLogicalLocationToSingleLocationNode(JObject location)
         {
             var logicalLocation = new JObject();
 
@@ -605,6 +632,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 location.Add("logicalLocation", logicalLocation);
             }
+
+            return logicalLocation.Count > 0;
         }
 
         private static void ConvertToolToDriverInExternalPropertyFiles(JObject run)
@@ -683,7 +712,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         }
 
-        private static void MoveSingleStackFrameAddressToLocation(JObject stackFrame)
+        private static bool MoveSingleStackFrameAddressToLocation(JObject stackFrame)
         {
             var address = new JObject();
 
@@ -708,6 +737,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 location["physicalLocation"] = physicalLocation;
                 stackFrame["location"] = location;
             }
+
+            return address.Count > 0;
         }
 
         private static void UpdateAllToolComponentProperties(JObject run)
@@ -853,44 +884,55 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         }
 
-        private static void UpdateReportingDescriptorPropertyTypes(JObject reportingDescriptor)
+        private static bool UpdateReportingDescriptorPropertyTypes(JObject reportingDescriptor)
         {
-            if (reportingDescriptor["name"] is JObject message && message["text"] is JToken text)
+            bool modified = false;
+
+            JObject message = null;
+
+            if ((message = reportingDescriptor["name"] as JObject) != null && message["text"] is JToken text)
             {
                 reportingDescriptor["name"] = text;
+                modified = true;
             }
 
-            if (reportingDescriptor["shortDescription"] is JObject message2)
+            if ((message = reportingDescriptor["shortDescription"] as JObject) != null)
             {
                 // We must convert this JObject from type "Message" to "MultiformatMessageString".
                 // Both Objects have common JTokens "text" and "markdown" which do not need modification.
                 // Hence, we only need to strip out additional properties that Message object may have (messageId and arguments).
-                if (message2["messageId"] is JToken)
+                if (message["messageId"] is JToken)
                 {
-                    message2.Remove("messageId");
+                    message.Remove("messageId");
+                    modified = true;
                 }
 
-                if (message2["arguments"] is JArray)
+                if (message["arguments"] is JArray)
                 {
-                    message2.Remove("arguments");
+                    message.Remove("arguments");
+                    modified = true;
                 }
             }
 
-            if (reportingDescriptor["fullDescription"] is JObject message3)
+            if ((message = reportingDescriptor["fullDescription"] as JObject) != null)
             {
                 // We must convert this JObject from type "Message" to "MultiformatMessageString".
                 // Both Objects have common JTokens "text" and "markdown" which do not need modification.
                 // Hence, we only need to strip out additional properties that Message object may have (messageId and arguments).
-                if (message3["messageId"] is JToken)
+                if (message["messageId"] is JToken)
                 {
-                    message3.Remove("messageId");
+                    message.Remove("messageId");
+                    modified = true;
                 }
 
-                if (message3["arguments"] is JArray)
+                if (message["arguments"] is JArray)
                 {
-                    message3.Remove("arguments");
+                    message.Remove("arguments");
+                    modified = true;
                 }
             }
+
+            return modified;
         }
 
         private static bool ApplyChangesFromTC31(JObject sarifLog)
@@ -2128,21 +2170,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return modifiedNotification;
         }
 
-        private static void PerformActionOnLeafNodeIfExists(string[] possiblePathsToLeafNode, JObject rootNode, ActionOnJObject action)
+        private static bool PerformActionOnLeafNodeIfExists(string[] possiblePathsToLeafNode, JObject rootNode, ActionOnJObject action)
         {
+            bool result = false;
+
             foreach(string nodePath in possiblePathsToLeafNode)
             {
-                PerformActionOnLeafNodeIfExists(nodePath, rootNode, action);
+                result |= PerformActionOnLeafNodeIfExists(nodePath, rootNode, action);
             }
+
+            return result;
         }
 
-        private static void PerformActionOnLeafNodeIfExists(string possiblePathToLeafNode, JObject rootNode, ActionOnJObject action)
+        private static bool PerformActionOnLeafNodeIfExists(string possiblePathToLeafNode, JObject rootNode, ActionOnJObject action)
         {
             if (possiblePathToLeafNode == null)
             {
-                action(rootNode);
-                return;
+                return action(rootNode);
             }
+
+            bool result = false;
 
             (string currentNodeName, string remainingLeafNodePath) = SplitCurrentNodeNameAndRemainingLeafNodePath(possiblePathToLeafNode);
 
@@ -2154,7 +2201,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     foreach (JObject currentNode in currentArray)
                     {
-                        PerformActionOnLeafNodeIfExists(remainingLeafNodePath, currentNode, action);
+                        result |= PerformActionOnLeafNodeIfExists(remainingLeafNodePath, currentNode, action);
                     }
                 }
             }
@@ -2162,9 +2209,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 if (rootNode[currentNodeName] is JObject currentNode)
                 {
-                    PerformActionOnLeafNodeIfExists(remainingLeafNodePath, currentNode, action);
+                    result |= PerformActionOnLeafNodeIfExists(remainingLeafNodePath, currentNode, action);
                 }
             }
+
+            return result;
         }
 
         private static (string currentNodeName, string remainingLeafNodePath) SplitCurrentNodeNameAndRemainingLeafNodePath(string fullPath)

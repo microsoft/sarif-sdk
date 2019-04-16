@@ -129,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     {
                         Encoding encoding = null;
 
-                        string encodingText = node.Encoding ?? _run.DefaultFileEncoding;
+                        string encodingText = node.Encoding ?? _run.DefaultEncoding;
 
                         if (!string.IsNullOrWhiteSpace(encodingText))
                         {

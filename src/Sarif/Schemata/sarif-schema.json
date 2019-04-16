@@ -2435,7 +2435,7 @@
           "type": "string"
         },
 
-        "defaultFileEncoding": {
+        "defaultEncoding": {
           "description": "Specifies the default encoding for any artifact object that refers to a text file.",
           "type": "string"
         },

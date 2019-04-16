@@ -374,7 +374,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             Run run = new Run()
             {
-                DefaultFileEncoding = "UTF-8",
+                DefaultEncoding = "UTF-8",
                 OriginalUriBaseIds = null,
                 Results = new[]
                 {
