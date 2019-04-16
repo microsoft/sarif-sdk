@@ -82,7 +82,8 @@
           "Taxonomy",
           "Policy",
           "ReferencedOnCommandLine",
-          "MemoryContents"
+          "MemoryContents",
+          "Directory"
         ]
       }
     },

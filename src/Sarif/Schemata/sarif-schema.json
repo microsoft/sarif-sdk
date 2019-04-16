@@ -158,7 +158,8 @@
               "taxonomy",
               "policy",
               "referencedOnCommandLine",
-              "memoryContents"
+              "memoryContents",
+              "directory"
             ]
           }
         },
