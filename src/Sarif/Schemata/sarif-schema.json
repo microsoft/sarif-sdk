@@ -2311,7 +2311,7 @@
         "conversionSources": {
           "description": "An array of physicalLocation objects which specify the portions of an analysis tool's output that a converter transformed into the result.",
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
           "uniqueItems": true,
           "default": [],
           "items": {
