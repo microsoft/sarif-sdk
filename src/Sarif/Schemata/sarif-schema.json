@@ -2118,7 +2118,7 @@
         "stacks": {
           "description": "An array of 'stack' objects relevant to the result.",
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
           "uniqueItems": false,
           "default": [],
           "items": {
@@ -2151,7 +2151,7 @@
         "graphTraversals": {
           "description": "An array of one or more unique 'graphTraversal' objects.",
           "type": "array",
-          "minItems": 1,
+          "minItems": 0,
           "uniqueItems": true,
           "default": [],
           "items": {
@@ -2797,8 +2797,7 @@
 
         "executionOrder": {
           "description": "An integer representing the temporal order in which execution reached this location.",
-          "type": "integer",
-          "minimum": 0
+          "type": "integer"
         },
 
         "executionTimeUtc": {
