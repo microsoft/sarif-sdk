@@ -14,7 +14,6 @@
       "columnKind": "utf16CodeUnits",
       "results": [
         {
-          "ruleId": "31D4607A-A3FF-447C-908A-CA2BBE4CE4B7",
           "ruleIndex": 0,
           "message": {
             "text": "Sample abstract text. SQL injection vulnerability."
@@ -23,13 +22,10 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "Helpers/InvoiceHelper.cs",
-                  "uriBaseId": "SRCROOT",
                   "index": 0
                 },
                 "region": {
                   "startLine": 57,
-                  "endLine": 57,
                   "snippet": {
                     "text": "            \"SELECT * FROM invoices WHERE id = @id\", conn);"
                   }
@@ -53,13 +49,10 @@
                       "location": {
                         "physicalLocation": {
                           "artifactLocation": {
-                            "uri": "Helpers/InvoiceHelper.cs",
-                            "uriBaseId": "SRCROOT",
                             "index": 0
                           },
                           "region": {
                             "startLine": 57,
-                            "endLine": 57,
                             "snippet": {
                               "text": "            \"SELECT * FROM invoices WHERE id = @id\", conn);"
                             }
@@ -77,7 +70,8 @@
                         }
                       },
                       "kinds": [
-                        "InCall"
+                        "call",
+                        "function"
                       ]
                     }
                   ]
@@ -90,20 +84,17 @@
               "physicalLocation": {
                 "id": 1,
                 "artifactLocation": {
-                  "uri": "Helpers/InvoiceHelper.cs",
-                  "uriBaseId": "SRCROOT",
                   "index": 0
                 },
                 "region": {
-                  "startLine": 57,
-                  "endLine": 57
+                  "startLine": 57
                 }
               }
             }
-          ]
+          ],
+          "rank": 2.0
         },
         {
-          "ruleId": "F7A2423A-1927-40A3-920E-17ADB5430412",
           "ruleIndex": 1,
           "message": {
             "text": "The function WriteLog() in [Logger.cs](1) reveals system data or debugging information by calling WriteLine() on line [65](1). The information revealed by WriteLine() could help an adversary form a plan of attack.\r\nRevealing system data or debugging information helps an adversary learn about the system and form a plan of attack."
@@ -112,13 +103,10 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "Helpers/Logger.cs",
-                  "uriBaseId": "SRCROOT",
                   "index": 1
                 },
                 "region": {
                   "startLine": 65,
-                  "endLine": 65,
                   "snippet": {
                     "text": "                    Console.WriteLine(type + \" : \" + message);"
                   }
@@ -142,13 +130,10 @@
                       "location": {
                         "physicalLocation": {
                           "artifactLocation": {
-                            "uri": "Program.cs",
-                            "uriBaseId": "SRCROOT",
                             "index": 2
                           },
                           "region": {
                             "startLine": 82,
-                            "endLine": 82,
                             "snippet": {
                               "text": "                            Logger.Error(ex.ToString());"
                             }
@@ -166,20 +151,18 @@
                         }
                       },
                       "kinds": [
-                        "Read"
+                        "acquire",
+                        "resource"
                       ]
                     },
                     {
                       "location": {
                         "physicalLocation": {
                           "artifactLocation": {
-                            "uri": "Program.cs",
-                            "uriBaseId": "SRCROOT",
                             "index": 2
                           },
                           "region": {
                             "startLine": 82,
-                            "endLine": 82,
                             "snippet": {
                               "text": "                            Logger.Error(ex.ToString());"
                             }
@@ -197,20 +180,20 @@
                         }
                       },
                       "kinds": [
-                        "InOutCall"
+                        "call",
+                        "function",
+                        "return",
+                        "function"
                       ]
                     },
                     {
                       "location": {
                         "physicalLocation": {
                           "artifactLocation": {
-                            "uri": "Program.cs",
-                            "uriBaseId": "SRCROOT",
                             "index": 2
                           },
                           "region": {
                             "startLine": 82,
-                            "endLine": 82,
                             "snippet": {
                               "text": "                            Logger.Error(ex.ToString());"
                             }
@@ -228,20 +211,18 @@
                         }
                       },
                       "kinds": [
-                        "InCall"
+                        "call",
+                        "function"
                       ]
                     },
                     {
                       "location": {
                         "physicalLocation": {
                           "artifactLocation": {
-                            "uri": "Helpers/Logger.cs",
-                            "uriBaseId": "SRCROOT",
                             "index": 1
                           },
                           "region": {
-                            "startLine": 101,
-                            "endLine": 101
+                            "startLine": 101
                           }
                         },
                         "message": {
@@ -249,20 +230,18 @@
                         }
                       },
                       "kinds": [
-                        "InCall"
+                        "call",
+                        "function"
                       ]
                     },
                     {
                       "location": {
                         "physicalLocation": {
                           "artifactLocation": {
-                            "uri": "Helpers/Logger.cs",
-                            "uriBaseId": "SRCROOT",
                             "index": 1
                           },
                           "region": {
                             "startLine": 65,
-                            "endLine": 65,
                             "snippet": {
                               "text": "                    Console.WriteLine(type + \" : \" + message);"
                             }
@@ -280,20 +259,20 @@
                         }
                       },
                       "kinds": [
-                        "InOutCall"
+                        "call",
+                        "function",
+                        "return",
+                        "function"
                       ]
                     },
                     {
                       "location": {
                         "physicalLocation": {
                           "artifactLocation": {
-                            "uri": "Helpers/Logger.cs",
-                            "uriBaseId": "SRCROOT",
                             "index": 1
                           },
                           "region": {
                             "startLine": 65,
-                            "endLine": 65,
                             "snippet": {
                               "text": "                    Console.WriteLine(type + \" : \" + message);"
                             }
@@ -311,7 +290,8 @@
                         }
                       },
                       "kinds": [
-                        "InCall"
+                        "call",
+                        "function"
                       ]
                     }
                   ]
@@ -324,17 +304,15 @@
               "physicalLocation": {
                 "id": 1,
                 "artifactLocation": {
-                  "uri": "Helpers/Logger.cs",
-                  "uriBaseId": "SRCROOT",
                   "index": 1
                 },
                 "region": {
-                  "startLine": 65,
-                  "endLine": 65
+                  "startLine": 65
                 }
               }
             }
-          ]
+          ],
+          "rank": 3.0
         }
       ],
       "tool": {
@@ -342,22 +320,37 @@
           "name": "HP Fortify Static Code Analyzer",
           "rules": [
             {
-              "id": "31D4607A-A3FF-447C-908A-CA2BBE4CE4B7",
+              "guid": "31D4607A-A3FF-447C-908A-CA2BBE4CE4B7",
               "shortDescription": {
                 "text": "Sample abstract text. SQL injection vulnerability."
               },
               "fullDescription": {
                 "text": "The quick brown fox jumps over the lazy dog.\nThis section explains the rule in detail."
+              },
+              "properties": {
+                "Kingdom": "Input Validation and Representation",
+                "Type": "SQL Injection"
               }
             },
             {
-              "id": "F7A2423A-1927-40A3-920E-17ADB5430412",
+              "guid": "F7A2423A-1927-40A3-920E-17ADB5430412",
               "shortDescription": {
                 "text": "The function <Replace key=\"EnclosingFunction.name\"/> in <Replace key=\"PrimaryLocation.file\"/> reveals system data or debugging information by calling <Replace key=\"PrimaryCall.name\"/> on line <Replace key=\"PrimaryLocation.line\"/>. The information revealed by <Replace key=\"PrimaryCall.name\"/> could help an adversary form a plan of attack.\r\nRevealing system data or debugging information helps an adversary learn about the system and form a plan of attack."
               },
               "fullDescription": {
                 "text": "An information leak occurs when system data or debugging information leaves the program through an output stream or logging function.\r\n\r\nIn this case the data from <Replace key=\"SourceFunction\" link=\"SourceLocation\"/> in <Replace key=\"SourceLocation.file\"/> at line <Replace key=\"SourceLocation.line\"/> leaves the program through <Replace key=\"SinkFunction\" link=\"SinkLocation\"/> in <Replace key=\"SinkLocation.file\"/> at line <Replace key=\"SinkLocation.line\"/>.\r\n\r\n**Example:** The following code constructs a database connection string, uses it to create a new connection to the database, and prints it to the console.\r\n\r\n`\nstring cs=\"database=northwind;server=mySQLServer...\";\nSqlConnection conn=new SqlConnection(cs);\n...\nConsole.Writeline(cs);\n`\r\n\r\nDepending on the system configuration, this information can be dumped to a console, written to a log file, or exposed to a remote user. For example, with scripting mechanisms it is trivial to redirect output information from &quot;Standard error&quot; or &quot;Standard output&quot; into a file or another program. Alternatively the system that the program runs on could have a remote logging mechanism such as a &quot;syslog&quot; server that will send the logs to a remote device. During development you will have no way of knowing where this information may end up being displayed.\r\n\r\nIn some cases the error message tells the attacker precisely what sort of an attack the system is vulnerable to. For example, a database error message can reveal that the application is vulnerable to a SQL injection attack. Other error messages can reveal more oblique clues about the system. In the example above, the leaked information could imply information about the type of operating system, the applications installed on the system, and the amount of care that the administrators have put into configuring the program."
+              },
+              "properties": {
+                "Kingdom": "Encapsulation",
+                "Type": "System Information Leak"
               }
+            }
+          ],
+          "supportedTaxonomies": [
+            {
+              "name": "CWE",
+              "index": 0,
+              "guid": "2B841697-D0DE-45DD-9F19-1EEE1312429"
             }
           ]
         }

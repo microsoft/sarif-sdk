@@ -25,6 +25,7 @@
     <ClassID>31D4607A-A3FF-447C-908A-CA2BBE4CE4B7</ClassID>
     <Kingdom>Input Validation and Representation</Kingdom>
     <Type>SQL Injection</Type>
+    <Subtype>Value Never Read</Subtype>
     <AnalyzerName>semantic</AnalyzerName>
     <DefaultSeverity>2.0</DefaultSeverity>
   </ClassInfo>
@@ -116,5 +117,17 @@ SqlDataReader objReader = query.ExecuteReader();</Text>
     <Username>johndoe</Username>
     <Platform>Linux</Platform>
   </MachineInfo>
+  <RuleInfo>
+    <Rule id="31D4607A-A3FF-447C-908A-CA2BBE4CE4B7">
+      <MetaInfo>
+        <Group name="package">C Core</Group>
+        <Group name="altcategorySTIG4.8">APSC-DV-002560 CAT I</Group>
+        <Group name="altcategoryDISACCI2">CCI-002754</Group>
+        <Group name="altcategoryCWE">CWE ID 22, CWE ID 73</Group>
+        <Group name="altcategoryMISRAC2012">Rule 1.3</Group>
+        <Group name="altcategoryMISRAC++2008">Rule 0-3-1</Group>
+      </MetaInfo>
+    </Rule>
+  </RuleInfo>
 </EngineData>
 </FVDL>

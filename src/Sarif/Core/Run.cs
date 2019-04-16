@@ -49,6 +49,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 InitializeFileToIndexMap();
             }
 
+            if (fileLocation.Uri == null)
+            {
+                // We only have a file index, so just return it.
+                return fileLocation.Index;
+            }
+
             // Strictly speaking, some elements that may contribute to a files table 
             // key are case sensitive, e.g., everything but the schema and protocol of a
             // web URI. We don't have a proper comparer implementation that can handle 
