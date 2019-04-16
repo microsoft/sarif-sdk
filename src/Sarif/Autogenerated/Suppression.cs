@@ -34,6 +34,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
+        /// A stable, unique identifer for the suprression in the form of a GUID.
+        /// </summary>
+        [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
+        public string Guid { get; set; }
+
+        /// <summary>
         /// A string that indicates where the suppression is persisted.
         /// </summary>
         [DataMember(Name = "kind", IsRequired = true)]
@@ -62,6 +68,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Initializes a new instance of the <see cref="Suppression" /> class from the supplied values.
         /// </summary>
+        /// <param name="guid">
+        /// An initialization value for the <see cref="P:Guid" /> property.
+        /// </param>
         /// <param name="kind">
         /// An initialization value for the <see cref="P:Kind" /> property.
         /// </param>
@@ -71,9 +80,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Suppression(SuppressionKind kind, Location location, IDictionary<string, SerializedPropertyInfo> properties)
+        public Suppression(string guid, SuppressionKind kind, Location location, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(kind, location, properties);
+            Init(guid, kind, location, properties);
         }
 
         /// <summary>
@@ -92,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Kind, other.Location, other.Properties);
+            Init(other.Guid, other.Kind, other.Location, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -113,8 +122,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Suppression(this);
         }
 
-        private void Init(SuppressionKind kind, Location location, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string guid, SuppressionKind kind, Location location, IDictionary<string, SerializedPropertyInfo> properties)
         {
+            Guid = guid;
             Kind = kind;
             if (location != null)
             {
