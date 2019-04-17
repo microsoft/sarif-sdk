@@ -316,3 +316,4 @@
 * API NON-BREAKING: Change `request.target` type to string. https://github.com/oasis-tcs/sarif-spec/issues/362
 * API BREAKING: anyOf `physicalLocation.artifactLocation` and `physicalLocation.address` is required. https://github.com/oasis-tcs/sarif-spec/issues/353
 * API BREAKING: Rename `run.defaultFileEncoding` to `run.defaultEncoding`.
+* API NON-BREAKING: Add `threadFlowLocation.taxa`. https://github.com/oasis-tcs/sarif-spec/issues/381

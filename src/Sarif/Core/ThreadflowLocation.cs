@@ -11,5 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     public partial class ThreadFlowLocation
     {
         public bool ShouldSerializeKinds() { return this.Kinds.HasAtLeastOneNonNullValue(); }
+
+        public bool ShouldSerializeTaxa() { return this.Taxa.HasAtLeastOneNonDefaultValue(ReportingDescriptorReference.ValueComparer);  }
     }
 }

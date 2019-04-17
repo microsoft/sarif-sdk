@@ -2773,6 +2773,17 @@
           }
         },
 
+        "taxa": {
+          "description": "An array of references to rule or taxonomy reporting descriptors that are applicable to the thread flow location.",
+          "type": "array",
+          "default": [],
+          "minItems": 0,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/reportingDescriptorReference"
+          }
+        },
+
         "module": {
           "description": "The name of the module that contains the code that is executing.",
           "type": "string"
