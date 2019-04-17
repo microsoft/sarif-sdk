@@ -128,8 +128,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Specifies the default encoding for any artifact object that refers to a text file.
         /// </summary>
-        [DataMember(Name = "defaultFileEncoding", IsRequired = false, EmitDefaultValue = false)]
-        public string DefaultFileEncoding { get; set; }
+        [DataMember(Name = "defaultEncoding", IsRequired = false, EmitDefaultValue = false)]
+        public string DefaultEncoding { get; set; }
 
         /// <summary>
         /// Specifies the default source language for any artifact object that refers to a text file that contains source code.
@@ -332,7 +332,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocations, other.Conversion, other.Language, other.VersionControlProvenance, other.OriginalUriBaseIds, other.Artifacts, other.LogicalLocations, other.Graphs, other.Results, other.AutomationDetails, other.RunAggregates, other.BaselineGuid, other.RedactionToken, other.DefaultFileEncoding, other.DefaultSourceLanguage, other.NewlineSequences, other.ColumnKind, other.ExternalPropertyFileReferences, other.ThreadFlowLocations, other.Taxonomies, other.Addresses, other.Translations, other.Policies, other.Requests, other.Responses, other.Properties);
+            Init(other.Tool, other.Invocations, other.Conversion, other.Language, other.VersionControlProvenance, other.OriginalUriBaseIds, other.Artifacts, other.LogicalLocations, other.Graphs, other.Results, other.AutomationDetails, other.RunAggregates, other.BaselineGuid, other.RedactionToken, other.DefaultEncoding, other.DefaultSourceLanguage, other.NewlineSequences, other.ColumnKind, other.ExternalPropertyFileReferences, other.ThreadFlowLocations, other.Taxonomies, other.Addresses, other.Translations, other.Policies, other.Requests, other.Responses, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -508,7 +508,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             BaselineGuid = baselineGuid;
             RedactionToken = redactionToken;
-            DefaultFileEncoding = defaultFileEncoding;
+            DefaultEncoding = defaultFileEncoding;
             DefaultSourceLanguage = defaultSourceLanguage;
             if (newlineSequences != null)
             {
