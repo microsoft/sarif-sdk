@@ -1,519 +1,528 @@
 {
-    "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-02-20",
-    "version": "2.0.0-csd.2.beta.2019-02-20",
-    "inlineExternalProperties": [
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-02-20",
+  "version": "2.0.0-csd.2.beta.2019-02-20",
+  "inlineExternalProperties": [
+    {
+      "version": "2.0.0-csd.2.beta.2019-02-20",
+
+      "conversion": {
+        "tool": {
+          "driver": {
+            "name": "CodeScanner Legacy File Format Converter",
+            "fullName": "CodeScanner Converter Tool",
+            "version": "4.3",
+            "semanticVersion": "4.3.0",
+            "dottedQuadFileVersion": "4.3.0.0"
+          }
+        }
+      },
+
+      "artifacts": [
         {
-            "version": "2.0.0-csd.2.beta.2019-02-20",
-
-            "conversion": {
-                "tool": {
-                    "driver": {
-                        "name": "CodeScanner Legacy File Format Converter",
-                        "fullName": "CodeScanner Converter Tool",
-                        "version": "4.3",
-                        "semanticVersion": "4.3.0",
-                        "dottedQuadFileVersion": "4.3.0.0"
-                    }
-                }
-            },
-
-            "artifacts": [
-                {
-                    "location": {
-                        "uri": "file:///home/buildAgent/bin/app.zip#/data.zip"
-                    },
-                    "offset": 901299,
-                    "length": 170633,
-                    "mimeType": "application/zip"
-                },
-                {
-                    "location": {
-                        "uri": "file:///home/buildAgent/bin/app.zip#/data.zip/state-data/wa.dat"
-                    },
-                    "offset": 475,
-                    "length": 8214,
-                    "mimeType": "application/octet-stream"
-                }
-            ],
-
-            "invocations": [
-                {
-                    "commandLine": "CodeScanner.exe @collections.rsp",
-                    "responseFiles": [
-                        {
-                            "uri": "codescanner/config/collections.rsp",
-                            "uriBaseId": "TOOLS_ROOT"
-                        }
-                    ],
-                    "startTimeUtc": "2016-07-16T14:18:25Z",
-                    "endTimeUtc": "2016-07-16T14:19:01Z",
-                    "toolConfigurationNotifications": [
-                        {
-                            "id": "UnknownRule",
-                            "ruleId": "ABC0001",
-                            "level": "warning",
-                            "message": {
-                                "text": "Could not disable rule \"ABC0001\" because there is no rule with that id."
-                            }
-                        }
-                    ],
-                    "toolExecutionNotifications": [
-                        {
-                            "id": "CTN0001",
-                            "level": "note",
-                            "message": {
-                                "text": "Run started."
-                            }
-                        },
-                        {
-                            "id": "CTN9999",
-                            "ruleId": "C2152",
-                            "level": "error",
-                            "message": {
-                                "text": "Exception evaluating rule \"C2152\". Rule disabled; run continues."
-                            },
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///home/buildAgent/src/crypto/hash.cpp"
-                                }
-                            },
-                            "threadId": 52,
-                            "timeUtc": "2016-07-16T14:18:43.119Z",
-                            "exception": {
-                                "kind": "ExecutionEngine.RuleFailureException",
-                                "message": "Unhandled exception during rule evaluation.",
-                                "stack": {
-                                    "frames": [
-                                        {
-                                            "location": {
-                                                "fullyQualifiedLogicalName": "Rules.SecureHashAlgorithmRule.Evaluate",
-                                                "message": {
-                                                    "text": "Exception thrown"
-                                                }
-                                            },
-                                            "module": "RuleLibrary",
-                                            "threadId": 52,
-                                            "address": {
-                                                "baseAddress": 10092852
-                                            }
-                                        },
-                                        {
-                                            "location": {
-                                                "fullyQualifiedLogicalName": "ExecutionEngine.Engine.EvaluateRule"
-                                            },
-                                            "module": "ExecutionEngine",
-                                            "threadId": 52,
-                                            "address": {
-                                                "baseAddress": 10073356
-                                            }
-                                        }
-                                    ]
-                                },
-                                "innerExceptions": [
-                                    {
-                                        "kind": "System.ArgumentException",
-                                        "message": "length is < 0"
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            "id": "CTN0002",
-                            "level": "note",
-                            "message": {
-                                "text": "Run ended."
-                            }
-                        }
-                    ],
-                    "machine": "BLD01",
-                    "account": "buildAgent",
-                    "processId": 1218,
-                    "executableLocation": {
-                        "uri": "CodeScanner/CodeScanner.exe",
-                        "uriBaseId": "TOOLS_ROOT"
-                    },
-                    "workingDirectory": {
-                        "uri": "CodeScanner/",
-                        "uriBaseId": "TOOLS_ROOT"
-                    },
-                    "environmentVariables": {
-                        "PATH": "/usr/local/bin:/bin:/bin/tools:/home/buildAgent/bin",
-                        "HOME": "/home/buildAgent",
-                        "TZ": "EST"
-                    }
-                }
-            ],
-
-            "logicalLocations": [
-                {
-                    "name": "collections::list::add",
-                    "kind": "function",
-                    "decoratedName": "?add@list@collections@@QAEXH@Z"
-                },
-                {
-                    "name": "collections::list",
-                    "kind": "type"
-                }
-            ],
-
-            "results": [
-                {
-                    "analysisTarget": {
-                        "uri": "file:///home/buildAgent/src/collections/list.cpp"
-                    },
-                    "ruleId": "C2001",
-                    "message": {
-                        "messageId": "default",
-                        "text": "This is the result message with an [embedded link](1), but \\[this one\\] isn't. Here is a [second link](1).",
-                        "arguments": [
-                            "ptr"
-                        ]
-                    },
-                    "suppressionStates": [ "suppressedExternally" ],
-                    "baselineState": "unchanged",
-                    "level": "error",
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///home/buildAgent/src/collections/list.h"
-                                },
-                                "region": {
-                                    "snippet": {
-                                        "text": "add_core(ptr, offset, val);\n    return;"
-                                    },
-                                    "startLine": 15,
-                                    "startColumn": 9,
-                                    "endLine": 15,
-                                    "endColumn": 10,
-                                    "byteLength": 1,
-                                    "byteOffset": 254
-                                }
-                            },
-                            "fullyQualifiedLogicalName": "collections::list:add"
-                        }
-                    ],
-                    "relatedLocations": [
-                        {
-                            "message": {
-                                "text": "\"count\" was declared here."
-                            },
-                            "physicalLocation": {
-                                "id": 1,
-                                "artifactLocation": {
-                                    "uri": "file:///home/buildAgent/src/collections/list.h"
-                                },
-                                "region": {
-                                    "startLine": 8,
-                                    "startColumn": 5
-                                }
-                            },
-                            "fullyQualifiedLogicalName": "collections::list:add"
-                        }
-                    ],
-                    "codeFlows": [
-                        {
-                            "message": {
-                                "text": "Path from declaration to usage"
-                            },
-                            "threadFlows": [
-                                {
-                                    "locations": [
-                                        {
-                                            "step": 1,
-                                            "importance": "essential",
-                                            "location": {
-                                                "physicalLocation": {
-                                                    "artifactLocation": {
-                                                        "uri": "file:///home/buildAgent/src/collections/list.h"
-                                                    },
-                                                    "region": {
-                                                        "snippet": {
-                                                            "text": "int *ptr;"
-                                                        },
-                                                        "startLine": 15
-                                                    }
-                                                },
-                                                "fullyQualifiedLogicalName": "collections::list:add",
-                                                "message": {
-                                                    "text": "Variable \"ptr\" declared."
-                                                }
-                                            },
-                                            "module": "platform",
-                                            "executionOrder": 1,
-                                            "timestamp": "2016-07-16T08:01:00Z",
-                                            "kind": "declaration",
-                                            "nestingLevel": 0,
-                                            "state": { "value": "[Not initialized}" }
-                                        },
-                                        {
-                                            "step": 2,
-                                            "importance": "unimportant",
-                                            "location": {
-                                                "physicalLocation": {
-                                                    "artifactLocation": {
-                                                        "uri": "file:///home/buildAgent/src/collections/list.h"
-                                                    },
-                                                    "region": {
-                                                        "snippet": {
-                                                            "text": "offset = 0;"
-                                                        },
-                                                        "startLine": 15
-                                                    }
-                                                },
-                                                "fullyQualifiedLogicalName": "collections::list:add"
-                                            },
-                                            "module": "platform",
-                                            "executionOrder": 2,
-                                            "timestamp": "2016-07-16T08:02:00Z"
-                                        },
-                                        {
-                                            "step": 3,
-                                            "importance": "essential",
-                                            "location": {
-                                                "physicalLocation": {
-                                                    "artifactLocation": {
-                                                        "uri": "file:///home/buildAgent/src/collections/list.h"
-                                                    },
-                                                    "region": {
-                                                        "snippet": {
-                                                            "text": "add_core(ptr, offset, val)"
-                                                        },
-                                                        "startLine": 25
-                                                    }
-                                                },
-                                                "fullyQualifiedLogicalName": "collections::list:add",
-                                                "message": {
-                                                    "text": "Uninitialized variable \"ptr\" passed to method \"add_core\"."
-                                                }
-                                            },
-                                            "module": "platform",
-                                            "executionOrder": 3,
-                                            "timestamp": "2016-07-16T08:03:00Z",
-                                            "kind": "call"
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ],
-                    "stacks": [
-                        {
-                            "message": {
-                                "text": "Call stack resulting from usage of uninitialized variable."
-                            },
-                            "frames": [
-                                {
-                                    "location": {
-                                        "physicalLocation": {
-                                            "artifactLocation": {
-                                                "uri": "file:///home/buildAgent/src/collections/list.h"
-                                            },
-                                            "region": {
-                                                "startLine": 110,
-                                                "startColumn": 15
-                                            }
-                                        },
-                                        "fullyQualifiedLogicalName": "collections::list:add_core",
-                                        "message": {
-                                            "text": "Exception thrown."
-                                        }
-                                    },
-                                    "module": "platform",
-                                    "threadId": 52,
-                                    "address": {
-                                        "baseAddress": 10092852
-                                    },
-                                    "offset": 16,
-                                    "parameters": [ "null", "0", "14" ]
-                                },
-                                {
-                                    "location": {
-                                        "physicalLocation": {
-                                            "artifactLocation": {
-                                                "uri": "file:///home/buildAgent/src/collections/list.h"
-                                            },
-                                            "region": {
-                                                "startLine": 43,
-                                                "startColumn": 15
-                                            }
-                                        },
-                                        "fullyQualifiedLogicalName": "collections::list:add"
-                                    },
-                                    "module": "platform",
-                                    "threadId": 52,
-                                    "address": {
-                                        "baseAddress": 10045852
-                                    },
-                                    "offset": 84,
-                                    "parameters": [ "14" ]
-                                },
-                                {
-                                    "location": {
-                                        "physicalLocation": {
-                                            "artifactLocation": {
-                                                "uri": "file:///home/buildAgent/src/application/main.cpp"
-                                            },
-                                            "region": {
-                                                "startLine": 28,
-                                                "startColumn": 9
-                                            }
-                                        },
-                                        "fullyQualifiedLogicalName": "main"
-                                    },
-                                    "module": "application",
-                                    "threadId": 52,
-                                    "address": {
-                                        "baseAddress": 100955852
-                                    },
-                                    "offset": 156
-                                }
-                            ]
-                        }
-                    ],
-                    "fixes": [
-                        {
-                            "description": {
-                                "text": "Initialize the variable to null"
-                            },
-                            "changes": [
-                                {
-                                    "artifactLocation": {
-                                        "uri": "file:///home/buildAgent/src/collections/list.h"
-                                    },
-                                    "replacements": [
-                                        {
-                                            "deletedRegion": {
-                                                "byteOffset": 109
-                                            },
-                                            "insertedContent": {
-                                                "binary": "PSBudWxs"
-                                            }
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
+          "location": {
+            "uri": "file:///home/buildAgent/bin/app.zip#/data.zip"
+          },
+          "offset": 901299,
+          "length": 170633,
+          "mimeType": "application/zip"
         },
         {
-            "version": "2.0.0-csd.2.beta.2019-02-20",
-
-            "externalizedProperties": {
-                "tags": [
-                    "Copyrighted",
-                    "Telemetry"
-                ]
-            },
-
-            "artifacts": [
-                {
-                    "location": {
-                        "uri": "file:///home/list.txt"
-                    },
-                    "length": 43,
-                    "mimeType": "text/plain",
-                    "contents": {
-                        "text": "VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw=="
-                    },
-                    "hashes": {
-                        "sha256": "d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"
-                    }
-                },
-                {
-                    "location": {
-                        "uri": "file:///home/buildAgent/bin/app.zip"
-                    },
-                    "mimeType": "application/zip",
-                    "properties": {
-                        "my_key": "some value"
-                    }
-                },
-                {
-                    "location": {
-                        "uri": "file:///home/buildAgent/bin/app.zip#/docs/intro.docx"
-                    },
-                    "offset": 17522,
-                    "length": 4050,
-                    "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                }
-            ],
-
-            "logicalLocations": [
-                {
-                    "name": "collections",
-                    "kind": "namespace"
-                }
-            ]
+          "location": {
+            "uri": "file:///home/buildAgent/bin/app.zip#/data.zip/state-data/wa.dat"
+          },
+          "offset": 475,
+          "length": 8214,
+          "mimeType": "application/octet-stream"
         }
-    ],
-    "runs": [
+      ],
+
+      "invocations": [
         {
-            "tool": {
-                "name": "CodeScanner",
-                "semanticVersion": "2.1.0",
-                "driver": {
-                    "name": "CodeScanner Legacy File Format Converter",
-                    "fullName": "CodeScanner Converter Tool",
-                    "version": "4.3",
-                    "semanticVersion": "4.3.0",
-                    "dottedQuadFileVersion": "4.3.0.0"
-                }
-            },
-            "results": [],
-            "columnKind": "utf16CodeUnits",
-            "externalPropertyFiles": {
-                "conversion": {
-                    "location": {
-                        "uri": "sarif:/inlineExternalProperties/0"
-                    }
-                },
-                "externalizedProperties": {
-                    "location": {
-                        "uri": "sarif:/inlineExternalProperties/1"
-                    }
-                },
-                "artifacts": [
-                    {
-                        "location": {
-                            "uri": "sarif:/inlineExternalProperties/0"
-                        }
-                    },
-                    {
-                        "location": {
-                            "uri": "sarif:/inlineExternalProperties/1"
-                        }
-                    }
-                ],
-                "invocations": [
-                    {
-                        "location": {
-                            "uri": "sarif:/inlineExternalProperties/0"
-                        }
-                    }
-                ],
-                "logicalLocations": [
-                    {
-                        "location": {
-                            "uri": "sarif:/inlineExternalProperties/0"
-                        }
-                    },
-                    {
-                        "location": {
-                            "uri": "sarif:/inlineExternalProperties/1"
-                        }
-                    }
-                ],
-                "results": [
-                    {
-                        "location": {
-                            "uri": "sarif:/inlineExternalProperties/0"
-                        }
-                    }
-                ]
+          "commandLine": "CodeScanner.exe @collections.rsp",
+          "responseFiles": [
+            {
+              "uri": "codescanner/config/collections.rsp",
+              "uriBaseId": "TOOLS_ROOT"
             }
+          ],
+          "startTimeUtc": "2016-07-16T14:18:25Z",
+          "endTimeUtc": "2016-07-16T14:19:01Z",
+          "toolConfigurationNotifications": [
+            {
+              "id": "UnknownRule",
+              "ruleId": "ABC0001",
+              "level": "warning",
+              "message": {
+                "text": "Could not disable rule \"ABC0001\" because there is no rule with that id."
+              }
+            }
+          ],
+          "toolExecutionNotifications": [
+            {
+              "id": "CTN0001",
+              "level": "note",
+              "message": {
+                "text": "Run started."
+              }
+            },
+            {
+              "id": "CTN9999",
+              "ruleId": "C2152",
+              "level": "error",
+              "message": {
+                "text": "Exception evaluating rule \"C2152\". Rule disabled; run continues."
+              },
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/buildAgent/src/crypto/hash.cpp"
+                }
+              },
+              "threadId": 52,
+              "timeUtc": "2016-07-16T14:18:43.119Z",
+              "exception": {
+                "kind": "ExecutionEngine.RuleFailureException",
+                "message": "Unhandled exception during rule evaluation.",
+                "stack": {
+                  "frames": [
+                    {
+                      "location": {
+                        "fullyQualifiedLogicalName": "Rules.SecureHashAlgorithmRule.Evaluate",
+                        "message": {
+                          "text": "Exception thrown"
+                        }
+                      },
+                      "module": "RuleLibrary",
+                      "threadId": 52,
+                      "address": {
+                        "baseAddress": 10092852
+                      }
+                    },
+                    {
+                      "location": {
+                        "fullyQualifiedLogicalName": "ExecutionEngine.Engine.EvaluateRule"
+                      },
+                      "module": "ExecutionEngine",
+                      "threadId": 52,
+                      "address": {
+                        "baseAddress": 10073356
+                      }
+                    }
+                  ]
+                },
+                "innerExceptions": [
+                  {
+                    "kind": "System.ArgumentException",
+                    "message": "length is < 0"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "CTN0002",
+              "level": "note",
+              "message": {
+                "text": "Run ended."
+              }
+            }
+          ],
+          "machine": "BLD01",
+          "account": "buildAgent",
+          "processId": 1218,
+          "executableLocation": {
+            "uri": "CodeScanner/CodeScanner.exe",
+            "uriBaseId": "TOOLS_ROOT"
+          },
+          "workingDirectory": {
+            "uri": "CodeScanner/",
+            "uriBaseId": "TOOLS_ROOT"
+          },
+          "environmentVariables": {
+            "PATH": "/usr/local/bin:/bin:/bin/tools:/home/buildAgent/bin",
+            "HOME": "/home/buildAgent",
+            "TZ": "EST"
+          }
         }
-    ]
+      ],
+
+      "logicalLocations": [
+        {
+          "name": "collections::list::add",
+          "kind": "function",
+          "decoratedName": "?add@list@collections@@QAEXH@Z"
+        },
+        {
+          "name": "collections::list",
+          "kind": "type"
+        }
+      ],
+
+      "results": [
+        {
+          "analysisTarget": {
+            "uri": "file:///home/buildAgent/src/collections/list.cpp"
+          },
+          "ruleId": "C2001",
+          "message": {
+            "messageId": "default",
+            "text": "This is the result message with an [embedded link](1), but \\[this one\\] isn't. Here is a [second link](1).",
+            "arguments": [
+              "ptr"
+            ]
+          },
+          "suppressionStates": [ "suppressedExternally" ],
+          "baselineState": "unchanged",
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/buildAgent/src/collections/list.h"
+                },
+                "region": {
+                  "snippet": {
+                    "text": "add_core(ptr, offset, val);\n    return;"
+                  },
+                  "startLine": 15,
+                  "startColumn": 9,
+                  "endLine": 15,
+                  "endColumn": 10,
+                  "byteLength": 1,
+                  "byteOffset": 254
+                }
+              },
+              "fullyQualifiedLogicalName": "collections::list:add"
+            }
+          ],
+          "relatedLocations": [
+            {
+              "message": {
+                "text": "\"count\" was declared here."
+              },
+              "physicalLocation": {
+                "id": 1,
+                "artifactLocation": {
+                  "uri": "file:///home/buildAgent/src/collections/list.h"
+                },
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 5
+                }
+              },
+              "fullyQualifiedLogicalName": "collections::list:add"
+            }
+          ],
+          "codeFlows": [
+            {
+              "message": {
+                "text": "Path from declaration to usage"
+              },
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "step": 1,
+                      "importance": "essential",
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///home/buildAgent/src/collections/list.h"
+                          },
+                          "region": {
+                            "snippet": {
+                              "text": "int *ptr;"
+                            },
+                            "startLine": 15
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "collections::list:add",
+                        "message": {
+                          "text": "Variable \"ptr\" declared."
+                        }
+                      },
+                      "module": "platform",
+                      "executionOrder": 1,
+                      "timestamp": "2016-07-16T08:01:00Z",
+                      "kind": "declaration",
+                      "nestingLevel": 0,
+                      "state": { "value": "[Not initialized}" }
+                    },
+                    {
+                      "step": 2,
+                      "importance": "unimportant",
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///home/buildAgent/src/collections/list.h"
+                          },
+                          "region": {
+                            "snippet": {
+                              "text": "offset = 0;"
+                            },
+                            "startLine": 15
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "collections::list:add"
+                      },
+                      "module": "platform",
+                      "executionOrder": 2,
+                      "timestamp": "2016-07-16T08:02:00Z"
+                    },
+                    {
+                      "step": 3,
+                      "importance": "essential",
+                      "location": {
+                        "physicalLocation": {
+                          "artifactLocation": {
+                            "uri": "file:///home/buildAgent/src/collections/list.h"
+                          },
+                          "region": {
+                            "snippet": {
+                              "text": "add_core(ptr, offset, val)"
+                            },
+                            "startLine": 25
+                          }
+                        },
+                        "fullyQualifiedLogicalName": "collections::list:add",
+                        "message": {
+                          "text": "Uninitialized variable \"ptr\" passed to method \"add_core\"."
+                        }
+                      },
+                      "module": "platform",
+                      "executionOrder": 3,
+                      "timestamp": "2016-07-16T08:03:00Z",
+                      "kind": "call"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "stacks": [
+            {
+              "message": {
+                "text": "Call stack resulting from usage of uninitialized variable."
+              },
+              "frames": [
+                {
+                  "location": {
+                    "physicalLocation": {
+                      "artifactLocation": {
+                        "uri": "file:///home/buildAgent/src/collections/list.h"
+                      },
+                      "region": {
+                        "startLine": 110,
+                        "startColumn": 15
+                      }
+                    },
+                    "fullyQualifiedLogicalName": "collections::list:add_core",
+                    "message": {
+                      "text": "Exception thrown."
+                    }
+                  },
+                  "module": "platform",
+                  "threadId": 52,
+                  "address": {
+                    "baseAddress": 10092852
+                  },
+                  "offset": 16,
+                  "parameters": [ "null", "0", "14" ]
+                },
+                {
+                  "location": {
+                    "physicalLocation": {
+                      "artifactLocation": {
+                        "uri": "file:///home/buildAgent/src/collections/list.h"
+                      },
+                      "region": {
+                        "startLine": 43,
+                        "startColumn": 15
+                      }
+                    },
+                    "fullyQualifiedLogicalName": "collections::list:add"
+                  },
+                  "module": "platform",
+                  "threadId": 52,
+                  "address": {
+                    "baseAddress": 10045852
+                  },
+                  "offset": 84,
+                  "parameters": [ "14" ]
+                },
+                {
+                  "location": {
+                    "physicalLocation": {
+                      "artifactLocation": {
+                        "uri": "file:///home/buildAgent/src/application/main.cpp"
+                      },
+                      "region": {
+                        "startLine": 28,
+                        "startColumn": 9
+                      }
+                    },
+                    "fullyQualifiedLogicalName": "main"
+                  },
+                  "module": "application",
+                  "threadId": 52,
+                  "address": {
+                    "baseAddress": 100955852
+                  },
+                  "offset": 156
+                }
+              ]
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "Initialize the variable to null"
+              },
+              "changes": [
+                {
+                  "artifactLocation": {
+                    "uri": "file:///home/buildAgent/src/collections/list.h"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "byteOffset": 109
+                      },
+                      "insertedContent": {
+                        "binary": "PSBudWxs"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "version": "2.0.0-csd.2.beta.2019-02-20",
+
+      "externalizedProperties": {
+        "tags": [
+          "Copyrighted",
+          "Telemetry"
+        ]
+      },
+
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///home/list.txt"
+          },
+          "length": 43,
+          "mimeType": "text/plain",
+          "contents": {
+            "text": "VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw=="
+          },
+          "hashes": {
+            "sha256": "d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/buildAgent/bin/app.zip"
+          },
+          "mimeType": "application/zip",
+          "properties": {
+            "my_key": "some value"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/buildAgent/bin/app.zip#/docs/intro.docx"
+          },
+          "offset": 17522,
+          "length": 4050,
+          "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        }
+      ],
+
+      "logicalLocations": [
+        {
+          "name": "collections",
+          "kind": "namespace"
+        }
+      ]
+    }
+  ],
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner",
+        "semanticVersion": "2.1.0",
+        "driver": {
+          "name": "CodeScanner Legacy File Format Converter",
+          "fullName": "CodeScanner Converter Tool",
+          "version": "4.3",
+          "semanticVersion": "4.3.0",
+          "dottedQuadFileVersion": "4.3.0.0"
+        }
+      },
+      "results": [],
+      "columnKind": "utf16CodeUnits",
+      "externalPropertyFiles": {
+        "conversion": {
+          "location": {
+            "uri": "sarif:/inlineExternalProperties/0"
+          },
+          "guid": "6A719664-C72E-4FAF-BA64-566CBAB6E000"
+        },
+        "externalizedProperties": {
+          "location": {
+            "uri": "sarif:/inlineExternalProperties/1"
+          },
+          "guid": "6A719664-C72E-4FAF-BA64-566CBAB6E001"
+        },
+        "artifacts": [
+          {
+            "location": {
+              "uri": "sarif:/inlineExternalProperties/0"
+            },
+            "guid": "6A719664-C72E-4FAF-BA64-566CBAB6E002"
+          },
+          {
+            "location": {
+              "uri": "sarif:/inlineExternalProperties/1"
+            },
+            "guid": "6A719664-C72E-4FAF-BA64-566CBAB6E003"
+          }
+        ],
+        "invocations": [
+          {
+            "location": {
+              "uri": "sarif:/inlineExternalProperties/0"
+            },
+            "guid": "6A719664-C72E-4FAF-BA64-566CBAB6E004"
+          }
+        ],
+        "logicalLocations": [
+          {
+            "location": {
+              "uri": "sarif:/inlineExternalProperties/0"
+            },
+            "guid": "6A719664-C72E-4FAF-BA64-566CBAB6E005"
+          },
+          {
+            "location": {
+              "uri": "sarif:/inlineExternalProperties/1"
+            },
+            "guid": "6A719664-C72E-4FAF-BA64-566CBAB6E006"
+          }
+        ],
+        "results": [
+          {
+            "location": {
+              "uri": "sarif:/inlineExternalProperties/0"
+            },
+            "guid": "6A719664-C72E-4FAF-BA64-566CBAB6E007"
+          }
+
+        ]
+      }
+    }
+  ]
 }
