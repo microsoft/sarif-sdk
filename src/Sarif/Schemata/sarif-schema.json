@@ -740,8 +740,7 @@
           "description": "Key/value pairs that provide additional information about the external properties.",
           "$ref": "#/definitions/propertyBag"
         }
-      },
-      "required": [ "version" ]
+      }
     },
 
     "externalPropertyFileReference": {
@@ -1804,7 +1803,8 @@
           "description": "Key/value pairs that provide additional information about the report.",
           "$ref": "#/definitions/propertyBag"
         }
-      }
+      },
+      "required": [ "id" ]
     },
 
     "reportingConfiguration": {
@@ -1916,7 +1916,10 @@
 
         "index": {
           "description": "The index within the run.requests array of the request object associated with this result.",
-          "type": "integer"
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
+
         },
 
         "protocol": {
@@ -1974,7 +1977,9 @@
 
         "index": {
           "description": "The index within the run.responses array of the response object associated with this result.",
-          "type": "integer"
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
         },
 
         "protocol": {
@@ -2804,7 +2809,8 @@
 
         "importance": {
           "description": "Specifies the importance of this location in understanding the code flow in which it occurs. The order from most to least important is \"essential\", \"important\", \"unimportant\". Default: \"important\".",
-          "enum": [ "important", "essential", "unimportant" ]
+          "enum": [ "important", "essential", "unimportant" ],
+          "default": "important"
         },
 
         "request": {
