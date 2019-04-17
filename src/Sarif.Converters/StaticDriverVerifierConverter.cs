@@ -133,10 +133,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 var threadFlowLocation = new ThreadFlowLocation
                 {
                     Importance = ThreadFlowLocationImportance.Unimportant,
-                    Location = new Location
-                    {
-                        Message = new Message()
-                    }
+                    Location = new Location()
                 };
 
                 if (uri != null)
@@ -169,7 +166,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                                 FullyQualifiedName = caller
                             };
                         }
-                        threadFlowLocation.Location.Message.Text = callee;
+
+                        if (!string.IsNullOrWhiteSpace(callee))
+                        {
+                            threadFlowLocation.Location.Message = new Message
+                            {
+                                Text = callee
+                            };
+                        }
+
                         threadFlowLocation.SetProperty("target", callee);
                         _callers.Push(caller);
                     }
@@ -210,7 +215,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 else
                 {
                     threadFlowLocation.NestingLevel = nestingLevel;
-                    threadFlowLocation.Location.Message.Text = sdvKind;
+
+                    if (!string.IsNullOrWhiteSpace(sdvKind))
+                    {
+                        threadFlowLocation.Location.Message = new Message
+                        {
+                            Text = sdvKind
+                        };
+                    }
                 }
 
                 string separatorText = "^====Auto=====";
@@ -250,15 +262,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 result.Level = ConvertToFailureLevel(levelText);
 
                 // Everything on the line following defect level comprises the message
-                result.Message = new Message { Text = logFileLine.Substring(levelText.Length).Trim() };
+                string messageText = logFileLine.Substring(levelText.Length).Trim();
 
-                // SDV currently produces 'pass' notifications when 
-                // the final line is prefixed with 'Error'. We'll examine
-                // the message text to detect this condition
-                if (result.Message.Text.Contains("is satisfied"))
+                if (!string.IsNullOrWhiteSpace(messageText))
                 {
-                    result.Level = FailureLevel.None;
-                    result.Kind = ResultKind.Pass;
+                    result.Message = new Message { Text = messageText };
+
+                    // SDV currently produces 'pass' notifications when 
+                    // the final line is prefixed with 'Error'. We'll examine
+                    // the message text to detect this condition
+                    if (result.Message.Text.Contains("is satisfied"))
+                    {
+                        result.Level = FailureLevel.None;
+                        result.Kind = ResultKind.Pass;
+                    }
                 }
 
                 // Finally, populate this result location with the

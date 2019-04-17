@@ -1370,7 +1370,11 @@
           "description": "Key/value pairs that provide additional information about the message.",
           "$ref": "#/definitions/propertyBag"
         }
-      }
+      },
+      "anyOf": [
+        { "required": [ "text" ] },
+        { "required": [ "id" ] }
+      ]
     },
 
     "multiformatMessageString": {

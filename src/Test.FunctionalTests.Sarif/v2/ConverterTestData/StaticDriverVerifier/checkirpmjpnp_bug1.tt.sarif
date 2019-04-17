@@ -109,8 +109,7 @@
                     {
                       "step": 7,
                       "location": {
-                        "fullyQualifiedLogicalName": "main",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "main"
                       },
                       "nestingLevel": 2,
                       "importance": "unimportant"
@@ -163,8 +162,7 @@
                     {
                       "step": 12,
                       "location": {
-                        "fullyQualifiedLogicalName": "main",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "main"
                       },
                       "nestingLevel": 2,
                       "importance": "unimportant"
@@ -1090,8 +1088,7 @@
                     {
                       "step": 62,
                       "location": {
-                        "fullyQualifiedLogicalName": "main",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "main"
                       },
                       "nestingLevel": 2,
                       "importance": "unimportant"
@@ -1446,8 +1443,7 @@
                             "startLine": 4810
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "sdv_main"
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant"
@@ -1532,8 +1528,7 @@
                             "startLine": 4822
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "sdv_main"
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant"
@@ -1618,8 +1613,7 @@
                             "startLine": 4842
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "sdv_main"
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant"
@@ -1704,8 +1698,7 @@
                             "startLine": 4857
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "sdv_main"
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant"
@@ -1790,8 +1783,7 @@
                             "startLine": 4877
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "sdv_main"
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant"
@@ -1876,8 +1868,7 @@
                             "startLine": 4912
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "sdv_main"
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant"
@@ -1962,8 +1953,7 @@
                             "startLine": 4928
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "sdv_main"
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant"
@@ -2048,8 +2038,7 @@
                             "startLine": 4946
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "sdv_main"
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant"
@@ -2134,8 +2123,7 @@
                             "startLine": 4955
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "sdv_main"
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant"
@@ -2358,8 +2346,7 @@
                     {
                       "step": 149,
                       "location": {
-                        "fullyQualifiedLogicalName": "SLIC_ABORT_1_0",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "SLIC_ABORT_1_0"
                       },
                       "nestingLevel": 6,
                       "importance": "unimportant"
@@ -2377,8 +2364,7 @@
                     {
                       "step": 151,
                       "location": {
-                        "fullyQualifiedLogicalName": "SLIC_sdv_CheckIrpMjPnp_exit",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "SLIC_sdv_CheckIrpMjPnp_exit"
                       },
                       "nestingLevel": 5,
                       "importance": "unimportant"
@@ -2491,8 +2477,7 @@
                     {
                       "step": 161,
                       "location": {
-                        "fullyQualifiedLogicalName": "sdv_CheckIrpMjPnp",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "sdv_CheckIrpMjPnp"
                       },
                       "nestingLevel": 4,
                       "importance": "unimportant"

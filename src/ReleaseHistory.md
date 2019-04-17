@@ -315,4 +315,5 @@
 ## **v2.1.0-beta.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.0-beta.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.0-beta.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.0-beta.2)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.0-beta.2)
 * API NON-BREAKING: Change `request.target` type to string. https://github.com/oasis-tcs/sarif-spec/issues/362
 * API BREAKING: anyOf `physicalLocation.artifactLocation` and `physicalLocation.address` is required. https://github.com/oasis-tcs/sarif-spec/issues/353
+* API BREAKING: anyOf `message.id` and `message.text` is required.
 * API BREAKING: Rename `run.defaultFileEncoding` to `run.defaultEncoding`.

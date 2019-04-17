@@ -136,8 +136,7 @@
                     {
                       "step": 8,
                       "location": {
-                        "fullyQualifiedLogicalName": "main",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "main"
                       },
                       "nestingLevel": 2,
                       "importance": "unimportant",
@@ -202,8 +201,7 @@
                     {
                       "step": 13,
                       "location": {
-                        "fullyQualifiedLogicalName": "main",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "main"
                       },
                       "nestingLevel": 2,
                       "importance": "unimportant",
@@ -1234,8 +1232,7 @@
                     {
                       "step": 63,
                       "location": {
-                        "fullyQualifiedLogicalName": "main",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "main"
                       },
                       "nestingLevel": 2,
                       "importance": "unimportant",
@@ -1638,8 +1635,7 @@
                             "startLine": 4810
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "sdv_main"
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant",
@@ -1740,8 +1736,7 @@
                             "startLine": 4822
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "sdv_main"
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant",
@@ -1842,8 +1837,7 @@
                             "startLine": 4842
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "sdv_main"
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant",
@@ -1944,8 +1938,7 @@
                             "startLine": 4857
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "sdv_main"
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant",
@@ -2046,8 +2039,7 @@
                             "startLine": 4877
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "sdv_main"
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant",
@@ -2148,8 +2140,7 @@
                             "startLine": 4912
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "sdv_main"
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant",
@@ -2250,8 +2241,7 @@
                             "startLine": 4928
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "sdv_main"
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant",
@@ -2352,8 +2342,7 @@
                             "startLine": 4946
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "sdv_main"
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant",
@@ -2454,8 +2443,7 @@
                             "startLine": 4955
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "sdv_main"
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant",
@@ -2556,8 +2544,7 @@
                             "startLine": 4966
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "sdv_main"
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant",
@@ -2658,8 +2645,7 @@
                             "startLine": 4978
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "sdv_main"
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant",
@@ -2760,8 +2746,7 @@
                             "startLine": 4989
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "sdv_main"
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant",
@@ -2884,8 +2869,7 @@
                             "startLine": 6725
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_main",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "sdv_main"
                       },
                       "nestingLevel": 3,
                       "importance": "unimportant",
@@ -3213,8 +3197,7 @@
                             "startLine": 1521
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_RunDispatchFunction",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "sdv_RunDispatchFunction"
                       },
                       "nestingLevel": 4,
                       "importance": "unimportant",
@@ -3594,8 +3577,7 @@
                             "startLine": 6762
                           }
                         },
-                        "fullyQualifiedLogicalName": "sdv_RunDispatchFunction",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "sdv_RunDispatchFunction"
                       },
                       "nestingLevel": 4,
                       "importance": "unimportant",
@@ -4298,8 +4280,7 @@
                     {
                       "step": 238,
                       "location": {
-                        "fullyQualifiedLogicalName": "IoAcquireCancelSpinLock",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "IoAcquireCancelSpinLock"
                       },
                       "nestingLevel": 6,
                       "importance": "unimportant",
@@ -4345,8 +4326,7 @@
                             "startLine": 9558
                           }
                         },
-                        "fullyQualifiedLogicalName": "DispatchSystemControl",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "DispatchSystemControl"
                       },
                       "nestingLevel": 5,
                       "importance": "unimportant",
@@ -4583,8 +4563,7 @@
                     {
                       "step": 256,
                       "location": {
-                        "fullyQualifiedLogicalName": "SLIC_ABORT_7_0",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "SLIC_ABORT_7_0"
                       },
                       "nestingLevel": 7,
                       "importance": "unimportant",
@@ -4608,8 +4587,7 @@
                     {
                       "step": 258,
                       "location": {
-                        "fullyQualifiedLogicalName": "SLIC_DispatchSystemControl_exit",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "SLIC_DispatchSystemControl_exit"
                       },
                       "nestingLevel": 6,
                       "importance": "unimportant",
@@ -4769,8 +4747,7 @@
                     {
                       "step": 270,
                       "location": {
-                        "fullyQualifiedLogicalName": "DispatchSystemControl",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "DispatchSystemControl"
                       },
                       "nestingLevel": 5,
                       "importance": "unimportant",
