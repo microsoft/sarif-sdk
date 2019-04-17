@@ -109,8 +109,7 @@
                     {
                       "step": 7,
                       "location": {
-                        "fullyQualifiedLogicalName": "main",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "main"
                       },
                       "nestingLevel": 2,
                       "importance": "unimportant"
@@ -163,8 +162,7 @@
                     {
                       "step": 12,
                       "location": {
-                        "fullyQualifiedLogicalName": "main",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "main"
                       },
                       "nestingLevel": 2,
                       "importance": "unimportant"
@@ -1090,8 +1088,7 @@
                     {
                       "step": 62,
                       "location": {
-                        "fullyQualifiedLogicalName": "main",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "main"
                       },
                       "nestingLevel": 2,
                       "importance": "unimportant"
@@ -1584,8 +1581,7 @@
                     {
                       "step": 95,
                       "location": {
-                        "fullyQualifiedLogicalName": "SLIC_ABORT_1_0",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "SLIC_ABORT_1_0"
                       },
                       "nestingLevel": 6,
                       "importance": "unimportant"
@@ -1603,8 +1599,7 @@
                     {
                       "step": 97,
                       "location": {
-                        "fullyQualifiedLogicalName": "SLIC_sdv_CheckDispatchRoutines_exit",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "SLIC_sdv_CheckDispatchRoutines_exit"
                       },
                       "nestingLevel": 5,
                       "importance": "unimportant"
@@ -1717,8 +1712,7 @@
                     {
                       "step": 107,
                       "location": {
-                        "fullyQualifiedLogicalName": "sdv_CheckDispatchRoutines",
-                        "message": {}
+                        "fullyQualifiedLogicalName": "sdv_CheckDispatchRoutines"
                       },
                       "nestingLevel": 4,
                       "importance": "unimportant"

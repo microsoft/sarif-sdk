@@ -617,7 +617,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Artifact fileData = files[index];
 
                     // We need the encoding because the content might have been transcoded to UTF-8
-                    string encodingName = fileData.Encoding ?? _currentV2Run.DefaultFileEncoding;
+                    string encodingName = fileData.Encoding ?? _currentV2Run.DefaultEncoding;
                     encoding = GetFileEncoding(encodingName);
 
                     if (encoding != null)

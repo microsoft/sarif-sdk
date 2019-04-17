@@ -227,7 +227,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.DefaultFileEncoding != right.DefaultFileEncoding)
+            if (left.DefaultEncoding != right.DefaultEncoding)
             {
                 return false;
             }
@@ -580,9 +580,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.RedactionToken.GetHashCode();
                 }
 
-                if (obj.DefaultFileEncoding != null)
+                if (obj.DefaultEncoding != null)
                 {
-                    result = (result * 31) + obj.DefaultFileEncoding.GetHashCode();
+                    result = (result * 31) + obj.DefaultEncoding.GetHashCode();
                 }
 
                 if (obj.DefaultSourceLanguage != null)

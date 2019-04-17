@@ -11053,7 +11053,6 @@
         },
         {
           "ruleId": "CA1811",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -11466,7 +11465,6 @@
         },
         {
           "ruleId": "CA3053",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -12071,7 +12069,6 @@
         },
         {
           "ruleId": "CA3053",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -13621,7 +13618,6 @@
         },
         {
           "ruleId": "CA3053",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -13686,7 +13682,6 @@
         },
         {
           "ruleId": "CA1710",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -13953,7 +13948,6 @@
         },
         {
           "ruleId": "CA1801",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -13976,7 +13970,6 @@
         },
         {
           "ruleId": "CA1801",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -17875,7 +17868,6 @@
         },
         {
           "ruleId": "CA5350",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -17895,7 +17887,6 @@
         },
         {
           "ruleId": "CA5354",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -17957,7 +17948,6 @@
         },
         {
           "ruleId": "CA5350",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -18066,7 +18056,6 @@
         },
         {
           "ruleId": "CA5354",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -18175,7 +18164,6 @@
         },
         {
           "ruleId": "CA2227",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -19288,7 +19276,6 @@
         },
         {
           "ruleId": "CA1024",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -19532,7 +19519,6 @@
         },
         {
           "ruleId": "CA1062",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -19555,7 +19541,6 @@
         },
         {
           "ruleId": "CA1062",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -19578,7 +19563,6 @@
         },
         {
           "ruleId": "CA1062",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -19601,7 +19585,6 @@
         },
         {
           "ruleId": "CA1062",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -19935,7 +19918,6 @@
         },
         {
           "ruleId": "CA3053",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -23403,7 +23385,6 @@
         },
         {
           "ruleId": "CA1811",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -24800,7 +24781,6 @@
         },
         {
           "ruleId": "CA2227",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -27372,7 +27352,6 @@
         },
         {
           "ruleId": "CA1726",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -27598,7 +27577,6 @@
         },
         {
           "ruleId": "CA2227",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -27618,7 +27596,6 @@
         },
         {
           "ruleId": "CA2227",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -27638,7 +27615,6 @@
         },
         {
           "ruleId": "CA2227",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -37179,7 +37155,6 @@
         },
         {
           "ruleId": "CA1710",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -37340,7 +37315,7 @@
         },
         {
           "ruleId": "CA1811",
-          "message": {},
+
           "locations": [
             {
               "physicalLocation": {
@@ -37587,7 +37562,6 @@
         },
         {
           "ruleId": "CA1062",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -37610,7 +37584,6 @@
         },
         {
           "ruleId": "CA1062",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -37633,7 +37606,6 @@
         },
         {
           "ruleId": "CA1045",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -37656,7 +37628,6 @@
         },
         {
           "ruleId": "CA1062",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -37679,7 +37650,6 @@
         },
         {
           "ruleId": "CA1811",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -38351,7 +38321,6 @@
         },
         {
           "ruleId": "CA1062",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -38374,7 +38343,6 @@
         },
         {
           "ruleId": "CA1062",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -38397,7 +38365,6 @@
         },
         {
           "ruleId": "CA1062",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -38492,7 +38459,6 @@
         },
         {
           "ruleId": "CA2104",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -38512,7 +38478,6 @@
         },
         {
           "ruleId": "CA1000",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -38532,7 +38497,6 @@
         },
         {
           "ruleId": "CA2215",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -39073,7 +39037,6 @@
         },
         {
           "ruleId": "CA1062",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -39096,7 +39059,6 @@
         },
         {
           "ruleId": "CA1062",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -39416,7 +39378,6 @@
         },
         {
           "ruleId": "CA1811",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -40382,7 +40343,6 @@
         },
         {
           "ruleId": "CA1811",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {
@@ -40717,7 +40677,6 @@
         },
         {
           "ruleId": "CA1811",
-          "message": {},
           "locations": [
             {
               "physicalLocation": {

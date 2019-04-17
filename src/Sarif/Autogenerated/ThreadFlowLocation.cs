@@ -62,6 +62,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<string> Kinds { get; set; }
 
         /// <summary>
+        /// An array of references to rule or taxonomy reporting descriptors that are applicable to the thread flow location.
+        /// </summary>
+        [DataMember(Name = "taxa", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public IList<ReportingDescriptorReference> Taxa { get; set; }
+
+        /// <summary>
         /// The name of the module that contains the code that is executing.
         /// </summary>
         [DataMember(Name = "module", IsRequired = false, EmitDefaultValue = false)]
@@ -95,6 +102,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Specifies the importance of this location in understanding the code flow in which it occurs. The order from most to least important is "essential", "important", "unimportant". Default: "important".
         /// </summary>
         [DataMember(Name = "importance", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(ThreadFlowLocationImportance.Important)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
         public ThreadFlowLocationImportance Importance { get; set; }
 
@@ -122,6 +131,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public ThreadFlowLocation()
         {
             Index = -1;
+            Importance = ThreadFlowLocationImportance.Important;
         }
 
         /// <summary>
@@ -138,6 +148,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </param>
         /// <param name="kinds">
         /// An initialization value for the <see cref="P:Kinds" /> property.
+        /// </param>
+        /// <param name="taxa">
+        /// An initialization value for the <see cref="P:Taxa" /> property.
         /// </param>
         /// <param name="module">
         /// An initialization value for the <see cref="P:Module" /> property.
@@ -166,9 +179,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ThreadFlowLocation(int index, Location location, Stack stack, IEnumerable<string> kinds, string module, IDictionary<string, MultiformatMessageString> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, Request request, Response response, IDictionary<string, SerializedPropertyInfo> properties)
+        public ThreadFlowLocation(int index, Location location, Stack stack, IEnumerable<string> kinds, IEnumerable<ReportingDescriptorReference> taxa, string module, IDictionary<string, MultiformatMessageString> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, Request request, Response response, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(index, location, stack, kinds, module, state, nestingLevel, executionOrder, executionTimeUtc, importance, request, response, properties);
+            Init(index, location, stack, kinds, taxa, module, state, nestingLevel, executionOrder, executionTimeUtc, importance, request, response, properties);
         }
 
         /// <summary>
@@ -187,7 +200,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Index, other.Location, other.Stack, other.Kinds, other.Module, other.State, other.NestingLevel, other.ExecutionOrder, other.ExecutionTimeUtc, other.Importance, other.Request, other.Response, other.Properties);
+            Init(other.Index, other.Location, other.Stack, other.Kinds, other.Taxa, other.Module, other.State, other.NestingLevel, other.ExecutionOrder, other.ExecutionTimeUtc, other.Importance, other.Request, other.Response, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -208,7 +221,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ThreadFlowLocation(this);
         }
 
-        private void Init(int index, Location location, Stack stack, IEnumerable<string> kinds, string module, IDictionary<string, MultiformatMessageString> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, Request request, Response response, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int index, Location location, Stack stack, IEnumerable<string> kinds, IEnumerable<ReportingDescriptorReference> taxa, string module, IDictionary<string, MultiformatMessageString> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, Request request, Response response, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Index = index;
             if (location != null)
@@ -232,13 +245,31 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Kinds = destination_0;
             }
 
+            if (taxa != null)
+            {
+                var destination_1 = new List<ReportingDescriptorReference>();
+                foreach (var value_1 in taxa)
+                {
+                    if (value_1 == null)
+                    {
+                        destination_1.Add(null);
+                    }
+                    else
+                    {
+                        destination_1.Add(new ReportingDescriptorReference(value_1));
+                    }
+                }
+
+                Taxa = destination_1;
+            }
+
             Module = module;
             if (state != null)
             {
                 State = new Dictionary<string, MultiformatMessageString>();
-                foreach (var value_1 in state)
+                foreach (var value_2 in state)
                 {
-                    State.Add(value_1.Key, new MultiformatMessageString(value_1.Value));
+                    State.Add(value_2.Key, new MultiformatMessageString(value_2.Value));
                 }
             }
 

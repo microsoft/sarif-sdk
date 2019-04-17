@@ -1265,6 +1265,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 node.Location = VisitNullChecked(node.Location);
                 node.Stack = VisitNullChecked(node.Stack);
+                if (node.Taxa != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Taxa.Count; ++index_0)
+                    {
+                        node.Taxa[index_0] = VisitNullChecked(node.Taxa[index_0]);
+                    }
+                }
+
                 if (node.State != null)
                 {
                     var keys = node.State.Keys.ToArray();
