@@ -770,7 +770,10 @@
           "$ref": "#/definitions/propertyBag"
         }
       },
-      "required": [ "guid" ]
+      "anyOf": [
+        { "required": [ "location" ] },
+        { "required": [ "guid" ] }
+      ]
     },
 
     "externalPropertyFileReferences": {
