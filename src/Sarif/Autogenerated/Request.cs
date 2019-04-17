@@ -4,8 +4,10 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -36,6 +38,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The index within the run.requests array of the request object associated with this result.
         /// </summary>
         [DataMember(Name = "index", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(-1)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public int Index { get; set; }
 
         /// <summary>
@@ -91,6 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public Request()
         {
+            Index = -1;
         }
 
         /// <summary>
