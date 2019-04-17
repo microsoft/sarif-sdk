@@ -174,7 +174,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 fileData = new Artifact
                 {
                     Hashes = v1FileData.Hashes?.Select(CreateHash).ToDictionary(p => p.Key, p => p.Value),
-                    Length = v1FileData.Length,
+                    Length = v1FileData.Length == 0 ? -1 : v1FileData.Length,
                     MimeType = v1FileData.MimeType,
                     Offset = v1FileData.Offset,
                     ParentIndex = parentIndex,
