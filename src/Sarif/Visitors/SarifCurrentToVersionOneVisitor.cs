@@ -195,7 +195,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 fileData = new FileDataVersionOne
                 {
                     Hashes = CreateHashVersionOneListFromV2Hashes(v2FileData.Hashes),
-                    Length = v2FileData.Length,
+                    Length = v2FileData.Length == -1 ? 0 : v2FileData.Length,
                     MimeType = v2FileData.MimeType,
                     Offset = v2FileData.Offset,
                     ParentKey = parentKey,

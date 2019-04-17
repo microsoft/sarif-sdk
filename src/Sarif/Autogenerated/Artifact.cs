@@ -64,6 +64,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The length of the artifact in bytes.
         /// </summary>
         [DataMember(Name = "length", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(-1)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public int Length { get; set; }
 
         /// <summary>
@@ -123,6 +125,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Artifact()
         {
             ParentIndex = -1;
+            Length = -1;
         }
 
         /// <summary>
