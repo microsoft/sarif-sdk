@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             var run = new Run
             {
                 Invocations = new List<Invocation>(),
-                DefaultFileEncoding = defaultFileEncoding
+                DefaultEncoding = defaultFileEncoding
             };
 
             if (analysisTargets != null)
@@ -403,11 +403,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             Encoding encoding = null;
 
-            if (_run.DefaultFileEncoding != null)
+            if (_run.DefaultEncoding != null)
             {
                 try
                 {
-                    encoding = Encoding.GetEncoding(_run.DefaultFileEncoding);
+                    encoding = Encoding.GetEncoding(_run.DefaultEncoding);
                 }
                 catch (ArgumentException) { } // Unrecognized encoding name
             }

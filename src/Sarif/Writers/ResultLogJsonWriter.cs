@@ -108,10 +108,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 _serializer.Serialize(_jsonWriter, run.OriginalUriBaseIds);
             }
 
-            if (run.DefaultFileEncoding != null)
+            if (run.DefaultEncoding != null)
             {
-                _jsonWriter.WritePropertyName("defaultFileEncoding");
-                _serializer.Serialize(_jsonWriter, run.DefaultFileEncoding);
+                _jsonWriter.WritePropertyName("defaultEncoding");
+                _serializer.Serialize(_jsonWriter, run.DefaultEncoding);
             }
 
             if (run.RedactionToken != null)
