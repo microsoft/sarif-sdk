@@ -124,12 +124,15 @@
 
         "offset": {
           "description": "The offset in bytes of the artifact within its containing artifact.",
-          "type": "integer"
+          "type": "integer",
+          "minimum": 0
         },
 
         "length": {
           "description": "The length of the artifact in bytes.",
-          "type": "integer"
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
         },
 
         "roles": {
@@ -505,7 +508,8 @@
 
         "stepOverEdgeCount": {
           "description": "The number of edge traversals necessary to return from a nested graph.",
-          "type": "integer"
+          "type": "integer",
+          "minimum": 0
         },
 
         "properties": {
@@ -768,7 +772,11 @@
           "description": "Key/value pairs that provide additional information about the external property file.",
           "$ref": "#/definitions/propertyBag"
         }
-      }
+      },
+      "anyOf": [
+        { "required": [ "location" ] },
+        { "required": [ "guid" ] }
+      ]
     },
 
     "externalPropertyFileReferences": {
@@ -1509,7 +1517,8 @@
 
         "id": {
           "description": "Value that distinguishes this physical location from all other physical locations in this run object.",
-          "type": "integer"
+          "type": "integer",
+          "minimum": 0
         },
 
         "address": {
@@ -2184,8 +2193,7 @@
           "description": "A set of suppressions relevant to this result.",
           "type": "array",
           "minItems": 0,
-          "uniqueItems": false,
-          "default": [],
+          "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/suppression"
           }
@@ -2819,7 +2827,8 @@
 
         "nestingLevel": {
           "description": "An integer representing a containment hierarchy within the thread flow.",
-          "type": "integer"
+          "type": "integer",
+          "minimum": 0
         },
 
         "executionOrder": {
