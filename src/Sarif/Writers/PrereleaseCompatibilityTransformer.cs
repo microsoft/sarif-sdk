@@ -153,19 +153,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             UpdateSarifLogVersionAndSchema(sarifLog);
 
             bool modifiedLog = false;
-            
+
             // https://github.com/oasis-tcs/sarif-spec/issues/366
             modifiedLog |= ConvertAllToolComponentArtifactIndicesToArtifactLocations(sarifLog);
+
+            modifiedLog |= RenameDefaultFileEncodingToDefaultEncoding(sarifLog);
+
+            return modifiedLog;
+        }
+
+        private static bool RenameDefaultFileEncodingToDefaultEncoding(JObject sarifLog)
+        {
+            bool isModified = false;
 
             if (sarifLog["runs"] is JArray runs)
             {
                 foreach (JObject run in runs)
                 {
-                    modifiedLog |= RenameProperty(run, "defaultFileEncoding", "defaultEncoding");
+                    isModified |= RenameProperty(run, "defaultFileEncoding", "defaultEncoding");
                 }
             }
 
-            return modifiedLog;
+            return isModified;
         }
 
         private static bool ConvertAllToolComponentArtifactIndicesToArtifactLocations(JObject sarifLog)
