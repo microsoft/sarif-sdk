@@ -129,7 +129,9 @@
 
         "length": {
           "description": "The length of the artifact in bytes.",
-          "type": "integer"
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
         },
 
         "roles": {

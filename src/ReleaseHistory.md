@@ -319,3 +319,5 @@
 * API NON-BREAKING: Add `threadFlowLocation.taxa`. https://github.com/oasis-tcs/sarif-spec/issues/381
 * API BREAKING: anyOf `message.id` and `message.text` is required.
 * API BREAKING: anyOf `externalPropertyFileReference.guid` and `externalPropertyFileReference.location` is required.
+* API BREAKING: `artifact.length` should have `default: -1, minimum: -1` values.
+
