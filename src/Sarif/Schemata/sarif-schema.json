@@ -1183,7 +1183,7 @@
         },
 
         "toolExecutionSuccessful": {
-          "description": "A value indicating whether the tool's execution completed successfully.",
+          "description": "Specifies whether the tool's execution completed successfully.",
           "type": "boolean"
         },
 
@@ -1818,9 +1818,9 @@
       "properties": {
 
         "enabled": {
-          "default": true,
           "description": "Specifies whether the report may be produced during the scan.",
-          "type": "boolean"
+          "type": "boolean",
+          "default": true
         },
 
         "level": {
@@ -1965,6 +1965,17 @@
         "body": {
           "description": "The body of the request.",
           "$ref": "#/definitions/artifactContent"
+        },
+
+        "noResponseReceived": {
+          "description": "Specifies whether a response was received for the request.",
+          "type": "boolean",
+          "default": false
+        },
+
+        "failureReason": {
+          "description": "The reason for the request failure.",
+          "type": "string"
         },
 
         "properties": {

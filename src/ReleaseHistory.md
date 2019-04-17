@@ -318,3 +318,4 @@
 * API BREAKING: Rename `run.defaultFileEncoding` to `run.defaultEncoding`.
 * API NON-BREAKING: Add `threadFlowLocation.taxa`. https://github.com/oasis-tcs/sarif-spec/issues/381
 * API BREAKING: anyOf `message.id` and `message.text` is required.
+* API NON-BREAKING: Add `request.noResponseReceived` and `request.failureReason`. https://github.com/oasis-tcs/sarif-spec/issues/378
