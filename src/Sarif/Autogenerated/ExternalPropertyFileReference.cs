@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// A stable, unique identifer for the external property file in the form of a GUID.
         /// </summary>
-        [DataMember(Name = "guid", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "guid", IsRequired = true)]
         public string Guid { get; set; }
 
         /// <summary>

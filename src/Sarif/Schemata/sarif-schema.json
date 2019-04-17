@@ -769,7 +769,8 @@
           "description": "Key/value pairs that provide additional information about the external property file.",
           "$ref": "#/definitions/propertyBag"
         }
-      }
+      },
+      "required": [ "guid" ]
     },
 
     "externalPropertyFileReferences": {
