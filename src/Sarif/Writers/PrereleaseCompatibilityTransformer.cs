@@ -204,30 +204,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 possiblePathToLeafNode: suppressionsPathToUpdate,
                 rootNode: run,
                 action: actionOnLeaf);
-
-            //if (run["results"] is JArray results)
-            //{
-            //    foreach (JObject result in results)
-            //    {
-            //        if (result["suppressions"] is JArray suppressions)
-            //        {
-            //            foreach (JToken suppressionKin in suppressionStates)
-            //            {
-            //                var suppression = new JObject
-            //                {
-            //                    { "kind", suppressionState }
-            //                };
-
-            //                suppressions.Add(suppression);
-            //            }
-
-            //            if (suppressions.Count > 0)
-            //            {
-            //                result.Add("suppressions", suppressions);
-            //            }
-            //        }
-            //    }
-            //}
         }
 
         private static bool RenameFixChangesToFixArtifactChanges(JObject sarifLog)
