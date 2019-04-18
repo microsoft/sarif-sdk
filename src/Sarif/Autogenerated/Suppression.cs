@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public SuppressionKind Kind { get; set; }
 
         /// <summary>
-        /// A string that indicates the state of the suppression. Well known values are `accepted`, `underReview` and `rejected`.
+        /// A string that indicates the state of the suppression. Well-known values are `accepted`, `underReview` and `rejected`.
         /// </summary>
         [DataMember(Name = "state", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue("accepted")]

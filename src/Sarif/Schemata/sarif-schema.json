@@ -1905,7 +1905,7 @@
         },
 
         "kinds": {
-          "description": "A set of distinct strings that categorize the relationshship. Well-known kinds include canPrecede, canFollow, willPrecede, willFollow, superset, subset, equal, disjoint, relevant, and incomparable.",
+          "description": "A set of distinct strings that categorize the relationship. Well-known kinds include canPrecede, canFollow, willPrecede, willFollow, superset, subset, equal, disjoint, relevant, and incomparable.",
           "type": "array",
           "default": [ "relevant" ],
           "uniqueItems": true,
@@ -2698,7 +2698,7 @@
         },
 
         "state": {
-          "description": "A string that indicates the state of the suppression. Well known values are `accepted`, `underReview` and `rejected`.",
+          "description": "A string that indicates the state of the suppression. Well-known values are `accepted`, `underReview` and `rejected`.",
           "type": "string",
           "default": "accepted"
         },
