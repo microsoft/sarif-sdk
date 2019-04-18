@@ -157,24 +157,49 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // https://github.com/oasis-tcs/sarif-spec/issues/366
             modifiedLog |= ConvertAllToolComponentArtifactIndicesToArtifactLocations(sarifLog);
 
-            modifiedLog |= RenameDefaultFileEncodingToDefaultEncoding(sarifLog);
-
-            return modifiedLog;
-        }
-
-        private static bool RenameDefaultFileEncodingToDefaultEncoding(JObject sarifLog)
-        {
-            bool isModified = false;
-
             if (sarifLog["runs"] is JArray runs)
             {
                 foreach (JObject run in runs)
                 {
-                    isModified |= RenameProperty(run, "defaultFileEncoding", "defaultEncoding");
+                    modifiedLog |= RenameProperty(run, "defaultFileEncoding", "defaultEncoding");
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/375
+                    modifiedLog |= HoistIdsFromPhysicalLocationToLocation(run);
                 }
             }
 
-            return isModified;
+            return modifiedLog;
+        }
+
+        private static bool HoistIdsFromPhysicalLocationToLocation(JObject run)
+        {
+            string[] locationPathsToUpdate =
+            {
+                "results[].locations",
+                "results[].relatedLocations",
+            };
+
+            return PerformActionOnLeafNodeIfExists(
+                possiblePathsToLeafNode: locationPathsToUpdate,
+                rootNode: run,
+                action: HoistPhysicalLocationIdToParentLocation);
+        }
+
+        private static bool HoistPhysicalLocationIdToParentLocation(JObject location)
+        {
+            bool modified = false;
+
+            if (location["physicalLocation"] is JObject physicalLocation)
+            {
+                if (physicalLocation["id"] is JValue idValue)
+                {
+                    physicalLocation.Remove("id");
+                    location["id"] = idValue;
+                    modified = true;
+                }
+            }
+
+            return modified;
         }
 
         private static bool ConvertAllToolComponentArtifactIndicesToArtifactLocations(JObject sarifLog)

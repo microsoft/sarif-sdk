@@ -85,6 +85,20 @@ namespace Microsoft.CodeAnalysis.Sarif
         public ArtifactContent Body { get; set; }
 
         /// <summary>
+        /// Specifies whether a response was received for the request.
+        /// </summary>
+        [DataMember(Name = "noResponseReceived", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public bool NoResponseReceived { get; set; }
+
+        /// <summary>
+        /// The reason for the request failure.
+        /// </summary>
+        [DataMember(Name = "failureReason", IsRequired = false, EmitDefaultValue = false)]
+        public string FailureReason { get; set; }
+
+        /// <summary>
         /// Key/value pairs that provide additional information about the request.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
@@ -96,6 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Request()
         {
             Index = -1;
+            NoResponseReceived = false;
         }
 
         /// <summary>
@@ -125,12 +140,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="body">
         /// An initialization value for the <see cref="P:Body" /> property.
         /// </param>
+        /// <param name="noResponseReceived">
+        /// An initialization value for the <see cref="P:NoResponseReceived" /> property.
+        /// </param>
+        /// <param name="failureReason">
+        /// An initialization value for the <see cref="P:FailureReason" /> property.
+        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Request(int index, string protocol, string version, string target, string method, object headers, object parameters, ArtifactContent body, IDictionary<string, SerializedPropertyInfo> properties)
+        public Request(int index, string protocol, string version, string target, string method, object headers, object parameters, ArtifactContent body, bool noResponseReceived, string failureReason, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(index, protocol, version, target, method, headers, parameters, body, properties);
+            Init(index, protocol, version, target, method, headers, parameters, body, noResponseReceived, failureReason, properties);
         }
 
         /// <summary>
@@ -149,7 +170,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Index, other.Protocol, other.Version, other.Target, other.Method, other.Headers, other.Parameters, other.Body, other.Properties);
+            Init(other.Index, other.Protocol, other.Version, other.Target, other.Method, other.Headers, other.Parameters, other.Body, other.NoResponseReceived, other.FailureReason, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -170,7 +191,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Request(this);
         }
 
-        private void Init(int index, string protocol, string version, string target, string method, object headers, object parameters, ArtifactContent body, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int index, string protocol, string version, string target, string method, object headers, object parameters, ArtifactContent body, bool noResponseReceived, string failureReason, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Index = index;
             Protocol = protocol;
@@ -184,6 +205,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Body = new ArtifactContent(body);
             }
 
+            NoResponseReceived = noResponseReceived;
+            FailureReason = failureReason;
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);
