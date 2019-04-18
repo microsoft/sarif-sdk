@@ -244,7 +244,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 fix = new Fix()
                 {
                     Description = CreateMessage(v1Fix.Description),
-                    Changes = v1Fix.FileChanges?.Select(CreateFileChange).ToList()
+                    ArtifactChanges = v1Fix.FileChanges?.Select(CreateFileChange).ToList()
                 };
             }
 

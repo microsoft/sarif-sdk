@@ -132,7 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 new Fix()
                 {
-                    Changes = new List<ArtifactChange>()
+                    ArtifactChanges = new List<ArtifactChange>()
                     {
                         new ArtifactChange()
                         {

@@ -186,7 +186,7 @@ namespace Sarif.Sdk.Sample
                     new Fix // CA1820
                     {
                         Description = new Message { Text = "Replace empty string test with test for zero length." },
-                        Changes = new[]
+                        ArtifactChanges = new[]
                         {
                             new ArtifactChange
                             {
@@ -219,7 +219,7 @@ namespace Sarif.Sdk.Sample
                     new Fix // CA2215
                     {
                         Description = new Message { Text = "Call base.Dispose in the derived's class's Dispose method." },
-                        Changes = new[]
+                        ArtifactChanges = new[]
                         {
                             new ArtifactChange
                             {

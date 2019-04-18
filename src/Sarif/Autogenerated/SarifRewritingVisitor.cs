@@ -587,11 +587,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.Description = VisitNullChecked(node.Description);
-                if (node.Changes != null)
+                if (node.ArtifactChanges != null)
                 {
-                    for (int index_0 = 0; index_0 < node.Changes.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.ArtifactChanges.Count; ++index_0)
                     {
-                        node.Changes[index_0] = VisitNullChecked(node.Changes[index_0]);
+                        node.ArtifactChanges[index_0] = VisitNullChecked(node.ArtifactChanges[index_0]);
                     }
                 }
             }

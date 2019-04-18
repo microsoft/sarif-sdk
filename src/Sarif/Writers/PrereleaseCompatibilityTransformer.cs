@@ -168,10 +168,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 }
             }
 
+            modifiedLog |= RenameFixChangesToFixArtifactChanges(sarifLog);
+
             return modifiedLog;
         }
 
+        private static bool RenameFixChangesToFixArtifactChanges(JObject sarifLog)
+        {
+            string[] fixPathsToUpdate =
+            {
+                "inlineExternalProperties[].results[].fixes[]",
+                "runs[].results[].fixes[]"
+            };
+
+            bool actionOnLeafNode(JObject fix)
+            {
+                return RenameProperty(fix, "changes", "artifactChanges");
+            }
+
+            return PerformActionOnLeafNodeIfExists(
+                possiblePathsToLeafNode: fixPathsToUpdate,
+                rootNode: sarifLog,
+                action: actionOnLeafNode);
+        }
+
         private static bool HoistIdsFromPhysicalLocationToLocation(JObject run)
+
         {
             string[] locationPathsToUpdate =
             {

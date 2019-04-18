@@ -33,21 +33,21 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!object.ReferenceEquals(left.Changes, right.Changes))
+            if (!object.ReferenceEquals(left.ArtifactChanges, right.ArtifactChanges))
             {
-                if (left.Changes == null || right.Changes == null)
+                if (left.ArtifactChanges == null || right.ArtifactChanges == null)
                 {
                     return false;
                 }
 
-                if (left.Changes.Count != right.Changes.Count)
+                if (left.ArtifactChanges.Count != right.ArtifactChanges.Count)
                 {
                     return false;
                 }
 
-                for (int index_0 = 0; index_0 < left.Changes.Count; ++index_0)
+                for (int index_0 = 0; index_0 < left.ArtifactChanges.Count; ++index_0)
                 {
-                    if (!ArtifactChange.ValueComparer.Equals(left.Changes[index_0], right.Changes[index_0]))
+                    if (!ArtifactChange.ValueComparer.Equals(left.ArtifactChanges[index_0], right.ArtifactChanges[index_0]))
                     {
                         return false;
                     }
@@ -94,9 +94,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Description.ValueGetHashCode();
                 }
 
-                if (obj.Changes != null)
+                if (obj.ArtifactChanges != null)
                 {
-                    foreach (var value_2 in obj.Changes)
+                    foreach (var value_2 in obj.ArtifactChanges)
                     {
                         result = result * 31;
                         if (value_2 != null)
