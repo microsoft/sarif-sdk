@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(
                 inputResourceText,
-                formatting: Formatting.Indented, 
+                formatting: Formatting.Indented,
                 out string transformedLog);
 
             return transformedLog;
@@ -105,6 +105,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public void PrereleaseCompatibilityTransformer_WithSuppressions()
         {
             RunTest("WithSuppressions.sarif");
+        }
+
+        [Fact]
+        public void PrereleaseCompatibilityTransformer_OneRunWithRedactionToken()
+        {
+            RunTest("OneRunWithRedactionToken.sarif");
         }
     }
 }
