@@ -321,3 +321,4 @@
 * API NON-BREAKING: Add `request.noResponseReceived` and `request.failureReason`. https://github.com/oasis-tcs/sarif-spec/issues/378
 * API BREAKING: anyOf `externalPropertyFileReference.guid` and `externalPropertyFileReference.location` is required.
 * API BREAKING: `artifact.length` should have `default: -1, minimum: -1` values.
+* API BREAKING: Rename `fix.changes` to `fix.artifactChanges`.
