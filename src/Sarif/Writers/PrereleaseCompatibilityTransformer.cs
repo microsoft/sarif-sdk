@@ -157,7 +157,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // https://github.com/oasis-tcs/sarif-spec/issues/366
             modifiedLog |= ConvertAllToolComponentArtifactIndicesToArtifactLocations(sarifLog);
 
-            modifiedLog |= RenameDefaultFileEncodingToDefaultEncoding(sarifLog);
+            if (sarifLog["runs"] is JArray runs)
+            {
+                foreach (JObject run in runs)
+                {
+                    modifiedLog |= RenameProperty(run, "defaultFileEncoding", "defaultEncoding");
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/375
+                    modifiedLog |= HoistIdsFromPhysicalLocationToLocation(run);
+                }
+            }
 
             modifiedLog |= RenameFixChangesToFixArtifactChanges(sarifLog);
 
@@ -183,19 +192,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 action: actionOnLeafNode);
         }
 
-        private static bool RenameDefaultFileEncodingToDefaultEncoding(JObject sarifLog)
-        {
-            bool isModified = false;
+        private static bool HoistIdsFromPhysicalLocationToLocation(JObject run)
 
-            if (sarifLog["runs"] is JArray runs)
+        {
+            string[] locationPathsToUpdate =
             {
-                foreach (JObject run in runs)
+                "results[].locations",
+                "results[].relatedLocations",
+            };
+
+            return PerformActionOnLeafNodeIfExists(
+                possiblePathsToLeafNode: locationPathsToUpdate,
+                rootNode: run,
+                action: HoistPhysicalLocationIdToParentLocation);
+        }
+
+        private static bool HoistPhysicalLocationIdToParentLocation(JObject location)
+        {
+            bool modified = false;
+
+            if (location["physicalLocation"] is JObject physicalLocation)
+            {
+                if (physicalLocation["id"] is JValue idValue)
                 {
-                    isModified |= RenameProperty(run, "defaultFileEncoding", "defaultEncoding");
+                    physicalLocation.Remove("id");
+                    location["id"] = idValue;
+                    modified = true;
                 }
             }
 
-            return isModified;
+            return modified;
         }
 
         private static bool ConvertAllToolComponentArtifactIndicesToArtifactLocations(JObject sarifLog)

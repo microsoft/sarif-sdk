@@ -1261,6 +1261,12 @@
       "type": "object",
       "properties": {
 
+        "id": {
+          "description": "Value that distinguishes this location from all other locations within a single result object.",
+          "type": "integer",
+          "minimum": 0
+        },
+
         "physicalLocation": {
           "description": "Identifies the artifact and region.",
           "$ref": "#/definitions/physicalLocation"
@@ -1514,12 +1520,6 @@
       "additionalProperties": false,
       "type": "object",
       "properties": {
-
-        "id": {
-          "description": "Value that distinguishes this physical location from all other physical locations in this run object.",
-          "type": "integer",
-          "minimum": 0
-        },
 
         "address": {
           "description": "The address of the location.",
@@ -1976,17 +1976,6 @@
           "$ref": "#/definitions/artifactContent"
         },
 
-        "noResponseReceived": {
-          "description": "Specifies whether a response was received for the request.",
-          "type": "boolean",
-          "default": false
-        },
-
-        "failureReason": {
-          "description": "The reason for the request failure.",
-          "type": "string"
-        },
-
         "properties": {
           "description": "Key/value pairs that provide additional information about the request.",
           "$ref": "#/definitions/propertyBag"
@@ -2023,7 +2012,7 @@
 
         "reasonPhrase": {
           "description": "The response reason. Example: 'Not found'.",
-          "type": "integer"
+          "type": "string"
         },
 
         "headers": {
@@ -2037,6 +2026,12 @@
         "body": {
           "description": "The body of the response.",
           "$ref": "#/definitions/artifactContent"
+        },
+
+        "noResponseReceived": {
+          "description": "Specifies whether a response was received from the server.",
+          "type": "boolean",
+          "default": false
         },
 
         "properties": {

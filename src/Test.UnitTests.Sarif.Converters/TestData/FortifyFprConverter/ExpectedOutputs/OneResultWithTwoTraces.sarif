@@ -337,8 +337,8 @@
           ],
           "relatedLocations": [
             {
+              "id": 1,
               "physicalLocation": {
-                "id": 1,
                 "artifactLocation": {
                   "index": 0
                 },

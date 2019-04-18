@@ -622,7 +622,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 if (relatedLocation != null)
                 {
-                    relatedLocation.PhysicalLocation.Id = 1;
+                    relatedLocation.Id = 1;
                 }
             }
 
