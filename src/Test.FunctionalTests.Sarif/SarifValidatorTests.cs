@@ -68,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Func<SarifLog, SarifLog> callback =
                 (sarifLog) =>
                 {
-                    var visitor = new KindsPopulatingVisitor();
+                    var visitor = new OverridePrimitiveArraysPopulatingVisitor();
                     return visitor.VisitSarifLog(sarifLog);
                 };
 
@@ -90,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Func<SarifLog, SarifLog> callback =
                 (sarifLog) =>
                 {
-                    var visitor = new KindsPopulatingVisitor();
+                    var visitor = new OverridePrimitiveArraysPopulatingVisitor();
                     return visitor.VisitSarifLog(sarifLog);
                };
 
@@ -99,12 +99,21 @@ namespace Microsoft.CodeAnalysis.Sarif
                 postPopulationCallback: callback);
         }
 
-        public class KindsPopulatingVisitor : SarifRewritingVisitor
+        public class OverridePrimitiveArraysPopulatingVisitor : SarifRewritingVisitor
         {
+            // TODO: https://github.com/Microsoft/sarif-sdk/issues/1425
+            // SarifValidatorTests improvement: add generic logic for populating primitive lists.
+
             public override ReportingDescriptorRelationship VisitReportingDescriptorRelationship(ReportingDescriptorRelationship node)
             {
                 node.Kinds[0] = "relevant";
                 return base.VisitReportingDescriptorRelationship(node);
+            }
+
+            public override Run VisitRun(Run node)
+            {
+                node.RedactionTokens[0] = "[REDACTED]";
+                return base.VisitRun(node);
             }
         }
 
