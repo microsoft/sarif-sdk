@@ -106,5 +106,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             RunTest("WithSuppressions.sarif");
         }
+
+        [Fact]
+        public void PrereleaseCompatibilityTransformer_ArtifactsWithRoles()
+        {
+            RunTest("ArtifactsWithRoles.sarif");
+        }
     }
 }

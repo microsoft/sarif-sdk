@@ -170,7 +170,80 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             modifiedLog |= RenameFixChangesToFixArtifactChanges(sarifLog);
 
+            modifiedLog |= RenameArtifactRolesEnums(sarifLog);
+
             return modifiedLog;
+        }
+
+        private static bool RenameArtifactRolesEnums(JObject sarifLog)
+        {
+            string[] artifactRolesPathsToUpdate =
+            {
+                "inlineExternalProperties[].artifacts[]",
+                "runs[].artifacts[]"
+            };
+
+            bool actionOnLeafNode(JObject artifact)
+            {
+                if (artifact["roles"] is JArray roles)
+                {
+                    bool isModified = false;
+
+                    foreach(JValue role in roles)
+                    {
+                        switch (role.Value as string)
+                        {
+                            case "unmodifiedFile":
+                                {
+                                    role.Value = "unmodified";
+                                    isModified = true;
+                                    break;
+                                }
+                            case "modifiedFile":
+                                {
+                                    role.Value = "modified";
+                                    isModified = true;
+                                    break;
+                                }
+                            case "addedFile":
+                                {
+                                    role.Value = "added";
+                                    isModified = true;
+                                    break;
+                                }
+                            case "deletedFile":
+                                {
+                                    role.Value = "deleted";
+                                    isModified = true;
+                                    break;
+                                }
+                            case "renamedFile":
+                                {
+                                    role.Value = "renamed";
+                                    isModified = true;
+                                    break;
+                                }
+                            case "uncontrolledFile":
+                                {
+                                    role.Value = "uncontrolled";
+                                    isModified = true;
+                                    break;
+                                }
+                            default:
+                                {
+                                    break;
+                                }
+                        }
+                    }
+                    return isModified;
+                }
+                return false;
+            }
+
+            return PerformActionOnLeafNodeIfExists(
+                possiblePathsToLeafNode: artifactRolesPathsToUpdate,
+                rootNode: sarifLog,
+                action: actionOnLeafNode);
         }
 
         private static bool RenameFixChangesToFixArtifactChanges(JObject sarifLog)
