@@ -322,3 +322,4 @@
 * API BREAKING: anyOf `externalPropertyFileReference.guid` and `externalPropertyFileReference.location` is required.
 * API BREAKING: `artifact.length` should have `default: -1, minimum: -1` values.
 * API BREAKING: Rename `fix.changes` to `fix.artifactChanges`.
+* API BREAKING: Separate `suppression` `status` from `kind`. https://github.com/oasis-tcs/sarif-spec/issues/371

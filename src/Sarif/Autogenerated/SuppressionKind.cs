@@ -12,9 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     public enum SuppressionKind
     {
         None,
-        SuppressedInSource,
-        SuppressedExternally,
-        UnderReview,
-        SuppressionRejected
+        InSource,
+        External
     }
 }

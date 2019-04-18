@@ -165,12 +165,69 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                     // https://github.com/oasis-tcs/sarif-spec/issues/375
                     modifiedLog |= HoistIdsFromPhysicalLocationToLocation(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/371
+                    modifiedLog |= RenameSuppressionKindValues(run);
                 }
             }
 
             modifiedLog |= RenameFixChangesToFixArtifactChanges(sarifLog);
 
             return modifiedLog;
+        }
+
+        private static bool RenameSuppressionKindValues(JObject run)
+        {
+            string suppressionsPathToUpdate = "results[].suppressions[]";
+
+            bool actionOnLeaf(JObject suppression)
+            {
+                if (suppression["kind"] is JValue kind && kind.Value is string)
+                {
+                    if (kind.Value as string == "suppressedInSource" )
+                    {
+                        kind.Value = "inSource";
+                        return true;
+                    }
+
+                    if (kind.Value as string == "suppressedExternally")
+                    {
+                        kind.Value = "external";
+                        return true;
+                    }
+
+                }
+                return false;
+            }
+
+            return PerformActionOnLeafNodeIfExists(
+                possiblePathToLeafNode: suppressionsPathToUpdate,
+                rootNode: run,
+                action: actionOnLeaf);
+
+            //if (run["results"] is JArray results)
+            //{
+            //    foreach (JObject result in results)
+            //    {
+            //        if (result["suppressions"] is JArray suppressions)
+            //        {
+            //            foreach (JToken suppressionKin in suppressionStates)
+            //            {
+            //                var suppression = new JObject
+            //                {
+            //                    { "kind", suppressionState }
+            //                };
+
+            //                suppressions.Add(suppression);
+            //            }
+
+            //            if (suppressions.Count > 0)
+            //            {
+            //                result.Add("suppressions", suppressions);
+            //            }
+            //        }
+            //    }
+            //}
         }
 
         private static bool RenameFixChangesToFixArtifactChanges(JObject sarifLog)

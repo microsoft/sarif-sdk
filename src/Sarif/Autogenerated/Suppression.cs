@@ -4,6 +4,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
@@ -47,6 +48,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         public SuppressionKind Kind { get; set; }
 
         /// <summary>
+        /// A string that indicates the state of the suppression. Well known values are `accepted`, `underReview` and `rejected`.
+        /// </summary>
+        [DataMember(Name = "state", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue("accepted")]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public string State { get; set; }
+
+        /// <summary>
         /// Identifies the location associated with the suppression.
         /// </summary>
         [DataMember(Name = "location", IsRequired = false, EmitDefaultValue = false)]
@@ -63,6 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public Suppression()
         {
+            State = "accepted";
         }
 
         /// <summary>
@@ -74,15 +84,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="kind">
         /// An initialization value for the <see cref="P:Kind" /> property.
         /// </param>
+        /// <param name="state">
+        /// An initialization value for the <see cref="P:State" /> property.
+        /// </param>
         /// <param name="location">
         /// An initialization value for the <see cref="P:Location" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Suppression(string guid, SuppressionKind kind, Location location, IDictionary<string, SerializedPropertyInfo> properties)
+        public Suppression(string guid, SuppressionKind kind, string state, Location location, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(guid, kind, location, properties);
+            Init(guid, kind, state, location, properties);
         }
 
         /// <summary>
@@ -101,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Guid, other.Kind, other.Location, other.Properties);
+            Init(other.Guid, other.Kind, other.State, other.Location, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -122,10 +135,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Suppression(this);
         }
 
-        private void Init(string guid, SuppressionKind kind, Location location, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string guid, SuppressionKind kind, string state, Location location, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Guid = guid;
             Kind = kind;
+            State = state;
             if (location != null)
             {
                 Location = new Location(location);

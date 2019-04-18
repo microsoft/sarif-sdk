@@ -2692,11 +2692,15 @@
         "kind": {
           "description": "A string that indicates where the suppression is persisted.",
           "enum": [
-            "suppressedInSource",
-            "suppressedExternally",
-            "underReview",
-            "suppressionRejected"
+            "inSource",
+            "external"
           ]
+        },
+
+        "state": {
+          "description": "A string that indicates the state of the suppression. Well known values are `accepted`, `underReview` and `rejected`.",
+          "type": "string",
+          "default": "accepted"
         },
 
         "location": {

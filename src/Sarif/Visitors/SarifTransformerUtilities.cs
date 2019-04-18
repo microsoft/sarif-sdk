@@ -197,13 +197,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             if (v1SuppressionStates.HasFlag(SuppressionStatesVersionOne.SuppressedExternally))
             {
                 suppressions = new List<Suppression>();
-                suppressions.Add(new Suppression { Kind = SuppressionKind.SuppressedExternally });
+                suppressions.Add(new Suppression { Kind = SuppressionKind.External });
             }
 
             if (v1SuppressionStates.HasFlag(SuppressionStatesVersionOne.SuppressedInSource))
             {
                 suppressions = suppressions ?? new List<Suppression>();
-                suppressions.Add(new Suppression { Kind = SuppressionKind.SuppressedInSource });
+                suppressions.Add(new Suppression { Kind = SuppressionKind.InSource });
             }
 
             return suppressions;
@@ -223,10 +223,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 switch (suppression.Kind)
                 {
-                    case SuppressionKind.SuppressedExternally:
+                    case SuppressionKind.External:
                         isSuppressedExternally = true;
                         break;
-                    case SuppressionKind.SuppressedInSource:
+                    case SuppressionKind.InSource:
                         isSuppressedInSource = true;
                         break;
                 }
