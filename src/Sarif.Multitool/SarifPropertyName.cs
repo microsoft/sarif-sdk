@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string ArtifactLocation = "artifactLocation";
         public const string Artifacts = "artifacts";
         public const string Attachments = "attachments";
-        public const string Changes = "changes";
+        public const string ArtifactChanges = "artifactChanges";
         public const string CodeFlows = "codeFlows";
         public const string Conversion = "conversion";
         public const string ConversionSources = "conversionSources";

@@ -284,7 +284,7 @@
           "message": {
             "id": "Default",
             "arguments": [
-              "runs[0].results[0].fixes[0].changes[0].artifactLocation.uri",
+              "runs[0].results[0].fixes[0].artifactChanges[0].artifactLocation.uri",
               "file:///C:/src/file.c"
             ]
           },

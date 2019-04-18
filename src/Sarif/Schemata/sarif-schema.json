@@ -961,7 +961,7 @@
           "$ref": "#/definitions/message"
         },
 
-        "changes": {
+        "artifactChanges": {
           "description": "One or more artifact changes that comprise a fix for a result.",
           "type": "array",
           "minItems": 1,
@@ -976,7 +976,7 @@
           "$ref": "#/definitions/propertyBag"
         }
       },
-      "required": [ "changes" ]
+      "required": [ "artifactChanges" ]
     },
 
     "graph": {

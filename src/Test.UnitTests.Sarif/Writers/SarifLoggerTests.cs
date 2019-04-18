@@ -349,7 +349,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                         {
                             new Fix
                             {
-                                Changes = new[]
+                                ArtifactChanges = new[]
                                 {
                                    new ArtifactChange
                                    {

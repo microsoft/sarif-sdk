@@ -131,7 +131,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     Replacements = replacements
                 };
 
-                Fix sarifFix = new Fix(description: null, changes: new List<ArtifactChange>() { sarifFileChange }, properties: null);
+                Fix sarifFix = new Fix(description: null, artifactChanges: new List<ArtifactChange>() { sarifFileChange }, properties: null);
                 result.Fixes = new List<Fix> { sarifFix };
             } 
 

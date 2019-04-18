@@ -226,7 +226,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     fix = new FixVersionOne()
                     {
                         Description = v2Fix.Description?.Text,
-                        FileChanges = v2Fix.Changes?.Select(CreateFileChangeVersionOne).ToList()
+                        FileChanges = v2Fix.ArtifactChanges?.Select(CreateFileChangeVersionOne).ToList()
                     };
                 }
                 catch (UnknownEncodingException)

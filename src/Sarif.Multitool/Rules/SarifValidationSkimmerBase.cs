@@ -337,13 +337,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 Visit(fix.Description, fixPointer.AtProperty(SarifPropertyName.Description));
             }
 
-            if (fix.Changes != null)
+            if (fix.ArtifactChanges != null)
             {
-                string fileChangesPointer = fixPointer.AtProperty(SarifPropertyName.Changes);
+                string fileChangesPointer = fixPointer.AtProperty(SarifPropertyName.ArtifactChanges);
 
-                for (int i = 0; i < fix.Changes.Count; ++i)
+                for (int i = 0; i < fix.ArtifactChanges.Count; ++i)
                 {
-                    Visit(fix.Changes[i], fileChangesPointer.AtIndex(i));
+                    Visit(fix.ArtifactChanges[i], fileChangesPointer.AtIndex(i));
                 }
             }
         }

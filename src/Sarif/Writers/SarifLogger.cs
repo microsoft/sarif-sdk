@@ -370,9 +370,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 foreach (Fix fix in result.Fixes)
                 {
-                    if (fix.Changes != null)
+                    if (fix.ArtifactChanges != null)
                     {
-                        foreach (ArtifactChange fileChange in fix.Changes)
+                        foreach (ArtifactChange fileChange in fix.ArtifactChanges)
                         {
                             CaptureFile(fileChange.ArtifactLocation);
                         }
