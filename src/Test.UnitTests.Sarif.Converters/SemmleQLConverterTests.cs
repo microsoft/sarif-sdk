@@ -110,8 +110,8 @@ namespace Microsoft.CodeAnalysis.Sarif
           ],
           ""relatedLocations"": [
             {
+              ""id"": 1,
               ""physicalLocation"": {
-                ""id"": 1,
                 ""fileLocation"": {
                   ""uri"": ""file:///C:/Windows/Company.NET/Framework/v2.0.50727/mscorlib.dll""
                 },
@@ -119,8 +119,8 @@ namespace Microsoft.CodeAnalysis.Sarif
               }
             },
             {
+              ""id"": 2,
               ""physicalLocation"": {
-                ""id"": 2,
                 ""fileLocation"": {
                   ""uri"": ""/ClientClient/Company.ResourceManagement.ObjectModel/ClientAttributeValue.cs"",
                   ""uriBaseId"": ""$srcroot""
@@ -133,8 +133,8 @@ namespace Microsoft.CodeAnalysis.Sarif
               }
             },
             {
+              ""id"": 3,
               ""physicalLocation"": {
-                ""id"": 3,
                 ""fileLocation"": {
                   ""uri"": ""/ClientClient/Company.ResourceManagement.ObjectModel/ClientAttributeValue_ISerializable.cs"",
                   ""uriBaseId"": ""$srcroot""

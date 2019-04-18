@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The response reason. Example: 'Not found'.
         /// </summary>
         [DataMember(Name = "reasonPhrase", IsRequired = false, EmitDefaultValue = false)]
-        public int ReasonPhrase { get; set; }
+        public string ReasonPhrase { get; set; }
 
         /// <summary>
         /// The response headers.
@@ -79,6 +79,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         public ArtifactContent Body { get; set; }
 
         /// <summary>
+        /// Specifies whether a response was received from the server.
+        /// </summary>
+        [DataMember(Name = "noResponseReceived", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public bool NoResponseReceived { get; set; }
+
+        /// <summary>
         /// Key/value pairs that provide additional information about the response.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
@@ -90,6 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Response()
         {
             Index = -1;
+            NoResponseReceived = false;
         }
 
         /// <summary>
@@ -116,12 +125,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="body">
         /// An initialization value for the <see cref="P:Body" /> property.
         /// </param>
+        /// <param name="noResponseReceived">
+        /// An initialization value for the <see cref="P:NoResponseReceived" /> property.
+        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Response(int index, string protocol, string version, int statusCode, int reasonPhrase, object headers, ArtifactContent body, IDictionary<string, SerializedPropertyInfo> properties)
+        public Response(int index, string protocol, string version, int statusCode, string reasonPhrase, object headers, ArtifactContent body, bool noResponseReceived, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(index, protocol, version, statusCode, reasonPhrase, headers, body, properties);
+            Init(index, protocol, version, statusCode, reasonPhrase, headers, body, noResponseReceived, properties);
         }
 
         /// <summary>
@@ -140,7 +152,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Index, other.Protocol, other.Version, other.StatusCode, other.ReasonPhrase, other.Headers, other.Body, other.Properties);
+            Init(other.Index, other.Protocol, other.Version, other.StatusCode, other.ReasonPhrase, other.Headers, other.Body, other.NoResponseReceived, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -161,7 +173,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Response(this);
         }
 
-        private void Init(int index, string protocol, string version, int statusCode, int reasonPhrase, object headers, ArtifactContent body, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int index, string protocol, string version, int statusCode, string reasonPhrase, object headers, ArtifactContent body, bool noResponseReceived, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Index = index;
             Protocol = protocol;
@@ -174,6 +186,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Body = new ArtifactContent(body);
             }
 
+            NoResponseReceived = noResponseReceived;
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);

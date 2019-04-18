@@ -28,11 +28,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.Id != right.Id)
-            {
-                return false;
-            }
-
             if (!Address.ValueComparer.Equals(left.Address, right.Address))
             {
                 return false;
@@ -88,7 +83,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                result = (result * 31) + obj.Id.GetHashCode();
                 if (obj.Address != null)
                 {
                     result = (result * 31) + obj.Address.ValueGetHashCode();

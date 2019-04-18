@@ -191,7 +191,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         // "IComparable"|"file://C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll:0:0:0:0"
                         physicalLocation = new PhysicalLocation
                         {
-                            Id = ++count,
                             ArtifactLocation = new ArtifactLocation
                             {
                                 Uri = new Uri($"{locationTokens[0]}:{locationTokens[1]}:{locationTokens[2]}", UriKind.Absolute)
@@ -208,7 +207,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         physicalLocation = new PhysicalLocation
                         {
-                            Id = ++count,
                             ArtifactLocation = new ArtifactLocation
                             {
                                 Uri = new Uri(locationTokens[1].Substring(1), UriKind.Relative),
@@ -225,6 +223,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                     var relatedLocation = new Location
                     {
+                        Id = ++count,
                         PhysicalLocation = physicalLocation
                     };
 
@@ -232,7 +231,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
 
                 // Re-add the text portion of the link in brackets with the location id in parens, e.g. [link text](id)
-                sb.Append($"[{embeddedLinksText}]({relatedLocations[linkIndex++].PhysicalLocation.Id})");
+                sb.Append($"[{embeddedLinksText}]({relatedLocations[linkIndex++].Id})");
 
                 rawMessage = rawMessage.Substring(index + "]]".Length);
                 index = rawMessage.IndexOf("[[");

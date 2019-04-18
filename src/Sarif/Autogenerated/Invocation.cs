@@ -124,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string ProcessStartFailureMessage { get; set; }
 
         /// <summary>
-        /// A value indicating whether the tool's execution completed successfully.
+        /// Specifies whether the tool's execution completed successfully.
         /// </summary>
         [DataMember(Name = "toolExecutionSuccessful", IsRequired = false, EmitDefaultValue = false)]
         public bool ToolExecutionSuccessful { get; set; }
