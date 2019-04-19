@@ -114,10 +114,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 _serializer.Serialize(_jsonWriter, run.DefaultEncoding);
             }
 
-            if (run.RedactionToken != null)
+            if (run.RedactionTokens != null)
             {
-                _jsonWriter.WritePropertyName("redactionToken");
-                _serializer.Serialize(_jsonWriter, run.RedactionToken);
+                _jsonWriter.WritePropertyName("redactionTokens");
+                _serializer.Serialize(_jsonWriter, run.RedactionTokens);
             }
 
             // For this Windows-relevant SDK, if the column kind isn't explicitly set,

@@ -2453,9 +2453,15 @@
           "type": "string"
         },
 
-        "redactionToken": {
-          "description": "The string used to replace sensitive information in a redaction-aware property.",
-          "type": "string"
+        "redactionTokens": {
+          "description": "An array of strings used to replace sensitive information in a redaction-aware property.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "type": "string"
+          }
         },
 
         "defaultEncoding": {

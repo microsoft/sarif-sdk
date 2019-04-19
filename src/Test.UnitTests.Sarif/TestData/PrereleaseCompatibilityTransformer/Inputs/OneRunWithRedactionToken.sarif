@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2019-04-03",
+  "version": "2.0.0-csd.2.beta.2019-04-03",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "CodeScanner",
+          "semanticVersion": "2.1.0"
+        }
+      },
+      "invocations": [
+        {
+          "commandLine": "[REDACTED]\\DbScanner.exe /connectionString=[REDACTED] /input=*.sql",
+          "responseFiles": [
+            {
+              "uri": "collections.rsp",
+              "index": 0
+            }
+          ],
+          "startTimeUtc": "2016-07-16T14:18:25.000Z",
+          "endTimeUtc": "2016-07-16T14:19:01.000Z",
+          "machine": "BLD01",
+          "account": "buildAgent",
+          "processId": 1218,
+          "executableLocation": {
+            "uri": "/bin/tools/CodeScanner"
+          },
+          "workingDirectory": {
+            "uri": "/home/buildAgent/src"
+          },
+          "environmentVariables": {
+            "PATH": "/usr/local/bin:/bin:/bin/tools:/home/buildAgent/bin",
+            "HOME": "/home/buildAgent",
+            "TZ": "EST"
+          }
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "collections.rsp",
+            "index": 0
+          },
+          "contents": {
+            "text": "-input src/collections/*.cpp -log out/collections.sarif -rules all -disable C9999"
+          }
+        }
+      ],
+      "results": [],
+      "columnKind": "utf16CodeUnits",
+      "redactionToken": "[REDACTED]"
+    }
+  ]
+}
