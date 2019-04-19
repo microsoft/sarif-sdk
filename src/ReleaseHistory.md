@@ -343,3 +343,4 @@
 * API BREAKING: `request.index` should have default: -1, minimum: -1.
 * API BREAKING: `response.index` should have default: -1, minimum: -1.
 * API NON-BREAKING: `externalProperties.version` is not a required property if it is not root element.
+* API NON-BREAKING: Add artifact roles for configuration files. https://github.com/oasis-tcs/sarif-spec/issues/372

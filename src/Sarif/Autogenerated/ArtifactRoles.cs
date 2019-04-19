@@ -33,6 +33,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         Policy = 65536,
         ReferencedOnCommandLine = 131072,
         MemoryContents = 262144,
-        Directory = 524288
+        Directory = 524288,
+        UserSpecifiedConfiguration = 1048576,
+        ToolSpecifiedConfiguration = 2097152
     }
 }
