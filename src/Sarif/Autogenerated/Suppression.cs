@@ -47,6 +47,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         public SuppressionKind Kind { get; set; }
 
         /// <summary>
+        /// A string representing the justification for the suppression.
+        /// </summary>
+        [DataMember(Name = "justification", IsRequired = false, EmitDefaultValue = false)]
+        public string Justification { get; set; }
+
+        /// <summary>
         /// Identifies the location associated with the suppression.
         /// </summary>
         [DataMember(Name = "location", IsRequired = false, EmitDefaultValue = false)]
@@ -74,15 +80,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="kind">
         /// An initialization value for the <see cref="P:Kind" /> property.
         /// </param>
+        /// <param name="justification">
+        /// An initialization value for the <see cref="P:Justification" /> property.
+        /// </param>
         /// <param name="location">
         /// An initialization value for the <see cref="P:Location" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Suppression(string guid, SuppressionKind kind, Location location, IDictionary<string, SerializedPropertyInfo> properties)
+        public Suppression(string guid, SuppressionKind kind, string justification, Location location, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(guid, kind, location, properties);
+            Init(guid, kind, justification, location, properties);
         }
 
         /// <summary>
@@ -101,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Guid, other.Kind, other.Location, other.Properties);
+            Init(other.Guid, other.Kind, other.Justification, other.Location, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -122,10 +131,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Suppression(this);
         }
 
-        private void Init(string guid, SuppressionKind kind, Location location, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string guid, SuppressionKind kind, string justification, Location location, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Guid = guid;
             Kind = kind;
+            Justification = justification;
             if (location != null)
             {
                 Location = new Location(location);

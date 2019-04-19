@@ -344,3 +344,6 @@
 * API BREAKING: `response.index` should have default: -1, minimum: -1.
 * API NON-BREAKING: `externalProperties.version` is not a required property if it is not root element.
 * API NON-BREAKING: Add artifact roles for configuration files. https://github.com/oasis-tcs/sarif-spec/issues/372
+* API NON-BREAKING: Add suppression.justification. https://github.com/oasis-tcs/sarif-spec/issues/373
+* API NON-BREAKING: Associate descriptor metadata with thread flow locations. https://github.com/oasis-tcs/sarif-spec/issues/381
+* API BREAKING: Move `location.physicalLocation.id` to `location.id`. https://github.com/oasis-tcs/sarif-spec/issues/375
