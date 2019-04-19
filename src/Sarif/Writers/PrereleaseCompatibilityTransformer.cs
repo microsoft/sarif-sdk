@@ -173,7 +173,56 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             modifiedLog |= RenameFixChangesToFixArtifactChanges(sarifLog);
 
+            modifiedLog |= RenameArtifactRolesEnums(sarifLog);
+
             return modifiedLog;
+        }
+
+        private static bool RenameArtifactRolesEnums(JObject sarifLog)
+        {
+            string[] artifactRolesPathsToUpdate =
+            {
+                "inlineExternalProperties[].artifacts[]",
+                "runs[].artifacts[]"
+            };
+
+            bool actionOnLeafNode(JObject artifact)
+            {
+                if (artifact["roles"] is JArray roles)
+                {
+                    bool isModified = false;
+
+                    foreach (JValue role in roles)
+                    {
+                        string roleValue = role.Value as string;
+                        switch (roleValue)
+                        {
+                            case "unmodifiedFile":
+                            case "modifiedFile":
+                            case "addedFile":
+                            case "deletedFile":
+                            case "renamedFile":
+                            case "uncontrolledFile":
+                            {
+                                role.Value = roleValue.TrimEnd(("File").ToCharArray());
+                                isModified = true;
+                                break;
+                            }
+                            default:
+                            {
+                                break;
+                            }
+                        }
+                    }
+                    return isModified;
+                }
+                return false;
+            }
+
+            return PerformActionOnLeafNodeIfExists(
+                possiblePathsToLeafNode: artifactRolesPathsToUpdate,
+                rootNode: sarifLog,
+                action: actionOnLeafNode);
         }
 
         private static bool ConvertRunRedactionTokenToArray(JObject run)

@@ -323,3 +323,4 @@
 * API BREAKING: `artifact.length` should have `default: -1, minimum: -1` values.
 * API BREAKING: Rename `fix.changes` to `fix.artifactChanges`.
 * API BREAKING: Each redaction token in an originalUriBaseId represents a unique location. #377
+* API BREAKING: Rename file related enums in `artifact.roles`.

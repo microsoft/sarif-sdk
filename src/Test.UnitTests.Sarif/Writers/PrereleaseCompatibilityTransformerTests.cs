@@ -108,6 +108,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         }
 
         [Fact]
+        public void PrereleaseCompatibilityTransformer_ArtifactsWithRoles()
+        {
+            RunTest("ArtifactsWithRoles.sarif");
+        }
+
+        [Fact]
         public void PrereleaseCompatibilityTransformer_OneRunWithRedactionToken()
         {
             RunTest("OneRunWithRedactionToken.sarif");
