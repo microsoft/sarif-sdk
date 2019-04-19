@@ -322,6 +322,8 @@
 * API BREAKING: anyOf `externalPropertyFileReference.guid` and `externalPropertyFileReference.location` is required.
 * API BREAKING: `artifact.length` should have `default: -1, minimum: -1` values.
 * API BREAKING: Rename `fix.changes` to `fix.artifactChanges`.
+* API BREAKING: Each redaction token in an originalUriBaseId represents a unique location. https://github.com/oasis-tcs/sarif-spec/issues/377
+* API BREAKING: Rename file related enums in `artifact.roles`.
 * API BREAKING: anyOf `artifactLocation.uri` and `artifactLocation.index` is required.
 * API BREAKING: `multiformatMessageString.text` is required.
 * API BREAKING: `inlineExternalProperties` array must have unique items.
@@ -341,5 +343,3 @@
 * API BREAKING: `request.index` should have default: -1, minimum: -1.
 * API BREAKING: `response.index` should have default: -1, minimum: -1.
 * API NON-BREAKING: `externalProperties.version` is not a required property if it is not root element.
-* API BREAKING: Each redaction token in an originalUriBaseId represents a unique location. #377
-* API BREAKING: Rename file related enums in `artifact.roles`.
