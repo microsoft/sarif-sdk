@@ -68,16 +68,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.NoResponseReceived != right.NoResponseReceived)
-            {
-                return false;
-            }
-
-            if (left.FailureReason != right.FailureReason)
-            {
-                return false;
-            }
-
             if (!object.ReferenceEquals(left.Properties, right.Properties))
             {
                 if (left.Properties == null || right.Properties == null || left.Properties.Count != right.Properties.Count)
@@ -147,12 +137,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (obj.Body != null)
                 {
                     result = (result * 31) + obj.Body.ValueGetHashCode();
-                }
-
-                result = (result * 31) + obj.NoResponseReceived.GetHashCode();
-                if (obj.FailureReason != null)
-                {
-                    result = (result * 31) + obj.FailureReason.GetHashCode();
                 }
 
                 if (obj.Properties != null)

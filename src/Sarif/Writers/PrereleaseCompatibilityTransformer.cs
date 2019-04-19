@@ -165,12 +165,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                     // https://github.com/oasis-tcs/sarif-spec/issues/375
                     modifiedLog |= HoistIdsFromPhysicalLocationToLocation(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/377
+                    modifiedLog |= ConvertRunRedactionTokenToArray(run);
                 }
             }
 
             modifiedLog |= RenameFixChangesToFixArtifactChanges(sarifLog);
 
             return modifiedLog;
+        }
+
+        private static bool ConvertRunRedactionTokenToArray(JObject run)
+        {
+            if (run["redactionToken"] is JToken redactionToken)
+            {
+                JArray redactionTokens = new JArray
+                {
+                    redactionToken
+                };
+
+                run.Remove("redactionToken");
+                run.Add("redactionTokens", redactionTokens);
+
+                return true;
+            }
+
+            return false;
         }
 
         private static bool RenameFixChangesToFixArtifactChanges(JObject sarifLog)
