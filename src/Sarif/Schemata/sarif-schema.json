@@ -2699,6 +2699,11 @@
           ]
         },
 
+        "justification": {
+          "description": "A string representing the justification for the suppression.",
+          "type": "string"
+        },
+
         "location": {
           "description": "Identifies the location associated with the suppression.",
           "$ref": "#/definitions/location"

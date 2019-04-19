@@ -322,3 +322,6 @@
 * API BREAKING: anyOf `externalPropertyFileReference.guid` and `externalPropertyFileReference.location` is required.
 * API BREAKING: `artifact.length` should have `default: -1, minimum: -1` values.
 * API BREAKING: Rename `fix.changes` to `fix.artifactChanges`.
+* API NON-BREAKING: Add suppression.justification. https://github.com/oasis-tcs/sarif-spec/issues/373
+* API NON-BREAKING: Associate descriptor metadata with thread flow locations. https://github.com/oasis-tcs/sarif-spec/issues/381
+* API BREAKING: Move `location.physicalLocation.id` to `location.id`. https://github.com/oasis-tcs/sarif-spec/issues/375
