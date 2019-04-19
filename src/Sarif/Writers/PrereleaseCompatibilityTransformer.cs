@@ -192,50 +192,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     bool isModified = false;
 
-                    foreach(JValue role in roles)
+                    foreach (JValue role in roles)
                     {
-                        switch (role.Value as string)
+                        string roleValue = role.Value as string;
+                        switch (roleValue)
                         {
                             case "unmodifiedFile":
-                                {
-                                    role.Value = "unmodified";
-                                    isModified = true;
-                                    break;
-                                }
                             case "modifiedFile":
-                                {
-                                    role.Value = "modified";
-                                    isModified = true;
-                                    break;
-                                }
                             case "addedFile":
-                                {
-                                    role.Value = "added";
-                                    isModified = true;
-                                    break;
-                                }
                             case "deletedFile":
-                                {
-                                    role.Value = "deleted";
-                                    isModified = true;
-                                    break;
-                                }
                             case "renamedFile":
-                                {
-                                    role.Value = "renamed";
-                                    isModified = true;
-                                    break;
-                                }
                             case "uncontrolledFile":
-                                {
-                                    role.Value = "uncontrolled";
-                                    isModified = true;
-                                    break;
-                                }
+                            {
+                                role.Value = roleValue.TrimEnd(("File").ToCharArray());
+                                isModified = true;
+                                break;
+                            }
                             default:
-                                {
-                                    break;
-                                }
+                            {
+                                break;
+                            }
                         }
                     }
                     return isModified;
