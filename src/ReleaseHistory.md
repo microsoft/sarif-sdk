@@ -341,3 +341,5 @@
 * API BREAKING: `request.index` should have default: -1, minimum: -1.
 * API BREAKING: `response.index` should have default: -1, minimum: -1.
 * API NON-BREAKING: `externalProperties.version` is not a required property if it is not root element.
+* API BREAKING: Each redaction token in an originalUriBaseId represents a unique location. #377
+* API BREAKING: Rename file related enums in `artifact.roles`.
