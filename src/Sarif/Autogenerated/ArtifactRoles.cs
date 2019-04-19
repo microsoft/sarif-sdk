@@ -20,12 +20,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         ResultFile = 8,
         StandardStream = 16,
         TraceFile = 32,
-        UnmodifiedFile = 64,
-        ModifiedFile = 128,
-        AddedFile = 256,
-        DeletedFile = 512,
-        RenamedFile = 1024,
-        UncontrolledFile = 2048,
+        Unmodified = 64,
+        Modified = 128,
+        Added = 256,
+        Deleted = 512,
+        Renamed = 1024,
+        Uncontrolled = 2048,
         Driver = 4096,
         Extension = 8192,
         Translation = 16384,
@@ -33,6 +33,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         Policy = 65536,
         ReferencedOnCommandLine = 131072,
         MemoryContents = 262144,
-        Directory = 524288
+        Directory = 524288,
+        UserSpecifiedConfiguration = 1048576,
+        ToolSpecifiedConfiguration = 2097152
     }
 }

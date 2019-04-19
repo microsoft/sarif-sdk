@@ -70,12 +70,12 @@
           "ResultFile",
           "StandardStream",
           "TraceFile",
-          "UnmodifiedFile",
-          "ModifiedFile",
-          "AddedFile",
-          "DeletedFile",
-          "RenamedFile",
-          "UncontrolledFile",
+          "Unmodified",
+          "Modified",
+          "Added",
+          "Deleted",
+          "Renamed",
+          "Uncontrolled",
           "Driver",
           "Extension",
           "Translation",
@@ -83,7 +83,9 @@
           "Policy",
           "ReferencedOnCommandLine",
           "MemoryContents",
-          "Directory"
+          "Directory",
+          "UserSpecifiedConfiguration",
+          "ToolSpecifiedConfiguration"
         ]
       }
     },

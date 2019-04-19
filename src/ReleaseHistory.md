@@ -322,6 +322,28 @@
 * API BREAKING: anyOf `externalPropertyFileReference.guid` and `externalPropertyFileReference.location` is required.
 * API BREAKING: `artifact.length` should have `default: -1, minimum: -1` values.
 * API BREAKING: Rename `fix.changes` to `fix.artifactChanges`.
+* API BREAKING: Each redaction token in an originalUriBaseId represents a unique location. https://github.com/oasis-tcs/sarif-spec/issues/377
+* API BREAKING: Rename file related enums in `artifact.roles`.
+* API BREAKING: anyOf `artifactLocation.uri` and `artifactLocation.index` is required.
+* API BREAKING: `multiformatMessageString.text` is required.
+* API BREAKING: `inlineExternalProperties` array must have unique items.
+* API BREAKING: `run.externalPropertyFileReferences`, update unique flag and minItems on every item according to spec.
+* API BREAKING: `run.markdownMessageMimeType` should be removed from schema.
+* API BREAKING: `externalPropertyFileReference.itemCount` should have a minimum value of 1.
+* API NON-BREAKING: Add `toolComponent.informationUri` property.
+* API NON-BREAKING: `toolComponent.isComprehensive` default value should be false.
+* API BREAKING: `artifact.offset` minimum value allowed should be 0.
+* API NON-BREAKING: Add `directory` enum value in `artifact.roles`.
+* API BREAKING: `result.suppressions` array items should be unique and default to null.
+* API NON-BREAKING: Add `suppression.guid` in schema.
+* API BREAKING: `graph.id` should be removed from schema.
+* API BREAKING: `edgeTraversal.stepOverEdgeCount` minimum should be 0.
+* API BREAKING: `threadFlowLocation.nestingLevel` minimum should be 0.
+* API BREAKING: `threadFlowLocation.importance` should default to `important`.
+* API BREAKING: `request.index` should have default: -1, minimum: -1.
+* API BREAKING: `response.index` should have default: -1, minimum: -1.
+* API NON-BREAKING: `externalProperties.version` is not a required property if it is not root element.
+* API NON-BREAKING: Add artifact roles for configuration files. https://github.com/oasis-tcs/sarif-spec/issues/372
 * API NON-BREAKING: Add suppression.justification. https://github.com/oasis-tcs/sarif-spec/issues/373
 * API NON-BREAKING: Associate descriptor metadata with thread flow locations. https://github.com/oasis-tcs/sarif-spec/issues/381
 * API BREAKING: Move `location.physicalLocation.id` to `location.id`. https://github.com/oasis-tcs/sarif-spec/issues/375
