@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-10-10",
+  "version": "2.0.0-csd.2.beta.2018-10-10",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner",
+        "semanticVersion": "2.1.0"
+      },
+      "files": {
+        "#SUB#file.txt": {
+          "mimeType": "text/plain",
+          "length": 3945,
+          "roles": [ "addedFile", "standardStream", "resultFile", "uncontrolledFile" ]
+        },
+        "file.txt": {
+          "mimeType": "text/plain",
+          "encoding": "utf8"
+        },
+        "#SUB#file2.txt": {
+          "mimeType": "text/plain",
+          "length": 39095,
+          "roles": [ "resultFile", "renamedFile" ]
+        },
+        "file2.txt": {
+          "mimeType": "text/plain",
+          "encoding": "utf8"
+        }
+      },
+      "results": [
+        { "ruleId": "C1", "message": {"messageId": "a"}, "locations": [{"physicalLocation": {"fileLocation": {"uri": "file.txt"}}, "properties": {"key": "file.txt"}}]},
+        { "ruleId": "C2", "message": {"messageId": "a"}, "locations": [{"physicalLocation": {"fileLocation": {"uri": "file2.txt", "uriBaseId": "SUB", "properties": {"key": "#SUB#file2.txt"}}}}]}
+		],
+      "resources": { "rules": { "C1": { "messageStrings": { "a": "Review all plaintext content for geopolitically sensitive terms." } } } }
+    }
+  ]
+}

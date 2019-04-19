@@ -190,7 +190,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Uri originalUriBaseIdValue = new Uri("https://sourceserver.contoso.com");
             var originalUriBaseIds = new Dictionary<string, ArtifactLocation>() { { originalUriBaseIdKey, new ArtifactLocation { Uri = originalUriBaseIdValue } } };
             string defaultEncoding = "UTF7";
-            string redactionToken = "[MY_REDACTION_TOKEN]";
+            List<string> redactionTokens = new List<string> { "[MY_REDACTION_TOKEN]" };
 
 
             var sb = new StringBuilder();
@@ -212,7 +212,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 run.VersionControlProvenance = new[] { versionControlDetails };
                 run.OriginalUriBaseIds = originalUriBaseIds;
                 run.DefaultEncoding = defaultEncoding;
-                run.RedactionToken = redactionToken;
+                run.RedactionTokens = redactionTokens;
 
                 using (var sarifLogger = new SarifLogger(
                     textWriter,
@@ -235,7 +235,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             run.VersionControlProvenance[0].RepositoryUri.Should().BeEquivalentTo(versionControlUri);
             run.OriginalUriBaseIds[originalUriBaseIdKey].Uri.Should().Be(originalUriBaseIdValue);
             run.DefaultEncoding.Should().Be(defaultEncoding);
-            run.RedactionToken.Should().Be(redactionToken);
+            run.RedactionTokens[0].Should().Be(redactionTokens[0]);
         }
 
         [Fact]
