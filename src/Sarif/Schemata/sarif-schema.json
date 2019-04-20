@@ -1266,7 +1266,8 @@
         "id": {
           "description": "Value that distinguishes this location from all other locations within a single result object.",
           "type": "integer",
-          "minimum": 0
+          "default": -1,
+          "minimum": -1
         },
 
         "physicalLocation": {
@@ -1295,11 +1296,27 @@
           }
         },
 
-        "properties": {
-          "description": "Key/value pairs that provide additional information about the location.",
-          "$ref": "#/definitions/propertyBag"
+        "relatedTo": {
+          "description": "The Id of a related location.",
+          "type": "integer",
+          "minimum": 0
+        },
+
+        "relationshipKinds": {
+          "description": "A set of distinct strings that categorize the relationship. with the related location. Well-known values include: 'includes', 'isIncludedBy'.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+
+          "properties": {
+            "description": "Key/value pairs that provide additional information about the location.",
+            "$ref": "#/definitions/propertyBag"
+          }
         }
-      }
     },
 
     "logicalLocation": {
