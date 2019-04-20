@@ -4,6 +4,7 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
@@ -37,6 +38,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Value that distinguishes this location from all other locations within a single result object.
         /// </summary>
         [DataMember(Name = "id", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(-1)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public int Id { get; set; }
 
         /// <summary>
@@ -65,6 +68,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<Region> Annotations { get; set; }
 
         /// <summary>
+        /// The Id of a related location.
+        /// </summary>
+        [DataMember(Name = "relatedTo", IsRequired = false, EmitDefaultValue = false)]
+        public int RelatedTo { get; set; }
+
+        /// <summary>
+        /// A set of distinct strings that categorize the relationship. with the related location. Well-known values include: 'includes', 'isIncludedBy'.
+        /// </summary>
+        [DataMember(Name = "relationshipKinds", IsRequired = false, EmitDefaultValue = false)]
+        public IList<string> RelationshipKinds { get; set; }
+
+        /// <summary>
         /// Key/value pairs that provide additional information about the location.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
@@ -75,6 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public Location()
         {
+            Id = -1;
         }
 
         /// <summary>
@@ -95,12 +111,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="annotations">
         /// An initialization value for the <see cref="P:Annotations" /> property.
         /// </param>
+        /// <param name="relatedTo">
+        /// An initialization value for the <see cref="P:RelatedTo" /> property.
+        /// </param>
+        /// <param name="relationshipKinds">
+        /// An initialization value for the <see cref="P:RelationshipKinds" /> property.
+        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Location(int id, PhysicalLocation physicalLocation, LogicalLocation logicalLocation, Message message, IEnumerable<Region> annotations, IDictionary<string, SerializedPropertyInfo> properties)
+        public Location(int id, PhysicalLocation physicalLocation, LogicalLocation logicalLocation, Message message, IEnumerable<Region> annotations, int relatedTo, IEnumerable<string> relationshipKinds, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, physicalLocation, logicalLocation, message, annotations, properties);
+            Init(id, physicalLocation, logicalLocation, message, annotations, relatedTo, relationshipKinds, properties);
         }
 
         /// <summary>
@@ -119,7 +141,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.PhysicalLocation, other.LogicalLocation, other.Message, other.Annotations, other.Properties);
+            Init(other.Id, other.PhysicalLocation, other.LogicalLocation, other.Message, other.Annotations, other.RelatedTo, other.RelationshipKinds, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -140,7 +162,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Location(this);
         }
 
-        private void Init(int id, PhysicalLocation physicalLocation, LogicalLocation logicalLocation, Message message, IEnumerable<Region> annotations, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int id, PhysicalLocation physicalLocation, LogicalLocation logicalLocation, Message message, IEnumerable<Region> annotations, int relatedTo, IEnumerable<string> relationshipKinds, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             if (physicalLocation != null)
@@ -174,6 +196,18 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 Annotations = destination_0;
+            }
+
+            RelatedTo = relatedTo;
+            if (relationshipKinds != null)
+            {
+                var destination_1 = new List<string>();
+                foreach (var value_1 in relationshipKinds)
+                {
+                    destination_1.Add(value_1);
+                }
+
+                RelationshipKinds = destination_1;
             }
 
             if (properties != null)
