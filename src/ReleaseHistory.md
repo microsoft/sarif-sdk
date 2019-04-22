@@ -348,4 +348,4 @@
 * API NON-BREAKING: Associate descriptor metadata with thread flow locations. https://github.com/oasis-tcs/sarif-spec/issues/381
 * API BREAKING: Move `location.physicalLocation.id` to `location.id`. https://github.com/oasis-tcs/sarif-spec/issues/375
 * API BREAKING: Separate `suppression` `status` from `kind`. https://github.com/oasis-tcs/sarif-spec/issues/371
-
+* API NON-BREAKING: Add `locationRelationship` object. https://github.com/oasis-tcs/sarif-spec/issues/375
