@@ -86,6 +86,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitInvocation((Invocation)node);
                 case SarifNodeKind.Location:
                     return VisitLocation((Location)node);
+                case SarifNodeKind.LocationRelationship:
+                    return VisitLocationRelationship((LocationRelationship)node);
                 case SarifNodeKind.LogicalLocation:
                     return VisitLogicalLocation((LogicalLocation)node);
                 case SarifNodeKind.Message:
@@ -723,6 +725,23 @@ namespace Microsoft.CodeAnalysis.Sarif
                         node.Annotations[index_0] = VisitNullChecked(node.Annotations[index_0]);
                     }
                 }
+
+                if (node.Relationships != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Relationships.Count; ++index_0)
+                    {
+                        node.Relationships[index_0] = VisitNullChecked(node.Relationships[index_0]);
+                    }
+                }
+            }
+
+            return node;
+        }
+
+        public virtual LocationRelationship VisitLocationRelationship(LocationRelationship node)
+        {
+            if (node != null)
+            {
             }
 
             return node;

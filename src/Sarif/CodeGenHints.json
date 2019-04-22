@@ -344,6 +344,16 @@
       }
     }
   ],
+  "locationRelationship": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
   "logicalLocation": [
     {
       "kind": "BaseTypeHint",

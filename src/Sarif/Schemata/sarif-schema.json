@@ -1266,7 +1266,8 @@
         "id": {
           "description": "Value that distinguishes this location from all other locations within a single result object.",
           "type": "integer",
-          "minimum": 0
+          "minimum": -1,
+          "default": -1
         },
 
         "physicalLocation": {
@@ -1295,11 +1296,52 @@
           }
         },
 
+        "relationships": {
+          "description": "An array of objects that describe relationships between this location and others.",
+          "type": "array",
+          "default": [],
+          "minItems": 0,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/locationRelationship"
+          }
+        },
+
         "properties": {
           "description": "Key/value pairs that provide additional information about the location.",
           "$ref": "#/definitions/propertyBag"
         }
       }
+    },
+
+    "locationRelationship": {
+      "description": "Information about the relation of one location to another.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+
+        "target": {
+          "description": "A reference to the related location.",
+          "type": "integer",
+          "minimum": 0
+        },
+
+        "kinds": {
+          "description": "A set of distinct strings that categorize the relationship. Well-known kinds include 'includes', 'isIncludedBy' and 'relevant'.",
+          "type": "array",
+          "default": [ "relevant" ],
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the location relationship.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      },
+      "required": [ "target" ]
     },
 
     "logicalLocation": {
