@@ -83,7 +83,9 @@
           "Policy",
           "ReferencedOnCommandLine",
           "MemoryContents",
-          "Directory"
+          "Directory",
+          "UserSpecifiedConfiguration",
+          "ToolSpecifiedConfiguration"
         ]
       }
     },

@@ -47,11 +47,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         public SuppressionKind Kind { get; set; }
 
         /// <summary>
-        /// A string that indicates the state of the suppression.
+        /// A string representing the justification for the suppression.
         /// </summary>
-        [DataMember(Name = "state", IsRequired = false, EmitDefaultValue = false)]
-        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
-        public SuppressionState State { get; set; }
+        [DataMember(Name = "justification", IsRequired = false, EmitDefaultValue = false)]
+        public string Justification { get; set; }
 
         /// <summary>
         /// Identifies the location associated with the suppression.
@@ -81,8 +80,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="kind">
         /// An initialization value for the <see cref="P:Kind" /> property.
         /// </param>
-        /// <param name="state">
-        /// An initialization value for the <see cref="P:State" /> property.
+        /// <param name="justification">
+        /// An initialization value for the <see cref="P:Justification" /> property.
         /// </param>
         /// <param name="location">
         /// An initialization value for the <see cref="P:Location" /> property.
@@ -90,9 +89,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Suppression(string guid, SuppressionKind kind, SuppressionState state, Location location, IDictionary<string, SerializedPropertyInfo> properties)
+        public Suppression(string guid, SuppressionKind kind, string justification, Location location, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(guid, kind, state, location, properties);
+            Init(guid, kind, justification, location, properties);
         }
 
         /// <summary>
@@ -111,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Guid, other.Kind, other.State, other.Location, other.Properties);
+            Init(other.Guid, other.Kind, other.Justification, other.Location, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -132,11 +131,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Suppression(this);
         }
 
-        private void Init(string guid, SuppressionKind kind, SuppressionState state, Location location, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string guid, SuppressionKind kind, string justification, Location location, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Guid = guid;
             Kind = kind;
-            State = state;
+            Justification = justification;
             if (location != null)
             {
                 Location = new Location(location);

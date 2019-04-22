@@ -162,7 +162,9 @@
               "policy",
               "referencedOnCommandLine",
               "memoryContents",
-              "directory"
+              "directory",
+              "userSpecifiedConfiguration",
+              "toolSpecifiedConfiguration"
             ]
           }
         },
@@ -2710,6 +2712,11 @@
             "underReview",
             "rejected"
           ]
+        },
+
+        "justification": {
+          "description": "A string representing the justification for the suppression.",
+          "type": "string"
         },
 
         "location": {
