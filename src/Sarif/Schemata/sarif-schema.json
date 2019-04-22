@@ -2135,7 +2135,7 @@
           "description": "An array of 'stack' objects relevant to the result.",
           "type": "array",
           "minItems": 0,
-          "uniqueItems": false,
+          "uniqueItems": true,
           "default": [],
           "items": {
             "$ref": "#/definitions/stack"
@@ -2179,7 +2179,7 @@
           "description": "A set of locations relevant to this result.",
           "type": "array",
           "minItems": 0,
-          "uniqueItems": false,
+          "uniqueItems": true,
           "default": [],
           "items": {
             "$ref": "#/definitions/location"
