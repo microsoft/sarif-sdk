@@ -766,8 +766,8 @@
         "itemCount": {
           "description": "A non-negative integer specifying the number of items contained in the external property file.",
           "type": "integer",
-          "default": 1,
-          "minimum": 1
+          "default": -1,
+          "minimum": -1
         },
 
         "properties": {
@@ -2841,7 +2841,9 @@
 
         "executionOrder": {
           "description": "An integer representing the temporal order in which execution reached this location.",
-          "type": "integer"
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
         },
 
         "executionTimeUtc": {
