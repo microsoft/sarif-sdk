@@ -876,11 +876,34 @@
       "kind": "EnumHint",
       "arguments": {
         "typeName": "SuppressionKind",
-        "description": "The state of a result relative to a baseline of a previous run.",
+        "description": "A string that indicates where the suppression is persisted.",
         "zeroValueName": "None",
         "memberNames": [
-          "inSource",
-          "external"
+          "InSource",
+          "External"
+        ]
+      }
+    },
+    {
+      "kind": "AttributeHint",
+      "arguments": {
+        "namespaceName": "Newtonsoft.Json",
+        "typeName": "JsonConverter",
+        "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter)" ]
+      }
+    }
+  ],
+  "Suppression.State": [
+    {
+      "kind": "EnumHint",
+      "arguments": {
+        "typeName": "SuppressionState",
+        "description": "A string that indicates the state of the suppression.",
+        "zeroValueName": "None",
+        "memberNames": [
+          "Accepted",
+          "UnderReview",
+          "Rejected"
         ]
       }
     },

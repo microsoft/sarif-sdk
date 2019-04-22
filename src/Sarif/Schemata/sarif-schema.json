@@ -2704,9 +2704,12 @@
         },
 
         "state": {
-          "description": "A string that indicates the state of the suppression. Well-known values are `accepted`, `underReview` and `rejected`.",
-          "type": "string",
-          "default": "accepted"
+          "description": "A string that indicates the state of the suppression.",
+          "enum": [
+            "accepted",
+            "underReview",
+            "rejected"
+          ]
         },
 
         "location": {

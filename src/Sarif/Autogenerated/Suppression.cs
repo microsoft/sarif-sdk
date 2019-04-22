@@ -4,7 +4,6 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Runtime.Serialization;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
@@ -48,12 +47,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         public SuppressionKind Kind { get; set; }
 
         /// <summary>
-        /// A string that indicates the state of the suppression. Well-known values are `accepted`, `underReview` and `rejected`.
+        /// A string that indicates the state of the suppression.
         /// </summary>
         [DataMember(Name = "state", IsRequired = false, EmitDefaultValue = false)]
-        [DefaultValue("accepted")]
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public string State { get; set; }
+        [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
+        public SuppressionState State { get; set; }
 
         /// <summary>
         /// Identifies the location associated with the suppression.
@@ -72,7 +70,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public Suppression()
         {
-            State = "accepted";
         }
 
         /// <summary>
@@ -93,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Suppression(string guid, SuppressionKind kind, string state, Location location, IDictionary<string, SerializedPropertyInfo> properties)
+        public Suppression(string guid, SuppressionKind kind, SuppressionState state, Location location, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(guid, kind, state, location, properties);
         }
@@ -135,7 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Suppression(this);
         }
 
-        private void Init(string guid, SuppressionKind kind, string state, Location location, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string guid, SuppressionKind kind, SuppressionState state, Location location, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Guid = guid;
             Kind = kind;
