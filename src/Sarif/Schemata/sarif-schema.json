@@ -720,25 +720,25 @@
           }
         },
 
-        "requests": {
+        "webRequests": {
           "description": "Requests that will be merged with a separate run.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
           "default": [],
           "items": {
-            "$ref": "#/definitions/request"
+            "$ref": "#/definitions/webRequest"
           }
         },
 
-        "responses": {
+        "webResponses": {
           "description": "Responses that will be merged with a separate run.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
           "default": [],
           "items": {
-            "$ref": "#/definitions/response"
+            "$ref": "#/definitions/webResponse"
           }
         },
 
@@ -923,7 +923,7 @@
           }
         },
 
-        "requests": {
+        "webRequests": {
           "description": "An array of external property files containing run.requests arrays to be merged with the root log file.",
           "type": "array",
           "minItems": 0,
@@ -934,7 +934,7 @@
           }
         },
 
-        "responses": {
+        "webResponses": {
           "description": "An array of external property files containing run.responses arrays to be merged with the root log file.",
           "type": "array",
           "minItems": 0,
@@ -1924,125 +1924,6 @@
       "required": [ "target" ]
     },
 
-    "request": {
-      "description": "A web request object.",
-      "type": "object",
-      "properties": {
-
-        "index": {
-          "description": "The index within the run.requests array of the request object associated with this result.",
-          "type": "integer",
-          "default": -1,
-          "minimum": -1
-
-        },
-
-        "protocol": {
-          "description": "The request protocol. Example: 'http'.",
-          "type": "string"
-        },
-
-        "version": {
-          "description": "The request version. Example: '1.1'.",
-          "type": "string"
-        },
-
-        "target": {
-          "description": "The target of the request.",
-          "type": "string"
-        },
-
-        "method": {
-          "description": "The HTTP method. Well-known values are 'GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS', 'TRACE', 'CONNECT'.",
-          "type": "string"
-        },
-
-        "headers": {
-          "description": "The request headers.",
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
-
-        "parameters": {
-          "description": "The request parameters.",
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
-
-        "body": {
-          "description": "The body of the request.",
-          "$ref": "#/definitions/artifactContent"
-        },
-
-        "properties": {
-          "description": "Key/value pairs that provide additional information about the request.",
-          "$ref": "#/definitions/propertyBag"
-        }
-      }
-    },
-
-    "response": {
-      "description": "A web response object.",
-      "type": "object",
-      "properties": {
-
-        "index": {
-          "description": "The index within the run.responses array of the response object associated with this result.",
-          "type": "integer",
-          "default": -1,
-          "minimum": -1
-        },
-
-        "protocol": {
-          "description": "The response protocol. Example: 'http'.",
-          "type": "string"
-        },
-
-        "version": {
-          "description": "The response version. Example: '1.1'.",
-          "type": "string"
-        },
-
-        "statusCode": {
-          "description": "The response status code. Example: 451.",
-          "type": "integer"
-        },
-
-        "reasonPhrase": {
-          "description": "The response reason. Example: 'Not found'.",
-          "type": "string"
-        },
-
-        "headers": {
-          "description": "The response headers.",
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
-
-        "body": {
-          "description": "The body of the response.",
-          "$ref": "#/definitions/artifactContent"
-        },
-
-        "noResponseReceived": {
-          "description": "Specifies whether a response was received from the server.",
-          "type": "boolean",
-          "default": false
-        },
-
-        "properties": {
-          "description": "Key/value pairs that provide additional information about the response.",
-          "$ref": "#/definitions/propertyBag"
-        }
-      }
-    },
-
     "result": {
       "description": "A result produced by an analysis tool.",
       "additionalProperties": false,
@@ -2269,14 +2150,14 @@
           }
         },
 
-        "request": {
+        "webRequest": {
           "description": "A web request associated with this result.",
-          "$ref": "#/definitions/request"
+          "$ref": "#/definitions/webRequest"
         },
 
-        "response": {
+        "webResponse": {
           "description": "A web response associated with this result.",
-          "$ref": "#/definitions/response"
+          "$ref": "#/definitions/webResponse"
         },
 
         "properties": {
@@ -2553,25 +2434,25 @@
           }
         },
 
-        "requests": {
+        "webRequests": {
           "description": "An array of request objects cached at run level.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
           "default": [],
           "items": {
-            "$ref": "#/definitions/request"
+            "$ref": "#/definitions/webRequest"
           }
         },
 
-        "responses": {
+        "webResponses": {
           "description": "An array of response objects cached at run level.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
           "default": [],
           "items": {
-            "$ref": "#/definitions/response"
+            "$ref": "#/definitions/webResponse"
           }
         },
 
@@ -2863,14 +2744,14 @@
           "default": "important"
         },
 
-        "request": {
+        "webRequest": {
           "description": "A web request associated with this thread flow location.",
-          "$ref": "#/definitions/request"
+          "$ref": "#/definitions/webRequest"
         },
 
-        "response": {
+        "webResponse": {
           "description": "A web response associated with this thread flow location.",
-          "$ref": "#/definitions/response"
+          "$ref": "#/definitions/webResponse"
         },
 
         "properties": {
@@ -3225,6 +3106,125 @@
       },
 
       "required": [ "repositoryUri" ]
+    },
+
+    "webRequest": {
+      "description": "A web request object.",
+      "type": "object",
+      "properties": {
+
+        "index": {
+          "description": "The index within the run.webRequests array of the request object associated with this result.",
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
+
+        },
+
+        "protocol": {
+          "description": "The request protocol. Example: 'http'.",
+          "type": "string"
+        },
+
+        "version": {
+          "description": "The request version. Example: '1.1'.",
+          "type": "string"
+        },
+
+        "target": {
+          "description": "The target of the request.",
+          "type": "string"
+        },
+
+        "method": {
+          "description": "The HTTP method. Well-known values are 'GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS', 'TRACE', 'CONNECT'.",
+          "type": "string"
+        },
+
+        "headers": {
+          "description": "The request headers.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+
+        "parameters": {
+          "description": "The request parameters.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+
+        "body": {
+          "description": "The body of the request.",
+          "$ref": "#/definitions/artifactContent"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the request.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      }
+    },
+
+    "webResponse": {
+      "description": "A web response object.",
+      "type": "object",
+      "properties": {
+
+        "index": {
+          "description": "The index within the run.webResponses array of the response object associated with this result.",
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
+        },
+
+        "protocol": {
+          "description": "The response protocol. Example: 'http'.",
+          "type": "string"
+        },
+
+        "version": {
+          "description": "The response version. Example: '1.1'.",
+          "type": "string"
+        },
+
+        "statusCode": {
+          "description": "The response status code. Example: 451.",
+          "type": "integer"
+        },
+
+        "reasonPhrase": {
+          "description": "The response reason. Example: 'Not found'.",
+          "type": "string"
+        },
+
+        "headers": {
+          "description": "The response headers.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+
+        "body": {
+          "description": "The body of the response.",
+          "$ref": "#/definitions/artifactContent"
+        },
+
+        "noResponseReceived": {
+          "description": "Specifies whether a response was received from the server.",
+          "type": "boolean",
+          "default": false
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the response.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      }
     }
   }
 }

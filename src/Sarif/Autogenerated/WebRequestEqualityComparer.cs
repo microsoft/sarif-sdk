@@ -9,14 +9,14 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Defines methods to support the comparison of objects of type Response for equality.
+    /// Defines methods to support the comparison of objects of type WebRequest for equality.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
-    internal sealed class ResponseEqualityComparer : IEqualityComparer<Response>
+    internal sealed class WebRequestEqualityComparer : IEqualityComparer<WebRequest>
     {
-        internal static readonly ResponseEqualityComparer Instance = new ResponseEqualityComparer();
+        internal static readonly WebRequestEqualityComparer Instance = new WebRequestEqualityComparer();
 
-        public bool Equals(Response left, Response right)
+        public bool Equals(WebRequest left, WebRequest right)
         {
             if (ReferenceEquals(left, right))
             {
@@ -43,12 +43,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.StatusCode != right.StatusCode)
+            if (left.Target != right.Target)
             {
                 return false;
             }
 
-            if (left.ReasonPhrase != right.ReasonPhrase)
+            if (left.Method != right.Method)
             {
                 return false;
             }
@@ -58,12 +58,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!ArtifactContent.ValueComparer.Equals(left.Body, right.Body))
+            if (!object.Equals(left.Parameters, right.Parameters))
             {
                 return false;
             }
 
-            if (left.NoResponseReceived != right.NoResponseReceived)
+            if (!ArtifactContent.ValueComparer.Equals(left.Body, right.Body))
             {
                 return false;
             }
@@ -93,7 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public int GetHashCode(Response obj)
+        public int GetHashCode(WebRequest obj)
         {
             if (ReferenceEquals(obj, null))
             {
@@ -114,10 +114,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Version.GetHashCode();
                 }
 
-                result = (result * 31) + obj.StatusCode.GetHashCode();
-                if (obj.ReasonPhrase != null)
+                if (obj.Target != null)
                 {
-                    result = (result * 31) + obj.ReasonPhrase.GetHashCode();
+                    result = (result * 31) + obj.Target.GetHashCode();
+                }
+
+                if (obj.Method != null)
+                {
+                    result = (result * 31) + obj.Method.GetHashCode();
                 }
 
                 if (obj.Headers != null)
@@ -125,12 +129,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.Headers.GetHashCode();
                 }
 
+                if (obj.Parameters != null)
+                {
+                    result = (result * 31) + obj.Parameters.GetHashCode();
+                }
+
                 if (obj.Body != null)
                 {
                     result = (result * 31) + obj.Body.ValueGetHashCode();
                 }
 
-                result = (result * 31) + obj.NoResponseReceived.GetHashCode();
                 if (obj.Properties != null)
                 {
                     // Use xor for dictionaries to be order-independent.

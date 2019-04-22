@@ -198,16 +198,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// An array of request objects cached at run level.
         /// </summary>
-        [DataMember(Name = "requests", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "webRequests", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<Request> Requests { get; set; }
+        public IList<WebRequest> WebRequests { get; set; }
 
         /// <summary>
         /// An array of response objects cached at run level.
         /// </summary>
-        [DataMember(Name = "responses", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "webResponses", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<Response> Responses { get; set; }
+        public IList<WebResponse> WebResponses { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the run.
@@ -303,18 +303,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="policies">
         /// An initialization value for the <see cref="P:Policies" /> property.
         /// </param>
-        /// <param name="requests">
-        /// An initialization value for the <see cref="P:Requests" /> property.
+        /// <param name="webRequests">
+        /// An initialization value for the <see cref="P:WebRequests" /> property.
         /// </param>
-        /// <param name="responses">
-        /// An initialization value for the <see cref="P:Responses" /> property.
+        /// <param name="webResponses">
+        /// An initialization value for the <see cref="P:WebResponses" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, string language, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, ArtifactLocation> originalUriBaseIds, IEnumerable<Artifact> artifacts, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, RunAutomationDetails automationDetails, IEnumerable<RunAutomationDetails> runAggregates, string baselineGuid, IEnumerable<string> redactionTokens, string defaultEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFileReferences externalPropertyFileReferences, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ToolComponent> taxonomies, IEnumerable<Address> addresses, IEnumerable<ToolComponent> translations, IEnumerable<ToolComponent> policies, IEnumerable<Request> requests, IEnumerable<Response> responses, IDictionary<string, SerializedPropertyInfo> properties)
+        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, string language, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, ArtifactLocation> originalUriBaseIds, IEnumerable<Artifact> artifacts, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, RunAutomationDetails automationDetails, IEnumerable<RunAutomationDetails> runAggregates, string baselineGuid, IEnumerable<string> redactionTokens, string defaultEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFileReferences externalPropertyFileReferences, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ToolComponent> taxonomies, IEnumerable<Address> addresses, IEnumerable<ToolComponent> translations, IEnumerable<ToolComponent> policies, IEnumerable<WebRequest> webRequests, IEnumerable<WebResponse> webResponses, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(tool, invocations, conversion, language, versionControlProvenance, originalUriBaseIds, artifacts, logicalLocations, graphs, results, automationDetails, runAggregates, baselineGuid, redactionTokens, defaultEncoding, defaultSourceLanguage, newlineSequences, columnKind, externalPropertyFileReferences, threadFlowLocations, taxonomies, addresses, translations, policies, requests, responses, properties);
+            Init(tool, invocations, conversion, language, versionControlProvenance, originalUriBaseIds, artifacts, logicalLocations, graphs, results, automationDetails, runAggregates, baselineGuid, redactionTokens, defaultEncoding, defaultSourceLanguage, newlineSequences, columnKind, externalPropertyFileReferences, threadFlowLocations, taxonomies, addresses, translations, policies, webRequests, webResponses, properties);
         }
 
         /// <summary>
@@ -333,7 +333,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocations, other.Conversion, other.Language, other.VersionControlProvenance, other.OriginalUriBaseIds, other.Artifacts, other.LogicalLocations, other.Graphs, other.Results, other.AutomationDetails, other.RunAggregates, other.BaselineGuid, other.RedactionTokens, other.DefaultEncoding, other.DefaultSourceLanguage, other.NewlineSequences, other.ColumnKind, other.ExternalPropertyFileReferences, other.ThreadFlowLocations, other.Taxonomies, other.Addresses, other.Translations, other.Policies, other.Requests, other.Responses, other.Properties);
+            Init(other.Tool, other.Invocations, other.Conversion, other.Language, other.VersionControlProvenance, other.OriginalUriBaseIds, other.Artifacts, other.LogicalLocations, other.Graphs, other.Results, other.AutomationDetails, other.RunAggregates, other.BaselineGuid, other.RedactionTokens, other.DefaultEncoding, other.DefaultSourceLanguage, other.NewlineSequences, other.ColumnKind, other.ExternalPropertyFileReferences, other.ThreadFlowLocations, other.Taxonomies, other.Addresses, other.Translations, other.Policies, other.WebRequests, other.WebResponses, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -354,7 +354,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, string language, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, ArtifactLocation> originalUriBaseIds, IEnumerable<Artifact> artifacts, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, RunAutomationDetails automationDetails, IEnumerable<RunAutomationDetails> runAggregates, string baselineGuid, IEnumerable<string> redactionTokens, string defaultEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFileReferences externalPropertyFileReferences, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ToolComponent> taxonomies, IEnumerable<Address> addresses, IEnumerable<ToolComponent> translations, IEnumerable<ToolComponent> policies, IEnumerable<Request> requests, IEnumerable<Response> responses, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, string language, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, ArtifactLocation> originalUriBaseIds, IEnumerable<Artifact> artifacts, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, RunAutomationDetails automationDetails, IEnumerable<RunAutomationDetails> runAggregates, string baselineGuid, IEnumerable<string> redactionTokens, string defaultEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFileReferences externalPropertyFileReferences, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ToolComponent> taxonomies, IEnumerable<Address> addresses, IEnumerable<ToolComponent> translations, IEnumerable<ToolComponent> policies, IEnumerable<WebRequest> webRequests, IEnumerable<WebResponse> webResponses, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (tool != null)
             {
@@ -628,10 +628,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Policies = destination_13;
             }
 
-            if (requests != null)
+            if (webRequests != null)
             {
-                var destination_14 = new List<Request>();
-                foreach (var value_15 in requests)
+                var destination_14 = new List<WebRequest>();
+                foreach (var value_15 in webRequests)
                 {
                     if (value_15 == null)
                     {
@@ -639,17 +639,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_14.Add(new Request(value_15));
+                        destination_14.Add(new WebRequest(value_15));
                     }
                 }
 
-                Requests = destination_14;
+                WebRequests = destination_14;
             }
 
-            if (responses != null)
+            if (webResponses != null)
             {
-                var destination_15 = new List<Response>();
-                foreach (var value_16 in responses)
+                var destination_15 = new List<WebResponse>();
+                foreach (var value_16 in webResponses)
                 {
                     if (value_16 == null)
                     {
@@ -657,11 +657,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_15.Add(new Response(value_16));
+                        destination_15.Add(new WebResponse(value_16));
                     }
                 }
 
-                Responses = destination_15;
+                WebResponses = destination_15;
             }
 
             if (properties != null)
