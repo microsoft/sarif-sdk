@@ -2350,7 +2350,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             bool result = false;
 
-            (string currentNodeName, string remainingLeafNodePath) = SplitCurrentNodeNameAndRemainingLeafNodePath(possiblePathToLeafNode);
+            SplitCurrentNodeNameAndRemainingLeafNodePath(possiblePathToLeafNode, out string currentNodeName, out string remainingLeafNodePath);
 
             if (currentNodeName.EndsWith(ArrayIndicatorSymbol))
             {
@@ -2375,7 +2375,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return result;
         }
 
-        private static (string currentNodeName, string remainingLeafNodePath) SplitCurrentNodeNameAndRemainingLeafNodePath(string fullPath)
+        private static void SplitCurrentNodeNameAndRemainingLeafNodePath(string fullPath, out string currentNodeName, out string remainingLeafNodePath)
         {
             char[] delimiter = { NodeDelimiterSymbol };
 
@@ -2383,10 +2383,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             if (splitItems.Length == 1)
             {
-                return (currentNodeName: splitItems[0], null);
+                currentNodeName = splitItems[0];
+                remainingLeafNodePath = null;
             }
-
-            return (currentNodeName: splitItems[0], remainingLeafNodePath: splitItems[1]);
+            else
+            {
+                currentNodeName = splitItems[0];
+                remainingLeafNodePath = splitItems[1];
+            }
         }
     }
 }

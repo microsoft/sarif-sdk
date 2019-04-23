@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// or removed from SARIF log files.
     /// </summary>
     [Flags]
-    public enum OptionallyEmittedData : uint
+    public enum OptionallyEmittedData : int
     {
         None = 0,
 
@@ -70,6 +70,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         // information in the SARIF log file. In the absence of this setting, any existing
         // data that would otherwise have been overwritten by the insert operation will
         // be preserved.
-        OverwriteExistingData = 0x80000000
+        OverwriteExistingData = 0x8000000
     }
 }

@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     // code paths. These conditions are a combination of fatal
     // and non-fatal circumstances
     [Flags]
-    public enum RuntimeConditions : uint
+    public enum RuntimeConditions : int
     {
         None = 0,
 
@@ -49,14 +49,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         ExceptionInstantiatingSkimmers = 0x8000,
 
         // Non-fatal conditions
-        UnassignedNonfatal        = 0x03F00000,
-        RuleWasExplicitlyDisabled = 0x04000000,
-        RuleCannotRunOnPlatform   = 0x08000000,
-        RuleNotApplicableToTarget = 0x10000000,
-        TargetNotValidToAnalyze   = 0x20000000,
-        OneOrMoreWarningsFired    = 0x40000000,
-        OneOrMoreErrorsFired      = 0x80000000,
+        UnassignedNonfatal        = 0x03F0000,
+        RuleWasExplicitlyDisabled = 0x0400000,
+        RuleCannotRunOnPlatform   = 0x0800000,
+        RuleNotApplicableToTarget = 0x1000000,
+        TargetNotValidToAnalyze   = 0x2000000,
+        OneOrMoreWarningsFired    = 0x4000000,
+        OneOrMoreErrorsFired      = 0x8000000,
 
-        Nonfatal = 0xFFF00000
+        Nonfatal = 0xFFF0000
     }       
 }
