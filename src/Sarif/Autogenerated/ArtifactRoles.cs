@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         ResponseFile = 4,
         ResultFile = 8,
         StandardStream = 16,
-        TraceFile = 32,
+        TracedFile = 32,
         Unmodified = 64,
         Modified = 128,
         Added = 256,
@@ -35,6 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         MemoryContents = 262144,
         Directory = 524288,
         UserSpecifiedConfiguration = 1048576,
-        ToolSpecifiedConfiguration = 2097152
+        ToolSpecifiedConfiguration = 2097152,
+        DebugOutputFile = 4194304
     }
 }

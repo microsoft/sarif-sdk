@@ -69,7 +69,7 @@
           "ResponseFile",
           "ResultFile",
           "StandardStream",
-          "TraceFile",
+          "TracedFile",
           "Unmodified",
           "Modified",
           "Added",
@@ -85,7 +85,8 @@
           "MemoryContents",
           "Directory",
           "UserSpecifiedConfiguration",
-          "ToolSpecifiedConfiguration"
+          "ToolSpecifiedConfiguration",
+          "DebugOutputFile"
         ]
       }
     },
@@ -344,6 +345,16 @@
       }
     }
   ],
+  "locationRelationship": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
   "logicalLocation": [
     {
       "kind": "BaseTypeHint",
@@ -573,26 +584,6 @@
     }
   ],
   "reportingDescriptorTranslation": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "request": [
-    {
-      "kind": "BaseTypeHint",
-      "arguments": {
-        "baseTypeNames": [
-          "PropertyBagHolder"
-        ]
-      }
-    }
-  ],
-  "response": [
     {
       "kind": "BaseTypeHint",
       "arguments": {
@@ -872,7 +863,6 @@
       }
     }
   ],
-
   "Suppression.Kind": [
     {
       "kind": "EnumHint",
@@ -1025,7 +1015,6 @@
       "kind": "DictionaryHint"
     }
   ],
-
   "translation": [
     {
       "kind": "BaseTypeHint",
@@ -1096,6 +1085,26 @@
         "namespaceName": "Newtonsoft.Json",
         "typeName": "JsonConverter",
         "arguments": [ "typeof(Microsoft.CodeAnalysis.Sarif.Readers.DateTimeConverter)" ]
+      }
+    }
+  ],
+  "webRequest": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "webResponse": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
       }
     }
   ]

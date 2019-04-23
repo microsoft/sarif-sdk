@@ -347,5 +347,14 @@
 * API NON-BREAKING: Add suppression.justification. https://github.com/oasis-tcs/sarif-spec/issues/373
 * API NON-BREAKING: Associate descriptor metadata with thread flow locations. https://github.com/oasis-tcs/sarif-spec/issues/381
 * API BREAKING: Move `location.physicalLocation.id` to `location.id`. https://github.com/oasis-tcs/sarif-spec/issues/375
+* API BREAKING: `result.stacks` array should have unique items.
+* API BREAKING: `result.relatedLocations` array should have unique items.
 * API BREAKING: Separate `suppression` `status` from `kind`. https://github.com/oasis-tcs/sarif-spec/issues/371
 * API BREAKING: `reportingDescriptorReference` requires anyOf (`index`, `guid`, `id`).
+* API BREAKING: Rename `request` object and related properties to `webRequest`.
+* API BREAKING: Rename `response` object and related properties to `webResponse`.
+* API NON-BREAKING: Add `locationRelationship` object. https://github.com/oasis-tcs/sarif-spec/issues/375
+* API BREAKING: `externalPropertyFileReference.itemCount` can be 0 and defaults to minimum: -1, default: -1.
+* API BREAKING: `threadFlowLocation.executionOrder` can be 0 and defaults to -1, so minimum: -1, default: -1
+* API BREAKING: Rename artifact role `traceFile` to `tracedFile`.
+* API NON-BREAKING: Add artifact role `debugOutputFile`.

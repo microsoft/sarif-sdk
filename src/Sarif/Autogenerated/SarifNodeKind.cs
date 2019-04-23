@@ -100,6 +100,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         Location,
         /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="LocationRelationship" />.
+        /// </summary>
+        LocationRelationship,
+        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="LogicalLocation" />.
         /// </summary>
         LogicalLocation,
@@ -156,14 +160,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         ReportingDescriptorRelationship,
         /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Request" />.
-        /// </summary>
-        Request,
-        /// <summary>
-        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Response" />.
-        /// </summary>
-        Response,
-        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Result" />.
         /// </summary>
         Result,
@@ -218,6 +214,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="VersionControlDetails" />.
         /// </summary>
-        VersionControlDetails
+        VersionControlDetails,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="WebRequest" />.
+        /// </summary>
+        WebRequest,
+        /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="WebResponse" />.
+        /// </summary>
+        WebResponse
     }
 }

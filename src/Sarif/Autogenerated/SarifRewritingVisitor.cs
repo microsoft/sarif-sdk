@@ -86,6 +86,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitInvocation((Invocation)node);
                 case SarifNodeKind.Location:
                     return VisitLocation((Location)node);
+                case SarifNodeKind.LocationRelationship:
+                    return VisitLocationRelationship((LocationRelationship)node);
                 case SarifNodeKind.LogicalLocation:
                     return VisitLogicalLocation((LogicalLocation)node);
                 case SarifNodeKind.Message:
@@ -114,10 +116,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitReportingDescriptorReference((ReportingDescriptorReference)node);
                 case SarifNodeKind.ReportingDescriptorRelationship:
                     return VisitReportingDescriptorRelationship((ReportingDescriptorRelationship)node);
-                case SarifNodeKind.Request:
-                    return VisitRequest((Request)node);
-                case SarifNodeKind.Response:
-                    return VisitResponse((Response)node);
                 case SarifNodeKind.Result:
                     return VisitResult((Result)node);
                 case SarifNodeKind.ResultProvenance:
@@ -148,6 +146,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitTranslationMetadata((TranslationMetadata)node);
                 case SarifNodeKind.VersionControlDetails:
                     return VisitVersionControlDetails((VersionControlDetails)node);
+                case SarifNodeKind.WebRequest:
+                    return VisitWebRequest((WebRequest)node);
+                case SarifNodeKind.WebResponse:
+                    return VisitWebResponse((WebResponse)node);
                 default:
                     return node;
             }
@@ -437,19 +439,19 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (node.Requests != null)
+                if (node.WebRequests != null)
                 {
-                    for (int index_0 = 0; index_0 < node.Requests.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.WebRequests.Count; ++index_0)
                     {
-                        node.Requests[index_0] = VisitNullChecked(node.Requests[index_0]);
+                        node.WebRequests[index_0] = VisitNullChecked(node.WebRequests[index_0]);
                     }
                 }
 
-                if (node.Responses != null)
+                if (node.WebResponses != null)
                 {
-                    for (int index_0 = 0; index_0 < node.Responses.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.WebResponses.Count; ++index_0)
                     {
-                        node.Responses[index_0] = VisitNullChecked(node.Responses[index_0]);
+                        node.WebResponses[index_0] = VisitNullChecked(node.WebResponses[index_0]);
                     }
                 }
             }
@@ -562,19 +564,19 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (node.Requests != null)
+                if (node.WebRequests != null)
                 {
-                    for (int index_0 = 0; index_0 < node.Requests.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.WebRequests.Count; ++index_0)
                     {
-                        node.Requests[index_0] = VisitNullChecked(node.Requests[index_0]);
+                        node.WebRequests[index_0] = VisitNullChecked(node.WebRequests[index_0]);
                     }
                 }
 
-                if (node.Responses != null)
+                if (node.WebResponses != null)
                 {
-                    for (int index_0 = 0; index_0 < node.Responses.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.WebResponses.Count; ++index_0)
                     {
-                        node.Responses[index_0] = VisitNullChecked(node.Responses[index_0]);
+                        node.WebResponses[index_0] = VisitNullChecked(node.WebResponses[index_0]);
                     }
                 }
             }
@@ -723,6 +725,23 @@ namespace Microsoft.CodeAnalysis.Sarif
                         node.Annotations[index_0] = VisitNullChecked(node.Annotations[index_0]);
                     }
                 }
+
+                if (node.Relationships != null)
+                {
+                    for (int index_0 = 0; index_0 < node.Relationships.Count; ++index_0)
+                    {
+                        node.Relationships[index_0] = VisitNullChecked(node.Relationships[index_0]);
+                    }
+                }
+            }
+
+            return node;
+        }
+
+        public virtual LocationRelationship VisitLocationRelationship(LocationRelationship node)
+        {
+            if (node != null)
+            {
             }
 
             return node;
@@ -903,26 +922,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             return node;
         }
 
-        public virtual Request VisitRequest(Request node)
-        {
-            if (node != null)
-            {
-                node.Body = VisitNullChecked(node.Body);
-            }
-
-            return node;
-        }
-
-        public virtual Response VisitResponse(Response node)
-        {
-            if (node != null)
-            {
-                node.Body = VisitNullChecked(node.Body);
-            }
-
-            return node;
-        }
-
         public virtual Result VisitResult(Result node)
         {
             if (node != null)
@@ -1011,8 +1010,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                node.Request = VisitNullChecked(node.Request);
-                node.Response = VisitNullChecked(node.Response);
+                node.WebRequest = VisitNullChecked(node.WebRequest);
+                node.WebResponse = VisitNullChecked(node.WebResponse);
             }
 
             return node;
@@ -1151,19 +1150,19 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (node.Requests != null)
+                if (node.WebRequests != null)
                 {
-                    for (int index_0 = 0; index_0 < node.Requests.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.WebRequests.Count; ++index_0)
                     {
-                        node.Requests[index_0] = VisitNullChecked(node.Requests[index_0]);
+                        node.WebRequests[index_0] = VisitNullChecked(node.WebRequests[index_0]);
                     }
                 }
 
-                if (node.Responses != null)
+                if (node.WebResponses != null)
                 {
-                    for (int index_0 = 0; index_0 < node.Responses.Count; ++index_0)
+                    for (int index_0 = 0; index_0 < node.WebResponses.Count; ++index_0)
                     {
-                        node.Responses[index_0] = VisitNullChecked(node.Responses[index_0]);
+                        node.WebResponses[index_0] = VisitNullChecked(node.WebResponses[index_0]);
                     }
                 }
             }
@@ -1286,8 +1285,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                node.Request = VisitNullChecked(node.Request);
-                node.Response = VisitNullChecked(node.Response);
+                node.WebRequest = VisitNullChecked(node.WebRequest);
+                node.WebResponse = VisitNullChecked(node.WebResponse);
             }
 
             return node;
@@ -1400,6 +1399,26 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.MappedTo = VisitNullChecked(node.MappedTo);
+            }
+
+            return node;
+        }
+
+        public virtual WebRequest VisitWebRequest(WebRequest node)
+        {
+            if (node != null)
+            {
+                node.Body = VisitNullChecked(node.Body);
+            }
+
+            return node;
+        }
+
+        public virtual WebResponse VisitWebResponse(WebResponse node)
+        {
+            if (node != null)
+            {
+                node.Body = VisitNullChecked(node.Body);
             }
 
             return node;

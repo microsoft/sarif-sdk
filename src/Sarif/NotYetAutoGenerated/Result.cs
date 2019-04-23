@@ -191,7 +191,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A set of suppressions relevant to this result.
         /// </summary>
         [DataMember(Name = "suppressions", IsRequired = false, EmitDefaultValue = false)]
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<Suppression> Suppressions { get; set; }
 
         /// <summary>
@@ -253,14 +252,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// A web request associated with this result.
         /// </summary>
-        [DataMember(Name = "request", IsRequired = false, EmitDefaultValue = false)]
-        public Request Request { get; set; }
+        [DataMember(Name = "webRequest", IsRequired = false, EmitDefaultValue = false)]
+        public WebRequest WebRequest { get; set; }
 
         /// <summary>
         /// A web response associated with this result.
         /// </summary>
-        [DataMember(Name = "response", IsRequired = false, EmitDefaultValue = false)]
-        public Response Response { get; set; }
+        [DataMember(Name = "webResponse", IsRequired = false, EmitDefaultValue = false)]
+        public WebResponse WebResponse { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the result.
@@ -363,18 +362,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="taxa">
         /// An initialization value for the <see cref="P:Taxa" /> property.
         /// </param>
-        /// <param name="request">
-        /// An initialization value for the <see cref="P:Request" /> property.
+        /// <param name="webRequest">
+        /// An initialization value for the <see cref="P:WebRequest" /> property.
         /// </param>
-        /// <param name="response">
-        /// An initialization value for the <see cref="P:Response" /> property.
+        /// <param name="webResponse">
+        /// An initialization value for the <see cref="P:WebResponse" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Result(string ruleId, int ruleIndex, ReportingDescriptorReference rule, ResultKind kind, FailureLevel level, Message message, ArtifactLocation analysisTarget, IEnumerable<Location> locations, string guid, string correlationGuid, int occurrenceCount, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, IEnumerable<Suppression> suppressions, BaselineState baselineState, double rank, IEnumerable<Attachment> attachments, Uri hostedViewerUri, IEnumerable<Uri> workItemUris, ResultProvenance provenance, IEnumerable<Fix> fixes, IEnumerable<ReportingDescriptorReference> taxa, Request request, Response response, IDictionary<string, SerializedPropertyInfo> properties)
+        public Result(string ruleId, int ruleIndex, ReportingDescriptorReference rule, ResultKind kind, FailureLevel level, Message message, ArtifactLocation analysisTarget, IEnumerable<Location> locations, string guid, string correlationGuid, int occurrenceCount, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, IEnumerable<Suppression> suppressions, BaselineState baselineState, double rank, IEnumerable<Attachment> attachments, Uri hostedViewerUri, IEnumerable<Uri> workItemUris, ResultProvenance provenance, IEnumerable<Fix> fixes, IEnumerable<ReportingDescriptorReference> taxa, WebRequest webRequest, WebResponse webResponse, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(ruleId, ruleIndex, rule, kind, level, message, analysisTarget, locations, guid, correlationGuid, occurrenceCount, partialFingerprints, fingerprints, stacks, codeFlows, graphs, graphTraversals, relatedLocations, suppressions, baselineState, rank, attachments, hostedViewerUri, workItemUris, provenance, fixes, taxa, request, response, properties);
+            Init(ruleId, ruleIndex, rule, kind, level, message, analysisTarget, locations, guid, correlationGuid, occurrenceCount, partialFingerprints, fingerprints, stacks, codeFlows, graphs, graphTraversals, relatedLocations, suppressions, baselineState, rank, attachments, hostedViewerUri, workItemUris, provenance, fixes, taxa, webRequest, webResponse, properties);
         }
 
         /// <summary>
@@ -393,7 +392,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.RuleId, other.RuleIndex, other.Rule, other.Kind, other.Level, other.Message, other.AnalysisTarget, other.Locations, other.Guid, other.CorrelationGuid, other.OccurrenceCount, other.PartialFingerprints, other.Fingerprints, other.Stacks, other.CodeFlows, other.Graphs, other.GraphTraversals, other.RelatedLocations, other.Suppressions, other.BaselineState, other.Rank, other.Attachments, other.HostedViewerUri, other.WorkItemUris, other.Provenance, other.Fixes, other.Taxa, other.Request, other.Response, other.Properties);
+            Init(other.RuleId, other.RuleIndex, other.Rule, other.Kind, other.Level, other.Message, other.AnalysisTarget, other.Locations, other.Guid, other.CorrelationGuid, other.OccurrenceCount, other.PartialFingerprints, other.Fingerprints, other.Stacks, other.CodeFlows, other.Graphs, other.GraphTraversals, other.RelatedLocations, other.Suppressions, other.BaselineState, other.Rank, other.Attachments, other.HostedViewerUri, other.WorkItemUris, other.Provenance, other.Fixes, other.Taxa, other.WebRequest, other.WebResponse, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -414,7 +413,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Result(this);
         }
 
-        private void Init(string ruleId, int ruleIndex, ReportingDescriptorReference rule, ResultKind kind, FailureLevel level, Message message, ArtifactLocation analysisTarget, IEnumerable<Location> locations, string guid, string correlationGuid, int occurrenceCount, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, IEnumerable<Suppression> suppressions, BaselineState baselineState, double rank, IEnumerable<Attachment> attachments, Uri hostedViewerUri, IEnumerable<Uri> workItemUris, ResultProvenance provenance, IEnumerable<Fix> fixes, IEnumerable<ReportingDescriptorReference> taxa, Request request, Response response, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(string ruleId, int ruleIndex, ReportingDescriptorReference rule, ResultKind kind, FailureLevel level, Message message, ArtifactLocation analysisTarget, IEnumerable<Location> locations, string guid, string correlationGuid, int occurrenceCount, IDictionary<string, string> partialFingerprints, IDictionary<string, string> fingerprints, IEnumerable<Stack> stacks, IEnumerable<CodeFlow> codeFlows, IEnumerable<Graph> graphs, IEnumerable<GraphTraversal> graphTraversals, IEnumerable<Location> relatedLocations, IEnumerable<Suppression> suppressions, BaselineState baselineState, double rank, IEnumerable<Attachment> attachments, Uri hostedViewerUri, IEnumerable<Uri> workItemUris, ResultProvenance provenance, IEnumerable<Fix> fixes, IEnumerable<ReportingDescriptorReference> taxa, WebRequest webRequest, WebResponse webResponse, IDictionary<string, SerializedPropertyInfo> properties)
         {
             RuleId = ruleId;
             RuleIndex = ruleIndex;
@@ -651,14 +650,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Taxa = destination_10;
             }
 
-            if (request != null)
+            if (webRequest != null)
             {
-                Request = new Request(request);
+                WebRequest = new WebRequest(webRequest);
             }
 
-            if (response != null)
+            if (webResponse != null)
             {
-                Response = new Response(response);
+                WebResponse = new WebResponse(webResponse);
             }
 
             if (properties != null)
