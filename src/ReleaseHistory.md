@@ -350,6 +350,8 @@
 * API BREAKING: `result.stacks` array should have unique items.
 * API BREAKING: `result.relatedLocations` array should have unique items.
 * API BREAKING: Separate `suppression` `status` from `kind`. https://github.com/oasis-tcs/sarif-spec/issues/371
+* API BREAKING: Rename `request` object and related properties to `webRequest`.
+* API BREAKING: Rename `response` object and related properties to `webResponse`.
 * API NON-BREAKING: Add `locationRelationship` object. https://github.com/oasis-tcs/sarif-spec/issues/375
 * API BREAKING: `externalPropertyFileReference.itemCount` can be 0 and defaults to minimum: -1, default: -1.
 * API BREAKING: `threadFlowLocation.executionOrder` can be 0 and defaults to -1, so minimum: -1, default: -1

@@ -112,14 +112,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// A web request associated with this thread flow location.
         /// </summary>
-        [DataMember(Name = "request", IsRequired = false, EmitDefaultValue = false)]
-        public Request Request { get; set; }
+        [DataMember(Name = "webRequest", IsRequired = false, EmitDefaultValue = false)]
+        public WebRequest WebRequest { get; set; }
 
         /// <summary>
         /// A web response associated with this thread flow location.
         /// </summary>
-        [DataMember(Name = "response", IsRequired = false, EmitDefaultValue = false)]
-        public Response Response { get; set; }
+        [DataMember(Name = "webResponse", IsRequired = false, EmitDefaultValue = false)]
+        public WebResponse WebResponse { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the threadflow location.
@@ -173,18 +173,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="importance">
         /// An initialization value for the <see cref="P:Importance" /> property.
         /// </param>
-        /// <param name="request">
-        /// An initialization value for the <see cref="P:Request" /> property.
+        /// <param name="webRequest">
+        /// An initialization value for the <see cref="P:WebRequest" /> property.
         /// </param>
-        /// <param name="response">
-        /// An initialization value for the <see cref="P:Response" /> property.
+        /// <param name="webResponse">
+        /// An initialization value for the <see cref="P:WebResponse" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ThreadFlowLocation(int index, Location location, Stack stack, IEnumerable<string> kinds, IEnumerable<ReportingDescriptorReference> taxa, string module, IDictionary<string, MultiformatMessageString> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, Request request, Response response, IDictionary<string, SerializedPropertyInfo> properties)
+        public ThreadFlowLocation(int index, Location location, Stack stack, IEnumerable<string> kinds, IEnumerable<ReportingDescriptorReference> taxa, string module, IDictionary<string, MultiformatMessageString> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, WebRequest webRequest, WebResponse webResponse, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(index, location, stack, kinds, taxa, module, state, nestingLevel, executionOrder, executionTimeUtc, importance, request, response, properties);
+            Init(index, location, stack, kinds, taxa, module, state, nestingLevel, executionOrder, executionTimeUtc, importance, webRequest, webResponse, properties);
         }
 
         /// <summary>
@@ -203,7 +203,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Index, other.Location, other.Stack, other.Kinds, other.Taxa, other.Module, other.State, other.NestingLevel, other.ExecutionOrder, other.ExecutionTimeUtc, other.Importance, other.Request, other.Response, other.Properties);
+            Init(other.Index, other.Location, other.Stack, other.Kinds, other.Taxa, other.Module, other.State, other.NestingLevel, other.ExecutionOrder, other.ExecutionTimeUtc, other.Importance, other.WebRequest, other.WebResponse, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -224,7 +224,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ThreadFlowLocation(this);
         }
 
-        private void Init(int index, Location location, Stack stack, IEnumerable<string> kinds, IEnumerable<ReportingDescriptorReference> taxa, string module, IDictionary<string, MultiformatMessageString> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, Request request, Response response, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int index, Location location, Stack stack, IEnumerable<string> kinds, IEnumerable<ReportingDescriptorReference> taxa, string module, IDictionary<string, MultiformatMessageString> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, WebRequest webRequest, WebResponse webResponse, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Index = index;
             if (location != null)
@@ -280,14 +280,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             ExecutionOrder = executionOrder;
             ExecutionTimeUtc = executionTimeUtc;
             Importance = importance;
-            if (request != null)
+            if (webRequest != null)
             {
-                Request = new Request(request);
+                WebRequest = new WebRequest(webRequest);
             }
 
-            if (response != null)
+            if (webResponse != null)
             {
-                Response = new Response(response);
+                WebResponse = new WebResponse(webResponse);
             }
 
             if (properties != null)

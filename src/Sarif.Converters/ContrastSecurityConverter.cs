@@ -834,14 +834,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 RuleId = context.RuleId,
                 Level = GetRuleFailureLevel(context.RuleId),
-                Request = CreateRequest(context),
+                WebRequest = CreateWebRequest(context),
                 CodeFlows = CreateCodeFlows(context)
             };
         }
 
-        private Request CreateRequest(ContrastLogReader.Context context)
+        private WebRequest CreateWebRequest(ContrastLogReader.Context context)
         {
-            return new Request
+            return new WebRequest
             {
                 Protocol = context.RequestProtocol,
                 Version = context.RequestVersion,
