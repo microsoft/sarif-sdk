@@ -76,6 +76,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The zero-based offset from the beginning of the artifact of the first byte in the region.
         /// </summary>
         [DataMember(Name = "byteOffset", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(-1)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public int ByteOffset { get; set; }
 
         /// <summary>
@@ -114,6 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Region()
         {
             CharOffset = -1;
+            ByteOffset = -1;
         }
 
         /// <summary>

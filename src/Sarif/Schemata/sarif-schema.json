@@ -1662,7 +1662,8 @@
         "byteOffset": {
           "description": "The zero-based offset from the beginning of the artifact of the first byte in the region.",
           "type": "integer",
-          "minimum": 0
+          "default": -1,
+          "minimum": -1
         },
 
         "byteLength": {
