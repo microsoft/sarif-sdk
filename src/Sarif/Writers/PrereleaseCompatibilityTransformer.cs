@@ -211,6 +211,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                                 isModified = true;
                                 break;
                             }
+                            case "traceFile":
+                            {
+                                role.Value = "tracedFile";
+                                isModified = true;
+                                break;
+                            }
                             default:
                             {
                                 break;

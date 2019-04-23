@@ -148,7 +148,7 @@
               "responseFile",
               "resultFile",
               "standardStream",
-              "traceFile",
+              "tracedFile",
               "unmodified",
               "modified",
               "added",
@@ -164,7 +164,8 @@
               "memoryContents",
               "directory",
               "userSpecifiedConfiguration",
-              "toolSpecifiedConfiguration"
+              "toolSpecifiedConfiguration",
+              "debugOutputFile"
             ]
           }
         },
@@ -766,8 +767,8 @@
         "itemCount": {
           "description": "A non-negative integer specifying the number of items contained in the external property file.",
           "type": "integer",
-          "default": 1,
-          "minimum": 1
+          "default": -1,
+          "minimum": -1
         },
 
         "properties": {
@@ -1266,7 +1267,8 @@
         "id": {
           "description": "Value that distinguishes this location from all other locations within a single result object.",
           "type": "integer",
-          "minimum": 0
+          "minimum": -1,
+          "default": -1
         },
 
         "physicalLocation": {
@@ -1295,11 +1297,52 @@
           }
         },
 
+        "relationships": {
+          "description": "An array of objects that describe relationships between this location and others.",
+          "type": "array",
+          "default": [],
+          "minItems": 0,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/locationRelationship"
+          }
+        },
+
         "properties": {
           "description": "Key/value pairs that provide additional information about the location.",
           "$ref": "#/definitions/propertyBag"
         }
       }
+    },
+
+    "locationRelationship": {
+      "description": "Information about the relation of one location to another.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+
+        "target": {
+          "description": "A reference to the related location.",
+          "type": "integer",
+          "minimum": 0
+        },
+
+        "kinds": {
+          "description": "A set of distinct strings that categorize the relationship. Well-known kinds include 'includes', 'isIncludedBy' and 'relevant'.",
+          "type": "array",
+          "default": [ "relevant" ],
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the location relationship.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      },
+      "required": [ "target" ]
     },
 
     "logicalLocation": {
@@ -2016,7 +2059,7 @@
           "description": "An array of 'stack' objects relevant to the result.",
           "type": "array",
           "minItems": 0,
-          "uniqueItems": false,
+          "uniqueItems": true,
           "default": [],
           "items": {
             "$ref": "#/definitions/stack"
@@ -2060,7 +2103,7 @@
           "description": "A set of locations relevant to this result.",
           "type": "array",
           "minItems": 0,
-          "uniqueItems": false,
+          "uniqueItems": true,
           "default": [],
           "items": {
             "$ref": "#/definitions/location"
@@ -2729,7 +2772,9 @@
 
         "executionOrder": {
           "description": "An integer representing the temporal order in which execution reached this location.",
-          "type": "integer"
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
         },
 
         "executionTimeUtc": {

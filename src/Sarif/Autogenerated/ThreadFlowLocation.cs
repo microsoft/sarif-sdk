@@ -90,6 +90,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// An integer representing the temporal order in which execution reached this location.
         /// </summary>
         [DataMember(Name = "executionOrder", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(-1)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public int ExecutionOrder { get; set; }
 
         /// <summary>
@@ -131,6 +133,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public ThreadFlowLocation()
         {
             Index = -1;
+            ExecutionOrder = -1;
             Importance = ThreadFlowLocationImportance.Important;
         }
 

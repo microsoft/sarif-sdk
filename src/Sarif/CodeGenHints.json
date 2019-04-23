@@ -69,7 +69,7 @@
           "ResponseFile",
           "ResultFile",
           "StandardStream",
-          "TraceFile",
+          "TracedFile",
           "Unmodified",
           "Modified",
           "Added",
@@ -85,7 +85,8 @@
           "MemoryContents",
           "Directory",
           "UserSpecifiedConfiguration",
-          "ToolSpecifiedConfiguration"
+          "ToolSpecifiedConfiguration",
+          "DebugOutputFile"
         ]
       }
     },
@@ -335,6 +336,16 @@
     }
   ],
   "location": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
+  "locationRelationship": [
     {
       "kind": "BaseTypeHint",
       "arguments": {

@@ -100,6 +100,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         Location,
         /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="LocationRelationship" />.
+        /// </summary>
+        LocationRelationship,
+        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="LogicalLocation" />.
         /// </summary>
         LogicalLocation,
