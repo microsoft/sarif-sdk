@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
@@ -9,6 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
     public class EnumConverter : JsonConverter
     {
         public static readonly EnumConverter Instance = new EnumConverter();
+        public static readonly List<string> LegalTwoLetterWordsList = new List<string>() { "in" };
 
         public override bool CanConvert(Type objectType)
         {
@@ -51,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 return upperCaseName.ToLowerInvariant();
             }
 
-            int prefixCount = IsPrefixedWithTwoLetterWord(upperCaseName) ? 2 : 1;
+            int prefixCount = IsPrefixedWithTwoLetterAbbreviation(upperCaseName) ? 2 : 1;
 
             return upperCaseName.Substring(0, prefixCount).ToLowerInvariant() + upperCaseName.Substring(prefixCount);
         }
@@ -63,14 +65,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 return camelCaseName.ToUpperInvariant();
             }
 
-            int prefixCount = IsPrefixedWithTwoLetterWord(camelCaseName) ? 2 : 1;
+            int prefixCount = IsPrefixedWithTwoLetterAbbreviation(camelCaseName) ? 2 : 1;
 
             return camelCaseName.Substring(0, prefixCount).ToUpperInvariant() + camelCaseName.Substring(prefixCount);
         }
 
-        private static bool IsPrefixedWithTwoLetterWord(string name)
+        private static bool IsPrefixedWithTwoLetterAbbreviation(string name)
         {
             if (name.Length < 2)
+            {
+                return false;
+            }
+
+            if (LegalTwoLetterWordsList.Contains(name.Substring(0, 2)))
             {
                 return false;
             }

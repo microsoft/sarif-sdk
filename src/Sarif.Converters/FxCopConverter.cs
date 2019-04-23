@@ -108,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     new Suppression
                     {
-                        Kind = SuppressionKind.SuppressedInSource
+                        Kind = SuppressionKind.InSource
                     }
                 };
 

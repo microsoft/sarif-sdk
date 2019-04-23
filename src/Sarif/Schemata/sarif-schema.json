@@ -767,8 +767,8 @@
         "itemCount": {
           "description": "A non-negative integer specifying the number of items contained in the external property file.",
           "type": "integer",
-          "default": 1,
-          "minimum": 1
+          "default": -1,
+          "minimum": -1
         },
 
         "properties": {
@@ -1908,7 +1908,7 @@
         },
 
         "kinds": {
-          "description": "A set of distinct strings that categorize the relationshship. Well-known kinds include canPrecede, canFollow, willPrecede, willFollow, superset, subset, equal, disjoint, relevant, and incomparable.",
+          "description": "A set of distinct strings that categorize the relationship. Well-known kinds include canPrecede, canFollow, willPrecede, willFollow, superset, subset, equal, disjoint, relevant, and incomparable.",
           "type": "array",
           "default": [ "relevant" ],
           "uniqueItems": true,
@@ -2701,10 +2701,17 @@
         "kind": {
           "description": "A string that indicates where the suppression is persisted.",
           "enum": [
-            "suppressedInSource",
-            "suppressedExternally",
+            "inSource",
+            "external"
+          ]
+        },
+
+        "state": {
+          "description": "A string that indicates the state of the suppression.",
+          "enum": [
+            "accepted",
             "underReview",
-            "suppressionRejected"
+            "rejected"
           ]
         },
 
@@ -2842,7 +2849,9 @@
 
         "executionOrder": {
           "description": "An integer representing the temporal order in which execution reached this location.",
-          "type": "integer"
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
         },
 
         "executionTimeUtc": {

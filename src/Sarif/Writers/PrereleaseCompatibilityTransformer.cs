@@ -168,6 +168,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                     // https://github.com/oasis-tcs/sarif-spec/issues/377
                     modifiedLog |= ConvertRunRedactionTokenToArray(run);
+
+                    // https://github.com/oasis-tcs/sarif-spec/issues/371
+                    modifiedLog |= RenameSuppressionKindValues(run);
                 }
             }
 
@@ -247,6 +250,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             return false;
+        }
+
+        private static bool RenameSuppressionKindValues(JObject run)
+        {
+            string suppressionsPathToUpdate = "results[].suppressions[]";
+
+            bool actionOnLeaf(JObject suppression)
+            {
+                if (suppression["kind"] is JValue kind && kind.Value is string)
+                {
+                    if (kind.Value as string == "suppressedInSource" )
+                    {
+                        kind.Value = "inSource";
+                        return true;
+                    }
+
+                    if (kind.Value as string == "suppressedExternally")
+                    {
+                        kind.Value = "external";
+                        return true;
+                    }
+
+                }
+                return false;
+            }
+
+            return PerformActionOnLeafNodeIfExists(
+                possiblePathToLeafNode: suppressionsPathToUpdate,
+                rootNode: run,
+                action: actionOnLeaf);
         }
 
         private static bool RenameFixChangesToFixArtifactChanges(JObject sarifLog)
