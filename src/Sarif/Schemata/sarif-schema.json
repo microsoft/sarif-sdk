@@ -148,7 +148,7 @@
               "responseFile",
               "resultFile",
               "standardStream",
-              "traceFile",
+              "tracedFile",
               "unmodified",
               "modified",
               "added",
@@ -164,7 +164,8 @@
               "memoryContents",
               "directory",
               "userSpecifiedConfiguration",
-              "toolSpecifiedConfiguration"
+              "toolSpecifiedConfiguration",
+              "debugOutputFile"
             ]
           }
         },
@@ -766,8 +767,8 @@
         "itemCount": {
           "description": "A non-negative integer specifying the number of items contained in the external property file.",
           "type": "integer",
-          "default": 1,
-          "minimum": 1
+          "default": -1,
+          "minimum": -1
         },
 
         "properties": {
@@ -2177,7 +2178,7 @@
           "description": "An array of 'stack' objects relevant to the result.",
           "type": "array",
           "minItems": 0,
-          "uniqueItems": false,
+          "uniqueItems": true,
           "default": [],
           "items": {
             "$ref": "#/definitions/stack"
@@ -2221,7 +2222,7 @@
           "description": "A set of locations relevant to this result.",
           "type": "array",
           "minItems": 0,
-          "uniqueItems": false,
+          "uniqueItems": true,
           "default": [],
           "items": {
             "$ref": "#/definitions/location"
@@ -2890,7 +2891,9 @@
 
         "executionOrder": {
           "description": "An integer representing the temporal order in which execution reached this location.",
-          "type": "integer"
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
         },
 
         "executionTimeUtc": {
