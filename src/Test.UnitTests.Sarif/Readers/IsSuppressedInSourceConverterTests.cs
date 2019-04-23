@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             string expected = CreateCurrentV2SarifLogText(
                 resultCount: 1,
                 (log) => {
-                    log.Runs[0].Results[0].Suppressions = new List<Suppression> { new Suppression { Kind = SuppressionKind.SuppressedInSource } };
+                    log.Runs[0].Results[0].Suppressions = new List<Suppression> { new Suppression { Kind = SuppressionKind.InSource } };
                 });
 
             string actual = GetJson(uut =>
@@ -29,14 +29,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 uut.WriteResults(new[] { new Result
                     {
                         Message = new Message { Text = "Some testing occurred."},
-                        Suppressions = new List<Suppression> { new Suppression { Kind = SuppressionKind.SuppressedInSource } }
+                        Suppressions = new List<Suppression> { new Suppression { Kind = SuppressionKind.InSource } }
                     }
                 });
             });
             actual.Should().BeCrossPlatformEquivalent<SarifLog>(expected);
 
             var sarifLog = JsonConvert.DeserializeObject<SarifLog>(actual);
-            Assert.Equal(SuppressionKind.SuppressedInSource, sarifLog.Runs[0].Results[0].Suppressions[0].Kind);
+            Assert.Equal(SuppressionKind.InSource, sarifLog.Runs[0].Results[0].Suppressions[0].Kind);
         }
 
         [Fact]
