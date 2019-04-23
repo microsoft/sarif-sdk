@@ -34,7 +34,10 @@
         "rules": {
           "TST0001": {
             "id": "TST0001",
-            "helpUri": "http://www.example.com/rules/tst0001.html"
+            "helpUri": "http://www.example.com/rules/tst0001.html",
+            "fullDescription": {
+              "text": "This is the full description for TST0001."
+            }
           }
         }
       },

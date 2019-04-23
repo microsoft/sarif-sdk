@@ -13,12 +13,18 @@
             "id": "RULE0001",
             "name": {
               "text": "Rule one"
+            },
+            "shortDescription": {
+              "text": "Short description RULE0001."
             }
           },
           "RULE0002-1": {
             "id": "RULE0002",
             "name": {
               "text": "Rule two"
+            },
+            "fullDescription": {
+              "text": "This is a full description for RULE0002."
             }
           }
         }

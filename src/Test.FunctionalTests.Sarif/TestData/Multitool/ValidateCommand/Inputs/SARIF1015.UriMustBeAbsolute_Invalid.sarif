@@ -10,17 +10,27 @@
           "notifications": [
             {
               "id": "MSG0001",
-              "helpUri": "www.example.com/notifications/msg0001.html"
+              "helpUri": "www.example.com/notifications/msg0001.html",
+              "shortDescription": {
+                "text": "Short description MSG0001."
+              }
+
             },
             {
               "id": "MSG0002",
-              "helpUri": "www.example.com/notifications/msg0002.html"
+              "helpUri": "www.example.com/notifications/msg0002.html",
+              "fullDescription": {
+                "text": "This is the full description for MSG0002."
+              }
             }
           ],
           "rules": [
             {
               "id": "TST0001",
-              "helpUri": "www.example.com/rules/tst0001.html"
+              "helpUri": "www.example.com/rules/tst0001.html",
+              "fullDescription": {
+                "text": "This is the full description for TST0001."
+              }
             }
           ]
         }

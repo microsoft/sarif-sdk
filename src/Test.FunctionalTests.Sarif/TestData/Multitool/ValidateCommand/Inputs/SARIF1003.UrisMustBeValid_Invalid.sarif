@@ -9,17 +9,26 @@
           "rules": [
             {
               "id": "TST0001",
-              "helpUri": "ht%tp://www.example.com/rules/tst0001.html"
+              "helpUri": "ht%tp://www.example.com/rules/tst0001.html",
+              "shortDescription": {
+                "text": "Short description TST0001."
+              }
             }
           ],
           "notifications": [
             {
               "id": "MSG0001",
-              "helpUri": "ht%tp://www.example.com/rules/msg0001.html"
+              "helpUri": "ht%tp://www.example.com/rules/msg0001.html",
+              "shortDescription": {
+                "text": "Short description MSG0001."
+              }
             },
             {
               "id": "MSG0002",
-              "helpUri": "ht%tp://www.example.com/rules/msg0002.html"
+              "helpUri": "ht%tp://www.example.com/rules/msg0002.html",
+              "shortDescription": {
+                "text": "Short description MSG0002."
+              }
             }
           ]
         },

@@ -1819,7 +1819,11 @@
           "$ref": "#/definitions/propertyBag"
         }
       },
-      "required": [ "id" ]
+      "required": [ "id" ],
+      "anyOf": [
+        { "required": [ "shortDescription" ] },
+        { "required": [ "fullDescription" ] }
+      ]
     },
 
     "reportingConfiguration": {
