@@ -1892,7 +1892,12 @@
           "description": "Key/value pairs that provide additional information about the reporting descriptor reference.",
           "$ref": "#/definitions/propertyBag"
         }
-      }
+      },
+      "anyOf": [
+        { "required": [ "index" ] },
+        { "required": [ "guid" ] },
+        { "required": [ "id" ]}
+      ]
     },
 
     "reportingDescriptorRelationship": {

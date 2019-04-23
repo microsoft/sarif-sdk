@@ -192,10 +192,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static readonly string[] s_testFileDirectories = new string[]
         {
-            @"v2\ConverterTestData",
+            // @"v2\ConverterTestData",
             @"v2\SpecExamples",
-            @"v2\ObsoleteFormats",
-            @"..\..\Test.UnitTests.Sarif\net461\TestData"
+            // @"v2\ObsoleteFormats",
+            // @"..\..\Test.UnitTests.Sarif\net461\TestData"
         };
 
         private static IEnumerable<string> s_testCases;
