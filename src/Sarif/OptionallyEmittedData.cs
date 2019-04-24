@@ -70,6 +70,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         // information in the SARIF log file. In the absence of this setting, any existing
         // data that would otherwise have been overwritten by the insert operation will
         // be preserved.
-        OverwriteExistingData = 0x8000000
+        OverwriteExistingData = 0x40000000
     }
 }
