@@ -220,16 +220,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 },
                 Level = FailureLevel.Error,
                 Message = new Message { Text = "This is a test" },
-                PhysicalLocation = new PhysicalLocation
+                Locations = new List<Location>
                 {
-                    ArtifactLocation = new ArtifactLocation
+                    new Location
                     {
-                        Uri = new Uri("file:///C:/src/a.cs")
-                    },
-                    Region = new Region
-                    {
-                        StartLine = 3,
-                        StartColumn = 12
+                        PhysicalLocation = new PhysicalLocation
+                        {
+                            ArtifactLocation = new ArtifactLocation
+                            {
+                                Uri = new Uri("file:///C:/src/a.cs")
+                            },
+                            Region = new Region
+                            {
+                                StartLine = 3,
+                                StartColumn = 12
+                            }
+                        }
                     }
                 },
                 TimeUtc = DateTime.ParseExact("04/29/2016", ShortDateFormat, CultureInfo.InvariantCulture),

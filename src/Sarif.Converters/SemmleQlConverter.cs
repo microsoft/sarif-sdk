@@ -221,6 +221,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         };
                     }
 
+                    // TODO: Region.ByteOffset is not being handled correctly in SemmleQlConverter. Fix this!
+                    // https://github.com/Microsoft/sarif-sdk/issues/1458
+
                     if (physicalLocation.Region.ByteLength == 0)
                     {
                         physicalLocation.Region.ByteOffset = -1;

@@ -35,10 +35,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// The artifact and region relevant to this notification.
+        /// The locations relevant to this notification.
         /// </summary>
-        [DataMember(Name = "physicalLocation", IsRequired = false, EmitDefaultValue = false)]
-        public PhysicalLocation PhysicalLocation { get; set; }
+        [DataMember(Name = "locations", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public IList<Location> Locations { get; set; }
 
         /// <summary>
         /// A message that describes the condition that was encountered.
@@ -103,8 +104,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Initializes a new instance of the <see cref="Notification" /> class from the supplied values.
         /// </summary>
-        /// <param name="physicalLocation">
-        /// An initialization value for the <see cref="P:PhysicalLocation" /> property.
+        /// <param name="locations">
+        /// An initialization value for the <see cref="P:Locations" /> property.
         /// </param>
         /// <param name="message">
         /// An initialization value for the <see cref="P:Message" /> property.
@@ -130,9 +131,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Notification(PhysicalLocation physicalLocation, Message message, FailureLevel level, int threadId, DateTime timeUtc, ExceptionData exception, ReportingDescriptorReference descriptor, ReportingDescriptorReference associatedRule, IDictionary<string, SerializedPropertyInfo> properties)
+        public Notification(IEnumerable<Location> locations, Message message, FailureLevel level, int threadId, DateTime timeUtc, ExceptionData exception, ReportingDescriptorReference descriptor, ReportingDescriptorReference associatedRule, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(physicalLocation, message, level, threadId, timeUtc, exception, descriptor, associatedRule, properties);
+            Init(locations, message, level, threadId, timeUtc, exception, descriptor, associatedRule, properties);
         }
 
         /// <summary>
@@ -151,7 +152,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.PhysicalLocation, other.Message, other.Level, other.ThreadId, other.TimeUtc, other.Exception, other.Descriptor, other.AssociatedRule, other.Properties);
+            Init(other.Locations, other.Message, other.Level, other.ThreadId, other.TimeUtc, other.Exception, other.Descriptor, other.AssociatedRule, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -172,11 +173,24 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Notification(this);
         }
 
-        private void Init(PhysicalLocation physicalLocation, Message message, FailureLevel level, int threadId, DateTime timeUtc, ExceptionData exception, ReportingDescriptorReference descriptor, ReportingDescriptorReference associatedRule, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(IEnumerable<Location> locations, Message message, FailureLevel level, int threadId, DateTime timeUtc, ExceptionData exception, ReportingDescriptorReference descriptor, ReportingDescriptorReference associatedRule, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            if (physicalLocation != null)
+            if (locations != null)
             {
-                PhysicalLocation = new PhysicalLocation(physicalLocation);
+                var destination_0 = new List<Location>();
+                foreach (var value_0 in locations)
+                {
+                    if (value_0 == null)
+                    {
+                        destination_0.Add(null);
+                    }
+                    else
+                    {
+                        destination_0.Add(new Location(value_0));
+                    }
+                }
+
+                Locations = destination_0;
             }
 
             if (message != null)

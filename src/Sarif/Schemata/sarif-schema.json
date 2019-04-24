@@ -1514,9 +1514,15 @@
       "additionalProperties": false,
       "properties": {
 
-        "physicalLocation": {
-          "description": "The artifact and region relevant to this notification.",
-          "$ref": "#/definitions/physicalLocation"
+        "locations": {
+          "description": "The locations relevant to this notification.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/location"
+          }
         },
 
         "message": {
