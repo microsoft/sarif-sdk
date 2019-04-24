@@ -131,16 +131,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// An array of external property files containing run.requests arrays to be merged with the root log file.
         /// </summary>
-        [DataMember(Name = "requests", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "webRequests", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ExternalPropertyFileReference> Requests { get; set; }
+        public IList<ExternalPropertyFileReference> WebRequests { get; set; }
 
         /// <summary>
         /// An array of external property files containing run.responses arrays to be merged with the root log file.
         /// </summary>
-        [DataMember(Name = "responses", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "webResponses", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public IList<ExternalPropertyFileReference> Responses { get; set; }
+        public IList<ExternalPropertyFileReference> WebResponses { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the external property files.
@@ -200,18 +200,18 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="translations">
         /// An initialization value for the <see cref="P:Translations" /> property.
         /// </param>
-        /// <param name="requests">
-        /// An initialization value for the <see cref="P:Requests" /> property.
+        /// <param name="webRequests">
+        /// An initialization value for the <see cref="P:WebRequests" /> property.
         /// </param>
-        /// <param name="responses">
-        /// An initialization value for the <see cref="P:Responses" /> property.
+        /// <param name="webResponses">
+        /// An initialization value for the <see cref="P:WebResponses" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ExternalPropertyFileReferences(ExternalPropertyFileReference conversion, IEnumerable<ExternalPropertyFileReference> graphs, ExternalPropertyFileReference externalizedProperties, IEnumerable<ExternalPropertyFileReference> artifacts, IEnumerable<ExternalPropertyFileReference> invocations, IEnumerable<ExternalPropertyFileReference> logicalLocations, IEnumerable<ExternalPropertyFileReference> threadFlowLocations, IEnumerable<ExternalPropertyFileReference> results, IEnumerable<ExternalPropertyFileReference> taxonomies, IEnumerable<ExternalPropertyFileReference> addresses, ExternalPropertyFileReference driver, IEnumerable<ExternalPropertyFileReference> extensions, IEnumerable<ExternalPropertyFileReference> policies, IEnumerable<ExternalPropertyFileReference> translations, IEnumerable<ExternalPropertyFileReference> requests, IEnumerable<ExternalPropertyFileReference> responses, IDictionary<string, SerializedPropertyInfo> properties)
+        public ExternalPropertyFileReferences(ExternalPropertyFileReference conversion, IEnumerable<ExternalPropertyFileReference> graphs, ExternalPropertyFileReference externalizedProperties, IEnumerable<ExternalPropertyFileReference> artifacts, IEnumerable<ExternalPropertyFileReference> invocations, IEnumerable<ExternalPropertyFileReference> logicalLocations, IEnumerable<ExternalPropertyFileReference> threadFlowLocations, IEnumerable<ExternalPropertyFileReference> results, IEnumerable<ExternalPropertyFileReference> taxonomies, IEnumerable<ExternalPropertyFileReference> addresses, ExternalPropertyFileReference driver, IEnumerable<ExternalPropertyFileReference> extensions, IEnumerable<ExternalPropertyFileReference> policies, IEnumerable<ExternalPropertyFileReference> translations, IEnumerable<ExternalPropertyFileReference> webRequests, IEnumerable<ExternalPropertyFileReference> webResponses, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(conversion, graphs, externalizedProperties, artifacts, invocations, logicalLocations, threadFlowLocations, results, taxonomies, addresses, driver, extensions, policies, translations, requests, responses, properties);
+            Init(conversion, graphs, externalizedProperties, artifacts, invocations, logicalLocations, threadFlowLocations, results, taxonomies, addresses, driver, extensions, policies, translations, webRequests, webResponses, properties);
         }
 
         /// <summary>
@@ -230,7 +230,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Conversion, other.Graphs, other.ExternalizedProperties, other.Artifacts, other.Invocations, other.LogicalLocations, other.ThreadFlowLocations, other.Results, other.Taxonomies, other.Addresses, other.Driver, other.Extensions, other.Policies, other.Translations, other.Requests, other.Responses, other.Properties);
+            Init(other.Conversion, other.Graphs, other.ExternalizedProperties, other.Artifacts, other.Invocations, other.LogicalLocations, other.ThreadFlowLocations, other.Results, other.Taxonomies, other.Addresses, other.Driver, other.Extensions, other.Policies, other.Translations, other.WebRequests, other.WebResponses, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -251,7 +251,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExternalPropertyFileReferences(this);
         }
 
-        private void Init(ExternalPropertyFileReference conversion, IEnumerable<ExternalPropertyFileReference> graphs, ExternalPropertyFileReference externalizedProperties, IEnumerable<ExternalPropertyFileReference> artifacts, IEnumerable<ExternalPropertyFileReference> invocations, IEnumerable<ExternalPropertyFileReference> logicalLocations, IEnumerable<ExternalPropertyFileReference> threadFlowLocations, IEnumerable<ExternalPropertyFileReference> results, IEnumerable<ExternalPropertyFileReference> taxonomies, IEnumerable<ExternalPropertyFileReference> addresses, ExternalPropertyFileReference driver, IEnumerable<ExternalPropertyFileReference> extensions, IEnumerable<ExternalPropertyFileReference> policies, IEnumerable<ExternalPropertyFileReference> translations, IEnumerable<ExternalPropertyFileReference> requests, IEnumerable<ExternalPropertyFileReference> responses, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(ExternalPropertyFileReference conversion, IEnumerable<ExternalPropertyFileReference> graphs, ExternalPropertyFileReference externalizedProperties, IEnumerable<ExternalPropertyFileReference> artifacts, IEnumerable<ExternalPropertyFileReference> invocations, IEnumerable<ExternalPropertyFileReference> logicalLocations, IEnumerable<ExternalPropertyFileReference> threadFlowLocations, IEnumerable<ExternalPropertyFileReference> results, IEnumerable<ExternalPropertyFileReference> taxonomies, IEnumerable<ExternalPropertyFileReference> addresses, ExternalPropertyFileReference driver, IEnumerable<ExternalPropertyFileReference> extensions, IEnumerable<ExternalPropertyFileReference> policies, IEnumerable<ExternalPropertyFileReference> translations, IEnumerable<ExternalPropertyFileReference> webRequests, IEnumerable<ExternalPropertyFileReference> webResponses, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (conversion != null)
             {
@@ -466,10 +466,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Translations = destination_10;
             }
 
-            if (requests != null)
+            if (webRequests != null)
             {
                 var destination_11 = new List<ExternalPropertyFileReference>();
-                foreach (var value_11 in requests)
+                foreach (var value_11 in webRequests)
                 {
                     if (value_11 == null)
                     {
@@ -481,13 +481,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                Requests = destination_11;
+                WebRequests = destination_11;
             }
 
-            if (responses != null)
+            if (webResponses != null)
             {
                 var destination_12 = new List<ExternalPropertyFileReference>();
-                foreach (var value_12 in responses)
+                foreach (var value_12 in webResponses)
                 {
                     if (value_12 == null)
                     {
@@ -499,7 +499,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                Responses = destination_12;
+                WebResponses = destination_12;
             }
 
             if (properties != null)

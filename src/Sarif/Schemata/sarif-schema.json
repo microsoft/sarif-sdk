@@ -59,7 +59,7 @@
         },
 
         "kind": {
-          "description": "An open-ended string that identifies the address kind. 'section', 'segment' and 'module' are well-known values.",
+          "description": "An open-ended string that identifies the address kind. 'section', 'segment', 'module', 'function' and 'page' are well-known values.",
           "type": "string"
         },
 
@@ -148,7 +148,7 @@
               "responseFile",
               "resultFile",
               "standardStream",
-              "traceFile",
+              "tracedFile",
               "unmodified",
               "modified",
               "added",
@@ -164,7 +164,8 @@
               "memoryContents",
               "directory",
               "userSpecifiedConfiguration",
-              "toolSpecifiedConfiguration"
+              "toolSpecifiedConfiguration",
+              "debugOutputFile"
             ]
           }
         },
@@ -720,25 +721,25 @@
           }
         },
 
-        "requests": {
+        "webRequests": {
           "description": "Requests that will be merged with a separate run.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
           "default": [],
           "items": {
-            "$ref": "#/definitions/request"
+            "$ref": "#/definitions/webRequest"
           }
         },
 
-        "responses": {
+        "webResponses": {
           "description": "Responses that will be merged with a separate run.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
           "default": [],
           "items": {
-            "$ref": "#/definitions/response"
+            "$ref": "#/definitions/webResponse"
           }
         },
 
@@ -766,8 +767,8 @@
         "itemCount": {
           "description": "A non-negative integer specifying the number of items contained in the external property file.",
           "type": "integer",
-          "default": 1,
-          "minimum": 1
+          "default": -1,
+          "minimum": -1
         },
 
         "properties": {
@@ -923,7 +924,7 @@
           }
         },
 
-        "requests": {
+        "webRequests": {
           "description": "An array of external property files containing run.requests arrays to be merged with the root log file.",
           "type": "array",
           "minItems": 0,
@@ -934,7 +935,7 @@
           }
         },
 
-        "responses": {
+        "webResponses": {
           "description": "An array of external property files containing run.responses arrays to be merged with the root log file.",
           "type": "array",
           "minItems": 0,
@@ -1266,7 +1267,8 @@
         "id": {
           "description": "Value that distinguishes this location from all other locations within a single result object.",
           "type": "integer",
-          "minimum": 0
+          "minimum": -1,
+          "default": -1
         },
 
         "physicalLocation": {
@@ -1295,11 +1297,57 @@
           }
         },
 
+        "relationships": {
+          "description": "An array of objects that describe relationships between this location and others.",
+          "type": "array",
+          "default": [],
+          "minItems": 0,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/locationRelationship"
+          }
+        },
+
         "properties": {
           "description": "Key/value pairs that provide additional information about the location.",
           "$ref": "#/definitions/propertyBag"
         }
       }
+    },
+
+    "locationRelationship": {
+      "description": "Information about the relation of one location to another.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+
+        "target": {
+          "description": "A reference to the related location.",
+          "type": "integer",
+          "minimum": 0
+        },
+
+        "kinds": {
+          "description": "A set of distinct strings that categorize the relationship. Well-known kinds include 'includes', 'isIncludedBy' and 'relevant'.",
+          "type": "array",
+          "default": [ "relevant" ],
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+
+        "description": {
+          "description": "A description of the location relationship.",
+          "$ref": "#/definitions/message"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the location relationship.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      },
+      "required": [ "target" ]
     },
 
     "logicalLocation": {
@@ -1893,7 +1941,12 @@
           "description": "Key/value pairs that provide additional information about the reporting descriptor reference.",
           "$ref": "#/definitions/propertyBag"
         }
-      }
+      },
+      "anyOf": [
+        { "required": [ "index" ] },
+        { "required": [ "guid" ] },
+        { "required": [ "id" ]}
+      ]
     },
 
     "reportingDescriptorRelationship": {
@@ -1908,7 +1961,7 @@
         },
 
         "kinds": {
-          "description": "A set of distinct strings that categorize the relationship. Well-known kinds include canPrecede, canFollow, willPrecede, willFollow, superset, subset, equal, disjoint, relevant, and incomparable.",
+          "description": "A set of distinct strings that categorize the relationship. Well-known kinds include 'canPrecede', 'canFollow', 'willPrecede', 'willFollow', 'superset', 'subset', 'equal', 'disjoint', 'relevant', and 'incomparable'.",
           "type": "array",
           "default": [ "relevant" ],
           "uniqueItems": true,
@@ -1917,131 +1970,17 @@
           }
         },
 
+        "description": {
+          "description": "A description of the reporting descriptor relationship.",
+          "$ref": "#/definitions/message"
+        },
+
         "properties": {
           "description": "Key/value pairs that provide additional information about the reporting descriptor reference.",
           "$ref": "#/definitions/propertyBag"
         }
       },
       "required": [ "target" ]
-    },
-
-    "request": {
-      "description": "A web request object.",
-      "type": "object",
-      "properties": {
-
-        "index": {
-          "description": "The index within the run.requests array of the request object associated with this result.",
-          "type": "integer",
-          "default": -1,
-          "minimum": -1
-
-        },
-
-        "protocol": {
-          "description": "The request protocol. Example: 'http'.",
-          "type": "string"
-        },
-
-        "version": {
-          "description": "The request version. Example: '1.1'.",
-          "type": "string"
-        },
-
-        "target": {
-          "description": "The target of the request.",
-          "type": "string"
-        },
-
-        "method": {
-          "description": "The HTTP method. Well-known values are 'GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS', 'TRACE', 'CONNECT'.",
-          "type": "string"
-        },
-
-        "headers": {
-          "description": "The request headers.",
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
-
-        "parameters": {
-          "description": "The request parameters.",
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
-
-        "body": {
-          "description": "The body of the request.",
-          "$ref": "#/definitions/artifactContent"
-        },
-
-        "properties": {
-          "description": "Key/value pairs that provide additional information about the request.",
-          "$ref": "#/definitions/propertyBag"
-        }
-      }
-    },
-
-    "response": {
-      "description": "A web response object.",
-      "type": "object",
-      "properties": {
-
-        "index": {
-          "description": "The index within the run.responses array of the response object associated with this result.",
-          "type": "integer",
-          "default": -1,
-          "minimum": -1
-        },
-
-        "protocol": {
-          "description": "The response protocol. Example: 'http'.",
-          "type": "string"
-        },
-
-        "version": {
-          "description": "The response version. Example: '1.1'.",
-          "type": "string"
-        },
-
-        "statusCode": {
-          "description": "The response status code. Example: 451.",
-          "type": "integer"
-        },
-
-        "reasonPhrase": {
-          "description": "The response reason. Example: 'Not found'.",
-          "type": "string"
-        },
-
-        "headers": {
-          "description": "The response headers.",
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
-
-        "body": {
-          "description": "The body of the response.",
-          "$ref": "#/definitions/artifactContent"
-        },
-
-        "noResponseReceived": {
-          "description": "Specifies whether a response was received from the server.",
-          "type": "boolean",
-          "default": false
-        },
-
-        "properties": {
-          "description": "Key/value pairs that provide additional information about the response.",
-          "$ref": "#/definitions/propertyBag"
-        }
-      }
     },
 
     "result": {
@@ -2070,7 +2009,7 @@
         "kind": {
           "description": "A value that categorizes results by evaluation state.",
           "default": "fail",
-          "enum": [ "notApplicable", "pass", "fail", "review", "open" ]
+          "enum": [ "notApplicable", "pass", "fail", "review", "open", "informational" ]
         },
 
         "level": {
@@ -2136,7 +2075,7 @@
           "description": "An array of 'stack' objects relevant to the result.",
           "type": "array",
           "minItems": 0,
-          "uniqueItems": false,
+          "uniqueItems": true,
           "default": [],
           "items": {
             "$ref": "#/definitions/stack"
@@ -2180,7 +2119,7 @@
           "description": "A set of locations relevant to this result.",
           "type": "array",
           "minItems": 0,
-          "uniqueItems": false,
+          "uniqueItems": true,
           "default": [],
           "items": {
             "$ref": "#/definitions/location"
@@ -2270,14 +2209,14 @@
           }
         },
 
-        "request": {
+        "webRequest": {
           "description": "A web request associated with this result.",
-          "$ref": "#/definitions/request"
+          "$ref": "#/definitions/webRequest"
         },
 
-        "response": {
+        "webResponse": {
           "description": "A web response associated with this result.",
-          "$ref": "#/definitions/response"
+          "$ref": "#/definitions/webResponse"
         },
 
         "properties": {
@@ -2490,8 +2429,7 @@
 
         "columnKind": {
           "description": "Specifies the unit in which the tool measures columns.",
-          "enum": [ "utf16CodeUnits", "unicodeCodePoints" ],
-          "default": "unicodeCodePoints"
+          "enum": [ "utf16CodeUnits", "unicodeCodePoints" ]
         },
 
         "externalPropertyFileReferences": {
@@ -2554,25 +2492,25 @@
           }
         },
 
-        "requests": {
+        "webRequests": {
           "description": "An array of request objects cached at run level.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
           "default": [],
           "items": {
-            "$ref": "#/definitions/request"
+            "$ref": "#/definitions/webRequest"
           }
         },
 
-        "responses": {
+        "webResponses": {
           "description": "An array of response objects cached at run level.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
           "default": [],
           "items": {
-            "$ref": "#/definitions/response"
+            "$ref": "#/definitions/webResponse"
           }
         },
 
@@ -2807,7 +2745,7 @@
         },
 
         "kinds": {
-          "description": "A set of distinct strings that categorize the thread flow location. Well-known kinds include acquire, release, enter, exit, call, return, branch, implicit, false, true, caution, danger, unknown, unreachable, taint, function, handler, lock, memory, resource, and scope.",
+          "description": "A set of distinct strings that categorize the thread flow location. Well-known kinds include 'acquire', 'release', 'enter', 'exit', 'call', 'return', 'branch', 'implicit', 'false', 'true', 'caution', 'danger', 'unknown', 'unreachable', 'taint', 'function', 'handler', 'lock', 'memory', 'resource', 'scope' and 'value'.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
@@ -2849,7 +2787,9 @@
 
         "executionOrder": {
           "description": "An integer representing the temporal order in which execution reached this location.",
-          "type": "integer"
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
         },
 
         "executionTimeUtc": {
@@ -2864,14 +2804,14 @@
           "default": "important"
         },
 
-        "request": {
+        "webRequest": {
           "description": "A web request associated with this thread flow location.",
-          "$ref": "#/definitions/request"
+          "$ref": "#/definitions/webRequest"
         },
 
-        "response": {
+        "webResponse": {
           "description": "A web response associated with this thread flow location.",
-          "$ref": "#/definitions/response"
+          "$ref": "#/definitions/webResponse"
         },
 
         "properties": {
@@ -3226,6 +3166,125 @@
       },
 
       "required": [ "repositoryUri" ]
+    },
+
+    "webRequest": {
+      "description": "A web request object.",
+      "type": "object",
+      "properties": {
+
+        "index": {
+          "description": "The index within the run.webRequests array of the request object associated with this result.",
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
+
+        },
+
+        "protocol": {
+          "description": "The request protocol. Example: 'http'.",
+          "type": "string"
+        },
+
+        "version": {
+          "description": "The request version. Example: '1.1'.",
+          "type": "string"
+        },
+
+        "target": {
+          "description": "The target of the request.",
+          "type": "string"
+        },
+
+        "method": {
+          "description": "The HTTP method. Well-known values are 'GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS', 'TRACE', 'CONNECT'.",
+          "type": "string"
+        },
+
+        "headers": {
+          "description": "The request headers.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+
+        "parameters": {
+          "description": "The request parameters.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+
+        "body": {
+          "description": "The body of the request.",
+          "$ref": "#/definitions/artifactContent"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the request.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      }
+    },
+
+    "webResponse": {
+      "description": "A web response object.",
+      "type": "object",
+      "properties": {
+
+        "index": {
+          "description": "The index within the run.webResponses array of the response object associated with this result.",
+          "type": "integer",
+          "default": -1,
+          "minimum": -1
+        },
+
+        "protocol": {
+          "description": "The response protocol. Example: 'http'.",
+          "type": "string"
+        },
+
+        "version": {
+          "description": "The response version. Example: '1.1'.",
+          "type": "string"
+        },
+
+        "statusCode": {
+          "description": "The response status code. Example: 451.",
+          "type": "integer"
+        },
+
+        "reasonPhrase": {
+          "description": "The response reason. Example: 'Not found'.",
+          "type": "string"
+        },
+
+        "headers": {
+          "description": "The response headers.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+
+        "body": {
+          "description": "The body of the response.",
+          "$ref": "#/definitions/artifactContent"
+        },
+
+        "noResponseReceived": {
+          "description": "Specifies whether a response was received from the server.",
+          "type": "boolean",
+          "default": false
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the response.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      }
     }
   }
 }

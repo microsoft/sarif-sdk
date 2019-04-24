@@ -12,15 +12,15 @@ using Newtonsoft.Json;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// A web response object.
+    /// A web request object.
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
-    public partial class Response : PropertyBagHolder, ISarifNode
+    public partial class WebRequest : PropertyBagHolder, ISarifNode
     {
-        public static IEqualityComparer<Response> ValueComparer => ResponseEqualityComparer.Instance;
+        public static IEqualityComparer<WebRequest> ValueComparer => WebRequestEqualityComparer.Instance;
 
-        public bool ValueEquals(Response other) => ValueComparer.Equals(this, other);
+        public bool ValueEquals(WebRequest other) => ValueComparer.Equals(this, other);
         public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
 
         /// <summary>
@@ -30,12 +30,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                return SarifNodeKind.Response;
+                return SarifNodeKind.WebRequest;
             }
         }
 
         /// <summary>
-        /// The index within the run.responses array of the response object associated with this result.
+        /// The index within the run.webRequests array of the request object associated with this result.
         /// </summary>
         [DataMember(Name = "index", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
@@ -43,66 +43,63 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int Index { get; set; }
 
         /// <summary>
-        /// The response protocol. Example: 'http'.
+        /// The request protocol. Example: 'http'.
         /// </summary>
         [DataMember(Name = "protocol", IsRequired = false, EmitDefaultValue = false)]
         public string Protocol { get; set; }
 
         /// <summary>
-        /// The response version. Example: '1.1'.
+        /// The request version. Example: '1.1'.
         /// </summary>
         [DataMember(Name = "version", IsRequired = false, EmitDefaultValue = false)]
         public string Version { get; set; }
 
         /// <summary>
-        /// The response status code. Example: 451.
+        /// The target of the request.
         /// </summary>
-        [DataMember(Name = "statusCode", IsRequired = false, EmitDefaultValue = false)]
-        public int StatusCode { get; set; }
+        [DataMember(Name = "target", IsRequired = false, EmitDefaultValue = false)]
+        public string Target { get; set; }
 
         /// <summary>
-        /// The response reason. Example: 'Not found'.
+        /// The HTTP method. Well-known values are 'GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS', 'TRACE', 'CONNECT'.
         /// </summary>
-        [DataMember(Name = "reasonPhrase", IsRequired = false, EmitDefaultValue = false)]
-        public string ReasonPhrase { get; set; }
+        [DataMember(Name = "method", IsRequired = false, EmitDefaultValue = false)]
+        public string Method { get; set; }
 
         /// <summary>
-        /// The response headers.
+        /// The request headers.
         /// </summary>
         [DataMember(Name = "headers", IsRequired = false, EmitDefaultValue = false)]
         public object Headers { get; set; }
 
         /// <summary>
-        /// The body of the response.
+        /// The request parameters.
+        /// </summary>
+        [DataMember(Name = "parameters", IsRequired = false, EmitDefaultValue = false)]
+        public object Parameters { get; set; }
+
+        /// <summary>
+        /// The body of the request.
         /// </summary>
         [DataMember(Name = "body", IsRequired = false, EmitDefaultValue = false)]
         public ArtifactContent Body { get; set; }
 
         /// <summary>
-        /// Specifies whether a response was received from the server.
-        /// </summary>
-        [DataMember(Name = "noResponseReceived", IsRequired = false, EmitDefaultValue = false)]
-        [DefaultValue(false)]
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        public bool NoResponseReceived { get; set; }
-
-        /// <summary>
-        /// Key/value pairs that provide additional information about the response.
+        /// Key/value pairs that provide additional information about the request.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Response" /> class.
+        /// Initializes a new instance of the <see cref="WebRequest" /> class.
         /// </summary>
-        public Response()
+        public WebRequest()
         {
             Index = -1;
-            NoResponseReceived = false;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Response" /> class from the supplied values.
+        /// Initializes a new instance of the <see cref="WebRequest" /> class from the supplied values.
         /// </summary>
         /// <param name="index">
         /// An initialization value for the <see cref="P:Index" /> property.
@@ -113,31 +110,31 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="version">
         /// An initialization value for the <see cref="P:Version" /> property.
         /// </param>
-        /// <param name="statusCode">
-        /// An initialization value for the <see cref="P:StatusCode" /> property.
+        /// <param name="target">
+        /// An initialization value for the <see cref="P:Target" /> property.
         /// </param>
-        /// <param name="reasonPhrase">
-        /// An initialization value for the <see cref="P:ReasonPhrase" /> property.
+        /// <param name="method">
+        /// An initialization value for the <see cref="P:Method" /> property.
         /// </param>
         /// <param name="headers">
         /// An initialization value for the <see cref="P:Headers" /> property.
         /// </param>
+        /// <param name="parameters">
+        /// An initialization value for the <see cref="P:Parameters" /> property.
+        /// </param>
         /// <param name="body">
         /// An initialization value for the <see cref="P:Body" /> property.
-        /// </param>
-        /// <param name="noResponseReceived">
-        /// An initialization value for the <see cref="P:NoResponseReceived" /> property.
         /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Response(int index, string protocol, string version, int statusCode, string reasonPhrase, object headers, ArtifactContent body, bool noResponseReceived, IDictionary<string, SerializedPropertyInfo> properties)
+        public WebRequest(int index, string protocol, string version, string target, string method, object headers, object parameters, ArtifactContent body, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(index, protocol, version, statusCode, reasonPhrase, headers, body, noResponseReceived, properties);
+            Init(index, protocol, version, target, method, headers, parameters, body, properties);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Response" /> class from the specified instance.
+        /// Initializes a new instance of the <see cref="WebRequest" /> class from the specified instance.
         /// </summary>
         /// <param name="other">
         /// The instance from which the new instance is to be initialized.
@@ -145,14 +142,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <exception cref="ArgumentNullException">
         /// Thrown if <paramref name="other" /> is null.
         /// </exception>
-        public Response(Response other)
+        public WebRequest(WebRequest other)
         {
             if (other == null)
             {
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Index, other.Protocol, other.Version, other.StatusCode, other.ReasonPhrase, other.Headers, other.Body, other.NoResponseReceived, other.Properties);
+            Init(other.Index, other.Protocol, other.Version, other.Target, other.Method, other.Headers, other.Parameters, other.Body, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -163,30 +160,30 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public Response DeepClone()
+        public WebRequest DeepClone()
         {
-            return (Response)DeepCloneCore();
+            return (WebRequest)DeepCloneCore();
         }
 
         private ISarifNode DeepCloneCore()
         {
-            return new Response(this);
+            return new WebRequest(this);
         }
 
-        private void Init(int index, string protocol, string version, int statusCode, string reasonPhrase, object headers, ArtifactContent body, bool noResponseReceived, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int index, string protocol, string version, string target, string method, object headers, object parameters, ArtifactContent body, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Index = index;
             Protocol = protocol;
             Version = version;
-            StatusCode = statusCode;
-            ReasonPhrase = reasonPhrase;
+            Target = target;
+            Method = method;
             Headers = headers;
+            Parameters = parameters;
             if (body != null)
             {
                 Body = new ArtifactContent(body);
             }
 
-            NoResponseReceived = noResponseReceived;
             if (properties != null)
             {
                 Properties = new Dictionary<string, SerializedPropertyInfo>(properties);

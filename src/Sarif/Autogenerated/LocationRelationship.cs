@@ -11,15 +11,15 @@ using Newtonsoft.Json;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Information about the relation of one reporting descriptor to another.
+    /// Information about the relation of one location to another.
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
-    public partial class ReportingDescriptorRelationship : PropertyBagHolder, ISarifNode
+    public partial class LocationRelationship : PropertyBagHolder, ISarifNode
     {
-        public static IEqualityComparer<ReportingDescriptorRelationship> ValueComparer => ReportingDescriptorRelationshipEqualityComparer.Instance;
+        public static IEqualityComparer<LocationRelationship> ValueComparer => LocationRelationshipEqualityComparer.Instance;
 
-        public bool ValueEquals(ReportingDescriptorRelationship other) => ValueComparer.Equals(this, other);
+        public bool ValueEquals(LocationRelationship other) => ValueComparer.Equals(this, other);
         public int ValueGetHashCode() => ValueComparer.GetHashCode(this);
 
         /// <summary>
@@ -29,44 +29,44 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             get
             {
-                return SarifNodeKind.ReportingDescriptorRelationship;
+                return SarifNodeKind.LocationRelationship;
             }
         }
 
         /// <summary>
-        /// A reference to the related reporting descriptor.
+        /// A reference to the related location.
         /// </summary>
         [DataMember(Name = "target", IsRequired = true)]
-        public ReportingDescriptorReference Target { get; set; }
+        public int Target { get; set; }
 
         /// <summary>
-        /// A set of distinct strings that categorize the relationship. Well-known kinds include 'canPrecede', 'canFollow', 'willPrecede', 'willFollow', 'superset', 'subset', 'equal', 'disjoint', 'relevant', and 'incomparable'.
+        /// A set of distinct strings that categorize the relationship. Well-known kinds include 'includes', 'isIncludedBy' and 'relevant'.
         /// </summary>
         [DataMember(Name = "kinds", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<string> Kinds { get; set; }
 
         /// <summary>
-        /// A description of the reporting descriptor relationship.
+        /// A description of the location relationship.
         /// </summary>
         [DataMember(Name = "description", IsRequired = false, EmitDefaultValue = false)]
         public Message Description { get; set; }
 
         /// <summary>
-        /// Key/value pairs that provide additional information about the reporting descriptor reference.
+        /// Key/value pairs that provide additional information about the location relationship.
         /// </summary>
         [DataMember(Name = "properties", IsRequired = false, EmitDefaultValue = false)]
         internal override IDictionary<string, SerializedPropertyInfo> Properties { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReportingDescriptorRelationship" /> class.
+        /// Initializes a new instance of the <see cref="LocationRelationship" /> class.
         /// </summary>
-        public ReportingDescriptorRelationship()
+        public LocationRelationship()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReportingDescriptorRelationship" /> class from the supplied values.
+        /// Initializes a new instance of the <see cref="LocationRelationship" /> class from the supplied values.
         /// </summary>
         /// <param name="target">
         /// An initialization value for the <see cref="P:Target" /> property.
@@ -80,13 +80,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ReportingDescriptorRelationship(ReportingDescriptorReference target, IEnumerable<string> kinds, Message description, IDictionary<string, SerializedPropertyInfo> properties)
+        public LocationRelationship(int target, IEnumerable<string> kinds, Message description, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(target, kinds, description, properties);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReportingDescriptorRelationship" /> class from the specified instance.
+        /// Initializes a new instance of the <see cref="LocationRelationship" /> class from the specified instance.
         /// </summary>
         /// <param name="other">
         /// The instance from which the new instance is to be initialized.
@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <exception cref="ArgumentNullException">
         /// Thrown if <paramref name="other" /> is null.
         /// </exception>
-        public ReportingDescriptorRelationship(ReportingDescriptorRelationship other)
+        public LocationRelationship(LocationRelationship other)
         {
             if (other == null)
             {
@@ -112,23 +112,19 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Creates a deep copy of this instance.
         /// </summary>
-        public ReportingDescriptorRelationship DeepClone()
+        public LocationRelationship DeepClone()
         {
-            return (ReportingDescriptorRelationship)DeepCloneCore();
+            return (LocationRelationship)DeepCloneCore();
         }
 
         private ISarifNode DeepCloneCore()
         {
-            return new ReportingDescriptorRelationship(this);
+            return new LocationRelationship(this);
         }
 
-        private void Init(ReportingDescriptorReference target, IEnumerable<string> kinds, Message description, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int target, IEnumerable<string> kinds, Message description, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            if (target != null)
-            {
-                Target = new ReportingDescriptorReference(target);
-            }
-
+            Target = target;
             if (kinds != null)
             {
                 var destination_0 = new List<string>();

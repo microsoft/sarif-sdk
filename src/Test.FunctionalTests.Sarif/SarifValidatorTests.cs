@@ -115,6 +115,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 node.RedactionTokens[0] = "[REDACTED]";
                 return base.VisitRun(node);
             }
+
+            public override LocationRelationship VisitLocationRelationship(LocationRelationship node)
+            {
+                node.Kinds[0] = "includes";
+                return base.VisitLocationRelationship(node);
+            }
         }
 
         private void ValidateDefaultDocument(IDictionary<Type, DefaultObjectPopulatingVisitor.PrimitiveValueBuilder> propertyValueBuilders, Func<SarifLog, SarifLog> postPopulationCallback = null)

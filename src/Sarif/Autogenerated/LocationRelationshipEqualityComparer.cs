@@ -9,14 +9,14 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// Defines methods to support the comparison of objects of type ReportingDescriptorRelationship for equality.
+    /// Defines methods to support the comparison of objects of type LocationRelationship for equality.
     /// </summary>
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
-    internal sealed class ReportingDescriptorRelationshipEqualityComparer : IEqualityComparer<ReportingDescriptorRelationship>
+    internal sealed class LocationRelationshipEqualityComparer : IEqualityComparer<LocationRelationship>
     {
-        internal static readonly ReportingDescriptorRelationshipEqualityComparer Instance = new ReportingDescriptorRelationshipEqualityComparer();
+        internal static readonly LocationRelationshipEqualityComparer Instance = new LocationRelationshipEqualityComparer();
 
-        public bool Equals(ReportingDescriptorRelationship left, ReportingDescriptorRelationship right)
+        public bool Equals(LocationRelationship left, LocationRelationship right)
         {
             if (ReferenceEquals(left, right))
             {
@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!ReportingDescriptorReference.ValueComparer.Equals(left.Target, right.Target))
+            if (left.Target != right.Target)
             {
                 return false;
             }
@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public int GetHashCode(ReportingDescriptorRelationship obj)
+        public int GetHashCode(LocationRelationship obj)
         {
             if (ReferenceEquals(obj, null))
             {
@@ -94,11 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (obj.Target != null)
-                {
-                    result = (result * 31) + obj.Target.ValueGetHashCode();
-                }
-
+                result = (result * 31) + obj.Target.GetHashCode();
                 if (obj.Kinds != null)
                 {
                     foreach (var value_2 in obj.Kinds)

@@ -389,42 +389,42 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
             }
 
-            if (!object.ReferenceEquals(left.Requests, right.Requests))
+            if (!object.ReferenceEquals(left.WebRequests, right.WebRequests))
             {
-                if (left.Requests == null || right.Requests == null)
+                if (left.WebRequests == null || right.WebRequests == null)
                 {
                     return false;
                 }
 
-                if (left.Requests.Count != right.Requests.Count)
+                if (left.WebRequests.Count != right.WebRequests.Count)
                 {
                     return false;
                 }
 
-                for (int index_14 = 0; index_14 < left.Requests.Count; ++index_14)
+                for (int index_14 = 0; index_14 < left.WebRequests.Count; ++index_14)
                 {
-                    if (!Request.ValueComparer.Equals(left.Requests[index_14], right.Requests[index_14]))
+                    if (!WebRequest.ValueComparer.Equals(left.WebRequests[index_14], right.WebRequests[index_14]))
                     {
                         return false;
                     }
                 }
             }
 
-            if (!object.ReferenceEquals(left.Responses, right.Responses))
+            if (!object.ReferenceEquals(left.WebResponses, right.WebResponses))
             {
-                if (left.Responses == null || right.Responses == null)
+                if (left.WebResponses == null || right.WebResponses == null)
                 {
                     return false;
                 }
 
-                if (left.Responses.Count != right.Responses.Count)
+                if (left.WebResponses.Count != right.WebResponses.Count)
                 {
                     return false;
                 }
 
-                for (int index_15 = 0; index_15 < left.Responses.Count; ++index_15)
+                for (int index_15 = 0; index_15 < left.WebResponses.Count; ++index_15)
                 {
-                    if (!Response.ValueComparer.Equals(left.Responses[index_15], right.Responses[index_15]))
+                    if (!WebResponse.ValueComparer.Equals(left.WebResponses[index_15], right.WebResponses[index_15]))
                     {
                         return false;
                     }
@@ -691,9 +691,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.Requests != null)
+                if (obj.WebRequests != null)
                 {
-                    foreach (var value_19 in obj.Requests)
+                    foreach (var value_19 in obj.WebRequests)
                     {
                         result = result * 31;
                         if (value_19 != null)
@@ -703,9 +703,9 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                 }
 
-                if (obj.Responses != null)
+                if (obj.WebResponses != null)
                 {
-                    foreach (var value_20 in obj.Responses)
+                    foreach (var value_20 in obj.WebResponses)
                     {
                         result = result * 31;
                         if (value_20 != null)
