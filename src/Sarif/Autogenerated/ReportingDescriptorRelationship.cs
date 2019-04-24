@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public ReportingDescriptorReference Target { get; set; }
 
         /// <summary>
-        /// A set of distinct strings that categorize the relationship. Well-known kinds include canPrecede, canFollow, willPrecede, willFollow, superset, subset, equal, disjoint, relevant, and incomparable.
+        /// A set of distinct strings that categorize the relationship. Well-known kinds include 'canPrecede', 'canFollow', 'willPrecede', 'willFollow', 'superset', 'subset', 'equal', 'disjoint', 'relevant', and 'incomparable'.
         /// </summary>
         [DataMember(Name = "kinds", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
