@@ -440,11 +440,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             LogToolNotification(
                 new Notification
                 {
-                    PhysicalLocation = new PhysicalLocation
+                    Location = new Location
                     {
-                        ArtifactLocation = new ArtifactLocation
+                        PhysicalLocation = new PhysicalLocation
                         {
-                            Uri = context.TargetUri
+                            ArtifactLocation = new ArtifactLocation
+                            {
+                                Uri = context.TargetUri
+                            }
                         }
                     },
                     Descriptor = new ReportingDescriptorReference

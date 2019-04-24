@@ -28,11 +28,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogConfigurationNotification(
                 new Notification
                 {
-                    PhysicalLocation = new PhysicalLocation
+                    Location = new Location
                     {
-                        ArtifactLocation = new ArtifactLocation
+                        PhysicalLocation = new PhysicalLocation
                         {
-                            Uri = context.TargetUri
+                            ArtifactLocation = new ArtifactLocation
+                            {
+                                Uri = context.TargetUri
+                            }
                         }
                     },
                     Descriptor = new ReportingDescriptorReference
@@ -63,11 +66,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogConfigurationNotification(
                 new Notification
                 {
-                    PhysicalLocation = new PhysicalLocation
+                    Location = new Location
                     {
-                        ArtifactLocation = new ArtifactLocation
+                        PhysicalLocation = new PhysicalLocation
                         {
-                            Uri = context.TargetUri
+                            ArtifactLocation = new ArtifactLocation
+                            {
+                                Uri = context.TargetUri
+                            }
                         }
                     },
                     Descriptor = new ReportingDescriptorReference

@@ -574,7 +574,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Exception = CreateExceptionData(v1Notification.Exception),
                     Level = Utilities.CreateFailureLevel(v1Notification.Level),
                     Message = CreateMessage(v1Notification.Message),
-                    PhysicalLocation = CreatePhysicalLocation(v1Notification.PhysicalLocation),
+                    Location = CreateLocation(v1Notification.PhysicalLocation),
                     Properties = v1Notification.Properties,
                     ThreadId = v1Notification.ThreadId,
                     TimeUtc = v1Notification.Time
@@ -598,6 +598,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             }
 
             return notification;
+        }
+
+        private Location CreateLocation(PhysicalLocationVersionOne v1PhysicalLocation)
+        {
+            Location location = null;
+
+            if (v1PhysicalLocation != null)
+            {
+                location = new Location
+                {
+                    PhysicalLocation = new PhysicalLocation
+                    {
+                        ArtifactLocation = CreateFileLocation(v1PhysicalLocation),
+                        Region = CreateRegion(v1PhysicalLocation.Region)
+                    }
+                };
+            }
+
+            return location;
         }
 
         internal Replacement CreateReplacement(ReplacementVersionOne v1Replacement)

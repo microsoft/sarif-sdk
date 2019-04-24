@@ -37,8 +37,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// The artifact and region relevant to this notification.
         /// </summary>
-        [DataMember(Name = "physicalLocation", IsRequired = false, EmitDefaultValue = false)]
-        public PhysicalLocation PhysicalLocation { get; set; }
+        [DataMember(Name = "location", IsRequired = false, EmitDefaultValue = false)]
+        public Location Location { get; set; }
 
         /// <summary>
         /// A message that describes the condition that was encountered.
@@ -103,8 +103,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Initializes a new instance of the <see cref="Notification" /> class from the supplied values.
         /// </summary>
-        /// <param name="physicalLocation">
-        /// An initialization value for the <see cref="P:PhysicalLocation" /> property.
+        /// <param name="location">
+        /// An initialization value for the <see cref="P:Location" /> property.
         /// </param>
         /// <param name="message">
         /// An initialization value for the <see cref="P:Message" /> property.
@@ -130,9 +130,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Notification(PhysicalLocation physicalLocation, Message message, FailureLevel level, int threadId, DateTime timeUtc, ExceptionData exception, ReportingDescriptorReference descriptor, ReportingDescriptorReference associatedRule, IDictionary<string, SerializedPropertyInfo> properties)
+        public Notification(Location location, Message message, FailureLevel level, int threadId, DateTime timeUtc, ExceptionData exception, ReportingDescriptorReference descriptor, ReportingDescriptorReference associatedRule, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(physicalLocation, message, level, threadId, timeUtc, exception, descriptor, associatedRule, properties);
+            Init(location, message, level, threadId, timeUtc, exception, descriptor, associatedRule, properties);
         }
 
         /// <summary>
@@ -151,7 +151,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.PhysicalLocation, other.Message, other.Level, other.ThreadId, other.TimeUtc, other.Exception, other.Descriptor, other.AssociatedRule, other.Properties);
+            Init(other.Location, other.Message, other.Level, other.ThreadId, other.TimeUtc, other.Exception, other.Descriptor, other.AssociatedRule, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -172,11 +172,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Notification(this);
         }
 
-        private void Init(PhysicalLocation physicalLocation, Message message, FailureLevel level, int threadId, DateTime timeUtc, ExceptionData exception, ReportingDescriptorReference descriptor, ReportingDescriptorReference associatedRule, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Location location, Message message, FailureLevel level, int threadId, DateTime timeUtc, ExceptionData exception, ReportingDescriptorReference descriptor, ReportingDescriptorReference associatedRule, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            if (physicalLocation != null)
+            if (location != null)
             {
-                PhysicalLocation = new PhysicalLocation(physicalLocation);
+                Location = new Location(location);
             }
 
             if (message != null)

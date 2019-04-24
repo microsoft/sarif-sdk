@@ -467,14 +467,20 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {                    
                     var toolNotification = new Notification
                     {
-                        PhysicalLocation = new PhysicalLocation { ArtifactLocation = new ArtifactLocation { Uri = new Uri(@"file:///file.cpp") } },
+                        Location = new Location
+                        {
+                            PhysicalLocation = new PhysicalLocation { ArtifactLocation = new ArtifactLocation { Uri = new Uri(@"file:///file.cpp") } }
+                        },
                         Message = new Message { Text = "A notification was raised." }
                     };
                     sarifLogger.LogToolNotification(toolNotification);
 
                     var configurationNotification = new Notification
                     {
-                        PhysicalLocation = new PhysicalLocation { ArtifactLocation = new ArtifactLocation { Uri = new Uri(@"file:///file.cpp") } },
+                        Location = new Location
+                        {
+                            PhysicalLocation = new PhysicalLocation { ArtifactLocation = new ArtifactLocation { Uri = new Uri(@"file:///file.cpp") } }
+                        },
                         Message = new Message { Text = "A notification was raised." }
                     };
                     sarifLogger.LogConfigurationNotification(configurationNotification);

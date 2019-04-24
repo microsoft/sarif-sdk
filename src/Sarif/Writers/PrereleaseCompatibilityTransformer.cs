@@ -171,6 +171,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                     // https://github.com/oasis-tcs/sarif-spec/issues/371
                     modifiedLog |= RenameSuppressionKindValues(run);
+
+                    modifiedLog |= ConvertNotificationPhysicalLocationToLocation(run);
                 }
             }
 
@@ -179,6 +181,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             modifiedLog |= RenameArtifactRolesEnums(sarifLog);
 
             return modifiedLog;
+        }
+
+        private static bool ConvertNotificationPhysicalLocationToLocation(JObject run)
+        {
+            string[] notificationPathsToUpdate =
+            {
+                "invocations[].toolExecutionNotifications[]",
+                "invocations[].toolConfigurationNotifications[]",
+                "conversion.invocation.toolExecutionNotifications[]",
+                "conversion.invocation.toolConfigurationNotifications[]"
+            };
+
+            bool actionOnLeafNode(JObject notification)
+            {
+                if (notification["physicalLocation"] is JObject physicalLocation)
+                {
+                    var location = new JObject
+                    {
+                        { "physicalLocation", physicalLocation }
+                    };
+
+                    notification.Remove("physicalLocation");
+                    notification.Add("location", location);
+
+                    return true;
+                }
+
+                return false;
+            }
+
+            return PerformActionOnLeafNodeIfExists(
+                possiblePathsToLeafNode: notificationPathsToUpdate,
+                rootNode: run,
+                action: actionOnLeafNode);
         }
 
         private static bool RenameArtifactRolesEnums(JObject sarifLog)

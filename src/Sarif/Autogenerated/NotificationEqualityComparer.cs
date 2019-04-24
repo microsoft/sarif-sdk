@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (!PhysicalLocation.ValueComparer.Equals(left.PhysicalLocation, right.PhysicalLocation))
+            if (!Location.ValueComparer.Equals(left.Location, right.Location))
             {
                 return false;
             }
@@ -103,9 +103,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                if (obj.PhysicalLocation != null)
+                if (obj.Location != null)
                 {
-                    result = (result * 31) + obj.PhysicalLocation.ValueGetHashCode();
+                    result = (result * 31) + obj.Location.ValueGetHashCode();
                 }
 
                 if (obj.Message != null)

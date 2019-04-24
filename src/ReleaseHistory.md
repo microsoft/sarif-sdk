@@ -358,3 +358,4 @@
 * API BREAKING: `threadFlowLocation.executionOrder` can be 0 and defaults to -1, so minimum: -1, default: -1
 * API BREAKING: Rename artifact role `traceFile` to `tracedFile`.
 * API NON-BREAKING: Add artifact role `debugOutputFile`.
+* API BREAKING: `notification.physicalLocation` of type `physicalLocation` changed to `notification.location` of type `location`.

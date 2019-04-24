@@ -508,9 +508,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 Visit(notification.Message, notificationPointer.AtProperty(SarifPropertyName.Message));
             }
 
-            if (notification.PhysicalLocation != null)
+            if (notification.Location != null)
             {
-                Visit(notification.PhysicalLocation, notificationPointer.AtProperty(SarifPropertyName.PhysicalLocation));
+                Visit(notification.Location, notificationPointer.AtProperty(SarifPropertyName.Location));
             }
         }
 
