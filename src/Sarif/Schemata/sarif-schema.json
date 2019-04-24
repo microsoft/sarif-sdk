@@ -59,7 +59,7 @@
         },
 
         "kind": {
-          "description": "An open-ended string that identifies the address kind. 'section', 'segment' and 'module' are well-known values.",
+          "description": "An open-ended string that identifies the address kind. 'section', 'segment', 'module', 'function' and 'page' are well-known values.",
           "type": "string"
         },
 
@@ -1337,6 +1337,11 @@
           }
         },
 
+        "description": {
+          "description": "A description of the location relationship.",
+          "$ref": "#/definitions/message"
+        },
+
         "properties": {
           "description": "Key/value pairs that provide additional information about the location relationship.",
           "$ref": "#/definitions/propertyBag"
@@ -1711,7 +1716,8 @@
         "byteOffset": {
           "description": "The zero-based offset from the beginning of the artifact of the first byte in the region.",
           "type": "integer",
-          "minimum": 0
+          "default": -1,
+          "minimum": -1
         },
 
         "byteLength": {
@@ -1961,13 +1967,18 @@
         },
 
         "kinds": {
-          "description": "A set of distinct strings that categorize the relationship. Well-known kinds include canPrecede, canFollow, willPrecede, willFollow, superset, subset, equal, disjoint, relevant, and incomparable.",
+          "description": "A set of distinct strings that categorize the relationship. Well-known kinds include 'canPrecede', 'canFollow', 'willPrecede', 'willFollow', 'superset', 'subset', 'equal', 'disjoint', 'relevant', and 'incomparable'.",
           "type": "array",
           "default": [ "relevant" ],
           "uniqueItems": true,
           "items": {
             "type": "string"
           }
+        },
+
+        "description": {
+          "description": "A description of the reporting descriptor relationship.",
+          "$ref": "#/definitions/message"
         },
 
         "properties": {
@@ -2004,7 +2015,7 @@
         "kind": {
           "description": "A value that categorizes results by evaluation state.",
           "default": "fail",
-          "enum": [ "notApplicable", "pass", "fail", "review", "open" ]
+          "enum": [ "notApplicable", "pass", "fail", "review", "open", "informational" ]
         },
 
         "level": {
@@ -2424,8 +2435,7 @@
 
         "columnKind": {
           "description": "Specifies the unit in which the tool measures columns.",
-          "enum": [ "utf16CodeUnits", "unicodeCodePoints" ],
-          "default": "unicodeCodePoints"
+          "enum": [ "utf16CodeUnits", "unicodeCodePoints" ]
         },
 
         "externalPropertyFileReferences": {
@@ -2741,7 +2751,7 @@
         },
 
         "kinds": {
-          "description": "A set of distinct strings that categorize the thread flow location. Well-known kinds include acquire, release, enter, exit, call, return, branch, implicit, false, true, caution, danger, unknown, unreachable, taint, function, handler, lock, memory, resource, and scope.",
+          "description": "A set of distinct strings that categorize the thread flow location. Well-known kinds include 'acquire', 'release', 'enter', 'exit', 'call', 'return', 'branch', 'implicit', 'false', 'true', 'caution', 'danger', 'unknown', 'unreachable', 'taint', 'function', 'handler', 'lock', 'memory', 'resource', 'scope' and 'value'.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,

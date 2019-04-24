@@ -123,6 +123,7 @@
                   "startColumn": 1,
                   "endLine": 1,
                   "endColumn": 28,
+                  "byteOffset": 0,
                   "byteLength": 27
                 }
               },
@@ -172,6 +173,7 @@
                   "startColumn": 1,
                   "endLine": 1,
                   "endColumn": 28,
+                  "byteOffset": 0,
                   "byteLength": 27,
                   "snippet": {
                     "text": "add_core(ptr, offset, val);"
@@ -193,6 +195,7 @@
                 "region": {
                   "startLine": 1,
                   "startColumn": 5,
+                  "byteOffset": 0,
                   "byteLength": 4
                 }
               },

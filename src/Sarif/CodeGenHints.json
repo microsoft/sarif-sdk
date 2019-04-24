@@ -669,7 +669,8 @@
           "Pass",
           "Fail",
           "Review",
-          "Open"
+          "Open",
+          "Informational"
         ]
       }
     },

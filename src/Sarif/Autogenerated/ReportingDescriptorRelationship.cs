@@ -40,11 +40,17 @@ namespace Microsoft.CodeAnalysis.Sarif
         public ReportingDescriptorReference Target { get; set; }
 
         /// <summary>
-        /// A set of distinct strings that categorize the relationship. Well-known kinds include canPrecede, canFollow, willPrecede, willFollow, superset, subset, equal, disjoint, relevant, and incomparable.
+        /// A set of distinct strings that categorize the relationship. Well-known kinds include 'canPrecede', 'canFollow', 'willPrecede', 'willFollow', 'superset', 'subset', 'equal', 'disjoint', 'relevant', and 'incomparable'.
         /// </summary>
         [DataMember(Name = "kinds", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<string> Kinds { get; set; }
+
+        /// <summary>
+        /// A description of the reporting descriptor relationship.
+        /// </summary>
+        [DataMember(Name = "description", IsRequired = false, EmitDefaultValue = false)]
+        public Message Description { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the reporting descriptor reference.
@@ -68,12 +74,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="kinds">
         /// An initialization value for the <see cref="P:Kinds" /> property.
         /// </param>
+        /// <param name="description">
+        /// An initialization value for the <see cref="P:Description" /> property.
+        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public ReportingDescriptorRelationship(ReportingDescriptorReference target, IEnumerable<string> kinds, IDictionary<string, SerializedPropertyInfo> properties)
+        public ReportingDescriptorRelationship(ReportingDescriptorReference target, IEnumerable<string> kinds, Message description, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(target, kinds, properties);
+            Init(target, kinds, description, properties);
         }
 
         /// <summary>
@@ -92,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Target, other.Kinds, other.Properties);
+            Init(other.Target, other.Kinds, other.Description, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -113,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ReportingDescriptorRelationship(this);
         }
 
-        private void Init(ReportingDescriptorReference target, IEnumerable<string> kinds, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(ReportingDescriptorReference target, IEnumerable<string> kinds, Message description, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (target != null)
             {
@@ -129,6 +138,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 Kinds = destination_0;
+            }
+
+            if (description != null)
+            {
+                Description = new Message(description);
             }
 
             if (properties != null)

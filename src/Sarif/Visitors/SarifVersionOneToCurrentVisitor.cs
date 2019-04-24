@@ -744,6 +744,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     StartLine = v1Region.StartLine
                 };
 
+                if (region.ByteLength <= 0)
+                {
+                    region.ByteOffset = -1;
+                }
+
                 bool startIsTextBased = v1Region.StartLine > 0;
                 bool endIsTextBased = v1Region.EndLine > 0 || v1Region.EndColumn > 0;
 
@@ -787,6 +792,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     StartColumn = startColumn,
                     StartLine = startLine
                 };
+
+                if (region.ByteLength <= 0)
+                {
+                    region.ByteOffset = -1;
+                }
             }
 
             return region;
