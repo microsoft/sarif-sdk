@@ -220,18 +220,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 },
                 Level = FailureLevel.Error,
                 Message = new Message { Text = "This is a test" },
-                Location = new Location
+                Locations = new List<Location>
                 {
-                    PhysicalLocation = new PhysicalLocation
+                    new Location
                     {
-                        ArtifactLocation = new ArtifactLocation
+                        PhysicalLocation = new PhysicalLocation
                         {
-                            Uri = new Uri("file:///C:/src/a.cs")
-                        },
-                        Region = new Region
-                        {
-                            StartLine = 3,
-                            StartColumn = 12
+                            ArtifactLocation = new ArtifactLocation
+                            {
+                                Uri = new Uri("file:///C:/src/a.cs")
+                            },
+                            Region = new Region
+                            {
+                                StartLine = 3,
+                                StartColumn = 12
+                            }
                         }
                     }
                 },

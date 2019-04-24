@@ -3,6 +3,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -28,13 +29,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogConfigurationNotification(
                 new Notification
                 {
-                    Location = new Location
+                    Locations = new List<Location>
                     {
-                        PhysicalLocation = new PhysicalLocation
+                        new Location
                         {
-                            ArtifactLocation = new ArtifactLocation
+                            PhysicalLocation = new PhysicalLocation
                             {
-                                Uri = context.TargetUri
+                                ArtifactLocation = new ArtifactLocation
+                                {
+                                    Uri = context.TargetUri
+                                }
                             }
                         }
                     },
@@ -66,13 +70,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogConfigurationNotification(
                 new Notification
                 {
-                    Location = new Location
+                    Locations = new List<Location>
                     {
-                        PhysicalLocation = new PhysicalLocation
+                        new Location
                         {
-                            ArtifactLocation = new ArtifactLocation
+                            PhysicalLocation = new PhysicalLocation
                             {
-                                Uri = context.TargetUri
+                                ArtifactLocation = new ArtifactLocation
+                                {
+                                    Uri = context.TargetUri
+                                }
                             }
                         }
                     },

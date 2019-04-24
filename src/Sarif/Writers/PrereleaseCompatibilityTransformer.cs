@@ -172,7 +172,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     // https://github.com/oasis-tcs/sarif-spec/issues/371
                     modifiedLog |= RenameSuppressionKindValues(run);
 
-                    modifiedLog |= ConvertNotificationPhysicalLocationToLocation(run);
+                    modifiedLog |= ConvertNotificationPhysicalLocationToLocations(run);
                 }
             }
 
@@ -183,7 +183,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return modifiedLog;
         }
 
-        private static bool ConvertNotificationPhysicalLocationToLocation(JObject run)
+        private static bool ConvertNotificationPhysicalLocationToLocations(JObject run)
         {
             string[] notificationPathsToUpdate =
             {
@@ -197,13 +197,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 if (notification["physicalLocation"] is JObject physicalLocation)
                 {
-                    var location = new JObject
+                    var locations = new JArray
                     {
-                        { "physicalLocation", physicalLocation }
+                        new JObject
+                        {
+                            { "physicalLocation", physicalLocation }
+                        }
                     };
 
                     notification.Remove("physicalLocation");
-                    notification.Add("location", location);
+                    notification.Add("locations", locations);
 
                     return true;
                 }

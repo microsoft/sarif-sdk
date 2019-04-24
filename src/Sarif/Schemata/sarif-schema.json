@@ -1509,9 +1509,15 @@
       "additionalProperties": false,
       "properties": {
 
-        "location": {
+        "locations": {
           "description": "The artifact and region relevant to this notification.",
-          "$ref": "#/definitions/location"
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/location"
+          }
         },
 
         "message": {

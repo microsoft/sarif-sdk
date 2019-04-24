@@ -271,14 +271,17 @@ namespace Microsoft.CodeAnalysis.Sarif
             context.Logger.LogConfigurationNotification(
                 new Notification
                 {
-                    Location = new Location
+                    Locations = new List<Location>
                     {
-                        PhysicalLocation = new PhysicalLocation
+                        new Location
                         {
-                            ArtifactLocation = new ArtifactLocation
+                            PhysicalLocation = new PhysicalLocation
                             {
-                                Uri = context.TargetUri
-                            },
+                                ArtifactLocation = new ArtifactLocation
+                                {
+                                    Uri = context.TargetUri
+                                },
+                            }
                         }
                     },
                     Descriptor = new ReportingDescriptorReference
@@ -489,9 +492,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             var notification = new Notification
             {
-                Location = new Location
+                Locations = new List<Location>
                 {
-                    PhysicalLocation = physicalLocation
+                    new Location
+                    {
+                        PhysicalLocation = physicalLocation
+                    }
                 },
                 Level = level,
                 Message = new Message { Text = message },

@@ -508,9 +508,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 Visit(notification.Message, notificationPointer.AtProperty(SarifPropertyName.Message));
             }
 
-            if (notification.Location != null)
+            if (notification.Locations != null)
             {
-                Visit(notification.Location, notificationPointer.AtProperty(SarifPropertyName.Location));
+                string locationsPointer = notificationPointer.AtProperty(SarifPropertyName.Locations);
+
+                for (int i = 0; i < notification.Locations.Count; ++i)
+                {
+                    Visit(notification.Locations[i], locationsPointer.AtIndex(i));
+                }
             }
         }
 

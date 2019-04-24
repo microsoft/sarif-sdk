@@ -364,7 +364,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Id = v2Notification.Descriptor?.Id,
                     Level = Utilities.CreateNotificationLevelVersionOne(v2Notification.Level),
                     Message = v2Notification.Message?.Text,
-                    PhysicalLocation = CreatePhysicalLocationVersionOne(v2Notification.Location?.PhysicalLocation),
+                    PhysicalLocation = CreatePhysicalLocationVersionOne(v2Notification.Locations?[0].PhysicalLocation),
                     Properties = v2Notification.Properties,
                     RuleId = v2Notification.AssociatedRule?.Id,
                     ThreadId = v2Notification.ThreadId,

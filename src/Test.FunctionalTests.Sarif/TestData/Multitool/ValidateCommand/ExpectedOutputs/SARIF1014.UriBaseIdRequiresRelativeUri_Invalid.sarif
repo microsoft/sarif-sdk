@@ -81,7 +81,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 79,
+                  "startLine": 83,
                   "startColumn": 42
                 }
               }
@@ -108,7 +108,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 110,
+                  "startLine": 114,
                   "startColumn": 42
                 }
               }
@@ -135,7 +135,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 172,
+                  "startLine": 176,
                   "startColumn": 46
                 }
               }
@@ -162,7 +162,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 117,
+                  "startLine": 121,
                   "startColumn": 48
                 }
               }
@@ -189,7 +189,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 148,
+                  "startLine": 152,
                   "startColumn": 58
                 }
               }
@@ -216,7 +216,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 181,
+                  "startLine": 185,
                   "startColumn": 48
                 }
               }
@@ -243,7 +243,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 130,
+                  "startLine": 134,
                   "startColumn": 54
                 }
               }
@@ -270,7 +270,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 163,
+                  "startLine": 167,
                   "startColumn": 48
                 }
               }
@@ -297,7 +297,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 192,
+                  "startLine": 196,
                   "startColumn": 50
                 }
               }
@@ -324,7 +324,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 97,
+                  "startLine": 101,
                   "startColumn": 42
                 }
               }
@@ -351,7 +351,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 50,
+                  "startLine": 54,
                   "startColumn": 42
                 }
               }
@@ -405,7 +405,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 54,
+                  "startLine": 58,
                   "startColumn": 42
                 }
               }
@@ -432,7 +432,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 58,
+                  "startLine": 62,
                   "startColumn": 43
                 }
               }
@@ -459,7 +459,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 62,
+                  "startLine": 66,
                   "startColumn": 43
                 }
               }
@@ -486,7 +486,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 66,
+                  "startLine": 70,
                   "startColumn": 47
                 }
               }
@@ -500,7 +500,7 @@
           "message": {
             "id": "Default",
             "arguments": [
-              "runs[0].invocations[0].toolExecutionNotifications[0].location.physicalLocation.artifactLocation.uri",
+              "runs[0].invocations[0].toolExecutionNotifications[0].locations[0].physicalLocation.artifactLocation.uri",
               "file:///C:/src/file.c"
             ]
           },
@@ -513,8 +513,8 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 24,
-                  "startColumn": 50
+                  "startLine": 25,
+                  "startColumn": 52
                 }
               }
             }
@@ -527,7 +527,7 @@
           "message": {
             "id": "Default",
             "arguments": [
-              "runs[0].invocations[0].toolConfigurationNotifications[0].location.physicalLocation.artifactLocation.uri",
+              "runs[0].invocations[0].toolConfigurationNotifications[0].locations[0].physicalLocation.artifactLocation.uri",
               "file:///C:/src/file.c"
             ]
           },
@@ -540,8 +540,8 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 39,
-                  "startColumn": 50
+                  "startLine": 42,
+                  "startColumn": 52
                 }
               }
             }
@@ -567,7 +567,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 89,
+                  "startLine": 93,
                   "startColumn": 42
                 }
               }
