@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// The artifact and region relevant to this notification.
+        /// The locations relevant to this notification.
         /// </summary>
         [DataMember(Name = "locations", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]

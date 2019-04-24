@@ -610,11 +610,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 {
                     new Location
                     {
-                        PhysicalLocation = new PhysicalLocation
-                        {
-                            ArtifactLocation = CreateFileLocation(v1PhysicalLocation),
-                            Region = CreateRegion(v1PhysicalLocation.Region)
-                        }
+                        PhysicalLocation = CreatePhysicalLocation(v1PhysicalLocation)
                     }
                 };
             }

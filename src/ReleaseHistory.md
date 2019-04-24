@@ -365,4 +365,4 @@
 * API NON-BREAKING: In the `reportingDescriptorRelationship` object, add a property `description` of type `message`, optional.
 * API NON-BREAKING: In the `locationRelationship` object, add a property `description` of type `message`, optional.
 * API BREAKING: `region.byteOffset` should have default: -1, minimum: -1.
-* API BREAKING: `notification.physicalLocation` of type `physicalLocation` changed to `notification.locations` of type `locations`.
+* API BREAKING: Change `notification.physicalLocation` of type `physicalLocation` to `notification.locations` of type `locations`.

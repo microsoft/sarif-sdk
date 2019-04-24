@@ -1515,7 +1515,7 @@
       "properties": {
 
         "locations": {
-          "description": "The artifact and region relevant to this notification.",
+          "description": "The locations relevant to this notification.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,
