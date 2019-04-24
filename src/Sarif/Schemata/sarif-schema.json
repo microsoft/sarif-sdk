@@ -1960,7 +1960,7 @@
         },
 
         "kinds": {
-          "description": "A set of distinct strings that categorize the relationship. Well-known kinds include canPrecede, canFollow, willPrecede, willFollow, superset, subset, equal, disjoint, relevant, and incomparable.",
+          "description": "A set of distinct strings that categorize the relationship. Well-known kinds include 'canPrecede', 'canFollow', 'willPrecede', 'willFollow', 'superset', 'subset', 'equal', 'disjoint', 'relevant', and 'incomparable'.",
           "type": "array",
           "default": [ "relevant" ],
           "uniqueItems": true,
@@ -2744,7 +2744,7 @@
         },
 
         "kinds": {
-          "description": "A set of distinct strings that categorize the thread flow location. Well-known kinds include acquire, release, enter, exit, call, return, branch, implicit, false, true, caution, danger, unknown, unreachable, taint, function, handler, lock, memory, resource, and scope.",
+          "description": "A set of distinct strings that categorize the thread flow location. Well-known kinds include 'acquire', 'release', 'enter', 'exit', 'call', 'return', 'branch', 'implicit', 'false', 'true', 'caution', 'danger', 'unknown', 'unreachable', 'taint', 'function', 'handler', 'lock', 'memory', 'resource', 'scope' and 'value'.",
           "type": "array",
           "minItems": 0,
           "uniqueItems": true,

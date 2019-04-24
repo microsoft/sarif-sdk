@@ -293,7 +293,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 item = (T)tc.ConvertFrom(reader.ReadString());
                 set.Add(item);
-                if (!isEmptyItem) reader.ReadEndElement();
+                if (!isEmptyItem) { reader.ReadEndElement(); }
             }
         }
 

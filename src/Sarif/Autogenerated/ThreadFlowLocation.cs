@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Stack Stack { get; set; }
 
         /// <summary>
-        /// A set of distinct strings that categorize the thread flow location. Well-known kinds include acquire, release, enter, exit, call, return, branch, implicit, false, true, caution, danger, unknown, unreachable, taint, function, handler, lock, memory, resource, and scope.
+        /// A set of distinct strings that categorize the thread flow location. Well-known kinds include 'acquire', 'release', 'enter', 'exit', 'call', 'return', 'branch', 'implicit', 'false', 'true', 'caution', 'danger', 'unknown', 'unreachable', 'taint', 'function', 'handler', 'lock', 'memory', 'resource', 'scope' and 'value'.
         /// </summary>
         [DataMember(Name = "kinds", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
