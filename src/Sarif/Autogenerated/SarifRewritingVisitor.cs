@@ -742,6 +742,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (node != null)
             {
+                node.Description = VisitNullChecked(node.Description);
             }
 
             return node;
@@ -917,6 +918,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.Target = VisitNullChecked(node.Target);
+                node.Description = VisitNullChecked(node.Description);
             }
 
             return node;

@@ -16,6 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         Pass,
         Fail,
         Review,
-        Open
+        Open,
+        Informational
     }
 }
