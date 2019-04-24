@@ -358,3 +358,8 @@
 * API BREAKING: `threadFlowLocation.executionOrder` can be 0 and defaults to -1, so minimum: -1, default: -1
 * API BREAKING: Rename artifact role `traceFile` to `tracedFile`.
 * API NON-BREAKING: Add artifact role `debugOutputFile`.
+* API NON-BREAKING: Add a new value to `result.kind`: `informational`.
+* API NON-BREAKING: add `address.kind` values `function` and `page`.
+* API NON-BREAKING: `run.columnKind` has no default value.
+* API NON-BREAKING: In the `reportingDescriptorRelationship` object, add a property `description` of type message, optional.
+* API NON-BREAKING: In the `locationRelationship` object, add a property `description` of type message, optional.

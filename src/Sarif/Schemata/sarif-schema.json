@@ -59,7 +59,7 @@
         },
 
         "kind": {
-          "description": "An open-ended string that identifies the address kind. 'section', 'segment' and 'module' are well-known values.",
+          "description": "An open-ended string that identifies the address kind. 'section', 'segment', 'module', 'function' and 'page' are well-known values.",
           "type": "string"
         },
 
@@ -1337,6 +1337,11 @@
           }
         },
 
+        "description": {
+          "description": "A description of the location relationship.",
+          "$ref": "#/definitions/message"
+        },
+
         "properties": {
           "description": "Key/value pairs that provide additional information about the location relationship.",
           "$ref": "#/definitions/propertyBag"
@@ -1964,6 +1969,11 @@
           }
         },
 
+        "description": {
+          "description": "A description of the reporting descriptor relationship.",
+          "$ref": "#/definitions/message"
+        },
+
         "properties": {
           "description": "Key/value pairs that provide additional information about the reporting descriptor reference.",
           "$ref": "#/definitions/propertyBag"
@@ -1998,7 +2008,7 @@
         "kind": {
           "description": "A value that categorizes results by evaluation state.",
           "default": "fail",
-          "enum": [ "notApplicable", "pass", "fail", "review", "open" ]
+          "enum": [ "notApplicable", "pass", "fail", "review", "open", "informational" ]
         },
 
         "level": {
@@ -2418,8 +2428,7 @@
 
         "columnKind": {
           "description": "Specifies the unit in which the tool measures columns.",
-          "enum": [ "utf16CodeUnits", "unicodeCodePoints" ],
-          "default": "unicodeCodePoints"
+          "enum": [ "utf16CodeUnits", "unicodeCodePoints" ]
         },
 
         "externalPropertyFileReferences": {
