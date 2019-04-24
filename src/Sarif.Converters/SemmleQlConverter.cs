@@ -221,6 +221,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         };
                     }
 
+                    if (physicalLocation.Region.ByteLength == 0)
+                    {
+                        physicalLocation.Region.ByteOffset = -1;
+                    }
+
                     var relatedLocation = new Location
                     {
                         Id = ++count,

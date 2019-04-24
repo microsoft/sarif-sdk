@@ -364,3 +364,5 @@
 * API NON-BREAKING: `run.columnKind` has no default value.
 * API NON-BREAKING: In the `reportingDescriptorRelationship` object, add a property `description` of type `message`, optional.
 * API NON-BREAKING: In the `locationRelationship` object, add a property `description` of type `message`, optional.
+* API BREAKING: `region.byteOffset` should have default: -1, minimum: -1.
+
