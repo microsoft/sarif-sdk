@@ -715,12 +715,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 region = new Region
                 {
                     ByteLength = v1Region.Length,
-                    ByteOffset = v1Region.Offset == 0 ? -1 : v1Region.Offset,
+                    ByteOffset = v1Region.Offset,
                     EndColumn = v1Region.EndColumn,
                     EndLine = v1Region.EndLine,
                     StartColumn = v1Region.StartColumn,
                     StartLine = v1Region.StartLine
                 };
+
+                if (region.ByteLength <= 0)
+                {
+                    region.ByteOffset = -1;
+                }
 
                 bool startIsTextBased = v1Region.StartLine > 0;
                 bool endIsTextBased = v1Region.EndLine > 0 || v1Region.EndColumn > 0;
