@@ -764,12 +764,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 region = new Region
                 {
                     ByteLength = length,
-                    ByteOffset = offset == 0 ? -1 : offset,
+                    ByteOffset = offset,
                     EndColumn = endColumn > 0 ? endColumn : startColumn,
                     EndLine = endLine,
                     StartColumn = startColumn,
                     StartLine = startLine
                 };
+
+                if (region.ByteLength <= 0)
+                {
+                    region.ByteOffset = -1;
+                }
             }
 
             return region;
