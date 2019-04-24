@@ -10,16 +10,14 @@
 //------------------------------------------------------------------------------
 
 const assert = require("chai").assert;
-const formatter = require("../sarif-with-rules");
+const formatter = require("../sarif");
 
 //------------------------------------------------------------------------------
 // Global Test Content
 //------------------------------------------------------------------------------
 
-const rules = new Map();
-
-rules.set("no-unused-vars", {
-    meta: {
+const rules = {
+    "no-unused-vars": {
         type: "suggestion",
         docs: {
             description: "disallow unused variables",
@@ -28,10 +26,8 @@ rules.set("no-unused-vars", {
             url: "https://eslint.org/docs/rules/no-unused-vars"
         },
         fixable: "code"
-    }
-});
-rules.set("no-extra-semi", {
-    meta: {
+    },
+    "no-extra-semi": {
         type: "suggestion",
 
         docs: {
@@ -48,7 +44,7 @@ rules.set("no-extra-semi", {
             unexpected: "Unnecessary semicolon."
         }
     }
-});
+};
 
 //------------------------------------------------------------------------------
 // Tests
@@ -62,11 +58,10 @@ describe("formatter:sarif", () => {
             messages: []
         }];
 
-        it("should return a log with one file and no results", () => {
+        it("should return a log with no files and no results", () => {
             const result = JSON.parse(formatter(code, null));
 
-            assert.hasAllKeys(result.runs[0].artifacts, sourceFilePath);
-            assert.strictEqual(result.runs[0].artifacts[sourceFilePath].artifactLocation.uri, sourceFilePath);
+            assert.isUndefined(result.runs[0].artifacts);
             assert.isUndefined(result.runs[0].results);
         });
     });
@@ -84,10 +79,9 @@ describe("formatter:sarif", () => {
         }];
 
         it("should return a log with one file and one result", () => {
-            const result = JSON.parse(formatter(code));
-
-            assert.hasAllKeys(result.runs[0].artifacts, sourceFilePath);
-            assert.strictEqual(result.runs[0].artifacts[sourceFilePath].artifactLocation.uri, sourceFilePath);
+            const result = JSON.parse(formatter(code, { rulesMeta: rules }));
+            
+            assert.strictEqual(result.runs[0].artifacts[0].artifactLocation.uri, sourceFilePath);
             assert.isDefined(result.runs[0].results);
             assert.lengthOf(result.runs[0].results, 1);
             assert.strictEqual(result.runs[0].results[0].level, "error");
@@ -111,14 +105,14 @@ describe("formatter:sarif", () => {
         }];
 
         it("should return a log with one rule", () => {
-            const result = JSON.parse(formatter(code, rules));
-            const rule = rules.get(ruleid);
+            const result = JSON.parse(formatter(code, { rulesMeta: rules }));
+            const rule = rules[ruleid];
 
-            assert.hasAllKeys(result.runs[0].tool.driver.ruleDescriptors, ruleid);
-            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid].id, ruleid);
-            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid].shortDescription.text, rule.meta.docs.description);
-            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid].helpUri, rule.meta.docs.url);
-            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid].tags.category, rule.meta.docs.category);
+            assert.strictEqual(result.runs[0].tool.driver.rules.length, 1);
+            assert.strictEqual(result.runs[0].tool.driver.rules[0].id, ruleid);
+            assert.strictEqual(result.runs[0].tool.driver.rules[0].shortDescription.text, rule.docs.description);
+            assert.strictEqual(result.runs[0].tool.driver.rules[0].helpUri, rule.docs.url);
+            assert.strictEqual(result.runs[0].tool.driver.rules[0].tags.category, rule.docs.category);
         });
     });
 });
@@ -133,10 +127,12 @@ describe("formatter:sarif", () => {
             }]
         }];
 
-        it("should return a log with one result whose location does not contain a region", () => {
+        it("should return a log with one result whose location region has only a startLine", () => {
             const result = JSON.parse(formatter(code));
 
-            assert.isUndefined(result.runs[0].results[0].locations[0].physicalLocation.region);
+            assert.strictEqual(result.runs[0].results[0].locations[0].physicalLocation.region.startLine, code[0].messages[0].line);
+            assert.isUndefined(result.runs[0].results[0].locations[0].physicalLocation.region.startColumn);
+            assert.isUndefined(result.runs[0].results[0].locations[0].physicalLocation.region.snippet);
         });
     });
 });
@@ -214,15 +210,13 @@ describe("formatter:sarif", () => {
         const ruleid2 = "no-extra-semi";
         const ruleid3 = "custom-rule";
 
-        rules.set(ruleid3, {
-            meta: {
-                type: "suggestion",
-                docs: {
-                    description: "custom description",
-                    category: "Possible Errors"
-                }
+        rules[ruleid3] = {
+            type: "suggestion",
+            docs: {
+                description: "custom description",
+                category: "Possible Errors"
             }
-        });
+        };
         const code = [{
             filePath: sourceFilePath1,
             messages: [{
@@ -255,33 +249,37 @@ describe("formatter:sarif", () => {
         }];
 
         it("should return a log with two files, three rules, and four results", () => {
-            const result = JSON.parse(formatter(code, rules));
-            const rule1 = rules.get(ruleid1);
-            const rule2 = rules.get(ruleid2);
-            const rule3 = rules.get(ruleid3);
+            const result = JSON.parse(formatter(code, { rulesMeta: rules }));
+            const rule1 = rules[ruleid1];
+            const rule2 = rules[ruleid2];
+            const rule3 = rules[ruleid3];
 
             assert.lengthOf(result.runs[0].results, 4);
 
-            assert.hasAllKeys(result.runs[0].tool.driver.ruleDescriptors, [ruleid1, ruleid2, ruleid3]);
-            assert.hasAllKeys(result.runs[0].artifacts, [sourceFilePath1, sourceFilePath2]);
+            assert.strictEqual(result.runs[0].tool.driver.rules[0].id, ruleid1);
+            assert.strictEqual(result.runs[0].tool.driver.rules[1].id, ruleid2);
+            assert.strictEqual(result.runs[0].tool.driver.rules[2].id, ruleid3);
 
-            assert.strictEqual(result.runs[0].files[sourceFilePath1].artifactLocation.uri, sourceFilePath1);
-            assert.strictEqual(result.runs[0].files[sourceFilePath2].artifactLocation.uri, sourceFilePath2);
+            assert.strictEqual(result.runs[0].artifacts[0].artifactLocation.uri, sourceFilePath1);
+            assert.strictEqual(result.runs[0].artifacts[1].artifactLocation.uri, sourceFilePath2);
 
-            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid1].id, ruleid1);
-            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid1].shortDescription.text, rule1.meta.docs.description);
-            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid1].helpUri, rule1.meta.docs.url);
-            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid1].tags.category, rule1.meta.docs.category);
+            assert.strictEqual(result.runs[0].artifacts[0].artifactLocation.uri, sourceFilePath1);
+            assert.strictEqual(result.runs[0].artifacts[1].artifactLocation.uri, sourceFilePath2);
 
-            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid2].id, ruleid2);
-            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid2].shortDescription.text, rule2.meta.docs.description);
-            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid2].helpUri, rule2.meta.docs.url);
-            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid2].tags.category, rule2.meta.docs.category);
+            assert.strictEqual(result.runs[0].tool.driver.rules[0].id, ruleid1);
+            assert.strictEqual(result.runs[0].tool.driver.rules[0].shortDescription.text, rule1.docs.description);
+            assert.strictEqual(result.runs[0].tool.driver.rules[0].helpUri, rule1.docs.url);
+            assert.strictEqual(result.runs[0].tool.driver.rules[0].tags.category, rule1.docs.category);
 
-            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid3].id, ruleid3);
-            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid3].shortDescription.text, rule3.meta.docs.description);
-            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid3].helpUri, rule3.meta.docs.url);
-            assert.strictEqual(result.runs[0].tool.driver.ruleDescriptors[ruleid3].tags.category, rule3.meta.docs.category);
+            assert.strictEqual(result.runs[0].tool.driver.rules[1].id, ruleid2);
+            assert.strictEqual(result.runs[0].tool.driver.rules[1].shortDescription.text, rule2.docs.description);
+            assert.strictEqual(result.runs[0].tool.driver.rules[1].helpUri, rule2.docs.url);
+            assert.strictEqual(result.runs[0].tool.driver.rules[1].tags.category, rule2.docs.category);
+
+            assert.strictEqual(result.runs[0].tool.driver.rules[2].id, ruleid3);
+            assert.strictEqual(result.runs[0].tool.driver.rules[2].shortDescription.text, rule3.docs.description);
+            assert.strictEqual(result.runs[0].tool.driver.rules[2].helpUri, rule3.docs.url);
+            assert.strictEqual(result.runs[0].tool.driver.rules[2].tags.category, rule3.docs.category);
 
             assert.strictEqual(result.runs[0].results[0].ruleId, "the-rule");
             assert.strictEqual(result.runs[0].results[1].ruleId, ruleid1);
@@ -309,7 +307,9 @@ describe("formatter:sarif", () => {
             assert.strictEqual(result.runs[0].results[1].locations[0].physicalLocation.region.startColumn, 5);
             assert.strictEqual(result.runs[0].results[1].locations[0].physicalLocation.region.snippet.text, "doSomething(thingId)");
 
-            assert.isUndefined(result.runs[0].results[2].locations[0].physicalLocation.region);
+            assert.strictEqual(result.runs[0].results[2].locations[0].physicalLocation.region.startLine, 18);
+            assert.isUndefined(result.runs[0].results[2].locations[0].physicalLocation.region.startColumn);
+            assert.isUndefined(result.runs[0].results[2].locations[0].physicalLocation.region.snippet);
         });
     });
 });
