@@ -1,5 +1,5 @@
 {
-  "name": "eslint-formatter-sarif",
+  "name": "@microsoft/eslint-formatter-sarif",
   "version": "2.1.0",
   "description": "ESLint formatter for the SARIF v2.1 static analysis file format",
   "main": "sarif.js",
