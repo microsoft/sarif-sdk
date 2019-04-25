@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.1.0-beta.2",
+  "$schema": "http://json.schemastore.org/sarif-2.1.0-beta.3",
   "version": "2.1.0",
   "runs": [
     {
@@ -65,7 +65,7 @@
               "description": {
                 "text": "Wrap attribute values in single quotes."
               },
-              "changes": [
+              "artifactChanges": [
                 {
                   "artifactLocation": {
                     "uri": "http://localhost:34420/HtmlFixes.html"
@@ -95,7 +95,7 @@
               "description": {
                 "text": "Wrap attribute value in double quotes."
               },
-              "changes": [
+              "artifactChanges": [
                 {
                   "artifactLocation": {
                     "uri": "http://localhost:34420/HtmlFixes.html"
@@ -155,7 +155,7 @@
               "description": {
                 "text": "Convert tag name to lowercase."
               },
-              "changes": [
+              "artifactChanges": [
                 {
                   "artifactLocation": {
                     "uri": "http://localhost:34420/HtmlFixes.html"
