@@ -1255,7 +1255,8 @@
           "description": "Key/value pairs that provide additional information about the invocation.",
           "$ref": "#/definitions/propertyBag"
         }
-      }
+      },
+      "required": [ "toolExecutionSuccessful" ]
     },
 
     "location": {

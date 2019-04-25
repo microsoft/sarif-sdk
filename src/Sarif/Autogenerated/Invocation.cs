@@ -126,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Specifies whether the tool's execution completed successfully.
         /// </summary>
-        [DataMember(Name = "toolExecutionSuccessful", IsRequired = false, EmitDefaultValue = false)]
+        [DataMember(Name = "toolExecutionSuccessful", IsRequired = true)]
         public bool ToolExecutionSuccessful { get; set; }
 
         /// <summary>
