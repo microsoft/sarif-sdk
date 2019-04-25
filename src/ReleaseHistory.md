@@ -366,3 +366,6 @@
 * API NON-BREAKING: In the `locationRelationship` object, add a property `description` of type `message`, optional.
 * API BREAKING: `region.byteOffset` should have default: -1, minimum: -1.
 * API BREAKING: Change `notification.physicalLocation` of type `physicalLocation` to `notification.locations` of type `locations`.
+
+## **v2.1.0-beta.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.0-beta.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.0-beta.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.0-beta.3)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.0-beta.3)
+* API BREAKING: OneOf `graphTraversal.runGraphIndex` and `graphTraversal.resultGraphIndex` is required.
