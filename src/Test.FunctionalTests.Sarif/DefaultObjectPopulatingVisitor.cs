@@ -136,6 +136,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     continue;
                 }
 
+                if (ShouldExcludePopulationDueToOneOfCriteria(node.GetType().Name, property.Name))
+                {
+                    continue;
+                }
+
                 object defaultValue = null;
 
                 MemberInfo member = nodeType.GetMember(property.Name)[0];
@@ -143,6 +148,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     if (attributeData.AttributeType.FullName != "System.ComponentModel.DefaultValueAttribute") { continue; }
                     defaultValue = attributeData.ConstructorArguments[0].Value;
+
+                    // DefaultValue of -1 is to ensure an actual value of 0 will not be ignored during serialization,
+                    // Hence, we will substitute them with 0.
+                    if (defaultValue is int defaultIntValue && defaultIntValue == -1)
+                    {
+                        defaultValue = 0;
+                    }
                 }
 
                 // If the member is decorated with a default value, we'll inject it. Otherwise,
@@ -168,6 +180,74 @@ namespace Microsoft.CodeAnalysis.Sarif
                 propertyBagHolder.Tags.Add(meaninglessValue);
                 propertyBagHolder.Tags.Remove(meaninglessValue);
             }
+        }
+
+        // Converts the property name to it's JSON equivalent and 
+        // determines whether that property should be excluded from population if it's in the "OneOf" list according to the schema.
+        private bool ShouldExcludePopulationDueToOneOfCriteria(string objectTypeName, string propertyName)
+        {
+            string jsonPropertyName = GetJsonNameFor(propertyName);
+            JsonSchema propertySchema = GetJsonSchemaForObject(objectTypeName);
+
+            if (propertySchema.OneOf == null || propertySchema.OneOf.Count == 0)
+            {
+                return false;
+            }
+
+            bool isPropertyInOneOfSubset = false;
+
+            foreach (var item in propertySchema.OneOf)
+            {
+                if (item.Required != null && item.Required.Contains(jsonPropertyName))
+                {
+                    isPropertyInOneOfSubset = true;
+                    break;
+                }
+            }
+
+            // The current property is not in any oneOf.required subset, hence treat like a regular property
+            if (!isPropertyInOneOfSubset)
+            {
+                return false;
+            }
+
+            return !ShouldThisOneOfPropertyPopulate(propertySchema, jsonPropertyName);
+        }
+
+        private bool ShouldThisOneOfPropertyPopulate(JsonSchema propertySchema, string jsonPropertyName)
+        {
+            // Only one of the subsets in 'OneOf' list must be present to validate successfully.
+            // ex:
+            //  OneOf : [
+            //      {
+            //          "required" : ["p1", "p2"]
+            //      },
+            //      {
+            //          "required": [ "q1", "q2", "q3" ]
+            //      },
+            //  ]
+            //  Either (p1 & p2) should be populated or (q1, q2, q3) should be populated, but NEVER both.
+
+            // We should populate only the first property in the list and ignore others.
+            // This means this method must return true only for first property and false for others.
+
+            int indexToPopulate = GenerateIndexToPopulateForOneOfProperties();
+
+            if (propertySchema.OneOf[indexToPopulate].Required != null && propertySchema.OneOf[indexToPopulate].Required.Contains(jsonPropertyName))
+            {
+                return true;
+            }
+
+            // if we reach here, this must be a property in a oneOf.required subset but which is not at indexToPopulate.
+            // return false to ensure this property is not populated.
+            return false;
+        }
+
+        private int GenerateIndexToPopulateForOneOfProperties()
+        {
+            // TODO: Have randomization logic to ensure a valid random index is generated during population.
+            // For now, we simply populate the first "OneOf" set.
+            return 0;
         }
 
         private void PopulatePropertyWithGeneratedDefaultValue(ISarifNode node, PropertyInfo property)
