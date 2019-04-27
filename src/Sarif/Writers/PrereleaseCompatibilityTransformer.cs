@@ -40,6 +40,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             JObject sarifLog = JObject.Parse(prereleaseSarifLog);
 
             string version = (string)sarifLog["version"];
+            string schemaSubVersion = (string)sarifLog["$schema"];
+
 
             Dictionary<string, int> fullyQualifiedLogicalNameToIndexMap = null;
             Dictionary<string, int> fileLocationKeyToIndexMap = null;
@@ -49,6 +51,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 case "2.1.0":
                 {
+                    if (schemaSubVersion == "http://json.schemastore.org/sarif-2.1.0-beta.3")
+                    {
+                        // beta.3 release.
+                        // nothing to do.
+                        break;
+                    }
+
                     modifiedLog |= ApplyChangesFromTC35(sarifLog);
                     break;
                 }

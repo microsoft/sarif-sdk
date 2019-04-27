@@ -51,7 +51,8 @@
                 "id": "MSG001.AnalyzingTarget"
               }
             }
-          ]
+          ],
+          "executionSuccessful": true
         }
       ],
       "artifacts": [
