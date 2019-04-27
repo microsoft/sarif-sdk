@@ -194,7 +194,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.ToolExecutionSuccessful != right.ToolExecutionSuccessful)
+            if (left.ExecutionSuccessful != right.ExecutionSuccessful)
             {
                 return false;
             }
@@ -397,7 +397,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.ProcessStartFailureMessage.GetHashCode();
                 }
 
-                result = (result * 31) + obj.ToolExecutionSuccessful.GetHashCode();
+                result = (result * 31) + obj.ExecutionSuccessful.GetHashCode();
                 if (obj.Machine != null)
                 {
                     result = (result * 31) + obj.Machine.GetHashCode();

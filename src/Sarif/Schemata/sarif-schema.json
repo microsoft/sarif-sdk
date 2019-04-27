@@ -1193,7 +1193,7 @@
           "type": "string"
         },
 
-        "toolExecutionSuccessful": {
+        "executionSuccessful": {
           "description": "Specifies whether the tool's execution completed successfully.",
           "type": "boolean"
         },
@@ -1256,7 +1256,7 @@
           "$ref": "#/definitions/propertyBag"
         }
       },
-      "required": [ "toolExecutionSuccessful" ]
+      "required": [ "executionSuccessful" ]
     },
 
     "location": {
