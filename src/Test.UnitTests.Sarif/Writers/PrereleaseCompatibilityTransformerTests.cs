@@ -118,5 +118,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             RunTest("OneRunWithRedactionToken.sarif");
         }
+
+        [Fact]
+        public void PrereleaseCompatibilityTransformer_OneRunWithBasicInvocation()
+        {
+            RunTest("OneRunWithBasicInvocation.sarif");
+        }
+
+        [Fact]
+        public void PrereleaseCompatibilityTransformer_OneRunWithInvocationExitCode()
+        {
+            RunTest("OneRunWithInvocationExitCode.sarif");
+        }
     }
 }

@@ -554,7 +554,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     analysisTargets: null,
                     dataToInsert: OptionallyEmittedData.Hashes,
                     invocationTokensToRedact: null,
-                    invocationPropertiesToLog: new[] { "WorkingDirectory", "ProcessId", "ExecutionSuccessful" }))
+                    invocationPropertiesToLog: new[] { "WorkingDirectory", "ProcessId" }))
                 {
                     LogSimpleResult(sarifLogger);
                 }

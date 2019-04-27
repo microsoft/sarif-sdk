@@ -241,7 +241,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     invocation.Remove("toolExecutionSuccessful");
                     invocation.Add("executionSuccessful", toolExecutionSuccessful);
                 }
-                else if (invocation["exitCode"] is JValue exitCode && (int)exitCode.Value != 0)
+                else if (invocation["exitCode"] is JValue exitCode && (Int64)exitCode.Value != 0)
                 {
                     invocation.Add("executionSuccessful", false);
                 }
