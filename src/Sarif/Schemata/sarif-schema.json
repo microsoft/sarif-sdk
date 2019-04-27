@@ -578,12 +578,14 @@
 
         "guid": {
           "description": "A stable, unique identifer for this external properties object, in the form of a GUID.",
-          "type": "string"
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
         },
 
         "runGuid": {
           "description": "A stable, unique identifer for the run associated with this external properties object, in the form of a GUID.",
-          "type": "string"
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
         },
 
         "conversion": {
@@ -761,7 +763,8 @@
 
         "guid": {
           "description": "A stable, unique identifer for the external property file in the form of a GUID.",
-          "type": "string"
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
         },
 
         "itemCount": {
@@ -1801,7 +1804,8 @@
 
         "guid": {
           "description": "A unique identifer for the reporting descriptor in the form of a GUID.",
-          "type": "string"
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
         },
 
         "deprecatedGuids": {
@@ -1810,7 +1814,8 @@
           "minItems": 0,
           "uniqueItems": true,
           "items": {
-            "type": "string"
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
           }
         },
 
@@ -1940,7 +1945,8 @@
 
         "guid": {
           "description": "A guid that uniquely identifies the descriptor.",
-          "type": "string"
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
         },
 
         "toolComponent": {
@@ -2052,12 +2058,14 @@
 
         "guid": {
           "description": "A stable, unique identifer for the result in the form of a GUID.",
-          "type": "string"
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
         },
 
         "correlationGuid": {
           "description": "A stable, unique identifier for the equivalence class of logically identical results to which this result belongs, in the form of a GUID.",
-          "type": "string"
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
         },
 
         "occurrenceCount": {
@@ -2258,12 +2266,14 @@
 
         "firstDetectionRunGuid": {
           "description": "A GUID-valued string equal to the automationDetails.guid property of the run in which the result was first detected.",
-          "type": "string"
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
         },
 
         "lastDetectionRunGuid": {
           "description": "A GUID-valued string equal to the automationDetails.guid property of the run in which the result was most recently detected.",
-          "type": "string"
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
         },
 
         "invocationIndex": {
@@ -2319,9 +2329,10 @@
         },
 
         "language": {
-          "description": "The language of the messages emitted into the log file during this run (expressed as an ISO 649 two-letter lowercase culture code) and region (expressed as an ISO 3166 two-letter uppercase subculture code associated with a country or region).",
+          "description": "The language of the messages emitted into the log file during this run (expressed as an ISO 639-1 two-letter lowercase culture code) and an optional region (expressed as an ISO 3166-1 two-letter uppercase subculture code associated with a country or region). The casing is recommended but not required (in order for this data to conform to RFC5646).",
           "type": "string",
-          "default": "en-US"
+          "default": "en-US",
+          "pattern": "^[a-zA-Z]{2}|^[a-zA-Z]{2}-[a-zA-Z]{2}]?$"
         },
 
         "versionControlProvenance": {
@@ -2403,7 +2414,8 @@
 
         "baselineGuid": {
           "description": "The 'guid' property of a previous SARIF 'run' that comprises the baseline that was used to compute result 'baselineState' properties for the run.",
-          "type": "string"
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
         },
 
         "redactionTokens": {
@@ -2552,12 +2564,14 @@
 
         "guid": {
           "description": "A stable, unique identifer for this object's containing run object in the form of a GUID.",
-          "type": "string"
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
         },
 
         "correlationGuid": {
           "description": "A stable, unique identifier for the equivalence class of runs to which this object's containing run object belongs in the form of a GUID.",
-          "type": "string"
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
         },
 
         "properties": {
@@ -2644,7 +2658,8 @@
 
         "guid": {
           "description": "A stable, unique identifer for the suprression in the form of a GUID.",
-          "type": "string"
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
         },
 
         "kind": {
@@ -2871,7 +2886,8 @@
 
         "guid": {
           "description": "A unique identifer for the tool component in the form of a GUID.",
-          "type": "string"
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
         },
 
         "name": {
@@ -2994,9 +3010,10 @@
         },
 
         "language": {
-          "description": "The language of the the localized strings defined in this component (expressed as an ISO 649 two-letter lowercase culture code) and region (expressed as an ISO 3166 two-letter uppercase subculture code associated with a country or region).",
+          "description": "The language of the messages emitted into the log file during this run (expressed as an ISO 639-1 two-letter lowercase language code) and an optional region (expressed as an ISO 3166-1 two-letter uppercase subculture code associated with a country or region). The casing is recommended but not required (in order for this data to conform to RFC5646).",
           "type": "string",
-          "default": "en-US"
+          "default": "en-US",
+          "pattern": "^[a-zA-Z]{2}|^[a-zA-Z]{2}-[a-zA-Z]{2}]?$"
         },
 
         "contents": {
@@ -3077,7 +3094,8 @@
 
         "guid": {
           "description": "The 'guid' property of the referenced toolComponent.",
-          "type": "string"
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
         },
 
         "properties": {
