@@ -110,6 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             _invocation = new Invocation();
             _invocation.ToolExecutionNotifications = new List<Notification>();
+            _invocation.ExecutionSuccessful = true;
             _results.Clear();
             _files.Clear();
             _rules.Clear();

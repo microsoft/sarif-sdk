@@ -154,6 +154,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             bool modifiedLog = false;
 
+            // 
+            modifiedLog |= ConvertInvocationToolExecutionSuccessfulToExecutionSuccessful(sarifLog);
+
             // https://github.com/oasis-tcs/sarif-spec/issues/366
             modifiedLog |= ConvertAllToolComponentArtifactIndicesToArtifactLocations(sarifLog);
 
@@ -181,6 +184,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             modifiedLog |= RenameArtifactRolesEnums(sarifLog);
 
             return modifiedLog;
+        }
+
+        private static bool ConvertInvocationToolExecutionSuccessfulToExecutionSuccessful(JObject sarifLog)
+        {
+            string[] invocationPathsToUpdate =
+            {
+                "externalProperties[].invocations[]",
+                "externalProperties[].conversion.invocation",
+                "runs[].invocations[]",
+                "runs[].conversion.invocation"
+            };
+
+            bool actionOnLeafNode(JObject invocation)
+            {
+                if (invocation["toolExecutionSuccessful"] is JToken toolExecutionSuccessful)
+                {
+                    invocation.Remove("toolExecutionSuccessful");
+                    invocation.Add("executionSuccessful", toolExecutionSuccessful);
+                }
+                else if (invocation["exitCode"] is JValue exitCode && (int)exitCode.Value != 0)
+                {
+                    invocation.Add("executionSuccessful", false);
+                }
+                else
+                {
+                    invocation.Add("executionSuccessful", true);
+                }
+                return true;
+            }
+
+            return PerformActionOnLeafNodeIfExists(
+                possiblePathsToLeafNode: invocationPathsToUpdate,
+                rootNode: sarifLog,
+                action: actionOnLeafNode);
         }
 
         private static bool ConvertNotificationPhysicalLocationToLocations(JObject run)
