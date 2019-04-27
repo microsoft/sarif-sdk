@@ -59,7 +59,7 @@
         },
 
         "kind": {
-          "description": "An open-ended string that identifies the address kind. 'section', 'segment', 'module', 'function' and 'page' are well-known values.",
+          "description": "An open-ended string that identifies the address kind. 'section', 'segment', 'module', 'function', 'page', 'instruction' and 'data' are well-known values.",
           "type": "string"
         },
 
@@ -1078,7 +1078,11 @@
           "description": "Key/value pairs that provide additional information about the graph traversal.",
           "$ref": "#/definitions/propertyBag"
         }
-      }
+      },
+      "oneOf": [
+        { "required": [ "runGraphIndex" ] },
+        { "required": [ "resultGraphIndex" ] }
+      ]
     },
 
     "invocation": {
