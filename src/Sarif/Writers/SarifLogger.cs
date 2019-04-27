@@ -555,7 +555,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _run.Invocations[0].ToolExecutionNotifications = _run.Invocations[0].ToolExecutionNotifications ?? new List<Notification>();
             _run.Invocations[0].ToolExecutionNotifications.Add(notification);
-            _run.Invocations[0].ExecutionSuccessful = true;
+            _run.Invocations[0].ExecutionSuccessful &= notification.Level != FailureLevel.Error;
         }
 
         public void LogConfigurationNotification(Notification notification)
@@ -567,7 +567,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _run.Invocations[0].ToolConfigurationNotifications = _run.Invocations[0].ToolConfigurationNotifications ?? new List<Notification>();
             _run.Invocations[0].ToolConfigurationNotifications.Add(notification);
-            _run.Invocations[0].ExecutionSuccessful = true;
+            _run.Invocations[0].ExecutionSuccessful &= notification.Level != FailureLevel.Error;
         }
     }
 }
