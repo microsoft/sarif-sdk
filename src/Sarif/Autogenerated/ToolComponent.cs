@@ -153,7 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public IList<ArtifactLocation> Locations { get; set; }
 
         /// <summary>
-        /// The language of the the localized strings defined in this component (expressed as an ISO 649 two-letter lowercase culture code) and region (expressed as an ISO 3166 two-letter uppercase subculture code associated with a country or region).
+        /// The language of the messages emitted into the log file during this run (expressed as an ISO 639-1 two-letter lowercase language code) and an optional region (expressed as an ISO 3166-1 two-letter uppercase subculture code associated with a country or region). The casing is recommended but not required (in order for this data to conform to RFC5646).
         /// </summary>
         [DataMember(Name = "language", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue("en-US")]

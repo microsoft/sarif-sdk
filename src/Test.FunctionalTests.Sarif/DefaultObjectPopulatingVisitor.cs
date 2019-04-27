@@ -280,8 +280,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             bool isRequired = PropertyIsRequiredBySchema(node.GetType().Name, property.Name) || 
                 PropertyIsAnyOfRequiredBySchema(node.GetType().Name, property.Name);
 
-            PrimitiveValueBuilder propertyValueBuilder = null;
-            if (_typeToPropertyValueConstructorMap.TryGetValue(propertyType, out propertyValueBuilder))
+            if (GetPropertyFormatPattern(node.GetType().Name, property.Name) is string propertyFormatPattern)
+            {
+                propertyValue = GetFormattedStringValue(propertyFormatPattern);
+            }
+            else if (_typeToPropertyValueConstructorMap.TryGetValue(propertyType, out PrimitiveValueBuilder propertyValueBuilder))
             {
                 propertyValue = propertyValueBuilder(isRequired);
             }
@@ -454,6 +457,38 @@ namespace Microsoft.CodeAnalysis.Sarif
         private bool HasParameterlessConstructor(Type propertyType)
         {
             return propertyType.GetConstructor(new Type[] { }) != null;
+        }
+
+        private string GetFormattedStringValue(string propertyFormatPattern)
+        {
+            switch (propertyFormatPattern)
+            {
+                case "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$":
+                    {
+                        return "0DB2CD87-8185-49F8-8EEA-CE07A0E95241";
+                    }
+                case "[^/]+/.+":
+                    {
+                        return "text/x-csharp";
+                    }
+                case "^[a-z]{2}-[A-Z]{2}$":
+                    {
+                        return "en-ZA";
+                    }
+                case "[0-9]+(\\.[0-9]+){3}":
+                    {
+                        return "2.7.1500.12";
+                    }
+            }
+            return null;
+        }
+
+        private string GetPropertyFormatPattern(string objectTypeName, string propertyName)
+        {
+            string jsonPropertyName = GetJsonNameFor(propertyName);
+            JsonSchema propertySchema = GetJsonSchemaForObject(objectTypeName);
+
+            return propertySchema.Properties.ContainsKey(jsonPropertyName) ? propertySchema.Properties[jsonPropertyName].Pattern : null;
         }
     }
 }

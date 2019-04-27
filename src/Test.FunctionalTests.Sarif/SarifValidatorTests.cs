@@ -40,23 +40,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             Func<SarifLog, SarifLog> callback =
                 (sarifLog) =>
                 {
-                    sarifLog.Runs[0].Tool.Driver.DottedQuadFileVersion = "1.0.1.2";
-                    sarifLog.Runs[0].Tool.Extensions[0].DottedQuadFileVersion = "1.0.1.2";
-                    sarifLog.Runs[0].Conversion.Tool.Driver.DottedQuadFileVersion = "2.7.1500.12";
-                    sarifLog.Runs[0].Conversion.Tool.Extensions[0].DottedQuadFileVersion = "2.7.1500.12";
-                    sarifLog.Runs[0].Policies[0].DottedQuadFileVersion = "2.7.1500.12";
-                    sarifLog.Runs[0].Taxonomies[0].DottedQuadFileVersion = "2.7.1500.12";
-                    sarifLog.Runs[0].Translations[0].DottedQuadFileVersion = "2.7.1500.12";
-
-                    sarifLog.InlineExternalProperties[0].Conversion.Tool.Driver.DottedQuadFileVersion = "2.7.1500.12";
-                    sarifLog.InlineExternalProperties[0].Conversion.Tool.Extensions[0].DottedQuadFileVersion = "2.7.1500.12";
-                    sarifLog.InlineExternalProperties[0].Driver.DottedQuadFileVersion = "2.7.1500.12";
-                    sarifLog.InlineExternalProperties[0].Extensions[0].DottedQuadFileVersion = "2.7.1500.12";
-                    sarifLog.InlineExternalProperties[0].Policies[0].DottedQuadFileVersion = "2.7.1500.12";
-                    sarifLog.InlineExternalProperties[0].Taxonomies[0].DottedQuadFileVersion = "2.7.1500.12";
-                    sarifLog.InlineExternalProperties[0].Translations[0].DottedQuadFileVersion = "2.7.1500.12";
-
-                    return sarifLog;
+                    var visitor = new OverridePrimitiveArraysPopulatingVisitor();
+                    return visitor.VisitSarifLog(sarifLog);
                 };
 
             ValidateDefaultDocument(propertyValueBuilders, callback);
@@ -120,6 +105,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 node.Kinds[0] = "includes";
                 return base.VisitLocationRelationship(node);
+            }
+
+            public override ReportingDescriptor VisitReportingDescriptor(ReportingDescriptor node)
+            {
+                node.DeprecatedGuids[0] = "36D2C336-7730-425A-9A94-43593A2A651C";
+                return base.VisitReportingDescriptor(node);
             }
         }
 
