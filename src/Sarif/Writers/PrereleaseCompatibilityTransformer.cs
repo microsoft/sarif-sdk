@@ -51,14 +51,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 case "2.1.0":
                 {
-                    if (schemaSubVersion == "http://json.schemastore.org/sarif-2.1.0-beta.3")
+                    switch (schemaSubVersion)
                     {
-                        // beta.3 release.
-                        // nothing to do.
-                        break;
+                        case "http://json.schemastore.org/sarif-2.1.0-beta.3":
+                        {
+                            // beta.3 release.
+                            // nothing to do.
+                            break;
+                        }
+                        case "http://json.schemastore.org/sarif-2.1.0-beta.2":
+                        {
+                            modifiedLog |= ApplyBeta3Changes(sarifLog);
+                            break;
+                        }
+                        case "http://json.schemastore.org/sarif-2.1.0-beta.1":
+                        case "http://json.schemastore.org/sarif-2.1.0-beta.0":
+                        {
+                            modifiedLog |= ApplyChangesFromTC35(sarifLog);
+                            modifiedLog |= ApplyBeta3Changes(sarifLog);
+                            break;
+                        }
+                        default:
+                        {
+                            break;
+                        }
                     }
-
-                    modifiedLog |= ApplyChangesFromTC35(sarifLog);
                     break;
                 }
 
@@ -66,6 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     modifiedLog |= ApplyChangesFromTC34(sarifLog);
                     modifiedLog |= ApplyChangesFromTC35(sarifLog);
+                    modifiedLog |= ApplyBeta3Changes(sarifLog);
                     break;
                 }
 
@@ -74,6 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     modifiedLog |= ApplyChangesFromTC34(sarifLog);
                     modifiedLog |= ApplyChangesFromTC35(sarifLog);
+                    modifiedLog |= ApplyBeta3Changes(sarifLog);
                     break;
                 }
 
@@ -84,6 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     modifiedLog |= ApplyChangesFromTC34(sarifLog);
                     modifiedLog |= ApplyChangesFromTC35(sarifLog);
+                    modifiedLog |= ApplyBeta3Changes(sarifLog);
                     break;
                     }
 
@@ -94,6 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     modifiedLog |= ApplyChangesFromTC34(sarifLog);
                     modifiedLog |= ApplyChangesFromTC35(sarifLog);
+                    modifiedLog |= ApplyBeta3Changes(sarifLog);
                     break;
                     }
 
@@ -112,6 +133,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     modifiedLog |= ApplyChangesFromTC34(sarifLog);
                     modifiedLog |= ApplyChangesFromTC35(sarifLog);
+                    modifiedLog |= ApplyBeta3Changes(sarifLog);
                     break;
                 }
 
@@ -128,6 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     modifiedLog |= ApplyChangesFromTC34(sarifLog);
                     modifiedLog |= ApplyChangesFromTC35(sarifLog);
+                    modifiedLog |= ApplyBeta3Changes(sarifLog);
                     break;
                 }
             }
@@ -157,14 +180,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return transformedSarifLog;
         }
 
-        private static bool ApplyChangesFromTC35(JObject sarifLog)
+        private static bool ApplyBeta3Changes(JObject sarifLog)
         {
             UpdateSarifLogVersionAndSchema(sarifLog);
-
             bool modifiedLog = false;
 
-            // 
+            // https://github.com/oasis-tcs/sarif-spec/issues/399
             modifiedLog |= ConvertInvocationToolExecutionSuccessfulToExecutionSuccessful(sarifLog);
+
+            return modifiedLog;
+        }
+
+        private static bool ApplyChangesFromTC35(JObject sarifLog)
+        {
+            bool modifiedLog = false;
 
             // https://github.com/oasis-tcs/sarif-spec/issues/366
             modifiedLog |= ConvertAllToolComponentArtifactIndicesToArtifactLocations(sarifLog);
@@ -199,8 +228,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             string[] invocationPathsToUpdate =
             {
-                "externalProperties[].invocations[]",
-                "externalProperties[].conversion.invocation",
+                "inlineExternalProperties[].invocations[]",
+                "inlineExternalProperties[].conversion.invocation",
                 "runs[].invocations[]",
                 "runs[].conversion.invocation"
             };
