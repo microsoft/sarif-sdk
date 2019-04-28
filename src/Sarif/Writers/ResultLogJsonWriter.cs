@@ -40,7 +40,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _jsonWriter = jsonWriter;
             _serializer = new JsonSerializer()
             {
-                DefaultValueHandling = DefaultValueHandling.Ignore
             };
         }
 
@@ -352,7 +351,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             if ((_writeConditions & Conditions.InvocationsWritten) != Conditions.InvocationsWritten &&
-                _run.Invocations != null)
+                _run.Invocations?.Count > 0)
             {
                 WriteInvocations(_run.Invocations);
             }

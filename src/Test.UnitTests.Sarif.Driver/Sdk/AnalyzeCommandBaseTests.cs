@@ -6,8 +6,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Readers;
+using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
 using Xunit;
 
@@ -711,8 +713,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
                 run.Invocations[0].ToolConfigurationNotifications.Where((notification) => notification.Level == FailureLevel.Error).Count().Should().Be(1);
                 run.Invocations[0].ToolConfigurationNotifications.Where((notification) => notification.Level == FailureLevel.Warning).Count().Should().Be(3);
-
                 run.Invocations[0].ToolConfigurationNotifications.Where((notification) => notification.Descriptor.Id == Warnings.Wrn999_RuleExplicitlyDisabled).Count().Should().Be(3);
+
+                // We raised a notification error, which means the invocation failed.
+                run.Invocations[0].ExecutionSuccessful.Should().Be(false);
 
                 toolNotificationCount.Should().Be(0);
             }
