@@ -280,6 +280,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 invocation.ToolExecutionNotifications = toolNotifications;
                 invocation.ToolConfigurationNotifications = configurationNotifications;
+                invocation.ExecutionSuccessful = true;
             }
 
             return invocation;
@@ -302,7 +303,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     Properties = v1Invocation.Properties,
                     ResponseFiles = CreateResponseFilesList(v1Invocation.ResponseFiles),
                     StartTimeUtc = v1Invocation.StartTime,
-                };
+                    ExecutionSuccessful = true
+            };
 
                 if (!string.IsNullOrWhiteSpace(v1Invocation.FileName))
                 {

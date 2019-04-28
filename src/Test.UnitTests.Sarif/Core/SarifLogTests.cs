@@ -15,15 +15,16 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
         {
             var run = new Run
             {
-                Graphs = new List<Graph>(),
-                Artifacts = new List<Artifact>(),
+                Graphs = new Graph[] { },
+                Artifacts = new Artifact[] { },
                 Invocations = new Invocation[] { },
-                LogicalLocations = new List<LogicalLocation>()
+                LogicalLocations = new LogicalLocation[] { }
             };
 
-            run.Artifacts.Should().NotBeNull();
             run.Graphs.Should().NotBeNull();
+            run.Artifacts.Should().NotBeNull();
             run.Invocations.Should().NotBeNull();
+            run.LogicalLocations.Should().NotBeNull();
 
             run = SerializeAndDeserialize(run);
 
@@ -32,20 +33,30 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Core
             // should be null after round-tripping, reflecting the actual
             // (i.e., entirely absent) representation on disk when saved.
 
-            run.Artifacts.Should().BeNull();
             run.Graphs.Should().BeNull();
+            run.Artifacts.Should().BeNull();
             run.Invocations.Should().BeNull();
             run.LogicalLocations.Should().BeNull();
 
             // If arrays are non-empty but only contain object instances
             // that consist of nothing but default values, these also 
             // should not be persisted to disk
-
-            run.Invocations = new List<Invocation>();
-            run.Invocations.Add(new Invocation());
+            run.Graphs = new Graph[] { new Graph() };
+            run.Artifacts = new Artifact[] { new Artifact()};
+            run.LogicalLocations = new LogicalLocation[] { new LogicalLocation() };
+            
+            // Invocations are special, they have a required property,
+            // ExecutionSuccessful. This means even an entirely default instance
+            // should be retained when serialized.
+            run.Invocations = new Invocation[] { new Invocation() };
 
             run = SerializeAndDeserialize(run);
-            run.Invocations.Should().BeNull();
+
+            run.Graphs.Should().BeNull();
+            run.Artifacts.Should().BeNull();
+            run.LogicalLocations.Should().BeNull();
+
+            run.Invocations.Should().NotBeNull();
         }
 
         private Run SerializeAndDeserialize(Run run)

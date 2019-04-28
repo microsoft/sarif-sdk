@@ -11,7 +11,7 @@
       },
       "invocations": [
         {
-          "commandLine": "[REDACTED]\\DbScanner.exe /connectionString=[REDACTED] /input=*.sql",
+          "commandLine": "CodeScanner @collections.rsp",
           "responseFiles": [
             {
               "uri": "collections.rsp",
@@ -20,7 +20,8 @@
           ],
           "startTimeUtc": "2016-07-16T14:18:25.000Z",
           "endTimeUtc": "2016-07-16T14:19:01.000Z",
-          "executionSuccessful": true,
+          "exitCode": 1,
+          "executionSuccessful": false,
           "machine": "BLD01",
           "account": "buildAgent",
           "processId": 1218,
@@ -49,9 +50,6 @@
         }
       ],
       "results": [],
-      "redactionTokens": [
-        "[REDACTED]"
-      ],
       "columnKind": "utf16CodeUnits"
     }
   ]

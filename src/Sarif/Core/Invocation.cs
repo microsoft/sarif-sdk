@@ -52,6 +52,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                 invocation.ExecutableLocation.Uri = new Uri(assembly.Location);
             }
 
+            invocation.ExecutionSuccessful = true;
+
             return invocation;
         }
 

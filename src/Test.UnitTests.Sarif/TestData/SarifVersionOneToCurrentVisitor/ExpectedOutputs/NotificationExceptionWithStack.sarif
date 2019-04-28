@@ -119,7 +119,8 @@
                 "id": "CTN0001"
               }
             }
-          ]
+          ],
+          "executionSuccessful": true
         }
       ],
       "logicalLocations": [

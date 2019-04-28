@@ -131,7 +131,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         public static readonly Invocation s_invocation = new Invocation
         {
             Machine = "MY_MACHINE",
-            CommandLine = "/a /b c.dll"
+            CommandLine = "/a /b c.dll",
+            ExecutionSuccessful = true
         };
 
         [Fact]
@@ -317,9 +318,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     {
                         new Invocation
                         {
-                            ToolConfigurationNotifications = new List<Notification>(s_notifications)
+                            ToolConfigurationNotifications = new List<Notification>(s_notifications),
+                            ExecutionSuccessful = true
                         }
-                    };                    
+                    };
                 });
 
             string actual = GetJson(uut =>
@@ -329,7 +331,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                 var invocation = new Invocation
                 {
-                    ToolConfigurationNotifications = s_notifications
+                    ToolConfigurationNotifications = s_notifications,
+                    ExecutionSuccessful = true
                 };
                 uut.WriteInvocations(new[] { invocation });
             });
@@ -347,7 +350,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     {
                         new Invocation
                         {
-                            ToolExecutionNotifications = new List<Notification>(s_notifications)
+                            ToolExecutionNotifications = new List<Notification>(s_notifications),
+                            ExecutionSuccessful = true
                         }
                     };
                 });
@@ -359,7 +363,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                 var invocation = new Invocation
                 {
-                    ToolExecutionNotifications = s_notifications
+                    ToolExecutionNotifications = s_notifications,
+                    ExecutionSuccessful = true
                 };
                 uut.WriteInvocations(new[] { invocation });
             });

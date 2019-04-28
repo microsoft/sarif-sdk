@@ -151,13 +151,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             return true;
         }
 
-        public bool ShouldSerializeArtifacts() { return this.Artifacts.HasAtLeastOneNonNullValue(); }
+        public bool ShouldSerializeArtifacts() { return this.Artifacts.HasAtLeastOneNonDefaultValue(Artifact.ValueComparer); }
 
-        public bool ShouldSerializeGraphs() { return this.Graphs.HasAtLeastOneNonNullValue(); }
+        public bool ShouldSerializeGraphs() { return this.Graphs.HasAtLeastOneNonDefaultValue(Graph.ValueComparer); }
 
-        public bool ShouldSerializeInvocations() { return this.Invocations.HasAtLeastOneNonDefaultValue(Invocation.ValueComparer); }
+        public bool ShouldSerializeInvocations() { return this.Invocations.HasAtLeastOneNonNullValue(); }
 
-        public bool ShouldSerializeLogicalLocations() { return this.LogicalLocations.HasAtLeastOneNonNullValue(); }
+        public bool ShouldSerializeLogicalLocations() { return this.LogicalLocations.HasAtLeastOneNonDefaultValue(LogicalLocation.ValueComparer); }
 
         public bool ShouldSerializeNewlineSequences() { return this.NewlineSequences.HasAtLeastOneNonNullValue(); }
     }

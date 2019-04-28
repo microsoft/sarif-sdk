@@ -370,4 +370,5 @@
 ## **v2.1.0-beta.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.0-beta.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.0-beta.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.0-beta.3)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.0-beta.3)
 * API BREAKING: OneOf `graphTraversal.runGraphIndex` and `graphTraversal.resultGraphIndex` is required.
 * API NON-BREAKING: Add address.kind well-known values "instruction" and "data". https://github.com/oasis-tcs/sarif-spec/issues/397
+* API BREAKING: Rename `invocation.toolExecutionSuccessful` to `invocation.executionSuccessful`. https://github.com/oasis-tcs/sarif-spec/issues/399 
 * API BREAKING: Add regex patterns for guid and language in schema.

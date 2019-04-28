@@ -1200,7 +1200,7 @@
           "type": "string"
         },
 
-        "toolExecutionSuccessful": {
+        "executionSuccessful": {
           "description": "Specifies whether the tool's execution completed successfully.",
           "type": "boolean"
         },
@@ -1262,7 +1262,8 @@
           "description": "Key/value pairs that provide additional information about the invocation.",
           "$ref": "#/definitions/propertyBag"
         }
-      }
+      },
+      "required": [ "executionSuccessful" ]
     },
 
     "location": {

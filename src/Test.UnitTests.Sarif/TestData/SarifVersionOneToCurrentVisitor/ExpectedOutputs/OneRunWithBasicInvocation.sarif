@@ -20,6 +20,7 @@
           ],
           "startTimeUtc": "2016-07-16T14:18:25.000Z",
           "endTimeUtc": "2016-07-16T14:19:01.000Z",
+          "executionSuccessful": true,
           "machine": "BLD01",
           "account": "buildAgent",
           "processId": 1218,

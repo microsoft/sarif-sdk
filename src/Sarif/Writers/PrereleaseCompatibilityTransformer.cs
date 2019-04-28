@@ -40,6 +40,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             JObject sarifLog = JObject.Parse(prereleaseSarifLog);
 
             string version = (string)sarifLog["version"];
+            string schemaSubVersion = (string)sarifLog["$schema"];
+
 
             Dictionary<string, int> fullyQualifiedLogicalNameToIndexMap = null;
             Dictionary<string, int> fileLocationKeyToIndexMap = null;
@@ -49,7 +51,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 case "2.1.0":
                 {
-                    modifiedLog |= ApplyChangesFromTC35(sarifLog);
+                    switch (schemaSubVersion)
+                    {
+                        case "http://json.schemastore.org/sarif-2.1.0-beta.3":
+                        {
+                            // beta.3 release.
+                            // nothing to do.
+                            break;
+                        }
+                        case "http://json.schemastore.org/sarif-2.1.0-beta.2":
+                        {
+                            modifiedLog |= ApplyBeta3Changes(sarifLog);
+                            break;
+                        }
+                        case "http://json.schemastore.org/sarif-2.1.0-beta.1":
+                        case "http://json.schemastore.org/sarif-2.1.0-beta.0":
+                        {
+                            modifiedLog |= ApplyChangesFromTC35(sarifLog);
+                            modifiedLog |= ApplyBeta3Changes(sarifLog);
+                            break;
+                        }
+                        default:
+                        {
+                            break;
+                        }
+                    }
                     break;
                 }
 
@@ -57,6 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     modifiedLog |= ApplyChangesFromTC34(sarifLog);
                     modifiedLog |= ApplyChangesFromTC35(sarifLog);
+                    modifiedLog |= ApplyBeta3Changes(sarifLog);
                     break;
                 }
 
@@ -65,6 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     modifiedLog |= ApplyChangesFromTC34(sarifLog);
                     modifiedLog |= ApplyChangesFromTC35(sarifLog);
+                    modifiedLog |= ApplyBeta3Changes(sarifLog);
                     break;
                 }
 
@@ -75,6 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     modifiedLog |= ApplyChangesFromTC34(sarifLog);
                     modifiedLog |= ApplyChangesFromTC35(sarifLog);
+                    modifiedLog |= ApplyBeta3Changes(sarifLog);
                     break;
                     }
 
@@ -85,6 +114,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     modifiedLog |= ApplyChangesFromTC34(sarifLog);
                     modifiedLog |= ApplyChangesFromTC35(sarifLog);
+                    modifiedLog |= ApplyBeta3Changes(sarifLog);
                     break;
                     }
 
@@ -103,6 +133,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     modifiedLog |= ApplyChangesFromTC34(sarifLog);
                     modifiedLog |= ApplyChangesFromTC35(sarifLog);
+                    modifiedLog |= ApplyBeta3Changes(sarifLog);
                     break;
                 }
 
@@ -119,6 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC33(sarifLog);
                     modifiedLog |= ApplyChangesFromTC34(sarifLog);
                     modifiedLog |= ApplyChangesFromTC35(sarifLog);
+                    modifiedLog |= ApplyBeta3Changes(sarifLog);
                     break;
                 }
             }
@@ -148,10 +180,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return transformedSarifLog;
         }
 
-        private static bool ApplyChangesFromTC35(JObject sarifLog)
+        private static bool ApplyBeta3Changes(JObject sarifLog)
         {
             UpdateSarifLogVersionAndSchema(sarifLog);
+            bool modifiedLog = false;
 
+            // https://github.com/oasis-tcs/sarif-spec/issues/399
+            modifiedLog |= ConvertInvocationToolExecutionSuccessfulToExecutionSuccessful(sarifLog);
+
+            return modifiedLog;
+        }
+
+        private static bool ApplyChangesFromTC35(JObject sarifLog)
+        {
             bool modifiedLog = false;
 
             // https://github.com/oasis-tcs/sarif-spec/issues/366
@@ -181,6 +222,40 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             modifiedLog |= RenameArtifactRolesEnums(sarifLog);
 
             return modifiedLog;
+        }
+
+        private static bool ConvertInvocationToolExecutionSuccessfulToExecutionSuccessful(JObject sarifLog)
+        {
+            string[] invocationPathsToUpdate =
+            {
+                "inlineExternalProperties[].invocations[]",
+                "inlineExternalProperties[].conversion.invocation",
+                "runs[].invocations[]",
+                "runs[].conversion.invocation"
+            };
+
+            bool actionOnLeafNode(JObject invocation)
+            {
+                if (invocation["toolExecutionSuccessful"] is JToken toolExecutionSuccessful)
+                {
+                    invocation.Remove("toolExecutionSuccessful");
+                    invocation.Add("executionSuccessful", toolExecutionSuccessful);
+                }
+                else if (invocation["exitCode"] is JValue exitCode && (Int64)exitCode.Value != 0)
+                {
+                    invocation.Add("executionSuccessful", false);
+                }
+                else
+                {
+                    invocation.Add("executionSuccessful", true);
+                }
+                return true;
+            }
+
+            return PerformActionOnLeafNodeIfExists(
+                possiblePathsToLeafNode: invocationPathsToUpdate,
+                rootNode: sarifLog,
+                action: actionOnLeafNode);
         }
 
         private static bool ConvertNotificationPhysicalLocationToLocations(JObject run)
