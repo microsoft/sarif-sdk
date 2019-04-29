@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
-    /// The effective address of a reported issue.
+    /// A physical or virtual address, or a range of addresses, in an 'addressable region' (memory or a binary file).
     /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
@@ -35,13 +35,29 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
-        /// A base address rendered as an integer value.
+        /// The address expressed as a byte offset from the start of the addressable region.
         /// </summary>
-        [DataMember(Name = "baseAddress", IsRequired = false, EmitDefaultValue = false)]
-        public int BaseAddress { get; set; }
+        [DataMember(Name = "absoluteAddress", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(-1)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public int AbsoluteAddress { get; set; }
 
         /// <summary>
-        /// An open-ended string that identifies the address kind. 'section', 'segment', 'module', 'function', 'page', 'instruction' and 'data' are well-known values.
+        /// The address expressed as a byte offset from the absolute address of the top-most parent object.
+        /// </summary>
+        [DataMember(Name = "relativeAddress", IsRequired = false, EmitDefaultValue = false)]
+        [DefaultValue(-1)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public int RelativeAddress { get; set; }
+
+        /// <summary>
+        /// The number of bytes in this range of addresses.
+        /// </summary>
+        [DataMember(Name = "length", IsRequired = false, EmitDefaultValue = false)]
+        public int Length { get; set; }
+
+        /// <summary>
+        /// An open-ended string that identifies the address kind. 'data', 'function', 'header','instruction', 'module', 'page', 'section', 'segment', 'stack', 'stackFrame', 'table' are well-known values.
         /// </summary>
         [DataMember(Name = "kind", IsRequired = false, EmitDefaultValue = false)]
         public string Kind { get; set; }
@@ -59,13 +75,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string FullyQualifiedName { get; set; }
 
         /// <summary>
-        /// an offset from the base address, if present, rendered as an integer value.
+        /// The byte offset of this address from the absolute or relative address of the parent object.
         /// </summary>
-        [DataMember(Name = "offset", IsRequired = false, EmitDefaultValue = false)]
-        public int Offset { get; set; }
+        [DataMember(Name = "offsetFromParent", IsRequired = false, EmitDefaultValue = false)]
+        public int OffsetFromParent { get; set; }
 
         /// <summary>
-        /// An index into run.addresses used to retrieve a cached instance to represent the address.
+        /// The index within run.addresses of the cached object for this address.
         /// </summary>
         [DataMember(Name = "index", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
@@ -73,7 +89,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public int Index { get; set; }
 
         /// <summary>
-        /// An index into run.addresses to retrieve a parent address. The parent can provide a base address (from which the current offset value is relevant) and other details.
+        /// The index within run.addresses of the parent object.
         /// </summary>
         [DataMember(Name = "parentIndex", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue(-1)]
@@ -91,6 +107,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         public Address()
         {
+            AbsoluteAddress = -1;
+            RelativeAddress = -1;
             Index = -1;
             ParentIndex = -1;
         }
@@ -98,8 +116,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <summary>
         /// Initializes a new instance of the <see cref="Address" /> class from the supplied values.
         /// </summary>
-        /// <param name="baseAddress">
-        /// An initialization value for the <see cref="P:BaseAddress" /> property.
+        /// <param name="absoluteAddress">
+        /// An initialization value for the <see cref="P:AbsoluteAddress" /> property.
+        /// </param>
+        /// <param name="relativeAddress">
+        /// An initialization value for the <see cref="P:RelativeAddress" /> property.
+        /// </param>
+        /// <param name="length">
+        /// An initialization value for the <see cref="P:Length" /> property.
         /// </param>
         /// <param name="kind">
         /// An initialization value for the <see cref="P:Kind" /> property.
@@ -110,8 +134,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="fullyQualifiedName">
         /// An initialization value for the <see cref="P:FullyQualifiedName" /> property.
         /// </param>
-        /// <param name="offset">
-        /// An initialization value for the <see cref="P:Offset" /> property.
+        /// <param name="offsetFromParent">
+        /// An initialization value for the <see cref="P:OffsetFromParent" /> property.
         /// </param>
         /// <param name="index">
         /// An initialization value for the <see cref="P:Index" /> property.
@@ -122,9 +146,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Address(int baseAddress, string kind, string name, string fullyQualifiedName, int offset, int index, int parentIndex, IDictionary<string, SerializedPropertyInfo> properties)
+        public Address(int absoluteAddress, int relativeAddress, int length, string kind, string name, string fullyQualifiedName, int offsetFromParent, int index, int parentIndex, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(baseAddress, kind, name, fullyQualifiedName, offset, index, parentIndex, properties);
+            Init(absoluteAddress, relativeAddress, length, kind, name, fullyQualifiedName, offsetFromParent, index, parentIndex, properties);
         }
 
         /// <summary>
@@ -143,7 +167,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.BaseAddress, other.Kind, other.Name, other.FullyQualifiedName, other.Offset, other.Index, other.ParentIndex, other.Properties);
+            Init(other.AbsoluteAddress, other.RelativeAddress, other.Length, other.Kind, other.Name, other.FullyQualifiedName, other.OffsetFromParent, other.Index, other.ParentIndex, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -164,13 +188,15 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Address(this);
         }
 
-        private void Init(int baseAddress, string kind, string name, string fullyQualifiedName, int offset, int index, int parentIndex, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int absoluteAddress, int relativeAddress, int length, string kind, string name, string fullyQualifiedName, int offsetFromParent, int index, int parentIndex, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            BaseAddress = baseAddress;
+            AbsoluteAddress = absoluteAddress;
+            RelativeAddress = relativeAddress;
+            Length = length;
             Kind = kind;
             Name = name;
             FullyQualifiedName = fullyQualifiedName;
-            Offset = offset;
+            OffsetFromParent = offsetFromParent;
             Index = index;
             ParentIndex = parentIndex;
             if (properties != null)

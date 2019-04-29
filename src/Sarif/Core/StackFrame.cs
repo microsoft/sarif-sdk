@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 stackFrame.Location.PhysicalLocation.Address = new Address
                 {
-                    Offset = ilOffset
+                    OffsetFromParent = ilOffset
                 };
             }
 

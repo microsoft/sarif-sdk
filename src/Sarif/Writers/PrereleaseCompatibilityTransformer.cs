@@ -188,7 +188,86 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // https://github.com/oasis-tcs/sarif-spec/issues/399
             modifiedLog |= ConvertInvocationToolExecutionSuccessfulToExecutionSuccessful(sarifLog);
 
+            // https://github.com/oasis-tcs/sarif-spec/issues/401
+            modifiedLog |= RenameBaseAddressAndOffsetInAddressObject(sarifLog);
+
             return modifiedLog;
+        }
+
+        private static bool RenameBaseAddressAndOffsetInAddressObject(JObject sarifLog)
+        {
+            string[] addressPathsToUpdate =
+            {
+                "inlineExternalProperties[].addresses[]",
+                "inlineExternalProperties[].results[].locations[].physicalLocation.address",
+                "inlineExternalProperties[].results[].relatedLocations[].physicalLocation.address",
+                "inlineExternalProperties[].results[].provenance.conversionSources[].address",
+                "inlineExternalProperties[].results[].graphs[].nodes[].location.physicalLocation.address",
+                "inlineExternalProperties[].results[].graphs[].nodes[].children[].location.physicalLocation.address",
+                "inlineExternalProperties[].graphs[].nodes[].location.physicalLocation.address",
+                "inlineExternalProperties[].graphs[].nodes[].children[].location.physicalLocation.address",
+                "inlineExternalProperties[].conversion.invocation.toolExecutionNotifications[].locations[].physicalLocation.address",
+                "inlineExternalProperties[].conversion.invocation.toolConfigurationNotifications[].locations[].physicalLocation.address",
+                "inlineExternalProperties[].invocations[].toolExecutionNotifications[].locations[].physicalLocation.address",
+                "inlineExternalProperties[].invocations[].toolConfigurationNotifications[].locations[].physicalLocation.address",
+                "inlineExternalProperties[].invocations[].toolExecutionNotifications[].exception.stack.frames[].location.physicalLocation.address",
+                "inlineExternalProperties[].invocations[].toolExecutionNotifications[].exception.innerExceptions[].stack.frames[].location.physicalLocation.address",
+                "inlineExternalProperties[].invocations[].toolConfigurationNotifications[].exception.stack.frames[].location.physicalLocation.address",
+                "inlineExternalProperties[].invocations[].toolConfigurationNotifications[].exception.innerExceptions[].stack.frames[].location.physicalLocation.address",
+                "inlineExternalProperties[].conversion.invocation.toolExecutionNotifications[].exception.stack.frames[].location.physicalLocation.address",
+                "inlineExternalProperties[].conversion.invocation.toolExecutionNotifications[].exception.innerExceptions[].stack.frames[].location.physicalLocation.address",
+                "inlineExternalProperties[].conversion.invocation.toolConfigurationNotifications[].exception.stack.frames[].location.physicalLocation.address",
+                "inlineExternalProperties[].conversion.invocation.toolConfigurationNotifications[].exception.innerExceptions[].stack.frames[].location.physicalLocation.address",
+                "inlineExternalProperties[].results[].stacks.frames[].location.physicalLocation.address",
+                "inlineExternalProperties[].results[].suppressions[].location.physicalLocation.address",
+                "inlineExternalProperties[].threadFlowLocations[].stack.frames[].location.physicalLocation.address",
+                "inlineExternalProperties[].threadFlowLocations[].location.physicalLocation.address",
+                "inlineExternalProperties[].results[].codeFlows[].threadFlows[].locations[].stack.frames[].location.physicalLocation.address",
+                "inlineExternalProperties[].results[].codeFlows[].threadFlows[].locations[].location.physicalLocation.address",
+
+                "runs[].addresses[]",
+                "runs[].results[].locations[].physicalLocation.address",
+                "runs[].results[].relatedLocations[].physicalLocation.address",
+                "runs[].results[].provenance.conversionSources[].address",
+                "runs[].graphs[].nodes[].location.physicalLocation.address",
+                "runs[].graphs[].nodes[].children[].location.physicalLocation.address",
+                "runs[].results[].graphs[].nodes[].location.physicalLocation.address",
+                "runs[].results[].graphs[].nodes[].children[].location.physicalLocation.address",
+                "runs[].conversion.invocation.toolExecutionNotifications[].locations[].physicalLocation.address",
+                "runs[].conversion.invocation.toolConfigurationNotifications[].locations[].physicalLocation.address",
+                "runs[].invocations[].toolExecutionNotifications[].locations[].physicalLocation.address",
+                "runs[].invocations[].toolConfigurationNotifications[].locations[].physicalLocation.address",
+                "runs[].invocations[].toolExecutionNotifications[].exception.stack.frames[].location.physicalLocation.address",
+                "runs[].invocations[].toolExecutionNotifications[].exception.innerExceptions[].stack.frames[].location.physicalLocation.address",
+                "runs[].invocations[].toolConfigurationNotifications[].exception.stack.frames[].location.physicalLocation.address",
+                "runs[].invocations[].toolConfigurationNotifications[].exception.innerExceptions[].stack.frames[].location.physicalLocation.address",
+                "runs[].conversion.invocation.toolExecutionNotifications[].exception.stack.frames[].location.physicalLocation.address",
+                "runs[].conversion.invocation.toolExecutionNotifications[].exception.innerExceptions[].stack.frames[].location.physicalLocation.address",
+                "runs[].conversion.invocation.toolConfigurationNotifications[].exception.stack.frames[].location.physicalLocation.address",
+                "runs[].conversion.invocation.toolConfigurationNotifications[].exception.innerExceptions[].stack.frames[].location.physicalLocation.address",
+                "runs[].results[].stacks.frames[].location.physicalLocation.address",
+                "runs[].results[].suppressions[].location.physicalLocation.address",
+                "runs[].threadFlowLocations[].stack.frames[].location.physicalLocation.address",
+                "runs[].threadFlowLocations[].location.physicalLocation.address",
+                "runs[].results[].codeFlows[].threadFlows[].locations[].stack.frames[].location.physicalLocation.address",
+                "runs[].results[].codeFlows[].threadFlows[].locations[].location.physicalLocation.address"
+            };
+
+            bool actionOnLeafNode(JObject address)
+            {
+                bool modifiedLog = false;
+
+                modifiedLog |= RenameProperty(address, "baseAddress", "absoluteAddress");
+                modifiedLog |= RenameProperty(address, "offset", "offsetFromParent");
+
+                return modifiedLog;
+            }
+
+            return PerformActionOnLeafNodeIfExists(
+                possiblePathsToLeafNode: addressPathsToUpdate,
+                rootNode: sarifLog,
+                action: actionOnLeafNode);
+
         }
 
         private static bool ApplyChangesFromTC35(JObject sarifLog)

@@ -488,8 +488,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                 location.PhysicalLocation.Address = new Address
                 {
-                    BaseAddress = address,
-                    Offset = offset
+                    AbsoluteAddress = address,
+                    OffsetFromParent = offset
                 };
             }
             return location;

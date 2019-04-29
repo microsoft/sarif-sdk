@@ -48,18 +48,34 @@
   "definitions": {
 
     "address": {
-      "description": "The effective address of a reported issue.",
+      "description": "A physical or virtual address, or a range of addresses, in an 'addressable region' (memory or a binary file).",
       "additionalProperties": false,
       "type": "object",
       "properties": {
 
-        "baseAddress": {
-          "description": "A base address rendered as an integer value.",
+        "absoluteAddress": {
+          "description": "The address expressed as a byte offset from the start of the addressable region.",
+          "type": "integer",
+          "minimum": -1,
+          "default": -1
+
+        },
+
+        "relativeAddress": {
+          "description": "The address expressed as a byte offset from the absolute address of the top-most parent object.",
+          "type": "integer",
+          "minimum": -1,
+          "default": -1
+
+        },
+
+        "length": {
+          "description": "The number of bytes in this range of addresses.",
           "type": "integer"
         },
 
         "kind": {
-          "description": "An open-ended string that identifies the address kind. 'section', 'segment', 'module', 'function', 'page', 'instruction' and 'data' are well-known values.",
+          "description": "An open-ended string that identifies the address kind. 'data', 'function', 'header','instruction', 'module', 'page', 'section', 'segment', 'stack', 'stackFrame', 'table' are well-known values.",
           "type": "string"
         },
 
@@ -73,20 +89,20 @@
           "type": "string"
         },
 
-        "offset": {
-          "description": "an offset from the base address, if present, rendered as an integer value.",
+        "offsetFromParent": {
+          "description": "The byte offset of this address from the absolute or relative address of the parent object.",
           "type": "integer"
         },
 
         "index": {
-          "description": "An index into run.addresses used to retrieve a cached instance to represent the address.",
+          "description": "The index within run.addresses of the cached object for this address.",
           "type": "integer",
           "default": -1,
           "minimum": -1
         },
 
         "parentIndex": {
-          "description": "An index into run.addresses to retrieve a parent address. The parent can provide a base address (from which the current offset value is relevant) and other details.",
+          "description": "The index within run.addresses of the parent object.",
           "type": "integer",
           "default": -1,
           "minimum": -1

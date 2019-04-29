@@ -28,7 +28,17 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.BaseAddress != right.BaseAddress)
+            if (left.AbsoluteAddress != right.AbsoluteAddress)
+            {
+                return false;
+            }
+
+            if (left.RelativeAddress != right.RelativeAddress)
+            {
+                return false;
+            }
+
+            if (left.Length != right.Length)
             {
                 return false;
             }
@@ -48,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 return false;
             }
 
-            if (left.Offset != right.Offset)
+            if (left.OffsetFromParent != right.OffsetFromParent)
             {
                 return false;
             }
@@ -98,7 +108,9 @@ namespace Microsoft.CodeAnalysis.Sarif
             int result = 17;
             unchecked
             {
-                result = (result * 31) + obj.BaseAddress.GetHashCode();
+                result = (result * 31) + obj.AbsoluteAddress.GetHashCode();
+                result = (result * 31) + obj.RelativeAddress.GetHashCode();
+                result = (result * 31) + obj.Length.GetHashCode();
                 if (obj.Kind != null)
                 {
                     result = (result * 31) + obj.Kind.GetHashCode();
@@ -114,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     result = (result * 31) + obj.FullyQualifiedName.GetHashCode();
                 }
 
-                result = (result * 31) + obj.Offset.GetHashCode();
+                result = (result * 31) + obj.OffsetFromParent.GetHashCode();
                 result = (result * 31) + obj.Index.GetHashCode();
                 result = (result * 31) + obj.ParentIndex.GetHashCode();
                 if (obj.Properties != null)

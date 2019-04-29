@@ -372,3 +372,4 @@
 * API NON-BREAKING: Add address.kind well-known values "instruction" and "data". https://github.com/oasis-tcs/sarif-spec/issues/397
 * API BREAKING: Rename `invocation.toolExecutionSuccessful` to `invocation.executionSuccessful`. https://github.com/oasis-tcs/sarif-spec/issues/399 
 * API BREAKING: Add regex patterns for guid and language in schema.
+* API BREAKING: Improve `address` object design. https://github.com/oasis-tcs/sarif-spec/issues/401
