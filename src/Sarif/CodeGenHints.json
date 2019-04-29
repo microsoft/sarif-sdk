@@ -834,6 +834,16 @@
       }
     }
   ],
+  "specialLocations": [
+    {
+      "kind": "BaseTypeHint",
+      "arguments": {
+        "baseTypeNames": [
+          "PropertyBagHolder"
+        ]
+      }
+    }
+  ],
   "stack": [
     {
       "kind": "BaseTypeHint",

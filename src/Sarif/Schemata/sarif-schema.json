@@ -2553,6 +2553,11 @@
           }
         },
 
+        "specialLocations": {
+          "description": "A specialLocations object that defines locations of special significance to SARIF consumers.",
+          "$ref": "#/definitions/specialLocations"
+        },
+
         "properties": {
           "description": "Key/value pairs that provide additional information about the run.",
           "$ref": "#/definitions/propertyBag"
@@ -2592,6 +2597,23 @@
 
         "properties": {
           "description": "Key/value pairs that provide additional information about the run automation details.",
+          "$ref": "#/definitions/propertyBag"
+        }
+      }
+    },
+
+    "specialLocations": {
+      "description": "Defines locations of special significance to SARIF consumers.",
+      "type": "object",
+      "properties": {
+
+        "displayBase": {
+          "description": "Provides a suggestion to SARIF consumers to display file paths relative to the specified location.",
+          "$ref": "#/definitions/artifactLocation"
+        },
+
+        "properties": {
+          "description": "Key/value pairs that provide additional information about the special locations.",
           "$ref": "#/definitions/propertyBag"
         }
       }

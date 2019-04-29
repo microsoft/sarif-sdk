@@ -176,6 +176,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         RunAutomationDetails,
         /// <summary>
+        /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="SpecialLocations" />.
+        /// </summary>
+        SpecialLocations,
+        /// <summary>
         /// A value indicating that the <see cref="ISarifNode" /> object is of type <see cref="Stack" />.
         /// </summary>
         Stack,
