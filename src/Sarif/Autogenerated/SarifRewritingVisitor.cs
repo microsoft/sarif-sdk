@@ -126,6 +126,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return VisitRunAutomationDetails((RunAutomationDetails)node);
                 case SarifNodeKind.SarifLog:
                     return VisitSarifLog((SarifLog)node);
+                case SarifNodeKind.SpecialLocations:
+                    return VisitSpecialLocations((SpecialLocations)node);
                 case SarifNodeKind.Stack:
                     return VisitStack((Stack)node);
                 case SarifNodeKind.StackFrame:
@@ -1174,6 +1176,8 @@ namespace Microsoft.CodeAnalysis.Sarif
                         node.WebResponses[index_0] = VisitNullChecked(node.WebResponses[index_0]);
                     }
                 }
+
+                node.SpecialLocations = VisitNullChecked(node.SpecialLocations);
             }
 
             return node;
@@ -1208,6 +1212,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                         node.InlineExternalProperties[index_0] = VisitNullChecked(node.InlineExternalProperties[index_0]);
                     }
                 }
+            }
+
+            return node;
+        }
+
+        public virtual SpecialLocations VisitSpecialLocations(SpecialLocations node)
+        {
+            if (node != null)
+            {
+                node.DisplayBase = VisitNullChecked(node.DisplayBase);
             }
 
             return node;

@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Conversion Conversion { get; set; }
 
         /// <summary>
-        /// The language of the messages emitted into the log file during this run (expressed as an ISO 649 two-letter lowercase culture code) and region (expressed as an ISO 3166 two-letter uppercase subculture code associated with a country or region).
+        /// The language of the messages emitted into the log file during this run (expressed as an ISO 639-1 two-letter lowercase culture code) and an optional region (expressed as an ISO 3166-1 two-letter uppercase subculture code associated with a country or region). The casing is recommended but not required (in order for this data to conform to RFC5646).
         /// </summary>
         [DataMember(Name = "language", IsRequired = false, EmitDefaultValue = false)]
         [DefaultValue("en-US")]
@@ -149,8 +149,6 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// Specifies the unit in which the tool measures columns.
         /// </summary>
         [DataMember(Name = "columnKind", IsRequired = false, EmitDefaultValue = false)]
-        [DefaultValue(ColumnKind.UnicodeCodePoints)]
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [JsonConverter(typeof(Microsoft.CodeAnalysis.Sarif.Readers.EnumConverter))]
         public ColumnKind ColumnKind { get; set; }
 
@@ -208,6 +206,12 @@ namespace Microsoft.CodeAnalysis.Sarif
         [DataMember(Name = "webResponses", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         public IList<WebResponse> WebResponses { get; set; }
+
+        /// <summary>
+        /// A specialLocations object that defines locations of special significance to SARIF consumers.
+        /// </summary>
+        [DataMember(Name = "specialLocations", IsRequired = false, EmitDefaultValue = false)]
+        public SpecialLocations SpecialLocations { get; set; }
 
         /// <summary>
         /// Key/value pairs that provide additional information about the run.
@@ -309,12 +313,15 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="webResponses">
         /// An initialization value for the <see cref="P:WebResponses" /> property.
         /// </param>
+        /// <param name="specialLocations">
+        /// An initialization value for the <see cref="P:SpecialLocations" /> property.
+        /// </param>
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, string language, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, ArtifactLocation> originalUriBaseIds, IEnumerable<Artifact> artifacts, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, RunAutomationDetails automationDetails, IEnumerable<RunAutomationDetails> runAggregates, string baselineGuid, IEnumerable<string> redactionTokens, string defaultEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFileReferences externalPropertyFileReferences, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ToolComponent> taxonomies, IEnumerable<Address> addresses, IEnumerable<ToolComponent> translations, IEnumerable<ToolComponent> policies, IEnumerable<WebRequest> webRequests, IEnumerable<WebResponse> webResponses, IDictionary<string, SerializedPropertyInfo> properties)
+        public Run(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, string language, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, ArtifactLocation> originalUriBaseIds, IEnumerable<Artifact> artifacts, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, RunAutomationDetails automationDetails, IEnumerable<RunAutomationDetails> runAggregates, string baselineGuid, IEnumerable<string> redactionTokens, string defaultEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFileReferences externalPropertyFileReferences, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ToolComponent> taxonomies, IEnumerable<Address> addresses, IEnumerable<ToolComponent> translations, IEnumerable<ToolComponent> policies, IEnumerable<WebRequest> webRequests, IEnumerable<WebResponse> webResponses, SpecialLocations specialLocations, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(tool, invocations, conversion, language, versionControlProvenance, originalUriBaseIds, artifacts, logicalLocations, graphs, results, automationDetails, runAggregates, baselineGuid, redactionTokens, defaultEncoding, defaultSourceLanguage, newlineSequences, columnKind, externalPropertyFileReferences, threadFlowLocations, taxonomies, addresses, translations, policies, webRequests, webResponses, properties);
+            Init(tool, invocations, conversion, language, versionControlProvenance, originalUriBaseIds, artifacts, logicalLocations, graphs, results, automationDetails, runAggregates, baselineGuid, redactionTokens, defaultEncoding, defaultSourceLanguage, newlineSequences, columnKind, externalPropertyFileReferences, threadFlowLocations, taxonomies, addresses, translations, policies, webRequests, webResponses, specialLocations, properties);
         }
 
         /// <summary>
@@ -333,7 +340,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Tool, other.Invocations, other.Conversion, other.Language, other.VersionControlProvenance, other.OriginalUriBaseIds, other.Artifacts, other.LogicalLocations, other.Graphs, other.Results, other.AutomationDetails, other.RunAggregates, other.BaselineGuid, other.RedactionTokens, other.DefaultEncoding, other.DefaultSourceLanguage, other.NewlineSequences, other.ColumnKind, other.ExternalPropertyFileReferences, other.ThreadFlowLocations, other.Taxonomies, other.Addresses, other.Translations, other.Policies, other.WebRequests, other.WebResponses, other.Properties);
+            Init(other.Tool, other.Invocations, other.Conversion, other.Language, other.VersionControlProvenance, other.OriginalUriBaseIds, other.Artifacts, other.LogicalLocations, other.Graphs, other.Results, other.AutomationDetails, other.RunAggregates, other.BaselineGuid, other.RedactionTokens, other.DefaultEncoding, other.DefaultSourceLanguage, other.NewlineSequences, other.ColumnKind, other.ExternalPropertyFileReferences, other.ThreadFlowLocations, other.Taxonomies, other.Addresses, other.Translations, other.Policies, other.WebRequests, other.WebResponses, other.SpecialLocations, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -354,7 +361,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Run(this);
         }
 
-        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, string language, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, ArtifactLocation> originalUriBaseIds, IEnumerable<Artifact> artifacts, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, RunAutomationDetails automationDetails, IEnumerable<RunAutomationDetails> runAggregates, string baselineGuid, IEnumerable<string> redactionTokens, string defaultEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFileReferences externalPropertyFileReferences, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ToolComponent> taxonomies, IEnumerable<Address> addresses, IEnumerable<ToolComponent> translations, IEnumerable<ToolComponent> policies, IEnumerable<WebRequest> webRequests, IEnumerable<WebResponse> webResponses, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(Tool tool, IEnumerable<Invocation> invocations, Conversion conversion, string language, IEnumerable<VersionControlDetails> versionControlProvenance, IDictionary<string, ArtifactLocation> originalUriBaseIds, IEnumerable<Artifact> artifacts, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<Graph> graphs, IEnumerable<Result> results, RunAutomationDetails automationDetails, IEnumerable<RunAutomationDetails> runAggregates, string baselineGuid, IEnumerable<string> redactionTokens, string defaultEncoding, string defaultSourceLanguage, IEnumerable<string> newlineSequences, ColumnKind columnKind, ExternalPropertyFileReferences externalPropertyFileReferences, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<ToolComponent> taxonomies, IEnumerable<Address> addresses, IEnumerable<ToolComponent> translations, IEnumerable<ToolComponent> policies, IEnumerable<WebRequest> webRequests, IEnumerable<WebResponse> webResponses, SpecialLocations specialLocations, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (tool != null)
             {
@@ -662,6 +669,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 }
 
                 WebResponses = destination_15;
+            }
+
+            if (specialLocations != null)
+            {
+                SpecialLocations = new SpecialLocations(specialLocations);
             }
 
             if (properties != null)
