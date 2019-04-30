@@ -479,19 +479,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 };
             }
 
-            if (address > 0 || offset > 0)
-            {
-                if (location.PhysicalLocation == null)
-                {
-                    location.PhysicalLocation = new PhysicalLocation();
-                }
+            // https://github.com/Microsoft/sarif-sdk/issues/1469
+            // TODO: Ensure stackFrame.address and offset properties are being transformed correctly during v1 -> v2 conversion and vice-versa
 
-                location.PhysicalLocation.Address = new Address
-                {
-                    AbsoluteAddress = address,
-                    OffsetFromParent = offset
-                };
-            }
+            //if (address > 0 || offset > 0)
+            //{
+            //    if (location.PhysicalLocation == null)
+            //    {
+            //        location.PhysicalLocation = new PhysicalLocation();
+            //    }
+
+            //    location.PhysicalLocation.Address = new Address
+            //    {
+            //        AbsoluteAddress = address,
+            //        OffsetFromParent = offset
+            //    };
+            //}
             return location;
         }
 

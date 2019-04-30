@@ -1132,9 +1132,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 stackFrame = new StackFrameVersionOne
                 {
-                    Address = v2StackFrame.Location?.PhysicalLocation?.Address?.AbsoluteAddress ?? 0,
+                    // https://github.com/Microsoft/sarif-sdk/issues/1469
+                    // TODO: Ensure stackFrame.address and offset properties are being transformed correctly during v1 -> v2 conversion and vice-versa
+
+                    // Address = v2StackFrame.Location?.PhysicalLocation?.Address?.AbsoluteAddress ?? 0,
                     Module = v2StackFrame.Module,
-                    Offset = v2StackFrame.Location?.PhysicalLocation?.Address?.OffsetFromParent ?? 0,
+                    // Offset = v2StackFrame.Location?.PhysicalLocation?.Address?.OffsetFromParent ?? 0,
                     Parameters = v2StackFrame.Parameters,
                     Properties = v2StackFrame.Properties,
                     ThreadId = v2StackFrame.ThreadId

@@ -63,9 +63,7 @@
 
         "relativeAddress": {
           "description": "The address expressed as a byte offset from the absolute address of the top-most parent object.",
-          "type": "integer",
-          "minimum": -1,
-          "default": -1
+          "type": "integer"
 
         },
 
@@ -320,12 +318,7 @@
           "description": "Key/value pairs that provide additional information about the artifact location.",
           "$ref": "#/definitions/propertyBag"
         }
-      },
-      "anyOf": [
-        { "required": [ "uri" ] },
-        { "required": [ "index" ] }
-      ]
-
+      }
     },
 
     "attachment": {
