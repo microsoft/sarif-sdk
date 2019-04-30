@@ -4,7 +4,7 @@
   "type": "object",
   "properties": {
 
-    "schema": {
+    "$schema": {
       "description": "The URI of the JSON schema corresponding to the version of the external property file format.",
       "type": "string",
       "format": "uri"
