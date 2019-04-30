@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Static Analysis Results Format (SARIF) Version 2.1.0-beta.2 JSON Schema",
-  "description": "Static Analysis Results Format (SARIF) Version 2.1.0-beta.2 JSON Schema: a standard format for the output of static analysis tools.",
+  "title": "Static Analysis Results Format (SARIF) Version 2.1.0-rtm.0 JSON Schema",
+  "description": "Static Analysis Results Format (SARIF) Version 2.1.0-rtm.0 JSON Schema: a standard format for the output of static analysis tools.",
   "additionalProperties": false,
   "type": "object",
   "properties": {
@@ -1971,7 +1971,7 @@
       "anyOf": [
         { "required": [ "index" ] },
         { "required": [ "guid" ] },
-        { "required": [ "id" ]}
+        { "required": [ "id" ] }
       ]
     },
 
