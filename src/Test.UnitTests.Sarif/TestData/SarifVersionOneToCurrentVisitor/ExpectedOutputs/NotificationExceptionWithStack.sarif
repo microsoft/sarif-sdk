@@ -28,9 +28,6 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "address": {
-                            "baseAddress": 10092852
-                          },
                           "artifactLocation": {
                             "uri": "file:///C:/src/main.cs"
                           },
@@ -54,9 +51,6 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "address": {
-                            "baseAddress": 1002485
-                          },
                           "artifactLocation": {
                             "uri": "file:///C:/src/main.cs"
                           }
@@ -72,10 +66,6 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "address": {
-                            "baseAddress": 10073356,
-                            "offset": 10475
-                          },
                           "artifactLocation": {
                             "uri": "file:///C:/src/utils.cs"
                           }
@@ -90,10 +80,6 @@
                     {
                       "location": {
                         "physicalLocation": {
-                          "address": {
-                            "baseAddress": 10073356,
-                            "offset": 10475
-                          },
                           "artifactLocation": {
                             "uri": "file:///C:/src/testtarget.cs"
                           }

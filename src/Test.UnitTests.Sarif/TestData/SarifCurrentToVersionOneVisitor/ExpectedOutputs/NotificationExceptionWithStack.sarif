@@ -46,31 +46,25 @@
                   "column": 9,
                   "module": "RuleLibrary",
                   "threadId": 52,
-                  "fullyQualifiedLogicalName": "Rules.SecureHashAlgorithmRule.Evaluate",
-                  "address": 10092852
+                  "fullyQualifiedLogicalName": "Rules.SecureHashAlgorithmRule.Evaluate"
                 },
                 {
                   "uri": "file:///C:/src/main.cs",
                   "module": "RuleLibrary",
                   "threadId": 52,
-                  "fullyQualifiedLogicalName": "Rules.SecureHashAlgorithmRule.Register",
-                  "address": 1002485
+                  "fullyQualifiedLogicalName": "Rules.SecureHashAlgorithmRule.Register"
                 },
                 {
                   "uri": "file:///C:/src/utils.cs",
                   "module": "ExecutionEngine",
                   "threadId": 52,
-                  "fullyQualifiedLogicalName": "ExecutionEngine.Engine.EvaluateRule",
-                  "address": 10073356,
-                  "offset": 10475
+                  "fullyQualifiedLogicalName": "ExecutionEngine.Engine.EvaluateRule"
                 },
                 {
                   "uri": "file:///C:/src/sample.cs",
                   "module": "ExecutionEngine",
                   "threadId": 52,
-                  "fullyQualifiedLogicalName": "ExecutionEngine.Engine.Sample",
-                  "address": 10073356,
-                  "offset": 10475
+                  "fullyQualifiedLogicalName": "ExecutionEngine.Engine.Sample"
                 }
               ]
             },

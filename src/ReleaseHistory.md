@@ -373,3 +373,4 @@
 * API BREAKING: Rename `invocation.toolExecutionSuccessful` to `invocation.executionSuccessful`. https://github.com/oasis-tcs/sarif-spec/issues/399 
 * API BREAKING: Add regex patterns for guid and language in schema.
 * API NON-BREAKING: Add `run.specialLocations` in schema. https://github.com/oasis-tcs/sarif-spec/issues/396
+* API BREAKING: Improve `address` object design. https://github.com/oasis-tcs/sarif-spec/issues/401
