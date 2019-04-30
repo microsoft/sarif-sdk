@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "SARIF External Property File Schema Version 2.1.0-beta.0 JSON Schema",
+  "title": "SARIF External Property File Schema Version 2.1.0-beta.2 JSON Schema",
   "type": "object",
   "properties": {
 
@@ -15,15 +15,17 @@
       "enum": [ "2.1.0" ]
     },
 
-    "guid": {
-      "description": "A stable, unique identifer for this external properties object, in the form of a GUID.",
-      "type": "string"
-    },
+        "guid": {
+          "description": "A stable, unique identifer for this external properties object, in the form of a GUID.",
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+        },
 
-    "runGuid": {
-      "description": "A stable, unique identifer for the run associated with this external properties object, in the form of a GUID.",
-      "type": "string"
-    },
+        "runGuid": {
+          "description": "A stable, unique identifer for the run associated with this external properties object, in the form of a GUID.",
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$"
+        },
 
     "conversion": {
       "description": "A conversion object that will be merged with an external run.",
@@ -94,6 +96,7 @@
       "type": "array",
       "minItems": 0,
       "uniqueItems": false,
+      "default": [],
       "items": {
         "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/result"
       }
@@ -159,25 +162,25 @@
       }
     },
 
-    "requests": {
+    "webRequests": {
       "description": "Requests that will be merged with an external run.",
       "type": "array",
       "minItems": 0,
       "uniqueItems": true,
       "default": [],
       "items": {
-        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/request"
+        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/webRequest"
       }
     },
 
-    "responses": {
+    "webResponses": {
       "description": "Responses that will be merged with an external run.",
       "type": "array",
       "minItems": 0,
       "uniqueItems": true,
       "default": [],
       "items": {
-        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/response"
+        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/webResponse"
       }
     },
 
