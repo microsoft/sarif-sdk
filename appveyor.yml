@@ -13,7 +13,7 @@ branches:
 platform: Any CPU
 
 install:
-  - ps: .\dotnet-install.ps1 --version 2.1.10
+  - ps: .\dotnet-install.ps1 --version 2.1.506
 
 configuration:
   - Release
