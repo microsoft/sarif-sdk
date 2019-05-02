@@ -34,13 +34,6 @@ Import-Module -Force $PSScriptRoot\Projects.psm1
 
 $ScriptName = $([io.Path]::GetFileNameWithoutExtension($PSCommandPath))
 
-$ReporterOption = $null
-if ($AppVeyor) {
-    $ReporterOption = "-appveyor"
-}
-
-$TestRunnerRootPath = "$NuGetPackageRoot\xunit.runner.console\2.3.1\tools\"
-
 $failedTestProjects = @()
 foreach ($project in $Projects.Tests) {
     foreach ($framework in $Frameworks.Application) {
@@ -48,13 +41,8 @@ foreach ($project in $Projects.Tests) {
         if (-not $AppVeyor -and $framework -ne "netcoreapp2.0") { continue; }
 
         Write-Information "Running tests in ${project}: $framework..."
-        Push-Location $BinRoot\${Platform}_$Configuration\$project\$framework
-        $dll = "$project" + ".dll"
-        if ($framework -eq "netcoreapp2.0") {
-            & dotnet ${TestRunnerRootPath}netcoreapp2.0\xunit.console.dll $dll $ReporterOption
-        } else {
-            & ${TestRunnerRootPath}net452\xunit.console.exe $dll $ReporterOption
-        }
+        Push-Location $SourceRoot\$project
+        & dotnet test --no-build --framework $framework --configuration $Configuration
         if ($LASTEXITCODE -ne 0) {
             $failedTestProjects += "${project}: $framework"
         }
