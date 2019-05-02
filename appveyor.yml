@@ -10,8 +10,6 @@ branches:
     - tc-31
     - sarif-v1
 
-platform: Any CPU
-
 install:
   - ps: .\dotnet-install.ps1 --version 2.1.506
 
