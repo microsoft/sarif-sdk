@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
@@ -52,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var context = new ContrastLogReader.Context();
 
-            // 1. First we initialize our global rules data from the SARIF we have embedded as a resource
+            // 1. First we initialize our global rules data from the SARIF we have embedded as a resource.
             Assembly assembly = typeof(ContrastSecurityConverter).Assembly;
             SarifLog sarifLog;
 
@@ -64,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 sarifLog = JsonConvert.DeserializeObject<SarifLog>(currentRuleDataLogText);
             }
 
-            // 2. Retain a pointer to the rules dictionary, which we will use to set rule severity
+            // 2. Retain a pointer to the rules dictionary, which we will use to set rule severity.
             Run run = sarifLog.Runs[0];
             _rules = run.Tool.Driver.Rules.ToDictionary(rule => rule.Id);
 
@@ -73,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {  "SITE_ROOT", new ArtifactLocation { Uri = new Uri(@"E:\src\WebGoat.NET") } } 
             };
 
-            // 3. Now, parse all the contrast XML to create the complete results set
+            // 3. Now, parse all the contrast XML to create the complete results set.
             var results = new List<Result>();
             var reader = new ContrastLogReader();
             reader.FindingRead += (ContrastLogReader.Context current) => { results.Add(CreateResult(current)); };
@@ -324,7 +325,46 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private Result ConstructInsecureHashAlgorithmsResult(ContrastLogReader.Context context)
         {
-            return CreateResultCore(context);
+            Result result = CreateResultCore(context);
+
+            Stack stack = context.MethodEvent.Stack;
+            result.Stacks = new List<Stack>
+            {
+                stack
+            };
+
+            Location resultLocation = stack.Frames[1].Location;
+            result.Locations = new List<Location>
+            {
+                resultLocation
+            };
+
+            string insecureClassName = GetClassNameFromCtorCall(
+                stack.Frames[0].Location.LogicalLocation.FullyQualifiedName);
+            result.Message = new Message
+            {
+                Id = "default",
+                Arguments = new List<string>
+                {
+                    resultLocation.LogicalLocation.FullyQualifiedName,
+                    insecureClassName
+                }
+            };
+
+            return result;
+        }
+
+        private static readonly Regex ClassNameFromCtorRegex = new Regex(@"\.([^.]+)\.\.ctor\(\)$");
+
+        private static string GetClassNameFromCtorCall(string fullyQualifiedName)
+        {
+            Match match = ClassNameFromCtorRegex.Match(fullyQualifiedName);
+
+            // If we can't parse this as a ctor invocation, do the best we can: just return
+            // the whole string.
+            return match.Success
+                ? match.Groups[1].Value
+                : fullyQualifiedName;
         }
 
         private Result ConstructPagesWithoutAntiClickjackingControlsResult(ContrastLogReader.Context context)
@@ -860,9 +900,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private IList<CodeFlow> CreateCodeFlows(ContrastLogReader.Context context)
         {
-            return context.PropagationEvents == null ?
-                null :
-                new List<CodeFlow>
+            List<CodeFlow> codeFlows = null;
+
+            if (context.PropagationEvents != null)
+            {
+                codeFlows = new List<CodeFlow>
                 {
                     new CodeFlow
                     {
@@ -875,6 +917,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                          }
                     }
                 };
+
+                if (context.MethodEvent != null)
+                {
+                    codeFlows[0].ThreadFlows[0].Locations.Add(context.MethodEvent);
+                }
+            }
+
+            return codeFlows;
         }
 
         private PhysicalLocation CreatePhysicalLocation(string uri, Region region = null)
