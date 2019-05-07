@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Diagnostics;
 using Microsoft.CodeAnalysis.Sarif.Converters;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
@@ -40,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                                                 dataToInsert,
                                                 convertOptions.PluginAssemblyPath);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!Debugger.IsAttached)
             {
                 Console.WriteLine(ex);
                 return 1;

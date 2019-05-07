@@ -660,16 +660,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             string path = _reader.GetAttribute(_strings.PathAttribute);
 
-            var uri = new Uri(path, UriKind.RelativeOrAbsolute);
-            int index = _files[uri].Item2;
-            return new PhysicalLocation
+            PhysicalLocation location = new PhysicalLocation()
             {
-                ArtifactLocation = new ArtifactLocation
-                {
-                    Index = index
-                },
                 Region = ParseRegion()
             };
+
+            var uri = new Uri(path, UriKind.RelativeOrAbsolute);
+            if (_files.TryGetValue(uri, out var entry))
+            {
+                location.ArtifactLocation = new ArtifactLocation() { Index = entry.Item2 };
+            }
+            else
+            {
+                location.ArtifactLocation = new ArtifactLocation() { Uri = uri };
+            }
+
+            return location;
         }
 
         private Region ParseRegion()
@@ -720,8 +726,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 if (AtStartOfNonEmpty(_strings.Rule))
                 {
                     string ruleId = _reader.GetAttribute(_strings.IdAttribute);
-                    int ruleIndex = _ruleIdToIndexMap[ruleId];
-                    ReportingDescriptor rule = _rules[ruleIndex];
+
+                    ReportingDescriptor rule;
+                    if (_ruleIdToIndexMap.TryGetValue(ruleId, out int ruleIndex))
+                    {
+                        rule = _rules[ruleIndex];
+                    }
+                    else
+                    {
+                        rule = new ReportingDescriptor() { Id = ruleId };
+                        _rules.Add(rule);
+                    }
 
                     _reader.Read();
 
@@ -1047,7 +1062,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             List<string> kinds;
 
-            if (!ActionTypeToLocationKindMap.TryGetValue(actionType, out kinds))
+            if (actionType == null || !ActionTypeToLocationKindMap.TryGetValue(actionType, out kinds))
             {
                 kinds = new List<string> { "unknown" };
             }
