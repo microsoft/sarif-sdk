@@ -261,6 +261,9 @@
             "shortDescription": {
               "text": "Verifies only strong hash algorithms are used"
             },
+            "messageStrings": {
+              "default": "'{0}' used the weak '{1}' hash algorithm."
+            },
             "configuration": {
               "defaultLevel": "warning"
             }
