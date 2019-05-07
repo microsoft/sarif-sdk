@@ -2,8 +2,13 @@
   
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>netcoreapp2.0</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.0;netcoreapp2.1</TargetFrameworks>
     <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
+  <!-- PackAsTool is supported/recommended for .NET Core >= 2.1 -->
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netcoreapp2.1'">
+    <PackAsTool>true</PackAsTool>
   </PropertyGroup>
 
   <PropertyGroup Label="AssemblyAttributes">
@@ -14,7 +19,7 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
-    <PackageReference Include="CommandLineParser" Version="2.2.1" />
+    <PackageReference Include="CommandLineParser" Version="2.5.0" />
     <PackageReference Include="Microsoft.Json.Pointer" Version="0.64.0" />
     <PackageReference Include="Microsoft.Json.Schema" Version="0.64.0" />
     <PackageReference Include="Microsoft.Json.Schema.Validation" Version="0.64.0" />
@@ -52,6 +57,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="$(SolutionDir)\Sarif\Schemata\sarif-schema.json" CopyToOutputDirectory="PreserveNewest" />
+    <EmbeddedResource Include=".\DotnetToolSettings.xml" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>
