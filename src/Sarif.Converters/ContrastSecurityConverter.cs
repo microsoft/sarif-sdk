@@ -685,7 +685,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // default : Attacker-controlled path traversal was observed from '{0}' on '{1}' page.
 
-            return ConstructNotImplementedRuleResult(context.RuleId);
+            Result result = CreateResultCore(context);
+
+            result.Locations = new List<Location>
+            {
+                new Location
+                {
+                    LogicalLocation = new LogicalLocation
+                    {
+                        FullyQualifiedName = GetUserCodeLocation(context.MethodEvent.Stack)
+                    }
+                }
+            };
+
+            string page = context.RequestTarget;
+            string sources = BuildSourcesString(context.Sources);
+
+            result.Message = new Message
+            {
+                Id = "default",
+                Arguments = new List<string>
+                {              // Attacker-controlled path traversal was observed from
+                    sources,   // '{0}' on
+                    page       // '{1}' page.
+                }
+            };
+
+            return result;
         }
 
         private Result ConstructRequestValidationModeDisabledResult(ContrastLogReader.Context context)
@@ -762,10 +788,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var sb = new StringBuilder();
             foreach (Tuple<string, string> tuple in sources)
             {
-                if (tuple.Item1 == null || tuple.Item2 == null) { continue; }
+                if (sb.Length > 0) { sb.Append(", "); }
+
                 // Item1 is the name, Item2 is the source type, e.g., parameter
-                sb.Append(tuple.Item1 + "(" + tuple.Item2 + ")");
+                if (!string.IsNullOrWhiteSpace(tuple.Item1)) { sb.Append(tuple.Item1 + ": "); }
+
+                string sourceType = !string.IsNullOrWhiteSpace(tuple.Item2)
+                    ? tuple.Item2
+                    : "<unknown source type>";
+
+                sb.Append(sourceType);
             }
+
             return sb.ToString();
         }
 
@@ -941,7 +975,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Region = region,
                 ContextRegion = region
             };
+        }
 
+        private static readonly Regex LogicalLocationRegex =
+            new Regex(
+                @"
+                  ([^\s]*\s+)?         # Skip over an optional leading blank-terminated return type name such as 'void '
+                  (?<fqln>[^(]+)       # Take everything up to the opening parenthesis.
+                ",
+                RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.IgnorePatternWhitespace);
+
+        // Find the user code method call closest to the top of the stack. This is
+        // the location we should report as being responsible for the result.
+        private static string GetUserCodeLocation(Stack stack)
+        {
+            const string SystemPrefix = "System.";
+
+            foreach (StackFrame frame in stack.Frames)
+            {
+                string fullyQualifiedLogicalName = frame.Location.LogicalLocation.FullyQualifiedName;
+                Match match = LogicalLocationRegex.Match(fullyQualifiedLogicalName);
+                if (match.Success)
+                {
+                    fullyQualifiedLogicalName = match.Groups["fqln"].Value;
+                    if (!fullyQualifiedLogicalName.StartsWith(SystemPrefix))
+                    {
+                        return fullyQualifiedLogicalName;
+                    }
+                }
+            }
+
+            return string.Empty;
         }
 
         private static void AddProperty(Result result, string value, string key)
