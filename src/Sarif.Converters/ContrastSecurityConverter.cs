@@ -354,7 +354,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return result;
         }
 
-        private static readonly Regex ClassNameFromCtorRegex = new Regex(@"\.([^.]+)\.\.ctor\(\)$");
+        private static readonly Regex ClassNameFromCtorRegex =
+            new Regex(@"\.(?<className>[^.]+)\.\.ctor\(\)$", RegexOptions.Compiled | RegexOptions.ExplicitCapture);
 
         private static string GetClassNameFromCtorCall(string fullyQualifiedName)
         {
@@ -363,7 +364,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             // If we can't parse this as a ctor invocation, do the best we can: just return
             // the whole string.
             return match.Success
-                ? match.Groups[1].Value
+                ? match.Groups["className"].Value
                 : fullyQualifiedName;
         }
 
