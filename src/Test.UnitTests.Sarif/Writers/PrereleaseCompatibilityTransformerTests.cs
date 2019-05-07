@@ -130,5 +130,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             RunTest("OneRunWithInvocationExitCode.sarif");
         }
+
+        [Fact]
+        public void PrereleaseCompatibilityTransformer_LocationWithId()
+        {
+            RunTest("LocationWithId.sarif");
+        }
     }
 }
