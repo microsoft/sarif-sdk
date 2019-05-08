@@ -367,7 +367,7 @@
               "text": "Verifies file paths containing untrusted data are not accessed."
             },
             "messageStrings": {
-              "default": "Attacker-controlled path traversal was observed from '{0}' on '{1}' page."
+              "default": "An attacker-controlled path traversal was observed from '{0}' on page '{1}'."
             },
             "configuration": {
               "defaultLevel": "error"
