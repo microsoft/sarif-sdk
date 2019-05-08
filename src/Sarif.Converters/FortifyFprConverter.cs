@@ -52,15 +52,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private string _originalUriBasePath;
         private int _currentFileIndex = 0;
         private List<Result> _results = new List<Result>();
-        private Dictionary<Uri, Tuple<Artifact, int>> _files;
-        private List<ReportingDescriptor> _rules;
-        private Dictionary<string, int> _ruleIdToIndexMap;
-        private HashSet<string> _cweIds;
+
         private Dictionary<ThreadFlowLocation, string> _tflToNodeIdDictionary;
         private Dictionary<ThreadFlowLocation, string> _tflToSnippetIdDictionary;
         private Dictionary<Location, string> _locationToSnippetIdDictionary;
         private Dictionary<Result, string> _resultToSnippetIdDictionary;
-        private Dictionary<Result, Dictionary<string, string>> _resultToReplacementDefinitionDictionary;
+
+        private Dictionary<string, string> _currentResultReplacementDictionary;
+
+        private HashSet<string> _cweIds;
+        private Dictionary<Uri, Tuple<Artifact, int>> _files;
+        private List<ReportingDescriptor> _rules;
+        private Dictionary<string, int> _ruleIdToIndexMap;
         private Dictionary<string, Location> _nodeIdToLocationDictionary;
         private Dictionary<string, string> _nodeIdToActionTypeDictionary;
         private Dictionary<string, Region[]> _snippetIdToRegionsDictionary;
@@ -70,6 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             _nameTable = new NameTable();
             _strings = new FortifyFprStrings(_nameTable);
+            _currentResultReplacementDictionary = new Dictionary<string, string>();
 
             _results = new List<Result>();
             _files = new Dictionary<Uri, Tuple<Artifact, int>>();
@@ -80,7 +84,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _tflToSnippetIdDictionary = new Dictionary<ThreadFlowLocation, string>();
             _locationToSnippetIdDictionary = new Dictionary<Location, string>();
             _resultToSnippetIdDictionary = new Dictionary<Result, string>();
-            _resultToReplacementDefinitionDictionary = new Dictionary<Result, Dictionary<string, string>>();
             _nodeIdToLocationDictionary = new Dictionary<string, Location>();
             _nodeIdToActionTypeDictionary = new Dictionary<string, string>();
             _snippetIdToRegionsDictionary = new Dictionary<string, Region[]>();
@@ -120,13 +123,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _tflToSnippetIdDictionary.Clear();
             _locationToSnippetIdDictionary.Clear();
             _resultToSnippetIdDictionary.Clear();
-            _resultToReplacementDefinitionDictionary.Clear();
             _nodeIdToLocationDictionary.Clear();
             _nodeIdToActionTypeDictionary.Clear();
             _snippetIdToRegionsDictionary.Clear();
 
             ParseFprFile(input);
-            AddMessagesToResults();
             AddSnippetsToResults();
             AddNodeLocationsToThreadFlowLocations();
             AddSnippetsToThreadFlowLocations();
@@ -375,7 +376,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     MimeType = MimeType.DetermineFromFileExtension(fileName),
                     Length = length,
                     Location = new ArtifactLocation
-                    { 
+                    {
                         Uri = uri,
                         UriBaseId = uri.IsAbsoluteUri ? null : FileLocationUriBaseId
                     }
@@ -403,6 +404,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private void ParseVulnerability()
         {
+            _currentResultReplacementDictionary.Clear();
+
             var result = new Result
             {
                 RelatedLocations = new List<Location>(),
@@ -455,6 +458,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     _reader.Read();
                 }
             }
+
+            // Set Result location including any Replacement Dictionary replacements
+            AddMessagesToResult(result);
 
             _results.Add(result);
         }
@@ -627,7 +633,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private void ParseReplacementDefinitions(Result result)
         {
-            var replacements = new Dictionary<string, string>();
+            _currentResultReplacementDictionary.Clear();
             _reader.Read();
 
             while (!AtEndOf(_strings.ReplacementDefinitions))
@@ -636,15 +642,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     string key = _reader.GetAttribute(_strings.KeyAttribute);
                     string value = _reader.GetAttribute(_strings.ValueAttribute);
-                    replacements.Add(key, value);
+                    _currentResultReplacementDictionary.Add(key, value);
                 }
 
                 _reader.Read();
-            }
-
-            if (replacements.Any())
-            {
-                _resultToReplacementDefinitionDictionary.Add(result, replacements);
             }
         }
 
@@ -743,7 +744,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                                             // Format: CWE ID xxx
                                             string cweId = part.Substring(part.LastIndexOf(' ') + 1);
                                             _cweIds.Add(cweId);
-                                            
+
                                             rule.Relationships = rule.Relationships ?? new List<ReportingDescriptorRelationship>();
                                             rule.Relationships.Add(new ReportingDescriptorRelationship
                                             {
@@ -1040,7 +1041,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private ReportingDescriptor FindOrCreateRule(string ruleId, out int ruleIndex)
         {
-            if(_ruleIdToIndexMap.TryGetValue(ruleId, out ruleIndex))
+            if (_ruleIdToIndexMap.TryGetValue(ruleId, out ruleIndex))
             {
                 return _rules[ruleIndex];
             }
@@ -1085,36 +1086,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 (_reader.NodeType == XmlNodeType.EndElement && StringReference.AreEqual(_reader.LocalName, elementName));
         }
 
-        private void AddMessagesToResults()
+        private void AddMessagesToResult(Result result)
         {
-            foreach (Result result in _results)
+            ReportingDescriptor rule = _rules[result.RuleIndex];
+            Message message = new Message();
+
+            string messageText = (rule.ShortDescription ?? rule.FullDescription)?.Text;
+
+            if (_currentResultReplacementDictionary != null)
             {
-                ReportingDescriptor rule = _rules[result.RuleIndex];
-                Message message = new Message();
-
-                if (_resultToReplacementDefinitionDictionary.TryGetValue(result, out Dictionary<string, string> replacements))
+                foreach (string key in _currentResultReplacementDictionary.Keys)
                 {
-                    string messageText = (rule.ShortDescription ?? rule.FullDescription)?.Text;
-                    foreach (string key in replacements.Keys)
-                    {
-                        string value = replacements[key];
+                    string value = _currentResultReplacementDictionary[key];
 
-                        if (SupportedReplacementTokens.Contains(key))
-                        {
-                            // Replace the token with an embedded hyperlink.
-                            messageText = messageText.Replace(string.Format(ReplacementTokenFormat, key),
-                                                              string.Format(EmbeddedLinkFormat, value));
-                        }
-                        else
-                        {
-                            // Replace the token with plain text.
-                            messageText = messageText.Replace(string.Format(ReplacementTokenFormat, key), value);
-                        }
+                    if (SupportedReplacementTokens.Contains(key))
+                    {
+                        // Replace the token with an embedded hyperlink.
+                        messageText = messageText.Replace(string.Format(ReplacementTokenFormat, key),
+                                                            string.Format(EmbeddedLinkFormat, value));
                     }
-                    message.Text = messageText;
+                    else
+                    {
+                        // Replace the token with plain text.
+                        messageText = messageText.Replace(string.Format(ReplacementTokenFormat, key), value);
+                    }
                 }
-                result.Message = message;
             }
+
+            message.Text = messageText;
+            result.Message = message;
         }
 
         private void AddSnippetsToResults()
