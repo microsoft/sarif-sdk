@@ -2784,6 +2784,9 @@
     <None Include="v2\ConverterTestData\ClangAnalyzer\RealLog.xml.sarif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="v2\ConverterTestData\ContrastSecurity\WebGoat.xml.sarif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="v2\ConverterTestData\CppCheck\CppCheck_issueLog1_raw.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -2925,6 +2928,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="v2\ConverterTestData\ClangAnalyzer\RealLog.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="v2\ConverterTestData\ContrastSecurity\WebGoat.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
