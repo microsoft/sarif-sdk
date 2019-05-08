@@ -683,7 +683,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             // path-traversal : Path Traversal
 
-            // default : Attacker-controlled path traversal was observed from '{0}' on '{1}' page.
+            // default : An attacker-controlled path traversal was observed from '{0}' on page '{1}'.
 
             Result result = CreateResultCore(context);
 
@@ -705,9 +705,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 Id = "default",
                 Arguments = new List<string>
-                {              // Attacker-controlled path traversal was observed from
+                {              // An attacker-controlled path traversal was observed from
                     sources,   // '{0}' on
-                    page       // '{1}' page.
+                    page       // page '{1}'.
                 }
             };
 
@@ -785,6 +785,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private string BuildSourcesString(HashSet<Tuple<string, string>> sources)
         {
+            const string UnknownSourceTypeName = "<unknown source type>";
+
             var sb = new StringBuilder();
             foreach (Tuple<string, string> tuple in sources)
             {
@@ -795,7 +797,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 string sourceType = !string.IsNullOrWhiteSpace(tuple.Item2)
                     ? tuple.Item2
-                    : "<unknown source type>";
+                    : UnknownSourceTypeName;
 
                 sb.Append(sourceType);
             }
