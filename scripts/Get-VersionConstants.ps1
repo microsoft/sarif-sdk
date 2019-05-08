@@ -31,8 +31,8 @@ if ($Previous) {
     $PreviousNamePrefix = "Previous"
 }
 
-$versionPrefix = Get-VersionComponent "${PreviousNamePrefix}VersionPrefix"
-$versionSuffix = Get-VersionComponent "${PreviousNamePrefix}VersionSuffix"
-$packageVersionSuffix = Get-VersionComponent "${PreviousNamePrefix}PackageVersionSuffix"
+$sarifVersion = Get-VersionComponent "${PreviousNamePrefix}SarifVersion"
+$schemaVersion = Get-VersionComponent "${PreviousNamePrefix}SchemaVersion"
+$sdkVersion = Get-VersionComponent "${PreviousNamePrefix}SdkVersion"
 
-$versionPrefix, $versionSuffix, $packageVersionSuffix
+$sarifVersion, $schemaVersion, $sdkVersion

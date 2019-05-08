@@ -11,13 +11,7 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-$versionPrefix, $versionSuffix, $packageVersionSuffix = & "$PSScriptRoot\Get-VersionConstants.ps1"
-
-if (!$packageVersionSuffix)
-{
-	$packageVersionSuffix = ".0"
-}
-
+$sarifVersion, $schemaVersion, $sdkVersion = & "$PSScriptRoot\Get-VersionConstants.ps1"
 
 $versionConstantsFileContents =
 @"
@@ -28,10 +22,9 @@ namespace $namespace
 {
     public static class VersionConstants
     {
-        public const string Prerelease = "$versionSuffix";
-        public const string AssemblyVersion = "$versionPrefix";
-        public const string PackageVersionSuffix = "$packageVersionSuffix";
-        public const string FileVersion = AssemblyVersion + ".0";
+        public const string SarifVersion = "$sarifVersion";
+        public const string SchemaVersion = "$schemaVersion";
+        public const string SdkVersion = "$sdkVersion";
     }
 }
 "@

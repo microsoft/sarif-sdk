@@ -5,9 +5,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class VersionConstants
     {
-        public const string Prerelease = "";
-        public const string AssemblyVersion = "2.1.0";
-        public const string PackageVersionSuffix = "-rtm.0";
-        public const string FileVersion = AssemblyVersion + ".0";
+        public const string SarifVersion = "2.1.0";
+        public const string SchemaVersion = "2.1.0-rtm.0";
+        public const string SdkVersion = "2.1.0";
     }
 }

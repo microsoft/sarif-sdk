@@ -42,11 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 if (s_semanticVersion == null)
                 {
-                    s_semanticVersion = VersionConstants.AssemblyVersion;
-                    if (!string.IsNullOrWhiteSpace(VersionConstants.Prerelease))
-                    {
-                        s_semanticVersion += "-" + VersionConstants.Prerelease.Substring(0, VersionConstants.Prerelease.Length);
-                    }
+                    s_semanticVersion = VersionConstants.SarifVersion;
                 }
 
                 return s_semanticVersion;
@@ -81,8 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             return new Uri(
                     SarifSchemaUriBase +
-                    sarifVersion.ConvertToText() +
-                    (sarifVersion == SarifVersion.Current ? VersionConstants.PackageVersionSuffix : ""), UriKind.Absolute);
+                    (sarifVersion == SarifVersion.Current ? VersionConstants.SchemaVersion : sarifVersion.ConvertToText()), UriKind.Absolute);
         }
 
         public static Dictionary<string, string> BuildMessageFormats(IEnumerable<string> resourceNames, ResourceManager resourceManager)

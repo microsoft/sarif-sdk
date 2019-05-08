@@ -12,6 +12,9 @@
     <VersionPrefix>2.1.0</VersionPrefix>
     <VersionSuffix></VersionSuffix>
     <PackageVersionSuffix>-rtm.0</PackageVersionSuffix>
+    <SarifVersion>2.1.0</SarifVersion>
+    <SchemaVersion>2.1.0-rtm.0</SchemaVersion>
+    <SdkVersion>2.1.0</SdkVersion>
 
     <!--
     Whenever you increment VersionPrefix or VersionSuffix, copy the old value(s)
@@ -26,6 +29,9 @@
     <PreviousVersionPrefix>2.1.0</PreviousVersionPrefix>
     <PreviousVersionSuffix></PreviousVersionSuffix>
     <PreviousPackageVersionSuffix>-beta.2</PreviousPackageVersionSuffix>
+    <PreviousSarifVersion>2.0.0-csd.2.beta.2019-04-03</PreviousSarifVersion>
+    <PreviousSchemaVersion>2.1.0-beta.2</PreviousSchemaVersion>
+    <PreviousSdkVersion>2.1.0-rtm.0</PreviousSdkVersion>
   </PropertyGroup>
 
   <PropertyGroup Label="Build">
