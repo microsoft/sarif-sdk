@@ -34,6 +34,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         [Fact]
+        public void ContrastSecurityConverter_EndToEnd()
+        {
+            BatchRunConverter(ToolFormat.ContrastSecurity);
+        }
+
+        [Fact]
         public void CppCheckConverter_EndToEnd()
         {
             BatchRunConverter(ToolFormat.CppCheck);
