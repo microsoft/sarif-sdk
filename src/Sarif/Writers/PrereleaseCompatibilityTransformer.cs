@@ -420,8 +420,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             string[] locationPathsToUpdate =
             {
-                "results[].locations",
-                "results[].relatedLocations",
+                "results[].locations[]",
+                "results[].relatedLocations[]",
             };
 
             return PerformActionOnLeafNodeIfExists(
