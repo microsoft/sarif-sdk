@@ -19,6 +19,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
         }
 
-        public override string Prerelease { get { return VersionConstants.Prerelease; } }
+        public override string Prerelease { get { return string.Empty; } }
     }
 }
