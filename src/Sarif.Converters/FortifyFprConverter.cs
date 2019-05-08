@@ -191,25 +191,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             PersistResults(output, _results, run);
         }
 
-        private void ParseFprFile(Stream input)
+        private void ParseFprFile(Stream fprFileStream)
         {
-            using (ZipArchive fprArchive = new ZipArchive(input))
-            {
-                using (Stream auditStream = OpenAuditStream(fprArchive))
-                {
-                    ParseAuditStream(auditStream);
-                }
-            }
+            ParseAuditStream_PassOne(OpenAuditFvdlReader(fprFileStream));
+            ParseAuditStream_PassTwo(OpenAuditFvdlReader(fprFileStream));
         }
 
-        private static Stream OpenAuditStream(ZipArchive fprArchive)
+        private XmlReader OpenAuditFvdlReader(Stream fprFileStream)
         {
+            ZipArchive fprArchive = new ZipArchive(fprFileStream);
             ZipArchiveEntry auditEntry = fprArchive.Entries.Single(e => e.FullName.Equals("audit.fvdl"));
-            return auditEntry.Open();
-        }
 
-        private void ParseAuditStream(Stream auditStream)
-        {
             var settings = new XmlReaderSettings
             {
                 DtdProcessing = DtdProcessing.Ignore,
@@ -218,7 +210,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 XmlResolver = null
             };
 
-            using (_reader = XmlReader.Create(auditStream, settings))
+            return XmlReader.Create(auditEntry.Open(), settings);
+        }
+
+        private void ParseAuditStream_PassOne(XmlReader reader)
+        {
+            // Pass One: Everything except vulnerabilities
+            using (_reader = reader)
             {
                 while (_reader.Read())
                 {
@@ -235,10 +233,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     else if (AtStartOfNonEmpty(_strings.Build))
                     {
                         ParseBuild();
-                    }
-                    else if (AtStartOfNonEmpty(_strings.Vulnerabilities))
-                    {
-                        ParseVulnerabilities();
                     }
                     else if (AtStartOfNonEmpty(_strings.Description))
                     {
@@ -267,6 +261,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     else if (AtStartOf(_strings.RuleInfo))
                     {
                         ParseRuleInfo();
+                    }
+                }
+            }
+        }
+
+        private void ParseAuditStream_PassTwo(XmlReader reader)
+        {
+            // Second Pass: Parse Vulnerabilities only and write as-you-go
+            using (_reader = reader)
+            {
+                while (_reader.Read())
+                {
+                    if (AtStartOfNonEmpty(_strings.Vulnerabilities))
+                    {
+                        ParseVulnerabilities();
+                        break;
                     }
                 }
             }
@@ -409,25 +419,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     // Get the rule GUID from the ClassId element.
                     string ruleId = _reader.ReadElementContentAsString();
-
-                    if (_ruleIdToIndexMap.ContainsKey(ruleId))
-                    {
-                        // We previously created the rule, so just get the index and rule object.
-                        ruleIndex = _ruleIdToIndexMap[ruleId];
-                        rule = _rules[ruleIndex];
-                    }
-                    else
-                    {
-                        // Create a new rule and add it to the list and index map.
-                        rule = new ReportingDescriptor
-                        {
-                            Guid = ruleId
-                        };
-
-                        ruleIndex = _rules.Count;
-                        _rules.Add(rule);
-                        _ruleIdToIndexMap[ruleId] = ruleIndex;
-                    }
+                    rule = FindOrCreateRule(ruleId, out ruleIndex);
 
                     result.RuleIndex = ruleIndex;
                 }
@@ -726,17 +718,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 if (AtStartOfNonEmpty(_strings.Rule))
                 {
                     string ruleId = _reader.GetAttribute(_strings.IdAttribute);
-
-                    ReportingDescriptor rule;
-                    if (_ruleIdToIndexMap.TryGetValue(ruleId, out int ruleIndex))
-                    {
-                        rule = _rules[ruleIndex];
-                    }
-                    else
-                    {
-                        rule = new ReportingDescriptor() { Id = ruleId };
-                        _rules.Add(rule);
-                    }
+                    ReportingDescriptor rule = FindOrCreateRule(ruleId, out int ruleIndex);
 
                     _reader.Read();
 
@@ -747,7 +729,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             _reader.Read();
 
                             string groupName = _reader.GetAttribute(_strings.NameAttribute);
-
                             switch (groupName)
                             {
                                 case "altcategoryCWE":
@@ -794,8 +775,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private void ParseRuleDescriptions()
         {
             string ruleId = _reader.GetAttribute(_strings.ClassIdAttribute);
-            int ruleIndex = _ruleIdToIndexMap[ruleId];
-            ReportingDescriptor rule = _rules[ruleIndex];
+            ReportingDescriptor rule = FindOrCreateRule(ruleId, out int ruleIndex);
 
             _reader.Read();
             while (!AtEndOf(_strings.Description))
@@ -1055,6 +1035,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     _reader.Read();
                 }
+            }
+        }
+
+        private ReportingDescriptor FindOrCreateRule(string ruleId, out int ruleIndex)
+        {
+            if(_ruleIdToIndexMap.TryGetValue(ruleId, out ruleIndex))
+            {
+                return _rules[ruleIndex];
+            }
+            else
+            {
+                ReportingDescriptor rule = new ReportingDescriptor() { Guid = ruleId };
+
+                ruleIndex = _rules.Count;
+                _rules.Add(rule);
+                _ruleIdToIndexMap[ruleId] = ruleIndex;
+
+                return rule;
             }
         }
 
