@@ -29,9 +29,9 @@
     place. These properties are actually used by the PowerShell script that
     hides the previous package versions on nuget.org.
     -->
-    <PreviousVersionPrefix>2.0.0</PreviousVersionPrefix>
+    <PreviousVersionPrefix>2.1.0</PreviousVersionPrefix>
     <PreviousSchemaVersionAsPublishedToSchemaStoreOrg>2.1.0-beta.2</PreviousSchemaVersionAsPublishedToSchemaStoreOrg>
-    <PreviousPackageVersion>2.1.0</PreviousPackageVersion>
+    <PreviousStableSarifVersion>2.1.0</PreviousStableSarifVersion>
   </PropertyGroup>
 
   <PropertyGroup Label="Build">
