@@ -45,57 +45,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         };
 
-        /// <summary>
-        ///  Represents a Snippet in the Fortify format converted to Sarif types.
-        /// </summary>
-        private class Snippet
-        {
-            public Region Region { get; set; }
-            public Region ContextRegion { get; set; }
-
-            public Snippet(Region region, Region contextRegion)
-            {
-                this.Region = region;
-                this.ContextRegion = contextRegion;
-            }
-
-            public void ApplyTo(PhysicalLocation physicalLocation)
-            {
-                physicalLocation.Region = this.Region;
-                physicalLocation.ContextRegion = this.ContextRegion;
-            }
-        }
-
-        /// <summary>
-        ///  Represents a Node in the Fortify format converted to Sarif types
-        /// </summary>
-        private class Node
-        {
-            public ThreadFlowLocation ThreadFlowLocation { get; set; }
-            public string SnippetId { get; set; }
-
-            public Node(ThreadFlowLocation tfl, string snippetId)
-            {
-                this.ThreadFlowLocation = tfl;
-                this.SnippetId = snippetId;
-            }
-        }
-
         private XmlReader _reader;
         private Invocation _invocation;
         private string _runId;
         private string _automationId;
         private string _originalUriBasePath;
         private int _currentFileIndex = 0;
-        private List<Result> _results = new List<Result>();
 
+        // Dictionary with replacement variables for the current Result (reused when parsing results to avoid per-Result allocation)
         private Dictionary<string, string> _currentResultReplacementDictionary;
 
+        // First-Pass Maps: Rules, Artifacts/Files, Nodes, Snippets
+        // These are populated on the first pass and used to output complete Results as-we-go during the second pass
         private HashSet<string> _cweIds;
         private Dictionary<Uri, Tuple<Artifact, int>> _files;
         private List<ReportingDescriptor> _rules;
         private Dictionary<string, int> _ruleIdToIndexMap;
-
         private Dictionary<string, Node> _nodeDictionary;
         private Dictionary<string, Snippet> _snippetDictionary;
 
@@ -106,7 +71,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _strings = new FortifyFprStrings(_nameTable);
             _currentResultReplacementDictionary = new Dictionary<string, string>();
 
-            _results = new List<Result>();
             _files = new Dictionary<Uri, Tuple<Artifact, int>>();
             _rules = new List<ReportingDescriptor>();
             _ruleIdToIndexMap = new Dictionary<string, int>();
@@ -140,7 +104,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _invocation = new Invocation();
             _invocation.ToolExecutionNotifications = new List<Notification>();
             _invocation.ExecutionSuccessful = true;
-            _results.Clear();
             _files.Clear();
             _rules.Clear();
             _ruleIdToIndexMap.Clear();
@@ -148,8 +111,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _nodeDictionary.Clear();
             _snippetDictionary.Clear();
 
-            ParseFprFile(input);
+            // Parse everything except vulnerabilities (building maps to write Results as-we-go next pass)
+            ParseAuditStream_PassOne(OpenAuditFvdlReader(input));
 
+            // Add Snippets to NodePool Nodes which referenced them (Snippets appear after the NodePool in Fortify files)
+            AddSnippetsToNodes();
+
+            // Create the Sarif Run itself to report
+            Run run = CreateSarifRun();
+
+            // Write the Run itself
+            output.Initialize(run);
+            output.OpenResults();
+
+            // Parse the Vulnerabilities, writing as we go
+            ParseAuditStream_PassTwo(OpenAuditFvdlReader(input), output);
+
+            // Close the Results array
+            output.CloseResults();
+        }
+
+        private Run CreateSarifRun()
+        {
             var run = new Run()
             {
                 AutomationDetails = new RunAutomationDetails
@@ -207,19 +190,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             }
 
-            PersistResults(output, _results, run);
-        }
-
-        private void ParseFprFile(Stream fprFileStream)
-        {
-            // Parse everything except vulnerabilities (building maps to write Results as-we-go next pass)
-            ParseAuditStream_PassOne(OpenAuditFvdlReader(fprFileStream));
-
-            // Add Snippets to NodePool Nodes which referenced them (Snippets appear after the NodePool in Fortify files)
-            AddSnippetsToNodes();
-
-            // Parse the Vulnerabilities, writing as we go
-            ParseAuditStream_PassTwo(OpenAuditFvdlReader(fprFileStream));
+            return run;
         }
 
         private XmlReader OpenAuditFvdlReader(Stream fprFileStream)
@@ -291,7 +262,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        private void ParseAuditStream_PassTwo(XmlReader reader)
+        private void ParseAuditStream_PassTwo(XmlReader reader, IResultLogWriter output)
         {
             // Second Pass: Parse Vulnerabilities only and write as-you-go
             using (_reader = reader)
@@ -300,7 +271,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     if (AtStartOfNonEmpty(_strings.Vulnerabilities))
                     {
-                        ParseVulnerabilities();
+                        ParseVulnerabilities(output);
                         break;
                     }
                 }
@@ -410,14 +381,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        private void ParseVulnerabilities()
+        private void ParseVulnerabilities(IResultLogWriter output)
         {
             _reader.Read();
             while (!AtEndOf(_strings.Vulnerabilities))
             {
                 if (AtStartOfNonEmpty(_strings.Vulnerability))
                 {
-                    ParseVulnerability();
+                    ParseVulnerability(output);
                 }
                 else
                 {
@@ -426,7 +397,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        private void ParseVulnerability()
+        private void ParseVulnerability(IResultLogWriter output)
         {
             _currentResultReplacementDictionary.Clear();
 
@@ -486,7 +457,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             // Set Result location including any Replacement Dictionary replacements
             AddMessagesToResult(result);
 
-            _results.Add(result);
+            // Write the Result out (don't keep in memory)
+            output.WriteResult(result);
         }
 
         private void ParseLocationsFromTraces(Result result)
@@ -1167,6 +1139,42 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     snippet.ApplyTo(node.ThreadFlowLocation.Location.PhysicalLocation);
                 }
+            }
+        }
+
+        /// <summary>
+        ///  Represents a Snippet in the Fortify format converted to Sarif types.
+        /// </summary>
+        private class Snippet
+        {
+            public Region Region { get; set; }
+            public Region ContextRegion { get; set; }
+
+            public Snippet(Region region, Region contextRegion)
+            {
+                this.Region = region;
+                this.ContextRegion = contextRegion;
+            }
+
+            public void ApplyTo(PhysicalLocation physicalLocation)
+            {
+                physicalLocation.Region = this.Region;
+                physicalLocation.ContextRegion = this.ContextRegion;
+            }
+        }
+
+        /// <summary>
+        ///  Represents a Node in the Fortify format converted to Sarif types
+        /// </summary>
+        private class Node
+        {
+            public ThreadFlowLocation ThreadFlowLocation { get; set; }
+            public string SnippetId { get; set; }
+
+            public Node(ThreadFlowLocation tfl, string snippetId)
+            {
+                this.ThreadFlowLocation = tfl;
+                this.SnippetId = snippetId;
             }
         }
     }

@@ -371,8 +371,7 @@
         {
           "location": {
             "uri": "Helpers/InvoiceHelper.cs",
-            "uriBaseId": "SRCROOT",
-            "index": 0
+            "uriBaseId": "SRCROOT"
           },
           "length": 8297,
           "mimeType": "text/x-csharp",
@@ -381,8 +380,7 @@
         {
           "location": {
             "uri": "Helpers/Logger.cs",
-            "uriBaseId": "SRCROOT",
-            "index": 1
+            "uriBaseId": "SRCROOT"
           },
           "length": 3645,
           "mimeType": "text/x-csharp",
@@ -391,8 +389,7 @@
         {
           "location": {
             "uri": "Program.cs",
-            "uriBaseId": "SRCROOT",
-            "index": 2
+            "uriBaseId": "SRCROOT"
           },
           "length": 5009,
           "mimeType": "text/x-csharp",

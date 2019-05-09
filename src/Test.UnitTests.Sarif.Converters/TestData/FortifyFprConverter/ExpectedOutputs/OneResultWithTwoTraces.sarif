@@ -395,8 +395,7 @@
         {
           "location": {
             "uri": "Helpers/DBHelper.cs",
-            "uriBaseId": "SRCROOT",
-            "index": 0
+            "uriBaseId": "SRCROOT"
           },
           "length": 8297,
           "mimeType": "text/x-csharp",
