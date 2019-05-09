@@ -262,7 +262,7 @@
               "text": "Verifies only strong hash algorithms are used"
             },
             "messageStrings": {
-              "default": "'{0}' used the weak '{1}' hash algorithm."
+              "default": "'{0}' obtained a handle to the '{1}' hash algorithm, which is considered insecure."
             },
             "configuration": {
               "defaultLevel": "warning"
