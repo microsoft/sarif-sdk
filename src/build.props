@@ -9,9 +9,15 @@
     <Company Condition=" '$(Company)' == '' ">Microsoft</Company>
     <Product Condition=" '$(Product)' == '' ">Microsoft SARIF SDK</Product>
     <Copyright Condition=" '$(Copyright)' == '' ">© Microsoft Corporation. All rights reserved.</Copyright>
+    
+    <!-- VersionPrefix denotes the stable Version of SARIF Specifications. -->
     <VersionPrefix>2.1.0</VersionPrefix>
-    <SchemaVersion>2.1.0-rtm.0</SchemaVersion>
-    <SdkVersion>2.1.0</SdkVersion>
+    
+     <!-- SchemaVersionAsPublishedToSchemaStoreOrg identifies the current published version on json schema store at http://json.schemastore.org/ -->
+    <SchemaVersionAsPublishedToSchemaStoreOrg>2.1.0-rtm.0</SchemaVersionAsPublishedToSchemaStoreOrg>
+      
+    <!-- PackageVersion is the current Semantic Version for the SDK. Must be updated before every nuget drop. -->
+    <PackageVersion>2.1.0</PackageVersion>
 
     <!--
     Whenever you increment VersionPrefix or VersionSuffix, copy the old value(s)
@@ -24,8 +30,8 @@
     hides the previous package versions on nuget.org.
     -->
     <PreviousVersionPrefix>2.0.0-csd.2.beta.2019-04-03</PreviousVersionPrefix>
-    <PreviousSchemaVersion>2.1.0-beta.2</PreviousSchemaVersion>
-    <PreviousSdkVersion>2.1.0-rtm.0</PreviousSdkVersion>
+    <PreviousSchemaVersionAsPublishedToSchemaStoreOrg>2.1.0-beta.2</PreviousSchemaVersionAsPublishedToSchemaStoreOrg>
+    <PreviousPackageVersion>2.1.0-rtm.0</PreviousPackageVersion>
   </PropertyGroup>
 
   <PropertyGroup Label="Build">

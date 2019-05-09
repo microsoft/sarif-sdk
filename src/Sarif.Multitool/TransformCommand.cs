@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     }
                     else
                     {
-                        string currentSarifVersion = SarifUtilities.SemanticVersion;
+                        string currentSarifVersion = SarifUtilities.StableSarifVersion;
 
                         string sarifText = _fileSystem.ReadAllText(inputFilePath);
                         SarifLog actualLog = null;

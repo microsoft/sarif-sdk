@@ -113,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             var run = new Run();
             run.Tool = new Tool();
 
-            run.Tool = Tool.CreateFromAssemblyData(this.GetType().Assembly, Prerelease);
+            run.Tool = Tool.CreateFromAssemblyData(this.GetType().Assembly);
             run.Results = new List<Result>();
 
             log.Runs.Add(run);
