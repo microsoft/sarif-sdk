@@ -22,20 +22,8 @@ $PackageSource = "https://nuget.org"
 $PackageOutputDirectoryRoot = Join-Path $BinRoot NuGet
 
 function Get-PackageVersion([switch]$previous) {
-    $versionPrefix, $versionSuffix, $packageVersionSuffix = & $PSScriptRoot\Get-VersionConstants.ps1 -Previous:$previous
-    $version = $versionPrefix
-    
-	if ($versionSuffix)
-    {
-        $version += "-$versionSuffix"
-    }
-
-    if ($packageVersionSuffix)
-    {
-        $version += $packageVersionSuffix
-    }
-
-   $version
+    $versionPrefix, $schemaVersion, $stableSarifVersion = & $PSScriptRoot\Get-VersionConstants.ps1 -Previous:$previous
+    $versionPrefix
 }
 
 function Get-PackageDirectoryName($configuration) {

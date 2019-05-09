@@ -374,3 +374,6 @@
 * API BREAKING: Add regex patterns for guid and language in schema.
 * API NON-BREAKING: Add `run.specialLocations` in schema. https://github.com/oasis-tcs/sarif-spec/issues/396
 * API BREAKING: Improve `address` object design. https://github.com/oasis-tcs/sarif-spec/issues/401
+
+## **v2.1.0** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.0) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.0) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.0)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.0)
+* API NON-BREAKING: `PhysicalLocation.id` property is getting lost during 2.1.0 pre-release transformation. https://github.com/microsoft/sarif-sdk/issues/1479
