@@ -10,14 +10,14 @@
     <Product Condition=" '$(Product)' == '' ">Microsoft SARIF SDK</Product>
     <Copyright Condition=" '$(Copyright)' == '' ">© Microsoft Corporation. All rights reserved.</Copyright>
     
-    <!-- VersionPrefix denotes the stable Version of SARIF Specifications. -->
+    <!-- VersionPrefix denotes the current Semantic Version for the SDK. Must be updated before every nuget drop. -->
     <VersionPrefix>2.1.0</VersionPrefix>
     
      <!-- SchemaVersionAsPublishedToSchemaStoreOrg identifies the current published version on json schema store at http://json.schemastore.org/ -->
     <SchemaVersionAsPublishedToSchemaStoreOrg>2.1.0-rtm.0</SchemaVersionAsPublishedToSchemaStoreOrg>
       
-    <!-- PackageVersion is the current Semantic Version for the SDK. Must be updated before every nuget drop. -->
-    <PackageVersion>2.1.0</PackageVersion>
+    <!-- The stable Version of SARIF Specifications. -->
+    <StableSarifVersion>2.1.0</StableSarifVersion>
 
     <!--
     Whenever you increment VersionPrefix or VersionSuffix, copy the old value(s)
