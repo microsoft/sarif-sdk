@@ -220,26 +220,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     _run.Invocations[0].EndTimeUtc = DateTime.UtcNow;
                 }
 
-                if (_run?.Tool != null)
-                {
-                    _issueLogJsonWriter.WriteTool(_run.Tool);
-                }
-
-                if (_run?.Artifacts != null)
-                {
-                    _issueLogJsonWriter.WriteArtifacts(_run.Artifacts);
-                }
-
-                if (_run?.Invocations != null)
-                {
-                    _issueLogJsonWriter.WriteInvocations(invocations: _run.Invocations);
-                }
-
-                if (_run?.Properties != null)
-                {
-                    _issueLogJsonWriter.WriteRunProperties(_run.Properties);
-                }
-
+                _issueLogJsonWriter.CompleteRun();
                 _issueLogJsonWriter.Dispose();
             }
 

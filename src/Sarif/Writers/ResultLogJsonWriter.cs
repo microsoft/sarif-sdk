@@ -24,6 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             ResultsInitialized = 0x010,
             ResultsClosed = 0x020,
             LogicalLocationsWritten = 0x040,
+            ThreadFlowsWritten = 0x080,
             Disposed = 0x40000000
         }
 
@@ -328,16 +329,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _serializer.Serialize(_jsonWriter, properties);
         }
 
-        /// <summary>Writes the log footer and closes the underlying <see cref="JsonWriter"/>.</summary>
-        /// <seealso cref="M:System.IDisposable.Dispose()"/>
-        public void Dispose()
+        public void CompleteRun()
         {
-            EnsureInitialized();
-
-            if ((_writeConditions & Conditions.Disposed) == Conditions.Disposed)
-            {
-                return;
-            }
+            // TODO: Review to ensure all Run properties are being serialized somewhere.
 
             if ((_writeConditions & Conditions.ResultsInitialized) == Conditions.ResultsInitialized &&
                 (_writeConditions & Conditions.ResultsClosed) != Conditions.ResultsClosed)
@@ -368,12 +362,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 WriteLogicalLocations(_run.LogicalLocations);
             }
 
+            if (!_writeConditions.HasFlag(Conditions.ThreadFlowsWritten) && _run.ThreadFlowLocations != null)
+            {
+                _jsonWriter.WritePropertyName("threadFlowLocations");
+                _serializer.Serialize(_jsonWriter, _run.ThreadFlowLocations);
+                _writeConditions |= Conditions.ThreadFlowsWritten;
+            }
+
             // Log complete. Write the end object.
 
             _jsonWriter.WriteEndObject(); // End: run
             _jsonWriter.WriteEndArray();  // End: runs
             _jsonWriter.WriteEndObject(); // End: sarifLog
+        }
 
+        /// <summary>Writes the log footer and closes the underlying <see cref="JsonWriter"/>.</summary>
+        /// <seealso cref="M:System.IDisposable.Dispose()"/>
+        public void Dispose()
+        {
+            EnsureInitialized();
+
+            if ((_writeConditions & Conditions.Disposed) == Conditions.Disposed)
+            {
+                return;
+            }
+
+            CompleteRun();
             _writeConditions |= Conditions.Disposed;
         }
 

@@ -9,6 +9,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Xml;
+
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
@@ -167,6 +168,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 },
                 Invocations = new[] { _invocation },
             };
+
+            // HUGE: Serialize nodes once as ThreadFlowLocations
+            if (_nodeDictionary?.Count > 0)
+            {
+                run.ThreadFlowLocations = new List<ThreadFlowLocation>();
+                foreach (Node node in _nodeDictionary.Values)
+                {
+                    node.Index = run.ThreadFlowLocations.Count;
+                    run.ThreadFlowLocations.Add(node.ThreadFlowLocation);
+                }
+            }
 
             if (_cweIds.Count > 0)
             {
@@ -485,7 +497,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             {
                                 if (_nodeDictionary.TryGetValue(nodeId, out Node node))
                                 {
-                                    codeFlow.ThreadFlows[0].Locations.Add(node.ThreadFlowLocation);
+                                    // HUGE: Is this why the log is huge?
+                                    //codeFlow.ThreadFlows[0].Locations.Add(node.ThreadFlowLocation);
+                                    codeFlow.ThreadFlows[0].Locations.Add(new ThreadFlowLocation() { Index = node.Index });
                                 }
                             }
 
@@ -1170,6 +1184,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             public ThreadFlowLocation ThreadFlowLocation { get; set; }
             public string SnippetId { get; set; }
+            public int Index { get; set; }
 
             public Node(ThreadFlowLocation tfl, string snippetId)
             {
