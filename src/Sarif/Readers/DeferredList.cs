@@ -1,10 +1,11 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
 
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
@@ -65,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             while (true)
             {
                 reader.Read();
-                if (reader.TokenType == JsonToken.EndArray) break;
+                if (reader.TokenType == JsonToken.EndArray) { break; }
 
                 count++;
                 reader.Skip();
@@ -76,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         private void EnsurePositionsBuilt()
         {
-            if (_itemPositions == null) BuildPositions();
+            if (_itemPositions == null) { BuildPositions(); }
         }
 
         private void BuildPositions()
@@ -98,7 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             while (true)
             {
                 reader.Read();
-                if (reader.TokenType == JsonToken.EndArray) break;
+                if (reader.TokenType == JsonToken.EndArray) { break; }
 
                 positions.Add(currentOffset + reader.TokenPosition);
                 reader.Skip();
@@ -112,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         {
             get
             {
-                if (_count < 0) EnsurePositionsBuilt();
+                if (_count < 0) { EnsurePositionsBuilt(); }
                 return _count;
             }
         }
@@ -124,16 +125,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             get
             {
                 EnsurePositionsBuilt();
-                if (_stream == null) _stream = _streamProvider();
+                if (_stream == null) { _stream = _streamProvider(); }
 
-                if (index < 0 || index > _itemPositions.Length) throw new IndexOutOfRangeException("index");
+                if (index < 0 || index > _itemPositions.Length) { throw new IndexOutOfRangeException("index"); }
 
                 // Seek to the item
                 long position = _itemPositions[index];
                 _stream.Seek(position, SeekOrigin.Begin);
 
                 // Build a JsonTextReader
-                using (JsonTextReader reader = new JsonTextReader(new StreamReader(_stream)))
+                using (JsonInnerTextReader reader = new JsonInnerTextReader(new StreamReader(_stream)))
                 {
                     reader.CloseInput = false;
                     reader.Read();
@@ -147,7 +148,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            if (arrayIndex < 0 || arrayIndex + this.Count > array.Length) throw new ArgumentOutOfRangeException("arrayIndex");
+            if (arrayIndex < 0 || arrayIndex + this.Count > array.Length) { throw new ArgumentOutOfRangeException("arrayIndex"); }
 
             int index = arrayIndex;
             foreach (T item in this)
@@ -247,7 +248,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             public bool MoveNext()
             {
-                if (_jsonTextReader.TokenType == JsonToken.EndArray) return false;
+                if (_jsonTextReader.TokenType == JsonToken.EndArray) { return false; }
 
                 // Read the next item
                 Current = _jsonSerializer.Deserialize<U>(_jsonTextReader);
@@ -269,7 +270,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 _stream.Seek(_start, SeekOrigin.Begin);
 
                 // Build a JsonTextReader
-                _jsonTextReader = new JsonTextReader(new StreamReader(_stream));
+                _jsonTextReader = new JsonInnerTextReader(new StreamReader(_stream));
 
                 // StartArray
                 _jsonTextReader.Read();
