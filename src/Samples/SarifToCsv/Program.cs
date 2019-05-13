@@ -149,13 +149,6 @@ namespace SarifToCsv
             writers["Location.Region.StartLine"] = (writer, result, pLoc) => { writer.Write(pLoc.Region?.StartLine ?? -1); };
             writers["Location.Region.Tags"] = (writer, result, pLoc) => { writer.Write(String.Join("; ", ((IEnumerable<string>)pLoc.Region?.Tags) ?? Array.Empty<string>())); };
 
-            writers["Properties.MatchState"] = (writer, result, pLoc) => 
-            {
-                string state;
-                if(!result.TryGetProperty("matchState", out state)) { state = null; }
-                writer.Write(state);
-            };
-
             return writers;
         }
     }
