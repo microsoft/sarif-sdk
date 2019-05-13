@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using Newtonsoft.Json;
@@ -24,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             ResultsInitialized = 0x010,
             ResultsClosed = 0x020,
             LogicalLocationsWritten = 0x040,
-            ThreadFlowsWritten = 0x080,
+            RunCompleted = 0x080,
             Disposed = 0x40000000
         }
 
@@ -57,6 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 throw new ArgumentNullException(nameof(run));
             }
 
+            _run = run;
             this.EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.RunInitialized);
 
             SarifVersion sarifVersion = SarifVersion.Current;
@@ -72,63 +74,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _jsonWriter.WriteStartObject(); // Begin: run
 
-            if (run.AutomationDetails != null)
-            {
-                _jsonWriter.WritePropertyName("automationDetails");
-                _serializer.Serialize(_jsonWriter, run.AutomationDetails);
-            }
-
-            if (!string.IsNullOrEmpty(run.BaselineGuid))
-            {
-                _jsonWriter.WritePropertyName("baselineGuid");
-                _serializer.Serialize(_jsonWriter, run.BaselineGuid);
-            }
-
-            if (run.RunAggregates != null)
-            {
-                _jsonWriter.WritePropertyName("runAggregates");
-                _serializer.Serialize(_jsonWriter, run.RunAggregates);
-            }
-
-            if (run.Conversion != null)
-            {
-                _jsonWriter.WritePropertyName("conversion");
-                _serializer.Serialize(_jsonWriter, run.Conversion);
-            }
-
-            if (run.VersionControlProvenance != null)
-            {
-                _jsonWriter.WritePropertyName("versionControlProvenance");
-                _serializer.Serialize(_jsonWriter, run.VersionControlProvenance);
-            }
-
-            if (run.OriginalUriBaseIds != null)
-            {
-                _jsonWriter.WritePropertyName("originalUriBaseIds");
-                _serializer.Serialize(_jsonWriter, run.OriginalUriBaseIds);
-            }
-
-            if (run.DefaultEncoding != null)
-            {
-                _jsonWriter.WritePropertyName("defaultEncoding");
-                _serializer.Serialize(_jsonWriter, run.DefaultEncoding);
-            }
-
-            if (run.RedactionTokens != null)
-            {
-                _jsonWriter.WritePropertyName("redactionTokens");
-                _serializer.Serialize(_jsonWriter, run.RedactionTokens);
-            }
+            SerializeIfNotNull(_run.AutomationDetails, "automationDetails");
+            SerializeIfNotNull(_run.BaselineGuid, "baselineGuid");
+            SerializeIfNotNull(_run.Conversion, "conversion");
+            SerializeIfNotNull(_run.DefaultEncoding, "defaultEncoding");
+            SerializeIfNotNull(_run.DefaultSourceLanguage, "defaultSourceLanguage");
+            SerializeIfNotNull(_run.OriginalUriBaseIds, "originalUriBaseIds");
+            SerializeIfNotNull(_run.Language, "language");
+            SerializeIfNotNull(_run.RedactionTokens, "redactionTokens");
+            SerializeIfNotNull(_run.RunAggregates, "runAggregates");
+            SerializeIfNotNull(_run.NewlineSequences, "newlineSequences");
+            SerializeIfNotNull(_run.VersionControlProvenance, "versionControlProvenance");
 
             // For this Windows-relevant SDK, if the column kind isn't explicitly set,
             // we will set it to Utf16CodeUnits. Our jschema-generated OM is tweaked to 
             // always persist this property.
             _jsonWriter.WritePropertyName("columnKind");
-            _jsonWriter.WriteValue(run.ColumnKind == ColumnKind.UnicodeCodePoints ? "unicodeCodePoints" : "utf16CodeUnits");
+            _jsonWriter.WriteValue(_run.ColumnKind == ColumnKind.UnicodeCodePoints ? "unicodeCodePoints" : "utf16CodeUnits");
 
             _writeConditions |= Conditions.RunInitialized;
-
-            _run = run;
         }
 
         /// <summary>
@@ -220,8 +184,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             EnsureResultsArrayIsNotOpen();
             EnsureStateNotAlreadySet(Conditions.Disposed | Conditions.ToolWritten);
 
-            _jsonWriter.WritePropertyName("tool");
-            _serializer.Serialize(_jsonWriter, tool);
+            SerializeIfNotNull(tool, "tool");
 
             _writeConditions |= Conditions.ToolWritten;
         }
@@ -323,15 +286,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             _writeConditions |= Conditions.ResultsClosed;
         }
 
-        internal void WriteRunProperties(IDictionary<string, SerializedPropertyInfo> properties)
-        {
-            _jsonWriter.WritePropertyName("properties");
-            _serializer.Serialize(_jsonWriter, properties);
-        }
-
         public void CompleteRun()
         {
-            // TODO: Review to ensure all Run properties are being serialized somewhere.
+            if (_writeConditions.HasFlag(Conditions.RunCompleted)) { return; }
 
             if ((_writeConditions & Conditions.ResultsInitialized) == Conditions.ResultsInitialized &&
                 (_writeConditions & Conditions.ResultsClosed) != Conditions.ResultsClosed)
@@ -362,18 +319,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 WriteLogicalLocations(_run.LogicalLocations);
             }
 
-            if (!_writeConditions.HasFlag(Conditions.ThreadFlowsWritten) && _run.ThreadFlowLocations != null)
-            {
-                _jsonWriter.WritePropertyName("threadFlowLocations");
-                _serializer.Serialize(_jsonWriter, _run.ThreadFlowLocations);
-                _writeConditions |= Conditions.ThreadFlowsWritten;
-            }
+            SerializeIfNotNull(_run.Addresses, "addresses");
+            SerializeIfNotNull(_run.ExternalPropertyFileReferences, "externalPropertyFileReferences");
+            SerializeIfNotNull(_run.Graphs, "graphs");
+            SerializeIfNotNull(_run.Policies, "policies");
+            SerializeIfNotNull(_run.Properties, "properties");
+            SerializeIfNotNull(_run.SpecialLocations, "specialLocations");
+            SerializeIfNotNull(_run.Tags, "tags");
+            SerializeIfNotNull(_run.Translations, "translations");
+            SerializeIfNotNull(_run.ThreadFlowLocations, "threadFlowLocations");
+            SerializeIfNotNull(_run.WebRequests, "webRequests");
+            SerializeIfNotNull(_run.WebResponses, "webResponses");
 
             // Log complete. Write the end object.
-
             _jsonWriter.WriteEndObject(); // End: run
             _jsonWriter.WriteEndArray();  // End: runs
             _jsonWriter.WriteEndObject(); // End: sarifLog
+
+            _writeConditions |= Conditions.RunCompleted;
         }
 
         /// <summary>Writes the log footer and closes the underlying <see cref="JsonWriter"/>.</summary>
@@ -389,6 +352,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             CompleteRun();
             _writeConditions |= Conditions.Disposed;
+        }
+
+        private void SerializeIfNotNull(object value, string propertyName)
+        {
+            // Don't serialize null objects or empty enumerables
+            if (value == null || IsEmptyEnumerable(value)) { return; }
+
+            _jsonWriter.WritePropertyName(propertyName);
+            _serializer.Serialize(_jsonWriter, value);
+        }
+
+        private static bool IsEmptyEnumerable(object value)
+        {
+            IEnumerable e = value as IEnumerable;
+            if (e == null)
+            {
+                return false;
+            }
+            else
+            {
+                // This is empty if MoveNext returns false the first time
+                return !e.GetEnumerator().MoveNext();
+            }
         }
 
         private void EnsureInitialized()

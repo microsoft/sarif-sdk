@@ -65,6 +65,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private Dictionary<string, Node> _nodeDictionary;
         private Dictionary<string, Snippet> _snippetDictionary;
 
+        // Output Configurability
+        public bool IncludeThreadFlowLocations { get; set; }
+        public bool IncludeSnippets { get; set; }
+        public bool IncludeContextRegions { get; set; }
+
         /// <summary>Initializes a new instance of the <see cref="FortifyFprConverter"/> class.</summary>
         public FortifyFprConverter()
         {
@@ -78,6 +83,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _cweIds = new HashSet<string>();
             _nodeDictionary = new Dictionary<string, Node>();
             _snippetDictionary = new Dictionary<string, Snippet>();
+
+            IncludeContextRegions = true;
+            IncludeSnippets = true;
+            IncludeThreadFlowLocations = true;
         }
 
         public override string ToolName => "HP Fortify Static Code Analyzer";
@@ -169,8 +178,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Invocations = new[] { _invocation },
             };
 
-            // HUGE: Serialize nodes once as ThreadFlowLocations
-            if (_nodeDictionary?.Count > 0)
+            // Note: Serialize ThreadFlowLocations from the 'UnifiedNodePool' to maintain same reuse as Fortify log
+            if (_nodeDictionary?.Count > 0 && IncludeThreadFlowLocations)
             {
                 run.ThreadFlowLocations = new List<ThreadFlowLocation>();
                 foreach (Node node in _nodeDictionary.Values)
@@ -413,12 +422,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             _currentResultReplacementDictionary.Clear();
 
-            var result = new Result
-            {
-                RelatedLocations = new List<Location>(),
-                CodeFlows = new List<CodeFlow>()
-            };
-
+            var result = new Result();
             _reader.Read();
             ReportingDescriptor rule = null;
             int ruleIndex;
@@ -482,8 +486,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             while (!AtEndOf(_strings.Unified))
             {
-                if (AtStartOf(_strings.Trace))
+                if (AtStartOf(_strings.Trace) && IncludeThreadFlowLocations)
                 {
+                    if (result.CodeFlows == null)
+                    {
+                        result.CodeFlows = new List<CodeFlow>();
+                    }
+
                     codeFlow = SarifUtilities.CreateSingleThreadedCodeFlow();
                     result.CodeFlows.Add(codeFlow);
 
@@ -497,8 +506,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             {
                                 if (_nodeDictionary.TryGetValue(nodeId, out Node node))
                                 {
-                                    // HUGE: Is this why the log is huge?
-                                    //codeFlow.ThreadFlows[0].Locations.Add(node.ThreadFlowLocation);
+                                    // Add a ThreadFlowLocation referencing the global set, mimicing the reuse within the Fortify format
                                     codeFlow.ThreadFlows[0].Locations.Add(new ThreadFlowLocation() { Index = node.Index });
                                 }
                             }
@@ -579,7 +587,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                                 if (isDefault == true)
                                 {
-                                    result.Locations = new List<Location>();
+                                    if (result.Locations == null) { result.Locations = new List<Location>(); }
+                                    if (result.RelatedLocations == null) { result.RelatedLocations = new List<Location>(); }
                                     result.Locations.Add(location.DeepClone());
                                     result.RelatedLocations.Add(location.DeepClone());
 
@@ -625,7 +634,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             }
 
-            if (result.RelatedLocations.Any())
+            if (result.RelatedLocations != null && result.RelatedLocations.Any())
             {
                 Location relatedLocation = result.RelatedLocations.Last();
 
@@ -973,6 +982,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 region.Snippet = new ArtifactContent { Text = text };
             }
 
+            if (!IncludeContextRegions)
+            {
+                contextRegion = null;
+            }
+
             _snippetDictionary.Add(snippetId, new Snippet(region, contextRegion));
         }
 
@@ -1129,6 +1143,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private void AddSnippetsToResult(Result result, string snippetId)
         {
+            if (!IncludeSnippets) { return; }
+
             if (result.Locations?[0]?.PhysicalLocation?.Region != null &&
                 _snippetDictionary.TryGetValue(snippetId, out Snippet snippet) &&
                 !string.IsNullOrWhiteSpace(snippet.Region?.Snippet.Text))
@@ -1139,6 +1155,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private void AddSnippetToThreadFlowLocation(ThreadFlowLocation tfl, string snippetId)
         {
+            if (!IncludeSnippets) { return; }
+
             if (_snippetDictionary.TryGetValue(snippetId, out Snippet snippet))
             {
                 snippet.ApplyTo(tfl.Location.PhysicalLocation);
@@ -1147,6 +1165,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private void AddSnippetsToNodes()
         {
+            if (!IncludeSnippets) { return; }
+
             foreach (Node node in _nodeDictionary.Values)
             {
                 if (!String.IsNullOrEmpty(node.SnippetId) && _snippetDictionary.TryGetValue(node.SnippetId, out Snippet snippet))

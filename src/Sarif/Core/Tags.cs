@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
-    public class TagsCollection : ISet<string>
+    public class TagsCollection : ISet<string>, ICollection<string>
     {
         internal const string TagsPropertyName = "tags";
         private static readonly ISet<string> Empty = ImmutableHashSet<string>.Empty;
