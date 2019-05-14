@@ -118,7 +118,7 @@ namespace SarifToCsv
             writers["CorrelationGuid"] = (writer, result, pLoc) => { writer.Write(result.CorrelationGuid ?? ""); };
             writers["Fingerprints"] = (writer, result, pLoc) => { writer.Write(String.Join("; ", result.Fingerprints?.Values ?? Array.Empty<string>())); };
             writers["HostedViewerUri"] = (writer, result, pLoc) => { writer.Write(result.HostedViewerUri?.ToString() ?? ""); };
-            writers["InstanceGuid"] = (writer, result, pLoc) => { writer.Write(result.InstanceGuid ?? ""); };
+            writers["Guid"] = (writer, result, pLoc) => { writer.Write(result.Guid ?? ""); };
             writers["Level"] = (writer, result, pLoc) => { writer.Write(result.Level.ToString()); };
             writers["Message.Text"] = (writer, result, pLoc) => { writer.Write(result.Message?.Text ?? ""); };
             writers["OccurrenceCount"] = (writer, result, pLoc) => { writer.Write(result.OccurrenceCount); };
@@ -127,10 +127,9 @@ namespace SarifToCsv
             writers["Rank"] = (writer, result, pLoc) => { writer.Write(result.Rank.ToString()); };
             writers["RuleId"] = (writer, result, pLoc) => { writer.Write(result.RuleId ?? ""); };
             writers["RuleIndex"] = (writer, result, pLoc) => { writer.Write(result.RuleIndex); };
-            writers["SuppressionStates"] = (writer, result, pLoc) => { writer.Write(result.SuppressionStates.ToString()); };
             writers["Tags"] = (writer, result, pLoc) => { writer.Write(String.Join("; ", ((IEnumerable<string>)result.Tags) ?? Array.Empty<string>())); };
             writers["WorkItemUris"] = (writer, result, pLoc) => { writer.Write(String.Join("; ", result.WorkItemUris?.Select((uri) => uri.ToString()) ?? Array.Empty<string>())); };
-
+            
             // PhysicalLocation Properties
             writers["Location.Tags"] = (writer, result, pLoc) => { writer.Write(String.Join("; ", ((IEnumerable<string>)pLoc.Tags) ?? Array.Empty<string>())); };
             writers["Location.Uri"] = (writer, result, pLoc) => { writer.Write(pLoc.ArtifactLocation?.Uri?.ToString() ?? ""); };

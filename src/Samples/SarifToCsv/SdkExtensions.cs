@@ -33,9 +33,9 @@ namespace SarifToCsv
             {
                 return artifactLocation.Uri.ToString();
             }
-            else if (artifactLocation.FileIndex >= 0 && artifactLocation.FileIndex < run.Files.Count)
+            else if (artifactLocation.Index >= 0 && artifactLocation.Index < run.Artifacts.Count)
             {
-                return run.Files[artifactLocation.FileIndex].ArtifactLocation?.Uri?.ToString();
+                return run.Artifacts[artifactLocation.Index].Location?.Uri?.ToString();
             }
             else
             {
