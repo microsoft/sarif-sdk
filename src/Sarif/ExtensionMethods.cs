@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.using System;
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -19,6 +20,20 @@ namespace Microsoft.CodeAnalysis.Sarif
             return v1MessageStringsDictionary?.ToDictionary(
                  keyValuePair => keyValuePair.Key,
                  keyValuePair => new MultiformatMessageString { Text = keyValuePair.Value });
+        }
+
+        public static bool IsEmptyEnumerable(this object value)
+        {
+            IEnumerable e = value as IEnumerable;
+            if (e == null)
+            {
+                return false;
+            }
+            else
+            {
+                // This is empty if MoveNext returns false the first time
+                return !e.GetEnumerator().MoveNext();
+            }
         }
 
         public static bool HasAtLeastOneNonNullValue<T>(this IEnumerable<T> collection)

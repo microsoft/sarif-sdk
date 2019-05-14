@@ -56,8 +56,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // FileMode settings here will results in an exception being raised if the input 
             // file does not exist, and that an existing output file will be overwritten
-            Stopwatch w = Stopwatch.StartNew();
-
             using (var input = File.OpenRead(inputFileName))
             using (var outputTextStream = File.Create(outputFileName))
             using (var outputTextWriter = new StreamWriter(outputTextStream))
@@ -73,9 +71,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     ConvertToStandardFormat(toolFormat, input, output, dataToInsert, pluginAssemblyPath);
                 }
             }
-
-            w.Stop();
-            Console.WriteLine($"Done in {w.Elapsed.TotalSeconds:n1}s.");
         }
 
 

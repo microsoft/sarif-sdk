@@ -74,24 +74,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             _jsonWriter.WriteStartObject(); // Begin: run
 
-            SerializeIfNotNull(_run.AutomationDetails, "automationDetails");
-            SerializeIfNotNull(_run.BaselineGuid, "baselineGuid");
-            SerializeIfNotNull(_run.Conversion, "conversion");
-            SerializeIfNotNull(_run.DefaultEncoding, "defaultEncoding");
-            SerializeIfNotNull(_run.DefaultSourceLanguage, "defaultSourceLanguage");
-            SerializeIfNotNull(_run.OriginalUriBaseIds, "originalUriBaseIds");
-            SerializeIfNotNull(_run.Language, "language");
-            SerializeIfNotNull(_run.RedactionTokens, "redactionTokens");
-            SerializeIfNotNull(_run.RunAggregates, "runAggregates");
-            SerializeIfNotNull(_run.NewlineSequences, "newlineSequences");
-            SerializeIfNotNull(_run.VersionControlProvenance, "versionControlProvenance");
-
-            // For this Windows-relevant SDK, if the column kind isn't explicitly set,
-            // we will set it to Utf16CodeUnits. Our jschema-generated OM is tweaked to 
-            // always persist this property.
-            _jsonWriter.WritePropertyName("columnKind");
-            _jsonWriter.WriteValue(_run.ColumnKind == ColumnKind.UnicodeCodePoints ? "unicodeCodePoints" : "utf16CodeUnits");
-
             _writeConditions |= Conditions.RunInitialized;
         }
 
@@ -296,6 +278,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 CloseResults();
             }
 
+            // NOTE: These components are written in schema declaration order, except for Results.
+            // This should be as similar to serializing the whole object as possible.
+
             if ((_writeConditions & Conditions.ToolWritten) != Conditions.ToolWritten)
             {
                 WriteTool(_run.Tool);
@@ -306,6 +291,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             {
                 WriteInvocations(_run.Invocations);
             }
+
+            SerializeIfNotNull(_run.Tags, "tags");
+            SerializeIfNotNull(_run.Conversion, "conversion");
+            SerializeIfNotNull(_run.Language, "language");
+            SerializeIfNotNull(_run.VersionControlProvenance, "versionControlProvenance");
+            SerializeIfNotNull(_run.OriginalUriBaseIds, "originalUriBaseIds");
 
             if ((_writeConditions & Conditions.FilesWritten) != Conditions.FilesWritten &&
                 _run.Artifacts != null)
@@ -319,17 +310,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 WriteLogicalLocations(_run.LogicalLocations);
             }
 
-            SerializeIfNotNull(_run.Addresses, "addresses");
-            SerializeIfNotNull(_run.ExternalPropertyFileReferences, "externalPropertyFileReferences");
             SerializeIfNotNull(_run.Graphs, "graphs");
-            SerializeIfNotNull(_run.Policies, "policies");
-            SerializeIfNotNull(_run.Properties, "properties");
-            SerializeIfNotNull(_run.SpecialLocations, "specialLocations");
-            SerializeIfNotNull(_run.Tags, "tags");
-            SerializeIfNotNull(_run.Translations, "translations");
+            
+            // Results go here in schema order
+
+            SerializeIfNotNull(_run.AutomationDetails, "automationDetails");
+            SerializeIfNotNull(_run.RunAggregates, "runAggregates");
+            SerializeIfNotNull(_run.BaselineGuid, "baselineGuid");
+            SerializeIfNotNull(_run.RedactionTokens, "redactionTokens");
+            SerializeIfNotNull(_run.DefaultEncoding, "defaultEncoding");
+            SerializeIfNotNull(_run.DefaultSourceLanguage, "defaultSourceLanguage");
+            SerializeIfNotNull(_run.NewlineSequences, "newlineSequences");
+            SerializeIfNotNull(_run.ColumnKind == ColumnKind.UnicodeCodePoints ? "unicodeCodePoints" : "utf16CodeUnits", "columnKind");
+            SerializeIfNotNull(_run.ExternalPropertyFileReferences, "externalPropertyFileReferences");
             SerializeIfNotNull(_run.ThreadFlowLocations, "threadFlowLocations");
+            SerializeIfNotNull(_run.Taxonomies, "taxonomies");
+            SerializeIfNotNull(_run.Addresses, "addresses");
+            SerializeIfNotNull(_run.Translations, "translations");
+            SerializeIfNotNull(_run.Policies, "policies");
             SerializeIfNotNull(_run.WebRequests, "webRequests");
             SerializeIfNotNull(_run.WebResponses, "webResponses");
+            SerializeIfNotNull(_run.SpecialLocations, "specialLocations");
+            SerializeIfNotNull(_run.Properties, "properties");
 
             // Log complete. Write the end object.
             _jsonWriter.WriteEndObject(); // End: run
@@ -357,24 +359,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private void SerializeIfNotNull(object value, string propertyName)
         {
             // Don't serialize null objects or empty enumerables
-            if (value == null || IsEmptyEnumerable(value)) { return; }
+            if (value == null || ExtensionMethods.IsEmptyEnumerable(value)) { return; }
 
             _jsonWriter.WritePropertyName(propertyName);
             _serializer.Serialize(_jsonWriter, value);
-        }
-
-        private static bool IsEmptyEnumerable(object value)
-        {
-            IEnumerable e = value as IEnumerable;
-            if (e == null)
-            {
-                return false;
-            }
-            else
-            {
-                // This is empty if MoveNext returns false the first time
-                return !e.GetEnumerator().MoveNext();
-            }
         }
 
         private void EnsureInitialized()
