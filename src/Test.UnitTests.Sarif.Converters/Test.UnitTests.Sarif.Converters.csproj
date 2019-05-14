@@ -14,21 +14,6 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
-    <None Remove="TestData\FortifyFprConverter\ExpectedOutputs\OneResultBasic.sarif" />
-    <None Remove="TestData\FortifyFprConverter\ExpectedOutputs\OneResultWithTwoTraces.sarif" />
-    <None Remove="TestData\FortifyFprConverter\ExpectedOutputs\TwoResultsWithNodeRefs.sarif" />
-    <None Remove="TestData\FortifyFprConverter\Inputs\OneResultBasic.fpr" />
-    <None Remove="TestData\FortifyFprConverter\Inputs\OneResultWithTwoTraces.fpr" />
-    <None Remove="TestData\FortifyFprConverter\Inputs\TwoResultsWithNodeRefs.fpr" />
-    <None Remove="TestData\FortifyFprConverter\OneResultBasic.fpr" />
-    <None Remove="TestData\FortifyFprConverter\OneResultBasic.sarif" />
-    <None Remove="TestData\FortifyFprConverter\OneResultWithTwoTraces.fpr" />
-    <None Remove="TestData\FortifyFprConverter\OneResultWithTwoTraces.sarif" />
-    <None Remove="TestData\FortifyFprConverter\TwoResultsWithNodeRefs.fpr" />
-    <None Remove="TestData\FortifyFprConverter\TwoResultsWithNodeRefs.sarif" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.4.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
     <PackageReference Include="Moq" Version="4.8.3" />

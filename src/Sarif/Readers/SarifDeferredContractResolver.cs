@@ -19,7 +19,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         public static new readonly SarifDeferredContractResolver Instance = new SarifDeferredContractResolver();
 
         private static readonly DeferredListConverter<Result> ResultConverterInstance = new DeferredListConverter<Result>();
-        private static readonly DeferredDictionaryConverter<Artifact> FilesConverterInstance = new DeferredDictionaryConverter<Artifact>();
+        private static readonly DeferredListConverter<Artifact> FilesConverterInstance = new DeferredListConverter<Artifact>();
+        private static readonly DeferredListConverter<ThreadFlowLocation> ThreadFlowLocationConverterInstance = new DeferredListConverter<ThreadFlowLocation>();
+        private static readonly DeferredListConverter<LogicalLocation> LogicalLocationConverterInstance = new DeferredListConverter<LogicalLocation>();
+        private static readonly DeferredListConverter<Graph> GraphConverterInstance = new DeferredListConverter<Graph>();
+        private static readonly DeferredListConverter<Notification> NotificationConverterInstance = new DeferredListConverter<Notification>();
 
         protected override JsonContract CreateContract(Type type)
         {
@@ -28,12 +32,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             if (type == typeof(IList<Result>))
             {
                 contract.Converter = ResultConverterInstance;
-                return contract;
             }
-            else if (type == typeof(IDictionary<string, Artifact>))
+            else if (type == typeof(IList<Notification>))
+            {
+                contract.Converter = NotificationConverterInstance;
+            }
+            else if (type == typeof(IList<Artifact>))
             {
                 contract.Converter = FilesConverterInstance;
-                return contract;
+            }
+            else if (type == typeof(IList<ThreadFlowLocation>))
+            {
+                contract.Converter = ThreadFlowLocationConverterInstance;
+            }
+            else if (type == typeof(IList<LogicalLocation>))
+            {
+                contract.Converter = LogicalLocationConverterInstance;
+            }
+            else if(type == typeof(IList<Graph>))
+            {
+                contract.Converter = GraphConverterInstance;
             }
 
             return contract;

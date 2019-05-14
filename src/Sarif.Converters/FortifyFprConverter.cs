@@ -9,6 +9,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Xml;
+
 using Microsoft.CodeAnalysis.Sarif.Writers;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
@@ -51,39 +52,41 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private string _automationId;
         private string _originalUriBasePath;
         private int _currentFileIndex = 0;
-        private List<Result> _results = new List<Result>();
+
+        // Dictionary with replacement variables for the current Result (reused when parsing results to avoid per-Result allocation)
+        private Dictionary<string, string> _currentResultReplacementDictionary;
+
+        // First-Pass Maps: Rules, Artifacts/Files, Nodes, Snippets
+        // These are populated on the first pass and used to output complete Results as-we-go during the second pass
+        private HashSet<string> _cweIds;
         private Dictionary<Uri, Tuple<Artifact, int>> _files;
         private List<ReportingDescriptor> _rules;
         private Dictionary<string, int> _ruleIdToIndexMap;
-        private HashSet<string> _cweIds;
-        private Dictionary<ThreadFlowLocation, string> _tflToNodeIdDictionary;
-        private Dictionary<ThreadFlowLocation, string> _tflToSnippetIdDictionary;
-        private Dictionary<Location, string> _locationToSnippetIdDictionary;
-        private Dictionary<Result, string> _resultToSnippetIdDictionary;
-        private Dictionary<Result, Dictionary<string, string>> _resultToReplacementDefinitionDictionary;
-        private Dictionary<string, Location> _nodeIdToLocationDictionary;
-        private Dictionary<string, string> _nodeIdToActionTypeDictionary;
-        private Dictionary<string, Region[]> _snippetIdToRegionsDictionary;
+        private Dictionary<string, Node> _nodeDictionary;
+        private Dictionary<string, Snippet> _snippetDictionary;
+
+        // Output Configurability
+        public bool IncludeThreadFlowLocations { get; set; }
+        public bool IncludeSnippets { get; set; }
+        public bool IncludeContextRegions { get; set; }
 
         /// <summary>Initializes a new instance of the <see cref="FortifyFprConverter"/> class.</summary>
         public FortifyFprConverter()
         {
             _nameTable = new NameTable();
             _strings = new FortifyFprStrings(_nameTable);
+            _currentResultReplacementDictionary = new Dictionary<string, string>();
 
-            _results = new List<Result>();
             _files = new Dictionary<Uri, Tuple<Artifact, int>>();
             _rules = new List<ReportingDescriptor>();
             _ruleIdToIndexMap = new Dictionary<string, int>();
             _cweIds = new HashSet<string>();
-            _tflToNodeIdDictionary = new Dictionary<ThreadFlowLocation, string>();
-            _tflToSnippetIdDictionary = new Dictionary<ThreadFlowLocation, string>();
-            _locationToSnippetIdDictionary = new Dictionary<Location, string>();
-            _resultToSnippetIdDictionary = new Dictionary<Result, string>();
-            _resultToReplacementDefinitionDictionary = new Dictionary<Result, Dictionary<string, string>>();
-            _nodeIdToLocationDictionary = new Dictionary<string, Location>();
-            _nodeIdToActionTypeDictionary = new Dictionary<string, string>();
-            _snippetIdToRegionsDictionary = new Dictionary<string, Region[]>();
+            _nodeDictionary = new Dictionary<string, Node>();
+            _snippetDictionary = new Dictionary<string, Snippet>();
+
+            IncludeContextRegions = true;
+            IncludeSnippets = true;
+            IncludeThreadFlowLocations = true;
         }
 
         public override string ToolName => "HP Fortify Static Code Analyzer";
@@ -111,26 +114,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _invocation = new Invocation();
             _invocation.ToolExecutionNotifications = new List<Notification>();
             _invocation.ExecutionSuccessful = true;
-            _results.Clear();
             _files.Clear();
             _rules.Clear();
             _ruleIdToIndexMap.Clear();
             _cweIds.Clear();
-            _tflToNodeIdDictionary.Clear();
-            _tflToSnippetIdDictionary.Clear();
-            _locationToSnippetIdDictionary.Clear();
-            _resultToSnippetIdDictionary.Clear();
-            _resultToReplacementDefinitionDictionary.Clear();
-            _nodeIdToLocationDictionary.Clear();
-            _nodeIdToActionTypeDictionary.Clear();
-            _snippetIdToRegionsDictionary.Clear();
+            _nodeDictionary.Clear();
+            _snippetDictionary.Clear();
 
-            ParseFprFile(input);
-            AddMessagesToResults();
-            AddSnippetsToResults();
-            AddNodeLocationsToThreadFlowLocations();
-            AddSnippetsToThreadFlowLocations();
+            // Parse everything except vulnerabilities (building maps to write Results as-we-go next pass)
+            ParseAuditStream_PassOne(OpenAuditFvdlReader(input));
 
+            // Add Snippets to NodePool Nodes which referenced them (Snippets appear after the NodePool in Fortify files)
+            AddSnippetsToNodes();
+
+            // Create the Sarif Run itself to report
+            Run run = CreateSarifRun();
+
+            // Write the Run itself
+            output.Initialize(run);
+            output.OpenResults();
+
+            // Parse the Vulnerabilities, writing as we go
+            ParseAuditStream_PassTwo(OpenAuditFvdlReader(input), output);
+
+            // Close the Results array
+            output.CloseResults();
+        }
+
+        private Run CreateSarifRun()
+        {
             var run = new Run()
             {
                 AutomationDetails = new RunAutomationDetails
@@ -166,6 +178,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Invocations = new[] { _invocation },
             };
 
+            // Note: Serialize ThreadFlowLocations from the 'UnifiedNodePool' to maintain same reuse as Fortify log
+            if (_nodeDictionary?.Count > 0 && IncludeThreadFlowLocations)
+            {
+                run.ThreadFlowLocations = new List<ThreadFlowLocation>();
+                foreach (Node node in _nodeDictionary.Values)
+                {
+                    node.Index = run.ThreadFlowLocations.Count;
+                    run.ThreadFlowLocations.Add(node.ThreadFlowLocation);
+                }
+            }
+
             if (_cweIds.Count > 0)
             {
                 run.Taxonomies[0].Taxa = _cweIds.Select(c => new ReportingDescriptor { Id = c }).ToList();
@@ -188,28 +211,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             }
 
-            PersistResults(output, _results, run);
+            return run;
         }
 
-        private void ParseFprFile(Stream input)
+        private XmlReader OpenAuditFvdlReader(Stream fprFileStream)
         {
-            using (ZipArchive fprArchive = new ZipArchive(input))
-            {
-                using (Stream auditStream = OpenAuditStream(fprArchive))
-                {
-                    ParseAuditStream(auditStream);
-                }
-            }
-        }
-
-        private static Stream OpenAuditStream(ZipArchive fprArchive)
-        {
+            ZipArchive fprArchive = new ZipArchive(fprFileStream);
             ZipArchiveEntry auditEntry = fprArchive.Entries.Single(e => e.FullName.Equals("audit.fvdl"));
-            return auditEntry.Open();
-        }
 
-        private void ParseAuditStream(Stream auditStream)
-        {
             var settings = new XmlReaderSettings
             {
                 DtdProcessing = DtdProcessing.Ignore,
@@ -218,7 +227,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 XmlResolver = null
             };
 
-            using (_reader = XmlReader.Create(auditStream, settings))
+            return XmlReader.Create(auditEntry.Open(), settings);
+        }
+
+        private void ParseAuditStream_PassOne(XmlReader reader)
+        {
+            // Pass One: Everything except vulnerabilities
+            using (_reader = reader)
             {
                 while (_reader.Read())
                 {
@@ -235,10 +250,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     else if (AtStartOfNonEmpty(_strings.Build))
                     {
                         ParseBuild();
-                    }
-                    else if (AtStartOfNonEmpty(_strings.Vulnerabilities))
-                    {
-                        ParseVulnerabilities();
                     }
                     else if (AtStartOfNonEmpty(_strings.Description))
                     {
@@ -267,6 +278,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     else if (AtStartOf(_strings.RuleInfo))
                     {
                         ParseRuleInfo();
+                    }
+                }
+            }
+        }
+
+        private void ParseAuditStream_PassTwo(XmlReader reader, IResultLogWriter output)
+        {
+            // Second Pass: Parse Vulnerabilities only and write as-you-go
+            using (_reader = reader)
+            {
+                while (_reader.Read())
+                {
+                    if (AtStartOfNonEmpty(_strings.Vulnerabilities))
+                    {
+                        ParseVulnerabilities(output);
+                        break;
                     }
                 }
             }
@@ -365,7 +392,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     MimeType = MimeType.DetermineFromFileExtension(fileName),
                     Length = length,
                     Location = new ArtifactLocation
-                    { 
+                    {
                         Uri = uri,
                         UriBaseId = uri.IsAbsoluteUri ? null : FileLocationUriBaseId
                     }
@@ -375,14 +402,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        private void ParseVulnerabilities()
+        private void ParseVulnerabilities(IResultLogWriter output)
         {
             _reader.Read();
             while (!AtEndOf(_strings.Vulnerabilities))
             {
                 if (AtStartOfNonEmpty(_strings.Vulnerability))
                 {
-                    ParseVulnerability();
+                    ParseVulnerability(output);
                 }
                 else
                 {
@@ -391,14 +418,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        private void ParseVulnerability()
+        private void ParseVulnerability(IResultLogWriter output)
         {
-            var result = new Result
-            {
-                RelatedLocations = new List<Location>(),
-                CodeFlows = new List<CodeFlow>()
-            };
+            _currentResultReplacementDictionary.Clear();
 
+            var result = new Result();
             _reader.Read();
             ReportingDescriptor rule = null;
             int ruleIndex;
@@ -409,25 +433,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     // Get the rule GUID from the ClassId element.
                     string ruleId = _reader.ReadElementContentAsString();
-
-                    if (_ruleIdToIndexMap.ContainsKey(ruleId))
-                    {
-                        // We previously created the rule, so just get the index and rule object.
-                        ruleIndex = _ruleIdToIndexMap[ruleId];
-                        rule = _rules[ruleIndex];
-                    }
-                    else
-                    {
-                        // Create a new rule and add it to the list and index map.
-                        rule = new ReportingDescriptor
-                        {
-                            Guid = ruleId
-                        };
-
-                        ruleIndex = _rules.Count;
-                        _rules.Add(rule);
-                        _ruleIdToIndexMap[ruleId] = ruleIndex;
-                    }
+                    rule = FindOrCreateRule(ruleId, out ruleIndex);
 
                     result.RuleIndex = ruleIndex;
                 }
@@ -464,7 +470,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             }
 
-            _results.Add(result);
+            // Set Result location including any Replacement Dictionary replacements
+            AddMessagesToResult(result);
+
+            // Write the Result out (don't keep in memory)
+            output.WriteResult(result);
         }
 
         private void ParseLocationsFromTraces(Result result)
@@ -476,8 +486,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             while (!AtEndOf(_strings.Unified))
             {
-                if (AtStartOf(_strings.Trace))
+                if (AtStartOf(_strings.Trace) && IncludeThreadFlowLocations)
                 {
+                    if (result.CodeFlows == null)
+                    {
+                        result.CodeFlows = new List<CodeFlow>();
+                    }
+
                     codeFlow = SarifUtilities.CreateSingleThreadedCodeFlow();
                     result.CodeFlows.Add(codeFlow);
 
@@ -489,9 +504,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                             if (!string.IsNullOrWhiteSpace(nodeId))
                             {
-                                var tfl = new ThreadFlowLocation();
-                                _tflToNodeIdDictionary.Add(tfl, nodeId);
-                                codeFlow.ThreadFlows[0].Locations.Add(tfl);
+                                if (_nodeDictionary.TryGetValue(nodeId, out Node node))
+                                {
+                                    // Add a ThreadFlowLocation referencing the global set, mimicing the reuse within the Fortify format
+                                    codeFlow.ThreadFlows[0].Locations.Add(new ThreadFlowLocation() { Index = node.Index });
+                                }
                             }
 
                             _reader.Read();
@@ -570,7 +587,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                                 if (isDefault == true)
                                 {
-                                    result.Locations = new List<Location>();
+                                    if (result.Locations == null) { result.Locations = new List<Location>(); }
+                                    if (result.RelatedLocations == null) { result.RelatedLocations = new List<Location>(); }
                                     result.Locations.Add(location.DeepClone());
                                     result.RelatedLocations.Add(location.DeepClone());
 
@@ -595,11 +613,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                                     };
                                 }
 
-                                // Remember the id of the snippet associated with this location.
-                                // We'll use it to fill the snippet text when we read the Snippets element later on.
+                                // Apply the Snippet, if any, to the new ThreadFlowLocation
                                 if (!string.IsNullOrEmpty(snippetId))
                                 {
-                                    _tflToSnippetIdDictionary.Add(tfl, snippetId);
+                                    AddSnippetToThreadFlowLocation(tfl, snippetId);
                                 }
 
                                 codeFlow.ThreadFlows[0].Locations.Add(tfl);
@@ -617,7 +634,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 }
             }
 
-            if (result.RelatedLocations.Any())
+            if (result.RelatedLocations != null && result.RelatedLocations.Any())
             {
                 Location relatedLocation = result.RelatedLocations.Last();
 
@@ -629,13 +646,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             if (!string.IsNullOrEmpty(lastNodeId))
             {
-                _resultToSnippetIdDictionary.Add(result, lastNodeId);
+                AddSnippetsToResult(result, lastNodeId);
             }
         }
 
         private void ParseReplacementDefinitions(Result result)
         {
-            var replacements = new Dictionary<string, string>();
+            _currentResultReplacementDictionary.Clear();
             _reader.Read();
 
             while (!AtEndOf(_strings.ReplacementDefinitions))
@@ -644,15 +661,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     string key = _reader.GetAttribute(_strings.KeyAttribute);
                     string value = _reader.GetAttribute(_strings.ValueAttribute);
-                    replacements.Add(key, value);
+                    _currentResultReplacementDictionary.Add(key, value);
                 }
 
                 _reader.Read();
-            }
-
-            if (replacements.Any())
-            {
-                _resultToReplacementDefinitionDictionary.Add(result, replacements);
             }
         }
 
@@ -660,16 +672,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             string path = _reader.GetAttribute(_strings.PathAttribute);
 
-            var uri = new Uri(path, UriKind.RelativeOrAbsolute);
-            int index = _files[uri].Item2;
-            return new PhysicalLocation
+            PhysicalLocation location = new PhysicalLocation()
             {
-                ArtifactLocation = new ArtifactLocation
-                {
-                    Index = index
-                },
                 Region = ParseRegion()
             };
+
+            var uri = new Uri(path, UriKind.RelativeOrAbsolute);
+            if (_files.TryGetValue(uri, out var entry))
+            {
+                location.ArtifactLocation = new ArtifactLocation() { Index = entry.Item2 };
+            }
+            else
+            {
+                location.ArtifactLocation = new ArtifactLocation() { Uri = uri };
+            }
+
+            return location;
         }
 
         private Region ParseRegion()
@@ -720,8 +738,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 if (AtStartOfNonEmpty(_strings.Rule))
                 {
                     string ruleId = _reader.GetAttribute(_strings.IdAttribute);
-                    int ruleIndex = _ruleIdToIndexMap[ruleId];
-                    ReportingDescriptor rule = _rules[ruleIndex];
+                    ReportingDescriptor rule = FindOrCreateRule(ruleId, out int ruleIndex);
 
                     _reader.Read();
 
@@ -732,7 +749,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             _reader.Read();
 
                             string groupName = _reader.GetAttribute(_strings.NameAttribute);
-
                             switch (groupName)
                             {
                                 case "altcategoryCWE":
@@ -747,7 +763,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                                             // Format: CWE ID xxx
                                             string cweId = part.Substring(part.LastIndexOf(' ') + 1);
                                             _cweIds.Add(cweId);
-                                            
+
                                             rule.Relationships = rule.Relationships ?? new List<ReportingDescriptorRelationship>();
                                             rule.Relationships.Add(new ReportingDescriptorRelationship
                                             {
@@ -779,8 +795,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private void ParseRuleDescriptions()
         {
             string ruleId = _reader.GetAttribute(_strings.ClassIdAttribute);
-            int ruleIndex = _ruleIdToIndexMap[ruleId];
-            ReportingDescriptor rule = _rules[ruleIndex];
+            ReportingDescriptor rule = FindOrCreateRule(ruleId, out int ruleIndex);
 
             _reader.Read();
             while (!AtEndOf(_strings.Description))
@@ -845,19 +860,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     string actionType = _reader.GetAttribute(_strings.TypeAttribute);
                     string nodeLabel = _reader.ReadElementContentAsString();
 
-                    // Create the location.
-                    var location = new Location
-                    {
-                        Message = new Message
+                    // Convert to Sarif types
+                    Node node = new Node(
+                        new ThreadFlowLocation()
                         {
-                            Text = nodeLabel
+                            Kinds = ConvertActionTypeToLocationKinds(actionType),
+                            Location = new Location()
+                            {
+                                Message = new Message() { Text = nodeLabel },
+                                PhysicalLocation = physicalLocation
+                            }
                         },
-                        PhysicalLocation = physicalLocation
-                    };
+                        snippetId
+                    );
 
-                    _nodeIdToLocationDictionary.Add(nodeId, location);
-                    _nodeIdToActionTypeDictionary.Add(nodeId, actionType);
-                    _locationToSnippetIdDictionary.Add(location, snippetId);
+                    _nodeDictionary.Add(nodeId, node);
                 }
                 else
                 {
@@ -965,9 +982,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 region.Snippet = new ArtifactContent { Text = text };
             }
 
-            // Regions[0] => physicalLocation.region
-            // Regions[1] => physicalLocation.contextRegion
-            _snippetIdToRegionsDictionary.Add(snippetId, new[] { region, contextRegion });
+            if (!IncludeContextRegions)
+            {
+                contextRegion = null;
+            }
+
+            _snippetDictionary.Add(snippetId, new Snippet(region, contextRegion));
         }
 
         private void ParseCommandLine()
@@ -1043,11 +1063,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
+        private ReportingDescriptor FindOrCreateRule(string ruleId, out int ruleIndex)
+        {
+            if (_ruleIdToIndexMap.TryGetValue(ruleId, out ruleIndex))
+            {
+                return _rules[ruleIndex];
+            }
+            else
+            {
+                ReportingDescriptor rule = new ReportingDescriptor() { Guid = ruleId };
+
+                ruleIndex = _rules.Count;
+                _rules.Add(rule);
+                _ruleIdToIndexMap[ruleId] = ruleIndex;
+
+                return rule;
+            }
+        }
+
         private List<string> ConvertActionTypeToLocationKinds(string actionType)
         {
             List<string> kinds;
 
-            if (!ActionTypeToLocationKindMap.TryGetValue(actionType, out kinds))
+            if (actionType == null || !ActionTypeToLocationKindMap.TryGetValue(actionType, out kinds))
             {
                 kinds = new List<string> { "unknown" };
             }
@@ -1072,122 +1110,106 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 (_reader.NodeType == XmlNodeType.EndElement && StringReference.AreEqual(_reader.LocalName, elementName));
         }
 
-        private void AddMessagesToResults()
+        private void AddMessagesToResult(Result result)
         {
-            foreach (Result result in _results)
+            ReportingDescriptor rule = _rules[result.RuleIndex];
+            Message message = new Message();
+
+            string messageText = (rule.ShortDescription ?? rule.FullDescription)?.Text;
+
+            if (_currentResultReplacementDictionary != null)
             {
-                ReportingDescriptor rule = _rules[result.RuleIndex];
-                Message message = new Message();
-
-                if (_resultToReplacementDefinitionDictionary.TryGetValue(result, out Dictionary<string, string> replacements))
+                foreach (string key in _currentResultReplacementDictionary.Keys)
                 {
-                    string messageText = (rule.ShortDescription ?? rule.FullDescription)?.Text;
-                    foreach (string key in replacements.Keys)
-                    {
-                        string value = replacements[key];
+                    string value = _currentResultReplacementDictionary[key];
 
-                        if (SupportedReplacementTokens.Contains(key))
-                        {
-                            // Replace the token with an embedded hyperlink.
-                            messageText = messageText.Replace(string.Format(ReplacementTokenFormat, key),
-                                                              string.Format(EmbeddedLinkFormat, value));
-                        }
-                        else
-                        {
-                            // Replace the token with plain text.
-                            messageText = messageText.Replace(string.Format(ReplacementTokenFormat, key), value);
-                        }
+                    if (SupportedReplacementTokens.Contains(key))
+                    {
+                        // Replace the token with an embedded hyperlink.
+                        messageText = messageText.Replace(string.Format(ReplacementTokenFormat, key),
+                                                            string.Format(EmbeddedLinkFormat, value));
                     }
-                    message.Text = messageText;
+                    else
+                    {
+                        // Replace the token with plain text.
+                        messageText = messageText.Replace(string.Format(ReplacementTokenFormat, key), value);
+                    }
                 }
-                result.Message = message;
+            }
+
+            message.Text = messageText;
+            result.Message = message;
+        }
+
+        private void AddSnippetsToResult(Result result, string snippetId)
+        {
+            if (!IncludeSnippets) { return; }
+
+            if (result.Locations?[0]?.PhysicalLocation?.Region != null &&
+                _snippetDictionary.TryGetValue(snippetId, out Snippet snippet) &&
+                !string.IsNullOrWhiteSpace(snippet.Region?.Snippet.Text))
+            {
+                snippet.ApplyTo(result.Locations[0].PhysicalLocation);
             }
         }
 
-        private void AddSnippetsToResults()
+        private void AddSnippetToThreadFlowLocation(ThreadFlowLocation tfl, string snippetId)
         {
-            foreach (Result result in _results)
+            if (!IncludeSnippets) { return; }
+
+            if (_snippetDictionary.TryGetValue(snippetId, out Snippet snippet))
             {
-                if (result.Locations?[0]?.PhysicalLocation?.Region != null &&
-                    _resultToSnippetIdDictionary.TryGetValue(result, out string snippetId) &&
-                    _snippetIdToRegionsDictionary.TryGetValue(snippetId, out Region[] regions) &&
-                    !string.IsNullOrWhiteSpace(regions[0]?.Snippet.Text))
-                {
-                    // Regions[0] => physicalLocation.region
-                    // Regions[1] => physicalLocation.contextRegion
-                    result.Locations[0].PhysicalLocation.Region = regions[0];
-                    result.Locations[0].PhysicalLocation.ContextRegion = regions[1];
-                }
+                snippet.ApplyTo(tfl.Location.PhysicalLocation);
             }
         }
 
-        /// <summary>
-        /// Locates the region (including snippet text) for threadFlowLocations that
-        /// were created from Node elements within a Trace
-        /// </summary>
-        private void AddSnippetsToThreadFlowLocations()
+        private void AddSnippetsToNodes()
         {
-            foreach (Result result in _results)
+            if (!IncludeSnippets) { return; }
+
+            foreach (Node node in _nodeDictionary.Values)
             {
-                if (result.CodeFlows != null)
+                if (!String.IsNullOrEmpty(node.SnippetId) && _snippetDictionary.TryGetValue(node.SnippetId, out Snippet snippet))
                 {
-                    foreach (CodeFlow codeFlow in result.CodeFlows)
-                    {
-                        if (codeFlow.ThreadFlows[0].Locations != null)
-                        {
-                            foreach (ThreadFlowLocation tfl in codeFlow.ThreadFlows[0].Locations)
-                            {
-                                if (_tflToSnippetIdDictionary.TryGetValue(tfl, out string snippetId) &&
-                                    _snippetIdToRegionsDictionary.TryGetValue(snippetId, out Region[] regions))
-                                {
-                                    // Regions[0] => physicalLocation.region
-                                    // Regions[1] => physicalLocation.contextRegion
-                                    tfl.Location.PhysicalLocation.Region = regions[0];
-                                    tfl.Location.PhysicalLocation.ContextRegion = regions[1];
-                                }
-                            }
-                        }
-                    }
+                    snippet.ApplyTo(node.ThreadFlowLocation.Location.PhysicalLocation);
                 }
             }
         }
 
         /// <summary>
-        /// Locates the location and region (including snippet) for threadFlowLocations
-        /// that were created from NodeRef elements
+        ///  Represents a Snippet in the Fortify format converted to Sarif types.
         /// </summary>
-        private void AddNodeLocationsToThreadFlowLocations()
+        private class Snippet
         {
-            foreach (Result result in _results)
-            {
-                if (result.CodeFlows != null)
-                {
-                    foreach (CodeFlow codeFlow in result.CodeFlows)
-                    {
-                        if (codeFlow.ThreadFlows[0].Locations != null)
-                        {
-                            foreach (ThreadFlowLocation tfl in codeFlow.ThreadFlows[0].Locations)
-                            {
-                                if (_tflToNodeIdDictionary.TryGetValue(tfl, out string nodeId) &&
-                                    _nodeIdToLocationDictionary.TryGetValue(nodeId, out Location location) &&
-                                    _nodeIdToActionTypeDictionary.TryGetValue(nodeId, out string actionType) &&
-                                    _locationToSnippetIdDictionary.TryGetValue(location, out string snippetId))
-                                {
-                                    if (!string.IsNullOrEmpty(snippetId) && _snippetIdToRegionsDictionary.TryGetValue(snippetId, out Region[] regions))
-                                    {
-                                        // Regions[0] => physicalLocation.region
-                                        // Regions[1] => physicalLocation.contextRegion
-                                        location.PhysicalLocation.Region = regions[0];
-                                        location.PhysicalLocation.ContextRegion = regions[1];
-                                    }
+            public Region Region { get; set; }
+            public Region ContextRegion { get; set; }
 
-                                    tfl.Location = location;
-                                    tfl.Kinds = ConvertActionTypeToLocationKinds(actionType);
-                                }
-                            }
-                        }
-                    }
-                }
+            public Snippet(Region region, Region contextRegion)
+            {
+                this.Region = region;
+                this.ContextRegion = contextRegion;
+            }
+
+            public void ApplyTo(PhysicalLocation physicalLocation)
+            {
+                physicalLocation.Region = this.Region;
+                physicalLocation.ContextRegion = this.ContextRegion;
+            }
+        }
+
+        /// <summary>
+        ///  Represents a Node in the Fortify format converted to Sarif types
+        /// </summary>
+        private class Node
+        {
+            public ThreadFlowLocation ThreadFlowLocation { get; set; }
+            public string SnippetId { get; set; }
+            public int Index { get; set; }
+
+            public Node(ThreadFlowLocation tfl, string snippetId)
+            {
+                this.ThreadFlowLocation = tfl;
+                this.SnippetId = snippetId;
             }
         }
     }

@@ -3,15 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "automationDetails": {
-        "id": "The_Build_ID/"
-      },
-      "originalUriBaseIds": {
-        "SRCROOT": {
-          "uri": "file:///C:/projects/myproject/src/"
-        }
-      },
-      "columnKind": "utf16CodeUnits",
       "results": [
         {
           "ruleIndex": 0,
@@ -127,143 +118,19 @@
                 {
                   "locations": [
                     {
-                      "location": {
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "index": 2
-                          },
-                          "region": {
-                            "startLine": 82,
-                            "snippet": {
-                              "text": "                            Logger.Error(ex.ToString());"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 79,
-                            "endLine": 85,
-                            "snippet": {
-                              "text": "                                Logger.Error(LogMessage.RETRY_ATTEMPTS_EXCEEDED, new object[] { tool, server});\n                                continue;\n                            }\n                            Logger.Error(ex.ToString());\n                        }\n                    }\n\n"
-                            }
-                          }
-                        },
-                        "message": {
-                          "text": "Read ex"
-                        }
-                      },
-                      "kinds": [
-                        "acquire",
-                        "resource"
-                      ]
+                      "index": 3
                     },
                     {
-                      "location": {
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "index": 2
-                          },
-                          "region": {
-                            "startLine": 82,
-                            "snippet": {
-                              "text": "                            Logger.Error(ex.ToString());"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 79,
-                            "endLine": 85,
-                            "snippet": {
-                              "text": "                                Logger.Error(LogMessage.RETRY_ATTEMPTS_EXCEEDED, new object[] { tool, server});\n                                continue;\n                            }\n                            Logger.Error(ex.ToString());\n                        }\n                    }\n\n"
-                            }
-                          }
-                        },
-                        "message": {
-                          "text": "ToString(this : return)"
-                        }
-                      },
-                      "kinds": [
-                        "call",
-                        "function",
-                        "return",
-                        "function"
-                      ]
+                      "index": 4
                     },
                     {
-                      "location": {
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "index": 2
-                          },
-                          "region": {
-                            "startLine": 82,
-                            "snippet": {
-                              "text": "                            Logger.Error(ex.ToString());"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 79,
-                            "endLine": 85,
-                            "snippet": {
-                              "text": "                                Logger.Error(LogMessage.RETRY_ATTEMPTS_EXCEEDED, new object[] { tool, server});\n                                continue;\n                            }\n                            Logger.Error(ex.ToString());\n                        }\n                    }\n\n"
-                            }
-                          }
-                        },
-                        "message": {
-                          "text": "Error(0)"
-                        }
-                      },
-                      "kinds": [
-                        "call",
-                        "function"
-                      ]
+                      "index": 0
                     },
                     {
-                      "location": {
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "index": 1
-                          },
-                          "region": {
-                            "startLine": 101
-                          }
-                        },
-                        "message": {
-                          "text": "WriteLog(1)"
-                        }
-                      },
-                      "kinds": [
-                        "call",
-                        "function"
-                      ]
+                      "index": 1
                     },
                     {
-                      "location": {
-                        "physicalLocation": {
-                          "artifactLocation": {
-                            "index": 1
-                          },
-                          "region": {
-                            "startLine": 65,
-                            "snippet": {
-                              "text": "                    Console.WriteLine(type + \" : \" + message);"
-                            }
-                          },
-                          "contextRegion": {
-                            "startLine": 62,
-                            "endLine": 68,
-                            "snippet": {
-                              "text": "                using (System.IO.StreamWriter writer = new System.IO.StreamWriter(filePath, true))\n                {\n                    writer.WriteLine(type + \" : \" +message);\n                    Console.WriteLine(type + \" : \" + message);\n                    //writer.Close();\n                }\n            }\n"
-                            }
-                          }
-                        },
-                        "message": {
-                          "text": "Concat(1 : return)"
-                        }
-                      },
-                      "kinds": [
-                        "call",
-                        "function",
-                        "return",
-                        "function"
-                      ]
+                      "index": 2
                     },
                     {
                       "location": {
@@ -367,12 +234,17 @@
           }
         }
       ],
+      "language": "en-US",
+      "originalUriBaseIds": {
+        "SRCROOT": {
+          "uri": "file:///C:/projects/myproject/src/"
+        }
+      },
       "artifacts": [
         {
           "location": {
             "uri": "Helpers/InvoiceHelper.cs",
-            "uriBaseId": "SRCROOT",
-            "index": 0
+            "uriBaseId": "SRCROOT"
           },
           "length": 8297,
           "mimeType": "text/x-csharp",
@@ -381,8 +253,7 @@
         {
           "location": {
             "uri": "Helpers/Logger.cs",
-            "uriBaseId": "SRCROOT",
-            "index": 1
+            "uriBaseId": "SRCROOT"
           },
           "length": 3645,
           "mimeType": "text/x-csharp",
@@ -391,12 +262,166 @@
         {
           "location": {
             "uri": "Program.cs",
-            "uriBaseId": "SRCROOT",
-            "index": 2
+            "uriBaseId": "SRCROOT"
           },
           "length": 5009,
           "mimeType": "text/x-csharp",
           "encoding": "windows-1252"
+        }
+      ],
+      "automationDetails": {
+        "id": "The_Build_ID/"
+      },
+      "columnKind": "utf16CodeUnits",
+      "threadFlowLocations": [
+        {
+          "location": {
+            "physicalLocation": {
+              "artifactLocation": {
+                "index": 2
+              },
+              "region": {
+                "startLine": 82,
+                "snippet": {
+                  "text": "                            Logger.Error(ex.ToString());"
+                }
+              },
+              "contextRegion": {
+                "startLine": 79,
+                "endLine": 85,
+                "snippet": {
+                  "text": "                                Logger.Error(LogMessage.RETRY_ATTEMPTS_EXCEEDED, new object[] { tool, server});\n                                continue;\n                            }\n                            Logger.Error(ex.ToString());\n                        }\n                    }\n\n"
+                }
+              }
+            },
+            "message": {
+              "text": "Error(0)"
+            }
+          },
+          "kinds": [
+            "call",
+            "function"
+          ]
+        },
+        {
+          "location": {
+            "physicalLocation": {
+              "artifactLocation": {
+                "index": 1
+              },
+              "region": {
+                "startLine": 101
+              }
+            },
+            "message": {
+              "text": "WriteLog(1)"
+            }
+          },
+          "kinds": [
+            "call",
+            "function"
+          ]
+        },
+        {
+          "location": {
+            "physicalLocation": {
+              "artifactLocation": {
+                "index": 1
+              },
+              "region": {
+                "startLine": 65,
+                "snippet": {
+                  "text": "                    Console.WriteLine(type + \" : \" + message);"
+                }
+              },
+              "contextRegion": {
+                "startLine": 62,
+                "endLine": 68,
+                "snippet": {
+                  "text": "                using (System.IO.StreamWriter writer = new System.IO.StreamWriter(filePath, true))\n                {\n                    writer.WriteLine(type + \" : \" +message);\n                    Console.WriteLine(type + \" : \" + message);\n                    //writer.Close();\n                }\n            }\n"
+                }
+              }
+            },
+            "message": {
+              "text": "Concat(1 : return)"
+            }
+          },
+          "kinds": [
+            "call",
+            "function",
+            "return",
+            "function"
+          ]
+        },
+        {
+          "location": {
+            "physicalLocation": {
+              "artifactLocation": {
+                "index": 2
+              },
+              "region": {
+                "startLine": 82,
+                "snippet": {
+                  "text": "                            Logger.Error(ex.ToString());"
+                }
+              },
+              "contextRegion": {
+                "startLine": 79,
+                "endLine": 85,
+                "snippet": {
+                  "text": "                                Logger.Error(LogMessage.RETRY_ATTEMPTS_EXCEEDED, new object[] { tool, server});\n                                continue;\n                            }\n                            Logger.Error(ex.ToString());\n                        }\n                    }\n\n"
+                }
+              }
+            },
+            "message": {
+              "text": "Read ex"
+            }
+          },
+          "kinds": [
+            "acquire",
+            "resource"
+          ]
+        },
+        {
+          "location": {
+            "physicalLocation": {
+              "artifactLocation": {
+                "index": 2
+              },
+              "region": {
+                "startLine": 82,
+                "snippet": {
+                  "text": "                            Logger.Error(ex.ToString());"
+                }
+              },
+              "contextRegion": {
+                "startLine": 79,
+                "endLine": 85,
+                "snippet": {
+                  "text": "                                Logger.Error(LogMessage.RETRY_ATTEMPTS_EXCEEDED, new object[] { tool, server});\n                                continue;\n                            }\n                            Logger.Error(ex.ToString());\n                        }\n                    }\n\n"
+                }
+              }
+            },
+            "message": {
+              "text": "ToString(this : return)"
+            }
+          },
+          "kinds": [
+            "call",
+            "function",
+            "return",
+            "function"
+          ]
+        }
+      ],
+      "taxonomies": [
+        {
+          "guid": "2B841697-D0DE-45DD-9F19-1EEE1312429",
+          "name": "CWE",
+          "organization": "MITRE",
+          "shortDescription": {
+            "text": "The MITRE Common Weakness Enumeration"
+          }
         }
       ]
     }

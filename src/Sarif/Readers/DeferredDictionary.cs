@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
+// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Readers
@@ -193,7 +194,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             {
                 _stream.Seek(keyPosition, SeekOrigin.Begin);
 
-                using (JsonTextReader reader = new JsonTextReader(new JsonObjectMemberStreamReader(_stream)))
+                using (JsonInnerTextReader reader = new JsonInnerTextReader(new JsonObjectMemberStreamReader(_stream)))
                 {
                     reader.CloseInput = false;
 
@@ -342,7 +343,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             public bool MoveNext()
             {
-                if (_jsonTextReader.TokenType == JsonToken.EndObject) return false;
+                if (_jsonTextReader.TokenType == JsonToken.EndObject) { return false; }
 
                 // Read the next key
                 string key = (string)_jsonTextReader.Value;
@@ -369,7 +370,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 _stream.Seek(_start, SeekOrigin.Begin);
 
                 // Build a JsonTextReader
-                _jsonTextReader = new JsonTextReader(new StreamReader(_stream));
+                _jsonTextReader = new JsonInnerTextReader(new StreamReader(_stream));
 
                 // StartObject
                 _jsonTextReader.Read();

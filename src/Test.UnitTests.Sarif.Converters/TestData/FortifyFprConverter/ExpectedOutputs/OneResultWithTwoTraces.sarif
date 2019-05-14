@@ -3,15 +3,6 @@
   "version": "2.1.0",
   "runs": [
     {
-      "automationDetails": {
-        "id": "The_Build_ID/"
-      },
-      "originalUriBaseIds": {
-        "SRCROOT": {
-          "uri": "file:///C:/projects/myproject/src/"
-        }
-      },
-      "columnKind": "utf16CodeUnits",
       "results": [
         {
           "ruleIndex": 0,
@@ -391,16 +382,35 @@
           }
         }
       ],
+      "language": "en-US",
+      "originalUriBaseIds": {
+        "SRCROOT": {
+          "uri": "file:///C:/projects/myproject/src/"
+        }
+      },
       "artifacts": [
         {
           "location": {
             "uri": "Helpers/DBHelper.cs",
-            "uriBaseId": "SRCROOT",
-            "index": 0
+            "uriBaseId": "SRCROOT"
           },
           "length": 8297,
           "mimeType": "text/x-csharp",
           "encoding": "windows-1252"
+        }
+      ],
+      "automationDetails": {
+        "id": "The_Build_ID/"
+      },
+      "columnKind": "utf16CodeUnits",
+      "taxonomies": [
+        {
+          "guid": "2B841697-D0DE-45DD-9F19-1EEE1312429",
+          "name": "CWE",
+          "organization": "MITRE",
+          "shortDescription": {
+            "text": "The MITRE Common Weakness Enumeration"
+          }
         }
       ]
     }

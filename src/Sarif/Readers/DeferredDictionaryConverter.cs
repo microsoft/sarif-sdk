@@ -23,8 +23,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
+            if(reader is JsonInnerTextReader)
+            {
+                // Nested in another deferred container, read the dictionary non-deferred
+                return serializer.Deserialize<Dictionary<string, T>>(reader);
+            }
+
+            // If we don't have a positioned reader, we must return an error
             JsonPositionedTextReader r = reader as JsonPositionedTextReader;
-            if (r == null) throw new InvalidOperationException($"{nameof(DeferredDictionaryConverter<T>)} requires a {nameof(JsonPositionedTextReader)} be used for deserialization.");
+            if (r == null)
+            {
+                throw new InvalidOperationException($"{nameof(DeferredDictionaryConverter<T>)} requires a {nameof(JsonPositionedTextReader)} be used for deserialization.");
+            }
 
             return new DeferredDictionary<T>(serializer, r);
         }
