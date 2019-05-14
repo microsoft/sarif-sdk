@@ -420,8 +420,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             string[] locationPathsToUpdate =
             {
-                "results[].locations",
-                "results[].relatedLocations",
+                "results[].locations[]",
+                "results[].relatedLocations[]",
             };
 
             return PerformActionOnLeafNodeIfExists(
@@ -2015,7 +2015,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             bool modified = false;
 
-            modified |= UpdatePropertyValueIfPresent(jObject, "version", SarifUtilities.SemanticVersion);
+            modified |= UpdatePropertyValueIfPresent(jObject, "version", SarifUtilities.StableSarifVersion);
             modified |= UpdatePropertyValueIfPresent(jObject, "$schema", SarifUtilities.SarifSchemaUri);
 
             return modified;

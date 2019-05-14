@@ -138,7 +138,7 @@ namespace Sarif.Multitool.UnitTests
             JObject sarifLog = JObject.Parse(prereleaseV2Text);
 
             ((string)sarifLog["$schema"]).Should().NotBe(SarifUtilities.SarifSchemaUri);
-            ((string)sarifLog["version"]).Should().NotBe(SarifUtilities.SemanticVersion);
+            ((string)sarifLog["version"]).Should().NotBe(SarifUtilities.StableSarifVersion);
         }
 
         private void RunTransformationToV1Test(string logFileContents)

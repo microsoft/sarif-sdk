@@ -14,28 +14,45 @@
     <projectUrl>https://github.com/microsoft/sarif-sdk</projectUrl>
     <iconUrl>https://go.microsoft.com/fwlink/?linkid=2008860</iconUrl>
     <tags>SARIF command line static analysis</tags>
+    <packageTypes>
+      <packageType name="DotnetTool" />
+    </packageTypes>
   </metadata>
   <files>
+    <!-- The subfolder layout for the different TargetFrameworks is intentionally inconsistent -->
+    <!-- net461 and netcoreapp2.0 pack to tools\TargetFramework\* for backcompat -->
     <file src="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\net461\Sarif.Multitool.exe.config"
           target="tools\net461"
           />
-
     <file src="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\net461\**"
           target="tools\net461"
           exclude="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\net461\Sarif*"
           />
+    <file src="bld\bin\Signing\net461\**"
+          target="tools\net461"
+          />
+
     <file src="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp2.0\**"
           target="tools\netcoreapp2.0"
           exclude="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp2.0\Sarif*.dll"
-          />
-    <file src="bld\bin\Signing\net461\**"
-          target="tools\net461"
           />
     <file src="bld\bin\Signing\netcoreapp2.0\**"
           target="tools\netcoreapp2.0"
           />
     <file src="bld\bin\Signing\netstandard2.0\**"
           target="tools\netcoreapp2.0"
+          />
+
+    <!-- netcoreapp2.1 packs to tools\TargetFramework\any\* for compatibility with dotnet tool install -->
+    <file src="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp2.1\**"
+          target="tools\netcoreapp2.1\any"
+          exclude="bld\bin\$platform$_$configuration$\Sarif.Multitool\Publish\netcoreapp2.1\Sarif*.dll"
+          />
+    <file src="bld\bin\Signing\netcoreapp2.1\**"
+          target="tools\netcoreapp2.1\any"
+          />
+    <file src="bld\bin\Signing\netstandard2.0\**"
+          target="tools\netcoreapp2.1\any"
           />
 
     <file src="src\ReleaseHistory.md" />        

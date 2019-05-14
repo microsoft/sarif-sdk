@@ -34,28 +34,24 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// milliseconds precision, used to produce times such as "2016-03-02T01:44:50.123Z"
         public static readonly string SarifDateTimeFormatMillisecondsPrecision = "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fff'Z'";
 
-        private static string s_semanticVersion = null;
+        private static string s_stableSarifVersion = null;
 
-        public static string SemanticVersion
+        public static string StableSarifVersion
         {
             get
             {
-                if (s_semanticVersion == null)
+                if (s_stableSarifVersion == null)
                 {
-                    s_semanticVersion = VersionConstants.AssemblyVersion;
-                    if (!string.IsNullOrWhiteSpace(VersionConstants.Prerelease))
-                    {
-                        s_semanticVersion += "-" + VersionConstants.Prerelease.Substring(0, VersionConstants.Prerelease.Length);
-                    }
+                    s_stableSarifVersion = VersionConstants.StableSarifVersion;
                 }
 
-                return s_semanticVersion;
+                return s_stableSarifVersion;
             }
         }
 
         public static SarifVersion ConvertToSarifVersion(this string sarifVersionText)
         {
-            if (sarifVersionText.Equals(SemanticVersion, StringComparison.Ordinal))
+            if (sarifVersionText.Equals(StableSarifVersion, StringComparison.Ordinal))
             {
                 return SarifVersion.Current;
             }
@@ -72,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             switch (sarifVersion)
             {
                 case SarifVersion.OneZeroZero: { return V1_0_0; }
-                case SarifVersion.Current: { return SemanticVersion; }
+                case SarifVersion.Current: { return StableSarifVersion; }
             }
             return "unknown";
         }
@@ -81,8 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             return new Uri(
                     SarifSchemaUriBase +
-                    sarifVersion.ConvertToText() +
-                    (sarifVersion == SarifVersion.Current ? VersionConstants.PackageVersionSuffix : ""), UriKind.Absolute);
+                    (sarifVersion == SarifVersion.Current ? VersionConstants.SchemaVersionAsPublishedToSchemaStoreOrg : sarifVersion.ConvertToText()), UriKind.Absolute);
         }
 
         public static Dictionary<string, string> BuildMessageFormats(IEnumerable<string> resourceNames, ResourceManager resourceManager)

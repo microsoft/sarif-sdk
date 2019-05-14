@@ -15,8 +15,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     internal class ValidateCommand : AnalyzeCommandBase<SarifValidationContext, ValidateOptions>
     {
-        public override string Prerelease => VersionConstants.Prerelease;
-
         private List<Assembly> _defaultPlugInAssemblies;
 
         public ValidateCommand(IFileSystem fileSystem = null) : base(fileSystem)

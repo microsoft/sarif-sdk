@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Newtonsoft.Json;
@@ -52,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             var context = new ContrastLogReader.Context();
 
-            // 1. First we initialize our global rules data from the SARIF we have embedded as a resource
+            // 1. First we initialize our global rules data from the SARIF we have embedded as a resource.
             Assembly assembly = typeof(ContrastSecurityConverter).Assembly;
             SarifLog sarifLog;
 
@@ -64,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 sarifLog = JsonConvert.DeserializeObject<SarifLog>(currentRuleDataLogText);
             }
 
-            // 2. Retain a pointer to the rules dictionary, which we will use to set rule severity
+            // 2. Retain a pointer to the rules dictionary, which we will use to set rule severity.
             Run run = sarifLog.Runs[0];
             _rules = run.Tool.Driver.Rules.ToDictionary(rule => rule.Id);
 
@@ -73,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {  "SITE_ROOT", new ArtifactLocation { Uri = new Uri(@"E:\src\WebGoat.NET") } } 
             };
 
-            // 3. Now, parse all the contrast XML to create the complete results set
+            // 3. Now, parse all the contrast XML to create the complete results set.
             var results = new List<Result>();
             var reader = new ContrastLogReader();
             reader.FindingRead += (ContrastLogReader.Context current) => { results.Add(CreateResult(current)); };
@@ -324,7 +325,47 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private Result ConstructInsecureHashAlgorithmsResult(ContrastLogReader.Context context)
         {
-            return CreateResultCore(context);
+            Result result = CreateResultCore(context);
+
+            Stack stack = context.MethodEvent.Stack;
+            result.Stacks = new List<Stack>
+            {
+                stack
+            };
+
+            Location resultLocation = stack.Frames[1].Location;
+            result.Locations = new List<Location>
+            {
+                resultLocation
+            };
+
+            string insecureClassName = GetClassNameFromCtorCall(
+                stack.Frames[0].Location.LogicalLocation.FullyQualifiedName);
+            result.Message = new Message
+            {
+                Id = "default",
+                Arguments = new List<string>
+                {
+                    resultLocation.LogicalLocation.FullyQualifiedName,
+                    insecureClassName
+                }
+            };
+
+            return result;
+        }
+
+        private static readonly Regex ClassNameFromCtorRegex =
+            new Regex(@"\.(?<className>[^.]+)\.\.ctor\(\)$", RegexOptions.Compiled | RegexOptions.ExplicitCapture);
+
+        private static string GetClassNameFromCtorCall(string fullyQualifiedName)
+        {
+            Match match = ClassNameFromCtorRegex.Match(fullyQualifiedName);
+
+            // If we can't parse this as a ctor invocation, do the best we can: just return
+            // the whole string.
+            return match.Success
+                ? match.Groups["className"].Value
+                : fullyQualifiedName;
         }
 
         private Result ConstructPagesWithoutAntiClickjackingControlsResult(ContrastLogReader.Context context)
@@ -642,9 +683,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             // path-traversal : Path Traversal
 
-            // default : Attacker-controlled path traversal was observed from '{0}' on '{1}' page.
+            // default : An attacker-controlled path traversal was observed from '{0}' on page '{1}'.
 
-            return ConstructNotImplementedRuleResult(context.RuleId);
+            Result result = CreateResultCore(context);
+
+            result.Locations = new List<Location>
+            {
+                new Location
+                {
+                    LogicalLocation = new LogicalLocation
+                    {
+                        FullyQualifiedName = GetUserCodeLocation(context.MethodEvent.Stack)
+                    }
+                }
+            };
+
+            string page = context.RequestTarget;
+            string sources = BuildSourcesString(context.Sources);
+
+            result.Message = new Message
+            {
+                Id = "default",
+                Arguments = new List<string>
+                {              // An attacker-controlled path traversal was observed from
+                    sources,   // '{0}' on
+                    page       // page '{1}'.
+                }
+            };
+
+            return result;
         }
 
         private Result ConstructRequestValidationModeDisabledResult(ContrastLogReader.Context context)
@@ -718,13 +785,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private string BuildSourcesString(HashSet<Tuple<string, string>> sources)
         {
+            const string UnknownSourceTypeName = "<unknown source type>";
+
             var sb = new StringBuilder();
             foreach (Tuple<string, string> tuple in sources)
             {
-                if (tuple.Item1 == null || tuple.Item2 == null) { continue; }
+                if (sb.Length > 0) { sb.Append(", "); }
+
                 // Item1 is the name, Item2 is the source type, e.g., parameter
-                sb.Append(tuple.Item1 + "(" + tuple.Item2 + ")");
+                if (!string.IsNullOrWhiteSpace(tuple.Item1)) { sb.Append(tuple.Item1 + ": "); }
+
+                string sourceType = !string.IsNullOrWhiteSpace(tuple.Item2)
+                    ? tuple.Item2
+                    : UnknownSourceTypeName;
+
+                sb.Append(sourceType);
             }
+
             return sb.ToString();
         }
 
@@ -860,9 +937,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private IList<CodeFlow> CreateCodeFlows(ContrastLogReader.Context context)
         {
-            return context.PropagationEvents == null ?
-                null :
-                new List<CodeFlow>
+            List<CodeFlow> codeFlows = null;
+
+            if (context.PropagationEvents != null)
+            {
+                codeFlows = new List<CodeFlow>
                 {
                     new CodeFlow
                     {
@@ -875,6 +954,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                          }
                     }
                 };
+
+                if (context.MethodEvent != null)
+                {
+                    codeFlows[0].ThreadFlows[0].Locations.Add(context.MethodEvent);
+                }
+            }
+
+            return codeFlows;
         }
 
         private PhysicalLocation CreatePhysicalLocation(string uri, Region region = null)
@@ -890,7 +977,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 Region = region,
                 ContextRegion = region
             };
+        }
 
+        private static readonly Regex LogicalLocationRegex =
+            new Regex(
+                @"
+                  ([^\s]*\s+)?         # Skip over an optional leading blank-terminated return type name such as 'void '
+                  (?<fqln>[^(]+)       # Take everything up to the opening parenthesis.
+                ",
+                RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.IgnorePatternWhitespace);
+
+        // Find the user code method call closest to the top of the stack. This is
+        // the location we should report as being responsible for the result.
+        private static string GetUserCodeLocation(Stack stack)
+        {
+            const string SystemPrefix = "System.";
+
+            foreach (StackFrame frame in stack.Frames)
+            {
+                string fullyQualifiedLogicalName = frame.Location.LogicalLocation.FullyQualifiedName;
+                Match match = LogicalLocationRegex.Match(fullyQualifiedLogicalName);
+                if (match.Success)
+                {
+                    fullyQualifiedLogicalName = match.Groups["fqln"].Value;
+                    if (!fullyQualifiedLogicalName.StartsWith(SystemPrefix))
+                    {
+                        return fullyQualifiedLogicalName;
+                    }
+                }
+            }
+
+            return string.Empty;
         }
 
         private static void AddProperty(Result result, string value, string key)

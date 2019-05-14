@@ -14,7 +14,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             get { return null; }
             set { throw new InvalidOperationException(); }
         }
-
-        public abstract string Prerelease { get; }
     }
 }
