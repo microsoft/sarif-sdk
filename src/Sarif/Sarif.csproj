@@ -51,7 +51,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <JsonSchemaFile Include="Schemata\sarif-schema-2.1.0-rtm.0.json">
+    <JsonSchemaFile Include="Schemata\sarif-schema-$(SchemaVersionAsPublishedToSchemaStoreOrg).json">
       <Namespace>$(RootNamespace)</Namespace>
       <RootClassName>SarifLog</RootClassName>
       <CopyrightFilePath>CopyrightNotice.txt</CopyrightFilePath>
