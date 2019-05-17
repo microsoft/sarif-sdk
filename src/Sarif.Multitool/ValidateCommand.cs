@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         private static string s_CurrentSchemaLocation = 
-            Path.Combine(Path.GetDirectoryName(typeof(ValidateCommand).Assembly.Location), "sarif-schema-2.1.0-rtm.0.json");
+            Path.Combine(Path.GetDirectoryName(typeof(ValidateCommand).Assembly.Location), "sarif-schema-" + VersionConstants.SchemaVersionAsPublishedToSchemaStoreOrg + ".json");
 
         protected override void AnalyzeTarget(
             IEnumerable<Skimmer<SarifValidationContext>> skimmers,

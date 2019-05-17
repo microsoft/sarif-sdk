@@ -56,7 +56,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="$(SolutionDir)\Sarif\Schemata\sarif-schema-2.1.0-rtm.0.json" CopyToOutputDirectory="PreserveNewest" />
+    <EmbeddedResource Include="$(SolutionDir)\Sarif\Schemata\sarif-schema-$(SchemaVersionAsPublishedToSchemaStoreOrg).json" CopyToOutputDirectory="PreserveNewest" />
     <EmbeddedResource Include=".\DotnetToolSettings.xml" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
