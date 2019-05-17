@@ -49,10 +49,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         public PhysicalLocation PhysicalLocation { get; set; }
 
         /// <summary>
-        /// The logical location associated with the result.
+        /// The logical locations associated with the result.
         /// </summary>
-        [DataMember(Name = "logicalLocation", IsRequired = false, EmitDefaultValue = false)]
-        public LogicalLocation LogicalLocation { get; set; }
+        [DataMember(Name = "logicalLocations", IsRequired = false, EmitDefaultValue = false)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public IList<LogicalLocation> LogicalLocations { get; set; }
 
         /// <summary>
         /// A message relevant to the location.
@@ -97,8 +98,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="physicalLocation">
         /// An initialization value for the <see cref="P:PhysicalLocation" /> property.
         /// </param>
-        /// <param name="logicalLocation">
-        /// An initialization value for the <see cref="P:LogicalLocation" /> property.
+        /// <param name="logicalLocations">
+        /// An initialization value for the <see cref="P:LogicalLocations" /> property.
         /// </param>
         /// <param name="message">
         /// An initialization value for the <see cref="P:Message" /> property.
@@ -112,9 +113,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public Location(int id, PhysicalLocation physicalLocation, LogicalLocation logicalLocation, Message message, IEnumerable<Region> annotations, IEnumerable<LocationRelationship> relationships, IDictionary<string, SerializedPropertyInfo> properties)
+        public Location(int id, PhysicalLocation physicalLocation, IEnumerable<LogicalLocation> logicalLocations, Message message, IEnumerable<Region> annotations, IEnumerable<LocationRelationship> relationships, IDictionary<string, SerializedPropertyInfo> properties)
         {
-            Init(id, physicalLocation, logicalLocation, message, annotations, relationships, properties);
+            Init(id, physicalLocation, logicalLocations, message, annotations, relationships, properties);
         }
 
         /// <summary>
@@ -133,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentNullException(nameof(other));
             }
 
-            Init(other.Id, other.PhysicalLocation, other.LogicalLocation, other.Message, other.Annotations, other.Relationships, other.Properties);
+            Init(other.Id, other.PhysicalLocation, other.LogicalLocations, other.Message, other.Annotations, other.Relationships, other.Properties);
         }
 
         ISarifNode ISarifNode.DeepClone()
@@ -154,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Location(this);
         }
 
-        private void Init(int id, PhysicalLocation physicalLocation, LogicalLocation logicalLocation, Message message, IEnumerable<Region> annotations, IEnumerable<LocationRelationship> relationships, IDictionary<string, SerializedPropertyInfo> properties)
+        private void Init(int id, PhysicalLocation physicalLocation, IEnumerable<LogicalLocation> logicalLocations, Message message, IEnumerable<Region> annotations, IEnumerable<LocationRelationship> relationships, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             if (physicalLocation != null)
@@ -162,9 +163,22 @@ namespace Microsoft.CodeAnalysis.Sarif
                 PhysicalLocation = new PhysicalLocation(physicalLocation);
             }
 
-            if (logicalLocation != null)
+            if (logicalLocations != null)
             {
-                LogicalLocation = new LogicalLocation(logicalLocation);
+                var destination_0 = new List<LogicalLocation>();
+                foreach (var value_0 in logicalLocations)
+                {
+                    if (value_0 == null)
+                    {
+                        destination_0.Add(null);
+                    }
+                    else
+                    {
+                        destination_0.Add(new LogicalLocation(value_0));
+                    }
+                }
+
+                LogicalLocations = destination_0;
             }
 
             if (message != null)
@@ -174,26 +188,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (annotations != null)
             {
-                var destination_0 = new List<Region>();
-                foreach (var value_0 in annotations)
-                {
-                    if (value_0 == null)
-                    {
-                        destination_0.Add(null);
-                    }
-                    else
-                    {
-                        destination_0.Add(new Region(value_0));
-                    }
-                }
-
-                Annotations = destination_0;
-            }
-
-            if (relationships != null)
-            {
-                var destination_1 = new List<LocationRelationship>();
-                foreach (var value_1 in relationships)
+                var destination_1 = new List<Region>();
+                foreach (var value_1 in annotations)
                 {
                     if (value_1 == null)
                     {
@@ -201,11 +197,29 @@ namespace Microsoft.CodeAnalysis.Sarif
                     }
                     else
                     {
-                        destination_1.Add(new LocationRelationship(value_1));
+                        destination_1.Add(new Region(value_1));
                     }
                 }
 
-                Relationships = destination_1;
+                Annotations = destination_1;
+            }
+
+            if (relationships != null)
+            {
+                var destination_2 = new List<LocationRelationship>();
+                foreach (var value_2 in relationships)
+                {
+                    if (value_2 == null)
+                    {
+                        destination_2.Add(null);
+                    }
+                    else
+                    {
+                        destination_2.Add(new LocationRelationship(value_2));
+                    }
+                }
+
+                Relationships = destination_2;
             }
 
             if (properties != null)

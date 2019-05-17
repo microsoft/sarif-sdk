@@ -718,7 +718,14 @@ namespace Microsoft.CodeAnalysis.Sarif
             if (node != null)
             {
                 node.PhysicalLocation = VisitNullChecked(node.PhysicalLocation);
-                node.LogicalLocation = VisitNullChecked(node.LogicalLocation);
+                if (node.LogicalLocations != null)
+                {
+                    for (int index_0 = 0; index_0 < node.LogicalLocations.Count; ++index_0)
+                    {
+                        node.LogicalLocations[index_0] = VisitNullChecked(node.LogicalLocations[index_0]);
+                    }
+                }
+
                 node.Message = VisitNullChecked(node.Message);
                 if (node.Annotations != null)
                 {

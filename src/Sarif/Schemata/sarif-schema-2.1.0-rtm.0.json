@@ -1294,9 +1294,15 @@
           "$ref": "#/definitions/physicalLocation"
         },
 
-        "logicalLocation": {
-          "description": "The logical location associated with the result.",
-          "$ref": "#/definitions/logicalLocation"
+        "logicalLocations": {
+          "description": "The logical locations associated with the result.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/logicalLocation"
+          }
         },
 
         "message": {
