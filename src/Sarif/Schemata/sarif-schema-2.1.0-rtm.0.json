@@ -1,6 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Static Analysis Results Format (SARIF) Version 2.1.0-rtm.0 JSON Schema",
+  "$id": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-2.1.0.json",
   "description": "Static Analysis Results Format (SARIF) Version 2.1.0-rtm.0 JSON Schema: a standard format for the output of static analysis tools.",
   "additionalProperties": false,
   "type": "object",
@@ -2973,7 +2974,7 @@
         },
 
         "releaseDateUtc": {
-          "description": "A string specifying the UTC date (and optionally, the time) of the component’s release.",
+          "description": "A string specifying the UTC date (and optionally, the time) of the componentï¿½s release.",
           "type": "string"
         },
 
