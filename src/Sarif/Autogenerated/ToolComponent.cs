@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public string DottedQuadFileVersion { get; set; }
 
         /// <summary>
-        /// A string specifying the UTC date (and optionally, the time) of the component�s release.
+        /// A string specifying the UTC date (and optionally, the time) of the component's release.
         /// </summary>
         [DataMember(Name = "releaseDateUtc", IsRequired = false, EmitDefaultValue = false)]
         public string ReleaseDateUtc { get; set; }

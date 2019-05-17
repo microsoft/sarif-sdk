@@ -1,6 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "SARIF External Property File Schema Version 2.1.0-rtm.0 JSON Schema",
+  "$id": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-external-property-file-schema-2.1.0-rtm.0.json",
   "type": "object",
   "properties": {
 
@@ -29,7 +30,7 @@
 
     "conversion": {
       "description": "A conversion object that will be merged with an external run.",
-      "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/conversion"
+      "$ref": "sarif-schema-2.1.0-rtm.0.json#/definitions/conversion"
     },
 
     "graphs": {
@@ -39,13 +40,13 @@
       "default": [],
       "uniqueItems": true,
       "items": {
-        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/graph"
+        "$ref": "sarif-schema-2.1.0-rtm.0.json#/definitions/graph"
       }
     },
 
     "externalizedProperties": {
       "description": "Key/value pairs that provide additional information that will be merged with an external run.",
-      "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/propertyBag"
+      "$ref": "sarif-schema-2.1.0-rtm.0.json#/definitions/propertyBag"
     },
 
     "artifacts": {
@@ -54,7 +55,7 @@
       "minItems": 0,
       "uniqueItems": true,
       "items": {
-        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/artifact"
+        "$ref": "sarif-schema-2.1.0-rtm.0.json#/definitions/artifact"
       }
     },
 
@@ -65,7 +66,7 @@
       "uniqueItems": false,
       "default": [],
       "items": {
-        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/invocation"
+        "$ref": "sarif-schema-2.1.0-rtm.0.json#/definitions/invocation"
       }
     },
 
@@ -76,7 +77,7 @@
       "uniqueItems": true,
       "default": [],
       "items": {
-        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/logicalLocation"
+        "$ref": "sarif-schema-2.1.0-rtm.0.json#/definitions/logicalLocation"
       }
     },
 
@@ -87,7 +88,7 @@
       "uniqueItems": true,
       "default": [],
       "items": {
-        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/threadFlowLocation"
+        "$ref": "sarif-schema-2.1.0-rtm.0.json#/definitions/threadFlowLocation"
       }
     },
 
@@ -98,7 +99,7 @@
       "uniqueItems": false,
       "default": [],
       "items": {
-        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/result"
+        "$ref": "sarif-schema-2.1.0-rtm.0.json#/definitions/result"
       }
     },
 
@@ -109,13 +110,13 @@
       "uniqueItems": true,
       "default": [],
       "items": {
-        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/toolComponent"
+        "$ref": "sarif-schema-2.1.0-rtm.0.json#/definitions/toolComponent"
       }
     },
 
     "driver": {
       "description": "The analysis tool object that will be merged with an external run.",
-      "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/toolComponent"
+      "$ref": "sarif-schema-2.1.0-rtm.0.json#/definitions/toolComponent"
     },
 
     "extensions": {
@@ -125,7 +126,7 @@
       "uniqueItems": true,
       "default": [],
       "items": {
-        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/toolComponent"
+        "$ref": "sarif-schema-2.1.0-rtm.0.json#/definitions/toolComponent"
       }
     },
 
@@ -136,7 +137,7 @@
       "uniqueItems": true,
       "default": [],
       "items": {
-        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/toolComponent"
+        "$ref": "sarif-schema-2.1.0-rtm.0.json#/definitions/toolComponent"
       }
     },
 
@@ -147,7 +148,7 @@
       "uniqueItems": true,
       "default": [],
       "items": {
-        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/toolComponent"
+        "$ref": "sarif-schema-2.1.0-rtm.0.json#/definitions/toolComponent"
       }
     },
 
@@ -158,7 +159,7 @@
       "uniqueItems": false,
       "default": [],
       "items": {
-        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/address"
+        "$ref": "sarif-schema-2.1.0-rtm.0.json#/definitions/address"
       }
     },
 
@@ -169,7 +170,7 @@
       "uniqueItems": true,
       "default": [],
       "items": {
-        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/webRequest"
+        "$ref": "sarif-schema-2.1.0-rtm.0.json#/definitions/webRequest"
       }
     },
 
@@ -180,14 +181,15 @@
       "uniqueItems": true,
       "default": [],
       "items": {
-        "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/webResponse"
+        "$ref": "sarif-schema-2.1.0-rtm.0.json#/definitions/webResponse"
       }
     },
 
     "properties": {
       "description": "Key/value pairs that provide additional information about the external properties.",
-      "$ref": "https://schemastore.azurewebsites.net/json/sarif#/definitions/propertyBag"
+      "$ref": "sarif-schema-2.1.0-rtm.0.json#/definitions/propertyBag"
     }
   },
-  "required": [ "version" ]
+  "required": [ "version" ],
+  "additionalProperties": false
 }

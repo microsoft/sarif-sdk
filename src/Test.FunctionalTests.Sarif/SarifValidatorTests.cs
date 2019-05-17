@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public class SarifValidatorTests
     {
-        public const string JsonSchemaFile = "sarif-schema.json";
+        public const string JsonSchemaFile = "sarif-schema-" + VersionConstants.SchemaVersionAsPublishedToSchemaStoreOrg + ".json";
 
         private readonly string _jsonSchemaFilePath;
         private readonly JsonSchema _schema;

@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public Conversion Conversion { get; set; }
 
         /// <summary>
-        /// An array of graph objects that will merged with a separate run.
+        /// An array of graph objects that will be merged with a separate run.
         /// </summary>
         [DataMember(Name = "graphs", IsRequired = false, EmitDefaultValue = false)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]

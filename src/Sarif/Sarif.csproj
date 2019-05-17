@@ -42,7 +42,8 @@
     <!--
     Marking these items as content causes them to be included in the NuGet package.
     -->
-    <Content Include="Schemata\sarif-schema.json" />
+    <Content Include="Schemata\sarif-schema-$(SchemaVersionAsPublishedToSchemaStoreOrg).json" />
+    <Content Include="Schemata\sarif-external-property-file-schema-$(SchemaVersionAsPublishedToSchemaStoreOrg).json" />
 
     <!-- Link=false: Don't display this item in Solution Explorer. -->
     <!-- This item will be added to the NuGet package, however. -->
@@ -50,7 +51,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <JsonSchemaFile Include="Schemata\sarif-schema.json">
+    <JsonSchemaFile Include="Schemata\sarif-schema-$(SchemaVersionAsPublishedToSchemaStoreOrg).json">
       <Namespace>$(RootNamespace)</Namespace>
       <RootClassName>SarifLog</RootClassName>
       <CopyrightFilePath>CopyrightNotice.txt</CopyrightFilePath>
