@@ -29,7 +29,7 @@
 
     "conversion": {
       "description": "A conversion object that will be merged with an external run.",
-      "$ref": "sarif-2.1.0-rtm.0#/definitions/conversion"
+      "$ref": "sarif-schema-2.1.0-rtm.0#/definitions/conversion"
     },
 
     "graphs": {
@@ -39,13 +39,13 @@
       "default": [],
       "uniqueItems": true,
       "items": {
-        "$ref": "sarif-2.1.0-rtm.0#/definitions/graph"
+        "$ref": "sarif-schema-2.1.0-rtm.0#/definitions/graph"
       }
     },
 
     "externalizedProperties": {
       "description": "Key/value pairs that provide additional information that will be merged with an external run.",
-      "$ref": "sarif-2.1.0-rtm.0#/definitions/propertyBag"
+      "$ref": "sarif-schema-2.1.0-rtm.0#/definitions/propertyBag"
     },
 
     "artifacts": {
@@ -54,7 +54,7 @@
       "minItems": 0,
       "uniqueItems": true,
       "items": {
-        "$ref": "sarif-2.1.0-rtm.0#/definitions/artifact"
+        "$ref": "sarif-schema-2.1.0-rtm.0#/definitions/artifact"
       }
     },
 
@@ -65,7 +65,7 @@
       "uniqueItems": false,
       "default": [],
       "items": {
-        "$ref": "sarif-2.1.0-rtm.0#/definitions/invocation"
+        "$ref": "sarif-schema-2.1.0-rtm.0#/definitions/invocation"
       }
     },
 
@@ -76,7 +76,7 @@
       "uniqueItems": true,
       "default": [],
       "items": {
-        "$ref": "sarif-2.1.0-rtm.0#/definitions/logicalLocation"
+        "$ref": "sarif-schema-2.1.0-rtm.0#/definitions/logicalLocation"
       }
     },
 
@@ -87,7 +87,7 @@
       "uniqueItems": true,
       "default": [],
       "items": {
-        "$ref": "sarif-2.1.0-rtm.0#/definitions/threadFlowLocation"
+        "$ref": "sarif-schema-2.1.0-rtm.0#/definitions/threadFlowLocation"
       }
     },
 
@@ -98,7 +98,7 @@
       "uniqueItems": false,
       "default": [],
       "items": {
-        "$ref": "sarif-2.1.0-rtm.0#/definitions/result"
+        "$ref": "sarif-schema-2.1.0-rtm.0#/definitions/result"
       }
     },
 
@@ -109,13 +109,13 @@
       "uniqueItems": true,
       "default": [],
       "items": {
-        "$ref": "sarif-2.1.0-rtm.0#/definitions/toolComponent"
+        "$ref": "sarif-schema-2.1.0-rtm.0#/definitions/toolComponent"
       }
     },
 
     "driver": {
       "description": "The analysis tool object that will be merged with an external run.",
-      "$ref": "sarif-2.1.0-rtm.0#/definitions/toolComponent"
+      "$ref": "sarif-schema-2.1.0-rtm.0#/definitions/toolComponent"
     },
 
     "extensions": {
@@ -125,7 +125,7 @@
       "uniqueItems": true,
       "default": [],
       "items": {
-        "$ref": "sarif-2.1.0-rtm.0#/definitions/toolComponent"
+        "$ref": "sarif-schema-2.1.0-rtm.0#/definitions/toolComponent"
       }
     },
 
@@ -136,7 +136,7 @@
       "uniqueItems": true,
       "default": [],
       "items": {
-        "$ref": "sarif-2.1.0-rtm.0#/definitions/toolComponent"
+        "$ref": "sarif-schema-2.1.0-rtm.0#/definitions/toolComponent"
       }
     },
 
@@ -147,7 +147,7 @@
       "uniqueItems": true,
       "default": [],
       "items": {
-        "$ref": "sarif-2.1.0-rtm.0#/definitions/toolComponent"
+        "$ref": "sarif-schema-2.1.0-rtm.0#/definitions/toolComponent"
       }
     },
 
@@ -158,7 +158,7 @@
       "uniqueItems": false,
       "default": [],
       "items": {
-        "$ref": "sarif-2.1.0-rtm.0#/definitions/address"
+        "$ref": "sarif-schema-2.1.0-rtm.0#/definitions/address"
       }
     },
 
@@ -169,7 +169,7 @@
       "uniqueItems": true,
       "default": [],
       "items": {
-        "$ref": "sarif-2.1.0-rtm.0#/definitions/webRequest"
+        "$ref": "sarif-schema-2.1.0-rtm.0#/definitions/webRequest"
       }
     },
 
@@ -180,13 +180,13 @@
       "uniqueItems": true,
       "default": [],
       "items": {
-        "$ref": "sarif-2.1.0-rtm.0#/definitions/webResponse"
+        "$ref": "sarif-schema-2.1.0-rtm.0#/definitions/webResponse"
       }
     },
 
     "properties": {
       "description": "Key/value pairs that provide additional information about the external properties.",
-      "$ref": "sarif-2.1.0-rtm.0#/definitions/propertyBag"
+      "$ref": "sarif-schema-2.1.0-rtm.0#/definitions/propertyBag"
     }
   },
   "required": [ "version" ]
