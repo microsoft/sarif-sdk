@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         }
 
         private static string s_CurrentSchemaLocation = 
-            Path.Combine(Path.GetDirectoryName(typeof(ValidateCommand).Assembly.Location), "sarif-schema.json");
+            Path.Combine(Path.GetDirectoryName(typeof(ValidateCommand).Assembly.Location), "sarif-2.1.0-rtm.0.json");
 
         protected override void AnalyzeTarget(
             IEnumerable<Skimmer<SarifValidationContext>> skimmers,
@@ -143,7 +143,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
             else
             {
-                string schemaResource = "Microsoft.CodeAnalysis.Sarif.Multitool.sarif-schema.json";
+                string schemaResource = "Microsoft.CodeAnalysis.Sarif.Multitool.sarif-2.1.0-rtm.0.json";
 
                 using (Stream stream = this.GetType().Assembly.GetManifestResourceStream(schemaResource))
                 using (StreamReader reader = new StreamReader(stream))
