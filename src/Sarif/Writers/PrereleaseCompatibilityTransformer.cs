@@ -53,15 +53,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     switch (schemaSubVersion)
                     {
+                        case "http://json.schemastore.org/sarif-2.1.0-rtm.1":
+                        {
+                            // rtm.1 release.
+                            // nothing to do.
+                            break;
+                        }
                         case "http://json.schemastore.org/sarif-2.1.0-rtm.0":
                         {
-                            // rtm.0 release.
-                            // nothing to do.
+                            modifiedLog |= ApplyRtm1Changes(sarifLog);
                             break;
                         }
                         case "http://json.schemastore.org/sarif-2.1.0-beta.2":
                         {
                             modifiedLog |= ApplyRtm0Changes(sarifLog);
+                            modifiedLog |= ApplyRtm1Changes(sarifLog);
                             break;
                         }
                         case "http://json.schemastore.org/sarif-2.1.0-beta.1":
@@ -69,6 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                         {
                             modifiedLog |= ApplyChangesFromTC35(sarifLog);
                             modifiedLog |= ApplyRtm0Changes(sarifLog);
+                            modifiedLog |= ApplyRtm1Changes(sarifLog);
                             break;
                         }
                         default:
@@ -84,6 +91,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC34(sarifLog);
                     modifiedLog |= ApplyChangesFromTC35(sarifLog);
                     modifiedLog |= ApplyRtm0Changes(sarifLog);
+                    modifiedLog |= ApplyRtm1Changes(sarifLog);
                     break;
                 }
 
@@ -93,6 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC34(sarifLog);
                     modifiedLog |= ApplyChangesFromTC35(sarifLog);
                     modifiedLog |= ApplyRtm0Changes(sarifLog);
+                    modifiedLog |= ApplyRtm1Changes(sarifLog);
                     break;
                 }
 
@@ -104,6 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC34(sarifLog);
                     modifiedLog |= ApplyChangesFromTC35(sarifLog);
                     modifiedLog |= ApplyRtm0Changes(sarifLog);
+                    modifiedLog |= ApplyRtm1Changes(sarifLog);
                     break;
                     }
 
@@ -115,6 +125,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC34(sarifLog);
                     modifiedLog |= ApplyChangesFromTC35(sarifLog);
                     modifiedLog |= ApplyRtm0Changes(sarifLog);
+                    modifiedLog |= ApplyRtm1Changes(sarifLog);
                     break;
                     }
 
@@ -134,6 +145,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC34(sarifLog);
                     modifiedLog |= ApplyChangesFromTC35(sarifLog);
                     modifiedLog |= ApplyRtm0Changes(sarifLog);
+                    modifiedLog |= ApplyRtm1Changes(sarifLog);
                     break;
                 }
 
@@ -151,6 +163,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC34(sarifLog);
                     modifiedLog |= ApplyChangesFromTC35(sarifLog);
                     modifiedLog |= ApplyRtm0Changes(sarifLog);
+                    modifiedLog |= ApplyRtm1Changes(sarifLog);
                     break;
                 }
             }
@@ -180,9 +193,48 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return transformedSarifLog;
         }
 
-        private static bool ApplyRtm0Changes(JObject sarifLog)
+        private static bool ApplyRtm1Changes(JObject sarifLog)
         {
             UpdateSarifLogVersionAndSchema(sarifLog);
+            bool modifiedLog = false;
+
+            // https://github.com/oasis-tcs/sarif-spec/issues/414
+            modifiedLog |= ConvertResultLogicalLocationToArray(sarifLog);
+
+            return modifiedLog;
+        }
+
+        private static bool ConvertResultLogicalLocationToArray(JObject sarifLog)
+        {
+            string[] resultPathsToUpdate =
+            {
+                "inlineExternalProperties[].results[].locations[]",
+                "runs[].results[].locations[]"
+            };
+
+            bool actionOnLeafNode(JObject location)
+            {
+                if (location["logicalLocation"] is JObject logicalLocation)
+                {
+                    location.Remove("logicalLocation");
+                    var logicalLocations = new JArray
+                    {
+                        new JObject(logicalLocation)
+                    };
+
+                    location.Add("logicalLocations", logicalLocations);
+                }
+                return true;
+            }
+
+            return PerformActionOnLeafNodeIfExists(
+                possiblePathsToLeafNode: resultPathsToUpdate,
+                rootNode: sarifLog,
+                action: actionOnLeafNode);
+        }
+
+        private static bool ApplyRtm0Changes(JObject sarifLog)
+        {
             bool modifiedLog = false;
 
             // https://github.com/oasis-tcs/sarif-spec/issues/399
