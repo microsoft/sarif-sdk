@@ -213,33 +213,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         private static bool ConvertResultLogicalLocationToArray(JObject sarifLog)
         {
             // note: intentionally leaving inlineExternalProperties refs - since no one is using them yet.
-            string[] resultPathsToUpdate =
-            {
-                "results[].locations[]",
-                "results[].relatedLocations[]",
-                "results[].codeFlows[].threadFlows[].locations[].location",
-                "results[].suppressions[].location",
-
-                // all notification references
-                "invocations[].toolExecutionNotifications[].locations[]",
-                "invocations[].toolConfigurationNotifications[].locations[]",
-                "conversion.invocation.toolExecutionNotifications[].locations[]",
-                "conversion.invocation.toolConfigurationNotifications[].locations[]",
-
-                // all stackframe references
-                "conversion.invocation.toolExecutionNotifications[].exception.stack.frames[].location",
-                "conversion.invocation.toolConfigurationNotifications[].exception.stack.frames[].location",
-                "conversion.invocation.toolExecutionNotifications[].exception.innerExceptions[].stack.frames[].location",
-                "conversion.invocation.toolConfigurationNotifications[].exception.innerExceptions[].stack.frames[].location",
-
-                "invocations[].toolExecutionNotifications[].exception.stack.frames[].location",
-                "invocations[].toolExecutionNotifications[].exception.stack.frames[].location",
-                "invocations[].toolConfigurationNotifications[].exception.innerExceptions[].stack.frames[].location",
-                "invocations[].toolConfigurationNotifications[].exception.innerExceptions[].stack.frames[].location",
-
-                "results[].codeFlows[].threadFlows[].locations[].stack.frames[].location",
-                "results[].stacks[].frames[].location"
-            };
+            string[] resultPathsToUpdate = GetAllLocationPathsList();
 
             bool actionOnLeafNode(JObject location)
             {
@@ -942,6 +916,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             //      }
 
             // The code walks through all possible paths to 'location' node and performs updates.
+
+            string[] locationPathsToUpdate = GetAllLocationPathsList();
+            PerformActionOnLeafNodeIfExists(locationPathsToUpdate, run, AddLogicalLocationToSingleLocationNode);
+        }
+
+        private static string[] GetAllLocationPathsList()
+        {
+            // note: intentionally leaving inlineExternalProperties refs - since no one is using them yet.
+
             string[] locationPathsToUpdate =
             {
 
@@ -950,9 +933,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 "results[].stacks[].frames[].location",
                 "results[].codeFlows[].threadFlows[].locations[].location",
                 "results[].codeFlows[].threadFlows[].locations[].stack.frames[].location",
+                "results[].suppressions[].location",
 
                 "threadFlowLocations[].stack.frames[].location",
                 "threadFlowLocations[].location",
+
+                "invocations[].toolExecutionNotifications[].locations[]",
+                "invocations[].toolConfigurationNotifications[].locations[]",
+                "conversion.invocation.toolExecutionNotifications[].locations[]",
+                "conversion.invocation.toolConfigurationNotifications[].locations[]",
 
                 "invocations[].toolExecutionNotifications[].exception.stack.frames[].location",
                 "invocations[].toolExecutionNotifications[].exception.innerExceptions[].stack.frames[].location", // (recursive reference)
@@ -969,7 +958,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 //"graphs.nodes[].location"
                 //"graphs.nodes[].children[].location" //(recursive reference)
             };
-            PerformActionOnLeafNodeIfExists(locationPathsToUpdate, run, AddLogicalLocationToSingleLocationNode);
+            return locationPathsToUpdate;
         }
 
         private static bool AddLogicalLocationToSingleLocationNode(JObject location)
