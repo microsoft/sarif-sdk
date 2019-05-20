@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.1.0-rtm.0",
+  "$schema": "http://json.schemastore.org/sarif-2.1.0-rtm.1",
   "version": "2.1.0",
   "runs": [
     {
@@ -35,10 +35,12 @@
           },
           "locations": [
             {
-              "logicalLocation": {
-                "index": 1,
-                "fullyQualifiedName": "collections::list"
-              }
+              "logicalLocations": [
+                {
+                  "index": 1,
+                  "fullyQualifiedName": "collections::list"
+                }
+              ]
             }
           ]
         },
@@ -49,10 +51,12 @@
           },
           "locations": [
             {
-              "logicalLocation": {
-                "index": 0,
-                "fullyQualifiedName": "collections"
-              }
+              "logicalLocations": [
+                {
+                  "index": 0,
+                  "fullyQualifiedName": "collections"
+                }
+              ]
             }
           ]
         },
@@ -63,10 +67,12 @@
           },
           "locations": [
             {
-              "logicalLocation": {
-                "index": 2,
-                "fullyQualifiedName": "collections::list::add"
-              }
+              "logicalLocations": [
+                {
+                  "index": 2,
+                  "fullyQualifiedName": "collections::list::add"
+                }
+              ]
             }
           ]
         },
@@ -77,10 +83,12 @@
           },
           "locations": [
             {
-              "logicalLocation": {
-                "index": 1,
-                "fullyQualifiedName": "collections::list"
-              }
+              "logicalLocations": [
+                {
+                  "index": 1,
+                  "fullyQualifiedName": "collections::list"
+                }
+              ]
             }
           ]
         }

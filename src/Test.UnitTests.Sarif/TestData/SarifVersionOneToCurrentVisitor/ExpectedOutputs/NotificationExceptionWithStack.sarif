@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.1.0-rtm.0",
+  "$schema": "http://json.schemastore.org/sarif-2.1.0-rtm.1",
   "version": "2.1.0",
   "runs": [
     {
@@ -37,10 +37,12 @@
                             "endColumn": 9
                           }
                         },
-                        "logicalLocation": {
-                          "index": 0,
-                          "fullyQualifiedName": "Ambiguous.Item"
-                        },
+                        "logicalLocations": [
+                          {
+                            "index": 0,
+                            "fullyQualifiedName": "Ambiguous.Item"
+                          }
+                        ],
                         "message": {
                           "text": "Exception thrown"
                         }
@@ -55,10 +57,12 @@
                             "uri": "file:///C:/src/main.cs"
                           }
                         },
-                        "logicalLocation": {
-                          "index": 1,
-                          "fullyQualifiedName": "Rules.SecureHashAlgorithmRule.Register"
-                        }
+                        "logicalLocations": [
+                          {
+                            "index": 1,
+                            "fullyQualifiedName": "Rules.SecureHashAlgorithmRule.Register"
+                          }
+                        ]
                       },
                       "module": "RuleLibrary",
                       "threadId": 52
@@ -70,9 +74,11 @@
                             "uri": "file:///C:/src/utils.cs"
                           }
                         },
-                        "logicalLocation": {
-                          "fullyQualifiedName": "ExecutionEngine.Engine.EvaluateRule"
-                        }
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "ExecutionEngine.Engine.EvaluateRule"
+                          }
+                        ]
                       },
                       "module": "ExecutionEngine",
                       "threadId": 52
@@ -84,10 +90,12 @@
                             "uri": "file:///C:/src/testtarget.cs"
                           }
                         },
-                        "logicalLocation": {
-                          "index": 2,
-                          "fullyQualifiedName": "Ambiguous.Item"
-                        }
+                        "logicalLocations": [
+                          {
+                            "index": 2,
+                            "fullyQualifiedName": "Ambiguous.Item"
+                          }
+                        ]
                       },
                       "module": "Target",
                       "threadId": 52

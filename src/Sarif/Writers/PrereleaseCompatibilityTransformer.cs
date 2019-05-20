@@ -198,18 +198,47 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             UpdateSarifLogVersionAndSchema(sarifLog);
             bool modifiedLog = false;
 
-            // https://github.com/oasis-tcs/sarif-spec/issues/414
-            modifiedLog |= ConvertResultLogicalLocationToArray(sarifLog);
+            if (sarifLog["runs"] is JArray runs)
+            {
+                foreach (JObject run in runs)
+                {
+                    // https://github.com/oasis-tcs/sarif-spec/issues/414
+                    modifiedLog |= ConvertResultLogicalLocationToArray(run);
+                }
+            }
 
             return modifiedLog;
         }
 
         private static bool ConvertResultLogicalLocationToArray(JObject sarifLog)
         {
+            // note: intentionally leaving inlineExternalProperties refs - since no one is using them yet.
             string[] resultPathsToUpdate =
             {
-                "inlineExternalProperties[].results[].locations[]",
-                "runs[].results[].locations[]"
+                "results[].locations[]",
+                "results[].relatedLocations[]",
+                "results[].codeFlows[].threadFlows[].locations[].location",
+                "results[].suppressions[].location",
+
+                // all notification references
+                "invocations[].toolExecutionNotifications[].locations[]",
+                "invocations[].toolConfigurationNotifications[].locations[]",
+                "conversion.invocation.toolExecutionNotifications[].locations[]",
+                "conversion.invocation.toolConfigurationNotifications[].locations[]",
+
+                // all stackframe references
+                "conversion.invocation.toolExecutionNotifications[].exception.stack.frames[].location",
+                "conversion.invocation.toolConfigurationNotifications[].exception.stack.frames[].location",
+                "conversion.invocation.toolExecutionNotifications[].exception.innerExceptions[].stack.frames[].location",
+                "conversion.invocation.toolConfigurationNotifications[].exception.innerExceptions[].stack.frames[].location",
+
+                "invocations[].toolExecutionNotifications[].exception.stack.frames[].location",
+                "invocations[].toolExecutionNotifications[].exception.stack.frames[].location",
+                "invocations[].toolConfigurationNotifications[].exception.innerExceptions[].stack.frames[].location",
+                "invocations[].toolConfigurationNotifications[].exception.innerExceptions[].stack.frames[].location",
+
+                "results[].codeFlows[].threadFlows[].locations[].stack.frames[].location",
+                "results[].stacks[].frames[].location"
             };
 
             bool actionOnLeafNode(JObject location)

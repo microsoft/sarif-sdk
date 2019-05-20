@@ -380,3 +380,6 @@
 
 ## **v2.1.1** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.1) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.1) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.1)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.1)
 * BUGFIX: Multitool crashes on launch: Can't find CommandLine.dll. https://github.com/microsoft/sarif-sdk/issues/1487
+
+## **v2.1.2** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.2) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.2) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.2)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.2)
+* API BREAKING: Change result.logicalLocation to logicalLocations array. https://github.com/oasis-tcs/sarif-spec/issues/414
