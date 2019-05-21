@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 annotatedCodeLocation = new AnnotatedCodeLocationVersionOne
                 {
                     Annotations = v2Location.Annotations?.Select(CreateAnnotationVersionOne).ToList(),
-                    FullyQualifiedLogicalName = v2Location.LogicalLocations?[0]?.FullyQualifiedName,
+                    FullyQualifiedLogicalName = v2Location.LogicalLocation?.FullyQualifiedName,
                     Message = v2Location.Message?.Text,
                     PhysicalLocation = CreatePhysicalLocationVersionOne(v2Location.PhysicalLocation),
                     Snippet = v2Location.PhysicalLocation?.Region?.Snippet?.Text
@@ -312,7 +312,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             {
                 location = new LocationVersionOne
                 {
-                    FullyQualifiedLogicalName = v2Location.LogicalLocations?[0]?.FullyQualifiedName,
+                    FullyQualifiedLogicalName = v2Location.LogicalLocation?.FullyQualifiedName,
                     Properties = v2Location.Properties,
                     ResultFile = CreatePhysicalLocationVersionOne(v2Location.PhysicalLocation)
                 };
