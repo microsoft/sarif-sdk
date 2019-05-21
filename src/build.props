@@ -11,10 +11,10 @@
     <Copyright Condition=" '$(Copyright)' == '' ">© Microsoft Corporation. All rights reserved.</Copyright>
     
     <!-- VersionPrefix denotes the current Semantic Version for the SDK. Must be updated before every nuget drop. -->
-    <VersionPrefix>2.1.1</VersionPrefix>
+    <VersionPrefix>2.1.2</VersionPrefix>
     
      <!-- SchemaVersionAsPublishedToSchemaStoreOrg identifies the current published version on json schema store at http://json.schemastore.org/ -->
-    <SchemaVersionAsPublishedToSchemaStoreOrg>2.1.0-rtm.0</SchemaVersionAsPublishedToSchemaStoreOrg>
+    <SchemaVersionAsPublishedToSchemaStoreOrg>2.1.0-rtm.1</SchemaVersionAsPublishedToSchemaStoreOrg>
       
     <!-- The stable Version of SARIF Specifications. -->
     <StableSarifVersion>2.1.0</StableSarifVersion>
@@ -29,8 +29,8 @@
     place. These properties are actually used by the PowerShell script that
     hides the previous package versions on nuget.org.
     -->
-    <PreviousVersionPrefix>2.1.0</PreviousVersionPrefix>
-    <PreviousSchemaVersionAsPublishedToSchemaStoreOrg>2.1.0-beta.2</PreviousSchemaVersionAsPublishedToSchemaStoreOrg>
+    <PreviousVersionPrefix>2.1.1</PreviousVersionPrefix>
+    <PreviousSchemaVersionAsPublishedToSchemaStoreOrg>2.1.0-rtm.0</PreviousSchemaVersionAsPublishedToSchemaStoreOrg>
     <PreviousStableSarifVersion>2.1.0</PreviousStableSarifVersion>
   </PropertyGroup>
 

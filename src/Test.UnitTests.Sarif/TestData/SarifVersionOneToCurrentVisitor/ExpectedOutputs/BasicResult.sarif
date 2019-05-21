@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.1.0-rtm.0",
+  "$schema": "http://json.schemastore.org/sarif-2.1.0-rtm.1",
   "version": "2.1.0",
   "runs": [
     {
@@ -127,10 +127,12 @@
                   "byteLength": 27
                 }
               },
-              "logicalLocation": {
-                "index": 1,
-                "fullyQualifiedName": "collections::list"
-              }
+              "logicalLocations": [
+                {
+                  "index": 1,
+                  "fullyQualifiedName": "collections::list"
+                }
+              ]
             },
             {
               "physicalLocation": {
@@ -142,10 +144,12 @@
                   "endLine": 12
                 }
               },
-              "logicalLocation": {
-                "index": 3,
-                "fullyQualifiedName": "collections::list"
-              }
+              "logicalLocations": [
+                {
+                  "index": 3,
+                  "fullyQualifiedName": "collections::list"
+                }
+              ]
             }
           ]
         },
@@ -180,10 +184,12 @@
                   }
                 }
               },
-              "logicalLocation": {
-                "index": 2,
-                "fullyQualifiedName": "collections::list::add"
-              }
+              "logicalLocations": [
+                {
+                  "index": 2,
+                  "fullyQualifiedName": "collections::list::add"
+                }
+              ]
             }
           ],
           "relatedLocations": [
@@ -199,10 +205,12 @@
                   "byteLength": 4
                 }
               },
-              "logicalLocation": {
-                "index": 2,
-                "fullyQualifiedName": "collections::list::add"
-              },
+              "logicalLocations": [
+                {
+                  "index": 2,
+                  "fullyQualifiedName": "collections::list::add"
+                }
+              ],
               "message": {
                 "text": "\"count\" was declared here."
               }
@@ -217,10 +225,12 @@
                   "byteLength": 3
                 }
               },
-              "logicalLocation": {
-                "index": 1,
-                "fullyQualifiedName": "collections::list"
-              },
+              "logicalLocations": [
+                {
+                  "index": 1,
+                  "fullyQualifiedName": "collections::list"
+                }
+              ],
               "message": {
                 "text": "Another reference to \"count\" was declared here."
               }
@@ -235,10 +245,12 @@
                   "endLine": 12
                 }
               },
-              "logicalLocation": {
-                "index": 3,
-                "fullyQualifiedName": "collections::list"
-              },
+              "logicalLocations": [
+                {
+                  "index": 3,
+                  "fullyQualifiedName": "collections::list"
+                }
+              ],
               "message": {
                 "text": "This reference to \"collections::list\" is not relevant to the problem."
               }

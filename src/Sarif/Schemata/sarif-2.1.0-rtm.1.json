@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Static Analysis Results Format (SARIF) Version 2.1.0-rtm.0 JSON Schema",
-  "$id": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0-rtm.0.json",
-  "description": "Static Analysis Results Format (SARIF) Version 2.1.0-rtm.0 JSON Schema: a standard format for the output of static analysis tools.",
+  "title": "Static Analysis Results Format (SARIF) Version 2.1.0-rtm.1 JSON Schema",
+  "id": "https://raw.githubusercontent.com/schemastore/schemastore/master/src/schemas/json/sarif-2.1.0-rtm.1.json",
+  "description": "Static Analysis Results Format (SARIF) Version 2.1.0-rtm.1 JSON Schema: a standard format for the output of static analysis tools.",
   "additionalProperties": false,
   "type": "object",
   "properties": {
@@ -1294,9 +1294,15 @@
           "$ref": "#/definitions/physicalLocation"
         },
 
-        "logicalLocation": {
-          "description": "The logical location associated with the result.",
-          "$ref": "#/definitions/logicalLocation"
+        "logicalLocations": {
+          "description": "The logical locations associated with the result.",
+          "type": "array",
+          "minItems": 0,
+          "uniqueItems": true,
+          "default": [],
+          "items": {
+            "$ref": "#/definitions/logicalLocation"
+          }
         },
 
         "message": {

@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.1.0-rtm.0",
+  "$schema": "http://json.schemastore.org/sarif-2.1.0-rtm.1",
   "version": "2.1.0",
   "runs": [
     {
@@ -68,9 +68,11 @@
                   }
                 }
               },
-              "logicalLocation": {
-                "fullyQualifiedName": "collections::list:add"
-              }
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "collections::list:add"
+                }
+              ]
             }
           ],
           "suppressions": [
@@ -108,9 +110,11 @@
                   }
                 }
               },
-              "logicalLocation": {
-                "fullyQualifiedName": "collections::list:add"
-              }
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "collections::list:add"
+                }
+              ]
             }
           ],
           "suppressions": [
@@ -145,9 +149,11 @@
                   }
                 }
               },
-              "logicalLocation": {
-                "fullyQualifiedName": "collections::list:add"
-              }
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "collections::list:add"
+                }
+              ]
             }
           ],
           "suppressions": [
