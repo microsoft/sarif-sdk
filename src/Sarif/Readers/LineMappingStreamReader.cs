@@ -1,5 +1,6 @@
-﻿// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+
 using System;
 using System.IO;
 
@@ -41,14 +42,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public long LineAndCharToOffset(int line, int charInLine)
         {
-            if (line == 0 && charInLine == 0) return 0;
-            if (line < _firstLineNumber || line > _firstLineNumber + _lineCount) throw new ArgumentOutOfRangeException($"Line must be in the range of lines last read, ({_firstLineNumber} - {_firstLineNumber + _lineCount}). It was {line}.");
+            if (line == 0 && charInLine == 0) { return 0; }
+            if (line < _firstLineNumber || line > _firstLineNumber + _lineCount) { throw new ArgumentOutOfRangeException($"Line must be in the range of lines last read, ({_firstLineNumber} - {_firstLineNumber + _lineCount}). It was {line}."); }
 
             int bytesInLine;
 
             if (line == _firstLineNumber)
             {
-                if (charInLine < _firstLineCharsBeforeBuffer || charInLine - _firstLineCharsBeforeBuffer > _bufferLength) throw new ArgumentOutOfRangeException($"Line {line} chars ({_firstLineCharsBeforeBuffer} to {_firstLineCharsBeforeBuffer + _bufferLength} in range. {charInLine} requested was out of range.");
+                if (charInLine == _firstLineCharsBeforeBuffer - 1) { return _bytesReadPreviously - 1; }
+                if (charInLine < _firstLineCharsBeforeBuffer || charInLine - _firstLineCharsBeforeBuffer > _bufferLength)
+                {
+                    throw new ArgumentOutOfRangeException($"Line {line} chars ({_firstLineCharsBeforeBuffer} to {_firstLineCharsBeforeBuffer + _bufferLength} in range. {charInLine} requested was out of range.");
+                }
 
                 // For the first line, the offset is total bytes read plus byte count for the characters in the line which are in the current buffer.
                 int charsInBufferForLine = charInLine - _firstLineCharsBeforeBuffer;
@@ -72,6 +77,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             return position;
         }
 
+        public char? CharAt(int line, int charInLine)
+        {
+            // Map the Line and Char to an index in the buffer
+            int charIndex;
+            if (line == _firstLineNumber)
+            {
+                charIndex = charInLine - _firstLineCharsBeforeBuffer;
+            }
+            else
+            {
+                int lineIndex = line - ((int)_firstLineNumber + 1);
+
+                // If the line is not in the buffer, return false
+                if (lineIndex < 0 || lineIndex > _lineCount)
+                {
+                    return null;
+                }
+
+                charIndex = _lineStartIndices[lineIndex] + charInLine;
+            }
+
+            // If the desired character isn't in the buffer, return false
+            if (charIndex < 0 || charIndex >= _bufferLength)
+            {
+                return null;
+            }
+
+            // Otherwise, return the desired character
+            return _buffer[_bufferIndex + charIndex];
+        }
+
         public override int Read(char[] buffer, int index, int count)
         {
             // Track the first line number and char total before the current buffer
@@ -90,14 +126,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             int charsRead = base.Read(buffer, index, count);
 
             // Copy buffer so we can map char in line to byte count (real buffer can be shifted by reader, invalidating indices)
-            if (_buffer == null || _buffer.Length < buffer.Length) _buffer = new char[buffer.Length];
+            if (_buffer == null || _buffer.Length < buffer.Length) { _buffer = new char[buffer.Length]; }
             Buffer.BlockCopy(buffer, 2 * index, _buffer, 0, 2 * charsRead);
             _bufferIndex = 0;
             _bufferLength = charsRead;
 
             // Ensure space to hold start of each line
-            if (_lineStartByteOffsets == null || _lineStartByteOffsets.Length < charsRead) _lineStartByteOffsets = new int[charsRead];
-            if (_lineStartIndices == null || _lineStartIndices.Length < charsRead) _lineStartIndices = new int[charsRead];
+            if (_lineStartByteOffsets == null || _lineStartByteOffsets.Length < charsRead) { _lineStartByteOffsets = new int[charsRead]; }
+            if (_lineStartIndices == null || _lineStartIndices.Length < charsRead) { _lineStartIndices = new int[charsRead]; }
             _lineCount = 0;
 
             // Find each newline byte offset relative to current read

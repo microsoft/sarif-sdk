@@ -43,12 +43,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         }
 
         /// <summary>
-        ///  Return the byte offset of the current token in the file.
+        ///  Return the byte offset of the last byte of the current token in the file.
+        ///  This corresponds to the LineNumber and LinePosition the JsonTextReader returns.
         /// </summary>
         /// <remarks>
         ///  This must be derived by mapping the (Line, Position) the JsonTextReader returns to an absolute offset.
         ///  The offset isn't exposed, and StreamReader and JsonTextReader both buffer, so StreamReader.BaseStream.Position is not correct.
         ///  </remarks>
         public long TokenPosition => this._streamReader.LineAndCharToOffset(this.LineNumber, this.LinePosition);
+
+        /// <summary>
+        ///  Return the character right after this token, if available.
+        /// </summary>
+        public char? CharAfterToken => this._streamReader.CharAt(this.LineNumber, this.LinePosition + 1);
     }
 }

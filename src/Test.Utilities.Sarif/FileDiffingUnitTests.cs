@@ -10,6 +10,7 @@ using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Writers;
+using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
@@ -36,11 +37,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private readonly ITestOutputHelper _outputHelper;
         private readonly bool _testProducesSarifCurrentVersion;
+        private ResourceExtractor _resourceExtractor;
 
         public FileDiffingUnitTests(ITestOutputHelper outputHelper, bool testProducesSarifCurrentVersion = true)
         {
             _outputHelper = outputHelper;
             _testProducesSarifCurrentVersion = testProducesSarifCurrentVersion;
+            _resourceExtractor = new ResourceExtractor(this.GetType());
 
             Directory.CreateDirectory(OutputFolderPath);
         }
@@ -144,33 +147,12 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         protected string GetResourceText(string resourceName)
         {
-            string text = null;
-
-            using (Stream stream = ThisAssembly.GetManifestResourceStream($"{TestLogResourceNameRoot}.{resourceName}"))
-            {
-                if (stream == null) { return string.Empty; }
-
-                using (StreamReader reader = new StreamReader(stream))
-                {
-                    text = reader.ReadToEnd();
-                }
-            }
-            return text;
+            return _resourceExtractor.GetResourceText(resourceName, TestLogResourceNameRoot);
         }
 
         protected byte[] GetResourceBytes(string resourceName)
         {
-            byte[] bytes = null;
-
-            using (Stream stream = ThisAssembly.GetManifestResourceStream($"{TestLogResourceNameRoot}.{resourceName}"))
-            {
-                using (MemoryStream memoryStream = new MemoryStream())
-                {
-                    stream.CopyTo(memoryStream);
-                    bytes = memoryStream.ToArray();
-                }
-            }
-            return bytes;
+            return _resourceExtractor.GetResourceBytes(resourceName, TestLogResourceNameRoot);
         }
 
         protected void ValidateResults(string output)

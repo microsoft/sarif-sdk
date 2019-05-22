@@ -20,6 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 MergeOptions,
                 RebaseUriOptions,
                 AbsoluteUriOptions,
+                PageOptions,
                 ResultMatchingOptions>(args)
               .MapResult(
                 (ValidateOptions validateOptions) => new ValidateCommand().Run(validateOptions),
@@ -29,6 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 (MergeOptions mergeOptions) => new MergeCommand().Run(mergeOptions),
                 (RebaseUriOptions rebaseOptions) => new RebaseUriCommand().Run(rebaseOptions),
                 (AbsoluteUriOptions absoluteUriOptions) => new AbsoluteUriCommand().Run(absoluteUriOptions),
+                (PageOptions pageOptions) => new PageCommand().Run(pageOptions),
                 (ResultMatchingOptions baselineOptions) => new ResultMatchingCommand().Run(baselineOptions),
                 errs => 1);
         }

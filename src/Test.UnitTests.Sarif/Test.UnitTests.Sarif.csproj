@@ -15,6 +15,7 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
+    <None Remove="TestData\Map\Sample.json" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ArtifactsWithRoles.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ComprehensiveToolProperties.01-24.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ComprehensiveToolProperties.sarif" />
@@ -47,6 +48,12 @@
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\MinimumWithLanguage.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\NestedInnerExceptionsInNotifications.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\OneRunWithAllReportingDescriptors.sarif" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="TestData\Map\Sample.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
