@@ -55,7 +55,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
                 absoluteStarts[i] = previous;
             }
 
-            Assert.Equal(new long[] { 82, 85, 91, 97, 103, 113, 119, 134, 140, 146 }, results.ArrayStarts);
+            // Positions are two after the previous end for literals and exact starts ('[' or '{') for nested objects/arrays
+            Assert.Equal(new long[] { 82, 85, 91, 97, 104, 113, 120, 134, 140, 146 }, results.ArrayStarts.ToArray());
         }
 
         [Fact]

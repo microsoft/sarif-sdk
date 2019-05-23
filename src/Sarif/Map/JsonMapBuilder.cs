@@ -3,7 +3,7 @@
 
 using System;
 using System.Collections.Generic;
-
+using System.IO;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 
 using Newtonsoft.Json;
@@ -41,7 +41,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
         /// <returns>JsonMap for file or null if file too small for map</returns>
         public JsonMapNode Build(string filePath)
         {
-            using (JsonPositionedTextReader reader = new JsonPositionedTextReader(filePath))
+            return Build(() => File.OpenRead(filePath));
+        }
+
+        /// <summary>
+        ///  Build the JsonMap for a given Json file, given a stream provider.
+        ///  Returns null if the source file was too small for any map nodes to fit the size budget.
+        /// </summary>
+        /// <param name="streamProvider">A function which will open the stream for the desired file</param>
+        /// <returns>JsonMap for file or null if file too small for map</returns>
+        public JsonMapNode Build(Func<Stream> streamProvider)
+        {
+            using (Stream stream = streamProvider())
+            {
+                if (stream.Length <= MinimumSizeForNode) { return null; }
+            }
+
+            using (JsonPositionedTextReader reader = new JsonPositionedTextReader(streamProvider))
             {
                 if (!reader.Read()) { return null; }
                 return Build(reader, 0, out long unused);
@@ -80,9 +96,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
                 return result;
             }
 
-            // For objects and arrays, build a node and look inside...
+            // For objects and arrays, capture the exact position, then build a node and look inside...
             JsonMapNode node = new JsonMapNode();
-            node.Start = startPosition;
+            node.Start = reader.TokenPosition;
             node.Count = 0;
 
             if (reader.TokenType == JsonToken.StartObject)
@@ -123,21 +139,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
 
                 while (reader.TokenType != JsonToken.EndArray)
                 {
-                    // Track the start of every array item
-                    node.ArrayStarts.Add(absoluteNextItemStart);
-                    
                     // Consider building children if nodes are large enough
                     JsonMapNode child = Build(reader, absoluteNextItemStart, out long itemEnd);
-
-                    // Next value start is two after the last value character itemEnd is pointing to (after last byte and comma)
-                    absoluteNextItemStart = itemEnd + 2;
 
                     if (child != null)
                     {
                         if (node.Nodes == null) { node.Nodes = new Dictionary<string, JsonMapNode>(); }
                         long itemIndex = node.Count;
                         node.Nodes[itemIndex.ToString()] = child;
+                        absoluteNextItemStart = child.Start;
                     }
+
+                    // Track the start of every array item
+                    node.ArrayStarts.Add(absoluteNextItemStart);
+
+                    // Next value start is two after the last value character itemEnd is pointing to (after last byte and comma)
+                    absoluteNextItemStart = itemEnd + 2;
 
                     node.Count++;
                 }
@@ -154,7 +171,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
             }
 
             // Return the node if it was big enough
-            if (node.End - node.Start > MinimumSizeForNode)
+            if (node.Length >= MinimumSizeForNode)
             {
                 return node;
             }

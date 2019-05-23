@@ -14,6 +14,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Required = true)]
         public string InputFilePath { get; set; }
 
+        [Option('r',
+            "run-index",
+            HelpText = "0-based index of the run to copy.",
+            Required = false,
+            Default = 0)]
+        public int RunIndex { get; set; }
+
         [Option('i',
             "index",
             HelpText = "0-based index of first result to include.",
