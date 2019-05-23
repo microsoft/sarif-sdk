@@ -31,9 +31,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
         public long End { get; set; }
 
         /// <summary>
+        ///  Count is the number of array elements (for arrays) or properties 
+        ///  (for objects) in the mapped object.
+        /// </summary>
+        public long Count { get; set; }
+
+        /// <summary>
         ///  Return the byte length of this node.
         ///  Since End and Start are inclusive, it's one more than the difference.
         /// </summary>
+        [JsonIgnore]
         public long Length => (1 + End - Start);
 
         /// <summary>
@@ -43,12 +50,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
         /// </summary>
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public Dictionary<string, JsonMapNode> Nodes { get; set; }
-
-        /// <summary>
-        ///  Count is the number of array elements (for arrays) or properties 
-        ///  (for objects) in the mapped object.
-        /// </summary>
-        public long Count { get; set; }
 
         /// <summary>
         ///  For Arrays only, 'Every' indicates which proportion of array element

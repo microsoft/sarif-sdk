@@ -60,13 +60,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
         }
 
         [Fact]
-        public void JsonMapBuilder_Basic_1x()
+        public void JsonMapBuilder_Basic_2x()
         {
             string sampleFilePath = @"Map.Sample.json";
             File.WriteAllText(sampleFilePath, Extractor.GetResourceText(@"Map.Sample.json"));
 
             // Allow a map 1x the size of the original file
-            JsonMapBuilder builder = new JsonMapBuilder(1);
+            JsonMapBuilder builder = new JsonMapBuilder(2);
             JsonMapNode root = builder.Build(sampleFilePath);
 
             // Verify three properties but only one big enough for a node

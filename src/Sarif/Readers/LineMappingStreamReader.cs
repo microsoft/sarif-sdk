@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         // Track the first line number and byte offset because it can start before the buffer range
         private long _firstLineNumber;
-        private int _firstLineCharsBeforeBuffer;
+        private long _firstLineCharsBeforeBuffer;
         private int _lastLineChars;
 
         // Keep a copy of the last read buffer and the valid range of it so we can count bytes within the requested line.
@@ -32,20 +32,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
         private int _bufferIndex;
         private int _bufferLength;
 
+        // Track the last character index to byte index requested
+        private int _lastMappedLineStartIndex;
+        private long _lastMappedCharInLine;
+        private int _lastMappedByteCountReturned;
+
+        // Json.NET can overflow LinePosition for huge minified JSON.
+        // Track and attempt to correct for it.
+        private OverflowCorrector _overflowCorrector;
 
         public LineMappingStreamReader(Stream stream) : base(stream)
         {
             // (1, 1) is the 0th byte, so the line number before the read is 1 and there is one character (the newline before the first line) before the first read.
             _firstLineNumber = 1;
             _firstLineCharsBeforeBuffer = 1;
+
+            _overflowCorrector = new OverflowCorrector();
         }
 
-        public long LineAndCharToOffset(int line, int charInLine)
+        public long LineAndCharToOffset(int line, long charInLine)
         {
             if (line == 0 && charInLine == 0) { return 0; }
             if (line < _firstLineNumber || line > _firstLineNumber + _lineCount) { throw new ArgumentOutOfRangeException($"Line must be in the range of lines last read, ({_firstLineNumber} - {_firstLineNumber + _lineCount}). It was {line}."); }
 
-            int bytesInLine;
+            // Track and correct for overflows from JSON.net
+            charInLine = _overflowCorrector.CorrectForOverflow(line, charInLine);
+
+            long bytesInLine;
 
             if (line == _firstLineNumber)
             {
@@ -56,8 +69,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                 }
 
                 // For the first line, the offset is total bytes read plus byte count for the characters in the line which are in the current buffer.
-                int charsInBufferForLine = charInLine - _firstLineCharsBeforeBuffer;
-                bytesInLine = this.CurrentEncoding.GetByteCount(_buffer, _bufferIndex, charsInBufferForLine);
+                long charsInBufferForLine = charInLine - _firstLineCharsBeforeBuffer;
+                bytesInLine = BytesInLine(_bufferIndex, charsInBufferForLine);
                 return _bytesReadPreviously + bytesInLine;
             }
 
@@ -70,20 +83,49 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             {
                 throw new ArgumentOutOfRangeException($"Line {line} up to char {charInLine} isn't available in buffer. Only {_bufferLength - newlineCharIndex} characters available.");
             }
-            bytesInLine = this.CurrentEncoding.GetByteCount(_buffer, _bufferIndex + newlineCharIndex, charInLine);
+            bytesInLine = BytesInLine(_bufferIndex + newlineCharIndex, charInLine);
 
             // Return the byte offset to this specific character
             long position = newlineByteOffset + bytesInLine;
             return position;
         }
 
-        public char? CharAt(int line, int charInLine)
+        private long BytesInLine(int lineStartCharIndex, long charInLine)
         {
+            if (_bufferLength == _bytesRead)
+            {
+                // If the buffer is all single byte characters, there's no mapping to do
+                return charInLine;
+            }
+
+            int byteCount;
+
+            if (_lastMappedLineStartIndex == lineStartCharIndex && _lastMappedCharInLine <= charInLine)
+            {
+                // If we mapped this line, just count bytes after the last character
+                byteCount = _lastMappedByteCountReturned + this.CurrentEncoding.GetByteCount(_buffer, (int)_lastMappedCharInLine, (int)(charInLine - _lastMappedCharInLine));
+            }
+            else
+            {
+                // Otherwise, we must count bytes for the characters found
+                byteCount = this.CurrentEncoding.GetByteCount(_buffer, lineStartCharIndex, (int)charInLine);
+            }
+
+            _lastMappedLineStartIndex = lineStartCharIndex;
+            _lastMappedCharInLine = charInLine;
+            _lastMappedByteCountReturned = byteCount;
+            return byteCount;
+        }
+
+        public char? CharAt(int line, long charInLine)
+        {
+            charInLine = _overflowCorrector.CorrectForOverflow(line, charInLine);
+
             // Map the Line and Char to an index in the buffer
             int charIndex;
             if (line == _firstLineNumber)
             {
-                charIndex = charInLine - _firstLineCharsBeforeBuffer;
+                charIndex = (int)(charInLine - _firstLineCharsBeforeBuffer);
             }
             else
             {
@@ -95,7 +137,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
                     return null;
                 }
 
-                charIndex = _lineStartIndices[lineIndex] + charInLine;
+                charIndex = (int)(_lineStartIndices[lineIndex] + charInLine);
             }
 
             // If the desired character isn't in the buffer, return false
@@ -110,6 +152,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
         public override int Read(char[] buffer, int index, int count)
         {
+            // Clear previously cached results
+            _lastMappedLineStartIndex = -1;
+
             // Track the first line number and char total before the current buffer
             if (_lineCount > 0)
             {

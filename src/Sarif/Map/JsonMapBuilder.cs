@@ -16,8 +16,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
     /// </summary>
     public class JsonMapBuilder
     {
-        private const long NodeSizeEstimate = 60;         // Bytes for a node without sub-nodes or ArrayStarts
-        private const long ArrayStartSizeEstimate = 5;    // Size if items are <= 1KB; map is tiny if items are bigger.
+        private const long NodeSizeEstimateBytes = 90;         // Bytes for one Node with containing property but not including children
+        private const long ArrayStartSizeEstimateBytes = 5;    // Bytes for one ArrayStart location, if under 10KB.
 
         public double MaxFileSizePercentage { get; private set; }
         public int MinimumSizeForNode { get; private set; }
@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
         public JsonMapBuilder(double maxFileSizePercentage)
         {
             MaxFileSizePercentage = maxFileSizePercentage;
-            MinimumSizeForNode = (int)(NodeSizeEstimate / maxFileSizePercentage);
+            MinimumSizeForNode = (int)(NodeSizeEstimateBytes / maxFileSizePercentage);
         }
 
         /// <summary>
@@ -192,7 +192,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
         private void FilterArrayStarts(JsonMapNode node)
         {
             long arraySizeBytes = node.End - node.Start;
-            double countBudget = (double)(arraySizeBytes * MaxFileSizePercentage / ArrayStartSizeEstimate);
+            double countBudget = (double)(arraySizeBytes * MaxFileSizePercentage / ArrayStartSizeEstimateBytes);
 
             if (arraySizeBytes < MinimumSizeForNode || node.Count < 2 || countBudget < 2)
             {

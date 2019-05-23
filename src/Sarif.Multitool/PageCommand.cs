@@ -7,7 +7,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Map;
-using Microsoft.CodeAnalysis.Sarif.Readers;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -26,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             try
             {
-                string mapPath =  Path.Combine(Path.GetDirectoryName(options.InputFilePath), Path.GetFileNameWithoutExtension(options.InputFilePath) + ".map.json");
+                string mapPath = Path.Combine(Path.GetDirectoryName(options.InputFilePath), Path.GetFileNameWithoutExtension(options.InputFilePath) + ".map.json");
 
                 // Load the JsonMap, if previously built and up-to-date, or rebuild it
                 JsonMapNode root = LoadOrRebuildMap(options.InputFilePath, mapPath);
@@ -116,12 +115,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 throw new ArgumentOutOfRangeException($"Page requested from Result {options.Index} to {options.Index + options.Count}, but Run has only {results.Count} results.");
             }
 
+            Console.WriteLine($"Run {options.RunIndex} in \"{options.InputFilePath}\" has {results.Count:n0} results.");
+
             Func<Stream> inputStreamProvider = () => _fileSystem.OpenRead(options.InputFilePath);
             long firstResultStart = results.FindArrayStart(options.Index, inputStreamProvider);
             long lastResultEnd = results.FindArrayStart(options.Index + options.Count + 1, inputStreamProvider) - 1;
 
             // Build the Sarif Log subset
+            long lengthWritten = 0;
             byte[] buffer = new byte[64 * 1024];
+
             using (FileStream output = File.Create(options.OutputFilePath))
             using (FileStream source = File.OpenRead(options.InputFilePath))
             {
@@ -141,10 +144,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
                 // Copy everything after all runs (includes runs ']' and log '}')
                 JsonMapNode.CopyStreamBytes(source, output, runs.End, root.End, buffer);
+
+                lengthWritten = output.Length;
             }
 
             w.Stop();
-            Console.WriteLine($"Done in {w.Elapsed.TotalSeconds:n1}s.");
+            Console.WriteLine($"Done; wrote {(lengthWritten / (double)(1024 * 1024)):n2} MB in {w.Elapsed.TotalSeconds:n1}s.");
         }
     }
 }
