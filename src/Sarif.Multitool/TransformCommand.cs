@@ -78,7 +78,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 {
                     if (inputVersion == "1.0.0")
                     {
-                        _fileSystem.WriteAllText(fileName, _fileSystem.ReadAllText(inputFilePath));
+                        SarifLogVersionOne logV1 = ReadSarifFile<SarifLogVersionOne>(_fileSystem, transformOptions.InputFilePath, SarifContractResolverVersionOne.Instance);
+                        logV1.SchemaUri = SarifVersion.OneZeroZero.ConvertToSchemaUri();
+                        WriteSarifFile(_fileSystem, logV1, fileName, formatting, SarifContractResolverVersionOne.Instance);
                     }
                     else
                     {

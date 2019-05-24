@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public void ConvertToSchemaUriTestV100()
         {
             Uri uri = SarifVersion.OneZeroZero.ConvertToSchemaUri();
-            Assert.Equal(SarifUtilities.SarifSchemaUriBase + SarifUtilities.V1_0_0, uri.ToString());
+            Assert.Equal(SarifUtilities.SarifSchemaUriBase + SarifUtilities.V1_0_0 + ".json", uri.ToString());
         }
 
         [Fact]
