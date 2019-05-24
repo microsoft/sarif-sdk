@@ -58,19 +58,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private JsonMapNode LoadOrRebuildMap(string inputFilePath, string mapPath)
         {
-            // If map exists and is up-to-date, just reload it
+            JsonMapNode root;
+            Stopwatch w = Stopwatch.StartNew();
+
             if (_fileSystem.FileExists(mapPath) && _fileSystem.GetLastWriteTime(mapPath) > _fileSystem.GetLastWriteTime(inputFilePath))
             {
-                return JsonConvert.DeserializeObject<JsonMapNode>(_fileSystem.ReadAllText(mapPath));
+                // If map exists and is up-to-date, just reload it
+                Console.WriteLine($"Loading Json Map \"{mapPath}\"...");
+                root = JsonConvert.DeserializeObject<JsonMapNode>(_fileSystem.ReadAllText(mapPath));
             }
+            else
+            {
+                // Otherwise, build the map and save it
+                Console.WriteLine($"Building Json Map of \"{inputFilePath}\" into \"{mapPath}\"...");
+                JsonMapBuilder builder = new JsonMapBuilder(SarifMapTargetSizeRatio);
+                root = builder.Build(() => _fileSystem.OpenRead(inputFilePath));
 
-            // Otherwise, build the map and save it
-            Stopwatch w = Stopwatch.StartNew();
-            Console.WriteLine($"Building Json Map of \"{inputFilePath}\" into \"{mapPath}\"...");
-
-            JsonMapBuilder builder = new JsonMapBuilder(SarifMapTargetSizeRatio);
-            JsonMapNode root = builder.Build(() => _fileSystem.OpenRead(inputFilePath));
-            _fileSystem.WriteAllText(mapPath, JsonConvert.SerializeObject(root, Formatting.None));
+                _fileSystem.WriteAllText(mapPath, JsonConvert.SerializeObject(root, Formatting.None));
+            }
 
             w.Stop();
             Console.WriteLine($"Done in {w.Elapsed.TotalSeconds:n1}s.");
