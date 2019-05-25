@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     switch (schemaSubVersion)
                     {
-                        case "http://json.schemastore.org/sarif-2.1.0-rtm.1":
+                        case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.1.json":
                         {
                             // rtm.1 release.
                             // nothing to do.

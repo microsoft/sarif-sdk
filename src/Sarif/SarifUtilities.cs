@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         public const string V1_0_0 = "1.0.0";
-        public const string SarifSchemaUriBase = "http://json.schemastore.org/sarif-";
+        public const string SarifSchemaUriBase = "https://schemastore.azurewebsites.net/schemas/json/sarif-";
 
         public static readonly string SarifSchemaUri = ConvertToSchemaUri(SarifVersion.Current).OriginalString;
 
@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             return new Uri(
                     SarifSchemaUriBase +
-                    (sarifVersion == SarifVersion.Current ? VersionConstants.SchemaVersionAsPublishedToSchemaStoreOrg : sarifVersion.ConvertToText()), UriKind.Absolute);
+                    (sarifVersion == SarifVersion.Current ? VersionConstants.SchemaVersionAsPublishedToSchemaStoreOrg : sarifVersion.ConvertToText()) + ".json", UriKind.Absolute);
         }
 
         public static Dictionary<string, string> BuildMessageFormats(IEnumerable<string> resourceNames, ResourceManager resourceManager)

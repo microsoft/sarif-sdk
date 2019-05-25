@@ -97,6 +97,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
+        public void InsertOptionalDataVisitor_PersistsNone()
+        {
+            RunTest("CoreTests.sarif");
+        }
+
+        [Fact]
+        public void InsertOptionalDataVisitor_PersistsHashesAndTextFiles()
+        {
+            RunTest("CoreTests.sarif",
+                OptionallyEmittedData.TextFiles |
+                OptionallyEmittedData.Hashes);
+        }
+
+        [Fact]
         public void InsertOptionalDataVisitor_PersistsAll()
         {
             RunTest("CoreTests.sarif", 

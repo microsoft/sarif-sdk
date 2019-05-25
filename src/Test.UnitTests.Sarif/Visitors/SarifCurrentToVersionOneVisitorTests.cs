@@ -61,5 +61,11 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
 
         [Fact]
         public void SarifTransformerTests_ToVersionOne_Regions() => RunTest("Regions.sarif");
+
+        [Fact]
+        public void SarifTransformerTests_ToVersionOne_MinimumWithTwoRuns() => RunTest("MinimumWithTwoRuns.sarif");
+
+        [Fact]
+        public void SarifTransformerTests_ToVersionOne_OneRunWithInvocationAndNotifications() => RunTest("OneRunWithInvocationAndNotifications.sarif");
     }
 }
