@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <None Include="$(SolutionDir)\Sarif\Schemata\sarif-$(SchemaVersionAsPublishedToSchemaStoreOrg).json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="$(SolutionDir)\Sarif\Schemata\sarif-external-property-file-$(SchemaVersionAsPublishedToSchemaStoreOrg).json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="$(SolutionDir)\Test.FunctionalTests.Sarif\v2\**\*.sarif" CopyToOutputDirectory="PreserveNewest" LinkBase="v2" />
   </ItemGroup>
 
@@ -75,6 +76,7 @@
     <None Remove="TestData\Multitool\ValidateCommand\Inputs\SARIF1015.UriMustBeAbsolute_Valid.sarif" />
     <None Remove="TestData\Multitool\ValidateCommand\Inputs\SARIF1016.ContextRegionRequiresRegion_Invalid.sarif" />
     <None Remove="TestData\Multitool\ValidateCommand\Inputs\SARIF1016.ContextRegionRequiresRegion_Valid.sarif" />
+    <None Remove="TestData\Multitool\ValidateCommand\Inputs\SimpleExample.sarif-external-properties.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -3060,6 +3062,7 @@
     <EmbeddedResource Include="TestData\Multitool\ValidateCommand\Inputs\SARIF1015.UriMustBeAbsolute_Valid.sarif" />
     <EmbeddedResource Include="TestData\Multitool\ValidateCommand\Inputs\SARIF1016.ContextRegionRequiresRegion_Invalid.sarif" />
     <EmbeddedResource Include="TestData\Multitool\ValidateCommand\Inputs\SARIF1016.ContextRegionRequiresRegion_Valid.sarif" />
+    <EmbeddedResource Include="TestData\Multitool\ValidateCommand\Inputs\SimpleExample.sarif-external-properties.json" />
     <None Include="v2\ConverterTestData\PREfast\Expected-001.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

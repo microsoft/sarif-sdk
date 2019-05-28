@@ -385,4 +385,5 @@
 * API BREAKING: Change result.logicalLocation to logicalLocations array. https://github.com/oasis-tcs/sarif-spec/issues/414
 
 ## **v2.1.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.3)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.3)
-* API NON-BREAKING: Change schema uri to secure (https) instance.
+* Change schema uri to secure (https) instance.
+* Fix tranformer bug where schema id would not be updated if no other transformation occurred.
