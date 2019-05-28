@@ -325,6 +325,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private Result ConstructInsecureHashAlgorithmsResult(ContrastLogReader.Context context)
         {
+            // crypto-bad-mac : Insecure Hash Algorithms
+
             Result result = CreateResultCore(context);
 
             Stack stack = context.MethodEvent.Stack;
@@ -370,7 +372,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private Result ConstructPagesWithoutAntiClickjackingControlsResult(ContrastLogReader.Context context)
         {
-            // cache-controls-missing : Anti-Caching Controls Missing
+            // clickjacking-control-missing : Pages Without Anti-Clickjacking Controls
 
             // <properties name="/webgoat/Content/EncryptVSEncode.aspx">1536704253063</properties>
             // <properties name="/webgoat/WebGoatCoins/MainPage.aspx">1536704186306</properties>
@@ -633,7 +635,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // default : The configuration in '{0}' had 'httpOnlyCookies' set to 'false' in an <httpCookies> section.
 
-            return ConstructNotImplementedRuleResult(context.RuleId);
+            // http-only-disabled instances track the following properties:
+            // 
+            // <properties name="path">\web.config</properties>
+            // <properties name = "snippet" >35:    &lt;/compilation&gt;&#xD;
+            // 36:     &lt;httpCookies httpOnlyCookies="false"/&gt;&#xD;
+            // 37:     &lt;!--show detailed error messages --&gt;&#xD;
+
+            IDictionary<string, string> properties = context.Properties;
+            string path = properties[nameof(path)];
+            string snippet = properties[nameof(snippet)];
+
+            Result result = CreateResultCore(context);
+
+            result.Locations = new List<Location>
+            {
+                new Location
+                {
+                    PhysicalLocation = CreatePhysicalLocation(path, CreateRegion(snippet))
+                }
+            };
+
+            result.Message = new Message
+            {
+                Id = "default",
+                Arguments = new List<string>
+                {                  // The configuration in
+                    path           // '{0}' had 'httpOnlyCookies' set to 'false' in an <httpCookies> section.
+                }
+            };
+
+            return result;
         }
 
         private Result ConstructInsecureEncryptionAlgorithmsResult(ContrastLogReader.Context context)
@@ -974,8 +1006,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     Uri = new Uri(uri, UriKind.Absolute)
                 },
-                Region = region,
-                ContextRegion = region
+                Region = region
             };
         }
 
