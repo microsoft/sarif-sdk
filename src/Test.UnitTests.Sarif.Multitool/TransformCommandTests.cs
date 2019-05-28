@@ -148,7 +148,7 @@ namespace Sarif.Multitool.UnitTests
             // Finally, ensure that transformation corrected schema uri and SARIF version.
             var settings = new JsonSerializerSettings { ContractResolver = SarifContractResolverVersionOne.Instance };
             SarifLogVersionOne v1SarifLog = JsonConvert.DeserializeObject<SarifLogVersionOne>(transformedContents, settings);
-            v1SarifLog.SchemaUri.Should().Be(@"http://json.schemastore.org/sarif-1.0.0");
+            v1SarifLog.SchemaUri.Should().Be(SarifVersion.OneZeroZero.ConvertToSchemaUri());
             v1SarifLog.Version.Should().Be(SarifVersionVersionOne.OneZeroZero);
         }
 
