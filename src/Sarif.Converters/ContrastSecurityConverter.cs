@@ -950,21 +950,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private WebRequest CreateWebRequest(ContrastLogReader.Context context)
         {
-            return new WebRequest
-            {
-                Protocol = context.RequestProtocol,
-                Version = context.RequestVersion,
-                Method = context.RequestMethod,
-                Target = context.RequestTarget,
-                Headers = context.Headers,
-                Parameters = context.Parameters,
-                Body = string.IsNullOrEmpty(context.RequestBody)
-                    ? null
-                    : new ArtifactContent
-                    {
-                        Text = context.RequestBody
-                    }
-            };
+            return context.HasRequest() ?
+                new WebRequest
+                {
+                    Protocol = context.RequestProtocol,
+                    Version = context.RequestVersion,
+                    Method = context.RequestMethod,
+                    Target = context.RequestTarget,
+                    Headers = context.Headers,
+                    Parameters = context.Parameters,
+                    Body = string.IsNullOrEmpty(context.RequestBody)
+                        ? null
+                        : new ArtifactContent
+                        {
+                            Text = context.RequestBody
+                        }
+                } : null;
         }
 
         private IList<CodeFlow> CreateCodeFlows(ContrastLogReader.Context context)
@@ -1119,10 +1120,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             public IDictionary<string, string> Parameters { get; set; }
 
+            public bool HasRequest()
+            {
+                // Whatever other web request-related properties the Contrast Security XML has,
+                // it will always have a "protocol" attribute. (The same is true of "method",
+                // but there's no need to check both.)
+                return RequestProtocol != null;
+            }
+
             internal void RefineFinding(string ruleId)
             {
                 RuleId = ruleId;
                 ClearProperties();
+                ClearRequest();
             }
 
             internal void RefineRequest(string protocol, string version, string target, string method)
@@ -1183,11 +1193,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             internal void ClearRequest()
             {
                 RefineRequest(protocol: null, version: null, target: null, method: null);
+                ClearHeaders();
+                ClearParameters();
+                ClearBody();
             }
 
             internal void ClearProperties()
             {
                 RefineProperties(null, null);
+            }
+
+            internal void ClearBody()
+            {
+                RequestBody = null;
             }
         }
 
