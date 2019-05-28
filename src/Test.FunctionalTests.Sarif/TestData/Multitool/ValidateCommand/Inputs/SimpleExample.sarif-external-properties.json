@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-external-property-file-2.1.0-rtm.0.json",
+  "$schema": "http://json.schemastore.org/sarif-external-property-file-2.1.0-rtm.1.json",
   "version": "2.1.0",
 
   "guid": "00001111-2222-3333-8444-555566667777",

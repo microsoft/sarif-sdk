@@ -195,8 +195,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
         private static bool ApplyRtm1Changes(JObject sarifLog)
         {
-            UpdateSarifLogVersionAndSchema(sarifLog);
-            bool modifiedLog = false;
+            bool modifiedLog = UpdateSarifLogVersionAndSchema(sarifLog);
 
             if (sarifLog["runs"] is JArray runs)
             {
