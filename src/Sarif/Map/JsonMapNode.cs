@@ -177,7 +177,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
             {
                 int lengthRead = source.Read(buffer, 0, (int)lengthLeft);
 
-                // If 'omitFromLast', exclude that byte and after
+                // If 'omitFromLast', exclude that byte and after *if all whitespace*
                 if (omitFromLast.HasValue)
                 {
                     for (int i = lengthRead - 1; i >= 0; --i)
@@ -187,11 +187,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
                             lengthRead = i;
                             break;
                         }
+                        else if(!IsWhitespace(buffer[i]))
+                        {
+                            break;
+                        }
                     }
                 }
 
                 destination.Write(buffer, 0, lengthRead);
             }
+        }
+
+        private static bool IsWhitespace(byte b)
+        {
+            return b == (byte)' ' || b == (byte)'\t' || b == (byte)'\r' || b == (byte)'\n';
         }
     }
 }

@@ -9,7 +9,6 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
     /// </summary>
     public class ResourceExtractor
     {
-        public const string TestLogResourceNameRoot = "Microsoft.CodeAnalysis.Test.UnitTests.Sarif.TestData";
         private Assembly ClassAssembly { get; set; }
 
         public ResourceExtractor(Type forType)
@@ -19,7 +18,15 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
 
         private string GetResourcePath(string resourceName, string root = null)
         {
-            return $"{root ?? TestLogResourceNameRoot}.{resourceName}";
+            string nameToFind = $"{root ?? ""}.{resourceName}";
+
+            string[] resourceNames = ClassAssembly.GetManifestResourceNames();
+            foreach(string name in resourceNames)
+            {
+                if(name.EndsWith(nameToFind, StringComparison.OrdinalIgnoreCase)) { return name; }
+            }
+
+            throw new ArgumentException($"Could not find {nameToFind}. Valid Names:\r\n{String.Join("\r\n", resourceNames)}");
         }
 
         public string GetResourceText(string resourceName, string root = null)
@@ -29,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
 
             using (Stream stream = ClassAssembly.GetManifestResourceStream(resourcePath))
             {
-                if (stream == null) { return string.Empty; }
+                if (stream == null) { return null; }
 
                 using (StreamReader reader = new StreamReader(stream))
                 {

@@ -13,12 +13,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     internal class PageCommand : CommandBase
     {
-        private const double SarifMapTargetSizeRatio = 0.01;
+        private double _sarifMapTargetSizeRatio = 0.01;
         private readonly IFileSystem _fileSystem;
 
-        public PageCommand(IFileSystem fileSystem = null)
+        public PageCommand(IFileSystem fileSystem = null, double targetSizeRatio = 0.01)
         {
             _fileSystem = fileSystem ?? new FileSystem();
+            _sarifMapTargetSizeRatio = targetSizeRatio;
         }
 
         public int Run(PageOptions options)
@@ -42,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return 0;
         }
 
-        private void PageViaOm(PageOptions options)
+        internal SarifLog PageViaOm(PageOptions options)
         {
             SarifLog actualLog = ReadSarifFile<SarifLog>(_fileSystem, options.InputFilePath);
 
@@ -54,6 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             run.Results = run.Results.Skip(options.Index).Take(options.Count).ToList();
 
             WriteSarifFile(_fileSystem, actualLog, options.OutputFilePath, Formatting.None);
+            return actualLog;
         }
 
         private JsonMapNode LoadOrRebuildMap(string inputFilePath, string mapPath)
@@ -71,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             {
                 // Otherwise, build the map and save it
                 Console.WriteLine($"Building Json Map of \"{inputFilePath}\" into \"{mapPath}\"...");
-                JsonMapBuilder builder = new JsonMapBuilder(SarifMapTargetSizeRatio);
+                JsonMapBuilder builder = new JsonMapBuilder(_sarifMapTargetSizeRatio);
                 root = builder.Build(() => _fileSystem.OpenRead(inputFilePath));
 
                 _fileSystem.WriteAllText(mapPath, JsonConvert.SerializeObject(root, Formatting.None));
@@ -115,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 return;
             }
 
-            if (options.Index + options.Count >= results.Count)
+            if (options.Index + options.Count > results.Count)
             {
                 throw new ArgumentOutOfRangeException($"Page requested from Result {options.Index} to {options.Index + options.Count}, but Run has only {results.Count} results.");
             }
@@ -124,7 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             Func<Stream> inputStreamProvider = () => _fileSystem.OpenRead(options.InputFilePath);
             long firstResultStart = results.FindArrayStart(options.Index, inputStreamProvider);
-            long lastResultEnd = results.FindArrayStart(options.Index + options.Count + 1, inputStreamProvider) - 1;
+            long lastResultEnd = results.FindArrayStart(options.Index + options.Count, inputStreamProvider) - 1;
 
             // Build the Sarif Log subset
             long lengthWritten = 0;
