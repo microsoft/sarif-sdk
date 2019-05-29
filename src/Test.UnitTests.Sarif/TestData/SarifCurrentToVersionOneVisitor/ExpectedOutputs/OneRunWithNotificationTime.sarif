@@ -14,11 +14,6 @@
       "results": [],
       "toolNotifications": [
         {
-          "id": "CTN0001",
-          "message": "Run started.",
-          "level": "note"
-        },
-        {
           "id": "CTN9999",
           "ruleId": "C2152",
           "physicalLocation": {
