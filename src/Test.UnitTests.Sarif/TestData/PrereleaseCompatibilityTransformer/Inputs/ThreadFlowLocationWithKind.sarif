@@ -1,0 +1,255 @@
+{
+  "version": "2.0.0",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "6385",
+          "message": {
+            "text": "Reading invalid data from 'a':  the readable size is '5' bytes, but 'i' bytes may be read."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "fileLocation": {
+                  "uri": "file:///e:/src/sarif/src/test.functionaltests.sarif/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp"
+                },
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 8
+                }
+              },
+              "fullyQualifiedLogicalName": "void __cdecl C6385_Example(int)"
+            }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "step": 0,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///e:/src/sarif/src/test.functionaltests.sarif/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp"
+                          },
+                          "region": {
+                            "startLine": 3,
+                            "startColumn": 8
+                          }
+                        },
+                        "message": {
+                          "text": "'a' is an array of 5 elements (5 bytes)"
+                        }
+                      },
+                      "kind": "declaration",
+                      "importance": "essential"
+                    },
+                    {
+                      "step": 1,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///e:/src/sarif/src/test.functionaltests.sarif/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp"
+                          },
+                          "region": {
+                            "startLine": 4,
+                            "startColumn": 12
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 2,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///e:/src/sarif/src/test.functionaltests.sarif/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp"
+                          },
+                          "region": {
+                            "startLine": 4,
+                            "startColumn": 18
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 3,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///e:/src/sarif/src/test.functionaltests.sarif/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp"
+                          },
+                          "region": {
+                            "startLine": 4,
+                            "startColumn": 32
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 4,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///e:/src/sarif/src/test.functionaltests.sarif/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp"
+                          },
+                          "region": {
+                            "startLine": 4,
+                            "startColumn": 23
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 5,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///e:/src/sarif/src/test.functionaltests.sarif/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp"
+                          },
+                          "region": {
+                            "startLine": 4,
+                            "startColumn": 18
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 6,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///e:/src/sarif/src/test.functionaltests.sarif/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp"
+                          },
+                          "region": {
+                            "startLine": 4,
+                            "startColumn": 32
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 7,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///e:/src/sarif/src/test.functionaltests.sarif/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp"
+                          },
+                          "region": {
+                            "startLine": 4,
+                            "startColumn": 23
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 8,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///e:/src/sarif/src/test.functionaltests.sarif/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp"
+                          },
+                          "region": {
+                            "startLine": 4,
+                            "startColumn": 18
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 9,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///e:/src/sarif/src/test.functionaltests.sarif/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp"
+                          },
+                          "region": {
+                            "startLine": 5,
+                            "startColumn": 8
+                          }
+                        }
+                      },
+                      "importance": "unimportant"
+                    },
+                    {
+                      "step": 10,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///e:/src/sarif/src/test.functionaltests.sarif/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp"
+                          },
+                          "region": {
+                            "startLine": 6,
+                            "startColumn": 9
+                          }
+                        },
+                        "message": {
+                          "text": "Enter this branch, (assume 'i<=5')"
+                        }
+                      },
+                      "kind": "branch",
+                      "importance": "important"
+                    },
+                    {
+                      "step": 11,
+                      "location": {
+                        "physicalLocation": {
+                          "fileLocation": {
+                            "uri": "file:///e:/src/sarif/src/test.functionaltests.sarif/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp"
+                          },
+                          "region": {
+                            "startLine": 8,
+                            "startColumn": 8
+                          }
+                        },
+                        "message": {
+                          "text": "Invalid read from 'a[5]', (readable range is 0 to 4)"
+                        }
+                      },
+                      "kind": "usage",
+                      "importance": "essential"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tool": {
+        "name": "PREfast",
+        "fullName": "PREfast Code Analysis",
+        "version": "14.16.27030.1",
+        "fileVersion": "14.00.27030.01"
+      },
+      "invocations": [
+        {
+          "commandLine": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Enterprise\\VC\\Tools\\MSVC\\14.16.27023\\bin\\HostX86\\x86\\c1xx.dll\" -ACf{1F7B090C-16DB-4822-966A-A93D26ED4681} -ACpmspft140.dll -Alint -D_PREFAST_ -D_AST_FE_ -Analyze -zm0x00942080 -il C:\\Users\\mikefan\\AppData\\Local\\Temp\\_CL_44d432acast -typedil -f RelevantkeyEvents.cpp -Ze -D_MSC_EXTENSIONS -Zp8 -ZB64 -D_INTEGRAL_MAX_BITS=64 -Gs -Ot -FoRelevantkeyEvents.obj -pc \\:/ -Fdvc140.pdb -D_MSC_VER=1916 -D_MSC_FULL_VER=191627030 -D_MSC_BUILD=1 -D_WIN32 -D_M_IX86=600 -D_M_IX86_FP=2 -GS -GR -D_CPPRTTI -Zc:forScope -Zc:wchar_t -analyze:quiet- -W 4 -analyze:log out.sarif -clrNoPureCRT -D_MT -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Enterprise\\VC\\Tools\\MSVC\\14.16.27023\\ATLMFC\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Enterprise\\VC\\Tools\\MSVC\\14.16.27023\\include -I C:\\Program Files (x86)\\Windows Kits\\NETFXSDK\\4.6.1\\include\\um -I C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.17763.0\\ucrt -I C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.17763.0\\shared -I C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.17763.0\\um -I C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.17763.0\\winrt -I C:\\Program Files (x86)\\Windows Kits\\10\\include\\10.0.17763.0\\cppwinrt"
+        }
+      ],
+      "files": {
+        "file:///e:/src/sarif/src/test.functionaltests.sarif/convertertestdata/prefast/src/relevantkeyevents/relevantkeyevents.cpp": {
+          "roles": [
+            "analysisTarget",
+            "resultFile"
+          ]
+        }
+      },
+      "logicalLocations": {},
+      "resources": {
+        "rules": {}
+      }
+    }
+  ]
+}
