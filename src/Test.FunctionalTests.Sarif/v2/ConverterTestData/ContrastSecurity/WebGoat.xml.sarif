@@ -11230,7 +11230,6 @@
                 },
                 "region": {
                   "startLine": 1,
-                  "endLine": 1,
                   "snippet": {
                     "text": " <%@ Page Title=\"\" Language=\"C#\" MasterPageFile=\"~/Resources/Master-Pages/Site.Master\" AutoEventWireup=\"true\" CodeBehind=\"HeaderInjection.aspx.cs\" Inherits=\"OWASP.WebGoat.NET.HeaderInjection\" EnableEventValidation=\"false\" %>\r\n"
                   }
@@ -11293,8 +11292,26 @@
         {
           "ruleId": "request-validation-disabled",
           "message": {
-            "text": "TODO: missing message construction for rule 'request-validation-disabled'."
-          }
+            "id": "default",
+            "arguments": [
+              "\\WebGoatCoins\\ProductDetails.aspx"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///E:/src/WebGoat.NET/WebGoatCoins/ProductDetails.aspx"
+                },
+                "region": {
+                  "startLine": 1,
+                  "snippet": {
+                    "text": " <%@ Page Title=\"\" Language=\"C#\" ValidateRequest=\"false\" MasterPageFile=\"~/Resources/Master-Pages/Site.Master\" AutoEventWireup=\"true\" CodeBehind=\"ProductDetails.aspx.cs\" Inherits=\"OWASP.WebGoat.NET.WebGoatCoins.ProductDetails\" %>\r\n"
+                  }
+                }
+              }
+            }
+          ]
         },
         {
           "ruleId": "secure-flag-missing",
@@ -13584,6 +13601,11 @@
               "name": "Request Validation Disabled",
               "shortDescription": {
                 "text": "Verifies the application does not disable ASP.NET's Request Validation feature which helps prevent several attacks such as cross-site scripting."
+              },
+              "messageStrings": {
+                "default": {
+                  "text": "The web page '{0}' has 'ValidateRequest' set to 'false' in the page directive. Request Validation helps prevent several types of attacks including XSS by detecting potentially dangerous character sequences. An exception is thrown by the framework when a potentially dangerous character sequence is encountered. This exception returns an error page to the user and prevents the application from processing the request. An attacker can submit malicious data to the application that may be processed without further input validation. This malicious data could contain XSS or other injection attacks that may have been prevented by ASP.NET request validation. Note that request validation does not provide 100% protection against XSS or other attacks and should be thought of as a defense-in-depth measure."
+                }
               }
             },
             {
@@ -13594,7 +13616,7 @@
               },
               "messageStrings": {
                 "default": {
-                  "text": "The configuration in '{0}' has 'ValidateRequest' set to 'false' in the page directive. Request Validation helps prevent several types of attacks including XSS by detecting potentially dangerous character sequences. An exception is thrown by the framework when a potentially dangerous character sequence is encountered. This exception returns an error page to the user and prevents the application from processing the request. An attacker can submit malicious data to the application that may be processed without further input validation. This malicious data could contain XSS or other injection attacks that may have been prevented by ASP.NET request validation. Note that request validation does not provide 100% protection against XSS or other attacks and should be thought of as a defense-in-depth measure."
+                  "text": "A control on the web page '{0}' has 'ValidateRequestMode' set to 'Disabled'. Request Validation helps prevent several types of attacks including XSS by detecting potentially dangerous character sequences. An exception is thrown by the framework when a potentially dangerous character sequence is encountered. This exception returns an error page to the user and prevents the application from processing the request. An attacker can submit malicious data to the application that may be processed without further input validation. This malicious data could contain XSS or other injection attacks that may have been prevented by ASP.NET request validation. Note that request validation does not provide 100% protection against XSS or other attacks and should be thought of as a defense-in-depth measure."
                 }
               }
             },
