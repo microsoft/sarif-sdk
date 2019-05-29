@@ -95,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
 
             // Read up to the end of the element before the desired one
             int index;
-            for (index = 0; index < desiredIndex - 1; ++index)
+            for (index = 0; index < desiredIndex; ++index)
             {
                 this.Read();
                 if (this.TokenType == JsonToken.EndArray) { break; }

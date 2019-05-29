@@ -39,5 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             HelpText = "A file path of the SARIF subset output file.",
             Required = true)]
         public string OutputFilePath { get; set; }
+
+        public double TargetMapSizeRatio { get; set; } = 0.01;
     }
 }

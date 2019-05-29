@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System.Diagnostics;
+using System;
 using System.IO;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Multitool;
@@ -22,7 +22,8 @@ namespace Sarif.Multitool.UnitTests
             string pagedSamplePath = "elfie-arriba.paged.sarif";
             File.WriteAllText(sampleFilePath, Extractor.GetResourceText(@"PageCommand.elfie-arriba.sarif"));
 
-            //RunAndCompare(new PageOptions() { Index = 1, Count = 2, InputFilePath = sampleFilePath, OutputFilePath = pagedSamplePath });
+            // Normal file, valid subsets
+            RunAndCompare(new PageOptions() { Index = 1, Count = 2, InputFilePath = sampleFilePath, OutputFilePath = pagedSamplePath });
             RunAndCompare(new PageOptions() { Index = 0, Count = 5, InputFilePath = sampleFilePath, OutputFilePath = pagedSamplePath });
             RunAndCompare(new PageOptions() { Index = 3, Count = 0, InputFilePath = sampleFilePath, OutputFilePath = pagedSamplePath });
             RunAndCompare(new PageOptions() { Index = 3, Count = 2, InputFilePath = sampleFilePath, OutputFilePath = pagedSamplePath });
@@ -32,10 +33,51 @@ namespace Sarif.Multitool.UnitTests
             SarifLog log = PageCommand.ReadSarifFile<SarifLog>(fileSystem, sampleFilePath);
             PageCommand.WriteSarifFile(fileSystem, log, minifiedPath, Formatting.None);
 
+            // Minified file, valid subsets
             RunAndCompare(new PageOptions() { Index = 1, Count = 2, InputFilePath = minifiedPath, OutputFilePath = pagedSamplePath });
             RunAndCompare(new PageOptions() { Index = 0, Count = 5, InputFilePath = minifiedPath, OutputFilePath = pagedSamplePath });
             RunAndCompare(new PageOptions() { Index = 3, Count = 0, InputFilePath = minifiedPath, OutputFilePath = pagedSamplePath });
             RunAndCompare(new PageOptions() { Index = 3, Count = 2, InputFilePath = minifiedPath, OutputFilePath = pagedSamplePath });
+        }
+
+        [Fact]
+        public void PageCommand_MapTooSmallFallback()
+        {
+            string sampleFilePath = "elfie-arriba.sarif";
+            string pagedSamplePath = "elfie-arriba.paged.sarif";
+            File.WriteAllText(sampleFilePath, Extractor.GetResourceText(@"PageCommand.elfie-arriba.sarif"));
+
+            // File too small for map / results / ArrayStarts
+            RunAndCompare(new PageOptions() { TargetMapSizeRatio = 0.009, Index = 1, Count = 2, InputFilePath = sampleFilePath, OutputFilePath = pagedSamplePath });
+            RunAndCompare(new PageOptions() { TargetMapSizeRatio = 0.014, Index = 1, Count = 2, InputFilePath = sampleFilePath, OutputFilePath = pagedSamplePath });
+            RunAndCompare(new PageOptions() { TargetMapSizeRatio = 0.016, Index = 1, Count = 2, InputFilePath = sampleFilePath, OutputFilePath = pagedSamplePath });
+            RunAndCompare(new PageOptions() { TargetMapSizeRatio = 0.050, Index = 1, Count = 2, InputFilePath = sampleFilePath, OutputFilePath = pagedSamplePath });
+        }
+
+        [Fact]
+        public void PageCommand_Validation()
+        {
+            string sampleFilePath = "elfie-arriba.sarif";
+            string pagedSamplePath = "elfie-arriba.paged.sarif";
+            File.WriteAllText(sampleFilePath, Extractor.GetResourceText(@"PageCommand.elfie-arriba.sarif"));
+
+            // Index < 0
+            Assert.Throws<ArgumentOutOfRangeException>(() => RunAndCompare(new PageOptions() { Index = -1, Count = 1, InputFilePath = sampleFilePath, OutputFilePath = pagedSamplePath }));
+
+            // Index >= Count
+            Assert.Throws<ArgumentOutOfRangeException>(() => RunAndCompare(new PageOptions() { Index = 5, Count = 1, InputFilePath = sampleFilePath, OutputFilePath = pagedSamplePath }));
+
+            // Index + Count > Count
+            Assert.Throws<ArgumentOutOfRangeException>(() => RunAndCompare(new PageOptions() { Index = 0, Count = 6, InputFilePath = sampleFilePath, OutputFilePath = pagedSamplePath }));
+
+            // RunIndex < 0
+            Assert.Throws<ArgumentOutOfRangeException>(() => RunAndCompare(new PageOptions() { RunIndex = -1, Index = 1, Count = 1, InputFilePath = sampleFilePath, OutputFilePath = pagedSamplePath }));
+
+            // RunIndex >= RunCount
+            Assert.Throws<ArgumentOutOfRangeException>(() => RunAndCompare(new PageOptions() { RunIndex = 1, Index = 1, Count = 1, InputFilePath = sampleFilePath, OutputFilePath = pagedSamplePath }));
+
+            // No input file
+            Assert.Throws<FileNotFoundException>(() => RunAndCompare(new PageOptions() { InputFilePath = "NotExists.sarif", OutputFilePath = "NotExists.out.sarif" }));
         }
 
         private static void RunAndCompare(PageOptions options)
@@ -44,9 +86,18 @@ namespace Sarif.Multitool.UnitTests
             string actualPath = Path.ChangeExtension(options.OutputFilePath, "act.json");
             string expectPath = Path.ChangeExtension(options.OutputFilePath, "exp.json");
 
+            File.Delete(Path.ChangeExtension(options.InputFilePath, ".map.json"));
+            File.Delete(options.OutputFilePath);
+
+            // Reset default target size ratio so that a map is built for file
+            if (options.TargetMapSizeRatio == 0.01)
+            {
+                options.TargetMapSizeRatio = 0.10;
+            }
+
             // Run the normal Page command
-            PageCommand command = new PageCommand(fileSystem, 0.1);
-            command.Run(options);
+            PageCommand command = new PageCommand(fileSystem);
+            command.RunWithoutCatch(options);
 
             // Rewrite indented
             SarifLog actual = PageCommand.ReadSarifFile<SarifLog>(fileSystem, options.OutputFilePath);

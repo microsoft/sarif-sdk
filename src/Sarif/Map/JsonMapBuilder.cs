@@ -213,7 +213,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
                     int newCount = (int)(node.Count / every);
                     List<long> newStarts = new List<long>(newCount);
 
-                    for (int i = 0; i * every < node.Count; i += every)
+                    for (int i = 0; i * every < node.Count; ++i)
                     {
                         newStarts.Add(node.ArrayStarts[i * every]);
                     }

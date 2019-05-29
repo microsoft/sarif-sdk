@@ -124,7 +124,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
                 byte[] buffer = new byte[lengthToRead + 1];
 
                 // Read the array slice
-                source.Seek(this.Start, SeekOrigin.Begin);
+                source.Seek(readFromPosition, SeekOrigin.Begin);
                 source.Read(buffer, 1, lengthToRead);
 
                 // Make it a valid array prefix (it must start with '[', which will look like the root of the Json document

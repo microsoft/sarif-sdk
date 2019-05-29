@@ -13,26 +13,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     internal class PageCommand : CommandBase
     {
-        private double _sarifMapTargetSizeRatio = 0.01;
         private readonly IFileSystem _fileSystem;
 
-        public PageCommand(IFileSystem fileSystem = null, double targetSizeRatio = 0.01)
+        public PageCommand(IFileSystem fileSystem = null)
         {
             _fileSystem = fileSystem ?? new FileSystem();
-            _sarifMapTargetSizeRatio = targetSizeRatio;
         }
 
         public int Run(PageOptions options)
         {
             try
             {
-                string mapPath = Path.Combine(Path.GetDirectoryName(options.InputFilePath), Path.GetFileNameWithoutExtension(options.InputFilePath) + ".map.json");
-
-                // Load the JsonMap, if previously built and up-to-date, or rebuild it
-                JsonMapNode root = LoadOrRebuildMap(options.InputFilePath, mapPath);
-
-                // Write the desired page from the Sarif file
-                ExtractPage(options, root);
+                RunWithoutCatch(options);
             }
             catch (Exception ex)
             {
@@ -41,6 +33,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             return 0;
+        }
+
+        public void RunWithoutCatch(PageOptions options)
+        {
+            if (options.RunIndex < 0) { throw new ArgumentOutOfRangeException("runIndex"); }
+            if (options.Index < 0) { throw new ArgumentOutOfRangeException("index"); }
+            if (options.Count < 0) { throw new ArgumentOutOfRangeException("count"); }
+            if (!_fileSystem.FileExists(options.InputFilePath)) { throw new FileNotFoundException($"Input file \"{options.InputFilePath}\" not found."); }
+
+            // Load the JsonMap, if previously built and up-to-date, or rebuild it
+            string mapPath = Path.ChangeExtension(options.InputFilePath, ".map.json");
+            JsonMapNode root = LoadOrRebuildMap(options, mapPath);
+
+            // Write the desired page from the Sarif file
+            ExtractPage(options, root);
         }
 
         internal SarifLog PageViaOm(PageOptions options)
@@ -58,12 +65,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return actualLog;
         }
 
-        private JsonMapNode LoadOrRebuildMap(string inputFilePath, string mapPath)
+        private JsonMapNode LoadOrRebuildMap(PageOptions options, string mapPath)
         {
             JsonMapNode root;
             Stopwatch w = Stopwatch.StartNew();
 
-            if (_fileSystem.FileExists(mapPath) && _fileSystem.GetLastWriteTime(mapPath) > _fileSystem.GetLastWriteTime(inputFilePath))
+            if (_fileSystem.FileExists(mapPath) && _fileSystem.GetLastWriteTime(mapPath) > _fileSystem.GetLastWriteTime(options.InputFilePath))
             {
                 // If map exists and is up-to-date, just reload it
                 Console.WriteLine($"Loading Json Map \"{mapPath}\"...");
@@ -72,11 +79,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             else
             {
                 // Otherwise, build the map and save it
-                Console.WriteLine($"Building Json Map of \"{inputFilePath}\" into \"{mapPath}\"...");
-                JsonMapBuilder builder = new JsonMapBuilder(_sarifMapTargetSizeRatio);
-                root = builder.Build(() => _fileSystem.OpenRead(inputFilePath));
+                Console.WriteLine($"Building Json Map of \"{options.InputFilePath}\" into \"{mapPath}\"...");
+                JsonMapBuilder builder = new JsonMapBuilder(options.TargetMapSizeRatio);
+                root = builder.Build(() => _fileSystem.OpenRead(options.InputFilePath));
 
-                _fileSystem.WriteAllText(mapPath, JsonConvert.SerializeObject(root, Formatting.None));
+                if (root != null)
+                {
+                    _fileSystem.WriteAllText(mapPath, JsonConvert.SerializeObject(root, Formatting.None));
+                }
             }
 
             w.Stop();
@@ -87,17 +97,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private void ExtractPage(PageOptions options, JsonMapNode root)
         {
-            if (options.RunIndex < 0) { throw new ArgumentOutOfRangeException("runIndex"); }
-            if (options.Index < 0) { throw new ArgumentOutOfRangeException("index"); }
-            if (options.Count < 0) { throw new ArgumentOutOfRangeException("count"); }
-
             Stopwatch w = Stopwatch.StartNew();
             Console.WriteLine($"Extracting Page [{options.Index}, {options.Index + options.Count}) from \"{options.InputFilePath}\" into \"{options.OutputFilePath}\"...");
 
             JsonMapNode runs, run, results;
 
             // Get 'runs' node from map. If log was too small, page using the object model
-            if (root == null || root.Nodes == null || !root.Nodes.TryGetValue("runs", out runs))
+            if (root == null 
+                || root.Nodes == null 
+                || root.Nodes.TryGetValue("runs", out runs) == false)
             {
                 PageViaOm(options);
                 return;
@@ -110,7 +118,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             // Get 'results' from map. If log was too small, page using the object model
-            if (!runs.Nodes.TryGetValue(options.RunIndex.ToString(), out run) || !run.Nodes.TryGetValue("results", out results) || results.ArrayStarts == null)
+            if (!runs.Nodes.TryGetValue(options.RunIndex.ToString(), out run) 
+                || run.Nodes == null 
+                || run.Nodes.TryGetValue("results", out results) == false
+                || results.ArrayStarts == null)
             {
                 // Log too small; convert via OM
                 PageViaOm(options);
@@ -128,12 +139,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             long firstResultStart = results.FindArrayStart(options.Index, inputStreamProvider);
             long lastResultEnd = results.FindArrayStart(options.Index + options.Count, inputStreamProvider) - 1;
 
+            // Ensure output directory exists
+            string outputFolder = Path.GetDirectoryName(Path.GetFullPath(options.OutputFilePath));
+            Directory.CreateDirectory(outputFolder);
+
             // Build the Sarif Log subset
             long lengthWritten = 0;
             byte[] buffer = new byte[64 * 1024];
 
-            using (FileStream output = File.Create(options.OutputFilePath))
-            using (FileStream source = File.OpenRead(options.InputFilePath))
+            using (Stream output = _fileSystem.Create(options.OutputFilePath))
+            using (Stream source = _fileSystem.OpenRead(options.InputFilePath))
             {
                 // Copy everything up to 'runs' (includes the '[')
                 JsonMapNode.CopyStreamBytes(source, output, 0, runs.Start, buffer);

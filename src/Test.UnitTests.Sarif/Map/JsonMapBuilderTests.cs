@@ -14,8 +14,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
         [Fact]
         public void JsonMapBuilder_Basic_20x()
         {
-            string sampleFilePath = @"Map.Sample.json";
-            File.WriteAllText(sampleFilePath, Extractor.GetResourceText(@"Map.Sample.json"));
+            string sampleFilePath = "Map.Sample.json";
+            File.WriteAllText(sampleFilePath, Extractor.GetResourceText("Map.Sample.json"));
 
             // Allow a map 20x the size of the original file
             JsonMapBuilder builder = new JsonMapBuilder(20);
@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
             Assert.Equal(0, root.Start);         // Index of root '{'
             Assert.Equal(154, root.End);         // Index of root '}'
 
-            Assert.Null(root.ArrayStarts);        // Not an Array
+            Assert.Null(root.ArrayStarts);       // Not an Array
             Assert.Equal(0, root.Every);
 
             Assert.Equal(3, root.Count);         // Version, Schema, Results
@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
 
             JsonMapNode results;
             Assert.True(root.Nodes.TryGetValue("results", out results));
-            Assert.Equal(10, results.Count);                                 // Array
+            Assert.Equal(10, results.Count);
             Assert.Equal(10, results.ArrayStarts.Count);
             Assert.Equal(1, results.Every);
 
@@ -62,8 +62,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
         [Fact]
         public void JsonMapBuilder_Basic_2x()
         {
-            string sampleFilePath = @"Map.Sample.json";
-            File.WriteAllText(sampleFilePath, Extractor.GetResourceText(@"Map.Sample.json"));
+            string sampleFilePath = "Map.Sample.json";
+            File.WriteAllText(sampleFilePath, Extractor.GetResourceText("Map.Sample.json"));
 
             // Allow a map 1x the size of the original file
             JsonMapBuilder builder = new JsonMapBuilder(2);
@@ -76,9 +76,65 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
             // Verify all array starts fit
             JsonMapNode results;
             Assert.True(root.Nodes.TryGetValue("results", out results));
-            Assert.Equal(10, results.Count);                                 // Array
+            Assert.Equal(10, results.Count);
             Assert.Equal(10, results.ArrayStarts.Count);
             Assert.Equal(1, results.Every);
+        }
+
+        [Fact]
+        public void JsonMapBuilder_EveryTwo()
+        {
+            string sampleFilePath = "Map.TinyArray.json";
+            File.WriteAllText(sampleFilePath, Extractor.GetResourceText("Map.TinyArray.json"));
+
+            // Allow a map 1x the size of the original file
+            JsonMapBuilder builder = new JsonMapBuilder(1);
+            JsonMapNode root = builder.Build(sampleFilePath);
+
+            // 100 array elements, only 50 starts, every = 2
+            Assert.Equal(100, root.Count);
+            Assert.Equal(50, root.ArrayStarts.Count);
+            Assert.Equal(2, root.Every);
+
+            // Verify we see a[0], a[2], a[4], ...
+            Assert.Equal(1, root.ArrayStarts[0]);
+            Assert.Equal(7, root.ArrayStarts[1]);
+            Assert.Equal(13, root.ArrayStarts[2]);
+
+            // Ask the lookup method to find the positions of every element (every 3 bytes for "#, "
+            for(int i = 0; i < root.Count; ++i)
+            {
+                long position = root.FindArrayStart(i, () => File.OpenRead(sampleFilePath));
+                Assert.Equal(1 + 3 * i, position);
+            }
+        }
+
+        [Fact]
+        public void JsonMapBuilder_EveryFour()
+        {
+            string sampleFilePath = "Map.TinyArray.json";
+            File.WriteAllText(sampleFilePath, Extractor.GetResourceText("Map.TinyArray.json"));
+
+            // Allow a map 50% the size of the original file
+            JsonMapBuilder builder = new JsonMapBuilder(0.5);
+            JsonMapNode root = builder.Build(sampleFilePath);
+
+            // 100 array elements, only 25 starts, every = 4
+            Assert.Equal(100, root.Count);
+            Assert.Equal(25, root.ArrayStarts.Count);
+            Assert.Equal(4, root.Every);
+
+            // Verify we see a[0], a[4], a[8], ...
+            Assert.Equal(1, root.ArrayStarts[0]);
+            Assert.Equal(13, root.ArrayStarts[1]);
+            Assert.Equal(25, root.ArrayStarts[2]);
+
+            // Ask the lookup method to find the positions of every element (every 3 bytes for "#, "
+            for (int i = 0; i < root.Count; ++i)
+            {
+                long position = root.FindArrayStart(i, () => File.OpenRead(sampleFilePath));
+                Assert.Equal(1 + 3 * i, position);
+            }
         }
     }
 }
