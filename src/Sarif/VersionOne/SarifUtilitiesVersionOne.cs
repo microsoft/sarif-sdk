@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static Uri ConvertToSchemaUri(this SarifVersionVersionOne sarifVersion)
         {
-            return new Uri(SarifUtilities.SarifSchemaUriBase + sarifVersion.ConvertToText(), UriKind.Absolute);
+            return new Uri(SarifUtilities.SarifSchemaUriBase + sarifVersion.ConvertToText() + ".json", UriKind.Absolute);
         }
     }
 }

@@ -72,6 +72,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests.sarif" />
     <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_ComprehensiveRegionProperties.sarif" />
     <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_ContextRegionSnippets.sarif" />
     <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_FlattenedMessages.sarif" />
