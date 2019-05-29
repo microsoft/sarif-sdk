@@ -421,7 +421,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             string untrustedData = BuildSourcesString(context.Sources);
             string page = context.RequestTarget;
-            string caller = context.PropagationEvents[context.PropagationEvents.Count - 1].Stack.Frames[0].Location.LogicalLocation?.FullyQualifiedName;
             string controlId = context.Properties.ContainsKey(nameof(controlId)) ? context.Properties[nameof(controlId)] : null;
 
             Result result = CreateResultCore(context);
@@ -1071,14 +1070,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return string.Empty;
         }
 
-        private static void AddProperty(Result result, string value, string key)
-        {
-            if (!String.IsNullOrWhiteSpace(value))
-            {
-                result.SetProperty(key, value);
-            }
-        }
-
         // Get the failure level for the rule with the specified id, defaulting to
         // "warning" if the rule does not specify a configuration.
         private FailureLevel GetRuleFailureLevel(string ruleId)
@@ -1187,10 +1178,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 Properties = Properties ?? new Dictionary<string, string>();
                 Properties.Add(key, value);
-            }
-
-            internal void RefineKey(string key)
-            {
             }
 
             internal void ClearHeaders()
