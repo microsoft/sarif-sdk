@@ -1565,7 +1565,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private static void ReadEvidence(SparseReader reader, object parent)
         {
             Context context = (Context)parent;
-            context.Evidence = reader.ReadElementContentAsString();
+            string evidence = reader.ReadElementContentAsString();
+            context.RefineEvidence(evidence);
         }
 
         private static void ReadSource(SparseReader reader, object parent)
