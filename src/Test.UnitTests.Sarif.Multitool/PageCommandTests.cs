@@ -5,7 +5,6 @@ using System;
 using System.IO;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Multitool;
-using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 using Newtonsoft.Json;
 using Xunit;
 
@@ -113,6 +112,96 @@ namespace Sarif.Multitool.UnitTests
 
             Assert.True(actualText == expectedText, $"Sarif Page result ({options.Index}, {options.Count}) didn't match.\r\nSee: {diffCommand}");
             //Assert.Equal(expectedText, actualText);
+        }
+
+        //[Fact]
+        //public void PageCommand_Huge()
+        //{
+        //    HugeFileCompare(@"<huge file path>", 1000000, 100);
+        //}
+
+        // Use for manual verification of files over 2GB and other real life examples which can't be checked in.
+        private static void HugeFileCompare(string sourceFilePath, int index, int count)
+        {
+            string expectPath = Path.ChangeExtension(sourceFilePath, ".Paged.Expect.sarif");
+            string actualPath = Path.ChangeExtension(sourceFilePath, ".Paged.Actual.sarif");
+            string actualUnindentedPath = Path.ChangeExtension(sourceFilePath, ".Paged.Actual.Unformatted.sarif");
+
+            // Page with the Command
+            PageCommand command = new PageCommand();
+            command.RunWithoutCatch(new PageOptions() { InputFilePath = sourceFilePath, OutputFilePath = actualUnindentedPath, Index = index, Count = count });
+
+            // Indent the Paged output
+            Indent(actualUnindentedPath, actualPath);
+
+            // Page with JsonTextReader/Writer
+            PageManual(sourceFilePath, expectPath, index, count);
+
+            // Compare files
+            string actualText = File.ReadAllText(actualPath);
+            string expectedText = File.ReadAllText(expectPath);
+            string diffCommand = $"windiff \"{Path.GetFullPath(expectPath)}\" \"{Path.GetFullPath(actualPath)}\"";
+
+            Assert.True(actualText == expectedText, $"Sarif Page result ({index}, {count}) didn't match.\r\nSee: {diffCommand}");
+            //Assert.Equal(expectedText, actualText);
+        }
+
+        private static void Indent(string sourceFilePath, string outputPath)
+        {
+            using (JsonTextReader reader = new JsonTextReader(new StreamReader(sourceFilePath)))
+            using (JsonTextWriter writer = new JsonTextWriter(File.CreateText(outputPath)))
+            {
+                writer.Formatting = Newtonsoft.Json.Formatting.Indented;
+                reader.Read();
+                writer.WriteToken(reader, true);
+            }
+        }
+
+        private static void PageManual(string sourceFilePath, string outputPath, int index, int count)
+        {
+            using (JsonTextReader reader = new JsonTextReader(new StreamReader(sourceFilePath)))
+            using (JsonTextWriter writer = new JsonTextWriter(File.CreateText(outputPath)))
+            {
+                writer.Formatting = Newtonsoft.Json.Formatting.Indented;
+
+                // Copy file up to "results" array
+                while (reader.Read())
+                {
+                    writer.WriteToken(reader, false);
+                    if (reader.TokenType == JsonToken.PropertyName && "results" == reader.Value.ToString()) { break; }
+                }
+
+                // StartArray
+                reader.Read();
+                writer.WriteToken(reader, false);
+
+                // Copy results only between [index, index + count)
+                int currentIndex = 0;
+                while (reader.TokenType != JsonToken.EndArray)
+                {
+                    reader.Read();
+
+                    if (currentIndex >= index && currentIndex < (index + count))
+                    {
+                        writer.WriteToken(reader, true);
+                    }
+                    else
+                    {
+                        reader.Skip();
+                    }
+
+                    currentIndex++;
+                }
+
+                // EndArray
+                writer.WriteToken(reader, false);
+
+                // Copy after results array 
+                while (reader.Read())
+                {
+                    writer.WriteToken(reader, false);
+                }
+            }
         }
     }
 }

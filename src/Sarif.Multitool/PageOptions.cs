@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             "force",
             Default = true,
             HelpText = "Force overwrite of output file if it exists.")]
-        public bool Force { get; set; }
+        public bool Force { get; set; } = true;
 
         [Option(
             'o',
