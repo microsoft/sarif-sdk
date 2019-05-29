@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     internal class ResultMatchingOptions : CommonOptionsBase
     {
         [Option(
-            'p',
+            'r',
             "previous",
             HelpText = "Path to a sarif log containing the previous set of results with result matching annotations on a target (or empty if no previous log exists)",
             Required = false,
