@@ -54,9 +54,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             SarifLog actualLog = ReadSarifFile<SarifLog>(_fileSystem, options.InputFilePath);
 
+            // Validate Run in range
+            if (options.RunIndex >= actualLog?.Runs.Count)
+            {
+                throw new ArgumentOutOfRangeException($"Page requested for RunIndex {options.RunIndex}, but Log had only {actualLog.Runs?.Count} runs.");
+            }
+
             // Filter to desired run only
             Run run = actualLog.Runs[options.RunIndex];
             actualLog.Runs = new List<Run>() { run };
+
+            // Validate results in range
+            if (options.Index + options.Count > run?.Results.Count)
+            {
+                throw new ArgumentOutOfRangeException($"Page requested from Result {options.Index} to {options.Index + options.Count}, but Run has only {run.Results?.Count} results.");
+            }
 
             // Filter to desired results only
             run.Results = run.Results.Skip(options.Index).Take(options.Count).ToList();
