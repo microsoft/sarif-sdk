@@ -42,6 +42,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             if (options.Count < 0) { throw new ArgumentOutOfRangeException("count"); }
             if (!_fileSystem.FileExists(options.InputFilePath)) { throw new FileNotFoundException($"Input file \"{options.InputFilePath}\" not found."); }
 
+            if (options.Force == false && _fileSystem.FileExists(options.OutputFilePath))
+            {
+                Console.WriteLine($"Output file \"{options.OutputFilePath}\" already exists. Stopping.");
+            }
+
             // Load the JsonMap, if previously built and up-to-date, or rebuild it
             string mapPath = Path.ChangeExtension(options.InputFilePath, ".map.json");
             JsonMapNode root = LoadOrRebuildMap(options, mapPath);
@@ -115,8 +120,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             JsonMapNode runs, run, results;
 
             // Get 'runs' node from map. If log was too small, page using the object model
-            if (root == null 
-                || root.Nodes == null 
+            if (root == null
+                || root.Nodes == null
                 || root.Nodes.TryGetValue("runs", out runs) == false)
             {
                 PageViaOm(options);
@@ -130,8 +135,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             // Get 'results' from map. If log was too small, page using the object model
-            if (!runs.Nodes.TryGetValue(options.RunIndex.ToString(), out run) 
-                || run.Nodes == null 
+            if (!runs.Nodes.TryGetValue(options.RunIndex.ToString(), out run)
+                || run.Nodes == null
                 || run.Nodes.TryGetValue("results", out results) == false
                 || results.ArrayStarts == null)
             {

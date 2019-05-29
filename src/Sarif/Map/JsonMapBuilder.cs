@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+
 using Microsoft.CodeAnalysis.Sarif.Readers;
 
 using Newtonsoft.Json;
@@ -26,9 +27,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Map
         ///  Construct a JsonMapBuilder for the given target output size.
         ///  (ex: 0.01 means 1% of the input file size)
         /// </summary>
-        /// <param name="maxFileSizePercentage">Maximum Size of the Map relative to the source file (0.10 means 10%)</param>
+        /// <param name="maxFileSizePercentage">Maximum size of the map relative to the source file (0.10 means 10%)</param>
         public JsonMapBuilder(double maxFileSizePercentage)
         {
+            if (maxFileSizePercentage <= 0 || maxFileSizePercentage >= 100) { throw new ArgumentOutOfRangeException("maxFileSizePercentage must be between 0 and 100."); }
             MaxFileSizePercentage = maxFileSizePercentage;
             MinimumSizeForNode = (int)(NodeSizeEstimateBytes / maxFileSizePercentage);
         }

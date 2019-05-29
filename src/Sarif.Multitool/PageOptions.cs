@@ -5,6 +5,16 @@ using CommandLine;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
+    /// <summary>
+    ///  Options for the 'Page' command, which quickly writes a subset of a SARIF file
+    ///  for easier consumption of huge files.
+    /// </summary>
+    /// <remarks>
+    ///  Excluded Options
+    ///  ================
+    ///    pretty-print: We copy slices of the input file, so we can't change formatting.
+    ///    inline: We build a map of the input, so we don't want to write inline and immediately invalidate it.
+    /// </remarks>
     [Verb("page", HelpText = "Extract a subset of results from a source SARIF file.")]
     internal class PageOptions
     {
@@ -33,6 +43,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Required = true)]
         public int Count { get; set; }
 
+        // Force defaults to true, so users creating many large pages to the same output file name
+        // won't actually be getting the same page repeatedly without knowing it.
+        [Option(
+            'f',
+            "force",
+            Default = true,
+            HelpText = "Force overwrite of output file if it exists.")]
+        public bool Force { get; set; }
+
         [Option(
             'o',
             "output",
@@ -40,6 +59,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Required = true)]
         public string OutputFilePath { get; set; }
 
+        [Option('a',
+            "map-ratio",
+            HelpText = "Target map size relative to file size (0.01 is 1%)",
+            Required = false,
+            Default = 0.01)]
         public double TargetMapSizeRatio { get; set; } = 0.01;
     }
 }

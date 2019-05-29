@@ -1,8 +1,11 @@
-﻿using System;
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+
+using System;
 using System.IO;
 using System.Reflection;
 
-namespace Microsoft.CodeAnalysis.Test.Utilities.Sarif
+namespace Microsoft.CodeAnalysis.Sarif
 {
     /// <summary>
     ///  ResourceExtractor provides simple helpers for extracting resource stream content for tests.
