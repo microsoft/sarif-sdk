@@ -67,5 +67,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
 
         [Fact]
         public void SarifTransformerTests_ToVersionOne_OneRunWithInvocationAndNotifications() => RunTest("OneRunWithInvocationAndNotifications.sarif");
+
+        [Fact]
+        public void SarifTransformerTests_ToVersionOne_OneRunWithNotificationTime() => RunTest("OneRunWithNotificationTime.sarif");
     }
 }

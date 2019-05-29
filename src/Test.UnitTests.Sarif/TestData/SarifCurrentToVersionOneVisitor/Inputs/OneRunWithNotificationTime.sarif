@@ -1,6 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-10-10",
-  "version": "2.0.0-csd.2.beta.2018-10-10",
+  "$schema": "http://json.schemastore.org/sarif-2.0.0-csd.2.beta.2018-09-26",
+  "version": "2.0.0-csd.2.beta.2018-09-26",
   "runs": [
     {
       "tool": {
@@ -11,13 +11,6 @@
         {
           "commandLine": "CodeScanner @collections.rsp",
           "toolNotifications": [
-            {
-              "id": "CTN0001",
-              "message": {
-                "text": "Run started."
-              },
-              "level": "note"
-            },
             {
               "id": "CTN9999",
               "ruleId": "C2152",
@@ -31,7 +24,7 @@
               },
               "level": "error",
               "threadId": 52,
-              "timeUtc": "2016-07-16T14:18:43.119Z",
+              "time": "2016-07-16T14:18:43.119Z",
               "exception": {
                 "kind": "ExecutionEngine.RuleFailureException",
                 "message": "Unhandled exception during rule evaluation.",
