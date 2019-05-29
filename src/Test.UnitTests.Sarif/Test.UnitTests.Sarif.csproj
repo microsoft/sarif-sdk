@@ -53,11 +53,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ThreadFlowLocationWithKind.sarif" />
-    <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\ThreadFlowLocationWithKind.sarif" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.4.1" />
     <PackageReference Include="Microsoft.Json.Schema" Version="0.64.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
@@ -95,6 +90,7 @@
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ToolWithLanguage.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\WithExternalPropertyFiles.01-24.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\WithSuppressions.sarif" />
+    <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ThreadFlowLocationWithKind.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\ArtifactsWithRoles.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\ComprehensiveFileProperties.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\OneRunWithBasicInvocation.sarif" />
@@ -111,6 +107,7 @@
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\NestedFiles.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\ToolWithLanguage.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\WithSuppressions.sarif" />
+    <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\ThreadFlowLocationWithKind.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\Minimum.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\MinimumWithTwoRuns.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\NotificationExceptionWithStack.sarif" />

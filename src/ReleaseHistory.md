@@ -386,5 +386,5 @@
 
 ## **v2.1.3** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.3) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.3) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.3)) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.3)
 * Change schema uri to secure (https) instance.
-* Fix tranformer bug where schema id would not be updated if no other transformation occurred.
-* API NON-BREAKING: Fix for: `threadFlowLocation.kind` value is getting lost during pre-release transformation. https://github.com/microsoft/sarif-sdk/issues/1502
+* BUGFIX: Fix tranformer bug where schema id would not be updated if no other transformation occurred.
+* BUGFIX: `threadFlowLocation.kind` value is getting lost during pre-release transformation. https://github.com/microsoft/sarif-sdk/issues/1502
