@@ -45,6 +45,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             if (options.Force == false && _fileSystem.FileExists(options.OutputFilePath))
             {
                 Console.WriteLine($"Output file \"{options.OutputFilePath}\" already exists. Stopping.");
+                return;
             }
 
             // Load the JsonMap, if previously built and up-to-date, or rebuild it
