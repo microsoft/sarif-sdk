@@ -761,7 +761,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // default : The value of the HttpCookie for the cookie '{0}' did not contain the 'secure' flag; the value observed was '{1}'.
 
-            return ConstructNotImplementedRuleResult(context.RuleId);
+            // secure-flag-missing instances track the following properties:
+
+            // <properties name="cookieName">ASP.NET_SessionId</properties>
+
+            // They also use the "evidence" element to hold the text of the cookie.
+
+            IDictionary<string, string> properties = context.Properties;
+            string cookieName = properties[nameof(cookieName)];
+
+            Result result = CreateResultCore(context);
+
+            result.Locations = new List<Location>
+            {
+                new Location
+                {
+                    PhysicalLocation = CreatePhysicalLocation(context.RequestTarget)
+                }
+            };
+
+            result.Message = new Message
+            {
+                Id = "default",
+                Arguments = new List<string>
+                {                       // The value of the HttpCookie for the cookie 
+                    cookieName,         // ''{0}' did not contain the 'secure' flag;
+                    context.Evidence    // the value observed was '{1}'.
+                }
+            };
+
+            return result;
         }
 
         private Result ConstructSessionRewritingResult(ContrastLogReader.Context context)
@@ -1114,6 +1143,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             public StackFrame Signature { get; set; }
 
+            public string Evidence { get; set; }
+
             public HashSet<Tuple<string, string>> Sources { get; set; }
 
             public IDictionary<string, string> Headers { get; set; }
@@ -1133,6 +1164,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 RuleId = ruleId;
                 ClearProperties();
                 ClearRequest();
+                ClearEvidence();
             }
 
             internal void RefineRequest(string protocol, string version, string target, string method)
@@ -1207,6 +1239,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 RequestBody = null;
             }
+
+            internal void ClearEvidence()
+            {
+                RefineEvidence(null);
+            }
+
+            internal void RefineEvidence(string evidence)
+            {
+                Evidence = evidence;
+            }
         }
 
         /// <summary>
@@ -1227,6 +1269,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             public const string ElementEvents = "events";
             public const string ElementSource = "source";
             public const string ElementSources = "sources";
+            public const string ElementEvidence = "evidence";
             public const string ElementFinding = "finding";
             public const string ElementFindings = "findings";
             public const string ElementRequest = "request";
@@ -1294,6 +1337,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 { SchemaStrings.ElementStack, ReadStack},
                 { SchemaStrings.ElementSource, ReadSource},
                 { SchemaStrings.ElementSources, ReadSources},
+                { SchemaStrings.ElementEvidence, ReadEvidence },
                 { SchemaStrings.ElementFrame, ReadFrame},
                 { SchemaStrings.ElementMethodEvent, ReadMethodEvent},
                 { SchemaStrings.ElementProps, ReadProps},
@@ -1516,6 +1560,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private static void ReadSources(SparseReader reader, object parent)
         {
             reader.ReadChildren(SchemaStrings.ElementSources, parent);
+        }
+
+        private static void ReadEvidence(SparseReader reader, object parent)
+        {
+            Context context = (Context)parent;
+            context.Evidence = reader.ReadElementContentAsString();
         }
 
         private static void ReadSource(SparseReader reader, object parent)
