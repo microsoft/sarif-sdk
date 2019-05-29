@@ -381,6 +381,9 @@
             "shortDescription": {
               "text": "Verifies the application does not disable ASP.NET's Request Validation feature which helps prevent several attacks such as cross-site scripting."
             },
+            "messageStrings": {
+              "default": "The web page '{0}' has 'ValidateRequest' set to 'false' in the page directive. Request Validation helps prevent several types of attacks including XSS by detecting potentially dangerous character sequences. An exception is thrown by the framework when a potentially dangerous character sequence is encountered. This exception returns an error page to the user and prevents the application from processing the request. An attacker can submit malicious data to the application that may be processed without further input validation. This malicious data could contain XSS or other injection attacks that may have been prevented by ASP.NET request validation. Note that request validation does not provide 100% protection against XSS or other attacks and should be thought of as a defense-in-depth measure."
+            },
             "configuration": {
               "defaultLevel": "warning"
             }
@@ -394,7 +397,7 @@
               "text": "Verifies the application does not disable ASP.NET's Request Validation feature for web controls which helps prevent several attacks such as cross-site scripting."
             },
             "messageStrings": {
-              "default": "The configuration in '{0}' has 'ValidateRequest' set to 'false' in the page directive. Request Validation helps prevent several types of attacks including XSS by detecting potentially dangerous character sequences. An exception is thrown by the framework when a potentially dangerous character sequence is encountered. This exception returns an error page to the user and prevents the application from processing the request. An attacker can submit malicious data to the application that may be processed without further input validation. This malicious data could contain XSS or other injection attacks that may have been prevented by ASP.NET request validation. Note that request validation does not provide 100% protection against XSS or other attacks and should be thought of as a defense-in-depth measure."
+              "default": "A control on the web page '{0}' has 'ValidateRequestMode' set to 'Disabled'. Request Validation helps prevent several types of attacks including XSS by detecting potentially dangerous character sequences. An exception is thrown by the framework when a potentially dangerous character sequence is encountered. This exception returns an error page to the user and prevents the application from processing the request. An attacker can submit malicious data to the application that may be processed without further input validation. This malicious data could contain XSS or other injection attacks that may have been prevented by ASP.NET request validation. Note that request validation does not provide 100% protection against XSS or other attacks and should be thought of as a defense-in-depth measure."
             },
             "configuration": {
               "defaultLevel": "warning"

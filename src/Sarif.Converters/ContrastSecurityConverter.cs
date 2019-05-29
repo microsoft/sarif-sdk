@@ -176,6 +176,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     return ConstructPathTraversalResult(context);
                 }
 
+                case ContrastSecurityRuleIds.RequestValidationDisabled:
+                {
+                    return ConstructRequestValidationDisabledResult(context);
+                }
+
                 case ContrastSecurityRuleIds.RequestValidationModeDisabled:
                 {
                     return ConstructRequestValidationModeDisabledResult(context);
@@ -275,8 +280,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             Result result = CreateResultCore(context);
 
-            // authorization-missing-deny instances track the following properties:
-            // 
             // <properties name="path">\web.config</properties>
             // <properties name="locationPath">CustomerLogin.aspx</properties>
             // <properties name="snippet">10:     &lt;system.web&gt;&#xD;</properties>
@@ -634,8 +637,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // default : The configuration in '{0}' had 'httpOnlyCookies' set to 'false' in an <httpCookies> section.
 
-            // http-only-disabled instances track the following properties:
-            // 
             // <properties name="path">\web.config</properties>
             // <properties name = "snippet" >35:    &lt;/compilation&gt;&#xD;
             // 36:     &lt;httpCookies httpOnlyCookies="false"/&gt;&#xD;
@@ -745,11 +746,45 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return result;
         }
 
+        private Result ConstructRequestValidationDisabledResult(ContrastLogReader.Context context)
+        {
+            // request-validation-disabled : Request Validation Disabled
+
+            // default : The web page '{0}' had 'ValidateRequest' set to 'false' in the page directive. Request Validation helps prevent several types of attacks including XSS by detecting potentially dangerous character sequences. An exception is thrown by the framework when a potentially dangerous character sequence is encountered. This exception returns an error page to the user and prevents the application from processing the request. An attacker can submit malicious data to the application that may be processed without further input validation. This malicious data could contain XSS or other injection attacks that may have been prevented by ASP.NET request validation. Note that request validation does not provide 100% protection against XSS or other attacks and should be thought of as a defense-in-depth measure.
+
+            // <properties name="aspx">\WebGoatCoins\ProductDetails.aspx</properties>
+            // <properties name="snippet">1: &lt;%@ Page Title="" Language="C#" ValidateRequest="false" ... %&gt;</properties>
+
+            IDictionary<string, string> properties = context.Properties;
+            string aspx = properties[nameof(aspx)];
+            string snippet = properties[nameof(snippet)];
+
+            Result result = CreateResultCore(context);
+            result.Locations = new List<Location>
+            {
+                new Location
+                {
+                    PhysicalLocation = CreatePhysicalLocation(aspx, CreateRegion(snippet)),
+                }
+            };
+
+            result.Message = new Message
+            {
+                Id = "default",
+                Arguments = new List<string>
+                {              // The web page 
+                    aspx       // '{0}' had 'ValidateRequest' set to 'false' in the page directive. ...
+                }
+            };
+
+            return result;
+        }
+
         private Result ConstructRequestValidationModeDisabledResult(ContrastLogReader.Context context)
         {
             // request-validation-control-disabled : Request Validation Mode Disabled
 
-            // default : The configuration in '{0}' had 'ValidateRequest' set to 'false' in the page directive. Request Validation helps prevent several types of attacks including XSS by detecting potentially dangerous character sequences. An exception is thrown by the framework when a potentially dangerous character sequence is encountered. This exception returns an error page to the user and prevents the application from processing the request. An attacker can submit malicious data to the application that may be processed without further input validation. This malicious data could contain XSS or other injection attacks that may have been prevented by ASP.NET request validation. Note that request validation does not provide 100% protection against XSS or other attacks and should be thought of as a defense-in-depth measure.
+            // default : A control on the web page '{0}' had 'ValidateRequestMode' set to 'Disabled'. Request Validation helps prevent several types of attacks including XSS by detecting potentially dangerous character sequences. An exception is thrown by the framework when a potentially dangerous character sequence is encountered. This exception returns an error page to the user and prevents the application from processing the request. An attacker can submit malicious data to the application that may be processed without further input validation. This malicious data could contain XSS or other injection attacks that may have been prevented by ASP.NET request validation. Note that request validation does not provide 100% protection against XSS or other attacks and should be thought of as a defense-in-depth measure.
 
             return ConstructNotImplementedRuleResult(context.RuleId);
         }
@@ -759,8 +794,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             // secure-flag-missing : Session Cookie Has No 'secure' Flag
 
             // default : The value of the HttpCookie for the cookie '{0}' did not contain the 'secure' flag; the value observed was '{1}'.
-
-            // secure-flag-missing instances track the following properties:
 
             // <properties name="cookieName">ASP.NET_SessionId</properties>
 
@@ -955,7 +988,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return new Region
             {
                 StartLine = startLine.Value,
-                EndLine = endLine,
+                EndLine = endLine != startLine.Value ? endLine : 0,
                 Snippet = new ArtifactContent { Text = sb.ToString() }
             };
         }
