@@ -69,11 +69,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Run run = sarifLog.Runs[0];
             _rules = run.Tool.Driver.Rules.ToDictionary(rule => rule.Id);
 
-            run.OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>
-            {
-                {  "SITE_ROOT", new ArtifactLocation { Uri = new Uri(@"E:\src\WebGoat.NET") } } 
-            };
-
             // 3. Now, parse all the contrast XML to create the complete results set.
             var results = new List<Result>();
             var reader = new ContrastLogReader();
@@ -1090,13 +1085,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private PhysicalLocation CreatePhysicalLocation(string uri, Region region = null)
         {
-            uri = @"E:\src\WebGoat.NET" + uri.Replace(@"/", @"\");
-
             return new PhysicalLocation
             {
                 ArtifactLocation = new ArtifactLocation
                 {
-                    Uri = new Uri(uri, UriKind.Absolute)
+                    Uri = new Uri(uri, UriKind.RelativeOrAbsolute)
                 },
                 Region = region
             };

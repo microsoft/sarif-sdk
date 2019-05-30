@@ -119,7 +119,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/Content/ForgotPassword.aspx"
+                  "uri": "/webgoat/Content/ForgotPassword.aspx"
                 }
               }
             }
@@ -1391,154 +1391,154 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/Content/EncryptVSEncode.aspx"
+                  "uri": "/webgoat/Content/EncryptVSEncode.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/WebGoatCoins/MainPage.aspx"
+                  "uri": "/webgoat/WebGoatCoins/MainPage.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/Content/ReflectedXSS.aspx"
+                  "uri": "/webgoat/Content/ReflectedXSS.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/Default.aspx"
+                  "uri": "/webgoat/Default.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/ProxySetup.aspx"
+                  "uri": "/webgoat/ProxySetup.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/Content/SQLInjection.aspx"
+                  "uri": "/webgoat/Content/SQLInjection.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/WebGoatCoins/CustomerLogin.aspx"
+                  "uri": "/webgoat/WebGoatCoins/CustomerLogin.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/RebuildDatabase.aspx"
+                  "uri": "/webgoat/RebuildDatabase.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/Content/PathManipulation.aspx"
+                  "uri": "/webgoat/Content/PathManipulation.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/Content/StoredXSS.aspx"
+                  "uri": "/webgoat/Content/StoredXSS.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/WebGoatCoins/Catalog.aspx"
+                  "uri": "/webgoat/WebGoatCoins/Catalog.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/WebGoatCoins/ChangePassword.aspx"
+                  "uri": "/webgoat/WebGoatCoins/ChangePassword.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/Content/UploadPathManipulation.aspx"
+                  "uri": "/webgoat/Content/UploadPathManipulation.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/WebGoatCoins/Autocomplete.ashx"
+                  "uri": "/webgoat/WebGoatCoins/Autocomplete.ashx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/Content/MessageDigest.aspx"
+                  "uri": "/webgoat/Content/MessageDigest.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/WebGoatCoins/ForgotPassword.aspx"
+                  "uri": "/webgoat/WebGoatCoins/ForgotPassword.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/WebGoatCoins/Orders.aspx"
+                  "uri": "/webgoat/WebGoatCoins/Orders.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/Content/ForgotPassword.aspx"
+                  "uri": "/webgoat/Content/ForgotPassword.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/Content/ExploitDebug.aspx"
+                  "uri": "/webgoat/Content/ExploitDebug.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/Content/SQLInjectionDiscovery.aspx"
+                  "uri": "/webgoat/Content/SQLInjectionDiscovery.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/WebGoatCoins/Logout.aspx"
+                  "uri": "/webgoat/WebGoatCoins/Logout.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/WebGoatCoins/ProductDetails.aspx"
+                  "uri": "/webgoat/WebGoatCoins/ProductDetails.aspx"
                 }
               }
             }
@@ -1566,161 +1566,161 @@
             "id": "default",
             "arguments": [
               "22",
-              "file:///E:/src/WebGoat.NET/webgoat/Content/EncryptVSEncode.aspx"
+              "/webgoat/Content/EncryptVSEncode.aspx"
             ]
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/Content/EncryptVSEncode.aspx"
+                  "uri": "/webgoat/Content/EncryptVSEncode.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/WebGoatCoins/MainPage.aspx"
+                  "uri": "/webgoat/WebGoatCoins/MainPage.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/Content/ReflectedXSS.aspx"
+                  "uri": "/webgoat/Content/ReflectedXSS.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/Default.aspx"
+                  "uri": "/webgoat/Default.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/ProxySetup.aspx"
+                  "uri": "/webgoat/ProxySetup.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/Content/SQLInjection.aspx"
+                  "uri": "/webgoat/Content/SQLInjection.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/WebGoatCoins/CustomerLogin.aspx"
+                  "uri": "/webgoat/WebGoatCoins/CustomerLogin.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/RebuildDatabase.aspx"
+                  "uri": "/webgoat/RebuildDatabase.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/Content/PathManipulation.aspx"
+                  "uri": "/webgoat/Content/PathManipulation.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/Content/StoredXSS.aspx"
+                  "uri": "/webgoat/Content/StoredXSS.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/WebGoatCoins/Catalog.aspx"
+                  "uri": "/webgoat/WebGoatCoins/Catalog.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/WebGoatCoins/ChangePassword.aspx"
+                  "uri": "/webgoat/WebGoatCoins/ChangePassword.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/Content/UploadPathManipulation.aspx"
+                  "uri": "/webgoat/Content/UploadPathManipulation.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/WebGoatCoins/Autocomplete.ashx"
+                  "uri": "/webgoat/WebGoatCoins/Autocomplete.ashx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/Content/MessageDigest.aspx"
+                  "uri": "/webgoat/Content/MessageDigest.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/WebGoatCoins/ForgotPassword.aspx"
+                  "uri": "/webgoat/WebGoatCoins/ForgotPassword.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/WebGoatCoins/Orders.aspx"
+                  "uri": "/webgoat/WebGoatCoins/Orders.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/Content/ForgotPassword.aspx"
+                  "uri": "/webgoat/Content/ForgotPassword.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/Content/ExploitDebug.aspx"
+                  "uri": "/webgoat/Content/ExploitDebug.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/Content/SQLInjectionDiscovery.aspx"
+                  "uri": "/webgoat/Content/SQLInjectionDiscovery.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/WebGoatCoins/Logout.aspx"
+                  "uri": "/webgoat/WebGoatCoins/Logout.aspx"
                 }
               }
             },
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/WebGoatCoins/ProductDetails.aspx"
+                  "uri": "/webgoat/WebGoatCoins/ProductDetails.aspx"
                 }
               }
             }
@@ -2611,7 +2611,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/Content/ReflectedXSS.aspx"
+                  "uri": "/webgoat/Content/ReflectedXSS.aspx"
                 }
               }
             }
@@ -3603,7 +3603,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/Content/EncryptVSEncode.aspx"
+                  "uri": "/webgoat/Content/EncryptVSEncode.aspx"
                 }
               }
             }
@@ -4861,7 +4861,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/Content/StoredXSS.aspx"
+                  "uri": "/webgoat/Content/StoredXSS.aspx"
                 }
               }
             }
@@ -6320,7 +6320,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/Content/SQLInjectionDiscovery.aspx"
+                  "uri": "/webgoat/Content/SQLInjectionDiscovery.aspx"
                 }
               }
             }
@@ -7412,7 +7412,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/WebGoatCoins/CustomerLogin.aspx"
+                  "uri": "/webgoat/WebGoatCoins/CustomerLogin.aspx"
                 }
               }
             }
@@ -8479,7 +8479,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/WebGoatCoins/CustomerLogin.aspx"
+                  "uri": "/webgoat/WebGoatCoins/CustomerLogin.aspx"
                 }
               }
             }
@@ -9575,7 +9575,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/Content/SQLInjection.aspx"
+                  "uri": "/webgoat/Content/SQLInjection.aspx"
                 }
               }
             }
@@ -11047,7 +11047,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/web.config"
+                  "uri": "/web.config"
                 },
                 "region": {
                   "startLine": 10,
@@ -11073,7 +11073,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/web.config"
+                  "uri": "/web.config"
                 },
                 "region": {
                   "startLine": 10,
@@ -11099,7 +11099,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/web.config"
+                  "uri": "/web.config"
                 },
                 "region": {
                   "startLine": 10,
@@ -11125,7 +11125,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/web.config"
+                  "uri": "/web.config"
                 },
                 "region": {
                   "startLine": 10,
@@ -11150,7 +11150,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/web.config"
+                  "uri": "/web.config"
                 },
                 "region": {
                   "startLine": 48,
@@ -11176,7 +11176,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/web.config"
+                  "uri": "/web.config"
                 },
                 "region": {
                   "startLine": 30,
@@ -11201,7 +11201,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/web.config"
+                  "uri": "/web.config"
                 },
                 "region": {
                   "startLine": 37,
@@ -11226,7 +11226,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/Content/HeaderInjection.aspx"
+                  "uri": "/Content/HeaderInjection.aspx"
                 },
                 "region": {
                   "startLine": 1,
@@ -11250,7 +11250,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/web.config"
+                  "uri": "/web.config"
                 },
                 "region": {
                   "startLine": 39,
@@ -11276,7 +11276,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/web.config"
+                  "uri": "/web.config"
                 },
                 "region": {
                   "startLine": 35,
@@ -11301,7 +11301,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/WebGoatCoins/ProductDetails.aspx"
+                  "uri": "/WebGoatCoins/ProductDetails.aspx"
                 },
                 "region": {
                   "startLine": 1,
@@ -11326,7 +11326,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/Content/SQLInjection.aspx"
+                  "uri": "/webgoat/Content/SQLInjection.aspx"
                 }
               }
             }
@@ -11360,7 +11360,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/web.config"
+                  "uri": "/web.config"
                 },
                 "region": {
                   "startLine": 39,
@@ -11387,7 +11387,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/web.config"
+                  "uri": "/web.config"
                 },
                 "region": {
                   "startLine": 52,
@@ -11413,7 +11413,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/web.config"
+                  "uri": "/web.config"
                 }
               }
             }
@@ -11436,7 +11436,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/WebGoatCoins/ForgotPassword.aspx"
+                  "uri": "/webgoat/WebGoatCoins/ForgotPassword.aspx"
                 }
               }
             }
@@ -12531,7 +12531,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///E:/src/WebGoat.NET/webgoat/WebGoatCoins/Autocomplete.ashx"
+                  "uri": "/webgoat/WebGoatCoins/Autocomplete.ashx"
                 }
               }
             }
@@ -13906,11 +13906,6 @@
         }
       },
       "language": "en-US",
-      "originalUriBaseIds": {
-        "SITE_ROOT": {
-          "uri": "file:///E:/src/WebGoat.NET"
-        }
-      },
       "columnKind": "utf16CodeUnits"
     }
   ]
