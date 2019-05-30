@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             run.OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>
             {
                 {
-                    "SITE_ROOT",
+                    SiteRootUriBaseIdName,
                     new ArtifactLocation {
                         Description = new Message {
                             Id = SiteRootDescriptionMessageId
