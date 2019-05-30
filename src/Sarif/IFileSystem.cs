@@ -173,6 +173,20 @@ namespace Microsoft.CodeAnalysis.Sarif
         void WriteAllText(string path, string contents);
 
         /// <summary>
+        ///  Open an existing file for reading.
+        /// </summary>
+        /// <param name="path">File System path of file to open</param>
+        /// <returns>Stream to read file</returns>
+        Stream OpenRead(string path);
+
+        /// <summary>
+        ///  Create (or overwrite) a new file for writing.
+        /// </summary>
+        /// <param name="path">File System path of file to open</param>
+        /// <returns>Stream to write file</returns>
+        Stream Create(string path);
+
+        /// <summary>
         /// Sets the specified <see cref="FileAttributes"/> of the file on the specified path.
         /// </summary>
         /// <param name="path">

@@ -829,9 +829,39 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             // session-rewriting : Session Rewriting
 
-            // default : The configuration the the <forms> section of '{0}' has 'UseCookies' set to a value other than 'cookieless'. As a result, the session ID (which is as good as a username and password) is logged to browser history, server logs and proxy logs. More serious, session rewriting can enable session fixcation attacks, in which an attacker causes a victim to use a well-known session id. If the victim authenticates under the attacker's chosen session ID, the attacker can present that session ID to the server and be recognized as the victim.
+            // default : The configuration in the {0} section of '{1}' has 'UseCookies' set to a value other than 'cookieless'. As a result, the session ID (which is as good as a username and password) is logged to browser history, server logs and proxy logs. More serious, session rewriting can enable session fixcation attacks, in which an attacker causes a victim to use a well-known session id. If the victim authenticates under the attacker's chosen session ID, the attacker can present that session ID to the server and be recognized as the victim.
 
-            return ConstructNotImplementedRuleResult(context.RuleId);
+            // <properties name="path">\web.config</properties>
+            // <properties name="section">forms</properties>
+            // <properties name="snippet">39:     &lt;!--set up users--&gt;&#xD;
+            //   40:    &lt;authentication mode="Forms"&gt;&#xD; ...
+
+            IDictionary<string, string> properties = context.Properties;
+            string path = properties[nameof(path)];
+            string section = properties[nameof(section)];
+            string snippet = properties[nameof(snippet)];
+
+            Result result = CreateResultCore(context);
+
+            result.Locations = new List<Location>
+            {
+                new Location
+                {
+                    PhysicalLocation = CreatePhysicalLocation(path, CreateRegion(snippet))
+                }
+            };
+
+            result.Message = new Message
+            {
+                Id = "default",
+                Arguments = new List<string>
+                {                       // The configuration in the
+                    section,            // {0} section of
+                    path                // '{1}' has 'UseCookies' set to a value other than 'cookieless'.
+                }
+            };
+
+            return result;
         }
 
         private Result ConstructSqlInjectionResult(ContrastLogReader.Context context)

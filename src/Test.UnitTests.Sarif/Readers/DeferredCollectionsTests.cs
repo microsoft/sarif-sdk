@@ -67,18 +67,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             // DeferredList Code Coverage - CopyTo()
             LogMessage[] messages = new LogMessage[actual.Messages.Count + 1];
             actual.Messages.CopyTo(messages, 1);
-            if(actual.Messages.Count > 0) Assert.Equal<LogMessage>(actual.Messages[0], messages[1]);
+            if (actual.Messages.Count > 0) { Assert.Equal<LogMessage>(actual.Messages[0], messages[1]); }
 
             // DeferredDictionary Code Coverage
             CodeContext context;
 
             // TryGetValue
             Assert.False(actual.CodeContexts.TryGetValue("missing", out context));
-            if (actual.CodeContexts.Count > 0) Assert.True(actual.CodeContexts.TryGetValue("load", out context));
+            if (actual.CodeContexts.Count > 0) { Assert.True(actual.CodeContexts.TryGetValue("load", out context)); }
 
             // ContainsKey
             Assert.False(actual.CodeContexts.ContainsKey("missing"));
-            if (actual.CodeContexts.Count > 0) Assert.True(actual.CodeContexts.ContainsKey("load"));
+            if (actual.CodeContexts.Count > 0) { Assert.True(actual.CodeContexts.ContainsKey("load")); }
 
             // Contains
             context = new CodeContext() { Name = "LoadRules()", Type = CodeContextType.Method, ParentContextID = "run" };
@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Readers
             // CopyTo
             KeyValuePair<string, CodeContext>[] contexts = new KeyValuePair<string, CodeContext>[actual.CodeContexts.Count + 1];
             actual.CodeContexts.CopyTo(contexts, 1);
-            if (actual.CodeContexts.Count > 0) Assert.Equal(actual.CodeContexts.First(), contexts[1]);
+            if (actual.CodeContexts.Count > 0) { Assert.Equal(actual.CodeContexts.First(), contexts[1]); }
 
             // Enumeration
             Dictionary<string, CodeContext> contextsCopy = new Dictionary<string, CodeContext>();

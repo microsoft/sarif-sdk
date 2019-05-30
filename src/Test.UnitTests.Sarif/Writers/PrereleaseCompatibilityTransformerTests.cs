@@ -136,5 +136,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             RunTest("LocationWithId.sarif");
         }
+
+        [Fact]
+        public void PrereleaseCompatibilityTransformer_ThreadFlowLocationWithKind()
+        {
+            RunTest("ThreadFlowLocationWithKind.sarif");
+        }
     }
 }

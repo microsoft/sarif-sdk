@@ -1304,6 +1304,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
                             // https://github.com/oasis-tcs/sarif-spec/issues/317
                             SetResultKindAndFailureLevel(result);
+
+                            // Bug fix: threadFlowLocation.kind getting lost. https://github.com/microsoft/sarif-sdk/issues/1502
+                            // "kind" should be transformed to "kinds".
+                            ConvertThreadFlowLocationKindToKinds(result);
                         }
                     }
 
@@ -1335,6 +1339,33 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 }
             }
             return true;
+        }
+
+        private static void ConvertThreadFlowLocationKindToKinds(JObject result)
+        {
+            string pathToThreadFlowLocations = "codeFlows[].threadFlows[].locations[]";
+
+            bool actionOnLeafNode(JObject threadFlowLocation)
+            {
+                if (threadFlowLocation["kind"] is JToken kind)
+                {
+                    var kinds = new JArray
+                    {
+                        kind
+                    };
+
+                    threadFlowLocation.Remove("kind");
+                    threadFlowLocation.Add("kinds", kinds);
+
+                    return true;
+                }
+                return false;
+            }
+
+            PerformActionOnLeafNodeIfExists(
+                possiblePathToLeafNode: pathToThreadFlowLocations,
+                rootNode: result,
+                action: actionOnLeafNode);
         }
 
         private static void RecursivePropertyRename(JObject parentObject, JProperty property, Dictionary<string, string> renamedMembers)
