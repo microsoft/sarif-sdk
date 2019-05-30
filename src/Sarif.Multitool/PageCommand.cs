@@ -49,8 +49,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
 
             // Load the JsonMap, if previously built and up-to-date, or rebuild it
-            string mapPath = Path.ChangeExtension(options.InputFilePath, ".map.json");
-            JsonMapNode root = LoadOrRebuildMap(options, mapPath);
+            JsonMapNode root = LoadOrRebuildMap(options);
 
             // Write the desired page from the Sarif file
             ExtractPage(options, root);
@@ -83,10 +82,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return actualLog;
         }
 
-        private JsonMapNode LoadOrRebuildMap(PageOptions options, string mapPath)
+        private JsonMapNode LoadOrRebuildMap(PageOptions options)
         {
             JsonMapNode root;
             Stopwatch w = Stopwatch.StartNew();
+
+            string mapPath = Path.ChangeExtension(options.InputFilePath, ".map.json");
 
             if (_fileSystem.FileExists(mapPath) && _fileSystem.GetLastWriteTime(mapPath) > _fileSystem.GetLastWriteTime(options.InputFilePath))
             {
@@ -116,7 +117,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private void ExtractPage(PageOptions options, JsonMapNode root)
         {
             Stopwatch w = Stopwatch.StartNew();
-            Console.WriteLine($"Extracting Page [{options.Index}, {options.Index + options.Count}) from \"{options.InputFilePath}\" into \"{options.OutputFilePath}\"...");
+            Console.WriteLine($"Extracting {options.Count:n0} results from index {options.Index:n0}\r\n  from \"{options.InputFilePath}\"\r\n  into \"{options.OutputFilePath}\"...");
 
             JsonMapNode runs, run, results;
 

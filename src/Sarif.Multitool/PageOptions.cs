@@ -59,8 +59,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             Required = true)]
         public string OutputFilePath { get; set; }
 
-        [Option('a',
-            "map-ratio",
+        [Option("map-ratio",
             HelpText = "Target map size relative to file size (0.01 is 1%)",
             Required = false,
             Default = 0.01)]
