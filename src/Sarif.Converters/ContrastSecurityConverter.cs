@@ -23,6 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     internal sealed class ContrastSecurityConverter : ToolFileConverterBase
     {
         private const string ContrastSecurityRulesData = "Microsoft.CodeAnalysis.Sarif.Converters.RulesData.ContrastSecurity.sarif";
+        private const string SiteRootUriBaseIdName = "SITE_ROOT";
         private const string SiteRootDescriptionMessageId = "SiteRootDescription";
 
         private IDictionary<string, ReportingDescriptor> _rules;
@@ -616,7 +617,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         ArtifactLocation = new ArtifactLocation
                         {
-                            //UriBaseId = "RuntimeGenerated",
+                            UriBaseId = SiteRootUriBaseIdName,
                             Uri = new Uri(key, UriKind.RelativeOrAbsolute)
                         },
                         Region = new Region() { StartLine = 1 }
@@ -1113,6 +1114,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 ArtifactLocation = new ArtifactLocation
                 {
+                    UriBaseId = SiteRootUriBaseIdName,
                     Uri = new Uri(uri, UriKind.RelativeOrAbsolute)
                 },
                 Region = region
