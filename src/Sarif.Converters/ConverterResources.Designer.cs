@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.CodeAnalysis.Sarif.Converters {
+namespace Microsoft.CodeAnalysis.Sarif {
     using System;
     
     
@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class ConverterResources {
@@ -147,6 +147,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters {
         internal static string AndroidStudioProblemMissingProblemClass {
             get {
                 return ResourceManager.GetString("AndroidStudioProblemMissingProblemClass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The root URI of the web site that was analyzed..
+        /// </summary>
+        internal static string ContrastSecuritySiteRootDescription {
+            get {
+                return ResourceManager.GetString("ContrastSecuritySiteRootDescription", resourceCulture);
             }
         }
         

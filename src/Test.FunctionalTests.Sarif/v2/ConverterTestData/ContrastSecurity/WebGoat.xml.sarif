@@ -13313,6 +13313,11 @@
       "tool": {
         "driver": {
           "name": "Contrast Security",
+          "globalMessageStrings": {
+            "SiteRootDescription": {
+              "text": "The root URI of the web site that was analyzed."
+            }
+          },
           "rules": [
             {
               "id": "cache-controls-missing",
@@ -13906,6 +13911,13 @@
         }
       },
       "language": "en-US",
+      "originalUriBaseIds": {
+        "SITE_ROOT": {
+          "description": {
+            "id": "SiteRootDescription"
+          }
+        }
+      },
       "columnKind": "utf16CodeUnits"
     }
   ]

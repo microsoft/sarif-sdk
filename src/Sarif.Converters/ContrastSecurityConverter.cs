@@ -23,6 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     internal sealed class ContrastSecurityConverter : ToolFileConverterBase
     {
         private const string ContrastSecurityRulesData = "Microsoft.CodeAnalysis.Sarif.Converters.RulesData.ContrastSecurity.sarif";
+        private const string SiteRootDescriptionMessageId = "SiteRootDescription";
 
         private IDictionary<string, ReportingDescriptor> _rules;
         private HashSet<Artifact> _files;
@@ -68,6 +69,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             // 2. Retain a pointer to the rules dictionary, which we will use to set rule severity.
             Run run = sarifLog.Runs[0];
             _rules = run.Tool.Driver.Rules.ToDictionary(rule => rule.Id);
+
+            run.OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>
+            {
+                {
+                    "SITE_ROOT",
+                    new ArtifactLocation {
+                        Description = new Message {
+                            Id = SiteRootDescriptionMessageId
+                        }
+                    }
+                }
+            };
+
+            run.Tool.Driver.GlobalMessageStrings = new Dictionary<string, MultiformatMessageString>
+            {
+                {
+                    SiteRootDescriptionMessageId,
+                    new MultiformatMessageString
+                    {
+                        Text = ConverterResources.ContrastSecuritySiteRootDescription
+                    }
+                }
+            };
 
             // 3. Now, parse all the contrast XML to create the complete results set.
             var results = new List<Result>();
