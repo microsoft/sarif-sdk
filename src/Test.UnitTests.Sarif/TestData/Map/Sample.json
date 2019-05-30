@@ -1,0 +1,1 @@
+﻿{ "version": "1.0.0", "schema": "https://schema.org/someFancySchema", "results": [ 0, 1000, 2000, 3000, [ 4000 ], 5000, { "v": 6000 }, 7000, 8000, 9000 ] }

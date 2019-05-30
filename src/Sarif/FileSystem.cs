@@ -207,6 +207,26 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         /// <summary>
+        ///  Open an existing file for reading.
+        /// </summary>
+        /// <param name="path">File System path of file to open</param>
+        /// <returns>Stream to read file</returns>
+        public Stream OpenRead(string path)
+        {
+            return File.OpenRead(path);
+        }
+
+        /// <summary>
+        ///  Create (or overwrite) a new file for writing.
+        /// </summary>
+        /// <param name="path">File System path of file to open</param>
+        /// <returns>Stream to write file</returns>
+        public Stream Create(string path)
+        {
+            return File.Create(path);
+        }
+
+        /// <summary>
         /// Sets the specified <see cref="FileAttributes"/> of the file on the specified path.
         /// </summary>
         /// <param name="path">
