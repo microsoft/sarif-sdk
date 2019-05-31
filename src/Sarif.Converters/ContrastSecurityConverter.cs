@@ -62,9 +62,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             using (var stream = assembly.GetManifestResourceStream(ContrastSecurityRulesData))
             using (var streamReader = new StreamReader(stream))
             {
-                string prereleaseRuleDataLogText = streamReader.ReadToEnd();
-                PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(prereleaseRuleDataLogText, Newtonsoft.Json.Formatting.Indented, out string currentRuleDataLogText);
-                sarifLog = JsonConvert.DeserializeObject<SarifLog>(currentRuleDataLogText);
+                string rulesFileContents = streamReader.ReadToEnd();
+                sarifLog = JsonConvert.DeserializeObject<SarifLog>(rulesFileContents);
             }
 
             // 2. Retain a pointer to the rules dictionary, which we will use to set rule severity.
