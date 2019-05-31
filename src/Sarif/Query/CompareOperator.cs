@@ -1,6 +1,6 @@
 ﻿namespace Microsoft.CodeAnalysis.Sarif.Query
 {
-    public enum Operator
+    public enum CompareOperator
     {
         Equals,
         NotEquals,
