@@ -15,7 +15,7 @@
   <ItemGroup>
     <EmbeddedResource Update="ConverterResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <CustomToolNamespace>Microsoft.CodeAnalysis.Sarif</CustomToolNamespace>
+      <CustomToolNamespace>Microsoft.CodeAnalysis.Sarif.Converters</CustomToolNamespace>
       <LastGenOutput>ConverterResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
