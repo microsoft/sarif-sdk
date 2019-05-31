@@ -23,6 +23,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     internal sealed class ContrastSecurityConverter : ToolFileConverterBase
     {
         private const string ContrastSecurityRulesData = "Microsoft.CodeAnalysis.Sarif.Converters.RulesData.ContrastSecurity.sarif";
+        private const string SiteRootUriBaseIdName = "SITE_ROOT";
+        private const string SiteRootDescriptionMessageId = "SiteRootDescription";
 
         private IDictionary<string, ReportingDescriptor> _rules;
         private HashSet<Artifact> _files;
@@ -71,7 +73,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             run.OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>
             {
-                {  "SITE_ROOT", new ArtifactLocation { Uri = new Uri(@"E:\src\WebGoat.NET") } } 
+                {
+                    SiteRootUriBaseIdName,
+                    new ArtifactLocation {
+                        Description = new Message {
+                            Id = SiteRootDescriptionMessageId
+                        }
+                    }
+                }
+            };
+
+            run.Tool.Driver.GlobalMessageStrings = new Dictionary<string, MultiformatMessageString>
+            {
+                {
+                    SiteRootDescriptionMessageId,
+                    new MultiformatMessageString
+                    {
+                        Text = ConverterResources.ContrastSecuritySiteRootDescription
+                    }
+                }
             };
 
             // 3. Now, parse all the contrast XML to create the complete results set.
@@ -597,7 +617,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         ArtifactLocation = new ArtifactLocation
                         {
-                            //UriBaseId = "RuntimeGenerated",
+                            UriBaseId = SiteRootUriBaseIdName,
                             Uri = new Uri(key, UriKind.RelativeOrAbsolute)
                         },
                         Region = new Region() { StartLine = 1 }
@@ -1090,13 +1110,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private PhysicalLocation CreatePhysicalLocation(string uri, Region region = null)
         {
-            uri = @"E:\src\WebGoat.NET" + uri.Replace(@"/", @"\");
-
             return new PhysicalLocation
             {
                 ArtifactLocation = new ArtifactLocation
                 {
-                    Uri = new Uri(uri, UriKind.Absolute)
+                    UriBaseId = SiteRootUriBaseIdName,
+                    Uri = new Uri(uri, UriKind.RelativeOrAbsolute)
                 },
                 Region = region
             };

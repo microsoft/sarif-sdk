@@ -207,4 +207,7 @@
   <data name="ErrorAmbiguousConverterType" xml:space="preserve">
     <value>The converter plugin assembly "{0}" contains more than one public class "{1}".</value>
   </data>
+  <data name="ContrastSecuritySiteRootDescription" xml:space="preserve">
+    <value>The root URI of the web site that was analyzed.</value>
+  </data>
 </root>
