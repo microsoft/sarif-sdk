@@ -83,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
 
         public override string ToString()
         {
-            return $"!({Inner})";
+            return $"NOT({Inner})";
         }
     }
 

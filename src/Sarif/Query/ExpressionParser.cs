@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
     ///   Or              := 'OR' | '||'
     ///   Not             := 'NOT' | '!'
     ///   Operator        :=  '=' | '==' | '&lt;&gt;' | '!=' | '&lt;' | '&lt;=' | '&gt;' | '&gt;='
-    ///   String          := [NotSpace]+ Space | '[NotApostrophe | '']*' | "[NotQuote | ""]*"
+    ///   String          := [NotSpaceOrRightParen]+ SpaceOrRightParen | '[NotApostrophe | '']*' | "[NotQuote | ""]*"
     /// </remarks>
     public static class ExpressionParser
     {
@@ -29,10 +29,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
 
         static ExpressionParser()
         {
+            // Build sets of operators and tokens.
+            // WARNING: The longer forms must come first (== before =) to ensure longer forms are properly interpreted and consumed.
+
             CompareOperators = new List<Literal<CompareOperator>>()
             {
-                new Literal<CompareOperator>("=", CompareOperator.Equals),
                 new Literal<CompareOperator>("==", CompareOperator.Equals),
+                new Literal<CompareOperator>("=", CompareOperator.Equals),
                 new Literal<CompareOperator>("!=", CompareOperator.NotEquals),
                 new Literal<CompareOperator>("<>", CompareOperator.NotEquals),
                 new Literal<CompareOperator>("<=", CompareOperator.LessThanOrEquals),
@@ -59,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
             if (String.IsNullOrEmpty(value)) { return "''"; }
 
             // If we can avoid escaping, avoid escaping
-            if (value.IndexOf(' ') == -1) { return value; }
+            if (value.IndexOf(' ') == -1 && value[0] != '\'' && value[0] != '"') { return value; }
             if (value.IndexOf('\'') == -1) { return $"'{value}'"; }
             if (value.IndexOf('\"') == -1) { return $"\"{value}\""; }
 
@@ -111,13 +114,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
             }
         }
 
-        public static IExpression ParseExpression(string text)
+        public static IExpression ParseExpression(string expression)
         {
-            StringSlice query = new StringSlice(text);
-            return ParseExpression(ref query);
+            StringSlice text = new StringSlice(expression);
+
+            // Parse the expression
+            IExpression result = ParseExpression(ref text);
+
+            // Verify there was no remaining query text
+            ConsumeWhitespace(ref text);
+            if (text.Length > 0) { throw new QueryParseException("boolean operator", text); }
+
+            return result;
         }
 
-        internal static IExpression ParseExpression(ref StringSlice text)
+        private static IExpression ParseExpression(ref StringSlice text)
         {
             ConsumeWhitespace(ref text);
             if (text.Length == 0) { return new AllExpression(); }
@@ -128,7 +139,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
             while (true)
             {
                 Literal<ExpressionToken> t = StartingToken(ref text);
-                if (t?.Value == ExpressionToken.And)
+                if (t?.Value == ExpressionToken.Or)
                 {
                     text = text.Substring(t.Text.Length);
                     terms.Add(ParseAndExpression(ref text));
@@ -264,11 +275,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
             }
             else
             {
-                // Read until whitespace
+                // Read until whitespace or ')' (so closing a subexpression doesn't require a space)
                 int terminatorIndex = 0;
                 for (; terminatorIndex < text.Length; ++terminatorIndex)
                 {
-                    if (IsWhitespace(text[terminatorIndex])) { break; }
+                    char c = text[terminatorIndex];
+                    if (c == ')' || IsWhitespace(c)) { break; }
                 }
 
                 // Consume and return the string
