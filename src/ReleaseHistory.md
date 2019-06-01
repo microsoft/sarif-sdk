@@ -388,3 +388,4 @@
 * Change schema uri to secure (https) instance.
 * BUGFIX: Fix tranformer bug where schema id would not be updated if no other transformation occurred.
 * BUGFIX: `threadFlowLocation.kind` value is getting lost during pre-release transformation. https://github.com/microsoft/sarif-sdk/issues/1502
+* BUGFIX: `location.logicalLocation` convenience setter mishandles null. https://github.com/microsoft/sarif-sdk/issues/1514
