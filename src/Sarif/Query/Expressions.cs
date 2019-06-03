@@ -94,4 +94,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
             return "";
         }
     }
+
+    public class NoneExpression : IExpression
+    {
+        public override string ToString()
+        {
+            return "";
+        }
+    }
 }
