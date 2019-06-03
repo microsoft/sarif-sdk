@@ -1,6 +1,5 @@
 ﻿namespace Microsoft.CodeAnalysis.Sarif.Query
 {
-    // TODO: Helper classes for Enum, String, Long, Boolean.
     // TODO: Query Command outside.
 
     /// <summary>

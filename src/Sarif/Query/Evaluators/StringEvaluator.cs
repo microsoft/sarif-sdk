@@ -5,32 +5,31 @@ using System.Collections.Generic;
 namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
 {
     /// <summary>
-    ///  LongEvaluator implements IExpressionEvaluator given a getter which can
-    ///  get the desired Property Name as a long.
+    ///  StringEvaluator implements IExpressionEvaluator given a getter which can
+    ///  get the desired Property Name as a string.
     ///  
     ///  Usage: 
-    ///    if (String.Equals(term.PropertyName, "ID", StringComparison.OrdinalIgnoreCase))
+    ///    if (String.Equals(term.PropertyName, "FileName", StringComparison.OrdinalIgnoreCase))
     ///    {
-    ///        // Show the LongEvaluator how to get the 'ID' property as a long, and it'll implement the term matching.
-    ///        return new LongEvaluator&lt;Result&gt;(result => result.ID, term);
+    ///        // Show the StringEvaluator how to get the 'FileName' property string, and it'll implement the term matching.
+    ///        return new StringEvaluator&lt;Result&gt;(result => result.FileName, term);
     ///    }
     /// </summary>
     /// <typeparam name="T">Type of Item Evaluator will evaluate.</typeparam>
-    public class LongEvaluator<T> : IExpressionEvaluator<T>
+    public class StringEvaluator<T> : IExpressionEvaluator<T>
     {
-        private Func<T, long> Getter { get; set; }
-        private long Value { get; set; }
+        private Func<T, string> Getter { get; set; }
+        private string Value { get; set; }
+        private StringComparison StringComparison { get; set; }
 
         private Action<IList<T>, BitArray> EvaluateSet { get; set; }
 
-        public LongEvaluator(Func<T, long> getter, TermExpression term)
+        public StringEvaluator(Func<T, string> getter, TermExpression term, StringComparison stringComparison)
         {
             Getter = getter;
-
-            if (!long.TryParse(term.Value, out long parsedValue)) { throw new QueryParseException($"{term} value {term.Value} was not a valid number."); }
-            Value = parsedValue;
-
+            Value = term.Value;
             EvaluateSet = Comparer(term);
+            StringComparison = stringComparison;
         }
 
         public void Evaluate(IList<T> list, BitArray matches)
@@ -63,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
         {
             for (int i = 0; i < list.Count; ++i)
             {
-                matches.Set(i, Getter(list[i]) == Value);
+                matches.Set(i, String.Compare(Getter(list[i]), Value, StringComparison) == 0);
             }
         }
 
@@ -71,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
         {
             for (int i = 0; i < list.Count; ++i)
             {
-                matches.Set(i, Getter(list[i]) != Value);
+                matches.Set(i, String.Compare(Getter(list[i]), Value, StringComparison) != 0);
             }
         }
 
@@ -79,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
         {
             for (int i = 0; i < list.Count; ++i)
             {
-                matches.Set(i, Getter(list[i]) < Value);
+                matches.Set(i, String.Compare(Getter(list[i]), Value, StringComparison) < 0);
             }
         }
 
@@ -87,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
         {
             for (int i = 0; i < list.Count; ++i)
             {
-                matches.Set(i, Getter(list[i]) <= Value);
+                matches.Set(i, String.Compare(Getter(list[i]), Value, StringComparison) <= 0);
             }
         }
 
@@ -95,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
         {
             for (int i = 0; i < list.Count; ++i)
             {
-                matches.Set(i, Getter(list[i]) > Value);
+                matches.Set(i, String.Compare(Getter(list[i]), Value, StringComparison) > 0);
             }
         }
 
@@ -103,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
         {
             for (int i = 0; i < list.Count; ++i)
             {
-                matches.Set(i, Getter(list[i]) >= Value);
+                matches.Set(i, String.Compare(Getter(list[i]), Value, StringComparison) >= 0);
             }
         }
     }
