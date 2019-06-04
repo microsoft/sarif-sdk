@@ -141,7 +141,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
             evaluator.Evaluate(values, matches);
 
             // Verify the match count is correct
-            Assert.Equal(expectedCount, matches.CountTrue());
+            Assert.Equal(expectedCount, matches.TrueCount());
         }
     }
 }

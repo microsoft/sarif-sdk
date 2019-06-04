@@ -56,5 +56,46 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             return toolComponent.Properties;
         }
+
+        /// <summary>
+        ///  Find the ToolComponent corresponding to a ToolComponentReference.
+        /// </summary>
+        /// <param name="reference">ToolComponentReference to resolve</param>
+        /// <returns>ToolComponent for reference</returns>
+        public ToolComponent GetToolComponentFromReference(ToolComponentReference reference)
+        {
+            // Follows SARIF Spec 3.54.2 (toolComponent lookup)
+
+            // No Reference: Driver
+            if (reference == null) { return this.Driver; }
+
+            // Lookup by Index if present
+            if (reference.Index != -1)
+            {
+                if (reference.Index >= this.Extensions?.Count)
+                {
+                    throw new ArgumentOutOfRangeException($"ToolComponentReference referred to index {reference.Index}, but tool only has {this.Extensions?.Count ?? 0} components.");
+                }
+
+                return this.Extensions[reference.Index];
+            }
+
+            // Lookup by GUID if present
+            if (!String.IsNullOrEmpty(reference.Guid))
+            {
+                if (this.Extensions != null)
+                {
+                    foreach (ToolComponent component in this.Extensions)
+                    {
+                        if (component.Guid == reference.Guid) { return component; }
+                    }
+                }
+
+                throw new ArgumentException($"ToolComponentReference referred to Guid {reference.Guid}, which was not found in this.Extensions.");
+            }
+
+            // Neither specified? Driver.
+            return this.Driver;
+        }
     }
 }

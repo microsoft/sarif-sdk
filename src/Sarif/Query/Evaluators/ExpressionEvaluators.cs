@@ -99,7 +99,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
                 }
 
                 // Stop if no matches remain
-                if (matches.CountTrue() == 0) { break; }
+                if (matches.TrueCount() == 0) { break; }
             }
         }
     }
@@ -121,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
                 term.Evaluate(list, matches);
 
                 // Stop if everything has already matched
-                if (matches.CountTrue() == list.Count) { break; }
+                if (matches.TrueCount() == list.Count) { break; }
             }
         }
     }

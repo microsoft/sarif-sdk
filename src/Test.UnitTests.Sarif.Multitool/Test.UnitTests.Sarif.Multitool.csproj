@@ -15,10 +15,12 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
+    <None Remove="TestData\PageCommand\elfie-arriba - Copy.sarif" />
     <None Remove="TestData\PageCommand\elfie-arriba.sarif" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="TestData\QueryCommand\elfie-arriba.CSCAN0020.sarif" />
     <EmbeddedResource Include="TestData\PageCommand\elfie-arriba.sarif" />
   </ItemGroup>
 
