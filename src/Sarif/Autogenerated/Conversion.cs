@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Conversion(this);
         }
 
-        private void Init(Tool tool, Invocation invocation, IEnumerable<ArtifactLocation> analysisToolLogFiles, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(Tool tool, Invocation invocation, IEnumerable<ArtifactLocation> analysisToolLogFiles, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (tool != null)
             {

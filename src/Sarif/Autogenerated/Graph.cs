@@ -123,7 +123,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Graph(this);
         }
 
-        private void Init(Message description, IEnumerable<Node> nodes, IEnumerable<Edge> edges, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(Message description, IEnumerable<Node> nodes, IEnumerable<Edge> edges, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (description != null)
             {

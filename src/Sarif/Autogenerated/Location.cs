@@ -155,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Location(this);
         }
 
-        private void Init(int id, PhysicalLocation physicalLocation, IEnumerable<LogicalLocation> logicalLocations, Message message, IEnumerable<Region> annotations, IEnumerable<LocationRelationship> relationships, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(int id, PhysicalLocation physicalLocation, IEnumerable<LogicalLocation> logicalLocations, Message message, IEnumerable<Region> annotations, IEnumerable<LocationRelationship> relationships, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             if (physicalLocation != null)

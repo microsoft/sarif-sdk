@@ -224,7 +224,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ThreadFlowLocation(this);
         }
 
-        private void Init(int index, Location location, Stack stack, IEnumerable<string> kinds, IEnumerable<ReportingDescriptorReference> taxa, string module, IDictionary<string, MultiformatMessageString> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, WebRequest webRequest, WebResponse webResponse, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(int index, Location location, Stack stack, IEnumerable<string> kinds, IEnumerable<ReportingDescriptorReference> taxa, string module, IDictionary<string, MultiformatMessageString> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, WebRequest webRequest, WebResponse webResponse, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Index = index;
             if (location != null)

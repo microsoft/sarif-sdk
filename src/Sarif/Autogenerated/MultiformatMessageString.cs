@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new MultiformatMessageString(this);
         }
 
-        private void Init(string text, string markdown, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(string text, string markdown, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Text = text;
             Markdown = markdown;

@@ -138,7 +138,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Rectangle(this);
         }
 
-        private void Init(double top, double left, double bottom, double right, Message message, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(double top, double left, double bottom, double right, Message message, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Top = top;
             Left = left;

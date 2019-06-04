@@ -128,7 +128,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExceptionData(this);
         }
 
-        private void Init(string kind, string message, Stack stack, IEnumerable<ExceptionData> innerExceptions, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(string kind, string message, Stack stack, IEnumerable<ExceptionData> innerExceptions, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Kind = kind;
             Message = message;

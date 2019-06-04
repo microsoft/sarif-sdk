@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ReportingDescriptorRelationship(this);
         }
 
-        private void Init(ReportingDescriptorReference target, IEnumerable<string> kinds, Message description, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(ReportingDescriptorReference target, IEnumerable<string> kinds, Message description, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (target != null)
             {

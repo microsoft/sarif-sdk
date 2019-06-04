@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExternalPropertyFileReference(this);
         }
 
-        private void Init(ArtifactLocation location, string guid, int itemCount, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(ArtifactLocation location, string guid, int itemCount, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (location != null)
             {

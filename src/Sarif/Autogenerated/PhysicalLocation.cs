@@ -129,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new PhysicalLocation(this);
         }
 
-        private void Init(Address address, ArtifactLocation artifactLocation, Region region, Region contextRegion, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(Address address, ArtifactLocation artifactLocation, Region region, Region contextRegion, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (address != null)
             {

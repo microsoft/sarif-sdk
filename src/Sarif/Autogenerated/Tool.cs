@@ -113,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Tool(this);
         }
 
-        private void Init(ToolComponent driver, IEnumerable<ToolComponent> extensions, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(ToolComponent driver, IEnumerable<ToolComponent> extensions, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (driver != null)
             {

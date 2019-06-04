@@ -134,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ReportingDescriptorReference(this);
         }
 
-        private void Init(string id, int index, string guid, ToolComponentReference toolComponent, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(string id, int index, string guid, ToolComponentReference toolComponent, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             Index = index;

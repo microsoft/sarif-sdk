@@ -132,7 +132,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Attachment(this);
         }
 
-        private void Init(Message description, ArtifactLocation artifactLocation, IEnumerable<Region> regions, IEnumerable<Rectangle> rectangles, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(Message description, ArtifactLocation artifactLocation, IEnumerable<Region> regions, IEnumerable<Rectangle> rectangles, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (description != null)
             {

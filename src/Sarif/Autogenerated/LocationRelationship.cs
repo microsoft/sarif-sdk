@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new LocationRelationship(this);
         }
 
-        private void Init(int target, IEnumerable<string> kinds, Message description, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(int target, IEnumerable<string> kinds, Message description, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Target = target;
             if (kinds != null)

@@ -156,7 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new GraphTraversal(this);
         }
 
-        private void Init(int runGraphIndex, int resultGraphIndex, Message description, IDictionary<string, MultiformatMessageString> initialState, object immutableState, IEnumerable<EdgeTraversal> edgeTraversals, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(int runGraphIndex, int resultGraphIndex, Message description, IDictionary<string, MultiformatMessageString> initialState, object immutableState, IEnumerable<EdgeTraversal> edgeTraversals, IDictionary<string, SerializedPropertyInfo> properties)
         {
             RunGraphIndex = runGraphIndex;
             ResultGraphIndex = resultGraphIndex;

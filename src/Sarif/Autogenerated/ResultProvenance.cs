@@ -153,7 +153,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ResultProvenance(this);
         }
 
-        private void Init(DateTime firstDetectionTimeUtc, DateTime lastDetectionTimeUtc, string firstDetectionRunGuid, string lastDetectionRunGuid, int invocationIndex, IEnumerable<PhysicalLocation> conversionSources, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(DateTime firstDetectionTimeUtc, DateTime lastDetectionTimeUtc, string firstDetectionRunGuid, string lastDetectionRunGuid, int invocationIndex, IEnumerable<PhysicalLocation> conversionSources, IDictionary<string, SerializedPropertyInfo> properties)
         {
             FirstDetectionTimeUtc = firstDetectionTimeUtc;
             LastDetectionTimeUtc = lastDetectionTimeUtc;

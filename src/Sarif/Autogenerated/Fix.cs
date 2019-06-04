@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Fix(this);
         }
 
-        private void Init(Message description, IEnumerable<ArtifactChange> artifactChanges, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(Message description, IEnumerable<ArtifactChange> artifactChanges, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (description != null)
             {

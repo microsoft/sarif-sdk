@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ArtifactChange(this);
         }
 
-        private void Init(ArtifactLocation artifactLocation, IEnumerable<Replacement> replacements, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(ArtifactLocation artifactLocation, IEnumerable<Replacement> replacements, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (artifactLocation != null)
             {

@@ -170,7 +170,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new WebRequest(this);
         }
 
-        private void Init(int index, string protocol, string version, string target, string method, object headers, object parameters, ArtifactContent body, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(int index, string protocol, string version, string target, string method, object headers, object parameters, ArtifactContent body, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Index = index;
             Protocol = protocol;

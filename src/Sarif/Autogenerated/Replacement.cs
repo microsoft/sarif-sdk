@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Replacement(this);
         }
 
-        private void Init(Region deletedRegion, ArtifactContent insertedContent, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(Region deletedRegion, ArtifactContent insertedContent, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (deletedRegion != null)
             {

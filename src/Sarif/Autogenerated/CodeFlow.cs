@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new CodeFlow(this);
         }
 
-        private void Init(Message message, IEnumerable<ThreadFlow> threadFlows, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(Message message, IEnumerable<ThreadFlow> threadFlows, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (message != null)
             {

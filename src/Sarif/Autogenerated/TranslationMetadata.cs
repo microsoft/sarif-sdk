@@ -147,7 +147,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new TranslationMetadata(this);
         }
 
-        private void Init(string name, string fullName, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, Uri downloadUri, Uri informationUri, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(string name, string fullName, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, Uri downloadUri, Uri informationUri, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Name = name;
             FullName = fullName;

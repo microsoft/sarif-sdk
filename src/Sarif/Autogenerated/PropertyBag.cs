@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new PropertyBag(this);
         }
 
-        private void Init(IEnumerable<string> tags)
+        protected virtual void Init(IEnumerable<string> tags)
         {
             if (tags != null)
             {

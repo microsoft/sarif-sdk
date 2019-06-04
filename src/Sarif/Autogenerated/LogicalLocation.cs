@@ -155,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new LogicalLocation(this);
         }
 
-        private void Init(string name, int index, string fullyQualifiedName, string decoratedName, int parentIndex, string kind, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(string name, int index, string fullyQualifiedName, string decoratedName, int parentIndex, string kind, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Name = name;
             Index = index;

@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ConfigurationOverride(this);
         }
 
-        private void Init(ReportingConfiguration configuration, ReportingDescriptorReference descriptor, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(ReportingConfiguration configuration, ReportingDescriptorReference descriptor, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (configuration != null)
             {

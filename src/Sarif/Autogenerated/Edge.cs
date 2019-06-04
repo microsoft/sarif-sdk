@@ -129,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Edge(this);
         }
 
-        private void Init(string id, Message label, string sourceNodeId, string targetNodeId, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(string id, Message label, string sourceNodeId, string targetNodeId, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             if (label != null)

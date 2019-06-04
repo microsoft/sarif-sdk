@@ -129,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new EdgeTraversal(this);
         }
 
-        private void Init(string edgeId, Message message, IDictionary<string, MultiformatMessageString> finalState, int stepOverEdgeCount, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(string edgeId, Message message, IDictionary<string, MultiformatMessageString> finalState, int stepOverEdgeCount, IDictionary<string, SerializedPropertyInfo> properties)
         {
             EdgeId = edgeId;
             if (message != null)

@@ -141,7 +141,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Suppression(this);
         }
 
-        private void Init(string guid, SuppressionKind kind, SuppressionState state, string justification, Location location, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(string guid, SuppressionKind kind, SuppressionState state, string justification, Location location, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Guid = guid;
             Kind = kind;

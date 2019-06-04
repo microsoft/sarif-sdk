@@ -135,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ArtifactLocation(this);
         }
 
-        private void Init(Uri uri, string uriBaseId, int index, Message description, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(Uri uri, string uriBaseId, int index, Message description, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (uri != null)
             {

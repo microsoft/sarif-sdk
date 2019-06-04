@@ -129,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new RunAutomationDetails(this);
         }
 
-        private void Init(Message description, string id, string guid, string correlationGuid, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(Message description, string id, string guid, string correlationGuid, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (description != null)
             {

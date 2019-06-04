@@ -131,7 +131,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Node(this);
         }
 
-        private void Init(string id, Message label, Location location, IEnumerable<Node> children, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(string id, Message label, Location location, IEnumerable<Node> children, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             if (label != null)

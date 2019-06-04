@@ -135,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ThreadFlow(this);
         }
 
-        private void Init(string id, Message message, object initialState, object immutableState, IEnumerable<ThreadFlowLocation> locations, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(string id, Message message, object initialState, object immutableState, IEnumerable<ThreadFlowLocation> locations, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             if (message != null)

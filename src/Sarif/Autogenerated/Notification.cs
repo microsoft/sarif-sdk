@@ -173,7 +173,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Notification(this);
         }
 
-        private void Init(IEnumerable<Location> locations, Message message, FailureLevel level, int threadId, DateTime timeUtc, ExceptionData exception, ReportingDescriptorReference descriptor, ReportingDescriptorReference associatedRule, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(IEnumerable<Location> locations, Message message, FailureLevel level, int threadId, DateTime timeUtc, ExceptionData exception, ReportingDescriptorReference descriptor, ReportingDescriptorReference associatedRule, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (locations != null)
             {

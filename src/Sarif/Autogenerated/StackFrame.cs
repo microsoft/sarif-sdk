@@ -131,7 +131,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new StackFrame(this);
         }
 
-        private void Init(Location location, string module, int threadId, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(Location location, string module, int threadId, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (location != null)
             {

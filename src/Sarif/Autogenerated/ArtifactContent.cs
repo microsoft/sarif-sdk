@@ -120,7 +120,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ArtifactContent(this);
         }
 
-        private void Init(string text, string binary, MultiformatMessageString rendered, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(string text, string binary, MultiformatMessageString rendered, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Text = text;
             Binary = binary;

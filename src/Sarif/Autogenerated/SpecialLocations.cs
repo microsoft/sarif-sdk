@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new SpecialLocations(this);
         }
 
-        private void Init(ArtifactLocation displayBase, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(ArtifactLocation displayBase, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (displayBase != null)
             {

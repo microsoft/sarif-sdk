@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Stack(this);
         }
 
-        private void Init(Message message, IEnumerable<StackFrame> frames, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(Message message, IEnumerable<StackFrame> frames, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (message != null)
             {

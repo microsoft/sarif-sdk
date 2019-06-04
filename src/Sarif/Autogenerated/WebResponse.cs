@@ -173,7 +173,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new WebResponse(this);
         }
 
-        private void Init(int index, string protocol, string version, int statusCode, string reasonPhrase, object headers, ArtifactContent body, bool noResponseReceived, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(int index, string protocol, string version, int statusCode, string reasonPhrase, object headers, ArtifactContent body, bool noResponseReceived, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Index = index;
             Protocol = protocol;

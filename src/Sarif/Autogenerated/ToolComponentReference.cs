@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ToolComponentReference(this);
         }
 
-        private void Init(string name, int index, string guid, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(string name, int index, string guid, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Name = name;
             Index = index;

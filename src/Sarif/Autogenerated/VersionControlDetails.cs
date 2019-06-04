@@ -150,7 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new VersionControlDetails(this);
         }
 
-        private void Init(Uri repositoryUri, string revisionId, string branch, string revisionTag, DateTime asOfTimeUtc, ArtifactLocation mappedTo, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(Uri repositoryUri, string revisionId, string branch, string revisionTag, DateTime asOfTimeUtc, ArtifactLocation mappedTo, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (repositoryUri != null)
             {

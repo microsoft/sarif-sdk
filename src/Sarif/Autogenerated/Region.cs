@@ -200,7 +200,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Region(this);
         }
 
-        private void Init(int startLine, int startColumn, int endLine, int endColumn, int charOffset, int charLength, int byteOffset, int byteLength, ArtifactContent snippet, Message message, string sourceLanguage, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(int startLine, int startColumn, int endLine, int endColumn, int charOffset, int charLength, int byteOffset, int byteLength, ArtifactContent snippet, Message message, string sourceLanguage, IDictionary<string, SerializedPropertyInfo> properties)
         {
             StartLine = startLine;
             StartColumn = startColumn;
