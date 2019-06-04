@@ -56,7 +56,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
                 new Literal<ExpressionToken>("NOT", ExpressionToken.Not),
                 new Literal<ExpressionToken>("!", ExpressionToken.Not),
                 new Literal<ExpressionToken>("(", ExpressionToken.LeftParen),
-                new Literal<ExpressionToken>(")", ExpressionToken.RightParen)
+                new Literal<ExpressionToken>(")", ExpressionToken.RightParen),
+                new Literal<ExpressionToken>("*", ExpressionToken.All)
             };
         }
 
@@ -181,6 +182,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
         private static IExpression ParseTerm(ref StringSlice text)
         {
             Literal<ExpressionToken> t = StartingToken(ref text);
+
+            // All?
+            if (t?.Value == ExpressionToken.All)
+            {
+                text = text.Substring(t.Text.Length);
+                return new AllExpression();
+            }
 
             // Parenthesized subexpression?
             if (t?.Value == ExpressionToken.LeftParen)
@@ -339,7 +347,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
             RightParen,
             And,
             Or,
-            Not
+            Not,
+            All
         }
     }
 }

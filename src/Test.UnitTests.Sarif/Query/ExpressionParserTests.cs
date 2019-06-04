@@ -75,24 +75,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
             AssertParsesTo("State == Active AND (Priority > 1 OR Priority == 1)", "State == Active AND (Priority > 1 OR Priority == 1)");
 
             // Empty string is All Query
-            AssertParsesTo("", "");
-            AssertParsesTo("", " ");
+            AssertParsesTo("*", "");
+            AssertParsesTo("*", " ");
+
+            // All/None
+            AssertParsesTo("*", "*");
+            AssertParsesTo("*", "(*)");
+            AssertParsesTo("NOT(*)", "!*");
+            AssertParsesTo("NOT(*)", "NOT(*)");
         }
 
         [Fact]
         public void ExpressionParser_Errors()
         {
-            //// No Operator
-            //AssertThrows("baselineState");
+            // No Operator
+            AssertThrows("baselineState");
 
-            //// No Value
-            //AssertThrows("baselineState =");
+            // No Value
+            AssertThrows("baselineState =");
 
-            //// Unknown Operator
-            //AssertThrows("baselineState *= 1");
+            // Unknown Operator
+            AssertThrows("baselineState *= 1");
 
-            //// No Column Name
-            //AssertThrows(">= 1");
+            // No Column Name
+            AssertThrows(">= 1");
 
             // Unknown Boolean Operator
             AssertThrows("State == Active Und Priority == 1");

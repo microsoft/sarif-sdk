@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
     {
         public override string ToString()
         {
-            return "";
+            return "*";
         }
     }
 
@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query
     {
         public override string ToString()
         {
-            return "";
+            return "NOT(*)";
         }
     }
 }
