@@ -45,8 +45,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             HelpText = "Exit Code is the count of matching results")]
         public bool ReturnCount { get; set; } = false;
 
-        // Force defaults to true, so users creating many large pages to the same output file name
-        // won't actually be getting the same page repeatedly without knowing it.
         [Option(
             'f',
             "force",
