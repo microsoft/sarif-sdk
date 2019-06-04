@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type ToolComponentReference for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     internal sealed class ToolComponentReferenceEqualityComparer : IEqualityComparer<ToolComponentReference>
     {
         internal static readonly ToolComponentReferenceEqualityComparer Instance = new ToolComponentReferenceEqualityComparer();

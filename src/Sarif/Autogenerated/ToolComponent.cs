@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A component, such as a plug-in or the driver, of the analysis tool that was run.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class ToolComponent : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ToolComponent> ValueComparer => ToolComponentEqualityComparer.Instance;

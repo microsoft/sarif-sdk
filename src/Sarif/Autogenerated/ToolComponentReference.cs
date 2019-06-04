@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class ToolComponentReference : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ToolComponentReference> ValueComparer => ToolComponentReferenceEqualityComparer.Instance;

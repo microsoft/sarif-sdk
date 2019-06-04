@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// References to external property files that should be inlined with the content of a root log file.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class ExternalPropertyFileReferences : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ExternalPropertyFileReferences> ValueComparer => ExternalPropertyFileReferencesEqualityComparer.Instance;

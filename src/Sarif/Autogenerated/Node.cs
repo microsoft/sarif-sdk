@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Represents a node in a graph.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class Node : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Node> ValueComparer => NodeEqualityComparer.Instance;

@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Information about how a specific rule or notification was reconfigured at runtime.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class ConfigurationOverride : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ConfigurationOverride> ValueComparer => ConfigurationOverrideEqualityComparer.Instance;

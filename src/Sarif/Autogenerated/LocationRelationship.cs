@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Information about the relation of one location to another.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class LocationRelationship : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<LocationRelationship> ValueComparer => LocationRelationshipEqualityComparer.Instance;
