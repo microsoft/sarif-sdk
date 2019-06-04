@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A component, such as a plug-in or the driver, of the analysis tool that was run.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class ToolComponent : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ToolComponent> ValueComparer => ToolComponentEqualityComparer.Instance;
@@ -351,7 +351,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ToolComponent(this);
         }
 
-        private void Init(string guid, string name, string organization, string product, string productSuite, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, string releaseDateUtc, Uri downloadUri, Uri informationUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notifications, IEnumerable<ReportingDescriptor> rules, IEnumerable<ReportingDescriptor> taxa, IEnumerable<ArtifactLocation> locations, string language, ToolComponentContents contents, bool isComprehensive, string localizedDataSemanticVersion, string minimumRequiredLocalizedDataSemanticVersion, ToolComponentReference associatedComponent, TranslationMetadata translationMetadata, IEnumerable<ToolComponentReference> supportedTaxonomies, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(string guid, string name, string organization, string product, string productSuite, MultiformatMessageString shortDescription, MultiformatMessageString fullDescription, string fullName, string version, string semanticVersion, string dottedQuadFileVersion, string releaseDateUtc, Uri downloadUri, Uri informationUri, IDictionary<string, MultiformatMessageString> globalMessageStrings, IEnumerable<ReportingDescriptor> notifications, IEnumerable<ReportingDescriptor> rules, IEnumerable<ReportingDescriptor> taxa, IEnumerable<ArtifactLocation> locations, string language, ToolComponentContents contents, bool isComprehensive, string localizedDataSemanticVersion, string minimumRequiredLocalizedDataSemanticVersion, ToolComponentReference associatedComponent, TranslationMetadata translationMetadata, IEnumerable<ToolComponentReference> supportedTaxonomies, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Guid = guid;
             Name = name;

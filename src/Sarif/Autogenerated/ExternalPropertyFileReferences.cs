@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// References to external property files that should be inlined with the content of a root log file.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class ExternalPropertyFileReferences : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ExternalPropertyFileReferences> ValueComparer => ExternalPropertyFileReferencesEqualityComparer.Instance;
@@ -251,7 +251,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExternalPropertyFileReferences(this);
         }
 
-        private void Init(ExternalPropertyFileReference conversion, IEnumerable<ExternalPropertyFileReference> graphs, ExternalPropertyFileReference externalizedProperties, IEnumerable<ExternalPropertyFileReference> artifacts, IEnumerable<ExternalPropertyFileReference> invocations, IEnumerable<ExternalPropertyFileReference> logicalLocations, IEnumerable<ExternalPropertyFileReference> threadFlowLocations, IEnumerable<ExternalPropertyFileReference> results, IEnumerable<ExternalPropertyFileReference> taxonomies, IEnumerable<ExternalPropertyFileReference> addresses, ExternalPropertyFileReference driver, IEnumerable<ExternalPropertyFileReference> extensions, IEnumerable<ExternalPropertyFileReference> policies, IEnumerable<ExternalPropertyFileReference> translations, IEnumerable<ExternalPropertyFileReference> webRequests, IEnumerable<ExternalPropertyFileReference> webResponses, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(ExternalPropertyFileReference conversion, IEnumerable<ExternalPropertyFileReference> graphs, ExternalPropertyFileReference externalizedProperties, IEnumerable<ExternalPropertyFileReference> artifacts, IEnumerable<ExternalPropertyFileReference> invocations, IEnumerable<ExternalPropertyFileReference> logicalLocations, IEnumerable<ExternalPropertyFileReference> threadFlowLocations, IEnumerable<ExternalPropertyFileReference> results, IEnumerable<ExternalPropertyFileReference> taxonomies, IEnumerable<ExternalPropertyFileReference> addresses, ExternalPropertyFileReference driver, IEnumerable<ExternalPropertyFileReference> extensions, IEnumerable<ExternalPropertyFileReference> policies, IEnumerable<ExternalPropertyFileReference> translations, IEnumerable<ExternalPropertyFileReference> webRequests, IEnumerable<ExternalPropertyFileReference> webResponses, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (conversion != null)
             {

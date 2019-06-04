@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Key/value pairs that provide additional information about the object.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class PropertyBag : ISarifNode
     {
         public static IEqualityComparer<PropertyBag> ValueComparer => PropertyBagEqualityComparer.Instance;
@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new PropertyBag(this);
         }
 
-        private void Init(IEnumerable<string> tags)
+        protected virtual void Init(IEnumerable<string> tags)
         {
             if (tags != null)
             {

@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// An area within an image.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class Rectangle : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Rectangle> ValueComparer => RectangleEqualityComparer.Instance;
@@ -138,7 +138,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Rectangle(this);
         }
 
-        private void Init(double top, double left, double bottom, double right, Message message, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(double top, double left, double bottom, double right, Message message, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Top = top;
             Left = left;

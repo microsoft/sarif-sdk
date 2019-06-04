@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Information about how to locate a relevant reporting descriptor.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class ReportingDescriptorReference : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ReportingDescriptorReference> ValueComparer => ReportingDescriptorReferenceEqualityComparer.Instance;
@@ -134,7 +134,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ReportingDescriptorReference(this);
         }
 
-        private void Init(string id, int index, string guid, ToolComponentReference toolComponent, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(string id, int index, string guid, ToolComponentReference toolComponent, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             Index = index;

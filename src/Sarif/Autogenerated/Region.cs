@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A region within an artifact where a result was detected.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class Region : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Region> ValueComparer => RegionEqualityComparer.Instance;
@@ -200,7 +200,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Region(this);
         }
 
-        private void Init(int startLine, int startColumn, int endLine, int endColumn, int charOffset, int charLength, int byteOffset, int byteLength, ArtifactContent snippet, Message message, string sourceLanguage, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(int startLine, int startColumn, int endLine, int endColumn, int charOffset, int charLength, int byteOffset, int byteLength, ArtifactContent snippet, Message message, string sourceLanguage, IDictionary<string, SerializedPropertyInfo> properties)
         {
             StartLine = startLine;
             StartColumn = startColumn;

@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// <summary>
     /// Defines methods to support the comparison of objects of type WebResponse for equality.
     /// </summary>
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     internal sealed class WebResponseEqualityComparer : IEqualityComparer<WebResponse>
     {
         internal static readonly WebResponseEqualityComparer Instance = new WebResponseEqualityComparer();

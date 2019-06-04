@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Encapsulates a message intended to be read by the end user.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class Message : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Message> ValueComparer => MessageEqualityComparer.Instance;
@@ -131,7 +131,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Message(this);
         }
 
-        private void Init(string text, string markdown, string id, IEnumerable<string> arguments, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(string text, string markdown, string id, IEnumerable<string> arguments, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Text = text;
             Markdown = markdown;

@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A function call within a stack trace.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class StackFrame : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<StackFrame> ValueComparer => StackFrameEqualityComparer.Instance;
@@ -131,7 +131,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new StackFrame(this);
         }
 
-        private void Init(Location location, string module, int threadId, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(Location location, string module, int threadId, IEnumerable<string> parameters, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (location != null)
             {

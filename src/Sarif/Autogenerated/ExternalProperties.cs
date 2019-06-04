@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class ExternalProperties : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ExternalProperties> ValueComparer => ExternalPropertiesEqualityComparer.Instance;
@@ -284,7 +284,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExternalProperties(this);
         }
 
-        private void Init(Uri schema, SarifVersion version, string guid, string runGuid, Conversion conversion, IEnumerable<Graph> graphs, PropertyBag externalizedProperties, IEnumerable<Artifact> artifacts, IEnumerable<Invocation> invocations, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<Result> results, IEnumerable<ToolComponent> taxonomies, ToolComponent driver, IEnumerable<ToolComponent> extensions, IEnumerable<ToolComponent> policies, IEnumerable<ToolComponent> translations, IEnumerable<Address> addresses, IEnumerable<WebRequest> webRequests, IEnumerable<WebResponse> webResponses, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(Uri schema, SarifVersion version, string guid, string runGuid, Conversion conversion, IEnumerable<Graph> graphs, PropertyBag externalizedProperties, IEnumerable<Artifact> artifacts, IEnumerable<Invocation> invocations, IEnumerable<LogicalLocation> logicalLocations, IEnumerable<ThreadFlowLocation> threadFlowLocations, IEnumerable<Result> results, IEnumerable<ToolComponent> taxonomies, ToolComponent driver, IEnumerable<ToolComponent> extensions, IEnumerable<ToolComponent> policies, IEnumerable<ToolComponent> translations, IEnumerable<Address> addresses, IEnumerable<WebRequest> webRequests, IEnumerable<WebResponse> webResponses, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (schema != null)
             {

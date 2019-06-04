@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A single artifact. In some cases, this artifact might be nested within another artifact.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class Artifact : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Artifact> ValueComparer => ArtifactEqualityComparer.Instance;
@@ -212,7 +212,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Artifact(this);
         }
 
-        private void Init(Message description, ArtifactLocation location, int parentIndex, int offset, int length, ArtifactRoles roles, string mimeType, ArtifactContent contents, string encoding, string sourceLanguage, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(Message description, ArtifactLocation location, int parentIndex, int offset, int length, ArtifactRoles roles, string mimeType, ArtifactContent contents, string encoding, string sourceLanguage, IDictionary<string, string> hashes, DateTime lastModifiedTimeUtc, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (description != null)
             {

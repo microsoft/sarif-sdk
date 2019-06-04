@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A change to a single artifact.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class ArtifactChange : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ArtifactChange> ValueComparer => ArtifactChangeEqualityComparer.Instance;
@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ArtifactChange(this);
         }
 
-        private void Init(ArtifactLocation artifactLocation, IEnumerable<Replacement> replacements, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(ArtifactLocation artifactLocation, IEnumerable<Replacement> replacements, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (artifactLocation != null)
             {

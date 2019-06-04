@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Represents a path through a graph.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class GraphTraversal : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<GraphTraversal> ValueComparer => GraphTraversalEqualityComparer.Instance;
@@ -156,7 +156,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new GraphTraversal(this);
         }
 
-        private void Init(int runGraphIndex, int resultGraphIndex, Message description, IDictionary<string, MultiformatMessageString> initialState, object immutableState, IEnumerable<EdgeTraversal> edgeTraversals, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(int runGraphIndex, int resultGraphIndex, Message description, IDictionary<string, MultiformatMessageString> initialState, object immutableState, IEnumerable<EdgeTraversal> edgeTraversals, IDictionary<string, SerializedPropertyInfo> properties)
         {
             RunGraphIndex = runGraphIndex;
             ResultGraphIndex = resultGraphIndex;

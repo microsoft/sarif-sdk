@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// The analysis tool that was run.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class Tool : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Tool> ValueComparer => ToolEqualityComparer.Instance;
@@ -113,7 +113,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Tool(this);
         }
 
-        private void Init(ToolComponent driver, IEnumerable<ToolComponent> extensions, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(ToolComponent driver, IEnumerable<ToolComponent> extensions, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (driver != null)
             {

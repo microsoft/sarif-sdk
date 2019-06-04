@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Represents the traversal of a single edge during a graph traversal.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class EdgeTraversal : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<EdgeTraversal> ValueComparer => EdgeTraversalEqualityComparer.Instance;
@@ -129,7 +129,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new EdgeTraversal(this);
         }
 
-        private void Init(string edgeId, Message message, IDictionary<string, MultiformatMessageString> finalState, int stepOverEdgeCount, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(string edgeId, Message message, IDictionary<string, MultiformatMessageString> finalState, int stepOverEdgeCount, IDictionary<string, SerializedPropertyInfo> properties)
         {
             EdgeId = edgeId;
             if (message != null)

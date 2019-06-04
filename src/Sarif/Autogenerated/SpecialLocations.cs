@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Defines locations of special significance to SARIF consumers.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class SpecialLocations : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<SpecialLocations> ValueComparer => SpecialLocationsEqualityComparer.Instance;
@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new SpecialLocations(this);
         }
 
-        private void Init(ArtifactLocation displayBase, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(ArtifactLocation displayBase, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (displayBase != null)
             {

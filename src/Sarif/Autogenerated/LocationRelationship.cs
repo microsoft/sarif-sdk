@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Information about the relation of one location to another.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class LocationRelationship : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<LocationRelationship> ValueComparer => LocationRelationshipEqualityComparer.Instance;
@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new LocationRelationship(this);
         }
 
-        private void Init(int target, IEnumerable<string> kinds, Message description, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(int target, IEnumerable<string> kinds, Message description, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Target = target;
             if (kinds != null)

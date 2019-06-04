@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Describes how a converter transformed the output of a static analysis tool from the analysis tool's native output format into the SARIF format.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class Conversion : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Conversion> ValueComparer => ConversionEqualityComparer.Instance;
@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Conversion(this);
         }
 
-        private void Init(Tool tool, Invocation invocation, IEnumerable<ArtifactLocation> analysisToolLogFiles, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(Tool tool, Invocation invocation, IEnumerable<ArtifactLocation> analysisToolLogFiles, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (tool != null)
             {

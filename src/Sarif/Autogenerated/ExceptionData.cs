@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class ExceptionData : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ExceptionData> ValueComparer => ExceptionDataEqualityComparer.Instance;
@@ -128,7 +128,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ExceptionData(this);
         }
 
-        private void Init(string kind, string message, Stack stack, IEnumerable<ExceptionData> innerExceptions, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(string kind, string message, Stack stack, IEnumerable<ExceptionData> innerExceptions, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Kind = kind;
             Message = message;

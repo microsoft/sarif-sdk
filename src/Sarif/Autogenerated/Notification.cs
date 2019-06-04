@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// Describes a condition relevant to the tool itself, as opposed to being relevant to a target being analyzed by the tool.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class Notification : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Notification> ValueComparer => NotificationEqualityComparer.Instance;
@@ -173,7 +173,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Notification(this);
         }
 
-        private void Init(IEnumerable<Location> locations, Message message, FailureLevel level, int threadId, DateTime timeUtc, ExceptionData exception, ReportingDescriptorReference descriptor, ReportingDescriptorReference associatedRule, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(IEnumerable<Location> locations, Message message, FailureLevel level, int threadId, DateTime timeUtc, ExceptionData exception, ReportingDescriptorReference descriptor, ReportingDescriptorReference associatedRule, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (locations != null)
             {

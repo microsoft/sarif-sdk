@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A suppression that is relevant to a result.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class Suppression : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Suppression> ValueComparer => SuppressionEqualityComparer.Instance;
@@ -141,7 +141,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Suppression(this);
         }
 
-        private void Init(string guid, SuppressionKind kind, SuppressionState state, string justification, Location location, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(string guid, SuppressionKind kind, SuppressionState state, string justification, Location location, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Guid = guid;
             Kind = kind;

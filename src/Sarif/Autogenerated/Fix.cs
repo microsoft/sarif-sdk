@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A proposed fix for the problem represented by a result object. A fix specifies a set of artifacts to modify. For each artifact, it specifies a set of bytes to remove, and provides a set of new bytes to replace them.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class Fix : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Fix> ValueComparer => FixEqualityComparer.Instance;
@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Fix(this);
         }
 
-        private void Init(Message description, IEnumerable<ArtifactChange> artifactChanges, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(Message description, IEnumerable<ArtifactChange> artifactChanges, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (description != null)
             {

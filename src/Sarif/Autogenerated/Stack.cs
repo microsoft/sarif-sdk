@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A call stack that is relevant to a result.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class Stack : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Stack> ValueComparer => StackEqualityComparer.Instance;
@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Stack(this);
         }
 
-        private void Init(Message message, IEnumerable<StackFrame> frames, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(Message message, IEnumerable<StackFrame> frames, IDictionary<string, SerializedPropertyInfo> properties)
         {
             if (message != null)
             {

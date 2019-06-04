@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A message string or message format string rendered in multiple formats.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class MultiformatMessageString : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<MultiformatMessageString> ValueComparer => MultiformatMessageStringEqualityComparer.Instance;
@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new MultiformatMessageString(this);
         }
 
-        private void Init(string text, string markdown, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(string text, string markdown, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Text = text;
             Markdown = markdown;

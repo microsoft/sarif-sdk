@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A location within a programming artifact.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class Location : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<Location> ValueComparer => LocationEqualityComparer.Instance;
@@ -155,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new Location(this);
         }
 
-        private void Init(int id, PhysicalLocation physicalLocation, IEnumerable<LogicalLocation> logicalLocations, Message message, IEnumerable<Region> annotations, IEnumerable<LocationRelationship> relationships, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(int id, PhysicalLocation physicalLocation, IEnumerable<LogicalLocation> logicalLocations, Message message, IEnumerable<Region> annotations, IEnumerable<LocationRelationship> relationships, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             if (physicalLocation != null)

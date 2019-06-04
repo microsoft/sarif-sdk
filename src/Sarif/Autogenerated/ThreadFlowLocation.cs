@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A location visited by an analysis tool while simulating or monitoring the execution of a program.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class ThreadFlowLocation : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ThreadFlowLocation> ValueComparer => ThreadFlowLocationEqualityComparer.Instance;
@@ -224,7 +224,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ThreadFlowLocation(this);
         }
 
-        private void Init(int index, Location location, Stack stack, IEnumerable<string> kinds, IEnumerable<ReportingDescriptorReference> taxa, string module, IDictionary<string, MultiformatMessageString> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, WebRequest webRequest, WebResponse webResponse, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(int index, Location location, Stack stack, IEnumerable<string> kinds, IEnumerable<ReportingDescriptorReference> taxa, string module, IDictionary<string, MultiformatMessageString> state, int nestingLevel, int executionOrder, DateTime executionTimeUtc, ThreadFlowLocationImportance importance, WebRequest webRequest, WebResponse webResponse, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Index = index;
             if (location != null)

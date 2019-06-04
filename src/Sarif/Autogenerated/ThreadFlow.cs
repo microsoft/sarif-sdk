@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 namespace Microsoft.CodeAnalysis.Sarif
 {
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class ThreadFlow : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<ThreadFlow> ValueComparer => ThreadFlowEqualityComparer.Instance;
@@ -135,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new ThreadFlow(this);
         }
 
-        private void Init(string id, Message message, object initialState, object immutableState, IEnumerable<ThreadFlowLocation> locations, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(string id, Message message, object initialState, object immutableState, IEnumerable<ThreadFlowLocation> locations, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Id = id;
             if (message != null)

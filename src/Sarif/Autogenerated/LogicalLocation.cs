@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// A logical location of a construct that produced a result.
     /// </summary>
     [DataContract]
-    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "0.62.0.0")]
+    [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class LogicalLocation : PropertyBagHolder, ISarifNode
     {
         public static IEqualityComparer<LogicalLocation> ValueComparer => LogicalLocationEqualityComparer.Instance;
@@ -155,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new LogicalLocation(this);
         }
 
-        private void Init(string name, int index, string fullyQualifiedName, string decoratedName, int parentIndex, string kind, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(string name, int index, string fullyQualifiedName, string decoratedName, int parentIndex, string kind, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Name = name;
             Index = index;
