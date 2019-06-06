@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </summary>
         /// <param name="run">Run instance containing this Result</param>
         /// <returns>ReportingDescriptor for Result Rule, if available</returns>
-        public ReportingDescriptor GetReportingDescriptor(Run run)
+        public ReportingDescriptor GetRule(Run run)
         {
             // Follows SARIF Spec 3.52.3 (reportingDescriptor lookup)
 

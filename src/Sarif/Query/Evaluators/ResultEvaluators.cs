@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Query.Evaluators
                 case "rank":
                     return new DoubleEvaluator<Result>(r => r.Rank, term);
                 case "ruleid":
-                    return new StringEvaluator<Result>(r => r.RuleId, term, StringComparison.OrdinalIgnoreCase);
+                    return new StringEvaluator<Result>(r => r.RuleId ?? r.Rule?.Id, term, StringComparison.OrdinalIgnoreCase);
                 default:
                     throw new QueryParseException($"Property Name {term.PropertyName} unrecognized. Known Names: baselineState, correlationGuid, guid, hostedViewerUri, kind, level, message.text, occurrenceCount, rank, ruleId");
             }

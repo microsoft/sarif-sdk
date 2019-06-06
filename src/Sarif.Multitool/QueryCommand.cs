@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 {
                     foreach (Result result in run.Results)
                     {
-                        Console.WriteLine(result.FormatForVisualStudio(result.GetReportingDescriptor(run)));
+                        Console.WriteLine(result.FormatForVisualStudio(result.GetRule(run)));
                     }
                 }
             }
