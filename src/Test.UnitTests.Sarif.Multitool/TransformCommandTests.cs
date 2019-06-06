@@ -12,6 +12,8 @@ using Xunit;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using System;
+using System.IO;
+using System.Text;
 
 namespace Sarif.Multitool.UnitTests
 {
@@ -155,13 +157,16 @@ namespace Sarif.Multitool.UnitTests
         private static string RunTransformationCore(string logFileContents, SarifVersion targetVersion)
         {
             string logFilePath = @"c:\logs\mylog.sarif";
-            string transformedContents = null;
+            StringBuilder transformedContents = new StringBuilder();
 
+            // Complex: TransformCommand has codepaths that use Create and OpenRead, but also ReadAllText and WriteAllText
             var mockFileSystem = new Mock<IFileSystem>();
             mockFileSystem.Setup(x => x.ReadAllText(logFilePath)).Returns(logFileContents);
-            mockFileSystem.Setup(x => x.WriteAllText(logFilePath, It.IsAny<string>())).Callback<string, string>((path, contents) => { transformedContents = contents; });
+            mockFileSystem.Setup(x => x.OpenRead(logFilePath)).Returns(() => new MemoryStream(Encoding.UTF8.GetBytes(logFileContents)));
+            mockFileSystem.Setup(x => x.Create(logFilePath)).Returns(() => new MemoryStreamToStringBuilder(transformedContents));
+            mockFileSystem.Setup(x => x.WriteAllText(logFilePath, It.IsAny<string>())).Callback<string, string>((path, contents) => { transformedContents.Append(contents); });
 
-            var transformCommand = new TransformCommand(mockFileSystem.Object, testing: true);
+            var transformCommand = new TransformCommand(mockFileSystem.Object);
 
             var options = new TransformOptions
             {
@@ -173,7 +178,23 @@ namespace Sarif.Multitool.UnitTests
             int returnCode = transformCommand.Run(options);
             returnCode.Should().Be(0);
 
-            return transformedContents;
+            return transformedContents.ToString();
+        }
+
+        private class MemoryStreamToStringBuilder : MemoryStream
+        {
+            private StringBuilder OutputTo { get; set; }
+
+            public MemoryStreamToStringBuilder(StringBuilder outputTo)
+            {
+                OutputTo = outputTo;
+            }
+
+            protected override void Dispose(bool disposing)
+            {
+                OutputTo.Append(Encoding.UTF8.GetString(this.ToArray()));
+                base.Dispose(disposing);
+            }
         }
     }
 }

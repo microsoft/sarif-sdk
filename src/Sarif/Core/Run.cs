@@ -132,6 +132,16 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
         }
 
+        /// <summary>
+        ///  Find the ToolComponent corresponding to a ToolComponentReference.
+        /// </summary>
+        /// <param name="reference">ToolComponentReference to resolve</param>
+        /// <returns>ToolComponent for reference</returns>
+        public ToolComponent GetToolComponentFromReference(ToolComponentReference reference)
+        {
+            return this.Tool.GetToolComponentFromReference(reference);
+        }
+
         public bool ShouldSerializeColumnKind()
         {
             // This serialization helper does two things. 
