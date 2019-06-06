@@ -53,6 +53,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     switch (schemaSubVersion)
                     {
+                        case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.2.json":
+                        {
+                            // rtm.2 release.
+                            // nothing to do.
+                            break;
+                        }
                         case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.1.json":
                         {
                             // rtm.1 release.
