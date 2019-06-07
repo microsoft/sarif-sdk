@@ -23,7 +23,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentNullException(nameof(output));
             }
 
-            PersistResults(output, new List<Result>());
+            IList<Result> results = GetResults(input);
+
+            PersistResults(output, results);
+        }
+
+        private static IList<Result> GetResults(Stream input)
+        {
+           return new List<Result>();
         }
     }
 }
