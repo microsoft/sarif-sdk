@@ -40,7 +40,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             IList<Result> results = new List<Result>();
 
+            string line;
+            while ((line = reader.ReadLine()) != null)
+            {
+                Result result = GetResultFromLine(line);
+                if (result != null)
+                {
+                    results.Add(result);
+                }
+            }
+
             return results;
+        }
+
+        private static Result GetResultFromLine(string line)
+        {
+            return null;
         }
     }
 }
