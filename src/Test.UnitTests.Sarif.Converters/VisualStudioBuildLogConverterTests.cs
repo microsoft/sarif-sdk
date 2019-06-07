@@ -4,12 +4,10 @@
 using System;
 using System.IO;
 using FluentAssertions;
-using Microsoft.CodeAnalysis.Sarif;
-using Microsoft.CodeAnalysis.Sarif.Converters;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Converters
+namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     public class VisualStudioBuildLogConverterTests : ConverterTestsBase<VisualStudioBuildLogConverter>
     {
@@ -21,19 +19,27 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Converters
         }
 
         [Fact]
-        public void VisualStudioBuildLogConverterConverter_WhenInputStreamIsNull_Throws()
+        public void VisualStudioBuildLogConverter_WhenInputStreamIsNull_Throws()
         {
-            Action action = () =>_converter.Convert(null, new ResultLogObjectWriter(), OptionallyEmittedData.None);
+            Action action = () => _converter.Convert(null, new ResultLogObjectWriter(), OptionallyEmittedData.None);
 
             action.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
-        public void VisualStudioBuildLogConverterConverter_WhenOutputWriterIsNull_Throws()
+        public void VisualStudioBuildLogConverter_WhenOutputWriterIsNull_Throws()
         {
             Action action = () => _converter.Convert(new MemoryStream(), null, OptionallyEmittedData.None);
 
             action.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void VisualStudioBuildLogConverter_WhenLogIsEmpty_ProducesRunWithNoResults()
+        {
+            string buildLog = string.Empty;
+            string actualJson = Utilities.GetConverterJson(_converter, buildLog);
+            actualJson.Should().BeCrossPlatformEquivalent<SarifLog>(EmptyResultLogText);
         }
     }
 }
