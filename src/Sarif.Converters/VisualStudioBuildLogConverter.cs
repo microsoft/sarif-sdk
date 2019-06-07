@@ -30,7 +30,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static IList<Result> GetResults(Stream input)
         {
-           return new List<Result>();
+            using (var reader = new StreamReader(input))
+            {
+                return GetResults(reader);
+            }
+        }
+
+        private static IList<Result> GetResults(TextReader reader)
+        {
+            IList<Result> results = new List<Result>();
+
+            return results;
         }
     }
 }
