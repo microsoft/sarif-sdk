@@ -19,14 +19,14 @@
         {
           "ruleId": "TEST099",
           "level": "error",
-          "message": "Header Checks.  For full details see properties.",
+          "message": "Check fails.",
           "locations": []
         }
       ],
         "rules": {
             "TEST099": {
                 "id": "TEST099",
-                "name": "Check fails",
+                "name": "Check fails.",
                 "fullDescription": "<p>Check really fails.</p>"
                 }
             }

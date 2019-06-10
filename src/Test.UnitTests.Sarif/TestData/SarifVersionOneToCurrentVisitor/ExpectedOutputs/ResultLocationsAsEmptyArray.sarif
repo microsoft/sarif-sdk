@@ -9,7 +9,7 @@
           "rules": [
             {
               "id": "TEST099",
-              "name": "Check fails",
+              "name": "Check fails.",
               "fullDescription": {
                 "text": "<p>Check really fails.</p>"
               }
@@ -36,7 +36,7 @@
           "ruleIndex": 0,
           "level": "error",
           "message": {
-            "text": "Header Checks.  For full details see properties."
+            "text": "Check fails."
           },
           "locations": []
         }
