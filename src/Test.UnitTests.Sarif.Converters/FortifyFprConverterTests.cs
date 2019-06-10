@@ -40,5 +40,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             RunTest("TwoResultsWithNodeRefs.fpr");
         }
+
+        [Fact]
+        public void FortifyFprConverter_Convert_ScanWithSeverityData()
+        {
+            RunTest("SdkScan.fpr");
+        }
     }
 }

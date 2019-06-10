@@ -121,6 +121,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _nodeDictionary.Clear();
             _snippetDictionary.Clear();
 
+            // Uncomment following Line to fetch FVDL content from any FPR file. This is not needed for conversion.
+            // However, we keep a copy of FVDL for each test file for debugging purposes.
+            // string fvdlContent = ExtractFvdl(OpenAuditFvdlReader(input));
+
             // Parse everything except vulnerabilities (building maps to write Results as-we-go next pass)
             ParseAuditStream_PassOne(OpenAuditFvdlReader(input));
 
@@ -139,6 +143,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // Close the Results array
             output.CloseResults();
+        }
+
+        private string ExtractFvdl(XmlReader reader)
+        {
+            string output;
+            using (reader)
+            {
+                // Moves the reader to the root element.
+                reader.MoveToContent();
+                output = reader.ReadOuterXml();
+            }
+            return output;
         }
 
         private Run CreateSarifRun()
@@ -751,7 +767,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             string groupName = _reader.GetAttribute(_strings.NameAttribute);
                             switch (groupName)
                             {
+                                case "Accuracy":
+                                case "Impact":
+                                //case "Probability":
+                                {
+                                    string nodeValue = _reader.ReadElementContentAsString();
+                                    rule.SetProperty<string>(groupName, nodeValue);
+                                    break;
+                                }
                                 case "altcategoryCWE":
+                                {
                                     string nodeValue = _reader.ReadElementContentAsString();
 
                                     if (!string.IsNullOrWhiteSpace(nodeValue))
@@ -777,14 +802,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                                                     }
                                                 },
                                                 Kinds = new List<string>
-                                                {
-                                                    "relevant"
-                                                }
+                                            {
+                                                "relevant"
+                                            }
                                             });
                                         }
                                     }
 
                                     break;
+                                }
                             }
                         }
                     }
