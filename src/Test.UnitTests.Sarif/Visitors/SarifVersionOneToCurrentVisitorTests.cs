@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
             => RunTest("NestedInnerExceptionsInNotifications.sarif");
 
         [Fact]
-        public void SarifTransformerTests_ToCurrent_WebScout()
-            => RunTest("WebScout.sarif");
+        public void SarifTransformerTests_ToCurrent_ResultLocationsAsEmptyArray()
+            => RunTest("ResultLocationsAsEmptyArray.sarif");
     }
 }
