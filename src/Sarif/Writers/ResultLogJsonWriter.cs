@@ -294,7 +294,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
 
             SerializeIfNotNull(_run.Tags, "tags");
             SerializeIfNotNull(_run.Conversion, "conversion");
-            SerializeIfNotNull(_run.Language, "language");
+            SerializeIfNotDefault(_run.Language, "language", "en-US");
             SerializeIfNotNull(_run.VersionControlProvenance, "versionControlProvenance");
             SerializeIfNotNull(_run.OriginalUriBaseIds, "originalUriBaseIds");
 
@@ -361,6 +361,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             // Don't serialize null objects or empty enumerables
             if (value == null || ExtensionMethods.IsEmptyEnumerable(value)) { return; }
 
+            Serialize(value, propertyName);
+        }
+
+        private void SerializeIfNotDefault(string value, string propertyName, string defaultValue)
+        {
+            if (value == defaultValue) { return; }
+
+            Serialize(value, propertyName);
+        }
+
+        private void Serialize(object value, string propertyName)
+        {
             _jsonWriter.WritePropertyName(propertyName);
             _serializer.Serialize(_jsonWriter, value);
         }
