@@ -50,9 +50,11 @@
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\MinimumWithLanguage.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\NestedInnerExceptionsInNotifications.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\OneRunWithAllReportingDescriptors.sarif" />
+    <None Remove="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\WebScout.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\MinimumWithLanguage.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\NestedInnerExceptionsInNotifications.sarif" />
     <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\OneRunWithAllReportingDescriptors.sarif" />
+    <None Remove="TestData\SarifVersionOneToCurrentVisitor\Inputs\WebScout.sarif" />
   </ItemGroup>
 
   <ItemGroup>
@@ -62,6 +64,8 @@
     <EmbeddedResource Include="TestData\Map\Sample.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\WebScout.sarif" />
+    <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\Inputs\WebScout.sarif" />
   </ItemGroup>
 
   <ItemGroup>

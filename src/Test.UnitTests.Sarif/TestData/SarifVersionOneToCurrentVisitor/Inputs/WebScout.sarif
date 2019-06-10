@@ -1,0 +1,577 @@
+{
+    "$schema": "http://json.schemastore.org/sarif-1.0.0",
+    "version": "1.0.0",
+    "runs": [{
+        "tool": {
+            "name": "WebScout"
+        },
+        "invocation": {
+            "startTime": "2019-05-02T06:47:18.794Z",
+            "endTime": "2019-05-02T07:02:37.638Z",
+            "properties": {
+                "scanConfigurationId": 128483,
+                "rootUrls": [
+                    "https://example.com/"
+                ]
+            }
+        },
+      "results": [
+        {
+          "ruleId": "WS099",
+          "level": "error",
+          "message": "Header Checks.  For full details see properties.",
+          "locations": [],
+          "id": "1946711",
+          "toolFingerprintContribution": "w5bc+9o7agzfaaqcCNknanVpLr+lCnlFFStWcPcCsX8=",
+          "properties": {
+            "checkName": "Header Checks",
+            "category": "Header Checks",
+            "sdlSeverity": "High",
+            "summary": "Header 'x-content-type-options: nosniff' is required",
+            "parameterLocation": "unknown",
+            "description": "<p>\"x-content-type-options: nosniff\" was not found in the HTTP headers</p>",
+            "recommendation": "<p>add \"x-content-type-options: nosniff\" header to all http responses</p>"
+          }
+        }
+      ],
+        "rules": {
+            "WS036": {
+                "id": "WS036",
+                "name": "Reflected Cross-site scripting (XSS)",
+                "fullDescription": "<p>Reflected Cross-site Scripting (XSS) is another name for non-persistent XSS, where the attack doesn't load with the vulnerable web application but is originated by the victim loading the offending URI. In this article we will see some ways to test a web application for this kind of vulnerability.</p>",
+                "properties": {
+                    "checkName": "Cross-site scripting (XSS), (Reflected)"
+                }
+            },
+            "WS040": {
+                "id": "WS040",
+                "name": "SQL Injection",
+                "fullDescription": "<p>A SQL syntax character submitted in a URL parameter causes an error in the database query. This indicates that a database injection attack could be accomplished. These types of attacks manipulate database queries in order to access, modify, or delete arbitrary data. In many cases these attacks can subvert authentication and authorization schemes, which would enable an attacker to gain privileged access to restricted portions of the application.<br/>\n\t\t\t\t\tIf the database injection attack can be used to read arbitrary data, then users' stored information such as authentication credentials, e-mail address, social security number, or financial information will be exposed.<br/>\n\t\t\t\t\tSome databases provide methods for executing system commands via SQL queries. Thus, a successful injection attack could compromise the database host and other hosts on its local network even if they are protected from the Internet by a firewall. a firewall.</p>",
+                "properties": {
+                    "checkName": "SQL Injection"
+                }
+            },
+            "WS004": {
+                "id": "WS004",
+                "name": "Blind SQL Injection",
+                "fullDescription": "<p>These SQL injection techniques analyze the application's response to parameter values that are designed to be interpreted and executed by a database. These requests contain arguments that are not affected by input validation filters. The application submits the original payload to the database, where the database interprets the payload as a valid SQL query. This implies that arbitrary SQL commands may be executed through this parameter value. These tests do not generate database errors, nor database errors should appear in the HTML response.<br/>\n\t\t\t\tVulnerabilities identified by this module highlight problems with input validation routines and the creation of SQL queries. They should be addressed by the fundamental approaches taken to counter common SQL injection exploits.</p>",
+                "properties": {
+                    "checkName": "Blind SQL"
+                }
+            },
+            "WS064": {
+                "id": "WS064",
+                "name": "Reflected Cross-site scripting (XSS)",
+                "fullDescription": "<p>The application does not filter text or other data for potentially malicious HTML content. This enables an attacker to craft arbitrary HTML content. This vulnerability typically requires that an attacker be able to submit JavaScript &lt;script&gt; tags as part of a field that is re-displayed to one or more users. The &lt;script&gt; tag contains instructions that are executed in a user's web browser, not on the web application server. JavaScript functions can be used to write raw HTML, read cookie values, pull JavaScript code from a third-party web server, or send data to a third-party web server.</p>\n\n\t\t\t\t\t<p>Consequently, a user could cause arbitrary HTML such as JavaScript tags to be displayed to other users. Usually, an attacker will attempt to manipulate an XSS vulnerability in order to present malicious HTML as if it came from a legitimate source. This attack is often combined with a social engineering attack that attempts to trick users into divulging their passwords, financial, or personal information.<br/\n\t\t\t\t\tIn this case, the JavaScript payload appears to be embedded within another HTML tag. The application is still vulnerable to this attack, but the payload requires additional formatting characters in order to be successful. Thus, you may not see a pop-up alert when you click the \"Validate\" button.</p>",
+                "properties": {
+                    "checkName": "Cross-site scripting (XSS), (Simple)"
+                }
+            },
+            "WS020": {
+                "id": "WS020",
+                "name": "Cross-site tracing (XST)",
+                "fullDescription": "The TRACE verb supported by most web servers can be manipulated to produce a Cross-Site Scripting attack that results in sending arbitrary HTML to the victim's browser. The TRACE verb is designed to echo a user's input and intended for debugging or testing a web server. The TRACE verb is not required for web applications to function (web applications and we/b browsers usually only need the HEAD, GET, and POST verbs).<br/>\n\t\t\t\t\t<br/>\n\t\t\t\t\t\t\t\tUsually, an attacker will attempt to manipulate an XST vulnerability in order to present malicious HTML as if it came from a legitimate source. Because TRACE echoes input sent to the web server, an attacker will attempt to create a malicious payload and trick a victim into submitting that payload to the server. The payload then appears in the victim's browser and may be an attempt to steal session ID information, passwords, or other sensitive information.<br/>\n\t\t\t\t\t<br/>\n\t\t\t\t\t\t\t\tAlthough the impact of this attack may be high, it is often difficult to successfully exploit. It is related to the more serious Cross-Site Scripting (XSS) vulnerability; however, Cross-Site Tracing attacks the web server whereas XSS attacks the web application.",
+                "properties": {
+                    "checkName": "Cross-site tracing (XST)"
+                }
+            },
+            "WS027": {
+                "id": "WS027",
+                "name": "Remote File Include (RFI)",
+                "fullDescription": "It has proven possible to execute a PHP file located on a remote server.<br/>",
+                "properties": {
+                    "checkName": "File Inclusion"
+                }
+            },
+            "WS134": {
+                "id": "WS134",
+                "name": "Local File Include (LFI)",
+                "fullDescription": "It has proven possible to execute a PHP file located on a remote server.<br/>",
+                "properties": {
+                    "checkName": "File Inclusion"
+                }
+            },
+            "WS052": {
+                "id": "WS052",
+                "name": "",
+                "fullDescription": "<p>HTTP Response Splitting is a new application attack technique which can be used to execute various new attacks such as web cache poisoning, cross user defacement, hijacking pages with sensitive user information and classic, Cross-Site Scripting (XSS).<br/>\n\t\t\t\t\tThese attack techniques are relevant to most web environments and is the result of the applications failure to reject illegal user input, in this case, input containing malicious or unexpected characters.</p>",
+                "properties": {
+                    "checkName": "HTTP Response Splitting"
+                }
+            },
+            "WS-001": {
+                "id": "WS-001",
+                "name": "HTTP Response Splitting",
+                "fullDescription": "Undefined. Please notify WebScout team.",
+                "properties": {
+                    "checkName": "HTTP Response Splitting"
+                }
+            },
+            "WS000": {
+                "id": "WS000",
+                "name": "SQL injection Auth Bypass",
+                "fullDescription": "<p>It was discovered that SQL Injection techniques can be used to fool the application into authenticating without the attacker needing valid credentials.<br/>\n        SQL Injection vulnerabilities on login pages expose an application to unauthorized access and quite probably at the administrator level, thereby severely compromising the security of the application.</p>",
+                "properties": {
+                    "checkName": "SQL injection Auth Bypass"
+                }
+            },
+            "WS030": {
+                "id": "WS030",
+                "name": "Unvalidated URL Redirect",
+                "fullDescription": "<p>Applications frequently redirect users to other pages, or use internal forwards in a similar manner. Sometimes the target page is specified in an unvalidated parameter, allowing attackers to choose the destination page.</p>",
+                "properties": {
+                    "checkName": "Unvalidated Redirect"
+                }
+            },
+            "WS012": {
+                "id": "WS012",
+                "name": "DOM based Cross-site scripting (XSS)",
+                "fullDescription": "<p>DOM-based Cross-Site Scripting is the de-facto name for XSS bugs which are the result of active content on a page, typically JavaScript, obtaining user input and then doing something unsafe with it to lead to execution of injected code. This document will only discuss JavaScript bugs which lead to XSS.</p>\n<p>The DOM, or Document Object Model, is the structural format that may be used to represent documents in the browser. The DOM enables dynamic scripts such as JavaScript to reference components of the document such as a form field or a session cookie. The DOM is also used by the browser for security - for example to limit scripts on different domains obtaining session cookies for other domains. A DOM-based cross site scripting vulnerability may occur when active content, such as a JavaScript function, is modified by a specially crafted request such that a DOM element that can be controlled by an attacker.</p>\n<p>There have been very few papers published on this topic and, as such, very little standardization of its meaning and formalized testing exists.</p>",
+                "properties": {
+                    "checkName": "Cross-site scripting (XSS), (DOM based)"
+                }
+            },
+            "WS015": {
+                "id": "WS015",
+                "name": "SQL Information Leakage",
+                "fullDescription": "<p>Revealing system data or debugging information helps an adversary learn about the system and form a plan of attack. An information leak occurs when system data or debugging information leaves the program through an output stream or logging function.</p>",
+                "properties": {
+                    "checkName": "SQL Information Leakage"
+                }
+            },
+            "WS047": {
+                "id": "WS047",
+                "name": "SQL Parameter Check",
+                "fullDescription": "<p>A SQL syntax was discovered in a parameter. This indicates that a database injection attack could be accomplished. These types of attacks manipulate database queries in order to access, modify, or delete arbitrary data. In many cases these attacks can subvert authentication and authorization schemes, which would enable an attacker to gain privileged access to restricted portions of the application.<br/>\n\t\t\t\t\tIf the database injection attack can be used to read arbitrary data, then users' stored information such as authentication credentials, e-mail address, social security number, or financial information will be exposed.<br/>\n\t\t\t\t\tSome databases provide methods for executing system commands via SQL queries. Thus, a successful injection attack could compromise the database host and other hosts on its local network even if they are protected from the Internet by a firewall. a firewall.</p>",
+                "properties": {
+                    "checkName": "Sql Parameter "
+                }
+            },
+            "WS099": {
+                "id": "WS099",
+                "name": "Header Checks",
+                "fullDescription": "<p>\"x-content-type-options: nosniff\" was not found in the HTTP headers</p>",
+                "properties": {
+                    "checkName": "Header Checks"
+                }
+            },
+            "WS045": {
+                "id": "WS045",
+                "name": "Header Checks",
+                "fullDescription": "<p>\"x-xss-protection: 0\" was found in the HTTP headers</p>",
+                "properties": {
+                    "checkName": "Header Checks"
+                }
+            },
+            "WS141": {
+                "id": "WS141",
+                "name": "",
+                "fullDescription": "<p>\"x-xss-protection: 0\" was found in the HTTP headers</p>",
+                "properties": {
+                    "checkName": "Header Checks"
+                }
+            },
+            "WS143": {
+                "id": "WS143",
+                "name": "",
+                "fullDescription": "<p>\"x-content-type-options: nosniff\" was not found in the HTTP headers</p>",
+                "properties": {
+                    "checkName": "Header Checks"
+                }
+            },
+            "WS056": {
+                "id": "WS056",
+                "name": "Checks document.domain values being set in javascript files",
+                "fullDescription": "<p>Using Javascript to set document.domain enables the script to access and/or \n\t\t\t\t\t\t\t\t\t\t\tmanipulate the DOM of a page sharing the same document.domain value, \n\t\t\t\t\t\t\t\t\t\t\tas well as children of that parent domain.</p>",
+                "properties": {
+                    "checkName": "Javascript document.domain"
+                }
+            },
+            "WS135": {
+                "id": "WS135",
+                "name": "",
+                "fullDescription": "<p>Using Javascript to set document.domain enables the script to access and/or \n\t\t\t\t\t\t\t\t\t\t\tmanipulate the DOM of a page sharing the same document.domain value, \n\t\t\t\t\t\t\t\t\t\t\tas well as children of that parent domain.</p>",
+                "properties": {
+                    "checkName": "Javascript document.domain"
+                }
+            },
+            "WS142": {
+                "id": "WS142",
+                "name": "JS Document Domain",
+                "fullDescription": "<p>Using Javascript to set document.domain enables the script to access and/or \n\t\t\t\t\t\t\t\t\t\t\tmanipulate the DOM of a page sharing the same document.domain value, \n\t\t\t\t\t\t\t\t\t\t\tas well as children of that parent domain.</p>",
+                "properties": {
+                    "checkName": "Javascript document.domain"
+                }
+            },
+            "WS013": {
+                "id": "WS013",
+                "name": "Remote Resource Inclusion",
+                "fullDescription": "<p>Checks website for untrusted resource hosts</p>",
+                "properties": {
+                    "checkName": "Untrusted Resource Source"
+                }
+            },
+            "WS136": {
+                "id": "WS136",
+                "name": "",
+                "fullDescription": "<p>Checks website for untrusted resource hosts</p>",
+                "properties": {
+                    "checkName": "Untrusted Resource Source"
+                }
+            },
+            "WS055": {
+                "id": "WS055",
+                "name": "Microsoft Account SDK Version Check",
+                "fullDescription": "<p>Validates that the version of the Microsoft Account SDK being used on a server meets minimum version requirements.</p>",
+                "properties": {
+                    "checkName": "Microsoft Account SDK Version"
+                }
+            },
+            "WS132": {
+                "id": "WS132",
+                "name": "",
+                "fullDescription": "<p>Validates that the version of the Microsoft Account SDK being used on a server meets minimum version requirements.</p>",
+                "properties": {
+                    "checkName": "Microsoft Account SDK Version"
+                }
+            },
+            "WS044": {
+                "id": "WS044",
+                "name": "Secure attribute",
+                "fullDescription": "<p>The HttpOnly attribute directs browsers to use cookies via the HTTP protocol only.  An HttpOnly cookie is not accessible via non-HTTP methods, such as calls via JavaScript (e.g., referencing \"document.cookie\"), and therefore cannot be stolen easily via cross-site scripting (a pervasive attack technique).</p>",
+                "properties": {
+                    "checkName": "Cookie attributes"
+                }
+            },
+            "WS098": {
+                "id": "WS098",
+                "name": "Secure attribute",
+                "fullDescription": "<p>The Secure attribute is meant to keep cookie communication limited to encrypted transmission, directing browsers to use cookies only via secure/encrypted connections.</p>",
+                "properties": {
+                    "checkName": "Cookie attributes"
+                }
+            },
+            "WS138": {
+                "id": "WS138",
+                "name": "HttpOnly attribute",
+                "fullDescription": "<p>The HttpOnly attribute directs browsers to use cookies via the HTTP protocol only.  An HttpOnly cookie is not accessible via non-HTTP methods, such as calls via JavaScript (e.g., referencing \"document.cookie\"), and therefore cannot be stolen easily via cross-site scripting (a pervasive attack technique).</p>",
+                "properties": {
+                    "checkName": "Cookie attributes"
+                }
+            },
+            "WS061": {
+                "id": "WS061",
+                "name": "Clients Cross-Domain Policy Files",
+                "fullDescription": "<p>A cross-domain policy file specifies the permissions that a web client such as Java, Adobe Flash, Adobe Reader, etc. use to access data across different domains. \n\t\t\t\t For Silverlight, Microsoft adopted a subset of the Adobe's crossdomain.xml, and additionally created it's own cross-domain policy file: clientaccesspolicy.xml.\n\t\t\t\t Whenever a web client detects that a resource has to be requested from other domain, it will first look for a policy file in the target domain to determine if performing cross-domain requests, including headers, and socket-based connections are allowed.\n\t\t\t\t Master policy files are located at the domain's root. A client may be instructed to load a different policy file but it will always check the master policy file first to ensure that the master policy file permits the requested policy file.<p>",
+                "properties": {
+                    "checkName": "Clients Cross-Domain Policy Files"
+                }
+            },
+            "WS129": {
+                "id": "WS129",
+                "name": "Clients Cross-Domain Policy",
+                "fullDescription": "<p>A cross-domain policy file specifies the permissions that a web client such as Java, Adobe Flash, Adobe Reader, etc. use to access data across different domains. \n\t\t\t\t For Silverlight, Microsoft adopted a subset of the Adobe's crossdomain.xml, and additionally created it's own cross-domain policy file: clientaccesspolicy.xml.\n\t\t\t\t Whenever a web client detects that a resource has to be requested from other domain, it will first look for a policy file in the target domain to determine if performing cross-domain requests, including headers, and socket-based connections are allowed.\n\t\t\t\t Master policy files are located at the domain's root. A client may be instructed to load a different policy file but it will always check the master policy file first to ensure that the master policy file permits the requested policy file.<p>",
+                "properties": {
+                    "checkName": "Clients Cross-Domain Policy Files"
+                }
+            },
+            "WS131": {
+                "id": "WS131",
+                "name": "",
+                "fullDescription": "<p>A cross-domain policy file specifies the permissions that a web client such as Java, Adobe Flash, Adobe Reader, etc. use to access data across different domains. \n\t\t\t\t For Silverlight, Microsoft adopted a subset of the Adobe's crossdomain.xml, and additionally created it's own cross-domain policy file: clientaccesspolicy.xml.\n\t\t\t\t Whenever a web client detects that a resource has to be requested from other domain, it will first look for a policy file in the target domain to determine if performing cross-domain requests, including headers, and socket-based connections are allowed.\n\t\t\t\t Master policy files are located at the domain's root. A client may be instructed to load a different policy file but it will always check the master policy file first to ensure that the master policy file permits the requested policy file.<p>",
+                "properties": {
+                    "checkName": "Clients Cross-Domain Policy Files"
+                }
+            },
+            "WS028": {
+                "id": "WS028",
+                "name": "",
+                "fullDescription": "<p>It has proven possible to use file upload facilities made available by the web application to upload an executable application to the server.</p>",
+                "properties": {
+                    "checkName": "Arbitrary File Upload"
+                }
+            },
+            "WS018": {
+                "id": "WS018",
+                "name": "ASP.NET Misconfiguration",
+                "fullDescription": "<p>\n\t\t\t\tThe DEBUG verb supported by IIS web servers can be manipulated to reveal information about the system and plan a form of attack. The DEBUG verb is intended for debugging or testing a web server. The DEBUG verb is not required for web applications to function (web applications and web browsers usually only need the HEAD, GET, and POST verbs).<br/>\n\t\t\t\t\t<br/>\n\t\t\t\t\t\t\t\tOne of ASP.NET debugging scenarios is remote debugging, in which a browser runs on a client computer and debugs a Web application that is running on a remote server computer.<br/>\n\t\t\t\t\t<br/>\n\t\t\t\t\t\t\t\tASP.NET applications can be configured to produce debug binaries. These binaries give detailed debugging messages and should not be used in production environments. <br/><br/>\n\t\t\t\t\t\t\t\tMoreover, web application can be configured to allow tracing at either the page level or the application level. \n\t\t\t </p>",
+                "properties": {
+                    "checkName": "ASP.NET Misconfiguration"
+                }
+            },
+            "WS008": {
+                "id": "WS008",
+                "name": "Directory Indexing",
+                "fullDescription": "<p>A full list of a directory's content can be viewed. This reveals each file and subdirectory, regardless of whether or not it is related to the web application. A directory listing may also reveal backup files, include files, or configuration files that are not normally viewable by users. When these types of files can be found, they often disclose sensitive information about the application.</p>",
+                "properties": {
+                    "checkName": "Directory Indexing"
+                }
+            },
+            "WS019": {
+                "id": "WS019",
+                "name": "",
+                "fullDescription": "<p>Servers using certain versions of the OpenSSL library (versions 1.0.1 through 1.0.1f) are vulnerable to exposing arbitrary data via a malformed Heartbeat request.</p>\n\t\t\t\t\t\t\t\t <p>The data exposed can potentially include user credentials, private encryption keys, and other private information.</p>",
+                "properties": {
+                    "checkName": "Heartbleed Check"
+                }
+            },
+            "WS041": {
+                "id": "WS041",
+                "name": "LDAP Injection",
+                "fullDescription": "<p>All or part of an LDAP query filter is contructed and submitted in a URL or POST parameter.  These types of attacks may manipulate queries from user-supplied input in order to query or navigate LDAP information.<br/>\n\t\t\t\t\tIf the LDAP injection attack can be used to read arbitrary data, then users' stored information such as authentication credentials, e-mail address, or financial information will be exposed.<br/>\n\t\t\t\t\tThus, a successful injection attack could compromise the application host and other hosts on its local network even if they are protected from the Internet by a firewall.</p>",
+                "properties": {
+                    "checkName": "LDAP Injection"
+                }
+            },
+            "WS023": {
+                "id": "WS023",
+                "name": "Nginx NULL code vulnerability",
+                "fullDescription": "<p>An attacker embeds one or more null bytes in input to the target software. This attack relies on the usage of a null-valued byte as a string terminator in many environments. The goal is for certain components of the target software to stop processing the input when it encounters the null byte(s).</p>",
+                "properties": {
+                    "checkName": "Nginx NULL code"
+                }
+            },
+            "WS029": {
+                "id": "WS029",
+                "name": "Command Injection",
+                "fullDescription": "<p>OS Commanding problems are a subset of injection problem, in which the process is tricked into calling external processes of the attacker's choice through the injection of control-plane data into the data plane.<br/>\nOS Commanding attacks take two forms:</p>\n<ul>\n\t<li>An attacker can change the command that the program executes: the attacker explicitly controls what the command is.</li>\n\t<li>An attacker can change the environment in which the command executes: the attacker implicitly controls what the command means.</li>\n</ul>\n<p>In this case we are primarily concerned with the first scenario, in which an attacker explicitly controls the command that is executed. OS Commanding vulnerabilities of this type occur when:</p>\n<ol>\n\t<li>Data enters the application from an untrusted source.</li>\n\t<li>The data is part of a string that is executed as a command by the application.</li>\n\t<li>By executing the command, the application gives an attacker a privilege or capability that the attacker would not otherwise have.</li>\n</ol>",
+                "properties": {
+                    "checkName": "OS Commanding"
+                }
+            },
+            "WS094": {
+                "id": "WS094",
+                "name": "",
+                "fullDescription": "<p>Arbitrary File/URL Request are a subset of standard OS Commanding which allow users to retrieve files from the operating system or use the server to make attacks against other locations.</p>",
+                "properties": {
+                    "checkName": "OS Commanding"
+                }
+            },
+            "WS042": {
+                "id": "WS042",
+                "name": "",
+                "fullDescription": "<p>An invalid character submitted in a URL parameter causes an error in the database query or script execution. This indicates that the application has not fully validated user-supplied input. These errors can lead to HTML injection, SQL injection, or arbitrary code execution.</p>",
+                "properties": {
+                    "checkName": "PHP Code Execution"
+                }
+            },
+            "WS021": {
+                "id": "WS021",
+                "name": "",
+                "fullDescription": "<p>A default sample script was discovered. A sample web script can be manipulated to read arbitrary files. This vulnerability can be used to reveal the source code of application files as well as display configuration files.<br/>\n<br/>\nSource code disclosure exposes sensitive application information such as input validation filters, database connection strings and queries, or hard-coded passwords. <br/>\n<br/>\nAn attacker with information about input validation filters may be able to craft a specific request that would bypass the filter. <br/>\n<br/>\nInformation about database connection strings exposes the user name and password used to access the database. <br/>\n<br/>\nInformation about how database queries are constructed can help attackers create SQL injection exploits that pull specific information from the database. <br/>\n<br/>\nHard-coded passwords within configuration files or application source code may enable an attacker to access portions of the application that are otherwise restricted.</p>",
+                "properties": {
+                    "checkName": "Source Code Disclosure"
+                }
+            },
+            "WS075": {
+                "id": "WS075",
+                "name": "",
+                "fullDescription": "<p>A server vulnerability can be exploited to read arbitrary files. This vulnerability can be used to reveal the source code of application files as well as display configuration files. Source code disclosure exposes sensitive application information such as input validation filters, database connection strings and queries, or hard-coded passwords.</p>\n<p>An attacker with information about input validation filters may be able to craft a specific request that would bypass the filter.</p>\n<p>Information about database connection strings exposes the user name and password used to access the database. Information about how database queries are constructed can help attackers create SQL injection exploits that pull specific information from the database.</p>\n<p>Hard-coded passwords within configuration files or application source code may enable an attacker to access portions of the application that are otherwise restricted.</p>",
+                "properties": {
+                    "checkName": "Source Code Disclosure"
+                }
+            },
+            "WS076": {
+                "id": "WS076",
+                "name": "",
+                "fullDescription": "<p>A server vulnerability can be exploited to read arbitrary files. This vulnerability can be used to reveal the source code of application files as well as display configuration files. Source code disclosure exposes sensitive application information such as input validation filters, database connection strings and queries, or hard-coded passwords.</p>\n<p>An attacker with information about input validation filters may be able to craft a specific request that would bypass the filter.</p>\n<p>Information about database connection strings exposes the user name and password used to access the database. Information about how database queries are constructed can help attackers create SQL injection exploits that pull specific information from the database.</p>\n<p>Hard-coded passwords within configuration files or application source code may enable an attacker to access portions of the application that are otherwise restricted.</p>",
+                "properties": {
+                    "checkName": "Source Code Disclosure"
+                }
+            },
+            "WS077": {
+                "id": "WS077",
+                "name": "",
+                "fullDescription": "<p>A server vulnerability can be exploited to read arbitrary files. This vulnerability can be used to reveal the source code of application files as well as display configuration files. Source code disclosure exposes sensitive application information such as input validation filters, database connection strings and queries, or hard-coded passwords.</p>\n<p>An attacker with information about input validation filters may be able to craft a specific request that would bypass the filter.</p>\n<p>Information about database connection strings exposes the user name and password used to access the database. Information about how database queries are constructed can help attackers create SQL injection exploits that pull specific information from the database.</p>\n<p>Hard-coded passwords within configuration files or application source code may enable an attacker to access portions of the application that are otherwise restricted.</p>",
+                "properties": {
+                    "checkName": "Source Code Disclosure"
+                }
+            },
+            "WS078": {
+                "id": "WS078",
+                "name": "",
+                "fullDescription": "<p>A server vulnerability can be exploited to read arbitrary files. This vulnerability can be used to reveal the source code of application files as well as display configuration files. Source code disclosure exposes sensitive application information such as input validation filters, database connection strings and queries, or hard-coded passwords.</p>\n<p>An attacker with information about input validation filters may be able to craft a specific request that would bypass the filter.</p>\n<p>Information about database connection strings exposes the user name and password used to access the database. Information about how database queries are constructed can help attackers create SQL injection exploits that pull specific information from the database.</p>\n<p>Hard-coded passwords within configuration files or application source code may enable an attacker to access portions of the application that are otherwise restricted.</p>",
+                "properties": {
+                    "checkName": "Source Code Disclosure"
+                }
+            },
+            "WS079": {
+                "id": "WS079",
+                "name": "",
+                "fullDescription": "<p>A server vulnerability can be exploited to read arbitrary files. This vulnerability can be used to reveal the source code of application files as well as display configuration files. Source code disclosure exposes sensitive application information such as input validation filters, database connection strings and queries, or hard-coded passwords.</p>\n<p>An attacker with information about input validation filters may be able to craft a specific request that would bypass the filter.</p>\n<p>Information about database connection strings exposes the user name and password used to access the database. Information about how database queries are constructed can help attackers create SQL injection exploits that pull specific information from the database.</p>\n<p>Hard-coded passwords within configuration files or application source code may enable an attacker to access portions of the application that are otherwise restricted.</p>",
+                "properties": {
+                    "checkName": "Source Code Disclosure"
+                }
+            },
+            "WS080": {
+                "id": "WS080",
+                "name": "",
+                "fullDescription": "<p>A server vulnerability can be exploited to read arbitrary files. This vulnerability can be used to reveal the source code of application files as well as display configuration files. Source code disclosure exposes sensitive application information such as input validation filters, database connection strings and queries, or hard-coded passwords.</p>\n<p>An attacker with information about input validation filters may be able to craft a specific request that would bypass the filter.</p>\n<p>Information about database connection strings exposes the user name and password used to access the database. Information about how database queries are constructed can help attackers create SQL injection exploits that pull specific information from the database.</p>\n<p>Hard-coded passwords within configuration files or application source code may enable an attacker to access portions of the application that are otherwise restricted.</p>",
+                "properties": {
+                    "checkName": "Source Code Disclosure"
+                }
+            },
+            "WS081": {
+                "id": "WS081",
+                "name": "",
+                "fullDescription": "<p>A server vulnerability can be exploited to read arbitrary files. This vulnerability can be used to reveal the source code of application files as well as display configuration files. Source code disclosure exposes sensitive application information such as input validation filters, database connection strings and queries, or hard-coded passwords.</p>\n<p>An attacker with information about input validation filters may be able to craft a specific request that would bypass the filter.</p>\n<p>Information about database connection strings exposes the user name and password used to access the database. Information about how database queries are constructed can help attackers create SQL injection exploits that pull specific information from the database.</p>\n<p>Hard-coded passwords within configuration files or application source code may enable an attacker to access portions of the application that are otherwise restricted.</p>",
+                "properties": {
+                    "checkName": "Source Code Disclosure"
+                }
+            },
+            "WS082": {
+                "id": "WS082",
+                "name": "",
+                "fullDescription": "<p>A server vulnerability can be exploited to read arbitrary files. This vulnerability can be used to reveal the source code of application files as well as display configuration files. Source code disclosure exposes sensitive application information such as input validation filters, database connection strings and queries, or hard-coded passwords.</p>\n<p>An attacker with information about input validation filters may be able to craft a specific request that would bypass the filter.</p>\n<p>Information about database connection strings exposes the user name and password used to access the database. Information about how database queries are constructed can help attackers create SQL injection exploits that pull specific information from the database.</p>\n<p>Hard-coded passwords within configuration files or application source code may enable an attacker to access portions of the application that are otherwise restricted.</p>",
+                "properties": {
+                    "checkName": "Source Code Disclosure"
+                }
+            },
+            "WS083": {
+                "id": "WS083",
+                "name": "",
+                "fullDescription": "<p>A server vulnerability can be exploited to read arbitrary files. This vulnerability can be used to reveal the source code of application files as well as display configuration files. Source code disclosure exposes sensitive application information such as input validation filters, database connection strings and queries, or hard-coded passwords.</p>\n<p>An attacker with information about input validation filters may be able to craft a specific request that would bypass the filter.</p>\n<p>Information about database connection strings exposes the user name and password used to access the database. Information about how database queries are constructed can help attackers create SQL injection exploits that pull specific information from the database.</p>\n<p>Hard-coded passwords within configuration files or application source code may enable an attacker to access portions of the application that are otherwise restricted.</p>",
+                "properties": {
+                    "checkName": "Source Code Disclosure"
+                }
+            },
+            "WS084": {
+                "id": "WS084",
+                "name": "",
+                "fullDescription": "<p>A server vulnerability can be exploited to read arbitrary files. This vulnerability can be used to reveal the source code of application files as well as display configuration files. Source code disclosure exposes sensitive application information such as input validation filters, database connection strings and queries, or hard-coded passwords.</p>\n<p>An attacker with information about input validation filters may be able to craft a specific request that would bypass the filter.</p>\n<p>Information about database connection strings exposes the user name and password used to access the database. Information about how database queries are constructed can help attackers create SQL injection exploits that pull specific information from the database.</p>\n<p>Hard-coded passwords within configuration files or application source code may enable an attacker to access portions of the application that are otherwise restricted.</p>",
+                "properties": {
+                    "checkName": "Source Code Disclosure"
+                }
+            },
+            "WS085": {
+                "id": "WS085",
+                "name": "",
+                "fullDescription": "<p>A server vulnerability can be exploited to read arbitrary files. This vulnerability can be used to reveal the source code of application files as well as display configuration files. Source code disclosure exposes sensitive application information such as input validation filters, database connection strings and queries, or hard-coded passwords.</p>\n<p>An attacker with information about input validation filters may be able to craft a specific request that would bypass the filter.</p>\n<p>Information about database connection strings exposes the user name and password used to access the database. Information about how database queries are constructed can help attackers create SQL injection exploits that pull specific information from the database.</p>\n<p>Hard-coded passwords within configuration files or application source code may enable an attacker to access portions of the application that are otherwise restricted.</p>",
+                "properties": {
+                    "checkName": "Source Code Disclosure"
+                }
+            },
+            "WS086": {
+                "id": "WS086",
+                "name": "",
+                "fullDescription": "<p>A server vulnerability can be exploited to read arbitrary files. This vulnerability can be used to reveal the source code of application files as well as display configuration files. Source code disclosure exposes sensitive application information such as input validation filters, database connection strings and queries, or hard-coded passwords.</p>\n<p>An attacker with information about input validation filters may be able to craft a specific request that would bypass the filter.</p>\n<p>Information about database connection strings exposes the user name and password used to access the database. Information about how database queries are constructed can help attackers create SQL injection exploits that pull specific information from the database.</p>\n<p>Hard-coded passwords within configuration files or application source code may enable an attacker to access portions of the application that are otherwise restricted.</p>",
+                "properties": {
+                    "checkName": "Source Code Disclosure"
+                }
+            },
+            "WS087": {
+                "id": "WS087",
+                "name": "",
+                "fullDescription": "<p>A server vulnerability can be exploited to read arbitrary files. This vulnerability can be used to reveal the source code of application files as well as display configuration files. Source code disclosure exposes sensitive application information such as input validation filters, database connection strings and queries, or hard-coded passwords.</p>\n<p>An attacker with information about input validation filters may be able to craft a specific request that would bypass the filter.</p>\n<p>Information about database connection strings exposes the user name and password used to access the database. Information about how database queries are constructed can help attackers create SQL injection exploits that pull specific information from the database.</p>\n<p>Hard-coded passwords within configuration files or application source code may enable an attacker to access portions of the application that are otherwise restricted.</p>",
+                "properties": {
+                    "checkName": "Source Code Disclosure"
+                }
+            },
+            "WS088": {
+                "id": "WS088",
+                "name": "",
+                "fullDescription": "<p>A server vulnerability can be exploited to read arbitrary files. This vulnerability can be used to reveal the source code of application files as well as display configuration files. Source code disclosure exposes sensitive application information such as input validation filters, database connection strings and queries, or hard-coded passwords.</p>\n<p>An attacker with information about input validation filters may be able to craft a specific request that would bypass the filter.</p>\n<p>Information about database connection strings exposes the user name and password used to access the database. Information about how database queries are constructed can help attackers create SQL injection exploits that pull specific information from the database.</p>\n<p>Hard-coded passwords within configuration files or application source code may enable an attacker to access portions of the application that are otherwise restricted.</p>",
+                "properties": {
+                    "checkName": "Source Code Disclosure"
+                }
+            },
+            "WS089": {
+                "id": "WS089",
+                "name": "",
+                "fullDescription": "<p>A server vulnerability can be exploited to read arbitrary files. This vulnerability can be used to reveal the source code of application files as well as display configuration files. Source code disclosure exposes sensitive application information such as input validation filters, database connection strings and queries, or hard-coded passwords.</p>\n<p>An attacker with information about input validation filters may be able to craft a specific request that would bypass the filter.</p>\n<p>Information about database connection strings exposes the user name and password used to access the database. Information about how database queries are constructed can help attackers create SQL injection exploits that pull specific information from the database.</p>\n<p>Hard-coded passwords within configuration files or application source code may enable an attacker to access portions of the application that are otherwise restricted.</p>",
+                "properties": {
+                    "checkName": "Source Code Disclosure"
+                }
+            },
+            "WS090": {
+                "id": "WS090",
+                "name": "",
+                "fullDescription": "<p>A server vulnerability can be exploited to read arbitrary files. This vulnerability can be used to reveal the source code of application files as well as display configuration files. Source code disclosure exposes sensitive application information such as input validation filters, database connection strings and queries, or hard-coded passwords.</p>\n<p>An attacker with information about input validation filters may be able to craft a specific request that would bypass the filter.</p>\n<p>Information about database connection strings exposes the user name and password used to access the database. Information about how database queries are constructed can help attackers create SQL injection exploits that pull specific information from the database.</p>\n<p>Hard-coded passwords within configuration files or application source code may enable an attacker to access portions of the application that are otherwise restricted.</p>",
+                "properties": {
+                    "checkName": "Source Code Disclosure"
+                }
+            },
+            "WS091": {
+                "id": "WS091",
+                "name": "",
+                "fullDescription": "<p>A server vulnerability can be exploited to read arbitrary files. This vulnerability can be used to reveal the source code of application files as well as display configuration files. Source code disclosure exposes sensitive application information such as input validation filters, database connection strings and queries, or hard-coded passwords.</p>\n<p>An attacker with information about input validation filters may be able to craft a specific request that would bypass the filter.</p>\n<p>Information about database connection strings exposes the user name and password used to access the database. Information about how database queries are constructed can help attackers create SQL injection exploits that pull specific information from the database.</p>\n<p>Hard-coded passwords within configuration files or application source code may enable an attacker to access portions of the application that are otherwise restricted.</p>",
+                "properties": {
+                    "checkName": "Source Code Disclosure"
+                }
+            },
+            "WS092": {
+                "id": "WS092",
+                "name": "",
+                "fullDescription": "<p>A server vulnerability can be exploited to read arbitrary files. This vulnerability can be used to reveal the source code of application files as well as display configuration files. Source code disclosure exposes sensitive application information such as input validation filters, database connection strings and queries, or hard-coded passwords.</p>\n<p>An attacker with information about input validation filters may be able to craft a specific request that would bypass the filter.</p>\n<p>Information about database connection strings exposes the user name and password used to access the database. Information about how database queries are constructed can help attackers create SQL injection exploits that pull specific information from the database.</p>\n<p>Hard-coded passwords within configuration files or application source code may enable an attacker to access portions of the application that are otherwise restricted.</p>",
+                "properties": {
+                    "checkName": "Source Code Disclosure"
+                }
+            },
+            "WS093": {
+                "id": "WS093",
+                "name": "",
+                "fullDescription": "<p>The /etc/passwd file was obtained from the website.</p>",
+                "properties": {
+                    "checkName": "Source Code Disclosure"
+                }
+            },
+            "WS037": {
+                "id": "WS037",
+                "name": "",
+                "fullDescription": "<p>XML External Entity Attacks are successful on servers that parse XML according to the XML standard but with no regard for the origin of the URI specifying the external entity in the ENTITY tag of the XML file's DTD.</p>\n<p>Indiscriminate inlining of the contents of the URI can result in DoSing the server by sourcing an impossibly large file for download.</p>\n<p>It can also result in command execution, e.g. &quot;&lt;!DOCTYPE doc &#5B; &lt;!ENTITY ent SYSTEM &quot;file:///dev/tty&quot;&gt;&quot; ]&gt;&quot;  Using command injection, the hacker may potentially TCP scan the internal network or authenticate to other computers on the network and retrieve resources from them or anything for which a toehold on the internal network is the first step.</p>\n<p>Also, it is possible to enumerate the file system on the server and otherwise acquire sensitive information by fishing for commonly occurring filenames.</p>",
+                "properties": {
+                    "checkName": "XML External Entity Attack"
+                }
+            },
+            "WS043": {
+                "id": "WS043",
+                "name": "XPath Injection",
+                "fullDescription": "<p>An XPATH syntax character submitted in a URL parameter causes an error in the application query. This indicates that an XPath injection attack could be accomplished. These types of attacks manipulate queries from user-supplied input in order to query or navigate XML documents.<br/>\n\t\t\t\t\tIf the XPath injection attack can be used to read arbitrary data, then users' stored information such as authentication credentials, e-mail address, or financial information will be exposed.<br/>\n\t\t\t\t\tThus, a successful injection attack could compromise the application host and other hosts on its local network even if they are protected from the Internet by a firewall.</p>",
+                "properties": {
+                    "checkName": "XPath Injection"
+                }
+            },
+            "WS059": {
+                "id": "WS059",
+                "name": "Credentials Over Un Encrypted Channel",
+                "fullDescription": "<p>Sending credentials over HTTP</p>",
+                "properties": {
+                    "checkName": "Credentials over an insecure channel"
+                }
+            },
+            "WS118": {
+                "id": "WS118",
+                "name": "Credentials Over Un Encrypted Channel",
+                "fullDescription": "<p>Sending credentials with GET method through HTTPS</p>",
+                "properties": {
+                    "checkName": "Credentials over an insecure channel"
+                }
+            },
+            "WS122": {
+                "id": "WS122",
+                "name": "Persistent Cross-site scripting (XSS)",
+                "fullDescription": "<p>Persistent XSS attacks are those where the injected script is permanently stored in database, message forum, visitor log, or other trusted data store. The victim then retrieves the malicious script from the server when it requests the stored information. For example, the attacker might inject XSS into a log message, which might not be handled properly when an administrator views the logs.</p>",
+                "properties": {
+                    "checkName": "Persistent Cross-site scripting (XSS), (passive)"
+                }
+            },
+            "WS123": {
+                "id": "WS123",
+                "name": "Persistent Cross-site scripting (XSS)",
+                "fullDescription": "<p>Persistent Cross-site Scripting (XSS) is the attack that is loaded with the vulnerable web application. The attack is originated by the victim loading the offending URI.</p>",
+                "properties": {
+                    "checkName": "Persistent Cross-site scripting (XSS), (active)"
+                }
+            },
+            "WS125": {
+                "id": "WS125",
+                "name": "",
+                "fullDescription": "<p>The Apache Struts 2 Framework Checks module checks the application for vulnerabilities that are specific to the Apache Struts 2 framework.</p>",
+                "properties": {
+                    "checkName": "Apache Struts 2 Framework"
+                }
+            }
+        },
+        "id": "431921"
+    }]
+}
