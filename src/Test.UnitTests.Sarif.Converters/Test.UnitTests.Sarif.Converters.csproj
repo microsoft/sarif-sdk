@@ -32,6 +32,8 @@
     <EmbeddedResource Include="TestData\FortifyFprConverter\Inputs\TwoResultsWithNodeRefs.fpr" />
     <EmbeddedResource Include="TestData\VisualStudioBuildLogConverter\ExpectedOutputs\NoErrors.sarif" />
     <EmbeddedResource Include="TestData\VisualStudioBuildLogConverter\Inputs\NoErrors.txt" />
+    <EmbeddedResource Include="TestData\VisualStudioBuildLogConverter\ExpectedOutputs\SomeErrors.sarif" />
+    <EmbeddedResource Include="TestData\VisualStudioBuildLogConverter\Inputs\SomeErrors.txt" />
   </ItemGroup>
 
   <ItemGroup>

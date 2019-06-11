@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
@@ -53,9 +54,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return results;
         }
 
+        private const string ErrorLinePattern = @"
+            ^
+            (?<fileName>[^(]*)
+            \(
+            (?<region>[^)]+)
+            \): ";
+
+        private static readonly Regex s_errorLineRegex =
+            new Regex(ErrorLinePattern,
+                RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture | RegexOptions.IgnorePatternWhitespace);
+
+        private static readonly HashSet<string> s_lineHashes = new HashSet<string>();
+
         private static Result GetResultFromLine(string line)
         {
-            return null;
+            Match match = s_errorLineRegex.Match(line);
+            if (!match.Success) { return null; }
+
+            // MSBuild logs can contain duplicate error report lines. Take only one of them.
+            if (s_lineHashes.Contains(line)) { return null; }
+            s_lineHashes.Add(line);
+
+            return new Result
+            {
+                Message = new Message
+                {
+                    Text = line
+                }
+            };
         }
     }
 }

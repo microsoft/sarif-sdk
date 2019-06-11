@@ -8,7 +8,8 @@
         "driver": {
           "name": "VisualStudioBuildLog"
         }
-      }
+      },
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }
