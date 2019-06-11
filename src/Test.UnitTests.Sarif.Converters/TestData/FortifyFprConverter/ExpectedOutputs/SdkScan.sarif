@@ -255,11 +255,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextDouble() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -337,11 +337,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 9,
+          "level": "note",
           "message": {
             "text": "The method GetFileEncoding() in [SarifCurrentToVersionOneVisitor.cs](1) ignores an exception on line [179](1), which could cause the program to overlook unexpected states and conditions.\r\nIgnoring an exception can cause the program to overlook unexpected states and conditions."
           },
@@ -417,8 +417,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 25,
@@ -498,11 +497,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextFloat() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -580,11 +579,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextFloat() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -662,8 +661,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 33,
@@ -888,11 +886,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by next() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -970,11 +968,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by next() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -1052,11 +1050,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -1132,11 +1130,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -1212,11 +1210,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 5,
+          "level": "note",
           "message": {
             "text": "The function Run() in [ExportConfigurationCommandBase.cs](1) reveals system data or debugging information by calling WriteLine() on line [84](1). The information revealed by WriteLine() could help an adversary form a plan of attack.\r\nRevealing system data or debugging information helps an adversary learn about the system and form a plan of attack."
           },
@@ -1299,11 +1297,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -1382,11 +1380,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 36,
+          "level": "note",
           "message": {
             "text": "Using println() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `System.out` or `System.err` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -1463,11 +1461,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 36,
+          "level": "note",
           "message": {
             "text": "Using println() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `System.out` or `System.err` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -1544,8 +1542,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 0,
@@ -1625,11 +1622,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextDouble() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -1707,11 +1704,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method AddElementToList() in [DefaultObjectPopulatingVisitor.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -1790,8 +1787,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -1877,8 +1873,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 33,
@@ -2074,11 +2069,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -2156,11 +2151,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -2238,8 +2233,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 7,
@@ -2320,8 +2314,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 7,
@@ -2402,11 +2395,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -2482,11 +2475,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method AssertEqual() in [DeferredCollectionsTests.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -2565,8 +2558,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 16,
@@ -2667,11 +2659,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method AssertThatProblemHasDefaultProblemProperties() in [AndroidStudioProblemTests.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -2750,11 +2742,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field s_Interior_Characters is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -2830,8 +2822,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 27,
@@ -2911,11 +2902,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field SET_ID is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -2991,8 +2982,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -3148,8 +3138,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -3305,11 +3294,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -3385,11 +3374,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field simpleXmlDoc is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -3465,11 +3454,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 36,
+          "level": "note",
           "message": {
             "text": "Using println() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `System.out` or `System.err` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -3546,11 +3535,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 36,
+          "level": "note",
           "message": {
             "text": "Using println() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `System.out` or `System.err` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -3627,11 +3616,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 9,
+          "level": "note",
           "message": {
             "text": "The method ComputeMD5Hash() in [HashUtilities.cs](1) ignores an exception on line [126](1), which could cause the program to overlook unexpected states and conditions.\r\nIgnoring an exception can cause the program to overlook unexpected states and conditions."
           },
@@ -3707,11 +3696,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 9,
+          "level": "note",
           "message": {
             "text": "The method ComputeMD5Hash() in [HashUtilities.cs](1) ignores an exception on line [127](1), which could cause the program to overlook unexpected states and conditions.\r\nIgnoring an exception can cause the program to overlook unexpected states and conditions."
           },
@@ -3787,8 +3776,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 33,
@@ -3984,8 +3972,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 22,
@@ -4096,11 +4083,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field EmptyFile is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -4176,11 +4163,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -4259,8 +4246,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 22,
@@ -4427,11 +4413,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -4507,11 +4493,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field INTERIOR_NEWLINES is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -4587,11 +4573,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -4670,8 +4656,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 16,
@@ -4924,11 +4909,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field s_Complete_File_Carriage_Returns_Only is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -5004,11 +4989,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 1,
+          "level": "error",
           "message": {
             "text": "The function main() in [bannedAPIs.java](1) is passed a constant value for the seed. Functions that generate random or pseudorandom values, which are passed a seed, should not be called with a constant argument.\r\nFunctions that generate random or pseudorandom values, which are passed a seed, should not be called with a constant argument."
           },
@@ -5086,11 +5071,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 1,
+          "level": "error",
           "message": {
             "text": "The function main() in [bannedAPIs.java](1) is passed a constant value for the seed. Functions that generate random or pseudorandom values, which are passed a seed, should not be called with a constant argument.\r\nFunctions that generate random or pseudorandom values, which are passed a seed, should not be called with a constant argument."
           },
@@ -5168,8 +5153,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 27,
@@ -5249,11 +5233,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 9,
+          "level": "note",
           "message": {
             "text": "The method Deserialize() in [ValidateCommand.cs](1) ignores an exception on line [84](1), which could cause the program to overlook unexpected states and conditions.\r\nIgnoring an exception can cause the program to overlook unexpected states and conditions."
           },
@@ -5329,8 +5313,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 32,
@@ -5412,11 +5395,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method PopulatePropertyWithGeneratedDefaultValue() in [DefaultObjectPopulatingVisitor.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -5495,11 +5478,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method GetRuleFromResources() in [SarifLogMatcher.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -5578,11 +5561,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method AssertLocationIsTestLocation() in [CppCheckLocationTests.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -5661,11 +5644,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 20,
+          "level": "error",
           "message": {
             "text": "Storing a plaintext password in a configuration file may result in a system compromise."
           },
@@ -5738,11 +5721,11 @@
                 }
               }
             }
-          ],
-          "rank": 4.0
+          ]
         },
         {
           "ruleIndex": 20,
+          "level": "error",
           "message": {
             "text": "Storing a plaintext password in a configuration file may result in a system compromise."
           },
@@ -5815,11 +5798,11 @@
                 }
               }
             }
-          ],
-          "rank": 4.0
+          ]
         },
         {
           "ruleIndex": 20,
+          "level": "error",
           "message": {
             "text": "Storing a plaintext password in a configuration file may result in a system compromise."
           },
@@ -5892,11 +5875,11 @@
                 }
               }
             }
-          ],
-          "rank": 4.0
+          ]
         },
         {
           "ruleIndex": 20,
+          "level": "error",
           "message": {
             "text": "Storing a plaintext password in a configuration file may result in a system compromise."
           },
@@ -5969,11 +5952,11 @@
                 }
               }
             }
-          ],
-          "rank": 4.0
+          ]
         },
         {
           "ruleIndex": 20,
+          "level": "error",
           "message": {
             "text": "Storing a plaintext password in a configuration file may result in a system compromise."
           },
@@ -6046,11 +6029,11 @@
                 }
               }
             }
-          ],
-          "rank": 4.0
+          ]
         },
         {
           "ruleIndex": 20,
+          "level": "error",
           "message": {
             "text": "Storing a plaintext password in a configuration file may result in a system compromise."
           },
@@ -6123,8 +6106,7 @@
                 }
               }
             }
-          ],
-          "rank": 4.0
+          ]
         },
         {
           "ruleIndex": 12,
@@ -6206,8 +6188,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 13,
@@ -6288,8 +6269,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 13,
@@ -6370,11 +6350,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -6450,11 +6430,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -6532,11 +6512,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -6614,8 +6594,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 32,
@@ -6697,8 +6676,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 22,
@@ -6865,8 +6843,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 37,
@@ -6964,11 +6941,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field s_Interior_Carriage_Return_New_Line_V2 is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -7044,11 +7021,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method ValidateLoggerForExclusiveOption() in [SarifLoggerTests.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -7127,8 +7104,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 33,
@@ -7381,11 +7357,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -7463,11 +7439,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -7545,11 +7521,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method GetFormattedStringValue() in [DefaultObjectPopulatingVisitor.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -7628,8 +7604,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 37,
@@ -7882,11 +7857,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method GetJsonNameFor() in [DefaultObjectPopulatingVisitor.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -7965,8 +7940,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 12,
@@ -8045,11 +8019,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 1,
+          "level": "error",
           "message": {
             "text": "The function main() in [bannedAPIs.java](1) is passed a constant value for the seed. Functions that generate random or pseudorandom values, which are passed a seed, should not be called with a constant argument.\r\nFunctions that generate random or pseudorandom values, which are passed a seed, should not be called with a constant argument."
           },
@@ -8127,11 +8101,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 1,
+          "level": "error",
           "message": {
             "text": "The function main() in [bannedAPIs.java](1) is passed a constant value for the seed. Functions that generate random or pseudorandom values, which are passed a seed, should not be called with a constant argument.\r\nFunctions that generate random or pseudorandom values, which are passed a seed, should not be called with a constant argument."
           },
@@ -8209,11 +8183,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -8292,11 +8266,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -8372,11 +8346,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field SarifSpecUri is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -8452,11 +8426,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 9,
+          "level": "note",
           "message": {
             "text": "The method GetNewLineIndex() in [FileRegionsCache.cs](1) ignores an exception on line [291](1), which could cause the program to overlook unexpected states and conditions.\r\nIgnoring an exception can cause the program to overlook unexpected states and conditions."
           },
@@ -8532,11 +8506,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 9,
+          "level": "note",
           "message": {
             "text": "The method TryGetDirectory() in [PathExtensions.cs](1) ignores an exception on line [57](1), which could cause the program to overlook unexpected states and conditions.\r\nIgnoring an exception can cause the program to overlook unexpected states and conditions."
           },
@@ -8612,11 +8586,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 9,
+          "level": "note",
           "message": {
             "text": "The method TryGetDirectory() in [PathExtensions.cs](1) ignores an exception on line [61](1), which could cause the program to overlook unexpected states and conditions.\r\nIgnoring an exception can cause the program to overlook unexpected states and conditions."
           },
@@ -8692,11 +8666,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 9,
+          "level": "note",
           "message": {
             "text": "The method TryGetDirectory() in [PathExtensions.cs](1) ignores an exception on line [65](1), which could cause the program to overlook unexpected states and conditions.\r\nIgnoring an exception can cause the program to overlook unexpected states and conditions."
           },
@@ -8772,11 +8746,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 9,
+          "level": "note",
           "message": {
             "text": "The method DisposeImpl() in [TempDirectory.cs](1) ignores an exception on line [98](1), which could cause the program to overlook unexpected states and conditions.\r\nIgnoring an exception can cause the program to overlook unexpected states and conditions."
           },
@@ -8852,11 +8826,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 9,
+          "level": "note",
           "message": {
             "text": "The method DisposeImpl() in [TempDirectory.cs](1) ignores an exception on line [102](1), which could cause the program to overlook unexpected states and conditions.\r\nIgnoring an exception can cause the program to overlook unexpected states and conditions."
           },
@@ -8932,11 +8906,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 9,
+          "level": "note",
           "message": {
             "text": "The method DisposeImpl() in [TempDirectory.cs](1) ignores an exception on line [106](1), which could cause the program to overlook unexpected states and conditions.\r\nIgnoring an exception can cause the program to overlook unexpected states and conditions."
           },
@@ -9012,8 +8986,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 25,
@@ -9093,11 +9066,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -9173,11 +9146,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextGaussian() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -9255,11 +9228,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextGaussian() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -9337,8 +9310,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 3,
@@ -9419,8 +9391,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 3,
@@ -9501,11 +9472,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -9584,11 +9555,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -9664,11 +9635,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -9746,11 +9717,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -9828,8 +9799,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -10037,8 +10007,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -10246,11 +10215,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -10326,11 +10295,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method FormatFailureReason() in [SarifConverterTests.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -10409,11 +10378,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field baseliner is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -10489,8 +10458,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -10698,8 +10666,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -10907,11 +10874,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextGaussian() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -10989,11 +10956,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextGaussian() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -11071,11 +11038,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method GetCurrentAssemblyPath() in [ToolFormatConverterTests.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -11154,11 +11121,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method PropertyIsAnyOfRequiredBySchema() in [DefaultObjectPopulatingVisitor.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -11237,11 +11204,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method AnalyzeUri() in [SARIF1003.UrisMustBeValid.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -11320,11 +11287,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -11400,11 +11367,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field simpleXmlMulitDoc is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -11480,8 +11447,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 6,
@@ -11557,8 +11523,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 6,
@@ -11634,8 +11599,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 6,
@@ -11711,8 +11675,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 6,
@@ -11788,8 +11751,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 6,
@@ -11865,8 +11827,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 6,
@@ -11942,8 +11903,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 6,
@@ -12019,8 +11979,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 6,
@@ -12096,8 +12055,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 6,
@@ -12173,8 +12131,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 6,
@@ -12250,8 +12207,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 6,
@@ -12327,8 +12283,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 6,
@@ -12404,8 +12359,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 6,
@@ -12481,8 +12435,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 6,
@@ -12558,8 +12511,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 6,
@@ -12635,8 +12587,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 6,
@@ -12712,8 +12663,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 6,
@@ -12789,8 +12739,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 33,
@@ -12957,11 +12906,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method ReadHints() in [AndroidStudioProblemTests.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -13040,11 +12989,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field EmptyLogicalLocation is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -13120,11 +13069,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field OPTIONS is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -13200,8 +13149,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 33,
@@ -13397,11 +13345,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -13477,11 +13425,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -13557,11 +13505,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -13637,11 +13585,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -13717,11 +13665,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method TestForLoggingOption() in [SarifLoggerTests.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -13800,11 +13748,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -13883,11 +13831,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method ReportError() in [ContrastSecurityConverter.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -13966,11 +13914,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextLong() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -14048,11 +13996,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextLong() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -14130,11 +14078,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -14213,11 +14161,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field s_Insertion_Between_New_Line_Chars is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -14293,11 +14241,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method PageManual() in [PageCommandTests.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -14376,8 +14324,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -14533,8 +14480,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -14690,11 +14636,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field exampleErrorXmlSelfClosed is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -14770,11 +14716,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextLong() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -14852,11 +14798,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextLong() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -14934,8 +14880,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 12,
@@ -15014,11 +14959,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method IsList() in [DefaultObjectPopulatingVisitor.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -15097,11 +15042,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field s_Insertion_End_Of_File is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -15177,11 +15122,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -15257,11 +15202,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -15340,11 +15285,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method ShouldThisOneOfPropertyPopulate() in [DefaultObjectPopulatingVisitor.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -15423,11 +15368,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method AddElementToDictionary() in [DefaultObjectPopulatingVisitor.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -15506,11 +15451,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method GetJsonSchemaForObject() in [DefaultObjectPopulatingVisitor.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -15589,11 +15534,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 1,
+          "level": "error",
           "message": {
             "text": "The function main() in [bannedAPIs.java](1) is passed a constant value for the seed. Functions that generate random or pseudorandom values, which are passed a seed, should not be called with a constant argument.\r\nFunctions that generate random or pseudorandom values, which are passed a seed, should not be called with a constant argument."
           },
@@ -15671,11 +15616,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 1,
+          "level": "error",
           "message": {
             "text": "The function main() in [bannedAPIs.java](1) is passed a constant value for the seed. Functions that generate random or pseudorandom values, which are passed a seed, should not be called with a constant argument.\r\nFunctions that generate random or pseudorandom values, which are passed a seed, should not be called with a constant argument."
           },
@@ -15753,11 +15698,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 9,
+          "level": "note",
           "message": {
             "text": "The method CaptureFile() in [SarifLogger.cs](1) ignores an exception on line [393](1), which could cause the program to overlook unexpected states and conditions.\r\nIgnoring an exception can cause the program to overlook unexpected states and conditions."
           },
@@ -15833,8 +15778,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 10,
@@ -15916,11 +15860,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -15999,8 +15943,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 10,
@@ -16082,8 +16025,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 26,
@@ -16165,11 +16107,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 5,
+          "level": "note",
           "message": {
             "text": "The function Run() in [ExportRulesMetadataCommandBase.cs](1) reveals system data or debugging information by calling WriteLine() on line [57](1). The information revealed by WriteLine() could help an adversary form a plan of attack.\r\nRevealing system data or debugging information helps an adversary learn about the system and form a plan of attack."
           },
@@ -16252,11 +16194,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextLong() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -16334,11 +16276,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextLong() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -16416,8 +16358,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 27,
@@ -16497,11 +16438,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -16577,11 +16518,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -16657,11 +16598,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 36,
+          "level": "note",
           "message": {
             "text": "Using println() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `System.out` or `System.err` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -16738,11 +16679,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 36,
+          "level": "note",
           "message": {
             "text": "Using println() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `System.out` or `System.err` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -16819,11 +16760,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -16902,11 +16843,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 30,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by random() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -16984,11 +16925,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 30,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by random() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -17066,11 +17007,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -17149,11 +17090,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextGaussian() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -17231,11 +17172,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextGaussian() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -17313,11 +17254,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -17396,8 +17337,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 22,
@@ -17506,11 +17446,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field s_SchemaRegex is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -17586,11 +17526,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by next() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -17668,11 +17608,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by next() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -17750,11 +17690,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -17830,8 +17770,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 0,
@@ -17911,11 +17850,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -17994,11 +17933,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field s_Complete_File_New_Lines_Only is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -18074,11 +18013,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 36,
+          "level": "note",
           "message": {
             "text": "Using println() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `System.out` or `System.err` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -18155,11 +18094,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 36,
+          "level": "note",
           "message": {
             "text": "Using println() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `System.out` or `System.err` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -18236,11 +18175,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method HasParameterlessConstructor() in [DefaultObjectPopulatingVisitor.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -18319,11 +18258,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 36,
+          "level": "note",
           "message": {
             "text": "Using println() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `System.out` or `System.err` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -18400,11 +18339,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 36,
+          "level": "note",
           "message": {
             "text": "Using println() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `System.out` or `System.err` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -18481,11 +18420,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field ITEMTYPE_ID is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -18561,11 +18500,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -18644,11 +18583,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextGaussian() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -18726,11 +18665,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextGaussian() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -18808,8 +18747,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 33,
@@ -19176,8 +19114,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 22,
@@ -19288,11 +19225,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field s_Insertion_Beginning_Of_Text_File is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -19368,11 +19305,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field s_testArray is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -19448,11 +19385,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field environmentVariableReferenceRegEx is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -19528,11 +19465,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -19611,11 +19548,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method EnrichSarifLog() in [SarifConverterTests.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -19694,11 +19631,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 1,
+          "level": "error",
           "message": {
             "text": "The function main() in [bannedAPIs.java](1) is passed a constant value for the seed. Functions that generate random or pseudorandom values, which are passed a seed, should not be called with a constant argument.\r\nFunctions that generate random or pseudorandom values, which are passed a seed, should not be called with a constant argument."
           },
@@ -19776,11 +19713,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 1,
+          "level": "error",
           "message": {
             "text": "The function main() in [bannedAPIs.java](1) is passed a constant value for the seed. Functions that generate random or pseudorandom values, which are passed a seed, should not be called with a constant argument.\r\nFunctions that generate random or pseudorandom values, which are passed a seed, should not be called with a constant argument."
           },
@@ -19858,8 +19795,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 7,
@@ -19940,8 +19876,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 7,
@@ -20022,8 +19957,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 11,
@@ -20400,11 +20334,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method RemoveLineEndings() in [AssertionExtensions.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -20483,8 +20417,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 22,
@@ -20651,8 +20584,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 29,
@@ -20887,11 +20819,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Indent() in [PageCommandTests.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -20970,11 +20902,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method FormatFailureReason() in [InsertOptionalDataVisitorTests.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -21053,8 +20985,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -21210,8 +21141,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -21367,11 +21297,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 1,
+          "level": "error",
           "message": {
             "text": "The function main() in [bannedAPIs.java](1) is passed a constant value for the seed. Functions that generate random or pseudorandom values, which are passed a seed, should not be called with a constant argument.\r\nFunctions that generate random or pseudorandom values, which are passed a seed, should not be called with a constant argument."
           },
@@ -21449,11 +21379,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 1,
+          "level": "error",
           "message": {
             "text": "The function main() in [bannedAPIs.java](1) is passed a constant value for the seed. Functions that generate random or pseudorandom values, which are passed a seed, should not be called with a constant argument.\r\nFunctions that generate random or pseudorandom values, which are passed a seed, should not be called with a constant argument."
           },
@@ -21531,11 +21461,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -21611,11 +21541,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -21691,8 +21621,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -21900,8 +21829,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -22109,11 +22037,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 36,
+          "level": "note",
           "message": {
             "text": "Using println() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `System.out` or `System.err` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -22190,11 +22118,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 36,
+          "level": "note",
           "message": {
             "text": "Using println() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `System.out` or `System.err` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -22271,8 +22199,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 33,
@@ -22381,11 +22308,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 9,
+          "level": "note",
           "message": {
             "text": "The method DisposeImplementation() in [TempFile.cs](1) ignores an exception on line [90](1), which could cause the program to overlook unexpected states and conditions.\r\nIgnoring an exception can cause the program to overlook unexpected states and conditions."
           },
@@ -22461,11 +22388,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 9,
+          "level": "note",
           "message": {
             "text": "The method DisposeImplementation() in [TempFile.cs](1) ignores an exception on line [94](1), which could cause the program to overlook unexpected states and conditions.\r\nIgnoring an exception can cause the program to overlook unexpected states and conditions."
           },
@@ -22541,11 +22468,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 9,
+          "level": "note",
           "message": {
             "text": "The method DisposeImplementation() in [TempFile.cs](1) ignores an exception on line [98](1), which could cause the program to overlook unexpected states and conditions.\r\nIgnoring an exception can cause the program to overlook unexpected states and conditions."
           },
@@ -22621,11 +22548,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 9,
+          "level": "note",
           "message": {
             "text": "The method DisposeImplementation() in [TempFile.cs](1) ignores an exception on line [102](1), which could cause the program to overlook unexpected states and conditions.\r\nIgnoring an exception can cause the program to overlook unexpected states and conditions."
           },
@@ -22701,8 +22628,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 37,
@@ -22788,8 +22714,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 37,
@@ -22875,8 +22800,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -23084,8 +23008,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -23293,11 +23216,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 1,
+          "level": "error",
           "message": {
             "text": "The function init^() in [bannedAPIs.java](1) is passed a constant value for the seed. Functions that generate random or pseudorandom values, which are passed a seed, should not be called with a constant argument.\r\nFunctions that generate random or pseudorandom values, which are passed a seed, should not be called with a constant argument."
           },
@@ -23375,11 +23298,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method HugeFileCompare() in [PageCommandTests.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -23458,8 +23381,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 25,
@@ -23539,11 +23461,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method CreateEmptyDictionary() in [DefaultObjectPopulatingVisitor.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -23622,11 +23544,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 9,
+          "level": "note",
           "message": {
             "text": "The method VisitArtifact() in [InsertOptionalDataVisitor.cs](1) ignores an exception on line [140](1), which could cause the program to overlook unexpected states and conditions.\r\nIgnoring an exception can cause the program to overlook unexpected states and conditions."
           },
@@ -23702,11 +23624,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -23782,8 +23704,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 33,
@@ -24008,8 +23929,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 14,
@@ -24357,8 +24277,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 22,
@@ -24467,11 +24386,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -24550,11 +24469,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method ReadAtPosition() in [LineMappingStreamReaderTests.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -24633,11 +24552,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method AssertParsesAsTestLocation() in [CppCheckLocationTests.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -24716,8 +24635,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 29,
@@ -24818,8 +24736,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 33,
@@ -25015,8 +24932,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -25224,8 +25140,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -25433,11 +25348,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -25516,11 +25431,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method LogSimpleResult() in [SarifLoggerTests.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -25599,11 +25514,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method ContainsProperty() in [PropertyBagHolderTests.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -25682,11 +25597,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method PropertyIsRequiredBySchema() in [DefaultObjectPopulatingVisitor.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -25765,11 +25680,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field s_Lines_2_And_3 is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -25845,11 +25760,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 9,
+          "level": "note",
           "message": {
             "text": "The method ComputeSha1Hash() in [HashUtilities.cs](1) ignores an exception on line [102](1), which could cause the program to overlook unexpected states and conditions.\r\nIgnoring an exception can cause the program to overlook unexpected states and conditions."
           },
@@ -25925,11 +25840,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 9,
+          "level": "note",
           "message": {
             "text": "The method ComputeSha1Hash() in [HashUtilities.cs](1) ignores an exception on line [103](1), which could cause the program to overlook unexpected states and conditions.\r\nIgnoring an exception can cause the program to overlook unexpected states and conditions."
           },
@@ -26005,11 +25920,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method IsDictionary() in [DefaultObjectPopulatingVisitor.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -26088,8 +26003,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 22,
@@ -26256,11 +26170,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -26339,11 +26253,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 36,
+          "level": "note",
           "message": {
             "text": "Using println() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `System.out` or `System.err` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -26420,11 +26334,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 36,
+          "level": "note",
           "message": {
             "text": "Using println() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `System.out` or `System.err` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -26501,11 +26415,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field s_javaScriptIdentifierPattern is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -26581,8 +26495,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 14,
@@ -26699,11 +26612,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -26782,8 +26695,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 29,
@@ -27018,8 +26930,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -27227,8 +27138,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -27436,8 +27346,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 26,
@@ -27519,11 +27428,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field LINE1_NO_NEWLINES is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -27599,11 +27508,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field s_javaScriptIdentifierRegex is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -27679,8 +27588,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 10,
@@ -27762,8 +27670,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 33,
@@ -27901,8 +27808,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 33,
@@ -28098,11 +28004,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextFloat() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -28180,11 +28086,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextFloat() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -28262,8 +28168,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 33,
@@ -28459,8 +28364,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 22,
@@ -28569,11 +28473,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -28652,11 +28556,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 1,
+          "level": "error",
           "message": {
             "text": "The function 1MyRandom() in [bannedAPIs.java](1) is passed a constant value for the seed. Functions that generate random or pseudorandom values, which are passed a seed, should not be called with a constant argument.\r\nFunctions that generate random or pseudorandom values, which are passed a seed, should not be called with a constant argument."
           },
@@ -28734,8 +28638,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 10,
@@ -28817,11 +28720,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 5,
+          "level": "note",
           "message": {
             "text": "The function AddFilesFromDirectory() in [FileSpecifier.cs](1) reveals system data or debugging information by calling WriteLineAsync() on line [88](1). The information revealed by WriteLineAsync() could help an adversary form a plan of attack.\r\nRevealing system data or debugging information helps an adversary learn about the system and form a plan of attack."
           },
@@ -29171,11 +29074,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method TokenIsJavascriptIdentifier() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -29254,11 +29157,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field s_Interior_New_Line is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -29334,11 +29237,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextLong() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -29416,11 +29319,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextLong() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -29498,11 +29401,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method RunConverter() in [SarifConverterTests.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -29581,11 +29484,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -29661,8 +29564,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 3,
@@ -29743,8 +29645,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 3,
@@ -29825,11 +29726,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 36,
+          "level": "note",
           "message": {
             "text": "Using println() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `System.out` or `System.err` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -29906,11 +29807,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 36,
+          "level": "note",
           "message": {
             "text": "Using println() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `System.out` or `System.err` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -29987,11 +29888,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -30067,11 +29968,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method NormalizeOptionallyEmittedDataToString() in [InsertOptionalDataVisitorTests.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -30150,8 +30051,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -30359,8 +30259,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -30568,11 +30467,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -30648,11 +30547,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextDouble() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -30730,11 +30629,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextDouble() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -30812,8 +30711,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 12,
@@ -30895,8 +30793,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -31104,8 +31001,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -31313,8 +31209,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 27,
@@ -31394,11 +31289,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method ReportResults() in [ValidateCommand.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -31477,8 +31372,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 27,
@@ -31558,8 +31452,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 33,
@@ -31726,8 +31619,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 33,
@@ -31952,11 +31844,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field _remappedFullyQualifiedName is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -32032,8 +31924,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 14,
@@ -32352,11 +32243,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -32435,11 +32326,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 1,
+          "level": "error",
           "message": {
             "text": "The function main() in [bannedAPIs.java](1) is passed a constant value for the seed. Functions that generate random or pseudorandom values, which are passed a seed, should not be called with a constant argument.\r\nFunctions that generate random or pseudorandom values, which are passed a seed, should not be called with a constant argument."
           },
@@ -32517,11 +32408,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 1,
+          "level": "error",
           "message": {
             "text": "The function main() in [bannedAPIs.java](1) is passed a constant value for the seed. Functions that generate random or pseudorandom values, which are passed a seed, should not be called with a constant argument.\r\nFunctions that generate random or pseudorandom values, which are passed a seed, should not be called with a constant argument."
           },
@@ -32599,11 +32490,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field s_delimiters is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -32679,8 +32570,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 25,
@@ -32760,8 +32650,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -32917,8 +32806,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -33074,11 +32962,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field s_Line_3 is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -33154,11 +33042,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method CreateEmptyList() in [DefaultObjectPopulatingVisitor.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -33237,11 +33125,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 21,
+          "level": "note",
           "message": {
             "text": "The function GetType() in [PropertiesDictionaryExtensionMethods.cs](1) uses the variable <Replace key=\"PrimaryVar.name\"/> before it has been initialized.\r\nThe program can potentially use a variable before it has been initialized."
           },
@@ -33345,8 +33233,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 8,
@@ -33484,11 +33371,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -33566,11 +33453,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -33648,11 +33535,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -33728,11 +33615,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field s_Fragment_New_Lines_Only is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -33808,8 +33695,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 35,
@@ -33892,8 +33778,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 35,
@@ -33976,11 +33861,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field s_CurrentSchemaLocation is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -34056,11 +33941,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextFloat() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -34138,11 +34023,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextFloat() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -34220,11 +34105,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 4,
+          "level": "note",
           "message": {
             "text": "The expression `obj.Equals(null)` will always be false.\r\nThe expression `obj.Equals(null)` should always be false."
           },
@@ -34300,11 +34185,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field s_testFileDirectories is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -34380,8 +34265,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 23,
@@ -34462,8 +34346,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 23,
@@ -34544,11 +34427,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextDouble() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -34626,11 +34509,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextDouble() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -34708,11 +34591,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -34791,8 +34674,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 10,
@@ -34874,11 +34756,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 36,
+          "level": "note",
           "message": {
             "text": "Using println() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `System.out` or `System.err` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -34955,11 +34837,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 36,
+          "level": "note",
           "message": {
             "text": "Using println() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `System.out` or `System.err` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -35036,8 +34918,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 26,
@@ -35119,11 +35000,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextDouble() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -35201,11 +35082,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextDouble() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -35283,11 +35164,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method AnalyzeUri() in [SARIF1015.UriMustBeAbsolute.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -35366,8 +35247,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 33,
@@ -35476,11 +35356,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method GetPropertyFormatPattern() in [DefaultObjectPopulatingVisitor.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -35559,8 +35439,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 33,
@@ -35727,11 +35606,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 9,
+          "level": "note",
           "message": {
             "text": "The method ComputeHashes() in [HashUtilities.cs](1) ignores an exception on line [54](1), which could cause the program to overlook unexpected states and conditions.\r\nIgnoring an exception can cause the program to overlook unexpected states and conditions."
           },
@@ -35807,11 +35686,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 9,
+          "level": "note",
           "message": {
             "text": "The method ComputeHashes() in [HashUtilities.cs](1) ignores an exception on line [55](1), which could cause the program to overlook unexpected states and conditions.\r\nIgnoring an exception can cause the program to overlook unexpected states and conditions."
           },
@@ -35887,8 +35766,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 2,
@@ -35980,8 +35858,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -36207,8 +36084,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -36434,8 +36310,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -36591,8 +36466,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -36748,8 +36622,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 16,
@@ -36835,11 +36708,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field s_Interior_Carriage_Return_New_Line_V1 is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -36915,8 +36788,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 22,
@@ -37025,8 +36897,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -37182,8 +37053,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -37339,11 +37209,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -37422,11 +37292,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -37504,11 +37374,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -37586,8 +37456,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -37749,8 +37618,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -37912,8 +37780,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -38075,8 +37942,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -38238,8 +38104,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -38401,8 +38266,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -38564,11 +38428,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field s_Interior_Carriage_Return is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -38644,11 +38508,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method CreateSimpleResult() in [SarifLoggerTests.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -38727,8 +38591,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 10,
@@ -38810,11 +38673,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -38893,11 +38756,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field EmptyInvocation is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -38973,11 +38836,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 36,
+          "level": "note",
           "message": {
             "text": "Using println() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `System.out` or `System.err` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -39054,11 +38917,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 36,
+          "level": "note",
           "message": {
             "text": "Using println() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `System.out` or `System.err` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -39135,8 +38998,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 11,
@@ -39255,11 +39117,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field converter is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -39335,8 +39197,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 8,
@@ -39568,11 +39429,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -39651,8 +39512,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -39878,8 +39738,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -40105,11 +39964,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method GenerateIndexToPopulateForOneOfProperties() in [DefaultObjectPopulatingVisitor.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -40188,11 +40047,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 9,
+          "level": "note",
           "message": {
             "text": "The method ConstructUriBaseIdsDictionary() in [DriverSdkExtensions.cs](1) ignores an exception on line [47](1), which could cause the program to overlook unexpected states and conditions.\r\nIgnoring an exception can cause the program to overlook unexpected states and conditions."
           },
@@ -40268,11 +40127,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 9,
+          "level": "note",
           "message": {
             "text": "The method ConstructUriBaseIdsDictionary() in [DriverSdkExtensions.cs](1) ignores an exception on line [50](1), which could cause the program to overlook unexpected states and conditions.\r\nIgnoring an exception can cause the program to overlook unexpected states and conditions."
           },
@@ -40348,8 +40207,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 10,
@@ -40431,11 +40289,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -40513,11 +40371,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -40595,8 +40453,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -40804,8 +40661,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -41013,11 +40869,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by next() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -41095,11 +40951,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by next() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -41177,11 +41033,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -41260,8 +41116,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 28,
@@ -41362,11 +41217,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field s_Complete_File_V2 is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -41442,11 +41297,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method MergeDictionaryInto() in [SarifLogMatcher.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -41525,11 +41380,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field s_VersionRegex is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -41605,11 +41460,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method ShouldExcludePopulationDueToOneOfCriteria() in [DefaultObjectPopulatingVisitor.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -41688,8 +41543,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 22,
@@ -41856,8 +41710,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -42065,8 +41918,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -42274,11 +42126,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field testLocationXml is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -42354,8 +42206,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 31,
@@ -42444,8 +42295,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 33,
@@ -42670,11 +42520,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -42750,8 +42600,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -43084,8 +42933,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -43418,11 +43266,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 9,
+          "level": "note",
           "message": {
             "text": "The method ConstructUriBaseIdsDictionary() in [DriverSdkExtensions.cs](1) ignores an exception on line [46](1), which could cause the program to overlook unexpected states and conditions.\r\nIgnoring an exception can cause the program to overlook unexpected states and conditions."
           },
@@ -43498,8 +43346,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -43928,8 +43775,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -44358,8 +44204,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 34,
@@ -44439,8 +44284,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 34,
@@ -44520,11 +44364,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -44603,11 +44447,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field s_Insertion_Beginning_Of_Binary_File is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -44683,11 +44527,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -44765,11 +44609,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextInt() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -44847,11 +44691,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -44927,11 +44771,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -45010,11 +44854,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using Write() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -45090,8 +44934,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 34,
@@ -45171,11 +45014,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field s_Complete_File_V1 is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -45251,8 +45094,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -45408,8 +45250,7 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 17,
@@ -45565,11 +45406,11 @@
                 }
               }
             }
-          ],
-          "rank": 3.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -45645,11 +45486,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -45725,11 +45566,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -45808,11 +45649,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field EmptyGraph is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -45888,11 +45729,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field s_Fragment_Carriage_Returns_Only is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -45968,11 +45809,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method VisitReportingDescriptor() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -46051,11 +45892,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 19,
+          "level": "note",
           "message": {
             "text": "The field s_consumeElementOfDepthTestDocument is never used.\r\nThis field is never used directly or indirectly by a public method."
           },
@@ -46131,8 +45972,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 13,
@@ -46213,8 +46053,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 13,
@@ -46295,11 +46134,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method BuildToolSpecificEmptyLogText() in [ConverterTestsBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -46378,11 +46217,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextFloat() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -46460,11 +46299,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 38,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by nextFloat() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -46542,11 +46381,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -46625,11 +46464,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -46708,11 +46547,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -46791,8 +46630,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 27,
@@ -46872,11 +46710,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 24,
+          "level": "note",
           "message": {
             "text": "The method Visit() in [SarifValidationSkimmerBase.cs](1) is not reachable from any method outside the class. It is dead code. Dead code is defined as code that is never directly or indirectly executed by a public method.\r\nThis method is not reachable from any method outside the class."
           },
@@ -46955,8 +46793,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 26,
@@ -47038,11 +46875,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -47118,8 +46955,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 0,
@@ -47199,11 +47035,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 15,
+          "level": "error",
           "message": {
             "text": "The random number generator implemented by Next() cannot withstand a cryptographic attack.\r\nStandard pseudorandom number generators cannot withstand cryptographic attacks."
           },
@@ -47280,11 +47116,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -47360,11 +47196,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 18,
+          "level": "note",
           "message": {
             "text": "Using WriteLine() rather than a dedicated logging facility makes it difficult to monitor the behavior of the program.\r\nUsing `Console.Out` or `Console.Error` rather than a dedicated logging facility makes it difficult to monitor the behavior of the program."
           },
@@ -47440,11 +47276,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 9,
+          "level": "note",
           "message": {
             "text": "The method ComputeSha256Hash() in [HashUtilities.cs](1) ignores an exception on line [78](1), which could cause the program to overlook unexpected states and conditions.\r\nIgnoring an exception can cause the program to overlook unexpected states and conditions."
           },
@@ -47520,11 +47356,11 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 9,
+          "level": "note",
           "message": {
             "text": "The method ComputeSha256Hash() in [HashUtilities.cs](1) ignores an exception on line [79](1), which could cause the program to overlook unexpected states and conditions.\r\nIgnoring an exception can cause the program to overlook unexpected states and conditions."
           },
@@ -47600,8 +47436,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         },
         {
           "ruleIndex": 34,
@@ -47681,8 +47516,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         }
       ],
       "tool": {
@@ -47713,6 +47547,7 @@
               ],
               "properties": {
                 "Accuracy": "1.0",
+                "Impact": "2.0",
                 "Probability": "3.0",
                 "Kingdom": "Security Features",
                 "Type": "Password Management",
@@ -47743,6 +47578,7 @@
               ],
               "properties": {
                 "Accuracy": "2.0",
+                "Impact": "4.0",
                 "Probability": "1.0",
                 "Kingdom": "Security Features",
                 "Type": "Insecure Randomness",
@@ -47785,6 +47621,7 @@
               ],
               "properties": {
                 "Accuracy": "4.0",
+                "Impact": "3.0",
                 "Probability": "4.0",
                 "Kingdom": "Input Validation and Representation",
                 "Type": "Path Manipulation"
@@ -47814,6 +47651,7 @@
               ],
               "properties": {
                 "Accuracy": "3.0",
+                "Impact": "2.0",
                 "Probability": "1.0",
                 "Kingdom": "Time and State",
                 "Type": "J2EE Bad Practices",
@@ -47856,6 +47694,7 @@
               ],
               "properties": {
                 "Accuracy": "5.0",
+                "Impact": "1.0",
                 "Probability": "1.0",
                 "Kingdom": "Code Quality",
                 "Type": "Code Correctness",
@@ -47886,6 +47725,7 @@
               ],
               "properties": {
                 "Accuracy": "4.0",
+                "Impact": "1.0",
                 "Probability": "1.0",
                 "Kingdom": "Encapsulation",
                 "Type": "System Information Leak",
@@ -47928,6 +47768,7 @@
               ],
               "properties": {
                 "Accuracy": "2.0",
+                "Impact": "3.0",
                 "Probability": "1.0",
                 "Kingdom": "Environment",
                 "Type": "Weak XML Schema",
@@ -47958,6 +47799,7 @@
               ],
               "properties": {
                 "Accuracy": "4.0",
+                "Impact": "2.0",
                 "Probability": "1.0",
                 "Kingdom": "Encapsulation",
                 "Type": "System Information Leak"
@@ -47987,6 +47829,7 @@
               ],
               "properties": {
                 "Accuracy": "3.0",
+                "Impact": "2.5",
                 "Probability": "1.0",
                 "Kingdom": "Code Quality",
                 "Type": "Unreleased Resource",
@@ -48017,6 +47860,7 @@
               ],
               "properties": {
                 "Accuracy": "5.0",
+                "Impact": "1.0",
                 "Probability": "1.0",
                 "Kingdom": "Errors",
                 "Type": "Poor Error Handling",
@@ -48047,6 +47891,7 @@
               ],
               "properties": {
                 "Accuracy": "5.0",
+                "Impact": "2.0",
                 "Probability": "1.0",
                 "Kingdom": "Errors",
                 "Type": "Poor Error Handling",
@@ -48077,6 +47922,7 @@
               ],
               "properties": {
                 "Accuracy": "3.0",
+                "Impact": "2.0",
                 "Probability": "1.0",
                 "Kingdom": "Input Validation and Representation",
                 "Type": "Setting Manipulation"
@@ -48106,6 +47952,7 @@
               ],
               "properties": {
                 "Accuracy": "5.0",
+                "Impact": "2.0",
                 "Probability": "1.0",
                 "Kingdom": "Code Quality",
                 "Type": "Code Correctness",
@@ -48136,6 +47983,7 @@
               ],
               "properties": {
                 "Accuracy": "3.0",
+                "Impact": "2.0",
                 "Probability": "1.0",
                 "Kingdom": "Time and State",
                 "Type": "J2EE Bad Practices",
@@ -48178,6 +48026,7 @@
               ],
               "properties": {
                 "Accuracy": "4.0",
+                "Impact": "2.0",
                 "Probability": "1.0",
                 "Kingdom": "API Abuse",
                 "Type": "Missing Check against Null"
@@ -48207,6 +48056,7 @@
               ],
               "properties": {
                 "Accuracy": "2.0",
+                "Impact": "4.0",
                 "Probability": "1.0",
                 "Kingdom": "Security Features",
                 "Type": "Insecure Randomness"
@@ -48278,6 +48128,7 @@
               ],
               "properties": {
                 "Accuracy": "4.0",
+                "Impact": "2.0",
                 "Probability": "1.0",
                 "Kingdom": "Encapsulation",
                 "Type": "System Information Leak"
@@ -48307,6 +48158,7 @@
               ],
               "properties": {
                 "Accuracy": "5.0",
+                "Impact": "1.0",
                 "Probability": "1.0",
                 "Kingdom": "Encapsulation",
                 "Type": "Poor Logging Practice",
@@ -48337,6 +48189,7 @@
               ],
               "properties": {
                 "Accuracy": "4.0",
+                "Impact": "1.0",
                 "Probability": "1.0",
                 "Kingdom": "Code Quality",
                 "Type": "Dead Code",
@@ -48391,6 +48244,7 @@
               ],
               "properties": {
                 "Accuracy": "3.0",
+                "Impact": "4.0",
                 "Probability": "4.0",
                 "Kingdom": "Environment",
                 "Type": "Password Management",
@@ -48421,6 +48275,7 @@
               ],
               "properties": {
                 "Accuracy": "5.0",
+                "Impact": "1.0",
                 "Probability": "1.0",
                 "Kingdom": "Code Quality",
                 "Type": "Uninitialized Variable"
@@ -48450,6 +48305,7 @@
               ],
               "properties": {
                 "Accuracy": "3.0",
+                "Impact": "2.0",
                 "Probability": "1.0",
                 "Kingdom": "Input Validation and Representation",
                 "Type": "Missing XML Validation"
@@ -48491,6 +48347,7 @@
               ],
               "properties": {
                 "Accuracy": "3.0",
+                "Impact": "2.0",
                 "Probability": "1.0",
                 "Kingdom": "Input Validation and Representation",
                 "Type": "Command Injection"
@@ -48520,6 +48377,7 @@
               ],
               "properties": {
                 "Accuracy": "4.0",
+                "Impact": "1.0",
                 "Probability": "1.0",
                 "Kingdom": "Code Quality",
                 "Type": "Dead Code",
@@ -48550,6 +48408,7 @@
               ],
               "properties": {
                 "Accuracy": "3.0",
+                "Impact": "2.0",
                 "Probability": "3.5",
                 "Kingdom": "Security Features",
                 "Type": "Weak Cryptographic Hash"
@@ -48579,6 +48438,7 @@
               ],
               "properties": {
                 "Accuracy": "4.0",
+                "Impact": "2.0",
                 "Probability": "1.0",
                 "Kingdom": "Encapsulation",
                 "Type": "ASP.NET Bad Practices",
@@ -48609,6 +48469,7 @@
               ],
               "properties": {
                 "Accuracy": "2.0",
+                "Impact": "2.0",
                 "Probability": "1.0",
                 "Kingdom": "Input Validation and Representation",
                 "Type": "Denial of Service"
@@ -48650,6 +48511,7 @@
               ],
               "properties": {
                 "Accuracy": "4.0",
+                "Impact": "3.0",
                 "Probability": "4.0",
                 "Kingdom": "Input Validation and Representation",
                 "Type": "Path Manipulation"
@@ -48679,6 +48541,7 @@
               ],
               "properties": {
                 "Accuracy": "5.0",
+                "Impact": "2.5",
                 "Probability": "1.0",
                 "Kingdom": "Code Quality",
                 "Type": "Portability Flaw",
@@ -48709,6 +48572,7 @@
               ],
               "properties": {
                 "Accuracy": "2.0",
+                "Impact": "4.0",
                 "Probability": "1.0",
                 "Kingdom": "Security Features",
                 "Type": "Insecure Randomness"
@@ -48738,6 +48602,7 @@
               ],
               "properties": {
                 "Accuracy": "3.0",
+                "Impact": "2.0",
                 "Probability": "1.0",
                 "Kingdom": "Code Quality",
                 "Type": "Code Correctness",
@@ -48768,6 +48633,7 @@
               ],
               "properties": {
                 "Accuracy": "2.0",
+                "Impact": "2.0",
                 "Probability": "1.0",
                 "Kingdom": "Code Quality",
                 "Type": "Code Correctness",
@@ -48798,6 +48664,7 @@
               ],
               "properties": {
                 "Accuracy": "4.0",
+                "Impact": "3.0",
                 "Probability": "1.0",
                 "Kingdom": "Code Quality",
                 "Type": "Null Dereference"
@@ -48839,6 +48706,7 @@
               ],
               "properties": {
                 "Accuracy": "4.0",
+                "Impact": "2.0",
                 "Probability": "1.0",
                 "Kingdom": "API Abuse",
                 "Type": "Unchecked Return Value"
@@ -48868,6 +48736,7 @@
               ],
               "properties": {
                 "Accuracy": "4.0",
+                "Impact": "2.0",
                 "Probability": "1.0",
                 "Kingdom": "Encapsulation",
                 "Type": "J2EE Bad Practices",
@@ -48898,6 +48767,7 @@
               ],
               "properties": {
                 "Accuracy": "5.0",
+                "Impact": "1.0",
                 "Probability": "1.0",
                 "Kingdom": "Encapsulation",
                 "Type": "Poor Logging Practice",
@@ -48940,6 +48810,7 @@
               ],
               "properties": {
                 "Accuracy": "4.0",
+                "Impact": "3.0",
                 "Probability": "4.0",
                 "Kingdom": "Input Validation and Representation",
                 "Type": "Path Manipulation"
@@ -48969,6 +48840,7 @@
               ],
               "properties": {
                 "Accuracy": "2.0",
+                "Impact": "4.0",
                 "Probability": "1.0",
                 "Kingdom": "Security Features",
                 "Type": "Insecure Randomness"

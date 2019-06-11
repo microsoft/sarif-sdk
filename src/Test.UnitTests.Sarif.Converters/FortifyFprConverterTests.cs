@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
+using System.Collections.Generic;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -45,6 +47,54 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         public void FortifyFprConverter_Convert_ScanWithSeverityData()
         {
             RunTest("SdkScan.fpr");
+        }
+
+        [Fact]
+        public void FortifyFprConverter_GetFailureLevelFromRuleMetadata_MissingImpactProperty_ReturnsNone()
+        {
+            ReportingDescriptor rule = new ReportingDescriptor();
+
+            FailureLevel level = FortifyFprConverter.GetFailureLevelFromRuleMetadata(rule);
+
+            level.Should().Be(FailureLevel.None);
+        }
+
+        [Fact]
+        public void FortifyFprConverter_GetFailureLevelFromRuleMetadata_ReturnsAppropriateFailureLevel()
+        {
+            var expectedInputOutputs = new Dictionary<string, FailureLevel>
+            {
+                { "0.0", FailureLevel.Note },
+                { "0.5", FailureLevel.Note },
+                { "1.0", FailureLevel.Note },
+
+                { "1.1", FailureLevel.Warning },
+                { "2.0", FailureLevel.Warning },
+                { "2.5", FailureLevel.Warning },
+                { "2.9", FailureLevel.Warning },
+                { "3.0", FailureLevel.Warning },
+
+                { "3.1", FailureLevel.Error },
+                { "3.5", FailureLevel.Error },
+                { "3.9", FailureLevel.Error },
+                { "4.5", FailureLevel.Error },
+                { "5.0", FailureLevel.Error },
+
+                { "-5.5", FailureLevel.None }, //Invalid values, ignored
+                { "5.5", FailureLevel.None },
+
+            };
+
+            foreach(KeyValuePair<string,FailureLevel> keyValuePair in expectedInputOutputs)
+            {
+                ReportingDescriptor rule = new ReportingDescriptor();
+                rule.SetProperty<string>("Impact", keyValuePair.Key);
+
+                FailureLevel level = FortifyFprConverter.GetFailureLevelFromRuleMetadata(rule);
+
+                level.Should().Be(keyValuePair.Value);
+            }
+            
         }
     }
 }

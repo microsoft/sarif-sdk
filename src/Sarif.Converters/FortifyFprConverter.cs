@@ -452,6 +452,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     rule = FindOrCreateRule(ruleId, out ruleIndex);
 
                     result.RuleIndex = ruleIndex;
+                    result.Level = GetFailureLevelFromRuleMetadata(rule);
                 }
                 else if (AtStartOfNonEmpty(_strings.Kingdom))
                 {
@@ -464,13 +465,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 else if (AtStartOfNonEmpty(_strings.Subtype))
                 {
                     rule.SetProperty(_strings.Subtype, _reader.ReadElementContentAsString());
-                }
-                else if (AtStartOfNonEmpty(_strings.InstanceSeverity))
-                {
-                    if (double.TryParse(_reader.ReadElementContentAsString(), out double rank))
-                    {
-                        result.Rank = rank;
-                    }
                 }
                 else if (AtStartOfNonEmpty(_strings.ReplacementDefinitions))
                 {
@@ -491,6 +485,41 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // Write the Result out (don't keep in memory)
             output.WriteResult(result);
+        }
+
+        internal static FailureLevel GetFailureLevelFromRuleMetadata(ReportingDescriptor rule)
+        {
+            // High impact - ["5.0", "3.0") => Error
+            // Medium impact - ["3.0", "1.0") => Warning
+            // Low impact - ["1.0", "0,0"] => Note
+            // Any other value (invalid input) or no value => None
+
+            if (rule.TryGetProperty("Impact", out string impactValue))
+            {
+                if (float.TryParse(impactValue, out float impact))
+                {
+                    if (impact > 5.0)
+                    {
+                        return FailureLevel.None;
+                    }
+
+                    if (impact > 3.0)
+                    {
+                        return FailureLevel.Error;
+                    }
+
+                    if (impact > 1.0)
+                    {
+                        return FailureLevel.Warning;
+                    }
+
+                    if (impact >= 0.0)
+                    {
+                        return FailureLevel.Note;
+                    }
+                }
+            }
+            return FailureLevel.None;
         }
 
         private void ParseLocationsFromTraces(Result result)
@@ -769,10 +798,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             {
                                 case "Accuracy":
                                 case "Impact":
-                                //case "Probability":
+                                case "Probability":
                                 {
-                                    string nodeValue = _reader.ReadElementContentAsString();
+                                    _reader.Read();
+                                    string nodeValue = _reader.Value;
                                     rule.SetProperty<string>(groupName, nodeValue);
+                                    _reader.Read();
                                     break;
                                 }
                                 case "altcategoryCWE":
