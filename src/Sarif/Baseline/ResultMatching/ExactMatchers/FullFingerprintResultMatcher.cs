@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
 {
     internal class FullFingerprintResultMatcher : IResultMatcher
     {
-        public IEnumerable<MatchedResults> Match(IEnumerable<ExtractedResult> baseline, IEnumerable<ExtractedResult> current)
+        public IList<MatchedResults> Match(IList<ExtractedResult> baseline, IList<ExtractedResult> current)
         {
             List<MatchedResults> matchedResults = new List<MatchedResults>();
             Dictionary<Tuple<string, string>, List<ExtractedResult>> baselineResults = new Dictionary<Tuple<string, string>, List<ExtractedResult>>(FingerprintEqualityCalculator.Instance);
@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
                     {
                         ExtractedResult baselineResult = baselineResults[fingerprint].First();
                         baselineResults[fingerprint].Remove(baselineResult);
-                        matchedResults.Add(new MatchedResults() { PreviousResult = baselineResult, CurrentResult = result, MatchingAlgorithm = this });
+                        matchedResults.Add(new MatchedResults(baselineResult, result));
                     }
                 }
             }

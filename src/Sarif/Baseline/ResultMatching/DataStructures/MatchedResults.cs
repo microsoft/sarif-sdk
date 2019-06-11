@@ -19,9 +19,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
         public ExtractedResult CurrentResult { get; set; }
 
-        public IResultMatcher MatchingAlgorithm { get; set; }
+        public Run Run { get; set; }
 
-        public Run Run{ get; set; }
+        public MatchedResults(ExtractedResult previous, ExtractedResult current)
+        {
+            this.PreviousResult = previous;
+            this.CurrentResult = current;
+            this.Run = current?.OriginalRun ?? previous?.OriginalRun;
+        }
 
         /// <summary>
         /// Creates a new SARIF Result object with contents from the
@@ -159,6 +164,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 }
             }
             return result;
+        }
+
+        public override string ToString()
+        {
+            if (PreviousResult != null && CurrentResult != null)
+            {
+                return $"= {PreviousResult}";
+            }
+            else if (PreviousResult == null)
+            {
+                return $"+ {CurrentResult}";
+            }
+            else
+            {
+                return $"- {PreviousResult}";
+            }
         }
     }
 }

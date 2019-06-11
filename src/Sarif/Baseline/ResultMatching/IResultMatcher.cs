@@ -10,6 +10,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 {
     public interface IResultMatcher
     {
-        IEnumerable<MatchedResults> Match(IEnumerable<ExtractedResult> previousResults, IEnumerable<ExtractedResult> currentResults);
+        IList<MatchedResults> Match(IList<ExtractedResult> previousResults, IList<ExtractedResult> currentResults);
     }
 }

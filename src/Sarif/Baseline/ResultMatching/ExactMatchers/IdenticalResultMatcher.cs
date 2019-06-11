@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             _considerPropertyBagsWhenComparing = considerPropertyBagsWhenComparing;
         }
 
-        public IEnumerable<MatchedResults> Match(IEnumerable<ExtractedResult> baseline, IEnumerable<ExtractedResult> current)
+        public IList<MatchedResults> Match(IList<ExtractedResult> baseline, IList<ExtractedResult> current)
         {
             List<MatchedResults> matchedResults = new List<MatchedResults>();
 
@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
                         // Pull the first element from the list and match it.  These results are *identical*, so we can just match them in the order they come in.
                         ExtractedResult baselineResult = baselineResults[result.Result].First();
                         baselineResults[result.Result].Remove(baselineResult);
-                        matchedResults.Add(new MatchedResults() { PreviousResult = baselineResult, CurrentResult = result, MatchingAlgorithm = this });
+                        matchedResults.Add(new MatchedResults(baselineResult, result));
                     }
                 }
             }

@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
         public IResultMatchingComparer Comparer { get; }
         public IRemappingCalculator Remapper { get; }
 
-        public IEnumerable<MatchedResults> Match(IEnumerable<ExtractedResult> previousResults, IEnumerable<ExtractedResult> currentResults)
+        public IList<MatchedResults> Match(IList<ExtractedResult> previousResults, IList<ExtractedResult> currentResults)
         {
             IEnumerable<SarifLogRemapping> possibleRemappings = null;
             var baselineResults = new Dictionary<int, List<ExtractedResult>>();
@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
                 List<ExtractedResult> matchingBaselineResult = resultDictionary[unmodifiedKey].Where(b => Comparer.Equals(b, currentResult)).ToList();
                 if (matchingBaselineResult.Count == 1)
                 {
-                    result = new MatchedResults() { PreviousResult = matchingBaselineResult[0], CurrentResult = currentResult, MatchingAlgorithm = this };
+                    result = new MatchedResults(matchingBaselineResult[0], currentResult);
                     return true;
                 }
                 else if (matchingBaselineResult.Count > 1)
@@ -92,7 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
                     // the input logs have been made deterministic.
                     // This will remain unsolved in the early implementation.  
                     // One thought--A discrete difference metric probably makes sense here.
-                    result = new MatchedResults() { PreviousResult = matchingBaselineResult[0], CurrentResult = currentResult, MatchingAlgorithm = this };
+                    result = new MatchedResults(matchingBaselineResult[0], currentResult);
                     return true;
                 }
             }
