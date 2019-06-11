@@ -6,6 +6,7 @@
       "results": [
         {
           "ruleIndex": 0,
+          "level": "none",
           "message": {
             "text": "Sample abstract text. SQL injection vulnerability."
           },
@@ -82,8 +83,7 @@
                 }
               }
             }
-          ],
-          "rank": 2.0
+          ]
         }
       ],
       "tool": {
