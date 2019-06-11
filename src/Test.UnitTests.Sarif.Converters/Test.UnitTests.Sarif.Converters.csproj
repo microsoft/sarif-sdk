@@ -14,6 +14,12 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
+    <None Remove="TestData\FortifyFprConverter\ExpectedOutputs\ScanWithFailureLevelMatrices.sarif" />
+    <None Remove="TestData\FortifyFprConverter\Inputs\ScanWithFailureLevelMatrices.fpr" />
+    <None Remove="TestData\FortifyFprConverter\Inputs\ScanWithFailureLevelMatrices.fvdl" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.4.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
     <PackageReference Include="Moq" Version="4.8.3" />
@@ -26,9 +32,12 @@
   <ItemGroup>
     <EmbeddedResource Include="TestData\FortifyFprConverter\ExpectedOutputs\OneResultBasic.sarif" />
     <EmbeddedResource Include="TestData\FortifyFprConverter\ExpectedOutputs\OneResultWithTwoTraces.sarif" />
+    <EmbeddedResource Include="TestData\FortifyFprConverter\ExpectedOutputs\ScanWithFailureLevelMatrices.sarif" />
     <EmbeddedResource Include="TestData\FortifyFprConverter\ExpectedOutputs\TwoResultsWithNodeRefs.sarif" />
     <EmbeddedResource Include="TestData\FortifyFprConverter\Inputs\OneResultBasic.fpr" />
     <EmbeddedResource Include="TestData\FortifyFprConverter\Inputs\OneResultWithTwoTraces.fpr" />
+    <EmbeddedResource Include="TestData\FortifyFprConverter\Inputs\ScanWithFailureLevelMatrices.fpr" />
+    <EmbeddedResource Include="TestData\FortifyFprConverter\Inputs\ScanWithFailureLevelMatrices.fvdl" />
     <EmbeddedResource Include="TestData\FortifyFprConverter\Inputs\TwoResultsWithNodeRefs.fpr" />
   </ItemGroup>
 
