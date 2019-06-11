@@ -6,7 +6,6 @@
       "results": [
         {
           "ruleIndex": 0,
-          "level": "none",
           "message": {
             "text": "The function getVSTSDetailsForICTO() in [DBHelper.cs](1) sometimes fails to release a system resource allocated by ExecuteReader() on line 146.\r\nThe program can potentially fail to release a system resource."
           },

@@ -6,7 +6,6 @@
       "results": [
         {
           "ruleIndex": 0,
-          "level": "none",
           "message": {
             "text": "Sample abstract text. SQL injection vulnerability."
           },
@@ -87,7 +86,6 @@
         },
         {
           "ruleIndex": 1,
-          "level": "none",
           "message": {
             "text": "The function WriteLog() in [Logger.cs](1) reveals system data or debugging information by calling WriteLine() on line [65](1). The information revealed by WriteLine() could help an adversary form a plan of attack.\r\nRevealing system data or debugging information helps an adversary learn about the system and form a plan of attack."
           },

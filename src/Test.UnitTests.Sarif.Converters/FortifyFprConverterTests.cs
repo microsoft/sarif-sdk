@@ -44,19 +44,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         [Fact]
-        public void FortifyFprConverter_Convert_ScanWithSeverityData()
+        public void FortifyFprConverter_Convert_ScanWithFailureLevelMatrices()
         {
-            RunTest("SdkScan.fpr");
+            RunTest("ScanWithFailureLevelMatrices.fpr");
         }
 
         [Fact]
-        public void FortifyFprConverter_GetFailureLevelFromRuleMetadata_MissingImpactProperty_ReturnsNone()
+        public void FortifyFprConverter_GetFailureLevelFromRuleMetadata_MissingImpactProperty_ReturnsWarning()
         {
             ReportingDescriptor rule = new ReportingDescriptor();
 
             FailureLevel level = FortifyFprConverter.GetFailureLevelFromRuleMetadata(rule);
 
-            level.Should().Be(FailureLevel.None);
+            level.Should().Be(FailureLevel.Warning);
         }
 
         [Fact]
@@ -80,8 +80,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 { "4.5", FailureLevel.Error },
                 { "5.0", FailureLevel.Error },
 
-                { "-5.5", FailureLevel.None }, //Invalid values, ignored
-                { "5.5", FailureLevel.None },
+                { "-5.5", FailureLevel.Warning }, //Invalid value, we default it to Warning
+                { "5.5", FailureLevel.Error }, // Invalid value, we guess that it should be treated as Error
 
             };
 

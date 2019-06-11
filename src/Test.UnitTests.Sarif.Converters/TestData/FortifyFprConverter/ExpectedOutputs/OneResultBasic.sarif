@@ -6,7 +6,6 @@
       "results": [
         {
           "ruleIndex": 0,
-          "level": "none",
           "message": {
             "text": "Sample abstract text. SQL injection vulnerability."
           },

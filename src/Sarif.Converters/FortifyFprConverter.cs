@@ -489,20 +489,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         internal static FailureLevel GetFailureLevelFromRuleMetadata(ReportingDescriptor rule)
         {
-            // High impact - ["5.0", "3.0") => Error
+            // High impact - ["5.0", "3.0") OR any value higher than 5.0 (technically invalid, but we forgive!) => Error
             // Medium impact - ["3.0", "1.0") => Warning
             // Low impact - ["1.0", "0,0"] => Note
-            // Any other value (invalid input) or no value => None
+            // Negative value or no value => Warning (i.e. treated as no value provided, SARIF defaults this to "Warning").
 
             if (rule.TryGetProperty("Impact", out string impactValue))
             {
                 if (float.TryParse(impactValue, out float impact))
                 {
-                    if (impact > 5.0)
-                    {
-                        return FailureLevel.None;
-                    }
-
                     if (impact > 3.0)
                     {
                         return FailureLevel.Error;
@@ -519,7 +514,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     }
                 }
             }
-            return FailureLevel.None;
+            return FailureLevel.Warning; // Default value for Result.Level.
         }
 
         private void ParseLocationsFromTraces(Result result)
@@ -802,7 +797,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                                 {
                                     _reader.Read();
                                     string nodeValue = _reader.Value;
-                                    rule.SetProperty<string>(groupName, nodeValue);
+                                    rule.SetProperty(groupName, nodeValue);
                                     _reader.Read();
                                     break;
                                 }

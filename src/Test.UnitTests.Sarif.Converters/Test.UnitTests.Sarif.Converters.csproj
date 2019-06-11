@@ -14,9 +14,9 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
-    <None Remove="TestData\FortifyFprConverter\ExpectedOutputs\SdkScan.sarif" />
-    <None Remove="TestData\FortifyFprConverter\Inputs\SdkScan.fpr" />
-    <None Remove="TestData\FortifyFprConverter\Inputs\SdkScan.fvdl" />
+    <None Remove="TestData\FortifyFprConverter\ExpectedOutputs\ScanWithFailureLevelMatrices.sarif" />
+    <None Remove="TestData\FortifyFprConverter\Inputs\ScanWithFailureLevelMatrices.fpr" />
+    <None Remove="TestData\FortifyFprConverter\Inputs\ScanWithFailureLevelMatrices.fvdl" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,12 +32,12 @@
   <ItemGroup>
     <EmbeddedResource Include="TestData\FortifyFprConverter\ExpectedOutputs\OneResultBasic.sarif" />
     <EmbeddedResource Include="TestData\FortifyFprConverter\ExpectedOutputs\OneResultWithTwoTraces.sarif" />
-    <EmbeddedResource Include="TestData\FortifyFprConverter\ExpectedOutputs\SdkScan.sarif" />
+    <EmbeddedResource Include="TestData\FortifyFprConverter\ExpectedOutputs\ScanWithFailureLevelMatrices.sarif" />
     <EmbeddedResource Include="TestData\FortifyFprConverter\ExpectedOutputs\TwoResultsWithNodeRefs.sarif" />
     <EmbeddedResource Include="TestData\FortifyFprConverter\Inputs\OneResultBasic.fpr" />
     <EmbeddedResource Include="TestData\FortifyFprConverter\Inputs\OneResultWithTwoTraces.fpr" />
-    <EmbeddedResource Include="TestData\FortifyFprConverter\Inputs\SdkScan.fpr" />
-    <EmbeddedResource Include="TestData\FortifyFprConverter\Inputs\SdkScan.fvdl" />
+    <EmbeddedResource Include="TestData\FortifyFprConverter\Inputs\ScanWithFailureLevelMatrices.fpr" />
+    <EmbeddedResource Include="TestData\FortifyFprConverter\Inputs\ScanWithFailureLevelMatrices.fvdl" />
     <EmbeddedResource Include="TestData\FortifyFprConverter\Inputs\TwoResultsWithNodeRefs.fpr" />
   </ItemGroup>
 
