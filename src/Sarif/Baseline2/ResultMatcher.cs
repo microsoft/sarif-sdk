@@ -37,10 +37,10 @@ namespace SecretScan.Telemetry.ResultMatching
         {
             // Sort results by 'Where' for matching
             Before = new List<ExtractedResult>(before);
-            Before.Sort(ResultWhereComparer.Instance);
+            Before.Sort(WhereComparer.Instance);
 
             After = new List<ExtractedResult>(after);
-            After.Sort(ResultWhereComparer.Instance);
+            After.Sort(WhereComparer.Instance);
 
             // Set all match indices to -1 initially (no Results matched)
             MatchingIndexFromBefore = new int[Before.Count];
@@ -79,7 +79,7 @@ namespace SecretScan.Telemetry.ResultMatching
                 ExtractedResult left = Before[beforeIndex];
                 ExtractedResult right = After[afterIndex];
 
-                int whereCmp = left.CompareToWhere(right);
+                int whereCmp = WhereComparer.CompareWhere(left, right);
                 if (whereCmp < 0)
                 {
                     // Left is in a 'Where' before Right - look at the next Result in 'Before'
