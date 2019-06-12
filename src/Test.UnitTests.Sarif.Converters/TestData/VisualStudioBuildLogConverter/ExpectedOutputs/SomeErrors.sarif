@@ -6,12 +6,12 @@
       "results": [
         {
           "message": {
-            "text": "fileName: 'VisualStudioBuildLogConverterTests.cs', region: '30,35', level: 'error', ruleId: 'CS1026', message: ': ) expected [c:\\dev\\sarif\\sarif-sdk\\src\\Test.UnitTests.Sarif.Converters\\Test.UnitTests.Sarif.Converters.csproj]'"
+            "text": "fileName: 'VisualStudioBuildLogConverterTests.cs', region: '30,35', level: 'error', ruleId: 'CS1026', message: ') expected [c:\\dev\\sarif\\sarif-sdk\\src\\Test.UnitTests.Sarif.Converters\\Test.UnitTests.Sarif.Converters.csproj]'"
           }
         },
         {
           "message": {
-            "text": "fileName: 'VisualStudioBuildLogConverterTests.cs', region: '36,38', level: 'error', ruleId: 'CS1002', message: ': ; expected [c:\\dev\\sarif\\sarif-sdk\\src\\Test.UnitTests.Sarif.Converters\\Test.UnitTests.Sarif.Converters.csproj]'"
+            "text": "fileName: 'VisualStudioBuildLogConverterTests.cs', region: '36,38', level: 'error', ruleId: 'CS1002', message: '; expected [c:\\dev\\sarif\\sarif-sdk\\src\\Test.UnitTests.Sarif.Converters\\Test.UnitTests.Sarif.Converters.csproj]'"
           }
         }
       ],

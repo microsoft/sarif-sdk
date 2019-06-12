@@ -60,12 +60,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             (?<fileName>[^(]+)
             \(
             (?<region>[^)]+)
-            \):
-            \s*
+            \)
+            \s*:\s*
             (?<level>[^\s]+)
             \s+
             (?<ruleId>[^\s:]+)
-            \s*
+            \s*:\s*
             (?<message>.*)
             $";
 
