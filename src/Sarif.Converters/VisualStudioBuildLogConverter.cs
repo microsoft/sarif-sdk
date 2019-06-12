@@ -93,11 +93,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return new Result
             {
                 RuleId = ruleId,
+                Level = GetFailureLevelFrom(level),
                 Message = new Message
                 {
                     Text = message
                 }
             };
+        }
+
+        private static FailureLevel GetFailureLevelFrom(string level)
+        {
+            switch (level)
+            {
+                case "note": return FailureLevel.Note;
+                case "warning": return FailureLevel.Warning;
+                case "error": return FailureLevel.Error;
+                default: return FailureLevel.Warning;
+            }
         }
     }
 }

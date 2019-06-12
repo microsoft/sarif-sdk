@@ -6,12 +6,14 @@
       "results": [
         {
           "ruleId": "CS1026",
+          "level": "error",
           "message": {
             "text": ") expected [c:\\dev\\sarif\\sarif-sdk\\src\\Test.UnitTests.Sarif.Converters\\Test.UnitTests.Sarif.Converters.csproj]"
           }
         },
         {
           "ruleId": "CS1002",
+          "level": "error",
           "message": {
             "text": "; expected [c:\\dev\\sarif\\sarif-sdk\\src\\Test.UnitTests.Sarif.Converters\\Test.UnitTests.Sarif.Converters.csproj]"
           }
