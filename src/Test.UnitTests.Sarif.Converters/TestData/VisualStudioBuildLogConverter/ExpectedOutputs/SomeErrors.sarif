@@ -47,6 +47,26 @@
           ]
         },
         {
+          "ruleId": "CS1111",
+          "level": "note",
+          "message": {
+            "text": "This is a note."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "StartLineOnlyRegion.cs",
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 83
+                }
+              }
+            }
+          ]
+        },
+        {
           "ruleId": "CS2222",
           "level": "warning",
           "message": {
@@ -57,7 +77,7 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "StartLineEndLineRegion.cs",
-                  "index": 1
+                  "index": 2
                 },
                 "region": {
                   "startLine": 42,
@@ -83,8 +103,15 @@
         },
         {
           "location": {
-            "uri": "StartLineEndLineRegion.cs",
+            "uri": "StartLineOnlyRegion.cs",
             "index": 1
+          },
+          "mimeType": "text/x-csharp"
+        },
+        {
+          "location": {
+            "uri": "StartLineEndLineRegion.cs",
+            "index": 2
           },
           "mimeType": "text/x-csharp"
         }

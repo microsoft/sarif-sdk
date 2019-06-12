@@ -16,4 +16,5 @@ VisualStudioBuildLogConverterTests.cs(36,38): error CS1002: ; expected [c:\dev\s
 VisualStudioBuildLogConverterTests.cs(30,35): error CS1026: ) expected [c:\dev\sarif\sarif-sdk\src\Test.UnitTests.Sarif.Converters\Test.UnitTests.Sarif.Converters.csproj]
 VisualStudioBuildLogConverterTests.cs(36,38): error CS1002: ; expected [c:\dev\sarif\sarif-sdk\src\Test.UnitTests.Sarif.Converters\Test.UnitTests.Sarif.Converters.csproj]
 
+StartLineOnlyRegion.cs(83): info CS1111: This is a note.
 StartLineEndLineRegion.cs(42-54): warning CS2222: This is a warning.

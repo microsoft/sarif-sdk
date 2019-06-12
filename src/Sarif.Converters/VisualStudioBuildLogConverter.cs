@@ -116,7 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             switch (level)
             {
-                case "note": return FailureLevel.Note;
+                case "info": return FailureLevel.Note;
                 case "warning": return FailureLevel.Warning;
                 case "error": return FailureLevel.Error;
                 default: return FailureLevel.Warning;
@@ -130,6 +130,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         //    (startLine,startColumn-endColumn)
         //    (startLine,startColumn,endLine,endColumn)
 
+        private const string StartLineStartOnlyPattern = @"^(?<startLine>\d+)$";
+        private static readonly Regex s_startLineOnlyRegex = RegexFromPattern(StartLineStartOnlyPattern);
+
         private const string StartLineStartColumnPattern = @"^(?<startLine>\d+),(?<startColumn>\d+)$";
         private static readonly Regex s_startLineStartColumnRegex = RegexFromPattern(StartLineStartColumnPattern);
 
@@ -142,6 +145,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Match match;
             int startLine, startColumn, endLine;
 
+            // Try the startLine,startColumn pattern first because it's the most common.
             match = s_startLineStartColumnRegex.Match(regionString);
             if (match.Success)
             {
@@ -153,6 +157,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     StartLine = startLine,
                     StartColumn = startColumn
                 };
+            }
+
+            if (region == null)
+            {
+                match = s_startLineOnlyRegex.Match(regionString);
+                if (match.Success)
+                {
+                    startLine = Int32.Parse(match.Groups["startLine"].Value);
+
+                    region = new Region
+                    {
+                        StartLine = startLine
+                    };
+                }
             }
 
             if (region == null)
