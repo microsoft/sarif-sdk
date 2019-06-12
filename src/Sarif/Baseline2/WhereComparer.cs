@@ -15,10 +15,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
         public static int CompareWhere(ExtractedResult left, ExtractedResult right)
         {
-            return Compare(left?.Result?.Locations, left?.OriginalRun, right?.Result?.Locations, right?.OriginalRun);
+            return CompareTo(left?.Result?.Locations, left?.OriginalRun, right?.Result?.Locations, right?.OriginalRun);
         }
 
-        public static int Compare(IList<Location> left, Run leftRun, IList<Location> right, Run rightRun)
+        public static int CompareTo(IList<Location> left, Run leftRun, IList<Location> right, Run rightRun)
         {
             if (left == null && right == null) { return 0; }
             if (left == null) { return -1; }
@@ -27,14 +27,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             int commonLength = Math.Min(left.Count, right.Count);
             for (int i = 0; i < commonLength; ++i)
             {
-                int cmp = Compare(left[i], leftRun, right[i], rightRun);
+                int cmp = CompareTo(left[i], leftRun, right[i], rightRun);
                 if (cmp != 0) { return cmp; }
             }
 
             return left.Count.CompareTo(right.Count);
         }
 
-        public static int Compare(Location left, Run leftRun, Location right, Run rightRun)
+        public static int CompareTo(Location left, Run leftRun, Location right, Run rightRun)
         {
             int cmp = 0;
 
@@ -43,21 +43,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             if (right == null) { return 1; }
 
             // Compare by Physical Location, if present
-            cmp = Compare(left.PhysicalLocation, leftRun, right.PhysicalLocation, rightRun);
+            cmp = CompareTo(left.PhysicalLocation, leftRun, right.PhysicalLocation, rightRun);
             if (cmp != 0) { return cmp; }
 
             // Compare by 'primary' Logical Location, if present
-            cmp = Compare(left.LogicalLocation, leftRun, right.LogicalLocation, rightRun);
+            cmp = CompareTo(left.LogicalLocation, leftRun, right.LogicalLocation, rightRun);
             if (cmp != 0) { return cmp; }
 
             // Compare by all Logical Locations, if present
-            cmp = Compare(left.LogicalLocations, leftRun, right.LogicalLocations, rightRun);
+            cmp = CompareTo(left.LogicalLocations, leftRun, right.LogicalLocations, rightRun);
             if (cmp != 0) { return cmp; }
 
             return cmp;
         }
 
-        public static int Compare(IList<LogicalLocation> left, Run leftRun, IList<LogicalLocation> right, Run rightRun)
+        public static int CompareTo(IList<LogicalLocation> left, Run leftRun, IList<LogicalLocation> right, Run rightRun)
         {
             if (left == null && right == null) { return 0; }
             if (left == null) { return -1; }
@@ -66,23 +66,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             int commonLength = Math.Min(left.Count, right.Count);
             for (int i = 0; i < commonLength; ++i)
             {
-                int cmp = Compare(left[i], leftRun, right[i], rightRun);
+                int cmp = CompareTo(left[i], leftRun, right[i], rightRun);
                 if (cmp != 0) { return cmp; }
             }
 
             return left.Count.CompareTo(right.Count);
         }
 
-        public static int Compare(LogicalLocation left, Run leftRun, LogicalLocation right, Run rightRun)
+        public static int CompareTo(LogicalLocation left, Run leftRun, LogicalLocation right, Run rightRun)
         {
             // Look up LogicalLocations if these are indices only
             left = Resolve(left, leftRun);
             right = Resolve(right, rightRun);
 
-            return String.Compare(left.FullyQualifiedName, right.FullyQualifiedName);
+            return String.Compare(left?.FullyQualifiedName, right?.FullyQualifiedName);
         }
 
-        public static int Compare(PhysicalLocation left, Run leftRun, PhysicalLocation right, Run rightRun)
+        public static int CompareTo(PhysicalLocation left, Run leftRun, PhysicalLocation right, Run rightRun)
         {
             int cmp = 0;
 
@@ -91,25 +91,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             if (right == null) { return 1; }
 
             // Compare Uris first
-            cmp = Compare(left.ArtifactLocation, leftRun, right.ArtifactLocation, rightRun);
+            cmp = CompareTo(left.ArtifactLocation, leftRun, right.ArtifactLocation, rightRun);
             if (cmp != 0) { return cmp; }
 
             // Compare Region if Uris match
-            cmp = Compare(left.Region, right.Region);
+            cmp = CompareTo(left.Region, right.Region);
             if (cmp != 0) { return cmp; }
 
             return 0;
         }
 
-        public static int Compare(ArtifactLocation left, Run leftRun, ArtifactLocation right, Run rightRun)
+        public static int CompareTo(ArtifactLocation left, Run leftRun, ArtifactLocation right, Run rightRun)
         {
-            return Compare(ArtifactUri(left, leftRun), ArtifactUri(right, rightRun));
+            return CompareTo(ArtifactUri(left, leftRun), ArtifactUri(right, rightRun));
         }
 
         /// <summary>
         ///  Compare Regions for 'where' sorting. Does not compare snippets or messages.
         /// </summary>
-        public static int Compare(Region left, Region right)
+        public static int CompareTo(Region left, Region right)
         {
             int cmp = 0;
 
@@ -144,7 +144,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             return cmp;
         }
 
-        public static int Compare(Uri left, Uri right)
+        public static int CompareTo(Uri left, Uri right)
         {
             if (left == null && right == null) { return 0; }
             if (left == null) { return -1; }
@@ -155,7 +155,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
         private static Uri ArtifactUri(ArtifactLocation loc, Run run)
         {
-            return Resolve(loc, run)?.Uri;
+            return loc?.Uri ?? Resolve(loc, run)?.Uri;
         }
 
         private static LogicalLocation Resolve(LogicalLocation loc, Run run)
