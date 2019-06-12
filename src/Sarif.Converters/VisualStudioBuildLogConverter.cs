@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 Message = new Message
                 {
-                    Text = $"fileName: '{fileName}', region: '{region}', level: '{level}', ruleId: '{ruleId}', message: '{message}'"
+                    Text = message
                 }
             };
         }
