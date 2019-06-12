@@ -25,6 +25,7 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
         [Fact]
         public void JSON1001_SyntaxError()
             => RunTest("JSON1001.SyntaxError.sarif");
+
         [Fact]
         public void JSON1002_DeserializationError()
             => RunTest("JSON1002.DeserializationError.sarif");

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.2.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "CodeScanner",
+          "rules": [
+            {
+              "id": "TEST099",
+              "name": "Check fails.",
+              "fullDescription": {
+                "text": "<p>Check really fails.</p>"
+              }
+            }
+          ]
+        }
+      },
+      "invocations": [
+        {
+          "startTimeUtc": "2018-05-02T06:47:18.794Z",
+          "endTimeUtc": "2018-05-02T07:02:37.638Z",
+          "executionSuccessful": true,
+          "properties": {
+            "scanConfigurationId": 102020,
+            "rootUrls": [
+              "https://example.com/"
+            ]
+          }
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "TEST099",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "text": "Check fails."
+          },
+          "locations": []
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

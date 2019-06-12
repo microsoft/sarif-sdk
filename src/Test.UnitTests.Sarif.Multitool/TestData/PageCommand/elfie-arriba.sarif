@@ -140,7 +140,7 @@
         },
         {
           "ruleId": "CSCAN0060/0",
-          "level": "error",
+          "level": "warning",
           "message": null,
           "locations": [
             {

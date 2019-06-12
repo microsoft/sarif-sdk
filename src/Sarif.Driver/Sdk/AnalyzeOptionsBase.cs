@@ -21,7 +21,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         public string OutputFilePath { get; set; }
 
         [Option(
-            'v',
             "verbose",
             HelpText = "Emit verbose output. The resulting comprehensive report is designed to provide appropriate evidence for compliance scenarios.")]
         public bool Verbose { get; set; }

@@ -14,13 +14,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     internal class TransformCommand : CommandBase
     {
-        private readonly bool _testing;
         private readonly IFileSystem _fileSystem;
 
-        public TransformCommand(IFileSystem fileSystem = null, bool testing = false)
+        public TransformCommand(IFileSystem fileSystem = null)
         {
             _fileSystem = fileSystem ?? new FileSystem();
-            _testing = testing;
         }
 
         public int Run(TransformOptions transformOptions)
@@ -121,14 +119,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private string SniffVersion(string sarifPath)
         {
-            // When we're unit-testing, we'll retrieve a string representation of the file contents and pass this
-            // to a stream reader instance. We take this approach to prevent the need to load a potentially large file
-            // all at once in the production code.
-            TextReader textReader = _testing 
-                ? new StreamReader(new MemoryStream(Encoding.UTF8.GetBytes(_fileSystem.ReadAllText(sarifPath)))) 
-                : new StreamReader(sarifPath);
-
-            using (JsonTextReader reader = new JsonTextReader(textReader))
+            using (JsonTextReader reader = new JsonTextReader(new StreamReader(_fileSystem.OpenRead(sarifPath))))
             {
                 while (reader.Read())
                 {
@@ -139,6 +130,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     }
                 }
             }
+
             return null;
         }
     }

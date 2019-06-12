@@ -3,37 +3,37 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-
     public abstract class CommandBase
     {
         public static T ReadSarifFile<T>(IFileSystem fileSystem, string filePath, IContractResolver contractResolver = null)
         {
-            string logText = fileSystem.ReadAllText(filePath);
+            var serializer = new JsonSerializer() { ContractResolver = contractResolver };
 
-            var settings = new JsonSerializerSettings
+            using (JsonTextReader reader = new JsonTextReader(new StreamReader(fileSystem.OpenRead(filePath))))
             {
-                ContractResolver = contractResolver,
-            };
-
-
-            return JsonConvert.DeserializeObject<T>(logText, settings);
+                return serializer.Deserialize<T>(reader);
+            }
         }
 
         public static void WriteSarifFile<T>(IFileSystem fileSystem, T sarifFile, string outputName, Formatting formatting = Formatting.None, IContractResolver contractResolver = null)
         {
-            var settings = new JsonSerializerSettings
+            var serializer = new JsonSerializer()
             {
                 ContractResolver = contractResolver,
                 Formatting = formatting
             };
 
-            fileSystem.WriteAllText(outputName, JsonConvert.SerializeObject(sarifFile, settings));
+            using (JsonTextWriter writer = new JsonTextWriter(new StreamWriter(fileSystem.Create(outputName))))
+            {
+                serializer.Serialize(writer, sarifFile);
+            }
         }
 
         public static HashSet<string> CreateTargetsSet(IEnumerable<string> targetSpecifiers, bool recurse)

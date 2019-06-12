@@ -143,7 +143,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
             else
             {
-                string schemaResource = "Microsoft.CodeAnalysis.Sarif.Multitool.sarif-2.1.0-rtm.1.json";
+                string schemaResource = "Microsoft.CodeAnalysis.Sarif.Multitool.sarif-2.1.0-rtm.2.json";
 
                 using (Stream stream = this.GetType().Assembly.GetManifestResourceStream(schemaResource))
                 using (StreamReader reader = new StreamReader(stream))

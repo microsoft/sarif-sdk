@@ -121,6 +121,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             _nodeDictionary.Clear();
             _snippetDictionary.Clear();
 
+            // Uncomment following Line to fetch FVDL content from any FPR file. This is not needed for conversion.
+            // However, we keep a copy of FVDL for each test file for debugging purposes.
+            // string fvdlContent = ExtractFvdl(OpenAuditFvdlReader(input));
+
             // Parse everything except vulnerabilities (building maps to write Results as-we-go next pass)
             ParseAuditStream_PassOne(OpenAuditFvdlReader(input));
 
@@ -139,6 +143,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // Close the Results array
             output.CloseResults();
+        }
+
+        private string ExtractFvdl(XmlReader reader)
+        {
+            string output;
+            using (reader)
+            {
+                // Moves the reader to the root element.
+                reader.MoveToContent();
+                output = reader.ReadOuterXml();
+            }
+            return output;
         }
 
         private Run CreateSarifRun()
@@ -436,6 +452,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     rule = FindOrCreateRule(ruleId, out ruleIndex);
 
                     result.RuleIndex = ruleIndex;
+                    result.Level = GetFailureLevelFromRuleMetadata(rule);
                 }
                 else if (AtStartOfNonEmpty(_strings.Kingdom))
                 {
@@ -448,13 +465,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 else if (AtStartOfNonEmpty(_strings.Subtype))
                 {
                     rule.SetProperty(_strings.Subtype, _reader.ReadElementContentAsString());
-                }
-                else if (AtStartOfNonEmpty(_strings.InstanceSeverity))
-                {
-                    if (double.TryParse(_reader.ReadElementContentAsString(), out double rank))
-                    {
-                        result.Rank = rank;
-                    }
                 }
                 else if (AtStartOfNonEmpty(_strings.ReplacementDefinitions))
                 {
@@ -475,6 +485,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             // Write the Result out (don't keep in memory)
             output.WriteResult(result);
+        }
+
+        internal static FailureLevel GetFailureLevelFromRuleMetadata(ReportingDescriptor rule)
+        {
+            // High impact - ["5.0", "3.0") OR any value higher than 5.0 (technically invalid, but we forgive!) => Error
+            // Medium impact - ["3.0", "1.0") => Warning
+            // Low impact - ["1.0", "0,0"] => Note
+            // Negative value or no value => Warning (i.e. treated as no value provided, SARIF defaults this to "Warning").
+
+            if (rule.TryGetProperty("Impact", out string impactValue))
+            {
+                if (float.TryParse(impactValue, out float impact))
+                {
+                    if (impact > 3.0)
+                    {
+                        return FailureLevel.Error;
+                    }
+
+                    if (impact > 1.0)
+                    {
+                        return FailureLevel.Warning;
+                    }
+
+                    if (impact >= 0.0)
+                    {
+                        return FailureLevel.Note;
+                    }
+                }
+            }
+            return FailureLevel.Warning; // Default value for Result.Level.
         }
 
         private void ParseLocationsFromTraces(Result result)
@@ -751,7 +791,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             string groupName = _reader.GetAttribute(_strings.NameAttribute);
                             switch (groupName)
                             {
+                                case "Accuracy":
+                                case "Impact":
+                                case "Probability":
+                                {
+                                    _reader.Read();
+                                    string nodeValue = _reader.Value;
+                                    rule.SetProperty(groupName, nodeValue);
+                                    _reader.Read();
+                                    break;
+                                }
                                 case "altcategoryCWE":
+                                {
                                     string nodeValue = _reader.ReadElementContentAsString();
 
                                     if (!string.IsNullOrWhiteSpace(nodeValue))
@@ -777,14 +828,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                                                     }
                                                 },
                                                 Kinds = new List<string>
-                                                {
-                                                    "relevant"
-                                                }
+                                            {
+                                                "relevant"
+                                            }
                                             });
                                         }
                                     }
 
                                     break;
+                                }
                             }
                         }
                     }

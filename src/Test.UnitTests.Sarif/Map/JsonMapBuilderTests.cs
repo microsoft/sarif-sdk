@@ -2,7 +2,6 @@
 // Licensed under the MIT License.
 
 using System.IO;
-using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Sarif.Map
