@@ -92,6 +92,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             return new Result
             {
+                RuleId = ruleId,
                 Message = new Message
                 {
                     Text = message

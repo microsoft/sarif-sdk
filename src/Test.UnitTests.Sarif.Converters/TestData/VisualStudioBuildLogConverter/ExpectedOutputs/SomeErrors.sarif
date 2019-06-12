@@ -5,11 +5,13 @@
     {
       "results": [
         {
+          "ruleId": "CS1026",
           "message": {
             "text": ") expected [c:\\dev\\sarif\\sarif-sdk\\src\\Test.UnitTests.Sarif.Converters\\Test.UnitTests.Sarif.Converters.csproj]"
           }
         },
         {
+          "ruleId": "CS1002",
           "message": {
             "text": "; expected [c:\\dev\\sarif\\sarif-sdk\\src\\Test.UnitTests.Sarif.Converters\\Test.UnitTests.Sarif.Converters.csproj]"
           }
