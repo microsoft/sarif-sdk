@@ -16,9 +16,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
         [Fact]
         public void PartialFingerprintResultMatcher_WithoutPartialFingerprints_DoesNotMatch()
         {
-            ExtractedResult resultA = new ExtractedResult() { Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test1", "file://test2", null) };
-
-            ExtractedResult resultB = new ExtractedResult() { Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test3", "file://test4", null) };
+            ExtractedResult resultA = new ExtractedResult(ResultMatchingTestHelpers.CreateMatchingResult("file://test1", "file://test2", null), null);
+            ExtractedResult resultB = new ExtractedResult(ResultMatchingTestHelpers.CreateMatchingResult("file://test3", "file://test4", null), null);
 
             IEnumerable<MatchedResults> matchedResults = matcher.Match(new List<ExtractedResult>() { resultA }, new List<ExtractedResult>() { resultB });
 
@@ -28,11 +27,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
         [Fact]
         public void PartialFingerprintResultMatcher_DifferentPartialFingerprints_DoesNotMatch()
         {
-            ExtractedResult resultA = new ExtractedResult() { Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test1", "file://test2", null) };
+            ExtractedResult resultA = new ExtractedResult(ResultMatchingTestHelpers.CreateMatchingResult("file://test1", "file://test2", null), null);
 
             resultA.Result.PartialFingerprints = new Dictionary<string, string>() { { "Fingerprint1", "Value1" } };
 
-            ExtractedResult resultB = new ExtractedResult() { Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test3", "file://test4", null) };
+            ExtractedResult resultB = new ExtractedResult(ResultMatchingTestHelpers.CreateMatchingResult("file://test3", "file://test4", null), null);
             
             resultA.Result.PartialFingerprints = new Dictionary<string, string>() { { "Fingerprint1", "Value2" } };
 
@@ -44,11 +43,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
         [Fact]
         public void PartialFingerprintResultMatcher_SamePartialFingerprints_Matches()
         {
-            ExtractedResult resultA = new ExtractedResult() { Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test1", "file://test2", null) };
+            ExtractedResult resultA = new ExtractedResult(ResultMatchingTestHelpers.CreateMatchingResult("file://test1", "file://test2", null), null);
 
             resultA.Result.PartialFingerprints = new Dictionary<string, string>() { { "Fingerprint1", "Value1" } };
 
-            ExtractedResult resultB = new ExtractedResult() { Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test3", "file://test4", null) };
+            ExtractedResult resultB = new ExtractedResult(ResultMatchingTestHelpers.CreateMatchingResult("file://test3", "file://test4", null), null);
             
             resultA.Result.PartialFingerprints = new Dictionary<string, string>() { { "Fingerprint1", "Value1" } };
 

@@ -14,6 +14,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         public bool ShouldSerializeLevel() { return this.Level != FailureLevel.Warning; }
 
         /// <summary>
+        ///  Resolve the RuleId for this Result, from direct properties or via Run.Rules lookup.
+        /// </summary>
+        /// <param name="run">Run containing this Result</param>
+        /// <returns>RuleId of this Result</returns>
+        public string ResolvedRuleId(Run run)
+        {
+            return RuleId ?? Rule?.Id ?? GetRule(run)?.Id;
+        }
+
+        /// <summary>
         ///  Look up the ReportingDescriptor for this Result.
         /// </summary>
         /// <param name="run">Run instance containing this Result</param>

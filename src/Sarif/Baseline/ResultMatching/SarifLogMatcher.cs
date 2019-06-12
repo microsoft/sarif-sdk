@@ -175,7 +175,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 {
                     foreach (Result result in run.Results)
                     {
-                        results.Add(new ExtractedResult() { Result = result, OriginalRun = run });
+                        results.Add(new ExtractedResult(result, run));
                     }
                 }
             }

@@ -23,15 +23,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             resultA.Fingerprints = new Dictionary<string, string>() { { "FingerprintAlgorithm1", "FingerprintValue1" }, { "FingerprintAlgorithm2", "FingerprintValue2" } };
             resultB.Fingerprints = new Dictionary<string, string>() { { "FingerprintAlgorithm1", "FingerprintValue1" }};
 
-            ExtractedResult matchingResultA = new ExtractedResult()
-            {
-                Result = resultA
-            };
-            ExtractedResult matchingResultB = new ExtractedResult()
-            {
-                Result = resultB
-            };
-        
+            ExtractedResult matchingResultA = new ExtractedResult(resultA, null);
+            ExtractedResult matchingResultB = new ExtractedResult(resultB, null);
 
             IEnumerable<MatchedResults> matchedResults = matcher.Match(new ExtractedResult[] { matchingResultA }, new ExtractedResult[] { matchingResultB });
 
@@ -49,14 +42,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.ExactMatchers
             resultA.Fingerprints = new Dictionary<string, string>() { { "FingerprintAlgorithm1", "FingerprintValue1" }, { "FingerprintAlgorithm2", "FingerprintValue2" } };
             resultB.Fingerprints = new Dictionary<string, string>() { { "FingerprintAlgorithm1", "FingerprintValue3" }, { "FingerprintAlgorithm2", "FingerprintValue4" } };
 
-            ExtractedResult matchingResultA = new ExtractedResult()
-            {
-                Result = resultA
-            };
-            ExtractedResult matchingResultB = new ExtractedResult()
-            {
-                Result = resultB
-            };
+            ExtractedResult matchingResultA = new ExtractedResult(resultA, null);
+            ExtractedResult matchingResultB = new ExtractedResult(resultB, null);
             
             IEnumerable<MatchedResults> matchedResults = matcher.Match(new ExtractedResult[] { matchingResultA }, new ExtractedResult[] { matchingResultB });
 

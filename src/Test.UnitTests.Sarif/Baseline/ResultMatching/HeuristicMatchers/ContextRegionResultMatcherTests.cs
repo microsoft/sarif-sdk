@@ -16,9 +16,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
         [Fact]
         public void ContextRegionHeuristicMatcher_NoRegion_DoesNotMatchResults()
         {
-            ExtractedResult resultA = new ExtractedResult() { Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test1", "file://test2", null, null) };
-
-            ExtractedResult resultB = new ExtractedResult() { Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test3", "file://test4", null, null) };
+            ExtractedResult resultA = new ExtractedResult(ResultMatchingTestHelpers.CreateMatchingResult("file://test1", "file://test2", null, null), null);
+            ExtractedResult resultB = new ExtractedResult(ResultMatchingTestHelpers.CreateMatchingResult("file://test3", "file://test4", null, null), null);
 
             IEnumerable<MatchedResults> matchedResults = matcher.Match(new List<ExtractedResult>() { resultA }, new List<ExtractedResult>() { resultB });
 
@@ -28,9 +27,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
         [Fact]
         public void ContextRegionHeuristicMatcher_DifferentRegion_DoesNotMatchResults()
         {
-            ExtractedResult resultA = new ExtractedResult() { Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test1", "file://test2", null, "test one") };
-
-            ExtractedResult resultB = new ExtractedResult() { Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test3", "file://test4", null, "test two") };
+            ExtractedResult resultA = new ExtractedResult(ResultMatchingTestHelpers.CreateMatchingResult("file://test1", "file://test2", null, "test one"), null);
+            ExtractedResult resultB = new ExtractedResult(ResultMatchingTestHelpers.CreateMatchingResult("file://test3", "file://test4", null, "test two"), null);
 
             IEnumerable<MatchedResults> matchedResults = matcher.Match(new List<ExtractedResult>() { resultA }, new List<ExtractedResult>() { resultB });
 
@@ -41,9 +39,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching.HeuristicMatchers
         [Fact]
         public void ContextRegionHeuristicMatcher_SameRegion_MatchesResults()
         {
-            ExtractedResult resultA = new ExtractedResult() { Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test1", "file://test2", null, "region contents") };
-
-            ExtractedResult resultB = new ExtractedResult() { Result = ResultMatchingTestHelpers.CreateMatchingResult("file://test3", "file://test4", null, "region contents") };
+            ExtractedResult resultA = new ExtractedResult(ResultMatchingTestHelpers.CreateMatchingResult("file://test1", "file://test2", null, "region contents"), null);
+            ExtractedResult resultB = new ExtractedResult(ResultMatchingTestHelpers.CreateMatchingResult("file://test3", "file://test4", null, "region contents"), null);
 
             IEnumerable<MatchedResults> matchedResults = matcher.Match(new List<ExtractedResult>() { resultA }, new List<ExtractedResult>() { resultB });
 
