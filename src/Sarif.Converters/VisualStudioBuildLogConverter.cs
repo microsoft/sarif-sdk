@@ -56,10 +56,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private const string ErrorLinePattern = @"
             ^
-            (?<fileName>[^(]*)
+            \s*
+            (?<fileName>[^(]+)
             \(
             (?<region>[^)]+)
-            \): ";
+            \):
+            \s*
+            (?<level>[^\s]+)
+            \s+
+            (?<ruleId>[^\s:]+)
+            \s*
+            (?<message>.*)
+            $";
 
         private static readonly Regex s_errorLineRegex =
             new Regex(ErrorLinePattern,
@@ -76,11 +84,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             if (s_lineHashes.Contains(line)) { return null; }
             s_lineHashes.Add(line);
 
+            string fileName = match.Groups["fileName"].Value;
+            string region = match.Groups["region"].Value;
+            string level = match.Groups["level"].Value;
+            string ruleId = match.Groups["ruleId"].Value;
+            string message = match.Groups["message"].Value;
+
             return new Result
             {
                 Message = new Message
                 {
-                    Text = line
+                    Text = $"fileName: '{fileName}', region: '{region}', level: '{level}', ruleId: '{ruleId}', message: '{message}'"
                 }
             };
         }
