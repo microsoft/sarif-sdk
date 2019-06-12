@@ -45,6 +45,27 @@
               }
             }
           ]
+        },
+        {
+          "ruleId": "CS2222",
+          "level": "warning",
+          "message": {
+            "text": "This is a warning."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "StartLineEndLineRegion.cs",
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 42,
+                  "endLine": 54
+                }
+              }
+            }
+          ]
         }
       ],
       "tool": {
@@ -57,6 +78,13 @@
           "location": {
             "uri": "VisualStudioBuildLogConverterTests.cs",
             "index": 0
+          },
+          "mimeType": "text/x-csharp"
+        },
+        {
+          "location": {
+            "uri": "StartLineEndLineRegion.cs",
+            "index": 1
           },
           "mimeType": "text/x-csharp"
         }
