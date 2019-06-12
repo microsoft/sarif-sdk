@@ -32,6 +32,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         public bool MatchesCategory(ExtractedResult other)
         {
             return this.RuleId == other.RuleId;
+
+            // Tool (checked on Runs beforehand)
+            // Consider: CorrelationGuid, Level, Rank?
         }
 
         /// <summary>
@@ -41,23 +44,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         /// <returns>True if *any* 'What' property matches, False otherwise</returns>
         public bool MatchesWhat(ExtractedResult other)
         {
-            if (this?.Result?.Fingerprints != null && other?.Result?.Fingerprints != null)
-            {
-                foreach (string fingerprintName in this.Result.Fingerprints.Keys)
-                {
-                    if (other.Result.Fingerprints.TryGetValue(fingerprintName, out string otherValue))
-                    {
-                        if (this.Result.Fingerprints[fingerprintName] == otherValue) { return true; }
-                    }
-                }
-            }
-
-            if (this?.Result?.Message?.Text == other?.Result?.Message?.Text)
-            {
-                return true;
-            }
-
-            return false;
+            return WhatComparer.MatchesWhat(this, other);
         }
 
         /// <summary>
