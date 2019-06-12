@@ -18,3 +18,4 @@ VisualStudioBuildLogConverterTests.cs(36,38): error CS1002: ; expected [c:\dev\s
 
 StartLineOnlyRegion.cs(83): info CS1111: This is a note.
 StartLineEndLineRegion.cs(42-54): warning CS2222: This is a warning.
+StartLineStartColumnEndColumnRegion.cs(17,42-54): warning CS3333: This is another warning.

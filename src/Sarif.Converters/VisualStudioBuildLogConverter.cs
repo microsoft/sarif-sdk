@@ -133,17 +133,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private const string StartLineStartOnlyPattern = @"^(?<startLine>\d+)$";
         private static readonly Regex s_startLineOnlyRegex = RegexFromPattern(StartLineStartOnlyPattern);
 
-        private const string StartLineStartColumnPattern = @"^(?<startLine>\d+),(?<startColumn>\d+)$";
-        private static readonly Regex s_startLineStartColumnRegex = RegexFromPattern(StartLineStartColumnPattern);
-
         private const string StartLineEndLinePattern = @"^(?<startLine>\d+)-(?<endLine>\d+)$";
         private static readonly Regex s_startLineEndLineRegex = RegexFromPattern(StartLineEndLinePattern);
 
+        private const string StartLineStartColumnPattern = @"^(?<startLine>\d+),(?<startColumn>\d+)$";
+        private static readonly Regex s_startLineStartColumnRegex = RegexFromPattern(StartLineStartColumnPattern);
+
+        private const string StartLineStartColumEndColumnPattern = @"^(?<startLine>\d+),(?<startColumn>\d+)-(?<endColumn>\d+)$";
+        private static readonly Regex s_startLineStartColumnEndColumnRegex = RegexFromPattern(StartLineStartColumEndColumnPattern);
+
         private static Region GetRegionFrom(string regionString)
         {
-            Region region = null;
+            int startLine, startColumn, endLine, endColumn;
             Match match;
-            int startLine, startColumn, endLine;
+            Region region = null;
 
             // Try the startLine,startColumn pattern first because it's the most common.
             match = s_startLineStartColumnRegex.Match(regionString);
@@ -185,6 +188,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         StartLine = startLine,
                         EndLine = endLine
+                    };
+                }
+            }
+
+            if (region == null)
+            {
+                match = s_startLineStartColumnEndColumnRegex.Match(regionString);
+                if (match.Success)
+                {
+                    startLine = Int32.Parse(match.Groups["startLine"].Value);
+                    startColumn = Int32.Parse(match.Groups["startColumn"].Value);
+                    endColumn = Int32.Parse(match.Groups["endColumn"].Value);
+
+                    region = new Region
+                    {
+                        StartLine = startLine,
+                        StartColumn = startColumn,
+                        EndColumn = endColumn
                     };
                 }
             }

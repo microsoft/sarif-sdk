@@ -86,6 +86,28 @@
               }
             }
           ]
+        },
+        {
+          "ruleId": "CS3333",
+          "level": "warning",
+          "message": {
+            "text": "This is another warning."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "StartLineStartColumnEndColumnRegion.cs",
+                  "index": 3
+                },
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 42,
+                  "endColumn": 54
+                }
+              }
+            }
+          ]
         }
       ],
       "tool": {
@@ -112,6 +134,13 @@
           "location": {
             "uri": "StartLineEndLineRegion.cs",
             "index": 2
+          },
+          "mimeType": "text/x-csharp"
+        },
+        {
+          "location": {
+            "uri": "StartLineStartColumnEndColumnRegion.cs",
+            "index": 3
           },
           "mimeType": "text/x-csharp"
         }
