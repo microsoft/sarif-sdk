@@ -16,6 +16,10 @@
                 "artifactLocation": {
                   "uri": "VisualStudioBuildLogConverterTests.cs",
                   "index": 0
+                },
+                "region": {
+                  "startLine": 30,
+                  "startColumn":  35
                 }
               }
             }
@@ -33,6 +37,10 @@
                 "artifactLocation": {
                   "uri": "VisualStudioBuildLogConverterTests.cs",
                   "index": 0
+                },
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 38
                 }
               }
             }

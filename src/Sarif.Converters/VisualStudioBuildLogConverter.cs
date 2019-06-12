@@ -68,10 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             \s*:\s*
             (?<message>.*)
             $";
-
-        private static readonly Regex s_errorLineRegex =
-            new Regex(ErrorLinePattern,
-                RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture | RegexOptions.IgnorePatternWhitespace);
+        private static readonly Regex s_errorLineRegex = RegexFromPattern(ErrorLinePattern);
 
         private static readonly HashSet<string> s_lineHashes = new HashSet<string>();
 
@@ -103,7 +100,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             ArtifactLocation = new ArtifactLocation
                             {
                                 Uri = new Uri(fileName, UriKind.RelativeOrAbsolute)
-                            }
+                            },
+                            Region = GetRegionFrom(region)
                         }
                     }
                 },
@@ -124,5 +122,41 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 default: return FailureLevel.Warning;
             }
         }
+
+        // VS supports the following region formatting options:
+        //    (startLine)
+        //    (startLine-endLine)
+        //    (startLine,startColumn)
+        //    (startLine,startColumn-endColumn)
+        //    (startLine,startColumn,endLine,endColumn)
+
+        private const string StartLineStartColumnPattern = @"^(?<startLine>\d+),(?<startColumn>\d+)$";
+        private static readonly Regex s_startLineStartColumnRegex = RegexFromPattern(StartLineStartColumnPattern);
+
+        private static Region GetRegionFrom(string regionString)
+        {
+            Region region = null;
+            int startLine, startColumn;
+
+            Match match = s_startLineStartColumnRegex.Match(regionString);
+            if (match.Success)
+            {
+                startLine = Int32.Parse(match.Groups["startLine"].Value);
+                startColumn = Int32.Parse(match.Groups["startColumn"].Value);
+
+                region = new Region
+                {
+                    StartLine = startLine,
+                    StartColumn = startColumn
+                };
+            }
+
+            return region;
+        }
+
+        private static Regex RegexFromPattern(string pattern) =>
+            new Regex(
+                pattern,
+                RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture | RegexOptions.IgnorePatternWhitespace);
     }
 }
