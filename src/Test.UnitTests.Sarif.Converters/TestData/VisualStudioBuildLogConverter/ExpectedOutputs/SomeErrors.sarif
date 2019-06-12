@@ -9,14 +9,34 @@
           "level": "error",
           "message": {
             "text": ") expected [c:\\dev\\sarif\\sarif-sdk\\src\\Test.UnitTests.Sarif.Converters\\Test.UnitTests.Sarif.Converters.csproj]"
-          }
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "VisualStudioBuildLogConverterTests.cs",
+                  "index": 0
+                }
+              }
+            }
+          ]
         },
         {
           "ruleId": "CS1002",
           "level": "error",
           "message": {
             "text": "; expected [c:\\dev\\sarif\\sarif-sdk\\src\\Test.UnitTests.Sarif.Converters\\Test.UnitTests.Sarif.Converters.csproj]"
-          }
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "VisualStudioBuildLogConverterTests.cs",
+                  "index": 0
+                }
+              }
+            }
+          ]
         }
       ],
       "tool": {
@@ -24,6 +44,15 @@
           "name": "VisualStudioBuildLog"
         }
       },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "VisualStudioBuildLogConverterTests.cs",
+            "index": 0
+          },
+          "mimeType": "text/x-csharp"
+        }
+      ],
       "columnKind": "utf16CodeUnits"
     }
   ]

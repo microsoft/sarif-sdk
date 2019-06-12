@@ -94,6 +94,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             {
                 RuleId = ruleId,
                 Level = GetFailureLevelFrom(level),
+                Locations = new Location[]
+                {
+                    new Location
+                    {
+                        PhysicalLocation = new PhysicalLocation
+                        {
+                            ArtifactLocation = new ArtifactLocation
+                            {
+                                Uri = new Uri(fileName, UriKind.RelativeOrAbsolute)
+                            }
+                        }
+                    }
+                },
                 Message = new Message
                 {
                     Text = message
