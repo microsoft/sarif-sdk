@@ -131,6 +131,16 @@
               }
             }
           ]
+        },
+        {
+          "ruleId": "LNK1104",
+          "level": "error",
+          "message": {
+            "text": "cannot open file 'somelib.lib'"
+          },
+          "properties": {
+            "microsoft/visualStudioBuildLogConverter/buildToolName": "LINK"
+          }
         }
       ],
       "tool": {

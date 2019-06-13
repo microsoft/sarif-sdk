@@ -70,29 +70,44 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             $";
         private static readonly Regex s_errorLineRegex = RegexFromPattern(ErrorLinePattern);
 
+        private const string ToolErrorLinePattern = @"
+            ^
+            \s*
+            (?<toolName>[^\s:]+)
+            \s*:\s*
+            (?<level>[^\s]+)
+            \s+
+            (?<ruleId>[^\s:]+)
+            \s*:\s*
+            (?<message>.*)
+            $";
+        private static readonly Regex s_toolErrorLineRegex = RegexFromPattern(ToolErrorLinePattern);
+
         private static readonly HashSet<string> s_lineHashes = new HashSet<string>();
 
         private static Result GetResultFromLine(string line)
         {
+            Result result = null;
+
             Match match = s_errorLineRegex.Match(line);
-            if (!match.Success) { return null; }
-
-            // MSBuild logs can contain duplicate error report lines. Take only one of them.
-            if (s_lineHashes.Contains(line)) { return null; }
-            s_lineHashes.Add(line);
-
-            string fileName = match.Groups["fileName"].Value;
-            string region = match.Groups["region"].Value;
-            string level = match.Groups["level"].Value;
-            string ruleId = match.Groups["ruleId"].Value;
-            string message = match.Groups["message"].Value;
-
-            return new Result
+            if (match.Success)
             {
-                RuleId = ruleId,
-                Level = GetFailureLevelFrom(level),
-                Locations = new Location[]
+                // MSBuild logs can contain duplicate error report lines. Take only one of them.
+                if (s_lineHashes.Contains(line)) { return null; }
+                s_lineHashes.Add(line);
+
+                string fileName = match.Groups["fileName"].Value;
+                string region = match.Groups["region"].Value;
+                string level = match.Groups["level"].Value;
+                string ruleId = match.Groups["ruleId"].Value;
+                string message = match.Groups["message"].Value;
+
+                result = new Result
                 {
+                    RuleId = ruleId,
+                    Level = GetFailureLevelFrom(level),
+                    Locations = new Location[]
+                    {
                     new Location
                     {
                         PhysicalLocation = new PhysicalLocation
@@ -104,12 +119,43 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             Region = GetRegionFrom(region)
                         }
                     }
-                },
-                Message = new Message
+                    },
+                    Message = new Message
+                    {
+                        Text = message
+                    }
+                };
+            }
+
+            if (result == null)
+            {
+                match = s_toolErrorLineRegex.Match(line);
+                if (match.Success)
                 {
-                    Text = message
+                    // MSBuild logs can contain duplicate error report lines. Take only one of them.
+                    if (s_lineHashes.Contains(line)) { return null; }
+                    s_lineHashes.Add(line);
+
+                    string toolName = match.Groups["toolName"].Value;
+                    string level = match.Groups["level"].Value;
+                    string ruleId = match.Groups["ruleId"].Value;
+                    string message = match.Groups["message"].Value;
+
+                    result = new Result
+                    {
+                        RuleId = ruleId,
+                        Level = GetFailureLevelFrom(level),
+                        Message = new Message
+                        {
+                            Text = message
+                        }
+                    };
+
+                    result.SetProperty("microsoft/visualStudioBuildLogConverter/buildToolName", toolName);
                 }
-            };
+            }
+
+            return result;
         }
 
         private static FailureLevel GetFailureLevelFrom(string level)
