@@ -57,13 +57,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private const string ErrorLinePattern = @"
             ^
             \s*
-            (?<fileName>[^(]+)
-            \(
-            (?<region>[^)]+)
-            \)
+            (                                  # EITHER
+              (                                # a file name and a region,
+                (?<fileName>[^(]+)             # for example, 'MyFile.c(14,9)'...
+                \(
+                (?<region>[^)]+)
+                \)
+              )
+              |                                # OR
+              (                                # the name of a build tool,
+                (?<buildTool>[^\s:]+)          # for example, 'LINK'.
+              )
+            )
             \s*:\s*
             (?<qualifiedLevel>
-              (?<levelQualification>.*)                 # For example, 'fatal'.
+              (?<levelQualification>.*)        # For example, 'fatal'.
               (?<level>error|warning|info)
             )
             \s+
@@ -72,22 +80,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             (?<message>.*)
             $";
         private static readonly Regex s_errorLineRegex = RegexFromPattern(ErrorLinePattern);
-
-        private const string ToolErrorLinePattern = @"
-            ^
-            \s*
-            (?<buildTool>[^\s:]+)
-            \s*:\s*
-            (?<qualifiedLevel>
-              (?<levelQualification>.*)                 # For example, 'fatal'.
-              (?<level>error|warning|info)
-            )
-            \s+
-            (?<ruleId>[^\s:]+)
-            \s*:\s*
-            (?<message>.*)
-            $";
-        private static readonly Regex s_toolErrorLineRegex = RegexFromPattern(ToolErrorLinePattern);
 
         private static readonly HashSet<string> s_lineHashes = new HashSet<string>();
 
@@ -105,6 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 fileName = match.Groups["fileName"].Value;
                 region = match.Groups["region"].Value;
+                buildTool = match.Groups["buildTool"].Value;
                 levelQualification = match.Groups["levelQualification"].Value;
                 level = match.Groups["level"].Value;
                 ruleId = match.Groups["ruleId"].Value;
@@ -114,58 +107,41 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 {
                     RuleId = ruleId,
                     Level = GetFailureLevelFrom(level),
-                    Locations = new Location[]
-                    {
-                    new Location
-                    {
-                        PhysicalLocation = new PhysicalLocation
-                        {
-                            ArtifactLocation = new ArtifactLocation
-                            {
-                                Uri = new Uri(fileName, UriKind.RelativeOrAbsolute)
-                            },
-                            Region = GetRegionFrom(region)
-                        }
-                    }
-                    },
                     Message = new Message
                     {
                         Text = message
                     }
                 };
-            }
 
-            if (result == null)
-            {
-                match = s_toolErrorLineRegex.Match(line);
-                if (match.Success)
+                if (!string.IsNullOrWhiteSpace(fileName))
                 {
-                    // MSBuild logs can contain duplicate error report lines. Take only one of them.
-                    if (s_lineHashes.Contains(line)) { return null; }
-                    s_lineHashes.Add(line);
-
-                    buildTool = match.Groups["buildTool"].Value;
-                    levelQualification = match.Groups["levelQualification"].Value;
-                    level = match.Groups["level"].Value;
-                    ruleId = match.Groups["ruleId"].Value;
-                    message = match.Groups["message"].Value;
-
-                    result = new Result
+                    var physicalLocation = new PhysicalLocation
                     {
-                        RuleId = ruleId,
-                        Level = GetFailureLevelFrom(level),
-                        Message = new Message
+                        ArtifactLocation = new ArtifactLocation
                         {
-                            Text = message
+                            Uri = new Uri(fileName, UriKind.RelativeOrAbsolute)
                         }
                     };
 
+                    if (!string.IsNullOrWhiteSpace(region))
+                    {
+                        physicalLocation.Region = GetRegionFrom(region);
+                    }
+
+                    result.Locations = new Location[]
+                    {
+                        new Location
+                        {
+                            PhysicalLocation = physicalLocation
+                        }
+                    };
+                }
+
+                if (!string.IsNullOrWhiteSpace(buildTool))
+                {
                     result.SetProperty("microsoft/visualStudioBuildLogConverter/buildTool", buildTool);
                 }
-            }
 
-            if (result != null)
-            {
                 if (!string.IsNullOrWhiteSpace(levelQualification))
                 {
                     result.SetProperty("microsoft/visualStudioBuildLogConverter/levelQualification", levelQualification);

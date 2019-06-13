@@ -27,5 +27,4 @@ StartLineStartColumnEndLineEndColumnRegion.cs(12,26,14,36): error CS4444: This i
 
 LINK : fatal error LNK1104: cannot open file 'somelib.lib'
 
-TODO: Examine the rest of the grammar to make sure we're not missing anything.
 TODO: Can we fill in invocation or provenance from what the Convert method knows?
