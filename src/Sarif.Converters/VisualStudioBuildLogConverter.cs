@@ -135,6 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 };
             }
 
+            SetProperty(result, line.Trim(), nameof(line));
             SetPropertyIfPresent(result, buildTool, nameof(buildTool));
             SetPropertyIfPresent(result, levelQualification, nameof(levelQualification));
 
@@ -145,8 +146,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             if (!string.IsNullOrWhiteSpace(propertyValue))
             {
-                containingObject.SetProperty("microsoft/visualStudioBuildLogConverter/" + propertyName, propertyValue);
+                SetProperty(containingObject, propertyValue.Trim(), propertyName);
             }
+        }
+
+        private static void SetProperty(IPropertyBagHolder containingObject, string propertyValue, string propertyName)
+        {
+            containingObject.SetProperty("microsoft/visualStudioBuildLogConverter/" + propertyName, propertyValue);
         }
 
         private static FailureLevel GetFailureLevelFrom(string level)

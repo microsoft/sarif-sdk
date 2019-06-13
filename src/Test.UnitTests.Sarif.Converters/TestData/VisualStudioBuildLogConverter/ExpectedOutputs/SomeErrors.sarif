@@ -19,11 +19,14 @@
                 },
                 "region": {
                   "startLine": 30,
-                  "startColumn":  35
+                  "startColumn": 35
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "microsoft/visualStudioBuildLogConverter/line": "VisualStudioBuildLogConverterTests.cs(30,35): error CS1026: ) expected [c:\\dev\\sarif\\sarif-sdk\\src\\Test.UnitTests.Sarif.Converters\\Test.UnitTests.Sarif.Converters.csproj]"
+          }
         },
         {
           "ruleId": "CS1002",
@@ -44,7 +47,10 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "microsoft/visualStudioBuildLogConverter/line": "VisualStudioBuildLogConverterTests.cs(36,38): error CS1002: ; expected [c:\\dev\\sarif\\sarif-sdk\\src\\Test.UnitTests.Sarif.Converters\\Test.UnitTests.Sarif.Converters.csproj]"
+          }
         },
         {
           "ruleId": "CS1111",
@@ -64,7 +70,10 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "microsoft/visualStudioBuildLogConverter/line": "StartLineOnlyRegion.cs(83): info CS1111: This is a note."
+          }
         },
         {
           "ruleId": "CS2222",
@@ -85,7 +94,10 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "microsoft/visualStudioBuildLogConverter/line": "StartLineEndLineRegion.cs(42-54): warning CS2222: This is a warning."
+          }
         },
         {
           "ruleId": "CS3333",
@@ -107,7 +119,10 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "microsoft/visualStudioBuildLogConverter/line": "StartLineStartColumnEndColumnRegion.cs(17,42-54): warning CS3333: This is another warning."
+          }
         },
         {
           "ruleId": "CS4444",
@@ -130,7 +145,10 @@
                 }
               }
             }
-          ]
+          ],
+          "properties": {
+            "microsoft/visualStudioBuildLogConverter/line": "StartLineStartColumnEndLineEndColumnRegion.cs(12,26,14,36): error CS4444: This is another error."
+          }
         },
         {
           "ruleId": "LNK1104",
@@ -139,8 +157,9 @@
             "text": "cannot open file 'somelib.lib'"
           },
           "properties": {
+            "microsoft/visualStudioBuildLogConverter/line": "LINK : fatal error LNK1104: cannot open file 'somelib.lib'",
             "microsoft/visualStudioBuildLogConverter/buildTool": "LINK",
-            "microsoft/visualStudioBuildLogConverter/levelQualification": "fatal "
+            "microsoft/visualStudioBuildLogConverter/levelQualification": "fatal"
           }
         }
       ],
