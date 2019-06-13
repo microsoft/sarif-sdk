@@ -1536,10 +1536,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static readonly Regex LogicalLocationRegex =
             new Regex(
-                @"
-                  ([^\s]*\s+)?         # Skip over an optional leading blank-terminated return type name such as 'void '
-                  (?<fqln>[^(]+)       # Take everything up to the opening parenthesis.
-                ",
+                @"^
+                  ([^\s]*\s+)?         # Skip over an optional leading blank-terminated return type name such as 'void '.
+                  (?<fqln>.*)          # Take everything else.
+                $",
                 RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.IgnorePatternWhitespace);
 
         private static string RemoveReturnTypeFrom(string signature)
