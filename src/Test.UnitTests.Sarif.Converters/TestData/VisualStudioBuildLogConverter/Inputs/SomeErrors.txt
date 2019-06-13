@@ -18,7 +18,7 @@ VisualStudioBuildLogConverterTests.cs(36,38): error CS1002: ; expected [c:\dev\s
 VisualStudioBuildLogConverterTests.cs(30,35): error CS1026: ) expected [c:\dev\sarif\sarif-sdk\src\Test.UnitTests.Sarif.Converters\Test.UnitTests.Sarif.Converters.csproj]
 VisualStudioBuildLogConverterTests.cs(36,38): error CS1002: ; expected [c:\dev\sarif\sarif-sdk\src\Test.UnitTests.Sarif.Converters\Test.UnitTests.Sarif.Converters.csproj]
 
-The second part of this test file shows that we parse all variations of the region format.
+The second part of this test file shows that we parse all variations of the error line format.
 
 StartLineOnlyRegion.cs(83): info CS1111: This is a note.
 StartLineEndLineRegion.cs(42-54): warning CS2222: This is a warning.
@@ -26,5 +26,3 @@ StartLineStartColumnEndColumnRegion.cs(17,42-54): warning CS3333: This is anothe
 StartLineStartColumnEndLineEndColumnRegion.cs(12,26,14,36): error CS4444: This is another error.
 
 LINK : fatal error LNK1104: cannot open file 'somelib.lib'
-
-TODO: Can we fill in invocation or provenance from what the Convert method knows?

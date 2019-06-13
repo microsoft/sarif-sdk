@@ -10,6 +10,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     public class VisualStudioBuildLogConverter : ToolFileConverterBase
     {
+        private readonly HashSet<string> lineHashes = new HashSet<string>();
+
         public override string ToolName => ToolFormat.VisualStudioBuildLog;
 
         public override void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert)
@@ -24,12 +26,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentNullException(nameof(output));
             }
 
+            lineHashes.Clear();
             IList<Result> results = GetResults(input);
 
             PersistResults(output, results);
         }
 
-        private static IList<Result> GetResults(Stream input)
+        private IList<Result> GetResults(Stream input)
         {
             using (var reader = new StreamReader(input))
             {
@@ -37,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
         }
 
-        private static IList<Result> GetResults(TextReader reader)
+        private IList<Result> GetResults(TextReader reader)
         {
             IList<Result> results = new List<Result>();
 
@@ -81,71 +84,65 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             $";
         private static readonly Regex s_errorLineRegex = RegexFromPattern(ErrorLinePattern);
 
-        private static readonly HashSet<string> s_lineHashes = new HashSet<string>();
-
-        private static Result GetResultFromLine(string line)
+        private Result GetResultFromLine(string line)
         {
-            Result result = null;
-            string fileName, region, buildTool, levelQualification = null, level, ruleId, message;
-
             Match match = s_errorLineRegex.Match(line);
-            if (match.Success)
+            if (!match.Success) { return null; }
+
+            // MSBuild logs can contain duplicate error report lines. Take only one of them.
+            if (lineHashes.Contains(line)) { return null; }
+            lineHashes.Add(line);
+
+            string fileName = match.Groups["fileName"].Value;
+            string region = match.Groups["region"].Value;
+            string buildTool = match.Groups["buildTool"].Value;
+            string levelQualification = match.Groups["levelQualification"].Value;
+            string level = match.Groups["level"].Value;
+            string ruleId = match.Groups["ruleId"].Value;
+            string message = match.Groups["message"].Value;
+
+            var result = new Result
             {
-                // MSBuild logs can contain duplicate error report lines. Take only one of them.
-                if (s_lineHashes.Contains(line)) { return null; }
-                s_lineHashes.Add(line);
-
-                fileName = match.Groups["fileName"].Value;
-                region = match.Groups["region"].Value;
-                buildTool = match.Groups["buildTool"].Value;
-                levelQualification = match.Groups["levelQualification"].Value;
-                level = match.Groups["level"].Value;
-                ruleId = match.Groups["ruleId"].Value;
-                message = match.Groups["message"].Value;
-
-                result = new Result
+                RuleId = ruleId,
+                Level = GetFailureLevelFrom(level),
+                Message = new Message
                 {
-                    RuleId = ruleId,
-                    Level = GetFailureLevelFrom(level),
-                    Message = new Message
+                    Text = message
+                }
+            };
+
+            if (!string.IsNullOrWhiteSpace(fileName))
+            {
+                var physicalLocation = new PhysicalLocation
+                {
+                    ArtifactLocation = new ArtifactLocation
                     {
-                        Text = message
+                        Uri = new Uri(fileName, UriKind.RelativeOrAbsolute)
                     }
                 };
 
-                if (!string.IsNullOrWhiteSpace(fileName))
+                if (!string.IsNullOrWhiteSpace(region))
                 {
-                    var physicalLocation = new PhysicalLocation
-                    {
-                        ArtifactLocation = new ArtifactLocation
-                        {
-                            Uri = new Uri(fileName, UriKind.RelativeOrAbsolute)
-                        }
-                    };
+                    physicalLocation.Region = GetRegionFrom(region);
+                }
 
-                    if (!string.IsNullOrWhiteSpace(region))
+                result.Locations = new Location[]
+                {
+                    new Location
                     {
-                        physicalLocation.Region = GetRegionFrom(region);
+                        PhysicalLocation = physicalLocation
                     }
+                };
+            }
 
-                    result.Locations = new Location[]
-                    {
-                        new Location
-                        {
-                            PhysicalLocation = physicalLocation
-                        }
-                    };
-                }
+            if (!string.IsNullOrWhiteSpace(buildTool))
+            {
+                result.SetProperty("microsoft/visualStudioBuildLogConverter/buildTool", buildTool);
+            }
 
-                if (!string.IsNullOrWhiteSpace(buildTool))
-                {
-                    result.SetProperty("microsoft/visualStudioBuildLogConverter/buildTool", buildTool);
-                }
-
-                if (!string.IsNullOrWhiteSpace(levelQualification))
-                {
-                    result.SetProperty("microsoft/visualStudioBuildLogConverter/levelQualification", levelQualification);
-                }
+            if (!string.IsNullOrWhiteSpace(levelQualification))
+            {
+                result.SetProperty("microsoft/visualStudioBuildLogConverter/levelQualification", levelQualification);
             }
 
             return result;
