@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             (?<region>[^)]+)
             \)
             \s*:\s*
-            (?<level>[^\s]+)
+            (?<level>error|warning|info)
             \s+
             (?<ruleId>[^\s:]+)
             \s*:\s*
@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             \s*
             (?<toolName>[^\s:]+)
             \s*:\s*
-            (?<level>[^\s]+)
+            (?<level>error|warning|info)
             \s+
             (?<ruleId>[^\s:]+)
             \s*:\s*
