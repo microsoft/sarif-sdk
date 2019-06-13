@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
     public class VisualStudioBuildLogConverter : ToolFileConverterBase
     {
-        private readonly HashSet<string> lineHashes = new HashSet<string>();
+        private readonly HashSet<string> fullMessageHashes = new HashSet<string>();
 
         public override string ToolName => ToolFormat.VisualStudioBuildLog;
 
@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 throw new ArgumentNullException(nameof(output));
             }
 
-            lineHashes.Clear();
+            fullMessageHashes.Clear();
             IList<Result> results = GetResults(input);
 
             PersistResults(output, results);
@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             string line;
             while ((line = reader.ReadLine()) != null)
             {
-                Result result = GetResultFromLine(line);
+                Result result = GetResultFrom(line);
                 if (result != null)
                 {
                     results.Add(result);
@@ -84,14 +84,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             $";
         private static readonly Regex s_errorLineRegex = RegexFromPattern(ErrorLinePattern);
 
-        private Result GetResultFromLine(string line)
+        private Result GetResultFrom(string fullMessage)
         {
-            Match match = s_errorLineRegex.Match(line);
+            Match match = s_errorLineRegex.Match(fullMessage);
             if (!match.Success) { return null; }
 
             // MSBuild logs can contain duplicate error report lines. Take only one of them.
-            if (lineHashes.Contains(line)) { return null; }
-            lineHashes.Add(line);
+            if (fullMessageHashes.Contains(fullMessage)) { return null; }
+            fullMessageHashes.Add(fullMessage);
 
             string fileName = match.Groups["fileName"].Value;
             string region = match.Groups["region"].Value;
@@ -135,7 +135,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 };
             }
 
-            SetProperty(result, line.Trim(), nameof(line));
+            SetProperty(result, fullMessage.Trim(), nameof(fullMessage));
             SetPropertyIfPresent(result, buildTool, nameof(buildTool));
             SetPropertyIfPresent(result, levelQualification, nameof(levelQualification));
 
@@ -146,13 +146,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         {
             if (!string.IsNullOrWhiteSpace(propertyValue))
             {
-                SetProperty(containingObject, propertyValue.Trim(), propertyName);
+                SetProperty(containingObject, propertyValue, propertyName);
             }
         }
 
         private static void SetProperty(IPropertyBagHolder containingObject, string propertyValue, string propertyName)
         {
-            containingObject.SetProperty("microsoft/visualStudioBuildLogConverter/" + propertyName, propertyValue);
+            containingObject.SetProperty("microsoft/visualStudioBuildLogConverter/" + propertyName, propertyValue.Trim());
         }
 
         private static FailureLevel GetFailureLevelFrom(string level)
