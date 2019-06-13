@@ -25,9 +25,7 @@ StartLineEndLineRegion.cs(42-54): warning CS2222: This is a warning.
 StartLineStartColumnEndColumnRegion.cs(17,42-54): warning CS3333: This is another warning.
 StartLineStartColumnEndLineEndColumnRegion.cs(12,26,14,36): error CS4444: This is another error.
 
-LINK : error LNK1104: cannot open file 'somelib.lib'
+LINK : fatal error LNK1104: cannot open file 'somelib.lib'
 
-TODO: Case where there is text in front of the severity, like "fatal error" instead of just "error".
-NOTE: The LINK example above should really say "fatal error", but we don't handle that yet.
 TODO: Examine the rest of the grammar to make sure we're not missing anything.
 TODO: Can we fill in invocation or provenance from what the Convert method knows?

@@ -62,7 +62,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             (?<region>[^)]+)
             \)
             \s*:\s*
-            (?<level>error|warning|info)
+            (?<qualifiedLevel>
+              (?<levelQualification>.*)                 # For example, 'fatal'.
+              (?<level>error|warning|info)
+            )
             \s+
             (?<ruleId>[^\s:]+)
             \s*:\s*
@@ -73,9 +76,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private const string ToolErrorLinePattern = @"
             ^
             \s*
-            (?<toolName>[^\s:]+)
+            (?<buildTool>[^\s:]+)
             \s*:\s*
-            (?<level>error|warning|info)
+            (?<qualifiedLevel>
+              (?<levelQualification>.*)                 # For example, 'fatal'.
+              (?<level>error|warning|info)
+            )
             \s+
             (?<ruleId>[^\s:]+)
             \s*:\s*
@@ -88,6 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private static Result GetResultFromLine(string line)
         {
             Result result = null;
+            string fileName, region, buildTool, levelQualification = null, level, ruleId, message;
 
             Match match = s_errorLineRegex.Match(line);
             if (match.Success)
@@ -96,11 +103,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 if (s_lineHashes.Contains(line)) { return null; }
                 s_lineHashes.Add(line);
 
-                string fileName = match.Groups["fileName"].Value;
-                string region = match.Groups["region"].Value;
-                string level = match.Groups["level"].Value;
-                string ruleId = match.Groups["ruleId"].Value;
-                string message = match.Groups["message"].Value;
+                fileName = match.Groups["fileName"].Value;
+                region = match.Groups["region"].Value;
+                levelQualification = match.Groups["levelQualification"].Value;
+                level = match.Groups["level"].Value;
+                ruleId = match.Groups["ruleId"].Value;
+                message = match.Groups["message"].Value;
 
                 result = new Result
                 {
@@ -136,10 +144,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     if (s_lineHashes.Contains(line)) { return null; }
                     s_lineHashes.Add(line);
 
-                    string toolName = match.Groups["toolName"].Value;
-                    string level = match.Groups["level"].Value;
-                    string ruleId = match.Groups["ruleId"].Value;
-                    string message = match.Groups["message"].Value;
+                    buildTool = match.Groups["buildTool"].Value;
+                    levelQualification = match.Groups["levelQualification"].Value;
+                    level = match.Groups["level"].Value;
+                    ruleId = match.Groups["ruleId"].Value;
+                    message = match.Groups["message"].Value;
 
                     result = new Result
                     {
@@ -151,7 +160,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                         }
                     };
 
-                    result.SetProperty("microsoft/visualStudioBuildLogConverter/buildToolName", toolName);
+                    result.SetProperty("microsoft/visualStudioBuildLogConverter/buildTool", buildTool);
+                }
+            }
+
+            if (result != null)
+            {
+                if (!string.IsNullOrWhiteSpace(levelQualification))
+                {
+                    result.SetProperty("microsoft/visualStudioBuildLogConverter/levelQualification", levelQualification);
                 }
             }
 

@@ -139,7 +139,8 @@
             "text": "cannot open file 'somelib.lib'"
           },
           "properties": {
-            "microsoft/visualStudioBuildLogConverter/buildToolName": "LINK"
+            "microsoft/visualStudioBuildLogConverter/buildTool": "LINK",
+            "microsoft/visualStudioBuildLogConverter/levelQualification": "fatal "
           }
         }
       ],
