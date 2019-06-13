@@ -142,6 +142,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private const string StartLineStartColumEndColumnPattern = @"^(?<startLine>\d+),(?<startColumn>\d+)-(?<endColumn>\d+)$";
         private static readonly Regex s_startLineStartColumnEndColumnRegex = RegexFromPattern(StartLineStartColumEndColumnPattern);
 
+        private const string StartLineStartColumEndLineEndColumnPattern = @"^(?<startLine>\d+),(?<startColumn>\d+),(?<endLine>\d+),(?<endColumn>\d+)$";
+        private static readonly Regex s_startLineStartColumnEndLineEndColumnRegex = RegexFromPattern(StartLineStartColumEndLineEndColumnPattern);
+
         private static Region GetRegionFrom(string regionString)
         {
             int startLine, startColumn, endLine, endColumn;
@@ -205,6 +208,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     {
                         StartLine = startLine,
                         StartColumn = startColumn,
+                        EndColumn = endColumn
+                    };
+                }
+            }
+
+            if (region == null)
+            {
+                match = s_startLineStartColumnEndLineEndColumnRegex.Match(regionString);
+                if (match.Success)
+                {
+                    startLine = Int32.Parse(match.Groups["startLine"].Value);
+                    startColumn = Int32.Parse(match.Groups["startColumn"].Value);
+                    endLine = Int32.Parse(match.Groups["endLine"].Value);
+                    endColumn = Int32.Parse(match.Groups["endColumn"].Value);
+
+                    region = new Region
+                    {
+                        StartLine = startLine,
+                        StartColumn = startColumn,
+                        EndLine = endLine,
                         EndColumn = endColumn
                     };
                 }

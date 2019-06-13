@@ -1,3 +1,5 @@
+The first part of this test file shows that we parse a genuine build log.
+
 Microsoft (R) Build Engine version 16.1.76+g14b0a930a7 for .NET Framework
 Copyright (C) Microsoft Corporation. All rights reserved.
 
@@ -16,6 +18,13 @@ VisualStudioBuildLogConverterTests.cs(36,38): error CS1002: ; expected [c:\dev\s
 VisualStudioBuildLogConverterTests.cs(30,35): error CS1026: ) expected [c:\dev\sarif\sarif-sdk\src\Test.UnitTests.Sarif.Converters\Test.UnitTests.Sarif.Converters.csproj]
 VisualStudioBuildLogConverterTests.cs(36,38): error CS1002: ; expected [c:\dev\sarif\sarif-sdk\src\Test.UnitTests.Sarif.Converters\Test.UnitTests.Sarif.Converters.csproj]
 
+The second part of this test file shows that we parse all variations of the region format.
+
 StartLineOnlyRegion.cs(83): info CS1111: This is a note.
 StartLineEndLineRegion.cs(42-54): warning CS2222: This is a warning.
 StartLineStartColumnEndColumnRegion.cs(17,42-54): warning CS3333: This is another warning.
+StartLineStartColumnEndLineEndColumnRegion.cs(12,26,14,36): error CS4444: This is another error.
+
+TODO: Case where we have a tool name like LINK instead of the file name/region.
+TODO: Case where there is text in front of the severity, like "fatal error" instead of just "error".
+TODO: Examine the rest of the grammar to make sure we're not missing anything.

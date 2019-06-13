@@ -108,6 +108,29 @@
               }
             }
           ]
+        },
+        {
+          "ruleId": "CS4444",
+          "level": "error",
+          "message": {
+            "text": "This is another error."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "StartLineStartColumnEndLineEndColumnRegion.cs",
+                  "index": 4
+                },
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 26,
+                  "endLine": 14,
+                  "endColumn": 36
+                }
+              }
+            }
+          ]
         }
       ],
       "tool": {
@@ -141,6 +164,13 @@
           "location": {
             "uri": "StartLineStartColumnEndColumnRegion.cs",
             "index": 3
+          },
+          "mimeType": "text/x-csharp"
+        },
+        {
+          "location": {
+            "uri": "StartLineStartColumnEndLineEndColumnRegion.cs",
+            "index": 4
           },
           "mimeType": "text/x-csharp"
         }
