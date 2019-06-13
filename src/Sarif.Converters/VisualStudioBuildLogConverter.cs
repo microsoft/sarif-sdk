@@ -170,24 +170,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         }
 
         // VS supports the following region formatting options:
-        //    (startLine)
-        //    (startLine-endLine)
-        //    (startLine,startColumn)
-        //    (startLine,startColumn-endColumn)
-        //    (startLine,startColumn,endLine,endColumn)
 
+        // (startLine)
         private const string StartLineStartOnlyPattern = @"^(?<startLine>\d+)$";
         private static readonly Regex s_startLineOnlyRegex = RegexFromPattern(StartLineStartOnlyPattern);
 
+        // (startLine-endLine)
         private const string StartLineEndLinePattern = @"^(?<startLine>\d+)-(?<endLine>\d+)$";
         private static readonly Regex s_startLineEndLineRegex = RegexFromPattern(StartLineEndLinePattern);
 
+        // (startLine,startColumn)
         private const string StartLineStartColumnPattern = @"^(?<startLine>\d+),(?<startColumn>\d+)$";
         private static readonly Regex s_startLineStartColumnRegex = RegexFromPattern(StartLineStartColumnPattern);
 
+        // (startLine,startColumn-endColumn)
         private const string StartLineStartColumEndColumnPattern = @"^(?<startLine>\d+),(?<startColumn>\d+)-(?<endColumn>\d+)$";
         private static readonly Regex s_startLineStartColumnEndColumnRegex = RegexFromPattern(StartLineStartColumEndColumnPattern);
 
+        // (startLine,startColumn,endLine,endColumn)
         private const string StartLineStartColumEndLineEndColumnPattern = @"^(?<startLine>\d+),(?<startColumn>\d+),(?<endLine>\d+),(?<endColumn>\d+)$";
         private static readonly Regex s_startLineStartColumnEndLineEndColumnRegex = RegexFromPattern(StartLineStartColumEndLineEndColumnPattern);
 
