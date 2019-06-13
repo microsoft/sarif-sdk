@@ -135,17 +135,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 };
             }
 
-            if (!string.IsNullOrWhiteSpace(buildTool))
-            {
-                result.SetProperty("microsoft/visualStudioBuildLogConverter/buildTool", buildTool);
-            }
-
-            if (!string.IsNullOrWhiteSpace(levelQualification))
-            {
-                result.SetProperty("microsoft/visualStudioBuildLogConverter/levelQualification", levelQualification);
-            }
+            SetPropertyIfPresent(result, buildTool, nameof(buildTool));
+            SetPropertyIfPresent(result, levelQualification, nameof(levelQualification));
 
             return result;
+        }
+
+        private static void SetPropertyIfPresent(IPropertyBagHolder containingObject, string propertyValue, string propertyName)
+        {
+            if (!string.IsNullOrWhiteSpace(propertyValue))
+            {
+                containingObject.SetProperty("microsoft/visualStudioBuildLogConverter/" + propertyName, propertyValue);
+            }
         }
 
         private static FailureLevel GetFailureLevelFrom(string level)
