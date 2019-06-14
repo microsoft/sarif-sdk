@@ -576,12 +576,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 string jsonValue = properties[key];
                 JObject root = JObject.Parse(jsonValue);
-                string html = root["html"].Value<string>();
+                string snippet = root["html"].Value<string>();
 
-                int snippetLength = html.Length;
+                int snippetLength = snippet.Length;
                 if (snippetLength > MaxSnippetLength)
                 {
-                    html = html.Substring(0, MaxSnippetLength);
+                    snippet = snippet.Substring(0, MaxSnippetLength);
                     snippetLength = MaxSnippetLength;
                 }
 
@@ -600,7 +600,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             CharLength = snippetLength,
                             Snippet = new ArtifactContent
                             {
-                                Text = html
+                                Text = snippet
                             }
                         }
                     }
