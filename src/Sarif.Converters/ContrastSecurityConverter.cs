@@ -27,7 +27,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private const string SiteRootDescriptionMessageId = "SiteRootDescription";
 
         private IDictionary<string, ReportingDescriptor> _rules;
-        private HashSet<Artifact> _files;
 
         public override string ToolName => "Contrast Security";
 
@@ -50,8 +49,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             LogicalLocations.Clear();
-
-            _files = new HashSet<Artifact>(Artifact.ValueComparer);
 
             var context = new ContrastLogReader.Context();
 
@@ -100,31 +97,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             reader.FindingRead += (ContrastLogReader.Context current) => { results.Add(CreateResult(current)); };
             reader.Read(context, input);
 
-            // 4. Construct the files array, based on all results returned
-            var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, dataToInsert);
-            HashSet<Artifact> files = fileInfoFactory.Create(results);
-
-            // 5. Finally, complete the SARIF log file with various tables and then the results
-            output.Initialize(run);
-
-            foreach (Artifact fileData in _files)
-            {
-                files.Add(fileData);
-            }
-
-            if (files?.Any() == true)
-            {
-                output.WriteArtifacts(files.ToList());
-            }
-
+            // 4. Finally, complete the SARIF log file with various tables and then the results
             if (LogicalLocations?.Any() == true)
             {
-                output.WriteLogicalLocations(LogicalLocations);
+                run.LogicalLocations = LogicalLocations;
             }
 
-            output.OpenResults();
-            output.WriteResults(results);
-            output.CloseResults();
+            PersistResults(output, results, run);
         }
 
         internal Result CreateResult(ContrastLogReader.Context context)
@@ -579,6 +558,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private Result ConstructFormsWithoutAutocompletePreventionResult(ContrastLogReader.Context context)
         {
+            // The maximum length of a snippet that Contrast Security embeds in their HTML file.
+            // If the actual <form> element is longer than this, they tack on an ellipsis, which
+            // we don't want to include in the SARIF file.
+            const int MaxSnippetLength = 1000;
+
             // autocomplete-missing : Forms Without Autocomplete Prevention
 
             // <properties name="/webgoat/Content/EncryptVSEncode.aspx">{"html":"\u003cform name\u003d\"aspnetForm\"
@@ -593,23 +577,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 string jsonValue = properties[key];
                 JObject root = JObject.Parse(jsonValue);
                 string html = root["html"].Value<string>();
-                string fileDataKey = "#RuntimeGenerated#=" + key;
 
-                fileDataKey = key;
-
-                byte[] htmlBytes = Encoding.UTF8.GetBytes(html);
-                string encoded = System.Convert.ToBase64String(htmlBytes);
-
-
-                _files.Add(
-                    new Artifact
-                    {
-                        Contents = new ArtifactContent
-                        {
-                            Text = html,
-                            Binary = encoded
-                        }
-                    });
+                int snippetLength = html.Length;
+                if (snippetLength > MaxSnippetLength)
+                {
+                    html = html.Substring(0, MaxSnippetLength);
+                    snippetLength = MaxSnippetLength;
+                }
 
                 locations.Add(new Location
                 {
@@ -620,7 +594,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             UriBaseId = SiteRootUriBaseIdName,
                             Uri = new Uri(key, UriKind.RelativeOrAbsolute)
                         },
-                        Region = new Region() { StartLine = 1 }
+                        Region = new Region
+                        {
+                            CharOffset = 0,             // Unfortunately the XML doesn't actually tell us this, but SARIF requires it.
+                            CharLength = snippetLength,
+                            Snippet = new ArtifactContent
+                            {
+                                Text = html
+                            }
+                        }
                     }
                 });
             }
