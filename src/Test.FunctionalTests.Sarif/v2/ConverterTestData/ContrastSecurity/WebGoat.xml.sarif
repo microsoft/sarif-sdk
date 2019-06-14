@@ -110,9 +110,9 @@
             "arguments": [
               "other, ctl00$BodyContentPlaceholder$txtEmail: parameter",
               "/webgoat/Content/ForgotPassword.aspx",
-              "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_Form()",
-              "void System.Data.Common.DbCommand.set_CommandText(System.String)",
-              "System.String System.String.Concat(System.String,System.String,System.String)"
+              "System.Web.HttpRequest.get_Form()",
+              "System.Data.Common.DbCommand.set_CommandText(System.String)",
+              "System.String.Concat(System.String,System.String,System.String)"
             ]
           },
           "locations": [
@@ -131,13 +131,20 @@
                 {
                   "locations": [
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_Form()"
+                                  "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
                                 }
                               ]
                             }
@@ -326,13 +333,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
                                 }
                               ]
                             }
@@ -512,13 +526,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.String.Concat(System.String,System.String,System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.String.Concat(System.String,System.String,System.String)"
+                                  "fullyQualifiedName": "System.String.Concat(System.String,System.String,System.String)"
                                 }
                               ]
                             }
@@ -716,13 +737,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Data.Common.DbCommand.set_CommandText(System.String)"
+                                  "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
                                 }
                               ]
                             }
@@ -938,13 +966,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Data.Common.DbCommand.set_CommandText(System.String)"
+                                  "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
                                 }
                               ]
                             }
@@ -1826,7 +1861,7 @@
                   "location": {
                     "logicalLocations": [
                       {
-                        "fullyQualifiedName": "void System.Security.Cryptography.SHA1Managed..ctor()"
+                        "fullyQualifiedName": "System.Security.Cryptography.SHA1Managed..ctor()"
                       }
                     ]
                   }
@@ -2072,7 +2107,7 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "OWASP.WebGoat.NET.UploadPathManipulation.btnUpload_Click"
+                  "fullyQualifiedName": "OWASP.WebGoat.NET.UploadPathManipulation.btnUpload_Click()"
                 }
               ]
             }
@@ -2083,13 +2118,20 @@
                 {
                   "locations": [
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpPostedFile.get_FileName()"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.Web.HttpPostedFile.get_FileName()"
+                                  "fullyQualifiedName": "System.Web.HttpPostedFile.get_FileName()"
                                 }
                               ]
                             }
@@ -2278,13 +2320,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.String.Concat(System.String,System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.String.Concat(System.String,System.String)"
+                                  "fullyQualifiedName": "System.String.Concat(System.String,System.String)"
                                 }
                               ]
                             }
@@ -2437,13 +2486,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.IO.FileStream..ctor(System.String,System.IO.FileMode,System.IO.FileAccess,System.IO.FileShare,System.Int32,System.IO.FileOptions,System.String,System.Boolean)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.IO.FileStream..ctor(System.String,System.IO.FileMode,System.IO.FileAccess,System.IO.FileShare,System.Int32,System.IO.FileOptions,System.String,System.Boolean)"
+                                  "fullyQualifiedName": "System.IO.FileStream..ctor(System.String,System.IO.FileMode,System.IO.FileAccess,System.IO.FileShare,System.Int32,System.IO.FileOptions,System.String,System.Boolean)"
                                 }
                               ]
                             }
@@ -2683,13 +2739,20 @@
                 {
                   "locations": [
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpRequest.get_QueryString()"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_QueryString()"
+                                  "fullyQualifiedName": "System.Web.HttpRequest.get_QueryString()"
                                 }
                               ]
                             }
@@ -2887,13 +2950,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
                                 }
                               ]
                             }
@@ -3091,13 +3161,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.String.Concat(System.String,System.String,System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.String.Concat(System.String,System.String,System.String)"
+                                  "fullyQualifiedName": "System.String.Concat(System.String,System.String,System.String)"
                                 }
                               ]
                             }
@@ -3295,13 +3372,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpWriter.Write(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Web.HttpWriter.Write(System.String)"
+                                  "fullyQualifiedName": "System.Web.HttpWriter.Write(System.String)"
                                 }
                               ]
                             }
@@ -3676,13 +3760,20 @@
                 {
                   "locations": [
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_Form()"
+                                  "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
                                 }
                               ]
                             }
@@ -3871,13 +3962,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
                                 }
                               ]
                             }
@@ -4057,13 +4155,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Text.Encoding.GetBytes(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.Byte[] System.Text.Encoding.GetBytes(System.String)"
+                                  "fullyQualifiedName": "System.Text.Encoding.GetBytes(System.String)"
                                 }
                               ]
                             }
@@ -4261,13 +4366,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Text.Encoding.GetString(System.Byte[])"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.Text.Encoding.GetString(System.Byte[])"
+                                  "fullyQualifiedName": "System.Text.Encoding.GetString(System.Byte[])"
                                 }
                               ]
                             }
@@ -4465,13 +4577,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpWriter.Write(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Web.HttpWriter.Write(System.String)"
+                                  "fullyQualifiedName": "System.Web.HttpWriter.Write(System.String)"
                                 }
                               ]
                             }
@@ -4914,9 +5033,9 @@
             "arguments": [
               "other, ctl00$BodyContentPlaceholder$txtEmail: parameter, ctl00$BodyContentPlaceholder$txtComment: parameter",
               "/webgoat/Content/StoredXSS.aspx",
-              "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_Form()",
-              "void System.Data.Common.DbCommand.set_CommandText(System.String)",
-              "System.String System.String.ConcatArray(System.String[],System.Int32)"
+              "System.Web.HttpRequest.get_Form()",
+              "System.Data.Common.DbCommand.set_CommandText(System.String)",
+              "System.String.ConcatArray(System.String[],System.Int32)"
             ]
           },
           "locations": [
@@ -4935,13 +5054,20 @@
                 {
                   "locations": [
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_Form()"
+                                  "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
                                 }
                               ]
                             }
@@ -5130,13 +5256,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
                                 }
                               ]
                             }
@@ -5316,13 +5449,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_Form()"
+                                  "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
                                 }
                               ]
                             }
@@ -5511,13 +5651,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
                                 }
                               ]
                             }
@@ -5697,13 +5844,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.String.ConcatArray(System.String[],System.Int32)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.String.ConcatArray(System.String[],System.Int32)"
+                                  "fullyQualifiedName": "System.String.ConcatArray(System.String[],System.Int32)"
                                 }
                               ]
                             }
@@ -5901,13 +6055,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Data.Common.DbCommand.set_CommandText(System.String)"
+                                  "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
                                 }
                               ]
                             }
@@ -6114,13 +6275,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Data.Common.DbCommand.set_CommandText(System.String)"
+                                  "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
                                 }
                               ]
                             }
@@ -6374,9 +6542,9 @@
             "arguments": [
               "other, ctl00$BodyContentPlaceholder$txtID: parameter",
               "/webgoat/Content/SQLInjectionDiscovery.aspx",
-              "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_Form()",
-              "void System.Data.Common.DbCommand.set_CommandText(System.String)",
-              "System.String System.String.Concat(System.String,System.String)"
+              "System.Web.HttpRequest.get_Form()",
+              "System.Data.Common.DbCommand.set_CommandText(System.String)",
+              "System.String.Concat(System.String,System.String)"
             ]
           },
           "locations": [
@@ -6395,13 +6563,20 @@
                 {
                   "locations": [
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_Form()"
+                                  "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
                                 }
                               ]
                             }
@@ -6590,13 +6765,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
                                 }
                               ]
                             }
@@ -6776,13 +6958,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.String.Concat(System.String,System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.String.Concat(System.String,System.String)"
+                                  "fullyQualifiedName": "System.String.Concat(System.String,System.String)"
                                 }
                               ]
                             }
@@ -6980,13 +7169,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Data.Common.DbCommand.set_CommandText(System.String)"
+                                  "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
                                 }
                               ]
                             }
@@ -7202,13 +7398,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Data.Common.DbCommand.set_CommandText(System.String)"
+                                  "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
                                 }
                               ]
                             }
@@ -7488,13 +7691,20 @@
                 {
                   "locations": [
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpRequest.get_QueryString()"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_QueryString()"
+                                  "fullyQualifiedName": "System.Web.HttpRequest.get_QueryString()"
                                 }
                               ]
                             }
@@ -7683,13 +7893,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
                                 }
                               ]
                             }
@@ -7878,13 +8095,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.String.Concat(System.String,System.String,System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.String.Concat(System.String,System.String,System.String)"
+                                  "fullyQualifiedName": "System.String.Concat(System.String,System.String,System.String)"
                                 }
                               ]
                             }
@@ -8190,13 +8414,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpWriter.Write(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Web.HttpWriter.Write(System.String)"
+                                  "fullyQualifiedName": "System.Web.HttpWriter.Write(System.String)"
                                 }
                               ]
                             }
@@ -8535,9 +8766,9 @@
             "arguments": [
               "other, ctl00$BodyContentPlaceholder$txtUserName: parameter",
               "/webgoat/WebGoatCoins/CustomerLogin.aspx",
-              "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_Form()",
-              "void System.Data.Common.DbCommand.set_CommandText(System.String)",
-              "System.String System.String.ConcatArray(System.String[],System.Int32)"
+              "System.Web.HttpRequest.get_Form()",
+              "System.Data.Common.DbCommand.set_CommandText(System.String)",
+              "System.String.ConcatArray(System.String[],System.Int32)"
             ]
           },
           "locations": [
@@ -8556,13 +8787,20 @@
                 {
                   "locations": [
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_Form()"
+                                  "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
                                 }
                               ]
                             }
@@ -8751,13 +8989,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
                                 }
                               ]
                             }
@@ -8937,13 +9182,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.String.ConcatArray(System.String[],System.Int32)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.String.ConcatArray(System.String[],System.Int32)"
+                                  "fullyQualifiedName": "System.String.ConcatArray(System.String[],System.Int32)"
                                 }
                               ]
                             }
@@ -9141,13 +9393,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Data.Common.DbCommand.set_CommandText(System.String)"
+                                  "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
                                 }
                               ]
                             }
@@ -9363,13 +9622,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Data.Common.DbCommand.set_CommandText(System.String)"
+                                  "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
                                 }
                               ]
                             }
@@ -9632,9 +9898,9 @@
             "arguments": [
               "other, ctl00$BodyContentPlaceholder$txtName: parameter",
               "/webgoat/Content/SQLInjection.aspx",
-              "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_Form()",
-              "void System.Data.Common.DbCommand.set_CommandText(System.String)",
-              "System.String System.String.ConcatArray(System.String[],System.Int32)"
+              "System.Web.HttpRequest.get_Form()",
+              "System.Data.Common.DbCommand.set_CommandText(System.String)",
+              "System.String.ConcatArray(System.String[],System.Int32)"
             ]
           },
           "locations": [
@@ -9653,13 +9919,20 @@
                 {
                   "locations": [
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_Form()"
+                                  "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
                                 }
                               ]
                             }
@@ -9848,13 +10121,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
                                 }
                               ]
                             }
@@ -10034,13 +10314,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_Form()"
+                                  "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
                                 }
                               ]
                             }
@@ -10229,13 +10516,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
                                 }
                               ]
                             }
@@ -10415,13 +10709,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.String.ConcatArray(System.String[],System.Int32)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.String.ConcatArray(System.String[],System.Int32)"
+                                  "fullyQualifiedName": "System.String.ConcatArray(System.String[],System.Int32)"
                                 }
                               ]
                             }
@@ -10619,13 +10920,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Data.Common.DbCommand.set_CommandText(System.String)"
+                                  "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
                                 }
                               ]
                             }
@@ -10841,13 +11149,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Data.Common.DbCommand.set_CommandText(System.String)"
+                                  "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
                                 }
                               ]
                             }
@@ -11509,9 +11824,9 @@
             "arguments": [
               "other, ctl00$BodyContentPlaceholder$txtEmail: parameter",
               "/webgoat/WebGoatCoins/ForgotPassword.aspx",
-              "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_Form()",
-              "void System.Data.Common.DbCommand.set_CommandText(System.String)",
-              "System.String System.String.Concat(System.String,System.String,System.String)"
+              "System.Web.HttpRequest.get_Form()",
+              "System.Data.Common.DbCommand.set_CommandText(System.String)",
+              "System.String.Concat(System.String,System.String,System.String)"
             ]
           },
           "locations": [
@@ -11530,13 +11845,20 @@
                 {
                   "locations": [
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_Form()"
+                                  "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
                                 }
                               ]
                             }
@@ -11725,13 +12047,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
                                 }
                               ]
                             }
@@ -11911,13 +12240,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.String.Concat(System.String,System.String,System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.String.Concat(System.String,System.String,System.String)"
+                                  "fullyQualifiedName": "System.String.Concat(System.String,System.String,System.String)"
                                 }
                               ]
                             }
@@ -12115,13 +12451,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Data.Common.DbCommand.set_CommandText(System.String)"
+                                  "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
                                 }
                               ]
                             }
@@ -12337,13 +12680,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Data.Common.DbCommand.set_CommandText(System.String)"
+                                  "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
                                 }
                               ]
                             }
@@ -12605,9 +12955,9 @@
             "arguments": [
               "other, query: parameter",
               "/webgoat/WebGoatCoins/Autocomplete.ashx",
-              "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_QueryString()",
-              "void System.Data.Common.DbCommand.set_CommandText(System.String)",
-              "System.String System.String.Concat(System.String,System.String,System.String)"
+              "System.Web.HttpRequest.get_QueryString()",
+              "System.Data.Common.DbCommand.set_CommandText(System.String)",
+              "System.String.Concat(System.String,System.String,System.String)"
             ]
           },
           "locations": [
@@ -12626,13 +12976,20 @@
                 {
                   "locations": [
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpRequest.get_QueryString()"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_QueryString()"
+                                  "fullyQualifiedName": "System.Web.HttpRequest.get_QueryString()"
                                 }
                               ]
                             }
@@ -12767,13 +13124,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
                                 }
                               ]
                             }
@@ -12908,13 +13272,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.String.Concat(System.String,System.String,System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.String.Concat(System.String,System.String,System.String)"
+                                  "fullyQualifiedName": "System.String.Concat(System.String,System.String,System.String)"
                                 }
                               ]
                             }
@@ -13049,13 +13420,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Data.Common.DbCommand.set_CommandText(System.String)"
+                                  "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
                                 }
                               ]
                             }
@@ -13208,13 +13586,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Data.Common.DbCommand.set_CommandText(System.String)"
+                                  "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
                                 }
                               ]
                             }
