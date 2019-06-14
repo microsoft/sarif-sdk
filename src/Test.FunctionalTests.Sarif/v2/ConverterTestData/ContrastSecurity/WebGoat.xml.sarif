@@ -10,7 +10,7 @@
             "uriBaseId": "SITE_ROOT",
             "index": 0
           },
-          "mimeType": "text/xml"
+          "mimeType": "text/html"
         },
         {
           "location": {
@@ -18,7 +18,7 @@
             "uriBaseId": "SITE_ROOT",
             "index": 1
           },
-          "mimeType": "text/xml"
+          "mimeType": "text/html"
         },
         {
           "location": {
@@ -26,7 +26,7 @@
             "uriBaseId": "SITE_ROOT",
             "index": 2
           },
-          "mimeType": "text/xml"
+          "mimeType": "text/html"
         },
         {
           "location": {
@@ -34,7 +34,7 @@
             "uriBaseId": "SITE_ROOT",
             "index": 3
           },
-          "mimeType": "text/xml"
+          "mimeType": "text/html"
         },
         {
           "location": {
@@ -42,7 +42,7 @@
             "uriBaseId": "SITE_ROOT",
             "index": 4
           },
-          "mimeType": "text/xml"
+          "mimeType": "text/html"
         },
         {
           "location": {
@@ -50,7 +50,7 @@
             "uriBaseId": "SITE_ROOT",
             "index": 5
           },
-          "mimeType": "text/xml"
+          "mimeType": "text/html"
         },
         {
           "location": {
@@ -58,7 +58,7 @@
             "uriBaseId": "SITE_ROOT",
             "index": 6
           },
-          "mimeType": "text/xml"
+          "mimeType": "text/html"
         },
         {
           "location": {
@@ -66,7 +66,7 @@
             "uriBaseId": "SITE_ROOT",
             "index": 7
           },
-          "mimeType": "text/xml"
+          "mimeType": "text/html"
         },
         {
           "location": {
@@ -74,7 +74,7 @@
             "uriBaseId": "SITE_ROOT",
             "index": 8
           },
-          "mimeType": "text/xml"
+          "mimeType": "text/html"
         },
         {
           "location": {
@@ -82,7 +82,7 @@
             "uriBaseId": "SITE_ROOT",
             "index": 9
           },
-          "mimeType": "text/xml"
+          "mimeType": "text/html"
         },
         {
           "location": {
@@ -90,7 +90,7 @@
             "uriBaseId": "SITE_ROOT",
             "index": 10
           },
-          "mimeType": "text/xml"
+          "mimeType": "text/html"
         },
         {
           "location": {
@@ -98,7 +98,7 @@
             "uriBaseId": "SITE_ROOT",
             "index": 11
           },
-          "mimeType": "text/xml"
+          "mimeType": "text/html"
         },
         {
           "location": {
@@ -106,7 +106,7 @@
             "uriBaseId": "SITE_ROOT",
             "index": 12
           },
-          "mimeType": "text/xml"
+          "mimeType": "text/html"
         },
         {
           "location": {
@@ -114,7 +114,7 @@
             "uriBaseId": "SITE_ROOT",
             "index": 13
           },
-          "mimeType": "text/xml"
+          "mimeType": "text/html"
         },
         {
           "location": {
@@ -122,7 +122,7 @@
             "uriBaseId": "SITE_ROOT",
             "index": 14
           },
-          "mimeType": "text/xml"
+          "mimeType": "text/html"
         },
         {
           "location": {
@@ -130,7 +130,7 @@
             "uriBaseId": "SITE_ROOT",
             "index": 15
           },
-          "mimeType": "text/xml"
+          "mimeType": "text/html"
         },
         {
           "location": {
@@ -138,7 +138,7 @@
             "uriBaseId": "SITE_ROOT",
             "index": 16
           },
-          "mimeType": "text/xml"
+          "mimeType": "text/html"
         },
         {
           "location": {
@@ -146,7 +146,7 @@
             "uriBaseId": "SITE_ROOT",
             "index": 17
           },
-          "mimeType": "text/xml"
+          "mimeType": "text/html"
         },
         {
           "location": {
@@ -154,7 +154,7 @@
             "uriBaseId": "SITE_ROOT",
             "index": 18
           },
-          "mimeType": "text/xml"
+          "mimeType": "text/html"
         },
         {
           "location": {
@@ -170,7 +170,7 @@
             "uriBaseId": "SITE_ROOT",
             "index": 20
           },
-          "mimeType": "text/xml"
+          "mimeType": "text/html"
         },
         {
           "location": {
@@ -178,7 +178,7 @@
             "uriBaseId": "SITE_ROOT",
             "index": 21
           },
-          "mimeType": "text/xml"
+          "mimeType": "text/html"
         },
         {
           "location": {
@@ -194,7 +194,7 @@
             "uriBaseId": "SITE_ROOT",
             "index": 23
           },
-          "mimeType": "text/xml"
+          "mimeType": "text/html"
         },
         {
           "location": {
@@ -202,7 +202,7 @@
             "uriBaseId": "SITE_ROOT",
             "index": 24
           },
-          "mimeType": "text/xml"
+          "mimeType": "text/html"
         }
       ],
       "results": [
