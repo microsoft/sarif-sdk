@@ -20,6 +20,11 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <returns></returns>
         public bool TryReconstructAbsoluteUri(IDictionary<string, ArtifactLocation> originalUriBaseIds, out Uri resolvedUri)
         {
+            resolvedUri = null;
+
+            // If this artifactLocation represents a top level originalUriBaseId, then the value of the URI may be absent.
+            if (this.Uri == null) { return false; }
+
             resolvedUri = this.Uri.IsAbsoluteUri ? this.Uri : null;
 
             // We can't restore any absolute URIs unless someone has
@@ -33,7 +38,10 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 if (originalUriBaseIds.TryGetValue(this.UriBaseId, out ArtifactLocation fileLocation))
                 {
-                    resolvedUri = new Uri(fileLocation.Uri, resolvedUri.ToString());
+                    if (fileLocation.Uri != null)
+                    {
+                        resolvedUri = new Uri(fileLocation.Uri, resolvedUri.ToString());
+                    }
                 }
             }
 
