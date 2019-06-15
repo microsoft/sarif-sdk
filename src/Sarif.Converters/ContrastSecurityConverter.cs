@@ -1121,14 +1121,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
         }
 
-        private static readonly Regex LogicalLocationRegex =
-            new Regex(
-                @"
-                  ([^\s]*\s+)?         # Skip over an optional leading blank-terminated return type name such as 'void '
-                  (?<fqln>[^(]+)       # Take everything up to the opening parenthesis.
-                ",
-                RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.IgnorePatternWhitespace);
-
         // Find the user code method call closest to the top of the stack. This is
         // the location we should report as being responsible for the result.
         private static string GetUserCodeLocation(Stack stack)
@@ -1138,14 +1130,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             foreach (StackFrame frame in stack.Frames)
             {
                 string fullyQualifiedLogicalName = frame.Location.LogicalLocation.FullyQualifiedName;
-                Match match = LogicalLocationRegex.Match(fullyQualifiedLogicalName);
-                if (match.Success)
+                if (!fullyQualifiedLogicalName.StartsWith(SystemPrefix))
                 {
-                    fullyQualifiedLogicalName = match.Groups["fqln"].Value;
-                    if (!fullyQualifiedLogicalName.StartsWith(SystemPrefix))
-                    {
-                        return fullyQualifiedLogicalName;
-                    }
+                    return fullyQualifiedLogicalName;
                 }
             }
 
@@ -1533,16 +1520,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static StackFrame CreateStackFrameFromSignature(string signature)
         {
+            string signatureMinusReturnType = RemoveReturnTypeFrom(signature);
+
             return new StackFrame
             {
                 Location = new Location
                 {
                     LogicalLocation = new LogicalLocation
                     {
-                        FullyQualifiedName = signature
+                        FullyQualifiedName = signatureMinusReturnType
                     }
                 }
             };
+        }
+
+        private static readonly Regex LogicalLocationRegex =
+            new Regex(
+                @"^
+                  ([^\s]*\s+)?         # Skip over an optional leading blank-terminated return type name such as 'void '.
+                  (?<fqln>.*)          # Take everything else.
+                $",
+                RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.IgnorePatternWhitespace);
+
+        private static string RemoveReturnTypeFrom(string signature)
+        {
+            Match match = LogicalLocationRegex.Match(signature);
+            if (match.Success)
+            {
+                signature = match.Groups["fqln"].Value;
+            }
+
+            return signature;
         }
 
         private static void ReadObject(SparseReader reader, object parent)
@@ -1617,6 +1625,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Debug.Assert(context.CurrentThreadFlowLocation == null);
             context.CurrentThreadFlowLocation = new ThreadFlowLocation
             {
+                Location = context.Signature.Location,
+
                 Stack = new Stack
                 {
                     Frames = new List<StackFrame> { context.Signature }
