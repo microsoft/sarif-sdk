@@ -25,34 +25,37 @@ namespace Microsoft.CodeAnalysis.Sarif
             // If this artifactLocation represents a top level originalUriBaseId, then the value of the URI may be absent.
             if (this.Uri == null) { return false; }
 
-            resolvedUri = this.Uri.IsAbsoluteUri ? this.Uri : null;
-
-            // We can't restore any absolute URIs unless someone has
-            // deconstructed them using uriBaseId + originalUriBaseIds
-            if (originalUriBaseIds == null) { return this.Uri.IsAbsoluteUri; }
-
-            resolvedUri = this.Uri;
-
-            if (!string.IsNullOrEmpty(this.UriBaseId) &&
-                !this.Uri.IsAbsoluteUri)
+            if (this.Uri.IsAbsoluteUri)
             {
-                if (originalUriBaseIds.TryGetValue(this.UriBaseId, out ArtifactLocation fileLocation))
+                resolvedUri = this.Uri;
+                return true;
+            }
+
+            // The URI is a relative reference. Do we have the information we need to resolve it?
+            if (originalUriBaseIds == null) { return false; }
+
+            // Walk up the UriBaseId chain until we find an ArtifactLocation object:
+            //    - whose Uri is absolute (success), or
+            //      which lacks a UriBaseId property (failure), or
+            //    - whose UriBaseId is not defined in originalUriBaseIds (failure), or
+            //    - which lacks a Uri property (failure).
+            ArtifactLocation artifactLocation = this;
+            Uri stemUri = this.Uri;
+            while (!stemUri.IsAbsoluteUri)
+            {
+                if (string.IsNullOrEmpty(artifactLocation.UriBaseId) ||
+                    !originalUriBaseIds.TryGetValue(artifactLocation.UriBaseId, out artifactLocation) ||
+                    artifactLocation.Uri == null)
                 {
-                    if (fileLocation.Uri != null)
-                    {
-                        resolvedUri = new Uri(fileLocation.Uri, resolvedUri.ToString());
-                    }
+                    return false;
                 }
+
+                stemUri = new Uri(artifactLocation.Uri, stemUri);
             }
 
-            // If we weren't able to reconstruct a URI (or resolvedUri wasn't already 
-            // an absolute URI on input), initialize out parameter to null;
-            if (!resolvedUri.IsAbsoluteUri)
-            {
-                resolvedUri = null;
-            }
-
-            return resolvedUri != null;
+            // If we got here, we found an absolute URI.
+            resolvedUri = stemUri;
+            return true;
         }
 
         public static ArtifactLocation CreateFromFilesDictionaryKey(string key, string parentKey = null)
