@@ -27,6 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private const string SiteRootDescriptionMessageId = "SiteRootDescription";
 
         private IDictionary<string, ReportingDescriptor> _rules;
+        private IDictionary<string, int> _ruleIdToIndexDictionary;
 
         public override string ToolName => "Contrast Security";
 
@@ -68,6 +69,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Run run = sarifLog.Runs[0];
             _rules = run.Tool.Driver.Rules.ToDictionary(rule => rule.Id);
 
+            // Create another dictionary, from ruleId to ruleIndex, so we can populate easily result.ruleIndex.
+            // This is important because we will populate result.message.id, but _not_ result.message.text.
+            // That means that viewers will need to _look up_ the message text by way of result.ruleIndex,
+            // so we must popuate it.
+            _ruleIdToIndexDictionary = CreateRuleToIndexDictionary(run.Tool.Driver.Rules); 
+
             run.OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>
             {
                 {
@@ -104,6 +111,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             PersistResults(output, results, run);
+        }
+
+        private IDictionary<string, int> CreateRuleToIndexDictionary(IList<ReportingDescriptor> rules)
+        {
+            var dictionary = new Dictionary<string, int>();
+            for (int i = 0; i < rules.Count; ++i)
+            {
+                dictionary.Add(rules[i].Id, i);
+            }
+
+            return dictionary;
         }
 
         internal Result CreateResult(ContrastLogReader.Context context)
@@ -222,6 +240,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var result = new Result
             {
                 RuleId = ruleId,
+                RuleIndex = _ruleIdToIndexDictionary[ruleId],
                 Level = GetRuleFailureLevel(ruleId),
                 Message = new Message { Text = $"TODO: missing message construction for rule '{ruleId}'." }
             };
@@ -1035,6 +1054,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return new Result
             {
                 RuleId = context.RuleId,
+                RuleIndex = _ruleIdToIndexDictionary[context.RuleId],
                 Level = GetRuleFailureLevel(context.RuleId),
                 WebRequest = CreateWebRequest(context),
                 CodeFlows = CreateCodeFlows(context)

@@ -208,6 +208,7 @@
       "results": [
         {
           "ruleId": "sql-injection",
+          "ruleIndex": 38,
           "level": "error",
           "message": {
             "id": "default",
@@ -1340,6 +1341,7 @@
         },
         {
           "ruleId": "autocomplete-missing",
+          "ruleIndex": 12,
           "level": "note",
           "message": {
             "id": "default",
@@ -1609,6 +1611,7 @@
         },
         {
           "ruleId": "cache-controls-missing",
+          "ruleIndex": 0,
           "level": "note",
           "message": {
             "id": "default",
@@ -1836,6 +1839,7 @@
         },
         {
           "ruleId": "clickjacking-control-missing",
+          "ruleIndex": 24,
           "level": "note",
           "message": {
             "id": "default",
@@ -2062,6 +2066,7 @@
         },
         {
           "ruleId": "crypto-bad-mac",
+          "ruleIndex": 18,
           "message": {
             "id": "default",
             "arguments": [
@@ -2319,6 +2324,7 @@
         },
         {
           "ruleId": "path-traversal",
+          "ruleIndex": 26,
           "level": "error",
           "message": {
             "id": "default",
@@ -2939,6 +2945,7 @@
         },
         {
           "ruleId": "reflected-xss",
+          "ruleIndex": 5,
           "level": "error",
           "message": {
             "id": "default",
@@ -3961,6 +3968,7 @@
         },
         {
           "ruleId": "reflected-xss",
+          "ruleIndex": 5,
           "level": "error",
           "message": {
             "id": "default",
@@ -5253,6 +5261,7 @@
         },
         {
           "ruleId": "sql-injection",
+          "ruleIndex": 38,
           "level": "error",
           "message": {
             "id": "default",
@@ -6763,6 +6772,7 @@
         },
         {
           "ruleId": "sql-injection",
+          "ruleIndex": 38,
           "level": "error",
           "message": {
             "id": "default",
@@ -7895,6 +7905,7 @@
         },
         {
           "ruleId": "reflected-xss",
+          "ruleIndex": 5,
           "level": "error",
           "message": {
             "id": "default",
@@ -8989,6 +9000,7 @@
         },
         {
           "ruleId": "sql-injection",
+          "ruleIndex": 38,
           "level": "error",
           "message": {
             "id": "default",
@@ -10122,6 +10134,7 @@
         },
         {
           "ruleId": "sql-injection",
+          "ruleIndex": 38,
           "level": "error",
           "message": {
             "id": "default",
@@ -11649,6 +11662,7 @@
         },
         {
           "ruleId": "authorization-missing-deny",
+          "ruleIndex": 3,
           "message": {
             "id": "underLocation",
             "arguments": [
@@ -11677,6 +11691,7 @@
         },
         {
           "ruleId": "authorization-missing-deny",
+          "ruleIndex": 3,
           "message": {
             "id": "underLocation",
             "arguments": [
@@ -11705,6 +11720,7 @@
         },
         {
           "ruleId": "authorization-missing-deny",
+          "ruleIndex": 3,
           "message": {
             "id": "underLocation",
             "arguments": [
@@ -11733,6 +11749,7 @@
         },
         {
           "ruleId": "authorization-missing-deny",
+          "ruleIndex": 3,
           "message": {
             "id": "underLocation",
             "arguments": [
@@ -11761,6 +11778,7 @@
         },
         {
           "ruleId": "authorization-missing-deny",
+          "ruleIndex": 3,
           "message": {
             "id": "default",
             "arguments": [
@@ -11788,6 +11806,7 @@
         },
         {
           "ruleId": "compilation-debug",
+          "ruleIndex": 53,
           "level": "note",
           "message": {
             "id": "default",
@@ -11816,6 +11835,7 @@
         },
         {
           "ruleId": "custom-errors-off",
+          "ruleIndex": 6,
           "message": {
             "id": "default",
             "arguments": [
@@ -11843,6 +11863,7 @@
         },
         {
           "ruleId": "event-validation-disabled",
+          "ruleIndex": 7,
           "message": {
             "id": "default",
             "arguments": [
@@ -11869,6 +11890,7 @@
         },
         {
           "ruleId": "forms-auth-ssl",
+          "ruleIndex": 11,
           "message": {
             "id": "default",
             "arguments": [
@@ -11896,6 +11918,7 @@
         },
         {
           "ruleId": "http-only-disabled",
+          "ruleIndex": 15,
           "level": "note",
           "message": {
             "id": "default",
@@ -11924,6 +11947,7 @@
         },
         {
           "ruleId": "request-validation-disabled",
+          "ruleIndex": 27,
           "message": {
             "id": "default",
             "arguments": [
@@ -11950,6 +11974,7 @@
         },
         {
           "ruleId": "secure-flag-missing",
+          "ruleIndex": 36,
           "message": {
             "id": "default",
             "arguments": [
@@ -11986,6 +12011,7 @@
         },
         {
           "ruleId": "session-rewriting",
+          "ruleIndex": 37,
           "message": {
             "id": "default",
             "arguments": [
@@ -12014,6 +12040,7 @@
         },
         {
           "ruleId": "session-timeout",
+          "ruleIndex": 23,
           "level": "note",
           "message": {
             "id": "default",
@@ -12043,6 +12070,7 @@
         },
         {
           "ruleId": "version-header-enabled",
+          "ruleIndex": 45,
           "level": "note",
           "message": {
             "id": "default",
@@ -12064,6 +12092,7 @@
         },
         {
           "ruleId": "sql-injection",
+          "ruleIndex": 38,
           "level": "error",
           "message": {
             "id": "default",
@@ -13196,6 +13225,7 @@
         },
         {
           "ruleId": "sql-injection",
+          "ruleIndex": 38,
           "level": "error",
           "message": {
             "id": "default",
