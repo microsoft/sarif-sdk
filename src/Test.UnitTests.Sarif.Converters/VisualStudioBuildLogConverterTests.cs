@@ -26,14 +26,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         [Fact]
         public void VisualStudioBuildLogConverter_ConvertsLogWithNoErrors()
-        {
-            RunTest("NoErrors.txt");
-        }
+            => RunTest("NoErrors.txt");
 
         [Fact]
         public void VisualStudioBuildLogConverter_ConvertsLogWithErrorsInVariousFormats()
-        {
-            RunTest("SomeErrors.txt");
-        }
+            => RunTest("SomeErrors.txt");
     }
 }
