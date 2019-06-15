@@ -394,3 +394,5 @@
 * BUGFIX: Transformation from SARIF 1.0 to 2.x throws ArgumentOutOfRangeException, if `result.locations` is an empty array. https://github.com/microsoft/sarif-sdk/issues/1526
 * BUGFIX: Add `Result.Level` (and remove `Result.Rank`) for Fortify Converter based on MicroFocus feedback.
 * BUGFIX: Invocation constructor should set 'executionSuccessful' to true by default.
+* BUGFIX: Contrast security converter now populates threadFlowLocation.location. https://github.com/microsoft/sarif-sdk/issues/1530
+* BUGFIX: Contrast Security converter no longer emits incomplete `artifact` objects. https://github.com/microsoft/sarif-sdk/issues/1529
