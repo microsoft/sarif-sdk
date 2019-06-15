@@ -50,7 +50,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                     return false;
                 }
 
-                stemUri = new Uri(artifactLocation.Uri, stemUri);
+                // I'd like to use the ctor new Uri(baseUri, relativeUri) here, but it fails with
+                // ArgumentOutOfRangeException, perhaps because it doesn't like the baseUri argument
+                // to be relative. So...
+                stemUri = new Uri(artifactLocation.Uri.OriginalString + stemUri.OriginalString, UriKind.RelativeOrAbsolute);
             }
 
             // If we got here, we found an absolute URI.
