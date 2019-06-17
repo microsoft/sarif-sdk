@@ -33,21 +33,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
             SarifLog actualLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(transformedLog, formatting: Formatting.None, out transformedLog);
 
-            Uri originalUri = actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"].Uri;
-            string uriString = originalUri.ToString();
+            // For CoreTests only - this code rewrites the log persisted URI to match the test environment
+            if (inputResourceName == "Inputs.CoreTests.sarif")
+            {
+                Uri originalUri = actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"].Uri;
+                string uriString = originalUri.ToString();
 
-            // This code rewrites the log persisted URI to match the test environment
-            string currentDirectory = Environment.CurrentDirectory;
-            currentDirectory = currentDirectory.Substring(0, currentDirectory.IndexOf(@"\bld\"));
-            uriString = uriString.Replace("REPLACED_AT_TEST_RUNTIME", currentDirectory);
+                string currentDirectory = Environment.CurrentDirectory;
+                currentDirectory = currentDirectory.Substring(0, currentDirectory.IndexOf(@"\bld\"));
+                uriString = uriString.Replace("REPLACED_AT_TEST_RUNTIME", currentDirectory);
 
-            actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"] = new ArtifactLocation { Uri = new Uri(uriString, UriKind.Absolute) };
+                actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"] = new ArtifactLocation { Uri = new Uri(uriString, UriKind.Absolute) };
 
-            var visitor = new InsertOptionalDataVisitor(_currentOptionallyEmittedData);
-            visitor.Visit(actualLog.Runs[0]);
+                var visitor = new InsertOptionalDataVisitor(_currentOptionallyEmittedData);
+                visitor.Visit(actualLog.Runs[0]);
 
-            // Restore the remanufactured URI so that file diffing matches
-            actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"] = new ArtifactLocation { Uri = originalUri };
+                // Restore the remanufactured URI so that file diffing matches
+                actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"] = new ArtifactLocation { Uri = originalUri };
+            }
+            else
+            {
+                var visitor = new InsertOptionalDataVisitor(_currentOptionallyEmittedData);
+                visitor.Visit(actualLog.Runs[0]);
+            }
+
 
             return JsonConvert.SerializeObject(actualLog, Formatting.Indented);
         }
@@ -120,6 +129,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 OptionallyEmittedData.Hashes | 
                 OptionallyEmittedData.ContextRegionSnippets | 
                 OptionallyEmittedData.FlattenedMessages);
+        }
+
+        [Fact]
+        public void InsertOptionalDataVisitorTests_ContextRegionSnippets_DoesNotFail_TopLevelOriginalUriBaseIdUriMissing()
+        {
+            RunTest("TopLevelOriginalUriBaseIdUriMissing.sarif",
+                OptionallyEmittedData.ContextRegionSnippets);
         }
 
         private const int RuleIndex = 0;

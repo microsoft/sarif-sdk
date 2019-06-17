@@ -1,0 +1,74 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.2.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Code scanner",
+          "globalMessageStrings": {
+            "SiteRootDescription": {
+              "text": "The root URI of the super secret location that was analyzed."
+            }
+          },
+          "rules": [
+            {
+              "id": "rule001",
+              "name": "rule 001",
+              "shortDescription": {
+                "text": "Special rule 001."
+              }
+            }
+          ]
+        }
+      },
+      "originalUriBaseIds": {
+        "SITE_ROOT": {
+          "description": {
+            "id": "SiteRootDescription"
+          }
+        },
+        "SRCROOT": {
+          "uri": "file:///D:/a/1/s/"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "/my/Content/webpage.aspx",
+            "uriBaseId": "SITE_ROOT",
+            "index": 0
+          },
+          "mimeType": "text/html"
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "rule001",
+          "ruleIndex": 0,
+          "message": {
+            "text": "violation!"
+
+          },
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "/my/Content/webpage.aspx",
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 0
+                },
+                "region": {
+                  "charOffset": 0,
+                  "charLength": 1000
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}
