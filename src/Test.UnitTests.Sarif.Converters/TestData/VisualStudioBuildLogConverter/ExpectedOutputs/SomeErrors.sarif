@@ -1,0 +1,211 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.2.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "CS1026",
+          "level": "error",
+          "message": {
+            "text": ") expected [c:\\dev\\sarif\\sarif-sdk\\src\\Test.UnitTests.Sarif.Converters\\Test.UnitTests.Sarif.Converters.csproj]"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "VisualStudioBuildLogConverterTests.cs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 30,
+                  "startColumn": 35
+                }
+              }
+            }
+          ],
+          "properties": {
+            "microsoft/visualStudioBuildLogConverter/fullMessage": "VisualStudioBuildLogConverterTests.cs(30,35): error CS1026: ) expected [c:\\dev\\sarif\\sarif-sdk\\src\\Test.UnitTests.Sarif.Converters\\Test.UnitTests.Sarif.Converters.csproj]"
+          }
+        },
+        {
+          "ruleId": "CS1002",
+          "level": "error",
+          "message": {
+            "text": "; expected [c:\\dev\\sarif\\sarif-sdk\\src\\Test.UnitTests.Sarif.Converters\\Test.UnitTests.Sarif.Converters.csproj]"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "VisualStudioBuildLogConverterTests.cs",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 38
+                }
+              }
+            }
+          ],
+          "properties": {
+            "microsoft/visualStudioBuildLogConverter/fullMessage": "VisualStudioBuildLogConverterTests.cs(36,38): error CS1002: ; expected [c:\\dev\\sarif\\sarif-sdk\\src\\Test.UnitTests.Sarif.Converters\\Test.UnitTests.Sarif.Converters.csproj]"
+          }
+        },
+        {
+          "ruleId": "CS1111",
+          "level": "note",
+          "message": {
+            "text": "This is a note."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "StartLineOnlyRegion.cs",
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 83
+                }
+              }
+            }
+          ],
+          "properties": {
+            "microsoft/visualStudioBuildLogConverter/fullMessage": "StartLineOnlyRegion.cs(83): info CS1111: This is a note."
+          }
+        },
+        {
+          "ruleId": "CS2222",
+          "level": "warning",
+          "message": {
+            "text": "This is a warning."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "StartLineEndLineRegion.cs",
+                  "index": 2
+                },
+                "region": {
+                  "startLine": 42,
+                  "endLine": 54
+                }
+              }
+            }
+          ],
+          "properties": {
+            "microsoft/visualStudioBuildLogConverter/fullMessage": "StartLineEndLineRegion.cs(42-54): warning CS2222: This is a warning."
+          }
+        },
+        {
+          "ruleId": "CS3333",
+          "level": "warning",
+          "message": {
+            "text": "This is another warning."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "StartLineStartColumnEndColumnRegion.cs",
+                  "index": 3
+                },
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 42,
+                  "endColumn": 54
+                }
+              }
+            }
+          ],
+          "properties": {
+            "microsoft/visualStudioBuildLogConverter/fullMessage": "StartLineStartColumnEndColumnRegion.cs(17,42-54): warning CS3333: This is another warning."
+          }
+        },
+        {
+          "ruleId": "CS4444",
+          "level": "error",
+          "message": {
+            "text": "This is another error."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "StartLineStartColumnEndLineEndColumnRegion.cs",
+                  "index": 4
+                },
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 26,
+                  "endLine": 14,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "properties": {
+            "microsoft/visualStudioBuildLogConverter/fullMessage": "StartLineStartColumnEndLineEndColumnRegion.cs(12,26,14,36): error CS4444: This is another error."
+          }
+        },
+        {
+          "ruleId": "LNK1104",
+          "level": "error",
+          "message": {
+            "text": "cannot open file 'somelib.lib'"
+          },
+          "properties": {
+            "microsoft/visualStudioBuildLogConverter/fullMessage": "LINK : fatal error LNK1104: cannot open file 'somelib.lib'",
+            "microsoft/visualStudioBuildLogConverter/buildTool": "LINK",
+            "microsoft/visualStudioBuildLogConverter/levelQualification": "fatal"
+          }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "VisualStudioBuildLog"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "VisualStudioBuildLogConverterTests.cs",
+            "index": 0
+          },
+          "mimeType": "text/x-csharp"
+        },
+        {
+          "location": {
+            "uri": "StartLineOnlyRegion.cs",
+            "index": 1
+          },
+          "mimeType": "text/x-csharp"
+        },
+        {
+          "location": {
+            "uri": "StartLineEndLineRegion.cs",
+            "index": 2
+          },
+          "mimeType": "text/x-csharp"
+        },
+        {
+          "location": {
+            "uri": "StartLineStartColumnEndColumnRegion.cs",
+            "index": 3
+          },
+          "mimeType": "text/x-csharp"
+        },
+        {
+          "location": {
+            "uri": "StartLineStartColumnEndLineEndColumnRegion.cs",
+            "index": 4
+          },
+          "mimeType": "text/x-csharp"
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}

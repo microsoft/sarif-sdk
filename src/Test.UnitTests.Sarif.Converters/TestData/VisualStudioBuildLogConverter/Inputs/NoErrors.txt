@@ -1,0 +1,8 @@
+﻿1>------ Build started: Project: Test.Utilities.Sarif, Configuration: Debug Any CPU ------
+1>Test.Utilities.Sarif -> C:\dev\sarif\sarif-sdk\bld\bin\AnyCPU_Debug\Test.Utilities.Sarif\net461\Test.Utilities.Sarif.dll
+1>Test.Utilities.Sarif -> C:\dev\sarif\sarif-sdk\bld\bin\AnyCPU_Debug\Test.Utilities.Sarif\netstandard2.0\Test.Utilities.Sarif.dll
+2>------ Build started: Project: Test.UnitTests.Sarif.Converters, Configuration: Debug Any CPU ------
+2>Test.UnitTests.Sarif.Converters -> C:\dev\sarif\sarif-sdk\bld\bin\AnyCPU_Debug\Test.UnitTests.Sarif.Converters\net461\Test.UnitTests.Sarif.Converters.dll
+2>Test.UnitTests.Sarif.Converters -> C:\dev\sarif\sarif-sdk\bld\bin\AnyCPU_Debug\Test.UnitTests.Sarif.Converters\netcoreapp2.0\Test.UnitTests.Sarif.Converters.dll
+2>Test.UnitTests.Sarif.Converters -> C:\dev\sarif\sarif-sdk\bld\bin\AnyCPU_Debug\Test.UnitTests.Sarif.Converters\netcoreapp2.1\Test.UnitTests.Sarif.Converters.dll
+========== Build: 2 succeeded, 0 failed, 3 up-to-date, 0 skipped ==========
