@@ -149,7 +149,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             ImmutableArray.Create("text/css", "css"),
             ImmutableArray.Create("text/x-fsharp", "fs"),
             ImmutableArray.Create("text/x-handlebars-template", "handlebars"),
-            ImmutableArray.Create("text/html", "htm", "html"),
+            ImmutableArray.Create("text/html", "ascx", "aspx", "htm", "html"),
             ImmutableArray.Create("text/x-ini", "ini", "gitconfig", "yml"),
             ImmutableArray.Create("text/x-jade", "jade"),
             ImmutableArray.Create(MimeType.JavaProperties, "properties"),
@@ -169,7 +169,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             ImmutableArray.Create("text/x-sql", "sql", "tsql"),
             ImmutableArray.Create("text/typescript", "ts"),
             ImmutableArray.Create("text/x-vb", "vb"),
-            ImmutableArray.Create("text/xml", "xml", "ascx", "aspx", "csproj", "xaml", "dtd", "xsd", "vcxproj", "vbproj", "wixproj", "jsproj", "proj", "targets", "props", "config")
+            ImmutableArray.Create("text/xml", "xml", "csproj", "xaml", "dtd", "xsd", "vcxproj", "vbproj", "wixproj", "jsproj", "proj", "targets", "props", "config")
             );
 
         private static readonly ImmutableArray<ImmutableArray<string>> s_binaryExtensionsTable = ImmutableArray.Create(
