@@ -36,6 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             CreateConverterRecord<SemmleQLConverter>(result, ToolFormat.SemmleQL);
             CreateConverterRecord<StaticDriverVerifierConverter>(result, ToolFormat.StaticDriverVerifier);
             CreateConverterRecord<TSLintConverter>(result, ToolFormat.TSLint);
+            CreateConverterRecord<VisualStudioBuildLogConverter>(result, ToolFormat.VisualStudioBuildLog);
             return result;
         }
 

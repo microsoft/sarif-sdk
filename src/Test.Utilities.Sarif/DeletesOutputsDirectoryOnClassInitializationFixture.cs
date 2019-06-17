@@ -16,12 +16,12 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// See https://xunit.github.io/docs/shared-context for more information about xUnit class fixtures.
     ///
     /// This particular fixture deletes any existing test output files that may have been produced
-    /// by a previous run. It is designed for use on test classes that derive from FileDiffingTests.
-    /// It is required because FileDiffingTests emits the outputs from each test to a common directory,
+    /// by a previous run. It is designed for use on test classes that derive from FileDiffingUnitTests.
+    /// It is required because FileDiffingUnitTests emits the outputs from each test to a common directory,
     /// to allow diffing an entire directory of failing tests. If each test case deleted this directory,
     /// then at the end it would contain only the output from the last failing test.
     ///
-    /// Each class that derives from FileDiffingTests can declare its own derived fixture class if
+    /// Each class that derives from FileDiffingUnitTests can declare its own derived fixture class if
     /// it wants to override the virtual TypeUnderTest or OutputFolderPath properties, but there seems
     /// no good reason to do this.
     /// </summary>
