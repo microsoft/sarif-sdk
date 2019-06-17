@@ -396,3 +396,4 @@
 * BUGFIX: Invocation constructor should set 'executionSuccessful' to true by default.
 * BUGFIX: Contrast security converter now populates threadFlowLocation.location. https://github.com/microsoft/sarif-sdk/issues/1530
 * BUGFIX: Contrast Security converter no longer emits incomplete `artifact` objects. https://github.com/microsoft/sarif-sdk/issues/1529
+* BUGFIX: Fix crashing bugs and logic flaws in ArtifactLocation.TryReconstructAbsoluteUri.
