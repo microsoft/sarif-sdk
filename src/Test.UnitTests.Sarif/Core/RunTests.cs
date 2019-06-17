@@ -6,8 +6,9 @@ using Xunit;
 using Newtonsoft.Json;
 using FluentAssertions;
 using System.Collections.Generic;
+using Microsoft.CodeAnalysis.Sarif;
 
-namespace Microsoft.CodeAnalysis.Sarif
+namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
 {
     public class RunTests
     {

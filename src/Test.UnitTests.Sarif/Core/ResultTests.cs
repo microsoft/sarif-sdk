@@ -1,13 +1,11 @@
 ﻿// Copyright (c) Microsoft.  All Rights Reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
 using Xunit;
-using Newtonsoft.Json;
 using FluentAssertions;
-using System.Collections.Generic;
+using Microsoft.CodeAnalysis.Sarif;
 
-namespace Microsoft.CodeAnalysis.Sarif
+namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
 {
     public class ResultTests
     {
