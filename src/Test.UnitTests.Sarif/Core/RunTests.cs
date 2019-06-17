@@ -75,8 +75,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             // Now use a file location that has no url and therefore relies strictly on
             // the index in run.artifacts (i.e., _fileToIndexMap will not be used).
-            fileLocation = new ArtifactLocation();
-            fileLocation.Index = 0;
+            fileLocation = new ArtifactLocation
+            {
+                Index = 0
+            };
             RetrieveFileIndexAndValidate(run, fileLocation, expectedFileIndex: 0);
         }
 
