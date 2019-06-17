@@ -65,7 +65,7 @@
               "id": "reflected-xss",
               "name": "Cross-Site Scripting",
               "shortDescription": {
-                "text": "Verifies no untrusted data is used in generated HTML pages"
+                "text": "Verifies no untrusted data is used in generated HTML pages."
               },
               "messageStrings": {
                 "default": {
@@ -107,7 +107,7 @@
               "id": "session-regenerate",
               "name": "Expired Session IDs Not Regenerated",
               "shortDescription": {
-                "text": "Verifies the application generates new session IDs rather than allowing attackers to use expired session IDs"
+                "text": "Verifies the application generates new session IDs rather than allowing attackers to use expired session IDs."
               },
               "defaultConfiguration": {
                 "level": "note"
@@ -165,7 +165,7 @@
               "id": "header-injection",
               "name": "Header Injection",
               "shortDescription": {
-                "text": "Verifies untrusted data is not used in an HTTP header"
+                "text": "Verifies untrusted data is not used in an HTTP header."
               },
               "defaultConfiguration": {
                 "level": "error"
@@ -212,7 +212,7 @@
               "id": "crypto-bad-mac",
               "name": "Insecure Hash Algorithms",
               "shortDescription": {
-                "text": "Verifies only strong hash algorithms are used"
+                "text": "Verifies only strong hash algorithms are used."
               },
               "messageStrings": {
                 "default": {
@@ -437,7 +437,7 @@
               "id": "stored-xss",
               "name": "Stored Cross-Site Scripting",
               "shortDescription": {
-                "text": "Verifies no untrusted data which was stored in a database is displayed in generated HTML pages"
+                "text": "Verifies no untrusted data which was stored in a database is displayed in generated HTML pages."
               },
               "defaultConfiguration": {
                 "level": "error"
@@ -544,7 +544,7 @@
               "id": "weak-membership-config",
               "name": "Weak Membership Configuration",
               "shortDescription": {
-                "text": "Verifies membership authentication is configured to help withstand password bruteforce attacks."
+                "text": "Verifies membership authentication is configured to help withstand password brute force attacks."
               },
               "defaultConfiguration": {
                 "level": "note"
@@ -589,7 +589,7 @@
               "id": "xpath-injection",
               "name": "XPath Injection",
               "shortDescription": {
-                "text": "Verifies no untrusted data is used in XPath expression used to retrieve data from an XML database"
+                "text": "Verifies no untrusted data is used in XPath expression used to retrieve data from an XML database."
               },
               "defaultConfiguration": {
                 "level": "error"
