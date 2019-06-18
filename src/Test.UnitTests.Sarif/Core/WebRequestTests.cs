@@ -18,6 +18,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
 User-Agent: curl/7.16.3 libcurl/7.16.3 OpenSSL/0.9.7l zlib/1.2.3
 Host: www.example.com
 Accept-Language: en, mi
+
 ";
 
             WebRequest webRequest = WebRequest.Parse(RequestString);

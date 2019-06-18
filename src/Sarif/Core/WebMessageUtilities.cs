@@ -19,6 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </remarks>
     internal static class WebMessageUtilities
     {
+        private const string CRLF = "\r\n";
         private const string TokenPattern = "[!#$%&'*+._`|~0-9a-zA-Z^-]+";
         private const string HttpVersionPattern = @"(?<protocol>HTTP)/(?<version>[0-9]\.[0-9])";
 
@@ -133,7 +134,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                     requestString = requestString.Substring(length);
                     totalLength += length;
                 }
-            } while (!string.IsNullOrWhiteSpace(requestString));
+                else
+                {
+                    return false;
+                }
+            } while (!requestString.StartsWith(CRLF));  // An empty line signals the end of the headers.
+
+            totalLength += CRLF.Length;                 // Skip past the empty line;
 
             return true;
         }

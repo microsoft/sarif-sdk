@@ -38,6 +38,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     webRequest.Headers = headers;
                 }
+                else
+                {
+                    webRequest.IsInvalid = true;
+                    return webRequest;
+                }
 
                 requestString = requestString.Substring(totalHeadersLength);
             }

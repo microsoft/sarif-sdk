@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft.  All Rights Reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -31,6 +32,19 @@ namespace Microsoft.CodeAnalysis.Sarif
                 webResponse.Version = version;
                 webResponse.StatusCode = statusCode;
                 webResponse.ReasonPhrase = reasonPhrase;
+
+                responseString = responseString.Substring(statusLineLength);
+                if (WebMessageUtilities.ParseHeaderLines(responseString, out Dictionary<string, string> headers, out int totalHeadersLength))
+                {
+                    webResponse.Headers = headers;
+                }
+                else
+                {
+                    webResponse.IsInvalid = true;
+                    return webResponse;
+                }
+
+                responseString = responseString.Substring(totalHeadersLength);
             }
             else
             {
