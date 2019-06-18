@@ -20,6 +20,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         private const string HttpVersionPattern = @"(?<protocol>[^/]+)/(?<version>.+)";
         private static readonly Regex s_httpVersionRegex = SarifUtilities.RegexFromPattern(HttpVersionPattern);
 
+        internal static string MakeProtocolVersion(string protocol, string version)
+            => (protocol ?? string.Empty) + "/" + (version ?? string.Empty);
+
         internal static bool ParseProtocolAndVersion(string httpVersion, out string protocol, out string version)
         {
             protocol = version = null;

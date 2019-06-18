@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public bool IsInvalid { get; private set; }
 
         [JsonIgnore]
-        public string ProtocolVersion => (Protocol ?? string.Empty) + "/" + (Version ?? string.Empty);
+        public string ProtocolVersion => WebMessageUtilities.MakeProtocolVersion(Protocol, Version);
 
         public static WebResponse Parse(string responseString)
         {
