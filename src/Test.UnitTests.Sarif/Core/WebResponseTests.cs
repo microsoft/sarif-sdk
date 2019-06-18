@@ -39,6 +39,7 @@ Content-Security-Policy: frame-ancestors 'self'
             WebResponse webResponse = WebResponse.Parse(ResponseString);
 
             webResponse.Protocol.Should().Be("HTTP/1.1");
+            webResponse.StatusCode.Should().Be(200);
         }
     }
 }

@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Globalization;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
@@ -21,6 +22,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (fields.Length > 0)
                 {
                     webResponse.Protocol = fields[0];
+                }
+
+                if (fields.Length > 1 && int.TryParse(fields[1], NumberStyles.None, CultureInfo.InvariantCulture, out int statusCode))
+                {
+                    webResponse.StatusCode = statusCode;
                 }
 
                 ++lineIndex;
