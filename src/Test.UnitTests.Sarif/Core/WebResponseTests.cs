@@ -15,30 +15,21 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         [Fact]
         public void WebResponse_Parse_CreatesExpectedWebResponseObject()
         {
+            // Example from RFC 7230.
             const string ResponseString =
 @"HTTP/1.1 200 OK
-Date: Thu, 13 Jun 2019 15:31:38 GMT
-Content-Length: 1225
-Content-Type: text/html
-Content-Encoding: gzip
-Last-Modified: Fri, 07 Jun 2019 05:15:32 GMT
+Date: Mon, 27 Jul 2009 12:28:53 GMT
+Server: Apache
+Last-Modified: Wed, 22 Jul 2009 19:15:56 GMT
+ETag: ""34aa387-d-1568eb00""
 Accept-Ranges: bytes
-Server: Microsoft-IIS/10.0
+Content-Length: 51
 Vary: Accept-Encoding
-Persistent-Auth: true
-X-Powered-By: ASP.NET
-Strict-Transport-Security: max-age=31536000
-X-Content-Type-Options: nosniff
-X-UA-Compatible: IE=edge
-X-FRAME-OPTIONS: SAMEORIGIN
-Content-Security-Policy: frame-ancestors 'self'
+Content-Type: text / plain
 
-<div error-message error=""error"">
-</di >
-<div class=""form-horizontal"">
-    <div class=""col-sm-12"">
-    </div>
-</div>";
+Hello World!My payload includes a trailing CRLF.
+";
+
             WebResponse webResponse = WebResponse.Parse(ResponseString);
 
             webResponse.Protocol.Should().Be("HTTP");
