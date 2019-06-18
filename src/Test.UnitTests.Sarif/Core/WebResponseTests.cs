@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
@@ -42,6 +43,7 @@ Content-Security-Policy: frame-ancestors 'self'
 
             webResponse.Protocol.Should().Be("HTTP");
             webResponse.Version.Should().Be("1.1");
+            webResponse.ProtocolVersion.Should().Be("HTTP/1.1");
             webResponse.StatusCode.Should().Be(200);
             webResponse.ReasonPhrase.Should().Be("OK");
             webResponse.IsInvalid.Should().BeFalse();
@@ -58,7 +60,21 @@ Content-Security-Policy: frame-ancestors 'self'
             WebResponse webResponse = WebResponse.Parse(responseString);
 
             webResponse.IsInvalid.Should().BeTrue(because: reason);
+        }
 
+        public static readonly IEnumerable<object[]> s_protocolVersionTestCases = new List<object[]>
+        {
+            new object[] { new WebResponse(), "/" },
+            new object[] { new WebResponse { Protocol = "HTTP" }, "HTTP/" },
+            new object[] { new WebResponse { Version = "1.1" }, "/1.1" },
+            new object[] { new WebResponse { Protocol = "HTTP", Version = "1.1" }, "HTTP/1.1" }
+        };
+
+        [Theory]
+        [MemberData(nameof(s_protocolVersionTestCases))]
+        public void WebResponse_SynthesizesProtocolVersionFromProtocolAndVersion(WebResponse webResponse, string expectedProtocolVersion)
+        {
+            webResponse.ProtocolVersion.Should().Be(expectedProtocolVersion);
         }
     }
 }
