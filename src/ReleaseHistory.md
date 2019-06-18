@@ -398,3 +398,4 @@
 * BUGFIX: Contrast Security converter no longer emits incomplete `artifact` objects. https://github.com/microsoft/sarif-sdk/issues/1529
 * BUGFIX: Fix crashing bugs and logic flaws in ArtifactLocation.TryReconstructAbsoluteUri.
 * API NON-BREAKING: Provide a SARIF converter for Visual Studio log files.
+* API NON-BREAKING: Introduce WebRequest.Parse and WebResponse.Parse to parse web traffic strings into SARIF WebRequest and WebResponse objects.
