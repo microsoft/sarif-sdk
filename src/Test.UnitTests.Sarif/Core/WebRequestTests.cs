@@ -34,6 +34,7 @@ Accept-Language: en, mi";
         [InlineData("GET", "request target absent")]
         [InlineData("GET /hello.txt", "protocol version is absent")]
         [InlineData("GET /hello.txt HTTP", "protocol version is invalid")]
+        [InlineData("G@T /hello.txt HTTP/1.1", "method token is invalid")]
         public void WebRequest_Parse_DetectsInvalidRequestStrings(string requestString, string reason)
         {
             WebRequest webRequest = WebRequest.Parse(requestString);

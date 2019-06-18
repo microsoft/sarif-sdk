@@ -28,6 +28,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 if (fields.Length > 0)
                 {
                     webRequest.Method = fields[0];
+                    if (!WebMessageUtilities.ValidateMethod(webRequest.Method)) { webRequest.IsInvalid = true; }
                 }
 
                 if (fields.Length > 1)

@@ -36,5 +36,18 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             return match.Success;
         }
+
+        internal static bool ValidateMethod(string method)
+        {
+            return ValidateToken(method);
+        }
+
+        private const string TokenPattern = "^[!#$%&'*+._`|~0-9a-zA-Z^-]+$";
+        private static readonly Regex s_tokenRegex = SarifUtilities.RegexFromPattern(TokenPattern);
+
+        private static bool ValidateToken(string token)
+        {
+            return s_tokenRegex.IsMatch(token);
+        }
     }
 }

@@ -30,5 +30,16 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             protocol.Should().Be(expectedProtocol);
             version.Should().Be(expectedVersion);
         }
+
+        [Theory]
+        [InlineData("GET", true)]
+        [InlineData("!#$%&'*+-.^_`|~0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", true)]
+        [InlineData("GET!", true)]
+        [InlineData("GET/", false)]
+        [InlineData("@GET", false)]
+        public void WebMessageUtilties_ValidateMethod_SucceedsAndFailsAsExpected(string method, bool expectedResult)
+        {
+            WebMessageUtilities.ValidateMethod(method).Should().Be(expectedResult);
+        }
     }
 }
