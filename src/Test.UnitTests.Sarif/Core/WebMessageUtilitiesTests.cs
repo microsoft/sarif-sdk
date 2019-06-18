@@ -14,9 +14,21 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         [InlineData("HTTP", "", "HTTP/")]
         [InlineData("", "1.1", "/1.1")]
         [InlineData("HTTP", "1.1", "HTTP/1.1")]
-        public void WebResponse_SynthesizesProtocolVersionFromProtocolAndVersion(string protocol, string version, string expectedProtocolVersion)
+        public void WebMessageUtilties_MakeProtocolVersion_SynthesizesProtocolVersionFromProtocolAndVersion(string protocol, string version, string expectedProtocolVersion)
         {
             WebMessageUtilities.MakeProtocolVersion(protocol, version).Should().Be(expectedProtocolVersion);
+        }
+
+        [Theory]
+        [InlineData("", null, null)]
+        [InlineData("1.1", null, null)]
+        [InlineData("HTTP/1.1", "HTTP", "1.1")]
+        public void WebMessageUtilities_ParseProtocolAndVersion_ParsesProtocolAndVersionFromProtocolVersion(string protocolVersion, string expectedProtocol, string expectedVersion)
+        {
+            WebMessageUtilities.ParseProtocolAndVersion(protocolVersion, out string protocol, out string version);
+
+            protocol.Should().Be(expectedProtocol);
+            version.Should().Be(expectedVersion);
         }
     }
 }

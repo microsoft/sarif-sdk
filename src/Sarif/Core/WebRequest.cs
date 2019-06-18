@@ -11,6 +11,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         [JsonIgnore]
         public bool IsInvalid { get; private set; }
 
+        [JsonIgnore]
+        public string ProtocolVersion => WebMessageUtilities.MakeProtocolVersion(Protocol, Version);
+
         public static WebRequest Parse(string requestString)
         {
             var webRequest = new WebRequest();
@@ -34,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (fields.Length > 2)
                 {
-                    bool success = WebMessageUtilities.ParseProtocolAndVersion(fields[0], out string protocol, out string version);
+                    bool success = WebMessageUtilities.ParseProtocolAndVersion(fields[2], out string protocol, out string version);
                     if (success)
                     {
                         webRequest.Protocol = protocol;
