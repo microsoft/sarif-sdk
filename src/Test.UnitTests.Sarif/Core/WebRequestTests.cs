@@ -28,18 +28,5 @@ Accept-Language: en, mi";
             webRequest.HttpVersion.Should().Be("HTTP/1.1");
             webRequest.IsInvalid.Should().BeFalse();
         }
-
-        [Theory]
-        [InlineData("", "request is empty")]
-        [InlineData("GET", "request target absent")]
-        [InlineData("GET /hello.txt", "protocol version is absent")]
-        [InlineData("GET /hello.txt HTTP", "protocol version is invalid")]
-        [InlineData("G@T /hello.txt HTTP/1.1", "method token is invalid")]
-        public void WebRequest_Parse_DetectsInvalidRequestStrings(string requestString, string reason)
-        {
-            WebRequest webRequest = WebRequest.Parse(requestString);
-
-            webRequest.IsInvalid.Should().BeTrue(because: reason);
-        }
     }
 }
