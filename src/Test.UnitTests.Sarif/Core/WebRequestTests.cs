@@ -23,5 +23,17 @@ Accept-Language: en, mi";
 
             webRequest.Method.Should().Be("GET");
         }
+
+        [Theory]
+        [InlineData("", "request is empty")]
+        [InlineData("GET", "request target absent")]
+        [InlineData("GET /hello.txt", "protocol version is absent")]
+        [InlineData("GET /hello.txt HTTP", "protocol version is invalid")]
+        public void WebRequest_Parse_DetectsInvalidRequestStrings(string requestString, string reason)
+        {
+            WebRequest webRequest = WebRequest.Parse(requestString);
+
+            webRequest.IsInvalid.Should().BeTrue(because: reason);
+        }
     }
 }
