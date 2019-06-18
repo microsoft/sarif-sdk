@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             \s*:\s*
             (?<message>.*)
             $";
-        private static readonly Regex s_errorLineRegex = RegexFromPattern(ErrorLinePattern);
+        private static readonly Regex s_errorLineRegex = SarifUtilities.RegexFromPattern(ErrorLinePattern);
 
         private Result GetResultFrom(string fullMessage)
         {
@@ -170,23 +170,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         // (startLine)
         private const string StartLineStartOnlyPattern = @"^(?<startLine>\d+)$";
-        private static readonly Regex s_startLineOnlyRegex = RegexFromPattern(StartLineStartOnlyPattern);
+        private static readonly Regex s_startLineOnlyRegex = SarifUtilities.RegexFromPattern(StartLineStartOnlyPattern);
 
         // (startLine-endLine)
         private const string StartLineEndLinePattern = @"^(?<startLine>\d+)-(?<endLine>\d+)$";
-        private static readonly Regex s_startLineEndLineRegex = RegexFromPattern(StartLineEndLinePattern);
+        private static readonly Regex s_startLineEndLineRegex = SarifUtilities.RegexFromPattern(StartLineEndLinePattern);
 
         // (startLine,startColumn)
         private const string StartLineStartColumnPattern = @"^(?<startLine>\d+),(?<startColumn>\d+)$";
-        private static readonly Regex s_startLineStartColumnRegex = RegexFromPattern(StartLineStartColumnPattern);
+        private static readonly Regex s_startLineStartColumnRegex = SarifUtilities.RegexFromPattern(StartLineStartColumnPattern);
 
         // (startLine,startColumn-endColumn)
         private const string StartLineStartColumEndColumnPattern = @"^(?<startLine>\d+),(?<startColumn>\d+)-(?<endColumn>\d+)$";
-        private static readonly Regex s_startLineStartColumnEndColumnRegex = RegexFromPattern(StartLineStartColumEndColumnPattern);
+        private static readonly Regex s_startLineStartColumnEndColumnRegex = SarifUtilities.RegexFromPattern(StartLineStartColumEndColumnPattern);
 
         // (startLine,startColumn,endLine,endColumn)
         private const string StartLineStartColumEndLineEndColumnPattern = @"^(?<startLine>\d+),(?<startColumn>\d+),(?<endLine>\d+),(?<endColumn>\d+)$";
-        private static readonly Regex s_startLineStartColumnEndLineEndColumnRegex = RegexFromPattern(StartLineStartColumEndLineEndColumnPattern);
+        private static readonly Regex s_startLineStartColumnEndLineEndColumnRegex = SarifUtilities.RegexFromPattern(StartLineStartColumEndLineEndColumnPattern);
 
         private static Region GetRegionFrom(string regionString)
         {
@@ -278,10 +278,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             return region;
         }
-
-        private static Regex RegexFromPattern(string pattern) =>
-            new Regex(
-                pattern,
-                RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture | RegexOptions.IgnorePatternWhitespace);
     }
 }

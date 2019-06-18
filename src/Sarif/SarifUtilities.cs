@@ -181,6 +181,11 @@ namespace Microsoft.CodeAnalysis.Sarif
             return bytes.Length;
         }
 
+        public static Regex RegexFromPattern(string pattern) =>
+            new Regex(
+                pattern,
+                RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture | RegexOptions.IgnorePatternWhitespace);
+
         internal static bool UnitTesting = false;
 
         internal static void DebugAssert(bool conditional)

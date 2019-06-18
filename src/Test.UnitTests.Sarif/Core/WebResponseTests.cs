@@ -38,9 +38,11 @@ Content-Security-Policy: frame-ancestors 'self'
 </div>";
             WebResponse webResponse = WebResponse.Parse(ResponseString);
 
-            webResponse.Protocol.Should().Be("HTTP/1.1");
+            webResponse.Protocol.Should().Be("HTTP");
+            webResponse.Version.Should().Be("1.1");
             webResponse.StatusCode.Should().Be(200);
             webResponse.ReasonPhrase.Should().Be("OK");
+            webResponse.IsInvalid.Should().BeFalse();
         }
     }
 }

@@ -3,11 +3,14 @@
 
 using System;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public partial class WebResponse
     {
+        public bool IsInvalid { get; private set; }
+
         public static WebResponse Parse(string responseString)
         {
             var webResponse = new WebResponse();
@@ -21,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 string[] fields = requestLine.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
                 if (fields.Length > 0)
                 {
-                    webResponse.Protocol = fields[0];
+                    webResponse.ParseProtocolAndVersion(fields[0]);
                 }
 
                 if (fields.Length > 1 && int.TryParse(fields[1], NumberStyles.None, CultureInfo.InvariantCulture, out int statusCode))
@@ -38,6 +41,24 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             return webResponse;
+        }
+
+        private const string HttpVersionPattern = @"(?<protocol>[^/]+)/(?<version>.+)";
+        private static readonly Regex s_httpVersionRegex = SarifUtilities.RegexFromPattern(HttpVersionPattern);
+
+        private void ParseProtocolAndVersion(string httpVersion)
+        {
+            Match match = s_httpVersionRegex.Match(httpVersion);
+            if (match.Success)
+            {
+                Protocol = match.Groups["protocol"].Value;
+                Version = match.Groups["version"].Value;
+            }
+            else
+            {
+                Protocol = httpVersion;
+                IsInvalid = true;
+            }
         }
     }
 }
