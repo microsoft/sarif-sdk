@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -35,7 +34,16 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 if (fields.Length > 2)
                 {
-                    webRequest.ParseProtocolAndVersion(fields[2]);
+                    bool success = WebMessageUtilities.ParseProtocolAndVersion(fields[0], out string protocol, out string version);
+                    if (success)
+                    {
+                        webRequest.Protocol = protocol;
+                        webRequest.Version = version;
+                    }
+                    else
+                    {
+                        webRequest.IsInvalid = true;
+                    }
                 }
 
                 if (fields.Length < 3)
@@ -51,24 +59,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             return webRequest;
-        }
-
-        private const string HttpVersionPattern = @"(?<protocol>[^/]+)/(?<version>.+)";
-        private static readonly Regex s_httpVersionRegex = SarifUtilities.RegexFromPattern(HttpVersionPattern);
-
-        private void ParseProtocolAndVersion(string httpVersion)
-        {
-            Match match = s_httpVersionRegex.Match(httpVersion);
-            if (match.Success)
-            {
-                Protocol = match.Groups["protocol"].Value;
-                Version = match.Groups["version"].Value;
-            }
-            else
-            {
-                Protocol = httpVersion;
-                IsInvalid = true;
-            }
         }
     }
 }

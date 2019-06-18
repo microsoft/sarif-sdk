@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Microsoft.  All Rights Reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
@@ -25,7 +23,7 @@ ETag: ""34aa387-d-1568eb00""
 Accept-Ranges: bytes
 Content-Length: 51
 Vary: Accept-Encoding
-Content-Type: text / plain
+Content-Type: text/plain
 
 Hello World!My payload includes a trailing CRLF.
 ";

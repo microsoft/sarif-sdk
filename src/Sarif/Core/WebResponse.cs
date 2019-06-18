@@ -3,7 +3,6 @@
 
 using System;
 using System.Globalization;
-using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -29,7 +28,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                 string[] fields = requestLine.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
                 if (fields.Length > 0)
                 {
-                    webResponse.ParseProtocolAndVersion(fields[0]);
+                    bool success = WebMessageUtilities.ParseProtocolAndVersion(fields[0], out string protocol, out string version);
+                    if (success)
+                    {
+                        webResponse.Protocol = protocol;
+                        webResponse.Version = version;
+                    }
+                    else
+                    {
+                        webResponse.IsInvalid = true;
+                    }
                 }
 
                 if (fields.Length > 1 && int.TryParse(fields[1], NumberStyles.None, CultureInfo.InvariantCulture, out int statusCode))
@@ -55,24 +63,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             return webResponse;
-        }
-
-        private const string HttpVersionPattern = @"(?<protocol>[^/]+)/(?<version>.+)";
-        private static readonly Regex s_httpVersionRegex = SarifUtilities.RegexFromPattern(HttpVersionPattern);
-
-        private void ParseProtocolAndVersion(string httpVersion)
-        {
-            Match match = s_httpVersionRegex.Match(httpVersion);
-            if (match.Success)
-            {
-                Protocol = match.Groups["protocol"].Value;
-                Version = match.Groups["version"].Value;
-            }
-            else
-            {
-                Protocol = httpVersion;
-                IsInvalid = true;
-            }
         }
     }
 }
