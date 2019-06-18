@@ -31,7 +31,7 @@ Hello World!My payload includes a trailing CRLF.
 
             webResponse.Protocol.Should().Be("HTTP");
             webResponse.Version.Should().Be("1.1");
-            webResponse.ProtocolVersion.Should().Be("HTTP/1.1");
+            webResponse.HttpVersion.Should().Be("HTTP/1.1");
             webResponse.StatusCode.Should().Be(200);
             webResponse.ReasonPhrase.Should().Be("OK");
             webResponse.IsInvalid.Should().BeFalse();

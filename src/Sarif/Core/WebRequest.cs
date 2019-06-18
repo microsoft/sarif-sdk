@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         public bool IsInvalid { get; private set; }
 
         [JsonIgnore]
-        public string ProtocolVersion { get; private set; }
+        public string HttpVersion { get; private set; }
 
         public static WebRequest Parse(string requestString)
         {
@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             {
                 webRequest.Method = method;
                 webRequest.Target = target;
-                webRequest.ProtocolVersion = httpVersion;
+                webRequest.HttpVersion = httpVersion;
                 webRequest.Protocol = protocol;
                 webRequest.Version = version;
             }
