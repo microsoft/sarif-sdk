@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft.  All Rights Reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
+using System.Collections.Generic;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Xunit;
@@ -10,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
     public class WebResponseTests
     {
         [Fact]
-        public void WebResponse_Parse_CreatesExpectedWebRequestObject()
+        public void WebResponse_Parse_CreatesExpectedWebResponseObject()
         {
             const string ResponseString =
 @"HTTP/1.1 200 OK
@@ -43,6 +45,20 @@ Content-Security-Policy: frame-ancestors 'self'
             webResponse.StatusCode.Should().Be(200);
             webResponse.ReasonPhrase.Should().Be("OK");
             webResponse.IsInvalid.Should().BeFalse();
+        }
+
+        [Theory]
+        [InlineData("", "response is empty")]
+        [InlineData("HTTP/1.1", "status code is absent")]
+        [InlineData("HTTP/1.1 200a", "status code is not an integer")]
+        [InlineData("HTTP/1.1 200", "reason phrase is absent")]
+        [InlineData("HTTP 200 OK", "HTTP version is absent")]
+        public void WebResponse_Parse_DetectsInvalidResponseStrings(string responseString, string reason)
+        {
+            WebResponse webResponse = WebResponse.Parse(responseString);
+
+            webResponse.IsInvalid.Should().BeTrue(because: reason);
+
         }
     }
 }

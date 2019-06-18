@@ -4,11 +4,13 @@
 using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public partial class WebResponse
     {
+        [JsonIgnore]
         public bool IsInvalid { get; private set; }
 
         public static WebResponse Parse(string responseString)
@@ -37,7 +39,16 @@ namespace Microsoft.CodeAnalysis.Sarif
                     webResponse.ReasonPhrase = fields[2];
                 }
 
+                if (fields.Length < 3)
+                {
+                    webResponse.IsInvalid = true;
+                }
+
                 ++lineIndex;
+            }
+            else
+            {
+                webResponse.IsInvalid = true;
             }
 
             return webResponse;
