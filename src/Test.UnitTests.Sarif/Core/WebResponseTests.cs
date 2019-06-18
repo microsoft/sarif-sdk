@@ -40,6 +40,7 @@ Content-Security-Policy: frame-ancestors 'self'
 
             webResponse.Protocol.Should().Be("HTTP/1.1");
             webResponse.StatusCode.Should().Be(200);
+            webResponse.ReasonPhrase.Should().Be("OK");
         }
     }
 }

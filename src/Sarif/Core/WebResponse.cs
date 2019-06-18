@@ -29,6 +29,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                     webResponse.StatusCode = statusCode;
                 }
 
+                if (fields.Length > 2)
+                {
+                    webResponse.ReasonPhrase = fields[2];
+                }
+
                 ++lineIndex;
             }
 
