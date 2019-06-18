@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Microsoft.  All Rights Reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System;
 using System.Text.RegularExpressions;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -18,27 +17,8 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </remarks>
     internal static class WebMessageUtilities
     {
-        private const string HttpVersionPattern = @"(?<protocol>HTTP)/(?<version>[0-9]\.[0-9])";
-        private static readonly Regex s_httpVersionRegex = SarifUtilities.RegexFromPattern(HttpVersionPattern);
-
-        internal static string MakeProtocolVersion(string protocol, string version)
-            => (protocol ?? string.Empty) + "/" + (version ?? string.Empty);
-
-        internal static bool ParseProtocolAndVersion(string httpVersion, out string protocol, out string version)
-        {
-            protocol = version = null;
-
-            Match match = s_httpVersionRegex.Match(httpVersion);
-            if (match.Success)
-            {
-                protocol = match.Groups["protocol"].Value;
-                version = match.Groups["version"].Value;
-            }
-
-            return match.Success;
-        }
-
         private const string TokenPattern = "[!#$%&'*+._`|~0-9a-zA-Z^-]+";
+        private const string HttpVersionPattern = @"(?<protocol>HTTP)/(?<version>[0-9]\.[0-9])";
 
         private const string RequestLinePattern =
             @"^
@@ -72,6 +52,39 @@ namespace Microsoft.CodeAnalysis.Sarif
             return match.Success;
         }
 
+        private const string StatusLinePattern =
+            @"^
+            (?<httpVersion>" + HttpVersionPattern + @") # The HTTP version, e.g., 'HTTP/1.1',
+            \x20                                        # followed by a single space (which we must write this way
+                                                        # because we're using RegexOptions.IgnorePatternWhitespace),
+            (?<statusCode>\d\d\d)                       # a 3-digit status code,
+            \x20                                        # another space,
+            (?<reasonPhrase>.*?)                        # and the 'reason phrase', which we match non-greedy (.*?)
+            \r\n                                        # so that it doesn't include the trailing CRLF.
+            ";
+
+        private static readonly Regex s_statusLineRegex = SarifUtilities.RegexFromPattern(StatusLinePattern);
+
+        internal static bool ParseStatusLine(string responseString, out string httpVersion, out string protocol, out string version, out int statusCode, out string reasonPhrase, out int length)
+        {
+            httpVersion = protocol = version = reasonPhrase = null;
+            statusCode = length = -1;
+
+            Match match = s_statusLineRegex.Match(responseString);
+            if (match.Success)
+            {
+                httpVersion = match.Groups["httpVersion"].Value;
+                protocol = match.Groups["protocol"].Value;
+                version = match.Groups["version"].Value;
+                statusCode = int.Parse(match.Groups["statusCode"].Value);
+                reasonPhrase = match.Groups["reasonPhrase"].Value;
+
+                length = match.Length;
+            }
+
+            return match.Success;
+        }
+
         private const string HeaderPattern =
             @"^
               (?<fieldName>" + TokenPattern + @")       # The field name, which must be a token,
@@ -95,19 +108,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             return match.Success;
-        }
-
-        internal static bool ValidateMethod(string method)
-        {
-            return ValidateToken(method);
-        }
-
-        private const string TokenOnlyPattern = "^" + TokenPattern + "$";
-        private static readonly Regex s_tokenOnlyRegex = SarifUtilities.RegexFromPattern(TokenOnlyPattern);
-
-        private static bool ValidateToken(string token)
-        {
-            return s_tokenOnlyRegex.IsMatch(token);
         }
     }
 }
