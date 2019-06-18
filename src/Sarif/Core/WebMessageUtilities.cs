@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </remarks>
     internal static class WebMessageUtilities
     {
-        private const string HttpVersionPattern = @"(?<protocol>[^/]+)/(?<version>.+)";
+        private const string HttpVersionPattern = @"(?<protocol>HTTP)/(?<version>[0-9]\.[0-9])";
         private static readonly Regex s_httpVersionRegex = SarifUtilities.RegexFromPattern(HttpVersionPattern);
 
         internal static string MakeProtocolVersion(string protocol, string version)
