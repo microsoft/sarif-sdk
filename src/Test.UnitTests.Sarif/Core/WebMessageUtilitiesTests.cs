@@ -41,5 +41,18 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         {
             WebMessageUtilities.ValidateMethod(method).Should().Be(expectedResult);
         }
+
+        [Theory]
+        [InlineData("User-Agent: curl/7.16.3 libcurl/7.16.3 OpenSSL/0.9.7l zlib/1.2.3", true, "User-Agent", "curl/7.16.3 libcurl/7.16.3 OpenSSL/0.9.7l zlib/1.2.3")]
+        [InlineData("Host: www.example.com", true, "Host", "www.example.com")]
+        [InlineData("Host:www.example.com", true, "Host", "www.example.com")]          // No leading whitespace before field value.
+        [InlineData("Host: www.example.com  \t  ", true, "Host", "www.example.com")]   // Trailing whitespace after field value.
+        [InlineData("H@st: www.example.com", false, null, null)]                       // Invalid field name token.
+        public void WebMessageUtilities_ParseHeader_SucceedsAndFailsAsExpected(string header, bool expectedResult, string expectedName, string expectedValue)
+        {
+            WebMessageUtilities.ParseHeaderLine(header, out string name, out string value).Should().Be(expectedResult);
+            name.Should().Be(expectedName);
+            value.Should().Be(expectedValue);
+        }
     }
 }

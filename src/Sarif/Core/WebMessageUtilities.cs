@@ -42,12 +42,39 @@ namespace Microsoft.CodeAnalysis.Sarif
             return ValidateToken(method);
         }
 
-        private const string TokenPattern = "^[!#$%&'*+._`|~0-9a-zA-Z^-]+$";
-        private static readonly Regex s_tokenRegex = SarifUtilities.RegexFromPattern(TokenPattern);
+        private const string TokenPattern = "[!#$%&'*+._`|~0-9a-zA-Z^-]+";
+        private const string HeaderPattern =
+            @"^
+              (?<fieldName>" + TokenPattern + @")   # The field name, which must be a token,
+              :                                     # immediately followed by a colon,
+              \s*                                   # optional white space,
+              (?<fieldValue>.*?)                    # and the field value, which is a non-greedy match (.*?)
+              \s*                                   # so that it doesn't include the optional trailing white space.
+              $";
+
+        private static readonly Regex s_headerRegex = SarifUtilities.RegexFromPattern(HeaderPattern);
+
+        internal static bool ParseHeaderLine(string headerLine, out string fieldName, out string fieldValue)
+        {
+            fieldName = fieldValue = null;
+
+            Match match = s_headerRegex.Match(headerLine);
+            if (match.Success)
+            {
+                fieldName = match.Groups["fieldName"].Value;
+                fieldValue = match.Groups["fieldValue"].Value;
+            }
+
+            return match.Success;
+        }
+
+
+        private const string TokenOnlyPattern = "^" + TokenPattern + "$";
+        private static readonly Regex s_tokenOnlyRegex = SarifUtilities.RegexFromPattern(TokenOnlyPattern);
 
         private static bool ValidateToken(string token)
         {
-            return s_tokenRegex.IsMatch(token);
+            return s_tokenOnlyRegex.IsMatch(token);
         }
     }
 }
