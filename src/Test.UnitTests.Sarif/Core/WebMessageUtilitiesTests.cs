@@ -87,14 +87,14 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         }
 
         [Theory]
-        [InlineData("User-Agent: curl/7.16.3 libcurl/7.16.3 OpenSSL/0.9.7l zlib/1.2.3", true, "User-Agent", "curl/7.16.3 libcurl/7.16.3 OpenSSL/0.9.7l zlib/1.2.3")]
-        [InlineData("Host: www.example.com", true, "Host", "www.example.com")]
-        [InlineData("Host:www.example.com", true, "Host", "www.example.com")]          // No leading whitespace before field value.
-        [InlineData("Host: www.example.com  \t  ", true, "Host", "www.example.com")]   // Trailing whitespace after field value.
-        [InlineData("H@st: www.example.com", false, null, null)]                       // Invalid field name token.
+        [InlineData("User-Agent: curl/7.16.3 libcurl/7.16.3 OpenSSL/0.9.7l zlib/1.2.3\r\n", true, "User-Agent", "curl/7.16.3 libcurl/7.16.3 OpenSSL/0.9.7l zlib/1.2.3")]
+        [InlineData("Host: www.example.com\r\n", true, "Host", "www.example.com")]
+        [InlineData("Host:www.example.com\r\n", true, "Host", "www.example.com")]          // No leading whitespace before field value.
+        [InlineData("Host: www.example.com  \t  \r\n", true, "Host", "www.example.com")]   // Trailing whitespace after field value.
+        [InlineData("H@st: www.example.com\r\n", false, null, null)]                       // Invalid field name token.
         public void WebMessageUtilities_ParseHeader(string header, bool expectedResult, string expectedName, string expectedValue)
         {
-            WebMessageUtilities.ParseHeaderLine(header, out string name, out string value).Should().Be(expectedResult);
+            WebMessageUtilities.ParseHeaderLine(header, out string name, out string value, out int totalHeaderLinesLength).Should().Be(expectedResult);
             name.Should().Be(expectedName);
             value.Should().Be(expectedValue);
         }
