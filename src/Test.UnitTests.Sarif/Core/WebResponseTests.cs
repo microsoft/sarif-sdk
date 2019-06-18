@@ -36,20 +36,5 @@ Hello World!My payload includes a trailing CRLF.
             webResponse.ReasonPhrase.Should().Be("OK");
             webResponse.IsInvalid.Should().BeFalse();
         }
-
-        [Theory]
-        [InlineData("", "response is empty")]
-        [InlineData("HTTP/1.1", "status code is absent")]
-        [InlineData("HTTP/1.1 200a", "status code is not an integer")]
-        [InlineData("HTTP/1.1 200", "reason phrase is absent")]
-        [InlineData("HTTP 200 OK", "HTTP version is absent")]
-        [InlineData("HTTP/1..1 200 OK", "HTTP version number is invalid")]
-        [InlineData("HTTP2/1.1 200 OK", "HTTP version protocol name is invalid")]
-        public void WebResponse_Parse_DetectsInvalidResponseStrings(string responseString, string reason)
-        {
-            WebResponse webResponse = WebResponse.Parse(responseString);
-
-            webResponse.IsInvalid.Should().BeTrue(because: reason);
-        }
     }
 }

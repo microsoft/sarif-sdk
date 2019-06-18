@@ -9,9 +9,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
 {
     public class WebMessageUtilitiesTests
     {
-
         [Theory]
-        [InlineData("", false, null, null, null, null, null, -1, "request is empty")]
+        [InlineData("", false, null, null, null, null, null, -1, "request line is empty")]
         [InlineData("GET", false, null, null, null, null, null, -1, "target is absent")]
         [InlineData("GET /hello.txt", false, null, null, null, null, null, -1, "HTTP version is absent")]
         [InlineData("GET /hello.txt HTTP/1.1", false, null, null, null, null, null, -1, "request line does not end in CRLF")]
@@ -27,7 +26,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             string expectedProtocol,
             string expectedVersion,
             int expectedLength,
-            string reason)
+            string because)
         {
             bool result = WebMessageUtilities.ParseRequestLine(
                 requestLine,
@@ -38,13 +37,53 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 out string version,
                 out int length);
 
-            result.Should().Be(expectedResult, reason);
-            method.Should().Be(expectedMethod, reason);
-            target.Should().Be(expectedTarget, reason);
-            httpVersion.Should().Be(expectedHttpVersion, reason);
-            protocol.Should().Be(expectedProtocol, reason);
-            version.Should().Be(expectedVersion, reason);
-            length.Should().Be(expectedLength, reason);
+            result.Should().Be(expectedResult, because);
+            method.Should().Be(expectedMethod, because);
+            target.Should().Be(expectedTarget, because);
+            httpVersion.Should().Be(expectedHttpVersion, because);
+            protocol.Should().Be(expectedProtocol, because);
+            version.Should().Be(expectedVersion, because);
+            length.Should().Be(expectedLength, because);
+        }
+
+        [Theory]
+        [InlineData("", false, null, null, null, -1, null, -1, "status line is empty")]
+        [InlineData("HTTP/1.1", false, null, null, null, -1, null, -1, "status code is absent")]
+        [InlineData("HTTP/1.1 200", false, null, null, null, -1, null, -1, "reason phrase is absent")]
+        [InlineData("HTTP/1.1 200 OK", false, null, null, null, -1, null, -1, "status line does not end in CRLF")]
+        [InlineData("HTTP2/1.1 200 OK\r\n", false, null, null, null, -1, null, -1, "HTTP version has invalid name")]
+        [InlineData("HTTP/1..1 200 OK\r\n", false, null, null, null, -1, null, -1, "HTTP version has invalid version number")]
+        [InlineData("HTTP/1.1 200a OK\r\n", false, null, null, null, -1, null, -1, "status code is not an integer")]
+        [InlineData("HTTP/1.1 20 OK\r\n", false, null, null, null, -1, null, -1, "status code has fewer than three digits")]
+        [InlineData("HTTP/1.1 2000 OK\r\n", false, null, null, null, -1, null, -1, "status code has more than three digits")]
+        [InlineData("HTTP/1.1 200 OK\r\n", true, "HTTP/1.1", "HTTP", "1.1", 200, "OK", 17, "status line is valid")]
+        public void WebMessageUtilities_ParseStatusLine(
+            string statusLine,
+            bool expectedResult,
+            string expectedHttpVersion,
+            string expectedProtocol,
+            string expectedVersion,
+            int expectedStatusCode,
+            string expectedReasonPhrase,
+            int expectedLength,
+            string because)
+        {
+            bool result = WebMessageUtilities.ParseStatusLine(
+                statusLine,
+                out string httpVersion,
+                out string protocol,
+                out string version,
+                out int statusCode,
+                out string reasonPhrase,
+                out int length);
+
+            result.Should().Be(expectedResult, because);
+            httpVersion.Should().Be(expectedHttpVersion, because);
+            protocol.Should().Be(expectedProtocol, because);
+            version.Should().Be(expectedVersion, because);
+            statusCode.Should().Be(expectedStatusCode, because);
+            reasonPhrase.Should().Be(expectedReasonPhrase, because);
+            length.Should().Be(expectedLength, because);
         }
 
         [Theory]

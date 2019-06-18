@@ -32,7 +32,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static readonly Regex s_requestLineRegex = SarifUtilities.RegexFromPattern(RequestLinePattern);
 
-        internal static bool ParseRequestLine(string requestString, out string method, out string target, out string httpVersion, out string protocol, out string version, out int length)
+        internal static bool ParseRequestLine(
+            string requestString,
+            out string method,
+            out string target,
+            out string httpVersion,
+            out string protocol,
+            out string version,
+            out int length)
         {
             method = target = httpVersion = protocol = version = null;
             length = -1;
@@ -65,7 +72,14 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static readonly Regex s_statusLineRegex = SarifUtilities.RegexFromPattern(StatusLinePattern);
 
-        internal static bool ParseStatusLine(string responseString, out string httpVersion, out string protocol, out string version, out int statusCode, out string reasonPhrase, out int length)
+        internal static bool ParseStatusLine(
+            string responseString,
+            out string httpVersion,
+            out string protocol,
+            out string version,
+            out int statusCode,
+            out string reasonPhrase,
+            out int length)
         {
             httpVersion = protocol = version = reasonPhrase = null;
             statusCode = length = -1;
