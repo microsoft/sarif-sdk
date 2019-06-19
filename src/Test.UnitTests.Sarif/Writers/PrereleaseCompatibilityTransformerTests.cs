@@ -147,9 +147,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             // We only need one test for the SARIF v1 conversion because for this
             // transformation, the PrereleaseCompatibilityTransformer invokes the
-            // SarifVersionOneToCurrentVistor, which already has an extensive set
+            // SarifVersionOneToCurrentVisitor, which already has an extensive set
             // of tests. Here, we just need to verify that the plumbing from the
-            // PrereleaseCompatibilityTransformer to the SarifVersionOneToCurrentVistor
+            // PrereleaseCompatibilityTransformer to the SarifVersionOneToCurrentVisitor.
             // is in place.
             RunTest("V1.sarif");
         }
