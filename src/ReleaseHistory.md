@@ -397,5 +397,6 @@
 * BUGFIX: Contrast security converter now populates threadFlowLocation.location. https://github.com/microsoft/sarif-sdk/issues/1530
 * BUGFIX: Contrast Security converter no longer emits incomplete `artifact` objects. https://github.com/microsoft/sarif-sdk/issues/1529
 * BUGFIX: Fix crashing bugs and logic flaws in ArtifactLocation.TryReconstructAbsoluteUri.
-* API NON-BREAKING: Provide a SARIF converter for Visual Studio log files.
+* FEATURE: Provide a SARIF converter for Visual Studio log files.
+* FEATURE: Extend the PrereleaseCompatibilityTransformer to handle SARIF v1 files.
 * API NON-BREAKING: Introduce WebRequest.Parse and WebResponse.Parse to parse web traffic strings into SARIF WebRequest and WebResponse objects.

@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Visitors;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -34,14 +35,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
         {
             bool modifiedLog = false;
             updatedLog = null;
+            var settings = new JsonSerializerSettings { Formatting = formatting, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate };
 
             if (string.IsNullOrEmpty(prereleaseSarifLog)) { return null; }
 
             JObject sarifLog = JObject.Parse(prereleaseSarifLog);
 
             string version = (string)sarifLog["version"];
-            string schemaSubVersion = (string)sarifLog["$schema"];
+            if (version == SarifUtilities.V1_0_0)
+            {
+                // V1 is so different that we won't use the JToken-driven, piecemeal conversion that
+                // the PrereleaseCompatibilityTransformer uses for newer versions. Instead, we'll
+                // deserialize to the V1 OM, and transform to the V2 OM.
+                return ConvertV1ToCurrent(prereleaseSarifLog, settings, out updatedLog);
 
+            }
+
+            string schemaSubVersion = (string)sarifLog["$schema"];
 
             Dictionary<string, int> fullyQualifiedLogicalNameToIndexMap = null;
             Dictionary<string, int> fileLocationKeyToIndexMap = null;
@@ -175,7 +185,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             SarifLog transformedSarifLog = null;
-            var settings = new JsonSerializerSettings { Formatting = formatting, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate };
 
             if (fullyQualifiedLogicalNameToIndexMap != null  || fileLocationKeyToIndexMap != null || ruleKeyToIndexMap != null)
             {
@@ -197,6 +206,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             }
 
             return transformedSarifLog;
+        }
+
+        private static SarifLog ConvertV1ToCurrent(
+            string v1LogText,
+            JsonSerializerSettings settings,
+            out string v2LogText)
+        {
+            SarifLogVersionOne v1Log = JsonConvert.DeserializeObject<SarifLogVersionOne>(v1LogText, SarifTransformerUtilities.JsonSettingsV1Compact);
+
+            var transformer = new SarifVersionOneToCurrentVisitor();
+            transformer.VisitSarifLogVersionOne(v1Log);
+
+            // The visitor visited each node in the V1 log, building up the equivalent V2 log as it went,
+            // and stored the result in its SarifLog property.
+            v2LogText = JsonConvert.SerializeObject(transformer.SarifLog, settings);
+
+            return transformer.SarifLog;
         }
 
         private static bool ApplyRtm1Changes(JObject sarifLog)
