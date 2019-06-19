@@ -9,48 +9,32 @@ namespace Microsoft.CodeAnalysis.Sarif
     public partial class WebResponse
     {
         [JsonIgnore]
-        public bool IsInvalid { get; private set; }
-
-        [JsonIgnore]
         public string HttpVersion { get; private set; }
 
         public static WebResponse Parse(string responseString)
         {
             var webResponse = new WebResponse();
 
-            if (WebMessageUtilities.ParseStatusLine(
+            WebMessageUtilities.ParseStatusLine(
                 responseString,
                 out string httpVersion,
                 out string protocol,
                 out string version,
                 out int statusCode,
                 out string reasonPhrase,
-                out int statusLineLength))
-            {
-                webResponse.HttpVersion = httpVersion;
-                webResponse.Protocol = protocol;
-                webResponse.Version = version;
-                webResponse.StatusCode = statusCode;
-                webResponse.ReasonPhrase = reasonPhrase;
+                out int statusLineLength);
 
-                responseString = responseString.Substring(statusLineLength);
-                if (WebMessageUtilities.ParseHeaderLines(responseString, out Dictionary<string, string> headers, out int totalHeadersLength))
-                {
-                    webResponse.Headers = headers;
-                }
-                else
-                {
-                    webResponse.IsInvalid = true;
-                    return webResponse;
-                }
+            webResponse.HttpVersion = httpVersion;
+            webResponse.Protocol = protocol;
+            webResponse.Version = version;
+            webResponse.StatusCode = statusCode;
+            webResponse.ReasonPhrase = reasonPhrase;
 
-                responseString = responseString.Substring(totalHeadersLength);
-            }
-            else
-            {
-                webResponse.IsInvalid = true;
-                return webResponse;
-            }
+            responseString = responseString.Substring(statusLineLength);
+            WebMessageUtilities.ParseHeaderLines(responseString, out Dictionary<string, string> headers, out int totalHeadersLength);
+            webResponse.Headers = headers;
+
+            responseString = responseString.Substring(totalHeadersLength);
 
             return webResponse;
         }

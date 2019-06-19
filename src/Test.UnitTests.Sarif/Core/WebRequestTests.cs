@@ -23,7 +23,6 @@ Accept-Language: en, mi
 
             WebRequest webRequest = WebRequest.Parse(RequestString);
 
-            webRequest.IsInvalid.Should().BeFalse();
             webRequest.Method.Should().Be("GET");
             webRequest.Target.Should().Be("/hello.txt");
             webRequest.Protocol.Should().Be("HTTP");

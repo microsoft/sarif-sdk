@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static readonly Regex s_requestLineRegex = SarifUtilities.RegexFromPattern(RequestLinePattern);
 
-        internal static bool ParseRequestLine(
+        internal static void ParseRequestLine(
             string requestString,
             out string method,
             out string target,
@@ -44,22 +44,19 @@ namespace Microsoft.CodeAnalysis.Sarif
             out string version,
             out int length)
         {
-            method = target = httpVersion = protocol = version = null;
-            length = -1;
-
             Match match = s_requestLineRegex.Match(requestString);
-            if (match.Success)
+            if (!match.Success)
             {
-                method = match.Groups["method"].Value;
-                target = match.Groups["target"].Value;
-                httpVersion = match.Groups["httpVersion"].Value;
-                protocol = match.Groups["protocol"].Value;
-                version = match.Groups["version"].Value;
-
-                length = match.Length;
+                throw new ArgumentException("Invalid request line", nameof(requestString));
             }
 
-            return match.Success;
+            method = match.Groups["method"].Value;
+            target = match.Groups["target"].Value;
+            httpVersion = match.Groups["httpVersion"].Value;
+            protocol = match.Groups["protocol"].Value;
+            version = match.Groups["version"].Value;
+
+            length = match.Length;
         }
 
         private const string StatusLinePattern =
@@ -75,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static readonly Regex s_statusLineRegex = SarifUtilities.RegexFromPattern(StatusLinePattern);
 
-        internal static bool ParseStatusLine(
+        internal static void ParseStatusLine(
             string responseString,
             out string httpVersion,
             out string protocol,
@@ -84,22 +81,19 @@ namespace Microsoft.CodeAnalysis.Sarif
             out string reasonPhrase,
             out int length)
         {
-            httpVersion = protocol = version = reasonPhrase = null;
-            statusCode = length = -1;
-
             Match match = s_statusLineRegex.Match(responseString);
-            if (match.Success)
+            if (!match.Success)
             {
-                httpVersion = match.Groups["httpVersion"].Value;
-                protocol = match.Groups["protocol"].Value;
-                version = match.Groups["version"].Value;
-                statusCode = int.Parse(match.Groups["statusCode"].Value);
-                reasonPhrase = match.Groups["reasonPhrase"].Value;
-
-                length = match.Length;
+                throw new ArgumentException("Invalid status line", nameof(responseString));
             }
 
-            return match.Success;
+            httpVersion = match.Groups["httpVersion"].Value;
+            protocol = match.Groups["protocol"].Value;
+            version = match.Groups["version"].Value;
+            statusCode = int.Parse(match.Groups["statusCode"].Value);
+            reasonPhrase = match.Groups["reasonPhrase"].Value;
+
+            length = match.Length;
         }
 
         private const string HeaderPattern =
@@ -116,49 +110,41 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static readonly Regex s_headerRegex = SarifUtilities.RegexFromPattern(HeaderPattern);
 
-        internal static bool ParseHeaderLines(string requestString, out Dictionary<string, string> headers, out int totalLength)
+        internal static void ParseHeaderLines(string requestString, out Dictionary<string, string> headers, out int totalLength)
         {
             headers = new Dictionary<string, string>();
             totalLength = 0;
              
             do
             {
-                if (ParseHeaderLine(requestString, out string fieldName, out string fieldValue, out int length))
+                ParseHeaderLine(requestString, out string fieldName, out string fieldValue, out int length);
+                if (headers.ContainsKey(fieldName))
                 {
-                    if (headers.ContainsKey(fieldName))
-                    {
-                        return false;
-                    }
+                    throw new ArgumentException($"Duplicate header field name: {fieldName}", nameof(requestString));
+                }
 
-                    headers.Add(fieldName, fieldValue);
-                    requestString = requestString.Substring(length);
-                    totalLength += length;
-                }
-                else
-                {
-                    return false;
-                }
+                headers.Add(fieldName, fieldValue);
+                requestString = requestString.Substring(length);
+                totalLength += length;
             } while (!requestString.StartsWith(CRLF));  // An empty line signals the end of the headers.
 
             totalLength += CRLF.Length;                 // Skip past the empty line;
-
-            return true;
         }
 
-        internal static bool ParseHeaderLine(string headerLine, out string fieldName, out string fieldValue, out int length)
+        internal static void ParseHeaderLine(string headerLine, out string fieldName, out string fieldValue, out int length)
         {
             fieldName = fieldValue = null;
             length = -1;
 
             Match match = s_headerRegex.Match(headerLine);
-            if (match.Success)
+            if (!match.Success)
             {
-                fieldName = match.Groups["fieldName"].Value;
-                fieldValue = match.Groups["fieldValue"].Value;
-                length = match.Length;
+                throw new ArgumentException($"Invalid header line: '{headerLine}'.");
             }
 
-            return match.Success;
+            fieldName = match.Groups["fieldName"].Value;
+            fieldValue = match.Groups["fieldValue"].Value;
+            length = match.Length;
         }
     }
 }

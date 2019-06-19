@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft.  All Rights Reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Xunit;
@@ -19,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         [InlineData("GET /hello.txt HTTP/1.1\r\n", true, "GET", "/hello.txt", "HTTP/1.1", "HTTP", "1.1", 25, "request line is valid")]
         public void WebMessageUtilities_ParseRequestLine(
             string requestLine,
-            bool expectedResult,
+            bool shouldSucceed,
             string expectedMethod,
             string expectedTarget,
             string expectedHttpVersion,
@@ -28,7 +29,9 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             int expectedLength,
             string because)
         {
-            bool result = WebMessageUtilities.ParseRequestLine(
+            Action action = () =>
+            {
+                WebMessageUtilities.ParseRequestLine(
                 requestLine,
                 out string method,
                 out string target,
@@ -37,13 +40,16 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
                 out string version,
                 out int length);
 
-            result.Should().Be(expectedResult, because);
-            method.Should().Be(expectedMethod, because);
-            target.Should().Be(expectedTarget, because);
-            httpVersion.Should().Be(expectedHttpVersion, because);
-            protocol.Should().Be(expectedProtocol, because);
-            version.Should().Be(expectedVersion, because);
-            length.Should().Be(expectedLength, because);
+                method.Should().Be(expectedMethod, because);
+                target.Should().Be(expectedTarget, because);
+                httpVersion.Should().Be(expectedHttpVersion, because);
+                protocol.Should().Be(expectedProtocol, because);
+                version.Should().Be(expectedVersion, because);
+                length.Should().Be(expectedLength, because);
+            };
+
+            if (shouldSucceed) { action.Should().NotThrow(); }
+            else { action.Should().Throw<Exception>(); }
         }
 
         [Theory]
@@ -59,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         [InlineData("HTTP/1.1 200 OK\r\n", true, "HTTP/1.1", "HTTP", "1.1", 200, "OK", 17, "status line is valid")]
         public void WebMessageUtilities_ParseStatusLine(
             string statusLine,
-            bool expectedResult,
+            bool shouldSucceed,
             string expectedHttpVersion,
             string expectedProtocol,
             string expectedVersion,
@@ -68,22 +74,27 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
             int expectedLength,
             string because)
         {
-            bool result = WebMessageUtilities.ParseStatusLine(
-                statusLine,
-                out string httpVersion,
-                out string protocol,
-                out string version,
-                out int statusCode,
-                out string reasonPhrase,
-                out int length);
+            Action action = () =>
+            {
+                WebMessageUtilities.ParseStatusLine(
+                    statusLine,
+                    out string httpVersion,
+                    out string protocol,
+                    out string version,
+                    out int statusCode,
+                    out string reasonPhrase,
+                    out int length);
 
-            result.Should().Be(expectedResult, because);
-            httpVersion.Should().Be(expectedHttpVersion, because);
-            protocol.Should().Be(expectedProtocol, because);
-            version.Should().Be(expectedVersion, because);
-            statusCode.Should().Be(expectedStatusCode, because);
-            reasonPhrase.Should().Be(expectedReasonPhrase, because);
-            length.Should().Be(expectedLength, because);
+                httpVersion.Should().Be(expectedHttpVersion, because);
+                protocol.Should().Be(expectedProtocol, because);
+                version.Should().Be(expectedVersion, because);
+                statusCode.Should().Be(expectedStatusCode, because);
+                reasonPhrase.Should().Be(expectedReasonPhrase, because);
+                length.Should().Be(expectedLength, because);
+            };
+
+            if (shouldSucceed) { action.Should().NotThrow(); }
+            else { action.Should().Throw<Exception>(); }
         }
 
         [Theory]
@@ -92,11 +103,26 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         [InlineData("Host:www.example.com\r\n", true, "Host", "www.example.com")]          // No leading whitespace before field value.
         [InlineData("Host: www.example.com  \t  \r\n", true, "Host", "www.example.com")]   // Trailing whitespace after field value.
         [InlineData("H@st: www.example.com\r\n", false, null, null)]                       // Invalid field name token.
-        public void WebMessageUtilities_ParseHeader(string header, bool expectedResult, string expectedName, string expectedValue)
+        public void WebMessageUtilities_ParseHeader(
+            string header,
+            bool shouldSucceed,
+            string expectedName,
+            string expectedValue)
         {
-            WebMessageUtilities.ParseHeaderLine(header, out string name, out string value, out int totalHeaderLinesLength).Should().Be(expectedResult);
-            name.Should().Be(expectedName);
-            value.Should().Be(expectedValue);
+            Action action = () =>
+            {
+                WebMessageUtilities.ParseHeaderLine(
+                    header,
+                    out string name,
+                    out string value,
+                    out int totalHeaderLinesLength);
+
+                name.Should().Be(expectedName);
+                value.Should().Be(expectedValue);
+            };
+
+            if (shouldSucceed) { action.Should().NotThrow(); }
+            else { action.Should().Throw<Exception>(); }
         }
     }
 }
