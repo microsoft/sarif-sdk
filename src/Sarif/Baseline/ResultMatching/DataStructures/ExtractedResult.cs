@@ -67,5 +67,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         {
             return this.MatchesCategory(other) && (this.MatchesWhat(other) || this.MatchesWhere(other));
         }
+
+        public override string ToString()
+        {
+            return $"{Result.FormatForVisualStudio(Result.GetRule(OriginalRun))}";
+        }
     }
 }

@@ -17,6 +17,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             this.PropertyValue = propertyValue;
         }
 
+        public override string ToString()
+        {
+            return $"{Category} | {PropertySet} | {PropertyName} | {PropertyValue}";
+        }
+
         public bool Equals(WhatComponent other)
         {
             if (other == null) { return false; }

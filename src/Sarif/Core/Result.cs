@@ -32,33 +32,36 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             // Follows SARIF Spec 3.52.3 (reportingDescriptor lookup)
 
-            // Find the 'ToolComponent' for this Result (Run.Tool.Driver if absent)
-            ToolComponent component = run.GetToolComponentFromReference(this.Rule?.ToolComponent);
-            IList<ReportingDescriptor> rules = component?.Rules;
-
-            // Look up by this.RuleIndex, if present
-            if (this.RuleIndex >= 0)
+            if (run != null)
             {
-                return GetRuleByIndex(rules, this.RuleIndex);
-            }
+                // Find the 'ToolComponent' for this Result (Run.Tool.Driver if absent)
+                ToolComponent component = run.GetToolComponentFromReference(this.Rule?.ToolComponent);
+                IList<ReportingDescriptor> rules = component?.Rules;
 
-            // Look up by this.RuleDescriptor.Index, if present
-            if (this.Rule?.Index >= 0)
-            {
-                return GetRuleByIndex(rules, this.Rule.Index);
-            }
-
-            // Look up by this.RuleDescriptor, Guid, if present
-            if (!String.IsNullOrEmpty(this.Rule?.Guid))
-            {
-                if (rules != null)
+                // Look up by this.RuleIndex, if present
+                if (this.RuleIndex >= 0)
                 {
-                    foreach (ReportingDescriptor rule in rules)
-                    {
-                        if (rule.Guid == this.Rule.Guid) { return rule; }
-                    }
+                    return GetRuleByIndex(rules, this.RuleIndex);
+                }
 
-                    throw new ArgumentException($"ReportingDescriptorReference referred to Guid {this.Rule.Guid}, which was not found in toolComponent.Rules.");
+                // Look up by this.RuleDescriptor.Index, if present
+                if (this.Rule?.Index >= 0)
+                {
+                    return GetRuleByIndex(rules, this.Rule.Index);
+                }
+
+                // Look up by this.RuleDescriptor, Guid, if present
+                if (!String.IsNullOrEmpty(this.Rule?.Guid))
+                {
+                    if (rules != null)
+                    {
+                        foreach (ReportingDescriptor rule in rules)
+                        {
+                            if (rule.Guid == this.Rule.Guid) { return rule; }
+                        }
+
+                        throw new ArgumentException($"ReportingDescriptorReference referred to Guid {this.Rule.Guid}, which was not found in toolComponent.Rules.");
+                    }
                 }
             }
 

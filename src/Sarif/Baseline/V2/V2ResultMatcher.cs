@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
                 // If there's only one issue, it matches if 'Sufficiently Similar'
                 if (Before[0].IsSufficientlySimilarTo(After[0]))
                 {
-                    Link(0, 0);
+                    LinkIfSimilar(0, 0);
                 }
             }
             else
@@ -93,7 +93,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
                     // The Results have a matching where. If the category matches, link them
                     if (left.MatchesCategory(right))
                     {
-                        Link(beforeIndex, afterIndex);
+                        LinkIfSimilar(beforeIndex, afterIndex);
                     }
 
                     // Look at the next pair of Results
@@ -110,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
             foreach (Tuple<int, int> link in beforeMap.UniqueLinks(afterMap))
             {
-                Link(link.Item1, link.Item2);
+                LinkIfSimilar(link.Item1, link.Item2);
             }
         }
 
@@ -121,25 +121,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             {
                 int afterIndex = MatchingIndexFromBefore[beforeIndex];
                 if (afterIndex == -1 || afterIndex + 1 >= After.Count) { continue; }
-                if (MatchingIndexFromBefore[beforeIndex + 1] != -1 || MatchingIndexFromAfter[afterIndex + 1] != -1) { continue; }
-
-                if (Before[beforeIndex + 1].IsSufficientlySimilarTo(After[afterIndex + 1]))
-                {
-                    Link(beforeIndex + 1, afterIndex + 1);
-                }
+                LinkIfSimilar(beforeIndex + 1, afterIndex + 1);
             }
 
             // Walk up, matching similar, previously unlinked Results before already linked pairs
-            for (int beforeIndex = 1; beforeIndex < Before.Count; ++beforeIndex)
+            for (int beforeIndex = Before.Count - 1; beforeIndex > 0; --beforeIndex)
             {
                 int afterIndex = MatchingIndexFromBefore[beforeIndex];
                 if (afterIndex <= 0 || afterIndex - 1 >= After.Count) { continue; }
-                if (MatchingIndexFromBefore[beforeIndex - 1] != -1 || MatchingIndexFromAfter[afterIndex - 1] != -1) { continue; }
-
-                if (Before[beforeIndex - 1].IsSufficientlySimilarTo(After[afterIndex - 1]))
-                {
-                    Link(beforeIndex - 1, afterIndex - 1);
-                }
+                LinkIfSimilar(beforeIndex - 1, afterIndex - 1);
             }
         }
 
@@ -173,10 +163,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             return matches;
         }
 
-        private void Link(int beforeIndex, int afterIndex)
+        private void LinkIfSimilar(int beforeIndex, int afterIndex)
         {
-            MatchingIndexFromBefore[beforeIndex] = afterIndex;
-            MatchingIndexFromAfter[afterIndex] = beforeIndex;
+            // Link Results *if* they weren't matched earlier and they are 'Sufficiently Similar'
+            if (MatchingIndexFromBefore[beforeIndex] == -1 && MatchingIndexFromAfter[afterIndex] == -1)
+            {
+                if (Before[beforeIndex].IsSufficientlySimilarTo(After[afterIndex]))
+                {
+                    MatchingIndexFromBefore[beforeIndex] = afterIndex;
+                    MatchingIndexFromAfter[afterIndex] = beforeIndex;
+                }
+            }
         }
 
         private static void Fill(int[] array, int value)
