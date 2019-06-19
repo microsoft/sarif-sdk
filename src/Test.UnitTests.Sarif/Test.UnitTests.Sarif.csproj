@@ -60,6 +60,8 @@
 
   <ItemGroup>
     <EmbeddedResource Include="TestData\Baseline\elfie-arriba.sarif" />
+    <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\TopLevelOriginalUriBaseIdUriMissing_ContextRegionSnippets.sarif" />
+    <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\Inputs\TopLevelOriginalUriBaseIdUriMissing.sarif" />
     <EmbeddedResource Include="TestData\Map\TinyArray.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>

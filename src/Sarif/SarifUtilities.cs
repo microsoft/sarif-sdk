@@ -12,7 +12,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public static class SarifUtilities
     {
-        private static Regex s_semVer200 = new Regex(@"^(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)(-(?<prerelease>[A-Za-z0-9\-\.]+))?(\+(?<build>[A-Za-z0-9\-\.]+))?$", RegexOptions.Compiled);
+        private static readonly Regex s_semVer200 =
+            new Regex(@"^(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)(-(?<prerelease>[A-Za-z0-9\-\.]+))?(\+(?<build>[A-Za-z0-9\-\.]+))?$", RegexOptions.Compiled);
+
         public static bool IsSemanticVersioningCompatible(this string versionText)
         {
             return s_semVer200.IsMatch(versionText);

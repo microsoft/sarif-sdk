@@ -5,114 +5,219 @@
     {
       "artifacts": [
         {
-          "mimeType": "text/xml"
+          "location": {
+            "uri": "/webgoat/Content/ForgotPassword.aspx",
+            "uriBaseId": "SITE_ROOT",
+            "index": 0
+          },
+          "mimeType": "text/html"
         },
         {
+          "location": {
+            "uri": "/webgoat/Content/EncryptVSEncode.aspx",
+            "uriBaseId": "SITE_ROOT",
+            "index": 1
+          },
+          "mimeType": "text/html"
+        },
+        {
+          "location": {
+            "uri": "/webgoat/Content/ReflectedXSS.aspx",
+            "uriBaseId": "SITE_ROOT",
+            "index": 2
+          },
+          "mimeType": "text/html"
+        },
+        {
+          "location": {
+            "uri": "/webgoat/Default.aspx",
+            "uriBaseId": "SITE_ROOT",
+            "index": 3
+          },
+          "mimeType": "text/html"
+        },
+        {
+          "location": {
+            "uri": "/webgoat/Content/SQLInjection.aspx",
+            "uriBaseId": "SITE_ROOT",
+            "index": 4
+          },
+          "mimeType": "text/html"
+        },
+        {
+          "location": {
+            "uri": "/webgoat/WebGoatCoins/CustomerLogin.aspx",
+            "uriBaseId": "SITE_ROOT",
+            "index": 5
+          },
+          "mimeType": "text/html"
+        },
+        {
+          "location": {
+            "uri": "/webgoat/RebuildDatabase.aspx",
+            "uriBaseId": "SITE_ROOT",
+            "index": 6
+          },
+          "mimeType": "text/html"
+        },
+        {
+          "location": {
+            "uri": "/webgoat/Content/PathManipulation.aspx",
+            "uriBaseId": "SITE_ROOT",
+            "index": 7
+          },
+          "mimeType": "text/html"
+        },
+        {
+          "location": {
+            "uri": "/webgoat/Content/StoredXSS.aspx",
+            "uriBaseId": "SITE_ROOT",
+            "index": 8
+          },
+          "mimeType": "text/html"
+        },
+        {
+          "location": {
+            "uri": "/webgoat/Content/UploadPathManipulation.aspx",
+            "uriBaseId": "SITE_ROOT",
+            "index": 9
+          },
+          "mimeType": "text/html"
+        },
+        {
+          "location": {
+            "uri": "/webgoat/Content/MessageDigest.aspx",
+            "uriBaseId": "SITE_ROOT",
+            "index": 10
+          },
+          "mimeType": "text/html"
+        },
+        {
+          "location": {
+            "uri": "/webgoat/WebGoatCoins/ForgotPassword.aspx",
+            "uriBaseId": "SITE_ROOT",
+            "index": 11
+          },
+          "mimeType": "text/html"
+        },
+        {
+          "location": {
+            "uri": "/webgoat/Content/ExploitDebug.aspx",
+            "uriBaseId": "SITE_ROOT",
+            "index": 12
+          },
+          "mimeType": "text/html"
+        },
+        {
+          "location": {
+            "uri": "/webgoat/Content/SQLInjectionDiscovery.aspx",
+            "uriBaseId": "SITE_ROOT",
+            "index": 13
+          },
+          "mimeType": "text/html"
+        },
+        {
+          "location": {
+            "uri": "/webgoat/WebGoatCoins/Logout.aspx",
+            "uriBaseId": "SITE_ROOT",
+            "index": 14
+          },
+          "mimeType": "text/html"
+        },
+        {
+          "location": {
+            "uri": "/webgoat/WebGoatCoins/MainPage.aspx",
+            "uriBaseId": "SITE_ROOT",
+            "index": 15
+          },
+          "mimeType": "text/html"
+        },
+        {
+          "location": {
+            "uri": "/webgoat/ProxySetup.aspx",
+            "uriBaseId": "SITE_ROOT",
+            "index": 16
+          },
+          "mimeType": "text/html"
+        },
+        {
+          "location": {
+            "uri": "/webgoat/WebGoatCoins/Catalog.aspx",
+            "uriBaseId": "SITE_ROOT",
+            "index": 17
+          },
+          "mimeType": "text/html"
+        },
+        {
+          "location": {
+            "uri": "/webgoat/WebGoatCoins/ChangePassword.aspx",
+            "uriBaseId": "SITE_ROOT",
+            "index": 18
+          },
+          "mimeType": "text/html"
+        },
+        {
+          "location": {
+            "uri": "/webgoat/WebGoatCoins/Autocomplete.ashx",
+            "uriBaseId": "SITE_ROOT",
+            "index": 19
+          },
           "mimeType": "application/octet-stream"
         },
         {
-          "contents": {
-            "text": "<form name=\"aspnetForm\" method=\"post\" action=\"./EncryptVSEncode.aspx\" id=\"aspnetForm\">\r\n<div>\r\n<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\" />\r\n<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\" />\r\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwUJNjExOTgzMDc0ZBgBBR5fX0NvbnRyb2xzUmVxdWlyZVBvc3RCYWNrS2V5X18WAgUbY3RsMDAkSGVhZExvZ2luU3RhdHVzJGN0bDAxBRtjdGwwMCRIZWFkTG9naW5TdGF0dXMkY3RsMDPTyW32TNXh44fx3r1iX/ZmjJRIk8hCyp50LmL/5lvhfg==\" />\r\n</div>\r\n\r\n<script type=\"text/javascript\">\r\n//<![CDATA[\r\nvar theForm = document.forms['aspnetForm'];\r\nif (!theForm) {\r\n    theForm = document.aspnetForm;\r\n}\r\nfunction __doPostBack(eventTarget, eventArgument) {\r\n    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {\r\n        theForm.__EVENTTARGET.value = eventTarget;\r\n        theForm.__EVENTARGUMENT.value = eventArgument;\r\n        theForm.submit();\r\n    }\r\n}\r\n//]]>\r\n</script>\r\n\r\n\r\n<div>\r\n\r\n\t<input type=\"hidden\" name=\"__VIEWSTATEGEN...",
-            "binary": "PGZvcm0gbmFtZT0iYXNwbmV0Rm9ybSIgbWV0aG9kPSJwb3N0IiBhY3Rpb249Ii4vRW5jcnlwdFZTRW5jb2RlLmFzcHgiIGlkPSJhc3BuZXRGb3JtIj4NCjxkaXY+DQo8aW5wdXQgdHlwZT0iaGlkZGVuIiBuYW1lPSJfX0VWRU5UVEFSR0VUIiBpZD0iX19FVkVOVFRBUkdFVCIgdmFsdWU9IiIgLz4NCjxpbnB1dCB0eXBlPSJoaWRkZW4iIG5hbWU9Il9fRVZFTlRBUkdVTUVOVCIgaWQ9Il9fRVZFTlRBUkdVTUVOVCIgdmFsdWU9IiIgLz4NCjxpbnB1dCB0eXBlPSJoaWRkZW4iIG5hbWU9Il9fVklFV1NUQVRFIiBpZD0iX19WSUVXU1RBVEUiIHZhbHVlPSIvd0VQRHdVSk5qRXhPVGd6TURjMFpCZ0JCUjVmWDBOdmJuUnliMnh6VW1WeGRXbHlaVkJ2YzNSQ1lXTnJTMlY1WDE4V0FnVWJZM1JzTURBa1NHVmhaRXh2WjJsdVUzUmhkSFZ6SkdOMGJEQXhCUnRqZEd3d01DUklaV0ZrVEc5bmFXNVRkR0YwZFhNa1kzUnNNRFBUeVczMlROWGg0NGZ4M3IxaVgvWm1qSlJJazhoQ3lwNTBMbUwvNWx2aGZnPT0iIC8+DQo8L2Rpdj4NCg0KPHNjcmlwdCB0eXBlPSJ0ZXh0L2phdmFzY3JpcHQiPg0KLy88IVtDREFUQVsNCnZhciB0aGVGb3JtID0gZG9jdW1lbnQuZm9ybXNbJ2FzcG5ldEZvcm0nXTsNCmlmICghdGhlRm9ybSkgew0KICAgIHRoZUZvcm0gPSBkb2N1bWVudC5hc3BuZXRGb3JtOw0KfQ0KZnVuY3Rpb24gX19kb1Bvc3RCYWNrKGV2ZW50VGFyZ2V0LCBldmVudEFyZ3VtZW50KSB7DQogICAgaWYgKCF0aGVGb3JtLm9uc3VibWl0IHx8ICh0aGVGb3JtLm9uc3VibWl0KCkgIT0gZmFsc2UpKSB7DQogICAgICAgIHRoZUZvcm0uX19FVkVOVFRBUkdFVC52YWx1ZSA9IGV2ZW50VGFyZ2V0Ow0KICAgICAgICB0aGVGb3JtLl9fRVZFTlRBUkdVTUVOVC52YWx1ZSA9IGV2ZW50QXJndW1lbnQ7DQogICAgICAgIHRoZUZvcm0uc3VibWl0KCk7DQogICAgfQ0KfQ0KLy9dXT4NCjwvc2NyaXB0Pg0KDQoNCjxkaXY+DQoNCgk8aW5wdXQgdHlwZT0iaGlkZGVuIiBuYW1lPSJfX1ZJRVdTVEFURUdFTi4uLg=="
-          }
+          "location": {
+            "uri": "/webgoat/WebGoatCoins/Orders.aspx",
+            "uriBaseId": "SITE_ROOT",
+            "index": 20
+          },
+          "mimeType": "text/html"
         },
         {
-          "contents": {
-            "text": "<form name=\"aspnetForm\" method=\"post\" action=\"./ReflectedXSS.aspx?city=San+Francisco\" id=\"aspnetForm\">\r\n<div>\r\n<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\" />\r\n<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\" />\r\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwUKLTI0NjMyMjcwNQ9kFgJmD2QWAgIBD2QWAgIUD2QWBAIBDw8WAh4EVGV4dAUxSGVyZSBhcmUgdGhlIGRldGFpbHMgZm9yIG91ciBTYW4gRnJhbmNpc2NvIE9mZmljZWRkAgMPPCsADwIADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkDhQrAAkWCB4ETmFtZQUKb2ZmaWNlQ29kZR4KSXNSZWFkT25seWgeBFR5cGUZKwIeCURhdGFGaWVsZAUKb2ZmaWNlQ29kZRYIHwMFBGNpdHkfBGgfBRkrAh8GBQRjaXR5FggfAwUFcGhvbmUfBGgfBRkrAh8GBQVwaG9uZRYIHwMFDGFkZHJlc3NMaW5lMR8EaB8FGSsCHwYFDGFkZHJlc3NMaW5lMRYIHwMFDGFkZHJlc3NMaW5lMh8EaB8FGSsCHwYFDGFkZHJlc3NMaW5lMhYIHwMFBXN0YXRlHwRoHwUZKwIfBgUFc3RhdGUWCB8DBQdjb3VudHJ5HwRoHwUZKwIfBgUHY291bnRyeRYIHwMFCnBvc3RhbENvZGUfBGgfBRkrAh8GBQpwb3N0YWxDb2RlFggfAwUJdGVycml0b3J5HwRoHwUZKwIfBgUJdGVycml0b3J5FgJmD2QWFmYPDxYCHgdWaXNpY...",
-            "binary": "PGZvcm0gbmFtZT0iYXNwbmV0Rm9ybSIgbWV0aG9kPSJwb3N0IiBhY3Rpb249Ii4vUmVmbGVjdGVkWFNTLmFzcHg/Y2l0eT1TYW4rRnJhbmNpc2NvIiBpZD0iYXNwbmV0Rm9ybSI+DQo8ZGl2Pg0KPGlucHV0IHR5cGU9ImhpZGRlbiIgbmFtZT0iX19FVkVOVFRBUkdFVCIgaWQ9Il9fRVZFTlRUQVJHRVQiIHZhbHVlPSIiIC8+DQo8aW5wdXQgdHlwZT0iaGlkZGVuIiBuYW1lPSJfX0VWRU5UQVJHVU1FTlQiIGlkPSJfX0VWRU5UQVJHVU1FTlQiIHZhbHVlPSIiIC8+DQo8aW5wdXQgdHlwZT0iaGlkZGVuIiBuYW1lPSJfX1ZJRVdTVEFURSIgaWQ9Il9fVklFV1NUQVRFIiB2YWx1ZT0iL3dFUER3VUtMVEkwTmpNeU1qY3dOUTlrRmdKbUQyUVdBZ0lCRDJRV0FnSVVEMlFXQkFJQkR3OFdBaDRFVkdWNGRBVXhTR1Z5WlNCaGNtVWdkR2hsSUdSbGRHRnBiSE1nWm05eUlHOTFjaUJUWVc0Z1JuSmhibU5wYzJOdklFOW1abWxqWldSa0FnTVBQQ3NBRHdJQUR4WUVIZ3RmSVVSaGRHRkNiM1Z1WkdjZUMxOGhTWFJsYlVOdmRXNTBBZ0ZrRGhRckFBa1dDQjRFVG1GdFpRVUtiMlptYVdObFEyOWtaUjRLU1hOU1pXRmtUMjVzZVdnZUJGUjVjR1VaS3dJZUNVUmhkR0ZHYVdWc1pBVUtiMlptYVdObFEyOWtaUllJSHdNRkJHTnBkSGtmQkdnZkJSa3JBaDhHQlFSamFYUjVGZ2dmQXdVRmNHaHZibVVmQkdnZkJSa3JBaDhHQlFWd2FHOXVaUllJSHdNRkRHRmtaSEpsYzNOTWFXNWxNUjhFYUI4RkdTc0NId1lGREdGa1pISmxjM05NYVc1bE1SWUlId01GREdGa1pISmxjM05NYVc1bE1oOEVhQjhGR1NzQ0h3WUZER0ZrWkhKbGMzTk1hVzVsTWhZSUh3TUZCWE4wWVhSbEh3Um9Id1VaS3dJZkJnVUZjM1JoZEdVV0NCOERCUWRqYjNWdWRISjVId1JvSHdVWkt3SWZCZ1VIWTI5MWJuUnllUllJSHdNRkNuQnZjM1JoYkVOdlpHVWZCR2dmQlJrckFoOEdCUXB3YjNOMFlXeERiMlJsRmdnZkF3VUpkR1Z5Y21sMGIzSjVId1JvSHdVWkt3SWZCZ1VKZEdWeWNtbDBiM0o1RmdKbUQyUVdGbVlQRHhZQ0hnZFdhWE5wWS4uLg=="
-          }
+          "location": {
+            "uri": "/webgoat/WebGoatCoins/ProductDetails.aspx",
+            "uriBaseId": "SITE_ROOT",
+            "index": 21
+          },
+          "mimeType": "text/html"
         },
         {
-          "contents": {
-            "text": "<form name=\"aspnetForm\" method=\"post\" action=\"./Default.aspx\" id=\"aspnetForm\">\r\n<div>\r\n<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\" />\r\n<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\" />\r\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwUIOTA4OTUyNTAPFgIeB1Nlc3Npb24FGDNidmJmbDJnZ3EzcnJmcTBlNGNqejVsdxYCZg9kFgICAQ9kFgICFA9kFgICAQ8PFgIeBFRleHQFhAFZb3UgYXBwZWFyIHRvIGJlIGNvbm5lY3RlZCB0byBhIHZhbGlkIE15U3FsIHByb3ZpZGVyLiBJZiB5b3Ugd2FudCB0byByZWNvbmZpZ3VyZSBvciByZWJ1aWxkIHRoZSBkYXRhYmFzZSwgY2xpY2sgb24gdGhlIGJ1dHRvbiBiZWxvdyFkZBgBBR5fX0NvbnRyb2xzUmVxdWlyZVBvc3RCYWNrS2V5X18WAgUbY3RsMDAkSGVhZExvZ2luU3RhdHVzJGN0bDAxBRtjdGwwMCRIZWFkTG9naW5TdGF0dXMkY3RsMDO+aV3ZN6cZOnFHrDVpZVKz4M//04JpGparGY8EngZ20A==\" />\r\n</div>\r\n\r\n<script type=\"text/javascript\">\r\n//<![CDATA[\r\nvar theForm = document.forms['aspnetForm'];\r\nif (!theForm) {\r\n    theForm = document.aspnetForm;\r\n}\r\nfunction __doPostBack(eventTarget, eventArgument) {\r\n    if (!theForm....",
-            "binary": "PGZvcm0gbmFtZT0iYXNwbmV0Rm9ybSIgbWV0aG9kPSJwb3N0IiBhY3Rpb249Ii4vRGVmYXVsdC5hc3B4IiBpZD0iYXNwbmV0Rm9ybSI+DQo8ZGl2Pg0KPGlucHV0IHR5cGU9ImhpZGRlbiIgbmFtZT0iX19FVkVOVFRBUkdFVCIgaWQ9Il9fRVZFTlRUQVJHRVQiIHZhbHVlPSIiIC8+DQo8aW5wdXQgdHlwZT0iaGlkZGVuIiBuYW1lPSJfX0VWRU5UQVJHVU1FTlQiIGlkPSJfX0VWRU5UQVJHVU1FTlQiIHZhbHVlPSIiIC8+DQo8aW5wdXQgdHlwZT0iaGlkZGVuIiBuYW1lPSJfX1ZJRVdTVEFURSIgaWQ9Il9fVklFV1NUQVRFIiB2YWx1ZT0iL3dFUER3VUlPVEE0T1RVeU5UQVBGZ0llQjFObGMzTnBiMjRGR0ROaWRtSm1iREpuWjNFemNuSm1jVEJsTkdOcWVqVnNkeFlDWmc5a0ZnSUNBUTlrRmdJQ0ZBOWtGZ0lDQVE4UEZnSWVCRlJsZUhRRmhBRlpiM1VnWVhCd1pXRnlJSFJ2SUdKbElHTnZibTVsWTNSbFpDQjBieUJoSUhaaGJHbGtJRTE1VTNGc0lIQnliM1pwWkdWeUxpQkpaaUI1YjNVZ2QyRnVkQ0IwYnlCeVpXTnZibVpwWjNWeVpTQnZjaUJ5WldKMWFXeGtJSFJvWlNCa1lYUmhZbUZ6WlN3Z1kyeHBZMnNnYjI0Z2RHaGxJR0oxZEhSdmJpQmlaV3h2ZHlGa1pCZ0JCUjVmWDBOdmJuUnliMnh6VW1WeGRXbHlaVkJ2YzNSQ1lXTnJTMlY1WDE4V0FnVWJZM1JzTURBa1NHVmhaRXh2WjJsdVUzUmhkSFZ6SkdOMGJEQXhCUnRqZEd3d01DUklaV0ZrVEc5bmFXNVRkR0YwZFhNa1kzUnNNRE8rYVYzWk42Y1pPbkZIckRWcFpWS3o0TS8vMDRKcEdwYXJHWThFbmdaMjBBPT0iIC8+DQo8L2Rpdj4NCg0KPHNjcmlwdCB0eXBlPSJ0ZXh0L2phdmFzY3JpcHQiPg0KLy88IVtDREFUQVsNCnZhciB0aGVGb3JtID0gZG9jdW1lbnQuZm9ybXNbJ2FzcG5ldEZvcm0nXTsNCmlmICghdGhlRm9ybSkgew0KICAgIHRoZUZvcm0gPSBkb2N1bWVudC5hc3BuZXRGb3JtOw0KfQ0KZnVuY3Rpb24gX19kb1Bvc3RCYWNrKGV2ZW50VGFyZ2V0LCBldmVudEFyZ3VtZW50KSB7DQogICAgaWYgKCF0aGVGb3JtLi4uLg=="
-          }
+          "location": {
+            "uri": "/web.config",
+            "uriBaseId": "SITE_ROOT",
+            "index": 22
+          },
+          "mimeType": "text/xml"
         },
         {
-          "contents": {
-            "text": "<form name=\"aspnetForm\" method=\"post\" action=\"./SQLInjection.aspx\" id=\"aspnetForm\">\r\n<div>\r\n<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\" />\r\n<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\" />\r\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwULLTE0NDg2NDYzMjcPZBYCZg9kFgICAQ9kFgICFA9kFgICBw88KwARAQwUKwAAZBgCBR5fX0NvbnRyb2xzUmVxdWlyZVBvc3RCYWNrS2V5X18WAgUbY3RsMDAkSGVhZExvZ2luU3RhdHVzJGN0bDAxBRtjdGwwMCRIZWFkTG9naW5TdGF0dXMkY3RsMDMFJWN0bDAwJEJvZHlDb250ZW50UGxhY2Vob2xkZXIkZ3JkRW1haWwPZ2RILRXq3x4SRzyxj1IO6zt74+lNTjvvwJ9WiFbVRte23g==\" />\r\n</div>\r\n\r\n<script type=\"text/javascript\">\r\n//<![CDATA[\r\nvar theForm = document.forms['aspnetForm'];\r\nif (!theForm) {\r\n    theForm = document.aspnetForm;\r\n}\r\nfunction __doPostBack(eventTarget, eventArgument) {\r\n    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {\r\n        theForm.__EVENTTARGET.value = eventTarget;\r\n        theForm.__EVENTARGUMENT.value = eventArgument;\r\n        t...",
-            "binary": "PGZvcm0gbmFtZT0iYXNwbmV0Rm9ybSIgbWV0aG9kPSJwb3N0IiBhY3Rpb249Ii4vU1FMSW5qZWN0aW9uLmFzcHgiIGlkPSJhc3BuZXRGb3JtIj4NCjxkaXY+DQo8aW5wdXQgdHlwZT0iaGlkZGVuIiBuYW1lPSJfX0VWRU5UVEFSR0VUIiBpZD0iX19FVkVOVFRBUkdFVCIgdmFsdWU9IiIgLz4NCjxpbnB1dCB0eXBlPSJoaWRkZW4iIG5hbWU9Il9fRVZFTlRBUkdVTUVOVCIgaWQ9Il9fRVZFTlRBUkdVTUVOVCIgdmFsdWU9IiIgLz4NCjxpbnB1dCB0eXBlPSJoaWRkZW4iIG5hbWU9Il9fVklFV1NUQVRFIiBpZD0iX19WSUVXU1RBVEUiIHZhbHVlPSIvd0VQRHdVTExURTBORGcyTkRZek1qY1BaQllDWmc5a0ZnSUNBUTlrRmdJQ0ZBOWtGZ0lDQnc4OEt3QVJBUXdVS3dBQVpCZ0NCUjVmWDBOdmJuUnliMnh6VW1WeGRXbHlaVkJ2YzNSQ1lXTnJTMlY1WDE4V0FnVWJZM1JzTURBa1NHVmhaRXh2WjJsdVUzUmhkSFZ6SkdOMGJEQXhCUnRqZEd3d01DUklaV0ZrVEc5bmFXNVRkR0YwZFhNa1kzUnNNRE1GSldOMGJEQXdKRUp2WkhsRGIyNTBaVzUwVUd4aFkyVm9iMnhrWlhJa1ozSmtSVzFoYVd3UFoyUklMUlhxM3g0U1J6eXhqMUlPNnp0NzQrbE5UanZ2d0o5V2lGYlZSdGUyM2c9PSIgLz4NCjwvZGl2Pg0KDQo8c2NyaXB0IHR5cGU9InRleHQvamF2YXNjcmlwdCI+DQovLzwhW0NEQVRBWw0KdmFyIHRoZUZvcm0gPSBkb2N1bWVudC5mb3Jtc1snYXNwbmV0Rm9ybSddOw0KaWYgKCF0aGVGb3JtKSB7DQogICAgdGhlRm9ybSA9IGRvY3VtZW50LmFzcG5ldEZvcm07DQp9DQpmdW5jdGlvbiBfX2RvUG9zdEJhY2soZXZlbnRUYXJnZXQsIGV2ZW50QXJndW1lbnQpIHsNCiAgICBpZiAoIXRoZUZvcm0ub25zdWJtaXQgfHwgKHRoZUZvcm0ub25zdWJtaXQoKSAhPSBmYWxzZSkpIHsNCiAgICAgICAgdGhlRm9ybS5fX0VWRU5UVEFSR0VULnZhbHVlID0gZXZlbnRUYXJnZXQ7DQogICAgICAgIHRoZUZvcm0uX19FVkVOVEFSR1VNRU5ULnZhbHVlID0gZXZlbnRBcmd1bWVudDsNCiAgICAgICAgdC4uLg=="
-          }
+          "location": {
+            "uri": "/Content/HeaderInjection.aspx",
+            "uriBaseId": "SITE_ROOT",
+            "index": 23
+          },
+          "mimeType": "text/html"
         },
         {
-          "contents": {
-            "text": "<form name=\"aspnetForm\" method=\"post\" action=\"./CustomerLogin.aspx?ReturnUrl=%2fwebgoat%2fWebGoatCoins%2fChangePassword.aspx\" id=\"aspnetForm\">\r\n<div>\r\n<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\" />\r\n<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\" />\r\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwULLTE5NDg1MDg5NTcPZBYCZg9kFgICAQ9kFgICFA9kFgICAQ8PFgIeB1Zpc2libGVnZGQYAQUeX19Db250cm9sc1JlcXVpcmVQb3N0QmFja0tleV9fFgMFG2N0bDAwJEhlYWRMb2dpblN0YXR1cyRjdGwwMQUbY3RsMDAkSGVhZExvZ2luU3RhdHVzJGN0bDAzBS1jdGwwMCRCb2R5Q29udGVudFBsYWNlaG9sZGVyJGNoZWNrQm94UmVtZW1iZXKul4fcEyoFCiDb3WM9XTXzeeZf1s3gri9Ym1jh3vjPQw==\" />\r\n</div>\r\n\r\n<script type=\"text/javascript\">\r\n//<![CDATA[\r\nvar theForm = document.forms['aspnetForm'];\r\nif (!theForm) {\r\n    theForm = document.aspnetForm;\r\n}\r\nfunction __doPostBack(eventTarget, eventArgument) {\r\n    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {\r\n        theForm.__EVENTTARGET.value = eventTar...",
-            "binary": "PGZvcm0gbmFtZT0iYXNwbmV0Rm9ybSIgbWV0aG9kPSJwb3N0IiBhY3Rpb249Ii4vQ3VzdG9tZXJMb2dpbi5hc3B4P1JldHVyblVybD0lMmZ3ZWJnb2F0JTJmV2ViR29hdENvaW5zJTJmQ2hhbmdlUGFzc3dvcmQuYXNweCIgaWQ9ImFzcG5ldEZvcm0iPg0KPGRpdj4NCjxpbnB1dCB0eXBlPSJoaWRkZW4iIG5hbWU9Il9fRVZFTlRUQVJHRVQiIGlkPSJfX0VWRU5UVEFSR0VUIiB2YWx1ZT0iIiAvPg0KPGlucHV0IHR5cGU9ImhpZGRlbiIgbmFtZT0iX19FVkVOVEFSR1VNRU5UIiBpZD0iX19FVkVOVEFSR1VNRU5UIiB2YWx1ZT0iIiAvPg0KPGlucHV0IHR5cGU9ImhpZGRlbiIgbmFtZT0iX19WSUVXU1RBVEUiIGlkPSJfX1ZJRVdTVEFURSIgdmFsdWU9Ii93RVBEd1VMTFRFNU5EZzFNRGc1TlRjUFpCWUNaZzlrRmdJQ0FROWtGZ0lDRkE5a0ZnSUNBUThQRmdJZUIxWnBjMmxpYkdWblpHUVlBUVVlWDE5RGIyNTBjbTlzYzFKbGNYVnBjbVZRYjNOMFFtRmphMHRsZVY5ZkZnTUZHMk4wYkRBd0pFaGxZV1JNYjJkcGJsTjBZWFIxY3lSamRHd3dNUVViWTNSc01EQWtTR1ZoWkV4dloybHVVM1JoZEhWekpHTjBiREF6QlMxamRHd3dNQ1JDYjJSNVEyOXVkR1Z1ZEZCc1lXTmxhRzlzWkdWeUpHTm9aV05yUW05NFVtVnRaVzFpWlhLdWw0ZmNFeW9GQ2lEYjNXTTlYVFh6ZWVaZjFzM2dyaTlZbTFqaDN2alBRdz09IiAvPg0KPC9kaXY+DQoNCjxzY3JpcHQgdHlwZT0idGV4dC9qYXZhc2NyaXB0Ij4NCi8vPCFbQ0RBVEFbDQp2YXIgdGhlRm9ybSA9IGRvY3VtZW50LmZvcm1zWydhc3BuZXRGb3JtJ107DQppZiAoIXRoZUZvcm0pIHsNCiAgICB0aGVGb3JtID0gZG9jdW1lbnQuYXNwbmV0Rm9ybTsNCn0NCmZ1bmN0aW9uIF9fZG9Qb3N0QmFjayhldmVudFRhcmdldCwgZXZlbnRBcmd1bWVudCkgew0KICAgIGlmICghdGhlRm9ybS5vbnN1Ym1pdCB8fCAodGhlRm9ybS5vbnN1Ym1pdCgpICE9IGZhbHNlKSkgew0KICAgICAgICB0aGVGb3JtLl9fRVZFTlRUQVJHRVQudmFsdWUgPSBldmVudFRhci4uLg=="
-          }
-        },
-        {
-          "contents": {
-            "text": "<form name=\"aspnetForm\" method=\"post\" action=\"./RebuildDatabase.aspx\" id=\"aspnetForm\">\r\n<div>\r\n<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\" />\r\n<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\" />\r\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwUJNDcyMDk5NDY5D2QWAmYPZBYCAgEPZBYCAhQPZBYKAhMPDxYCHgdWaXNpYmxlaGRkAhUPDxYCHwBoZGQCGQ8PFgIfAGhkZAIbDw8WAh8AaGRkAiMPPCsAEQEMFCsAAGQYAgUeX19Db250cm9sc1JlcXVpcmVQb3N0QmFja0tleV9fFgIFG2N0bDAwJEhlYWRMb2dpblN0YXR1cyRjdGwwMQUbY3RsMDAkSGVhZExvZ2luU3RhdHVzJGN0bDAzBSRjdGwwMCRCb2R5Q29udGVudFBsYWNlaG9sZGVyJGdyZFZpZXcPZ2R0Pc/pX+ud7Fvt+nQvnTmbNN8ylu07RUqzEedYoC4Ueg==\" />\r\n</div>\r\n\r\n<script type=\"text/javascript\">\r\n//<![CDATA[\r\nvar theForm = document.forms['aspnetForm'];\r\nif (!theForm) {\r\n    theForm = document.aspnetForm;\r\n}\r\nfunction __doPostBack(eventTarget, eventArgument) {\r\n    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {\r\n        theForm.__EVENTTARGET.value = eventTarget;...",
-            "binary": "PGZvcm0gbmFtZT0iYXNwbmV0Rm9ybSIgbWV0aG9kPSJwb3N0IiBhY3Rpb249Ii4vUmVidWlsZERhdGFiYXNlLmFzcHgiIGlkPSJhc3BuZXRGb3JtIj4NCjxkaXY+DQo8aW5wdXQgdHlwZT0iaGlkZGVuIiBuYW1lPSJfX0VWRU5UVEFSR0VUIiBpZD0iX19FVkVOVFRBUkdFVCIgdmFsdWU9IiIgLz4NCjxpbnB1dCB0eXBlPSJoaWRkZW4iIG5hbWU9Il9fRVZFTlRBUkdVTUVOVCIgaWQ9Il9fRVZFTlRBUkdVTUVOVCIgdmFsdWU9IiIgLz4NCjxpbnB1dCB0eXBlPSJoaWRkZW4iIG5hbWU9Il9fVklFV1NUQVRFIiBpZD0iX19WSUVXU1RBVEUiIHZhbHVlPSIvd0VQRHdVSk5EY3lNRGs1TkRZNUQyUVdBbVlQWkJZQ0FnRVBaQllDQWhRUFpCWUtBaE1QRHhZQ0hnZFdhWE5wWW14bGFHUmtBaFVQRHhZQ0h3Qm9aR1FDR1E4UEZnSWZBR2hrWkFJYkR3OFdBaDhBYUdSa0FpTVBQQ3NBRVFFTUZDc0FBR1FZQWdVZVgxOURiMjUwY205c2MxSmxjWFZwY21WUWIzTjBRbUZqYTB0bGVWOWZGZ0lGRzJOMGJEQXdKRWhsWVdSTWIyZHBibE4wWVhSMWN5UmpkR3d3TVFVYlkzUnNNREFrU0dWaFpFeHZaMmx1VTNSaGRIVnpKR04wYkRBekJTUmpkR3d3TUNSQ2IyUjVRMjl1ZEdWdWRGQnNZV05sYUc5c1pHVnlKR2R5WkZacFpYY1BaMlIwUGMvcFgrdWQ3RnZ0K25Rdm5UbWJOTjh5bHUwN1JVcXpFZWRZb0M0VWVnPT0iIC8+DQo8L2Rpdj4NCg0KPHNjcmlwdCB0eXBlPSJ0ZXh0L2phdmFzY3JpcHQiPg0KLy88IVtDREFUQVsNCnZhciB0aGVGb3JtID0gZG9jdW1lbnQuZm9ybXNbJ2FzcG5ldEZvcm0nXTsNCmlmICghdGhlRm9ybSkgew0KICAgIHRoZUZvcm0gPSBkb2N1bWVudC5hc3BuZXRGb3JtOw0KfQ0KZnVuY3Rpb24gX19kb1Bvc3RCYWNrKGV2ZW50VGFyZ2V0LCBldmVudEFyZ3VtZW50KSB7DQogICAgaWYgKCF0aGVGb3JtLm9uc3VibWl0IHx8ICh0aGVGb3JtLm9uc3VibWl0KCkgIT0gZmFsc2UpKSB7DQogICAgICAgIHRoZUZvcm0uX19FVkVOVFRBUkdFVC52YWx1ZSA9IGV2ZW50VGFyZ2V0Oy4uLg=="
-          }
-        },
-        {
-          "contents": {
-            "text": "<form name=\"aspnetForm\" method=\"post\" action=\"./PathManipulation.aspx\" id=\"aspnetForm\">\r\n<div>\r\n<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\" />\r\n<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\" />\r\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwUIMjgxNTE4NDdkGAEFHl9fQ29udHJvbHNSZXF1aXJlUG9zdEJhY2tLZXlfXxYCBRtjdGwwMCRIZWFkTG9naW5TdGF0dXMkY3RsMDEFG2N0bDAwJEhlYWRMb2dpblN0YXR1cyRjdGwwMxb2+yTgj0KMVId5Ixaa20qa6l+S5YbLTvC6Ovo6LfZP\" />\r\n</div>\r\n\r\n<script type=\"text/javascript\">\r\n//<![CDATA[\r\nvar theForm = document.forms['aspnetForm'];\r\nif (!theForm) {\r\n    theForm = document.aspnetForm;\r\n}\r\nfunction __doPostBack(eventTarget, eventArgument) {\r\n    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {\r\n        theForm.__EVENTTARGET.value = eventTarget;\r\n        theForm.__EVENTARGUMENT.value = eventArgument;\r\n        theForm.submit();\r\n    }\r\n}\r\n//]]>\r\n</script>\r\n\r\n\r\n<div>\r\n\r\n\t<input type=\"hidden\" name=\"__VIEWSTATEGENERA...",
-            "binary": "PGZvcm0gbmFtZT0iYXNwbmV0Rm9ybSIgbWV0aG9kPSJwb3N0IiBhY3Rpb249Ii4vUGF0aE1hbmlwdWxhdGlvbi5hc3B4IiBpZD0iYXNwbmV0Rm9ybSI+DQo8ZGl2Pg0KPGlucHV0IHR5cGU9ImhpZGRlbiIgbmFtZT0iX19FVkVOVFRBUkdFVCIgaWQ9Il9fRVZFTlRUQVJHRVQiIHZhbHVlPSIiIC8+DQo8aW5wdXQgdHlwZT0iaGlkZGVuIiBuYW1lPSJfX0VWRU5UQVJHVU1FTlQiIGlkPSJfX0VWRU5UQVJHVU1FTlQiIHZhbHVlPSIiIC8+DQo8aW5wdXQgdHlwZT0iaGlkZGVuIiBuYW1lPSJfX1ZJRVdTVEFURSIgaWQ9Il9fVklFV1NUQVRFIiB2YWx1ZT0iL3dFUER3VUlNamd4TlRFNE5EZGtHQUVGSGw5ZlEyOXVkSEp2YkhOU1pYRjFhWEpsVUc5emRFSmhZMnRMWlhsZlh4WUNCUnRqZEd3d01DUklaV0ZrVEc5bmFXNVRkR0YwZFhNa1kzUnNNREVGRzJOMGJEQXdKRWhsWVdSTWIyZHBibE4wWVhSMWN5UmpkR3d3TXhiMit5VGdqMEtNVklkNUl4YWEyMHFhNmwrUzVZYkxUdkM2T3ZvNkxmWlAiIC8+DQo8L2Rpdj4NCg0KPHNjcmlwdCB0eXBlPSJ0ZXh0L2phdmFzY3JpcHQiPg0KLy88IVtDREFUQVsNCnZhciB0aGVGb3JtID0gZG9jdW1lbnQuZm9ybXNbJ2FzcG5ldEZvcm0nXTsNCmlmICghdGhlRm9ybSkgew0KICAgIHRoZUZvcm0gPSBkb2N1bWVudC5hc3BuZXRGb3JtOw0KfQ0KZnVuY3Rpb24gX19kb1Bvc3RCYWNrKGV2ZW50VGFyZ2V0LCBldmVudEFyZ3VtZW50KSB7DQogICAgaWYgKCF0aGVGb3JtLm9uc3VibWl0IHx8ICh0aGVGb3JtLm9uc3VibWl0KCkgIT0gZmFsc2UpKSB7DQogICAgICAgIHRoZUZvcm0uX19FVkVOVFRBUkdFVC52YWx1ZSA9IGV2ZW50VGFyZ2V0Ow0KICAgICAgICB0aGVGb3JtLl9fRVZFTlRBUkdVTUVOVC52YWx1ZSA9IGV2ZW50QXJndW1lbnQ7DQogICAgICAgIHRoZUZvcm0uc3VibWl0KCk7DQogICAgfQ0KfQ0KLy9dXT4NCjwvc2NyaXB0Pg0KDQoNCjxkaXY+DQoNCgk8aW5wdXQgdHlwZT0iaGlkZGVuIiBuYW1lPSJfX1ZJRVdTVEFURUdFTkVSQS4uLg=="
-          }
-        },
-        {
-          "contents": {
-            "text": "<form name=\"aspnetForm\" method=\"post\" action=\"./StoredXSS.aspx\" id=\"aspnetForm\">\r\n<div>\r\n<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\" />\r\n<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\" />\r\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwUJNjczNjExNDE5D2QWAmYPZBYCAgEPZBYCAhQPZBYEAgMPDxYCHgdWaXNpYmxlaGRkAgUPDxYCHgRUZXh0Be4DPHN0cm9uZz5FbWFpbDo8L3N0cm9uZz5tZUBmb28uY29tPHNwYW4gc3R5bGU9J2ZvbnQtc2l6ZTogeC1zbWFsbDtjb2xvcjogI0U0NzkxMTsnPiAoRW1haWwgQWRkcmVzcyBWZXJpZmllZCEpIDwvc3Bhbj48YnIvPjxzdHJvbmc+Q29tbWVudDo8L3N0cm9uZz48YnIvPmhlbGxvPGJyLz48aHIvPjxzdHJvbmc+RW1haWw6PC9zdHJvbmc+bWVAZm9vLmNvbTxzcGFuIHN0eWxlPSdmb250LXNpemU6IHgtc21hbGw7Y29sb3I6ICNFNDc5MTE7Jz4gKEVtYWlsIEFkZHJlc3MgVmVyaWZpZWQhKSA8L3NwYW4+PGJyLz48c3Ryb25nPkNvbW1lbnQ6PC9zdHJvbmc+PGJyLz5hc2Q8YnIvPjxoci8+PHN0cm9uZz5FbWFpbDo8L3N0cm9uZz5hc2RAY29tbTxzcGFuIHN0eWxlPSdmb250LXNpemU6IHgtc21hbGw7Y29sb3I6ICNFNDc5MTE7Jz4gKEVtYWlsIEFkZHJlc3MgVmVyaWZpZWQhKSA8L3NwYW4+PGJyLz48c3R...",
-            "binary": "PGZvcm0gbmFtZT0iYXNwbmV0Rm9ybSIgbWV0aG9kPSJwb3N0IiBhY3Rpb249Ii4vU3RvcmVkWFNTLmFzcHgiIGlkPSJhc3BuZXRGb3JtIj4NCjxkaXY+DQo8aW5wdXQgdHlwZT0iaGlkZGVuIiBuYW1lPSJfX0VWRU5UVEFSR0VUIiBpZD0iX19FVkVOVFRBUkdFVCIgdmFsdWU9IiIgLz4NCjxpbnB1dCB0eXBlPSJoaWRkZW4iIG5hbWU9Il9fRVZFTlRBUkdVTUVOVCIgaWQ9Il9fRVZFTlRBUkdVTUVOVCIgdmFsdWU9IiIgLz4NCjxpbnB1dCB0eXBlPSJoaWRkZW4iIG5hbWU9Il9fVklFV1NUQVRFIiBpZD0iX19WSUVXU1RBVEUiIHZhbHVlPSIvd0VQRHdVSk5qY3pOakV4TkRFNUQyUVdBbVlQWkJZQ0FnRVBaQllDQWhRUFpCWUVBZ01QRHhZQ0hnZFdhWE5wWW14bGFHUmtBZ1VQRHhZQ0hnUlVaWGgwQmU0RFBITjBjbTl1Wno1RmJXRnBiRG84TDNOMGNtOXVaejV0WlVCbWIyOHVZMjl0UEhOd1lXNGdjM1I1YkdVOUoyWnZiblF0YzJsNlpUb2dlQzF6YldGc2JEdGpiMnh2Y2pvZ0kwVTBOemt4TVRzblBpQW9SVzFoYVd3Z1FXUmtjbVZ6Y3lCV1pYSnBabWxsWkNFcElEd3ZjM0JoYmo0OFluSXZQanh6ZEhKdmJtYytRMjl0YldWdWREbzhMM04wY205dVp6NDhZbkl2UG1obGJHeHZQR0p5THo0OGFISXZQanh6ZEhKdmJtYytSVzFoYVd3NlBDOXpkSEp2Ym1jK2JXVkFabTl2TG1OdmJUeHpjR0Z1SUhOMGVXeGxQU2RtYjI1MExYTnBlbVU2SUhndGMyMWhiR3c3WTI5c2IzSTZJQ05GTkRjNU1URTdKejRnS0VWdFlXbHNJRUZrWkhKbGMzTWdWbVZ5YVdacFpXUWhLU0E4TDNOd1lXNCtQR0p5THo0OGMzUnliMjVuUGtOdmJXMWxiblE2UEM5emRISnZibWMrUEdKeUx6NWhjMlE4WW5JdlBqeG9jaTgrUEhOMGNtOXVaejVGYldGcGJEbzhMM04wY205dVp6NWhjMlJBWTI5dGJUeHpjR0Z1SUhOMGVXeGxQU2RtYjI1MExYTnBlbVU2SUhndGMyMWhiR3c3WTI5c2IzSTZJQ05GTkRjNU1URTdKejRnS0VWdFlXbHNJRUZrWkhKbGMzTWdWbVZ5YVdacFpXUWhLU0E4TDNOd1lXNCtQR0p5THo0OGMzUi4uLg=="
-          }
-        },
-        {
-          "contents": {
-            "text": "<form name=\"aspnetForm\" method=\"post\" action=\"./UploadPathManipulation.aspx\" id=\"aspnetForm\" enctype=\"multipart/form-data\">\r\n<div>\r\n<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\" />\r\n<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\" />\r\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwUJNjYwODQ3Mjg4D2QWAmYPZBYCAgEPFgIeB2VuY3R5cGUFE211bHRpcGFydC9mb3JtLWRhdGFkGAEFHl9fQ29udHJvbHNSZXF1aXJlUG9zdEJhY2tLZXlfXxYCBRtjdGwwMCRIZWFkTG9naW5TdGF0dXMkY3RsMDEFG2N0bDAwJEhlYWRMb2dpblN0YXR1cyRjdGwwM4oD55Yd2WDVDxoVTEkPMWcibr8DfPMuuJLhSencfi4F\" />\r\n</div>\r\n\r\n<script type=\"text/javascript\">\r\n//<![CDATA[\r\nvar theForm = document.forms['aspnetForm'];\r\nif (!theForm) {\r\n    theForm = document.aspnetForm;\r\n}\r\nfunction __doPostBack(eventTarget, eventArgument) {\r\n    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {\r\n        theForm.__EVENTTARGET.value = eventTarget;\r\n        theForm.__EVENTARGUMENT.value = eventArgument;\r\n        theForm.s...",
-            "binary": "PGZvcm0gbmFtZT0iYXNwbmV0Rm9ybSIgbWV0aG9kPSJwb3N0IiBhY3Rpb249Ii4vVXBsb2FkUGF0aE1hbmlwdWxhdGlvbi5hc3B4IiBpZD0iYXNwbmV0Rm9ybSIgZW5jdHlwZT0ibXVsdGlwYXJ0L2Zvcm0tZGF0YSI+DQo8ZGl2Pg0KPGlucHV0IHR5cGU9ImhpZGRlbiIgbmFtZT0iX19FVkVOVFRBUkdFVCIgaWQ9Il9fRVZFTlRUQVJHRVQiIHZhbHVlPSIiIC8+DQo8aW5wdXQgdHlwZT0iaGlkZGVuIiBuYW1lPSJfX0VWRU5UQVJHVU1FTlQiIGlkPSJfX0VWRU5UQVJHVU1FTlQiIHZhbHVlPSIiIC8+DQo8aW5wdXQgdHlwZT0iaGlkZGVuIiBuYW1lPSJfX1ZJRVdTVEFURSIgaWQ9Il9fVklFV1NUQVRFIiB2YWx1ZT0iL3dFUER3VUpOall3T0RRM01qZzREMlFXQW1ZUFpCWUNBZ0VQRmdJZUIyVnVZM1I1Y0dVRkUyMTFiSFJwY0dGeWRDOW1iM0p0TFdSaGRHRmtHQUVGSGw5ZlEyOXVkSEp2YkhOU1pYRjFhWEpsVUc5emRFSmhZMnRMWlhsZlh4WUNCUnRqZEd3d01DUklaV0ZrVEc5bmFXNVRkR0YwZFhNa1kzUnNNREVGRzJOMGJEQXdKRWhsWVdSTWIyZHBibE4wWVhSMWN5UmpkR3d3TTRvRDU1WWQyV0RWRHhvVlRFa1BNV2NpYnI4RGZQTXV1SkxoU2VuY2ZpNEYiIC8+DQo8L2Rpdj4NCg0KPHNjcmlwdCB0eXBlPSJ0ZXh0L2phdmFzY3JpcHQiPg0KLy88IVtDREFUQVsNCnZhciB0aGVGb3JtID0gZG9jdW1lbnQuZm9ybXNbJ2FzcG5ldEZvcm0nXTsNCmlmICghdGhlRm9ybSkgew0KICAgIHRoZUZvcm0gPSBkb2N1bWVudC5hc3BuZXRGb3JtOw0KfQ0KZnVuY3Rpb24gX19kb1Bvc3RCYWNrKGV2ZW50VGFyZ2V0LCBldmVudEFyZ3VtZW50KSB7DQogICAgaWYgKCF0aGVGb3JtLm9uc3VibWl0IHx8ICh0aGVGb3JtLm9uc3VibWl0KCkgIT0gZmFsc2UpKSB7DQogICAgICAgIHRoZUZvcm0uX19FVkVOVFRBUkdFVC52YWx1ZSA9IGV2ZW50VGFyZ2V0Ow0KICAgICAgICB0aGVGb3JtLl9fRVZFTlRBUkdVTUVOVC52YWx1ZSA9IGV2ZW50QXJndW1lbnQ7DQogICAgICAgIHRoZUZvcm0ucy4uLg=="
-          }
-        },
-        {
-          "contents": {
-            "text": "<form name=\"aspnetForm\" method=\"post\" action=\"./MessageDigest.aspx\" id=\"aspnetForm\">\r\n<div>\r\n<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\" />\r\n<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\" />\r\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwUKMTE2NDkxMjk4OQ9kFgJmD2QWAgIBD2QWAgIUD2QWAgIBDw8WAh4EVGV4dAUUPXBEOVsqTDQnfD1NcWFBNFttSHFkZBgBBR5fX0NvbnRyb2xzUmVxdWlyZVBvc3RCYWNrS2V5X18WAgUbY3RsMDAkSGVhZExvZ2luU3RhdHVzJGN0bDAxBRtjdGwwMCRIZWFkTG9naW5TdGF0dXMkY3RsMDNykO8WPRCVobH3qA/+TnCljD8D7GQ9QewxOk4BsDtCgg==\" />\r\n</div>\r\n\r\n<script type=\"text/javascript\">\r\n//<![CDATA[\r\nvar theForm = document.forms['aspnetForm'];\r\nif (!theForm) {\r\n    theForm = document.aspnetForm;\r\n}\r\nfunction __doPostBack(eventTarget, eventArgument) {\r\n    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {\r\n        theForm.__EVENTTARGET.value = eventTarget;\r\n        theForm.__EVENTARGUMENT.value = eventArgument;\r\n        theForm.submit();\r\n    }\r\n}\r...",
-            "binary": "PGZvcm0gbmFtZT0iYXNwbmV0Rm9ybSIgbWV0aG9kPSJwb3N0IiBhY3Rpb249Ii4vTWVzc2FnZURpZ2VzdC5hc3B4IiBpZD0iYXNwbmV0Rm9ybSI+DQo8ZGl2Pg0KPGlucHV0IHR5cGU9ImhpZGRlbiIgbmFtZT0iX19FVkVOVFRBUkdFVCIgaWQ9Il9fRVZFTlRUQVJHRVQiIHZhbHVlPSIiIC8+DQo8aW5wdXQgdHlwZT0iaGlkZGVuIiBuYW1lPSJfX0VWRU5UQVJHVU1FTlQiIGlkPSJfX0VWRU5UQVJHVU1FTlQiIHZhbHVlPSIiIC8+DQo8aW5wdXQgdHlwZT0iaGlkZGVuIiBuYW1lPSJfX1ZJRVdTVEFURSIgaWQ9Il9fVklFV1NUQVRFIiB2YWx1ZT0iL3dFUER3VUtNVEUyTkRreE1qazRPUTlrRmdKbUQyUVdBZ0lCRDJRV0FnSVVEMlFXQWdJQkR3OFdBaDRFVkdWNGRBVVVQWEJFT1ZzcVREUW5mRDFOY1dGQk5GdHRTSEZrWkJnQkJSNWZYME52Ym5SeWIyeHpVbVZ4ZFdseVpWQnZjM1JDWVdOclMyVjVYMThXQWdVYlkzUnNNREFrU0dWaFpFeHZaMmx1VTNSaGRIVnpKR04wYkRBeEJSdGpkR3d3TUNSSVpXRmtURzluYVc1VGRHRjBkWE1rWTNSc01ETnlrTzhXUFJDVm9iSDNxQS8rVG5DbGpEOEQ3R1E5UWV3eE9rNEJzRHRDZ2c9PSIgLz4NCjwvZGl2Pg0KDQo8c2NyaXB0IHR5cGU9InRleHQvamF2YXNjcmlwdCI+DQovLzwhW0NEQVRBWw0KdmFyIHRoZUZvcm0gPSBkb2N1bWVudC5mb3Jtc1snYXNwbmV0Rm9ybSddOw0KaWYgKCF0aGVGb3JtKSB7DQogICAgdGhlRm9ybSA9IGRvY3VtZW50LmFzcG5ldEZvcm07DQp9DQpmdW5jdGlvbiBfX2RvUG9zdEJhY2soZXZlbnRUYXJnZXQsIGV2ZW50QXJndW1lbnQpIHsNCiAgICBpZiAoIXRoZUZvcm0ub25zdWJtaXQgfHwgKHRoZUZvcm0ub25zdWJtaXQoKSAhPSBmYWxzZSkpIHsNCiAgICAgICAgdGhlRm9ybS5fX0VWRU5UVEFSR0VULnZhbHVlID0gZXZlbnRUYXJnZXQ7DQogICAgICAgIHRoZUZvcm0uX19FVkVOVEFSR1VNRU5ULnZhbHVlID0gZXZlbnRBcmd1bWVudDsNCiAgICAgICAgdGhlRm9ybS5zdWJtaXQoKTsNCiAgICB9DQp9DS4uLg=="
-          }
-        },
-        {
-          "contents": {
-            "text": "<form name=\"aspnetForm\" method=\"post\" action=\"./ForgotPassword.aspx\" id=\"aspnetForm\">\r\n<div>\r\n<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\" />\r\n<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\" />\r\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwUKLTU2OTQxOTM1MA9kFgJmD2QWAgIBD2QWAgIUD2QWBAIDDw8WAh4HVmlzaWJsZWhkZAIFDw8WAh8AaGRkGAEFHl9fQ29udHJvbHNSZXF1aXJlUG9zdEJhY2tLZXlfXxYCBRtjdGwwMCRIZWFkTG9naW5TdGF0dXMkY3RsMDEFG2N0bDAwJEhlYWRMb2dpblN0YXR1cyRjdGwwMysWdXhAMrixsssMAWPA708KyZhsgx9jIIoLKlDqsas7\" />\r\n</div>\r\n\r\n<script type=\"text/javascript\">\r\n//<![CDATA[\r\nvar theForm = document.forms['aspnetForm'];\r\nif (!theForm) {\r\n    theForm = document.aspnetForm;\r\n}\r\nfunction __doPostBack(eventTarget, eventArgument) {\r\n    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {\r\n        theForm.__EVENTTARGET.value = eventTarget;\r\n        theForm.__EVENTARGUMENT.value = eventArgument;\r\n        theForm.submit();\r\n    }\r\n}\r\n//]]>\r\n</s...",
-            "binary": "PGZvcm0gbmFtZT0iYXNwbmV0Rm9ybSIgbWV0aG9kPSJwb3N0IiBhY3Rpb249Ii4vRm9yZ290UGFzc3dvcmQuYXNweCIgaWQ9ImFzcG5ldEZvcm0iPg0KPGRpdj4NCjxpbnB1dCB0eXBlPSJoaWRkZW4iIG5hbWU9Il9fRVZFTlRUQVJHRVQiIGlkPSJfX0VWRU5UVEFSR0VUIiB2YWx1ZT0iIiAvPg0KPGlucHV0IHR5cGU9ImhpZGRlbiIgbmFtZT0iX19FVkVOVEFSR1VNRU5UIiBpZD0iX19FVkVOVEFSR1VNRU5UIiB2YWx1ZT0iIiAvPg0KPGlucHV0IHR5cGU9ImhpZGRlbiIgbmFtZT0iX19WSUVXU1RBVEUiIGlkPSJfX1ZJRVdTVEFURSIgdmFsdWU9Ii93RVBEd1VLTFRVMk9UUXhPVE0xTUE5a0ZnSm1EMlFXQWdJQkQyUVdBZ0lVRDJRV0JBSUREdzhXQWg0SFZtbHphV0pzWldoa1pBSUZEdzhXQWg4QWFHUmtHQUVGSGw5ZlEyOXVkSEp2YkhOU1pYRjFhWEpsVUc5emRFSmhZMnRMWlhsZlh4WUNCUnRqZEd3d01DUklaV0ZrVEc5bmFXNVRkR0YwZFhNa1kzUnNNREVGRzJOMGJEQXdKRWhsWVdSTWIyZHBibE4wWVhSMWN5UmpkR3d3TXlzV2RYaEFNcml4c3NzTUFXUEE3MDhLeVpoc2d4OWpJSW9MS2xEcXNhczciIC8+DQo8L2Rpdj4NCg0KPHNjcmlwdCB0eXBlPSJ0ZXh0L2phdmFzY3JpcHQiPg0KLy88IVtDREFUQVsNCnZhciB0aGVGb3JtID0gZG9jdW1lbnQuZm9ybXNbJ2FzcG5ldEZvcm0nXTsNCmlmICghdGhlRm9ybSkgew0KICAgIHRoZUZvcm0gPSBkb2N1bWVudC5hc3BuZXRGb3JtOw0KfQ0KZnVuY3Rpb24gX19kb1Bvc3RCYWNrKGV2ZW50VGFyZ2V0LCBldmVudEFyZ3VtZW50KSB7DQogICAgaWYgKCF0aGVGb3JtLm9uc3VibWl0IHx8ICh0aGVGb3JtLm9uc3VibWl0KCkgIT0gZmFsc2UpKSB7DQogICAgICAgIHRoZUZvcm0uX19FVkVOVFRBUkdFVC52YWx1ZSA9IGV2ZW50VGFyZ2V0Ow0KICAgICAgICB0aGVGb3JtLl9fRVZFTlRBUkdVTUVOVC52YWx1ZSA9IGV2ZW50QXJndW1lbnQ7DQogICAgICAgIHRoZUZvcm0uc3VibWl0KCk7DQogICAgfQ0KfQ0KLy9dXT4NCjwvcy4uLg=="
-          }
-        },
-        {
-          "contents": {
-            "text": "<form name=\"aspnetForm\" method=\"post\" action=\"./ForgotPassword.aspx\" id=\"aspnetForm\">\r\n<div>\r\n<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\" />\r\n<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\" />\r\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwULLTE4MTA1ODczMDEPZBYCZg9kFgICAQ9kFgICFA9kFgQCAw8PFgIeB1Zpc2libGVoZGQCBQ8PFgIfAGhkZBgBBR5fX0NvbnRyb2xzUmVxdWlyZVBvc3RCYWNrS2V5X18WAgUbY3RsMDAkSGVhZExvZ2luU3RhdHVzJGN0bDAxBRtjdGwwMCRIZWFkTG9naW5TdGF0dXMkY3RsMDOK0PqIrEOdXKTPFF9/hNrfoBJ1Z2vcWpT5/UZKa4oTAA==\" />\r\n</div>\r\n\r\n<script type=\"text/javascript\">\r\n//<![CDATA[\r\nvar theForm = document.forms['aspnetForm'];\r\nif (!theForm) {\r\n    theForm = document.aspnetForm;\r\n}\r\nfunction __doPostBack(eventTarget, eventArgument) {\r\n    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {\r\n        theForm.__EVENTTARGET.value = eventTarget;\r\n        theForm.__EVENTARGUMENT.value = eventArgument;\r\n        theForm.submit();\r\n    }\r\n}\r\n//]]>\r...",
-            "binary": "PGZvcm0gbmFtZT0iYXNwbmV0Rm9ybSIgbWV0aG9kPSJwb3N0IiBhY3Rpb249Ii4vRm9yZ290UGFzc3dvcmQuYXNweCIgaWQ9ImFzcG5ldEZvcm0iPg0KPGRpdj4NCjxpbnB1dCB0eXBlPSJoaWRkZW4iIG5hbWU9Il9fRVZFTlRUQVJHRVQiIGlkPSJfX0VWRU5UVEFSR0VUIiB2YWx1ZT0iIiAvPg0KPGlucHV0IHR5cGU9ImhpZGRlbiIgbmFtZT0iX19FVkVOVEFSR1VNRU5UIiBpZD0iX19FVkVOVEFSR1VNRU5UIiB2YWx1ZT0iIiAvPg0KPGlucHV0IHR5cGU9ImhpZGRlbiIgbmFtZT0iX19WSUVXU1RBVEUiIGlkPSJfX1ZJRVdTVEFURSIgdmFsdWU9Ii93RVBEd1VMTFRFNE1UQTFPRGN6TURFUFpCWUNaZzlrRmdJQ0FROWtGZ0lDRkE5a0ZnUUNBdzhQRmdJZUIxWnBjMmxpYkdWb1pHUUNCUThQRmdJZkFHaGtaQmdCQlI1ZlgwTnZiblJ5YjJ4elVtVnhkV2x5WlZCdmMzUkNZV05yUzJWNVgxOFdBZ1ViWTNSc01EQWtTR1ZoWkV4dloybHVVM1JoZEhWekpHTjBiREF4QlJ0amRHd3dNQ1JJWldGa1RHOW5hVzVUZEdGMGRYTWtZM1JzTURPSzBQcUlyRU9kWEtUUEZGOS9oTnJmb0JKMVoydmNXcFQ1L1VaS2E0b1RBQT09IiAvPg0KPC9kaXY+DQoNCjxzY3JpcHQgdHlwZT0idGV4dC9qYXZhc2NyaXB0Ij4NCi8vPCFbQ0RBVEFbDQp2YXIgdGhlRm9ybSA9IGRvY3VtZW50LmZvcm1zWydhc3BuZXRGb3JtJ107DQppZiAoIXRoZUZvcm0pIHsNCiAgICB0aGVGb3JtID0gZG9jdW1lbnQuYXNwbmV0Rm9ybTsNCn0NCmZ1bmN0aW9uIF9fZG9Qb3N0QmFjayhldmVudFRhcmdldCwgZXZlbnRBcmd1bWVudCkgew0KICAgIGlmICghdGhlRm9ybS5vbnN1Ym1pdCB8fCAodGhlRm9ybS5vbnN1Ym1pdCgpICE9IGZhbHNlKSkgew0KICAgICAgICB0aGVGb3JtLl9fRVZFTlRUQVJHRVQudmFsdWUgPSBldmVudFRhcmdldDsNCiAgICAgICAgdGhlRm9ybS5fX0VWRU5UQVJHVU1FTlQudmFsdWUgPSBldmVudEFyZ3VtZW50Ow0KICAgICAgICB0aGVGb3JtLnN1Ym1pdCgpOw0KICAgIH0NCn0NCi8vXV0+DS4uLg=="
-          }
-        },
-        {
-          "contents": {
-            "text": "<form name=\"aspnetForm\" method=\"post\" action=\"./ExploitDebug.aspx\" id=\"aspnetForm\">\r\n<div>\r\n<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\" />\r\n<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\" />\r\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwUKLTY0NTA1ODI3MmQYAQUeX19Db250cm9sc1JlcXVpcmVQb3N0QmFja0tleV9fFgIFG2N0bDAwJEhlYWRMb2dpblN0YXR1cyRjdGwwMQUbY3RsMDAkSGVhZExvZ2luU3RhdHVzJGN0bDAzjl+Fufq8CYGy0o9o6HN/VFOaGxqhlv8qRUv8ONP3UMA=\" />\r\n</div>\r\n\r\n<script type=\"text/javascript\">\r\n//<![CDATA[\r\nvar theForm = document.forms['aspnetForm'];\r\nif (!theForm) {\r\n    theForm = document.aspnetForm;\r\n}\r\nfunction __doPostBack(eventTarget, eventArgument) {\r\n    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {\r\n        theForm.__EVENTTARGET.value = eventTarget;\r\n        theForm.__EVENTARGUMENT.value = eventArgument;\r\n        theForm.submit();\r\n    }\r\n}\r\n//]]>\r\n</script>\r\n\r\n\r\n<div>\r\n\r\n\t<input type=\"hidden\" name=\"__VIEWSTATEGENERA...",
-            "binary": "PGZvcm0gbmFtZT0iYXNwbmV0Rm9ybSIgbWV0aG9kPSJwb3N0IiBhY3Rpb249Ii4vRXhwbG9pdERlYnVnLmFzcHgiIGlkPSJhc3BuZXRGb3JtIj4NCjxkaXY+DQo8aW5wdXQgdHlwZT0iaGlkZGVuIiBuYW1lPSJfX0VWRU5UVEFSR0VUIiBpZD0iX19FVkVOVFRBUkdFVCIgdmFsdWU9IiIgLz4NCjxpbnB1dCB0eXBlPSJoaWRkZW4iIG5hbWU9Il9fRVZFTlRBUkdVTUVOVCIgaWQ9Il9fRVZFTlRBUkdVTUVOVCIgdmFsdWU9IiIgLz4NCjxpbnB1dCB0eXBlPSJoaWRkZW4iIG5hbWU9Il9fVklFV1NUQVRFIiBpZD0iX19WSUVXU1RBVEUiIHZhbHVlPSIvd0VQRHdVS0xUWTBOVEExT0RJM01tUVlBUVVlWDE5RGIyNTBjbTlzYzFKbGNYVnBjbVZRYjNOMFFtRmphMHRsZVY5ZkZnSUZHMk4wYkRBd0pFaGxZV1JNYjJkcGJsTjBZWFIxY3lSamRHd3dNUVViWTNSc01EQWtTR1ZoWkV4dloybHVVM1JoZEhWekpHTjBiREF6amwrRnVmcThDWUd5MG85bzZITi9WRk9hR3hxaGx2OHFSVXY4T05QM1VNQT0iIC8+DQo8L2Rpdj4NCg0KPHNjcmlwdCB0eXBlPSJ0ZXh0L2phdmFzY3JpcHQiPg0KLy88IVtDREFUQVsNCnZhciB0aGVGb3JtID0gZG9jdW1lbnQuZm9ybXNbJ2FzcG5ldEZvcm0nXTsNCmlmICghdGhlRm9ybSkgew0KICAgIHRoZUZvcm0gPSBkb2N1bWVudC5hc3BuZXRGb3JtOw0KfQ0KZnVuY3Rpb24gX19kb1Bvc3RCYWNrKGV2ZW50VGFyZ2V0LCBldmVudEFyZ3VtZW50KSB7DQogICAgaWYgKCF0aGVGb3JtLm9uc3VibWl0IHx8ICh0aGVGb3JtLm9uc3VibWl0KCkgIT0gZmFsc2UpKSB7DQogICAgICAgIHRoZUZvcm0uX19FVkVOVFRBUkdFVC52YWx1ZSA9IGV2ZW50VGFyZ2V0Ow0KICAgICAgICB0aGVGb3JtLl9fRVZFTlRBUkdVTUVOVC52YWx1ZSA9IGV2ZW50QXJndW1lbnQ7DQogICAgICAgIHRoZUZvcm0uc3VibWl0KCk7DQogICAgfQ0KfQ0KLy9dXT4NCjwvc2NyaXB0Pg0KDQoNCjxkaXY+DQoNCgk8aW5wdXQgdHlwZT0iaGlkZGVuIiBuYW1lPSJfX1ZJRVdTVEFURUdFTkVSQS4uLg=="
-          }
-        },
-        {
-          "contents": {
-            "text": "<form name=\"aspnetForm\" method=\"post\" action=\"./SQLInjectionDiscovery.aspx\" id=\"aspnetForm\">\r\n<div>\r\n<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\" />\r\n<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\" />\r\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwUJMTYzMzA1MjQzD2QWAmYPZBYCAgEPZBYCAhQPZBYCAgUPPCsAEQEMFCsAAGQYAgUeX19Db250cm9sc1JlcXVpcmVQb3N0QmFja0tleV9fFgIFG2N0bDAwJEhlYWRMb2dpblN0YXR1cyRjdGwwMQUbY3RsMDAkSGVhZExvZ2luU3RhdHVzJGN0bDAzBSVjdGwwMCRCb2R5Q29udGVudFBsYWNlaG9sZGVyJGdyZEVtYWlsD2dkmrU8Ya3JA0vYuOvvvWUIERvcukc+TCQ8L6sgZTkFBEU=\" />\r\n</div>\r\n\r\n<script type=\"text/javascript\">\r\n//<![CDATA[\r\nvar theForm = document.forms['aspnetForm'];\r\nif (!theForm) {\r\n    theForm = document.aspnetForm;\r\n}\r\nfunction __doPostBack(eventTarget, eventArgument) {\r\n    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {\r\n        theForm.__EVENTTARGET.value = eventTarget;\r\n        theForm.__EVENTARGUMENT.value = eventArgument;\r\n    ...",
-            "binary": "PGZvcm0gbmFtZT0iYXNwbmV0Rm9ybSIgbWV0aG9kPSJwb3N0IiBhY3Rpb249Ii4vU1FMSW5qZWN0aW9uRGlzY292ZXJ5LmFzcHgiIGlkPSJhc3BuZXRGb3JtIj4NCjxkaXY+DQo8aW5wdXQgdHlwZT0iaGlkZGVuIiBuYW1lPSJfX0VWRU5UVEFSR0VUIiBpZD0iX19FVkVOVFRBUkdFVCIgdmFsdWU9IiIgLz4NCjxpbnB1dCB0eXBlPSJoaWRkZW4iIG5hbWU9Il9fRVZFTlRBUkdVTUVOVCIgaWQ9Il9fRVZFTlRBUkdVTUVOVCIgdmFsdWU9IiIgLz4NCjxpbnB1dCB0eXBlPSJoaWRkZW4iIG5hbWU9Il9fVklFV1NUQVRFIiBpZD0iX19WSUVXU1RBVEUiIHZhbHVlPSIvd0VQRHdVSk1UWXpNekExTWpRekQyUVdBbVlQWkJZQ0FnRVBaQllDQWhRUFpCWUNBZ1VQUENzQUVRRU1GQ3NBQUdRWUFnVWVYMTlEYjI1MGNtOXNjMUpsY1hWcGNtVlFiM04wUW1GamEwdGxlVjlmRmdJRkcyTjBiREF3SkVobFlXUk1iMmRwYmxOMFlYUjFjeVJqZEd3d01RVWJZM1JzTURBa1NHVmhaRXh2WjJsdVUzUmhkSFZ6SkdOMGJEQXpCU1ZqZEd3d01DUkNiMlI1UTI5dWRHVnVkRkJzWVdObGFHOXNaR1Z5SkdkeVpFVnRZV2xzRDJka21yVThZYTNKQTB2WXVPdnZ2V1VJRVJ2Y3VrYytUQ1E4TDZzZ1pUa0ZCRVU9IiAvPg0KPC9kaXY+DQoNCjxzY3JpcHQgdHlwZT0idGV4dC9qYXZhc2NyaXB0Ij4NCi8vPCFbQ0RBVEFbDQp2YXIgdGhlRm9ybSA9IGRvY3VtZW50LmZvcm1zWydhc3BuZXRGb3JtJ107DQppZiAoIXRoZUZvcm0pIHsNCiAgICB0aGVGb3JtID0gZG9jdW1lbnQuYXNwbmV0Rm9ybTsNCn0NCmZ1bmN0aW9uIF9fZG9Qb3N0QmFjayhldmVudFRhcmdldCwgZXZlbnRBcmd1bWVudCkgew0KICAgIGlmICghdGhlRm9ybS5vbnN1Ym1pdCB8fCAodGhlRm9ybS5vbnN1Ym1pdCgpICE9IGZhbHNlKSkgew0KICAgICAgICB0aGVGb3JtLl9fRVZFTlRUQVJHRVQudmFsdWUgPSBldmVudFRhcmdldDsNCiAgICAgICAgdGhlRm9ybS5fX0VWRU5UQVJHVU1FTlQudmFsdWUgPSBldmVudEFyZ3VtZW50Ow0KICAgIC4uLg=="
-          }
-        },
-        {
-          "contents": {
-            "text": "<form name=\"aspnetForm\" method=\"post\" action=\"./Logout.aspx\" id=\"aspnetForm\">\r\n<div>\r\n<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\" />\r\n<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\" />\r\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwULLTEyNTE3MjkzMDZkGAEFHl9fQ29udHJvbHNSZXF1aXJlUG9zdEJhY2tLZXlfXxYCBRtjdGwwMCRIZWFkTG9naW5TdGF0dXMkY3RsMDEFG2N0bDAwJEhlYWRMb2dpblN0YXR1cyRjdGwwM5uVJiWC2Kgg6Jsa0NOw+eSNzff+pfPsNHlklVLCy3gZ\" />\r\n</div>\r\n\r\n<script type=\"text/javascript\">\r\n//<![CDATA[\r\nvar theForm = document.forms['aspnetForm'];\r\nif (!theForm) {\r\n    theForm = document.aspnetForm;\r\n}\r\nfunction __doPostBack(eventTarget, eventArgument) {\r\n    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {\r\n        theForm.__EVENTTARGET.value = eventTarget;\r\n        theForm.__EVENTARGUMENT.value = eventArgument;\r\n        theForm.submit();\r\n    }\r\n}\r\n//]]>\r\n</script>\r\n\r\n\r\n<div>\r\n\r\n\t<input type=\"hidden\" name=\"__VIEWSTATEGENERATOR\" i...",
-            "binary": "PGZvcm0gbmFtZT0iYXNwbmV0Rm9ybSIgbWV0aG9kPSJwb3N0IiBhY3Rpb249Ii4vTG9nb3V0LmFzcHgiIGlkPSJhc3BuZXRGb3JtIj4NCjxkaXY+DQo8aW5wdXQgdHlwZT0iaGlkZGVuIiBuYW1lPSJfX0VWRU5UVEFSR0VUIiBpZD0iX19FVkVOVFRBUkdFVCIgdmFsdWU9IiIgLz4NCjxpbnB1dCB0eXBlPSJoaWRkZW4iIG5hbWU9Il9fRVZFTlRBUkdVTUVOVCIgaWQ9Il9fRVZFTlRBUkdVTUVOVCIgdmFsdWU9IiIgLz4NCjxpbnB1dCB0eXBlPSJoaWRkZW4iIG5hbWU9Il9fVklFV1NUQVRFIiBpZD0iX19WSUVXU1RBVEUiIHZhbHVlPSIvd0VQRHdVTExURXlOVEUzTWprek1EWmtHQUVGSGw5ZlEyOXVkSEp2YkhOU1pYRjFhWEpsVUc5emRFSmhZMnRMWlhsZlh4WUNCUnRqZEd3d01DUklaV0ZrVEc5bmFXNVRkR0YwZFhNa1kzUnNNREVGRzJOMGJEQXdKRWhsWVdSTWIyZHBibE4wWVhSMWN5UmpkR3d3TTV1VkppV0MyS2dnNkpzYTBOT3crZVNOemZmK3BmUHNOSGxrbFZMQ3kzZ1oiIC8+DQo8L2Rpdj4NCg0KPHNjcmlwdCB0eXBlPSJ0ZXh0L2phdmFzY3JpcHQiPg0KLy88IVtDREFUQVsNCnZhciB0aGVGb3JtID0gZG9jdW1lbnQuZm9ybXNbJ2FzcG5ldEZvcm0nXTsNCmlmICghdGhlRm9ybSkgew0KICAgIHRoZUZvcm0gPSBkb2N1bWVudC5hc3BuZXRGb3JtOw0KfQ0KZnVuY3Rpb24gX19kb1Bvc3RCYWNrKGV2ZW50VGFyZ2V0LCBldmVudEFyZ3VtZW50KSB7DQogICAgaWYgKCF0aGVGb3JtLm9uc3VibWl0IHx8ICh0aGVGb3JtLm9uc3VibWl0KCkgIT0gZmFsc2UpKSB7DQogICAgICAgIHRoZUZvcm0uX19FVkVOVFRBUkdFVC52YWx1ZSA9IGV2ZW50VGFyZ2V0Ow0KICAgICAgICB0aGVGb3JtLl9fRVZFTlRBUkdVTUVOVC52YWx1ZSA9IGV2ZW50QXJndW1lbnQ7DQogICAgICAgIHRoZUZvcm0uc3VibWl0KCk7DQogICAgfQ0KfQ0KLy9dXT4NCjwvc2NyaXB0Pg0KDQoNCjxkaXY+DQoNCgk8aW5wdXQgdHlwZT0iaGlkZGVuIiBuYW1lPSJfX1ZJRVdTVEFURUdFTkVSQVRPUiIgaS4uLg=="
-          }
+          "location": {
+            "uri": "/WebGoatCoins/ProductDetails.aspx",
+            "uriBaseId": "SITE_ROOT",
+            "index": 24
+          },
+          "mimeType": "text/html"
         }
       ],
       "results": [
         {
           "ruleId": "sql-injection",
+          "ruleIndex": 38,
           "level": "error",
           "message": {
             "id": "default",
             "arguments": [
               "other, ctl00$BodyContentPlaceholder$txtEmail: parameter",
               "/webgoat/Content/ForgotPassword.aspx",
-              "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_Form()",
-              "void System.Data.Common.DbCommand.set_CommandText(System.String)",
-              "System.String System.String.Concat(System.String,System.String,System.String)"
+              "System.Web.HttpRequest.get_Form()",
+              "System.Data.Common.DbCommand.set_CommandText(System.String)",
+              "System.String.Concat(System.String,System.String,System.String)"
             ]
           },
           "locations": [
@@ -120,7 +225,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/ForgotPassword.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 0
                 }
               }
             }
@@ -131,13 +237,20 @@
                 {
                   "locations": [
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_Form()"
+                                  "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
                                 }
                               ]
                             }
@@ -326,13 +439,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
                                 }
                               ]
                             }
@@ -512,13 +632,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.String.Concat(System.String,System.String,System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.String.Concat(System.String,System.String,System.String)"
+                                  "fullyQualifiedName": "System.String.Concat(System.String,System.String,System.String)"
                                 }
                               ]
                             }
@@ -716,13 +843,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Data.Common.DbCommand.set_CommandText(System.String)"
+                                  "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
                                 }
                               ]
                             }
@@ -938,13 +1072,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Data.Common.DbCommand.set_CommandText(System.String)"
+                                  "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
                                 }
                               ]
                             }
@@ -1200,6 +1341,7 @@
         },
         {
           "ruleId": "autocomplete-missing",
+          "ruleIndex": 12,
           "level": "note",
           "message": {
             "id": "default",
@@ -1213,10 +1355,15 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/EncryptVSEncode.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 1
                 },
                 "region": {
-                  "startLine": 1
+                  "charOffset": 0,
+                  "charLength": 1000,
+                  "snippet": {
+                    "text": "<form name=\"aspnetForm\" method=\"post\" action=\"./EncryptVSEncode.aspx\" id=\"aspnetForm\">\r\n<div>\r\n<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\" />\r\n<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\" />\r\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwUJNjExOTgzMDc0ZBgBBR5fX0NvbnRyb2xzUmVxdWlyZVBvc3RCYWNrS2V5X18WAgUbY3RsMDAkSGVhZExvZ2luU3RhdHVzJGN0bDAxBRtjdGwwMCRIZWFkTG9naW5TdGF0dXMkY3RsMDPTyW32TNXh44fx3r1iX/ZmjJRIk8hCyp50LmL/5lvhfg==\" />\r\n</div>\r\n\r\n<script type=\"text/javascript\">\r\n//<![CDATA[\r\nvar theForm = document.forms['aspnetForm'];\r\nif (!theForm) {\r\n    theForm = document.aspnetForm;\r\n}\r\nfunction __doPostBack(eventTarget, eventArgument) {\r\n    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {\r\n        theForm.__EVENTTARGET.value = eventTarget;\r\n        theForm.__EVENTARGUMENT.value = eventArgument;\r\n        theForm.submit();\r\n    }\r\n}\r\n//]]>\r\n</script>\r\n\r\n\r\n<div>\r\n\r\n\t<input type=\"hidden\" name=\"__VIEWSTATEGEN"
+                  }
                 }
               }
             },
@@ -1224,10 +1371,15 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/ReflectedXSS.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 2
                 },
                 "region": {
-                  "startLine": 1
+                  "charOffset": 0,
+                  "charLength": 1000,
+                  "snippet": {
+                    "text": "<form name=\"aspnetForm\" method=\"post\" action=\"./ReflectedXSS.aspx?city=San+Francisco\" id=\"aspnetForm\">\r\n<div>\r\n<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\" />\r\n<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\" />\r\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwUKLTI0NjMyMjcwNQ9kFgJmD2QWAgIBD2QWAgIUD2QWBAIBDw8WAh4EVGV4dAUxSGVyZSBhcmUgdGhlIGRldGFpbHMgZm9yIG91ciBTYW4gRnJhbmNpc2NvIE9mZmljZWRkAgMPPCsADwIADxYEHgtfIURhdGFCb3VuZGceC18hSXRlbUNvdW50AgFkDhQrAAkWCB4ETmFtZQUKb2ZmaWNlQ29kZR4KSXNSZWFkT25seWgeBFR5cGUZKwIeCURhdGFGaWVsZAUKb2ZmaWNlQ29kZRYIHwMFBGNpdHkfBGgfBRkrAh8GBQRjaXR5FggfAwUFcGhvbmUfBGgfBRkrAh8GBQVwaG9uZRYIHwMFDGFkZHJlc3NMaW5lMR8EaB8FGSsCHwYFDGFkZHJlc3NMaW5lMRYIHwMFDGFkZHJlc3NMaW5lMh8EaB8FGSsCHwYFDGFkZHJlc3NMaW5lMhYIHwMFBXN0YXRlHwRoHwUZKwIfBgUFc3RhdGUWCB8DBQdjb3VudHJ5HwRoHwUZKwIfBgUHY291bnRyeRYIHwMFCnBvc3RhbENvZGUfBGgfBRkrAh8GBQpwb3N0YWxDb2RlFggfAwUJdGVycml0b3J5HwRoHwUZKwIfBgUJdGVycml0b3J5FgJmD2QWFmYPDxYCHgdWaXNpY"
+                  }
                 }
               }
             },
@@ -1235,10 +1387,15 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Default.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 3
                 },
                 "region": {
-                  "startLine": 1
+                  "charOffset": 0,
+                  "charLength": 1000,
+                  "snippet": {
+                    "text": "<form name=\"aspnetForm\" method=\"post\" action=\"./Default.aspx\" id=\"aspnetForm\">\r\n<div>\r\n<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\" />\r\n<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\" />\r\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwUIOTA4OTUyNTAPFgIeB1Nlc3Npb24FGDNidmJmbDJnZ3EzcnJmcTBlNGNqejVsdxYCZg9kFgICAQ9kFgICFA9kFgICAQ8PFgIeBFRleHQFhAFZb3UgYXBwZWFyIHRvIGJlIGNvbm5lY3RlZCB0byBhIHZhbGlkIE15U3FsIHByb3ZpZGVyLiBJZiB5b3Ugd2FudCB0byByZWNvbmZpZ3VyZSBvciByZWJ1aWxkIHRoZSBkYXRhYmFzZSwgY2xpY2sgb24gdGhlIGJ1dHRvbiBiZWxvdyFkZBgBBR5fX0NvbnRyb2xzUmVxdWlyZVBvc3RCYWNrS2V5X18WAgUbY3RsMDAkSGVhZExvZ2luU3RhdHVzJGN0bDAxBRtjdGwwMCRIZWFkTG9naW5TdGF0dXMkY3RsMDO+aV3ZN6cZOnFHrDVpZVKz4M//04JpGparGY8EngZ20A==\" />\r\n</div>\r\n\r\n<script type=\"text/javascript\">\r\n//<![CDATA[\r\nvar theForm = document.forms['aspnetForm'];\r\nif (!theForm) {\r\n    theForm = document.aspnetForm;\r\n}\r\nfunction __doPostBack(eventTarget, eventArgument) {\r\n    if (!theForm."
+                  }
                 }
               }
             },
@@ -1246,10 +1403,15 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/SQLInjection.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 4
                 },
                 "region": {
-                  "startLine": 1
+                  "charOffset": 0,
+                  "charLength": 1000,
+                  "snippet": {
+                    "text": "<form name=\"aspnetForm\" method=\"post\" action=\"./SQLInjection.aspx\" id=\"aspnetForm\">\r\n<div>\r\n<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\" />\r\n<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\" />\r\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwULLTE0NDg2NDYzMjcPZBYCZg9kFgICAQ9kFgICFA9kFgICBw88KwARAQwUKwAAZBgCBR5fX0NvbnRyb2xzUmVxdWlyZVBvc3RCYWNrS2V5X18WAgUbY3RsMDAkSGVhZExvZ2luU3RhdHVzJGN0bDAxBRtjdGwwMCRIZWFkTG9naW5TdGF0dXMkY3RsMDMFJWN0bDAwJEJvZHlDb250ZW50UGxhY2Vob2xkZXIkZ3JkRW1haWwPZ2RILRXq3x4SRzyxj1IO6zt74+lNTjvvwJ9WiFbVRte23g==\" />\r\n</div>\r\n\r\n<script type=\"text/javascript\">\r\n//<![CDATA[\r\nvar theForm = document.forms['aspnetForm'];\r\nif (!theForm) {\r\n    theForm = document.aspnetForm;\r\n}\r\nfunction __doPostBack(eventTarget, eventArgument) {\r\n    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {\r\n        theForm.__EVENTTARGET.value = eventTarget;\r\n        theForm.__EVENTARGUMENT.value = eventArgument;\r\n        t"
+                  }
                 }
               }
             },
@@ -1257,10 +1419,15 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/WebGoatCoins/CustomerLogin.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 5
                 },
                 "region": {
-                  "startLine": 1
+                  "charOffset": 0,
+                  "charLength": 1000,
+                  "snippet": {
+                    "text": "<form name=\"aspnetForm\" method=\"post\" action=\"./CustomerLogin.aspx?ReturnUrl=%2fwebgoat%2fWebGoatCoins%2fChangePassword.aspx\" id=\"aspnetForm\">\r\n<div>\r\n<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\" />\r\n<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\" />\r\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwULLTE5NDg1MDg5NTcPZBYCZg9kFgICAQ9kFgICFA9kFgICAQ8PFgIeB1Zpc2libGVnZGQYAQUeX19Db250cm9sc1JlcXVpcmVQb3N0QmFja0tleV9fFgMFG2N0bDAwJEhlYWRMb2dpblN0YXR1cyRjdGwwMQUbY3RsMDAkSGVhZExvZ2luU3RhdHVzJGN0bDAzBS1jdGwwMCRCb2R5Q29udGVudFBsYWNlaG9sZGVyJGNoZWNrQm94UmVtZW1iZXKul4fcEyoFCiDb3WM9XTXzeeZf1s3gri9Ym1jh3vjPQw==\" />\r\n</div>\r\n\r\n<script type=\"text/javascript\">\r\n//<![CDATA[\r\nvar theForm = document.forms['aspnetForm'];\r\nif (!theForm) {\r\n    theForm = document.aspnetForm;\r\n}\r\nfunction __doPostBack(eventTarget, eventArgument) {\r\n    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {\r\n        theForm.__EVENTTARGET.value = eventTar"
+                  }
                 }
               }
             },
@@ -1268,10 +1435,15 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/RebuildDatabase.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 6
                 },
                 "region": {
-                  "startLine": 1
+                  "charOffset": 0,
+                  "charLength": 1000,
+                  "snippet": {
+                    "text": "<form name=\"aspnetForm\" method=\"post\" action=\"./RebuildDatabase.aspx\" id=\"aspnetForm\">\r\n<div>\r\n<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\" />\r\n<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\" />\r\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwUJNDcyMDk5NDY5D2QWAmYPZBYCAgEPZBYCAhQPZBYKAhMPDxYCHgdWaXNpYmxlaGRkAhUPDxYCHwBoZGQCGQ8PFgIfAGhkZAIbDw8WAh8AaGRkAiMPPCsAEQEMFCsAAGQYAgUeX19Db250cm9sc1JlcXVpcmVQb3N0QmFja0tleV9fFgIFG2N0bDAwJEhlYWRMb2dpblN0YXR1cyRjdGwwMQUbY3RsMDAkSGVhZExvZ2luU3RhdHVzJGN0bDAzBSRjdGwwMCRCb2R5Q29udGVudFBsYWNlaG9sZGVyJGdyZFZpZXcPZ2R0Pc/pX+ud7Fvt+nQvnTmbNN8ylu07RUqzEedYoC4Ueg==\" />\r\n</div>\r\n\r\n<script type=\"text/javascript\">\r\n//<![CDATA[\r\nvar theForm = document.forms['aspnetForm'];\r\nif (!theForm) {\r\n    theForm = document.aspnetForm;\r\n}\r\nfunction __doPostBack(eventTarget, eventArgument) {\r\n    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {\r\n        theForm.__EVENTTARGET.value = eventTarget;"
+                  }
                 }
               }
             },
@@ -1279,10 +1451,15 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/PathManipulation.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 7
                 },
                 "region": {
-                  "startLine": 1
+                  "charOffset": 0,
+                  "charLength": 1000,
+                  "snippet": {
+                    "text": "<form name=\"aspnetForm\" method=\"post\" action=\"./PathManipulation.aspx\" id=\"aspnetForm\">\r\n<div>\r\n<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\" />\r\n<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\" />\r\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwUIMjgxNTE4NDdkGAEFHl9fQ29udHJvbHNSZXF1aXJlUG9zdEJhY2tLZXlfXxYCBRtjdGwwMCRIZWFkTG9naW5TdGF0dXMkY3RsMDEFG2N0bDAwJEhlYWRMb2dpblN0YXR1cyRjdGwwMxb2+yTgj0KMVId5Ixaa20qa6l+S5YbLTvC6Ovo6LfZP\" />\r\n</div>\r\n\r\n<script type=\"text/javascript\">\r\n//<![CDATA[\r\nvar theForm = document.forms['aspnetForm'];\r\nif (!theForm) {\r\n    theForm = document.aspnetForm;\r\n}\r\nfunction __doPostBack(eventTarget, eventArgument) {\r\n    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {\r\n        theForm.__EVENTTARGET.value = eventTarget;\r\n        theForm.__EVENTARGUMENT.value = eventArgument;\r\n        theForm.submit();\r\n    }\r\n}\r\n//]]>\r\n</script>\r\n\r\n\r\n<div>\r\n\r\n\t<input type=\"hidden\" name=\"__VIEWSTATEGENERA"
+                  }
                 }
               }
             },
@@ -1290,10 +1467,15 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/StoredXSS.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 8
                 },
                 "region": {
-                  "startLine": 1
+                  "charOffset": 0,
+                  "charLength": 1000,
+                  "snippet": {
+                    "text": "<form name=\"aspnetForm\" method=\"post\" action=\"./StoredXSS.aspx\" id=\"aspnetForm\">\r\n<div>\r\n<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\" />\r\n<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\" />\r\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwUJNjczNjExNDE5D2QWAmYPZBYCAgEPZBYCAhQPZBYEAgMPDxYCHgdWaXNpYmxlaGRkAgUPDxYCHgRUZXh0Be4DPHN0cm9uZz5FbWFpbDo8L3N0cm9uZz5tZUBmb28uY29tPHNwYW4gc3R5bGU9J2ZvbnQtc2l6ZTogeC1zbWFsbDtjb2xvcjogI0U0NzkxMTsnPiAoRW1haWwgQWRkcmVzcyBWZXJpZmllZCEpIDwvc3Bhbj48YnIvPjxzdHJvbmc+Q29tbWVudDo8L3N0cm9uZz48YnIvPmhlbGxvPGJyLz48aHIvPjxzdHJvbmc+RW1haWw6PC9zdHJvbmc+bWVAZm9vLmNvbTxzcGFuIHN0eWxlPSdmb250LXNpemU6IHgtc21hbGw7Y29sb3I6ICNFNDc5MTE7Jz4gKEVtYWlsIEFkZHJlc3MgVmVyaWZpZWQhKSA8L3NwYW4+PGJyLz48c3Ryb25nPkNvbW1lbnQ6PC9zdHJvbmc+PGJyLz5hc2Q8YnIvPjxoci8+PHN0cm9uZz5FbWFpbDo8L3N0cm9uZz5hc2RAY29tbTxzcGFuIHN0eWxlPSdmb250LXNpemU6IHgtc21hbGw7Y29sb3I6ICNFNDc5MTE7Jz4gKEVtYWlsIEFkZHJlc3MgVmVyaWZpZWQhKSA8L3NwYW4+PGJyLz48c3R"
+                  }
                 }
               }
             },
@@ -1301,10 +1483,15 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/UploadPathManipulation.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 9
                 },
                 "region": {
-                  "startLine": 1
+                  "charOffset": 0,
+                  "charLength": 1000,
+                  "snippet": {
+                    "text": "<form name=\"aspnetForm\" method=\"post\" action=\"./UploadPathManipulation.aspx\" id=\"aspnetForm\" enctype=\"multipart/form-data\">\r\n<div>\r\n<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\" />\r\n<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\" />\r\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwUJNjYwODQ3Mjg4D2QWAmYPZBYCAgEPFgIeB2VuY3R5cGUFE211bHRpcGFydC9mb3JtLWRhdGFkGAEFHl9fQ29udHJvbHNSZXF1aXJlUG9zdEJhY2tLZXlfXxYCBRtjdGwwMCRIZWFkTG9naW5TdGF0dXMkY3RsMDEFG2N0bDAwJEhlYWRMb2dpblN0YXR1cyRjdGwwM4oD55Yd2WDVDxoVTEkPMWcibr8DfPMuuJLhSencfi4F\" />\r\n</div>\r\n\r\n<script type=\"text/javascript\">\r\n//<![CDATA[\r\nvar theForm = document.forms['aspnetForm'];\r\nif (!theForm) {\r\n    theForm = document.aspnetForm;\r\n}\r\nfunction __doPostBack(eventTarget, eventArgument) {\r\n    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {\r\n        theForm.__EVENTTARGET.value = eventTarget;\r\n        theForm.__EVENTARGUMENT.value = eventArgument;\r\n        theForm.s"
+                  }
                 }
               }
             },
@@ -1312,10 +1499,15 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/MessageDigest.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 10
                 },
                 "region": {
-                  "startLine": 1
+                  "charOffset": 0,
+                  "charLength": 1000,
+                  "snippet": {
+                    "text": "<form name=\"aspnetForm\" method=\"post\" action=\"./MessageDigest.aspx\" id=\"aspnetForm\">\r\n<div>\r\n<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\" />\r\n<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\" />\r\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwUKMTE2NDkxMjk4OQ9kFgJmD2QWAgIBD2QWAgIUD2QWAgIBDw8WAh4EVGV4dAUUPXBEOVsqTDQnfD1NcWFBNFttSHFkZBgBBR5fX0NvbnRyb2xzUmVxdWlyZVBvc3RCYWNrS2V5X18WAgUbY3RsMDAkSGVhZExvZ2luU3RhdHVzJGN0bDAxBRtjdGwwMCRIZWFkTG9naW5TdGF0dXMkY3RsMDNykO8WPRCVobH3qA/+TnCljD8D7GQ9QewxOk4BsDtCgg==\" />\r\n</div>\r\n\r\n<script type=\"text/javascript\">\r\n//<![CDATA[\r\nvar theForm = document.forms['aspnetForm'];\r\nif (!theForm) {\r\n    theForm = document.aspnetForm;\r\n}\r\nfunction __doPostBack(eventTarget, eventArgument) {\r\n    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {\r\n        theForm.__EVENTTARGET.value = eventTarget;\r\n        theForm.__EVENTARGUMENT.value = eventArgument;\r\n        theForm.submit();\r\n    }\r\n}\r"
+                  }
                 }
               }
             },
@@ -1323,10 +1515,15 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/WebGoatCoins/ForgotPassword.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 11
                 },
                 "region": {
-                  "startLine": 1
+                  "charOffset": 0,
+                  "charLength": 1000,
+                  "snippet": {
+                    "text": "<form name=\"aspnetForm\" method=\"post\" action=\"./ForgotPassword.aspx\" id=\"aspnetForm\">\r\n<div>\r\n<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\" />\r\n<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\" />\r\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwUKLTU2OTQxOTM1MA9kFgJmD2QWAgIBD2QWAgIUD2QWBAIDDw8WAh4HVmlzaWJsZWhkZAIFDw8WAh8AaGRkGAEFHl9fQ29udHJvbHNSZXF1aXJlUG9zdEJhY2tLZXlfXxYCBRtjdGwwMCRIZWFkTG9naW5TdGF0dXMkY3RsMDEFG2N0bDAwJEhlYWRMb2dpblN0YXR1cyRjdGwwMysWdXhAMrixsssMAWPA708KyZhsgx9jIIoLKlDqsas7\" />\r\n</div>\r\n\r\n<script type=\"text/javascript\">\r\n//<![CDATA[\r\nvar theForm = document.forms['aspnetForm'];\r\nif (!theForm) {\r\n    theForm = document.aspnetForm;\r\n}\r\nfunction __doPostBack(eventTarget, eventArgument) {\r\n    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {\r\n        theForm.__EVENTTARGET.value = eventTarget;\r\n        theForm.__EVENTARGUMENT.value = eventArgument;\r\n        theForm.submit();\r\n    }\r\n}\r\n//]]>\r\n</s"
+                  }
                 }
               }
             },
@@ -1334,10 +1531,15 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/ForgotPassword.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 0
                 },
                 "region": {
-                  "startLine": 1
+                  "charOffset": 0,
+                  "charLength": 1000,
+                  "snippet": {
+                    "text": "<form name=\"aspnetForm\" method=\"post\" action=\"./ForgotPassword.aspx\" id=\"aspnetForm\">\r\n<div>\r\n<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\" />\r\n<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\" />\r\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwULLTE4MTA1ODczMDEPZBYCZg9kFgICAQ9kFgICFA9kFgQCAw8PFgIeB1Zpc2libGVoZGQCBQ8PFgIfAGhkZBgBBR5fX0NvbnRyb2xzUmVxdWlyZVBvc3RCYWNrS2V5X18WAgUbY3RsMDAkSGVhZExvZ2luU3RhdHVzJGN0bDAxBRtjdGwwMCRIZWFkTG9naW5TdGF0dXMkY3RsMDOK0PqIrEOdXKTPFF9/hNrfoBJ1Z2vcWpT5/UZKa4oTAA==\" />\r\n</div>\r\n\r\n<script type=\"text/javascript\">\r\n//<![CDATA[\r\nvar theForm = document.forms['aspnetForm'];\r\nif (!theForm) {\r\n    theForm = document.aspnetForm;\r\n}\r\nfunction __doPostBack(eventTarget, eventArgument) {\r\n    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {\r\n        theForm.__EVENTTARGET.value = eventTarget;\r\n        theForm.__EVENTARGUMENT.value = eventArgument;\r\n        theForm.submit();\r\n    }\r\n}\r\n//]]>\r"
+                  }
                 }
               }
             },
@@ -1345,10 +1547,15 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/ExploitDebug.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 12
                 },
                 "region": {
-                  "startLine": 1
+                  "charOffset": 0,
+                  "charLength": 1000,
+                  "snippet": {
+                    "text": "<form name=\"aspnetForm\" method=\"post\" action=\"./ExploitDebug.aspx\" id=\"aspnetForm\">\r\n<div>\r\n<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\" />\r\n<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\" />\r\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwUKLTY0NTA1ODI3MmQYAQUeX19Db250cm9sc1JlcXVpcmVQb3N0QmFja0tleV9fFgIFG2N0bDAwJEhlYWRMb2dpblN0YXR1cyRjdGwwMQUbY3RsMDAkSGVhZExvZ2luU3RhdHVzJGN0bDAzjl+Fufq8CYGy0o9o6HN/VFOaGxqhlv8qRUv8ONP3UMA=\" />\r\n</div>\r\n\r\n<script type=\"text/javascript\">\r\n//<![CDATA[\r\nvar theForm = document.forms['aspnetForm'];\r\nif (!theForm) {\r\n    theForm = document.aspnetForm;\r\n}\r\nfunction __doPostBack(eventTarget, eventArgument) {\r\n    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {\r\n        theForm.__EVENTTARGET.value = eventTarget;\r\n        theForm.__EVENTARGUMENT.value = eventArgument;\r\n        theForm.submit();\r\n    }\r\n}\r\n//]]>\r\n</script>\r\n\r\n\r\n<div>\r\n\r\n\t<input type=\"hidden\" name=\"__VIEWSTATEGENERA"
+                  }
                 }
               }
             },
@@ -1356,10 +1563,15 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/SQLInjectionDiscovery.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 13
                 },
                 "region": {
-                  "startLine": 1
+                  "charOffset": 0,
+                  "charLength": 1000,
+                  "snippet": {
+                    "text": "<form name=\"aspnetForm\" method=\"post\" action=\"./SQLInjectionDiscovery.aspx\" id=\"aspnetForm\">\r\n<div>\r\n<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\" />\r\n<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\" />\r\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwUJMTYzMzA1MjQzD2QWAmYPZBYCAgEPZBYCAhQPZBYCAgUPPCsAEQEMFCsAAGQYAgUeX19Db250cm9sc1JlcXVpcmVQb3N0QmFja0tleV9fFgIFG2N0bDAwJEhlYWRMb2dpblN0YXR1cyRjdGwwMQUbY3RsMDAkSGVhZExvZ2luU3RhdHVzJGN0bDAzBSVjdGwwMCRCb2R5Q29udGVudFBsYWNlaG9sZGVyJGdyZEVtYWlsD2dkmrU8Ya3JA0vYuOvvvWUIERvcukc+TCQ8L6sgZTkFBEU=\" />\r\n</div>\r\n\r\n<script type=\"text/javascript\">\r\n//<![CDATA[\r\nvar theForm = document.forms['aspnetForm'];\r\nif (!theForm) {\r\n    theForm = document.aspnetForm;\r\n}\r\nfunction __doPostBack(eventTarget, eventArgument) {\r\n    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {\r\n        theForm.__EVENTTARGET.value = eventTarget;\r\n        theForm.__EVENTARGUMENT.value = eventArgument;\r\n    "
+                  }
                 }
               }
             },
@@ -1367,10 +1579,15 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/WebGoatCoins/Logout.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 14
                 },
                 "region": {
-                  "startLine": 1
+                  "charOffset": 0,
+                  "charLength": 1000,
+                  "snippet": {
+                    "text": "<form name=\"aspnetForm\" method=\"post\" action=\"./Logout.aspx\" id=\"aspnetForm\">\r\n<div>\r\n<input type=\"hidden\" name=\"__EVENTTARGET\" id=\"__EVENTTARGET\" value=\"\" />\r\n<input type=\"hidden\" name=\"__EVENTARGUMENT\" id=\"__EVENTARGUMENT\" value=\"\" />\r\n<input type=\"hidden\" name=\"__VIEWSTATE\" id=\"__VIEWSTATE\" value=\"/wEPDwULLTEyNTE3MjkzMDZkGAEFHl9fQ29udHJvbHNSZXF1aXJlUG9zdEJhY2tLZXlfXxYCBRtjdGwwMCRIZWFkTG9naW5TdGF0dXMkY3RsMDEFG2N0bDAwJEhlYWRMb2dpblN0YXR1cyRjdGwwM5uVJiWC2Kgg6Jsa0NOw+eSNzff+pfPsNHlklVLCy3gZ\" />\r\n</div>\r\n\r\n<script type=\"text/javascript\">\r\n//<![CDATA[\r\nvar theForm = document.forms['aspnetForm'];\r\nif (!theForm) {\r\n    theForm = document.aspnetForm;\r\n}\r\nfunction __doPostBack(eventTarget, eventArgument) {\r\n    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {\r\n        theForm.__EVENTTARGET.value = eventTarget;\r\n        theForm.__EVENTARGUMENT.value = eventArgument;\r\n        theForm.submit();\r\n    }\r\n}\r\n//]]>\r\n</script>\r\n\r\n\r\n<div>\r\n\r\n\t<input type=\"hidden\" name=\"__VIEWSTATEGENERATOR\" i"
+                  }
                 }
               }
             }
@@ -1394,6 +1611,7 @@
         },
         {
           "ruleId": "cache-controls-missing",
+          "ruleIndex": 0,
           "level": "note",
           "message": {
             "id": "default",
@@ -1408,7 +1626,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/EncryptVSEncode.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 1
                 }
               }
             },
@@ -1416,7 +1635,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/WebGoatCoins/MainPage.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 15
                 }
               }
             },
@@ -1424,7 +1644,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/ReflectedXSS.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 2
                 }
               }
             },
@@ -1432,7 +1653,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Default.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 3
                 }
               }
             },
@@ -1440,7 +1662,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/ProxySetup.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 16
                 }
               }
             },
@@ -1448,7 +1671,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/SQLInjection.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 4
                 }
               }
             },
@@ -1456,7 +1680,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/WebGoatCoins/CustomerLogin.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 5
                 }
               }
             },
@@ -1464,7 +1689,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/RebuildDatabase.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 6
                 }
               }
             },
@@ -1472,7 +1698,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/PathManipulation.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 7
                 }
               }
             },
@@ -1480,7 +1707,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/StoredXSS.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 8
                 }
               }
             },
@@ -1488,7 +1716,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/WebGoatCoins/Catalog.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 17
                 }
               }
             },
@@ -1496,7 +1725,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/WebGoatCoins/ChangePassword.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 18
                 }
               }
             },
@@ -1504,7 +1734,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/UploadPathManipulation.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 9
                 }
               }
             },
@@ -1512,7 +1743,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/WebGoatCoins/Autocomplete.ashx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 19
                 }
               }
             },
@@ -1520,7 +1752,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/MessageDigest.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 10
                 }
               }
             },
@@ -1528,7 +1761,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/WebGoatCoins/ForgotPassword.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 11
                 }
               }
             },
@@ -1536,7 +1770,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/WebGoatCoins/Orders.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 20
                 }
               }
             },
@@ -1544,7 +1779,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/ForgotPassword.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 0
                 }
               }
             },
@@ -1552,7 +1788,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/ExploitDebug.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 12
                 }
               }
             },
@@ -1560,7 +1797,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/SQLInjectionDiscovery.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 13
                 }
               }
             },
@@ -1568,7 +1806,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/WebGoatCoins/Logout.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 14
                 }
               }
             },
@@ -1576,7 +1815,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/WebGoatCoins/ProductDetails.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 21
                 }
               }
             }
@@ -1599,6 +1839,7 @@
         },
         {
           "ruleId": "clickjacking-control-missing",
+          "ruleIndex": 24,
           "level": "note",
           "message": {
             "id": "default",
@@ -1612,7 +1853,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/EncryptVSEncode.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 1
                 }
               }
             },
@@ -1620,7 +1862,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/WebGoatCoins/MainPage.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 15
                 }
               }
             },
@@ -1628,7 +1871,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/ReflectedXSS.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 2
                 }
               }
             },
@@ -1636,7 +1880,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Default.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 3
                 }
               }
             },
@@ -1644,7 +1889,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/ProxySetup.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 16
                 }
               }
             },
@@ -1652,7 +1898,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/SQLInjection.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 4
                 }
               }
             },
@@ -1660,7 +1907,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/WebGoatCoins/CustomerLogin.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 5
                 }
               }
             },
@@ -1668,7 +1916,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/RebuildDatabase.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 6
                 }
               }
             },
@@ -1676,7 +1925,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/PathManipulation.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 7
                 }
               }
             },
@@ -1684,7 +1934,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/StoredXSS.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 8
                 }
               }
             },
@@ -1692,7 +1943,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/WebGoatCoins/Catalog.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 17
                 }
               }
             },
@@ -1700,7 +1952,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/WebGoatCoins/ChangePassword.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 18
                 }
               }
             },
@@ -1708,7 +1961,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/UploadPathManipulation.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 9
                 }
               }
             },
@@ -1716,7 +1970,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/WebGoatCoins/Autocomplete.ashx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 19
                 }
               }
             },
@@ -1724,7 +1979,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/MessageDigest.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 10
                 }
               }
             },
@@ -1732,7 +1988,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/WebGoatCoins/ForgotPassword.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 11
                 }
               }
             },
@@ -1740,7 +1997,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/WebGoatCoins/Orders.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 20
                 }
               }
             },
@@ -1748,7 +2006,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/ForgotPassword.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 0
                 }
               }
             },
@@ -1756,7 +2015,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/ExploitDebug.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 12
                 }
               }
             },
@@ -1764,7 +2024,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/SQLInjectionDiscovery.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 13
                 }
               }
             },
@@ -1772,7 +2033,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/WebGoatCoins/Logout.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 14
                 }
               }
             },
@@ -1780,7 +2042,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/WebGoatCoins/ProductDetails.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 21
                 }
               }
             }
@@ -1803,6 +2066,7 @@
         },
         {
           "ruleId": "crypto-bad-mac",
+          "ruleIndex": 18,
           "message": {
             "id": "default",
             "arguments": [
@@ -1826,7 +2090,7 @@
                   "location": {
                     "logicalLocations": [
                       {
-                        "fullyQualifiedName": "void System.Security.Cryptography.SHA1Managed..ctor()"
+                        "fullyQualifiedName": "System.Security.Cryptography.SHA1Managed..ctor()"
                       }
                     ]
                   }
@@ -2060,6 +2324,7 @@
         },
         {
           "ruleId": "path-traversal",
+          "ruleIndex": 26,
           "level": "error",
           "message": {
             "id": "default",
@@ -2072,7 +2337,7 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "OWASP.WebGoat.NET.UploadPathManipulation.btnUpload_Click"
+                  "fullyQualifiedName": "OWASP.WebGoat.NET.UploadPathManipulation.btnUpload_Click()"
                 }
               ]
             }
@@ -2083,13 +2348,20 @@
                 {
                   "locations": [
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpPostedFile.get_FileName()"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.Web.HttpPostedFile.get_FileName()"
+                                  "fullyQualifiedName": "System.Web.HttpPostedFile.get_FileName()"
                                 }
                               ]
                             }
@@ -2278,13 +2550,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.String.Concat(System.String,System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.String.Concat(System.String,System.String)"
+                                  "fullyQualifiedName": "System.String.Concat(System.String,System.String)"
                                 }
                               ]
                             }
@@ -2437,13 +2716,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.IO.FileStream..ctor(System.String,System.IO.FileMode,System.IO.FileAccess,System.IO.FileShare,System.Int32,System.IO.FileOptions,System.String,System.Boolean)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.IO.FileStream..ctor(System.String,System.IO.FileMode,System.IO.FileAccess,System.IO.FileShare,System.Int32,System.IO.FileOptions,System.String,System.Boolean)"
+                                  "fullyQualifiedName": "System.IO.FileStream..ctor(System.String,System.IO.FileMode,System.IO.FileAccess,System.IO.FileShare,System.Int32,System.IO.FileOptions,System.String,System.Boolean)"
                                 }
                               ]
                             }
@@ -2659,6 +2945,7 @@
         },
         {
           "ruleId": "reflected-xss",
+          "ruleIndex": 5,
           "level": "error",
           "message": {
             "id": "default",
@@ -2672,7 +2959,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/ReflectedXSS.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 2
                 }
               }
             }
@@ -2683,13 +2971,20 @@
                 {
                   "locations": [
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpRequest.get_QueryString()"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_QueryString()"
+                                  "fullyQualifiedName": "System.Web.HttpRequest.get_QueryString()"
                                 }
                               ]
                             }
@@ -2887,13 +3182,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
                                 }
                               ]
                             }
@@ -3091,13 +3393,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.String.Concat(System.String,System.String,System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.String.Concat(System.String,System.String,System.String)"
+                                  "fullyQualifiedName": "System.String.Concat(System.String,System.String,System.String)"
                                 }
                               ]
                             }
@@ -3295,13 +3604,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpWriter.Write(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Web.HttpWriter.Write(System.String)"
+                                  "fullyQualifiedName": "System.Web.HttpWriter.Write(System.String)"
                                 }
                               ]
                             }
@@ -3652,6 +3968,7 @@
         },
         {
           "ruleId": "reflected-xss",
+          "ruleIndex": 5,
           "level": "error",
           "message": {
             "id": "default",
@@ -3665,7 +3982,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/EncryptVSEncode.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 1
                 }
               }
             }
@@ -3676,13 +3994,20 @@
                 {
                   "locations": [
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_Form()"
+                                  "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
                                 }
                               ]
                             }
@@ -3871,13 +4196,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
                                 }
                               ]
                             }
@@ -4057,13 +4389,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Text.Encoding.GetBytes(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.Byte[] System.Text.Encoding.GetBytes(System.String)"
+                                  "fullyQualifiedName": "System.Text.Encoding.GetBytes(System.String)"
                                 }
                               ]
                             }
@@ -4261,13 +4600,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Text.Encoding.GetString(System.Byte[])"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.Text.Encoding.GetString(System.Byte[])"
+                                  "fullyQualifiedName": "System.Text.Encoding.GetString(System.Byte[])"
                                 }
                               ]
                             }
@@ -4465,13 +4811,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpWriter.Write(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Web.HttpWriter.Write(System.String)"
+                                  "fullyQualifiedName": "System.Web.HttpWriter.Write(System.String)"
                                 }
                               ]
                             }
@@ -4908,15 +5261,16 @@
         },
         {
           "ruleId": "sql-injection",
+          "ruleIndex": 38,
           "level": "error",
           "message": {
             "id": "default",
             "arguments": [
               "other, ctl00$BodyContentPlaceholder$txtEmail: parameter, ctl00$BodyContentPlaceholder$txtComment: parameter",
               "/webgoat/Content/StoredXSS.aspx",
-              "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_Form()",
-              "void System.Data.Common.DbCommand.set_CommandText(System.String)",
-              "System.String System.String.ConcatArray(System.String[],System.Int32)"
+              "System.Web.HttpRequest.get_Form()",
+              "System.Data.Common.DbCommand.set_CommandText(System.String)",
+              "System.String.ConcatArray(System.String[],System.Int32)"
             ]
           },
           "locations": [
@@ -4924,7 +5278,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/StoredXSS.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 8
                 }
               }
             }
@@ -4935,13 +5290,20 @@
                 {
                   "locations": [
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_Form()"
+                                  "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
                                 }
                               ]
                             }
@@ -5130,13 +5492,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
                                 }
                               ]
                             }
@@ -5316,13 +5685,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_Form()"
+                                  "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
                                 }
                               ]
                             }
@@ -5511,13 +5887,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
                                 }
                               ]
                             }
@@ -5697,13 +6080,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.String.ConcatArray(System.String[],System.Int32)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.String.ConcatArray(System.String[],System.Int32)"
+                                  "fullyQualifiedName": "System.String.ConcatArray(System.String[],System.Int32)"
                                 }
                               ]
                             }
@@ -5901,13 +6291,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Data.Common.DbCommand.set_CommandText(System.String)"
+                                  "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
                                 }
                               ]
                             }
@@ -6114,13 +6511,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Data.Common.DbCommand.set_CommandText(System.String)"
+                                  "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
                                 }
                               ]
                             }
@@ -6368,15 +6772,16 @@
         },
         {
           "ruleId": "sql-injection",
+          "ruleIndex": 38,
           "level": "error",
           "message": {
             "id": "default",
             "arguments": [
               "other, ctl00$BodyContentPlaceholder$txtID: parameter",
               "/webgoat/Content/SQLInjectionDiscovery.aspx",
-              "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_Form()",
-              "void System.Data.Common.DbCommand.set_CommandText(System.String)",
-              "System.String System.String.Concat(System.String,System.String)"
+              "System.Web.HttpRequest.get_Form()",
+              "System.Data.Common.DbCommand.set_CommandText(System.String)",
+              "System.String.Concat(System.String,System.String)"
             ]
           },
           "locations": [
@@ -6384,7 +6789,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/SQLInjectionDiscovery.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 13
                 }
               }
             }
@@ -6395,13 +6801,20 @@
                 {
                   "locations": [
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_Form()"
+                                  "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
                                 }
                               ]
                             }
@@ -6590,13 +7003,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
                                 }
                               ]
                             }
@@ -6776,13 +7196,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.String.Concat(System.String,System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.String.Concat(System.String,System.String)"
+                                  "fullyQualifiedName": "System.String.Concat(System.String,System.String)"
                                 }
                               ]
                             }
@@ -6980,13 +7407,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Data.Common.DbCommand.set_CommandText(System.String)"
+                                  "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
                                 }
                               ]
                             }
@@ -7202,13 +7636,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Data.Common.DbCommand.set_CommandText(System.String)"
+                                  "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
                                 }
                               ]
                             }
@@ -7464,6 +7905,7 @@
         },
         {
           "ruleId": "reflected-xss",
+          "ruleIndex": 5,
           "level": "error",
           "message": {
             "id": "default",
@@ -7477,7 +7919,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/WebGoatCoins/CustomerLogin.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 5
                 }
               }
             }
@@ -7488,13 +7931,20 @@
                 {
                   "locations": [
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpRequest.get_QueryString()"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_QueryString()"
+                                  "fullyQualifiedName": "System.Web.HttpRequest.get_QueryString()"
                                 }
                               ]
                             }
@@ -7683,13 +8133,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
                                 }
                               ]
                             }
@@ -7878,13 +8335,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.String.Concat(System.String,System.String,System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.String.Concat(System.String,System.String,System.String)"
+                                  "fullyQualifiedName": "System.String.Concat(System.String,System.String,System.String)"
                                 }
                               ]
                             }
@@ -8190,13 +8654,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpWriter.Write(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Web.HttpWriter.Write(System.String)"
+                                  "fullyQualifiedName": "System.Web.HttpWriter.Write(System.String)"
                                 }
                               ]
                             }
@@ -8529,15 +9000,16 @@
         },
         {
           "ruleId": "sql-injection",
+          "ruleIndex": 38,
           "level": "error",
           "message": {
             "id": "default",
             "arguments": [
               "other, ctl00$BodyContentPlaceholder$txtUserName: parameter",
               "/webgoat/WebGoatCoins/CustomerLogin.aspx",
-              "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_Form()",
-              "void System.Data.Common.DbCommand.set_CommandText(System.String)",
-              "System.String System.String.ConcatArray(System.String[],System.Int32)"
+              "System.Web.HttpRequest.get_Form()",
+              "System.Data.Common.DbCommand.set_CommandText(System.String)",
+              "System.String.ConcatArray(System.String[],System.Int32)"
             ]
           },
           "locations": [
@@ -8545,7 +9017,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/WebGoatCoins/CustomerLogin.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 5
                 }
               }
             }
@@ -8556,13 +9029,20 @@
                 {
                   "locations": [
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_Form()"
+                                  "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
                                 }
                               ]
                             }
@@ -8751,13 +9231,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
                                 }
                               ]
                             }
@@ -8937,13 +9424,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.String.ConcatArray(System.String[],System.Int32)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.String.ConcatArray(System.String[],System.Int32)"
+                                  "fullyQualifiedName": "System.String.ConcatArray(System.String[],System.Int32)"
                                 }
                               ]
                             }
@@ -9141,13 +9635,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Data.Common.DbCommand.set_CommandText(System.String)"
+                                  "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
                                 }
                               ]
                             }
@@ -9363,13 +9864,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Data.Common.DbCommand.set_CommandText(System.String)"
+                                  "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
                                 }
                               ]
                             }
@@ -9626,15 +10134,16 @@
         },
         {
           "ruleId": "sql-injection",
+          "ruleIndex": 38,
           "level": "error",
           "message": {
             "id": "default",
             "arguments": [
               "other, ctl00$BodyContentPlaceholder$txtName: parameter",
               "/webgoat/Content/SQLInjection.aspx",
-              "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_Form()",
-              "void System.Data.Common.DbCommand.set_CommandText(System.String)",
-              "System.String System.String.ConcatArray(System.String[],System.Int32)"
+              "System.Web.HttpRequest.get_Form()",
+              "System.Data.Common.DbCommand.set_CommandText(System.String)",
+              "System.String.ConcatArray(System.String[],System.Int32)"
             ]
           },
           "locations": [
@@ -9642,7 +10151,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/SQLInjection.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 4
                 }
               }
             }
@@ -9653,13 +10163,20 @@
                 {
                   "locations": [
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_Form()"
+                                  "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
                                 }
                               ]
                             }
@@ -9848,13 +10365,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
                                 }
                               ]
                             }
@@ -10034,13 +10558,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_Form()"
+                                  "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
                                 }
                               ]
                             }
@@ -10229,13 +10760,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
                                 }
                               ]
                             }
@@ -10415,13 +10953,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.String.ConcatArray(System.String[],System.Int32)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.String.ConcatArray(System.String[],System.Int32)"
+                                  "fullyQualifiedName": "System.String.ConcatArray(System.String[],System.Int32)"
                                 }
                               ]
                             }
@@ -10619,13 +11164,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Data.Common.DbCommand.set_CommandText(System.String)"
+                                  "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
                                 }
                               ]
                             }
@@ -10841,13 +11393,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Data.Common.DbCommand.set_CommandText(System.String)"
+                                  "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
                                 }
                               ]
                             }
@@ -11103,6 +11662,7 @@
         },
         {
           "ruleId": "authorization-missing-deny",
+          "ruleIndex": 3,
           "message": {
             "id": "underLocation",
             "arguments": [
@@ -11115,7 +11675,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/web.config",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 22
                 },
                 "region": {
                   "startLine": 10,
@@ -11130,6 +11691,7 @@
         },
         {
           "ruleId": "authorization-missing-deny",
+          "ruleIndex": 3,
           "message": {
             "id": "underLocation",
             "arguments": [
@@ -11142,7 +11704,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/web.config",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 22
                 },
                 "region": {
                   "startLine": 10,
@@ -11157,6 +11720,7 @@
         },
         {
           "ruleId": "authorization-missing-deny",
+          "ruleIndex": 3,
           "message": {
             "id": "underLocation",
             "arguments": [
@@ -11169,7 +11733,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/web.config",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 22
                 },
                 "region": {
                   "startLine": 10,
@@ -11184,6 +11749,7 @@
         },
         {
           "ruleId": "authorization-missing-deny",
+          "ruleIndex": 3,
           "message": {
             "id": "underLocation",
             "arguments": [
@@ -11196,7 +11762,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/web.config",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 22
                 },
                 "region": {
                   "startLine": 10,
@@ -11211,6 +11778,7 @@
         },
         {
           "ruleId": "authorization-missing-deny",
+          "ruleIndex": 3,
           "message": {
             "id": "default",
             "arguments": [
@@ -11222,7 +11790,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/web.config",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 22
                 },
                 "region": {
                   "startLine": 48,
@@ -11237,6 +11806,7 @@
         },
         {
           "ruleId": "compilation-debug",
+          "ruleIndex": 53,
           "level": "note",
           "message": {
             "id": "default",
@@ -11249,7 +11819,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/web.config",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 22
                 },
                 "region": {
                   "startLine": 30,
@@ -11264,6 +11835,7 @@
         },
         {
           "ruleId": "custom-errors-off",
+          "ruleIndex": 6,
           "message": {
             "id": "default",
             "arguments": [
@@ -11275,7 +11847,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/web.config",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 22
                 },
                 "region": {
                   "startLine": 37,
@@ -11290,6 +11863,7 @@
         },
         {
           "ruleId": "event-validation-disabled",
+          "ruleIndex": 7,
           "message": {
             "id": "default",
             "arguments": [
@@ -11301,7 +11875,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/Content/HeaderInjection.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 23
                 },
                 "region": {
                   "startLine": 1,
@@ -11315,6 +11890,7 @@
         },
         {
           "ruleId": "forms-auth-ssl",
+          "ruleIndex": 11,
           "message": {
             "id": "default",
             "arguments": [
@@ -11326,7 +11902,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/web.config",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 22
                 },
                 "region": {
                   "startLine": 39,
@@ -11341,6 +11918,7 @@
         },
         {
           "ruleId": "http-only-disabled",
+          "ruleIndex": 15,
           "level": "note",
           "message": {
             "id": "default",
@@ -11353,7 +11931,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/web.config",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 22
                 },
                 "region": {
                   "startLine": 35,
@@ -11368,6 +11947,7 @@
         },
         {
           "ruleId": "request-validation-disabled",
+          "ruleIndex": 27,
           "message": {
             "id": "default",
             "arguments": [
@@ -11379,7 +11959,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/WebGoatCoins/ProductDetails.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 24
                 },
                 "region": {
                   "startLine": 1,
@@ -11393,6 +11974,7 @@
         },
         {
           "ruleId": "secure-flag-missing",
+          "ruleIndex": 36,
           "message": {
             "id": "default",
             "arguments": [
@@ -11405,7 +11987,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/Content/SQLInjection.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 4
                 }
               }
             }
@@ -11428,6 +12011,7 @@
         },
         {
           "ruleId": "session-rewriting",
+          "ruleIndex": 37,
           "message": {
             "id": "default",
             "arguments": [
@@ -11440,7 +12024,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/web.config",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 22
                 },
                 "region": {
                   "startLine": 39,
@@ -11455,6 +12040,7 @@
         },
         {
           "ruleId": "session-timeout",
+          "ruleIndex": 23,
           "level": "note",
           "message": {
             "id": "default",
@@ -11468,7 +12054,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/web.config",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 22
                 },
                 "region": {
                   "startLine": 52,
@@ -11483,6 +12070,7 @@
         },
         {
           "ruleId": "version-header-enabled",
+          "ruleIndex": 45,
           "level": "note",
           "message": {
             "id": "default",
@@ -11495,7 +12083,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/web.config",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 22
                 }
               }
             }
@@ -11503,15 +12092,16 @@
         },
         {
           "ruleId": "sql-injection",
+          "ruleIndex": 38,
           "level": "error",
           "message": {
             "id": "default",
             "arguments": [
               "other, ctl00$BodyContentPlaceholder$txtEmail: parameter",
               "/webgoat/WebGoatCoins/ForgotPassword.aspx",
-              "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_Form()",
-              "void System.Data.Common.DbCommand.set_CommandText(System.String)",
-              "System.String System.String.Concat(System.String,System.String,System.String)"
+              "System.Web.HttpRequest.get_Form()",
+              "System.Data.Common.DbCommand.set_CommandText(System.String)",
+              "System.String.Concat(System.String,System.String,System.String)"
             ]
           },
           "locations": [
@@ -11519,7 +12109,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/WebGoatCoins/ForgotPassword.aspx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 11
                 }
               }
             }
@@ -11530,13 +12121,20 @@
                 {
                   "locations": [
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_Form()"
+                                  "fullyQualifiedName": "System.Web.HttpRequest.get_Form()"
                                 }
                               ]
                             }
@@ -11725,13 +12323,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
                                 }
                               ]
                             }
@@ -11911,13 +12516,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.String.Concat(System.String,System.String,System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.String.Concat(System.String,System.String,System.String)"
+                                  "fullyQualifiedName": "System.String.Concat(System.String,System.String,System.String)"
                                 }
                               ]
                             }
@@ -12115,13 +12727,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Data.Common.DbCommand.set_CommandText(System.String)"
+                                  "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
                                 }
                               ]
                             }
@@ -12337,13 +12956,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Data.Common.DbCommand.set_CommandText(System.String)"
+                                  "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
                                 }
                               ]
                             }
@@ -12599,15 +13225,16 @@
         },
         {
           "ruleId": "sql-injection",
+          "ruleIndex": 38,
           "level": "error",
           "message": {
             "id": "default",
             "arguments": [
               "other, query: parameter",
               "/webgoat/WebGoatCoins/Autocomplete.ashx",
-              "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_QueryString()",
-              "void System.Data.Common.DbCommand.set_CommandText(System.String)",
-              "System.String System.String.Concat(System.String,System.String,System.String)"
+              "System.Web.HttpRequest.get_QueryString()",
+              "System.Data.Common.DbCommand.set_CommandText(System.String)",
+              "System.String.Concat(System.String,System.String,System.String)"
             ]
           },
           "locations": [
@@ -12615,7 +13242,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "/webgoat/WebGoatCoins/Autocomplete.ashx",
-                  "uriBaseId": "SITE_ROOT"
+                  "uriBaseId": "SITE_ROOT",
+                  "index": 19
                 }
               }
             }
@@ -12626,13 +13254,20 @@
                 {
                   "locations": [
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Web.HttpRequest.get_QueryString()"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection System.Web.HttpRequest.get_QueryString()"
+                                  "fullyQualifiedName": "System.Web.HttpRequest.get_QueryString()"
                                 }
                               ]
                             }
@@ -12767,13 +13402,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.Collections.Specialized.NameValueCollection.Get(System.String)"
+                                  "fullyQualifiedName": "System.Collections.Specialized.NameValueCollection.Get(System.String)"
                                 }
                               ]
                             }
@@ -12908,13 +13550,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.String.Concat(System.String,System.String,System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "System.String System.String.Concat(System.String,System.String,System.String)"
+                                  "fullyQualifiedName": "System.String.Concat(System.String,System.String,System.String)"
                                 }
                               ]
                             }
@@ -13049,13 +13698,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Data.Common.DbCommand.set_CommandText(System.String)"
+                                  "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
                                 }
                               ]
                             }
@@ -13208,13 +13864,20 @@
                       }
                     },
                     {
+                      "location": {
+                        "logicalLocations": [
+                          {
+                            "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
+                          }
+                        ]
+                      },
                       "stack": {
                         "frames": [
                           {
                             "location": {
                               "logicalLocations": [
                                 {
-                                  "fullyQualifiedName": "void System.Data.Common.DbCommand.set_CommandText(System.String)"
+                                  "fullyQualifiedName": "System.Data.Common.DbCommand.set_CommandText(System.String)"
                                 }
                               ]
                             }
@@ -13461,7 +14124,7 @@
               "id": "reflected-xss",
               "name": "Cross-Site Scripting",
               "shortDescription": {
-                "text": "Verifies no untrusted data is used in generated HTML pages"
+                "text": "Verifies no untrusted data is used in generated HTML pages."
               },
               "messageStrings": {
                 "default": {
@@ -13503,7 +14166,7 @@
               "id": "session-regenerate",
               "name": "Expired Session IDs Not Regenerated",
               "shortDescription": {
-                "text": "Verifies the application generates new session IDs rather than allowing attackers to use expired session IDs"
+                "text": "Verifies the application generates new session IDs rather than allowing attackers to use expired session IDs."
               },
               "defaultConfiguration": {
                 "level": "note"
@@ -13561,7 +14224,7 @@
               "id": "header-injection",
               "name": "Header Injection",
               "shortDescription": {
-                "text": "Verifies untrusted data is not used in an HTTP header"
+                "text": "Verifies untrusted data is not used in an HTTP header."
               },
               "defaultConfiguration": {
                 "level": "error"
@@ -13608,7 +14271,7 @@
               "id": "crypto-bad-mac",
               "name": "Insecure Hash Algorithms",
               "shortDescription": {
-                "text": "Verifies only strong hash algorithms are used"
+                "text": "Verifies only strong hash algorithms are used."
               },
               "messageStrings": {
                 "default": {
@@ -13833,7 +14496,7 @@
               "id": "stored-xss",
               "name": "Stored Cross-Site Scripting",
               "shortDescription": {
-                "text": "Verifies no untrusted data which was stored in a database is displayed in generated HTML pages"
+                "text": "Verifies no untrusted data which was stored in a database is displayed in generated HTML pages."
               },
               "defaultConfiguration": {
                 "level": "error"
@@ -13940,7 +14603,7 @@
               "id": "weak-membership-config",
               "name": "Weak Membership Configuration",
               "shortDescription": {
-                "text": "Verifies membership authentication is configured to help withstand password bruteforce attacks."
+                "text": "Verifies membership authentication is configured to help withstand password brute force attacks."
               },
               "defaultConfiguration": {
                 "level": "note"
@@ -13985,7 +14648,7 @@
               "id": "xpath-injection",
               "name": "XPath Injection",
               "shortDescription": {
-                "text": "Verifies no untrusted data is used in XPath expression used to retrieve data from an XML database"
+                "text": "Verifies no untrusted data is used in XPath expression used to retrieve data from an XML database."
               },
               "defaultConfiguration": {
                 "level": "error"

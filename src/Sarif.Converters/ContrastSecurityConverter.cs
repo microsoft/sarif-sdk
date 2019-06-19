@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         private const string SiteRootDescriptionMessageId = "SiteRootDescription";
 
         private IDictionary<string, ReportingDescriptor> _rules;
-        private HashSet<Artifact> _files;
+        private IDictionary<string, int> _ruleIdToIndexDictionary;
 
         public override string ToolName => "Contrast Security";
 
@@ -51,8 +51,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             LogicalLocations.Clear();
 
-            _files = new HashSet<Artifact>(Artifact.ValueComparer);
-
             var context = new ContrastLogReader.Context();
 
             // 1. First we initialize our global rules data from the SARIF we have embedded as a resource.
@@ -70,6 +68,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             // 2. Retain a pointer to the rules dictionary, which we will use to set rule severity.
             Run run = sarifLog.Runs[0];
             _rules = run.Tool.Driver.Rules.ToDictionary(rule => rule.Id);
+
+            // Create another dictionary, from ruleId to ruleIndex, so we can populate easily result.ruleIndex.
+            // This is important because we will populate result.message.id, but _not_ result.message.text.
+            // That means that viewers will need to _look up_ the message text by way of result.ruleIndex,
+            // so we must popuate it.
+            _ruleIdToIndexDictionary = CreateRuleToIndexDictionary(run.Tool.Driver.Rules); 
 
             run.OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>
             {
@@ -100,31 +104,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             reader.FindingRead += (ContrastLogReader.Context current) => { results.Add(CreateResult(current)); };
             reader.Read(context, input);
 
-            // 4. Construct the files array, based on all results returned
-            var fileInfoFactory = new FileInfoFactory(MimeType.DetermineFromFileExtension, dataToInsert);
-            HashSet<Artifact> files = fileInfoFactory.Create(results);
-
-            // 5. Finally, complete the SARIF log file with various tables and then the results
-            output.Initialize(run);
-
-            foreach (Artifact fileData in _files)
-            {
-                files.Add(fileData);
-            }
-
-            if (files?.Any() == true)
-            {
-                output.WriteArtifacts(files.ToList());
-            }
-
+            // 4. Finally, complete the SARIF log file with various tables and then the results
             if (LogicalLocations?.Any() == true)
             {
-                output.WriteLogicalLocations(LogicalLocations);
+                run.LogicalLocations = LogicalLocations;
             }
 
-            output.OpenResults();
-            output.WriteResults(results);
-            output.CloseResults();
+            PersistResults(output, results, run);
+        }
+
+        private IDictionary<string, int> CreateRuleToIndexDictionary(IList<ReportingDescriptor> rules)
+        {
+            var dictionary = new Dictionary<string, int>();
+            for (int i = 0; i < rules.Count; ++i)
+            {
+                dictionary.Add(rules[i].Id, i);
+            }
+
+            return dictionary;
         }
 
         internal Result CreateResult(ContrastLogReader.Context context)
@@ -243,6 +240,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             var result = new Result
             {
                 RuleId = ruleId,
+                RuleIndex = _ruleIdToIndexDictionary[ruleId],
                 Level = GetRuleFailureLevel(ruleId),
                 Message = new Message { Text = $"TODO: missing message construction for rule '{ruleId}'." }
             };
@@ -579,6 +577,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private Result ConstructFormsWithoutAutocompletePreventionResult(ContrastLogReader.Context context)
         {
+            // The maximum length of a snippet that Contrast Security embeds in their HTML file.
+            // If the actual <form> element is longer than this, they tack on an ellipsis, which
+            // we don't want to include in the SARIF file.
+            const int MaxSnippetLength = 1000;
+
             // autocomplete-missing : Forms Without Autocomplete Prevention
 
             // <properties name="/webgoat/Content/EncryptVSEncode.aspx">{"html":"\u003cform name\u003d\"aspnetForm\"
@@ -592,24 +595,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 string jsonValue = properties[key];
                 JObject root = JObject.Parse(jsonValue);
-                string html = root["html"].Value<string>();
-                string fileDataKey = "#RuntimeGenerated#=" + key;
+                string snippet = root["html"].Value<string>();
 
-                fileDataKey = key;
-
-                byte[] htmlBytes = Encoding.UTF8.GetBytes(html);
-                string encoded = System.Convert.ToBase64String(htmlBytes);
-
-
-                _files.Add(
-                    new Artifact
-                    {
-                        Contents = new ArtifactContent
-                        {
-                            Text = html,
-                            Binary = encoded
-                        }
-                    });
+                int snippetLength = snippet.Length;
+                if (snippetLength > MaxSnippetLength)
+                {
+                    snippet = snippet.Substring(0, MaxSnippetLength);
+                    snippetLength = MaxSnippetLength;
+                }
 
                 locations.Add(new Location
                 {
@@ -620,7 +613,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                             UriBaseId = SiteRootUriBaseIdName,
                             Uri = new Uri(key, UriKind.RelativeOrAbsolute)
                         },
-                        Region = new Region() { StartLine = 1 }
+                        Region = new Region
+                        {
+                            CharOffset = 0,             // Unfortunately the XML doesn't actually tell us this, but SARIF requires it.
+                            CharLength = snippetLength,
+                            Snippet = new ArtifactContent
+                            {
+                                Text = snippet
+                            }
+                        }
                     }
                 });
             }
@@ -1053,6 +1054,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             return new Result
             {
                 RuleId = context.RuleId,
+                RuleIndex = _ruleIdToIndexDictionary[context.RuleId],
                 Level = GetRuleFailureLevel(context.RuleId),
                 WebRequest = CreateWebRequest(context),
                 CodeFlows = CreateCodeFlows(context)
@@ -1121,14 +1123,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
         }
 
-        private static readonly Regex LogicalLocationRegex =
-            new Regex(
-                @"
-                  ([^\s]*\s+)?         # Skip over an optional leading blank-terminated return type name such as 'void '
-                  (?<fqln>[^(]+)       # Take everything up to the opening parenthesis.
-                ",
-                RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.IgnorePatternWhitespace);
-
         // Find the user code method call closest to the top of the stack. This is
         // the location we should report as being responsible for the result.
         private static string GetUserCodeLocation(Stack stack)
@@ -1138,14 +1132,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             foreach (StackFrame frame in stack.Frames)
             {
                 string fullyQualifiedLogicalName = frame.Location.LogicalLocation.FullyQualifiedName;
-                Match match = LogicalLocationRegex.Match(fullyQualifiedLogicalName);
-                if (match.Success)
+                if (!fullyQualifiedLogicalName.StartsWith(SystemPrefix))
                 {
-                    fullyQualifiedLogicalName = match.Groups["fqln"].Value;
-                    if (!fullyQualifiedLogicalName.StartsWith(SystemPrefix))
-                    {
-                        return fullyQualifiedLogicalName;
-                    }
+                    return fullyQualifiedLogicalName;
                 }
             }
 
@@ -1533,16 +1522,37 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static StackFrame CreateStackFrameFromSignature(string signature)
         {
+            string signatureMinusReturnType = RemoveReturnTypeFrom(signature);
+
             return new StackFrame
             {
                 Location = new Location
                 {
                     LogicalLocation = new LogicalLocation
                     {
-                        FullyQualifiedName = signature
+                        FullyQualifiedName = signatureMinusReturnType
                     }
                 }
             };
+        }
+
+        private static readonly Regex LogicalLocationRegex =
+            new Regex(
+                @"^
+                  ([^\s]*\s+)?         # Skip over an optional leading blank-terminated return type name such as 'void '.
+                  (?<fqln>.*)          # Take everything else.
+                $",
+                RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.IgnorePatternWhitespace);
+
+        private static string RemoveReturnTypeFrom(string signature)
+        {
+            Match match = LogicalLocationRegex.Match(signature);
+            if (match.Success)
+            {
+                signature = match.Groups["fqln"].Value;
+            }
+
+            return signature;
         }
 
         private static void ReadObject(SparseReader reader, object parent)
@@ -1617,6 +1627,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             Debug.Assert(context.CurrentThreadFlowLocation == null);
             context.CurrentThreadFlowLocation = new ThreadFlowLocation
             {
+                Location = context.Signature.Location,
+
                 Stack = new Stack
                 {
                     Frames = new List<StackFrame> { context.Signature }
