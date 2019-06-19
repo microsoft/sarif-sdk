@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The request parameters.
         /// </summary>
         [DataMember(Name = "parameters", IsRequired = false, EmitDefaultValue = false)]
-        public object Parameters { get; set; }
+        public IDictionary<string, string> Parameters { get; set; }
 
         /// <summary>
         /// The body of the request.
@@ -128,7 +128,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public WebRequest(int index, string protocol, string version, string target, string method, IDictionary<string, string> headers, object parameters, ArtifactContent body, IDictionary<string, SerializedPropertyInfo> properties)
+        public WebRequest(int index, string protocol, string version, string target, string method, IDictionary<string, string> headers, IDictionary<string, string> parameters, ArtifactContent body, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(index, protocol, version, target, method, headers, parameters, body, properties);
         }
@@ -170,7 +170,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new WebRequest(this);
         }
 
-        protected virtual void Init(int index, string protocol, string version, string target, string method, IDictionary<string, string> headers, object parameters, ArtifactContent body, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(int index, string protocol, string version, string target, string method, IDictionary<string, string> headers, IDictionary<string, string> parameters, ArtifactContent body, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Index = index;
             Protocol = protocol;
@@ -182,7 +182,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 Headers = new Dictionary<string, string>(headers);
             }
 
-            Parameters = parameters;
+            if (parameters != null)
+            {
+                Parameters = new Dictionary<string, string>(parameters);
+            }
+
             if (body != null)
             {
                 Body = new ArtifactContent(body);

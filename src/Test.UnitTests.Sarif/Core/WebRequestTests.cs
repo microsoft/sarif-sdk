@@ -25,6 +25,7 @@ Accept-Language: en, mi
 
             webRequest.Method.Should().Be("GET");
             webRequest.Target.Should().Be("/hello.txt");
+            webRequest.Parameters.Should().BeNull();
             webRequest.Protocol.Should().Be("HTTP");
             webRequest.Version.Should().Be("1.1");
             webRequest.HttpVersion.Should().Be("HTTP/1.1");
@@ -36,7 +37,7 @@ Accept-Language: en, mi
         }
 
         [Fact]
-        public void WebRequest_Parse_CreatesExpectedWebRequestObjectWithBody()
+        public void WebRequest_Parse_ExtractsBody()
         {
             // Example from RFC 7230.
             const string RequestString =
@@ -53,6 +54,7 @@ Line 2.
 
             webRequest.Method.Should().Be("GET");
             webRequest.Target.Should().Be("/hello.txt");
+            webRequest.Parameters.Should().BeNull();
             webRequest.Protocol.Should().Be("HTTP");
             webRequest.Version.Should().Be("1.1");
             webRequest.HttpVersion.Should().Be("HTTP/1.1");
@@ -61,6 +63,31 @@ Line 2.
             webRequest.Headers["Host"].Should().Be("www.example.com");
             webRequest.Headers["Accept-Language"].Should().Be("en, mi");
             webRequest.Body.Text.Should().Be("This is the body.\r\nLine 2.\r\n");
+        }
+
+        [Fact]
+        public void WebRequest_Parse_ExtractsParameters()
+        {
+            // Example from RFC 7230.
+            const string RequestString =
+@"GET /hello.txt?a=b&c=2 HTTP/1.1
+User-Agent: my-agent
+
+";
+
+            WebRequest webRequest = WebRequest.Parse(RequestString);
+
+            webRequest.Method.Should().Be("GET");
+            webRequest.Target.Should().Be("/hello.txt?a=b&c=2");
+            webRequest.Parameters.Count.Should().Be(2);
+            webRequest.Parameters["a"].Should().Be("b");
+            webRequest.Parameters["c"].Should().Be("2");
+            webRequest.Protocol.Should().Be("HTTP");
+            webRequest.Version.Should().Be("1.1");
+            webRequest.HttpVersion.Should().Be("HTTP/1.1");
+            webRequest.Headers.Count.Should().Be(1);
+            webRequest.Headers["User-Agent"].Should().Be("my-agent");
+            webRequest.Body.Should().BeNull();
         }
     }
 }

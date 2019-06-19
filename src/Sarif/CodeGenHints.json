@@ -1114,6 +1114,11 @@
       "kind": "DictionaryHint"
     }
   ],
+  "WebRequest.Parameters": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
   "webResponse": [
     {
       "kind": "BaseTypeHint",
