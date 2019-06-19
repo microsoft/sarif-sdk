@@ -23,82 +23,9 @@ namespace Microsoft.CodeAnalysis.Sarif
         // it to this length:
         private const int MaxExceptionMessageStringLength = 200;
 
-        private const string CRLF = "\r\n";
-        private const string TokenPattern = "[!#$%&'*+._`|~0-9a-zA-Z^-]+";
-        private const string HttpVersionPattern = @"(?<protocol>HTTP)/(?<version>[0-9]\.[0-9])";
-
-        private const string RequestLinePattern =
-            @"^
-            (?<method>" + TokenPattern + @")            # The method, which is a token,
-            \x20                                        # followed by a single space (which we must write this way
-                                                        # because we're using RegexOptions.IgnorePatternWhitespace),
-            (?<target>[^\s]+)                           # the target URI, which we don't validate further,
-            \x20                                        # another space,
-            (?<httpVersion>" + HttpVersionPattern + @") # and the HTTP version, e.g., 'HTTP/1.1'.
-            \r\n";
-
-        private static readonly Regex s_requestLineRegex = SarifUtilities.RegexFromPattern(RequestLinePattern);
-
-        internal static void ParseRequestLine(
-            string requestString,
-            out string method,
-            out string target,
-            out string httpVersion,
-            out string protocol,
-            out string version,
-            out int length)
-        {
-            Match match = s_requestLineRegex.Match(requestString);
-            if (!match.Success)
-            {
-                throw new ArgumentException($"Invalid request line: '{Truncate(requestString)}'", nameof(requestString));
-            }
-
-            method = match.Groups["method"].Value;
-            target = match.Groups["target"].Value;
-            httpVersion = match.Groups["httpVersion"].Value;
-            protocol = match.Groups["protocol"].Value;
-            version = match.Groups["version"].Value;
-
-            length = match.Length;
-        }
-
-        private const string StatusLinePattern =
-            @"^
-            (?<httpVersion>" + HttpVersionPattern + @") # The HTTP version, e.g., 'HTTP/1.1',
-            \x20                                        # followed by a single space (which we must write this way
-                                                        # because we're using RegexOptions.IgnorePatternWhitespace),
-            (?<statusCode>\d\d\d)                       # a 3-digit status code,
-            \x20                                        # another space,
-            (?<reasonPhrase>.*?)                        # and the 'reason phrase', which we match non-greedy (.*?)
-            \r\n                                        # so that it doesn't include the trailing CRLF.
-            ";
-
-        private static readonly Regex s_statusLineRegex = SarifUtilities.RegexFromPattern(StatusLinePattern);
-
-        internal static void ParseStatusLine(
-            string responseString,
-            out string httpVersion,
-            out string protocol,
-            out string version,
-            out int statusCode,
-            out string reasonPhrase,
-            out int length)
-        {
-            Match match = s_statusLineRegex.Match(responseString);
-            if (!match.Success)
-            {
-                throw new ArgumentException($"Invalid status line: '{Truncate(responseString)}'", nameof(responseString));
-            }
-
-            httpVersion = match.Groups["httpVersion"].Value;
-            protocol = match.Groups["protocol"].Value;
-            version = match.Groups["version"].Value;
-            statusCode = int.Parse(match.Groups["statusCode"].Value);
-            reasonPhrase = match.Groups["reasonPhrase"].Value;
-
-            length = match.Length;
-        }
+        internal const string CRLF = "\r\n";
+        internal const string TokenPattern = "[!#$%&'*+._`|~0-9a-zA-Z^-]+";
+        internal const string HttpVersionPattern = @"(?<protocol>HTTP)/(?<version>[0-9]\.[0-9])";
 
         private const string HeaderPattern =
             @"^
@@ -109,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif
               \s*?                                      # so that it doesn't include the optional trailing white space...
               \r\n                                      # ... or the CRLF.
                                                         # The pattern does _not_ include '$' because there might
-                                                        # be more headers, or a body, to follow"
+                                                        # be more headers, or a body, to follow."
               ;
 
         private static readonly Regex s_headerRegex = SarifUtilities.RegexFromPattern(HeaderPattern);
@@ -148,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             length = match.Length;
         }
 
-        private static string Truncate(string s)
+        internal static string Truncate(string s)
         {
             return s.Length <= MaxExceptionMessageStringLength
                 ? s

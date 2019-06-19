@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft.  All Rights Reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Xunit;
@@ -88,6 +89,48 @@ User-Agent: my-agent
             webRequest.Headers.Count.Should().Be(1);
             webRequest.Headers["User-Agent"].Should().Be("my-agent");
             webRequest.Body.Should().BeNull();
+        }
+
+        [Theory]
+        [InlineData("", false, null, null, null, null, null, -1, "request line is empty")]
+        [InlineData("GET", false, null, null, null, null, null, -1, "target is absent")]
+        [InlineData("GET /hello.txt", false, null, null, null, null, null, -1, "HTTP version is absent")]
+        [InlineData("GET /hello.txt HTTP/1.1", false, null, null, null, null, null, -1, "request line does not end in CRLF")]
+        [InlineData("GET /hello.txt HTTP2/1.1\r\n", false, null, null, null, null, null, -1, "HTTP version has invalid name")]
+        [InlineData("GET /hello.txt HTTP/1..1\r\n", false, null, null, null, null, null, -1, "HTTP version has invalid version number")]
+        [InlineData("GET /hello.txt HTTP/1.1\r\n", true, "GET", "/hello.txt", "HTTP/1.1", "HTTP", "1.1", 25, "request line is valid")]
+        public void WebRequest_ParseRequestLine_HandlesErrorConditions(
+            string requestLine,
+            bool shouldSucceed,
+            string expectedMethod,
+            string expectedTarget,
+            string expectedHttpVersion,
+            string expectedProtocol,
+            string expectedVersion,
+            int expectedLength,
+            string because)
+        {
+            Action action = () =>
+            {
+                WebRequest.ParseRequestLine(
+                    requestLine,
+                    out string method,
+                    out string target,
+                    out string httpVersion,
+                    out string protocol,
+                    out string version,
+                    out int length);
+
+                method.Should().Be(expectedMethod, because);
+                target.Should().Be(expectedTarget, because);
+                httpVersion.Should().Be(expectedHttpVersion, because);
+                protocol.Should().Be(expectedProtocol, because);
+                version.Should().Be(expectedVersion, because);
+                length.Should().Be(expectedLength, because);
+            };
+
+            if (shouldSucceed) { action.Should().NotThrow(); }
+            else { action.Should().Throw<Exception>(); }
         }
     }
 }

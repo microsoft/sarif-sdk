@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             var webRequest = new WebRequest();
 
-            WebMessageUtilities.ParseRequestLine(
+            ParseRequestLine(
                 requestString,
                 out string method,
                 out string target,
@@ -52,6 +52,42 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             return webRequest;
+        }
+
+        private const string RequestLinePattern =
+            @"^
+            (?<method>" + WebMessageUtilities.TokenPattern + @")            # The method, which is a token,
+            \x20                                                            # followed by a single space (which we must write this way
+                                                                            # because we're using RegexOptions.IgnorePatternWhitespace),
+            (?<target>[^\s]+)                                               # the target URI, which we don't validate further,
+            \x20                                                            # another space,
+            (?<httpVersion>" + WebMessageUtilities.HttpVersionPattern + @") # and the HTTP version, e.g., 'HTTP/1.1'.
+            \r\n";
+
+        private static readonly Regex s_requestLineRegex = SarifUtilities.RegexFromPattern(RequestLinePattern);
+
+        internal static void ParseRequestLine(
+            string requestString,
+            out string method,
+            out string target,
+            out string httpVersion,
+            out string protocol,
+            out string version,
+            out int length)
+        {
+            Match match = s_requestLineRegex.Match(requestString);
+            if (!match.Success)
+            {
+                throw new ArgumentException($"Invalid request line: '{WebMessageUtilities.Truncate(requestString)}'", nameof(requestString));
+            }
+
+            method = match.Groups["method"].Value;
+            target = match.Groups["target"].Value;
+            httpVersion = match.Groups["httpVersion"].Value;
+            protocol = match.Groups["protocol"].Value;
+            version = match.Groups["version"].Value;
+
+            length = match.Length;
         }
 
         private static IDictionary<string, string> ParseQueryParametersFromUri(Uri uri)
@@ -90,6 +126,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                   &?                          # and an '&' (except after the last one).
                 )
               )*";
+
         private static readonly Regex s_queryRegex = SarifUtilities.RegexFromPattern(QueryPattern);
 
         private static IDictionary<string, string> ParseParametersFromQueryString(string query)
