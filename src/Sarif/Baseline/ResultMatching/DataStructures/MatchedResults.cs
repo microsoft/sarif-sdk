@@ -14,6 +14,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
     {
         private const string MatchResultMetadata_RunKeyName = "Run";
         private const string MatchResultMetadata_FoundDateName = "FoundDate";
+        private const string MatchResultMetadata_PreviousGuid = "PreviousGuid";
 
         public ExtractedResult PreviousResult { get; set; }
 
@@ -74,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         }
 
         private Result ConstructAbsentResult(
-            Dictionary<string, object> ResultMatchingProperties, 
+            Dictionary<string, object> ResultMatchingProperties,
             out Dictionary<string, object> OriginalResultMatchingProperties)
         {
             Result result = PreviousResult.Result.DeepClone();
@@ -96,7 +97,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         }
 
         private Result ConstructNewResult(
-            Dictionary<string, object> ResultMatchingProperties, 
+            Dictionary<string, object> ResultMatchingProperties,
             out Dictionary<string, object> OriginalResultMatchingProperties)
         {
             // Result is New.
@@ -126,11 +127,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         }
 
         private Result ConstructExistingResult(
-            Dictionary<string, object> ResultMatchingProperties, 
+            Dictionary<string, object> ResultMatchingProperties,
             out Dictionary<string, object> OriginalResultMatchingProperties)
         {
             // Result exists.
-            Result  result = CurrentResult.Result.DeepClone();
+            Result result = CurrentResult.Result.DeepClone();
             result.CorrelationGuid = PreviousResult.Result.CorrelationGuid;
             result.Suppressions = PreviousResult.Result.Suppressions;
             result.BaselineState = BaselineState.Unchanged;
@@ -145,13 +146,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, CurrentResult.OriginalRun.AutomationDetails.Guid);
             }
 
+            if (PreviousResult.Result.Guid != null)
+            {
+                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_PreviousGuid, PreviousResult.Result.Guid);
+            }
+
             Run = CurrentResult.OriginalRun;
 
             return result;
         }
 
         private Dictionary<string, object> MergeDictionaryPreferFirst(
-            Dictionary<string, object> firstPropertyBag, 
+            Dictionary<string, object> firstPropertyBag,
             Dictionary<string, object> secondPropertyBag)
         {
             Dictionary<string, object> result = firstPropertyBag;
