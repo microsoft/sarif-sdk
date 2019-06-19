@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft.  All Rights Reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Xunit;
@@ -44,6 +45,78 @@ Hello World!My payload includes a trailing CRLF.
             webResponse.Headers["Vary"].Should().Be("Accept-Encoding");
             webResponse.Headers["Content-Type"].Should().Be("text/plain");
             webResponse.Body.Text.Should().Be("Hello World!My payload includes a trailing CRLF.\r\n");
+        }
+
+        [Fact]
+        public void WebResponse_Parse_CreatesExpectedWebResponseObjectWithoutBody()
+        {
+            const string ResponseString =
+@"HTTP/1.1 200 OK
+Date: Mon, 27 Jul 2009 12:28:53 GMT
+Server: Apache
+Last-Modified: Wed, 22 Jul 2009 19:15:56 GMT
+
+";
+
+            WebResponse webResponse = WebResponse.Parse(ResponseString);
+
+            webResponse.Protocol.Should().Be("HTTP");
+            webResponse.Version.Should().Be("1.1");
+            webResponse.HttpVersion.Should().Be("HTTP/1.1");
+            webResponse.StatusCode.Should().Be(200);
+            webResponse.ReasonPhrase.Should().Be("OK");
+            webResponse.Headers.Count.Should().Be(3);
+            webResponse.Headers["Date"].Should().Be("Mon, 27 Jul 2009 12:28:53 GMT");
+            webResponse.Headers["Server"].Should().Be("Apache");
+            webResponse.Headers["Last-Modified"].Should().Be("Wed, 22 Jul 2009 19:15:56 GMT");
+            webResponse.Body.Should().BeNull();
+        }
+
+        [Fact]
+        public void WebResponse_Parse_ThrowsIfStatusLineIsInvalid()
+        {
+            const string ResponseString =
+@"HTTP/1.1.1 200 OK
+Date: Mon, 27 Jul 2009 12:28:53 GMT
+Server: Apache
+Last-Modified: Wed, 22 Jul 2009 19:15:56 GMT
+
+";
+
+            Action action = () => WebResponse.Parse(ResponseString);
+
+            action.Should().Throw<ArgumentException>();
+        }
+
+        [Fact]
+        public void WebResponse_Parse_ThrowsIfHeaderLineIsInvalid()
+        {
+            const string ResponseString =
+@"HTTP/1.1.1 200 OK
+Date: Mon, 27 Jul 2009 12:28:53 GMT
+Server NO COLON Apache
+Last-Modified: Wed, 22 Jul 2009 19:15:56 GMT
+
+";
+
+            Action action = () => WebResponse.Parse(ResponseString);
+
+            action.Should().Throw<ArgumentException>();
+        }
+
+        [Fact]
+        public void WebResponse_Parse_ThrowsIfResponseDoesNotEndWithABlankLine()
+        {
+            const string ResponseString =
+@"HTTP/1.1 200 OK
+Date: Mon, 27 Jul 2009 12:28:53 GMT
+Server: Apache
+Last-Modified: Wed, 22 Jul 2009 19:15:56 GMT
+";
+
+            Action action = () => WebResponse.Parse(ResponseString);
+
+            action.Should().Throw<ArgumentException>();
         }
     }
 }

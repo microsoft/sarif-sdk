@@ -19,6 +19,10 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </remarks>
     internal static class WebMessageUtilities
     {
+        // When including the contents of a web request or response in an exception message, truncate
+        // it to this length:
+        private const int MaxExceptionMessageStringLength = 200;
+
         private const string CRLF = "\r\n";
         private const string TokenPattern = "[!#$%&'*+._`|~0-9a-zA-Z^-]+";
         private const string HttpVersionPattern = @"(?<protocol>HTTP)/(?<version>[0-9]\.[0-9])";
@@ -47,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Match match = s_requestLineRegex.Match(requestString);
             if (!match.Success)
             {
-                throw new ArgumentException("Invalid request line", nameof(requestString));
+                throw new ArgumentException($"Invalid request line: '{Truncate(requestString)}'", nameof(requestString));
             }
 
             method = match.Groups["method"].Value;
@@ -84,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Match match = s_statusLineRegex.Match(responseString);
             if (!match.Success)
             {
-                throw new ArgumentException("Invalid status line", nameof(responseString));
+                throw new ArgumentException($"Invalid status line: '{Truncate(responseString)}'", nameof(responseString));
             }
 
             httpVersion = match.Groups["httpVersion"].Value;
@@ -133,18 +137,22 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         internal static void ParseHeaderLine(string headerLine, out string fieldName, out string fieldValue, out int length)
         {
-            fieldName = fieldValue = null;
-            length = -1;
-
             Match match = s_headerRegex.Match(headerLine);
             if (!match.Success)
             {
-                throw new ArgumentException($"Invalid header line: '{headerLine}'.");
+                throw new ArgumentException($"Invalid header line: '{Truncate(headerLine)}'.");
             }
 
             fieldName = match.Groups["fieldName"].Value;
             fieldValue = match.Groups["fieldValue"].Value;
             length = match.Length;
+        }
+
+        private static string Truncate(string s)
+        {
+            return s.Length <= MaxExceptionMessageStringLength
+                ? s
+                : s.Substring(0, MaxExceptionMessageStringLength) + "...";
         }
     }
 }

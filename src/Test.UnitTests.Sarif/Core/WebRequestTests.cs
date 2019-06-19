@@ -34,5 +34,33 @@ Accept-Language: en, mi
             webRequest.Headers["Accept-Language"].Should().Be("en, mi");
             webRequest.Body.Should().BeNull();
         }
+
+        [Fact]
+        public void WebRequest_Parse_CreatesExpectedWebRequestObjectWithBody()
+        {
+            // Example from RFC 7230.
+            const string RequestString =
+@"GET /hello.txt HTTP/1.1
+User-Agent: curl/7.16.3 libcurl/7.16.3 OpenSSL/0.9.7l zlib/1.2.3
+Host: www.example.com
+Accept-Language: en, mi
+
+This is the body.
+Line 2.
+";
+
+            WebRequest webRequest = WebRequest.Parse(RequestString);
+
+            webRequest.Method.Should().Be("GET");
+            webRequest.Target.Should().Be("/hello.txt");
+            webRequest.Protocol.Should().Be("HTTP");
+            webRequest.Version.Should().Be("1.1");
+            webRequest.HttpVersion.Should().Be("HTTP/1.1");
+            webRequest.Headers.Count.Should().Be(3);
+            webRequest.Headers["User-Agent"].Should().Be("curl/7.16.3 libcurl/7.16.3 OpenSSL/0.9.7l zlib/1.2.3");
+            webRequest.Headers["Host"].Should().Be("www.example.com");
+            webRequest.Headers["Accept-Language"].Should().Be("en, mi");
+            webRequest.Body.Text.Should().Be("This is the body.\r\nLine 2.\r\n");
+        }
     }
 }
