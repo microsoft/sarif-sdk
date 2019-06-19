@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             Match match = s_headerRegex.Match(headerLine);
             if (!match.Success)
             {
-                throw new ArgumentException($"Invalid header line: '{Truncate(headerLine)}'.");
+                throw new ArgumentException($"Invalid header line: '{Truncate(headerLine)}'.", nameof(headerLine));
             }
 
             fieldName = match.Groups["fieldName"].Value;
