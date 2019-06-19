@@ -150,7 +150,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             if (left == null) { return -1; }
             if (right == null) { return 1; }
 
-            return left.AbsoluteUri.CompareTo(right.AbsoluteUri);
+            return left.OriginalString.CompareTo(right.OriginalString);
         }
 
         private static Uri ArtifactUri(ArtifactLocation loc, Run run)

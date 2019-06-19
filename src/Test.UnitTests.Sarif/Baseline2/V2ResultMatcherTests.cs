@@ -106,7 +106,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             Result newResult = newRun.Results[0].DeepClone();
             newResult.Locations[0].PhysicalLocation.ArtifactLocation.Uri = new Uri("file:///C:/Code/elfie-arriba/XForm/XForm.Web/node_modules/NEW.pem");
             newResult.PartialFingerprints = null;
-            newResult.Properties = null;
             newResult.Message.Text = "Different Message";
             newRun.Results.Add(newResult);
 
@@ -119,6 +118,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
             MatchedResults added = matches.Where(m => m.PreviousResult == null).First();
             Assert.Same(newResult, added.CurrentResult.Result);
+        }
+
+        [Fact]
+        public void V2ResultMatcher_TwoAdded()
+        {
+            Run newRun = SampleRun.DeepClone();
+
+            Result newResult = newRun.Results[0].DeepClone();
+            newResult.Locations[0].PhysicalLocation.ArtifactLocation.Uri = new Uri("file:///C:/Code/elfie-arriba/XForm/XForm.Web/node_modules/NEW.pem");
+            newResult.Message.Text = "Different Message";
+            newRun.Results.Add(newResult);
+
+            Result newResult2 = newRun.Results[2].DeepClone();
+            newResult.Locations[0].PhysicalLocation.ArtifactLocation.Uri = new Uri("file:///C:/Code/elfie-arriba/XForm/XForm.Web/node_modules/NEW_2.pem");
+            newResult.Message.Text = "Different Message";
+            newRun.Results.Add(newResult);
+
+            IEnumerable<MatchedResults> matches = Match(SampleRun, newRun);
+            matches.Where(m => m.PreviousResult != null && m.CurrentResult != null).Should().HaveCount(5);
+            matches.Where(m => m.PreviousResult == null || m.CurrentResult == null).Should().HaveCount(2);
         }
     }
 }
