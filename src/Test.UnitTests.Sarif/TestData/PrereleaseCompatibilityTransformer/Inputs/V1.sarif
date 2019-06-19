@@ -1,0 +1,191 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner",
+        "semanticVersion": "2.1.0"
+      },
+      "files": {
+        "file:///home/list.txt": {
+          "mimeType": "text/plain",
+          "length": 43,
+          "contents": "VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw==",
+          "hashes": [
+            {
+              "algorithm": "sha256",
+              "value": "d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592"
+            }
+          ]
+        }
+      },
+      "logicalLocations": {
+        "collections::list::add": {
+          "name": "add",
+          "kind": "function",
+          "parentKey": "collections::list"
+        },
+        "collections::list": {
+          "name": "list",
+          "kind": "type",
+          "parentKey": "collections"
+        },
+        "collections::list-KEY_COLLISION": {
+          "name": "list",
+          "kind": "member",
+          "parentKey": "collections"
+        },
+        "collections": {
+          "name": "collections",
+          "kind": "namespace"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "C2005",
+          "message": "Some testing occurred.",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///home/buildAgent/src/myFile.cpp",
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 3,
+                  "endLine": 4,
+                  "endColumn": 5
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "C2001",
+          "formattedRuleMessage": {
+            "formatId": "default",
+            "arguments": [
+              "collections::list"
+            ]
+          },
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///home/buildAgent/src/collections/list.cpp"
+              },
+              "resultFile": {
+                "uri": "file:///home/buildAgent/src/collections/list.h",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 28,
+                  "length": 27
+                }
+              },
+              "fullyQualifiedLogicalName": "collections::list",
+              "decoratedName": "?add@list@@_decorated_type_name"
+            },
+            {
+              "resultFile": {
+                "uri": "file:///home/buildAgent/src/collections/list_collision.cpp",
+                "region": {
+                  "startLine": 12,
+                  "endLine": 12
+                }
+              },
+              "fullyQualifiedLogicalName": "collections::list",
+              "logicalLocationKey": "collections::list-KEY_COLLISION",
+              "decoratedName": "?add@list@@_decorated_member_name"
+            }
+          ]
+        },
+        {
+          "ruleId": "C2001",
+          "formattedRuleMessage": {
+            "formatId": "default",
+            "arguments": [
+              "ptr"
+            ]
+          },
+          "suppressionStates": [ "suppressedExternally" ],
+          "baselineState": "existing",
+          "level": "error",
+          "snippet": "add_core(ptr, offset, val);",
+          "locations": [
+            {
+              "analysisTarget": {
+                "uri": "file:///home/buildAgent/src/collections/list.cpp"
+              },
+              "resultFile": {
+                "uri": "file:///home/buildAgent/src/collections/list.h",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1,
+                  "endLine": 1,
+                  "endColumn": 28,
+                  "length": 27
+                }
+              },
+              "fullyQualifiedLogicalName": "collections::list::add",
+              "decoratedName": "?add@list@collections@@QAEXH@Z"
+            }
+          ],
+          "relatedLocations": [
+            {
+              "message": "\"count\" was declared here.",
+              "physicalLocation": {
+                "uri": "file:///home/list.txt",
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 5,
+                  "length": 4
+                }
+              },
+              "fullyQualifiedLogicalName": "collections::list::add"
+            },
+            {
+              "message": "Another reference to \"count\" was declared here.",
+              "physicalLocation": {
+                "uri": "file:///home/list.txt",
+                "region": {
+                  "offset": 12,
+                  "length": 3
+                }
+              },
+              "fullyQualifiedLogicalName": "collections::list"
+            },
+            {
+              "message": "This reference to \"collections::list\" is not relevant to the problem.",
+              "physicalLocation": {
+                "uri": "file:///home/buildAgent/src/collections/list_collision.cpp",
+                "region": {
+                  "startLine": 12,
+                  "endLine": 12
+                }
+              },
+              "fullyQualifiedLogicalName": "collections::list",
+              "logicalLocationKey": "collections::list-KEY_COLLISION"
+            }
+          ]
+        }
+      ],
+      "rules": {
+        "C2001": {
+          "id": "C2001",
+          "shortDescription": "A variable was used without being initialized.",
+          "fullDescription": "A variable was used without being initialized. This can result in runtime errors such as null reference exceptions.",
+          "messageFormats": {
+            "default": "Variable \"{0}\" was used without being initialized."
+          }
+        },
+        "C2002": {
+          "id": "C2002",
+          "shortDescription": "A potentially confusing naming collision exists.",
+          "messageFormats": {
+            "default": "The fully qualified name \"{0}\" is shared between multiple constructs in this component, potentially compromising maintainability."
+          }
+        }
+      }
+    }
+  ]
+}

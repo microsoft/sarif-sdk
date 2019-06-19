@@ -29,6 +29,7 @@
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\RunResources.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ThreadFlowLocationWithKind.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ToolWithLanguage.sarif" />
+    <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\V1.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\WithExternalPropertyFiles.01-24.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\WithSuppressions.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\ArtifactsWithRoles.sarif" />
@@ -43,6 +44,7 @@
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\RunResources.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\ThreadFlowLocationWithKind.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\ToolWithLanguage.sarif" />
+    <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\V1.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\WithExternalPropertyFiles.01-24.sarif" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\Inputs\WithSuppressions.sarif" />
     <None Remove="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\OneRunWithNotificationTime.sarif" />
@@ -106,6 +108,7 @@
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\RuleIdCollisions.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\NestedFiles.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ToolWithLanguage.sarif" />
+    <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\V1.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\WithExternalPropertyFiles.01-24.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\WithSuppressions.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ThreadFlowLocationWithKind.sarif" />
@@ -114,6 +117,7 @@
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\OneRunWithBasicInvocation.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\OneRunWithInvocationExitCode.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\OneRunWithRedactionToken.sarif" />
+    <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\V1.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\WithExternalPropertyFiles.01-24.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\ComprehensiveToolProperties.01-24.sarif" />
     <EmbeddedResource Include="TestData\PrereleaseCompatibilityTransformer\Inputs\LocationWithId.sarif" />
