@@ -34,7 +34,13 @@ namespace Microsoft.CodeAnalysis.Sarif
             WebMessageUtilities.ParseHeaderLines(requestString, out Dictionary<string, string> headers, out int totalHeadersLength);
             webRequest.Headers = headers;
 
-            requestString = requestString.Substring(totalHeadersLength);
+            if (requestString.Length > totalHeadersLength)
+            {
+                webRequest.Body = new ArtifactContent
+                {
+                    Text = requestString.Substring(totalHeadersLength)
+                };
+            }
 
             return webRequest;
         }

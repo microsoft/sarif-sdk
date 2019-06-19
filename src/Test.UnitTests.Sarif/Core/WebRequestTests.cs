@@ -32,6 +32,7 @@ Accept-Language: en, mi
             webRequest.Headers["User-Agent"].Should().Be("curl/7.16.3 libcurl/7.16.3 OpenSSL/0.9.7l zlib/1.2.3");
             webRequest.Headers["Host"].Should().Be("www.example.com");
             webRequest.Headers["Accept-Language"].Should().Be("en, mi");
+            webRequest.Body.Should().BeNull();
         }
     }
 }
