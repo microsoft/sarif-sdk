@@ -123,7 +123,13 @@
   <data name="ErrorIllegalContextReuse" xml:space="preserve">
     <value>A context object was reinitialized with a new target URI.</value>
   </data>
+  <data name="ErrorNoGroupInFileName" xml:space="preserve">
+    <value>Error: No "group" (the part of the file name before the dash) found in '{0}'. All file names must be of the form [Group]-[RunID] and each adjacent pair in the same group is compared.</value>
+  </data>
   <data name="ErrorInvalidTransformTargetVersion" xml:space="preserve">
     <value>Target version must be 1 or 2</value>
+  </data>
+  <data name="ResultDifferenceSummary" xml:space="preserve">
+    <value>{0:n0} identical, {1:n0} changed</value>
   </data>
 </root>
