@@ -140,12 +140,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         {
             foreach (ExtractedResult result in baselineResults)
             {
-                matchedResults.Add(new MatchedResults() { PreviousResult = result, CurrentResult = null });
+                matchedResults.Add(new MatchedResults(result, null));
             }
 
             foreach (ExtractedResult result in currentResults)
             {
-                matchedResults.Add(new MatchedResults() { PreviousResult = null, CurrentResult = result });
+                matchedResults.Add(new MatchedResults(null, result));
             }
         }
 
@@ -175,7 +175,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 {
                     foreach (Result result in run.Results)
                     {
-                        results.Add(new ExtractedResult() { Result = result, OriginalRun = run });
+                        results.Add(new ExtractedResult(result, run));
                     }
                 }
             }

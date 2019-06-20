@@ -14,14 +14,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
     {
         private const string MatchResultMetadata_RunKeyName = "Run";
         private const string MatchResultMetadata_FoundDateName = "FoundDate";
+        private const string MatchResultMetadata_PreviousGuid = "PreviousGuid";
 
-        public ExtractedResult PreviousResult { get; set; }
+        public ExtractedResult PreviousResult { get; private set; }
 
-        public ExtractedResult CurrentResult { get; set; }
+        public ExtractedResult CurrentResult { get; private set; }
 
-        public IResultMatcher MatchingAlgorithm { get; set; }
+        public Run Run { get; set; }
 
-        public Run Run{ get; set; }
+        public MatchedResults(ExtractedResult previous, ExtractedResult current)
+        {
+            if (previous == null && current == null) { throw new ArgumentException($"MatchedResults requires at least one non-null Result."); }
+            this.PreviousResult = previous;
+            this.CurrentResult = current;
+            this.Run = current?.OriginalRun ?? previous?.OriginalRun;
+        }
 
         /// <summary>
         /// Creates a new SARIF Result object with contents from the
@@ -33,29 +40,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         {
             Result result;
 
-            Dictionary<string, object> ResultMatchingProperties = new Dictionary<string, object>();
-            Dictionary<string, object> OriginalResultMatchingProperties = null;
+            Dictionary<string, object> resultMatchingProperties = new Dictionary<string, object>();
+            Dictionary<string, object> originalResultMatchingProperties = null;
             if (PreviousResult != null && CurrentResult != null)
             {
                 // Baseline result and current result have been matched => existing.
-                result = ConstructExistingResult(ResultMatchingProperties, out OriginalResultMatchingProperties);
+                result = ConstructExistingResult(resultMatchingProperties, out originalResultMatchingProperties);
             }
             else if (PreviousResult == null && CurrentResult != null)
             {
                 // No baseline result, present current result => new.
-                result = ConstructNewResult(ResultMatchingProperties, out OriginalResultMatchingProperties);
+                result = ConstructNewResult(resultMatchingProperties, out originalResultMatchingProperties);
             }
             else if (PreviousResult != null && CurrentResult == null)
             {
                 // Baseline result is present, current result is missing => absent.
-                result = ConstructAbsentResult(ResultMatchingProperties, out OriginalResultMatchingProperties);
+                result = ConstructAbsentResult(resultMatchingProperties, out originalResultMatchingProperties);
             }
             else
             {
                 throw new InvalidOperationException("Cannot generate a result for a new baseline where both results are null.");
             }
 
-            ResultMatchingProperties = MergeDictionaryPreferFirst(ResultMatchingProperties, OriginalResultMatchingProperties);
+            resultMatchingProperties = MergeDictionaryPreferFirst(resultMatchingProperties, originalResultMatchingProperties);
 
             if (PreviousResult != null &&
                 propertyBagMergeBehavior == DictionaryMergeBehavior.InitializeFromOldest)
@@ -63,26 +70,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 result.Properties = PreviousResult.Result.Properties;
             }
 
-            result.SetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, ResultMatchingProperties);
+            result.SetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, resultMatchingProperties);
 
             return result;
         }
 
         private Result ConstructAbsentResult(
-            Dictionary<string, object> ResultMatchingProperties, 
-            out Dictionary<string, object> OriginalResultMatchingProperties)
+            Dictionary<string, object> resultMatchingProperties,
+            out Dictionary<string, object> originalResultMatchingProperties)
         {
             Result result = PreviousResult.Result.DeepClone();
             result.BaselineState = BaselineState.Absent;
 
-            if (!PreviousResult.Result.TryGetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, out OriginalResultMatchingProperties))
+            if (!PreviousResult.Result.TryGetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, out originalResultMatchingProperties))
             {
-                OriginalResultMatchingProperties = new Dictionary<string, object>();
+                originalResultMatchingProperties = new Dictionary<string, object>();
             }
 
             if (PreviousResult.OriginalRun.AutomationDetails?.Guid != null)
             {
-                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, PreviousResult.OriginalRun.AutomationDetails.Guid);
+                resultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, PreviousResult.OriginalRun.AutomationDetails.Guid);
             }
 
             Run = PreviousResult.OriginalRun;
@@ -91,28 +98,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         }
 
         private Result ConstructNewResult(
-            Dictionary<string, object> ResultMatchingProperties, 
-            out Dictionary<string, object> OriginalResultMatchingProperties)
+            Dictionary<string, object> resultMatchingProperties,
+            out Dictionary<string, object> originalResultMatchingProperties)
         {
             // Result is New.
             Result result = CurrentResult.Result.DeepClone();
             result.CorrelationGuid = Guid.NewGuid().ToString();
             result.BaselineState = BaselineState.New;
 
-            if (!CurrentResult.Result.TryGetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, out OriginalResultMatchingProperties))
+            if (!CurrentResult.Result.TryGetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, out originalResultMatchingProperties))
             {
-                OriginalResultMatchingProperties = new Dictionary<string, object>();
+                originalResultMatchingProperties = new Dictionary<string, object>();
             }
 
             if (CurrentResult.OriginalRun.AutomationDetails?.Guid != null)
             {
-                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, CurrentResult.OriginalRun.AutomationDetails.Guid);
+                resultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, CurrentResult.OriginalRun.AutomationDetails.Guid);
             }
 
             // Potentially temporary -- we persist the "originally found date" forward, and this sets it.
             if (CurrentResult.OriginalRun?.Invocations?.Any() == true && CurrentResult.OriginalRun.Invocations[0].StartTimeUtc != null)
             {
-                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_FoundDateName, CurrentResult.OriginalRun.Invocations[0].StartTimeUtc);
+                resultMatchingProperties.Add(MatchedResults.MatchResultMetadata_FoundDateName, CurrentResult.OriginalRun.Invocations[0].StartTimeUtc);
             }
 
             Run = CurrentResult.OriginalRun;
@@ -121,23 +128,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         }
 
         private Result ConstructExistingResult(
-            Dictionary<string, object> ResultMatchingProperties, 
-            out Dictionary<string, object> OriginalResultMatchingProperties)
+            Dictionary<string, object> resultMatchingProperties,
+            out Dictionary<string, object> originalResultMatchingProperties)
         {
             // Result exists.
-            Result  result = CurrentResult.Result.DeepClone();
+            Result result = CurrentResult.Result.DeepClone();
             result.CorrelationGuid = PreviousResult.Result.CorrelationGuid;
             result.Suppressions = PreviousResult.Result.Suppressions;
             result.BaselineState = BaselineState.Unchanged;
 
-            if (!PreviousResult.Result.TryGetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, out OriginalResultMatchingProperties))
+            if (!PreviousResult.Result.TryGetProperty(SarifLogResultMatcher.ResultMatchingResultPropertyName, out originalResultMatchingProperties))
             {
-                OriginalResultMatchingProperties = new Dictionary<string, object>();
+                originalResultMatchingProperties = new Dictionary<string, object>();
             }
 
             if (CurrentResult.OriginalRun.AutomationDetails?.Guid != null)
             {
-                ResultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, CurrentResult.OriginalRun.AutomationDetails.Guid);
+                resultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, CurrentResult.OriginalRun.AutomationDetails.Guid);
+            }
+
+            if (PreviousResult.Result.Guid != null)
+            {
+                resultMatchingProperties.Add(MatchedResults.MatchResultMetadata_PreviousGuid, PreviousResult.Result.Guid);
             }
 
             Run = CurrentResult.OriginalRun;
@@ -146,7 +158,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         }
 
         private Dictionary<string, object> MergeDictionaryPreferFirst(
-            Dictionary<string, object> firstPropertyBag, 
+            Dictionary<string, object> firstPropertyBag,
             Dictionary<string, object> secondPropertyBag)
         {
             Dictionary<string, object> result = firstPropertyBag;
@@ -159,6 +171,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 }
             }
             return result;
+        }
+
+        public override string ToString()
+        {
+            if (PreviousResult != null && CurrentResult != null)
+            {
+                return $"= {PreviousResult}";
+            }
+            else if (PreviousResult == null)
+            {
+                return $"+ {CurrentResult}";
+            }
+            else
+            {
+                return $"- {PreviousResult}";
+            }
         }
     }
 }
