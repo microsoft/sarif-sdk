@@ -6,8 +6,8 @@ using Microsoft.CodeAnalysis.Sarif.Driver;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    [Verb("result-matching-test", HelpText = "Match Results across runs in the same Group in a folder.")]
-    internal class ResultMatchingTestOptions : CommonOptionsBase
+    [Verb("result-match-set", HelpText = "Match Results across runs in the same Group in a folder.")]
+    internal class ResultMatchSetOptions : CommonOptionsBase
     {
         [Value(0,
             MetaName = "folder-path",

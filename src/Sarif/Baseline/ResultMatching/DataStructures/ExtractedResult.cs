@@ -33,26 +33,29 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         {
             return this.RuleId == other.RuleId;
 
-            // Tool (checked on Runs beforehand)
-            // Consider: CorrelationGuid, Level, Rank?
+            // Tool contributes to category, but SarifLogMatcher ensures only Runs with matching Tools are compared,
+            // so we don't check here.
         }
 
         /// <summary>
-        ///  Match the 'What' properties of two ExtractedResults (Fingerprint and Snippet)
+        ///  Match enough of the 'What' properties of two ExtractedResults (Guid, Fingerprints, PartialFingerprints, Snippets, Message, Properties).
+        ///  A match in high-confidence identity properties is a match (Guid, Fingerprint, >= 50% of PartialFingerprint).
+        ///  A non-match in high-confidence identity properties is a non-match (Fingerprint, 0% of PartialFingerprints, Properties).
+        ///  Otherwise, Results match if Message and first Snippet match.
         /// </summary>
         /// <param name="other">ExtractedResult to match</param>
         /// <returns>True if *any* 'What' property matches, False otherwise</returns>
-        public bool MatchesWhat(ExtractedResult other)
+        public bool MatchesAnyWhat(ExtractedResult other)
         {
             return WhatComparer.MatchesWhat(this, other);
         }
 
         /// <summary>
-        ///  Match the 'Where' properties of two ExtractedResults (FileUri, StartLine/Column, EndLine/Column)
+        ///  Match all of the 'Where' properties of two ExtractedResults (FileUri, StartLine/Column, EndLine/Column)
         /// </summary>
         /// <param name="other">ExtractedResult to match</param>
         /// <returns>True if *all* 'Where' properties match, False otherwise</returns>
-        public bool MatchesWhere(ExtractedResult other)
+        public bool MatchesAllWhere(ExtractedResult other)
         {
             return WhereComparer.CompareWhere(this, other) == 0;
         }
@@ -65,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         /// <returns>True if ExtractedResults are 'sufficiently similar', otherwise False.</returns>
         public bool IsSufficientlySimilarTo(ExtractedResult other)
         {
-            return this.MatchesCategory(other) && (this.MatchesWhat(other) || this.MatchesWhere(other));
+            return this.MatchesCategory(other) && (this.MatchesAnyWhat(other) || this.MatchesAllWhere(other));
         }
 
         public override string ToString()

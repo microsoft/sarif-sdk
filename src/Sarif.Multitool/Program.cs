@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 PageOptions,
                 QueryOptions,
                 ResultMatchingOptions,
-                ResultMatchingTestOptions>(args)
+                ResultMatchSetOptions>(args)
               .MapResult(
                 (ValidateOptions validateOptions) => new ValidateCommand().Run(validateOptions),
                 (ConvertOptions convertOptions) => ConvertCommand.Run(convertOptions),
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 (PageOptions pageOptions) => new PageCommand().Run(pageOptions),
                 (QueryOptions queryOptions) => new QueryCommand().Run(queryOptions),
                 (ResultMatchingOptions baselineOptions) => new ResultMatchingCommand().Run(baselineOptions),
-                (ResultMatchingTestOptions options) => new ResultMatchingTestCommand().Run(options),
+                (ResultMatchSetOptions options) => new ResultMatchSetCommand().Run(options),
                 errs => 1);
         }
     }

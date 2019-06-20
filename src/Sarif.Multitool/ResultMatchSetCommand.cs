@@ -11,16 +11,16 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
-    internal class ResultMatchingTestCommand : CommandBase
+    internal class ResultMatchSetCommand : CommandBase
     {
         private readonly IFileSystem _fileSystem;
 
-        public ResultMatchingTestCommand(IFileSystem fileSystem = null)
+        public ResultMatchSetCommand(IFileSystem fileSystem = null)
         {
             _fileSystem = fileSystem ?? new FileSystem();
         }
 
-        public int Run(ResultMatchingTestOptions options)
+        public int Run(ResultMatchSetOptions options)
         {
             options.OutputFolderPath = options.OutputFolderPath ?? Path.Combine(options.FolderPath, "Out");
 
@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     currentLog = ReadSarifFile<SarifLog>(_fileSystem, filePath);
 
                     // Compare each log with the previous one in the same group
-                    if (currentGroup.Equals(previousGroup))
+                    if (currentGroup.Equals(previousGroup) && currentLog?.Runs[0].Results.Count != 0 && previousLog?.Runs[0].Results.Count != 0)
                     {
                         Console.WriteLine();
                         Console.WriteLine($"{previousFileName} -> {fileName}:");
@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 {
                     Console.WriteLine(ex.ToString());
                 }
-                
+
                 previousFileName = fileName;
                 previousGroup = currentGroup;
                 previousLog = currentLog;
@@ -104,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         private static string ChangedSymbol(BaselineState state)
         {
-            switch(state)
+            switch (state)
             {
                 case BaselineState.Unchanged:
                     return "=";
