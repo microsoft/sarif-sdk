@@ -70,13 +70,13 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The request headers.
         /// </summary>
         [DataMember(Name = "headers", IsRequired = false, EmitDefaultValue = false)]
-        public object Headers { get; set; }
+        public IDictionary<string, string> Headers { get; set; }
 
         /// <summary>
         /// The request parameters.
         /// </summary>
         [DataMember(Name = "parameters", IsRequired = false, EmitDefaultValue = false)]
-        public object Parameters { get; set; }
+        public IDictionary<string, string> Parameters { get; set; }
 
         /// <summary>
         /// The body of the request.
@@ -128,7 +128,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public WebRequest(int index, string protocol, string version, string target, string method, object headers, object parameters, ArtifactContent body, IDictionary<string, SerializedPropertyInfo> properties)
+        public WebRequest(int index, string protocol, string version, string target, string method, IDictionary<string, string> headers, IDictionary<string, string> parameters, ArtifactContent body, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(index, protocol, version, target, method, headers, parameters, body, properties);
         }
@@ -170,15 +170,23 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new WebRequest(this);
         }
 
-        protected virtual void Init(int index, string protocol, string version, string target, string method, object headers, object parameters, ArtifactContent body, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(int index, string protocol, string version, string target, string method, IDictionary<string, string> headers, IDictionary<string, string> parameters, ArtifactContent body, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Index = index;
             Protocol = protocol;
             Version = version;
             Target = target;
             Method = method;
-            Headers = headers;
-            Parameters = parameters;
+            if (headers != null)
+            {
+                Headers = new Dictionary<string, string>(headers);
+            }
+
+            if (parameters != null)
+            {
+                Parameters = new Dictionary<string, string>(parameters);
+            }
+
             if (body != null)
             {
                 Body = new ArtifactContent(body);

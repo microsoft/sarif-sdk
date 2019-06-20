@@ -10,7 +10,7 @@ using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Sarif
+namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
 {
     public class StackTests
     {

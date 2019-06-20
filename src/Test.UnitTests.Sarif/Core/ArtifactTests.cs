@@ -5,12 +5,13 @@ using System;
 using System.IO;
 using System.Text;
 using FluentAssertions;
+using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Writers;
 using Moq;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Sarif
+namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
 {
     public class ArtifactTests
     {

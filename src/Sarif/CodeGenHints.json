@@ -1109,6 +1109,16 @@
       }
     }
   ],
+  "WebRequest.Headers": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
+  "WebRequest.Parameters": [
+    {
+      "kind": "DictionaryHint"
+    }
+  ],
   "webResponse": [
     {
       "kind": "BaseTypeHint",
@@ -1117,6 +1127,11 @@
           "PropertyBagHolder"
         ]
       }
+    }
+  ],
+  "WebResponse.Headers": [
+    {
+      "kind": "DictionaryHint"
     }
   ]
 }

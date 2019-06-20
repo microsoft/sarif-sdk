@@ -70,7 +70,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// The response headers.
         /// </summary>
         [DataMember(Name = "headers", IsRequired = false, EmitDefaultValue = false)]
-        public object Headers { get; set; }
+        public IDictionary<string, string> Headers { get; set; }
 
         /// <summary>
         /// The body of the response.
@@ -131,7 +131,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// <param name="properties">
         /// An initialization value for the <see cref="P:Properties" /> property.
         /// </param>
-        public WebResponse(int index, string protocol, string version, int statusCode, string reasonPhrase, object headers, ArtifactContent body, bool noResponseReceived, IDictionary<string, SerializedPropertyInfo> properties)
+        public WebResponse(int index, string protocol, string version, int statusCode, string reasonPhrase, IDictionary<string, string> headers, ArtifactContent body, bool noResponseReceived, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Init(index, protocol, version, statusCode, reasonPhrase, headers, body, noResponseReceived, properties);
         }
@@ -173,14 +173,18 @@ namespace Microsoft.CodeAnalysis.Sarif
             return new WebResponse(this);
         }
 
-        protected virtual void Init(int index, string protocol, string version, int statusCode, string reasonPhrase, object headers, ArtifactContent body, bool noResponseReceived, IDictionary<string, SerializedPropertyInfo> properties)
+        protected virtual void Init(int index, string protocol, string version, int statusCode, string reasonPhrase, IDictionary<string, string> headers, ArtifactContent body, bool noResponseReceived, IDictionary<string, SerializedPropertyInfo> properties)
         {
             Index = index;
             Protocol = protocol;
             Version = version;
             StatusCode = statusCode;
             ReasonPhrase = reasonPhrase;
-            Headers = headers;
+            if (headers != null)
+            {
+                Headers = new Dictionary<string, string>(headers);
+            }
+
             if (body != null)
             {
                 Body = new ArtifactContent(body);

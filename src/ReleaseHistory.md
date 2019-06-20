@@ -399,3 +399,4 @@
 * BUGFIX: Fix crashing bugs and logic flaws in ArtifactLocation.TryReconstructAbsoluteUri.
 * FEATURE: Provide a SARIF converter for Visual Studio log files.
 * FEATURE: Extend the PrereleaseCompatibilityTransformer to handle SARIF v1 files.
+* API NON-BREAKING: Introduce WebRequest.Parse and WebResponse.Parse to parse web traffic strings into SARIF WebRequest and WebResponse objects.
