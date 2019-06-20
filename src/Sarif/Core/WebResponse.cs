@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 
@@ -17,24 +16,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             var webResponse = new WebResponse();
 
-            ParseStatusLine(
-                responseString,
-                out string httpVersion,
-                out string protocol,
-                out string version,
-                out int statusCode,
-                out string reasonPhrase,
-                out int statusLineLength);
-
-            webResponse.HttpVersion = httpVersion;
-            webResponse.Protocol = protocol;
-            webResponse.Version = version;
-            webResponse.StatusCode = statusCode;
-            webResponse.ReasonPhrase = reasonPhrase;
+            webResponse.ParseStatusLine(responseString, out int statusLineLength);
 
             responseString = responseString.Substring(statusLineLength);
-            WebMessageUtilities.ParseHeaderLines(responseString, out Dictionary<string, string> headers, out int totalHeadersLength);
-            webResponse.Headers = headers;
+            webResponse.Headers = WebMessageUtilities.ParseHeaderLines(responseString, out int totalHeadersLength);
 
             if (responseString.Length > totalHeadersLength)
             {
@@ -60,13 +45,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static readonly Regex s_statusLineRegex = SarifUtilities.RegexFromPattern(StatusLinePattern);
 
-        internal static void ParseStatusLine(
+        internal void ParseStatusLine(
             string responseString,
-            out string httpVersion,
-            out string protocol,
-            out string version,
-            out int statusCode,
-            out string reasonPhrase,
             out int length)
         {
             Match match = s_statusLineRegex.Match(responseString);
@@ -75,11 +55,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentException($"Invalid status line: '{WebMessageUtilities.Truncate(responseString)}'", nameof(responseString));
             }
 
-            httpVersion = match.Groups["httpVersion"].Value;
-            protocol = match.Groups["protocol"].Value;
-            version = match.Groups["version"].Value;
-            statusCode = int.Parse(match.Groups["statusCode"].Value);
-            reasonPhrase = match.Groups["reasonPhrase"].Value;
+            this.HttpVersion = match.Groups["httpVersion"].Value;
+            this.Protocol = match.Groups["protocol"].Value;
+            this.Version = match.Groups["version"].Value;
+            this.StatusCode = int.Parse(match.Groups["statusCode"].Value);
+            this.ReasonPhrase = match.Groups["reasonPhrase"].Value;
 
             length = match.Length;
         }

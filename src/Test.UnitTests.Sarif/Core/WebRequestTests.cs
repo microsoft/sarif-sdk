@@ -112,20 +112,16 @@ User-Agent: my-agent
         {
             Action action = () =>
             {
-                WebRequest.ParseRequestLine(
-                    requestLine,
-                    out string method,
-                    out string target,
-                    out string httpVersion,
-                    out string protocol,
-                    out string version,
-                    out int length);
+                var webRequest = new WebRequest();
 
-                method.Should().Be(expectedMethod, because);
-                target.Should().Be(expectedTarget, because);
-                httpVersion.Should().Be(expectedHttpVersion, because);
-                protocol.Should().Be(expectedProtocol, because);
-                version.Should().Be(expectedVersion, because);
+                webRequest.ParseRequestLine(requestLine, out int length);
+
+                webRequest.Method.Should().Be(expectedMethod, because);
+                webRequest.Target.Should().Be(expectedTarget, because);
+                webRequest.HttpVersion.Should().Be(expectedHttpVersion, because);
+                webRequest.Protocol.Should().Be(expectedProtocol, because);
+                webRequest.Version.Should().Be(expectedVersion, because);
+
                 length.Should().Be(expectedLength, because);
             };
 

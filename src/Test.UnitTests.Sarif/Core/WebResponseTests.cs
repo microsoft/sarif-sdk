@@ -143,20 +143,16 @@ Last-Modified: Wed, 22 Jul 2009 19:15:56 GMT
         {
             Action action = () =>
             {
-                WebResponse.ParseStatusLine(
-                    statusLine,
-                    out string httpVersion,
-                    out string protocol,
-                    out string version,
-                    out int statusCode,
-                    out string reasonPhrase,
-                    out int length);
+                var webResponse = new WebResponse();
 
-                httpVersion.Should().Be(expectedHttpVersion, because);
-                protocol.Should().Be(expectedProtocol, because);
-                version.Should().Be(expectedVersion, because);
-                statusCode.Should().Be(expectedStatusCode, because);
-                reasonPhrase.Should().Be(expectedReasonPhrase, because);
+                webResponse.ParseStatusLine(statusLine, out int length);
+
+                webResponse.HttpVersion.Should().Be(expectedHttpVersion, because);
+                webResponse.Protocol.Should().Be(expectedProtocol, because);
+                webResponse.Version.Should().Be(expectedVersion, because);
+                webResponse.StatusCode.Should().Be(expectedStatusCode, because);
+                webResponse.ReasonPhrase.Should().Be(expectedReasonPhrase, because);
+
                 length.Should().Be(expectedLength, because);
             };
 

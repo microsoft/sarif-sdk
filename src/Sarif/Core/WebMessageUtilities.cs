@@ -23,6 +23,14 @@ namespace Microsoft.CodeAnalysis.Sarif
         // it to this length:
         private const int MaxExceptionMessageStringLength = 200;
 
+        // These patterns are taken from the grammar defined in RFC 7230, "Hypertext Transfer Protocol (HTTP/1.1):
+        // Message Syntax and Routing". Yes, tokens (such as message header field names) really can have all those
+        // weird characters.
+        //
+        // We are a little looser than the RFC in a couple of places. In the request, we don't verify that the
+        // "target" field on the request line is a valid URI. Nor do we verify that the request body or response
+        // body contains only "VCHAR"s (visible characters as opposed to control characters), as required by
+        // the RFC.
         internal const string CRLF = "\r\n";
         internal const string TokenPattern = "[!#$%&'*+._`|~0-9a-zA-Z^-]+";
         internal const string HttpVersionPattern = @"(?<protocol>HTTP)/(?<version>[0-9]\.[0-9])";
@@ -41,9 +49,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static readonly Regex s_headerRegex = SarifUtilities.RegexFromPattern(HeaderPattern);
 
-        internal static void ParseHeaderLines(string requestString, out Dictionary<string, string> headers, out int totalLength)
+        internal static IDictionary<string, string> ParseHeaderLines(string requestString, out int totalLength)
         {
-            headers = new Dictionary<string, string>();
+            var headers = new Dictionary<string, string>();
             totalLength = 0;
              
             do
@@ -60,6 +68,8 @@ namespace Microsoft.CodeAnalysis.Sarif
             } while (!requestString.StartsWith(CRLF));  // An empty line signals the end of the headers.
 
             totalLength += CRLF.Length;                 // Skip past the empty line;
+
+            return headers;
         }
 
         internal static void ParseHeaderLine(string headerLine, out string fieldName, out string fieldValue, out int length)

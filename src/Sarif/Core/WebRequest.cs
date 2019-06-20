@@ -19,24 +19,10 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             var webRequest = new WebRequest();
 
-            ParseRequestLine(
-                requestString,
-                out string method,
-                out string target,
-                out string httpVersion,
-                out string protocol,
-                out string version,
-                out int requestLineLength);
-
-            webRequest.Method = method;
-            webRequest.Target = target;
-            webRequest.HttpVersion = httpVersion;
-            webRequest.Protocol = protocol;
-            webRequest.Version = version;
+            webRequest.ParseRequestLine(requestString, out int requestLineLength);
 
             requestString = requestString.Substring(requestLineLength);
-            WebMessageUtilities.ParseHeaderLines(requestString, out Dictionary<string, string> headers, out int totalHeadersLength);
-            webRequest.Headers = headers;
+            webRequest.Headers = WebMessageUtilities.ParseHeaderLines(requestString, out int totalHeadersLength);
 
             if (requestString.Length > totalHeadersLength)
             {
@@ -66,13 +52,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         private static readonly Regex s_requestLineRegex = SarifUtilities.RegexFromPattern(RequestLinePattern);
 
-        internal static void ParseRequestLine(
+        internal void ParseRequestLine(
             string requestString,
-            out string method,
-            out string target,
-            out string httpVersion,
-            out string protocol,
-            out string version,
             out int length)
         {
             Match match = s_requestLineRegex.Match(requestString);
@@ -81,11 +62,11 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentException($"Invalid request line: '{WebMessageUtilities.Truncate(requestString)}'", nameof(requestString));
             }
 
-            method = match.Groups["method"].Value;
-            target = match.Groups["target"].Value;
-            httpVersion = match.Groups["httpVersion"].Value;
-            protocol = match.Groups["protocol"].Value;
-            version = match.Groups["version"].Value;
+            this.Method = match.Groups["method"].Value;
+            this.Target = match.Groups["target"].Value;
+            this.HttpVersion = match.Groups["httpVersion"].Value;
+            this.Protocol = match.Groups["protocol"].Value;
+            this.Version = match.Groups["version"].Value;
 
             length = match.Length;
         }
