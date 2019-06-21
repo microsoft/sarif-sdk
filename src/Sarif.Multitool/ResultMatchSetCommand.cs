@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
@@ -25,16 +26,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             options.OutputFolderPath = options.OutputFolderPath ?? Path.Combine(options.FolderPath, "Out");
 
             ISarifLogMatcher matcher = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
-            Formatting formatting = (options.PrettyPrint ? Formatting.Indented : Formatting.None);
+            Formatting formatting = options.PrettyPrint ? Formatting.Indented : Formatting.None;
 
-            // Remove previous results
-            if (Directory.Exists(options.OutputFolderPath))
+            // Remove previous results.
+            if (_fileSystem.DirectoryExists(options.OutputFolderPath))
             {
-                Directory.Delete(options.OutputFolderPath, true);
+                _fileSystem.DeleteDirectory(options.OutputFolderPath, true);
             }
 
-            // Create output folder
-            Directory.CreateDirectory(options.OutputFolderPath);
+            // Create output folder.
+            _fileSystem.CreateDirectory(options.OutputFolderPath);
 
             string previousFileName = "";
             string previousGroup = "";
@@ -49,21 +50,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 {
                     currentLog = ReadSarifFile<SarifLog>(_fileSystem, filePath);
 
-                    // Compare each log with the previous one in the same group
-                    if (currentGroup.Equals(previousGroup) && currentLog?.Runs[0].Results.Count != 0 && previousLog?.Runs[0].Results.Count != 0)
+                    // Compare each log with the previous one in the same group.
+                    if (currentGroup.Equals(previousGroup) && currentLog?.Runs?[0]?.Results.Count != 0 && previousLog?.Runs?[0]?.Results.Count != 0)
                     {
                         Console.WriteLine();
                         Console.WriteLine($"{previousFileName} -> {fileName}:");
-                        SarifLog result = matcher.Match(new[] { previousLog }, new[] { currentLog }).First();
+                        SarifLog mergedLog = matcher.Match(new[] { previousLog }, new[] { currentLog }).First();
 
-                        // Write the same and different count and different IDs
-                        WriteDifferences(result);
+                        // Write the same and different count and different IDs.
+                        WriteDifferences(mergedLog);
 
                         // Write the log, if there were any changed results
-                        if (result.Runs[0].Results.Any(r => r.BaselineState != BaselineState.Unchanged))
+                        if (mergedLog.Runs[0].Results.Any(r => r.BaselineState != BaselineState.Unchanged))
                         {
                             string outputFilePath = Path.Combine(options.OutputFolderPath, fileName);
-                            WriteSarifFile(_fileSystem, result, outputFilePath, formatting);
+                            WriteSarifFile(_fileSystem, mergedLog, outputFilePath, formatting);
                         }
                     }
                 }
@@ -85,7 +86,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             int dashIndex = fileName.IndexOf('-');
             if (dashIndex < 1)
             {
-                throw new InvalidOperationException($"Error: No group part (before dash) found in {fileName}. All files should be [Group]-[RunID] and each adjacent pair in the same group is compared. Stopping.");
+                throw new InvalidOperationException(
+                    string.Format(
+                        CultureInfo.CurrentCulture,
+                        MultitoolResources.ErrorNoGroupInFileName,
+                        fileName));
             }
 
             return fileName.Substring(0, dashIndex);
@@ -94,7 +99,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private static void WriteDifferences(SarifLog mergedLog)
         {
             List<Result> differentResults = mergedLog.Runs[0].Results.Where(r => r.BaselineState != BaselineState.Unchanged).ToList();
-            Console.WriteLine($"{mergedLog.Runs[0].Results.Count - differentResults.Count:n0} identical, {differentResults.Count:n0} changed");
+            Console.WriteLine(
+                string.Format(
+                    CultureInfo.CurrentCulture,
+                    MultitoolResources.ResultDifferenceSummary,
+                    mergedLog.Runs[0].Results.Count - differentResults.Count,
+                    differentResults.Count));
 
             foreach (Result result in differentResults)
             {

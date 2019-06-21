@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.CodeAnalysis.Sarif {
+namespace Microsoft.CodeAnalysis.Sarif.Multitool {
     using System;
     
     
@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class MultitoolResources {
@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.CodeAnalysis.Sarif.MultitoolResources", typeof(MultitoolResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.CodeAnalysis.Sarif.Multitool.MultitoolResources", typeof(MultitoolResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -84,6 +84,24 @@ namespace Microsoft.CodeAnalysis.Sarif {
         internal static string ErrorInvalidTransformTargetVersion {
             get {
                 return ResourceManager.GetString("ErrorInvalidTransformTargetVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: No &quot;group&quot; (the part of the file name before the dash) found in &apos;{0}&apos;. All file names must be of the form [Group]-[RunID] and each adjacent pair in the same group is compared..
+        /// </summary>
+        internal static string ErrorNoGroupInFileName {
+            get {
+                return ResourceManager.GetString("ErrorNoGroupInFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0:n0} identical, {1:n0} changed.
+        /// </summary>
+        internal static string ResultDifferenceSummary {
+            get {
+                return ResourceManager.GetString("ResultDifferenceSummary", resourceCulture);
             }
         }
     }
