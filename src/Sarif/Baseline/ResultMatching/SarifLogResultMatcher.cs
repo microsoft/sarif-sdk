@@ -116,10 +116,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         {
             // Spin out SARIF logs into MatchingResult objects.
             List<ExtractedResult> baselineResults = 
-                previous == null ? new List<ExtractedResult>() : GetMatchingResultsFromRuns(previous);
+                previous == null ? new List<ExtractedResult>() : ExtractResultsFromRuns(previous);
 
             List<ExtractedResult> currentResults =
-                current == null ? new List<ExtractedResult>() : GetMatchingResultsFromRuns(current);
+                current == null ? new List<ExtractedResult>() : ExtractResultsFromRuns(current);
 
             List<MatchedResults> matchedResults = new List<MatchedResults>();
 
@@ -166,7 +166,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             }
         }
 
-        private List<ExtractedResult> GetMatchingResultsFromRuns(IEnumerable<Run> sarifRuns)
+        private List<ExtractedResult> ExtractResultsFromRuns(IEnumerable<Run> sarifRuns)
         {
             List<ExtractedResult> results = new List<ExtractedResult>();          
             foreach (Run run in sarifRuns)
@@ -182,18 +182,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
             return results;
         }
-        
-        private ReportingDescriptor GetRuleFromResources(Result result, IDictionary<string, ReportingDescriptor> rules)
-        {
-            if (!string.IsNullOrEmpty(result.RuleId))
-            {
-                if (rules.ContainsKey(result.RuleId))
-                {
-                    return rules[result.RuleId];
-                }
-            }
-            return null;
-        }
 
         private SarifLog ConstructSarifLogFromMatchedResults(
             IEnumerable<MatchedResults> results, 
@@ -208,7 +196,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             // Results should all be from the same tool, so we'll pull the log from the first run.
             Tool tool = currentRuns.First().Tool.DeepClone();
 
-            Run run = new Run()
+            var run = new Run
             {
                 Tool = tool,
                 AutomationDetails = currentRuns.First().AutomationDetails,
@@ -317,14 +305,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 SchemaUri = new Uri(SarifUtilities.SarifSchemaUri),
                 Runs = new Run[] { run }
             };
-        }
-
-        private void MergeDictionaryInto<T, S>(
-            IDictionary<T, S> baseDictionary, 
-            IDictionary<T, S> dictionaryToAdd, 
-            IEqualityComparer<S> dictionaryValueComparer)
-        {
-            MergeDictionaryInto(baseDictionary, dictionaryToAdd, dictionaryValueComparer, PropertyBagMergeBehavior);
         }
 
         internal static void MergeDictionaryInto<T, S>(
