@@ -144,8 +144,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
                 foreach (var property in left.Result.Properties)
                 {
-                    if (left.Result.TryGetProperty(property.Key, out string leftValue)
-                        && right.Result.TryGetProperty(property.Key, out string otherPropertyValue))
+                    if (left.Result.TryGetSerializedPropertyValue(property.Key, out string leftValue)
+                        && right.Result.TryGetSerializedPropertyValue(property.Key, out string otherPropertyValue))
                     {
                         correspondingPropertyCount++;
 
