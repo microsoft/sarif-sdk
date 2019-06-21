@@ -18,11 +18,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
     {
         // Dictionary of (Category | PropertyName | Value) => (Result Index)
         // If the same combination occurs multiple times, it will be in the map with an index of -1
-        private Dictionary<WhatComponent, int> Map;
+        private readonly Dictionary<WhatComponent, int> _map;
 
         public WhatMap(IList<ExtractedResult> results, int[] linksFromResults)
         {
-            Map = new Dictionary<WhatComponent, int>();
+            _map = new Dictionary<WhatComponent, int>();
 
             // Map *only* results which aren't already linked
             for (int i = 0; i < results.Count; ++i)
@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
         private void Add(ExtractedResult result, int index)
         {
-            foreach(WhatComponent component in WhatComparer.WhatProperties(result))
+            foreach(WhatComponent component in result.WhatProperties())
             {
                 Add(component, index);
             }
@@ -46,15 +46,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
         {
             if (component?.PropertyValue == null) { return; }
 
-            if (Map.TryGetValue(component, out int existingIndex) && existingIndex != index)
+            if (_map.TryGetValue(component, out int existingIndex) && existingIndex != index)
             {
                 // If the map has another of this value, set index -1 to indicate non-unique
-                Map[component] = -1;
+                _map[component] = -1;
             }
             else
             {
                 // Otherwise, point to the result
-                Map[component] = index;
+                _map[component] = index;
             }
         }
 
@@ -66,9 +66,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
         /// <returns>Index of this and Index of other Result where the two have a unique trait in common.</returns>
         public IEnumerable<Tuple<int, int>> UniqueLinks(WhatMap other)
         {
-            foreach (var entry in Map.Where(entry => entry.Value != -1))
+            foreach (var entry in _map.Where(entry => entry.Value != -1))
             {
-                if (other.Map.TryGetValue(entry.Key, out int otherIndex) && otherIndex != -1)
+                if (other._map.TryGetValue(entry.Key, out int otherIndex) && otherIndex != -1)
                 {
                     yield return new Tuple<int, int>(entry.Value, otherIndex);
                 }
