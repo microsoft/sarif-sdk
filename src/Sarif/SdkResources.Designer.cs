@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class SdkResources {
@@ -237,6 +237,15 @@ namespace Microsoft.CodeAnalysis.Sarif {
         internal static string ERR999_UnhandledEngineException {
             get {
                 return ResourceManager.GetString("ERR999_UnhandledEngineException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MatchedResults requires at least one non-null Result..
+        /// </summary>
+        internal static string ErrorMatchedResultsRequiresNonNullResult {
+            get {
+                return ResourceManager.GetString("ErrorMatchedResultsRequiresNonNullResult", resourceCulture);
             }
         }
         

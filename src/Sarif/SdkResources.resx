@@ -243,4 +243,7 @@
   <data name="ERR997_AllRulesExplicitlyDisabled" xml:space="preserve">
     <value>All rules were explicitly disabled so there is no work to do.</value>
   </data>
+  <data name="ErrorMatchedResultsRequiresNonNullResult" xml:space="preserve">
+    <value>MatchedResults requires at least one non-null Result.</value>
+  </data>
 </root>
