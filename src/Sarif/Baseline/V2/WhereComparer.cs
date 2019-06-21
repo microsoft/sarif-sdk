@@ -40,21 +40,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
         public static int CompareTo(Location left, Run leftRun, Location right, Run rightRun)
         {
-            int cmp = 0;
-
             if (left == null && right == null) { return 0; }
             if (left == null) { return -1; }
             if (right == null) { return 1; }
 
-            // Compare by Physical Location, if present
-            cmp = CompareTo(left.PhysicalLocation, leftRun, right.PhysicalLocation, rightRun);
+            // Compare by Physical Location, if present.
+            int cmp = CompareTo(left.PhysicalLocation, leftRun, right.PhysicalLocation, rightRun);
             if (cmp != 0) { return cmp; }
 
-            // Compare by 'primary' Logical Location, if present
-            cmp = CompareTo(left.LogicalLocation, leftRun, right.LogicalLocation, rightRun);
-            if (cmp != 0) { return cmp; }
-
-            // Compare by all Logical Locations, if present
+            // Compare by all Logical Locations, if present.
             cmp = CompareTo(left.LogicalLocations, leftRun, right.LogicalLocations, rightRun);
             if (cmp != 0) { return cmp; }
 
@@ -79,23 +73,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
         public static int CompareTo(LogicalLocation left, Run leftRun, LogicalLocation right, Run rightRun)
         {
-            // Look up LogicalLocations if these are indices only
-            left = Resolve(left, leftRun);
-            right = Resolve(right, rightRun);
+            // Look up LogicalLocations if these are indices only.
+            left = left?.Resolve(leftRun);
+            right = right?.Resolve(rightRun);
 
             return String.Compare(left?.FullyQualifiedName, right?.FullyQualifiedName);
         }
 
         public static int CompareTo(PhysicalLocation left, Run leftRun, PhysicalLocation right, Run rightRun)
         {
-            int cmp = 0;
-
             if (left == null && right == null) { return 0; }
             if (left == null) { return -1; }
             if (right == null) { return 1; }
 
             // Compare Uris first
-            cmp = CompareTo(left.ArtifactLocation, leftRun, right.ArtifactLocation, rightRun);
+            int cmp = CompareTo(left.ArtifactLocation, leftRun, right.ArtifactLocation, rightRun);
             if (cmp != 0) { return cmp; }
 
             // Compare Region if Uris match
@@ -115,13 +107,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
         /// </summary>
         public static int CompareTo(Region left, Region right)
         {
-            int cmp = 0;
-
             if (left == null && right == null) { return 0; }
             if (left == null) { return -1; }
             if (right == null) { return 1; }
 
-            cmp = left.ByteOffset.CompareTo(right.ByteOffset);
+            int cmp = left.ByteOffset.CompareTo(right.ByteOffset);
             if (cmp != 0) { return cmp; }
 
             cmp = left.ByteLength.CompareTo(right.ByteLength);
@@ -159,39 +149,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
         private static Uri ArtifactUri(ArtifactLocation loc, Run run)
         {
-            return loc?.Uri ?? Resolve(loc, run)?.Uri;
-        }
-
-        private static LogicalLocation Resolve(LogicalLocation loc, Run run)
-        {
-            if (loc == null)
-            {
-                return null;
-            }
-            else if (loc.Index >= 0 && loc.Index < run?.LogicalLocations?.Count)
-            {
-                return run.LogicalLocations[loc.Index];
-            }
-            else
-            {
-                return loc;
-            }
-        }
-
-        private static ArtifactLocation Resolve(ArtifactLocation loc, Run run)
-        {
-            if (loc == null)
-            {
-                return null;
-            }
-            else if (loc.Index >= 0 && loc.Index < run?.Artifacts?.Count)
-            {
-                return run.Artifacts[loc.Index].Location;
-            }
-            else
-            {
-                return loc;
-            }
+            return loc?.Uri ?? loc.Resolve(run)?.Uri;
         }
     }
 }

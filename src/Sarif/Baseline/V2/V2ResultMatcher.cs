@@ -12,16 +12,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
     {
         public IList<MatchedResults> Match(IList<ExtractedResult> before, IList<ExtractedResult> after)
         {
-            ResultMatchState state = new ResultMatchState(before, after);
+            StatefulResultMatcher state = new StatefulResultMatcher(before, after);
             return state.Match();
         }
     }
 
     /// <summary>
-    ///  ResultMatchState contains all of the state needed to compute matches
+    ///  StatefulResultMatcher contains all of the state needed to compute matches
     ///  between two batches of Results.
     /// </summary>
-    internal class ResultMatchState
+    /// <remarks>
+    /// This class exists so that with a V2ResultMatcher in hand, you can call Match on it
+    /// repeatedly without having to worry about resetting its internal state each time.
+    /// All the state is encapsulated by the StatefulResultMatcher, which is discarded
+    /// after each call to V2ResultMatcher.Match.
+    /// </remarks>
+    internal class StatefulResultMatcher
     {
         // Results in the first set
         public List<ExtractedResult> Before;
@@ -35,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
         // The index of the Result in Before matching this Result in After, or -1
         public int[] MatchingIndexFromAfter;
 
-        public ResultMatchState(IList<ExtractedResult> before, IList<ExtractedResult> after)
+        public StatefulResultMatcher(IList<ExtractedResult> before, IList<ExtractedResult> after)
         {
             // Sort results by 'Where' for matching
             Before = new List<ExtractedResult>(before);
@@ -54,9 +60,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
         public IList<MatchedResults> Match()
         {
+            // If there's only one result, the "match before" and "match after" logic doesn't fire for them,
+            // so the only way they'll actually get compared is if we add this special case:
             if (Before.Count == 1 && After.Count == 1)
             {
-                // If there's only one issue, it matches if 'Sufficiently Similar'
+                // If there's only one issue, it matches if 'Sufficiently Similar'.
                 if (Before[0].IsSufficientlySimilarTo(After[0]))
                 {
                     LinkIfSimilar(0, 0);
@@ -72,9 +80,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             return BuildMatchList();
         }
 
-        public void LinkResultsWithIdenticalWhere()
+        private void LinkResultsWithIdenticalWhere()
         {
-            // Walk Results sorted by where, linking those with identical positions and a matching category
+            // Walk Results sorted by where, linking those with identical positions and a matching category.
             int beforeIndex = 0, afterIndex = 0;
             while (beforeIndex < Before.Count && afterIndex < After.Count)
             {
@@ -84,17 +92,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
                 int whereCmp = WhereComparer.CompareWhere(left, right);
                 if (whereCmp < 0)
                 {
-                    // Left is in a 'Where' before Right - look at the next Result in 'Before'
+                    // Left is in a 'Where' before Right - look at the next Result in 'Before'.
                     beforeIndex++;
                 }
                 else if (whereCmp > 0)
                 {
-                    // Right is in a 'Where' before Left - look at the next Result in 'After'
+                    // Right is in a 'Where' before Left - look at the next Result in 'After'.
                     afterIndex++;
                 }
                 else
                 {
-                    // The Results have a matching where. If the category matches, link them
+                    // The Results have a matching where. If the category matches, link them.
                     if (left.MatchesCategory(right))
                     {
                         LinkIfSimilar(beforeIndex, afterIndex);
@@ -107,7 +115,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             }
         }
 
-        public void LinkResultsWithUniqueIdenticalWhat()
+        private void LinkResultsWithUniqueIdenticalWhat()
         {
             WhatMap beforeMap = new WhatMap(Before, MatchingIndexFromBefore);
             WhatMap afterMap = new WhatMap(After, MatchingIndexFromAfter);
@@ -118,9 +126,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             }
         }
 
-        public void LinkAdjacentSimilarResults()
+        private void LinkAdjacentSimilarResults()
         {
-            // Walk down, matching similar, previously unlinked Results after already linked pairs
+            // Walk down, matching similar, previously unlinked Results after already linked pairs.
             for (int beforeIndex = 0; beforeIndex < Before.Count - 1; ++beforeIndex)
             {
                 int afterIndex = MatchingIndexFromBefore[beforeIndex];
@@ -128,7 +136,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
                 LinkIfSimilar(beforeIndex + 1, afterIndex + 1);
             }
 
-            // Walk up, matching similar, previously unlinked Results before already linked pairs
+            // Walk up, matching similar, previously unlinked Results before already linked pairs.
             for (int beforeIndex = Before.Count - 1; beforeIndex > 0; --beforeIndex)
             {
                 int afterIndex = MatchingIndexFromBefore[beforeIndex];
@@ -137,11 +145,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             }
         }
 
-        public IList<MatchedResults> BuildMatchList()
+        private IList<MatchedResults> BuildMatchList()
         {
             List<MatchedResults> matches = new List<MatchedResults>();
 
-            // 1. Add all Removed Results
+            // 1. Add all Removed Results.
             for (int beforeIndex = 0; beforeIndex < Before.Count; ++beforeIndex)
             {
                 if (MatchingIndexFromBefore[beforeIndex] == -1)
@@ -150,7 +158,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
                 }
             }
 
-            // 2. Add all linked pairs and Added Results (in 'After' order)
+            // 2. Add all linked pairs and Added Results (in 'After' order).
             for (int afterIndex = 0; afterIndex < After.Count; ++afterIndex)
             {
                 int beforeIndex = MatchingIndexFromAfter[afterIndex];
@@ -169,7 +177,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
         private void LinkIfSimilar(int beforeIndex, int afterIndex)
         {
-            // Link Results *if* they weren't matched earlier and they are 'Sufficiently Similar'
+            // Link Results *if* they weren't matched earlier and they are 'Sufficiently Similar'.
             if (MatchingIndexFromBefore[beforeIndex] == -1 && MatchingIndexFromAfter[afterIndex] == -1)
             {
                 if (Before[beforeIndex].IsSufficientlySimilarTo(After[afterIndex]))
