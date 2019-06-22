@@ -133,6 +133,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             {
                 int afterIndex = MatchingIndexFromBefore[beforeIndex];
                 if (afterIndex == -1 || afterIndex + 1 >= After.Count) { continue; }
+
+                // This is very subtle. At first glance it seems that we only give the result pairs
+                // _immediately_ after previously linked pairs a chance to match. But when we link
+                // this pair, we'll add its indices to the MatchingIndexFromBefore and MatchingIndexFromAfter
+                // maps. So the next time through the loop, afterIndex will once again _not_ be -1,
+                // and we'll give the next pair a chance to match as well.
                 LinkIfSimilar(beforeIndex + 1, afterIndex + 1);
             }
 
