@@ -1,13 +1,18 @@
-﻿using System;
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using FluentAssertions;
+using Microsoft.CodeAnalysis.Sarif;
+using Microsoft.CodeAnalysis.Sarif.Baseline;
 using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Sarif.Baseline
+namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
 {
     public class V2ResultMatcherTests
     {
