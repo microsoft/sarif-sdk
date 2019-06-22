@@ -29,17 +29,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
     /// </remarks>
     internal class StatefulResultMatcher
     {
-        // Results in the first set
-        public List<ExtractedResult> Before;
+        // Results in the first set.
+        private List<ExtractedResult> Before { get; }
 
-        // Results in the second set
-        public List<ExtractedResult> After;
+        // Results in the second set.
+        private List<ExtractedResult> After { get; }
 
-        // The index of the Result in After matching this Result in Before, or -1
-        public int[] MatchingIndexFromBefore;
+        // The index of the Result in After matching this Result in Before, or -1.
+        private int[] MatchingIndexFromBefore { get; }
 
-        // The index of the Result in Before matching this Result in After, or -1
-        public int[] MatchingIndexFromAfter;
+        // The index of the Result in Before matching this Result in After, or -1.
+        private int[] MatchingIndexFromAfter { get; }
 
         public StatefulResultMatcher(IList<ExtractedResult> before, IList<ExtractedResult> after)
         {
