@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             After = new List<ExtractedResult>(after);
             After.Sort(WhereComparer.Instance);
 
-            // Set all match indices to -1 initially (no Results matched)
+            // Set all match indices to -1 initially (no Results matched).
             MatchingIndexFromBefore = new int[Before.Count];
             Fill(MatchingIndexFromBefore, -1);
 
@@ -108,7 +108,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
                         LinkIfSimilar(beforeIndex, afterIndex);
                     }
 
-                    // Look at the next pair of Results
+                    // Look at the next pair of Results.
                     beforeIndex++;
                     afterIndex++;
                 }
@@ -128,7 +128,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
         private void LinkAdjacentSimilarResults()
         {
-            // Walk down, matching similar, previously unlinked Results after already linked pairs.
+            // Walk up, matching similar, previously unlinked Results after already linked pairs.
             for (int beforeIndex = 0; beforeIndex < Before.Count - 1; ++beforeIndex)
             {
                 int afterIndex = MatchingIndexFromBefore[beforeIndex];
@@ -136,7 +136,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
                 LinkIfSimilar(beforeIndex + 1, afterIndex + 1);
             }
 
-            // Walk up, matching similar, previously unlinked Results before already linked pairs.
+            // Walk down, matching similar, previously unlinked Results before already linked pairs.
             for (int beforeIndex = Before.Count - 1; beforeIndex > 0; --beforeIndex)
             {
                 int afterIndex = MatchingIndexFromBefore[beforeIndex];
