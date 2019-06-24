@@ -403,3 +403,4 @@
 * API NON-BREAKING: Introduce PropertyBagHolder.{Try}GetSerializedPropertyInfo, a safe way of retrieving a property whose type is unknown.
 
 ## **v2.1.4** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.4) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.4)
+* BUGFIX: Fix bugs in WebRequest.Parse related to parsing the query portion of a URI.
