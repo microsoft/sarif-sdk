@@ -97,5 +97,12 @@ namespace Microsoft.CodeAnalysis.Sarif
                 UriBaseId = uriBaseId
             };
         }
+
+        public ArtifactLocation Resolve(Run run)
+        {
+            return Index >= 0 && Index < run?.Artifacts?.Count
+                ? run.Artifacts[Index].Location
+                : this;
+        }
     }
 }

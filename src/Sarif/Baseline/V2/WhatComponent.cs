@@ -7,10 +7,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 {
     internal class WhatComponent : IEquatable<WhatComponent>
     {
-        public string Category { get; set; }
-        public string PropertySet { get; set; }
-        public string PropertyName { get; set; }
-        public string PropertyValue { get; set; }
+        public string Category { get; }
+        public string PropertySet { get; }
+        public string PropertyName { get; }
+        public string PropertyValue { get; }
 
         public WhatComponent(string category, string propertySet, string propertyName, string propertyValue)
         {
@@ -42,19 +42,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
         public override int GetHashCode()
         {
-            int hashCode = 0;
+            int hashCode = 17;
 
-            hashCode *= 13;
-            hashCode = this.Category?.GetHashCode() ?? 0;
+            unchecked
+            {
+                if (this.Category != null)
+                {
+                    hashCode = hashCode * 31 + this.Category.GetHashCode();
+                }
 
-            hashCode *= 13;
-            hashCode = this.PropertySet?.GetHashCode() ?? 0;
+                if (this.PropertySet != null)
+                {
+                    hashCode = hashCode * 31 + this.PropertySet.GetHashCode();
+                }
 
-            hashCode *= 13;
-            hashCode = this.PropertyName?.GetHashCode() ?? 0;
+                if (this.PropertyName != null)
+                {
+                    hashCode = hashCode * 31 + this.PropertyName.GetHashCode();
+                }
 
-            hashCode *= 13;
-            hashCode = this.PropertyValue?.GetHashCode() ?? 0;
+                if (this.PropertyValue != null)
+                {
+                    hashCode = hashCode * 31 + this.PropertyValue.GetHashCode();
+                }
+            }
 
             return hashCode;
         }

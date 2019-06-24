@@ -1,31 +1,31 @@
-﻿using System;
+﻿// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using FluentAssertions;
+using Microsoft.CodeAnalysis.Sarif;
+using Microsoft.CodeAnalysis.Sarif.Baseline;
 using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Sarif.Baseline
+namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
 {
     public class V2ResultMatcherTests
     {
         private const string SampleFilePath = "elfie-arriba.sarif";
-        private Run SampleRun { get; set; }
+        private Run SampleRun { get; }
 
-        private static IResultMatcher matcher = new V2ResultMatcher();
-        private static ResourceExtractor extractor = new ResourceExtractor(typeof(V2ResultMatcherTests));
-
+        private static readonly IResultMatcher matcher = new V2ResultMatcher();
+        private static readonly ResourceExtractor extractor = new ResourceExtractor(typeof(V2ResultMatcherTests));
 
         public V2ResultMatcherTests()
         {
-            if (!File.Exists(SampleFilePath))
-            {
-                File.WriteAllText(SampleFilePath, extractor.GetResourceText(SampleFilePath));
-            }
+            string sampleFileContents = extractor.GetResourceText(SampleFilePath);
 
-            SampleRun = JsonConvert.DeserializeObject<SarifLog>(File.ReadAllText(SampleFilePath)).Runs[0];
+            SampleRun = JsonConvert.DeserializeObject<SarifLog>(sampleFileContents).Runs[0];
         }
 
         private static IEnumerable<MatchedResults> Match(Run previous, Run current)
@@ -80,7 +80,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             matches.Where(m => m.PreviousResult == null || m.CurrentResult == null).Should().HaveCount(1);
 
             MatchedResults nonMatch = matches.Where(m => m.PreviousResult == null || m.CurrentResult == null).First();
-            Assert.Same(newResult, nonMatch.CurrentResult.Result);
+            newResult.Should().BeSameAs(nonMatch.CurrentResult.Result);
         }
 
         [Fact]
@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             matches.Where(m => m.PreviousResult == null || m.CurrentResult == null).Should().HaveCount(1);
 
             MatchedResults nonMatch = matches.Where(m => m.PreviousResult == null || m.CurrentResult == null).First();
-            Assert.Same(SampleRun.Results[2], nonMatch.PreviousResult.Result);
+            SampleRun.Results[2].Should().BeSameAs(nonMatch.PreviousResult.Result);
         }
 
         [Fact]
@@ -114,10 +114,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             matches.Where(m => m.PreviousResult == null || m.CurrentResult == null).Should().HaveCount(2);
 
             MatchedResults removed = matches.Where(m => m.CurrentResult == null).First();
-            Assert.Same(SampleRun.Results[2], removed.PreviousResult.Result);
+            SampleRun.Results[2].Should().BeSameAs(removed.PreviousResult.Result);
 
             MatchedResults added = matches.Where(m => m.PreviousResult == null).First();
-            Assert.Same(newResult, added.CurrentResult.Result);
+            newResult.Should().BeSameAs(added.CurrentResult.Result);
         }
 
         [Fact]

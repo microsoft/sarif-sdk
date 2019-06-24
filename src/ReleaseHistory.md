@@ -400,3 +400,4 @@
 * FEATURE: Provide a SARIF converter for Visual Studio log files.
 * FEATURE: Extend the PrereleaseCompatibilityTransformer to handle SARIF v1 files.
 * API NON-BREAKING: Introduce WebRequest.Parse and WebResponse.Parse to parse web traffic strings into SARIF WebRequest and WebResponse objects.
+* API NON-BREAKING: Introduce PropertyBagHolder.{Try}GetSerializedPropertyInfo, a safe way of retrieving a property whose type is unknown.

@@ -1,14 +1,17 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 {
     /// <summary>
-    /// Result metadata for matching a group of results from a 
-    /// set of runs (such as the current set of results) to a group of results 
-    /// from a different set of runs (such as the prior set of results).
+    /// This class associates a Result object with additional metadata that
+    /// makes it possible for a matching algorithm to determine if it matches
+    /// a result from another run.
     /// </summary>
+    /// <remarks>
+    /// If a matching algorithm determines that two such results _do_ match, it
+    /// will construct a <see cref="MatchedResults"/> object to capture the association.
+    /// </remarks>
     public class ExtractedResult
     {
         public Result Result { get; set; }
@@ -20,12 +23,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             Result = result;
             OriginalRun = run;
 
-            // Look up and cache the RuleId
+            // Look up and cache the RuleId.
             RuleId = result.ResolvedRuleId(run);
         }
 
         /// <summary>
-        ///  Match the 'Category' of two ExtractedResults (Tool and RuleId)
+        ///  Match the 'Category' of two ExtractedResults (Tool and RuleId).
         /// </summary>
         /// <param name="other">ExtractedResult to match</param>
         /// <returns>True if Category is identical, False otherwise</returns>
@@ -51,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         }
 
         /// <summary>
-        ///  Match all of the 'Where' properties of two ExtractedResults (FileUri, StartLine/Column, EndLine/Column)
+        ///  Match all of the 'Where' properties of two ExtractedResults (FileUri, StartLine/Column, EndLine/Column).
         /// </summary>
         /// <param name="other">ExtractedResult to match</param>
         /// <returns>True if *all* 'Where' properties match, False otherwise</returns>

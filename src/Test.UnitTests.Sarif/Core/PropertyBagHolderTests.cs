@@ -4,11 +4,12 @@
 using System;
 using System.Collections.Generic;
 using FluentAssertions;
+using Microsoft.CodeAnalysis.Sarif;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Sarif
+namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
 {
     internal class TestClass : PropertyBagHolder
     {
@@ -98,6 +99,16 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        public void PropertyBagHolder_GetSerializedPropertyValue_ThrowsIfPropertyDoesNotExist()
+        {
+            var inputObject = new TestClass();
+
+            Action action = () => inputObject.GetSerializedPropertyValue(PropertyName);
+
+            action.Should().Throw<InvalidOperationException>().WithMessage($"*{PropertyName}*");
+        }
+
+        [Fact]
         public void PropertyBagHolder_TryGetProperty_ReturnsTrueWhenPropertyExists()
         {
             var inputObject = new TestClass();
@@ -133,6 +144,25 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             inputObject.TryGetProperty<int>(PropertyName, out int value).Should().BeFalse();
             value.Should().Be(0);
+        }
+
+        [Fact]
+        public void PropertyBagHolder_TryGetSerializedPropertyValue_ReturnsTrueWhenPropertyExists()
+        {
+            var inputObject = new TestClass();
+            inputObject.SetProperty(PropertyName, 42);
+
+            inputObject.TryGetSerializedPropertyValue(PropertyName, out string value).Should().BeTrue();
+            value.Should().Be("42");
+        }
+
+        [Fact]
+        public void PropertyBagHolder_TryGetSerializedPropertyValue_ReturnsFalseWhenPropertyDoesNotExist()
+        {
+            var inputObject = new TestClass();
+
+            inputObject.TryGetSerializedPropertyValue(PropertyName, out string value).Should().BeFalse();
+            value.Should().BeNull();
         }
 
         [Fact]

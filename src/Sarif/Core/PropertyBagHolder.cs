@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public string GetProperty(string propertyName)
         {
-            if (!PropertyNames.Contains(propertyName))
+            if (Properties?.ContainsKey(propertyName) != true)
             {
                 throw new InvalidOperationException(
                     string.Format(
@@ -78,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public bool TryGetProperty<T>(string propertyName, out T value)
         {
-            if (Properties != null && Properties.Keys.Contains(propertyName))
+            if (Properties?.ContainsKey(propertyName) == true)
             {
                 value = GetProperty<T>(propertyName);
                 return true;
@@ -90,7 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public T GetProperty<T>(string propertyName)
         {
-            if (!PropertyNames.Contains(propertyName))
+            if (Properties?.ContainsKey(propertyName) != true)
             {
                 throw new InvalidOperationException(
                     string.Format(
@@ -100,6 +100,32 @@ namespace Microsoft.CodeAnalysis.Sarif
             }
 
             return JsonConvert.DeserializeObject<T>(Properties[propertyName].SerializedValue);
+        }
+
+        public bool TryGetSerializedPropertyValue(string propertyName, out string serializedValue)
+        {
+            if (Properties?.ContainsKey(propertyName) == true)
+            {
+                serializedValue = GetSerializedPropertyValue(propertyName);
+                return true;
+            }
+
+            serializedValue = null;
+            return false;
+        }
+
+        public string GetSerializedPropertyValue(string propertyName)
+        {
+            if (Properties?.ContainsKey(propertyName) != true)
+            {
+                throw new InvalidOperationException(
+                    string.Format(
+                        CultureInfo.CurrentCulture,
+                        SdkResources.PropertyDoesNotExist,
+                        propertyName));
+            }
+
+            return Properties[propertyName].SerializedValue;
         }
 
         private static readonly JsonSerializerSettings s_settingsWithComprehensiveV2ContractResolver = new JsonSerializerSettings
