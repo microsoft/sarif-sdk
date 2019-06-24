@@ -11,13 +11,13 @@
     <Copyright Condition=" '$(Copyright)' == '' ">© Microsoft Corporation. All rights reserved.</Copyright>
     
     <!-- VersionPrefix denotes the current Semantic Version for the SDK. Must be updated before every nuget drop. -->
-    <VersionPrefix>2.1.3</VersionPrefix>
+    <VersionPrefix>2.1.4</VersionPrefix>
     
      <!-- SchemaVersionAsPublishedToSchemaStoreOrg identifies the current published version on json schema store at https://schemastore.azurewebsites.net/schemas/json/ -->
     <SchemaVersionAsPublishedToSchemaStoreOrg>2.1.0-rtm.2</SchemaVersionAsPublishedToSchemaStoreOrg>
       
     <!-- The stable Version of SARIF Specifications. -->
-    <StableSarifVersion>2.1.4</StableSarifVersion>
+    <StableSarifVersion>2.1.0</StableSarifVersion>
 
     <!--
     Whenever you increment VersionPrefix or VersionSuffix, copy the old value(s)
