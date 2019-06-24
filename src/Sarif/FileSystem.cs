@@ -264,7 +264,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// </param>
         public void DeleteDirectory(string path, bool recursive = false)
         {
-            Directory.Delete(path);
+            Directory.Delete(path, recursive);
         }
     }
 }

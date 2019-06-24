@@ -241,15 +241,6 @@ namespace Microsoft.CodeAnalysis.Sarif {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MatchedResults requires at least one non-null Result..
-        /// </summary>
-        internal static string ErrorMatchedResultsRequiresNonNullResult {
-            get {
-                return ResourceManager.GetString("ErrorMatchedResultsRequiresNonNullResult", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Element expected to be located under a different parent element..
         /// </summary>
         internal static string InvalidParentXml {
