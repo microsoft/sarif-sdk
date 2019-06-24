@@ -17,7 +17,7 @@
     <SchemaVersionAsPublishedToSchemaStoreOrg>2.1.0-rtm.2</SchemaVersionAsPublishedToSchemaStoreOrg>
       
     <!-- The stable Version of SARIF Specifications. -->
-    <StableSarifVersion>2.1.0</StableSarifVersion>
+    <StableSarifVersion>2.1.4</StableSarifVersion>
 
     <!--
     Whenever you increment VersionPrefix or VersionSuffix, copy the old value(s)
@@ -29,7 +29,7 @@
     place. These properties are actually used by the PowerShell script that
     hides the previous package versions on nuget.org.
     -->
-    <PreviousVersionPrefix>2.1.2</PreviousVersionPrefix>
+    <PreviousVersionPrefix>2.1.3</PreviousVersionPrefix>
     <PreviousSchemaVersionAsPublishedToSchemaStoreOrg>2.1.0-rtm.1</PreviousSchemaVersionAsPublishedToSchemaStoreOrg>
     <PreviousStableSarifVersion>2.1.0</PreviousStableSarifVersion>
   </PropertyGroup>
