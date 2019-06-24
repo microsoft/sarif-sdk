@@ -80,9 +80,36 @@ User-Agent: my-agent
 
             webRequest.Method.Should().Be("GET");
             webRequest.Target.Should().Be("/hello.txt?verbose=true&debug=false");
+            webRequest.Query.Should().Be("?verbose=true&debug=false");
             webRequest.Parameters.Count.Should().Be(2);
             webRequest.Parameters["verbose"].Should().Be("true");
             webRequest.Parameters["debug"].Should().Be("false");
+            webRequest.Protocol.Should().Be("HTTP");
+            webRequest.Version.Should().Be("1.1");
+            webRequest.HttpVersion.Should().Be("HTTP/1.1");
+            webRequest.Headers.Count.Should().Be(1);
+            webRequest.Headers["User-Agent"].Should().Be("my-agent");
+            webRequest.Body.Should().BeNull();
+        }
+
+        [Fact]
+        public void WebRequest_Parse_HandlesQueriesWithoutParameters()
+        {
+            // RFC 7230 does not require the query portion of a URI to consist
+            // of a set of name/value pairs (parameters). If it doesn't, we don't
+            // fail; we just don't populate webRequest.Parameters.
+            const string RequestString =
+@"GET /hello.txt?this-query-is-not-a-set-of-parameters HTTP/1.1
+User-Agent: my-agent
+
+";
+
+            WebRequest webRequest = WebRequest.Parse(RequestString);
+
+            webRequest.Method.Should().Be("GET");
+            webRequest.Target.Should().Be("/hello.txt?this-query-is-not-a-set-of-parameters");
+            webRequest.Query.Should().Be("?this-query-is-not-a-set-of-parameters");
+            webRequest.Parameters.Count.Should().Be(0);
             webRequest.Protocol.Should().Be("HTTP");
             webRequest.Version.Should().Be("1.1");
             webRequest.HttpVersion.Should().Be("HTTP/1.1");
