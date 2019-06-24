@@ -159,11 +159,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         {
             Dictionary<string, object> mergedPropertyBag = firstPropertyBag;
 
-            foreach (string key in secondPropertyBag.Keys.Except(firstPropertyBag.Keys))
+            foreach (string key in secondPropertyBag.Keys)
             {
-                mergedPropertyBag[key] = secondPropertyBag[key];
+                if (!mergedPropertyBag.ContainsKey(key))
+                {
+                    mergedPropertyBag[key] = secondPropertyBag[key];
+                }
             }
-
             return mergedPropertyBag;
         }
 
