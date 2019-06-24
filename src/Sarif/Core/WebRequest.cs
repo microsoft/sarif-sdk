@@ -115,7 +115,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     &?                          # and an '&' (except after the last one).
                   )
                 )*
-                |                               # RFC 7230 does _not_ require a URI's query to
+                |                               # RFC 3986 does _not_ require a URI's query to
                 (?<nonParameterizedQuery>.*)    # consist of key-value pairs. If it doesn't,
                                                 # don't fail.
               )$";

@@ -15,12 +15,13 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Core
         {
             // Example from RFC 7230.
             const string RequestString =
-@"GET /hello.txt HTTP/1.1
-User-Agent: curl/7.16.3 libcurl/7.16.3 OpenSSL/0.9.7l zlib/1.2.3
-Host: www.example.com
-Accept-Language: en, mi
+//@"GET /hello.txt HTTP/1.1
+//User-Agent: curl/7.16.3 libcurl/7.16.3 OpenSSL/0.9.7l zlib/1.2.3
+//Host: www.example.com
+//Accept-Language: en, mi
 
-";
+//";
+"GET /app/scanConfigs/scanConfigs.html?verbose=true&debug=false HTTP/1.1\r\nHost: webscout-ppe\r\nConnection: keep-alive\r\nAccept: application/json, text/plain, */*\r\nRequest-Id: |VCx+R.qlZGS\r\nUser-Agent: Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.96 Safari/537.36\r\nReferer: https://webscout-ppe/\r\nAccept-Encoding: gzip, deflate, br\r\nAccept-Language: en-US,en;q=0.9\r\nAccept-Charset: *\r\nCookie: ai_user=OYbEy|2019-06-13T15:24:19.508Z; ai_session=zilXK|1560439463545.93|1560439463545.93\r\n\r\n";
 
             WebRequest webRequest = WebRequest.Parse(RequestString);
 
@@ -95,7 +96,7 @@ User-Agent: my-agent
         [Fact]
         public void WebRequest_Parse_HandlesQueriesWithoutParameters()
         {
-            // RFC 7230 does not require the query portion of a URI to consist
+            // RFC 3986 does not require the query portion of a URI to consist
             // of a set of name/value pairs (parameters). If it doesn't, we don't
             // fail; we just don't populate webRequest.Parameters.
             const string RequestString =
