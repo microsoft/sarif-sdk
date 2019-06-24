@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             @"^
               \?                              # A literal '?', followed by zero or more
               (
-                (?<name>[^=])                 # parameter name (everything that's not an = sign),
+                (?<name>[^=]+)                # parameter name (everything that's not an = sign),
                 =                             # an equal sign, and
                 (
                   (?<value>[^&]*)             # the value (everything that's not an '&')...
