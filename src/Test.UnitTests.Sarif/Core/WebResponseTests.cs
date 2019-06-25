@@ -32,7 +32,6 @@ Hello World!My payload includes a trailing CRLF.
 
             webResponse.Protocol.Should().Be("HTTP");
             webResponse.Version.Should().Be("1.1");
-            webResponse.HttpVersion.Should().Be("HTTP/1.1");
             webResponse.StatusCode.Should().Be(200);
             webResponse.ReasonPhrase.Should().Be("OK");
             webResponse.Headers.Count.Should().Be(8);
@@ -62,7 +61,6 @@ Last-Modified: Wed, 22 Jul 2009 19:15:56 GMT
 
             webResponse.Protocol.Should().Be("HTTP");
             webResponse.Version.Should().Be("1.1");
-            webResponse.HttpVersion.Should().Be("HTTP/1.1");
             webResponse.StatusCode.Should().Be(200);
             webResponse.ReasonPhrase.Should().Be("OK");
             webResponse.Headers.Count.Should().Be(3);
@@ -92,7 +90,7 @@ Last-Modified: Wed, 22 Jul 2009 19:15:56 GMT
         public void WebResponse_Parse_ThrowsIfHeaderLineIsInvalid()
         {
             const string ResponseString =
-@"HTTP/1.1.1 200 OK
+@"HTTP/1.1 200 OK
 Date: Mon, 27 Jul 2009 12:28:53 GMT
 Server NO COLON Apache
 Last-Modified: Wed, 22 Jul 2009 19:15:56 GMT
@@ -120,20 +118,19 @@ Last-Modified: Wed, 22 Jul 2009 19:15:56 GMT
         }
 
         [Theory]
-        [InlineData("", false, null, null, null, -1, null, -1, "status line is empty")]
-        [InlineData("HTTP/1.1", false, null, null, null, -1, null, -1, "status code is absent")]
-        [InlineData("HTTP/1.1 200", false, null, null, null, -1, null, -1, "reason phrase is absent")]
-        [InlineData("HTTP/1.1 200 OK", false, null, null, null, -1, null, -1, "status line does not end in CRLF")]
-        [InlineData("HTTP2/1.1 200 OK\r\n", false, null, null, null, -1, null, -1, "HTTP version has invalid name")]
-        [InlineData("HTTP/1..1 200 OK\r\n", false, null, null, null, -1, null, -1, "HTTP version has invalid version number")]
-        [InlineData("HTTP/1.1 200a OK\r\n", false, null, null, null, -1, null, -1, "status code is not an integer")]
-        [InlineData("HTTP/1.1 20 OK\r\n", false, null, null, null, -1, null, -1, "status code has fewer than three digits")]
-        [InlineData("HTTP/1.1 2000 OK\r\n", false, null, null, null, -1, null, -1, "status code has more than three digits")]
-        [InlineData("HTTP/1.1 200 OK\r\n", true, "HTTP/1.1", "HTTP", "1.1", 200, "OK", 17, "status line is valid")]
+        [InlineData("", false, null, null, -1, null, -1, "status line is empty")]
+        [InlineData("HTTP/1.1", false, null, null, -1, null, -1, "status code is absent")]
+        [InlineData("HTTP/1.1 200", false, null, null, -1, null, -1, "reason phrase is absent")]
+        [InlineData("HTTP/1.1 200 OK", false, null, null, -1, null, -1, "status line does not end in CRLF")]
+        [InlineData("HTTP2/1.1 200 OK\r\n", false, null, null, -1, null, -1, "HTTP version has invalid name")]
+        [InlineData("HTTP/1..1 200 OK\r\n", false, null, null, -1, null, -1, "HTTP version has invalid version number")]
+        [InlineData("HTTP/1.1 200a OK\r\n", false, null, null, -1, null, -1, "status code is not an integer")]
+        [InlineData("HTTP/1.1 20 OK\r\n", false, null, null, -1, null, -1, "status code has fewer than three digits")]
+        [InlineData("HTTP/1.1 2000 OK\r\n", false, null, null, -1, null, -1, "status code has more than three digits")]
+        [InlineData("HTTP/1.1 200 OK\r\n", true, "HTTP", "1.1", 200, "OK", 17, "status line is valid")]
         public void WebResponse_ParseStatusLine_HandlesErrorConditions(
             string statusLine,
             bool shouldSucceed,
-            string expectedHttpVersion,
             string expectedProtocol,
             string expectedVersion,
             int expectedStatusCode,
@@ -147,7 +144,6 @@ Last-Modified: Wed, 22 Jul 2009 19:15:56 GMT
 
                 webResponse.ParseStatusLine(statusLine, out int length);
 
-                webResponse.HttpVersion.Should().Be(expectedHttpVersion, because);
                 webResponse.Protocol.Should().Be(expectedProtocol, because);
                 webResponse.Version.Should().Be(expectedVersion, because);
                 webResponse.StatusCode.Should().Be(expectedStatusCode, because);
@@ -158,6 +154,31 @@ Last-Modified: Wed, 22 Jul 2009 19:15:56 GMT
 
             if (shouldSucceed) { action.Should().NotThrow(); }
             else { action.Should().Throw<Exception>(); }
+        }
+
+        [Fact]
+        public void WebResponse_TryParse_ReturnsTrueOnValidResponse()
+        {
+            const string ResponseString = "HTTP/1.1 200 OK\r\n\r\n";
+
+            bool succeeded = WebResponse.TryParse(ResponseString, out WebResponse webResponse);
+
+            succeeded.Should().BeTrue();
+            webResponse.Protocol.Should().Be("HTTP");
+            webResponse.Version.Should().Be("1.1");
+            webResponse.StatusCode.Should().Be(200);
+            webResponse.ReasonPhrase.Should().Be("OK");
+        }
+
+        [Fact]
+        public void WebResponse_TryParse_ReturnsFalseOnInvalidResponse()
+        {
+            const string ResponseString = "HTTP/1.1 200 OK extra-stuff\r\n";
+
+            bool succeeded = WebResponse.TryParse(ResponseString, out WebResponse webResponse);
+
+            succeeded.Should().BeFalse();
+            webResponse.Should().BeNull();
         }
     }
 }

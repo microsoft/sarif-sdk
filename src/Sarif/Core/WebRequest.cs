@@ -6,14 +6,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public partial class WebRequest
     {
-        [JsonIgnore]
-        public string HttpVersion { get; private set; }
+        public static bool TryParse(string requestString, out WebRequest webRequest)
+        {
+            bool succeeded = false;
+            webRequest = null;
+
+            try
+            {
+                webRequest = Parse(requestString);
+                succeeded = true;
+            }
+            catch (Exception)
+            {
+            }
+
+            return succeeded;
+        }
 
         public static WebRequest Parse(string requestString)
         {
@@ -34,7 +47,11 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (Uri.TryCreate(webRequest.Target, UriKind.RelativeOrAbsolute, out Uri uri))
             {
-                webRequest.Parameters = ParseQueryParametersFromUri(uri);
+                string query = GetQueryFromUri(uri);
+                if (!string.IsNullOrEmpty(query))
+                {
+                    webRequest.Parameters = ParseParametersFromQueryString(query);
+                }
             }
 
             return webRequest;
@@ -64,19 +81,18 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             this.Method = match.Groups["method"].Value;
             this.Target = match.Groups["target"].Value;
-            this.HttpVersion = match.Groups["httpVersion"].Value;
             this.Protocol = match.Groups["protocol"].Value;
             this.Version = match.Groups["version"].Value;
 
             length = match.Length;
         }
 
-        private static IDictionary<string, string> ParseQueryParametersFromUri(Uri uri)
+        private static string GetQueryFromUri(Uri uri)
         {
             // uri.Query throws an exception if uri is not absolute, so first make it absolute.
             uri = SynthesizeAbsoluteUriFrom(uri);
 
-            return ParseParametersFromQueryString(uri.Query);
+            return uri.Query;
         }
 
         private static Uri SynthesizeAbsoluteUriFrom(Uri uri)
@@ -99,35 +115,38 @@ namespace Microsoft.CodeAnalysis.Sarif
         const string QueryPattern =
             @"^
               \?                              # A literal '?', followed by zero or more
-              (
-                (?<name>[^=])                 # parameter name (everything that's not an = sign),
-                =                             # an equal sign, and
+              (?<query>
                 (
-                  (?<value>[^&]*)             # the value (everything that's not an '&')...
-                  &?                          # and an '&' (except after the last one).
-                )
-              )*";
+                  (?<name>[^=]+)                # parameter name (everything that's not an = sign),
+                  =                             # an equal sign, and
+                  (
+                    (?<value>[^&]*)             # the value (everything that's not an '&')...
+                    &?                          # and an '&' (except after the last one).
+                  )
+                )*
+                |                               # RFC 3986 does _not_ require a URI's query to
+                (?<nonParameterizedQuery>.*)    # consist of key-value pairs. If it doesn't,
+                                                # don't fail.
+              )$";
 
         private static readonly Regex s_queryRegex = SarifUtilities.RegexFromPattern(QueryPattern);
 
         private static IDictionary<string, string> ParseParametersFromQueryString(string query)
         {
             Dictionary<string, string> parameterDictionary = null;
-            if (query != null)
-            {
-                Match match = s_queryRegex.Match(query);
-                if (match.Success)
-                {
-                    List<string> names = match.Groups["name"].Captures.Cast<Capture>().Select(c => c.Value).ToList();
-                    List<string> values = match.Groups["value"].Captures.Cast<Capture>().Select(c => c.Value).ToList();
 
-                    if (names.Count == values.Count)
+            Match match = s_queryRegex.Match(query);
+            if (match.Success)
+            {
+                List<string> names = match.Groups["name"].Captures.Cast<Capture>().Select(c => c.Value).ToList();
+                List<string> values = match.Groups["value"].Captures.Cast<Capture>().Select(c => c.Value).ToList();
+
+                if (names.Count == values.Count)
+                {
+                    parameterDictionary = new Dictionary<string, string>();
+                    for (int i = 0; i < names.Count; ++i)
                     {
-                        parameterDictionary = new Dictionary<string, string>();
-                        for (int i = 0; i < names.Count; ++i)
-                        {
-                            parameterDictionary.Add(names[i], values[i]);
-                        }
+                        parameterDictionary.Add(names[i], values[i]);
                     }
                 }
             }

@@ -3,14 +3,27 @@
 
 using System;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public partial class WebResponse
     {
-        [JsonIgnore]
-        public string HttpVersion { get; private set; }
+        public static bool TryParse(string responseString, out WebResponse webResponse)
+        {
+            bool succeeded = false;
+            webResponse = null;
+
+            try
+            {
+                webResponse = Parse(responseString);
+                succeeded = true;
+            }
+            catch (Exception)
+            {
+            }
+
+            return succeeded;
+        }
 
         public static WebResponse Parse(string responseString)
         {
@@ -55,7 +68,6 @@ namespace Microsoft.CodeAnalysis.Sarif
                 throw new ArgumentException($"Invalid status line: '{WebMessageUtilities.Truncate(responseString)}'", nameof(responseString));
             }
 
-            this.HttpVersion = match.Groups["httpVersion"].Value;
             this.Protocol = match.Groups["protocol"].Value;
             this.Version = match.Groups["version"].Value;
             this.StatusCode = int.Parse(match.Groups["statusCode"].Value);
