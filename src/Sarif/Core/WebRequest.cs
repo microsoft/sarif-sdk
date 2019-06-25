@@ -6,17 +6,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
     public partial class WebRequest
     {
-        [JsonIgnore]
-        public string HttpVersion { get; private set; }
+        public static bool TryParse(string requestString, out WebRequest webRequest)
+        {
+            bool succeeded = false;
+            webRequest = null;
 
-        [JsonIgnore]
-        public string Query { get; private set; }
+            try
+            {
+                webRequest = Parse(requestString);
+                succeeded = true;
+            }
+            catch (Exception)
+            {
+            }
+
+            return succeeded;
+        }
 
         public static WebRequest Parse(string requestString)
         {
@@ -37,10 +47,10 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (Uri.TryCreate(webRequest.Target, UriKind.RelativeOrAbsolute, out Uri uri))
             {
-                webRequest.Query = GetQueryFromUri(uri);
-                if (!string.IsNullOrEmpty(webRequest.Query))
+                string query = GetQueryFromUri(uri);
+                if (!string.IsNullOrEmpty(query))
                 {
-                    webRequest.Parameters = ParseParametersFromQueryString(webRequest.Query);
+                    webRequest.Parameters = ParseParametersFromQueryString(query);
                 }
             }
 
@@ -71,7 +81,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             this.Method = match.Groups["method"].Value;
             this.Target = match.Groups["target"].Value;
-            this.HttpVersion = match.Groups["httpVersion"].Value;
             this.Protocol = match.Groups["protocol"].Value;
             this.Version = match.Groups["version"].Value;
 
