@@ -405,3 +405,7 @@
 ## **v2.1.4** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.4) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.4) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.4) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.4)
 * BUGFIX: Fix bugs related to parsing the query portion of a URI, and to the parsing of header strings.
 * API NON-BREAKING: Introduce `WebRequest.TryParse` and `WebResponse.TryParse` to accompany existing `Parse` methods.
+
+
+## **v2.1.5** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.5) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.5) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.5) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.5)
+* Change schemas back to draft-04 to reenable Intellisense in the Visual Studio JSON editor.
