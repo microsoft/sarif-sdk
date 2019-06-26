@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/schema/draft-04/#",
+  "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Static Analysis Results Format (SARIF) Version 2.1.0-rtm.3 JSON Schema",
   "id": "https://raw.githubusercontent.com/schemastore/schemastore/master/src/schemas/json/sarif-2.1.0-rtm.3.json",
   "description": "Static Analysis Results Format (SARIF) Version 2.1.0-rtm.3 JSON Schema: a standard format for the output of static analysis tools.",
