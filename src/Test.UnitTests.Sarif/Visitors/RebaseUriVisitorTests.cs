@@ -68,6 +68,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
         }
 
         [Fact]
+        public void RebaseUriVisitor_VisitPhysicalLocation_DoesNothingIfIndexReferenceToRunArtifacts()
+        {
+            PhysicalLocation location = new PhysicalLocation
+            {
+                ArtifactLocation = new ArtifactLocation
+                {
+                    Index = 23
+                }
+            };
+            RebaseUriVisitor rebaseUriVisitor = new RebaseUriVisitor("SRCROOT", new Uri(@"C:\bld\src\"));
+
+            rebaseUriVisitor.VisitPhysicalLocation(location).Should().BeEquivalentTo(location, because: "artifact location does not need to be rebased.");
+        }
+
+        [Fact]
         public void RebaseUriVisitor_VisitRun_AddsBaseUriDictionaryWhenNotPresent()
         {
             Random random = RandomSarifLogGenerator.GenerateRandomAndLog(this.output);
