@@ -127,7 +127,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             originalUriBaseIdsDictionary.Count.Should().Be(1);
             originalUriBaseIdsDictionary.ContainsKey(FortifyFprConverter.FileLocationUriBaseId).Should().BeTrue();
-            originalUriBaseIdsDictionary[FortifyFprConverter.FileLocationUriBaseId].Uri.Should().Be(@"file://root/projects/myproject/src/");
+            originalUriBaseIdsDictionary[FortifyFprConverter.FileLocationUriBaseId].Uri.Should().Be(@"file:///root/projects/myproject/src/");
             originalUriBaseIdsDictionary[FortifyFprConverter.FileLocationUriBaseId].UriBaseId.Should().BeNull();
         }
 

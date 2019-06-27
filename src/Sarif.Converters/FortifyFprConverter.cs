@@ -223,7 +223,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 if (originalUriBasePath.StartsWith("/") &&
                      platform == "Linux")
                 {
-                    originalUriBasePath = "file:/" + originalUriBasePath;
+                    originalUriBasePath = "file://" + originalUriBasePath;
                 }
 
                 if (!originalUriBasePath.EndsWith("/"))
