@@ -218,6 +218,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     _originalUriBasePath = "file:/" + _originalUriBasePath;
                 }
 
+                if (_originalUriBasePath.EndsWith(":"))
+                {
+                    _originalUriBasePath = _originalUriBasePath + "/";
+                }
+
                 if (Uri.TryCreate(_originalUriBasePath, UriKind.Absolute, out Uri uri))
                 {
                     run.OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>
