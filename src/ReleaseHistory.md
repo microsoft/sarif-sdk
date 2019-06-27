@@ -408,3 +408,6 @@
 
 ## **v2.1.5** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.5) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.5) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.5) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.5)
 * Change schemas back to draft-04 to reenable Intellisense in the Visual Studio JSON editor.
+
+## **v2.1.6** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.6) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.6) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.6) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.6)
+* BUGFIX: Fortify FPR converter does not populate originalUriBaseIds if the source is a drive letter (e.g. C:)

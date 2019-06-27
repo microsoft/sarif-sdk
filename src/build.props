@@ -11,7 +11,7 @@
     <Copyright Condition=" '$(Copyright)' == '' ">© Microsoft Corporation. All rights reserved.</Copyright>
     
     <!-- VersionPrefix denotes the current Semantic Version for the SDK. Must be updated before every nuget drop. -->
-    <VersionPrefix>2.1.5</VersionPrefix>
+    <VersionPrefix>2.1.6</VersionPrefix>
     
      <!-- SchemaVersionAsPublishedToSchemaStoreOrg identifies the current published version on json schema store at https://schemastore.azurewebsites.net/schemas/json/ -->
     <SchemaVersionAsPublishedToSchemaStoreOrg>2.1.0-rtm.3</SchemaVersionAsPublishedToSchemaStoreOrg>
@@ -29,7 +29,7 @@
     place. These properties are actually used by the PowerShell script that
     hides the previous package versions on nuget.org.
     -->
-    <PreviousVersionPrefix>2.1.4</PreviousVersionPrefix>
+    <PreviousVersionPrefix>2.1.5</PreviousVersionPrefix>
     <PreviousSchemaVersionAsPublishedToSchemaStoreOrg>2.1.0-rtm.2</PreviousSchemaVersionAsPublishedToSchemaStoreOrg>
     <PreviousStableSarifVersion>2.1.0</PreviousStableSarifVersion>
   </PropertyGroup>

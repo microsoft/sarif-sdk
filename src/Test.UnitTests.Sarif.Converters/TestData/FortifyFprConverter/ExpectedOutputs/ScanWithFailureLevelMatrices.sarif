@@ -49080,7 +49080,11 @@
           }
         }
       ],
-      "language": "en-US",
+      "originalUriBaseIds": {
+        "SRCROOT": {
+          "uri": "file:///C:/"
+        }
+      },
       "artifacts": [
         {
           "location": {
