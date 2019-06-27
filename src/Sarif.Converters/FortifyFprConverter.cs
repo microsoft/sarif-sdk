@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
     internal class FortifyFprConverter : ToolFileConverterBase
     {
         private const string FortifyExecutable = "[REMOVED]insourceanalyzer.exe";
-        private const string FileLocationUriBaseId = "SRCROOT";
+        internal const string FileLocationUriBaseId = "SRCROOT";
         private const string ReplacementTokenFormat = "<Replace key=\"{0}\"/>";
         private const string EmbeddedLinkFormat = "[{0}](1)";
 
@@ -210,29 +210,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 run.Taxonomies[0].Taxa = _cweIds.Select(c => new ReportingDescriptor { Id = c }).ToList();
             }
 
-            if (!string.IsNullOrWhiteSpace(_originalUriBasePath))
+            run.OriginalUriBaseIds = GetOriginalUriBaseIdsDictionary(_originalUriBasePath, _invocation.GetProperty("Platform"));
+
+            return run;
+        }
+
+        internal static Dictionary<string, ArtifactLocation> GetOriginalUriBaseIdsDictionary(
+            string originalUriBasePath, string platform)
+        {
+            if (!string.IsNullOrWhiteSpace(originalUriBasePath))
             {
-                if (_originalUriBasePath.StartsWith("/") &&
-                    _invocation.GetProperty("Platform") == "Linux")
+                if (originalUriBasePath.StartsWith("/") &&
+                     platform == "Linux")
                 {
-                    _originalUriBasePath = "file:/" + _originalUriBasePath;
+                    originalUriBasePath = "file:/" + originalUriBasePath;
                 }
 
-                if (_originalUriBasePath.EndsWith(":"))
+                if (!originalUriBasePath.EndsWith("/"))
                 {
-                    _originalUriBasePath = _originalUriBasePath + "/";
+                    originalUriBasePath = originalUriBasePath + "/";
                 }
 
-                if (Uri.TryCreate(_originalUriBasePath, UriKind.Absolute, out Uri uri))
+                if (Uri.TryCreate(originalUriBasePath, UriKind.Absolute, out Uri uri))
                 {
-                    run.OriginalUriBaseIds = new Dictionary<string, ArtifactLocation>
+                    return new Dictionary<string, ArtifactLocation>
                     {
                         { FileLocationUriBaseId, new ArtifactLocation { Uri = uri } }
                     };
                 }
             }
-
-            return run;
+            return null;
         }
 
         private XmlReader OpenAuditFvdlReader(Stream fprFileStream)
