@@ -10,11 +10,9 @@ using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Readers;
 using Microsoft.CodeAnalysis.Sarif.VersionOne;
 using Microsoft.CodeAnalysis.Sarif.Writers;
-using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
-using Xunit;
 using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif
@@ -145,7 +143,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             return Path.Combine(OutputFolderPath, directory, fileName);
         }
 
-        protected string GetResourceText(string resourceName)
+        protected virtual string GetResourceText(string resourceName)
         {
             return _resourceExtractor.GetResourceText(resourceName, TestLogResourceNameRoot);
         }

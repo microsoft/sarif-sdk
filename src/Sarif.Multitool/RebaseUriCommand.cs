@@ -64,10 +64,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return 0;
         }
         
-        private IEnumerable<RebaseUriFile> GetSarifFiles(RebaseUriOptions mergeOptions)
+        private IEnumerable<RebaseUriFile> GetSarifFiles(RebaseUriOptions rebaseUriOptions)
         {
             // Get files names first, as we may write more sarif logs to the same directory as we rebase them.
-            HashSet<string> fileNames = CreateTargetsSet(mergeOptions.TargetFileSpecifiers, mergeOptions.Recurse);
+            HashSet<string> fileNames = CreateTargetsSet(rebaseUriOptions.TargetFileSpecifiers, rebaseUriOptions.Recurse, _fileSystem);
             foreach(var file in fileNames)
             {
                 yield return new RebaseUriFile() { FileName = file, Log = ReadSarifFile<SarifLog>(_fileSystem, file) };

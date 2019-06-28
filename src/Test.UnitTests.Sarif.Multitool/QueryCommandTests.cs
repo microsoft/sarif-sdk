@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis.Sarif.Query;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace Sarif.Multitool.UnitTests
+namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
 {
     public class QueryCommandTests
     {

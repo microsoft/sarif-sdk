@@ -17,11 +17,15 @@
   <ItemGroup>
     <None Remove="TestData\PageCommand\elfie-arriba - Copy.sarif" />
     <None Remove="TestData\PageCommand\elfie-arriba.sarif" />
+    <None Remove="TestData\RebaseUriCommand\ExpectedOutputs\RunWithArtifacts.sarif" />
+    <None Remove="TestData\RebaseUriCommand\RunWithArtifacts.sarif" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="TestData\QueryCommand\elfie-arriba.CSCAN0020.sarif" />
     <EmbeddedResource Include="TestData\PageCommand\elfie-arriba.sarif" />
+    <EmbeddedResource Include="TestData\RebaseUriCommand\ExpectedOutputs\RunWithArtifacts.sarif" />
+    <EmbeddedResource Include="TestData\RebaseUriCommand\Inputs\RunWithArtifacts.sarif" />
   </ItemGroup>
 
   <ItemGroup>

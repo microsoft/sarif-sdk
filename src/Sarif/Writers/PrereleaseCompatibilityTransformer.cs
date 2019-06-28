@@ -70,26 +70,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                             break;
                         }
                         case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.2.json":
-                        {
-                            // rtm.2 release.
-                            // nothing to do.
-                            break;
-                        }
                         case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.1.json":
                         {
-                            // rtm.1 release.
-                            // nothing to do.
+                            modifiedLog |= ApplyRtm2and3Changes(sarifLog);
                             break;
                         }
                         case "http://json.schemastore.org/sarif-2.1.0-rtm.0":
                         {
                             modifiedLog |= ApplyRtm1Changes(sarifLog);
+                            modifiedLog |= ApplyRtm2and3Changes(sarifLog);
                             break;
                         }
                         case "http://json.schemastore.org/sarif-2.1.0-beta.2":
                         {
                             modifiedLog |= ApplyRtm0Changes(sarifLog);
                             modifiedLog |= ApplyRtm1Changes(sarifLog);
+                            modifiedLog |= ApplyRtm2and3Changes(sarifLog);
                             break;
                         }
                         case "http://json.schemastore.org/sarif-2.1.0-beta.1":
@@ -98,6 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                             modifiedLog |= ApplyChangesFromTC35(sarifLog);
                             modifiedLog |= ApplyRtm0Changes(sarifLog);
                             modifiedLog |= ApplyRtm1Changes(sarifLog);
+                            modifiedLog |= ApplyRtm2and3Changes(sarifLog);
                             break;
                         }
                         default:
@@ -114,6 +111,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC35(sarifLog);
                     modifiedLog |= ApplyRtm0Changes(sarifLog);
                     modifiedLog |= ApplyRtm1Changes(sarifLog);
+                    modifiedLog |= ApplyRtm2and3Changes(sarifLog);
                     break;
                 }
 
@@ -124,6 +122,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC35(sarifLog);
                     modifiedLog |= ApplyRtm0Changes(sarifLog);
                     modifiedLog |= ApplyRtm1Changes(sarifLog);
+                    modifiedLog |= ApplyRtm2and3Changes(sarifLog);
                     break;
                 }
 
@@ -136,8 +135,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC35(sarifLog);
                     modifiedLog |= ApplyRtm0Changes(sarifLog);
                     modifiedLog |= ApplyRtm1Changes(sarifLog);
+                    modifiedLog |= ApplyRtm2and3Changes(sarifLog);
                     break;
-                    }
+                }
 
                 case "2.0.0-csd.2.beta.2019-01-09":
                 {
@@ -148,8 +148,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC35(sarifLog);
                     modifiedLog |= ApplyRtm0Changes(sarifLog);
                     modifiedLog |= ApplyRtm1Changes(sarifLog);
+                    modifiedLog |= ApplyRtm2and3Changes(sarifLog);
                     break;
-                    }
+                }
 
                 case "2.0.0-csd.2.beta.2018-10-10":
                 case "2.0.0-csd.2.beta.2018-10-10.1":
@@ -168,6 +169,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC35(sarifLog);
                     modifiedLog |= ApplyRtm0Changes(sarifLog);
                     modifiedLog |= ApplyRtm1Changes(sarifLog);
+                    modifiedLog |= ApplyRtm2and3Changes(sarifLog);
                     break;
                 }
 
@@ -186,6 +188,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                     modifiedLog |= ApplyChangesFromTC35(sarifLog);
                     modifiedLog |= ApplyRtm0Changes(sarifLog);
                     modifiedLog |= ApplyRtm1Changes(sarifLog);
+                    modifiedLog |= ApplyRtm2and3Changes(sarifLog);
                     break;
                 }
             }
@@ -231,9 +234,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
             return transformer.SarifLog;
         }
 
+        private static bool ApplyRtm2and3Changes(JObject sarifLog)
+        {
+            return UpdateSarifLogVersionAndSchema(sarifLog);
+        }
+
         private static bool ApplyRtm1Changes(JObject sarifLog)
         {
-            bool modifiedLog = UpdateSarifLogVersionAndSchema(sarifLog);
+            bool modifiedLog = false;
 
             if (sarifLog["runs"] is JArray runs)
             {
