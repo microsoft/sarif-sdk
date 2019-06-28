@@ -14,6 +14,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
     public class RebaseUriCommandTests : FileDiffingUnitTests
     {
         private static ResourceExtractor Extractor = new ResourceExtractor(typeof(RebaseUriCommandTests));
+        private RebaseUriOptions options;
 
         public RebaseUriCommandTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
 
@@ -22,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
         {
             string testFilePath = "RunWithArtifacts.sarif";
 
-            var options = new RebaseUriOptions
+            this.options = new RebaseUriOptions
             {
                 BasePath = @"C:\vs\src\2\s\",
                 BasePathToken = "SRCROOT",
@@ -31,13 +32,22 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                 PrettyPrint = true
             };
 
-            RunAndValidateRebaseUriCommand(testFilePath, options);
+            RunTest(testFilePath);
         }
 
-        private void RunAndValidateRebaseUriCommand(string testFilePath, RebaseUriOptions options)
+        protected override string ConstructTestOutputFromInputResource(string testFilePath)
         {
-            string inputSarifLog = Extractor.GetResourceText($"RebaseUriCommand.Inputs.{testFilePath}");
-            string expectedOutput = Extractor.GetResourceText($"RebaseUriCommand.ExpectedOutputs.{testFilePath}");
+            return RunRebaseUriCommand(testFilePath, this.options);
+        }
+
+        protected override string GetResourceText(string resourceName)
+        {
+            return Extractor.GetResourceText($"RebaseUriCommand.{resourceName}");
+        }
+
+        private string RunRebaseUriCommand(string testFilePath, RebaseUriOptions options)
+        {
+            string inputSarifLog = Extractor.GetResourceText($"RebaseUriCommand.{testFilePath}");
 
             string logFilePath = @"c:\logs\mylog.sarif";
             StringBuilder transformedContents = new StringBuilder();
@@ -53,24 +63,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
 
             returnCode.Should().Be(0);
 
-            Assert.True(
-                AreEquivalent<SarifLog>(actualOutput, expectedOutput),
-                GetErrorMessageWithDiffFileDetails(testFilePath, expectedOutput, actualOutput)
-                );
-        }
-
-        private static string GetErrorMessageWithDiffFileDetails(string testFilePath, string expectedOutput, string actualOutput)
-        {
-            // TODO: Rebaseline test output functionality is not integrated for these tests yet.
-            // Any change in expected behaviour must be manually updated in the output file.
-
-            string expectedOutputFile = $"expected.{testFilePath}";
-            string actualOutputFile = $"actual.{testFilePath}";
-
-            File.WriteAllText(expectedOutputFile, expectedOutput);
-            File.WriteAllText(actualOutputFile, actualOutput);
-
-            return $"The output did not match with the expected log. Check differences with: {GenerateDiffCommand(null, expectedOutputFile, actualOutputFile)}";
+            return actualOutput;
         }
 
         private static Mock<IFileSystem> ArrangeMockFileSystem(string sarifLog, string logFilePath, StringBuilder transformedContents)
