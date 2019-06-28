@@ -85,7 +85,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
             };
 
-            foreach(KeyValuePair<string,FailureLevel> keyValuePair in expectedInputOutputs)
+            foreach (KeyValuePair<string, FailureLevel> keyValuePair in expectedInputOutputs)
             {
                 ReportingDescriptor rule = new ReportingDescriptor();
                 rule.SetProperty<string>("Impact", keyValuePair.Key);
@@ -94,7 +94,58 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
                 level.Should().Be(keyValuePair.Value);
             }
-            
         }
+
+        [Fact]
+        public void FortifyFprConverter_GetOriginalUriBaseIdsDictionary_sourceIsDriveLetter()
+        {
+            Dictionary<string, ArtifactLocation> originalUriBaseIdsDictionary = FortifyFprConverter.GetOriginalUriBaseIdsDictionary("C:", "Windows Server 2016");
+
+            originalUriBaseIdsDictionary.Count.Should().Be(1);
+            originalUriBaseIdsDictionary.ContainsKey(FortifyFprConverter.FileLocationUriBaseId).Should().BeTrue();
+
+            originalUriBaseIdsDictionary[FortifyFprConverter.FileLocationUriBaseId].Uri.Should().Be(@"file:///C:/");
+            originalUriBaseIdsDictionary[FortifyFprConverter.FileLocationUriBaseId].UriBaseId.Should().BeNull();
+
+        }
+
+        [Fact]
+        public void FortifyFprConverter_GetOriginalUriBaseIdsDictionary_sourceIsAbsolutePathWithoutTrailingSlash()
+        {
+            Dictionary<string, ArtifactLocation> originalUriBaseIdsDictionary = FortifyFprConverter.GetOriginalUriBaseIdsDictionary("C:/test/123", "Windows 10");
+
+            originalUriBaseIdsDictionary.Count.Should().Be(1);
+            originalUriBaseIdsDictionary.ContainsKey(FortifyFprConverter.FileLocationUriBaseId).Should().BeTrue();
+            originalUriBaseIdsDictionary[FortifyFprConverter.FileLocationUriBaseId].Uri.Should().Be(@"file:///C:/test/123/");
+            originalUriBaseIdsDictionary[FortifyFprConverter.FileLocationUriBaseId].UriBaseId.Should().BeNull();
+        }
+
+        [Fact]
+        public void FortifyFprConverter_GetOriginalUriBaseIdsDictionary_sourceIsLinuxStyleAbsolutePath()
+        {
+            Dictionary<string, ArtifactLocation> originalUriBaseIdsDictionary = FortifyFprConverter.GetOriginalUriBaseIdsDictionary("/root/projects/myproject/src/", "Linux");
+
+            originalUriBaseIdsDictionary.Count.Should().Be(1);
+            originalUriBaseIdsDictionary.ContainsKey(FortifyFprConverter.FileLocationUriBaseId).Should().BeTrue();
+            originalUriBaseIdsDictionary[FortifyFprConverter.FileLocationUriBaseId].Uri.Should().Be(@"file:///root/projects/myproject/src/");
+            originalUriBaseIdsDictionary[FortifyFprConverter.FileLocationUriBaseId].UriBaseId.Should().BeNull();
+        }
+
+        [Fact]
+        public void FortifyFprConverter_GetOriginalUriBaseIdsDictionary_sourceIsRelativeWithTrailingSlash()
+        {
+            Dictionary<string, ArtifactLocation> originalUriBaseIdsDictionary = FortifyFprConverter.GetOriginalUriBaseIdsDictionary("/some/relative/path/", "Windows Server 2016");
+
+            originalUriBaseIdsDictionary.Should().BeNull();
+        }
+
+        [Fact]
+        public void FortifyFprConverter_GetOriginalUriBaseIdsDictionary_sourceIsRelativeWithoutTrailingSlash()
+        {
+            Dictionary<string, ArtifactLocation> originalUriBaseIdsDictionary = FortifyFprConverter.GetOriginalUriBaseIdsDictionary("another/relative/path", "Windows Server 2016");
+
+            originalUriBaseIdsDictionary.Should().BeNull();
+        }
+
     }
 }

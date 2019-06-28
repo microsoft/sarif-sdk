@@ -154,7 +154,7 @@
       "language": "en-US",
       "originalUriBaseIds": {
         "SRCROOT": {
-          "uri": "file://root/projects/myproject/src/"
+          "uri": "file:///root/projects/myproject/src/"
         }
       },
       "artifacts": [
