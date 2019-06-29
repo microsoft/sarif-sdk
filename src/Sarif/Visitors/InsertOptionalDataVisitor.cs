@@ -71,14 +71,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             if (insertRegionSnippets || populateRegionProperties || insertContextCodeSnippets)
             {
                 Region expandedRegion;
+                ArtifactLocation artifactLocation = node.ArtifactLocation;
 
                 _fileRegionsCache = _fileRegionsCache ?? new FileRegionsCache(_run);
 
+                if (artifactLocation.Uri == null && artifactLocation.Index >= 0)
+                {
+                    // Uri is not stored at result level, but we have an index to go look in run.Artifacts
+                    // we must pick the ArtifactLocation details from run.artifacts array
+                    Artifact artifactFromRun = _run.Artifacts[artifactLocation.Index];
+                    artifactLocation = artifactFromRun.Location;
+                }
+
                 // If we can resolve a file location to a newly constructed
                 // absolute URI, we will prefer that
-                if (!node.ArtifactLocation.TryReconstructAbsoluteUri(_run.OriginalUriBaseIds, out Uri resolvedUri))
+                if (!artifactLocation.TryReconstructAbsoluteUri(_run.OriginalUriBaseIds, out Uri resolvedUri))
                 {
-                    resolvedUri = node.ArtifactLocation.Uri;
+                    resolvedUri = artifactLocation.Uri;
                 }
 
                 if (!resolvedUri.IsAbsoluteUri) goto Exit;

@@ -16,6 +16,9 @@
 
   <ItemGroup>
     <None Remove="TestData\Baseline\elfie-arriba.sarif" />
+    <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_Rtm_ContextRegionSnippets.sarif" />
+    <None Remove="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_Rtm_RegionSnippets.sarif" />
+    <None Remove="TestData\InsertOptionalDataVisitor\Inputs\CoreTests_Rtm.sarif" />
     <None Remove="TestData\Map\Sample.json" />
     <None Remove="TestData\Map\TinyArray.json" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ArtifactsWithRoles.sarif" />
@@ -62,7 +65,10 @@
 
   <ItemGroup>
     <EmbeddedResource Include="TestData\Baseline\elfie-arriba.sarif" />
+    <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_Rtm_ContextRegionSnippets.sarif" />
+    <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\CoreTests_Rtm_RegionSnippets.sarif" />
     <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\TopLevelOriginalUriBaseIdUriMissing_ContextRegionSnippets.sarif" />
+    <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\Inputs\CoreTests_Rtm.sarif" />
     <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\Inputs\TopLevelOriginalUriBaseIdUriMissing.sarif" />
     <EmbeddedResource Include="TestData\Map\TinyArray.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
