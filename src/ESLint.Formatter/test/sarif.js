@@ -58,10 +58,10 @@ describe("formatter:sarif", () => {
             messages: []
         }];
 
-        it("should return a log with no files and no results", () => {
+        it("should return a log with files, but no results", () => {
             const result = JSON.parse(formatter(code, null));
 
-            assert.isUndefined(result.runs[0].artifacts);
+            assert.isDefined(result.runs[0].artifacts);
             assert.isUndefined(result.runs[0].results);
         });
     });
@@ -310,6 +310,83 @@ describe("formatter:sarif", () => {
             assert.strictEqual(result.runs[0].results[2].locations[0].physicalLocation.region.startLine, 18);
             assert.isUndefined(result.runs[0].results[2].locations[0].physicalLocation.region.startColumn);
             assert.isUndefined(result.runs[0].results[2].locations[0].physicalLocation.region.snippet);
+        });
+    });
+});
+
+describe("formatter:sarif", () => {
+    describe("when passed two results with one having no message and one with two messages", () => {
+        const sourceFilePath1 = "service.js";
+        const sourceFilePath2 = "utils.js";
+        const ruleid1 = "no-unused-vars";
+        const ruleid2 = "no-extra-semi";
+        const ruleid3 = "custom-rule";
+
+        rules[ruleid3] = {
+            type: "suggestion",
+            docs: {
+                description: "custom description",
+                category: "Possible Errors"
+            }
+        };
+        const code = [{
+            filePath: sourceFilePath1,
+            messages: [ ]
+        },
+        {
+            filePath: sourceFilePath2,
+            messages: [{
+                message: "Unexpected something.",
+                severity: 2,
+                ruleId: ruleid2,
+                line: 18
+            },
+            {
+                message: "Custom error.",
+                ruleId: ruleid3,
+                line: 42
+            }]
+        }];
+
+        it("should return a log with two files, two rules, and two results", () => {
+            const result = JSON.parse(formatter(code, { rulesMeta: rules }));
+            const rule2 = rules[ruleid2];
+            const rule3 = rules[ruleid3];
+
+            assert.lengthOf(result.runs[0].artifacts, 2);
+            assert.lengthOf(result.runs[0].results, 2);
+
+            assert.strictEqual(result.runs[0].tool.driver.rules[0].id, ruleid2);
+            assert.strictEqual(result.runs[0].tool.driver.rules[1].id, ruleid3);
+
+            assert.strictEqual(result.runs[0].artifacts[0].artifactLocation.uri, sourceFilePath1);
+            assert.strictEqual(result.runs[0].artifacts[1].artifactLocation.uri, sourceFilePath2);
+
+            assert.strictEqual(result.runs[0].tool.driver.rules[0].id, ruleid2);
+            assert.strictEqual(result.runs[0].tool.driver.rules[0].shortDescription.text, rule2.docs.description);
+            assert.strictEqual(result.runs[0].tool.driver.rules[0].helpUri, rule2.docs.url);
+            assert.strictEqual(result.runs[0].tool.driver.rules[0].tags.category, rule2.docs.category);
+
+            assert.strictEqual(result.runs[0].tool.driver.rules[1].id, ruleid3);
+            assert.strictEqual(result.runs[0].tool.driver.rules[1].shortDescription.text, rule3.docs.description);
+            assert.strictEqual(result.runs[0].tool.driver.rules[1].helpUri, rule3.docs.url);
+            assert.strictEqual(result.runs[0].tool.driver.rules[1].tags.category, rule3.docs.category);
+
+            assert.strictEqual(result.runs[0].results[0].ruleId, ruleid2);
+            assert.strictEqual(result.runs[0].results[1].ruleId, ruleid3);
+
+            assert.strictEqual(result.runs[0].results[0].level, "error");
+            assert.strictEqual(result.runs[0].results[1].level, "warning");
+
+            assert.strictEqual(result.runs[0].results[0].message.text, "Unexpected something.");
+            assert.strictEqual(result.runs[0].results[1].message.text, "Custom error.");
+
+            assert.strictEqual(result.runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri, sourceFilePath2);
+            assert.strictEqual(result.runs[0].results[1].locations[0].physicalLocation.artifactLocation.uri, sourceFilePath2);
+
+            assert.strictEqual(result.runs[0].results[0].locations[0].physicalLocation.region.startLine, 18);
+            assert.isUndefined(result.runs[0].results[0].locations[0].physicalLocation.region.startColumn);
+            assert.isUndefined(result.runs[0].results[0].locations[0].physicalLocation.region.snippet);
         });
     });
 });

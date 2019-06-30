@@ -37,13 +37,14 @@ module.exports = function (results, data) {
 
     const sarifLog = {
         version: "2.1.0",
-        $schema: "http://json.schemastore.org/sarif-2.1.0-beta.2",
+        $schema: "http://json.schemastore.org/sarif-2.1.0-rtm.1",
         runs: [
             {
                 tool: {
                     driver: {
                         name: "ESLint",
-                        downloadUri: "https://eslint.org"
+                        downloadUri: "https://eslint.org",
+                        rules: []
                     }
                 }
             }
@@ -57,103 +58,103 @@ module.exports = function (results, data) {
 
     results.forEach(result => {
 
-        if (result.messages.length > 0) {
-            if (typeof sarifFiles[result.filePath] === "undefined") {
+        // Only add it if not already there.
+        if (typeof sarifFiles[result.filePath] === "undefined") {
 
-                let contentsUtf8;
+            let contentsUtf8;
 
-                // Create a new entry in the files dictionary.
-                sarifFiles[result.filePath] = {
-                    artifactLocation: {
-                        uri: result.filePath
+            // Create a new entry in the files dictionary.
+            sarifFiles[result.filePath] = {
+                artifactLocation: {
+                    uri: result.filePath
+                }
+            };
+
+            if (embedFileContents) {
+                try {
+
+                    // Try to get the file contents and encoding.
+                    const contents = fs.readFileSync(result.filePath);
+                    const encoding = jschardet.detect(contents);
+
+                    // Encoding will be null if it could not be determined.
+                    if (encoding) {
+
+                        // Convert the content bytes to a UTF-8 string.
+                        contentsUtf8 = utf8.encode(contents.toString(encoding.encoding));
+
+                        sarifFiles[result.filePath].contents = {
+                            text: contentsUtf8
+                        };
+                        sarifFiles[result.filePath].encoding = encoding.encoding;
                     }
-                };
-
-                if (embedFileContents) {
-                    try {
-
-                        // Try to get the file contents and encoding.
-                        const contents = fs.readFileSync(result.filePath);
-                        const encoding = jschardet.detect(contents);
-
-                        // Encoding will be null if it could not be determined.
-                        if (encoding) {
-
-                            // Convert the content bytes to a UTF-8 string.
-                            contentsUtf8 = utf8.encode(contents.toString(encoding.encoding));
-
-                            sarifFiles[result.filePath].contents = {
-                                text: contentsUtf8
-                            };
-                            sarifFiles[result.filePath].encoding = encoding.encoding;
-                        }
-                    }
-                    catch (err) {
-                        console.log(err);
-                    }
+                }
+                catch (err) {
+                    console.log(err);
                 }
             }
+            if (result.messages.length > 0) {
 
-            result.messages.forEach(message => {
+                result.messages.forEach(message => {
 
-                const sarifResult = {
-                    level: getResultLevel(message),
-                    message: {
-                        text: message.message
-                    },
-                    locations: [
-                        {
-                            physicalLocation: {
-                                artifactLocation: {
-                                    uri: result.filePath
+                    const sarifResult = {
+                        level: getResultLevel(message),
+                        message: {
+                            text: message.message
+                        },
+                        locations: [
+                            {
+                                physicalLocation: {
+                                    artifactLocation: {
+                                        uri: result.filePath
+                                    }
                                 }
                             }
-                        }
-                    ]
-                };
+                        ]
+                    };
 
-                if (message.ruleId) {
-                    sarifResult.ruleId = message.ruleId;
+                    if (message.ruleId) {
+                        sarifResult.ruleId = message.ruleId;
 
-                    if (rulesMeta && typeof sarifRules[message.ruleId] === "undefined") {
-                        const meta = rulesMeta[message.ruleId];
+                        if (rulesMeta && typeof sarifRules[message.ruleId] === "undefined") {
+                            const meta = rulesMeta[message.ruleId];
 
-                        // An unknown ruleId will return null. This check prevents unit test failure.
-                        if (meta) {
+                            // An unknown ruleId will return null. This check prevents unit test failure.
+                            if (meta) {
 
-                            // Create a new entry in the rules dictionary.
-                            sarifRules[message.ruleId] = {
-                                id: message.ruleId,
-                                shortDescription: {
-                                    text: meta.docs.description
-                                },
-                                helpUri: meta.docs.url,
-                                tags: {
-                                    category: meta.docs.category
-                                }
-                            };
+                                // Create a new entry in the rules dictionary.
+                                sarifRules[message.ruleId] = {
+                                    id: message.ruleId,
+                                    shortDescription: {
+                                        text: meta.docs.description
+                                    },
+                                    helpUri: meta.docs.url,
+                                    tags: {
+                                        category: meta.docs.category
+                                    }
+                                };
+                            }
                         }
                     }
-                }
 
-                if (message.line > 0 || message.column > 0) {
-                    sarifResult.locations[0].physicalLocation.region = {
-                        startLine: message.line,
-                        startColumn: message.column
-                    };
-                }
+                    if (message.line > 0 || message.column > 0) {
+                        sarifResult.locations[0].physicalLocation.region = {
+                            startLine: message.line,
+                            startColumn: message.column
+                        };
+                    }
 
-                if (message.source) {
+                    if (message.source) {
 
-                    // Create an empty region if we don't already have one from the line / column block above.
-                    sarifResult.locations[0].physicalLocation.region = sarifResult.locations[0].physicalLocation.region || {};
-                    sarifResult.locations[0].physicalLocation.region.snippet = {
-                        text: message.source
-                    };
-                }
-
-                sarifResults.push(sarifResult);
-            });
+                        // Create an empty region if we don't already have one from the line / column block above.
+                        sarifResult.locations[0].physicalLocation.region = sarifResult.locations[0].physicalLocation.region || {};
+                        sarifResult.locations[0].physicalLocation.region.snippet = {
+                            text: message.source
+                        };
+                    }
+                    sarifResults.push(sarifResult);
+                });
+            }
         }
     });
 
@@ -170,9 +171,6 @@ module.exports = function (results, data) {
     }
 
     if (Object.keys(sarifRules).length > 0) {
-        sarifLog.runs[0].tool.driver = {
-            rules: []
-        };
 
         let ruleIndex = 0;
         Object.keys(sarifRules).forEach(function (ruleId) {
