@@ -65,7 +65,7 @@ module.exports = function (results, data) {
 
             // Create a new entry in the files dictionary.
             sarifFiles[result.filePath] = {
-                artifactLocation: {
+                location: {
                     uri: result.filePath
                 }
             };

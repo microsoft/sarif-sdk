@@ -81,7 +81,7 @@ describe("formatter:sarif", () => {
         it("should return a log with one file and one result", () => {
             const result = JSON.parse(formatter(code, { rulesMeta: rules }));
             
-            assert.strictEqual(result.runs[0].artifacts[0].artifactLocation.uri, sourceFilePath);
+            assert.strictEqual(result.runs[0].artifacts[0].location.uri, sourceFilePath);
             assert.isDefined(result.runs[0].results);
             assert.lengthOf(result.runs[0].results, 1);
             assert.strictEqual(result.runs[0].results[0].level, "error");
@@ -260,11 +260,11 @@ describe("formatter:sarif", () => {
             assert.strictEqual(result.runs[0].tool.driver.rules[1].id, ruleid2);
             assert.strictEqual(result.runs[0].tool.driver.rules[2].id, ruleid3);
 
-            assert.strictEqual(result.runs[0].artifacts[0].artifactLocation.uri, sourceFilePath1);
-            assert.strictEqual(result.runs[0].artifacts[1].artifactLocation.uri, sourceFilePath2);
+            assert.strictEqual(result.runs[0].artifacts[0].location.uri, sourceFilePath1);
+            assert.strictEqual(result.runs[0].artifacts[1].location.uri, sourceFilePath2);
 
-            assert.strictEqual(result.runs[0].artifacts[0].artifactLocation.uri, sourceFilePath1);
-            assert.strictEqual(result.runs[0].artifacts[1].artifactLocation.uri, sourceFilePath2);
+            assert.strictEqual(result.runs[0].artifacts[0].location.uri, sourceFilePath1);
+            assert.strictEqual(result.runs[0].artifacts[1].location.uri, sourceFilePath2);
 
             assert.strictEqual(result.runs[0].tool.driver.rules[0].id, ruleid1);
             assert.strictEqual(result.runs[0].tool.driver.rules[0].shortDescription.text, rule1.docs.description);
@@ -359,8 +359,8 @@ describe("formatter:sarif", () => {
             assert.strictEqual(result.runs[0].tool.driver.rules[0].id, ruleid2);
             assert.strictEqual(result.runs[0].tool.driver.rules[1].id, ruleid3);
 
-            assert.strictEqual(result.runs[0].artifacts[0].artifactLocation.uri, sourceFilePath1);
-            assert.strictEqual(result.runs[0].artifacts[1].artifactLocation.uri, sourceFilePath2);
+            assert.strictEqual(result.runs[0].artifacts[0].location.uri, sourceFilePath1);
+            assert.strictEqual(result.runs[0].artifacts[1].location.uri, sourceFilePath2);
 
             assert.strictEqual(result.runs[0].tool.driver.rules[0].id, ruleid2);
             assert.strictEqual(result.runs[0].tool.driver.rules[0].shortDescription.text, rule2.docs.description);
