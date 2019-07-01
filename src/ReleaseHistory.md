@@ -410,9 +410,9 @@
 * Change schemas back to draft-04 to reenable Intellisense in the Visual Studio JSON editor.
 
 ## **v2.1.6** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.6) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.6) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.6) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.6)
-* BUGFIX: Fortify FPR converter does not populate originalUriBaseIds if the source is a drive letter (e.g. C:)
-* BUGFIX: Multitool rebaseUri command throws null reference exception if results reference run.artifacts using the index property.
+* BUGFIX: Fortify FPR converter does not populate `originalUriBaseIds` if the source is a drive letter (e.g. C:)
+* BUGFIX: Multitool rebaseUri command throws null reference exception if `results` reference `run.artifacts` using the `index` property.
 * BUGFIX: Pre-release transformer does not upgrade schema uri if input version is higher than rtm.1.
 
 ## **v2.1.7** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.7) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.7) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.7) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.7)
-* BUGFIX: Multitool rewrite InsertOptionalData operations fail if results reference run.artifacts using the index property.
+* BUGFIX: Multitool rewrite InsertOptionalData operations fail if results reference `run.artifacts` using the `index` property.
