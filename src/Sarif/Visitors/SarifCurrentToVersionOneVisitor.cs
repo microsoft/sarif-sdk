@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security;
@@ -504,6 +503,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             return region;
         }
 
+        internal string CreateToolFingerprintContributionVersionOne(IDictionary<string, string> v2PartialFingerprints)
+        {
+            string toolFingerprintContribution = null;
+
+            if (v2PartialFingerprints?.Keys.Count > 0)
+            {
+                // V1 only supports one of what v2 refers to as "partial fingerprints". We arbitrarily take the
+                // one with the "smallest" key.
+                string smallestKey = v2PartialFingerprints.Keys.OrderBy(k => k).First();
+                toolFingerprintContribution = v2PartialFingerprints[smallestKey];
+            }
+
+            return toolFingerprintContribution;
+        }
+
         private int ConvertCharOffsetToByteOffset(int charOffset, Uri uri)
         {
             int byteOffset = 0;
@@ -772,7 +786,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                     RelatedLocations = v2Result.RelatedLocations?.Select(CreateAnnotatedCodeLocationVersionOne).ToList(),
                     Snippet = v2Result.Locations?[0]?.PhysicalLocation?.Region?.Snippet?.Text,
                     Stacks = v2Result.Stacks?.Select(CreateStackVersionOne).ToList(),
-                    SuppressionStates = Utilities.CreateSuppressionStatesVersionOne(v2Result.Suppressions)
+                    SuppressionStates = Utilities.CreateSuppressionStatesVersionOne(v2Result.Suppressions),
+                    ToolFingerprintContribution = CreateToolFingerprintContributionVersionOne(v2Result.PartialFingerprints)
                 };
 
                 if (result.Fixes != null)
