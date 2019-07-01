@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <None Remove="TestData\Baseline\elfie-arriba.sarif" />
+    <None Remove="TestData\InsertOptionalDataVisitor\Inputs\TopLevelOriginalUriBaseIdUriMissing.sarif" />
     <None Remove="TestData\Map\Sample.json" />
     <None Remove="TestData\Map\TinyArray.json" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ArtifactsWithRoles.sarif" />
@@ -63,6 +64,7 @@
   <ItemGroup>
     <EmbeddedResource Include="TestData\Baseline\elfie-arriba.sarif" />
     <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\ExpectedOutputs\TopLevelOriginalUriBaseIdUriMissing_ContextRegionSnippets.sarif" />
+    <EmbeddedResource Include="TestData\InsertOptionalDataVisitor\Inputs\TopLevelOriginalUriBaseIdUriMissing.sarif" />
     <EmbeddedResource Include="TestData\Map\TinyArray.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
