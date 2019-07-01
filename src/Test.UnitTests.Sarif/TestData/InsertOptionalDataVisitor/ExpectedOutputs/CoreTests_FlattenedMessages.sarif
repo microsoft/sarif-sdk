@@ -69,6 +69,16 @@
           "uri": "file:///REPLACED_AT_TEST_RUNTIME/src/Test.UnitTests.Sarif/TestData/"
         }
       },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
+            "uriBaseId": "TESTROOT"
+          },
+          "mimeType": "text/plain",
+          "encoding": "windows-1252"
+        }
+      ],
       "results": [
         {
           "ruleId": "TEST2001",
@@ -84,8 +94,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
-                  "uriBaseId": "TESTROOT"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 1,

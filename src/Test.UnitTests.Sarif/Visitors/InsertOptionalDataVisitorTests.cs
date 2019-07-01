@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
             SarifLog actualLog = PrereleaseCompatibilityTransformer.UpdateToCurrentVersion(transformedLog, formatting: Formatting.None, out transformedLog);
 
             // For CoreTests only - this code rewrites the log persisted URI to match the test environment
-            if (inputResourceName.StartsWith("Inputs.CoreTests"))
+            if (inputResourceName == "Inputs.CoreTests.sarif")
             {
                 Uri originalUri = actualLog.Runs[0].OriginalUriBaseIds["TESTROOT"].Uri;
                 string uriString = originalUri.ToString();
@@ -129,18 +129,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
                 OptionallyEmittedData.Hashes | 
                 OptionallyEmittedData.ContextRegionSnippets | 
                 OptionallyEmittedData.FlattenedMessages);
-        }
-
-        [Fact]
-        public void InsertOptionalDataVisitor_ArtifactsInRun_PersistsRegionSnippets()
-        {
-            RunTest("CoreTests_Rtm.sarif", OptionallyEmittedData.RegionSnippets);
-        }
-
-        [Fact]
-        public void InsertOptionalDataVisitor_ArtifactsInRun_PersistsContextRegionSnippets()
-        {
-            RunTest("CoreTests_Rtm.sarif", OptionallyEmittedData.ContextRegionSnippets);
         }
 
         [Fact]
