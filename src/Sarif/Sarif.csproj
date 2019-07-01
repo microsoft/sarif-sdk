@@ -45,9 +45,8 @@
     <Content Include="Schemata\sarif-$(SchemaVersionAsPublishedToSchemaStoreOrg).json" />
     <Content Include="Schemata\sarif-external-property-file-$(SchemaVersionAsPublishedToSchemaStoreOrg).json" />
 
-    <!-- Link=false: Don't display this item in Solution Explorer. -->
     <!-- This item will be added to the NuGet package, however. -->
-    <Content Include="..\ReleaseHistory.md" Link="false" />
+    <Content Include="..\ReleaseHistory.md" />
   </ItemGroup>
 
   <ItemGroup>

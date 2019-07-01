@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (!instanceId.Contains("/"))
             {
-                return String.Empty;
+                return null;
             }
 
             return instanceId.Substring(0, instanceId.LastIndexOf('/'));

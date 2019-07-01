@@ -1,0 +1,16 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-1.0.0.json",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner",
+        "semanticVersion": "2.1.0",
+        "language": "en-US"
+      },
+      "results": [],
+      "id": "Nightly security tools run/master/x86/debug/2018-10-05",
+      "stableId": "Nightly security tools run/master/x86/debug"
+    }
+  ]
+}

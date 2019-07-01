@@ -76,5 +76,8 @@ namespace Microsoft.CodeAnalysis.Sarif.UnitTests.Visitors
 
         [Fact]
         public void SarifTransformerTests_ToVersionOne_TwoPartialPartialFingerprints() => RunTest("ResultWithTwoPartialFingerprints.sarif");
+
+        [Fact]
+        public void SarifTransformerTests_ToVersionOne_PopulatesRunIdAndStableId() => RunTest("OneRunWithAutomationDetails.sarif");
     }
 }

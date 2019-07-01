@@ -901,7 +901,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
                     run.BaselineId = v2Run.BaselineGuid;
                     run.Files = CreateFileDataVersionOneDictionary();
-                    run.Id = v2Run.AutomationDetails?.Guid;
+                    run.Id = v2Run.AutomationDetails?.Id;
                     run.AutomationId = v2Run.RunAggregates?.FirstOrDefault()?.Id;
 
                     run.StableId = v2Run.AutomationDetails?.InstanceIdLogicalComponent();
