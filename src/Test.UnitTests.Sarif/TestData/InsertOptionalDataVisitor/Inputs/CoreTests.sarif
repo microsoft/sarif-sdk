@@ -1,66 +1,95 @@
 {
-  "$schema": "http://json.schemastore.org/sarif-2.0.0",
-  "version": "2.0.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.3.json",
+  "version": "2.1.0",
   "runs": [
     {
       "tool": {
-        "name": "Sarif.UnitTests",
-        "fullName": "Sarif.UnitTests.1.3.3.0-beta",
-        "version": "1.3.3.0",
-        "semanticVersion": "1.3.3",
-        "sarifLoggerVersion": "1.5.22.0",
-        "language": "en-US"
-      },
-      "originalUriBaseIds": { "TESTROOT": "file:///REPLACED_AT_TEST_RUNTIME/src/Test.UnitTests.Sarif/TestData/" },
-      "resources": {
-        "messageStrings": {
-          "NotificationMessage": "A notification was raised. Notification kind was: '{0}'.",
-          "GlobalMessage": "A space between two words was detected."
-        },
-        "rules": {
-          "TEST2001": {
-            "id": "TEST2001",
-            "messageStrings": { "MatchAtBeginningOfFile": "This result is at the beginning of the file and selects '{0}'." }
+        "driver": {
+          "name": "Sarif.UnitTests",
+          "fullName": "Sarif.UnitTests.1.3.3.0-beta",
+          "version": "1.3.3.0",
+          "semanticVersion": "1.3.3",
+          "globalMessageStrings": {
+            "NotificationMessage": {
+              "text": "A notification was raised. Notification kind was: '{0}'."
+            },
+            "GlobalMessage": {
+              "text": "A space between two words was detected."
+            }
           },
-          "TEST2002": {
-            "id": "TEST2002",
-            "messageStrings": { "SingleLineInteriorMatch": "This result selects a single-line interior region of value '{0}'." }
-          }
+          "rules": [
+            {
+              "id": "TEST2001",
+              "messageStrings": {
+                "MatchAtBeginningOfFile": {
+                  "text": "This result is at the beginning of the file and selects '{0}'."
+                }
+              }
+            },
+            {
+              "id": "TEST2002",
+              "messageStrings": {
+                "SingleLineInteriorMatch": {
+                  "text": "This result selects a single-line interior region of value '{0}'."
+                }
+              }
+            }
+          ]
         }
       },
       "invocations": [
         {
-          "toolNotifications": [
+          "toolExecutionNotifications": [
             {
               "message": {
-                "arguments": [ "tool notification" ],
-                "messageId": "NotificationMessage"
+                "id": "NotificationMessage",
+                "arguments": [
+                  "tool notification"
+                ]
               }
             }
           ],
-          "configurationNotifications": [
+          "toolConfigurationNotifications": [
             {
               "message": {
-                "arguments": [ "configuration notification" ],
-                "messageId": "NotificationMessage"
+                "id": "NotificationMessage",
+                "arguments": [
+                  "configuration notification"
+                ]
               }
             }
-          ]
+          ],
+          "executionSuccessful": true
+        }
+      ],
+      "originalUriBaseIds": {
+        "TESTROOT": {
+          "uri": "file:///REPLACED_AT_TEST_RUNTIME/src/Test.UnitTests.Sarif/TestData/"
+        }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
+            "uriBaseId": "TESTROOT"
+          }
         }
       ],
       "results": [
         {
           "ruleId": "TEST2001",
+          "ruleIndex": 0,
           "message": {
-            "messageId": "MatchAtBeginningOfFile",
-            "arguments": [ "Region_At_Start_Of_File" ]
+            "id": "MatchAtBeginningOfFile",
+            "arguments": [
+              "Region_At_Start_Of_File"
+            ]
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
-                  "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
-                  "uriBaseId": "TESTROOT"
+                "artifactLocation": {
+                  "index": 0
                 },
                 "region": {
                   "startLine": 1,
@@ -73,14 +102,17 @@
         },
         {
           "ruleId": "TEST2002",
+          "ruleIndex": 1,
           "message": {
-            "messageId": "SingleLineInteriorMatch",
-            "arguments": [ "Region_One" ]
+            "id": "SingleLineInteriorMatch",
+            "arguments": [
+              "Region_One"
+            ]
           },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
                   "uriBaseId": "TESTROOT"
                 },
@@ -95,11 +127,13 @@
         },
         {
           "ruleId": "TEST2003",
-          "message": { "text": "This results selects a region that crosses multiple lines starting with 'Multiline_Region_Part_one'." },
+          "message": {
+            "text": "This results selects a region that crosses multiple lines starting with 'Multiline_Region_Part_one'."
+          },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
                   "uriBaseId": "TESTROOT"
                 },
@@ -114,11 +148,13 @@
         },
         {
           "ruleId": "TEST2004",
-          "message": { "text": "This result is at the end of the file and selects 'Region_At_End_Of_File'." },
+          "message": {
+            "text": "This result is at the end of the file and selects 'Region_At_End_Of_File'."
+          },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
                   "uriBaseId": "TESTROOT"
                 },
@@ -132,11 +168,13 @@
         },
         {
           "ruleId": "TEST2005",
-          "message": { "messageId": "GlobalMessage" },
+          "message": {
+            "id": "GlobalMessage"
+          },
           "locations": [
             {
               "physicalLocation": {
-                "fileLocation": {
+                "artifactLocation": {
                   "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
                   "uriBaseId": "TESTROOT"
                 },
@@ -149,7 +187,8 @@
             }
           ]
         }
-      ]
+      ],
+      "columnKind": "utf16CodeUnits"
     }
   ]
 }

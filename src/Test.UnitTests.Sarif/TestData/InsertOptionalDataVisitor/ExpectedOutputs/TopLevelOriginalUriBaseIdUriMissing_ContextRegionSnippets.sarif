@@ -46,11 +46,10 @@
         {
           "ruleId": "rule001",
           "ruleIndex": 0,
+          "level": "error",
           "message": {
             "text": "violation!"
-
           },
-          "level": "error",
           "locations": [
             {
               "physicalLocation": {
