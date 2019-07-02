@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <None Remove="TestData\Baseline\elfie-arriba.sarif" />
-    <None Remove="TestData\InsertOptionalDataVisitor\Inputs\TopLevelOriginalUriBaseIdUriMissing.sarif" />
     <None Remove="TestData\Map\Sample.json" />
     <None Remove="TestData\Map\TinyArray.json" />
     <None Remove="TestData\PrereleaseCompatibilityTransformer\ExpectedOutputs\ArtifactsWithRoles.sarif" />
