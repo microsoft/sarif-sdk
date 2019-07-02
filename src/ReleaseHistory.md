@@ -415,4 +415,4 @@
 * BUGFIX: Pre-release transformer does not upgrade schema uri if input version is higher than rtm.1.
 
 ## **v2.1.7** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.7) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.7) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.7) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.7)
-* BUGFIX: Multitool rewrite InsertOptionalData operations fail if results reference `run.artifacts` using the `index` property.
+* BUGFIX: Multitool rewrite InsertOptionalData operations fail if a result object references `run.artifacts` using the `index` property.
