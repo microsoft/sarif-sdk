@@ -135,6 +135,7 @@
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\Minimum.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\MinimumWithTwoRuns.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\NotificationExceptionWithStack.sarif" />
+    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\OneRunWithAutomationDetails.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\OneRunWithBasicInvocation.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\OneRunWithFiles.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\OneRunWithNotificationTime.sarif" />
@@ -148,6 +149,7 @@
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\Inputs\Minimum.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\Inputs\MinimumWithTwoRuns.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\Inputs\NotificationExceptionWithStack.sarif" />
+    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\Inputs\OneRunWithAutomationDetails.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\Inputs\OneRunWithBasicInvocation.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\Inputs\OneRunWithFiles.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\Inputs\OneRunWithNotificationTime.sarif" />
@@ -157,6 +159,8 @@
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\Inputs\Regions.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\Inputs\RestoreFromPropertyBag.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\Inputs\ResultLocations.sarif" />
+    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\Inputs\ResultWithOnePartialFingerprint.sarif" />
+    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\Inputs\ResultWithTwoPartialFingerprints.sarif" />
     <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\Inputs\TwoResultsWithFixes.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\MinimumWithLanguage.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\NestedInnerExceptionsInNotifications.sarif" />
@@ -194,6 +198,8 @@
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\OneRunWithNotificationsButNoInvocations.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\OneRunWithRules.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\RestoreFromPropertyBag.sarif" />
+    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\ResultWithOnePartialFingerprint.sarif" />
+    <EmbeddedResource Include="TestData\SarifCurrentToVersionOneVisitor\ExpectedOutputs\ResultWithTwoPartialFingerprints.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\TwoResultsWithFixes.sarif" />
     <EmbeddedResource Include="TestData\SarifVersionOneToCurrentVisitor\ExpectedOutputs\UriBaseId.sarif" />
   </ItemGroup>
