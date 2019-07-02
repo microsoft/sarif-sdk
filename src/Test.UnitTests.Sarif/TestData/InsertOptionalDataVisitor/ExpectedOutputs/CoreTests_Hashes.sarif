@@ -96,7 +96,8 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
-                  "uriBaseId": "TESTROOT"
+                  "uriBaseId": "TESTROOT",
+                  "index": 0
                 },
                 "region": {
                   "startLine": 1,
