@@ -74,9 +74,7 @@
           "location": {
             "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
             "uriBaseId": "TESTROOT"
-          },
-          "mimeType": "text/plain",
-          "encoding": "windows-1252"
+          }
         }
       ],
       "results": [
