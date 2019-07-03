@@ -1,12 +1,12 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.using System;
 
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
 using Newtonsoft.Json;
@@ -59,15 +59,15 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
         [InlineData(SixthIssueID, BaselineState.Unchanged)]
         public void MatchResultReturnsExpectedBaselineState(
             string issueID,
-            BaselineState expectedResult)
+            BaselineState expectedBaselineState)
         {
-            IEnumerable<SarifLog> baseline = CreateBaselineLogs();
-            SarifLog current = CreateCurrentLog();
+            IEnumerable<SarifLog> baselineLogs = CreateBaselineLogs();
+            SarifLog currentLog = CreateCurrentLog();
 
-            IEnumerable<SarifLog> matchResult = RunResultMatching(baseline, current);
-            Result matchingResult = matchResult.Select(r => r.Runs.FirstOrDefault().Results.FirstOrDefault(result => result.Guid == issueID)).FirstOrDefault();
+            IEnumerable<SarifLog> matchedLog = RunResultMatching(baselineLogs, currentLog);
+            Result matchingResult = matchedLog.Select(r => r.Runs.FirstOrDefault().Results.FirstOrDefault(result => result.Guid == issueID)).FirstOrDefault();
 
-            Assert.Equal(expectedResult, matchingResult.BaselineState);
+            matchingResult.BaselineState.Should().Be(expectedBaselineState);
         }
 
         private IEnumerable<SarifLog> CreateBaselineLogs()
@@ -84,10 +84,10 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             return thirdRun;
         }
 
-        private IEnumerable<SarifLog> RunResultMatching(IEnumerable<SarifLog> baseline, SarifLog current)
+        private IEnumerable<SarifLog> RunResultMatching(IEnumerable<SarifLog> baselineLogs, SarifLog currentLog)
         {
             ISarifLogMatcher baseliner = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
-            return baseliner.Match(baseline, new[] { current });
+            return baseliner.Match(baselineLogs, new[] { currentLog });
         }
 
         private SarifLog GetRun(int runNumber)
