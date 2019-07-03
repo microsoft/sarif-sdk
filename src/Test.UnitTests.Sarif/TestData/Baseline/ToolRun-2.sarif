@@ -1,0 +1,130 @@
+{
+    "$schema": "http://json.schemastore.org/sarif-2.1.0-rtm.2.json",
+    "version": "2.1.0",
+    "runs": [
+        {
+            "tool": {
+                "driver": {
+                    "name": "WebScout",
+                    "rules": [
+                        {
+                            "id": "WS013",
+                            "name": "Remote Resource Inclusion",
+                            "fullDescription": { "text": "<p>Checks website for untrusted resource hosts</p>" },
+                            "properties": { "checkName": "Untrusted Resource Source" }
+                        },
+                        {
+                            "id": "WS018",
+                            "name": "ASP.NET Misconfiguration",
+                            "fullDescription": { "text": "<p>\n\t\t\t\tThe DEBUG verb supported by IIS web servers can be manipulated to reveal information about the system and plan a form of attack. The DEBUG verb is intended for debugging or testing a web server. The DEBUG verb is not required for web applications to function (web applications and web browsers usually only need the HEAD, GET, and POST verbs).<br/>\n\t\t\t\t\t<br/>\n\t\t\t\t\t\t\t\tOne of ASP.NET debugging scenarios is remote debugging, in which a browser runs on a client computer and debugs a Web application that is running on a remote server computer.<br/>\n\t\t\t\t\t<br/>\n\t\t\t\t\t\t\t\tASP.NET applications can be configured to produce debug binaries. These binaries give detailed debugging messages and should not be used in production environments. <br/><br/>\n\t\t\t\t\t\t\t\tMoreover, web application can be configured to allow tracing at either the page level or the application level. \n\t\t\t </p>" },
+                            "properties": { "checkName": "ASP.NET Misconfiguration" }
+                        },
+                        {
+                            "id": "WS098",
+                            "name": "Secure attribute",
+                            "fullDescription": { "text": "<p>The Secure attribute is meant to keep cookie communication limited to encrypted transmission, directing browsers to use cookies only via secure/encrypted connections.</p>" },
+                            "properties": { "checkName": "Cookie attributes" }
+                        },
+                        {
+                            "id": "WS138",
+                            "name": "HttpOnly attribute",
+                            "fullDescription": { "text": "<p>The HttpOnly attribute directs browsers to use cookies via the HTTP protocol only.  An HttpOnly cookie is not accessible via non-HTTP methods, such as calls via JavaScript (e.g., referencing \"document.cookie\"), and therefore cannot be stolen easily via cross-site scripting (a pervasive attack technique).</p>" },
+                            "properties": { "checkName": "Cookie attributes" }
+                        }
+                    ]
+                }
+            },
+            "invocations": [
+                {
+                    "startTimeUtc": "2019-02-01T01:05:41.678Z",
+                    "endTimeUtc": "2019-02-01T12:29:00.348Z",
+                    "executionSuccessful": true,
+                    "properties": {
+                        "scanConfigurationId": 12345,
+                        "rootUrls": [ "https://example.com/test.aspx", "https://test.example.com/" ]
+                    }
+                }
+            ],
+            "results": [
+                {
+                    "ruleId": "WS018",
+                    "ruleIndex": 1,
+                    "message": { "text": "ASP.NET Misconfiguration.  For full details see properties." },
+                    "locations": [ { "physicalLocation": { "artifactLocation": { "uri": "https://example.com/test.aspx" } } } ],
+                    "guid": "385068264",
+                    "partialFingerprints": { "Fingerprint": "D50E72FD-453A-4955-B4E1-A0F623866FA4" },
+                    "properties": {
+                        "checkName": "ASP.NET Misconfiguration",
+                        "category": "ASP.NET Misconfiguration",
+                        "sdlSeverity": "Low",
+                        "summary": "Asp.Net Debugging Enabled",
+                        "parameterLocation": "unknown",
+                        "parameterValue": "Command: stop-debug",
+                        "description": "<p>\n\t\t\t\tThe DEBUG verb supported by IIS web servers can be manipulated to reveal information about the system and plan a form of attack. The DEBUG verb is intended for debugging or testing a web server. The DEBUG verb is not required for web applications to function (web applications and web browsers usually only need the HEAD, GET, and POST verbs).<br/>\n\t\t\t\t\t<br/>\n\t\t\t\t\t\t\t\tOne of ASP.NET debugging scenarios is remote debugging, in which a browser runs on a client computer and debugs a Web application that is running on a remote server computer.<br/>\n\t\t\t\t\t<br/>\n\t\t\t\t\t\t\t\tASP.NET applications can be configured to produce debug binaries. These binaries give detailed debugging messages and should not be used in production environments. <br/><br/>\n\t\t\t\t\t\t\t\tMoreover, web application can be configured to allow tracing at either the page level or the application level. \n\t\t\t </p>",
+                        "recommendation": "<p>refer to your web server's manual for information on how to disable the asp.net debugging.</p>",
+                        "httpTraffic": [
+                            {
+                                "Request": null,
+                                "Response": null
+                            }
+                        ]
+                    }
+                },
+                {
+                    "ruleId": "WS098",
+                    "ruleIndex": 2,
+                    "level": "error",
+                    "message": { "text": "Secure attribute.  For full details see properties." },
+                    "locations": [ { "physicalLocation": { "artifactLocation": { "uri": "https://example.com/test.aspx" } } } ],
+                    "guid": "5515126421",
+                    "partialFingerprints": { "Fingerprint": "EB18AF46-729D-495C-871C-601875215EBA" },
+                    "suppressions": [ { "kind": "external" } ],
+                    "properties": {
+                        "checkName": "Cookie attributes",
+                        "category": "Secure attribute",
+                        "sdlSeverity": "High",
+                        "summary": "Secure attribute not set",
+                        "parameterLocation": "unknown",
+                        "parameterName": "Set-Cookie: BlueStripe.PVN",
+                        "description": "<p>The Secure attribute is meant to keep cookie communication limited to encrypted transmission, directing browsers to use cookies only via secure/encrypted connections.</p>",
+                        "recommendation": "<p>whenever a cookie contains sensitive information or is a session token, then it should always be passed using an encrypted tunnel. for example, after logging into an application and a session token is set using a cookie, then verify it is tagged using the \";secure\" flag. if it is not, then the browser believes it safe to pass via an unencrypted channel such as using http.</p>",
+                        "httpTraffic": [
+                            {
+                                "Request": null,
+                                "Response": null
+                            }
+                        ]
+                    }
+                },
+                {
+                    "ruleId": "WS138",
+                    "ruleIndex": 3,
+                    "level": "error",
+                    "message": { "text": "HttpOnly attribute.  For full details see properties." },
+                    "locations": [ { "physicalLocation": { "artifactLocation": { "uri": "https://example.com/test.aspx" } } } ],
+                    "guid": "23994857",
+                    "partialFingerprints": { "Fingerprint": "513EC162-058D-4BBA-BF16-945905A68845" },
+                    "suppressions": [ { "kind": "external" } ],
+                    "properties": {
+                        "checkName": "Cookie attributes",
+                        "category": "HttpOnly attribute",
+                        "sdlSeverity": "High",
+                        "summary": "HttpOnly attribute not set",
+                        "parameterLocation": "unknown",
+                        "parameterName": "Set-Cookie: BlueStripe.PVN",
+                        "description": "<p>The HttpOnly attribute directs browsers to use cookies via the HTTP protocol only.  An HttpOnly cookie is not accessible via non-HTTP methods, such as calls via JavaScript (e.g., referencing \"document.cookie\"), and therefore cannot be stolen easily via cross-site scripting (a pervasive attack technique).</p>",
+                        "recommendation": "<p>if the httponly flag (optional) is included in the http response header, the cookie cannot be accessed through client side script (again if the browser supports this flag). as a result, even if a cross-site scripting (xss) flaw exists, and a user accidentally accesses a link that exploits this flaw, the browser (primarily internet explorer) will not reveal the cookie to a third party.</p>",
+                        "httpTraffic": [
+                            {
+                                "Request": null,
+                                "Response": null
+                            }
+                        ]
+                    }
+                }
+            ],
+            "automationDetails": { "guid": "210436" },
+            "columnKind": "utf16CodeUnits"
+        }
+    ]
+}
