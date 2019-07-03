@@ -36,8 +36,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         /// <summary>
         /// Helper function that accepts a single baseline and current SARIF log and matches them.
         /// </summary>
-        /// <param name="previousLog">Array of sarif logs representing the baseline run</param>
-        /// <param name="currentLogs">Array of sarif logs representing the current run</param>
+        /// <param name="previousLog">Array of SARIF logs representing the baseline run.</param>
+        /// <param name="currentLogs">Array of SARIF logs representing the current run.</param>
         /// <returns>A SARIF log with the merged set of results.</returns>
         public SarifLog Match(SarifLog previousLog, SarifLog currentLog)
         {
@@ -46,12 +46,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 
 
         /// <summary>
-        /// Take two groups of sarif logs, and compute a sarif log containing the complete set of results,
-        /// with status (compared to baseline) and various baseline-related fields persisted (e.x. work item links,
-        /// ID, etc.
+        /// Take two groups of SARIF logs, and compute a SARIF log containing the complete set of results,
+        /// with status (compared to baseline) and various baseline-related fields persisted (e.g. work item links,
+        /// ID, etc.).
         /// </summary>
-        /// <param name="previousLogs">Array of sarif logs representing the baseline run</param>
-        /// <param name="currentLogs">Array of sarif logs representing the current run</param>
+        /// <param name="previousLogs">Array of SARIF logs representing the baseline run.</param>
+        /// <param name="currentLogs">Array of SARIF logs representing the current run.</param>
         /// <returns>A SARIF log with the merged set of results.</returns>
         public IEnumerable<SarifLog> Match(IEnumerable<SarifLog> previousLogs, IEnumerable<SarifLog> currentLogs)
         {
