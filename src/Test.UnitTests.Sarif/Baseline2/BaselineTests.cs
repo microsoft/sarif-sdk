@@ -61,36 +61,32 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             string issueID,
             BaselineState expectedBaselineState)
         {
-            IEnumerable<SarifLog> baselineLogs = CreateBaselineLogs();
-            SarifLog currentLog = CreateCurrentLog();
+            IEnumerable<SarifLog> baselineLogs = ReadBaselineLogs();
+            SarifLog currentLog = ReadCurrentLog();
 
-            IEnumerable<SarifLog> matchedLog = RunResultMatching(baselineLogs, currentLog);
+            IEnumerable<SarifLog> matchedLog = MatchResults(baselineLogs, currentLog);
             Result matchingResult = matchedLog.Select(r => r.Runs.FirstOrDefault().Results.FirstOrDefault(result => result.Guid == issueID)).FirstOrDefault();
 
             matchingResult.BaselineState.Should().Be(expectedBaselineState);
         }
 
-        private IEnumerable<SarifLog> CreateBaselineLogs()
+        private static IEnumerable<SarifLog> ReadBaselineLogs()
         {
-            SarifLog firstRun = GetRun(0);
-            SarifLog secondRun = GetRun(1);
-
-            return new[] { firstRun, secondRun };
+            return new[] { ReadRun(0), ReadRun(1) };
         }
 
-        private SarifLog CreateCurrentLog()
+        private static SarifLog ReadCurrentLog()
         {
-            SarifLog thirdRun = GetRun(2);
-            return thirdRun;
+            return ReadRun(2);
         }
 
-        private IEnumerable<SarifLog> RunResultMatching(IEnumerable<SarifLog> baselineLogs, SarifLog currentLog)
+        private IEnumerable<SarifLog> MatchResults(IEnumerable<SarifLog> baselineLogs, SarifLog currentLog)
         {
             ISarifLogMatcher baseliner = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
             return baseliner.Match(baselineLogs, new[] { currentLog });
         }
 
-        private SarifLog GetRun(int runNumber)
+        private static SarifLog ReadRun(int runNumber)
         {
             string resourceStreamName = string.Format(CultureInfo.InvariantCulture, ResourceStreamNameFormat, runNumber);
 
