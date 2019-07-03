@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.using System;
 
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -60,32 +61,32 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             string issueID,
             BaselineState expectedResult)
         {
-            var baseline = CreateBaselineLogs();
-            var current = CreateCurrentLog();
+            IEnumerable<SarifLog> baseline = CreateBaselineLogs();
+            SarifLog current = CreateCurrentLog();
 
-            var matchResult = RunResultMatching(baseline, current);
-            var matchingResult = matchResult.Select(r => r.Runs.FirstOrDefault().Results.FirstOrDefault(result => result.Guid == issueID)).FirstOrDefault();
+            IEnumerable<SarifLog> matchResult = RunResultMatching(baseline, current);
+            Result matchingResult = matchResult.Select(r => r.Runs.FirstOrDefault().Results.FirstOrDefault(result => result.Guid == issueID)).FirstOrDefault();
 
             Assert.Equal(expectedResult, matchingResult.BaselineState);
         }
 
         private IEnumerable<SarifLog> CreateBaselineLogs()
         {
-            var firstRun = GetRun(0);
-            var secondRun = GetRun(1);
+            SarifLog firstRun = GetRun(0);
+            SarifLog secondRun = GetRun(1);
 
             return new[] { firstRun, secondRun };
         }
 
         private SarifLog CreateCurrentLog()
         {
-            var thirdRun = GetRun(2);
+            SarifLog thirdRun = GetRun(2);
             return thirdRun;
         }
 
         private IEnumerable<SarifLog> RunResultMatching(IEnumerable<SarifLog> baseline, SarifLog current)
         {
-            var baseliner = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
+            ISarifLogMatcher baseliner = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
             return baseliner.Match(baseline, new[] { current });
         }
 
