@@ -2,8 +2,10 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.using System;
 
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching;
 using Newtonsoft.Json;
@@ -42,6 +44,10 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
         /// Issue absent in scan 2 and present in scans 1 and 3
         /// </summary>
         private const string SixthIssueID = "23994857";
+
+        private static readonly Assembly s_testAssembly = typeof(BaselineTests).Assembly;
+        private const string ResourceStreamNameFormat =
+            "Microsoft.CodeAnalysis.Test.UnitTests.Sarif.TestData.Baseline.ToolRun-{0}.sarif";
 
         [Theory]
         [InlineData(FirstIssueID, BaselineState.Absent)]
@@ -85,8 +91,14 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
 
         private SarifLog GetRun(int runNumber)
         {
-            var fileContent = File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), $"ToolRun-{runNumber}.sarif"));
-            return JsonConvert.DeserializeObject<SarifLog>(fileContent);
+            string resourceStreamName = string.Format(CultureInfo.InvariantCulture, ResourceStreamNameFormat, runNumber);
+
+            using (Stream resourceStream = s_testAssembly.GetManifestResourceStream(resourceStreamName))
+            using (StreamReader reader = new StreamReader(resourceStream))
+            {
+                string fileContent = reader.ReadToEnd();
+                return JsonConvert.DeserializeObject<SarifLog>(fileContent);
+            }
         }
     }
 }
