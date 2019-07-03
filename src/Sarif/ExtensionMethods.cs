@@ -24,8 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
         public static bool IsEmptyEnumerable(this object value)
         {
-            IEnumerable e = value as IEnumerable;
-            if (e == null)
+            if (!(value is IEnumerable e))
             {
                 return false;
             }
@@ -247,7 +246,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                     if (!string.IsNullOrWhiteSpace(messageId)
                         && rule.MessageStrings?.TryGetValue(messageId, out formatString) == true)
                     {
-                        string[] arguments = null;
+                        string[] arguments;
 
                         if (result.Message?.Arguments != null)
                         {
