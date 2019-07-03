@@ -71,14 +71,10 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
         }
 
         private static IEnumerable<SarifLog> ReadBaselineLogs()
-        {
-            return new[] { ReadRun(0), ReadRun(1) };
-        }
+            => new[] { ReadRun(0), ReadRun(1) };
 
         private static SarifLog ReadCurrentLog()
-        {
-            return ReadRun(2);
-        }
+            => ReadRun(2);
 
         private IEnumerable<SarifLog> MatchResults(IEnumerable<SarifLog> baselineLogs, SarifLog currentLog)
         {
