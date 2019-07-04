@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.using System;
 
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -46,9 +47,43 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
         /// </summary>
         private const string SixthIssueID = "23994857";
 
+        private static readonly IList<Result> s_matchedResults;
+
+        static BaselineTests()
+        {
+            // Perform result matching on the test files (two "baseline" files and one "current" file).
+            // This only needs to happen once (we can use the same result set in each of the tests),
+            // so do it in the static ctor.
+            IEnumerable<SarifLog> baselineLogs = new[] { ReadRun(0), ReadRun(1) };
+            SarifLog currentLog = ReadRun(2);
+
+            ISarifLogMatcher baseliner = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
+            IEnumerable<SarifLog> matchedLogs = baseliner.Match(baselineLogs, new[] { currentLog });
+
+            // ISarifLogMatcher.Match returns a separate log for each tool. Since the test files
+            // all contain a single run from the same tool, Match returns only one log, with one run.
+            matchedLogs.Count().Should().Be(1);
+            IList<Run> runs = matchedLogs.Single().Runs;
+
+            runs.Count.Should().Be(1);
+            s_matchedResults = runs.Single().Results;
+        }
+
         private static readonly Assembly s_testAssembly = typeof(BaselineTests).Assembly;
         private const string ResourceStreamNameFormat =
             "Microsoft.CodeAnalysis.Test.UnitTests.Sarif.TestData.Baseline.ToolRun-{0}.sarif";
+
+        private static SarifLog ReadRun(int runNumber)
+        {
+            string resourceStreamName = string.Format(CultureInfo.InvariantCulture, ResourceStreamNameFormat, runNumber);
+
+            using (Stream resourceStream = s_testAssembly.GetManifestResourceStream(resourceStreamName))
+            using (StreamReader reader = new StreamReader(resourceStream))
+            {
+                string fileContent = reader.ReadToEnd();
+                return JsonConvert.DeserializeObject<SarifLog>(fileContent);
+            }
+        }
 
         [Theory]
         [InlineData(FirstIssueID, BaselineState.Absent)]
@@ -61,38 +96,9 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
             string issueId,
             BaselineState expectedBaselineState)
         {
-            IEnumerable<SarifLog> baselineLogs = ReadBaselineLogs();
-            SarifLog currentLog = ReadCurrentLog();
-
-            IEnumerable<SarifLog> matchedLogs = MatchResults(baselineLogs, currentLog);
-
-            Result matchingResult = matchedLogs.Select(log => log.Runs.FirstOrDefault().Results.FirstOrDefault(result => result.Guid == issueId)).FirstOrDefault();
+            Result matchingResult = s_matchedResults.FirstOrDefault(result => result.Guid == issueId);
 
             matchingResult.BaselineState.Should().Be(expectedBaselineState);
-        }
-
-        private static IEnumerable<SarifLog> ReadBaselineLogs()
-            => new[] { ReadRun(0), ReadRun(1) };
-
-        private static SarifLog ReadCurrentLog()
-            => ReadRun(2);
-
-        private IEnumerable<SarifLog> MatchResults(IEnumerable<SarifLog> baselineLogs, SarifLog currentLog)
-        {
-            ISarifLogMatcher baseliner = ResultMatchingBaselinerFactory.GetDefaultResultMatchingBaseliner();
-            return baseliner.Match(baselineLogs, new[] { currentLog });
-        }
-
-        private static SarifLog ReadRun(int runNumber)
-        {
-            string resourceStreamName = string.Format(CultureInfo.InvariantCulture, ResourceStreamNameFormat, runNumber);
-
-            using (Stream resourceStream = s_testAssembly.GetManifestResourceStream(resourceStreamName))
-            using (StreamReader reader = new StreamReader(resourceStream))
-            {
-                string fileContent = reader.ReadToEnd();
-                return JsonConvert.DeserializeObject<SarifLog>(fileContent);
-            }
         }
     }
 }
