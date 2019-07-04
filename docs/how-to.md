@@ -9,7 +9,9 @@
 ## Write a SARIF log file to disk
 
 ```C#
-JsonSerializerSettings settings = new JsonSerializerSettings()
+
+# For SARIF V2 File:
+var settings = new JsonSerializerSettings()
 {
     Formatting = Formatting.Indented
 };
@@ -19,14 +21,43 @@ SarifLog log = ... ;
 string sarifText = JsonConvert.SerializeObject(log, settings);
 File.WriteAllText(outputFilePath, sarifText);
 ```
+```C#
+# For SARIF V1 File:
+var settings = new JsonSerializerSettings()
+{
+    ContractResolver = SarifContractResolverVersionOne.Instance,
+    Formatting = Formatting.Indented
+};
+
+SarifLog log = ... ;
+
+sarifText = JsonConvert.SerializeObject(log, settings);
+File.WriteAllText(outputFilePath, sarifText);
+```
 
 ## Read a SARIF log file from disk
 
 ```C#
+# For SARIF V2 File:
 string logContents = File.ReadAllText(logFilePath);
 
 SarifLog log = JsonConvert.DeserializeObject<SarifLog>(logContents);
 ```
+```C#
+# For SARIF V1 File:
+string logContents = File.ReadAllText(logFilePath);
+
+var settings = new JsonSerializerSettings()
+{
+    ContractResolver = SarifContractResolverVersionOne.Instance
+};
+
+SarifLog log = JsonConvert.DeserializeObject<SarifLog>(logContents, settings);
+```
+
+## Format a result message
+
+```C#
 
 ## Format a result message
 
