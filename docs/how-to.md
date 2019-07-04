@@ -19,7 +19,7 @@ JsonSerializerSettings settings = new JsonSerializerSettings()
 
 SarifLog log = ... ;
 
-sarifText = JsonConvert.SerializeObject(log, settings);
+string sarifText = JsonConvert.SerializeObject(log, settings);
 File.WriteAllText(outputFilePath, sarifText);
 ```
 
