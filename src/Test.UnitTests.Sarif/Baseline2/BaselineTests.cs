@@ -58,14 +58,15 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Baseline
         [InlineData(FifthIssueID, BaselineState.New)]
         [InlineData(SixthIssueID, BaselineState.Unchanged)]
         public void MatchResultReturnsExpectedBaselineState(
-            string issueID,
+            string issueId,
             BaselineState expectedBaselineState)
         {
             IEnumerable<SarifLog> baselineLogs = ReadBaselineLogs();
             SarifLog currentLog = ReadCurrentLog();
 
-            IEnumerable<SarifLog> matchedLog = MatchResults(baselineLogs, currentLog);
-            Result matchingResult = matchedLog.Select(r => r.Runs.FirstOrDefault().Results.FirstOrDefault(result => result.Guid == issueID)).FirstOrDefault();
+            IEnumerable<SarifLog> matchedLogs = MatchResults(baselineLogs, currentLog);
+
+            Result matchingResult = matchedLogs.Select(log => log.Runs.FirstOrDefault().Results.FirstOrDefault(result => result.Guid == issueId)).FirstOrDefault();
 
             matchingResult.BaselineState.Should().Be(expectedBaselineState);
         }
