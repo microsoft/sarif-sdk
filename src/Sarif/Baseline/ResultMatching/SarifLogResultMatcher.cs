@@ -58,23 +58,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             Dictionary<string, List<Run>> runsByToolPrevious = GetRunsByTool(previousLogs);
             Dictionary<string, List<Run>> runsByToolCurrent = GetRunsByTool(currentLogs);
             
-            List<string> tools = runsByToolPrevious.Keys.Union(runsByToolCurrent.Keys).ToList();
+            IEnumerable<string> tools = runsByToolPrevious.Keys.Union(runsByToolCurrent.Keys);
 
-            List<SarifLog> resultToolLogs = new List<SarifLog>();
+            var resultToolLogs = new List<SarifLog>();
 
-            foreach (var key in tools)
+            foreach (string tool in tools)
             {
-                IEnumerable<Run> baselineRuns = new Run[0];
-                if (runsByToolPrevious.ContainsKey(key))
-                {
-                     baselineRuns = runsByToolPrevious[key];
-                }
-                IEnumerable<Run> currentRuns = new Run[0];
+                IEnumerable<Run> baselineRuns = runsByToolPrevious.ContainsKey(tool)
+                    ?  runsByToolPrevious[tool]
+                    : new List<Run>();
 
-                if (runsByToolCurrent.ContainsKey(key))
-                {
-                    currentRuns = runsByToolCurrent[key];
-                }
+                IEnumerable<Run> currentRuns = runsByToolCurrent.ContainsKey(tool)
+                    ? runsByToolCurrent[tool]
+                    : new List<Run>();
 
                 resultToolLogs.Add(BaselineSarifLogs(baselineRuns, currentRuns));
             }

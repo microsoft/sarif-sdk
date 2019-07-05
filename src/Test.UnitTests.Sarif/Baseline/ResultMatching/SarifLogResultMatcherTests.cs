@@ -279,7 +279,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 // We should have the same number of results.
                 calculatedNextBaseline.Runs[0].Results.Should().HaveCount(currentLog.Runs[0].Results.Count);
 
-                // They should all have correllation ids
+                // They should all have correlation ids
                 calculatedNextBaseline.Runs[0]
                     .Results.Where(r => string.IsNullOrEmpty(r.CorrelationGuid)).Should().HaveCount(0);
 
