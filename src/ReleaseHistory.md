@@ -419,3 +419,5 @@
 * BUGFIX: The `SarifCurrentToVersionOneVisitor` was not translating v2 `result.partialFingerprints` to v1 `result.toolFingerprintContribution`. https://github.com/microsoft/sarif-sdk/issues/1556
 * BUGFIX: The `SarifCurrentToVersionOneVisitor` was dropping `run.id` and emitting an empty `run.stableId`. https://github.com/microsoft/sarif-sdk/issues/1557
 
+## **v2.1.8** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.8) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.8) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.8) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.8)
+* API BREAKING: Rename the `VisualStudioBuildLogConverter` to `MSBuildConverter`.
