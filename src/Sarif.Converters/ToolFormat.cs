@@ -30,6 +30,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
         /// <summary>FxCop's file format.</summary>
         public const string FxCop = nameof(FxCop);
 
+        /// <summary>MSBuild's log format, from which diagnostic messages can be parsed.</summary>
+        public const string MSBuild = nameof(MSBuild);
+
         /// <summary>PREfast's file format.</summary>
         public const string PREfast = nameof(PREfast);
 
@@ -44,8 +47,5 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         /// <summary>TSLint's file format.</summary>
         public const string TSLint = nameof(TSLint);
-
-        /// <summary>Visual Studio's build log format, from which diagnostic messages can be parsed.</summary>
-        public const string VisualStudioBuildLog = nameof(VisualStudioBuildLog);
     }
 }

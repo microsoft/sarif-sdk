@@ -6,30 +6,30 @@ using Xunit.Abstractions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    public class VisualStudioBuildLogConverterTests :
+    public class MSBuildConverterTests :
         FileDiffingUnitTests,
-        IClassFixture<VisualStudioBuildLogConverterTests.VisualStudioBuildLogConverterTestsFixture>
+        IClassFixture<MSBuildConverterTests.MSBuildConverterTestsFixture>
     {
-        public class VisualStudioBuildLogConverterTestsFixture : DeletesOutputsDirectoryOnClassInitializationFixture { }
+        public class MSBuildConverterTestsFixture : DeletesOutputsDirectoryOnClassInitializationFixture { }
 
         protected override string TestLogResourceNameRoot => "Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Converters.TestData." + TypeUnderTest;
 
-        public VisualStudioBuildLogConverterTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
+        public MSBuildConverterTests(ITestOutputHelper outputHelper) : base(outputHelper) { }
 
         protected override string ConstructTestOutputFromInputResource(string inputResource)
         {
             byte[] buildLogContents = GetResourceBytes(inputResource);
 
-            var converter = new VisualStudioBuildLogConverter();
+            var converter = new MSBuildConverter();
             return Utilities.GetConverterJson(converter, buildLogContents);
         }
 
         [Fact]
-        public void VisualStudioBuildLogConverter_ConvertsLogWithNoErrors()
+        public void MSBuildConverter_ConvertsLogWithNoErrors()
             => RunTest("NoErrors.txt");
 
         [Fact]
-        public void VisualStudioBuildLogConverter_ConvertsLogWithErrorsInVariousFormats()
+        public void MSBuildConverter_ConvertsLogWithErrorsInVariousFormats()
             => RunTest("SomeErrors.txt");
     }
 }

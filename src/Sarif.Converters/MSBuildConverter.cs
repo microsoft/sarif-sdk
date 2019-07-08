@@ -8,11 +8,11 @@ using System.Text.RegularExpressions;
 
 namespace Microsoft.CodeAnalysis.Sarif.Converters
 {
-    public class VisualStudioBuildLogConverter : ToolFileConverterBase
+    public class MSBuildConverter : ToolFileConverterBase
     {
         private readonly HashSet<string> fullMessageHashes = new HashSet<string>();
 
-        public override string ToolName => ToolFormat.VisualStudioBuildLog;
+        public override string ToolName => ToolFormat.MSBuild;
 
         public override void Convert(Stream input, IResultLogWriter output, OptionallyEmittedData dataToInsert)
         {
@@ -152,7 +152,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
 
         private static void SetProperty(IPropertyBagHolder containingObject, string propertyValue, string propertyName)
         {
-            containingObject.SetProperty("microsoft/visualStudioBuildLogConverter/" + propertyName, propertyValue.Trim());
+            containingObject.SetProperty("microsoft/msBuildConverter/" + propertyName, propertyValue.Trim());
         }
 
         private static FailureLevel GetFailureLevelFrom(string level)

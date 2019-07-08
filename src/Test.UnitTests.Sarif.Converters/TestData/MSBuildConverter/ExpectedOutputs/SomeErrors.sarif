@@ -14,7 +14,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "VisualStudioBuildLogConverterTests.cs",
+                  "uri": "MSBuildConverterTests.cs",
                   "index": 0
                 },
                 "region": {
@@ -25,7 +25,7 @@
             }
           ],
           "properties": {
-            "microsoft/visualStudioBuildLogConverter/fullMessage": "VisualStudioBuildLogConverterTests.cs(30,35): error CS1026: ) expected [c:\\dev\\sarif\\sarif-sdk\\src\\Test.UnitTests.Sarif.Converters\\Test.UnitTests.Sarif.Converters.csproj]"
+            "microsoft/msBuildConverter/fullMessage": "MSBuildConverterTests.cs(30,35): error CS1026: ) expected [c:\\dev\\sarif\\sarif-sdk\\src\\Test.UnitTests.Sarif.Converters\\Test.UnitTests.Sarif.Converters.csproj]"
           }
         },
         {
@@ -38,7 +38,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "VisualStudioBuildLogConverterTests.cs",
+                  "uri": "MSBuildConverterTests.cs",
                   "index": 0
                 },
                 "region": {
@@ -49,7 +49,7 @@
             }
           ],
           "properties": {
-            "microsoft/visualStudioBuildLogConverter/fullMessage": "VisualStudioBuildLogConverterTests.cs(36,38): error CS1002: ; expected [c:\\dev\\sarif\\sarif-sdk\\src\\Test.UnitTests.Sarif.Converters\\Test.UnitTests.Sarif.Converters.csproj]"
+            "microsoft/msBuildConverter/fullMessage": "MSBuildConverterTests.cs(36,38): error CS1002: ; expected [c:\\dev\\sarif\\sarif-sdk\\src\\Test.UnitTests.Sarif.Converters\\Test.UnitTests.Sarif.Converters.csproj]"
           }
         },
         {
@@ -72,7 +72,7 @@
             }
           ],
           "properties": {
-            "microsoft/visualStudioBuildLogConverter/fullMessage": "StartLineOnlyRegion.cs(83): info CS1111: This is a note."
+            "microsoft/msBuildConverter/fullMessage": "StartLineOnlyRegion.cs(83): info CS1111: This is a note."
           }
         },
         {
@@ -96,7 +96,7 @@
             }
           ],
           "properties": {
-            "microsoft/visualStudioBuildLogConverter/fullMessage": "StartLineEndLineRegion.cs(42-54): warning CS2222: This is a warning."
+            "microsoft/msBuildConverter/fullMessage": "StartLineEndLineRegion.cs(42-54): warning CS2222: This is a warning."
           }
         },
         {
@@ -121,7 +121,7 @@
             }
           ],
           "properties": {
-            "microsoft/visualStudioBuildLogConverter/fullMessage": "StartLineStartColumnEndColumnRegion.cs(17,42-54): warning CS3333: This is another warning."
+            "microsoft/msBuildConverter/fullMessage": "StartLineStartColumnEndColumnRegion.cs(17,42-54): warning CS3333: This is another warning."
           }
         },
         {
@@ -147,7 +147,7 @@
             }
           ],
           "properties": {
-            "microsoft/visualStudioBuildLogConverter/fullMessage": "StartLineStartColumnEndLineEndColumnRegion.cs(12,26,14,36): error CS4444: This is another error."
+            "microsoft/msBuildConverter/fullMessage": "StartLineStartColumnEndLineEndColumnRegion.cs(12,26,14,36): error CS4444: This is another error."
           }
         },
         {
@@ -157,21 +157,21 @@
             "text": "cannot open file 'somelib.lib'"
           },
           "properties": {
-            "microsoft/visualStudioBuildLogConverter/fullMessage": "LINK : fatal error LNK1104: cannot open file 'somelib.lib'",
-            "microsoft/visualStudioBuildLogConverter/buildTool": "LINK",
-            "microsoft/visualStudioBuildLogConverter/levelQualification": "fatal"
+            "microsoft/msBuildConverter/fullMessage": "LINK : fatal error LNK1104: cannot open file 'somelib.lib'",
+            "microsoft/msBuildConverter/buildTool": "LINK",
+            "microsoft/msBuildConverter/levelQualification": "fatal"
           }
         }
       ],
       "tool": {
         "driver": {
-          "name": "VisualStudioBuildLog"
+          "name": "MSBuild"
         }
       },
       "artifacts": [
         {
           "location": {
-            "uri": "VisualStudioBuildLogConverterTests.cs",
+            "uri": "MSBuildConverterTests.cs",
             "index": 0
           },
           "mimeType": "text/x-csharp"
