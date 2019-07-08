@@ -9,6 +9,9 @@ using Microsoft.CodeAnalysis.Sarif.Readers;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
+    /// <summary>
+    /// Describes a sequence of code locations that specify a path through a single thread of execution such as an operating system or fiber.
+    /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class ThreadFlow : PropertyBagHolder, ISarifNode
