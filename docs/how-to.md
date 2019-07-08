@@ -58,10 +58,6 @@ SarifLogVersionOne log = JsonConvert.DeserializeObject<SarifLogVersionOne>(logCo
 ## Format a result message
 
 ```C#
-
-## Format a result message
-
-```C#
 Result result = ...
 IRule rule = ...
 
