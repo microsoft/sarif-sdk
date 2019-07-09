@@ -63,38 +63,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Writers
                 {
                     switch (schemaSubVersion)
                     {
-                        case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json":
-                        case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.3.json":
-                        {
-                            // rtm.3 and rtm.4 releases.
-                            // nothing to do.
-                            break;
-                        }
-                        case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.2.json":
-                        case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.1.json":
-                        {
-                            modifiedLog |= ApplyRtm2and3Changes(sarifLog);
-                            break;
-                        }
-                        case "http://json.schemastore.org/sarif-2.1.0-rtm.0":
-                        {
-                            modifiedLog |= ApplyRtm1Changes(sarifLog);
-                            modifiedLog |= ApplyRtm2and3Changes(sarifLog);
-                            break;
-                        }
-                        case "http://json.schemastore.org/sarif-2.1.0-beta.2":
-                        {
-                            modifiedLog |= ApplyRtm0Changes(sarifLog);
-                            modifiedLog |= ApplyRtm1Changes(sarifLog);
-                            modifiedLog |= ApplyRtm2and3Changes(sarifLog);
-                            break;
-                        }
                         case "http://json.schemastore.org/sarif-2.1.0-beta.1":
                         case "http://json.schemastore.org/sarif-2.1.0-beta.0":
                         {
                             modifiedLog |= ApplyChangesFromTC35(sarifLog);
+                            goto case "http://json.schemastore.org/sarif-2.1.0-beta.2";
+                        }
+                        case "http://json.schemastore.org/sarif-2.1.0-beta.2":
+                        {
                             modifiedLog |= ApplyRtm0Changes(sarifLog);
+                            goto case "http://json.schemastore.org/sarif-2.1.0-rtm.0";
+                        }
+                        case "http://json.schemastore.org/sarif-2.1.0-rtm.0":
+                        {
                             modifiedLog |= ApplyRtm1Changes(sarifLog);
+                            goto case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json";
+                        }
+                        case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json":
+                        case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.3.json":
+                        case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.2.json":
+                        case "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.1.json":
+                        {
                             modifiedLog |= ApplyRtm2and3Changes(sarifLog);
                             break;
                         }
