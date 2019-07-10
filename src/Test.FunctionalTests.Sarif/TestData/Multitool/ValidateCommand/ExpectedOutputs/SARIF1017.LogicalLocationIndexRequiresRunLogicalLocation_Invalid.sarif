@@ -5,7 +5,28 @@
     {
       "tool": {
         "driver": {
-          "name": "Sarif Functional Testing"
+          "name": "Sarif Functional Testing",
+          "rules": [
+            {
+              "id": "SARIF1017",
+              "name": "LogicalLocationIndexRequiresRunLogicalLocation",
+              "shortDescription": {
+                "text": "If a \"logicalLocation\" object contains an \"index\" property, then \"run."
+              },
+              "fullDescription": {
+                "text": "If a \"logicalLocation\" object contains an \"index\" property, then \"run.logicalLocations\" must be present and must contain at least \"index + 1\" elements."
+              },
+              "messageStrings": {
+                "Default": {
+                  "text": "{0}: This \"logicalLocation\" object contains an \"index\" property with value {1}, but either \"run.LogicalLocations\" is absent, or it has fewer than {2} elements."
+                }
+              },
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.0/csprd01/sarif-v2.0-csprd01.html",
+              "help": {
+                "text": ""
+              }
+            }
+          ]
         }
       },
       "invocations": [
@@ -44,7 +65,36 @@
           "mimeType": "application/sarif-json"
         }
       ],
-      "results": [],
+      "results": [
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].results[0].locations[0].logicalLocations[0]",
+              "0",
+              "1"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.LogicalLocationIndexRequiresRunLogicalLocation_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 17
+                }
+              }
+            }
+          ]
+        }
+      ],
       "columnKind": "utf16CodeUnits"
     }
   ]

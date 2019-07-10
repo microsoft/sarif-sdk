@@ -62,6 +62,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
         public SarifLog InputLog { get; internal set; }
 
+        public Run CurrentRun { get; internal set; }
+
         public JToken InputLogToken { get; internal set; }
 
         public void Dispose()

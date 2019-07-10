@@ -46,12 +46,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             Visit(Context.InputLog, logPointer: string.Empty);
         }
 
-        protected void LogResult(string jPointer, string formatId, params string[] args)
+        protected void LogResult(string jPointer, string formatId, params object[] args)
         {
             Region region = GetRegionFromJPointer(jPointer);
 
             // All messages start with "In {file}, at {jPointer}, ...". Prepend the jPointer to the args.
-            string[] argsWithPointer = new string[args.Length + 1];
+            object[] argsWithPointer = new object[args.Length + 1];
             Array.Copy(args, 0, argsWithPointer, 1, args.Length);
             argsWithPointer[0] = JsonPointerToJavaScript(jPointer);
 
@@ -467,6 +467,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 Visit(location.PhysicalLocation, locationPointer.AtProperty(SarifPropertyName.PhysicalLocation));
             }
+
+            if (location.LogicalLocations != null)
+            {
+                string logicalLocationsPointer = locationPointer.AtProperty(SarifPropertyName.LogicalLocations);
+
+                for (int i = 0; i < location.LogicalLocations.Count; ++i)
+                {
+                    Visit(location.LogicalLocations[i], logicalLocationsPointer.AtIndex(i));
+                }
+            }
         }
 
         private void Visit(LogicalLocation logicalLocation, string logicalLocationPointer)
@@ -692,6 +702,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private void Visit(Run run, string runPointer)
         {
+            Context.CurrentRun = run;
+
             Analyze(run, runPointer);
 
             if (run.Conversion != null)

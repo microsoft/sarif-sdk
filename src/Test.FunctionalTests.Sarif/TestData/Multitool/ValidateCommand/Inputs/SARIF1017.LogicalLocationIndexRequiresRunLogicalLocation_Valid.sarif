@@ -24,9 +24,11 @@
             },
             "locations": [
               {
-                "logicalLocation": {
-                  "index": 1
-                }
+                "logicalLocations": [
+                  {
+                    "index": 1
+                  }
+                ]
               }
             ]
           }

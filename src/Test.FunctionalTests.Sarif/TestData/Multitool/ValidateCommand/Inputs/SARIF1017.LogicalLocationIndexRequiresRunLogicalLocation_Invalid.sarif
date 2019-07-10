@@ -16,9 +16,11 @@
           },
           "locations": [
             {
-              "logicalLocation": {
-                "index": 0
-              }
+              "logicalLocations": [
+                {
+                  "index": 0
+                }
+              ]
             }
           ]
         }

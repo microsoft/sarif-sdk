@@ -186,4 +186,10 @@
   <data name="SARIF1016_Default" xml:space="preserve">
     <value>{0}: This "physicalLocation" object contains a "contextRegion" property, but it does not contain a "region" property.</value>
   </data>
+  <data name="SARIF1017_Default" xml:space="preserve">
+    <value>{0}: This "logicalLocation" object contains an "index" property with value {1}, but either "run.LogicalLocations" is absent, or it has fewer than {2} elements.</value>
+  </data>
+  <data name="SARIF1017_LogicalLocationIndexRequiresRunLogicalLocation" xml:space="preserve">
+    <value>If a "logicalLocation" object contains an "index" property, then "run.logicalLocations" must be present and must contain at least "index + 1" elements.</value>
+  </data>
 </root>
