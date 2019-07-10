@@ -1,0 +1,51 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Sarif Functional Testing"
+        }
+      },
+      "invocations": [
+        {
+          "toolExecutionNotifications": [
+            {
+              "locations": [
+                {
+                  "physicalLocation": {
+                    "artifactLocation": {
+                      "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.LogicalLocationIndexRequiresRunLogicalLocation_Valid.sarif",
+                      "uriBaseId": "TEST_DIR"
+                    }
+                  }
+                }
+              ],
+              "message": {
+                "text": "Analyzing 'Inputs.SARIF1017.LogicalLocationIndexRequiresRunLogicalLocation_Valid.sarif'..."
+              },
+              "level": "none",
+              "descriptor": {
+                "id": "MSG001.AnalyzingTarget"
+              }
+            }
+          ],
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.LogicalLocationIndexRequiresRunLogicalLocation_Valid.sarif",
+            "uriBaseId": "TEST_DIR",
+            "index": 0
+          },
+          "mimeType": "application/sarif-json"
+        }
+      ],
+      "results": [],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}
