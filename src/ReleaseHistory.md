@@ -419,3 +419,5 @@
 * BUGFIX: The `SarifCurrentToVersionOneVisitor` was not translating v2 `result.partialFingerprints` to v1 `result.toolFingerprintContribution`. https://github.com/microsoft/sarif-sdk/issues/1556
 * BUGFIX: The `SarifCurrentToVersionOneVisitor` was dropping `run.id` and emitting an empty `run.stableId`. https://github.com/microsoft/sarif-sdk/issues/1557
 
+## **v2.1.8** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.8) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.8) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.8) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.8)
+* BUGFIX: Add missing `"additionalProperties": false` constraints to schema; add missing object descriptions and improve other object descriptions in schema; update schema version to -rtm.4.

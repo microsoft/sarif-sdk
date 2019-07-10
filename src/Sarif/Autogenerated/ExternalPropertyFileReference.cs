@@ -11,6 +11,9 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
+    /// <summary>
+    /// Contains information that enables a SARIF consumer to locate the external property file that contains the value of an externalized property associated with the run.
+    /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class ExternalPropertyFileReference : PropertyBagHolder, ISarifNode

@@ -10,6 +10,9 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
+    /// <summary>
+    /// The top-level element of an external property file.
+    /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class ExternalProperties : PropertyBagHolder, ISarifNode

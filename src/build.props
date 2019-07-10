@@ -14,7 +14,7 @@
     <VersionPrefix>2.1.7</VersionPrefix>
     
      <!-- SchemaVersionAsPublishedToSchemaStoreOrg identifies the current published version on json schema store at https://schemastore.azurewebsites.net/schemas/json/ -->
-    <SchemaVersionAsPublishedToSchemaStoreOrg>2.1.0-rtm.3</SchemaVersionAsPublishedToSchemaStoreOrg>
+    <SchemaVersionAsPublishedToSchemaStoreOrg>2.1.0-rtm.4</SchemaVersionAsPublishedToSchemaStoreOrg>
       
     <!-- The stable Version of SARIF Specifications. -->
     <StableSarifVersion>2.1.0</StableSarifVersion>
@@ -30,7 +30,7 @@
     hides the previous package versions on nuget.org.
     -->
     <PreviousVersionPrefix>2.1.6</PreviousVersionPrefix>
-    <PreviousSchemaVersionAsPublishedToSchemaStoreOrg>2.1.0-rtm.2</PreviousSchemaVersionAsPublishedToSchemaStoreOrg>
+    <PreviousSchemaVersionAsPublishedToSchemaStoreOrg>2.1.0-rtm.3</PreviousSchemaVersionAsPublishedToSchemaStoreOrg>
     <PreviousStableSarifVersion>2.1.0</PreviousStableSarifVersion>
   </PropertyGroup>
 
