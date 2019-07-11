@@ -68,6 +68,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             };
 
             PersistResults(output, results, run);
+
+            output.WriteLogicalLocations(LogicalLocations);
         }
 
         internal ReportingDescriptor CreateRule(FxCopLogReader.Context context)
