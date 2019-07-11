@@ -21,10 +21,7 @@
                   "text": "{0}: This fileLocation object contains a \"uriBaseId\" property, which means that the value of the \"uri\" property must be a relative URI reference, but \"{1}\" is an absolute URI reference."
                 }
               },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html",
-              "help": {
-                "text": ""
-              }
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             }
           ]
         }

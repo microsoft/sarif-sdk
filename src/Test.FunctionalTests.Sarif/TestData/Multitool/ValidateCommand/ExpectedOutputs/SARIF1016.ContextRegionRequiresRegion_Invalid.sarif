@@ -21,10 +21,7 @@
                   "text": "{0}: This \"physicalLocation\" object contains a \"contextRegion\" property, but it does not contain a \"region\" property."
                 }
               },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html",
-              "help": {
-                "text": ""
-              }
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
             }
           ]
         }
