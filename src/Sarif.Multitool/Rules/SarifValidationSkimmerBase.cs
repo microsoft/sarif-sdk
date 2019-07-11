@@ -15,8 +15,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
     public abstract class SarifValidationSkimmerBase : Skimmer<SarifValidationContext>
     {
-        private const string SarifSpecUri =
-            "http://docs.oasis-open.org/sarif/sarif/v2.0/csprd01/sarif-v2.0-csprd01.html";
+        // OASIS defines this URI to always point to the latest revision (draft or approved) of the specified version
+        // of the SARIF specification.
+        private static readonly string SarifSpecUri =
+            $"http://docs.oasis-open.org/sarif/sarif/v{VersionConstants.StableSarifVersion}/sarif-v{VersionConstants.StableSarifVersion}.html";
 
         private readonly Uri _defaultHelpUri = new Uri(SarifSpecUri);
 

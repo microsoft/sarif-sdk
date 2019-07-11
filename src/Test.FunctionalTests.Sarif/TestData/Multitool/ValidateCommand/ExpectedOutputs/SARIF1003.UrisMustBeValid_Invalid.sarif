@@ -21,7 +21,7 @@
                   "text": "{0}: The string \"{1}\" is not a valid URI reference."
                 }
               },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.0/csprd01/sarif-v2.0-csprd01.html",
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html",
               "help": {
                 "text": ""
               }

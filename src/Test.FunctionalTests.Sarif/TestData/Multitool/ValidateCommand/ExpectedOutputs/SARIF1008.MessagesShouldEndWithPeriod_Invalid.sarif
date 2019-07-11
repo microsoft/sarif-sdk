@@ -21,7 +21,7 @@
                   "text": "{0}: The message \"{1}\" does not end with a period."
                 }
               },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.0/csprd01/sarif-v2.0-csprd01.html",
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html",
               "help": {
                 "text": ""
               }

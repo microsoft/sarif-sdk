@@ -21,7 +21,7 @@
                   "text": "{0}: The name and id properties of rule \"{1}\" are the same."
                 }
               },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.0/csprd01/sarif-v2.0-csprd01.html",
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html",
               "help": {
                 "text": ""
               }

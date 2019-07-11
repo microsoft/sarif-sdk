@@ -21,7 +21,7 @@
                   "text": "{0}: The value of the \"endColumn\" property is {1}, which is less than the value of the \"startColumn\" property, which is {2}."
                 }
               },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.0/csprd01/sarif-v2.0-csprd01.html",
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html",
               "help": {
                 "text": ""
               }

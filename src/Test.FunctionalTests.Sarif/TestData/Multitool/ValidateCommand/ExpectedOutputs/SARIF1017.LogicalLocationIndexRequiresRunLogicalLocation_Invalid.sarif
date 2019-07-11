@@ -21,7 +21,7 @@
                   "text": "{0}: This \"logicalLocation\" object contains an \"index\" property with value {1}, but either \"run.LogicalLocations\" is absent, or it has fewer than {2} elements."
                 }
               },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.0/csprd01/sarif-v2.0-csprd01.html",
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html",
               "help": {
                 "text": ""
               }
