@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         private const string ERR997_ExceptionAccessingFile = "ERR997.ExceptionAccessingFile";
         private const string ERR997_MissingReportingConfiguration = "ERR997.MissingReportingConfiguration";
         private const string ERR997_ExceptionCreatingLogFile = "ERR997.ExceptionCreatingLogFile";
-        private const string ERR997_AllRulesExplicitlyDisabled = "ERR997.AllRulesExplicitlyDisabled";
+        internal const string ERR997_AllRulesExplicitlyDisabled = "ERR997.AllRulesExplicitlyDisabled";
         private const string ERR997_InvalidInvocationPropertyName = "ERR997.InvalidInvocationPropertyName";
         private const string ERR997_ExceptionLoadingAnalysisTarget = "ERR997.ExceptionLoadingAnalysisTarget";
         private const string ERR997_ExceptionInstantiatingSkimmers = "ERR997.ExceptionInstantiatingSkimmers";

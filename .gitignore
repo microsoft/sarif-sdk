@@ -220,3 +220,4 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+/src/Test.UnitTests.Sarif.Driver/Sdk/JsonConvert.cs

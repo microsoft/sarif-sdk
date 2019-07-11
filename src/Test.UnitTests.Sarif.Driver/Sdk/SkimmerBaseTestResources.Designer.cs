@@ -61,38 +61,74 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Driver.Sdk {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This test plainly failed..
+        ///   Looks up a localized string similar to This test plainly failed for &apos;{0}&apos;..
         /// </summary>
-        internal static string TST0001_Error {
+        internal static string TEST1001_Failed {
             get {
-                return ResourceManager.GetString("TST0001_Error", resourceCulture);
+                return ResourceManager.GetString("TEST1001_Failed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This test  _failed_ resulting in a quality **markdown**..
+        ///   Looks up a localized string similar to Here&apos;s a piece of information for you re: &apos;{0}&apos;..
         /// </summary>
-        internal static string TST0001_Markdown_Error {
+        internal static string TEST1001_Information {
             get {
-                return ResourceManager.GetString("TST0001_Markdown_Error", resourceCulture);
+                return ResourceManager.GetString("TEST1001_Information", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This test  _passed_ resulting in a quality **markdown**..
+        ///   Looks up a localized string similar to This test  _failed_ for &apos;{0}&apos; resulting in a quality **markdown**..
         /// </summary>
-        internal static string TST0001_Markdown_Pass {
+        internal static string TEST1001_Markdown_Error {
             get {
-                return ResourceManager.GetString("TST0001_Markdown_Pass", resourceCulture);
+                return ResourceManager.GetString("TEST1001_Markdown_Error", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This test plainly passed..
+        ///   Looks up a localized string similar to This test  _passed_ for &apos;{0}&apos; resulting in a quality **markdown**..
         /// </summary>
-        internal static string TST0001_Pass {
+        internal static string TEST1001_Markdown_Pass {
             get {
-                return ResourceManager.GetString("TST0001_Pass", resourceCulture);
+                return ResourceManager.GetString("TEST1001_Markdown_Pass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We note that there may be a low priority issues to address in &apos;{0}&apos;..
+        /// </summary>
+        internal static string TEST1001_Note {
+            get {
+                return ResourceManager.GetString("TEST1001_Note", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The jury is still out on &apos;{0}&apos;; no verdict is returned..
+        /// </summary>
+        internal static string TEST1001_Open {
+            get {
+                return ResourceManager.GetString("TEST1001_Open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This test plainly passed for &apos;{0}&apos;..
+        /// </summary>
+        internal static string TEST1001_Pass {
+            get {
+                return ResourceManager.GetString("TEST1001_Pass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; should be reviewed for possible issues..
+        /// </summary>
+        internal static string TEST1001_Review {
+            get {
+                return ResourceManager.GetString("TEST1001_Review", resourceCulture);
             }
         }
     }

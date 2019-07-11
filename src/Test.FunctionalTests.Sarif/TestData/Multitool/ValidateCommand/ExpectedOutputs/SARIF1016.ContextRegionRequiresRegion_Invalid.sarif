@@ -21,37 +21,13 @@
                   "text": "{0}: This \"physicalLocation\" object contains a \"contextRegion\" property, but it does not contain a \"region\" property."
                 }
               },
-              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.0/csprd01/sarif-v2.0-csprd01.html",
-              "help": {
-                "text": ""
-              }
+              "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.0/csprd01/sarif-v2.0-csprd01.html"
             }
           ]
         }
       },
       "invocations": [
         {
-          "toolExecutionNotifications": [
-            {
-              "locations": [
-                {
-                  "physicalLocation": {
-                    "artifactLocation": {
-                      "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1016.ContextRegionRequiresRegion_Invalid.sarif",
-                      "uriBaseId": "TEST_DIR"
-                    }
-                  }
-                }
-              ],
-              "message": {
-                "text": "Analyzing 'Inputs.SARIF1016.ContextRegionRequiresRegion_Invalid.sarif'..."
-              },
-              "level": "none",
-              "descriptor": {
-                "id": "MSG001.AnalyzingTarget"
-              }
-            }
-          ],
           "executionSuccessful": true
         }
       ],

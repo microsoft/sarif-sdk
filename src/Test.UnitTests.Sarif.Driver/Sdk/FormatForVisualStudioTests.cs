@@ -64,97 +64,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
         public static IEnumerable<object[]> FailureLevelFormatForVisualStudioTestCases => new[]
         {
-            // Test each FailureLevel value.
-            new object[]
-            {
-                FailureLevel.Error,
-                ResultKind.Fail,
-                MultiLineTestRegion,
-                $"{TestAnalysisTarget}(2,4,3,5): error {TestRuleId}: First: 42, Second: 54",
-                TestAnalysisTarget
-            },
+            // Default core failure cases, verbose and non-verbose
+            BuildDefaultTestCase(FailureLevel.Error),
+            BuildDefaultTestCase(FailureLevel.Warning),
+            BuildDefaultTestCase(FailureLevel.Note),
 
-            new object[]
-            {
-                FailureLevel.Error,
-                ResultKind.Fail,
-                MultiLineTestRegion,
-                $"{TestAnalysisTarget}(2,4,3,5): error {TestRuleId}: First: 42, Second: 54",
-                TestAnalysisTarget
-            },
+            // Default non-failure cases (all of these are verbose only)
+            BuildDefaultTestCase(FailureLevel.None, ResultKind.Pass),
+            BuildDefaultTestCase(FailureLevel.None, ResultKind.Open),
+            BuildDefaultTestCase(FailureLevel.None, ResultKind.Review),
+            BuildDefaultTestCase(FailureLevel.None, ResultKind.NotApplicable),
+            BuildDefaultTestCase(FailureLevel.None, ResultKind.Informational),
 
-            new object[]
-            {
-                FailureLevel.Error,
-                ResultKind.Fail,
-                MultiLineTestRegion,
-                $"{TestAnalysisTarget}(2,4,3,5): error {TestRuleId}: First: 42, Second: 54",
-                TestAnalysisTarget
-            },
+            // A special case, we treat the absence of either a kind or failure level as informational
+            BuildDefaultTestCase(FailureLevel.None, ResultKind.None),
 
-            new object[]
-            {
-                FailureLevel.Warning,
-                ResultKind.Fail,
-                MultiLineTestRegion,
-                $"{TestAnalysisTarget}(2,4,3,5): warning {TestRuleId}: First: 42, Second: 54",
-                TestAnalysisTarget
-            },
-
-            new object[]
-            {
-                FailureLevel.None,
-                ResultKind.NotApplicable,
-                MultiLineTestRegion,
-                $"{TestAnalysisTarget}(2,4,3,5): info {TestRuleId}: First: 42, Second: 54",
-                TestAnalysisTarget
-            },
-
-            new object[]
-            {
-                FailureLevel.Note,
-                ResultKind.Fail,
-                MultiLineTestRegion,
-                $"{TestAnalysisTarget}(2,4,3,5): info {TestRuleId}: First: 42, Second: 54",
-                TestAnalysisTarget
-            },
-
-            new object[]
-            {
-                FailureLevel.None,
-                ResultKind.Pass,
-                MultiLineTestRegion,
-                $"{TestAnalysisTarget}(2,4,3,5): info {TestRuleId}: First: 42, Second: 54",
-                TestAnalysisTarget
-            },
-
-            new object[]
-            {
-                FailureLevel.None,
-                ResultKind.Open,
-                MultiLineTestRegion,
-                $"{TestAnalysisTarget}(2,4,3,5): info {TestRuleId}: First: 42, Second: 54",
-                TestAnalysisTarget
-            },
-
-            new object[]
-            {
-                FailureLevel.None,
-                ResultKind.Review,
-                MultiLineTestRegion,
-                $"{TestAnalysisTarget}(2,4,3,5): info {TestRuleId}: First: 42, Second: 54",
-                TestAnalysisTarget
-            },
-
-            new object[]
-            {
-                FailureLevel.None,
-                ResultKind.None,
-                MultiLineTestRegion,
-                $"{TestAnalysisTarget}(2,4,3,5): info {TestRuleId}: First: 42, Second: 54",
-                TestAnalysisTarget
-            },
-
+            // Special test cases for region variants
             // Test formatting of a single-line multi-column region (previous tests used a multi-line region).
             new object[]
             {
@@ -215,6 +140,34 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 "http://www.example.com/test.html"
             },
         };
+
+        private static object[] BuildDefaultTestCase(FailureLevel level, ResultKind kind = ResultKind.Fail)
+        {
+            string lineLabel = level != FailureLevel.None
+                ? level.ToString().ToLowerInvariant()
+                : kind.ToString().ToLowerInvariant();
+
+            if (kind == ResultKind.Informational)
+            {
+                // Console reporting historically abbreviates this term
+                lineLabel = "info";
+            }
+
+            if (level == FailureLevel.None && kind == ResultKind.None)
+            {
+                // No good information? Mark it as informational.
+                lineLabel = "info";
+            }
+
+            return new object[]
+            {
+                level,
+                kind,
+                MultiLineTestRegion,
+                $"{TestAnalysisTarget}(2,4,3,5): {lineLabel} {TestRuleId}: First: 42, Second: 54",
+                TestAnalysisTarget
+            };
+        }
 
         [Theory]
         [MemberData(nameof(FailureLevelFormatForVisualStudioTestCases))]

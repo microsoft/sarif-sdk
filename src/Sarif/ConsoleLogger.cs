@@ -10,17 +10,46 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public class ConsoleLogger : IAnalysisLogger
     {
-        public ConsoleLogger(bool verbose)
+        public ConsoleLogger(bool verbose, string toolName)
         {
             Verbose = verbose;
+            _toolName = toolName.ToUpperInvariant();
         }
+
+        private StringBuilder _capturedOutput;
+
+        public bool CaptureOutput { get; set; }
+
+        public string CapturedOutput
+        {
+            get
+            {
+                if (_capturedOutput != null)
+                {
+                    return _capturedOutput.ToString();
+                }
+                return null;
+            }
+        }
+
+        private string _toolName;
 
         public bool Verbose { get; set; }
 
+        private void WriteLineToConsole(string text = null)
+        {
+            Console.WriteLine(text);
+
+            if (CaptureOutput)
+            {
+                _capturedOutput = _capturedOutput ?? new StringBuilder();
+                _capturedOutput.AppendLine(text);
+            }
+        }
 
         public void AnalysisStarted()
         {
-            Console.WriteLine(SdkResources.MSG_Analyzing);
+            WriteLineToConsole(SdkResources.MSG_Analyzing);
         }
 
         public void AnalysisStopped(RuntimeConditions runtimeConditions)
@@ -29,30 +58,30 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (fatalConditions == RuntimeConditions.None)
             {
-                Console.WriteLine(SdkResources.MSG_AnalysisCompletedSuccessfully);
+                WriteLineToConsole(SdkResources.MSG_AnalysisCompletedSuccessfully);
             }
 
-            Console.WriteLine();
+            WriteLineToConsole();
 
             if ((runtimeConditions & RuntimeConditions.RuleNotApplicableToTarget) != 0)
             {
-                Console.WriteLine(SdkResources.MSG_OneOrMoreNotApplicable);
-                Console.WriteLine();
+                WriteLineToConsole(SdkResources.MSG_OneOrMoreNotApplicable);
+                WriteLineToConsole();
             }
 
             if ((runtimeConditions & RuntimeConditions.TargetNotValidToAnalyze) != 0)
             {
-                Console.WriteLine(SdkResources.MSG_OneOrMoreInvalidTargets);
-                Console.WriteLine();
+                WriteLineToConsole(SdkResources.MSG_OneOrMoreInvalidTargets);
+                WriteLineToConsole();
             }
 
             if (fatalConditions != 0)
             {
                 // One or more fatal conditions observed at runtime,
                 // so we'll report a catastrophic exit.
-                Console.WriteLine(SdkResources.MSG_UnexpectedApplicationExit);
-                Console.WriteLine(SdkResources.UnexpectedFatalRuntimeConditions + fatalConditions.ToString());
-                Console.WriteLine();
+                WriteLineToConsole(SdkResources.MSG_UnexpectedApplicationExit);
+                WriteLineToConsole(SdkResources.UnexpectedFatalRuntimeConditions + fatalConditions.ToString());
+                WriteLineToConsole();
             }
         }
 
@@ -65,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             if (Verbose)
             {
-                Console.WriteLine(string.Format(CultureInfo.CurrentCulture,
+                WriteLineToConsole(string.Format(CultureInfo.CurrentCulture,
                     SdkResources.MSG001_AnalyzingTarget,
                         context.TargetUri.GetFileName()));
             }
@@ -75,7 +104,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             if (Verbose)
             {
-                Console.WriteLine(message);
+                WriteLineToConsole(message);
             }
         }
 
@@ -113,7 +142,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 {
                     if (Verbose)
                     {
-                        Console.WriteLine(GetMessageText(uri, region, ruleId, message, kind, level));
+                        WriteLineToConsole(GetMessageText(_toolName, uri, region, ruleId, message, kind, level));
                     }
                     break;
                 }
@@ -122,7 +151,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 case FailureLevel.Error:
                 case FailureLevel.Warning:
                 {
-                    Console.WriteLine(GetMessageText(uri, region, ruleId, message, kind, level));
+                    WriteLineToConsole(GetMessageText(_toolName, uri, region, ruleId, message, kind, level));
                     break;
                 }
 
@@ -148,6 +177,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         private static string GetMessageText(
+            string toolName,
             Uri uri,
             Region region,
             string ruleId,
@@ -177,7 +207,7 @@ namespace Microsoft.CodeAnalysis.Sarif
             switch (level)
             {
                 case FailureLevel.Note:
-                    issueType = "info";
+                    issueType = "note";
                     break;
 
                 case FailureLevel.Error:
@@ -190,11 +220,13 @@ namespace Microsoft.CodeAnalysis.Sarif
 
                 case FailureLevel.None:
                     issueType = kind.ToString().ToLowerInvariant();
+                    // Shorten to 'info' for compat reasons with previous behaviors.
+                    if (issueType == "informational") { issueType = "info"; };
                     break;
 
 
                 default:
-                    throw new InvalidOperationException("Unknown message kind:" + level.ToString());
+                    throw new InvalidOperationException("Unknown message level:" + level.ToString());
             }
 
             string detailedDiagnosis = NormalizeMessage(message, enquote: false);
@@ -219,9 +251,10 @@ namespace Microsoft.CodeAnalysis.Sarif
                 location = region.FormatForVisualStudio();
             }
 
-            string result = (path != null ? (path + location + ": ") : "") +
-                   issueType + (!string.IsNullOrEmpty(ruleId) ? " " : "") +
-                   (!string.IsNullOrEmpty(ruleId) ? (ruleId + ": ") : "") +
+            string result = 
+                   (path != null ? (path + location) : toolName) + ": " +
+                   issueType + (!string.IsNullOrEmpty(ruleId) ? " " : "")  +
+                   (!string.IsNullOrEmpty(ruleId) ? (ruleId + ": ") : "")  +
                    detailedDiagnosis;
 
             return result;
@@ -257,14 +290,14 @@ namespace Microsoft.CodeAnalysis.Sarif
                 case FailureLevel.Note:
                     if (Verbose)
                     {
-                        Console.WriteLine(FormatNotificationMessage(notification));
+                        WriteLineToConsole(FormatNotificationMessage(notification));
                     }
                     break;
 
                 // These notification types are always emitted.
                 case FailureLevel.Error:
                 case FailureLevel.Warning:
-                    Console.WriteLine(FormatNotificationMessage(notification));
+                    WriteLineToConsole(FormatNotificationMessage(notification));
                     break;
 
                 default:

@@ -147,6 +147,40 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         [Fact]
+        public void SarifLogger_EmitHashesWithNullOrEmptyAnalysisTargets()
+        {
+            var analysisTargetsArguments = new IEnumerable<string>[]
+            {
+                null,
+                new List<string>()
+            };
+
+            var sb = new StringBuilder();
+            int argumentsCount = analysisTargetsArguments.Count();
+
+            for (int i = 0; i < argumentsCount; i++)
+            {
+                IEnumerable<string> analysisTargets = analysisTargetsArguments[i];
+
+                sb.Clear();
+                using (var textWriter = new StringWriter(sb))
+                {
+                    using (var sarifLogger = new SarifLogger(
+                        textWriter,
+                        analysisTargets: analysisTargets,
+                        dataToInsert: OptionallyEmittedData.Hashes))
+                    {
+                        LogSimpleResult(sarifLogger);
+                    }
+                }
+
+                string output = sb.ToString();
+                var sarifLog = JsonConvert.DeserializeObject<SarifLog>(output);
+                sarifLog.Runs[0].Artifacts.Should().BeNull();
+            }
+        }
+
+        [Fact]
         public void SarifLogger_WritesSarifLoggerVersion()
         {
             var sb = new StringBuilder();
