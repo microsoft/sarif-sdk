@@ -9,7 +9,7 @@
           "rules": [
             {
               "id": "SARIF1017",
-              "name": "LogicalLocationIndexRequiresRunLogicalLocation",
+              "name": "InvalidLogicalLocationIndex",
               "shortDescription": {
                 "text": "If a \"logicalLocation\" object contains an \"index\" property, then \"run."
               },
@@ -34,14 +34,14 @@
                 {
                   "physicalLocation": {
                     "artifactLocation": {
-                      "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.LogicalLocationIndexRequiresRunLogicalLocation_Invalid.sarif",
+                      "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidLogicalLocationIndex_Invalid.sarif",
                       "uriBaseId": "TEST_DIR"
                     }
                   }
                 }
               ],
               "message": {
-                "text": "Analyzing 'Inputs.SARIF1017.LogicalLocationIndexRequiresRunLogicalLocation_Invalid.sarif'..."
+                "text": "Analyzing 'Inputs.SARIF1017.InvalidLogicalLocationIndex_Invalid.sarif'..."
               },
               "level": "none",
               "descriptor": {
@@ -55,7 +55,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.LogicalLocationIndexRequiresRunLogicalLocation_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidLogicalLocationIndex_Invalid.sarif",
             "uriBaseId": "TEST_DIR",
             "index": 0
           },
@@ -79,7 +79,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.LogicalLocationIndexRequiresRunLogicalLocation_Invalid.sarif",
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidLogicalLocationIndex_Invalid.sarif",
                   "uriBaseId": "TEST_DIR",
                   "index": 0
                 },

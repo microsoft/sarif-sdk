@@ -279,9 +279,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         /// <summary>
         ///   Looks up a localized string similar to If a &quot;logicalLocation&quot; object contains an &quot;index&quot; property, then &quot;run.logicalLocations&quot; must be present and must contain at least &quot;index + 1&quot; elements..
         /// </summary>
-        internal static string SARIF1017_LogicalLocationIndexRequiresRunLogicalLocation {
+        internal static string SARIF1017_InvalidLogicalLocationIndex {
             get {
-                return ResourceManager.GetString("SARIF1017_LogicalLocationIndexRequiresRunLogicalLocation", resourceCulture);
+                return ResourceManager.GetString("SARIF1017_InvalidLogicalLocationIndex", resourceCulture);
             }
         }
     }

@@ -16,14 +16,14 @@
                 {
                   "physicalLocation": {
                     "artifactLocation": {
-                      "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.LogicalLocationIndexRequiresRunLogicalLocation_Valid.sarif",
+                      "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidLogicalLocationIndex_Valid.sarif",
                       "uriBaseId": "TEST_DIR"
                     }
                   }
                 }
               ],
               "message": {
-                "text": "Analyzing 'Inputs.SARIF1017.LogicalLocationIndexRequiresRunLogicalLocation_Valid.sarif'..."
+                "text": "Analyzing 'Inputs.SARIF1017.InvalidLogicalLocationIndex_Valid.sarif'..."
               },
               "level": "none",
               "descriptor": {
@@ -37,7 +37,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.LogicalLocationIndexRequiresRunLogicalLocation_Valid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidLogicalLocationIndex_Valid.sarif",
             "uriBaseId": "TEST_DIR",
             "index": 0
           },

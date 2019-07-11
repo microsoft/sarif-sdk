@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
-    public class LogicalLocationIndexRequiresRunLogicalLocation : SarifValidationSkimmerBase
+    public class InvalidLogicalLocationIndex : SarifValidationSkimmerBase
     {
         private readonly MultiformatMessageString _fullDescription = new MultiformatMessageString
         {
-            Text = RuleResources.SARIF1017_LogicalLocationIndexRequiresRunLogicalLocation
+            Text = RuleResources.SARIF1017_InvalidLogicalLocationIndex
         };
 
         public override MultiformatMessageString FullDescription => _fullDescription;
@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         /// <summary>
         /// SARIF1017
         /// </summary>
-        public override string Id => RuleId.LogicalLocationIndexRequiresRunLogicalLocation;
+        public override string Id => RuleId.InvalidLogicalLocationIndex;
 
         protected override IEnumerable<string> MessageResourceNames => new string[]
         {
