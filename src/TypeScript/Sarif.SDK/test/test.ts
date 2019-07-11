@@ -10,7 +10,7 @@ it("should return an empty runs array", () =>
 {
     // Create an empty sarif log--and ensure that the log is empty.
     const sarifLog = sarif.CreateEmptySarifLog();
-    expect(sarifLog.version).to.equal("2.0.0");
+    expect(sarifLog.version).to.equal("2.1.0");
     expect(sarifLog.runs.length).to.equal(0);
 })
 );
