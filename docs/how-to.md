@@ -8,16 +8,28 @@
 
 ## Write a SARIF log file to disk
 
-Whenever you read or write a SARIF log file, use the `SarifContractResolver` class to format elements such as URIs and dates according to the SARIF standard.
-
 ```C#
-JsonSerializerSettings settings = new JsonSerializerSettings()
+
+# For a file in the standardized SARIF v2.1.0 format:
+var settings = new JsonSerializerSettings()
 {
-    ContractResolver = SarifContractResolver.Instance,
     Formatting = Formatting.Indented
 };
 
 SarifLog log = ... ;
+
+string sarifText = JsonConvert.SerializeObject(log, settings);
+File.WriteAllText(outputFilePath, sarifText);
+```
+```C#
+# For a file in the deprecated, pre-standardization SARIF v1.0 format:
+var settings = new JsonSerializerSettings()
+{
+    ContractResolver = SarifContractResolverVersionOne.Instance,
+    Formatting = Formatting.Indented
+};
+
+SarifLogVersionOne log = ... ;
 
 sarifText = JsonConvert.SerializeObject(log, settings);
 File.WriteAllText(outputFilePath, sarifText);
@@ -25,17 +37,22 @@ File.WriteAllText(outputFilePath, sarifText);
 
 ## Read a SARIF log file from disk
 
-Whenever you read or write a SARIF log file, use the `SarifContractResolver` class to format elements such as URIs and dates according to the SARIF standard.
-
 ```C#
+# For a file in the standardized SARIF v2.1.0 format:
+string logContents = File.ReadAllText(logFilePath);
+
+SarifLog log = JsonConvert.DeserializeObject<SarifLog>(logContents);
+```
+```C#
+# For a file in the deprecated, pre-standardization SARIF v1.0 format:
 string logContents = File.ReadAllText(logFilePath);
 
 var settings = new JsonSerializerSettings()
 {
-    ContractResolver = SarifContractResolver.Instance
+    ContractResolver = SarifContractResolverVersionOne.Instance
 };
 
-SarifLog log = JsonConvert.DeserializeObject<SarifLog>(logContents, settings);
+SarifLogVersionOne log = JsonConvert.DeserializeObject<SarifLogVersionOne>(logContents, settings);
 ```
 
 ## Format a result message

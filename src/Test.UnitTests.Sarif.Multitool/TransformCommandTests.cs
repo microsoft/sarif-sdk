@@ -15,7 +15,7 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace Sarif.Multitool.UnitTests
+namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
 {
     public class TransformCommandTests
     {
@@ -179,22 +179,6 @@ namespace Sarif.Multitool.UnitTests
             returnCode.Should().Be(0);
 
             return transformedContents.ToString();
-        }
-
-        private class MemoryStreamToStringBuilder : MemoryStream
-        {
-            private StringBuilder OutputTo { get; set; }
-
-            public MemoryStreamToStringBuilder(StringBuilder outputTo)
-            {
-                OutputTo = outputTo;
-            }
-
-            protected override void Dispose(bool disposing)
-            {
-                OutputTo.Append(Encoding.UTF8.GetString(this.ToArray()));
-                base.Dispose(disposing);
-            }
         }
     }
 }

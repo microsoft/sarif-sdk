@@ -8,7 +8,7 @@ using System.Linq;
 namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
 {
     /// <summary>
-    /// A set of two results that have been matched by a matching algorithm.
+    /// A pair of results that have been matched by a matching algorithm.
     /// </summary>
     public class MatchedResults
     {
@@ -16,9 +16,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         private const string MatchResultMetadata_FoundDateName = "FoundDate";
         private const string MatchResultMetadata_PreviousGuid = "PreviousGuid";
 
-        public ExtractedResult PreviousResult { get; private set; }
+        public ExtractedResult PreviousResult { get; }
 
-        public ExtractedResult CurrentResult { get; private set; }
+        public ExtractedResult CurrentResult { get; }
 
         public Run Run { get; set; }
 
@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
         /// <returns>The new SARIF result.</returns>
         public Result CalculateBasedlinedResult(DictionaryMergeBehavior propertyBagMergeBehavior)
         {
-            Result result;
+            Result result = null;
 
             Dictionary<string, object> resultMatchingProperties = new Dictionary<string, object>();
             Dictionary<string, object> originalResultMatchingProperties = null;
@@ -56,10 +56,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             {
                 // Baseline result is present, current result is missing => absent.
                 result = ConstructAbsentResult(resultMatchingProperties, out originalResultMatchingProperties);
-            }
-            else
-            {
-                throw new InvalidOperationException("Cannot generate a result for a new baseline where both results are null.");
             }
 
             resultMatchingProperties = MergeDictionaryPreferFirst(resultMatchingProperties, originalResultMatchingProperties);
@@ -87,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 originalResultMatchingProperties = new Dictionary<string, object>();
             }
 
-            if (PreviousResult.OriginalRun.AutomationDetails?.Guid != null)
+            if (PreviousResult.OriginalRun?.AutomationDetails?.Guid != null)
             {
                 resultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, PreviousResult.OriginalRun.AutomationDetails.Guid);
             }
@@ -111,13 +107,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
                 originalResultMatchingProperties = new Dictionary<string, object>();
             }
 
-            if (CurrentResult.OriginalRun.AutomationDetails?.Guid != null)
+            if (CurrentResult.OriginalRun?.AutomationDetails?.Guid != null)
             {
                 resultMatchingProperties.Add(MatchedResults.MatchResultMetadata_RunKeyName, CurrentResult.OriginalRun.AutomationDetails.Guid);
             }
 
             // Potentially temporary -- we persist the "originally found date" forward, and this sets it.
-            if (CurrentResult.OriginalRun?.Invocations?.Any() == true && CurrentResult.OriginalRun.Invocations[0].StartTimeUtc != null)
+            if (CurrentResult.OriginalRun?.Invocations?[0]?.StartTimeUtc != null)
             {
                 resultMatchingProperties.Add(MatchedResults.MatchResultMetadata_FoundDateName, CurrentResult.OriginalRun.Invocations[0].StartTimeUtc);
             }
@@ -161,16 +157,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline.ResultMatching
             Dictionary<string, object> firstPropertyBag,
             Dictionary<string, object> secondPropertyBag)
         {
-            Dictionary<string, object> result = firstPropertyBag;
+            Dictionary<string, object> mergedPropertyBag = firstPropertyBag;
 
             foreach (string key in secondPropertyBag.Keys)
             {
-                if (!result.ContainsKey(key))
+                if (!mergedPropertyBag.ContainsKey(key))
                 {
-                    result[key] = secondPropertyBag[key];
+                    mergedPropertyBag[key] = secondPropertyBag[key];
                 }
             }
-            return result;
+            return mergedPropertyBag;
         }
 
         public override string ToString()

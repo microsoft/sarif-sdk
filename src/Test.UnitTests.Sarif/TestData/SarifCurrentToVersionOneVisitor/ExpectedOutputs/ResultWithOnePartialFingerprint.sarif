@@ -1,0 +1,28 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-1.0.0.json",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "CodeScanner",
+        "semanticVersion": "2.1.0",
+        "language": "en-US"
+      },
+      "results": [
+        {
+          "ruleId": "TEST1001",
+          "message": "Something happened.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "io/kb.c",
+                "uriBaseId": "SRCROOT"
+              }
+            }
+          ],
+          "toolFingerprintContribution": "12345"
+        }
+      ]
+    }
+  ]
+}

@@ -16,15 +16,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
     /// </summary>
     internal class WhatMap
     {
-        // Dictionary of (Category | PropertyName | Value) => (Result Index)
-        // If the same combination occurs multiple times, it will be in the map with an index of -1
-        private Dictionary<WhatComponent, int> Map;
+        // This dictionary maps each distinct combination of (Category | PropertyName | Value)
+        // to the index of the unique result in which it was found. If the same combination occurs
+        // multiple times, it will be in the map with an index of -1.
+        private Dictionary<WhatComponent, int> Map { get; }
 
         public WhatMap(IList<ExtractedResult> results, int[] linksFromResults)
         {
             Map = new Dictionary<WhatComponent, int>();
 
-            // Map *only* results which aren't already linked
+            // Map *only* results which aren't already linked.
             for (int i = 0; i < results.Count; ++i)
             {
                 if (linksFromResults[i] == -1)
@@ -36,7 +37,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
         private void Add(ExtractedResult result, int index)
         {
-            foreach(WhatComponent component in WhatComparer.WhatProperties(result))
+            foreach(WhatComponent component in result.WhatProperties())
             {
                 Add(component, index);
             }
@@ -48,12 +49,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
             if (Map.TryGetValue(component, out int existingIndex) && existingIndex != index)
             {
-                // If the map has another of this value, set index -1 to indicate non-unique
+                // If the map has another of this value, set index -1 to indicate non-unique.
                 Map[component] = -1;
             }
             else
             {
-                // Otherwise, point to the result
+                // Otherwise, point to the result.
                 Map[component] = index;
             }
         }

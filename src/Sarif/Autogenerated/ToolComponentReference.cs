@@ -11,6 +11,9 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
+    /// <summary>
+    /// Identifies a particular toolComponent object, either the driver or an extension.
+    /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class ToolComponentReference : PropertyBagHolder, ISarifNode

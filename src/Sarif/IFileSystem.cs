@@ -196,5 +196,26 @@ namespace Microsoft.CodeAnalysis.Sarif
         /// A bitwise combination of the enumeration values.
         /// </param>
         void SetAttributes(string path, FileAttributes fileAttributes);
+
+        /// <summary>
+        /// Creates all directories and subdirectories in the specified path unless they
+        /// already exist.
+        /// </summary>
+        /// <param name="path">
+        /// The directory to create.
+        /// </param>
+        /// <returns>
+        /// An object that represents the directory at the specified path. This object is
+        /// returned regardless of whether a directory at the specified path already exists.
+        /// </returns>  
+        DirectoryInfo CreateDirectory(string path);
+
+        /// <summary>
+        /// Deletes an empty directory from a specified path.
+        /// </summary>
+        /// <param name="path">
+        /// The name of the empty directory to remove. This directory must be writable and empty.
+        /// </param>
+        void DeleteDirectory(string path, bool recursive = false);
     }
 }

@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private IEnumerable<AbsoluteUriFile> GetSarifFiles(AbsoluteUriOptions absoluteUriOptions)
         {
             // Get files names first, as we may write more sarif logs to the same directory as we rebase them.
-            HashSet<string> fileNames = CreateTargetsSet(absoluteUriOptions.TargetFileSpecifiers, absoluteUriOptions.Recurse);
+            HashSet<string> fileNames = CreateTargetsSet(absoluteUriOptions.TargetFileSpecifiers, absoluteUriOptions.Recurse, _fileSystem);
             foreach (var file in fileNames)
             {
                 yield return new AbsoluteUriFile() { FileName = file, Log = ReadSarifFile<SarifLog>(_fileSystem, file) };

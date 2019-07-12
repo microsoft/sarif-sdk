@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Sarif
     /// </summary>
     public class ResourceExtractor
     {
-        private Assembly ClassAssembly { get; set; }
+        private Assembly ClassAssembly { get; }
 
         public ResourceExtractor(Type forType)
         {

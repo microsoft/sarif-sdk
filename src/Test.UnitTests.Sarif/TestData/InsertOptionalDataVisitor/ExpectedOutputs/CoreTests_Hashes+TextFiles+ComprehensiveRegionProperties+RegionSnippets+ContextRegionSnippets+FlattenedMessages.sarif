@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.2.json",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
   "version": "2.1.0",
   "runs": [
     {
@@ -101,8 +101,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "InsertOptionalDataVisitor/InsertOptionalDataVisitor.txt",
-                  "uriBaseId": "TESTROOT"
+                  "index": 0
                 },
                 "region": {
                   "startLine": 1,

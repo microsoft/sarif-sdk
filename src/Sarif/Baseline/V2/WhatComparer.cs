@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             {
                 foreach (var fingerprint in result.Result.Fingerprints)
                 {
-                    yield return new WhatComponent(result.RuleId, "Fingerprint", fingerprint.Key, fingerprint.Value);
+                    yield return new WhatComponent(result.RuleId, "Fingerprint", "Fingerprint/" + fingerprint.Key, fingerprint.Value);
                 }
             }
 
@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             {
                 foreach (var fingerprint in result.Result.PartialFingerprints)
                 {
-                    yield return new WhatComponent(result.RuleId, "PartialFingerprint", fingerprint.Key, fingerprint.Value);
+                    yield return new WhatComponent(result.RuleId, "PartialFingerprint", "PartialFingerprint/" + fingerprint.Key, fingerprint.Value);
                 }
             }
 
@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
             {
                 foreach (var property in result.Result.Properties)
                 {
-                    yield return new WhatComponent(result.RuleId, "Property", property.Key, property.Value.SerializedValue);
+                    yield return new WhatComponent(result.RuleId, "Property", "PropertyBag/" + property.Key, property.Value.SerializedValue);
                 }
             }
         }
@@ -144,8 +144,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Baseline
 
                 foreach (var property in left.Result.Properties)
                 {
-                    if (left.Result.TryGetProperty(property.Key, out string leftValue)
-                        && right.Result.TryGetProperty(property.Key, out string otherPropertyValue))
+                    if (left.Result.TryGetSerializedPropertyValue(property.Key, out string leftValue)
+                        && right.Result.TryGetSerializedPropertyValue(property.Key, out string otherPropertyValue))
                     {
                         correspondingPropertyCount++;
 

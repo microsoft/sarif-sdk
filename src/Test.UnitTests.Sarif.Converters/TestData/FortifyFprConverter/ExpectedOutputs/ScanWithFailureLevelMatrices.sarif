@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.2.json",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
   "version": "2.1.0",
   "runs": [
     {
@@ -49080,7 +49080,11 @@
           }
         }
       ],
-      "language": "en-US",
+      "originalUriBaseIds": {
+        "SRCROOT": {
+          "uri": "file:///C:/"
+        }
+      },
       "artifacts": [
         {
           "location": {

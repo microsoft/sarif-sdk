@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             }
         }
 
-        public static HashSet<string> CreateTargetsSet(IEnumerable<string> targetSpecifiers, bool recurse)
+        public static HashSet<string> CreateTargetsSet(IEnumerable<string> targetSpecifiers, bool recurse, IFileSystem fileSystem)
         {
             HashSet<string> targets = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             foreach (string specifier in targetSpecifiers)
@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                     }
                 }
                 // Currently, we do not filter on any extensions.
-                var fileSpecifier = new FileSpecifier(normalizedSpecifier, recurse);
+                var fileSpecifier = new FileSpecifier(normalizedSpecifier, recurse, fileSystem);
                 foreach (string file in fileSpecifier.Files) { targets.Add(file); }
             }
 

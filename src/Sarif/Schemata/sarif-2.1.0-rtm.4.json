@@ -1,8 +1,8 @@
 {
-  "$schema": "http://json-schema.org/schema#",
-  "title": "Static Analysis Results Format (SARIF) Version 2.1.0-rtm.2 JSON Schema",
-  "$id": "https://raw.githubusercontent.com/schemastore/schemastore/master/src/schemas/json/sarif-2.1.0-rtm.2.json",
-  "description": "Static Analysis Results Format (SARIF) Version 2.1.0-rtm.2 JSON Schema: a standard format for the output of static analysis tools.",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Static Analysis Results Format (SARIF) Version 2.1.0-rtm.4 JSON Schema",
+  "id": "https://raw.githubusercontent.com/schemastore/schemastore/master/src/schemas/json/sarif-2.1.0-rtm.4.json",
+  "description": "Static Analysis Results Format (SARIF) Version 2.1.0-rtm.4 JSON Schema: a standard format for the output of static analysis tools.",
   "additionalProperties": false,
   "type": "object",
   "properties": {
@@ -535,7 +535,9 @@
     },
 
     "exception": {
+      "description": "Describes a runtime exception encountered during the execution of an analysis tool.",
       "type": "object",
+      "additionalProperties": false,
       "properties": {
 
         "kind": {
@@ -572,7 +574,9 @@
     },
 
     "externalProperties": {
+      "description": "The top-level element of an external property file.",
       "type": "object",
+      "additionalProperties": false,
       "properties": {
 
         "schema": {
@@ -763,7 +767,9 @@
     },
 
     "externalPropertyFileReference": {
+      "description": "Contains information that enables a SARIF consumer to locate the external property file that contains the value of an externalized property associated with the run.",
       "type": "object",
+      "additionalProperties": false,
       "properties": {
 
         "location": {
@@ -2605,6 +2611,7 @@
     "specialLocations": {
       "description": "Defines locations of special significance to SARIF consumers.",
       "type": "object",
+      "additionalProperties": false,
       "properties": {
 
         "displayBase": {
@@ -2736,7 +2743,9 @@
     },
 
     "threadFlow": {
+      "description": "Describes a sequence of code locations that specify a path through a single thread of execution such as an operating system or fiber.",
       "type": "object",
+      "additionalProperties": false,
       "properties": {
 
         "id": {
@@ -3114,8 +3123,9 @@
     },
 
     "toolComponentReference": {
-      "description": "",
+      "description": "Identifies a particular toolComponent object, either the driver or an extension.",
       "type": "object",
+      "additionalProperties": false,
       "properties": {
 
         "name": {
@@ -3146,6 +3156,7 @@
     "translationMetadata": {
       "description": "Provides additional metadata related to translation.",
       "type": "object",
+      "additionalProperties": false,
       "properties": {
 
         "name": {
@@ -3236,8 +3247,9 @@
     },
 
     "webRequest": {
-      "description": "A web request object.",
+      "description": "Describes an HTTP request.",
       "type": "object",
+      "additionalProperties": false,
       "properties": {
 
         "index": {
@@ -3297,8 +3309,9 @@
     },
 
     "webResponse": {
-      "description": "A web response object.",
+      "description": "Describes the response to an HTTP request.",
       "type": "object",
+      "additionalProperties": false,
       "properties": {
 
         "index": {

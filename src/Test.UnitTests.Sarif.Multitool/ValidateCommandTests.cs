@@ -8,7 +8,7 @@ using Microsoft.CodeAnalysis.Sarif.Multitool;
 using Moq;
 using Xunit;
 
-namespace Sarif.Multitool.UnitTests
+namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
 {
     public class ValidateCommandTests
     {

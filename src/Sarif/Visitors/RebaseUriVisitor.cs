@@ -34,7 +34,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Visitors
 
         public override ArtifactLocation VisitArtifactLocation(ArtifactLocation node)
         {
-            if (_currentRun == null || _currentRun.OriginalUriBaseIds == null || !_currentRun.OriginalUriBaseIds.Values.Contains(node))
+            if (node.Uri == null)
+            {
+                return node;
+            }
+
+            if (_currentRun?.OriginalUriBaseIds?.Values.Contains(node) != true)
             {
                 if (node.Uri.IsAbsoluteUri && _baseUri.IsBaseOf(node.Uri))
                 {

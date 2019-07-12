@@ -53,8 +53,8 @@ namespace Microsoft.CodeAnalysis.Sarif
         {
             var headers = new Dictionary<string, string>();
             totalLength = 0;
-             
-            do
+
+            while (!requestString.StartsWith(CRLF))     // An empty line signals the end of the headers.
             {
                 ParseHeaderLine(requestString, out string fieldName, out string fieldValue, out int length);
                 if (headers.ContainsKey(fieldName))
@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif
                 headers.Add(fieldName, fieldValue);
                 requestString = requestString.Substring(length);
                 totalLength += length;
-            } while (!requestString.StartsWith(CRLF));  // An empty line signals the end of the headers.
+            }
 
             totalLength += CRLF.Length;                 // Skip past the empty line;
 

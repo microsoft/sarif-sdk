@@ -10,6 +10,9 @@ using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif
 {
+    /// <summary>
+    /// Describes a runtime exception encountered during the execution of an analysis tool.
+    /// </summary>
     [DataContract]
     [GeneratedCode("Microsoft.Json.Schema.ToDotNet", "1.1.0.0")]
     public partial class ExceptionData : PropertyBagHolder, ISarifNode
