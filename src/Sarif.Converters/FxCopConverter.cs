@@ -140,6 +140,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                 sourceFile = string.IsNullOrWhiteSpace(sourceFile) ? targetFile : sourceFile;
             }
 
+            // Don't emit a location if neither physical location nor logical location information
+            // is present. This is the case for CA0001, (unexpected error in analysis tool).
+            // https://docs.microsoft.com/en-us/visualstudio/code-quality/ca0001?view=vs-2019
+            bool emitLocation = false;
+
             // If we have a value, set physical location
             if (!string.IsNullOrWhiteSpace(sourceFile))
             {
@@ -148,6 +153,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     ArtifactLocation = BuildFileLocationFromFxCopReference(sourceFile),
                     Region = context.Line == null ? null : Extensions.CreateRegion(context.Line.Value)
                 };
+
+                emitLocation = true;
             }
 
             string fullyQualifiedLogicalName = CreateFullyQualifiedLogicalName(context, out int logicalLocationIndex);
@@ -159,9 +166,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
                     FullyQualifiedName = fullyQualifiedLogicalName,
                     Index = logicalLocationIndex
                 };
+
+                emitLocation = true;
             }
 
-            result.Locations = new List<Location> { location };
+            if (emitLocation)
+            {
+                result.Locations = new List<Location> { location };
+            }
 
             bool mapsDirectlyToSarifName;
 
