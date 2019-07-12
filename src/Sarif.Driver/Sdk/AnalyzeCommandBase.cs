@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
         {
             get
             {
-                string currentDirectory = Path.GetDirectoryName(this.GetType().Assembly.Location);
+                string currentDirectory = Path.GetDirectoryName(GetType().Assembly.Location);
                 return Path.Combine(currentDirectory, "default.configuration.xml");
             }
         }
@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
                 catch (Exception ex)
                 {
                     // These exceptions escaped our net and must be logged here                    
-                    RuntimeErrors |= Errors.LogUnhandledEngineException(this._rootContext, ex);
+                    RuntimeErrors |= Errors.LogUnhandledEngineException(_rootContext, ex);
                     ExecutionException = ex;
                     return FAILURE;
                 }
@@ -104,11 +104,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             // 1. Create context object to pass to skimmers. The logger
             //    and configuration objects are common to all context
             //    instances and will be passed on again for analysis.
-            this._rootContext = CreateContext(analyzeOptions, logger, RuntimeErrors);
+            _rootContext = CreateContext(analyzeOptions, logger, RuntimeErrors);
 
             // 2. Perform any command line argument validation beyond what
             //    the command line parser library is capable of.
-            ValidateOptions(this._rootContext, analyzeOptions);
+            ValidateOptions(_rootContext, analyzeOptions);
 
             // 3. Produce a comprehensive set of analysis targets 
             HashSet<string> targets = CreateTargetsSet(analyzeOptions);
@@ -117,31 +117,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
             //    access all analysis targets. Helper will return
             //    a list that potentially filters out files which
             //    did not exist, could not be accessed, etc.
-            targets = ValidateTargetsExist(this._rootContext, targets);
+            targets = ValidateTargetsExist(_rootContext, targets);
 
             // 5. Initialize report file, if configured.
-            InitializeOutputFile(analyzeOptions, this._rootContext, targets);
+            InitializeOutputFile(analyzeOptions, _rootContext, targets);
 
             // 6. Instantiate skimmers.
-            HashSet<Skimmer<TContext>> skimmers = CreateSkimmers(this._rootContext);
+            HashSet<Skimmer<TContext>> skimmers = CreateSkimmers(_rootContext);
 
             // 7. Initialize configuration. This step must be done after initializing
             //    the skimmers, as rules define their specific context objects and
             //    so those assemblies must be loaded.
-            InitializeConfiguration(analyzeOptions, this._rootContext);
+            InitializeConfiguration(analyzeOptions, _rootContext);
 
             // 8. Initialize skimmers. Initialize occurs a single time only. This
             //    step needs to occurs after initializing configuration in order
             //    to allow command-line override of rule settings
-            skimmers = InitializeSkimmers(skimmers, this._rootContext);
+            skimmers = InitializeSkimmers(skimmers, _rootContext);
 
             // 9. Run all analysis
-            AnalyzeTargets(analyzeOptions, skimmers, this._rootContext, targets);
+            AnalyzeTargets(analyzeOptions, skimmers, _rootContext, targets);
 
             // 10. For test purposes, raise an unhandled exception if indicated
             if (RaiseUnhandledExceptionInDriverCode)
             {
-                throw new InvalidOperationException(this.GetType().Name);
+                throw new InvalidOperationException(GetType().Name);
             }
         }
 
@@ -240,8 +240,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Driver
 
             if (analyzeOptions.ComputeFileHashes)
             {
-                this._resultsCachingLogger = new ResultsCachingLogger(analyzeOptions.Verbose);
-                logger.Loggers.Add(this._resultsCachingLogger);
+                _resultsCachingLogger = new ResultsCachingLogger(analyzeOptions.Verbose);
+                logger.Loggers.Add(_resultsCachingLogger);
             }
 
             if (analyzeOptions.Statistics)

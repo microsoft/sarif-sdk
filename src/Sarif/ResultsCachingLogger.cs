@@ -8,8 +8,9 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public class ResultsCachingLogger : IAnalysisLogger
     {
-        private string currentFileHash;
         private bool cacheLoggingData;
+        private string currentFileHash;
+        
         public Dictionary<string, List<Tuple<ReportingDescriptor, Result>>> HashToResultsMap { get; private set; }
 
         public ResultsCachingLogger(bool verbose)

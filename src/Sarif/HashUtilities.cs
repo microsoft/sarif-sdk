@@ -60,7 +60,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             return fileToHashDataMap;
         }
 
-
         [SuppressMessage("Microsoft.Security.Cryptography", "CA5354:SHA1CannotBeUsed")]
         [SuppressMessage("Microsoft.Security.Cryptography", "CA5350:MD5CannotBeUsed")]
         public static HashData ComputeHashes(string fileName)
@@ -113,18 +112,6 @@ namespace Microsoft.CodeAnalysis.Sarif
 
             try
             {
-/*                using (Stream stream = new MemoryStream(Encoding.UTF8.GetBytes("Some testing occurred.")))
-                {
-                    using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
-                    {
-                        using (var sha = SHA256.Create())
-                        {
-                            byte[] checksum = sha.ComputeHash(bufferedStream);
-                            sha256Hash = BitConverter.ToString(checksum).Replace("-", string.Empty);
-                        }
-                    }
-                }
-*/
                 using (Stream stream = FileSystem.OpenRead(fileName))
                 {
                     using (var bufferedStream = new BufferedStream(stream, 1024 * 32))
@@ -188,11 +175,6 @@ namespace Microsoft.CodeAnalysis.Sarif
             catch (IOException) { }
             catch (UnauthorizedAccessException) { }
             return md5;
-        }
-
-        internal static void ComputeTargetFileHashes(IDictionary<string, HashData> analysisTargetToHashDataMap, IEnumerable<string> analysisTargets)
-        {
-            throw new NotImplementedException();
         }
     }
 }
