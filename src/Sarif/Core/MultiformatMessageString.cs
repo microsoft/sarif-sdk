@@ -5,8 +5,8 @@ namespace Microsoft.CodeAnalysis.Sarif
 {
     public partial class MultiformatMessageString
     {
-        public bool ShouldSerializeMarkdown() { return !string.IsNullOrEmpty(this.Markdown); }
+        public bool ShouldSerializeMarkdown() { return !string.IsNullOrWhiteSpace(this.Markdown); }
 
-        public bool ShouldSerializeText() { return !string.IsNullOrEmpty(this.Text); }
+        public bool ShouldSerializeText() { return !string.IsNullOrWhiteSpace(this.Text); }
     }
 }

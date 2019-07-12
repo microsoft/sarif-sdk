@@ -16,23 +16,12 @@ namespace Microsoft.CodeAnalysis.Sarif
             _toolName = toolName.ToUpperInvariant();
         }
 
+        private string _toolName;
         private StringBuilder _capturedOutput;
 
         public bool CaptureOutput { get; set; }
 
-        public string CapturedOutput
-        {
-            get
-            {
-                if (_capturedOutput != null)
-                {
-                    return _capturedOutput.ToString();
-                }
-                return null;
-            }
-        }
-
-        private string _toolName;
+        public string CapturedOutput => _capturedOutput?.ToString();
 
         public bool Verbose { get; set; }
 
@@ -251,13 +240,13 @@ namespace Microsoft.CodeAnalysis.Sarif
                 location = region.FormatForVisualStudio();
             }
 
-            string result = 
+            string messageText = 
                    (path != null ? (path + location) : toolName) + ": " +
-                   issueType + (!string.IsNullOrEmpty(ruleId) ? " " : "")  +
-                   (!string.IsNullOrEmpty(ruleId) ? (ruleId + ": ") : "")  +
+                   issueType + (!string.IsNullOrEmpty(ruleId) ? " " : "") +
+                   (!string.IsNullOrEmpty(ruleId) ? (ruleId + ": ") : "") +
                    detailedDiagnosis;
 
-            return result;
+            return messageText;
         }
 
         public static string NormalizeMessage(string message, bool enquote)

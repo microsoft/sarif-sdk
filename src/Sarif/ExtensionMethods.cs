@@ -98,7 +98,7 @@ namespace Microsoft.CodeAnalysis.Sarif
         }
 
         public static string GetFileName(this Uri uri)
-         {
+        {
             if (!uri.IsAbsoluteUri)
             {
                 throw new InvalidOperationException();
