@@ -8,14 +8,26 @@
           "name": "Sarif Functional Testing"
         }
       },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "io/kb.c"
+          }
+        }
+      ],
       "results": [
         {
           "ruleId": "TST0001",
           "message": {
-            "text": "Message."
+            "text": "LogicalLocations is absent. Artifacts is present but index is out of range."
           },
           "locations": [
             {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "index": 2
+                }
+              },
               "logicalLocations": [
                 {
                   "index": 0

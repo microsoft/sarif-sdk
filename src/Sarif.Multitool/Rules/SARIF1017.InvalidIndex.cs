@@ -45,7 +45,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
+        protected override void Analyze(ArtifactLocation artifactLocation, string artifactLocationPointer)
+        {
+            IList<Artifact> artifacts = Context.CurrentRun.Artifacts;
+            if (!IndexIsValid(artifacts, artifactLocation.Index))
+            {
+                LogResult(
+                    artifactLocationPointer,
+                    nameof(RuleResources.SARIF1017_Default),
+                    "artifactLocation",
+                    "index",
+                    artifactLocation.Index.ToInvariantString(),
+                    "run.artifacts",
+                    (artifactLocation.Index + 1).ToInvariantString());
+            }
+        }
+
         private static bool IndexIsValid<T>(IList<T> container, int index)
-            => index >= 0 && container?.Count >= index;
+            => index == -1 || (index >= 0 && container?.Count >= index);
     }
 }
