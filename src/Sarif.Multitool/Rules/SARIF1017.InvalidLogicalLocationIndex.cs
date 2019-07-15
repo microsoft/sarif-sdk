@@ -33,7 +33,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 IList<LogicalLocation> logicalLocations = Context.CurrentRun.LogicalLocations;
                 if (logicalLocations == null || logicalLocations.Count <= logicalLocation.Index)
                 {
-                    LogResult(logicalLocationPointer, nameof(RuleResources.SARIF1017_Default), logicalLocation.Index, logicalLocation.Index + 1);
+                    LogResult(
+                        logicalLocationPointer,
+                        nameof(RuleResources.SARIF1017_Default),
+                        logicalLocation.Index.ToInvariantString(),
+                        (logicalLocation.Index + 1).ToInvariantString());
                 }
             }
         }
