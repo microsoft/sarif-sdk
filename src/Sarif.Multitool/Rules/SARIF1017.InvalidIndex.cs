@@ -26,15 +26,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF1017_Default)
         };
 
-        protected override void Analyze(LogicalLocation logicalLocation, string logicalLocationPointer)
+        protected override void Analyze(Artifact artifact, string artifactPointer)
         {
             ValidateArrayIndex(
-                logicalLocation.Index,
-                Context.CurrentRun.LogicalLocations,
-                logicalLocationPointer,
-                "logicalLocation",
-                "index",
-                "run.logicalLocations");
+                artifact.ParentIndex,
+                Context.CurrentRun.Artifacts,
+                artifactPointer,
+                "artifact",
+                "parentIndex",
+                "run.artifacts");
         }
 
         protected override void Analyze(ArtifactLocation artifactLocation, string artifactLocationPointer)
@@ -46,6 +46,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 "artifactLocation",
                 "index",
                 "run.artifacts");
+        }
+
+        protected override void Analyze(LogicalLocation logicalLocation, string logicalLocationPointer)
+        {
+            ValidateArrayIndex(
+                logicalLocation.Index,
+                Context.CurrentRun.LogicalLocations,
+                logicalLocationPointer,
+                "logicalLocation",
+                "index",
+                "run.logicalLocations");
         }
 
         private void ValidateArrayIndex<T>(

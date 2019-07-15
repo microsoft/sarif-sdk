@@ -12,7 +12,8 @@
         {
           "location": {
             "uri": "io/kb.c"
-          }
+          },
+          "parentIndex": 4
         }
       ],
       "results": [

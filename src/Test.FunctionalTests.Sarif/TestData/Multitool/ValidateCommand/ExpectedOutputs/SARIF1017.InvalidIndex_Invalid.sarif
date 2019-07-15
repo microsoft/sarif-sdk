@@ -87,7 +87,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 27,
+                  "startLine": 28,
                   "startColumn": 37
                 }
               }
@@ -118,8 +118,39 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 32,
+                  "startLine": 33,
                   "startColumn": 17
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].artifacts[0]",
+              "artifact",
+              "parentIndex",
+              "4",
+              "run.artifacts",
+              "5"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 9
                 }
               }
             }
