@@ -268,7 +268,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: This &quot;logicalLocation&quot; object contains an &quot;index&quot; property with value {1}, but either &quot;run.LogicalLocations&quot; is absent, or it has fewer than {2} elements..
+        ///   Looks up a localized string similar to {0}: This &quot;{1}&quot; object contains a property &quot;{2}&quot; with value {3}, but either &quot;{4}&quot; is absent, or it has fewer than {5} elements..
         /// </summary>
         internal static string SARIF1017_Default {
             get {
@@ -277,11 +277,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If a &quot;logicalLocation&quot; object contains an &quot;index&quot; property, then &quot;run.logicalLocations&quot; must be present and must contain at least &quot;index + 1&quot; elements..
+        ///   Looks up a localized string similar to If an object contains a property that is used as an array index, then that array must be present and must contain at least &quot;index + 1&quot; elements..
         /// </summary>
-        internal static string SARIF1017_InvalidLogicalLocationIndex {
+        internal static string SARIF1017_InvalidIndex {
             get {
-                return ResourceManager.GetString("SARIF1017_InvalidLogicalLocationIndex", resourceCulture);
+                return ResourceManager.GetString("SARIF1017_InvalidIndex", resourceCulture);
             }
         }
     }

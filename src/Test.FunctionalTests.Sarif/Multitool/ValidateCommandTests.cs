@@ -99,12 +99,12 @@ namespace Microsoft.CodeAnalysis.Sarif.FunctionalTests.Multitool
             => RunTest(RuleId.ContextRegionRequiresRegion + "." + nameof(RuleId.ContextRegionRequiresRegion) + "_Invalid.sarif");
 
         [Fact]
-        public void SARIF1017_InvalidLogicalLocationIndex_Valid()
-            => RunTest(RuleId.InvalidLogicalLocationIndex + "." + nameof(RuleId.InvalidLogicalLocationIndex) + "_Valid.sarif");
+        public void SARIF1017_InvalidIndex_Valid()
+            => RunTest(RuleId.InvalidIndex + "." + nameof(RuleId.InvalidIndex) + "_Valid.sarif");
 
         [Fact]
-        public void SARIF1017_InvalidLogicalLocationIndex_Invalid()
-            => RunTest(RuleId.InvalidLogicalLocationIndex + "." + nameof(RuleId.InvalidLogicalLocationIndex) + "_Invalid.sarif");
+        public void SARIF1017_InvalidIndex_Invalid()
+            => RunTest(RuleId.InvalidIndex + "." + nameof(RuleId.InvalidIndex) + "_Invalid.sarif");
 
         protected override string ConstructTestOutputFromInputResource(string inputResourceName)
         {

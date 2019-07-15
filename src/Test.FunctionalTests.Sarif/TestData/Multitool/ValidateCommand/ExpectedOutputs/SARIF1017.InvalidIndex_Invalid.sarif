@@ -9,16 +9,16 @@
           "rules": [
             {
               "id": "SARIF1017",
-              "name": "InvalidLogicalLocationIndex",
+              "name": "InvalidIndex",
               "shortDescription": {
-                "text": "If a \"logicalLocation\" object contains an \"index\" property, then \"run."
+                "text": "If an object contains a property that is used as an array index, then that array must be present and must contain at least \"index + 1\" elements."
               },
               "fullDescription": {
-                "text": "If a \"logicalLocation\" object contains an \"index\" property, then \"run.logicalLocations\" must be present and must contain at least \"index + 1\" elements."
+                "text": "If an object contains a property that is used as an array index, then that array must be present and must contain at least \"index + 1\" elements."
               },
               "messageStrings": {
                 "Default": {
-                  "text": "{0}: This \"logicalLocation\" object contains an \"index\" property with value {1}, but either \"run.LogicalLocations\" is absent, or it has fewer than {2} elements."
+                  "text": "{0}: This \"{1}\" object contains a property \"{2}\" with value {3}, but either \"{4}\" is absent, or it has fewer than {5} elements."
                 }
               },
               "helpUri": "http://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html"
@@ -34,14 +34,14 @@
                 {
                   "physicalLocation": {
                     "artifactLocation": {
-                      "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidLogicalLocationIndex_Invalid.sarif",
+                      "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
                       "uriBaseId": "TEST_DIR"
                     }
                   }
                 }
               ],
               "message": {
-                "text": "Analyzing 'Inputs.SARIF1017.InvalidLogicalLocationIndex_Invalid.sarif'..."
+                "text": "Analyzing 'Inputs.SARIF1017.InvalidIndex_Invalid.sarif'..."
               },
               "level": "none",
               "descriptor": {
@@ -55,7 +55,7 @@
       "artifacts": [
         {
           "location": {
-            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidLogicalLocationIndex_Invalid.sarif",
+            "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
             "uriBaseId": "TEST_DIR",
             "index": 0
           },
@@ -71,7 +71,10 @@
             "id": "Default",
             "arguments": [
               "runs[0].results[0].locations[0].logicalLocations[0]",
+              "logicalLocation",
+              "index",
               "0",
+              "run.logicalLocations",
               "1"
             ]
           },
@@ -79,7 +82,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidLogicalLocationIndex_Invalid.sarif",
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
                   "uriBaseId": "TEST_DIR",
                   "index": 0
                 },
