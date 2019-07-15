@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             if (logicalLocation.Index >= 0)
             {
                 IList<LogicalLocation> logicalLocations = Context.CurrentRun.LogicalLocations;
-                if (logicalLocations == null || logicalLocations.Count <= logicalLocation.Index)
+                if (!IndexIsValid(logicalLocations, logicalLocation.Index))
                 {
                     LogResult(
                         logicalLocationPointer,
@@ -44,5 +44,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 }
             }
         }
+
+        private static bool IndexIsValid<T>(IList<T> container, int index)
+            => index >= 0 && container?.Count >= index;
     }
 }
