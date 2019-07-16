@@ -5,7 +5,12 @@
     {
       "tool": {
         "driver": {
-          "name": "Sarif Functional Testing"
+          "name": "Sarif Functional Testing",
+          "rules": [
+            {
+              "id": "TST0001"
+            }
+          ]
         }
       },
       "artifacts": [
@@ -18,7 +23,8 @@
       ],
       "results": [
         {
-          "ruleId": "TST0001",
+          "ruleId": "TST0004",
+          "ruleIndex": 3,
           "message": {
             "text": "LogicalLocations is absent. Artifacts is present but index is out of range."
           },

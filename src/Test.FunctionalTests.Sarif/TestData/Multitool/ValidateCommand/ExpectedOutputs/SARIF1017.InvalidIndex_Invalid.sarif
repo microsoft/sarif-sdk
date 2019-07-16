@@ -70,6 +70,37 @@
           "message": {
             "id": "Default",
             "arguments": [
+              "runs[0].results[0]",
+              "result",
+              "ruleIndex",
+              "3",
+              "run.tool.driver.rules",
+              "4"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 25,
+                  "startColumn": 9
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
               "runs[0].results[0].locations[0].physicalLocation.artifactLocation",
               "artifactLocation",
               "index",
@@ -87,7 +118,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 28,
+                  "startLine": 34,
                   "startColumn": 37
                 }
               }
@@ -118,7 +149,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 33,
+                  "startLine": 39,
                   "startColumn": 17
                 }
               }
@@ -149,7 +180,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 12,
+                  "startLine": 17,
                   "startColumn": 9
                 }
               }

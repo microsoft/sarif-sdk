@@ -59,6 +59,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 "run.logicalLocations");
         }
 
+        protected override void Analyze(Result result, string resultPointer)
+        {
+            ValidateArrayIndex(
+                result.RuleIndex,
+                Context.CurrentRun.Tool.Driver.Rules,
+                resultPointer,
+                "result",
+                "ruleIndex",
+                "run.tool.driver.rules");
+        }
+
         private void ValidateArrayIndex<T>(
             int index,
             IList<T> container,
