@@ -732,13 +732,23 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 }
             }
 
+            if (run.Addresses != null)
+            {
+                string addressesPointer = runPointer.AtProperty(SarifPropertyName.Addresses);
+
+                for (int i = 0; i < run.Addresses.Count; ++i)
+                {
+                    Visit(run.Addresses[i], addressesPointer.AtIndex(i));
+                }
+            }
+
             if (run.Artifacts != null)
             {
-                string filesPointer = runPointer.AtProperty(SarifPropertyName.Artifacts);
+                string artifactsPointer = runPointer.AtProperty(SarifPropertyName.Artifacts);
 
                 for (int i = 0; i < run.Artifacts.Count; ++i)
                 {
-                    Visit(run.Artifacts[i], filesPointer.AtIndex(i));
+                    Visit(run.Artifacts[i], artifactsPointer.AtIndex(i));
                 }
             }
 

@@ -47,12 +47,13 @@
           ]
         }
       ],
+      "columnKind": "utf16CodeUnits",
       "addresses": [
         {
-          "absoluteAddress": 1024
+          "absoluteAddress": 1024,
+          "parentIndex": 1
         }
-      ],
-      "columnKind": "utf16CodeUnits"
+      ]
     }
   ]
 }

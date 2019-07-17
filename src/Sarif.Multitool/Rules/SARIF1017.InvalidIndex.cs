@@ -35,6 +35,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 "address",
                 "index",
                 "run.addresses");
+
+            ValidateArrayIndex(
+                address.ParentIndex,
+                Context.CurrentRun.Addresses,
+                addressPointer,
+                "address",
+                "parentIndex",
+                "run.addresses");
         }
 
         protected override void Analyze(Artifact artifact, string artifactPointer)
