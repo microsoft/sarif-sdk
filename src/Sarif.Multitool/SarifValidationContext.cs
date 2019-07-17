@@ -11,6 +11,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     {
         public SarifValidationContext()
         {
+            CurrentRunIndex = -1;
             CurrentResultIndex = -1;
         }
 
@@ -68,6 +69,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public SarifLog InputLog { get; internal set; }
 
         public Run CurrentRun { get; internal set; }
+
+        public int CurrentRunIndex { get; internal set; }
 
         public Result CurrentResult { get; internal set; }
 

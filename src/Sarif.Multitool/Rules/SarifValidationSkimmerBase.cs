@@ -232,6 +232,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 {
                     Run run = log.Runs[i];
                     Context.CurrentRun = run;
+                    Context.CurrentRunIndex = i;
 
                     try
                     {
@@ -240,6 +241,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     finally
                     {
                         Context.CurrentRun = null;
+                        Context.CurrentRunIndex = -1;
                     }
                 }
             }

@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 addressPointer,
                 "address",
                 "index",
-                "run.addresses");
+                $"runs[{Context.CurrentRunIndex}].addresses");
 
             ValidateArrayIndex(
                 address.ParentIndex,
@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 addressPointer,
                 "address",
                 "parentIndex",
-                "run.addresses");
+                $"runs[{Context.CurrentRunIndex}].addresses");
         }
 
         protected override void Analyze(Artifact artifact, string artifactPointer)
@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 artifactPointer,
                 "artifact",
                 "parentIndex",
-                "run.artifacts");
+                $"runs[{Context.CurrentRunIndex}].artifacts");
         }
 
         protected override void Analyze(ArtifactLocation artifactLocation, string artifactLocationPointer)
@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 artifactLocationPointer,
                 "artifactLocation",
                 "index",
-                "run.artifacts");
+                $"runs[{Context.CurrentRunIndex}].artifacts");
         }
 
         protected override void Analyze(GraphTraversal graphTraversal, string graphTraversalPointer)
@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 graphTraversalPointer,
                 "graphTraversal",
                 "runGraphIndex",
-                "run.graphTraversals");
+                $"runs[{Context.CurrentRunIndex}].graphTraversals");
 
             ValidateArrayIndex(
                 graphTraversal.ResultGraphIndex,
@@ -83,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 graphTraversalPointer,
                 "graphTraversal",
                 "resultGraphIndex",
-                $"run.results[{Context.CurrentResultIndex}].graphTraversals");
+                $"runs[{Context.CurrentRunIndex}].results[{Context.CurrentResultIndex}].graphTraversals");
         }
 
         protected override void Analyze(LogicalLocation logicalLocation, string logicalLocationPointer)
@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 logicalLocationPointer,
                 "logicalLocation",
                 "index",
-                "run.logicalLocations");
+                $"runs[{Context.CurrentRunIndex}].logicalLocations");
         }
 
         protected override void Analyze(Result result, string resultPointer)
@@ -105,7 +105,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 resultPointer,
                 "result",
                 "ruleIndex",
-                "run.tool.driver.rules");
+                $"runs[{Context.CurrentRunIndex}].tool.driver.rules");
         }
 
         protected override void Analyze(ThreadFlowLocation threadFlowLocation, string threadFlowLocationPointer)
@@ -116,7 +116,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 threadFlowLocationPointer,
                 "threadFlowLocation",
                 "index",
-                "run.threadFlowLocations");
+                $"runs[{Context.CurrentRunIndex}].threadFlowLocations");
         }
 
         private void ValidateArrayIndex<T>(

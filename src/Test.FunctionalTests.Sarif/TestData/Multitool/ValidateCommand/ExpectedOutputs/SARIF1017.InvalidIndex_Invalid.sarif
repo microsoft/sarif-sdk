@@ -74,7 +74,7 @@
               "result",
               "ruleIndex",
               "3",
-              "run.tool.driver.rules",
+              "runs[0].tool.driver.rules",
               "4"
             ]
           },
@@ -105,7 +105,7 @@
               "address",
               "index",
               "1",
-              "run.addresses",
+              "runs[0].addresses",
               "2"
             ]
           },
@@ -136,7 +136,7 @@
               "artifactLocation",
               "index",
               "2",
-              "run.artifacts",
+              "runs[0].artifacts",
               "3"
             ]
           },
@@ -167,7 +167,7 @@
               "logicalLocation",
               "index",
               "0",
-              "run.logicalLocations",
+              "runs[0].logicalLocations",
               "1"
             ]
           },
@@ -198,7 +198,7 @@
               "threadFlowLocation",
               "index",
               "0",
-              "run.threadFlowLocations",
+              "runs[0].threadFlowLocations",
               "1"
             ]
           },
@@ -229,7 +229,7 @@
               "graphTraversal",
               "resultGraphIndex",
               "1",
-              "run.results[0].graphTraversals",
+              "runs[0].results[0].graphTraversals",
               "2"
             ]
           },
@@ -260,7 +260,7 @@
               "graphTraversal",
               "runGraphIndex",
               "0",
-              "run.graphTraversals",
+              "runs[0].graphTraversals",
               "1"
             ]
           },
@@ -291,7 +291,7 @@
               "address",
               "parentIndex",
               "1",
-              "run.addresses",
+              "runs[0].addresses",
               "2"
             ]
           },
@@ -322,7 +322,7 @@
               "artifact",
               "parentIndex",
               "4",
-              "run.artifacts",
+              "runs[0].artifacts",
               "5"
             ]
           },
