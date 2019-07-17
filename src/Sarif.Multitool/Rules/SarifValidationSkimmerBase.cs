@@ -56,6 +56,22 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 RuleUtilities.BuildResult(DefaultLevel, Context, region, formatId, argsWithPointer));
         }
 
+        protected virtual void Analyze(Address address, string addressPointer)
+        {
+        }
+
+        protected virtual void Analyze(Artifact artifact, string artifactPointer)
+        {
+        }
+
+        protected virtual void Analyze(ArtifactChange artifactChange, string artifactChangePointer)
+        {
+        }
+
+        protected virtual void Analyze(ArtifactLocation artifactLocation, string artifactLocationPointer)
+        {
+        }
+
         protected virtual void Analyze(Attachment attachment, string attachmentPointer)
         {
         }
@@ -73,18 +89,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         }
 
         protected virtual void Analyze(EdgeTraversal edgeTraversal, string edgeTraversalPointer)
-        {
-        }
-
-        protected virtual void Analyze(ArtifactChange fileChange, string fileChangePointer)
-        {
-        }
-
-        protected virtual void Analyze(ArtifactLocation fileLocation, string fileLocationPointer)
-        {
-        }
-
-        protected virtual void Analyze(Artifact fileData, string filePointer)
         {
         }
 
@@ -227,6 +231,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
+        private void Visit(Address address, string addressPointer)
+        {
+            Analyze(address, addressPointer);
+        }
+
+        private void Visit(Artifact artifact, string artifactPointer)
+        {
+            Analyze(artifact, artifactPointer);
+
+            if (artifact.Location != null)
+            {
+                Visit(artifact.Location, artifactPointer.AtProperty(SarifPropertyName.Location));
+            }
+        }
+
+        private void Visit(ArtifactLocation artifactLocation, string artifactLocationPointer)
+        {
+            Analyze(artifactLocation, artifactLocationPointer);
+        }
+
+        private void Visit(ArtifactChange artifactChange, string artifactChangePointer)
+        {
+            Analyze(artifactChange, artifactChangePointer);
+
+            if (artifactChange.ArtifactLocation != null)
+            {
+                Visit(artifactChange.ArtifactLocation, artifactChangePointer.AtProperty(SarifPropertyName.ArtifactLocation));
+            }
+        }
+
         private void Visit(Attachment attachment, string attachmentPointer)
         {
             Analyze(attachment, attachmentPointer);
@@ -312,20 +346,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
-        private void Visit(Artifact fileData, string filePointer)
-        {
-            Analyze(fileData, filePointer);
-
-            if (fileData.Location != null)
-            {
-                Visit(fileData.Location, filePointer.AtProperty(SarifPropertyName.Location));
-            }
-        }
-
-        private void Visit(ArtifactLocation fileLocation, string fileLocationPointer)
-        {
-            Analyze(fileLocation, fileLocationPointer);
-        }
 
         private void Visit(Fix fix, string fixPointer)
         {
@@ -344,17 +364,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 }
             }
         }
-
-        private void Visit(ArtifactChange fileChange, string fileChangePointer)
-        {
-            Analyze(fileChange, fileChangePointer);
-
-            if (fileChange.ArtifactLocation != null)
-            {
-                Visit(fileChange.ArtifactLocation, fileChangePointer.AtProperty(SarifPropertyName.ArtifactLocation));
-            }
-        }
-
         private void Visit(Graph graph, string graphPointer)
         {
             Analyze(graph, graphPointer);
@@ -529,6 +538,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         private void Visit(PhysicalLocation physicalLocation, string physicalLocationPointer)
         {
             Analyze(physicalLocation, physicalLocationPointer);
+
+            if (physicalLocation.Address != null)
+            {
+                Visit(physicalLocation.Address, physicalLocationPointer.AtProperty(SarifPropertyName.Address));
+            }
 
             if (physicalLocation.ArtifactLocation != null)
             {

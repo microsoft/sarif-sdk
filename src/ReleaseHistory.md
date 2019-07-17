@@ -423,4 +423,5 @@
 * BUGFIX: Add missing `"additionalProperties": false` constraints to schema; add missing object descriptions and improve other object descriptions in schema; update schema version to -rtm.4.
 
 ## **v2.1.9** [Sdk](https://www.nuget.org/packages/Sarif.Sdk/2.1.9) | [Driver](https://www.nuget.org/packages/Sarif.Driver/2.1.9) | [Converters](https://www.nuget.org/packages/Sarif.Converters/2.1.9) | [Multitool](https://www.nuget.org/packages/Sarif.Multitool/2.1.9)
+* BUGFIX: FxCop converter produced logicalLocation.index but did not produce the run.logicalLocations array. https://github.com/microsoft/sarif-sdk/issues/1571
 * FEATURE: Add validation rule to ensure that `logicalLocation.index` is not present unless `run.logicalLocations` is present.

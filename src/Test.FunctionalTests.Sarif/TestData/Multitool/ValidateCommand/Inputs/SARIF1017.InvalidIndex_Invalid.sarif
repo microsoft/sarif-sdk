@@ -31,6 +31,9 @@
           "locations": [
             {
               "physicalLocation": {
+                "address": {
+                  "index": 1
+                },
                 "artifactLocation": {
                   "index": 2
                 }
@@ -42,6 +45,11 @@
               ]
             }
           ]
+        }
+      ],
+      "addresses": [
+        {
+          "absoluteAddress": 1024
         }
       ],
       "columnKind": "utf16CodeUnits"

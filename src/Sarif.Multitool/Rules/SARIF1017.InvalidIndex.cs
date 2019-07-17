@@ -26,6 +26,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             nameof(RuleResources.SARIF1017_Default)
         };
 
+        protected override void Analyze(Address address, string addressPointer)
+        {
+            ValidateArrayIndex(
+                address.Index,
+                Context.CurrentRun.Addresses,
+                addressPointer,
+                "address",
+                "index",
+                "run.addresses");
+        }
+
         protected override void Analyze(Artifact artifact, string artifactPointer)
         {
             ValidateArrayIndex(
@@ -92,6 +103,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         }
 
         private static bool IndexIsValid<T>(int index, IList<T> container)
-                => index == -1 || (index >= 0 && container?.Count >= index);
+                => index == -1 || (index >= 0 && container?.Count > index);
     }
 }

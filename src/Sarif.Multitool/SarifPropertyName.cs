@@ -5,6 +5,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public static class SarifPropertyName
     {
+        public const string Address = "address";
         public const string AnalysisTarget = "analysisTarget";
         public const string AnalysisToolLogFiles = "analysisToolLogFiles";
         public const string ArtifactLocation = "artifactLocation";
