@@ -9,6 +9,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class SarifValidationContext : IAnalysisContext
     {
+        public SarifValidationContext()
+        {
+            CurrentResultIndex = -1;
+        }
+
         public bool IsValidAnalysisTarget
         {
             get
@@ -63,6 +68,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public SarifLog InputLog { get; internal set; }
 
         public Run CurrentRun { get; internal set; }
+
+        public Result CurrentResult { get; internal set; }
+
+        public int CurrentResultIndex { get; internal set; }
 
         public JToken InputLogToken { get; internal set; }
 

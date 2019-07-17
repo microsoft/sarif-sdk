@@ -67,6 +67,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 "run.artifacts");
         }
 
+        protected override void Analyze(GraphTraversal graphTraversal, string graphTraversalPointer)
+        {
+            ValidateArrayIndex(
+                graphTraversal.RunGraphIndex,
+                Context.CurrentRun.Graphs,
+                graphTraversalPointer,
+                "graphTraversal",
+                "runGraphIndex",
+                "run.graphTraversals");
+
+            ValidateArrayIndex(
+                graphTraversal.ResultGraphIndex,
+                Context.CurrentResult.Graphs,
+                graphTraversalPointer,
+                "graphTraversal",
+                "resultGraphIndex",
+                $"run.results[{Context.CurrentResultIndex}].graphTraversals");
+        }
+
         protected override void Analyze(LogicalLocation logicalLocation, string logicalLocationPointer)
         {
             ValidateArrayIndex(

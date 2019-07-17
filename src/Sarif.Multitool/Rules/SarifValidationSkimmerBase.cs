@@ -96,6 +96,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
         }
 
+        protected virtual void Analyze(GraphTraversal graphTraversal, string graphTraversalPointer)
+        {
+        }
+
         protected virtual void Analyze(Invocation invocation, string invocationPointer)
         {
         }
@@ -187,7 +191,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             var pointer = new JsonPointer(pointerString);
             foreach (string token in pointer.ReferenceTokens)
             {
-                if (int.TryParse(token, out int index))
+                if (int.TryParse(token, out _))
                 {
                     sb.Append('[' + token + ']');
                 }
@@ -226,7 +230,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                 for (int i = 0; i < log.Runs.Count; ++i)
                 {
-                    Visit(log.Runs[i], runsPointer.AtIndex(i));
+                    Run run = log.Runs[i];
+                    Context.CurrentRun = run;
+
+                    try
+                    {
+                        Visit(run, runsPointer.AtIndex(i));
+                    }
+                    finally
+                    {
+                        Context.CurrentRun = null;
+                    }
                 }
             }
         }
@@ -396,6 +410,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private void Visit(GraphTraversal graphTraversal, string graphTraversalPointer)
         {
+            Analyze(graphTraversal, graphTraversalPointer);
+
             if (graphTraversal.Description != null)
             {
                 Visit(graphTraversal.Description, graphTraversalPointer.AtProperty(SarifPropertyName.Description));
@@ -713,8 +729,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         private void Visit(Run run, string runPointer)
         {
-            Context.CurrentRun = run;
-
             Analyze(run, runPointer);
 
             if (run.Conversion != null)
@@ -728,7 +742,19 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
                 for (int i = 0; i < run.Results.Count; ++i)
                 {
-                    Visit(run.Results[i], resultsPointer.AtIndex(i));
+                    Result result = run.Results[i];
+                    Context.CurrentResult = result;
+                    Context.CurrentResultIndex = i;
+
+                    try
+                    {
+                        Visit(result, resultsPointer.AtIndex(i));
+                    }
+                    finally
+                    {
+                        Context.CurrentResult = null;
+                        Context.CurrentResultIndex = -1;
+                    }
                 }
             }
 

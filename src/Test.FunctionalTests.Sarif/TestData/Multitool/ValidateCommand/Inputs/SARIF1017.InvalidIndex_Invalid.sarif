@@ -57,6 +57,22 @@
                 }
               ]
             }
+          ],
+          "graphs": [
+            {
+              "edges": [],
+              "nodes": []
+            }
+          ],
+          "graphTraversals": [
+            {
+              "resultGraphIndex": 1,
+              "edgeTraversals": []
+            },
+            {
+              "runGraphIndex": 0,
+              "edgeTraversals": []
+            }
           ]
         }
       ],

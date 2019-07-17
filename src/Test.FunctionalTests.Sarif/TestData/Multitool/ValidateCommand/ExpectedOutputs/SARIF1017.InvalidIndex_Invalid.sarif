@@ -225,6 +225,68 @@
           "message": {
             "id": "Default",
             "arguments": [
+              "runs[0].results[0].graphTraversals[0]",
+              "graphTraversal",
+              "resultGraphIndex",
+              "1",
+              "run.results[0].graphTraversals",
+              "2"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 68,
+                  "startColumn": 13
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].results[0].graphTraversals[1]",
+              "graphTraversal",
+              "runGraphIndex",
+              "0",
+              "run.graphTraversals",
+              "1"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 72,
+                  "startColumn": 13
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
               "runs[0].addresses[0]",
               "address",
               "parentIndex",
@@ -242,7 +304,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 65,
+                  "startLine": 81,
                   "startColumn": 9
                 }
               }
