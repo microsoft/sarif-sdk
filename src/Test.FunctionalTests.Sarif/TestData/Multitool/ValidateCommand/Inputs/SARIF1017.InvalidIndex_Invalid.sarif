@@ -44,6 +44,19 @@
                 }
               ]
             }
+          ],
+          "codeFlows": [
+            {
+              "threadFlows": [
+                {
+                  "locations": [
+                    {
+                      "index": 0
+                    }
+                  ]
+                }
+              ]
+            }
           ]
         }
       ],

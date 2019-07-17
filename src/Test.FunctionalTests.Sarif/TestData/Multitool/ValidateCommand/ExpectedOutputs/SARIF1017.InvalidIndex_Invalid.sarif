@@ -194,6 +194,37 @@
           "message": {
             "id": "Default",
             "arguments": [
+              "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0]",
+              "threadFlowLocation",
+              "index",
+              "0",
+              "run.threadFlowLocations",
+              "1"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 53,
+                  "startColumn": 21
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
               "runs[0].addresses[0]",
               "address",
               "parentIndex",
@@ -211,7 +242,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 52,
+                  "startLine": 65,
                   "startColumn": 9
                 }
               }

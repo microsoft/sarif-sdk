@@ -89,6 +89,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 "run.tool.driver.rules");
         }
 
+        protected override void Analyze(ThreadFlowLocation threadFlowLocation, string threadFlowLocationPointer)
+        {
+            ValidateArrayIndex(
+                threadFlowLocation.Index,
+                Context.CurrentRun.ThreadFlowLocations,
+                threadFlowLocationPointer,
+                "threadFlowLocation",
+                "index",
+                "run.threadFlowLocations");
+        }
+
         private void ValidateArrayIndex<T>(
             int index,
             IList<T> container,
