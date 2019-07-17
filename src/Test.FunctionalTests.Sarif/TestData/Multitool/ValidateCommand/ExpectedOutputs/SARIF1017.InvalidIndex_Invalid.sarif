@@ -287,6 +287,68 @@
           "message": {
             "id": "Default",
             "arguments": [
+              "runs[0].results[0].webRequest",
+              "webRequest",
+              "index",
+              "0",
+              "runs[0].webRequests",
+              "1"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 77,
+                  "startColumn": 25
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].results[0].webResponse",
+              "webResponse",
+              "index",
+              "0",
+              "runs[0].webResponses",
+              "1"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 80,
+                  "startColumn": 26
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
               "runs[0].addresses[0]",
               "address",
               "parentIndex",
@@ -304,7 +366,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 81,
+                  "startLine": 87,
                   "startColumn": 9
                 }
               }

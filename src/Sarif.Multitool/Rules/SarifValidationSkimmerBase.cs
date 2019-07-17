@@ -183,6 +183,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
         }
 
+        protected virtual void Analyze(WebRequest webRequest, string webRequestPointer)
+        {
+        }
+
+        protected virtual void Analyze(WebResponse webResponse, string webResponsePointer)
+        {
+        }
+
         // Convert a string in JSON Pointer format to JavaScript syntax.
         // For example, "/runs/0/id/instanceId" => "runs[0].id.instanceId".
         internal static string JsonPointerToJavaScript(string pointerString)
@@ -691,6 +699,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     Visit(result.Fixes[i], fixesPointer.AtIndex(i));
                 }
             }
+
+            if (result.WebRequest != null)
+            {
+                Visit(result.WebRequest, resultPointer.AtProperty(SarifPropertyName.WebRequest));
+            }
+
+            if (result.WebResponse != null)
+            {
+                Visit(result.WebResponse, resultPointer.AtProperty(SarifPropertyName.WebResponse));
+            }
         }
 
         private void Visit(IList<Notification> notifications, string parentPointer, string propertyName)
@@ -824,6 +842,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     Visit(run.VersionControlProvenance[i], versionControlProvenancePointer.AtIndex(i));
                 }
             }
+
+            if (run.WebRequests != null)
+            {
+                string webRequestsPointer = runPointer.AtProperty(SarifPropertyName.WebRequests);
+
+                for (int i = 0; i < run.WebRequests.Count; ++i)
+                {
+                    Visit(run.WebRequests[i], webRequestsPointer.AtIndex(i));
+                }
+            }
+
+            if (run.WebResponses != null)
+            {
+                string webResponsesPointer = runPointer.AtProperty(SarifPropertyName.WebResponses);
+
+                for (int i = 0; i < run.WebResponses.Count; ++i)
+                {
+                    Visit(run.WebResponses[i], webResponsesPointer.AtIndex(i));
+                }
+            }
         }
 
         private void Visit(Stack stack, string stackPointer)
@@ -936,6 +974,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 Visit(versionControlDetails.MappedTo, versionControlDetailsPointer.AtProperty(SarifPropertyName.MappedTo));
             }
+        }
+
+        private void Visit(WebRequest webRequest, string webRequestPointer)
+        {
+            Analyze(webRequest, webRequestPointer);
+        }
+
+        private void Visit(WebResponse webResponse, string webResponsePointer)
+        {
+            Analyze(webResponse, webResponsePointer);
         }
 
         private Region GetRegionFromJPointer(string jPointer)

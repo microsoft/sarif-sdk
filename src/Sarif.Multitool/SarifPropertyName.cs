@@ -75,6 +75,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string ToolExecutionNotifications = "toolExecutionNotifications";
         public const string Uri = "uri";
         public const string VersionControlProvenance = "versionControlProvenance";
+        public const string WebRequest = "webRequest";
+        public const string WebRequests = "webRequests";
+        public const string WebResponse = "webResponse";
+        public const string WebResponses = "webResponses";
         public const string WorkItemUris = "workItemUris";
     }
 }

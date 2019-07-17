@@ -119,6 +119,28 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 $"runs[{Context.CurrentRunIndex}].threadFlowLocations");
         }
 
+        protected override void Analyze(WebRequest webRequest, string webRequestPointer)
+        {
+            ValidateArrayIndex(
+                webRequest.Index,
+                Context.CurrentRun.WebRequests,
+                webRequestPointer,
+                "webRequest",
+                "index",
+                $"runs[{Context.CurrentRunIndex}].webRequests");
+        }
+
+        protected override void Analyze(WebResponse webResponse, string webResponsePointer)
+        {
+            ValidateArrayIndex(
+                webResponse.Index,
+                Context.CurrentRun.WebResponses,
+                webResponsePointer,
+                "webResponse",
+                "index",
+                $"runs[{Context.CurrentRunIndex}].webResponses");
+        }
+
         private void ValidateArrayIndex<T>(
             int index,
             IList<T> container,

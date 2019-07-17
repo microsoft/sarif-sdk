@@ -73,7 +73,13 @@
               "runGraphIndex": 0,
               "edgeTraversals": []
             }
-          ]
+          ],
+          "webRequest": {
+            "index":  0
+          },
+          "webResponse": {
+            "index": 0
+          }
         }
       ],
       "columnKind": "utf16CodeUnits",
