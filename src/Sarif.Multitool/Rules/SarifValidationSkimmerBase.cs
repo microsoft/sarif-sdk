@@ -922,6 +922,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 Visit(threadFlowLocation.Location, threadFlowLocationPointer.AtProperty(SarifPropertyName.Location));
             }
+
+            if (threadFlowLocation.WebRequest != null)
+            {
+                Visit(threadFlowLocation.WebRequest, threadFlowLocationPointer.AtProperty(SarifPropertyName.WebRequest));
+            }
+
+            if (threadFlowLocation.WebResponse != null)
+            {
+                Visit(threadFlowLocation.WebResponse, threadFlowLocationPointer.AtProperty(SarifPropertyName.WebResponse));
+            }
         }
 
         private void Visit(Tool tool, string toolPointer)

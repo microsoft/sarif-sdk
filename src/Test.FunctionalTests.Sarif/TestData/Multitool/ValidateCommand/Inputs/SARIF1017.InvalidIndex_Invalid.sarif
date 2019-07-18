@@ -51,7 +51,13 @@
                 {
                   "locations": [
                     {
-                      "index": 0
+                      "index": 0,
+                      "webRequest": {
+                        "index": 0
+                      },
+                      "webResponse": {
+                        "index": 0
+                      }
                     }
                   ]
                 }
