@@ -97,6 +97,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 $"runs[{Context.CurrentRunIndex}].logicalLocations");
         }
 
+        protected override void Analyze(ReportingDescriptorReference reportingDescriptorReference, string reportingDescriptorReferencePointer)
+        {
+            ValidateArrayIndex(
+                reportingDescriptorReference.Index,
+                Context.CurrentRun.Tool.Driver.Rules,
+                reportingDescriptorReferencePointer,
+                "reportingDescriptorReference",
+                "index",
+                $"runs[{Context.CurrentRunIndex}].tool.driver.rules");
+        }
+
         protected override void Analyze(Result result, string resultPointer)
         {
             ValidateArrayIndex(
@@ -108,12 +119,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 $"runs[{Context.CurrentRunIndex}].tool.driver.rules");
         }
 
-        protected override void Analyze(ResultProvenance provenance, string provenancePointer)
+        protected override void Analyze(ResultProvenance resultProvenance, string resultProvenancePointer)
         {
             ValidateArrayIndex(
-                provenance.InvocationIndex,
+                resultProvenance.InvocationIndex,
                 Context.CurrentRun.Invocations,
-                provenancePointer,
+                resultProvenancePointer,
                 "resultProvenance",
                 "invocationIndex",
                 $"runs[{Context.CurrentRunIndex}].invocations");

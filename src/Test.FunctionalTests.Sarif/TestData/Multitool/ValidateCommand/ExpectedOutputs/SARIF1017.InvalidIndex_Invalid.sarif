@@ -87,7 +87,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 25,
+                  "startLine": 47,
                   "startColumn": 9
                 }
               }
@@ -118,7 +118,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 34,
+                  "startLine": 60,
                   "startColumn": 28
                 }
               }
@@ -149,7 +149,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 37,
+                  "startLine": 63,
                   "startColumn": 37
                 }
               }
@@ -180,7 +180,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 42,
+                  "startLine": 68,
                   "startColumn": 17
                 }
               }
@@ -211,7 +211,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 53,
+                  "startLine": 79,
                   "startColumn": 21
                 }
               }
@@ -242,7 +242,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 55,
+                  "startLine": 81,
                   "startColumn": 37
                 }
               }
@@ -273,7 +273,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 58,
+                  "startLine": 84,
                   "startColumn": 38
                 }
               }
@@ -290,9 +290,9 @@
               "runs[0].results[0].provenance",
               "resultProvenance",
               "invocationIndex",
-              "0",
+              "42",
               "runs[0].invocations",
-              "1"
+              "43"
             ]
           },
           "locations": [
@@ -304,8 +304,39 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 83,
+                  "startLine": 109,
                   "startColumn": 25
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].results[0].rule",
+              "reportingDescriptorReference",
+              "index",
+              "3",
+              "runs[0].tool.driver.rules",
+              "4"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 50,
+                  "startColumn": 19
                 }
               }
             }
@@ -335,7 +366,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 74,
+                  "startLine": 100,
                   "startColumn": 13
                 }
               }
@@ -366,7 +397,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 78,
+                  "startLine": 104,
                   "startColumn": 13
                 }
               }
@@ -397,7 +428,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 86,
+                  "startLine": 112,
                   "startColumn": 25
                 }
               }
@@ -428,7 +459,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 89,
+                  "startLine": 115,
                   "startColumn": 26
                 }
               }
@@ -459,7 +490,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 96,
+                  "startLine": 122,
                   "startColumn": 9
                 }
               }
@@ -490,8 +521,39 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 17,
+                  "startLine": 39,
                   "startColumn": 9
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].invocations[0].ruleConfigurationOverrides[0].descriptor",
+              "reportingDescriptorReference",
+              "index",
+              "2",
+              "runs[0].tool.driver.rules",
+              "3"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 30,
+                  "startColumn": 29
                 }
               }
             }

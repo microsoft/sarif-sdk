@@ -79,6 +79,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         protected virtual void Analyze(CodeFlow codeFlow, string codeFlowPointer)
         {
         }
+        protected virtual void Analyze(ConfigurationOverride configurationOverride, string configurationOverridePointer)
+        {
+        }
 
         protected virtual void Analyze(Conversion conversion, string conversionPointer)
         {
@@ -115,10 +118,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
         }
 
-        protected virtual void Analyze(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
-        {
-        }
-
         protected virtual void Analyze(Node node, string nodePointer)
         {
         }
@@ -136,6 +135,18 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         }
 
         protected virtual void Analyze(Region region, string regionPointer)
+        {
+        }
+
+        protected virtual void Analyze(ReportingConfiguration reportingConfiguration, string reportingConfigurationPointer)
+        {
+        }
+
+        protected virtual void Analyze(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
+        {
+        }
+
+        protected virtual void Analyze(ReportingDescriptorReference reportingDescriptorReference, string reportingDescriptorReferencePointer)
         {
         }
 
@@ -176,6 +187,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         }
 
         protected virtual void Analyze(ToolComponent toolComponent, string toolComponentPointer)
+        {
+        }
+
+        protected virtual void Analyze(ToolComponentReference toolComponentReference, string toolComponentReferencePointer)
         {
         }
 
@@ -340,6 +355,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             }
         }
 
+        private void Visit(ConfigurationOverride configurationOverride, string configurationOverridePointer)
+        {
+            Analyze(configurationOverride, configurationOverridePointer);
+
+            if (configurationOverride.Descriptor != null)
+            {
+                Visit(configurationOverride.Descriptor, configurationOverridePointer.AtProperty(SarifPropertyName.Descriptor));
+            }
+
+            if (configurationOverride.Configuration != null)
+            {
+                Visit(configurationOverride.Configuration, configurationOverridePointer.AtProperty(SarifPropertyName.Configuration));
+            }
+        }
+
         private void Visit(Conversion conversion, string conversionPointer)
         {
             Analyze(conversion, conversionPointer);
@@ -442,6 +472,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             Analyze(invocation, invocationPointer);
 
+            if (invocation.RuleConfigurationOverrides != null)
+            {
+                string ruleConfigurationOverridesPointer = invocationPointer.AtProperty(SarifPropertyName.RuleConfigurationOverrides);
+
+                for (int i = 0; i < invocation.RuleConfigurationOverrides.Count; ++i)
+                {
+                    Visit(invocation.RuleConfigurationOverrides[i], ruleConfigurationOverridesPointer.AtIndex(i));
+                }
+            }
+
             if (invocation.ExecutableLocation != null)
             {
                 Visit(invocation.ExecutableLocation, invocationPointer.AtProperty(SarifPropertyName.ExecutableLocation));
@@ -526,11 +566,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             Analyze(multiformatMessageString, multiformatMessageStringPointer);
         }
 
-        private void VisitReportingDescriptor(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
-        {
-            Analyze(reportingDescriptor, reportingDescriptorPointer);
-        }
-
         private void Visit(Node node, string nodePointer)
         {
             Analyze(node, nodePointer);
@@ -601,6 +636,36 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             Analyze(region, regionPointer);
         }
 
+        private void Visit(ReportingConfiguration reportingConfiguration, string reportingConfigurationPointer)
+        {
+            Analyze(reportingConfiguration, reportingConfigurationPointer);
+        }
+
+        private void Visit(ReportingDescriptor reportingDescriptor, string reportingDescriptorPointer)
+        {
+            Analyze(reportingDescriptor, reportingDescriptorPointer);
+
+            if (reportingDescriptor.ShortDescription != null)
+            {
+                Visit(reportingDescriptor.ShortDescription, reportingDescriptorPointer.AtProperty(SarifPropertyName.ShortDescription));
+            }
+
+            if (reportingDescriptor.FullDescription != null)
+            {
+                Visit(reportingDescriptor.FullDescription, reportingDescriptorPointer.AtProperty(SarifPropertyName.FullDescription));
+            }
+        }
+
+        private void Visit(ReportingDescriptorReference reportingDescriptorReference, string reportingDescriptorReferencePointer)
+        {
+            Analyze(reportingDescriptorReference, reportingDescriptorReferencePointer);
+
+            if (reportingDescriptorReference.ToolComponent != null)
+            {
+                Visit(reportingDescriptorReference.ToolComponent, reportingDescriptorReferencePointer.AtProperty(SarifPropertyName.ToolComponent));
+            }
+        }
+
         private void Visit(Result result, string resultPointer)
         {
             Analyze(result, resultPointer);
@@ -643,6 +708,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             if (result.Provenance != null)
             {
                 Visit(result.Provenance, resultPointer.AtProperty(SarifPropertyName.Provenance));
+            }
+
+            if (result.Rule != null)
+            {
+                Visit(result.Rule, resultPointer.AtProperty(SarifPropertyName.Rule));
             }
 
             if (result.Graphs != null)
@@ -733,21 +803,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 {
                     Visit(resultProvenance.ConversionSources[i], conversionSourcesPointer.AtIndex(i));
                 }
-            }
-        }
-
-        private void Visit(ReportingDescriptor reportingDecriptor, string reportingDescriptorPointer)
-        {
-            Analyze(reportingDecriptor, reportingDescriptorPointer);
-
-            if (reportingDecriptor.ShortDescription != null)
-            {
-                Visit(reportingDecriptor.ShortDescription, reportingDescriptorPointer.AtProperty(SarifPropertyName.ShortDescription));
-            }
-
-            if (reportingDecriptor.FullDescription != null)
-            {
-                Visit(reportingDecriptor.FullDescription, reportingDescriptorPointer.AtProperty(SarifPropertyName.FullDescription));
             }
         }
 
@@ -978,6 +1033,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                     Visit(toolComponent.Rules[i], rulesPointer.AtIndex(i));
                 }
             }
+        }
+
+        private void Visit(ToolComponentReference toolComponentReference, string toolComponentReferencePointer)
+        {
+            Analyze(toolComponentReference, toolComponentReferencePointer);
         }
 
         private void Visit(VersionControlDetails versionControlDetails, string versionControlDetailsPointer)

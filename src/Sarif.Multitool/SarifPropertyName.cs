@@ -14,9 +14,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Attachments = "attachments";
         public const string ArtifactChanges = "artifactChanges";
         public const string CodeFlows = "codeFlows";
+        public const string Configuration = "configuration";
         public const string Conversion = "conversion";
         public const string ConversionSources = "conversionSources";
         public const string Description = "description";
+        public const string Descriptor = "descriptor";
         public const string DownloadUri = "downloadUri";
         public const string Driver = "driver";
         public const string Edges = "edges";
@@ -57,6 +59,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string RepositoryUri = "repositoryUri";
         public const string ResponseFiles = "responseFiles";
         public const string Results = "results";
+        public const string Rule = "rule";
+        public const string RuleConfigurationOverrides = "ruleConfigurationOverrides";
         public const string Rules = "rules";
         public const string Runs = "runs";
         public const string Schema = "$schema";
