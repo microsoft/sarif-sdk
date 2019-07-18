@@ -725,10 +725,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             Analyze(resultProvenance, resultProvenancePointer);
 
-            string conversionSourcesPointer = resultProvenancePointer.AtProperty(SarifPropertyName.ConversionSources);
-            for (int i = 0; i < resultProvenance.ConversionSources.Count; ++i)
+            if (resultProvenance.ConversionSources != null)
             {
-                Visit(resultProvenance.ConversionSources[i], conversionSourcesPointer.AtIndex(i));
+                string conversionSourcesPointer = resultProvenancePointer.AtProperty(SarifPropertyName.ConversionSources);
+
+                for (int i = 0; i < resultProvenance.ConversionSources.Count; ++i)
+                {
+                    Visit(resultProvenance.ConversionSources[i], conversionSourcesPointer.AtIndex(i));
+                }
             }
         }
 

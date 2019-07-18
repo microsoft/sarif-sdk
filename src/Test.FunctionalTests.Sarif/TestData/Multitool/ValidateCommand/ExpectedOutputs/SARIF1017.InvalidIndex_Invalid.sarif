@@ -287,6 +287,37 @@
           "message": {
             "id": "Default",
             "arguments": [
+              "runs[0].results[0].provenance",
+              "resultProvenance",
+              "invocationIndex",
+              "0",
+              "runs[0].invocations",
+              "1"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 83,
+                  "startColumn": 25
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
               "runs[0].results[0].graphTraversals[0]",
               "graphTraversal",
               "resultGraphIndex",
@@ -366,7 +397,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 83,
+                  "startLine": 86,
                   "startColumn": 25
                 }
               }
@@ -397,7 +428,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 86,
+                  "startLine": 89,
                   "startColumn": 26
                 }
               }
@@ -428,7 +459,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 93,
+                  "startLine": 96,
                   "startColumn": 9
                 }
               }

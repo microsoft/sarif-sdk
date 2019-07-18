@@ -108,6 +108,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 $"runs[{Context.CurrentRunIndex}].tool.driver.rules");
         }
 
+        protected override void Analyze(ResultProvenance provenance, string provenancePointer)
+        {
+            ValidateArrayIndex(
+                provenance.InvocationIndex,
+                Context.CurrentRun.Invocations,
+                provenancePointer,
+                "resultProvenance",
+                "invocationIndex",
+                $"runs[{Context.CurrentRunIndex}].invocations");
+        }
+
         protected override void Analyze(ThreadFlowLocation threadFlowLocation, string threadFlowLocationPointer)
         {
             ValidateArrayIndex(

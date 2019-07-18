@@ -64,6 +64,9 @@
               ]
             }
           ],
+          "provenance": {
+            "invocationIndex": 0
+          },
           "graphs": [
             {
               "edges": [],
