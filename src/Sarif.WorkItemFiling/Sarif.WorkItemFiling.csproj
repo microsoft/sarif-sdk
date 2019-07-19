@@ -5,19 +5,14 @@
   </PropertyGroup>
 
   <PropertyGroup Label="AssemblyAttributes">
-    <AssemblyTitle>SARIF Driver Framework</AssemblyTitle>
-    <Description>Framework for creating a command line analysis tool which produces the SARIF format.</Description>
+    <AssemblyTitle>SARIF Work Item Filing Library</AssemblyTitle>
+    <Description>Classes for filing the results in a SARIF log file as work items in a system such as GitHub or AzureDevOps.</Description>
   </PropertyGroup>
 
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
     <ProjectReference Include="..\Sarif\Sarif.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="CommandLineParser" Version="2.5.0" />
-    <PackageReference Include="System.Composition" Version="1.2.0" />
   </ItemGroup>
 
 </Project>
