@@ -14,7 +14,9 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
 
   <ItemGroup>
+    <None Remove="TestData\EmptyResults.sarif" />
     <None Remove="TestData\Invalid.sarif" />
+    <None Remove="TestData\NullResults.sarif" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,7 +30,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="TestData\EmptyResults.sarif" />
     <EmbeddedResource Include="TestData\Invalid.sarif" />
+    <EmbeddedResource Include="TestData\NullResults.sarif" />
   </ItemGroup>
 
   <ItemGroup>
