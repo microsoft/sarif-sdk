@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
@@ -99,13 +100,31 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(ReportingDescriptorReference reportingDescriptorReference, string reportingDescriptorReferencePointer)
         {
+            string arrayPropertyName;
+            IList<ReportingDescriptor> reportingDescriptors;
+
+            if (Context.CurrentReportingDescriptorKind == SarifValidationContext.ReportingDescriptorKind.Rule)
+            {
+                arrayPropertyName = "rules";
+                reportingDescriptors = Context.CurrentRun.Tool.Driver.Rules;
+            }
+            else if (Context.CurrentReportingDescriptorKind == SarifValidationContext.ReportingDescriptorKind.Notification)
+            {
+                arrayPropertyName = "notifications";
+                reportingDescriptors = Context.CurrentRun.Tool.Driver.Notifications;
+            }
+            else
+            {
+                throw new InvalidOperationException("Unexpected call to Analyze(ReportingDescriptorReference)");
+            }
+
             ValidateArrayIndex(
                 reportingDescriptorReference.Index,
-                Context.CurrentRun.Tool.Driver.Rules,
+                reportingDescriptors,
                 reportingDescriptorReferencePointer,
                 "reportingDescriptorReference",
                 "index",
-                $"runs[{Context.CurrentRunIndex}].tool.driver.rules");
+                $"runs[{Context.CurrentRunIndex}].tool.driver.{arrayPropertyName}");
         }
 
         protected override void Analyze(Result result, string resultPointer)

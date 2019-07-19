@@ -472,19 +472,27 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             Analyze(invocation, invocationPointer);
 
-            if (invocation.RuleConfigurationOverrides != null)
-            {
-                string ruleConfigurationOverridesPointer = invocationPointer.AtProperty(SarifPropertyName.RuleConfigurationOverrides);
-
-                for (int i = 0; i < invocation.RuleConfigurationOverrides.Count; ++i)
-                {
-                    Visit(invocation.RuleConfigurationOverrides[i], ruleConfigurationOverridesPointer.AtIndex(i));
-                }
-            }
-
             if (invocation.ExecutableLocation != null)
             {
                 Visit(invocation.ExecutableLocation, invocationPointer.AtProperty(SarifPropertyName.ExecutableLocation));
+            }
+
+            if (invocation.NotificationConfigurationOverrides != null)
+            {
+                string notificationConfigurationOverridesPointer = invocationPointer.AtProperty(SarifPropertyName.NotificationConfigurationOverrides);
+                Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.Notification;
+
+                try
+                {
+                    for (int i = 0; i < invocation.NotificationConfigurationOverrides.Count; ++i)
+                    {
+                        Visit(invocation.NotificationConfigurationOverrides[i], notificationConfigurationOverridesPointer.AtIndex(i));
+                    }
+                }
+                finally
+                {
+                    Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.None;
+                }
             }
 
             if (invocation.ResponseFiles != null)
@@ -494,6 +502,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 for (int i = 0; i < invocation.ResponseFiles.Count; ++i)
                 {
                     Visit(invocation.ResponseFiles[i], responseFilesPointer.AtIndex(i));
+                }
+            }
+
+            if (invocation.RuleConfigurationOverrides != null)
+            {
+                string ruleConfigurationOverridesPointer = invocationPointer.AtProperty(SarifPropertyName.RuleConfigurationOverrides);
+                Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.Rule;
+
+                try
+                {
+                    for (int i = 0; i < invocation.RuleConfigurationOverrides.Count; ++i)
+                    {
+                        Visit(invocation.RuleConfigurationOverrides[i], ruleConfigurationOverridesPointer.AtIndex(i));
+                    }
+                }
+                finally
+                {
+                    Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.None;
                 }
             }
 
@@ -712,7 +738,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (result.Rule != null)
             {
-                Visit(result.Rule, resultPointer.AtProperty(SarifPropertyName.Rule));
+                Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.Rule;
+
+                try
+                {
+                    Visit(result.Rule, resultPointer.AtProperty(SarifPropertyName.Rule));
+                }
+                finally
+                {
+                    Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.None;
+                }
             }
 
             if (result.Graphs != null)
