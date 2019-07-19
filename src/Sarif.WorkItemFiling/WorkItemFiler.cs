@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         /// </summary>
         /// <param name="fileSystem">
         /// An object that implements the <see cref="IFileSystem"/> interface, providing
-        /// access to the file system;
+        /// access to the file system.
         /// </param>
         public WorkItemFiler(IFileSystem fileSystem)
         {

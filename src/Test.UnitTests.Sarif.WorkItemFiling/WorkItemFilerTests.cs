@@ -38,14 +38,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         [Fact]
         public void WorkItemFiler_RejectsInvalidSarifFile()
         {
-            const string LogFilePath = @"Invalid.sarif";
-            string logFileContents = s_extractor.GetResourceText(LogFilePath);
-
-            var mockFileSystem = new Mock<IFileSystem>();
-            mockFileSystem.Setup(x => x.ReadAllText(LogFilePath)).Returns(logFileContents);
-
-            IFileSystem fileSystem = mockFileSystem.Object;
-            var filer = new WorkItemFiler(fileSystem);
+            const string LogFilePath = "Invalid.sarif";
+            WorkItemFiler filer = CreateWorkItemFilerForResource(LogFilePath);
 
             Action action = () => filer.FileWorkItems(LogFilePath);
 
@@ -55,14 +49,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         [Fact]
         public void WorkItemFiler_AcceptsSarifFileWithNullResults()
         {
-            const string LogFilePath = @"NullResults.sarif";
-            string logFileContents = s_extractor.GetResourceText(LogFilePath);
-
-            var mockFileSystem = new Mock<IFileSystem>();
-            mockFileSystem.Setup(x => x.ReadAllText(LogFilePath)).Returns(logFileContents);
-
-            IFileSystem fileSystem = mockFileSystem.Object;
-            var filer = new WorkItemFiler(fileSystem);
+            const string LogFilePath = "NullResults.sarif";
+            WorkItemFiler filer = CreateWorkItemFilerForResource(LogFilePath);
 
             Action action = () => filer.FileWorkItems(LogFilePath);
 
@@ -72,18 +60,23 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         [Fact]
         public void WorkItemFiler_AcceptsSarifFileWithEmptyResults()
         {
-            const string LogFilePath = @"EmptyResults.sarif";
-            string logFileContents = s_extractor.GetResourceText(LogFilePath);
-
-            var mockFileSystem = new Mock<IFileSystem>();
-            mockFileSystem.Setup(x => x.ReadAllText(LogFilePath)).Returns(logFileContents);
-
-            IFileSystem fileSystem = mockFileSystem.Object;
-            var filer = new WorkItemFiler(fileSystem);
+            const string LogFilePath = "EmptyResults.sarif";
+            WorkItemFiler filer = CreateWorkItemFilerForResource(LogFilePath);
 
             Action action = () => filer.FileWorkItems(LogFilePath);
 
             action.Should().NotThrow();
+        }
+
+        private static WorkItemFiler CreateWorkItemFilerForResource(string resourceName)
+        {
+            string logFileContents = s_extractor.GetResourceText(resourceName);
+
+            var mockFileSystem = new Mock<IFileSystem>();
+            mockFileSystem.Setup(x => x.ReadAllText(resourceName)).Returns(logFileContents);
+
+            IFileSystem fileSystem = mockFileSystem.Object;
+            return new WorkItemFiler(fileSystem);
         }
     }
 }
