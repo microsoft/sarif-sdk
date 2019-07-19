@@ -15,4 +15,28 @@
     <ProjectReference Include="..\Sarif\Sarif.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Json.Schema" Version="1.1.0" />
+    <PackageReference Include="Microsoft.Json.Schema.Validation" Version="1.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\Sarif\Schemata\sarif-2.1.0-rtm.4.json" Link="sarif-2.1.0.json" />
+  </ItemGroup>
+
 </Project>
