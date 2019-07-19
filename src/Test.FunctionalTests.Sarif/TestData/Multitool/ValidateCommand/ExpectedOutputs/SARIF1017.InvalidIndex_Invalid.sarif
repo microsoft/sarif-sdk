@@ -87,7 +87,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 47,
+                  "startLine": 57,
                   "startColumn": 9
                 }
               }
@@ -118,7 +118,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 60,
+                  "startLine": 70,
                   "startColumn": 28
                 }
               }
@@ -149,7 +149,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 63,
+                  "startLine": 73,
                   "startColumn": 37
                 }
               }
@@ -180,7 +180,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 68,
+                  "startLine": 78,
                   "startColumn": 17
                 }
               }
@@ -211,7 +211,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 79,
+                  "startLine": 89,
                   "startColumn": 21
                 }
               }
@@ -242,7 +242,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 81,
+                  "startLine": 91,
                   "startColumn": 37
                 }
               }
@@ -273,7 +273,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 84,
+                  "startLine": 94,
                   "startColumn": 38
                 }
               }
@@ -304,7 +304,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 109,
+                  "startLine": 119,
                   "startColumn": 25
                 }
               }
@@ -335,7 +335,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 50,
+                  "startLine": 60,
                   "startColumn": 19
                 }
               }
@@ -366,7 +366,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 100,
+                  "startLine": 110,
                   "startColumn": 13
                 }
               }
@@ -397,7 +397,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 104,
+                  "startLine": 114,
                   "startColumn": 13
                 }
               }
@@ -428,7 +428,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 112,
+                  "startLine": 122,
                   "startColumn": 25
                 }
               }
@@ -459,7 +459,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 115,
+                  "startLine": 125,
                   "startColumn": 26
                 }
               }
@@ -490,7 +490,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 122,
+                  "startLine": 132,
                   "startColumn": 9
                 }
               }
@@ -521,8 +521,39 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 39,
+                  "startLine": 49,
                   "startColumn": 9
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].invocations[0].notificationConfigurationOverrides[0].descriptor",
+              "reportingDescriptorReference",
+              "index",
+              "0",
+              "runs[0].tool.driver.notifications",
+              "1"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 40,
+                  "startColumn": 29
                 }
               }
             }

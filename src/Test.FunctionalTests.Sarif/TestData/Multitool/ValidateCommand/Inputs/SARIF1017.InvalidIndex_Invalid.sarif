@@ -24,11 +24,21 @@
         {
           "ruleConfigurationOverrides": [
             {
-              "descriptor": {
-                "index": 2
-              },
               "configuration": {
                 "enabled": false
+              },
+              "descriptor": {
+                "index": 2
+              }
+            }
+          ],
+          "notificationConfigurationOverrides": [
+            {
+              "configuration": {
+                "enabled": false
+              },
+              "descriptor": {
+                "index": 0
               }
             }
           ],

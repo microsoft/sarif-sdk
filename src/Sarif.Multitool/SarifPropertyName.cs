@@ -48,6 +48,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Message = "message";
         public const string MessageStrings = "messageStrings";
         public const string Nodes = "nodes";
+        public const string NotificationConfigurationOverrides = "notificationConfigurationOverrides";
         public const string Notifications = "notifications";
         public const string OriginalUriBaseIds = "originalUriBaseIds";
         public const string PhysicalLocation = "physicalLocation";
