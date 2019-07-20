@@ -37,13 +37,13 @@ module.exports = function (results, data) {
 
     const sarifLog = {
         version: "2.1.0",
-        $schema: "http://json.schemastore.org/sarif-2.1.0-rtm.1",
+        $schema: "http://json.schemastore.org/sarif-2.1.0-rtm.4",
         runs: [
             {
                 tool: {
                     driver: {
                         name: "ESLint",
-                        downloadUri: "https://eslint.org",
+                        informationUri: "https://eslint.org",
                         rules: []
                     }
                 }
@@ -52,7 +52,11 @@ module.exports = function (results, data) {
     };
 
     const sarifFiles = {};
+    const sarifArtifactIndices = {};
+    var nextArtifactIndex = 0;
     const sarifRules = {};
+    const sarifRuleIndices = {};
+    var nextRuleIndex = 0;
     const sarifResults = [];
     const embedFileContents = process.env.SARIF_ESLINT_EMBED === "true";
 
@@ -60,6 +64,7 @@ module.exports = function (results, data) {
 
         // Only add it if not already there.
         if (typeof sarifFiles[result.filePath] === "undefined") {
+            sarifArtifactIndices[result.filePath] = nextArtifactIndex++;
 
             let contentsUtf8;
 
@@ -106,7 +111,8 @@ module.exports = function (results, data) {
                             {
                                 physicalLocation: {
                                     artifactLocation: {
-                                        uri: result.filePath
+                                        uri: result.filePath,
+                                        index: sarifArtifactIndices[result.filePath]
                                     }
                                 }
                             }
@@ -121,6 +127,7 @@ module.exports = function (results, data) {
 
                             // An unknown ruleId will return null. This check prevents unit test failure.
                             if (meta) {
+                                sarifRuleIndices[message.ruleId] = nextRuleIndex++;
 
                                 // Create a new entry in the rules dictionary.
                                 sarifRules[message.ruleId] = {
@@ -129,11 +136,15 @@ module.exports = function (results, data) {
                                         text: meta.docs.description
                                     },
                                     helpUri: meta.docs.url,
-                                    tags: {
+                                    properties: {
                                         category: meta.docs.category
                                     }
                                 };
                             }
+                        }
+
+                        if (sarifRuleIndices[message.ruleId] !== "undefined") {
+                            sarifResult.ruleIndex = sarifRuleIndices[message.ruleId];
                         }
                     }
 
