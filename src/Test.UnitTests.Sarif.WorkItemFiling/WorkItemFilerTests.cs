@@ -89,6 +89,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
 
             IEnumerable<Result> filedResults = await filer.FileWorkItems(LogFilePath);
 
+            // The test file NewAndOldResults.sarif contains 5 results, but only 2 of them
+            // have "baselineState": "new".
             filedResults.Count().Should().Be(2);
         }
 
