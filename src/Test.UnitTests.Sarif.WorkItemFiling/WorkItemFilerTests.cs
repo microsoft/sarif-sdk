@@ -103,7 +103,16 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
 
             IFileSystem fileSystem = mockFileSystem.Object;
 
-            FilingTargetBase filingTarget = new TestFilingTarget();
+            var mockFilingTarget = new Mock<FilingTargetBase>();
+
+            // Moq magic: you can return whatever was passed to a method by providing
+            // a lambda (rather than a fixed value) to Returns or ReturnsAsync.
+            // https://stackoverflow.com/questions/996602/returning-value-that-was-passed-into-a-method
+            mockFilingTarget
+                .Setup(x => x.FileWorkItems(It.IsAny<IEnumerable<Result>>()))
+                .ReturnsAsync((IEnumerable<Result> results) => results);
+
+            FilingTargetBase filingTarget = mockFilingTarget.Object;
 
             return new WorkItemFiler(filingTarget, fileSystem);
         }
