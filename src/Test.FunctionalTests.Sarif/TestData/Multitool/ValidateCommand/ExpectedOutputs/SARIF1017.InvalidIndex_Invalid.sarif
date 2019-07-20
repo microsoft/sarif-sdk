@@ -87,7 +87,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 57,
+                  "startLine": 111,
                   "startColumn": 9
                 }
               }
@@ -118,7 +118,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 70,
+                  "startLine": 124,
                   "startColumn": 28
                 }
               }
@@ -149,7 +149,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 73,
+                  "startLine": 127,
                   "startColumn": 37
                 }
               }
@@ -180,7 +180,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 78,
+                  "startLine": 132,
                   "startColumn": 17
                 }
               }
@@ -211,7 +211,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 78,
+                  "startLine": 132,
                   "startColumn": 17
                 }
               }
@@ -242,7 +242,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 90,
+                  "startLine": 144,
                   "startColumn": 21
                 }
               }
@@ -273,7 +273,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 92,
+                  "startLine": 146,
                   "startColumn": 37
                 }
               }
@@ -304,7 +304,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 95,
+                  "startLine": 149,
                   "startColumn": 38
                 }
               }
@@ -335,7 +335,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 120,
+                  "startLine": 174,
                   "startColumn": 25
                 }
               }
@@ -366,7 +366,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 60,
+                  "startLine": 114,
                   "startColumn": 19
                 }
               }
@@ -397,7 +397,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 111,
+                  "startLine": 165,
                   "startColumn": 13
                 }
               }
@@ -428,7 +428,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 115,
+                  "startLine": 169,
                   "startColumn": 13
                 }
               }
@@ -459,7 +459,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 123,
+                  "startLine": 177,
                   "startColumn": 25
                 }
               }
@@ -490,7 +490,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 126,
+                  "startLine": 180,
                   "startColumn": 26
                 }
               }
@@ -521,7 +521,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 133,
+                  "startLine": 187,
                   "startColumn": 9
                 }
               }
@@ -552,7 +552,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 49,
+                  "startLine": 103,
                   "startColumn": 9
                 }
               }
@@ -569,9 +569,9 @@
               "runs[0].invocations[0].notificationConfigurationOverrides[0].descriptor",
               "reportingDescriptorReference",
               "index",
-              "0",
+              "2",
               "runs[0].tool.driver.notifications",
-              "1"
+              "3"
             ]
           },
           "locations": [
@@ -583,7 +583,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 40,
+                  "startLine": 48,
                   "startColumn": 29
                 }
               }
@@ -614,7 +614,131 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 30,
+                  "startLine": 38,
+                  "startColumn": 29
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].invocations[0].toolExecutionNotifications[1].associatedRule",
+              "reportingDescriptorReference",
+              "index",
+              "1",
+              "runs[0].tool.driver.rules",
+              "2"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 71,
+                  "startColumn": 33
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].invocations[0].toolExecutionNotifications[1].descriptor",
+              "reportingDescriptorReference",
+              "index",
+              "2",
+              "runs[0].tool.driver.notifications",
+              "3"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 67,
+                  "startColumn": 29
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].invocations[0].toolConfigurationNotifications[1].associatedRule",
+              "reportingDescriptorReference",
+              "index",
+              "1",
+              "runs[0].tool.driver.rules",
+              "2"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 94,
+                  "startColumn": 33
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].invocations[0].toolConfigurationNotifications[1].descriptor",
+              "reportingDescriptorReference",
+              "index",
+              "3",
+              "runs[0].tool.driver.notifications",
+              "4"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 90,
                   "startColumn": 29
                 }
               }

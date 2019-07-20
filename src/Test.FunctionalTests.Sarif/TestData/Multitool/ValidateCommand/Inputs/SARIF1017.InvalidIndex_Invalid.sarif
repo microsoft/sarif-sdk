@@ -17,6 +17,14 @@
                 }
               ]
             }
+          ],
+          "notifications": [
+            {
+              "id": "CNOT0001"
+            },
+            {
+              "id": "ENOT0001"
+            }
           ]
         }
       },
@@ -38,7 +46,53 @@
                 "enabled": false
               },
               "descriptor": {
+                "index": 2
+              }
+            }
+          ],
+          "toolExecutionNotifications": [
+            {
+              "message": {
+                "text": "Tool execution notification 1."
+              },
+              "descriptor": {
+                "id": "ENOT0001",
+                "index": 1
+              }
+            },
+            {
+              "message": {
+                "text": "Tool execution notification 2."
+              },
+              "descriptor": {
+                "id": "ENOT0002",
+                "index": 2
+              },
+              "associatedRule": {
+                "index": 1
+              }
+            }
+          ],
+          "toolConfigurationNotifications": [
+            {
+              "message": {
+                "text": "Tool configuration notification 1."
+              },
+              "descriptor": {
+                "id": "CNOT0001",
                 "index": 0
+              }
+            },
+            {
+              "message": {
+                "text": "Tool configuration notification 2."
+              },
+              "descriptor": {
+                "id": "CNOT0002",
+                "index": 3
+              },
+              "associatedRule": {
+                "index": 1
               }
             }
           ],

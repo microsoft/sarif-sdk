@@ -606,6 +606,32 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             Analyze(notification, notificationPointer);
 
+            if (notification.AssociatedRule != null)
+            {
+                Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.Rule;
+                try
+                {
+                    Visit(notification.AssociatedRule, notificationPointer.AtProperty(SarifPropertyName.AssociatedRule));
+                }
+                finally
+                {
+                    Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.None;
+                }
+            }
+
+            if (notification.Descriptor != null)
+            {
+                Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.Notification;
+                try
+                {
+                    Visit(notification.Descriptor, notificationPointer.AtProperty(SarifPropertyName.Descriptor));
+                }
+                finally
+                {
+                    Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.None;
+                }
+            }
+
             if (notification.Message != null)
             {
                 Visit(notification.Message, notificationPointer.AtProperty(SarifPropertyName.Message));
