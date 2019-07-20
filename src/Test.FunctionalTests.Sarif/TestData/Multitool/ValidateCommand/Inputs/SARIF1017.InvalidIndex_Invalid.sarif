@@ -225,6 +225,18 @@
           "message": {
             "text": "Message from extension."
           }
+        },
+        {
+          "rule": {
+            "id": "EXTR1001",
+            "index": 1,
+            "toolComponent": {
+              "index": 2
+            }
+          },
+          "message": {
+            "text": "Message from missing extension."
+          }
         }
       ],
       "columnKind": "utf16CodeUnits",

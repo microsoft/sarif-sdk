@@ -119,7 +119,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             int? toolComponentIndex = reportingDescriptorReference.ToolComponent?.Index;
             if (toolComponentIndex >= 0)
             {
-                toolComponent = tool.Extensions?[toolComponentIndex.Value];
+                // This reporting descriptor reference refers to an extension, but does that
+                // extension exist?
+                toolComponent = tool.Extensions?.Count > toolComponentIndex.Value
+                    ? tool.Extensions[toolComponentIndex.Value]
+                    : null;
+
                 toolComponentPathSegment = $"{SarifPropertyName.Extensions}[{toolComponentIndex}]";
             }
             else
@@ -193,6 +198,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 "threadFlowLocation",
                 SarifPropertyName.Index,
                 $"runs[{Context.CurrentRunIndex}].threadFlowLocations");
+        }
+
+        protected override void Analyze(ToolComponentReference toolComponentReference, string toolComponentReferencePointer)
+        {
+            ValidateArrayIndex(
+                toolComponentReference.Index,
+                Context.CurrentRun.Tool.Extensions,
+                toolComponentReferencePointer,
+                "toolComponentReference",
+                SarifPropertyName.Index,
+                $"runs[{Context.CurrentRunIndex}].tool.extensions");
         }
 
         protected override void Analyze(WebRequest webRequest, string webRequestPointer)
