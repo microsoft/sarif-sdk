@@ -1141,6 +1141,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
             Analyze(toolComponent, toolComponentPointer);
 
+            if (toolComponent.AssociatedComponent != null)
+            {
+                Visit(toolComponent.AssociatedComponent, toolComponentPointer.AtProperty(SarifPropertyName.AssociatedComponent));
+            }
+
             if (toolComponent.Notifications != null)
             {
                 Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.Notification;

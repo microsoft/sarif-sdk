@@ -9,6 +9,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Addresses = "addresses";
         public const string AnalysisTarget = "analysisTarget";
         public const string AnalysisToolLogFiles = "analysisToolLogFiles";
+        public const string AssociatedComponent = "associatedComponent";
         public const string AssociatedRule = "associatedRule";
         public const string ArtifactLocation = "artifactLocation";
         public const string Artifacts = "artifacts";

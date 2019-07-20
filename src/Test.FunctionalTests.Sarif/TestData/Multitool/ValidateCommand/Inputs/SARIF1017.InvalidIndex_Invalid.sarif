@@ -29,7 +29,10 @@
         },
         "extensions": [
           {
-            "name": "AnExtension"
+            "name": "AnExtension",
+            "associatedComponent": {
+              "index": 2
+            }
           },
           {
             "name": "AnotherExtension",
