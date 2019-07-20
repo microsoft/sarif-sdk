@@ -76,7 +76,8 @@
               },
               "logicalLocations": [
                 {
-                  "index": 0
+                  "index": 0,
+                  "parentIndex": 1
                 }
               ]
             }

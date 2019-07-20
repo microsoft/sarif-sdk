@@ -194,6 +194,37 @@
           "message": {
             "id": "Default",
             "arguments": [
+              "runs[0].results[0].locations[0].logicalLocations[0]",
+              "logicalLocation",
+              "parentIndex",
+              "1",
+              "runs[0].logicalLocations",
+              "2"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 78,
+                  "startColumn": 17
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
               "runs[0].results[0].codeFlows[0].threadFlows[0].locations[0]",
               "threadFlowLocation",
               "index",
@@ -211,7 +242,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 89,
+                  "startLine": 90,
                   "startColumn": 21
                 }
               }
@@ -242,7 +273,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 91,
+                  "startLine": 92,
                   "startColumn": 37
                 }
               }
@@ -273,7 +304,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 94,
+                  "startLine": 95,
                   "startColumn": 38
                 }
               }
@@ -304,7 +335,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 119,
+                  "startLine": 120,
                   "startColumn": 25
                 }
               }
@@ -366,7 +397,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 110,
+                  "startLine": 111,
                   "startColumn": 13
                 }
               }
@@ -397,7 +428,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 114,
+                  "startLine": 115,
                   "startColumn": 13
                 }
               }
@@ -428,7 +459,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 122,
+                  "startLine": 123,
                   "startColumn": 25
                 }
               }
@@ -459,7 +490,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 125,
+                  "startLine": 126,
                   "startColumn": 26
                 }
               }
@@ -490,7 +521,7 @@
                   "index": 0
                 },
                 "region": {
-                  "startLine": 132,
+                  "startLine": 133,
                   "startColumn": 9
                 }
               }

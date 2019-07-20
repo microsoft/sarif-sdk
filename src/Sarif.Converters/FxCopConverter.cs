@@ -141,7 +141,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Converters
             }
 
             // Don't emit a location if neither physical location nor logical location information
-            // is present. This is the case for CA0001, (unexpected error in analysis tool).
+            // is present. This is the case for CA0001 (unexpected error in analysis tool).
             // https://docs.microsoft.com/en-us/visualstudio/code-quality/ca0001?view=vs-2019
             bool emitLocation = false;
 

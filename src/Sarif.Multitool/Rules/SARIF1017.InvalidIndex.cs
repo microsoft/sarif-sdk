@@ -96,6 +96,14 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 "logicalLocation",
                 "index",
                 $"runs[{Context.CurrentRunIndex}].logicalLocations");
+
+            ValidateArrayIndex(
+                logicalLocation.ParentIndex,
+                Context.CurrentRun.LogicalLocations,
+                logicalLocationPointer,
+                "logicalLocation",
+                "parentIndex",
+                $"runs[{Context.CurrentRunIndex}].logicalLocations");
         }
 
         protected override void Analyze(ReportingDescriptorReference reportingDescriptorReference, string reportingDescriptorReferencePointer)
