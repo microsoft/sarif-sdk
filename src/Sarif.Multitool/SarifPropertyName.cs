@@ -58,6 +58,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Region = "region";
         public const string Regions = "regions";
         public const string RelatedLocations = "relatedLocations";
+        public const string Relationships = "relationships";
         public const string RepositoryUri = "repositoryUri";
         public const string ResponseFiles = "responseFiles";
         public const string Results = "results";
@@ -73,6 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Stderr = "stderr";
         public const string StdoutStderr = "stdoutStderr";
         public const string Step = "step";
+        public const string Target = "target";
         public const string Text = "text";
         public const string ThreadFlows = "threadFlows";
         public const string Tool = "tool";

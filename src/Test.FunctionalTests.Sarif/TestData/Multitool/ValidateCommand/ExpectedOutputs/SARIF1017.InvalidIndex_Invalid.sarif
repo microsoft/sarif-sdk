@@ -744,8 +744,39 @@
               }
             }
           ]
+        },
+        {
+          "ruleId": "SARIF1017",
+          "ruleIndex": 0,
+          "level": "error",
+          "message": {
+            "id": "Default",
+            "arguments": [
+              "runs[0].tool.driver.rules[0].relationships[0].target",
+              "reportingDescriptorReference",
+              "index",
+              "2",
+              "runs[0].tool.driver.rules",
+              "3"
+            ]
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "FunctionalTestOutput.ValidateCommand/Inputs.SARIF1017.InvalidIndex_Invalid.sarif",
+                  "uriBaseId": "TEST_DIR",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 22,
+                  "startColumn": 29
+                }
+              }
+            }
+          ]
         }
-      ],
+     ],
       "columnKind": "utf16CodeUnits"
     }
   ]

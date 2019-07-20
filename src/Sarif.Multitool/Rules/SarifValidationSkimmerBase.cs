@@ -150,6 +150,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
         {
         }
 
+        protected virtual void Analyze(ReportingDescriptorRelationship reportingDescriptorRelationship, string reportingDescriptionRelationshipPointer)
+        {
+        }
+
         protected virtual void Analyze(Result result, string resultPointer)
         {
         }
@@ -706,6 +710,16 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 Visit(reportingDescriptor.FullDescription, reportingDescriptorPointer.AtProperty(SarifPropertyName.FullDescription));
             }
+
+            if (reportingDescriptor.Relationships != null)
+            {
+                string relationshipsPointer = reportingDescriptorPointer.AtProperty(SarifPropertyName.Relationships);
+
+                for (int i = 0; i < reportingDescriptor.Relationships.Count; ++i)
+                {
+                    Visit(reportingDescriptor.Relationships[i], relationshipsPointer.AtIndex(i));
+                }
+            }
         }
 
         private void Visit(ReportingDescriptorReference reportingDescriptorReference, string reportingDescriptorReferencePointer)
@@ -715,6 +729,21 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             if (reportingDescriptorReference.ToolComponent != null)
             {
                 Visit(reportingDescriptorReference.ToolComponent, reportingDescriptorReferencePointer.AtProperty(SarifPropertyName.ToolComponent));
+            }
+        }
+
+        private void Visit(ReportingDescriptorRelationship reportingDescriptorRelationship, string reportingDescriptorRelationshipPointer)
+        {
+            Analyze(reportingDescriptorRelationship, reportingDescriptorRelationshipPointer);
+
+            if (reportingDescriptorRelationship.Description != null)
+            {
+                Visit(reportingDescriptorRelationship.Description, reportingDescriptorRelationshipPointer.AtProperty(SarifPropertyName.Description));
+            }
+
+            if (reportingDescriptorRelationship.Target != null)
+            {
+                Visit(reportingDescriptorRelationship.Target, reportingDescriptorRelationshipPointer.AtProperty(SarifPropertyName.Target));
             }
         }
 
@@ -1079,19 +1108,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
             if (toolComponent.Notifications != null)
             {
-                string notificationsPointer = toolComponentPointer.AtProperty(SarifPropertyName.Notifications);
-                for (int i = 0; i < toolComponent.Notifications.Count; ++i)
+                Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.Notification;
+                try
                 {
-                    Visit(toolComponent.Notifications[i], notificationsPointer.AtIndex(i));
+                    string notificationsPointer = toolComponentPointer.AtProperty(SarifPropertyName.Notifications);
+                    for (int i = 0; i < toolComponent.Notifications.Count; ++i)
+                    {
+                        Visit(toolComponent.Notifications[i], notificationsPointer.AtIndex(i));
+                    }
+                }
+                finally
+                {
+                    Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.None;
                 }
             }
 
             if (toolComponent.Rules != null)
             {
-                string rulesPointer = toolComponentPointer.AtProperty(SarifPropertyName.Rules);
-                for (int i = 0; i < toolComponent.Rules.Count; ++i)
+                Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.Rule;
+                try
                 {
-                    Visit(toolComponent.Rules[i], rulesPointer.AtIndex(i));
+                    string rulesPointer = toolComponentPointer.AtProperty(SarifPropertyName.Rules);
+                    for (int i = 0; i < toolComponent.Rules.Count; ++i)
+                    {
+                        Visit(toolComponent.Rules[i], rulesPointer.AtIndex(i));
+                    }
+                }
+                finally
+                {
+                    Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.None;
                 }
             }
         }

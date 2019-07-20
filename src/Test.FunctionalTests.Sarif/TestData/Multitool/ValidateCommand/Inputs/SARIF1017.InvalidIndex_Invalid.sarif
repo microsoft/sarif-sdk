@@ -6,6 +6,14 @@
       "tool": {
         "driver": {
           "name": "SARIF Functional Testing",
+          "notifications": [
+            {
+              "id": "CNOT0001"
+            },
+            {
+              "id": "ENOT0001"
+            }
+          ],
           "rules": [
             {
               "id": "TST0001",
@@ -16,14 +24,6 @@
                   }
                 }
               ]
-            }
-          ],
-          "notifications": [
-            {
-              "id": "CNOT0001"
-            },
-            {
-              "id": "ENOT0001"
             }
           ]
         }
