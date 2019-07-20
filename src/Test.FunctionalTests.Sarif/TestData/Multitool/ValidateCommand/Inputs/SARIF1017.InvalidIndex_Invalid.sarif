@@ -26,7 +26,30 @@
               ]
             }
           ]
-        }
+        },
+        "extensions": [
+          {
+            "name": "AnExtension"
+          },
+          {
+            "name": "AnotherExtension",
+            "rules": [
+              {
+                "id": "EXTR0001"
+              }
+            ],
+            "notifications": [
+              {
+                "id": "EXTN0001"
+              }
+            ],
+            "taxa": [
+              {
+                "id": "EXTT0001"
+              }
+            ]
+          }
+        ]
       },
       "invocations": [
         {
@@ -189,6 +212,18 @@
           },
           "webResponse": {
             "index": 0
+          }
+        },
+        {
+          "rule": {
+            "id": "EXTR0002",
+            "index": 1,
+            "toolComponent": {
+              "index": 0
+            }
+          },
+          "message": {
+            "text": "Message from extension."
           }
         }
       ],

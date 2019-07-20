@@ -109,6 +109,26 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 
         protected override void Analyze(ReportingDescriptorReference reportingDescriptorReference, string reportingDescriptorReferencePointer)
         {
+            Tool tool = Context.CurrentRun.Tool;
+
+            // Does this reporting descriptor reference refer to a reporting descriptor defined by
+            // the driver or by one of the extensions?
+            ToolComponent toolComponent;
+            string toolComponentPathSegment;
+
+            int? toolComponentIndex = reportingDescriptorReference.ToolComponent?.Index;
+            if (toolComponentIndex >= 0)
+            {
+                toolComponent = tool.Extensions?[toolComponentIndex.Value];
+                toolComponentPathSegment = $"{SarifPropertyName.Extensions}[{toolComponentIndex}]";
+            }
+            else
+            {
+                toolComponent = tool.Driver;
+                toolComponentPathSegment = SarifPropertyName.Driver;
+            }
+
+            // Does this reporting descriptor reference refer to a rule, a notification, or a taxon?
             string arrayPropertyName;
             IList<ReportingDescriptor> reportingDescriptors;
 
@@ -116,17 +136,17 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             {
                 case SarifValidationContext.ReportingDescriptorKind.Rule:
                     arrayPropertyName = SarifPropertyName.Rules;
-                    reportingDescriptors = Context.CurrentRun.Tool.Driver.Rules;
+                    reportingDescriptors = toolComponent?.Rules;
                     break;
 
                 case SarifValidationContext.ReportingDescriptorKind.Notification:
                     arrayPropertyName = SarifPropertyName.Notifications;
-                    reportingDescriptors = Context.CurrentRun.Tool.Driver.Notifications;
+                    reportingDescriptors = toolComponent?.Notifications;
                     break;
 
                 case SarifValidationContext.ReportingDescriptorKind.Taxon:
                     arrayPropertyName = SarifPropertyName.Taxa;
-                    reportingDescriptors = Context.CurrentRun.Tool.Driver.Taxa;
+                    reportingDescriptors = toolComponent?.Taxa;
                     break;
 
                 default:
@@ -139,7 +159,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 reportingDescriptorReferencePointer,
                 "reportingDescriptorReference",
                 SarifPropertyName.Index,
-                $"runs[{Context.CurrentRunIndex}].tool.driver.{arrayPropertyName}");
+                $"runs[{Context.CurrentRunIndex}].tool.{toolComponentPathSegment}.{arrayPropertyName}");
         }
 
         protected override void Analyze(Result result, string resultPointer)
