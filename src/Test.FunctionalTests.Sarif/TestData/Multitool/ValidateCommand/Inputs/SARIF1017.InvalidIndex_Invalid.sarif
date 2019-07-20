@@ -143,6 +143,11 @@
                   "locations": [
                     {
                       "index": 0,
+                      "taxa": [
+                        {
+                          "index": 3
+                        }
+                      ],
                       "webRequest": {
                         "index": 0
                       },

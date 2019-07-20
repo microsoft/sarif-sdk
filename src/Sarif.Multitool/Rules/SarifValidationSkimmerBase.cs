@@ -1089,6 +1089,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 Visit(threadFlowLocation.Location, threadFlowLocationPointer.AtProperty(SarifPropertyName.Location));
             }
 
+            if (threadFlowLocation.Taxa != null)
+            {
+                string taxaPointer = threadFlowLocationPointer.AtProperty(SarifPropertyName.Taxa);
+
+                Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.Taxon;
+                try
+                {
+                    for (int i = 0; i < threadFlowLocation.Taxa.Count; ++i)
+                    {
+                        Visit(threadFlowLocation.Taxa[i], taxaPointer.AtIndex(i));
+                    }
+                }
+                finally
+                {
+                    Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.None;
+                }
+            }
+
             if (threadFlowLocation.WebRequest != null)
             {
                 Visit(threadFlowLocation.WebRequest, threadFlowLocationPointer.AtProperty(SarifPropertyName.WebRequest));
