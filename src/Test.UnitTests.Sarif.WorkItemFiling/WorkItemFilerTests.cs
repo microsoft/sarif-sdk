@@ -103,7 +103,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
 
             IFileSystem fileSystem = mockFileSystem.Object;
 
-            WorkItemFilingTargetBase filingTarget = new TestFilingTarget();
+            FilingTargetBase filingTarget = new TestFilingTarget();
 
             return new WorkItemFiler(filingTarget, fileSystem);
         }

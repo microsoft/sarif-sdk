@@ -8,7 +8,7 @@ using Microsoft.CodeAnalysis.Sarif.WorkItemFiling;
 
 namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
 {
-    internal class TestFilingTarget : WorkItemFilingTargetBase
+    internal class TestFilingTarget : FilingTargetBase
     {
         public override async Task<IEnumerable<Result>> FileWorkItems(IEnumerable<Result> results)
         {

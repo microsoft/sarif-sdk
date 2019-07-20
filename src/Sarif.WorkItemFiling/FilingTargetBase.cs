@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 {
-    public abstract class WorkItemFilingTargetBase
+    public abstract class FilingTargetBase
     {
         /// <summary>
         /// Asynchronously file work items for the specified results.

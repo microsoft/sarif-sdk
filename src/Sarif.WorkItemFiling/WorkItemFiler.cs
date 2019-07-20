@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         private static readonly Validator s_logFileValidator = CreateLogFileValidator();
         private static readonly Task<IEnumerable<Result>> s_noFiledResults = Task.FromResult(new List<Result>().AsEnumerable());
 
-        private readonly WorkItemFilingTargetBase _filingTarget;
+        private readonly FilingTargetBase _filingTarget;
         private readonly IFileSystem _fileSystem;
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         /// An object that represents the system (for example, GitHub or AzureDevOps)
         /// to which the work items will be filed.
         /// </param>
-        public WorkItemFiler(WorkItemFilingTargetBase filingTarget, IFileSystem fileSystem)
+        public WorkItemFiler(FilingTargetBase filingTarget, IFileSystem fileSystem)
         {
             _filingTarget = filingTarget ?? throw new ArgumentNullException(nameof(filingTarget));
             _fileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
