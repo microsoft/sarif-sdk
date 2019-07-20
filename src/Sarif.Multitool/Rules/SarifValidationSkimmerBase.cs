@@ -794,7 +794,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             if (result.Rule != null)
             {
                 Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.Rule;
-
                 try
                 {
                     Visit(result.Rule, resultPointer.AtProperty(SarifPropertyName.Rule));
@@ -857,6 +856,24 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 for (int i = 0; i < result.Fixes.Count; ++i)
                 {
                     Visit(result.Fixes[i], fixesPointer.AtIndex(i));
+                }
+            }
+
+            if (result.Taxa != null)
+            {
+                string taxaPointer = resultPointer.AtProperty(SarifPropertyName.Taxa);
+
+                Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.Taxon;
+                try
+                {
+                    for (int i = 0; i < result.Taxa.Count; ++i)
+                    {
+                        Visit(result.Taxa[i], taxaPointer.AtIndex(i));
+                    }
+                }
+                finally
+                {
+                    Context.CurrentReportingDescriptorKind = SarifValidationContext.ReportingDescriptorKind.None;
                 }
             }
 

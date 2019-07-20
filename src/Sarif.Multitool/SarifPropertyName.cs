@@ -39,7 +39,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string HelpUri = "helpUri";
         public const string Id = "id";
         public const string Importance = "importance";
+        public const string Index = "index";
         public const string Invocation = "invocation";
+        public const string InvocationIndex = "invocationIndex";
         public const string Invocations = "invocations";
         public const string Location = "location";
         public const string Locations = "locations";
@@ -52,6 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string NotificationConfigurationOverrides = "notificationConfigurationOverrides";
         public const string Notifications = "notifications";
         public const string OriginalUriBaseIds = "originalUriBaseIds";
+        public const string ParentIndex = "parentIndex";
         public const string PhysicalLocation = "physicalLocation";
         public const string Provenance = "provenance";
         public const string Rectangles = "rectangles";
@@ -61,10 +64,13 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string Relationships = "relationships";
         public const string RepositoryUri = "repositoryUri";
         public const string ResponseFiles = "responseFiles";
+        public const string ResultGraphIndex = "resultGraphIndex";
         public const string Results = "results";
         public const string Rule = "rule";
         public const string RuleConfigurationOverrides = "ruleConfigurationOverrides";
+        public const string RuleIndex = "ruleIndex";
         public const string Rules = "rules";
+        public const string RunGraphIndex = "runGraphIndex";
         public const string Runs = "runs";
         public const string Schema = "$schema";
         public const string ShortDescription = "shortDescription";
@@ -75,6 +81,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public const string StdoutStderr = "stdoutStderr";
         public const string Step = "step";
         public const string Target = "target";
+        public const string Taxa = "taxa";
         public const string Text = "text";
         public const string ThreadFlows = "threadFlows";
         public const string Tool = "tool";

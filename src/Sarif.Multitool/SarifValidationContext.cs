@@ -13,7 +13,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             None,
             Rule,
-            Notification
+            Notification,
+            Taxon
         }
 
         public SarifValidationContext()

@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
 {
@@ -34,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 Context.CurrentRun.Addresses,
                 addressPointer,
                 "address",
-                "index",
+                SarifPropertyName.Index,
                 $"runs[{Context.CurrentRunIndex}].addresses");
 
             ValidateArrayIndex(
@@ -42,7 +43,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 Context.CurrentRun.Addresses,
                 addressPointer,
                 "address",
-                "parentIndex",
+                SarifPropertyName.ParentIndex,
                 $"runs[{Context.CurrentRunIndex}].addresses");
         }
 
@@ -53,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 Context.CurrentRun.Artifacts,
                 artifactPointer,
                 "artifact",
-                "parentIndex",
+                SarifPropertyName.ParentIndex,
                 $"runs[{Context.CurrentRunIndex}].artifacts");
         }
 
@@ -64,7 +65,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 Context.CurrentRun.Artifacts,
                 artifactLocationPointer,
                 "artifactLocation",
-                "index",
+                SarifPropertyName.Index,
                 $"runs[{Context.CurrentRunIndex}].artifacts");
         }
 
@@ -75,7 +76,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 Context.CurrentRun.Graphs,
                 graphTraversalPointer,
                 "graphTraversal",
-                "runGraphIndex",
+                SarifPropertyName.RunGraphIndex,
                 $"runs[{Context.CurrentRunIndex}].graphTraversals");
 
             ValidateArrayIndex(
@@ -83,7 +84,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 Context.CurrentResult.Graphs,
                 graphTraversalPointer,
                 "graphTraversal",
-                "resultGraphIndex",
+                SarifPropertyName.ResultGraphIndex,
                 $"runs[{Context.CurrentRunIndex}].results[{Context.CurrentResultIndex}].graphTraversals");
         }
 
@@ -94,7 +95,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 Context.CurrentRun.LogicalLocations,
                 logicalLocationPointer,
                 "logicalLocation",
-                "index",
+                SarifPropertyName.Index,
                 $"runs[{Context.CurrentRunIndex}].logicalLocations");
 
             ValidateArrayIndex(
@@ -102,7 +103,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 Context.CurrentRun.LogicalLocations,
                 logicalLocationPointer,
                 "logicalLocation",
-                "parentIndex",
+                SarifPropertyName.ParentIndex,
                 $"runs[{Context.CurrentRunIndex}].logicalLocations");
         }
 
@@ -111,19 +112,25 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
             string arrayPropertyName;
             IList<ReportingDescriptor> reportingDescriptors;
 
-            if (Context.CurrentReportingDescriptorKind == SarifValidationContext.ReportingDescriptorKind.Rule)
+            switch (Context.CurrentReportingDescriptorKind)
             {
-                arrayPropertyName = "rules";
-                reportingDescriptors = Context.CurrentRun.Tool.Driver.Rules;
-            }
-            else if (Context.CurrentReportingDescriptorKind == SarifValidationContext.ReportingDescriptorKind.Notification)
-            {
-                arrayPropertyName = "notifications";
-                reportingDescriptors = Context.CurrentRun.Tool.Driver.Notifications;
-            }
-            else
-            {
-                throw new InvalidOperationException("Unexpected call to Analyze(ReportingDescriptorReference)");
+                case SarifValidationContext.ReportingDescriptorKind.Rule:
+                    arrayPropertyName = SarifPropertyName.Rules;
+                    reportingDescriptors = Context.CurrentRun.Tool.Driver.Rules;
+                    break;
+
+                case SarifValidationContext.ReportingDescriptorKind.Notification:
+                    arrayPropertyName = SarifPropertyName.Notifications;
+                    reportingDescriptors = Context.CurrentRun.Tool.Driver.Notifications;
+                    break;
+
+                case SarifValidationContext.ReportingDescriptorKind.Taxon:
+                    arrayPropertyName = SarifPropertyName.Taxa;
+                    reportingDescriptors = Context.CurrentRun.Tool.Driver.Taxa;
+                    break;
+
+                default:
+                    throw new InvalidOperationException("Unexpected call to Analyze(ReportingDescriptorReference)");
             }
 
             ValidateArrayIndex(
@@ -131,7 +138,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 reportingDescriptors,
                 reportingDescriptorReferencePointer,
                 "reportingDescriptorReference",
-                "index",
+                SarifPropertyName.Index,
                 $"runs[{Context.CurrentRunIndex}].tool.driver.{arrayPropertyName}");
         }
 
@@ -142,7 +149,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 Context.CurrentRun.Tool.Driver.Rules,
                 resultPointer,
                 "result",
-                "ruleIndex",
+                SarifPropertyName.RuleIndex,
                 $"runs[{Context.CurrentRunIndex}].tool.driver.rules");
         }
 
@@ -153,7 +160,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 Context.CurrentRun.Invocations,
                 resultProvenancePointer,
                 "resultProvenance",
-                "invocationIndex",
+                SarifPropertyName.InvocationIndex,
                 $"runs[{Context.CurrentRunIndex}].invocations");
         }
 
@@ -164,7 +171,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 Context.CurrentRun.ThreadFlowLocations,
                 threadFlowLocationPointer,
                 "threadFlowLocation",
-                "index",
+                SarifPropertyName.Index,
                 $"runs[{Context.CurrentRunIndex}].threadFlowLocations");
         }
 
@@ -175,7 +182,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 Context.CurrentRun.WebRequests,
                 webRequestPointer,
                 "webRequest",
-                "index",
+                SarifPropertyName.Index,
                 $"runs[{Context.CurrentRunIndex}].webRequests");
         }
 
@@ -186,7 +193,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool.Rules
                 Context.CurrentRun.WebResponses,
                 webResponsePointer,
                 "webResponse",
-                "index",
+                SarifPropertyName.Index,
                 $"runs[{Context.CurrentRunIndex}].webResponses");
         }
 
