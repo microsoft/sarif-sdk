@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
     /// Abstract base for classes that represents a system (for example, GitHub or AzureDevOps)
     /// to which work items can be filed.
     /// </summary>
-    public abstract class FilingTargetBase
+    public abstract class FilingTarget
     {
         /// <summary>
         /// Asynchronously file work items for the specified results.

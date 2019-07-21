@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         public void WorkItemFiler_RequiresAFileSystem()
         {
             WorkItemFiler filer;
-            Action action = () => filer = new WorkItemFiler(filingTarget: new TestFilingTarget(), fileSystem: null);
+            Action action = () => filer = new WorkItemFiler(filingTarget: CreateMockFilingTarget(), fileSystem: null);
 
             action.Should().Throw<ArgumentNullException>();
         }
@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         {
             var mockFileSystem = new Mock<IFileSystem>();
             IFileSystem fileSystem = mockFileSystem.Object;
-            var filer = new WorkItemFiler(new TestFilingTarget(), fileSystem);
+            var filer = new WorkItemFiler(CreateMockFilingTarget(), fileSystem);
 
             Func<Task> action = async () => await filer.FileWorkItems(logFilePath: null);
 
@@ -94,16 +94,27 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
             filedResults.Count().Should().Be(2);
         }
 
-        private static WorkItemFiler CreateWorkItemFilerForResource(string resourceName)
+        private static WorkItemFiler CreateWorkItemFilerForResource(string logFileResourceName)
         {
-            string logFileContents = s_extractor.GetResourceText(resourceName);
+            IFileSystem fileSystem = CreateMockFileSystem(logFileResourceName);
+            FilingTarget filingTarget = CreateMockFilingTarget();
+
+            return new WorkItemFiler(filingTarget, fileSystem);
+        }
+
+        private static IFileSystem CreateMockFileSystem(string logFileResourceName)
+        {
+            string logFileContents = s_extractor.GetResourceText(logFileResourceName);
 
             var mockFileSystem = new Mock<IFileSystem>();
-            mockFileSystem.Setup(x => x.ReadAllText(resourceName)).Returns(logFileContents);
+            mockFileSystem.Setup(x => x.ReadAllText(logFileResourceName)).Returns(logFileContents);
 
-            IFileSystem fileSystem = mockFileSystem.Object;
+            return mockFileSystem.Object;
+        }
 
-            var mockFilingTarget = new Mock<FilingTargetBase>();
+        private static FilingTarget CreateMockFilingTarget()
+        {
+            var mockFilingTarget = new Mock<FilingTarget>();
 
             // Moq magic: you can return whatever was passed to a method by providing
             // a lambda (rather than a fixed value) to Returns or ReturnsAsync.
@@ -112,9 +123,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
                 .Setup(x => x.FileWorkItems(It.IsAny<IEnumerable<Result>>()))
                 .ReturnsAsync((IEnumerable<Result> results) => results);
 
-            FilingTargetBase filingTarget = mockFilingTarget.Object;
-
-            return new WorkItemFiler(filingTarget, fileSystem);
+            return mockFilingTarget.Object;
         }
     }
 }
