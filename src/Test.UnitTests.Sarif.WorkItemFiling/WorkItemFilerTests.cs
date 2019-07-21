@@ -92,10 +92,10 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
             filedResults.Count().Should().Be(2);
         }
 
-        private static WorkItemFiler CreateWorkItemFiler(string logFileResourceName = null)
+        private static WorkItemFiler CreateWorkItemFiler(string logFilePath = null)
             => new WorkItemFiler(
                 CreateMockFilingTarget(),
-                CreateMockFileSystem(logFileResourceName));
+                CreateMockFileSystem(logFilePath));
 
         private static FilingTarget CreateMockFilingTarget()
         {
