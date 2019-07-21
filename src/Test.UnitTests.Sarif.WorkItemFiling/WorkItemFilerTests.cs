@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         public void WorkItemFiler_RequiresAFilingTarget()
         {
             WorkItemFiler filer;
-            Action action = () => filer = new WorkItemFiler(filingTarget: null, fileSystem: new FileSystem());
+            Action action = () => filer = new WorkItemFiler(filingTarget: null, fileSystem: CreateMockFileSystem());
 
             action.Should().Throw<ArgumentNullException>();
         }
@@ -38,9 +38,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         [Fact]
         public async void WorkItemFiler_ChecksPathArgument()
         {
-            var mockFileSystem = new Mock<IFileSystem>();
-            IFileSystem fileSystem = mockFileSystem.Object;
-            var filer = new WorkItemFiler(CreateMockFilingTarget(), fileSystem);
+            var filer = CreateWorkItemFiler();
 
             Func<Task> action = async () => await filer.FileWorkItems(logFilePath: null);
 
@@ -51,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         public async void WorkItemFiler_RejectsInvalidSarifFile()
         {
             const string LogFilePath = "Invalid.sarif";
-            WorkItemFiler filer = CreateWorkItemFilerForResource(LogFilePath);
+            WorkItemFiler filer = CreateWorkItemFiler(LogFilePath);
 
             Func<Task> action = async () => await filer.FileWorkItems(logFilePath: null);
             action = async () => await filer.FileWorkItems(LogFilePath);
@@ -63,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         public async void WorkItemFiler_AcceptsSarifFileWithNullResults()
         {
             const string LogFilePath = "NullResults.sarif";
-            WorkItemFiler filer = CreateWorkItemFilerForResource(LogFilePath);
+            WorkItemFiler filer = CreateWorkItemFiler(LogFilePath);
 
             Func<Task> action = async () => await filer.FileWorkItems(LogFilePath);
 
@@ -74,7 +72,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         public async void WorkItemFiler_AcceptsSarifFileWithEmptyResults()
         {
             const string LogFilePath = "EmptyResults.sarif";
-            WorkItemFiler filer = CreateWorkItemFilerForResource(LogFilePath);
+            WorkItemFiler filer = CreateWorkItemFiler(LogFilePath);
 
             Func<Task> action = async () => await filer.FileWorkItems(LogFilePath);
 
@@ -85,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         public async Task WorkItemFiler_FilesWorkItemsOnlyForNewResults()
         {
             const string LogFilePath = "NewAndOldResults.sarif";
-            WorkItemFiler filer = CreateWorkItemFilerForResource(LogFilePath);
+            WorkItemFiler filer = CreateWorkItemFiler(LogFilePath);
 
             IEnumerable<Result> filedResults = await filer.FileWorkItems(LogFilePath);
 
@@ -94,7 +92,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
             filedResults.Count().Should().Be(2);
         }
 
-        private static WorkItemFiler CreateWorkItemFilerForResource(string logFileResourceName)
+        private static WorkItemFiler CreateWorkItemFiler(string logFileResourceName = null)
         {
             IFileSystem fileSystem = CreateMockFileSystem(logFileResourceName);
             FilingTarget filingTarget = CreateMockFilingTarget();
@@ -102,12 +100,16 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
             return new WorkItemFiler(filingTarget, fileSystem);
         }
 
-        private static IFileSystem CreateMockFileSystem(string logFileResourceName)
+        private static IFileSystem CreateMockFileSystem(string logFileResourceName = null)
         {
-            string logFileContents = s_extractor.GetResourceText(logFileResourceName);
-
             var mockFileSystem = new Mock<IFileSystem>();
-            mockFileSystem.Setup(x => x.ReadAllText(logFileResourceName)).Returns(logFileContents);
+
+            if (logFileResourceName != null)
+            {
+                string logFileContents = s_extractor.GetResourceText(logFileResourceName);
+
+                mockFileSystem.Setup(x => x.ReadAllText(logFileResourceName)).Returns(logFileContents);
+            }
 
             return mockFileSystem.Object;
         }
