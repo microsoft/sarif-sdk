@@ -93,26 +93,9 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         }
 
         private static WorkItemFiler CreateWorkItemFiler(string logFileResourceName = null)
-        {
-            IFileSystem fileSystem = CreateMockFileSystem(logFileResourceName);
-            FilingTarget filingTarget = CreateMockFilingTarget();
-
-            return new WorkItemFiler(filingTarget, fileSystem);
-        }
-
-        private static IFileSystem CreateMockFileSystem(string logFileResourceName = null)
-        {
-            var mockFileSystem = new Mock<IFileSystem>();
-
-            if (logFileResourceName != null)
-            {
-                string logFileContents = s_extractor.GetResourceText(logFileResourceName);
-
-                mockFileSystem.Setup(x => x.ReadAllText(logFileResourceName)).Returns(logFileContents);
-            }
-
-            return mockFileSystem.Object;
-        }
+            => new WorkItemFiler(
+                CreateMockFilingTarget(),
+                CreateMockFileSystem(logFileResourceName));
 
         private static FilingTarget CreateMockFilingTarget()
         {
@@ -126,6 +109,20 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
                 .ReturnsAsync((IEnumerable<Result> results) => results);
 
             return mockFilingTarget.Object;
+        }
+
+        private static IFileSystem CreateMockFileSystem(string logFilePath = null)
+        {
+            var mockFileSystem = new Mock<IFileSystem>();
+
+            if (logFilePath != null)
+            {
+                string logFileContents = s_extractor.GetResourceText(logFilePath);
+
+                mockFileSystem.Setup(x => x.ReadAllText(logFilePath)).Returns(logFileContents);
+            }
+
+            return mockFileSystem.Object;
         }
     }
 }
