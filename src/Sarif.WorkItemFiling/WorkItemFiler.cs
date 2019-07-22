@@ -5,16 +5,23 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 using Microsoft.Json.Schema;
 using Microsoft.Json.Schema.Validation;
+using Newtonsoft.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 {
     public class WorkItemFiler
     {
         private static readonly Validator s_logFileValidator = CreateLogFileValidator();
+        private static readonly Task<IEnumerable<ResultGroup>> s_noFiledResults = Task.FromResult(new List<ResultGroup>().AsEnumerable());
+
+        private readonly FilingTarget _filingTarget;
+        private readonly IGroupingStrategy _groupingStrategy;
         private readonly IFileSystem _fileSystem;
 
         /// <summary>
@@ -24,35 +31,66 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         /// An object that implements the <see cref="IFileSystem"/> interface, providing
         /// access to the file system.
         /// </param>
-        public WorkItemFiler(IFileSystem fileSystem)
+        /// <param name="filingTarget">
+        /// An object that represents the system (for example, GitHub or Azure DevOps)
+        /// to which the work items will be filed.
+        /// </param>
+        public WorkItemFiler(FilingTarget filingTarget, IGroupingStrategy groupingStrategy, IFileSystem fileSystem)
         {
+            _filingTarget = filingTarget ?? throw new ArgumentNullException(nameof(filingTarget));
+            _groupingStrategy = groupingStrategy ?? throw new ArgumentNullException(nameof(groupingStrategy));
             _fileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
         }
 
         /// <summary>
         /// Files work items from the results in a SARIF log file.
         /// </summary>
-        /// <param name="path">
+        /// <param name="logFilePath">
         /// The path to the SARIF log file.
         /// </param>
-        public void FileWorkItems(string path)
+        /// <returns>
+        /// The set of results that were filed as work items.
+        /// </returns>
+        public async Task<IEnumerable<ResultGroup>> FileWorkItems(string logFilePath)
         {
-            if (path == null) { throw new ArgumentNullException(nameof(path)); }
+            if (logFilePath == null) { throw new ArgumentNullException(nameof(logFilePath)); }
 
-            ValidateLogFileAgainstSarifSchema(path);
+            string logFileContents = _fileSystem.ReadAllText(logFilePath);
+
+            EnsureValidSarifLogFile(logFileContents, logFilePath);
+
+            SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logFileContents);
+
+            var allFiledResults = new List<ResultGroup>();
+
+            for (int i = 0; i < sarifLog.Runs.Count; ++i)
+            {
+                if (sarifLog.Runs[i]?.Results?.Count > 0)
+                {
+                    // TODO: Extract this filtering logic into some sort of "filtering strategy" object.
+                    IList<Result> filteredResults = FilterResults(sarifLog.Runs[i].Results);
+
+                    // TODO: Consider whether to await each run in turn, or to do them in parallel.
+                    IList<ResultGroup> groupedResults = _groupingStrategy.GroupResults(filteredResults);
+                    IEnumerable<ResultGroup> filedResultsForRun = await _filingTarget.FileWorkItems(groupedResults);
+
+                    // TODO: Consider whether to return one batch of "filed results", or one batch per run.
+                    allFiledResults.AddRange(filedResultsForRun);
+                }
+            }
+
+            return allFiledResults;
         }
 
-        private void ValidateLogFileAgainstSarifSchema(string path)
+        private void EnsureValidSarifLogFile(string logFileContents, string logFilePath)
         {
-            string logFileContents = _fileSystem.ReadAllText(path);
-
             // The second argument is a file path that the Validator uses when reporting
             // errors. The Validator does not attempt to access this file.
-            Result[] errors = s_logFileValidator.Validate(logFileContents, path);
+            Result[] errors = s_logFileValidator.Validate(logFileContents, logFilePath);
 
             if (errors?.Length > 0)
             {
-                throw new ArgumentException(FormatSchemaErrors(path, errors), nameof(path));
+                throw new ArgumentException(FormatSchemaErrors(logFilePath, errors), nameof(logFilePath));
             }
         }
 
@@ -96,5 +134,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 
             return sb.ToString();
         }
+
+        // Only file new results as bugs.
+        private IList<Result> FilterResults(IList<Result> allResults)
+           => allResults.Where(r => r.BaselineState == BaselineState.New).ToList();
     }
 }

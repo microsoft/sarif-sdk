@@ -16,6 +16,8 @@
   <ItemGroup>
     <None Remove="TestData\EmptyResults.sarif" />
     <None Remove="TestData\Invalid.sarif" />
+    <None Remove="TestData\MultipleRuns.sarif" />
+    <None Remove="TestData\NewAndOldResults.sarif" />
     <None Remove="TestData\NullResults.sarif" />
   </ItemGroup>
 
@@ -32,6 +34,8 @@
   <ItemGroup>
     <EmbeddedResource Include="TestData\EmptyResults.sarif" />
     <EmbeddedResource Include="TestData\Invalid.sarif" />
+    <EmbeddedResource Include="TestData\MultipleRuns.sarif" />
+    <EmbeddedResource Include="TestData\NewAndOldResults.sarif" />
     <EmbeddedResource Include="TestData\NullResults.sarif" />
   </ItemGroup>
 
