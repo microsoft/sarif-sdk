@@ -17,6 +17,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         /// <summary>
         /// The results that should be filed as a single work item.
         /// </summary>
-        IList<Result> Results { get; set; }
+        public IList<Result> Results { get; set; }
     }
 }
