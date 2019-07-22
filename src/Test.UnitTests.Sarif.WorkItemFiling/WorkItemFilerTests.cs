@@ -21,7 +21,16 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         public void WorkItemFiler_RequiresAFilingTarget()
         {
             WorkItemFiler filer;
-            Action action = () => filer = new WorkItemFiler(filingTarget: null, fileSystem: CreateMockFileSystem());
+            Action action = () => filer = new WorkItemFiler(filingTarget: null, groupingStrategy: CreateMockGroupingStrategy(), fileSystem: CreateMockFileSystem());
+
+            action.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void WorkItemFiler_RequiresAGroupingStrategy()
+        {
+            WorkItemFiler filer;
+            Action action = () => filer = new WorkItemFiler(filingTarget: CreateMockFilingTarget(), groupingStrategy: null, fileSystem: CreateMockFileSystem());
 
             action.Should().Throw<ArgumentNullException>();
         }
@@ -30,7 +39,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         public void WorkItemFiler_RequiresAFileSystem()
         {
             WorkItemFiler filer;
-            Action action = () => filer = new WorkItemFiler(filingTarget: CreateMockFilingTarget(), fileSystem: null);
+            Action action = () => filer = new WorkItemFiler(filingTarget: CreateMockFilingTarget(), groupingStrategy: CreateMockGroupingStrategy(), fileSystem: null);
 
             action.Should().Throw<ArgumentNullException>();
         }
@@ -94,6 +103,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         private static WorkItemFiler CreateWorkItemFiler(string logFilePath = null)
             => new WorkItemFiler(
                 CreateMockFilingTarget(),
+                CreateMockGroupingStrategy(),
                 CreateMockFileSystem(logFilePath));
 
         private static FilingTarget CreateMockFilingTarget()
@@ -108,6 +118,12 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
                 .ReturnsAsync((IEnumerable<Result> results) => results);
 
             return mockFilingTarget.Object;
+        }
+
+        private static IGroupingStrategy CreateMockGroupingStrategy()
+        {
+            var mockGroupingStrategy = new Mock<IGroupingStrategy>();
+            return mockGroupingStrategy.Object;
         }
 
         private static IFileSystem CreateMockFileSystem(string logFilePath = null)

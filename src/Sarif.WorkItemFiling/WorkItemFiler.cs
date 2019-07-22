@@ -21,6 +21,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         private static readonly Task<IEnumerable<Result>> s_noFiledResults = Task.FromResult(new List<Result>().AsEnumerable());
 
         private readonly FilingTarget _filingTarget;
+        private readonly IGroupingStrategy _groupingStrategy;
         private readonly IFileSystem _fileSystem;
 
         /// <summary>
@@ -34,9 +35,10 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         /// An object that represents the system (for example, GitHub or AzureDevOps)
         /// to which the work items will be filed.
         /// </param>
-        public WorkItemFiler(FilingTarget filingTarget, IFileSystem fileSystem)
+        public WorkItemFiler(FilingTarget filingTarget, IGroupingStrategy groupingStrategy, IFileSystem fileSystem)
         {
             _filingTarget = filingTarget ?? throw new ArgumentNullException(nameof(filingTarget));
+            _groupingStrategy = groupingStrategy ?? throw new ArgumentNullException(nameof(groupingStrategy));
             _fileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
         }
 
