@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling.AzureDevOps
             _azureDevOpsClient = azureDevOpsClient ?? throw new ArgumentNullException(nameof(azureDevOpsClient));
         }
 
-        public override Task<IEnumerable<Result>> FileWorkItems(IEnumerable<Result> results)
+        public override Task<IEnumerable<ResultGroup>> FileWorkItems(IEnumerable<ResultGroup> resultGroups)
         {
             throw new System.NotImplementedException();
         }

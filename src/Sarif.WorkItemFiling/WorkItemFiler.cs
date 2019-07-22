@@ -2,7 +2,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -19,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
     public class WorkItemFiler
     {
         private static readonly Validator s_logFileValidator = CreateLogFileValidator();
-        private static readonly Task<IEnumerable<Result>> s_noFiledResults = Task.FromResult(new List<Result>().AsEnumerable());
+        private static readonly Task<IEnumerable<ResultGroup>> s_noFiledResults = Task.FromResult(new List<ResultGroup>().AsEnumerable());
 
         private readonly FilingTarget _filingTarget;
         private readonly IGroupingStrategy _groupingStrategy;
@@ -52,7 +51,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         /// <returns>
         /// The set of results that were filed as work items.
         /// </returns>
-        public async Task<IEnumerable<Result>> FileWorkItems(string logFilePath)
+        public async Task<IEnumerable<ResultGroup>> FileWorkItems(string logFilePath)
         {
             if (logFilePath == null) { throw new ArgumentNullException(nameof(logFilePath)); }
 
@@ -70,8 +69,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 
                 IList<ResultGroup> groupedResults = _groupingStrategy.GroupResults(filteredResults);
 
-                return filteredResults.Any()
-                    ? await _filingTarget.FileWorkItems(filteredResults)
+                return groupedResults.Any()
+                    ? await _filingTarget.FileWorkItems(groupedResults)
                     : await s_noFiledResults;
             }
             else

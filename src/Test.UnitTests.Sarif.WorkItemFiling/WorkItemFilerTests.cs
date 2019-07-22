@@ -93,11 +93,11 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
             const string LogFilePath = "NewAndOldResults.sarif";
             WorkItemFiler filer = CreateWorkItemFiler(LogFilePath);
 
-            IEnumerable<Result> filedResults = await filer.FileWorkItems(LogFilePath);
+            IEnumerable<ResultGroup> filedWorkItems = await filer.FileWorkItems(LogFilePath);
 
             // The test file NewAndOldResults.sarif contains 5 results, but only 2 of them
             // have "baselineState": "new".
-            filedResults.Count().Should().Be(2);
+            filedWorkItems.Count().Should().Be(2);
         }
 
         private static WorkItemFiler CreateWorkItemFiler(string logFilePath = null)
@@ -114,17 +114,16 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
             // a lambda (rather than a fixed value) to Returns or ReturnsAsync.
             // https://stackoverflow.com/questions/996602/returning-value-that-was-passed-into-a-method
             mockFilingTarget
-                .Setup(x => x.FileWorkItems(It.IsAny<IEnumerable<Result>>()))
-                .ReturnsAsync((IEnumerable<Result> results) => results);
+                .Setup(x => x.FileWorkItems(It.IsAny<IEnumerable<ResultGroup>>()))
+                .ReturnsAsync((IEnumerable<ResultGroup> resultGroups) => resultGroups);
 
             return mockFilingTarget.Object;
         }
 
+        // We aren't really creating a mock here; the "one result per work item"
+        // strategy is simple enough to use reliably in unit tests.
         private static IGroupingStrategy CreateMockGroupingStrategy()
-        {
-            var mockGroupingStrategy = new Mock<IGroupingStrategy>();
-            return mockGroupingStrategy.Object;
-        }
+            => new OneResultPerWorkItemGroupingStrategy();
 
         private static IFileSystem CreateMockFileSystem(string logFilePath = null)
         {

@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling.GitHub
             _gitHubClient = gitHubClient ?? throw new ArgumentNullException(nameof(gitHubClient));
         }
 
-        public override Task<IEnumerable<Result>> FileWorkItems(IEnumerable<Result> results)
+        public override Task<IEnumerable<ResultGroup>> FileWorkItems(IEnumerable<ResultGroup> resultGroups)
         {
             throw new NotImplementedException();
         }
