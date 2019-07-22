@@ -70,8 +70,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                     // TODO: Extract this filtering logic into some sort of "filtering strategy" object.
                     IList<Result> filteredResults = FilterResults(sarifLog.Runs[i].Results);
 
+                    // TODO: Consider whether to await each run in turn, or to do them in parallel.
                     IList<ResultGroup> groupedResults = _groupingStrategy.GroupResults(filteredResults);
                     IEnumerable<ResultGroup> filedResultsForRun = await _filingTarget.FileWorkItems(groupedResults);
+
+                    // TODO: Consider whether to return one batch of "filed results", or one batch per run.
                     allFiledResults.AddRange(filedResultsForRun);
                 }
             }
