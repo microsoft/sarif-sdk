@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         /// access to the file system.
         /// </param>
         /// <param name="filingTarget">
-        /// An object that represents the system (for example, GitHub or AzureDevOps)
+        /// An object that represents the system (for example, GitHub or Azure DevOps)
         /// to which the work items will be filed.
         /// </param>
         public WorkItemFiler(FilingTarget filingTarget, IGroupingStrategy groupingStrategy, IFileSystem fileSystem)

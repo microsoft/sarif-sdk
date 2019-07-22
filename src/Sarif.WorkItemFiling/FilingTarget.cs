@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 {
     /// <summary>
-    /// Abstract base for classes that represents a system (for example, GitHub or AzureDevOps)
+    /// Abstract base for classes that represents a system (for example, GitHub or Azure DevOps)
     /// to which work items can be filed.
     /// </summary>
     public abstract class FilingTarget
