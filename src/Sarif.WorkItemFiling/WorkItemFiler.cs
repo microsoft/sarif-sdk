@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -67,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 // TODO: Extract this filtering logic into some sort of "filtering strategy" object.
                 IList<Result> filteredResults = FilterResults(sarifLog.Runs[0].Results);
 
-                // TODO: Bucketing. (We will want some sort of "bucketing strategy" object.)
+                IList<ResultGroup> groupedResults = _groupingStrategy.GroupResults(filteredResults);
 
                 return filteredResults.Any()
                     ? await _filingTarget.FileWorkItems(filteredResults)
