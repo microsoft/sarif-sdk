@@ -61,23 +61,22 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logFileContents);
 
-            // CONSIDER: Multiple runs?
-            if (sarifLog.Runs[0]?.Results?.Count > 0)
-            {
-                // TODO: Extract this filtering logic into some sort of "filtering strategy" object.
-                IList<Result> filteredResults = FilterResults(sarifLog.Runs[0].Results);
+            var allFiledResults = new List<ResultGroup>();
 
-                IList<ResultGroup> groupedResults = _groupingStrategy.GroupResults(filteredResults);
-
-                return groupedResults.Any()
-                    ? await _filingTarget.FileWorkItems(groupedResults)
-                    : await s_noFiledResults;
-            }
-            else
+            for (int i = 0; i < sarifLog.Runs.Count; ++i)
             {
-                // There were no results at all in the log.
-                return await s_noFiledResults;
+                if (sarifLog.Runs[i]?.Results?.Count > 0)
+                {
+                    // TODO: Extract this filtering logic into some sort of "filtering strategy" object.
+                    IList<Result> filteredResults = FilterResults(sarifLog.Runs[i].Results);
+
+                    IList<ResultGroup> groupedResults = _groupingStrategy.GroupResults(filteredResults);
+                    IEnumerable<ResultGroup> filedResultsForRun = await _filingTarget.FileWorkItems(groupedResults);
+                    allFiledResults.AddRange(filedResultsForRun);
+                }
             }
+
+            return allFiledResults;
         }
 
         private void EnsureValidSarifLogFile(string logFileContents, string logFilePath)

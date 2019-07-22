@@ -100,6 +100,18 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
             filedWorkItems.Count().Should().Be(2);
         }
 
+        [Fact]
+        public async Task WorkItemFiler_FilesWorkItemsFromMultipleRuns()
+        {
+            const string LogFilePath = "MultipleRuns.sarif";
+            WorkItemFiler filer = CreateWorkItemFiler(LogFilePath);
+
+            IEnumerable<ResultGroup> filedWorkItems = await filer.FileWorkItems(LogFilePath);
+
+            // The first run has 2 new results and the second run has 1.
+            filedWorkItems.Count().Should().Be(3);
+        }
+
         private static WorkItemFiler CreateWorkItemFiler(string logFilePath = null)
             => new WorkItemFiler(
                 CreateMockFilingTarget(),
