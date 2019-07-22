@@ -51,8 +51,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
             const string LogFilePath = "Invalid.sarif";
             WorkItemFiler filer = CreateWorkItemFiler(LogFilePath);
 
-            Func<Task> action = async () => await filer.FileWorkItems(logFilePath: null);
-            action = async () => await filer.FileWorkItems(LogFilePath);
+            Func<Task> action = async () => await filer.FileWorkItems(LogFilePath);
 
             await action.ShouldThrowAsync<ArgumentException>();
         }
