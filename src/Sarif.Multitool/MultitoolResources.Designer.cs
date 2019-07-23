@@ -97,6 +97,45 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error: The value of the &apos;{0}&apos; option is not a known filing target type.
+        ///Valid values are: {1}..
+        /// </summary>
+        internal static string ErrorUnknownFilingTargetType {
+            get {
+                return ResourceManager.GetString("ErrorUnknownFilingTargetType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: The value of the &apos;{0}&apos; option is not a known filtering strategy.
+        ///Valid values are: {1}..
+        /// </summary>
+        internal static string ErrorUnknownFilteringStrategy {
+            get {
+                return ResourceManager.GetString("ErrorUnknownFilteringStrategy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: The value of the &apos;{0}&apos; option is not a known grouping strategy.
+        ///Valid values are: {1}..
+        /// </summary>
+        internal static string ErrorUnknownGroupingStrategy {
+            get {
+                return ResourceManager.GetString("ErrorUnknownGroupingStrategy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: The value of the &apos;{0}&apos; option must be an absolute URI..
+        /// </summary>
+        internal static string ErrorUriIsNotAbsolute {
+            get {
+                return ResourceManager.GetString("ErrorUriIsNotAbsolute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0:n0} identical, {1:n0} changed.
         /// </summary>
         internal static string ResultDifferenceSummary {
