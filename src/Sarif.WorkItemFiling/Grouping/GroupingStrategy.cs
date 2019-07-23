@@ -3,14 +3,14 @@
 
 using System.Collections.Generic;
 
-namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
+namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Grouping
 {
     /// <summary>
-    /// Interface that defines a strategy for grouping SARIF results into sets that
+    /// Abstract base class for strategies that grouping SARIF results into sets that
     /// should each be filed together as a single work item.
     /// </summary>
-    public interface IGroupingStrategy
+    public abstract class GroupingStrategy
     {
-        IList<ResultGroup> GroupResults(IEnumerable<Result> results);
+        public abstract IList<ResultGroup> GroupResults(IEnumerable<Result> results);
     }
 }

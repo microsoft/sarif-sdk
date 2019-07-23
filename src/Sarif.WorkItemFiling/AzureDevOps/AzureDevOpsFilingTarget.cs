@@ -4,11 +4,12 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Grouping;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling.AzureDevOps
 {
     /// <summary>
-    /// Represents an Azure DevOps project to which work items can be filed.
+    /// Represents an Azure DevOps project in which work items can be filed.
     /// </summary>
     public class AzureDevOpsFilingTarget : FilingTarget
     {
@@ -21,7 +22,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling.AzureDevOps
 
         public override Task<IEnumerable<ResultGroup>> FileWorkItems(IEnumerable<ResultGroup> resultGroups)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

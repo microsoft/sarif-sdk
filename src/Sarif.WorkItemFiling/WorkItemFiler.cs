@@ -9,6 +9,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Filtering;
+using Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Grouping;
 using Microsoft.Json.Schema;
 using Microsoft.Json.Schema.Validation;
 using Newtonsoft.Json;
@@ -18,11 +20,13 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
     public class WorkItemFiler
     {
         private static readonly Validator s_logFileValidator = CreateLogFileValidator();
-        private static readonly Task<IEnumerable<ResultGroup>> s_noFiledResults = Task.FromResult(new List<ResultGroup>().AsEnumerable());
 
         private readonly FilingTarget _filingTarget;
-        private readonly IGroupingStrategy _groupingStrategy;
-        private readonly IFileSystem _fileSystem;
+        private readonly FilteringStrategy _filteringStrategy;
+        private readonly GroupingStrategy _groupingStrategy;
+
+        // internal to expose to unit tests.
+        internal IFileSystem FileSystem { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WorkItemFiler"> class.</see>
@@ -35,11 +39,16 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         /// An object that represents the system (for example, GitHub or Azure DevOps)
         /// to which the work items will be filed.
         /// </param>
-        public WorkItemFiler(FilingTarget filingTarget, IGroupingStrategy groupingStrategy, IFileSystem fileSystem)
+        public WorkItemFiler(
+            FilingTarget filingTarget,
+            FilteringStrategy filteringStrategy = null,
+            GroupingStrategy groupingStrategy = null,
+            IFileSystem fileSystem = null)
         {
             _filingTarget = filingTarget ?? throw new ArgumentNullException(nameof(filingTarget));
+            _filteringStrategy = filteringStrategy ?? throw new ArgumentNullException(nameof(filteringStrategy));
             _groupingStrategy = groupingStrategy ?? throw new ArgumentNullException(nameof(groupingStrategy));
-            _fileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
+            FileSystem = fileSystem ?? new FileSystem();
         }
 
         /// <summary>
@@ -55,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         {
             if (logFilePath == null) { throw new ArgumentNullException(nameof(logFilePath)); }
 
-            string logFileContents = _fileSystem.ReadAllText(logFilePath);
+            string logFileContents = FileSystem.ReadAllText(logFilePath);
 
             EnsureValidSarifLogFile(logFileContents, logFilePath);
 
@@ -67,11 +76,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
             {
                 if (sarifLog.Runs[i]?.Results?.Count > 0)
                 {
-                    // TODO: Extract this filtering logic into some sort of "filtering strategy" object.
-                    IList<Result> filteredResults = FilterResults(sarifLog.Runs[i].Results);
-
-                    // TODO: Consider whether to await each run in turn, or to do them in parallel.
+                    IList<Result> filteredResults = _filteringStrategy.FilterResults(sarifLog.Runs[i].Results);
                     IList<ResultGroup> groupedResults = _groupingStrategy.GroupResults(filteredResults);
+
                     IEnumerable<ResultGroup> filedResultsForRun = await _filingTarget.FileWorkItems(groupedResults);
 
                     // TODO: Consider whether to return one batch of "filed results", or one batch per run.

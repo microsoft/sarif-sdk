@@ -4,11 +4,12 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Grouping;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling.GitHub
 {
     /// <summary>
-    /// Represents a GitHub project to which work items can be filed.
+    /// Represents a GitHub project in which work items can be filed.
     /// </summary>
     public class GitHubFilingTarget : FilingTarget
     {
