@@ -129,10 +129,6 @@
   <data name="ErrorNoGroupInFileName" xml:space="preserve">
     <value>Error: No "group" (the part of the file name before the dash) found in '{0}'. All file names must be of the form [Group]-[RunID] and each adjacent pair in the same group is compared.</value>
   </data>
-  <data name="ErrorUnknownFilingTargetType" xml:space="preserve">
-    <value>Error: The value of the '{0}' option is not a known filing target type.
-Valid values are: {1}.</value>
-  </data>
   <data name="ErrorUnknownFilteringStrategy" xml:space="preserve">
     <value>Error: The value of the '{0}' option is not a known filtering strategy.
 Valid values are: {1}.</value>

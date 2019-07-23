@@ -31,13 +31,10 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
         public static IEnumerable<object[]> ValidTestCases =>
             new List<object[]> {
                 new object[] {
-                    // All valid filing target types.
                     new[] {
                         "file-work-items",
-                        "--filing-target-type",
-                        "github",
                         "--project-uri",
-                        "https://www.example.com/project1",
+                        "https://github.com/my-org/my-project",
                         "--filtering-strategy",
                         "new",
                         "--grouping-strategy",
@@ -49,10 +46,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                 new object[] {
                     new[] {
                         "file-work-items",
-                        "--filing-target-type",
-                        "azureDevOps",
                         "--project-uri",
-                        "https://www.example.com/project1",
+                        "https://dev.azure.com/my-org/my-project",
                         "--filtering-strategy",
                         "new",
                         "--grouping-strategy",
@@ -65,10 +60,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                 new object[] {
                     new[] {
                         "file-work-items",
-                        "--filing-target-type",
-                        "github",
                         "--project-uri",
-                        "https://www.example.com/project1",
+                        "https://github.com/my-org/my-project",
                         "--filtering-strategy",
                         "all",
                         "--grouping-strategy",
@@ -85,22 +78,6 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                 new object[] {
                     new[] {
                         "file-work-items",
-                        // Missing filing target type.
-                        "--project-uri",
-                        "https://www.example.com/project1",
-                        "--filtering-strategy",
-                        "new",
-                        "--grouping-strategy",
-                        "perResult",
-                        "test.sarif"
-                    }
-                },
-
-                new object[] {
-                    new[] {
-                        "file-work-items",
-                        "--filing-target-type",
-                        "azureDevOps",
                         // Missing project URI.
                         "--filtering-strategy",
                         "new",
@@ -113,10 +90,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                 new object[] {
                     new[] {
                         "file-work-items",
-                        "--filing-target-type",
-                        "azureDevOps",
                         "--project-uri",
-                        "https://www.example.com/project1",
+                        "https://dev.azure.com/my-org/my-project",
                         // Missing filtering strategy.
                         "--grouping-strategy",
                         "perResult",
@@ -127,10 +102,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                 new object[] {
                     new[] {
                         "file-work-items",
-                        "--filing-target-type",
-                        "azureDevOps",
                         "--project-uri",
-                        "https://www.example.com/project1",
+                        "https://dev.azure.com/my-org/my-project",
                         "--filtering-strategy",
                         "new",
                         // Missing grouping strategy.
@@ -141,10 +114,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                 new object[] {
                     new[] {
                         "file-work-items",
-                        "--filing-target-type",
-                        "azureDevOps",
                         "--project-uri",
-                        "https://www.example.com/project1",
+                        "https://dev.azure.com/my-org/my-project",
                         "--filtering-strategy",
                         "new",
                         "--grouping-strategy",
@@ -156,10 +127,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                 new object[] {
                     new[] {
                         "file-work-items",
-                        "--filing-target-type",
-                        "someOtherTargetType",          // Unknown filing target type.
                         "--project-uri",
-                        "https://www.example.com/project1",
+                        "dev.azure.com/my-org/my-project",     // Relative project URI.
                         "--filtering-strategy",
                         "new",
                         "--grouping-strategy",
@@ -171,25 +140,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                 new object[] {
                     new[] {
                         "file-work-items",
-                        "--filing-target-type",
-                        "azureDevOps",
                         "--project-uri",
-                        "www.example.com/project1",     // Relative project URI.
-                        "--filtering-strategy",
-                        "new",
-                        "--grouping-strategy",
-                        "perResult",
-                        "test.sarif",
-                    }
-                },
-
-                new object[] {
-                    new[] {
-                        "file-work-items",
-                        "--filing-target-type",
-                        "azureDevOps",
-                        "--project-uri",
-                        "https://www.example.com/project1",
+                        "https://dev.azure.com/my-org/my-project",
                         "--filtering-strategy",
                         "old",                          // Unknown filtering strategy.
                         "--grouping-strategy",
@@ -201,10 +153,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                 new object[] {
                     new[] {
                         "file-work-items",
-                        "--filing-target-type",
-                        "azureDevOps",
                         "--project-uri",
-                        "https://www.example.com/project1",
+                        "https://dev.azure.com/my-org/my-project",
                         "--filtering-strategy",
                         "new",
                         "--grouping-strategy",

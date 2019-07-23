@@ -10,13 +10,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
     public class FileWorkItemsOptions
     {
         [Option(
-            't',
-            "filing-target-type",
-            HelpText = "The type of system to which work items are to be filed. Must be one of 'github' and 'azureDevOps'.",
-            Required = true)]
-        public string FilingTargetType { get; internal set; }
-
-        [Option(
             'p',
             "project-uri",
             HelpText = "The absolute URI of the project under which the work items are to be filed.",

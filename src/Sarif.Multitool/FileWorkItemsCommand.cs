@@ -9,7 +9,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class FileWorkItemsCommand : CommandBase
     {
-        private static readonly string[] s_knownFilingTargetTypes = new[] { "github", "azuredevops" };
         private static readonly string[] s_knownFilteringStrategies = new[] { "new", "all" };
         private static readonly string[] s_knownGroupingStrategies = new[] { "perresult" };
 
@@ -27,19 +26,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         private static bool ValidateOptions(FileWorkItemsOptions options)
         {
             bool valid = true;
-
-            options.FilingTargetType = options.FilingTargetType.ToLowerInvariant();
-            if (!s_knownFilingTargetTypes.Contains(options.FilingTargetType))
-            {
-                string optionDescription = CommandUtilities.GetOptionDescription<FileWorkItemsOptions>(nameof(options.FilingTargetType));
-                Console.Error.WriteLine(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
-                        MultitoolResources.ErrorUnknownFilingTargetType,
-                        optionDescription,
-                        $"'{string.Join("', '", s_knownFilingTargetTypes)}'"));
-                valid = false;
-            }
 
             // The CommandLine package lets you declare an option of any type with a constructor
             // that accepts a string. We could have declared the property corresponding to the

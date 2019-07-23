@@ -97,16 +97,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error: The value of the &apos;{0}&apos; option is not a known filing target type.
-        ///Valid values are: {1}..
-        /// </summary>
-        internal static string ErrorUnknownFilingTargetType {
-            get {
-                return ResourceManager.GetString("ErrorUnknownFilingTargetType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Error: The value of the &apos;{0}&apos; option is not a known filtering strategy.
         ///Valid values are: {1}..
         /// </summary>
