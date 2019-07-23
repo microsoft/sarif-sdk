@@ -6,11 +6,11 @@ using System.Collections.Generic;
 namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Filtering
 {
     /// <summary>
-    /// Interface that defines a strategy for selecting only those SARIF results that should
+    /// Abstract base class for strategies that select only those SARIF results that should
     /// be filed as work items.
     /// </summary>
-    public interface IFilteringStrategy
+    public abstract class FilteringStrategy
     {
-        IList<Result> FilterResults(IEnumerable<Result> results);
+        public abstract IList<Result> FilterResults(IEnumerable<Result> results);
     }
 }

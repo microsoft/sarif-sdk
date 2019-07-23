@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Filtering;
+using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling.Filtering
@@ -40,54 +41,57 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling.Filtering
             {
                 new Result
                 {
-                    RuleId = "TST0001",
+                    RuleId = TestConstants.RuleIds.Rule1
                 },
 
                 new Result
                 {
-                    RuleId = "TST0002",
+                    RuleId = TestConstants.RuleIds.Rule2,
                     BaselineState = BaselineState.Absent
                 },
 
                 new Result
                 {
-                    RuleId = "TST0003",
+                    RuleId = TestConstants.RuleIds.Rule3,
                     BaselineState = BaselineState.New
                 },
 
                 new Result
                 {
-                    RuleId = "TST0004",
+                    RuleId = TestConstants.RuleIds.Rule4,
                     BaselineState = BaselineState.None
                 },
 
                 new Result
                 {
-                    RuleId = "TST0005",
+                    RuleId = TestConstants.RuleIds.Rule5,
                     BaselineState = BaselineState.Unchanged
                 },
 
                 new Result
                 {
-                    RuleId = "TST0006",
+                    RuleId = TestConstants.RuleIds.Rule6,
                     BaselineState = BaselineState.Updated
                 },
 
                 new Result
                 {
-                    RuleId = "TST0007",
+                    RuleId = TestConstants.RuleIds.Rule7,
                     BaselineState = BaselineState.New
                 }
             };
 
             IList<Result> filteredResults = strategy.FilterResults(results);
 
-            int numResults = results.Length;
-            filteredResults.Count.Should().Be(numResults);
-            for (int i = 0; i < numResults; ++i)
-            {
-                filteredResults[i].RuleId.Should().Be("TST000" + (i + 1).ToString());
-            }
+            filteredResults.Count.Should().Be(results.Length);
+
+            filteredResults[0].RuleId.Should().Be(TestConstants.RuleIds.Rule1);
+            filteredResults[1].RuleId.Should().Be(TestConstants.RuleIds.Rule2);
+            filteredResults[2].RuleId.Should().Be(TestConstants.RuleIds.Rule3);
+            filteredResults[3].RuleId.Should().Be(TestConstants.RuleIds.Rule4);
+            filteredResults[4].RuleId.Should().Be(TestConstants.RuleIds.Rule5);
+            filteredResults[5].RuleId.Should().Be(TestConstants.RuleIds.Rule6);
+            filteredResults[6].RuleId.Should().Be(TestConstants.RuleIds.Rule7);
         }
     }
 }

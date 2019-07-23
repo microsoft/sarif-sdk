@@ -22,9 +22,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         private static readonly Validator s_logFileValidator = CreateLogFileValidator();
 
         private readonly FilingTarget _filingTarget;
-        private readonly IFilteringStrategy _filteringStrategy;
-        private readonly IGroupingStrategy _groupingStrategy;
-        private readonly IFileSystem _fileSystem;
+        private readonly FilteringStrategy _filteringStrategy;
+        private readonly GroupingStrategy _groupingStrategy;
+
+        // internal to expose to unit tests.
+        internal IFileSystem FileSystem { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WorkItemFiler"> class.</see>
@@ -39,14 +41,14 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         /// </param>
         public WorkItemFiler(
             FilingTarget filingTarget,
-            IFilteringStrategy filteringStrategy,
-            IGroupingStrategy groupingStrategy,
-            IFileSystem fileSystem)
+            FilteringStrategy filteringStrategy = null,
+            GroupingStrategy groupingStrategy = null,
+            IFileSystem fileSystem = null)
         {
             _filingTarget = filingTarget ?? throw new ArgumentNullException(nameof(filingTarget));
             _filteringStrategy = filteringStrategy ?? throw new ArgumentNullException(nameof(filteringStrategy));
             _groupingStrategy = groupingStrategy ?? throw new ArgumentNullException(nameof(groupingStrategy));
-            _fileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
+            FileSystem = fileSystem ?? new FileSystem();
         }
 
         /// <summary>
@@ -62,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         {
             if (logFilePath == null) { throw new ArgumentNullException(nameof(logFilePath)); }
 
-            string logFileContents = _fileSystem.ReadAllText(logFilePath);
+            string logFileContents = FileSystem.ReadAllText(logFilePath);
 
             EnsureValidSarifLogFile(logFileContents, logFilePath);
 
@@ -75,9 +77,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 if (sarifLog.Runs[i]?.Results?.Count > 0)
                 {
                     IList<Result> filteredResults = _filteringStrategy.FilterResults(sarifLog.Runs[i].Results);
-
-                    // TODO: Consider whether to await each run in turn, or to do them in parallel.
                     IList<ResultGroup> groupedResults = _groupingStrategy.GroupResults(filteredResults);
+
                     IEnumerable<ResultGroup> filedResultsForRun = await _filingTarget.FileWorkItems(groupedResults);
 
                     // TODO: Consider whether to return one batch of "filed results", or one batch per run.

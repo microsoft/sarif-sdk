@@ -10,9 +10,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Grouping
     /// <summary>
     /// A grouping strategy that files each SARIF result as a separate work item.
     /// </summary>
-    public class OneResultPerWorkItemGroupingStrategy : IGroupingStrategy
+    public class OneResultPerWorkItemGroupingStrategy : GroupingStrategy
     {
-        public IList<ResultGroup> GroupResults(IEnumerable<Result> results)
+        public override IList<ResultGroup> GroupResults(IEnumerable<Result> results)
         {
             if (results == null) { throw new ArgumentNullException(nameof(results)); }
 

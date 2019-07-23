@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Filtering;
+using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 using Xunit;
 
 namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling.Filtering
@@ -40,42 +41,42 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling.Filtering
             {
                 new Result
                 {
-                    RuleId = "TST0001",
+                    RuleId = TestConstants.RuleIds.Rule1
                 },
 
                 new Result
                 {
-                    RuleId = "TST0002",
+                    RuleId = TestConstants.RuleIds.Rule2,
                     BaselineState = BaselineState.Absent
                 },
 
                 new Result
                 {
-                    RuleId = "TST0003",
+                    RuleId = TestConstants.RuleIds.Rule3,
                     BaselineState = BaselineState.New
                 },
 
                 new Result
                 {
-                    RuleId = "TST0004",
+                    RuleId = TestConstants.RuleIds.Rule4,
                     BaselineState = BaselineState.None
                 },
 
                 new Result
                 {
-                    RuleId = "TST0005",
+                    RuleId = TestConstants.RuleIds.Rule5,
                     BaselineState = BaselineState.Unchanged
                 },
 
                 new Result
                 {
-                    RuleId = "TST0006",
+                    RuleId = TestConstants.RuleIds.Rule6,
                     BaselineState = BaselineState.Updated
                 },
 
                 new Result
                 {
-                    RuleId = "TST0007",
+                    RuleId = TestConstants.RuleIds.Rule7,
                     BaselineState = BaselineState.New
                 }
             };
@@ -83,8 +84,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling.Filtering
             IList<Result> filteredResults = strategy.FilterResults(results);
 
             filteredResults.Count.Should().Be(2);
-            filteredResults[0].RuleId.Should().Be("TST0003");
-            filteredResults[1].RuleId.Should().Be("TST0007");
+            filteredResults[0].RuleId.Should().Be(TestConstants.RuleIds.Rule3);
+            filteredResults[1].RuleId.Should().Be(TestConstants.RuleIds.Rule7);
         }
     }
 }

@@ -10,9 +10,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Filtering
     /// <summary>
     /// A filtering strategy that selects only new results.
     /// </summary>
-    public class NewResultsFilteringStrategy : IFilteringStrategy
+    public class NewResultsFilteringStrategy : FilteringStrategy
     {
-        public IList<Result> FilterResults(IEnumerable<Result> results)
+        public override IList<Result> FilterResults(IEnumerable<Result> results)
         {
             if (results == null) { throw new ArgumentNullException(nameof(results)); }
 

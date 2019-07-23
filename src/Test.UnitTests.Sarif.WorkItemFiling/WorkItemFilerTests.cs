@@ -10,6 +10,7 @@ using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.WorkItemFiling;
 using Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Filtering;
 using Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Grouping;
+using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 using Moq;
 using Xunit;
 
@@ -33,6 +34,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         {
             WorkItemFiler filer;
             Action action = () => filer = new WorkItemFiler(filingTarget: CreateMockFilingTarget(), filteringStrategy: null, groupingStrategy: CreateGroupingStrategy(), fileSystem: CreateMockFileSystem());
+
+            action.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -45,12 +48,11 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         }
 
         [Fact]
-        public void WorkItemFiler_RequiresAFileSystem()
+        public void WorkItemFiler_UsesARealFileSystemByDefault()
         {
-            WorkItemFiler filer;
-            Action action = () => filer = new WorkItemFiler(filingTarget: CreateMockFilingTarget(), filteringStrategy: CreateFilteringStrategy(), groupingStrategy: CreateGroupingStrategy(), fileSystem: null);
+            WorkItemFiler filer = new WorkItemFiler(filingTarget: CreateMockFilingTarget(), filteringStrategy: CreateFilteringStrategy(), groupingStrategy: CreateGroupingStrategy(), fileSystem: null);
 
-            action.Should().Throw<ArgumentNullException>();
+            filer.FileSystem.GetType().FullName.Should().Be(typeof(FileSystem).FullName);
         }
 
         [Fact]
@@ -121,6 +123,44 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
             filedWorkItems.Count().Should().Be(3);
         }
 
+        [Fact]
+        public async Task WorkItemFiler_ThrowsWhenItsFilteringStrategyThrows()
+        {
+            const string LogFilePath = "MultipleRuns.sarif";
+
+            var mockFilteringStrategy = new Mock<FilteringStrategy>();
+            mockFilteringStrategy.Setup(x => x.FilterResults(It.IsAny<IList<Result>>())).Throws(new TestException());
+
+            WorkItemFiler filer = new WorkItemFiler(
+                CreateMockFilingTarget(),
+                mockFilteringStrategy.Object,
+                CreateGroupingStrategy(),
+                CreateMockFileSystem(LogFilePath));
+
+            Func<Task> action = async () => await filer.FileWorkItems(LogFilePath);
+
+            await action.ShouldThrowAsync<TestException>();
+        }
+
+        [Fact]
+        public async Task WorkItemFiler_ThrowsWhenItsGroupingStrategyThrows()
+        {
+            const string LogFilePath = "MultipleRuns.sarif";
+
+            var mockGroupingStrategy = new Mock<GroupingStrategy>();
+            mockGroupingStrategy.Setup(x => x.GroupResults(It.IsAny<IList<Result>>())).Throws(new TestException());
+
+            WorkItemFiler filer = new WorkItemFiler(
+                CreateMockFilingTarget(),
+                CreateFilteringStrategy(),
+                mockGroupingStrategy.Object,
+                CreateMockFileSystem(LogFilePath));
+
+            Func<Task> action = async () => await filer.FileWorkItems(LogFilePath);
+
+            await action.ShouldThrowAsync<TestException>();
+        }
+
         private static WorkItemFiler CreateWorkItemFiler(string logFilePath = null)
             => new WorkItemFiler(
                 CreateMockFilingTarget(),
@@ -144,12 +184,12 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
 
         // The "one result per work item" grouping strategy is simple enough to use reliably
         // in unit tests without creating a mock.
-        private static IGroupingStrategy CreateGroupingStrategy()
+        private static GroupingStrategy CreateGroupingStrategy()
             => new OneResultPerWorkItemGroupingStrategy();
 
         // The "all results" filtering strategy is simple enough to use reliably in unit tests
         // without creating a mock.
-        private static IFilteringStrategy CreateFilteringStrategy()
+        private static FilteringStrategy CreateFilteringStrategy()
             => new AllResultsFilteringStrategy();
 
         private static IFileSystem CreateMockFileSystem(string logFilePath = null)

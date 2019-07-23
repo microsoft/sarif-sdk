@@ -9,9 +9,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Filtering
     /// <summary>
     /// A filtering strategy that selects all results.
     /// </summary>
-    public class AllResultsFilteringStrategy : IFilteringStrategy
+    public class AllResultsFilteringStrategy : FilteringStrategy
     {
-        public IList<Result> FilterResults(IEnumerable<Result> results)
+        public override IList<Result> FilterResults(IEnumerable<Result> results)
         {
             // Note that this creates a new list (which is intentional; it allows you
             // to manipulate the two lists independently). However, since Result is a reference
