@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.WorkItemFiling;
+using Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Filtering;
 using Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Grouping;
 using Moq;
 using Xunit;
@@ -22,16 +23,23 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         public void WorkItemFiler_RequiresAFilingTarget()
         {
             WorkItemFiler filer;
-            Action action = () => filer = new WorkItemFiler(filingTarget: null, groupingStrategy: CreateMockGroupingStrategy(), fileSystem: CreateMockFileSystem());
+            Action action = () => filer = new WorkItemFiler(filingTarget: null, filteringStrategy: CreateFilteringStrategy(), groupingStrategy: CreateGroupingStrategy(), fileSystem: CreateMockFileSystem());
 
             action.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void WorkItemFiler_RequiresAFilteringStrategy()
+        {
+            WorkItemFiler filer;
+            Action action = () => filer = new WorkItemFiler(filingTarget: CreateMockFilingTarget(), filteringStrategy: null, groupingStrategy: CreateGroupingStrategy(), fileSystem: CreateMockFileSystem());
         }
 
         [Fact]
         public void WorkItemFiler_RequiresAGroupingStrategy()
         {
             WorkItemFiler filer;
-            Action action = () => filer = new WorkItemFiler(filingTarget: CreateMockFilingTarget(), groupingStrategy: null, fileSystem: CreateMockFileSystem());
+            Action action = () => filer = new WorkItemFiler(filingTarget: CreateMockFilingTarget(), filteringStrategy: CreateFilteringStrategy(), groupingStrategy: null, fileSystem: CreateMockFileSystem());
 
             action.Should().Throw<ArgumentNullException>();
         }
@@ -40,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         public void WorkItemFiler_RequiresAFileSystem()
         {
             WorkItemFiler filer;
-            Action action = () => filer = new WorkItemFiler(filingTarget: CreateMockFilingTarget(), groupingStrategy: CreateMockGroupingStrategy(), fileSystem: null);
+            Action action = () => filer = new WorkItemFiler(filingTarget: CreateMockFilingTarget(), filteringStrategy: CreateFilteringStrategy(), groupingStrategy: CreateGroupingStrategy(), fileSystem: null);
 
             action.Should().Throw<ArgumentNullException>();
         }
@@ -96,9 +104,9 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
 
             IEnumerable<ResultGroup> filedWorkItems = await filer.FileWorkItems(LogFilePath);
 
-            // The test file NewAndOldResults.sarif contains 5 results, but only 2 of them
-            // have "baselineState": "new".
-            filedWorkItems.Count().Should().Be(2);
+            // The test file NewAndOldResults.sarif contains 5 results, only 2 of them
+            // have "baselineState": "new", but the "all results" filter will take all of them.
+            filedWorkItems.Count().Should().Be(5);
         }
 
         [Fact]
@@ -116,7 +124,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         private static WorkItemFiler CreateWorkItemFiler(string logFilePath = null)
             => new WorkItemFiler(
                 CreateMockFilingTarget(),
-                CreateMockGroupingStrategy(),
+                CreateFilteringStrategy(),
+                CreateGroupingStrategy(),
                 CreateMockFileSystem(logFilePath));
 
         private static FilingTarget CreateMockFilingTarget()
@@ -133,10 +142,15 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
             return mockFilingTarget.Object;
         }
 
-        // We aren't really creating a mock here; the "one result per work item"
-        // strategy is simple enough to use reliably in unit tests.
-        private static IGroupingStrategy CreateMockGroupingStrategy()
+        // The "one result per work item" grouping strategy is simple enough to use reliably
+        // in unit tests without creating a mock.
+        private static IGroupingStrategy CreateGroupingStrategy()
             => new OneResultPerWorkItemGroupingStrategy();
+
+        // The "all results" filtering strategy is simple enough to use reliably in unit tests
+        // without creating a mock.
+        private static IFilteringStrategy CreateFilteringStrategy()
+            => new AllResultsFilteringStrategy();
 
         private static IFileSystem CreateMockFileSystem(string logFilePath = null)
         {

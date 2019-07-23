@@ -9,6 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Filtering;
 using Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Grouping;
 using Microsoft.Json.Schema;
 using Microsoft.Json.Schema.Validation;
@@ -19,9 +20,9 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
     public class WorkItemFiler
     {
         private static readonly Validator s_logFileValidator = CreateLogFileValidator();
-        private static readonly Task<IEnumerable<ResultGroup>> s_noFiledResults = Task.FromResult(new List<ResultGroup>().AsEnumerable());
 
         private readonly FilingTarget _filingTarget;
+        private readonly IFilteringStrategy _filteringStrategy;
         private readonly IGroupingStrategy _groupingStrategy;
         private readonly IFileSystem _fileSystem;
 
@@ -36,9 +37,14 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         /// An object that represents the system (for example, GitHub or Azure DevOps)
         /// to which the work items will be filed.
         /// </param>
-        public WorkItemFiler(FilingTarget filingTarget, IGroupingStrategy groupingStrategy, IFileSystem fileSystem)
+        public WorkItemFiler(
+            FilingTarget filingTarget,
+            IFilteringStrategy filteringStrategy,
+            IGroupingStrategy groupingStrategy,
+            IFileSystem fileSystem)
         {
             _filingTarget = filingTarget ?? throw new ArgumentNullException(nameof(filingTarget));
+            _filteringStrategy = filteringStrategy ?? throw new ArgumentNullException(nameof(filteringStrategy));
             _groupingStrategy = groupingStrategy ?? throw new ArgumentNullException(nameof(groupingStrategy));
             _fileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
         }
@@ -68,8 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
             {
                 if (sarifLog.Runs[i]?.Results?.Count > 0)
                 {
-                    // TODO: Extract this filtering logic into some sort of "filtering strategy" object.
-                    IList<Result> filteredResults = FilterResults(sarifLog.Runs[i].Results);
+                    IList<Result> filteredResults = _filteringStrategy.FilterResults(sarifLog.Runs[i].Results);
 
                     // TODO: Consider whether to await each run in turn, or to do them in parallel.
                     IList<ResultGroup> groupedResults = _groupingStrategy.GroupResults(filteredResults);
