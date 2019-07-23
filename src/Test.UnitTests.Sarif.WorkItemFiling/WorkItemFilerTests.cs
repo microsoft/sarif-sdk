@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.WorkItemFiling;
+using Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Grouping;
 using Moq;
 using Xunit;
 

@@ -5,19 +5,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
+namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Filtering
 {
     /// <summary>
-    /// A grouping strategy that files each SARIF result as a separate work item.
+    /// A filtering strategy that selects only new results.
     /// </summary>
-    public class OneResultPerWorkItemGroupingStrategy : IGroupingStrategy
+    public class NewResultsFilteringStrategy : IFilteringStrategy
     {
-        public IList<ResultGroup> GroupResults(IEnumerable<Result> results)
+        public IList<Result> FilterResults(IEnumerable<Result> results)
         {
             if (results == null) { throw new ArgumentNullException(nameof(results)); }
 
             return results
-                .Select(r => new ResultGroup { Results = new List<Result> { r } })
+                .Where(r => r.BaselineState == BaselineState.New)
                 .ToList();
         }
     }

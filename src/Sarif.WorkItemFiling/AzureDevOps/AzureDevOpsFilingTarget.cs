@@ -4,6 +4,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Grouping;
+
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling.AzureDevOps
 {
