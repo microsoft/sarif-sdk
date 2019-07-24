@@ -9,8 +9,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Filtering;
-using Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Grouping;
 using Microsoft.Json.Schema;
 using Microsoft.Json.Schema.Validation;
 using Newtonsoft.Json;

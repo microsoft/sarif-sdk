@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 
-namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Grouping
+namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 {
     /// <summary>
     /// Abstract base class for strategies that grouping SARIF results into sets that

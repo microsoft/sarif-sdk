@@ -5,10 +5,10 @@ using System;
 using System.Collections.Generic;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
-using Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Grouping;
+using Microsoft.CodeAnalysis.Sarif.WorkItemFiling;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling.Grouping
+namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
 {
     public class OneResultPerWorkItemGroupingStrategyTests
     {

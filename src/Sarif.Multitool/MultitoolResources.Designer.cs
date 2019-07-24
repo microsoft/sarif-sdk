@@ -88,40 +88,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error: No &quot;group&quot; (the part of the file name before the dash) found in &apos;{0}&apos;. All file names must be of the form [Group]-[RunID] and each adjacent pair in the same group is compared..
+        ///   Looks up a localized string similar to No &quot;group&quot; (the part of the file name before the dash) found in &apos;{0}&apos;. All file names must be of the form [Group]-[RunID] and each adjacent pair in the same group is compared..
         /// </summary>
         internal static string ErrorNoGroupInFileName {
             get {
                 return ResourceManager.GetString("ErrorNoGroupInFileName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error: The value of the &apos;{0}&apos; option is not a known filtering strategy.
-        ///Valid values are: {1}..
-        /// </summary>
-        internal static string ErrorUnknownFilteringStrategy {
-            get {
-                return ResourceManager.GetString("ErrorUnknownFilteringStrategy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error: The value of the &apos;{0}&apos; option is not a known grouping strategy.
-        ///Valid values are: {1}..
-        /// </summary>
-        internal static string ErrorUnknownGroupingStrategy {
-            get {
-                return ResourceManager.GetString("ErrorUnknownGroupingStrategy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error: The value of the &apos;{0}&apos; option must be an absolute URI..
-        /// </summary>
-        internal static string ErrorUriIsNotAbsolute {
-            get {
-                return ResourceManager.GetString("ErrorUriIsNotAbsolute", resourceCulture);
             }
         }
         
@@ -131,6 +102,35 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool {
         internal static string ResultDifferenceSummary {
             get {
                 return ResourceManager.GetString("ResultDifferenceSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value &apos;{0}&apos; of the &apos;{1}&apos; option is not a known filtering strategy.
+        ///Valid values are: {2}..
+        /// </summary>
+        internal static string WorkItemFiling_ErrorUnknownFilteringStrategy {
+            get {
+                return ResourceManager.GetString("WorkItemFiling_ErrorUnknownFilteringStrategy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value &apos;{0}&apos; of the &apos;{1}&apos; option is not a known grouping strategy.
+        ///Valid values are: {2}..
+        /// </summary>
+        internal static string WorkItemFiling_ErrorUnknownGroupingStrategy {
+            get {
+                return ResourceManager.GetString("WorkItemFiling_ErrorUnknownGroupingStrategy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value &apos;{0}&apos; of the &apos;{1}&apos; option is not an absolute URI..
+        /// </summary>
+        internal static string WorkItemFiling_ErrorUriIsNotAbsolute {
+            get {
+                return ResourceManager.GetString("WorkItemFiling_ErrorUriIsNotAbsolute", resourceCulture);
             }
         }
     }

@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 
-namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Filtering
+namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 {
     /// <summary>
     /// Abstract base class for strategies that select only those SARIF results that should

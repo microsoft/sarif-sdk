@@ -8,8 +8,6 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.WorkItemFiling;
-using Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Filtering;
-using Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Grouping;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 using Moq;
 using Xunit;
@@ -117,10 +115,15 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
             const string LogFilePath = "MultipleRuns.sarif";
             WorkItemFiler filer = CreateWorkItemFiler(LogFilePath);
 
+            // Compute the number of work items we expect to file, using the trivial
+            // "all results" filtering strategy and the "one result per work item"
+            // grouping strategy that these unit tests employ.
+            SarifLog sarifLog = Microsoft.CodeAnalysis.Sarif.Utilities.GetSarifLogFromResource(s_extractor, LogFilePath);
+            int expectedResultsCount = sarifLog.Runs.SelectMany(run => run.Results).Count();
+
             IEnumerable<ResultGroup> filedWorkItems = await filer.FileWorkItems(LogFilePath);
 
-            // The first run has 2 new results and the second run has 1.
-            filedWorkItems.Count().Should().Be(3);
+            filedWorkItems.Count().Should().Be(expectedResultsCount);
         }
 
         [Fact]

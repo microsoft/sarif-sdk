@@ -53,7 +53,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Console.Error.WriteLine(
                     string.Format(
                         CultureInfo.CurrentCulture,
-                        MultitoolResources.ErrorUriIsNotAbsolute,
+                        MultitoolResources.WorkItemFiling_ErrorUriIsNotAbsolute,
+                        options.ProjectUriString,
                         optionDescription));
                 valid = false;
             }
@@ -65,7 +66,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Console.Error.WriteLine(
                     string.Format(
                         CultureInfo.CurrentCulture,
-                        MultitoolResources.ErrorUnknownFilteringStrategy,
+                        MultitoolResources.WorkItemFiling_ErrorUnknownFilteringStrategy,
+                        options.FilteringStrategy,
                         optionDescription,
                         $"'{string.Join("', '", s_knownFilteringStrategies)}'"));
                 valid = false;
@@ -78,7 +80,8 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                 Console.Error.WriteLine(
                     string.Format(
                         CultureInfo.CurrentCulture,
-                        MultitoolResources.ErrorUnknownGroupingStrategy,
+                        MultitoolResources.WorkItemFiling_ErrorUnknownGroupingStrategy,
+                        options.GroupingStrategy,
                         optionDescription,
                         $"'{string.Join("', '", s_knownGroupingStrategies)}'"));
                 valid = false;

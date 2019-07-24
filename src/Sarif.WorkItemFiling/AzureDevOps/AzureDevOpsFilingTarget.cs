@@ -4,9 +4,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Grouping;
 
-namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling.AzureDevOps
+namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 {
     /// <summary>
     /// Represents an Azure DevOps project in which work items can be filed.
