@@ -15,10 +15,11 @@ namespace Sarif.WorkItems.Sample
         private static int Main(string[] args)
         {
             // Mock up of end-to-end API use.
-
+            
             // 1. Retrieve the current SARIF and its baseline equivalent
-            SarifLog baselineSarif = RetrieveBaselineSarif();
-            SarifLog currentSarif = RetrieveCurrentSarif();
+            SarifLog baselineSarif = RetrieveBaselineSarif(args[0]);
+            SarifLog currentSarif = RetrieveCurrentSarif(args[1]);
+            string outputFilePath = args[2];
 
             // 2. Given a baseline and current sarif, produce a 'matched' log
             ISarifLogBaseliner resultMatcher = SarifLogBaselinerFactory.CreateSarifLogBaseliner(SarifBaselineType.Standard);
@@ -75,6 +76,9 @@ namespace Sarif.WorkItems.Sample
                 adoWorkItemFiler.FileWorkItems(workItemsToFile).Wait();
             }
             catch (Exception exception) { LogFailure(exception); }
+
+            // Save out our updated baselined file.
+            File.WriteAllText(outputFilePath, JsonConvert.SerializeObject(matchedSarif);
 
             // End mock up.
             return 0;
@@ -148,13 +152,13 @@ namespace Sarif.WorkItems.Sample
 #endif
 
         #region Stubs
-        private static SarifLog RetrieveCurrentSarif()
+        private static SarifLog RetrieveCurrentSarif(string v)
         {
             string sarifText = GetResourceText("Sarif.Sdk.Sample.SampleTestFiles.Current.sarif");
             return JsonConvert.DeserializeObject<SarifLog>(sarifText);
         }
 
-        private static SarifLog RetrieveBaselineSarif()
+        private static SarifLog RetrieveBaselineSarif(string v)
         {
             string[] resourceNames = typeof(Program).Assembly.GetManifestResourceNames();
             Console.WriteLine(String.Join("\r\n", resourceNames));
