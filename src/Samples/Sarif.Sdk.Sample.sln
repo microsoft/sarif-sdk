@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SarifDeferredSample", "Sari
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sarif", "..\Sarif\Sarif.csproj", "{D669E761-7E74-48B8-85A6-4B571312D2C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sarif.WorkItems.Sample", "Sarif.WorkItems.Sample\Sarif.WorkItems.Sample.csproj", "{8BD025B5-04C4-4B45-91C7-3D3AB6B328DC}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{D669E761-7E74-48B8-85A6-4B571312D2C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D669E761-7E74-48B8-85A6-4B571312D2C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D669E761-7E74-48B8-85A6-4B571312D2C7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8BD025B5-04C4-4B45-91C7-3D3AB6B328DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8BD025B5-04C4-4B45-91C7-3D3AB6B328DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8BD025B5-04C4-4B45-91C7-3D3AB6B328DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8BD025B5-04C4-4B45-91C7-3D3AB6B328DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
