@@ -8,17 +8,10 @@ using System.Threading.Tasks;
 namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 {
     /// <summary>
-    /// Represents an Azure DevOps project in which work items can be filed.
+    /// Represents a GitHub project in which work items can be filed.
     /// </summary>
-    public class AzureDevOpsFilingTarget : FilingTarget
+    public class GitHubFilingTarget : FilingTarget
     {
-        private readonly IAzureDevOpsClient _azureDevOpsClient;
-
-        public AzureDevOpsFilingTarget(IAzureDevOpsClient azureDevOpsClient)
-        {
-            _azureDevOpsClient = azureDevOpsClient ?? throw new ArgumentNullException(nameof(azureDevOpsClient));
-        }
-
         public override Task<IEnumerable<ResultGroup>> FileWorkItems(IEnumerable<ResultGroup> resultGroups)
         {
             throw new NotImplementedException();

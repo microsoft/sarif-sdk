@@ -21,11 +21,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 
             if (s_azureDevOpsUriRegex.IsMatch(projectUriString))
             {
-                return new AzureDevOpsFilingTarget(new AzureDevOpsClient());
+                return new AzureDevOpsFilingTarget();
             }
             else if (s_gitHubUriRegex.IsMatch(projectUriString))
             {
-                return new GitHubFilingTarget(new GitHubClient());
+                return new GitHubFilingTarget();
             }
             else
             {

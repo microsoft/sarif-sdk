@@ -139,9 +139,5 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 
             return sb.ToString();
         }
-
-        // Only file new results as bugs.
-        private IList<Result> FilterResults(IList<Result> allResults)
-           => allResults.Where(r => r.BaselineState == BaselineState.New).ToList();
     }
 }
