@@ -33,12 +33,13 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                 new object[] {
                     new[] {
                         "file-work-items",
+                        "--test-option-validation",
                         "--project-uri",
                         "https://github.com/my-org/my-project",
                         "--filtering-strategy",
-                        "new",
+                        "NewResults",
                         "--grouping-strategy",
-                        "perResult",
+                        "PerResult",
                         "test.sarif",
                     }
                 },
@@ -46,12 +47,13 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                 new object[] {
                     new[] {
                         "file-work-items",
+                        "--test-option-validation",
                         "--project-uri",
                         "https://dev.azure.com/my-org/my-project",
                         "--filtering-strategy",
-                        "new",
+                        "NewResults",
                         "--grouping-strategy",
-                        "perResult",
+                        "PerResult",
                         "test.sarif",
                     }
                 },
@@ -60,12 +62,13 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                 new object[] {
                     new[] {
                         "file-work-items",
+                        "--test-option-validation",
                         "--project-uri",
                         "https://github.com/my-org/my-project",
                         "--filtering-strategy",
-                        "all",
+                        "AllResults",
                         "--grouping-strategy",
-                        "perResult",
+                        "PerResult",
                         "test.sarif",
                     }
                 }
@@ -78,11 +81,12 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                 new object[] {
                     new[] {
                         "file-work-items",
+                        "--test-option-validation",
                         // Missing project URI.
                         "--filtering-strategy",
-                        "new",
+                        "NewResults",
                         "--grouping-strategy",
-                        "perResult",
+                        "PerResult",
                         "test.sarif",
                     }
                 },
@@ -90,11 +94,12 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                 new object[] {
                     new[] {
                         "file-work-items",
+                        "--test-option-validation",
                         "--project-uri",
                         "https://dev.azure.com/my-org/my-project",
                         // Missing filtering strategy.
                         "--grouping-strategy",
-                        "perResult",
+                        "PerResult",
                         "test.sarif",
                     }
                 },
@@ -102,10 +107,11 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                 new object[] {
                     new[] {
                         "file-work-items",
+                        "--test-option-validation",
                         "--project-uri",
                         "https://dev.azure.com/my-org/my-project",
                         "--filtering-strategy",
-                        "new",
+                        "NewResults",
                         // Missing grouping strategy.
                         "test.sarif"
                     },
@@ -114,12 +120,13 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                 new object[] {
                     new[] {
                         "file-work-items",
+                        "--test-option-validation",
                         "--project-uri",
                         "https://dev.azure.com/my-org/my-project",
                         "--filtering-strategy",
-                        "new",
+                        "NewResults",
                         "--grouping-strategy",
-                        "perResult",
+                        "PerResult",
                         // Missing input file path.
                     }
                 },
@@ -127,10 +134,25 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                 new object[] {
                     new[] {
                         "file-work-items",
-                        "--project-uri",
+                        "--test-option-validation",
+                       "--project-uri",
                         "dev.azure.com/my-org/my-project",     // Relative project URI.
                         "--filtering-strategy",
-                        "new",
+                        "NewResults",
+                        "--grouping-strategy",
+                        "PerResult",
+                        "test.sarif",
+                    }
+                },
+
+                new object[] {
+                    new[] {
+                        "file-work-items",
+                        "--test-option-validation",
+                        "--project-uri",
+                        "https://dev.azure.com/my-org/my-project",
+                        "--filtering-strategy",
+                        "OldResults",                          // Unknown filtering strategy.
                         "--grouping-strategy",
                         "perResult",
                         "test.sarif",
@@ -143,22 +165,9 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                         "--project-uri",
                         "https://dev.azure.com/my-org/my-project",
                         "--filtering-strategy",
-                        "old",                          // Unknown filtering strategy.
+                        "NewResults",
                         "--grouping-strategy",
-                        "perResult",
-                        "test.sarif",
-                    }
-                },
-
-                new object[] {
-                    new[] {
-                        "file-work-items",
-                        "--project-uri",
-                        "https://dev.azure.com/my-org/my-project",
-                        "--filtering-strategy",
-                        "new",
-                        "--grouping-strategy",
-                        "perCentury",                   // Unknown grouping strategy.
+                        "PerCentury",                   // Unknown grouping strategy.
                         "test.sarif",
                     }
                 }

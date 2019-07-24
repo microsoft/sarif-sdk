@@ -3,6 +3,7 @@
 
 using System;
 using CommandLine;
+using CommandLine.Text;
 using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.WorkItemFiling;
 
@@ -32,5 +33,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             HelpText = "Specifies the strategy for grouping SARIF results into sets that should each be filed together as a single work item. Must be 'perResult'.",
             Required = true)]
         public GroupingStrategyKind GroupingStrategy { get; internal set; }
+
+        [Option(
+            "test-option-validation",
+            HelpText = "For unit tests: allows us to just validate the options and return",
+            Hidden = true)]
+        public bool TestOptionValidation { get; internal set; }
     }
 }

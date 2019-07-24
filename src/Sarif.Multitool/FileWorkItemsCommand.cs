@@ -13,6 +13,9 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         {
             if (!ValidateOptions(options)) { return 1; }
 
+            // For unit tests: allow us to just validate the options and return.
+            if (options.TestOptionValidation) { return 0; }
+
             FilingTarget filingTarget = FilingTargetFactory.CreateFilingTarget(options.ProjectUriString);
             FilteringStrategy filteringStrategy = FilteringStrategyFactory.CreateFilteringStrategy(options.FilteringStrategy);
             GroupingStrategy groupingStrategy = GroupingStrategyFactory.CreateGroupingStrategy(options.GroupingStrategy);
