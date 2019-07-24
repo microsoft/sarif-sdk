@@ -182,6 +182,12 @@ namespace Sarif.WorkItems.Sample
             public List<object> Attachments { get; internal set; }
         }
 
+
+        private static void LogFailure(Exception exception)
+        {
+            throw new NotImplementedException();
+        }
+
         private class AdoWorkItemFiler
         {
             public AdoWorkItemFiler()

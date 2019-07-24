@@ -83,10 +83,5 @@ namespace Sarif.WorkItems.Sample
             // End mock up.
             return 0;
         }
-
-        private static void LogFailure(Exception exception)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
