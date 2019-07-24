@@ -4,6 +4,7 @@
 using System;
 using CommandLine;
 using Microsoft.CodeAnalysis.Sarif.Driver;
+using Microsoft.CodeAnalysis.Sarif.WorkItemFiling;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
@@ -23,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             "filtering-strategy",
             HelpText = "Specifies the strategy for selecting which results to file. Must be one of 'new' and 'all'.",
             Required = true)]
-        public string FilteringStrategy { get; internal set; }
+        public FilteringStrategyKind FilteringStrategy { get; internal set; }
 
         [Option(
             'g',

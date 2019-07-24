@@ -11,7 +11,8 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
     public class FilingTargetFactoryTests
     {
         [Fact]
-        public void CreateFilingTarget_RequiresAUri()
+        public void CreateFilingTarget_ThrowsIfUriIsNull
+            ()
         {
             Action action = () => FilingTargetFactory.CreateFilingTarget(null);
 
@@ -19,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         }
 
         [Fact]
-        public void CreateFilingTarget_RequiresRecognizedUriPattern()
+        public void CreateFilingTarget_ThrowsIfUriPatternIsNotRecognized()
         {
             const string ProjectUriString = "https://www.example.com/myOrg/myProject";
 
@@ -29,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         }
 
         [Fact]
-        public void CreateFilingTarget_DoesNotAllowExtraPathSegments()
+        public void CreateFilingTarget_ThrowsIfUriIncludesAdditionalPathSegments()
         {
             const string ProjectUriString = "https://github.com/myOrg/myProject/issues";
 
@@ -43,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         {
             const string ProjectUriString = "https://github.com/myOrg/myProject";
 
-            FilingTarget filingTarget = FilingTargetFactory.CreateFilingTarget(ProjectUriString);
+            var filingTarget = FilingTargetFactory.CreateFilingTarget(ProjectUriString);
 
             filingTarget.Should().BeOfType<GitHubFilingTarget>();
         }
@@ -53,7 +54,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         {
             const string ProjectUriString = "https://dev.azure.com/myOrg/myProject";
 
-            FilingTarget filingTarget = FilingTargetFactory.CreateFilingTarget(ProjectUriString);
+            var filingTarget = FilingTargetFactory.CreateFilingTarget(ProjectUriString);
 
             filingTarget.Should().BeOfType<AzureDevOpsFilingTarget>();
         }

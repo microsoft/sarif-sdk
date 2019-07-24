@@ -10,7 +10,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class FileWorkItemsCommand : CommandBase
     {
-        private static readonly string[] s_knownFilteringStrategies = new[] { "new", "all" };
         private static readonly string[] s_knownGroupingStrategies = new[] { "perresult" };
 
         private FileWorkItemsOptions _options;
@@ -22,10 +21,10 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             _options = options;
 
             FilingTarget filingTarget = FilingTargetFactory.CreateFilingTarget(options.ProjectUriString);
-            //FilteringStrategy filteringStrategy = FilteringStrategyFactory.CreateFilteringStrategy(options.FilteringStrategy);
+            FilteringStrategy filteringStrategy = FilteringStrategyFactory.CreateFilteringStrategy(options.FilteringStrategy);
             //GroupingStrategy groupingStrategy = GroupingStrategyFactory.CreateGroupingStrategy(options.GroupingStrategy);
 
-            var filer = new WorkItemFiler(filingTarget /*, filteringStrategy, groupingStrategy */);
+            var filer = new WorkItemFiler(filingTarget, filteringStrategy /*, groupingStrategy */);
 
             return 0;
         }
@@ -63,20 +62,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         MultitoolResources.WorkItemFiling_ErrorUriIsNotAbsolute,
                         options.ProjectUriString,
                         optionDescription));
-                valid = false;
-            }
-
-            options.FilteringStrategy = options.FilteringStrategy.ToLowerInvariant();
-            if (!s_knownFilteringStrategies.Contains(options.FilteringStrategy))
-            {
-                string optionDescription = CommandUtilities.GetOptionDescription<FileWorkItemsOptions>(nameof(options.FilteringStrategy));
-                Console.Error.WriteLine(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
-                        MultitoolResources.WorkItemFiling_ErrorUnknownFilteringStrategy,
-                        options.FilteringStrategy,
-                        optionDescription,
-                        $"'{string.Join("', '", s_knownFilteringStrategies)}'"));
                 valid = false;
             }
 

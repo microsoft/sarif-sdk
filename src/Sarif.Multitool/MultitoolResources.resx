@@ -132,10 +132,6 @@
   <data name="ResultDifferenceSummary" xml:space="preserve">
     <value>{0:n0} identical, {1:n0} changed</value>
   </data>
-  <data name="WorkItemFiling_ErrorUnknownFilteringStrategy" xml:space="preserve">
-    <value>The value '{0}' of the '{1}' option is not a known filtering strategy.
-Valid values are: {2}.</value>
-  </data>
   <data name="WorkItemFiling_ErrorUnknownGroupingStrategy" xml:space="preserve">
     <value>The value '{0}' of the '{1}' option is not a known grouping strategy.
 Valid values are: {2}.</value>
