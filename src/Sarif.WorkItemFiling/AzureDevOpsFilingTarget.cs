@@ -12,6 +12,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
     /// </summary>
     public class AzureDevOpsFilingTarget : FilingTarget
     {
+        public override Task Connect(Uri projectUri)
+        {
+            return Task.CompletedTask;
+        }
+
         public override Task<IEnumerable<ResultGroup>> FileWorkItems(IEnumerable<ResultGroup> resultGroups)
         {
             throw new NotImplementedException();
