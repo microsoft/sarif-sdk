@@ -17,9 +17,18 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
             return Task.CompletedTask;
         }
 
-        public override Task<IEnumerable<ResultGroup>> FileWorkItems(IEnumerable<ResultGroup> resultGroups)
+        public override async Task<IEnumerable<ResultGroup>> FileWorkItems(IEnumerable<ResultGroup> resultGroups)
         {
-            throw new NotImplementedException();
+            foreach(ResultGroup resultGroup in resultGroups)
+            {
+                var uris = new List<Uri>(new[] { new Uri("https://workitem.example.com/" + Guid.NewGuid().ToString()) });
+                foreach(Result result in resultGroup.Results)
+                {
+                    result.WorkItemUris = uris;
+                }
+            }
+
+            return await Task.FromResult(resultGroups);
         }
     }
 }
