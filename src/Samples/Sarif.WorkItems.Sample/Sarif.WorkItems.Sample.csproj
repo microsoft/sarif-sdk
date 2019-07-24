@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Collections.Immutable, Version=1.2.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Collections.Immutable.1.5.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
@@ -62,8 +65,14 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+    <EmbeddedResource Include="SampleTestFiles\Baseline.sarif" />
+    <EmbeddedResource Include="SampleTestFiles\Current.sarif" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Sarif.WorkItemFiling\Sarif.WorkItemFiling.csproj">
+      <Project>{ffe05523-af43-416b-811d-dbb6d99668c5}</Project>
+      <Name>Sarif.WorkItemFiling</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Sarif\Sarif.csproj">
       <Project>{d669e761-7e74-48b8-85a6-4b571312d2c7}</Project>
       <Name>Sarif</Name>
