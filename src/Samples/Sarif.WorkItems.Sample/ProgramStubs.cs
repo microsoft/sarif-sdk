@@ -2,10 +2,14 @@
 // No need to review this file
 
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 
-namespace Sarif.Sdk.Sample
+namespace Sarif.WorkItems.Sample
 {
-    partial class Program
+    public partial class Program
     {
 
 #if PREVIOUS

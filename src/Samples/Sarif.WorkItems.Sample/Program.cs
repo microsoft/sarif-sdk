@@ -78,7 +78,7 @@ namespace Sarif.WorkItems.Sample
             catch (Exception exception) { LogFailure(exception); }
 
             // Save out our updated baselined file.
-            File.WriteAllText(outputFilePath, JsonConvert.SerializeObject(matchedSarif);
+            File.WriteAllText(outputFilePath, JsonConvert.SerializeObject(matchedSarif));
 
             // End mock up.
             return 0;
