@@ -4,6 +4,7 @@
 using System;
 using System.Globalization;
 using System.Linq;
+using Microsoft.CodeAnalysis.Sarif.WorkItemFiling;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
@@ -19,6 +20,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             if (!ValidateOptions(options)) { return 1; }
 
             _options = options;
+
+            FilingTarget filingTarget = FilingTargetFactory.CreateFilingTarget(options.ProjectUriString);
+            //FilteringStrategy filteringStrategy = FilteringStrategyFactory.CreateFilteringStrategy(options.FilteringStrategy);
+            //GroupingStrategy groupingStrategy = GroupingStrategyFactory.CreateGroupingStrategy(options.GroupingStrategy);
+
+            var filer = new WorkItemFiler(filingTarget /*, filteringStrategy, groupingStrategy */);
 
             return 0;
         }
