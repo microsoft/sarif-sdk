@@ -106,16 +106,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The value &apos;{0}&apos; of the &apos;{1}&apos; option is not a known grouping strategy.
-        ///Valid values are: {2}..
-        /// </summary>
-        internal static string WorkItemFiling_ErrorUnknownGroupingStrategy {
-            get {
-                return ResourceManager.GetString("WorkItemFiling_ErrorUnknownGroupingStrategy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The value &apos;{0}&apos; of the &apos;{1}&apos; option is not an absolute URI..
         /// </summary>
         internal static string WorkItemFiling_ErrorUriIsNotAbsolute {

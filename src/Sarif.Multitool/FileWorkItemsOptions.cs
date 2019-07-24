@@ -31,6 +31,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             "grouping-strategy",
             HelpText = "Specifies the strategy for grouping SARIF results into sets that should each be filed together as a single work item. Must be 'perResult'.",
             Required = true)]
-        public string GroupingStrategy { get; internal set; }
+        public GroupingStrategyKind GroupingStrategy { get; internal set; }
     }
 }

@@ -3,28 +3,21 @@
 
 using System;
 using System.Globalization;
-using System.Linq;
 using Microsoft.CodeAnalysis.Sarif.WorkItemFiling;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     public class FileWorkItemsCommand : CommandBase
     {
-        private static readonly string[] s_knownGroupingStrategies = new[] { "perresult" };
-
-        private FileWorkItemsOptions _options;
-
         public int Run(FileWorkItemsOptions options)
         {
             if (!ValidateOptions(options)) { return 1; }
 
-            _options = options;
-
             FilingTarget filingTarget = FilingTargetFactory.CreateFilingTarget(options.ProjectUriString);
             FilteringStrategy filteringStrategy = FilteringStrategyFactory.CreateFilteringStrategy(options.FilteringStrategy);
-            //GroupingStrategy groupingStrategy = GroupingStrategyFactory.CreateGroupingStrategy(options.GroupingStrategy);
+            GroupingStrategy groupingStrategy = GroupingStrategyFactory.CreateGroupingStrategy(options.GroupingStrategy);
 
-            var filer = new WorkItemFiler(filingTarget, filteringStrategy /*, groupingStrategy */);
+            var filer = new WorkItemFiler(filingTarget, filteringStrategy, groupingStrategy);
 
             return 0;
         }
@@ -64,22 +57,6 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         optionDescription));
                 valid = false;
             }
-
-            options.GroupingStrategy = options.GroupingStrategy.ToLowerInvariant();
-            if (!s_knownGroupingStrategies.Contains(options.GroupingStrategy))
-            {
-                string optionDescription = CommandUtilities.GetOptionDescription<FileWorkItemsOptions>(nameof(options.GroupingStrategy));
-                Console.Error.WriteLine(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
-                        MultitoolResources.WorkItemFiling_ErrorUnknownGroupingStrategy,
-                        options.GroupingStrategy,
-                        optionDescription,
-                        $"'{string.Join("', '", s_knownGroupingStrategies)}'"));
-                valid = false;
-            }
-
-            if (valid) { Console.WriteLine("Command line argumengs are valid."); }
 
             return valid;
         }
