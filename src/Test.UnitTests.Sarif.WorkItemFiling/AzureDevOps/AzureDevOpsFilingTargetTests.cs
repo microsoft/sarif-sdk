@@ -6,12 +6,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
-using Microsoft.CodeAnalysis.Sarif.WorkItemFiling.AzureDevOps;
-using Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Grouping;
+using Microsoft.CodeAnalysis.Sarif.WorkItemFiling;
 using Moq;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling.AzureDevOps
+namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
 {
     public class AzureDevOpsFilingTargetTests
     {

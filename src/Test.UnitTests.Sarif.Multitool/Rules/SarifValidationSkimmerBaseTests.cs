@@ -6,7 +6,7 @@ using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Multitool.Rules;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Sarif.Multitool.UnitTests.Rules
+namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
 {
     public class SarifValidationSkimmerBaseTests
     {

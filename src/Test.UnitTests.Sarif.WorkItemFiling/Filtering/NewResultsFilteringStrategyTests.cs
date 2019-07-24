@@ -5,11 +5,11 @@ using System;
 using System.Collections.Generic;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
-using Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Filtering;
+using Microsoft.CodeAnalysis.Sarif.WorkItemFiling;
 using Microsoft.CodeAnalysis.Test.Utilities.Sarif;
 using Xunit;
 
-namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling.Filtering
+namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
 {
     public class NewResultsFilteringStrategyTests
     {

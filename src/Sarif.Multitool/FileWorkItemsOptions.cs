@@ -1,18 +1,35 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using CommandLine;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
 {
     [Verb("file-work-items", HelpText = "Send SARIF results to a work item tracking system such as GitHub or Azure DevOps")]
-    public class FileWorkItemsOptions
+    public class FileWorkItemsOptions : SingleFileOptionsBase
     {
         [Option(
-            'f',
-            "filing-target-type",
-            HelpText = "The type of system to which work items are to be filed. Must be one of 'github' and 'azureDevOps'.",
+            "project-uri",
+            HelpText = "The absolute URI of the project in which the work items are to be filed, for example https://dev.azure.com/{org}/{project} or https://github.com/{org}/{project}.",
             Required = true)]
-        public string TargetType { get; internal set; }
+        public string ProjectUriString { get; internal set; }
+
+        // For an explanation of the difference between ProjectUriString and ProjectUri, see FileWorkItemsCommand.ValidateOptions.
+        public Uri ProjectUri { get; internal set; }
+
+        [Option(
+            "filtering-strategy",
+            HelpText = "Specifies the strategy for selecting which results to file. Must be one of 'new' and 'all'.",
+            Required = true)]
+        public string FilteringStrategy { get; internal set; }
+
+        [Option(
+            'g',
+            "grouping-strategy",
+            HelpText = "Specifies the strategy for grouping SARIF results into sets that should each be filed together as a single work item. Must be 'perResult'.",
+            Required = true)]
+        public string GroupingStrategy { get; internal set; }
     }
 }

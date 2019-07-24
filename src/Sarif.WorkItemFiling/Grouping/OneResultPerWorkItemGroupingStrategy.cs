@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Grouping
+namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 {
     /// <summary>
     /// A grouping strategy that files each SARIF result as a separate work item.

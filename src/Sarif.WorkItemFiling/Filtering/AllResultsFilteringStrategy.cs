@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Filtering
+namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 {
     /// <summary>
     /// A filtering strategy that selects all results.

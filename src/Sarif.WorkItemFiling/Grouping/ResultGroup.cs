@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 
-namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling.Grouping
+namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 {
     /// <summary>
     /// Represents a collection of SARIF results that should be filed as a single work item.
