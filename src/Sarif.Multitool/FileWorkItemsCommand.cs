@@ -19,6 +19,15 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             var filer = new WorkItemFiler(filingTarget, filteringStrategy, groupingStrategy);
 
+            try
+            {
+                filer.FileWorkItems(options.InputFilePath).Wait();
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine(ex);
+            }
+
             return 0;
         }
 
