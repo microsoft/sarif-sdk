@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi;
 using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
@@ -25,11 +24,8 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         // TEMPORARY: To demonstrate filing multiple bugs.
         private int _bugNumber = 1;
 
-        public override async Task Connect(Uri projectUri)
+        public override async Task Connect(Uri projectUri, string personalAccessToken)
         {
-            // TEMPORARY: The credential will come from the key vault.
-            string pat = ReadMaskedString("Enter PAT");
-
             string projectUriString = projectUri.OriginalString;
             int lastSlashIndex = projectUriString.LastIndexOf('/');
             _projectName = lastSlashIndex > 0 && lastSlashIndex < projectUriString.Length - 1
@@ -39,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
             string accountUriString = projectUriString.Substring(0, lastSlashIndex);
             Uri accountUri = new Uri(accountUriString, UriKind.Absolute);
 
-            VssConnection connection = new VssConnection(accountUri, new VssBasicCredential(string.Empty, pat));
+            VssConnection connection = new VssConnection(accountUri, new VssBasicCredential(string.Empty, personalAccessToken));
             await connection.ConnectAsync();
 
             _witClient = await connection.GetClientAsync<WorkItemTrackingHttpClient>();
@@ -69,38 +65,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
             }
 
             return resultGroups;
-        }
-
-        // TEMPORARY: The credential will come from the key vault.
-        private static string ReadMaskedString(string prompt)
-        {
-            Console.Write(prompt + ": ");
-
-            var builder = new StringBuilder();
-            while (true)
-            {
-                ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-                if (keyInfo.Key == ConsoleKey.Enter)
-                {
-                    break;
-                }
-                else if (keyInfo.Key == ConsoleKey.Backspace)
-                {
-                    if (builder.Length > 0)
-                    {
-                        builder.Remove(builder.Length - 1, builder.Length - 1);
-                        Console.Write("\b \b");
-                    }
-                }
-                else if (keyInfo.KeyChar != '\u0000')
-                {
-                    builder.Append(keyInfo.KeyChar);
-                    Console.Write("*");
-                }
-            }
-
-            Console.WriteLine();
-            return builder.ToString();
         }
     }
 }

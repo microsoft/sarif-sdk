@@ -19,10 +19,13 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         /// <param name="projectUri">
         /// The URI of the project.
         /// </param>
+        /// <param name="personalAccessToken">
+        /// TEMPORARY: Specifes the personal access used to access the project. Default: null.
+        /// </param>
         /// <remarks>
         /// We provide an empty implementation because not all systems require an explicit connection step.
         /// </remarks>
-        public virtual Task Connect(Uri projectUri)
+        public virtual Task Connect(Uri projectUri, string personalAccessToken = null)
         {
             return Task.CompletedTask;
         }

@@ -61,8 +61,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         /// The path to the output SARIF file, which is the same as the input file except that
         /// the result.workItemsUris property is populated.
         /// </param>
+        /// <param name="personalAccessToken">
+        /// TEMPORARY: Specifes the personal access used to access the project. Default: null.
+        /// </param>
         /// <param name="force">
-        /// If true, overrwite the output file if it already exists.
+        /// If true, overrwite the output file if it already exists. Default: false.
         /// </param>
         /// <returns>
         /// The set of results that were filed as work items.
@@ -71,6 +74,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
             Uri projectUri,
             string logFilePath,
             string outputFilePath,
+            string personalAccessToken = null,
             bool force = false,
             bool prettyPrint = true)
         {
@@ -82,7 +86,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 throw new ArgumentException($"The output file '{outputFilePath}' already exists. Use --force to overrwrite.");
             }
 
-            await _filingTarget.Connect(projectUri);
+            await _filingTarget.Connect(projectUri, personalAccessToken);
 
             string logFileContents = FileSystem.ReadAllText(logFilePath);
 

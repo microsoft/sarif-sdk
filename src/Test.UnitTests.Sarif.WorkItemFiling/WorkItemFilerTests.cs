@@ -189,7 +189,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
             var mockFilingTarget = new Mock<FilingTarget>();
 
             mockFilingTarget
-                .Setup(x => x.Connect(It.IsAny<Uri>()))
+                .Setup(x => x.Connect(It.IsAny<Uri>(), It.IsAny<string>()))
                 .CallBase(); // The base class implementation does nothing, so this is safe.
 
             // Moq magic: you can return whatever was passed to a method by providing

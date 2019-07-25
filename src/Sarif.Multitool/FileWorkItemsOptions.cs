@@ -35,6 +35,11 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
         public GroupingStrategyKind GroupingStrategy { get; internal set; }
 
         [Option(
+            "personal-access-token",
+            HelpText = "TEMPORARY: Specifes the personal access used to access the project")]
+        public string PersonalAccessToken { get; internal set; }
+
+        [Option(
             "test-option-validation",
             HelpText = "For unit tests: allows us to just validate the options and return",
             Hidden = true)]

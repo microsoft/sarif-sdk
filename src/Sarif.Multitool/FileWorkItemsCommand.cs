@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             try
             {
-                filer.FileWorkItems(options.ProjectUri, options.InputFilePath, options.OutputFilePath, options.Force, options.PrettyPrint).Wait();
+                filer.FileWorkItems(options.ProjectUri, options.InputFilePath, options.OutputFilePath, options.PersonalAccessToken, options.Force, options.PrettyPrint).Wait();
             }
             catch (Exception ex)
             {
