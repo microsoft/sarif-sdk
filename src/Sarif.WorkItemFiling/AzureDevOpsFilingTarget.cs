@@ -69,7 +69,6 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 }
             }
 
-            // TODO: Get work item URIs into the results.
             return await Task.FromResult(resultGroups);
         }
 
