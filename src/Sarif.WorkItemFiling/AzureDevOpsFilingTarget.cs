@@ -47,12 +47,30 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
             {
                 var patchDocument = new JsonPatchDocument
                 {
-                    new JsonPatchOperation()
+                    new JsonPatchOperation
                     {
                         Operation = Operation.Add,
-                        Path = "/fields/System.Title",
+                        Path = $"/fields/{WorkItemFields.Title}",
                         Value = $"Bug #{_bugNumber} was added programmatically!"
-                    }
+                    },
+                    new JsonPatchOperation
+                    {
+                        Operation = Operation.Add,
+                        Path = $"/fields/{WorkItemFields.Description}",
+                        Value = $"This bug is very important. Let's fix it!"
+                    },
+                    new JsonPatchOperation
+                    {
+                        Operation = Operation.Add,
+                        Path = $"/fields/{WorkItemFields.AreaPath}",
+                        Value = $@"{_projectName}\TopLevel\SecondLevel\Leaf"
+                    },
+                    new JsonPatchOperation
+                    {
+                        Operation = Operation.Add,
+                        Path = $"/fields/{WorkItemFields.Tags}",
+                        Value = "security,compliance"
+                    },
                 };
 
                 ++_bugNumber;
