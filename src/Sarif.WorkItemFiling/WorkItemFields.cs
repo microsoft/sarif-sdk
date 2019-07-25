@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         public const string Description = "System.Description";
 
         /// <summary>
-        /// Tags for Work Item.
+        /// Tags field name.
         /// </summary>
         public const string Tags = "System.Tags";
 
