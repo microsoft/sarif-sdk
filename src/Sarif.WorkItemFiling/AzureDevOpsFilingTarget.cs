@@ -49,16 +49,15 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         {
             foreach (ResultGroup resultGroup in resultGroups)
             {
-                var patchDocument = new JsonPatchDocument();
-
-                patchDocument.Add(
+                var patchDocument = new JsonPatchDocument
+                {
                     new JsonPatchOperation()
                     {
                         Operation = Operation.Add,
                         Path = "/fields/System.Title",
                         Value = $"Bug #{_bugNumber} was added programmatically!"
                     }
-                );
+                };
 
                 ++_bugNumber;
 
@@ -69,7 +68,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                 }
             }
 
-            return await Task.FromResult(resultGroups);
+            return resultGroups;
         }
 
         // TEMPORARY: The credential will come from the key vault.
