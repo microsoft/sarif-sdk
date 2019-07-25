@@ -3,7 +3,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.TeamFoundation.WorkItemTracking.WebApi;
+using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
+using Microsoft.VisualStudio.Services.Common;
+using Microsoft.VisualStudio.Services.WebApi;
+using Microsoft.VisualStudio.Services.WebApi.Patch;
+using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
 
 namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 {
@@ -12,23 +19,90 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
     /// </summary>
     public class AzureDevOpsFilingTarget : FilingTarget
     {
-        public override Task Connect(Uri projectUri)
+        private WorkItemTrackingHttpClient _witClient;
+        private string _projectName;
+
+        // TEMPORARY: To demonstrate filing multiple bugs.
+        private int _bugNumber = 1;
+
+        public override async Task Connect(Uri projectUri)
         {
-            return Task.CompletedTask;
+            // TEMPORARY: The credential will come from the key vault.
+            string pat = ReadMaskedString("Enter PAT");
+
+            string projectUriString = projectUri.OriginalString;
+            int lastSlashIndex = projectUriString.LastIndexOf('/');
+            _projectName = lastSlashIndex > 0 && lastSlashIndex < projectUriString.Length - 1
+                ? projectUriString.Substring(lastSlashIndex + 1)
+                : throw new ArgumentException($"Cannot parse project name from URI {projectUriString}");
+
+            string accountUriString = projectUriString.Substring(0, lastSlashIndex);
+            Uri accountUri = new Uri(accountUriString, UriKind.Absolute);
+
+            VssConnection connection = new VssConnection(accountUri, new VssBasicCredential(string.Empty, pat));
+            await connection.ConnectAsync();
+
+            _witClient = await connection.GetClientAsync<WorkItemTrackingHttpClient>();
         }
 
         public override async Task<IEnumerable<ResultGroup>> FileWorkItems(IEnumerable<ResultGroup> resultGroups)
         {
-            foreach(ResultGroup resultGroup in resultGroups)
+            foreach (ResultGroup resultGroup in resultGroups)
             {
-                var uris = new List<Uri>(new[] { new Uri("https://workitem.example.com/" + Guid.NewGuid().ToString()) });
-                foreach(Result result in resultGroup.Results)
+                var patchDocument = new JsonPatchDocument();
+
+                patchDocument.Add(
+                    new JsonPatchOperation()
+                    {
+                        Operation = Operation.Add,
+                        Path = "/fields/System.Title",
+                        Value = $"Bug #{_bugNumber} was added programmatically!"
+                    }
+                );
+
+                ++_bugNumber;
+
+                WorkItem workItem = await _witClient.CreateWorkItemAsync(patchDocument, project: _projectName, "Issue");
+                foreach (Result result in resultGroup.Results)
                 {
-                    result.WorkItemUris = uris;
+                    result.WorkItemUris = new List<Uri> { new Uri(workItem.Url, UriKind.Absolute) };
                 }
             }
 
+            // TODO: Get work item URIs into the results.
             return await Task.FromResult(resultGroups);
+        }
+
+        // TEMPORARY: The credential will come from the key vault.
+        private static string ReadMaskedString(string prompt)
+        {
+            Console.Write(prompt + ": ");
+
+            var builder = new StringBuilder();
+            while (true)
+            {
+                ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+                if (keyInfo.Key == ConsoleKey.Enter)
+                {
+                    break;
+                }
+                else if (keyInfo.Key == ConsoleKey.Backspace)
+                {
+                    if (builder.Length > 0)
+                    {
+                        builder.Remove(builder.Length - 1, builder.Length - 1);
+                        Console.Write("\b \b");
+                    }
+                }
+                else if (keyInfo.KeyChar != '\u0000')
+                {
+                    builder.Append(keyInfo.KeyChar);
+                    Console.Write("*");
+                }
+            }
+
+            Console.WriteLine();
+            return builder.ToString();
         }
     }
 }

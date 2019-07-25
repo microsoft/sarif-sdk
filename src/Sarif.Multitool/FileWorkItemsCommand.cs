@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             try
             {
-                filer.FileWorkItems(options.InputFilePath).Wait();
+                filer.FileWorkItems(options.ProjectUri, options.InputFilePath).Wait();
             }
             catch (Exception ex)
             {

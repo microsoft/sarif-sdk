@@ -17,6 +17,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
     public class WorkItemFilerTests
     {
         private static readonly ResourceExtractor s_extractor = new ResourceExtractor(typeof(WorkItemFilerTests));
+        private static readonly Uri s_testUri = new Uri("https://github.com/Microsoft/sarif-sdk");
 
         [Fact]
         public void WorkItemFiler_RequiresAFilingTarget()
@@ -54,11 +55,22 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         }
 
         [Fact]
+        public async void WorkItemFiler_ChecksProjectUriArgument()
+        {
+            const string LogFilePath = "test.sarif";
+            var filer = CreateWorkItemFiler();
+
+            Func<Task> action = async () => await filer.FileWorkItems(projectUri: null, logFilePath: LogFilePath);
+
+            await action.ShouldThrowAsync<ArgumentNullException>();
+        }
+
+        [Fact]
         public async void WorkItemFiler_ChecksPathArgument()
         {
             var filer = CreateWorkItemFiler();
 
-            Func<Task> action = async () => await filer.FileWorkItems(logFilePath: null);
+            Func<Task> action = async () => await filer.FileWorkItems(s_testUri, logFilePath: null);
 
             await action.ShouldThrowAsync<ArgumentNullException>();
         }
@@ -69,7 +81,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
             const string LogFilePath = "Invalid.sarif";
             WorkItemFiler filer = CreateWorkItemFiler(LogFilePath);
 
-            Func<Task> action = async () => await filer.FileWorkItems(LogFilePath);
+            Func<Task> action = async () => await filer.FileWorkItems(s_testUri, LogFilePath);
 
             await action.ShouldThrowAsync<ArgumentException>();
         }
@@ -80,7 +92,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
             const string LogFilePath = "NullResults.sarif";
             WorkItemFiler filer = CreateWorkItemFiler(LogFilePath);
 
-            Func<Task> action = async () => await filer.FileWorkItems(LogFilePath);
+            Func<Task> action = async () => await filer.FileWorkItems(s_testUri, LogFilePath);
 
             await action.ShouldNotThrowAsync();
         }
@@ -91,7 +103,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
             const string LogFilePath = "EmptyResults.sarif";
             WorkItemFiler filer = CreateWorkItemFiler(LogFilePath);
 
-            Func<Task> action = async () => await filer.FileWorkItems(LogFilePath);
+            Func<Task> action = async () => await filer.FileWorkItems(s_testUri, LogFilePath);
 
             await action.ShouldNotThrowAsync();
         }
@@ -102,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
             const string LogFilePath = "NewAndOldResults.sarif";
             WorkItemFiler filer = CreateWorkItemFiler(LogFilePath);
 
-            IEnumerable<ResultGroup> filedWorkItems = await filer.FileWorkItems(LogFilePath);
+            IEnumerable<ResultGroup> filedWorkItems = await filer.FileWorkItems(s_testUri, LogFilePath);
 
             // The test file NewAndOldResults.sarif contains 5 results, only 2 of them
             // have "baselineState": "new", but the "all results" filter will take all of them.
@@ -121,7 +133,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
             SarifLog sarifLog = Microsoft.CodeAnalysis.Sarif.Utilities.GetSarifLogFromResource(s_extractor, LogFilePath);
             int expectedResultsCount = sarifLog.Runs.SelectMany(run => run.Results).Count();
 
-            IEnumerable<ResultGroup> filedWorkItems = await filer.FileWorkItems(LogFilePath);
+            IEnumerable<ResultGroup> filedWorkItems = await filer.FileWorkItems(s_testUri, LogFilePath);
 
             filedWorkItems.Count().Should().Be(expectedResultsCount);
         }
@@ -140,7 +152,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
                 CreateGroupingStrategy(),
                 CreateMockFileSystem(LogFilePath));
 
-            Func<Task> action = async () => await filer.FileWorkItems(LogFilePath);
+            Func<Task> action = async () => await filer.FileWorkItems(s_testUri, LogFilePath);
 
             await action.ShouldThrowAsync<TestException>();
         }
@@ -159,7 +171,7 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
                 mockGroupingStrategy.Object,
                 CreateMockFileSystem(LogFilePath));
 
-            Func<Task> action = async () => await filer.FileWorkItems(LogFilePath);
+            Func<Task> action = async () => await filer.FileWorkItems(s_testUri, LogFilePath);
 
             await action.ShouldThrowAsync<TestException>();
         }
@@ -174,6 +186,10 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.WorkItemFiling
         private static FilingTarget CreateMockFilingTarget()
         {
             var mockFilingTarget = new Mock<FilingTarget>();
+
+            mockFilingTarget
+                .Setup(x => x.Connect(It.IsAny<Uri>()))
+                .CallBase(); // The base class implementation does nothing, so this is safe.
 
             // Moq magic: you can return whatever was passed to a method by providing
             // a lambda (rather than a fixed value) to Returns or ReturnsAsync.
