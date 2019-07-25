@@ -57,13 +57,30 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         /// <param name="logFilePath">
         /// The path to the SARIF log file.
         /// </param>
+        /// <param name="outputFilePath">
+        /// The path to the output SARIF file, which is the same as the input file except that
+        /// the result.workItemsUris property is populated.
+        /// </param>
+        /// <param name="force">
+        /// If true, overrwite the output file if it already exists.
+        /// </param>
         /// <returns>
         /// The set of results that were filed as work items.
         /// </returns>
-        public async Task<IEnumerable<ResultGroup>> FileWorkItems(Uri projectUri, string logFilePath)
+        public async Task<IEnumerable<ResultGroup>> FileWorkItems(
+            Uri projectUri,
+            string logFilePath,
+            string outputFilePath,
+            bool force = false,
+            bool prettyPrint = true)
         {
             if (projectUri == null) { throw new ArgumentNullException(nameof(projectUri)); }
             if (logFilePath == null) { throw new ArgumentNullException(nameof(logFilePath)); }
+
+            if (FileSystem.FileExists(outputFilePath) && !force)
+            {
+                throw new ArgumentException($"The output file '{outputFilePath}' already exists. Use --force to overrwrite.");
+            }
 
             await _filingTarget.Connect(projectUri);
 
@@ -91,6 +108,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                     allFiledResults.AddRange(filedResultsForRun);
                 }
             }
+
+            Formatting formatting = prettyPrint ? Formatting.Indented : Formatting.None;
+            string updatedLogFileContents = JsonConvert.SerializeObject(sarifLog, formatting);
+
+            FileSystem.WriteAllText(outputFilePath, updatedLogFileContents);
 
             return allFiledResults;
         }

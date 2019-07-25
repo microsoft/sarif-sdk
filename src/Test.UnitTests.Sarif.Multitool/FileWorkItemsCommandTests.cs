@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.Generic;
+using System.Linq;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif.Multitool;
 using Xunit;
@@ -10,28 +11,36 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
 {
     public class FileWorkItemsCommandTests
     {
-        [Theory]
-        [MemberData(nameof(ValidTestCases))]
-        public void FileWorkItemsCommand_AcceptsValidCommandLines(string[] args)
+        [Fact]
+        public void FileWorkItemsCommand_AcceptsOrRejectsCommandLinesAsAppropriate()
         {
-            int exitCode = Program.Main(args);
+            var failedTestCases = new List<string>();
 
-            exitCode.Should().Be(0);
+            foreach (TestCase testCase in s_testCases)
+            {
+                int exitCode = Program.Main(testCase.Args);
+
+                if (exitCode != testCase.ExpectedExitCode)
+                {
+                    failedTestCases.Add(testCase.Title);
+                }
+            }
+
+            failedTestCases.Should().BeEmpty();
         }
 
-        [Theory]
-        [MemberData(nameof(InvalidTestCases))]
-        public void FileWorkItemsCommand_RejectsInvalidCommandLines(string[] args)
+        private class TestCase
         {
-            int exitCode = Program.Main(args);
-
-            exitCode.Should().Be(1);
+            public string Title;
+            public string[] Args;
+            public int ExpectedExitCode;
         }
 
-        public static IEnumerable<object[]> ValidTestCases =>
-            new List<object[]> {
-                new object[] {
-                    new[] {
+        private static readonly TestCase[] s_testCases =
+            new TestCase[] {
+                new TestCase {
+                    Title = "AzureDevOps host",
+                    Args = new string[] {
                         "file-work-items",
                         "--test-option-validation",
                         "--project-uri",
@@ -40,12 +49,15 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                         "NewResults",
                         "--grouping-strategy",
                         "PerResult",
+                        "--inline",
                         "test.sarif",
-                    }
+                    },
+                    ExpectedExitCode = 0
                 },
 
-                new object[] {
-                    new[] {
+                new TestCase {
+                    Title = "GitHub host",
+                    Args = new string[] {
                         "file-work-items",
                         "--test-option-validation",
                         "--project-uri",
@@ -54,13 +66,34 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                         "NewResults",
                         "--grouping-strategy",
                         "PerResult",
+                        "--inline",
                         "test.sarif",
-                    }
+                    },
+                    ExpectedExitCode = 0
                 },
 
-                // All valid filtering strategies ("new" was covered above).
-                new object[] {
-                    new[] {
+                new TestCase {
+                    Title = "Output file",
+                    Args = new string[] {
+                        "file-work-items",
+                        "--test-option-validation",
+                        "--project-uri",
+                        "https://dev.azure.com/my-org/my-project",
+                        "--filtering-strategy",
+                        "NewResults",
+                        "--grouping-strategy",
+                        "PerResult",
+                        "--output",
+                        "test-output.sarif",
+                        "test.sarif",
+                    },
+                    ExpectedExitCode = 0
+                },
+
+                // All valid filtering strategies ("NewResults" was covered above).
+                new TestCase {
+                    Title = "AllResults strategy",
+                    Args = new string[] {
                         "file-work-items",
                         "--test-option-validation",
                         "--project-uri",
@@ -69,56 +102,62 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                         "AllResults",
                         "--grouping-strategy",
                         "PerResult",
+                        "--inline",
                         "test.sarif",
-                    }
-                }
+                    },
+                    ExpectedExitCode = 0
+                },
 
-                // There is only one grouping strategy so we don't need any more tests.
-            };
+                // There is only one grouping strategy so we don't need any more positive tests.
 
-        public static IEnumerable<object[]> InvalidTestCases =>
-            new List<object[]> {
-                new object[] {
-                    new[] {
+                new TestCase {
+                    Title = "Missing projectUri",
+                    Args = new string[] {
                         "file-work-items",
                         "--test-option-validation",
-                        // Missing project URI.
                         "--filtering-strategy",
                         "NewResults",
                         "--grouping-strategy",
                         "PerResult",
+                        "--inline",
                         "test.sarif",
-                    }
+                    },
+                    ExpectedExitCode = 1
                 },
 
-                new object[] {
-                    new[] {
+                new TestCase {
+                    Title = "Missing filtering-strategy",
+                    Args = new string[] {
                         "file-work-items",
                         "--test-option-validation",
                         "--project-uri",
                         "https://dev.azure.com/my-org/my-project",
-                        // Missing filtering strategy.
                         "--grouping-strategy",
                         "PerResult",
+                        "--inline",
                         "test.sarif",
-                    }
+                    },
+                    ExpectedExitCode = 1
                 },
 
-                new object[] {
-                    new[] {
+                new TestCase {
+                    Title = "Missing grouping-strategy",
+                    Args = new string[] {
                         "file-work-items",
                         "--test-option-validation",
                         "--project-uri",
                         "https://dev.azure.com/my-org/my-project",
                         "--filtering-strategy",
                         "NewResults",
-                        // Missing grouping strategy.
+                        "--inline",
                         "test.sarif"
                     },
+                    ExpectedExitCode = 1
                 },
 
-                new object[] {
-                    new[] {
+                new TestCase {
+                    Title = "Missing inputFile",
+                    Args = new string[] {
                         "file-work-items",
                         "--test-option-validation",
                         "--project-uri",
@@ -127,49 +166,95 @@ namespace Microsoft.CodeAnalysis.Test.UnitTests.Sarif.Multitool
                         "NewResults",
                         "--grouping-strategy",
                         "PerResult",
-                        // Missing input file path.
-                    }
+                        "--inline"
+                    },
+                    ExpectedExitCode = 1
                 },
 
-                new object[] {
-                    new[] {
+                new TestCase {
+                    Title = "Relative projectUri",
+                    Args = new string[] {
                         "file-work-items",
                         "--test-option-validation",
                        "--project-uri",
-                        "dev.azure.com/my-org/my-project",     // Relative project URI.
+                        "dev.azure.com/my-org/my-project",
                         "--filtering-strategy",
                         "NewResults",
                         "--grouping-strategy",
                         "PerResult",
+                        "--inline",
                         "test.sarif",
-                    }
+                    },
+                    ExpectedExitCode = 1
                 },
 
-                new object[] {
-                    new[] {
+                new TestCase {
+                    Title = "Unknown filtering-strategy",
+                    Args = new string[] {
                         "file-work-items",
                         "--test-option-validation",
                         "--project-uri",
                         "https://dev.azure.com/my-org/my-project",
                         "--filtering-strategy",
-                        "OldResults",                          // Unknown filtering strategy.
+                        "OldResults",
                         "--grouping-strategy",
-                        "perResult",
+                        "PerResult",
+                        "--inline",
                         "test.sarif",
-                    }
+                    },
+                    ExpectedExitCode = 1
                 },
 
-                new object[] {
-                    new[] {
+                new TestCase {
+                    Title = "Unknown grouping-strategy",
+                    Args = new string[] {
                         "file-work-items",
+                        "--test-option-validation",
                         "--project-uri",
                         "https://dev.azure.com/my-org/my-project",
                         "--filtering-strategy",
                         "NewResults",
                         "--grouping-strategy",
-                        "PerCentury",                   // Unknown grouping strategy.
+                        "PerCentury",
+                        "--inline",
                         "test.sarif",
-                    }
+                    },
+                    ExpectedExitCode = 1
+                },
+
+                new TestCase {
+                    Title = "Both output and inline",
+                    Args = new string[] {
+                        "file-work-items",
+                        "--test-option-validation",
+                        "--project-uri",
+                        "https://dev.azure.com/my-org/my-project",
+                        "--filtering-strategy",
+                        "NewResults",
+                        "--grouping-strategy",
+                        "PerResult",
+                        "--output",
+                        "test-output.sarif",
+                        "--inline",
+                        "test.sarif"
+                    },
+                    ExpectedExitCode = 1
+                },
+
+                new TestCase {
+                    Title = "Neither output nor inline",
+                    Args = new string[] {
+                        "file-work-items",
+                        "--test-option-validation",
+                        "--project-uri",
+                        "https://dev.azure.com/my-org/my-project",
+                        "--filtering-strategy",
+                        "NewResults",
+                        "--grouping-strategy",
+                        "PerResult",
+                        "test.sarif",
+                    },
+                    ExpectedExitCode = 1
                 }
             };
     }

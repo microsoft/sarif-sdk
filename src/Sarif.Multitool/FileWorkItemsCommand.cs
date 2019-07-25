@@ -3,6 +3,7 @@
 
 using System;
 using System.Globalization;
+using Microsoft.CodeAnalysis.Sarif.Driver;
 using Microsoft.CodeAnalysis.Sarif.WorkItemFiling;
 
 namespace Microsoft.CodeAnalysis.Sarif.Multitool
@@ -16,6 +17,12 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             // For unit tests: allow us to just validate the options and return.
             if (options.TestOptionValidation) { return 0; }
 
+            if (options.Inline)
+            {
+                options.OutputFilePath = options.InputFilePath;
+                options.Force = true;
+            }
+
             FilingTarget filingTarget = FilingTargetFactory.CreateFilingTarget(options.ProjectUriString);
             FilteringStrategy filteringStrategy = FilteringStrategyFactory.CreateFilteringStrategy(options.FilteringStrategy);
             GroupingStrategy groupingStrategy = GroupingStrategyFactory.CreateGroupingStrategy(options.GroupingStrategy);
@@ -24,7 +31,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
 
             try
             {
-                filer.FileWorkItems(options.ProjectUri, options.InputFilePath).Wait();
+                filer.FileWorkItems(options.ProjectUri, options.InputFilePath, options.OutputFilePath, options.Force, options.PrettyPrint).Wait();
             }
             catch (Exception ex)
             {
@@ -34,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
             return 0;
         }
 
-        private static bool ValidateOptions(FileWorkItemsOptions options)
+        private bool ValidateOptions(FileWorkItemsOptions options)
         {
             bool valid = true;
 
@@ -67,6 +74,30 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool
                         MultitoolResources.WorkItemFiling_ErrorUriIsNotAbsolute,
                         options.ProjectUriString,
                         optionDescription));
+                valid = false;
+            }
+
+            valid = ValidateOutputFileOptions(options) && valid;
+
+            return valid;
+        }
+
+        private bool ValidateOutputFileOptions(SingleFileOptionsBase options)
+        {
+            bool valid = true;
+
+            if ((options.OutputFilePath != null && options.Inline) || (options.OutputFilePath == null && !options.Inline))
+            {
+                string inlineOptionsDescription = CommandUtilities.GetOptionDescription<SingleFileOptionsBase>(nameof(options.Inline));
+                string outputFilePathOptionDescription = CommandUtilities.GetOptionDescription<SingleFileOptionsBase>(nameof(options.OutputFilePath));
+
+                Console.Error.WriteLine(
+                    string.Format(
+                        CultureInfo.CurrentCulture,
+                        MultitoolResources.ErrorOutputFilePathAndInline,
+                        outputFilePathOptionDescription,
+                        inlineOptionsDescription));
+
                 valid = false;
             }
 
