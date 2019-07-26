@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -52,15 +51,42 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
         /// <summary>
         /// Files work items from the results in a SARIF log file.
         /// </summary>
+        /// <param name="projectUri">
+        /// The URI of the project in which the work items are to be filed.
+        /// </param>
         /// <param name="logFilePath">
         /// The path to the SARIF log file.
+        /// </param>
+        /// <param name="outputFilePath">
+        /// The path to the output SARIF file, which is the same as the input file except that
+        /// the result.workItemsUris property is populated.
+        /// </param>
+        /// <param name="personalAccessToken">
+        /// TEMPORARY: Specifes the personal access used to access the project. Default: null.
+        /// </param>
+        /// <param name="force">
+        /// If true, overrwite the output file if it already exists. Default: false.
         /// </param>
         /// <returns>
         /// The set of results that were filed as work items.
         /// </returns>
-        public async Task<IEnumerable<ResultGroup>> FileWorkItems(string logFilePath)
+        public async Task<IEnumerable<ResultGroup>> FileWorkItems(
+            Uri projectUri,
+            string logFilePath,
+            string outputFilePath,
+            string personalAccessToken = null,
+            bool force = false,
+            bool prettyPrint = true)
         {
+            if (projectUri == null) { throw new ArgumentNullException(nameof(projectUri)); }
             if (logFilePath == null) { throw new ArgumentNullException(nameof(logFilePath)); }
+
+            if (FileSystem.FileExists(outputFilePath) && !force)
+            {
+                throw new ArgumentException($"The output file '{outputFilePath}' already exists. Use --force to overrwrite.");
+            }
+
+            await _filingTarget.Connect(projectUri, personalAccessToken);
 
             string logFileContents = FileSystem.ReadAllText(logFilePath);
 
@@ -83,6 +109,11 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
                     allFiledResults.AddRange(filedResultsForRun);
                 }
             }
+
+            Formatting formatting = prettyPrint ? Formatting.Indented : Formatting.None;
+            string updatedLogFileContents = JsonConvert.SerializeObject(sarifLog, formatting);
+
+            FileSystem.WriteAllText(outputFilePath, updatedLogFileContents);
 
             return allFiledResults;
         }
@@ -139,9 +170,5 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 
             return sb.ToString();
         }
-
-        // Only file new results as bugs.
-        private IList<Result> FilterResults(IList<Result> allResults)
-           => allResults.Where(r => r.BaselineState == BaselineState.New).ToList();
     }
 }

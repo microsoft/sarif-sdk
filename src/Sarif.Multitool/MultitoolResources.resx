@@ -129,16 +129,11 @@
   <data name="ErrorNoGroupInFileName" xml:space="preserve">
     <value>No "group" (the part of the file name before the dash) found in '{0}'. All file names must be of the form [Group]-[RunID] and each adjacent pair in the same group is compared.</value>
   </data>
+  <data name="ErrorOutputFilePathAndInline" xml:space="preserve">
+    <value>Exactly one of the '{0}' and '{1}' options must be present.</value>
+  </data>
   <data name="ResultDifferenceSummary" xml:space="preserve">
     <value>{0:n0} identical, {1:n0} changed</value>
-  </data>
-  <data name="WorkItemFiling_ErrorUnknownFilteringStrategy" xml:space="preserve">
-    <value>The value '{0}' of the '{1}' option is not a known filtering strategy.
-Valid values are: {2}.</value>
-  </data>
-  <data name="WorkItemFiling_ErrorUnknownGroupingStrategy" xml:space="preserve">
-    <value>The value '{0}' of the '{1}' option is not a known grouping strategy.
-Valid values are: {2}.</value>
   </data>
   <data name="WorkItemFiling_ErrorUriIsNotAbsolute" xml:space="preserve">
     <value>The value '{0}' of the '{1}' option is not an absolute URI.</value>

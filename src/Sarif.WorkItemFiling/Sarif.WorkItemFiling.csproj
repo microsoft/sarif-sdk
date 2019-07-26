@@ -16,8 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Json.Schema" Version="1.1.0" />
-    <PackageReference Include="Microsoft.Json.Schema.Validation" Version="1.1.0" />
+    <PackageReference Include="Microsoft.Json.Schema" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Json.Schema.Validation" Version="1.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Services.Client" Version="16.143.2" />
+    <PackageReference Include="Microsoft.TeamFoundationServer.Client" Version="16.143.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,10 +39,6 @@
 
   <ItemGroup>
     <EmbeddedResource Include="..\Sarif\Schemata\sarif-2.1.0-rtm.4.json" Link="sarif-2.1.0.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="GitHub\" />
   </ItemGroup>
 
 </Project>

@@ -97,31 +97,20 @@ namespace Microsoft.CodeAnalysis.Sarif.Multitool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exactly one of the &apos;{0}&apos; and &apos;{1}&apos; options must be present..
+        /// </summary>
+        internal static string ErrorOutputFilePathAndInline {
+            get {
+                return ResourceManager.GetString("ErrorOutputFilePathAndInline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0:n0} identical, {1:n0} changed.
         /// </summary>
         internal static string ResultDifferenceSummary {
             get {
                 return ResourceManager.GetString("ResultDifferenceSummary", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The value &apos;{0}&apos; of the &apos;{1}&apos; option is not a known filtering strategy.
-        ///Valid values are: {2}..
-        /// </summary>
-        internal static string WorkItemFiling_ErrorUnknownFilteringStrategy {
-            get {
-                return ResourceManager.GetString("WorkItemFiling_ErrorUnknownFilteringStrategy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The value &apos;{0}&apos; of the &apos;{1}&apos; option is not a known grouping strategy.
-        ///Valid values are: {2}..
-        /// </summary>
-        internal static string WorkItemFiling_ErrorUnknownGroupingStrategy {
-            get {
-                return ResourceManager.GetString("WorkItemFiling_ErrorUnknownGroupingStrategy", resourceCulture);
             }
         }
         
