@@ -19,9 +19,9 @@
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.5.0" />
-    <PackageReference Include="Microsoft.Json.Pointer" Version="1.1.0" />
-    <PackageReference Include="Microsoft.Json.Schema" Version="1.1.0" />
-    <PackageReference Include="Microsoft.Json.Schema.Validation" Version="1.1.0" />
+    <PackageReference Include="Microsoft.Json.Pointer" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Json.Schema" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Json.Schema.Validation" Version="1.1.1" />
   </ItemGroup>
 
   <ItemGroup>

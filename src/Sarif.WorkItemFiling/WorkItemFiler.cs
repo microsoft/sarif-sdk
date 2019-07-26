@@ -90,10 +90,7 @@ namespace Microsoft.CodeAnalysis.Sarif.WorkItemFiling
 
             string logFileContents = FileSystem.ReadAllText(logFilePath);
 
-            // Commented out because the presence of the ADO NuGet packages is causing a TypeLoadException in
-            // my Json.Schema.Validation package. Obviously I have to fix that, but for now, just to see the
-            // bug filing work, I'll comment it out...
-            //EnsureValidSarifLogFile(logFileContents, logFilePath);
+            EnsureValidSarifLogFile(logFileContents, logFilePath);
 
             SarifLog sarifLog = JsonConvert.DeserializeObject<SarifLog>(logFileContents);
 
